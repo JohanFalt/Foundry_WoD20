@@ -1,0 +1,122 @@
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+		<div class="pullLeft">
+			<input class="sheet-infoValues" name="name" type="text" value="{{actor.name}}" data-dtype="String" {{#if locked}} readonly {{/if}} />
+		</div>
+	</div>
+</div>
+
+{{#if (equalValue actor.type "Werewolf")}}
+
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+		<div class="pullLeft">
+			{{#if locked}}
+			<input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+			{{else}}
+			<select name="data.breed" data-name="data.data.breed" data-dtype="String">
+				{{#select data.data.breed}}
+				<option value="">- {{localize "wod.labels.select"}}</option>
+				<option value="Homid">Homid</option>
+				<option value="Metis">Metis</option>
+				<option value="Lupus">Lupus</option>
+				{{/select}}
+			</select>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
+		<div class="pullLeft">
+			{{#if locked}}
+			<input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+			{{else}}
+			<select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
+				{{#select data.data.auspice}}
+				<option value="">- {{localize "wod.labels.select"}}</option>
+				<option value="Ragabash">Ragabash</option>
+				<option value="Theurge">Theurge</option>
+				<option value="Philodox">Philodox</option>
+				<option value="Galliard">Galliard</option>
+				<option value="Ahroun">Ahroun</option>
+				{{/select}}
+			</select>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
+		<div class="pullLeft">
+			{{#if locked}}
+			<input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
+			{{else}}
+			<select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
+				{{#select data.data.tribe}}
+				<option value="">- {{localize "wod.labels.select"}}</option>
+				<option value="Black Furies">Black Furies</option>
+				<option value="Bone Gnawers">Bone Gnawers</option>
+				<option value="Children of Gaia">Children of Gaia</option>
+				<option value="Fianna">Fianna</option>
+				<option value="Get of Fenris">Get of Fenris</option>
+				<option value="Glass Walkers">Glass Walkers</option>
+				<option value="Red Talons">Red Talons</option>
+				<option value="Shadow Lords">Shadow Lords</option>
+				<option value="Silent Striders">Silent Striders</option>
+				<option value="Silver Fangs">Silver Fangs</option>
+				<option value="Stargazers">Stargazers</option>
+				<option value="Uktena">Uktena</option>
+				<option value="Wendigo">Wendigo</option>
+				<option value="Black Spiral Dancer">Black Spiral Dancers</option>
+				<option value="Skin Dancer">Skin Dancers</option>
+				{{/select}}
+			</select>
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="data.packname">{{localize "wod.bio.packname"}}</label>
+		<div class="pullLeft">
+			<input class="sheet-infoValues" name="data.packname" type="text" value="{{data.data.packname}}" data-name="data.data.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
+		</div>
+	</div>
+</div>
+
+<div class="clearareaBox">
+	<div>
+		<label for="data.packtotem" class="headlineText headlineBio">{{localize "wod.bio.packtotem"}}</label>
+		<div class="pullLeft">
+			<input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+		</div>
+	</div>
+</div>
+
+{{/if}}
+
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="data.concept">{{localize "wod.bio.concept"}}</label>
+		<!--{{!-- TODO: fix is for wrapping around text, because this is a little fixed --}}
+		{{editor content=data.data.concept target="data..concept" button=true owner=owner editable=editable }}-->
+		<div class="pullLeft">
+			<input class="sheet-infoValues" name="data.concept" type="text" value="{{data.data.concept}}" data-name="data.data.concept" data-dtype="String" {{#if locked}} readonly {{/if}} />
+		</div>
+	</div>
+</div>
+
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="data.appearance">{{localize "wod.bio.appearance"}}</label>
+		<textarea class="sheet-infoValues pullLeft" name="data.appearance" data-dtype="String" {{#if locked}} readonly {{/if}}>{{data.data.appearance}}</textarea>
+	</div>
+</div>

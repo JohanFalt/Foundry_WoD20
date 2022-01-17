@@ -1,0 +1,424 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/* Imported Fonts */
+@font-face {
+  font-family: "werewolf";
+  src: url("../assets/fonts/werewolf.ttf") format("truetype");
+}
+
+/* START - Type of sheet designs */
+
+.mortal .item:hover,
+.mortal .item:focus,
+.mortal .item.active {
+	text-shadow: 0 0 10px #184e77;
+}
+
+.mortal .headlineTabs {
+	border-bottom-color: #184e77;
+}
+
+.mortal .sheet-character .profile-img-zone  button {
+	background: #184e77;
+	color: white;
+}
+
+.werewolf .item:hover,
+.werewolf .item:focus,
+.werewolf .item.active {
+	text-shadow: 0 0 10px #583101;
+}
+
+.werewolf .headlineTabs {
+	border-bottom-color: #583101;
+}
+
+.werewolf .sheet-character .profile-img-zone  button {
+	background: #583101;
+	color: white;
+}
+
+.werewolf .headlineTabs {
+	border-bottom-color: #790813;
+}
+
+.vampire .sheet-character .profile-img-zone  button {
+	background: #790813;
+	color: white;
+}
+
+
+
+/* END - Type of sheet designs */
+
+/* START - Dice roll links */
+
+.mortal .item-delete:hover,
+.mortal .item-delete:focus,
+.mortal .vrollable:hover,
+.mortal .vrollable:focus {
+	text-shadow: 0 0 10px #184e77 !important;
+}
+
+.werewolf .item-delete:hover,
+.werewolf .item-delete:focus,
+.werewolf .vrollable:hover,
+.werewolf .vrollable:focus {
+	text-shadow: 0 0 10px #583101 !important;
+}
+
+.vampire .item-delete:hover,
+.vampire .item-delete:focus,
+.vampire .vrollable:hover,
+.vampire .vrollable:focus {
+	text-shadow: 0 0 10px #790813 !important;
+}
+
+/* navigation */
+.vampire .item:hover,
+.vampire .item:focus,
+.vampire .item.active {
+	text-shadow: 0 0 10px #790813 !important;
+}
+
+.vrollable:hover,
+.vrollable:focus {
+  color: #000;  
+  cursor: pointer;
+}
+
+/* END - Dice roll links */
+
+/* START - Chat window */
+
+.rolldices {
+	width: 50px;
+	height: 50px;
+}
+
+/* END - Chat window */
+
+/* START - handle lock design */
+.sheet-character .profile-img-zone {
+  max-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.sheet-character .profile-img-zone button {
+  
+  font-family: Verdana, sans-serif;
+  font-weight: bold;
+  border: none;
+}
+
+.sheet-character .profile-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  min-height: 50px;
+  max-height: 205px;
+  height: auto;
+  width: 100px;
+  margin-right: 0;
+}
+
+.locked input {
+  border: 0px !important;
+  background: transparent !important;
+} 
+
+.locked textarea {
+  border: 0px !important;
+  background: transparent !important;
+} 
+
+.locked .resource-value-empty {
+  opacity: 0;
+  cursor: default;
+}
+
+.locked .resource-value-step {
+  cursor: default;
+}
+
+/* END - handle lock design */
+
+/* START - General */
+
+.sheet-character {
+	font-family: "werewolf", Verdana, sans-serif;
+	font-weight: bold;
+}
+
+.sheet-headline {
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;	
+}
+
+input.sheet-infoValues {
+	font-family: Verdana, sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+textarea.sheet-infoValues {
+	font-family: Verdana, sans-serif;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.pullLeft {
+	float: left;
+}
+
+.headlineNormal {
+	font-family: Verdana, sans-serif;
+	font-weight: normal;
+	font-size: 13px;
+}
+
+.headlineText {
+	font-size: 24px;
+  margin-right: 25px;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.headlineList {	
+	font-size: 16px;
+}
+
+.headlineGroup {	
+	font-size: 24px;
+}
+
+.headlineTabs {
+	font-size: 24px;    
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.clearareaBox {
+  clear: both;
+}
+
+.numberBox {
+  width: 50px !important;
+}
+
+.rowNumberBox {
+  width: 25px !important;
+}
+
+/* END - General */
+
+/* START - Bio */
+
+.headlineBio {
+  float:left; 
+  width:40%;
+}
+
+/* END - Bio */
+
+/* START - Core */
+
+.attribute-statArea {	
+	width: 33%;	
+}
+
+.attribute-headlineWidth {
+	width: 40%;
+}
+
+.ability-statArea {	
+	width: 33%;
+}
+
+.ability-headlineWidth {
+	width: 40%;
+}
+
+/* END - Core */
+
+/* START - Combat */
+
+.combat-bottomarea {
+  width: 50%;
+}
+
+.combat-valueBox {
+  width: 50px;
+}
+
+.combat-smallBox {
+  width: 75px;
+}
+
+.combat-mediumBox {
+  width: 100px;
+}
+
+/* END - Combat */
+
+/* START - Items */
+
+.headlineItem {
+  font-size: 18px;
+  margin-right: 25px;
+  float:left; 
+  width:30%;
+}
+
+/* END - Items */
+
+/* START - handle design of radio buttons */
+.resource-value .resource-value-step {
+  height: 14px;
+  width: 14px;
+  border: 1px solid black;
+  display: inline-block;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.resource-value .resource-value-step.active {
+  background-color: black;
+}
+
+.resource-value-static .resource-value-static-step {
+  height: 14px;
+  width: 14px;
+  border: 1px solid black;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.resource-value-static .resource-value-static-step.active {
+  background-color: #790813;
+}
+
+.resource-counter .resource-value-empty,
+.resource-value .resource-value-empty {
+  height: 14px;
+  width: 14px;
+  border: 1px solid black;
+  display: inline-block;
+  border-radius: 50%;
+  cursor: pointer;
+  background:
+    linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    );
+}
+
+.resource-counter .resource-value-step {
+  height: 14px;
+  width: 14px;
+  border: 1px solid black;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.resource-counter .resource-value-step[data-state="/"] {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    );
+}
+
+.resource-counter .resource-value-step[data-state="x"] {
+  background:
+    linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    );
+}
+
+.resource-counter .resource-value-step[data-state="*"] {
+  background:
+    linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    );
+}
+
+.flex-group-center:not(.flexrow) .resource-value,
+.flex-group-center:not(.flexrow) .resource-counter {
+  margin-top: 5px;
+}
+
+.permValueRow {
+	margin-left: 35px;
+}
+
+.tempSquareRow {
+	margin-left: 17px;
+}
+/* END - handle design of radio buttons */

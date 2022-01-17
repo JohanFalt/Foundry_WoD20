@@ -1,0 +1,84 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<header class="sheet-header">
+		<img src="{{item.img}}" />
+
+		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/armor.svg" />
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section class="sheet-body">
+
+		<!-- Soak -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.soak.bashing">{{localize "wod.combat.armor.soakbashing"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.soak.bashing" type="text" value="{{data.data.soak.bashing}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.soak.lethal">{{localize "wod.combat.armor.soaklethal"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.soak.lethal" type="text" value="{{data.data.soak.lethal}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.soak.aggravated">{{localize "wod.combat.armor.soakaggravated"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.soak.aggravated" type="text" value="{{data.data.soak.aggravated}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<!-- Dexterity Penalty -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.dexpenalty">{{localize "wod.combat.armor.penalty"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.dexpenalty" type="text" value="{{data.data.dexpenalty}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<!-- Shapes -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.shapes">{{localize "wod.shapes.shapes"}}</label>
+				<div class="pullLeft">
+					<input name="data.forms.homid" type="checkbox" {{#if data.data.forms.homid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
+
+					<input name="data.forms.glabro" type="checkbox" {{#if data.data.forms.glabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
+
+					<input name="data.forms.crinos" type="checkbox" {{#if data.data.forms.crinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
+
+					<input name="data.forms.hispo" type="checkbox" {{#if data.data.forms.hispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
+
+					<input name="data.forms.lupus" type="checkbox" {{#if data.data.forms.lupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
+				</div>
+			</div>
+		</div>
+
+		<!-- description -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea name="data.description" data-dtype="String">{{data.data.description}}</textarea>
+			</div>
+		</div>
+
+	</section>
+</form>

@@ -1,0 +1,39 @@
+<div class="clearareaBox" style="width: 100%;">
+
+	<div class="sheet-headline">
+		{{localize 'wod.attributes.attributes'}}
+		<!--<a class="item-create" title="{{localize "wod.labels.add.speciality"}}" data-type="SpecialityAttribute">
+			<i class="fas fa-plus-circle"></i>
+		</a>-->
+	</div>
+
+	<div class="clearareaBox">
+		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.physical"}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.social"}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.mental"}}</div>
+	</div>
+
+	{{#each data.data.attributes as |attribute key|}}
+
+	<div class="attribute-statArea" style={{orderAttributes key}}>	
+
+		<div>
+			{{#iff attribute.value ">=" "4"}}<i class="fas fa-plus-circle"></i>{{/iff}}
+			<label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" data-roll="{{attribute.value}}" data-label="{{localize attribute.label}}" data-ability="false" data-attribute="true">{{localize attribute.label}}</label>
+			<div class="resource-value pullLeft" data-value="{{attribute.value}}" data-name="data.attributes.{{key}}.value">
+				<span class="resource-value-empty"></span>
+
+				{{#numLoop attribute.max}}
+				
+				<span class="resource-value-step" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+				
+			</div>
+		</div>	
+	
+	</div>
+	
+	{{/each}}	
+
+</div>	

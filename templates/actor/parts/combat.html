@@ -1,0 +1,48 @@
+<!--<div>Flank or Rear Attacks: By attacking an opponent’s flank, the assailant reduces his difficulty by one; by attacking from the rear, he reduces it by two.</div>-->
+
+<div class="clearareaBox">
+
+{{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
+
+</div>
+
+<div class="clearareaBox">
+
+{{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
+    
+</div>
+
+<div class="clearareaBox">
+
+{{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
+    
+</div>
+
+<div class="clearareaBox">
+    
+{{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
+
+</div>
+
+<div class="clearareaBox">
+    <div class="pullLeft combat-bottomarea">
+        {{#iff actor.type "==" "Werewolf"}}
+        <div class="sheet-headline">Active Gifts</div>
+        {{else}}
+        &nbsp;
+        {{/iff}}
+    </div>
+
+    <div class="pullLeft combat-bottomarea">
+        <!--<div>Bashing damage can be soaked by any character at difficulty 6.</div>
+        <div>Lethal damage can be soaked by Garou and many other supernatural creatures at difficulty 6. Humans cannot normally soak lethal damage</div>
+        <div>Aggravated damage, other than that inflicted by silver, can be soaked by Garou at difficulty 6 in any form except their breed form.<br />
+                Silver damage cannot be soaked in any form except the breed form.<br />
+                Non-Garou, of course, can’t soak aggravated damage at all unless they have some form of supernatural resistance to such injuries.</div>-->
+        <div class="pullLeft" style="width: 100%; padding-left: 20px; padding-right: 20px;">
+
+            {{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,707 @@
+{
+	"Actor": {
+		"types": [
+			"Mortal",
+			"Werewolf",
+			"Vampire",
+			"Creature",
+			"Spirit"
+		],
+		"templates": {
+			"base": {
+				"worldanvil": "",
+				"name": "",
+				"concept": "",
+				"appearance": "",
+				"background": "",
+				"notes": "",
+				"conditions": {
+					"ignorepain": false,
+					"stunned": false
+				},
+				"health": {
+					"damage": {
+						"bashing": 0,
+						"lethal" : 0,
+						"aggravated": 0
+					},
+					"bruised": {
+						"value": 1,
+						"penalty": 0,
+						"label": "wod.health.bruised"
+					},
+					"hurt": {
+						"value": 1,
+						"penalty": -1,
+						"label": "wod.health.hurt"
+					},
+					"injured": {
+						"value": 1,
+						"penalty": -1,
+						"label": "wod.health.injured"
+					},
+					"wounded": {
+						"value": 1,
+						"penalty": -2,
+						"label": "wod.health.wounded"
+					},
+					"mauled": {
+						"value": 1,
+						"penalty": -2,
+						"label": "wod.health.mauled"
+					},
+					"crippled": {
+						"value": 1,
+						"penalty": -5,
+						"label": "wod.health.crippled"
+					},
+					"incapacitated": {
+						"value": 1,
+						"penalty": -99,
+						"label": "wod.health.incapacitated"
+					}
+				},
+				"soak": {
+					"bashing": 0,
+					"lethal": 0,
+					"aggravated": 0
+				},
+				"willpower": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.willpower"
+				}
+			},
+			"mortal": {
+				"exp": {
+					"value": 0,
+					"max": 0
+				},
+				"attributes": {
+					"strength": {
+						"value": 1,
+						"max": 5,
+						"type": "physical",
+						"label": "wod.attributes.strength",
+						"speciality": ""
+					},
+					"charisma": {
+						"value": 1,
+						"max": 5,
+						"type": "social",
+						"label": "wod.attributes.charisma",
+						"speciality": ""
+					},
+					"intelligence": {
+						"value": 1,
+						"max": 5,
+						"type": "mental",
+						"label": "wod.attributes.intelligence",
+						"speciality": ""
+					},
+					"dexterity": {
+						"value": 1,
+						"max": 5,
+						"type": "physical",
+						"label": "wod.attributes.dexterity",
+						"speciality": ""
+					},
+					"manipulation": {
+						"value": 1,
+						"max": 5,
+						"type": "social",
+						"label": "wod.attributes.manipulation",
+						"speciality": ""
+					},
+					"wits": {
+						"value": 1,
+						"max": 5,
+						"type": "mental",
+						"label": "wod.attributes.wits",
+						"speciality": ""
+					},
+					"stamina": {
+						"value": 1,
+						"max": 5,
+						"type": "physical",
+						"label": "wod.attributes.stamina",
+						"speciality": ""
+					},
+					"composure": {
+						"value": 1,
+						"max": 5,
+						"type": "social",
+						"label": "wod.attributes.composure",
+						"speciality": ""
+					},
+					"resolve": {
+						"value": 1,
+						"max": 5,
+						"type": "mental",
+						"label": "wod.attributes.resolve",
+						"speciality": ""
+					}
+				},
+				"abilities": {
+					"talent": {
+						"alertness": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.alertness",
+							"speciality": ""
+						},
+						"art": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.art",
+							"speciality": ""
+						},
+						"athletics": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.athletics",
+							"speciality": ""
+						},
+						"brawl": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.brawl",
+							"speciality": ""
+						},
+						"diplomacy": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.diplomacy",
+							"speciality": ""
+						},
+						"empathy": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.empathy",
+							"speciality": ""
+						},
+						"expression": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.expression",
+							"speciality": ""
+						},
+						"intimidation": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.intimidation",
+							"speciality": ""
+						},
+						"leadership": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.leadership",
+							"speciality": ""
+						},
+						"seduction": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.seduction",
+							"speciality": ""
+						},
+						"streetwise": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.streetwise",
+							"speciality": ""
+						},
+						"subterfuge": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.subterfuge",
+							"speciality": ""
+						}
+					},
+					"skill": {
+						"animalken": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.animalken",
+							"speciality": ""
+						},
+						"archery": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.archery",
+							"speciality": ""
+						},
+						"craft": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.craft",
+							"speciality": ""
+						},
+						"drive": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.drive",
+							"speciality": ""
+						},
+						"etiquette": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.etiquette",
+							"speciality": ""
+						},
+						"firearms": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.firearms",
+							"speciality": ""
+						},
+						"larceny": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.larceny",
+							"speciality": ""
+						},
+						"meditation": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.meditation",
+							"speciality": ""
+						},
+						"melee": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.melee",
+							"speciality": ""
+						},
+						"performance": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.performance",
+							"speciality": ""
+						},
+						"pilot": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.pilot",
+							"speciality": ""
+						},
+						"stealth": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.stealth",
+							"speciality": ""
+						},
+						"survival": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.survival",
+							"speciality": ""
+						}
+					},
+					"knowledge": {
+						"academics": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.academics",
+							"speciality": ""
+						},
+						"bureaucracy": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.bureaucracy",
+							"speciality": ""
+						},
+						"culture": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.culture",
+							"speciality": ""
+						},
+						"computer": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.computer",
+							"speciality": ""
+						},
+						"enigmas": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.enigmas",
+							"speciality": ""
+						},
+						"finance": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.finance",
+							"speciality": ""
+						},
+						"investigation": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.investigation",
+							"speciality": ""
+						},
+						"law": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.law",
+							"speciality": ""
+						},
+						"medicine": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.medicine",
+							"speciality": ""
+						},
+						"occult": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.occult",
+							"speciality": ""
+						},
+						"politics": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.politics",
+							"speciality": ""
+						},
+						"science": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.science",
+							"speciality": ""
+						},
+						"technology": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.technology",
+							"speciality": ""
+						}
+					}
+				}
+			},
+			"werewolf": {
+				"conditions": {
+					"frenzy": false
+				},
+				"breed": "",
+				"auspice": "",
+				"tribe": "",
+				"packname": "",
+				"packtotem": "",
+				"rage": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.rage"
+				},
+				"gnosis": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.gnosis"
+				},
+				"renown": {
+					"glory": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"label": "wod.advantages.glory"
+					},
+					"honor": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"label": "wod.advantages.honor"
+					},
+					"wisdom": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"label": "wod.advantages.wisdom"
+					},
+					"rank": 0,
+					"label": "wod.advantages.renown"
+				},
+				"shapes": {
+					"homid": {
+						"label": "wod.shapes.homid",
+						"strengthmod": 0,
+						"dexteritymod": 0,
+						"staminamod": 0,
+						"manipulationmod": 0,
+						"witsdiff": 0,
+						"diff": 6,
+						"active": true
+					},
+					"glabro": {
+						"label": "wod.shapes.glabro",
+						"strengthmod": 2,
+						"dexteritymod": 0,
+						"staminamod": 2,
+						"manipulationmod": -2,
+						"witsdiff": 0,
+						"diff": 7,
+						"active": false
+					},
+					"crinos": {
+						"label": "wod.shapes.crinos",
+						"strengthmod": 4,
+						"dexteritymod": 1,
+						"staminamod": 3,
+						"manipulationmod": -3,
+						"witsdiff": 0,
+						"diff": 6,
+						"active": false
+					},
+					"hispo": {
+						"label": "wod.shapes.hispo",
+						"strengthmod": 3,
+						"dexteritymod": 2,
+						"staminamod": 3,
+						"manipulationmod": -3,
+						"witsdiff": -1,
+						"diff": 7,
+						"active": false
+					},
+					"lupus": {
+						"label": "wod.shapes.lupus",
+						"strengthmod": 1,
+						"dexteritymod": 2,
+						"staminamod": 2,
+						"manipulationmod": -3,
+						"witsdiff": -2,
+						"diff": 6,
+						"active": false
+					}
+				},
+				"abilities": {
+					"talent": {
+						"gestures": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.gestures",
+							"speciality": ""
+						},
+						"intuition": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.intuition",
+							"speciality": ""
+						},
+						"primalurge": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.primalurge",
+							"speciality": ""
+						}
+					},
+					"skill": {},
+					"knowledge": {
+						"cosmology": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.cosmology",
+							"speciality": ""
+						},
+						"hearthwisdom": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.hearthwisdom",
+							"speciality": ""
+						},
+						"herbalism": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.herbalism",
+							"speciality": ""
+						},
+						"legends": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.legends",
+							"speciality": ""
+						},
+						"rituals": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.rituals",
+							"speciality": ""
+						}
+					}
+				}
+			},
+			"spirit": {
+				"rage": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"label": "wod.advantages.rage"
+				},
+				"gnosis": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"label": "wod.advantages.gnosis"
+				}
+			}
+		},
+		"Mortal": {
+			"templates": [
+				"base",
+				"mortal"
+			]
+		},
+		"Werewolf": {
+			"templates": [
+				"base",
+				"mortal",
+				"werewolf"
+			]
+		},
+		"Vampire": {
+			"templates": [
+				"base",
+				"mortal"
+			]
+		},
+		"Creature": {
+			"templates": [
+				"base"
+			]
+		},
+		"Spirit": {
+			"templates": [
+				"base",
+				"spirit"
+			]
+		}
+	},
+	"Item": {
+		"types": [
+			"Feature",
+			"Melee Weapon",
+			"Ranged Weapon",
+			"Armor",
+			"Power",
+			"Rite",
+			"Fetish"
+		],
+		"templates": {
+			"base": {
+				"worldanvil": "",
+				"description": ""
+			},
+			"feature": {
+				"level": 0
+			},
+			"weapon": {
+				"attack": {
+					"attribute": "",
+					"ability": "",
+					"roll": true
+				},
+				"damage": {
+					"attribute": "",
+					"bonus": 0,
+					"type": "",
+					"roll": true
+				},
+				"diff": 6,
+				"conceal": "",
+				"twohanded": false
+			},
+			"power": {
+				"dice1": "",
+				"dice2": "",
+				"difficulty": "",
+				"rollable": true
+			}
+		},
+		"Feature": {
+			"templates": [
+				"base",
+				"feature"
+			],
+			"label": ""
+		},
+		"Melee Weapon": {
+			"templates": [
+				"base",
+				"weapon"
+			],
+			"natural": false,
+			"label": "wod.types.meleeweapon"
+		},
+		"Ranged Weapon": {
+			"templates": [
+				"base",
+				"weapon"
+			],
+			"range": 0,
+			"rate": 0,
+			"mode": {
+				"reload": false,
+				"burst": false,
+				"fullauto": false,
+				"spray": false
+			},
+			"clip": {
+				"value": 0,
+				"max": 0
+			},
+			"label": "wod.types.rangedweapon"
+		},
+		"Armor": {
+			"templates": [
+				"base"
+			],
+			"active": false,
+			"soak": {
+				"bashing": 0,
+				"lethal": 0,
+				"aggravated": 0
+			},	
+			"dexpenalty": 0,
+			"forms": {
+				"homid": true,
+				"glabro": false,
+				"crinos": false,
+				"hispo": false,
+				"lupus": false
+			},
+			"label": "wod.types.armor"	
+		},
+		"Power": {
+			"templates": [
+				"base",
+				"feature",
+				"power"
+			],
+			"system": "",
+			"active": false,
+			"combat": false,
+			"label": ""
+		},
+		"Rite": {
+			"templates": [
+				"base",
+				"feature",
+				"power"
+			],
+			"label": "wod.types.rite"
+		},
+		"Fetish": {
+			"templates": [
+				"base",
+				"feature"
+			],
+			"gnosis": 0,
+			"diff": 6,
+			"label": "wod.types.fetish"
+		}
+	}
+}

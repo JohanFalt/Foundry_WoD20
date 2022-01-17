@@ -1,0 +1,81 @@
+<div class="clearareaBox" style="width: 100%;">
+
+	<div class="sheet-headline">
+		{{localize 'wod.abilities.abilities'}}
+		<!--<a class="item-create" title="{{localize "wod.labels.add.speciality"}}" data-type="SpecialityAbility">
+			<i class="fas fa-plus-circle"></i>
+		</a>-->
+	</div>
+
+	<div class="clearareaBox">
+		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.talents"}}</div>
+		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.skills"}}</div>
+		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.knowledges"}}</div>
+	</div>
+	
+	<div class="ability-statArea pullLeft">
+	
+		{{#each data.data.abilities.talent as |ability key|}}	
+		
+		<div class="clearareaBox">
+			{{#iff ability.value ">=" "4"}}<i class="fas fa-plus-circle"></i>{{/iff}}
+			<label for="data.data.abilities.talent.{{key}}.value" class="vrollable pullLeft ability-headlineWidth headlineNormal" data-roll="{{ability.value}}" data-label="{{localize ability.label}}" data-ability="true">{{localize ability.label}}</label>
+			<div class="resource-value pullLeft" data-value="{{ability.value}}" data-name="data.abilities.talent.{{key}}.value">
+				<span class="resource-value-empty"></span>
+
+				{{#numLoop ability.max}}
+				
+				<span class="resource-value-step" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+				
+			</div>
+		</div>	
+		
+		{{/each}}
+	
+	</div>
+	<div class="ability-statArea pullLeft">
+	
+		{{#each data.data.abilities.skill as |ability key|}}
+		
+		<div class="clearareaBox">
+			<label for="data.data.abilities.skill.{{key}}.value" class="vrollable pullLeft ability-headlineWidth headlineNormal" data-roll="{{ability.value}}" data-label="{{localize ability.label}}" data-ability="true">{{localize ability.label}}</label>
+			<div class="resource-value pullLeft" data-value="{{ability.value}}" data-name="data.abilities.skill.{{key}}.value">
+				<span class="resource-value-empty"></span>
+
+				{{#numLoop ability.max}}
+				
+				<span class="resource-value-step" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+				
+			</div>
+		</div>
+		
+		{{/each}}
+	
+	</div>
+	<div class="ability-statArea pullLeft">
+	
+		{{#each data.data.abilities.knowledge as |ability key|}}
+		
+		<div class="clearareaBox">
+			<label for="data.data.abilities.knowledge.{{key}}.value" class="vrollable pullLeft ability-headlineWidth headlineNormal" data-roll="{{ability.value}}" data-label="{{localize ability.label}}" data-ability="true">{{localize ability.label}}</label>
+			<div class="resource-value pullLeft" data-value="{{ability.value}}" data-name="data.abilities.knowledge.{{key}}.value">
+				<span class="resource-value-empty"></span>
+
+				{{#numLoop ability.max}}
+				
+				<span class="resource-value-step" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+				
+			</div>
+		</div>
+		
+		{{/each}}
+	
+	</div>
+	
+</div>	

@@ -1,0 +1,29 @@
+{
+	"name": "worldofdarkness",
+	"title": "World of Darkness 20th",
+	"description": "To play World of Darkness",
+	"version": "0.3.3",
+	"minimumCoreVersion": "9.238",
+	"compatibleCoreVersion": "9.242",
+	"templateVersion": 1,
+	"author": "Johan Fält (Majid, Mal, Ray Ji - WoD20 system, Cédric Hauteville)",
+	"esmodules": [
+		"wod.js"
+	],
+	"styles": [
+		"css/wod.css"
+	],
+	"scripts": [],
+	"packs": [],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"gridDistance": 2,
+	"gridUnits": "m",
+	"primaryTokenAttribute": "",
+	"secondaryTokenAttribute": ""
+}

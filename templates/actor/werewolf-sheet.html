@@ -1,0 +1,55 @@
+<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}}" autocomplete="off">
+
+	{{!-- Werewolf Sheet Header --}}
+	
+	<div class="sheet-character">		
+	
+		{{!-- Always visible --}}
+		<header class="sheet-header">		
+			{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}							
+		</header>	
+
+		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}			
+		
+		{{!-- Sheet part --}}
+		<section class="sheet-body">
+
+			{{!-- Bio Tab --}}
+			<div class="tab bio" data-group="primary" data-tab="bio">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
+
+			</div>
+		
+			{{!-- Core Tab --}}
+			<div class="tab core" data-group="primary" data-tab="core">
+			
+				{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+
+				{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+				
+				{{> "systems/worldofdarkness/templates/actor/parts/stats.html"}}
+				
+			</div>
+			
+			{{!-- Combat Tab --}}
+			<div class="tab combat" data-group="primary" data-tab="combat">
+			</div>
+			
+			{{!-- Gear Tab --}}
+			<div class="tab gear" data-group="primary" data-tab="gear">
+			</div>
+			
+			<div class="tab notes" data-group="primary" data-tab="notes">
+			</div>
+			
+			<div class="tab settings" data-group="primary" data-tab="settings">
+			
+				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
+				
+			</div>
+		
+		</section>
+	</div>
+		
+</form>

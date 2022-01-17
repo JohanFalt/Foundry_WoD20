@@ -1,0 +1,18 @@
+<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+	<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+	<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>
+	<a class="item" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+	<a class="item" data-tab="gear">{{localize 'wod.tab.gear'}}</a>
+	
+	{{#if (equalValue actor.type "Werewolf")}}
+	<a class="item" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>
+	<a class="item" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+	{{/if}}
+	
+	{{#if (equalValue actor.type "Vampire")}}
+	{{/if}}
+	
+	<a class="item" data-tab="notes">{{localize 'wod.tab.notes'}}</a>
+	<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
+</nav>	
+

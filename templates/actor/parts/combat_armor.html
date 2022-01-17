@@ -1,0 +1,51 @@
+<div class="sheet-headline">
+    <div>
+        {{localize "wod.labels.combat.armor"}}
+        <!--<a class="item-create" title="{{localize "wod.labels.add.armor"}}" data-type="Armor">
+            <i class="fas fa-plus-circle"></i>
+        </a>-->
+    </div>
+</div>
+
+<div>
+    <!--<div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.armor.active"}}</div>-->
+    <div class="pullLeft combat-mediumBox headlineList">{{localize "wod.combat.armor.armor"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} B</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} L</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} A</div>
+    <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.armor.dexpen"}}</div>
+
+    {{#iff actor.type "==" "Werewolf"}}
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.homid"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.glabro"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.crinos"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.hispo"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.lupus"}}</div>
+    {{/iff}}
+</div> 
+
+{{#each actor.armors as |item id|}}
+
+{{logg item}}
+<div class="clearareaBox">
+    <!--<div class="pullLeft combat-valueBox headlineList"><input name="item.data.active" type="checkbox" {{#if item.data.active}} checked {{/if}}></input></div>-->
+    <div class="pullLeft combat-mediumBox headlineNormal">{{captilizeFirst item.name}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.bashing}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.lethal}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.aggravated}}</div>
+    <div class="pullLeft combat-smallBox headlineNormal">{{item.data.dexpenalty}}</div>
+
+    {{#iff ../actor.type "==" "Werewolf"}}
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.homid}}Yes{{else}}No{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.glabro}}Yes{{else}}No{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.crinos}}Yes{{else}}No{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.hispo}}Yes{{else}}No{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.lupus}}Yes{{else}}No{{/if}}</input></div>
+    {{/iff}}
+
+    <div class="pullLeft">
+        <a class="item-delete" title="{{localize "wod.labels.remove.armor"}}" data-type="Armor" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+    </div>
+</div>
+
+{{/each}}

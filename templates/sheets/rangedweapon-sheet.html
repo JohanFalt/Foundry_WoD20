@@ -1,0 +1,190 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<header class="sheet-header">
+		<img src="{{item.img}}" />
+
+		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/rangedweapons.svg" />
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<section class="sheet-body">
+
+		<!-- data.attack -->
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.attack.roll">{{localize "wod.dice.rollattack"}}</label>
+				<input name="data.attack.roll" type="checkbox" {{#if data.data.attack.roll}} checked {{/if}}>{{localize "wod.dice.rollattack"}}</input>
+			</div>
+
+			<div>
+				<label class="headlineItem headlineBio" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
+				<div class="pullLeft">
+					<select name="data.attack.attribute">
+						{{#select data.data.attack.attribute}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>
+							{{#each config.attackAttributes as | name type|}}
+							<option value="{{type}}">{{localize name}}</option>
+							{{/each}}
+						{{/select}}
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.attack.ability">{{localize "wod.combat.weapon.ability"}}</label>
+				<div class="pullLeft">
+					<select name="data.attack.ability">
+						{{#select data.data.attack.ability}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>
+							{{#each config.attackRangedAbilities as | name type|}}
+							<option value="{{type}}">{{localize name}}</option>
+							{{/each}}
+						{{/select}}
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.combat.weapon.difficulty"}}</label>
+				<div class="pullLeft">
+					<select name="data.diff" class="numberBox">
+						{{#select data.data.diff}}
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						{{/select}}
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<!-- data.damage -->
+
+		<div class="clearareaBox">
+			<div>
+				<div>
+					<label class="headlineItem headlineBio" for="data.damage.roll">{{localize "wod.dice.rolldamage"}}</label>
+					<input name="data.damage.roll" type="checkbox" {{#if data.data.damage.roll}} checked {{/if}}>{{localize "wod.dice.rolldamage"}}</input>
+				</div>
+
+				<div>
+					<label class="headlineItem headlineBio" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
+					<div class="pullLeft">
+						<div class="pullLeft">
+							<select name="data.damage.attribute">
+								{{#select data.data.damage.attribute}}
+								<option value="">- {{localize "wod.labels.none"}} -</option>
+								<option value="strength">{{localize "wod.attributes.strength"}}</option>
+								{{/select}}
+							</select>
+						</div>
+						<div class="pullLeft">
+							&nbsp;+&nbsp;<input class="sheet-infoValues numberBox" name="data.damage.bonus" type="text" value="{{data.data.damage.bonus}}" data-dtype="Number" />
+						</div>
+						<div class="pullLeft">
+							<select name="data.damage.type">
+								{{#select data.data.damage.type}}
+								<option value="">- {{localize "wod.labels.select"}} -</option>
+								{{#each config.damageTypes as | name type|}}
+								<option value="{{type}}">{{localize name}}</option>
+								{{/each}}
+								{{/select}}
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.range">{{localize "wod.combat.weapon.range"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.range" type="text" value="{{data.data.range}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.rate">{{localize "wod.combat.weapon.rate"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.rate" type="text" value="{{data.data.rate}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.clip.max">{{localize "wod.combat.weapon.clip"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues numberBox" name="data.clip.max" type="text" value="{{data.data.clip.max}}" data-dtype="Number" />
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
+				<div class="pullLeft">
+					<input name="data.mode.reload" type="checkbox" {{#if data.data.mode.reload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
+
+					<input name="data.mode.burst" type="checkbox" {{#if data.data.mode.burst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
+
+					<input name="data.mode.fullauto" type="checkbox" {{#if data.data.mode.fullauto}} checked {{/if}}>{{localize "wod.combat.mode.fullauto"}}</input>
+
+					<input name="data.mode.spray" type="checkbox" {{#if data.data.mode.spray}} checked {{/if}}>{{localize "wod.combat.mode.spray"}}</input>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.conceal">{{localize "wod.combat.weapon.conceal.conceal"}}</label>
+				<select name="data.conceal">
+					{{#select data.data.conceal}}
+					<option value="">- {{localize "wod.labels.select"}} -</option>
+					<option value="P">{{localize "wod.combat.weapon.conceal.pocket"}}</option>
+					<option value="J">{{localize "wod.combat.weapon.conceal.jacket"}}</option>
+					<option value="T">{{localize "wod.combat.weapon.conceal.trenchcoat"}}</option>
+					<option value="NA">{{localize "wod.combat.weapon.conceal.na"}}</option>
+					{{/select}}
+				</select>
+			</div>
+		</div>
+
+		<!-- 2-handed true/false -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.twohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
+				<input name="data.twohanded" type="checkbox" {{#if data.data.twohanded}} checked {{/if}}></input>
+			</div>
+		</div>
+
+		<!-- description -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea name="data.description" data-dtype="String">{{data.data.description}}</textarea>
+			</div>
+		</div>
+
+	</section>
+</form>
