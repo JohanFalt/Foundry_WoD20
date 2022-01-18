@@ -429,51 +429,26 @@
 				"shapes": {
 					"homid": {
 						"label": "wod.shapes.homid",
-						"strengthmod": 0,
-						"dexteritymod": 0,
-						"staminamod": 0,
-						"manipulationmod": 0,
-						"witsdiff": 0,
 						"diff": 6,
 						"active": true
 					},
 					"glabro": {
 						"label": "wod.shapes.glabro",
-						"strengthmod": 2,
-						"dexteritymod": 0,
-						"staminamod": 2,
-						"manipulationmod": -2,
-						"witsdiff": 0,
 						"diff": 7,
 						"active": false
 					},
 					"crinos": {
 						"label": "wod.shapes.crinos",
-						"strengthmod": 4,
-						"dexteritymod": 1,
-						"staminamod": 3,
-						"manipulationmod": -3,
-						"witsdiff": 0,
 						"diff": 6,
 						"active": false
 					},
 					"hispo": {
 						"label": "wod.shapes.hispo",
-						"strengthmod": 3,
-						"dexteritymod": 2,
-						"staminamod": 3,
-						"manipulationmod": -3,
-						"witsdiff": -1,
 						"diff": 7,
 						"active": false
 					},
 					"lupus": {
 						"label": "wod.shapes.lupus",
-						"strengthmod": 1,
-						"dexteritymod": 2,
-						"staminamod": 2,
-						"manipulationmod": -3,
-						"witsdiff": -2,
 						"diff": 6,
 						"active": false
 					}

@@ -1,5 +1,17 @@
 export const wod = {};
 
+wod.attributes = {
+    strength: "wod.attributes.strength",
+    dexterity: "wod.attributes.dexterity",
+    stamina: "wod.attributes.stamina",
+    charisma: "wod.attributes.charisma",
+    manipulation: "wod.attributes.manipulation",
+    composure: "wod.attributes.composure",
+    intelligence: "wod.attributes.intelligence",
+    wits: "wod.attributes.wits",
+    resolve: "wod.attributes.resolve"
+}
+
 wod.attackAttributes = {
     strength: "wod.attributes.strength",
     dexterity: "wod.attributes.dexterity"

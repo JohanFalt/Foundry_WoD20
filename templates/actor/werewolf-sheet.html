@@ -5,7 +5,7 @@
 	<div class="sheet-character">		
 	
 		{{!-- Always visible --}}
-		<header class="sheet-header">		
+		<header class="sheet-header">	
 			{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}							
 		</header>	
 
@@ -34,15 +34,27 @@
 			
 			{{!-- Combat Tab --}}
 			<div class="tab combat" data-group="primary" data-tab="combat">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/combat.html"}}
+
 			</div>
-			
+
+			{{!-- Shapechange Tab --}}
+			<div class="tab shapechange" data-group="primary" data-tab="shapechange">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/shift.html"}}
+
+			</div>
+
 			{{!-- Gear Tab --}}
 			<div class="tab gear" data-group="primary" data-tab="gear">
 			</div>
 			
+			{{!-- Notes Tab --}}
 			<div class="tab notes" data-group="primary" data-tab="notes">
 			</div>
 			
+			{{!-- Settings Tab --}}
 			<div class="tab settings" data-group="primary" data-tab="settings">
 			
 				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}

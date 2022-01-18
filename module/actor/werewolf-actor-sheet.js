@@ -18,10 +18,42 @@ export class WerewolfActorSheet extends MortalActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);
-		this.locked = true;
-		this.isCharacter = true;
 		
 		console.log("WoD | Werewolf Sheet constructor");
+	}
+
+	/** @override */
+	getData() {
+		const data = super.getData();
+
+		console.log("WoD | Werewolf Sheet getData");
+
+		const shiftmods = [];
+		const shiftdiffs = [];
+
+		for (const i in data.config.attributes) {
+			const shiftmod = {"type": data.config.attributes[i], "value": 0};
+			shiftmods.push(shiftmod);
+		}		
+
+		for (const i in data.config.attributes) {
+			const shiftdiff = {"type": data.config.attributes[i], "value": 0};
+			shiftdiffs.push(shiftdiff);
+		}
+
+		data.actor.shiftmods = shiftmods;
+		data.actor.shiftdiffs = shiftdiffs;
+
+		return data;
+	}
+
+	/** @override */
+	get template() {
+		console.log("WoD | Werewolf Sheet get template");
+		
+		//if (!game.user.isGM && this.actor.limited)
+		//	return "systems/worldofdarkness/templates/actor/limited-sheet.html";
+		return "systems/worldofdarkness/templates/actor/werewolf-sheet.html";
 	}
 	
 	/** @override */

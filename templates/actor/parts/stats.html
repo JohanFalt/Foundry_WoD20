@@ -2,7 +2,7 @@
 
 	<div class="pullLeft" style="width: 33%;">
 
-		{{#if (equalValue actor.type "Werewolf")}}
+		{{#iff actor.type "==" "Werewolf"}}
 		<div class="sheet-headline">{{localize 'wod.advantages.renown'}}</div>
 		
 		<div class="sheet-headline headlineGroup centerText">{{localize 'wod.advantages.glory'}}</div>
@@ -88,13 +88,13 @@
 		
 		{{else}}
 		&nbsp;
-		{{/if}}
+		{{/iff}}
 	
 	</div>
 	
 	<div class="pullLeft" style="width: 33%;">
-		{{#if (equalValue actor.type "Werewolf")}}
-	
+		{{#iff actor.type "==" "Werewolf"}}
+
 		<div class="sheet-headline vrollable" data-roll="{{data.data.rage.roll}}" data-label="{{localize data.data.rage.label}}" data-noability="true">{{localize 'wod.advantages.rage'}}</div>
 		
 		<div class="resource-value permValueRow" data-value="{{data.data.rage.permanent}}" data-name="data.data.rage.permanent">
@@ -149,7 +149,7 @@
 			
 		</div>	
 	
-		{{/if}}	
+		{{/iff}}	
 	
 		<div class="sheet-headline vrollable" data-roll="{{data.data.willpower.roll}}" data-label="{{localize data.data.willpower.label}}" data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
 		<div class="resource-value permValueRow" data-value="{{data.data.willpower.permanent}}" data-name="data.data.willpower.permanent">

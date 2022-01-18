@@ -102,13 +102,13 @@ Hooks.once("init", async function() {
 		return (a <= b) ? next.fn(this) : next.inverse(this);
 	});
 	
-	Handlebars.registerHelper("equalValue", function (bool1, bool2) {
+	/*Handlebars.registerHelper("equalValue", function (bool1, bool2) {
 		if (bool1 == bool2) {
 			return true;
 		}
 		
 		return false;
-	});
+	});*/
 	
 	Handlebars.registerHelper("orderAttributes", function (attribute) {
 		var list = ["strength","dexterity","stamina"];
@@ -150,7 +150,6 @@ Hooks.once("init", async function() {
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {
 		var code;
 
-		//attribute = attribute.charAt(0).toUpperCase() + attribute.slice(1);
 		type = type.charAt(0).toUpperCase();
 
 		code = attribute.substring(0, 3);

@@ -58,3 +58,12 @@ Fix i v0.3.3
 - Armor Drag
 - Armor skapa
 - Armor Ta Bort
+
+Fix i v0.3.4
+- Lagt till mods och diffs på mortal för att hålla bonusar i slag
+- Lagt till shiftmods och shiftdiffs på werewolf för att hålla bonusar vilken form de har
+- Sorterat i GetData() för mortal och werewolf
+- mortal öppnar mortal-sheet
+- werewolf-actor-sheet.js har get template
+- werewolf öppnar werewolf-sheet
+- Shapeshift har egen html-fil

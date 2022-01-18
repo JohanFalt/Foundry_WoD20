@@ -19,10 +19,11 @@ export class MortalActorSheet extends ActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);
-		this.locked = true;
-		this.isCharacter = true;
-		
+
 		console.log("WoD | Mortal Sheet constructor");
+
+		this.locked = true;
+		this.isCharacter = true;		
 	}	
 	
 	/** @override */
@@ -36,15 +37,29 @@ export class MortalActorSheet extends ActorSheet {
 	
 	/** @override */
 	getData() {
-		console.log("WoD | Mortal Sheet getData");
-		
 		const data = super.getData();
+
+		console.log("WoD | Mortal Sheet getData");
 
 		data.config = CONFIG.wod;		
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 
 		data.dtypes = ["String", "Number", "Boolean"];
+
+		const mods = [];
+
+		for (const i in data.config.attributes) {
+			const mod = {"type": data.config.attributes[i], "value": 0};
+			mods.push(mod);
+		}
+
+		const diffs = [];
+
+		for (const i in data.config.attributes) {
+			const diff = {"type": data.config.attributes[i], "value": 0};
+			diffs.push(diff);
+		}
 
 		// Organize actor items
 		const naturalWeapons = [];
@@ -66,6 +81,9 @@ export class MortalActorSheet extends ActorSheet {
 				armors.push(i);
 			}
 		}		
+
+		data.actor.mods = mods;
+		data.actor.diffs = diffs;
 
 		data.actor.health = calculateHealth(data.actor);
 
