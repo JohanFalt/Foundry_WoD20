@@ -1,0 +1,44 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<header class="sheet-header">
+		<img src="{{item.img}}" />
+
+		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/power.svg" />
+
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<div class="pullLeft">
+					<input class="sheet-infoValues" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<section>
+		<!-- level -->
+		<div>
+			<label class="headlineItem headlineBio" for="data.level">{{localize "wod.combat.weapon.attribute"}}</label>
+			<div class="pullLeft">
+				<select name="data.attack.attribute">
+					{{#select data.data.attack.attribute}}
+						<option value="0">- {{localize "wod.labels.select"}} -</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					{{/select}}
+				</select>
+			</div>
+		</div>
+
+		<!-- description -->
+		<div class="clearareaBox">
+			<div>
+				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea name="data.description" data-dtype="String">{{data.data.description}}</textarea>
+			</div>
+		</div>
+	</section>
+
+</form>

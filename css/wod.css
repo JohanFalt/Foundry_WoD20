@@ -18,9 +18,22 @@
 	border-bottom-color: #184e77;
 }
 
-.mortal .sheet-character .profile-img-zone  button {
+.mortal .sheet-character .profile-img-zone  button,
+.mortal .shape-selector-active {
 	background: #184e77;
 	color: white;
+}
+
+.mortal .thin-border-left {
+  border-left-style: solid;
+  border-width: 1px;
+  border-color: #184e77;
+}
+
+.mortal .thin-border-right {
+  border-right-style: solid;
+  border-width: 1px;
+  border-color: #184e77;
 }
 
 .werewolf .item:hover,
@@ -33,21 +46,45 @@
 	border-bottom-color: #583101;
 }
 
-.werewolf .sheet-character .profile-img-zone  button {
+.werewolf .sheet-character .profile-img-zone  button,
+.werewolf .shape-selector-active {
 	background: #583101;
 	color: white;
+}
+
+.werewolf .thin-border-left {
+  border-left-style: solid;
+  border-width: 1px;
+  border-color: #583101;
+}
+
+.werewolf .thin-border-right {
+  border-right-style: solid;
+  border-width: 1px;
+  border-color: #583101;
 }
 
 .werewolf .headlineTabs {
 	border-bottom-color: #790813;
 }
 
-.vampire .sheet-character .profile-img-zone  button {
+.vampire .sheet-character .profile-img-zone  button,
+.vampire .shape-selector-active {
 	background: #790813;
 	color: white;
 }
 
+.vampire .thin-border-left {
+  border-left-style: solid;
+  border-width: 1px;
+  border-color: #790813;
+}
 
+.vampire .thin-border-right {
+  border-right-style: solid;
+  border-width: 1px;
+  border-color: #790813;
+}
 
 /* END - Type of sheet designs */
 
@@ -177,6 +214,10 @@ textarea.sheet-infoValues {
 	float: left;
 }
 
+.pullRight {
+	float: right;
+}
+
 .headlineNormal {
 	font-family: Verdana, sans-serif;
 	font-weight: normal;
@@ -202,8 +243,8 @@ textarea.sheet-infoValues {
 
 .headlineTabs {
 	font-size: 24px;    
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
 }
 
 .clearareaBox {
@@ -216,6 +257,15 @@ textarea.sheet-infoValues {
 
 .rowNumberBox {
   width: 25px !important;
+}
+
+.text-unfocus {
+  opacity: 0.5;
+}
+
+.text-focus {
+  opacity: 1;
+  font-weight: bold !important;
 }
 
 /* END - General */
@@ -268,6 +318,49 @@ textarea.sheet-infoValues {
 }
 
 /* END - Combat */
+
+/* START - Shapechange */
+
+.shape-background {
+	background: url(https://www.busigafamiljen.se/rpg/werewolf20th/five_forms.jpg);
+	width: 740px;
+	height: 450px;
+  background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0.2;
+  position: absolute;
+  margin-top: 30px;
+}
+
+.shape-area {
+  width: 740px;
+}
+
+.shape-selector {
+  width: 20%;
+  height: 30px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: normal;
+  font-family: Verdana, sans-serif;
+}
+
+.shape-selector:hover {
+	background-color: #583101;
+  color: white;  
+  cursor: pointer;
+}
+
+.shape-selectortext {
+  width: 20%;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Verdana, sans-serif;
+  text-align: center;
+  margin-top: 100px;
+}
+
+/* END - Shapechange */
 
 /* START - Items */
 

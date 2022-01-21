@@ -183,6 +183,9 @@
 			"none": "None",
 			"description": "Description",
 			"nodamage": "No Damage",
+			"numberdamagebashing": "Damage Bashing",
+			"numberdamagelethal": "Damage Lethal",
+			"numberdamageaggravated": "Damage Aggravated",
 			"combat": {
 				"natural": "Natural Weapons",
 				"melee": "Melee Weapons",

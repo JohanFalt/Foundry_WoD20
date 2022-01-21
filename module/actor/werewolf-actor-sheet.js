@@ -30,17 +30,37 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		const shiftmods = [];
 		const shiftdiffs = [];
+		let presentform = "";
+
+		console.log("WoD | Werewolf Sheet handling shift data");
+
+		if (data.actor.data.data.shapes.glabro.active) {
+			presentform = data.actor.data.data.shapes.glabro.label;
+		}
+		else if (data.actor.data.data.shapes.crinos.active) {
+			presentform = data.actor.data.data.shapes.crinos.label;
+		}
+		else if (data.actor.data.data.shapes.hispo.active) {
+			presentform = data.actor.data.data.shapes.hispo.label;
+		}
+		else if (data.actor.data.data.shapes.lupus.active) {
+			presentform = data.actor.data.data.shapes.lupus.label;
+		}
+		else {
+			presentform = data.actor.data.data.shapes.homid.label;
+		}
 
 		for (const i in data.config.attributes) {
-			const shiftmod = {"type": data.config.attributes[i], "value": 0};
+			const shiftmod = handleWerewolfShiftAttributeData(data.config.attributes[i], presentform);
 			shiftmods.push(shiftmod);
 		}		
 
 		for (const i in data.config.attributes) {
-			const shiftdiff = {"type": data.config.attributes[i], "value": 0};
+			const shiftdiff = handleWerewolfShiftAbilityData(data.config.attributes[i], presentform);
 			shiftdiffs.push(shiftdiff);
 		}
 
+		data.actor.presentform = presentform;
 		data.actor.shiftmods = shiftmods;
 		data.actor.shiftdiffs = shiftdiffs;
 
@@ -58,23 +78,33 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	activateListeners(html) {
+		super.activateListeners(html);
+
 		console.log("WoD | Werewolf Sheet activateListeners");
 		
-		super.activateListeners(html);
-		
 		html
-		  .find(".resource-value > .resource-value-step")
-		  .click(this._onDotCounterWerewolfChange.bind(this));
+			.find(".resource-value > .resource-value-step")
+			.click(this._onDotCounterWerewolfChange.bind(this));
 		html
-		  .find(".resource-value > .resource-value-empty")
-		  .click(this._onDotCounterWerewolfEmpty.bind(this));
+			.find(".resource-value > .resource-value-empty")
+			.click(this._onDotCounterWerewolfEmpty.bind(this));
+
 		// temporary squares
 		html
-		  .find(".resource-counter > .resource-value-step")
-		  .click(this._onDotCounterWerewolfChange.bind(this));
+			.find(".resource-counter > .resource-value-step")
+			.click(this._onDotCounterWerewolfChange.bind(this));
 		html
-		  .find(".resource-counter > .resource-value-empty")
-		  .click(this._onDotCounterWerewolfEmpty.bind(this));
+			.find(".resource-counter > .resource-value-empty")
+			.click(this._onDotCounterWerewolfEmpty.bind(this));
+
+		html
+			.find(".resource-counter > .resource-value-empty")
+			.click(this._onDotCounterWerewolfEmpty.bind(this));
+		
+		// shift form
+		html
+			.find(".shape-selector")
+			.click(this._onShiftForm.bind(this));
 	}
 	
 	_onDotCounterWerewolfEmpty(event) {
@@ -87,8 +117,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const fields = fieldStrings.split(".");
 		const steps = parent.find(".resource-value-empty");
 		
-		//const lastField = fields.pop();
-
 		if (this.locked) {
 			console.log("WoD | Sheet locked aborts");
 			return;
@@ -113,7 +141,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	}
 	
 	_onDotCounterWerewolfChange(event) {
-		console.log("WoD | Werewolf Sheet _onDotCounterChange");
+		console.log("WoD | Werewolf Sheet _onDotCounterWerewolfChange");
 		
 		event.preventDefault();
 		const element = event.currentTarget;
@@ -159,9 +187,44 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			this._onDotCounterChange(event);
 		}
 	}
+
+	_onShiftForm(event) {
+		console.log("WoD | Werewolf onShiftForm");
+
+		event.preventDefault();
+
+		const actorData = duplicate(this.actor);
+
+		if (actorData.type != "Werewolf") {
+			console.log("WoD | Not Werewolf aborts");
+			return
+		}
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+		const fromForm = this.actor.presentform;
+		const toForm = dataset.form;
+
+		for (const i in actorData.data.shapes) {
+			if (actorData.data.shapes[i].label == toForm)
+			{
+				actorData.data.shapes[i].active = true;
+			}
+
+			if (actorData.data.shapes[i].label == fromForm)
+			{
+				actorData.data.shapes[i].active = false;
+			}
+		}
+
+		this.handleCalculations(actorData);
+
+		console.log("WoD | Werewolf Sheet updated");
+		this.actor.update(actorData);
+	}
 	
 	_assignToWerewolf(fields, value) {
-		console.log("WoD | Werewolf Sheet _assignToActorField");
+		console.log("WoD | Werewolf Sheet _assignToWerewolf");
 		
 		const actorData = duplicate(this.actor);
 
@@ -192,6 +255,22 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}
 		}
 		
+		this.handleWerewolfCalculations(actorData);
+		
+		console.log("WoD | Werewolf Sheet updated");
+		this.actor.update(actorData);
+	}	
+
+	handleWerewolfCalculations(actorData) {
+		// shift
+		if ((!actorData.data.shapes.homid.active) &&
+			(!actorData.data.shapes.glabro.active) &&
+			(!actorData.data.shapes.crinos.active) &&
+			(!actorData.data.shapes.hispo.active) &&
+			(!actorData.data.shapes.lupus.active)) {
+			actorData.data.shapes.homid.active = true;
+		}
+		
 		// rage
 		if (actorData.data.rage.permanent > actorData.data.rage.max) {
 			actorData.data.rage.permanent = actorData.data.rage.max;
@@ -212,8 +291,116 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
 		actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent; 
-		
-		console.log("WoD | Werewolf Sheet updated");
-		this.actor.update(actorData);
+
+		console.log("WoD | Werewolf Sheet calculations done");
 	}
+
+	
 }
+
+function handleWerewolfShiftAttributeData(attribute, presentForm) {
+	let data = {"type": attribute, "value": 0};
+
+	if (presentForm == "wod.shapes.glabro")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = {"type": attribute, "value": 2};
+		}
+
+		if (attribute == "wod.attributes.stamina") {
+			data = {"type": attribute, "value": 2};
+		}
+
+		if (attribute == "wod.attributes.manipulation") {
+			data = {"type": attribute, "value": -2};
+		}
+	}		
+
+	if (presentForm == "wod.shapes.crinos")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = {"type": attribute, "value": 4};
+		}
+
+		if (attribute == "wod.attributes.dexterity") {
+			data = {"type": attribute, "value": 1};
+		}
+
+		if (attribute == "wod.attributes.stamina") {
+			data = {"type": attribute, "value": 3};
+		}
+
+		if (attribute == "wod.attributes.manipulation") {
+			data = {"type": attribute, "value": -3};
+		}
+	}
+
+	if (presentForm == "wod.shapes.hispo")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = {"type": attribute, "value": 3};
+		}
+
+		if (attribute == "wod.attributes.dexterity") {
+			data = {"type": attribute, "value": 2};
+		}
+
+		if (attribute == "wod.attributes.stamina") {
+			data = {"type": attribute, "value": 3};
+		}
+
+		if (attribute == "wod.attributes.manipulation") {
+			data = {"type": attribute, "value": -3};
+		}
+	}
+
+	if (presentForm == "wod.shapes.lupus")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = {"type": attribute, "value": 1};
+		}
+
+		if (attribute == "wod.attributes.dexterity") {
+			data = {"type": attribute, "value": 2};
+		}
+
+		if (attribute == "wod.attributes.stamina") {
+			data = {"type": attribute, "value": 2};
+		}
+
+		if (attribute == "wod.attributes.manipulation") {
+			data = {"type": attribute, "value": -3};
+		}
+	}
+
+	return data;
+}
+
+function handleWerewolfShiftAbilityData(attribute, presentForm) {
+	let data = {"type": attribute, "value": 0};
+
+	if (presentForm == "wod.shapes.glabro")
+	{
+	}		
+
+	if (presentForm == "wod.shapes.crinos")
+	{
+	}
+
+	if (presentForm == "wod.shapes.hispo")
+	{
+		if (attribute == "wod.attributes.wits") {
+			data = {"type": attribute, "value": -1};
+		}
+	}
+
+	if (presentForm == "wod.shapes.lupus")
+	{
+		if (attribute == "wod.attributes.wits") {
+			data = {"type": attribute, "value": -2};
+		}
+	}
+
+	return data;
+}
+

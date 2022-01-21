@@ -165,6 +165,8 @@ Hooks.once("init", async function() {
 
 		return code;
 	});
+
+	
 	
 	console.log("WoD | Added Handelebars");  
 });

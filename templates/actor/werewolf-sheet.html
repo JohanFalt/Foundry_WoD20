@@ -6,7 +6,30 @@
 	
 		{{!-- Always visible --}}
 		<header class="sheet-header">	
-			{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}							
+
+			<div class="clearareaBox">
+				<div class="pullLeft">
+					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+				</div>
+				
+				<div class="pullRight">
+					{{#if data.data.shapes.homid.active}}
+					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_homid.svg" />
+					{{/if}}
+					{{#if data.data.shapes.glabro.active}}
+					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_glabro.svg" />
+					{{/if}}
+					{{#if data.data.shapes.crinos.active}}
+					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_crinos.svg" />
+					{{/if}}
+					{{#if data.data.shapes.hispo.active}}
+					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_hispo.svg" />
+					{{/if}}
+					{{#if data.data.shapes.lupus.active}}
+					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_lupus.svg" />
+					{{/if}}
+				</div>
+			</div>
 		</header>	
 
 		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}			

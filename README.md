@@ -67,3 +67,16 @@ Fix i v0.3.4
 - werewolf-actor-sheet.js har get template
 - werewolf öppnar werewolf-sheet
 - Shapeshift har egen html-fil
+- Ersatt {{equalValue}} med {{iff}}
+- Städat i console.log vid öppnande av sheet så det skrivs ut i rätt ordning
+
+Fix i v0.3.5
+- Werewolf: Shiftknapparna shiftar som de ska
+- Werewolf: Shiftfunktionen vet vilken form den har varit och vilken den skall till
+- Garanterat att om inga former så sätts Homid
+- Garanterat att beräkningar på formuläret för Werewolf också körs om Mortal körs
+- Lagt till ShiftMod och ShiftDiff som beräknas vid öppnande av Werewolf beroende vilken form som valts
+- Syns vad man valt för form
+- Design Shapeshift
+- Visa vilken form
+- Snygga till var formikonen finns

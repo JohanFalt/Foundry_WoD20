@@ -434,6 +434,8 @@ export class MortalActorSheet extends ActorSheet {
 			parseInt(actorData.data.health.damage.aggravated) = 0;
 		}
 
+		this.handleCalculations(actorData);
+
 		this.actor.update(actorData);
 	}
 
@@ -548,15 +550,17 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 
-		// health 
-		actorData.data.health.max = actorData.data.health.bruised.value + 
-										actorData.data.health.hurt.value + 
-										actorData.data.health.injured.value + 
-										actorData.data.health.wounded.value + 
-										actorData.data.health.mauled.value + 
-										actorData.data.health.crippled.value + 
-										actorData.data.health.incapacitated.value;
+		this.handleCalculations(actorData);
+
+		if (actorData.type == "Werewolf") {
+			this.handleWerewolfCalculations(actorData);
+		}
 		
+		console.log("WoD | Mortal Sheet updated");
+		this.actor.update(actorData);
+	}
+
+	handleCalculations(actorData) {
 		// willpower
 		actorData.data.willpower.permanent = actorData.data.attributes.composure.value + actorData.data.attributes.resolve.value;
 		
@@ -569,9 +573,8 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
-		
-		console.log("WoD | Mortal Sheet updated");
-		this.actor.update(actorData);
+
+		console.log("WoD | Mortal Sheet calculations done");
 	}
 }
 
