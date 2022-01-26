@@ -1,0 +1,119 @@
+<div class="clearareaBox">
+
+    <div class="sheet-headline">
+        <div>
+            {{localize "wod.power.rank1"}}
+        </div>    
+    </div>
+
+    {{#each actor.powerlist1 as |item id|}}
+
+    <div class="clearareaBox">
+        <div class="pullLeft tooltip gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" >{{captilizeFirst item.name}}<span class="tooltiptext">Description: {{item.data.description}}<br /><br />System:{{item.data.system}}</span></div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice1}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice2}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{item.data.difficulty}}</div>
+        <div class="pullLeft">
+            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+
+    {{/each}}
+
+</div>
+
+<div class="clearareaBox">
+
+    <div class="sheet-headline">
+        <div>
+            {{localize "wod.power.rank2"}}
+        </div>    
+    </div>
+
+    {{#each actor.powerlist2 as |item id|}}
+
+    <div class="clearareaBox">
+        <div class="pullLeft gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="Description: {{item.data.description}}&#013;&#010;&#013;&#010;System:{{item.data.system}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice1}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice2}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{item.data.difficulty}}</div>
+        <div class="pullLeft">
+            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+
+    {{/each}}
+
+</div>
+
+<div class="clearareaBox">
+
+    <div class="sheet-headline">
+        <div>
+            {{localize "wod.power.rank3"}}
+        </div>    
+    </div>
+
+    {{#each actor.powerlist3 as |item id|}}
+
+    <div class="clearareaBox">
+        <div class="pullLeft gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="Description: {{item.data.description}}&#013;&#010;&#013;&#010;System:{{item.data.system}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice1}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice2}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{item.data.difficulty}}</div>
+        <div class="pullLeft">
+            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+
+    {{/each}}
+
+</div>
+
+<div class="clearareaBox">
+
+    <div class="sheet-headline">
+        <div>
+            {{localize "wod.power.rank4"}}
+        </div>    
+    </div>
+
+    {{#each actor.powerlist4 as |item id|}}
+
+    <div class="clearareaBox">
+        <div class="pullLeft gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="Description: {{item.data.description}}&#013;&#010;&#013;&#010;System:{{item.data.system}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice1}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice2}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{item.data.difficulty}}</div>
+        <div class="pullLeft">
+            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+
+    {{/each}}
+
+</div>
+
+<div class="clearareaBox">
+
+    <div class="sheet-headline">
+        <div>
+            {{localize "wod.power.rank5"}}
+        </div>    
+    </div>
+
+    {{#each actor.powerlist5 as |item id|}}
+
+    <div class="clearareaBox">
+        <div class="pullLeft gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="Description: {{item.data.description}}&#013;&#010;&#013;&#010;System:{{item.data.system}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice1}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.dice2}}</div>
+        <div class="pullLeft combat-smallBox headlineNormal">{{item.data.difficulty}}</div>
+        <div class="pullLeft">
+            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+
+    {{/each}}
+
+</div>

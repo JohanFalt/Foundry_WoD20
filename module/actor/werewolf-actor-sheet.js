@@ -30,6 +30,12 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		const shiftmods = [];
 		const shiftdiffs = [];
+		const powerlist1 = [];
+		const powerlist2 = [];
+		const powerlist3 = [];
+		const powerlist4 = [];
+		const powerlist5 = [];
+		const powercombat = [];
 		let presentform = "";
 
 		console.log("WoD | Werewolf Sheet handling shift data");
@@ -60,9 +66,53 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			shiftdiffs.push(shiftdiff);
 		}
 
+		for (const i of data.items) {
+			if ((i.data.type == "wod.power.gift") && (i.data.level == 1)) {
+				powerlist1.push(i);
+
+				if (i.data.combat) {
+					powercombat.push(i);
+				}
+			}
+			if ((i.data.type == "wod.power.gift") && (i.data.level == 2)) {
+				powerlist2.push(i);
+
+				if (i.data.combat) {
+					powercombat.push(i);
+				}
+			}
+			if ((i.data.type == "wod.power.gift") && (i.data.level == 3)) {
+				powerlist3.push(i);
+
+				if (i.data.combat) {
+					powercombat.push(i);
+				}
+			}
+			if ((i.data.type == "wod.power.gift") && (i.data.level == 4)) {
+				powerlist4.push(i);
+
+				if (i.data.combat) {
+					powercombat.push(i);
+				}
+			}
+			if ((i.data.type == "wod.power.gift") && (i.data.level == 5)) {
+				powerlist5.push(i);
+
+				if (i.data.combat) {
+					powercombat.push(i);
+				}
+			}
+		}
+
 		data.actor.presentform = presentform;
 		data.actor.shiftmods = shiftmods;
 		data.actor.shiftdiffs = shiftdiffs;
+		data.actor.powerlist1 = powerlist1;
+		data.actor.powerlist2 = powerlist2;
+		data.actor.powerlist3 = powerlist3;
+		data.actor.powerlist4 = powerlist4;
+		data.actor.powerlist5 = powerlist5;
+		data.actor.powercombat = powercombat;
 
 		return data;
 	}

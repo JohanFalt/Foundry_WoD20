@@ -20,6 +20,7 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/combat_ranged.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_armor.html",
 		"systems/worldofdarkness/templates/actor/parts/shift.html",
+		"systems/worldofdarkness/templates/actor/parts/gift.html",
 		"systems/worldofdarkness/templates/actor/parts/stats.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/settings.html"

@@ -170,6 +170,15 @@
 			"hispo": "Hispo",
 			"lupus": "Lupus"
 		},
+		"power": {
+			"gift": "Gift",
+			"rank1": "Rank 1",
+			"rank2": "Rank 2",
+			"rank3": "Rank 3",
+			"rank4": "Rank 4",
+			"rank5": "Rank 5",
+			"rite": "Rite"
+		},
 		"labels": {
 			"rolling": "Rolling",
 			"cancel": "Cancel",
@@ -181,6 +190,7 @@
 			"specialty": "Speciality",			
 			"select": "Choose",
 			"none": "None",
+			"type": "Type",
 			"description": "Description",
 			"nodamage": "No Damage",
 			"numberdamagebashing": "Damage Bashing",
@@ -192,10 +202,26 @@
 				"ranged": "Ranged Weapons",
 				"armor": "Armor"
 			},
-			"add" : {
+			"power": {
+				"level": "Level",
+				"noattribute": "No Attribute",
+				"noability": "No Ability",
+				"rollable": "Rollable",
+				"combat": "Used in combat",
+				"varies": "Varies",
+				"system": "System"
+			},
+			"add": {
 				"meleeweapon": "Add Melee Weapon",
-				"rangedweapon": "Add Melee Weapon",
+				"rangedweapon": "Add Ranged Weapon",
 				"armor": "Add Armor"
+			},
+			"remove": {
+				"naturalweapon": "Remove Natural Weapon",
+				"meleeweapon": "Remove Melee Weapon",
+				"rangedweapon": "Remove Ranged Weapon",
+				"armor": "Remove Armor",
+				"gift": "Remove Gift"
 			},
 			"yes": "yes",
 			"rolldamage": "Roll Damage"

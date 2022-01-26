@@ -3,6 +3,8 @@
 	{{!-- Werewolf Sheet Header --}}
 	
 	<div class="sheet-character">		
+
+		
 	
 		{{!-- Always visible --}}
 		<header class="sheet-header">	
@@ -62,15 +64,22 @@
 
 			</div>
 
+			{{!-- Gear Tab --}}
+			<div class="tab gear" data-group="primary" data-tab="gear">
+			</div>
+
 			{{!-- Shapechange Tab --}}
 			<div class="tab shapechange" data-group="primary" data-tab="shapechange">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/shift.html"}}
 
 			</div>
+			
+			{{!-- Gift Tab --}}
+			<div class="tab gift" data-group="primary" data-tab="gift">
 
-			{{!-- Gear Tab --}}
-			<div class="tab gear" data-group="primary" data-tab="gear">
+				{{> "systems/worldofdarkness/templates/actor/parts/gift.html"}}
+
 			</div>
 			
 			{{!-- Notes Tab --}}

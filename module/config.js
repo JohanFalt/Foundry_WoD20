@@ -12,6 +12,53 @@ wod.attributes = {
     resolve: "wod.attributes.resolve"
 }
 
+wod.talents = {
+    alertness: "wod.abilities.alertness",
+    art: "wod.abilities.art",
+    athletics: "wod.abilities.athletics",
+    brawl: "wod.abilities.brawl",
+    diplomacy: "wod.abilities.diplomacy",
+    empathy: "wod.abilities.empathy",
+    expression: "wod.abilities.expression",
+    intimidation: "wod.abilities.intimidation",
+    leadership: "wod.abilities.leadership",
+    primalurge: "wod.abilities.primalurge",
+    streetwise: "wod.abilities.streetwise",
+    subterfuge: "wod.abilities.subterfuge"
+}
+
+wod.skills = {
+    animalken: "wod.abilities.animalken",
+    craft: "wod.abilities.craft",
+    drive: "wod.abilities.drive",
+    etiquette: "wod.abilities.etiquette",
+    firearms: "wod.abilities.firearms",
+    larceny: "wod.abilities.larceny",
+    meditation: "wod.abilities.meditation",
+    melee: "wod.abilities.melee",
+    performance: "wod.abilities.performance",
+    stealth: "wod.abilities.stealth",
+    survival: "wod.abilities.survival"
+}
+
+wod.knowledges = {
+    academics: "wod.abilities.academics",
+    bureaucracy: "wod.abilities.bureaucracy",
+    cosmology: "wod.abilities.cosmology",
+    culture: "wod.abilities.culture",
+    computer: "wod.abilities.computer",
+    enigmas: "wod.abilities.enigmas",
+    finance: "wod.abilities.finance",
+    investigation: "wod.abilities.investigation",
+    law: "wod.abilities.law",
+    medicine: "wod.abilities.medicine",
+    occult: "wod.abilities.occult",
+    politics: "wod.abilities.politics",
+    rituals: "wod.abilities.rituals",
+    science: "wod.abilities.science",
+    technology: "wod.abilities.technology",
+}
+
 wod.attackAttributes = {
     strength: "wod.attributes.strength",
     dexterity: "wod.attributes.dexterity"

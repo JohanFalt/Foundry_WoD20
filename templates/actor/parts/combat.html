@@ -28,6 +28,11 @@
     <div class="pullLeft combat-bottomarea">
         {{#iff actor.type "==" "Werewolf"}}
         <div class="sheet-headline">Active Gifts</div>
+        {{#each actor.powercombat as |item id|}}
+        <div class="clearareaBox">
+            <div class="pullLeft gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="{{item.data.system}}">{{captilizeFirst item.name}}</div>
+        </div>
+        {{/each}}
         {{else}}
         &nbsp;
         {{/iff}}

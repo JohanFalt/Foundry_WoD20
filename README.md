@@ -80,3 +80,14 @@ Fix i v0.3.5
 - Design Shapeshift
 - Visa vilken form
 - Snygga till var formikonen finns
+
+Fix i v0.3.6
+- Added type to Power
+- Added dice selection to Power
+- Lagt till byta Actor bild
+- Skapat Gift.html
+- Skapat listorna för gift1-5
+- Drag Gifts
+- Remove Gifts
+- Sätta Actor bild
+- Combat gifts list
