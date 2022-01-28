@@ -4,7 +4,7 @@
 	"description": "To play World of Darkness",
 	"version": "0.3.6",
 	"minimumCoreVersion": "9.238",
-	"compatibleCoreVersion": "9.242",
+	"compatibleCoreVersion": "9.245",
 	"templateVersion": 1,
 	"author": "Johan Fält",
 	"esmodules": [

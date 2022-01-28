@@ -70,35 +70,35 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			if ((i.data.type == "wod.power.gift") && (i.data.level == 1)) {
 				powerlist1.push(i);
 
-				if (i.data.combat) {
+				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
 			if ((i.data.type == "wod.power.gift") && (i.data.level == 2)) {
 				powerlist2.push(i);
 
-				if (i.data.combat) {
+				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
 			if ((i.data.type == "wod.power.gift") && (i.data.level == 3)) {
 				powerlist3.push(i);
 
-				if (i.data.combat) {
+				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
 			if ((i.data.type == "wod.power.gift") && (i.data.level == 4)) {
 				powerlist4.push(i);
 
-				if (i.data.combat) {
+				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
 			if ((i.data.type == "wod.power.gift") && (i.data.level == 5)) {
 				powerlist5.push(i);
 
-				if (i.data.combat) {
+				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}

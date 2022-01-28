@@ -91,3 +91,7 @@ Fix i v0.3.6
 - Remove Gifts
 - Sätta Actor bild
 - Combat gifts list
+- Lägga Description + System i Hinttext med design... (tooltip)
+- Fountry v9.245
+- Designa hint-text
+- Design Gifts

@@ -20,7 +20,7 @@
 			"combat": "Combat",
 			"gear": "Gear",
 			"notes": "Notes",
-			"gifts": "Gifts",
+			"gifts": "Gifts & Rites",
 			"shapechange": "Shapechange"
 		},
 		"bio": {
@@ -177,6 +177,10 @@
 			"rank3": "Rank 3",
 			"rank4": "Rank 4",
 			"rank5": "Rank 5",
+			"active": "Active",
+			"attr": "Attr.",
+			"ability": "Ability",
+			"diff": "Diff",
 			"rite": "Rite"
 		},
 		"labels": {
@@ -193,6 +197,7 @@
 			"type": "Type",
 			"description": "Description",
 			"nodamage": "No Damage",
+			"varies": "Varies",
 			"numberdamagebashing": "Damage Bashing",
 			"numberdamagelethal": "Damage Lethal",
 			"numberdamageaggravated": "Damage Aggravated",

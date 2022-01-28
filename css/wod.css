@@ -24,16 +24,15 @@
 	color: white;
 }
 
-.mortal .thin-border-left {
-  border-left-style: solid;
-  border-width: 1px;
+.mortal .thin-border-left,
+.mortal .thin-border-right {
   border-color: #184e77;
 }
 
-.mortal .thin-border-right {
-  border-right-style: solid;
-  border-width: 1px;
-  border-color: #184e77;
+.mortal .tooltip .tooltiptext,
+.mortal .resource-value-static .resource-value-static-step.active {
+  background-color: #184e77;
+  color: white;
 }
 
 .werewolf .item:hover,
@@ -52,19 +51,18 @@
 	color: white;
 }
 
-.werewolf .thin-border-left {
-  border-left-style: solid;
-  border-width: 1px;
-  border-color: #583101;
-}
-
+.werewolf .thin-border-left,
 .werewolf .thin-border-right {
-  border-right-style: solid;
-  border-width: 1px;
   border-color: #583101;
 }
 
-.werewolf .headlineTabs {
+.werewolf .tooltip .tooltiptext,
+.werewolf .resource-value-static .resource-value-static-step.active {
+  background-color: #583101;
+  color: white;
+}
+
+.vampire .headlineTabs {
 	border-bottom-color: #790813;
 }
 
@@ -74,40 +72,15 @@
 	color: white;
 }
 
-.vampire .thin-border-left {
-  border-left-style: solid;
-  border-width: 1px;
+.vampire .thin-border-left,
+.vampire .thin-border-right {  
   border-color: #790813;
 }
 
-.vampire .thin-border-right {
-  border-right-style: solid;
-  border-width: 1px;
-  border-color: #790813;
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+.vampire .tooltip .tooltiptext,
+.vampire .resource-value-static .resource-value-static-step.active {
+  background-color: #790813;
+  color: white;
 }
 
 /* END - Type of sheet designs */
@@ -142,13 +115,9 @@
 	text-shadow: 0 0 10px #790813 !important;
 }
 
-.vrollable:hover,
-.vrollable:focus {
-  color: #000;  
-  cursor: pointer;
-}
-
 /* END - Dice roll links */
+
+
 
 /* START - Chat window */
 
@@ -292,6 +261,44 @@ textarea.sheet-infoValues {
   font-weight: bold !important;
 }
 
+.thin-border-left {
+  border-left-style: solid;
+  border-width: 1px;
+}
+
+.thin-border-right {
+  border-right-style: solid;
+  border-width: 1px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 450px;  
+  border-radius: 6px;
+  padding: 5px;
+  left: -100px;
+  top: 20px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.vrollable:hover,
+.vrollable:focus {
+  color: #000;  
+  cursor: pointer;
+}
+
 /* END - General */
 
 /* START - Bio */
@@ -388,8 +395,20 @@ textarea.sheet-infoValues {
 
 /* START - Gift */
 
-.gift-mediumBox {
+.gift-largeBox {
   width: 175px;
+}
+
+.gift-mediumBox {
+  width: 100px;
+}
+
+.gift-smallBox {
+  width: 75px;
+}
+
+.gift-valueBox {
+  width: 50px;
 }
 
 /* END - Gift */
@@ -425,10 +444,6 @@ textarea.sheet-infoValues {
   border: 1px solid black;
   display: inline-block;
   border-radius: 50%;
-}
-
-.resource-value-static .resource-value-static-step.active {
-  background-color: #790813;
 }
 
 .resource-counter .resource-value-empty,

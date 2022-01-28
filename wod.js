@@ -101,15 +101,7 @@ Hooks.once("init", async function() {
 		var next =  arguments[arguments.length-1];
 		return (a <= b) ? next.fn(this) : next.inverse(this);
 	});
-	
-	/*Handlebars.registerHelper("equalValue", function (bool1, bool2) {
-		if (bool1 == bool2) {
-			return true;
-		}
-		
-		return false;
-	});*/
-	
+
 	Handlebars.registerHelper("orderAttributes", function (attribute) {
 		var list = ["strength","dexterity","stamina"];
 		
@@ -165,8 +157,6 @@ Hooks.once("init", async function() {
 
 		return code;
 	});
-
-	
 	
 	console.log("WoD | Added Handelebars");  
 });
