@@ -26,6 +26,7 @@
 		"bio": {
 			"name": "Name",
 			"appearance": "Appearance",
+			"background": "Background",
 			"concept": "Concept",
 			"breed": "Breed",
 			"auspice": "Auspice",
@@ -121,7 +122,8 @@
 			"renown": "Renown",
 			"glory": "Glory",
 			"honor": "Honor",
-			"wisdom": "Wisdom"
+			"wisdom": "Wisdom",
+			"rank": "Rank"
 		},
 		"combat": {
 			"weapon": {
@@ -171,7 +173,6 @@
 			"lupus": "Lupus"
 		},
 		"power": {
-			"gift": "Gift",
 			"rank1": "Rank 1",
 			"rank2": "Rank 2",
 			"rank3": "Rank 3",
@@ -181,7 +182,7 @@
 			"attr": "Attr.",
 			"ability": "Ability",
 			"diff": "Diff",
-			"rite": "Rite"
+			"rites": "Rites"
 		},
 		"labels": {
 			"rolling": "Rolling",
@@ -226,7 +227,8 @@
 				"meleeweapon": "Remove Melee Weapon",
 				"rangedweapon": "Remove Ranged Weapon",
 				"armor": "Remove Armor",
-				"gift": "Remove Gift"
+				"gift": "Remove Gift",
+				"rite": "Remove Rite"
 			},
 			"yes": "yes",
 			"rolldamage": "Roll Damage"

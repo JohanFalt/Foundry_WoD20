@@ -281,7 +281,7 @@ textarea.sheet-infoValues {
   width: 450px;  
   border-radius: 6px;
   padding: 5px;
-  left: -100px;
+  left: -150px;
   top: 20px;
 
   /* Position the tooltip */
@@ -425,6 +425,7 @@ textarea.sheet-infoValues {
 /* END - Items */
 
 /* START - handle design of radio buttons */
+.difficulty-value .resource-value-step,
 .resource-value .resource-value-step {
   height: 14px;
   width: 14px;
@@ -434,6 +435,7 @@ textarea.sheet-infoValues {
   cursor: pointer;
 }
 
+.difficulty-value .resource-value-step.active,
 .resource-value .resource-value-step.active {
   background-color: black;
 }

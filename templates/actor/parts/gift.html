@@ -1,10 +1,12 @@
+{{#iff data.data.renown.rank ">=" 1}}
+
 <div class="clearareaBox">
 
     <div class="sheet-headline">{{localize "wod.power.rank1"}}</div>    
 
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.active"}}</div>
-        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.power.gift"}}</div>
+        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.gift"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
@@ -12,10 +14,14 @@
 
     {{#each actor.powerlist1 as |item id|}}
 
+    {{#iff item.data.type "==" "wod.types.gift"}}
+
+    {{logg item}}
+
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice1}}</div>
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
@@ -33,17 +39,22 @@
         </div>
     </div>
 
+    {{/iff}}
+
     {{/each}}
 
 </div>
 
+{{/iff}}
+
+{{#iff data.data.renown.rank ">=" 2}}
 <div class="clearareaBox">
 
     <div class="sheet-headline">{{localize "wod.power.rank2"}}</div>
 
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.active"}}</div>
-        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.power.gift"}}</div>
+        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.gift"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
@@ -51,10 +62,12 @@
 
     {{#each actor.powerlist2 as |item id|}}
 
+    {{#iff item.data.type "==" "wod.types.gift"}}
+
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice1}}</div>
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
@@ -72,9 +85,15 @@
         </div>
     </div>
 
+    {{/iff}}
+
     {{/each}}
 
 </div>
+
+{{/iff}}
+
+{{#iff data.data.renown.rank ">=" 3}}
 
 <div class="clearareaBox">
 
@@ -82,7 +101,7 @@
 
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.active"}}</div>
-        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.power.gift"}}</div>
+        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.gift"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
@@ -90,10 +109,12 @@
 
     {{#each actor.powerlist3 as |item id|}}
 
+    {{#iff item.data.type "==" "wod.types.gift"}}
+
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice1}}</div>
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
@@ -111,9 +132,15 @@
         </div>
     </div>
 
+    {{/iff}}
+
     {{/each}}
 
 </div>
+
+{{/iff}}
+
+{{#iff data.data.renown.rank ">=" 4}}
 
 <div class="clearareaBox">
 
@@ -121,7 +148,7 @@
 
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.active"}}</div>
-        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.power.gift"}}</div>
+        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.gift"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
@@ -129,10 +156,12 @@
 
     {{#each actor.powerlist4 as |item id|}}
 
+    {{#iff item.data.type "==" "wod.types.gift"}}
+
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice1}}</div>
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
@@ -150,9 +179,15 @@
         </div>
     </div>
 
+    {{/iff}}
+
     {{/each}}
 
 </div>
+
+{{/iff}}
+
+{{#iff data.data.renown.rank ">=" 5}}
 
 <div class="clearareaBox">
 
@@ -160,7 +195,7 @@
 
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.active"}}</div>
-        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.power.gift"}}</div>
+        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.gift"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
         <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
         <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
@@ -168,11 +203,13 @@
 
     {{#each actor.powerlist5 as |item id|}}
 
+    {{#iff item.data.type "==" "wod.types.gift"}}
+
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice1}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{item.data.dice2}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -189,6 +226,46 @@
         </div>
     </div>
 
+    {{/iff}}
+
     {{/each}}
 
+</div>
+
+{{/iff}}
+
+<div class="clearareaBox">
+
+    <div class="sheet-headline">{{localize "wod.power.rites"}}</div>    
+
+    <div class="clearareaBox">
+        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.rite"}}</div>
+        <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
+        <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
+        <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
+    </div>
+
+    {{#each actor.ritelist as |item id|}}
+
+    <div class="clearareaBox">
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-valueBox headlineNormal">
+            {{#iff item.data.difficulty "==" -1}}
+                {{localize "wod.labels.varies"}}
+            {{else}}
+                {{item.data.difficulty}}
+            {{/iff}}
+        </div>
+        <div class="pullLeft gift-valueBox headlineNormal tooltip">
+            <i class="fa fa-sticky-note"></i>
+            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+        </div>
+        <div class="pullLeft">
+            <a class="item-delete" title="{{localize "wod.labels.remove.rite"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+
+    {{/each}}
 </div>

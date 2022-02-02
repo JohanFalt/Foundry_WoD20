@@ -86,8 +86,15 @@
 			
 		</div>
 
-		<div>
-			Rank
+		<div class="sheet-headline headlineGroup centerText">{{localize "wod.advantages.rank"}}</div>
+		<div class="resource-value permValueRow" data-value="{{data.data.renown.rank}}" data-name="data.data.renown.rank">
+
+			{{#numLoop 5}}
+			
+			<span class="resource-value-step" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
+			
 		</div>
 		
 		{{else}}

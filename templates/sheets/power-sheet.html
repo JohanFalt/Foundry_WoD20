@@ -23,8 +23,8 @@
 				<select name="data.type">
 					{{#select data.data.type}}
 						<option value="">- {{localize "wod.labels.select"}} -</option>
-						<option value="wod.power.gift">{{localize "wod.power.gift"}}</option>
-						<option value="wod.power.rite">{{localize "wod.power.rite"}}</option>
+						<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
+						<option value="wod.types.rite">{{localize "wod.types.rite"}}</option>
 					{{/select}}
 				</select>
 			</div>
@@ -54,11 +54,11 @@
 					{{#select data.data.dice1}}
 						<option value="">- {{localize "wod.labels.power.noattribute"}} -</option>
 						{{#each config.attributes as | name type|}}
-						<option value="{{name}}">{{localize name}}</option>
+						<option value="{{type}}">{{localize name}}</option>
 						{{/each}}
-						<option value="wod.advantages.rage">{{localize "wod.advantages.rage"}}</option>
-						<option value="wod.advantages.gnosis">{{localize "wod.advantages.gnosis"}}</option>
-						<option value="wod.advantages.willpower">{{localize "wod.advantages.willpower"}}</option>
+						<option value="rage">{{localize "wod.advantages.rage"}}</option>
+						<option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
+						<option value="willpower">{{localize "wod.advantages.willpower"}}</option>
 						
 					{{/select}}
 				</select>
@@ -71,13 +71,13 @@
 					{{#select data.data.dice2}}
 						<option value="">- {{localize "wod.labels.power.noability"}} -</option>
 						{{#each config.talents as | name type|}}
-						<option value="{{name}}">{{localize name}}</option>
+						<option value="{{type}}">{{localize name}}</option>
 						{{/each}}
 						{{#each config.skills as | name type|}}
-						<option value="{{name}}">{{localize name}}</option>
+						<option value="{{type}}">{{localize name}}</option>
 						{{/each}}
 						{{#each config.knowledges as | name type|}}
-						<option value="{{name}}">{{localize name}}</option>
+						<option value="{{type}}">{{localize name}}</option>
 						{{/each}}
 					{{/select}}
 				</select>

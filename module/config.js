@@ -12,6 +12,12 @@ wod.attributes = {
     resolve: "wod.attributes.resolve"
 }
 
+wod.advantages = {
+    willpower: "wod.advantages.willpower",
+    rage: "wod.advantages.rage",
+    gnosis: "wod.advantages.gnosis"
+}
+
 wod.talents = {
     alertness: "wod.abilities.alertness",
     art: "wod.abilities.art",
@@ -80,4 +86,14 @@ wod.damageTypes = {
     bashing: "wod.health.bashing",
     lethal: "wod.health.lethal",
     aggravated: "wod.health.aggravated"
+}
+
+wod.woundLevels = {
+    bruised: "wod.health.bruised",
+    hurt: "wod.health.hurt",
+    injured: "wod.health.injured",
+    wounded: "wod.health.wounded",
+    mauled: "wod.health.mauled",
+    crippled: "wod.health.crippled",
+    incapacitated: "wod.health.incapacitated"
 }

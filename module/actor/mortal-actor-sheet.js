@@ -1,5 +1,6 @@
 import { rollDice } from "../scripts/roll-dice.js";
 import { calculateHealth } from "../scripts/health.js";
+import { calculateTotals } from "../scripts/totals.js";
 
 export class MortalActorSheet extends ActorSheet {
 	
@@ -48,15 +49,12 @@ export class MortalActorSheet extends ActorSheet {
 		data.dtypes = ["String", "Number", "Boolean"];
 
 		const mods = [];
+		const diffs = [];
 
 		for (const i in data.config.attributes) {
 			const mod = {"type": data.config.attributes[i], "value": 0};
 			mods.push(mod);
-		}
 
-		const diffs = [];
-
-		for (const i in data.config.attributes) {
 			const diff = {"type": data.config.attributes[i], "value": 0};
 			diffs.push(diff);
 		}
@@ -92,7 +90,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.rangedWeapons = rangedWeapons;	
 		data.actor.armors = armors;	
 		
-		console.log(data.actor);
+		//console.log(data.actor);
 
 		return data;
 	}	
@@ -182,24 +180,18 @@ export class MortalActorSheet extends ActorSheet {
 		let healthOptions = "";		
 		
 		let wounded = "";
-		let specialty = "";
+		let specialty = `<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>`;
 		let selectAbility = "";
+		let difficulty = 6;
+		let selector = "";
 
 		if (dataset.noability=="true") {
-			selectAbility =  "";
-			specialty =  "";
 			wounded = "";
 		}
 		else { 
-			for (const [key, value] of Object.entries(this.actor.data.data.health)) {
-				healthOptions = healthOptions.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
-			}
-			
-			specialty =  `<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>`
-			wounded = `<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.selectwound")}</label>
-						<select id="woundSelect">${healthOptions}</select>
-					</div>`
+			if (this.actor.data.data.health.damage.woundlevel != "") {
+				wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.selectwound")}</label>${game.i18n.localize(this.actor.data.data.health.damage.woundlevel)} (${this.actor.data.data.health.damage.woundpenalty})</div>`
+			}			
 		
 			if (dataset.ability == "true") {
 				for (const [key, value] of Object.entries(this.actor.data.data.attributes)) {
@@ -211,26 +203,23 @@ export class MortalActorSheet extends ActorSheet {
 								<select id="attributeSelect">${options1}</select>
 							</div>`;
 			}
-			else if (dataset.attribute == "true") {
-				/*for (const [key, value] of Object.entries(this.actor.data.data.abilities.talent)) {
-					options1 = options1.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
-				}
-				
-				for (const [key, value] of Object.entries(this.actor.data.data.abilities.skill)) {
-					options2 = options2.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
-				}
-				
-				for (const [key, value] of Object.entries(this.actor.data.data.abilities.knowledge)) {
-					options3 = options3.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
-				}
-				
-				selectAbility =  `<div class="form-group">
-								<label>${game.i18n.localize("wod.labels.ability")}</label>
-								<select id="abilitySelect">${options1}${options2}${options3}</select>
-							</div>`;*/
-			}			
+			else if (dataset.rollitem == "true") {
+				difficulty = dataset.diff;
+			}
 		}
+
+		//<input type="text" min="3" id="inputDif" value="${difficulty}">
 		
+
+		for (let i = 3; i <= 10; i++) {
+			if (i == difficulty) {
+				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
+			}
+			else {
+				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
+			}
+		}
+
 		const template = `
 			<form>
 				`
@@ -242,7 +231,9 @@ export class MortalActorSheet extends ActorSheet {
 				</div>  
 				<div class="form-group">
 					<label>${game.i18n.localize("wod.labels.difficulty")}</label>
-					<input type="text" min="0" id="inputDif" value="6">
+					`
+					+ selector + 
+					`
 				</div>
 				` + wounded + specialty +`
 			</form>`;
@@ -254,23 +245,86 @@ export class MortalActorSheet extends ActorSheet {
 				icon: '<i class="fas fa-check"></i>',
 				label: game.i18n.localize("wod.dice.roll"),
 				callback: async (html) => {
-					const attribute = html.find("#attributeSelect")[0]?.value;				
-					const attributeVal = dataset.ability == "true" ? this.actor.data.data.attributes[attribute].value : 0;
-					const attributeName = dataset.ability == "true" ? game.i18n.localize(this.actor.data.data.attributes[attribute].label) : "";
-					
-					const woundPenalty = html.find("#woundSelect")[0]?.value !== undefined ? html.find("#woundSelect")[0]?.value : "";					
-					const woundPenaltyVal = this.actor.data.data.conditions.ignorepain == true ? 0 : (woundPenalty == "" ? 0 : this.actor.data.data.health[woundPenalty]?.penalty);					
-					const woundName = woundPenalty == "" ? "" : game.i18n.localize(this.actor.data.data.health[woundPenalty]?.label);
-					
+					let attribute = "";
+					let attributeVal = 0;
+					let attributeName = "";
+					let abilityVal = 0;
+					let abilityName = "";
+					let woundPenaltyVal = 0;
+					let numDice = 0;
+					let diceUsed = "";
+
 					const modifier = parseInt(html.find("#inputMod")[0].value || 0);
-					const difficulty = parseInt(html.find("#inputDif")[0].value || 0);
-					const specialty = parseInt(html.find("#specialty")[0]?.checked || false);
-					const numDice = dataset.noability == "true" ? parseInt(dataset.roll) + modifier : (dataset.ability == "true" ? attributeVal + parseInt(dataset.roll) + modifier : parseInt(dataset.roll) + modifier);
-			  
+					//const difficulty = parseInt(html.find("#inputDif")[0].value || 0);
+					const difficulty = parseInt(html.find("#inputDif:checked")[0].value || 0);
+					const specialty = html.find("#specialty")[0]?.checked || false;
+
+					if (this.actor.data.data.conditions.ignorepain) {
+						woundPenaltyVal = 0;
+					}
+					else {
+						woundPenaltyVal = this.actor.data.data.health.damage.woundpenalty;
+					}
+
+					if (dataset.ability == "true") {
+						attribute = html.find("#attributeSelect")[0]?.value;
+						attributeVal = this.actor.data.data.attributes[attribute].total;
+						
+						attributeName = game.i18n.localize(this.actor.data.data.attributes[attribute].label);
+						numDice = attributeVal + parseInt(dataset.roll) + modifier;
+						diceUsed = `${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal})`;
+					} 
+					else if (dataset.attribute == "true") {
+						attribute = dataset.label.toLowerCase();
+						attributeVal = dataset.roll;
+						attributeName = "";
+						numDice = parseInt(dataset.roll) + modifier;
+						diceUsed = `${dataset.label} (${dataset.roll})`;
+					}
+					else if (dataset.noability == "true") {
+						woundPenaltyVal = 0;
+						numDice = parseInt(dataset.roll) + modifier;
+						diceUsed = `${dataset.label} (${dataset.roll})`;
+					}
+					else if (dataset.rollitem == "true") {
+
+						if (this.actor.data.data.attributes[dataset.dice1]?.value != undefined) {
+							attributeVal = this.actor.data.data.attributes[dataset.dice1].total;
+							attributeName = game.i18n.localize(this.actor.data.data.attributes[dataset.dice1].label);
+						}
+						else if (this.actor.data.data[dataset.dice1]?.roll != undefined) { 
+							attributeVal = this.actor.data.data[dataset.dice1].value;
+							attributeName = game.i18n.localize(this.actor.data.data[dataset.dice1].label);
+						}
+
+						if (this.actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
+							abilityVal = this.actor.data.data.abilities.talent[dataset.dice2].value;
+							abilityName = game.i18n.localize(this.actor.data.data.abilities.talent[dataset.dice2].label);
+						}
+						else if (this.actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
+							abilityVal = this.actor.data.data.abilities.skill[dataset.dice2].value;
+							abilityName = game.i18n.localize(this.actor.data.data.abilities.skill[dataset.dice2].label);
+						}
+						else if (this.actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
+							abilityVal = this.actor.data.data.abilities.knowledge[dataset.dice2].value;
+							abilityName = game.i18n.localize(this.actor.data.data.abilities.knowledge[dataset.dice2].label);
+						}		
+						
+						numDice = attributeVal + abilityVal + modifier;
+						diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal})`;
+					}									
+					
+					if (modifier > 0) {
+						diceUsed += ` +${modifier}`;
+					}
+					else if (modifier < 0) {
+						diceUsed += ` ${modifier}`;
+					}
+					
 					rollDice(
 						numDice,
 						this.actor,
-						dataset.noability =="true" ? `${dataset.label}` : (dataset.ability == "true" ? `${dataset.label} + ${attributeName}` : `${dataset.label}`),
+						diceUsed,
 						difficulty,
 						specialty,
 						woundPenaltyVal
@@ -435,6 +489,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		this.handleCalculations(actorData);
+		this.handleWouldLevelCalculations(actorData);
 
 		this.actor.update(actorData);
 	}
@@ -517,7 +572,7 @@ export class MortalActorSheet extends ActorSheet {
 		console.log("WoD | Mortal Sheet _assignToActorField");
 		
 		const actorData = duplicate(this.actor);
-		
+
 		// update actor owned items
 		if (fields.length === 2 && fields[0] === "items") {
 			for (const i of actorData.items) {
@@ -551,16 +606,16 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		this.handleCalculations(actorData);
-
-		if (actorData.type == "Werewolf") {
-			this.handleWerewolfCalculations(actorData);
-		}
+		this.handleWouldLevelCalculations(actorData);
 		
 		console.log("WoD | Mortal Sheet updated");
 		this.actor.update(actorData);
 	}
 
 	handleCalculations(actorData) {
+		// attributes totals
+		actorData = calculateTotals(actorData);
+
 		// willpower
 		actorData.data.willpower.permanent = actorData.data.attributes.composure.value + actorData.data.attributes.resolve.value;
 		
@@ -575,6 +630,29 @@ export class MortalActorSheet extends ActorSheet {
 		actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
 
 		console.log("WoD | Mortal Sheet calculations done");
+	}
+
+	handleWouldLevelCalculations(actorData) {
+		let woundLevel = "";
+		let totalWoundLevels = parseInt(actorData.data.health.damage.bashing) + parseInt(actorData.data.health.damage.lethal) + parseInt(actorData.data.health.damage.aggravated);
+
+		if (totalWoundLevels == 0) {
+			actorData.data.health.damage.woundlevel = "";
+			actorData.data.health.damage.woundpenalty = 0;
+
+			return
+		}
+
+		for (const i in CONFIG.wod.woundLevels) {
+			totalWoundLevels = totalWoundLevels - parseInt(actorData.data.health[i].value);
+
+			if (totalWoundLevels == 0) {
+				actorData.data.health.damage.woundlevel = actorData.data.health[i].label;
+				actorData.data.health.damage.woundpenalty = actorData.data.health[i].penalty;
+
+				return
+			}
+		}		
 	}
 }
 

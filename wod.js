@@ -71,7 +71,7 @@ Hooks.once("init", async function() {
 				bool = a < b;
 				break;
 			case ">=":
-				bool = a >= b;
+				bool = parseInt(a) >= parseInt(b);
 				break;
 			case "<=":
 				bool = a <= b;
@@ -100,6 +100,22 @@ Hooks.once("init", async function() {
 	Handlebars.registerHelper('le', function( a, b ){
 		var next =  arguments[arguments.length-1];
 		return (a <= b) ? next.fn(this) : next.inverse(this);
+	});
+
+	Handlebars.registerHelper("getAttributes", function (attribute) {
+		for (const i in CONFIG.wod.attributes) {
+			if (i == attribute) {
+				return CONFIG.wod.attributes[i];
+			}
+		}
+
+		for (const i in CONFIG.wod.advantages) {
+			if (i == attribute) {
+				return CONFIG.wod.advantages[i];
+			}
+		}
+
+		return attribute;
 	});
 
 	Handlebars.registerHelper("orderAttributes", function (attribute) {
@@ -135,6 +151,30 @@ Hooks.once("init", async function() {
 		return "";
 	});
 
+	Handlebars.registerHelper("dclearHealthamageState", function (healthStates) {
+		let num = 0;
+		let oldHealthLevel = "";
+
+		for (const i of healthStates) {
+			if (oldHealthLevel != healthLevel) {
+				num = 0;
+				oldHealthLevel = healthLevel;
+			}
+
+			if (i.label == healthLevel) {
+				if (num == index) {
+					return i.status;
+				}
+
+				num += 1;
+			}			
+		}
+
+		return "";
+	});
+
+	
+
 	Handlebars.registerHelper("captilizeFirst", function (text) {
 		return text.charAt(0).toUpperCase() + text.slice(1);
 	});
@@ -146,7 +186,10 @@ Hooks.once("init", async function() {
 
 		code = attribute.substring(0, 3);
 
-		if (bonus > 0) {
+		if (code == "") {
+			code = bonus;
+		}
+		else if (bonus > 0) {
 			code += "+"+bonus;
 		}
 		else if (bonus < 0) {

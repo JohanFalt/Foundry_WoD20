@@ -1,4 +1,5 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
+import { calculateTotals } from "../scripts/totals.js";
 
 export class WerewolfActorSheet extends MortalActorSheet {
 	
@@ -7,7 +8,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		return mergeObject(super.defaultOptions, {
 			classes: ["werewolf"],
 			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html",
-			height: 870,
+			height: 880,
 			tabs: [{
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
@@ -28,14 +29,15 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Werewolf Sheet getData");
 
-		const shiftmods = [];
-		const shiftdiffs = [];
+		//const shiftmods = [];
+		//const shiftdiffs = [];
 		const powerlist1 = [];
 		const powerlist2 = [];
 		const powerlist3 = [];
 		const powerlist4 = [];
 		const powerlist5 = [];
 		const powercombat = [];
+		const ritelist = [];
 		let presentform = "";
 
 		console.log("WoD | Werewolf Sheet handling shift data");
@@ -56,63 +58,60 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			presentform = data.actor.data.data.shapes.homid.label;
 		}
 
-		for (const i in data.config.attributes) {
-			const shiftmod = handleWerewolfShiftAttributeData(data.config.attributes[i], presentform);
-			shiftmods.push(shiftmod);
-		}		
-
-		for (const i in data.config.attributes) {
-			const shiftdiff = handleWerewolfShiftAbilityData(data.config.attributes[i], presentform);
-			shiftdiffs.push(shiftdiff);
-		}
+		console.log("WoD | Werewolf Sheet handling gift lists");
 
 		for (const i of data.items) {
-			if ((i.data.type == "wod.power.gift") && (i.data.level == 1)) {
+			if ((i.data.type == "wod.types.gift") && (i.data.level == 1)) {
 				powerlist1.push(i);
 
 				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
-			}
-			if ((i.data.type == "wod.power.gift") && (i.data.level == 2)) {
+			}			
+			if ((i.data.type == "wod.types.gift") && (i.data.level == 2)) {
 				powerlist2.push(i);
 
 				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
-			if ((i.data.type == "wod.power.gift") && (i.data.level == 3)) {
+			if ((i.data.type == "wod.types.gift") && (i.data.level == 3)) {
 				powerlist3.push(i);
 
 				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
-			if ((i.data.type == "wod.power.gift") && (i.data.level == 4)) {
+			if ((i.data.type == "wod.types.gift") && (i.data.level == 4)) {
 				powerlist4.push(i);
 
 				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
-			if ((i.data.type == "wod.power.gift") && (i.data.level == 5)) {
+			if ((i.data.type == "wod.types.gift") && (i.data.level == 5)) {
 				powerlist5.push(i);
 
 				if ((i.data.combat)&&(i.data.active)) {
 					powercombat.push(i);
 				}
 			}
+
+			if (i.data.type == "wod.types.rite") {
+				ritelist.push(i);
+			}
 		}
 
 		data.actor.presentform = presentform;
-		data.actor.shiftmods = shiftmods;
-		data.actor.shiftdiffs = shiftdiffs;
 		data.actor.powerlist1 = powerlist1;
 		data.actor.powerlist2 = powerlist2;
 		data.actor.powerlist3 = powerlist3;
 		data.actor.powerlist4 = powerlist4;
 		data.actor.powerlist5 = powerlist5;
 		data.actor.powercombat = powercombat;
+		data.actor.ritelist = ritelist;
+
+		console.log(data.actor);
 
 		return data;
 	}
@@ -121,8 +120,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	get template() {
 		console.log("WoD | Werewolf Sheet get template");
 		
-		//if (!game.user.isGM && this.actor.limited)
-		//	return "systems/worldofdarkness/templates/actor/limited-sheet.html";
 		return "systems/worldofdarkness/templates/actor/werewolf-sheet.html";
 	}
 	
@@ -256,18 +253,17 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const toForm = dataset.form;
 
 		for (const i in actorData.data.shapes) {
-			if (actorData.data.shapes[i].label == toForm)
-			{
-				actorData.data.shapes[i].active = true;
-			}
-
-			if (actorData.data.shapes[i].label == fromForm)
-			{
+			if (actorData.data.shapes[i].label == fromForm)  {
 				actorData.data.shapes[i].active = false;
 			}
-		}
+
+			if (actorData.data.shapes[i].label == toForm) {
+				actorData.data.shapes[i].active = true;
+			}			
+		}		
 
 		this.handleCalculations(actorData);
+		this.handleWerewolfCalculations(actorData);
 
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);
@@ -297,7 +293,10 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		else if (fields[2] === "renown") {
 			let renowntype = fields[3];
 
-			if (fields[4] === "permanent") {
+			if (renowntype === "rank") {
+				actorData.data.renown[renowntype] = value;
+			}
+			else if (fields[4] === "permanent") {
 				actorData.data.renown[renowntype].permanent = value;
 			}
 			else {
@@ -305,6 +304,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}
 		}
 		
+		this.handleCalculations(actorData);
 		this.handleWerewolfCalculations(actorData);
 		
 		console.log("WoD | Werewolf Sheet updated");
@@ -312,6 +312,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	}	
 
 	handleWerewolfCalculations(actorData) {
+		console.log("WoD | Werewolf handleWerewolfCalculations");		
+
 		// shift
 		if ((!actorData.data.shapes.homid.active) &&
 			(!actorData.data.shapes.glabro.active) &&
@@ -320,7 +322,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			(!actorData.data.shapes.lupus.active)) {
 			actorData.data.shapes.homid.active = true;
 		}
-		
+
 		// rage
 		if (actorData.data.rage.permanent > actorData.data.rage.max) {
 			actorData.data.rage.permanent = actorData.data.rage.max;
@@ -343,9 +345,17 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent; 
 
 		console.log("WoD | Werewolf Sheet calculations done");
-	}
+	}	
+}
 
-	
+/*function handleWerewolfShiftCalculations(actorData, toForm) {
+	// attributes totals
+	for (const i in actorData.data.attributes) {
+		const shift = handleWerewolfShiftAttributeData(actorData.data.attributes[i].label, toForm);
+		//const shiftdiff = handleWerewolfShiftAbilityData(actorData.data.attributes[i], toForm);
+
+		actorData.data.attributes[i].total = actorData.data.attributes[i].total + shift.value;
+	}
 }
 
 function handleWerewolfShiftAttributeData(attribute, presentForm) {
@@ -452,5 +462,4 @@ function handleWerewolfShiftAbilityData(attribute, presentForm) {
 	}
 
 	return data;
-}
-
+}*/

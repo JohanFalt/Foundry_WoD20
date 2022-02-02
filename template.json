@@ -23,7 +23,9 @@
 					"damage": {
 						"bashing": 0,
 						"lethal" : 0,
-						"aggravated": 0
+						"aggravated": 0,
+						"woundlevel": "",
+						"woundpenalty": 0
 					},
 					"bruised": {
 						"value": 1,
@@ -82,6 +84,7 @@
 				"attributes": {
 					"strength": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "physical",
 						"label": "wod.attributes.strength",
@@ -89,6 +92,7 @@
 					},
 					"charisma": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "social",
 						"label": "wod.attributes.charisma",
@@ -96,6 +100,7 @@
 					},
 					"intelligence": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "mental",
 						"label": "wod.attributes.intelligence",
@@ -103,6 +108,7 @@
 					},
 					"dexterity": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "physical",
 						"label": "wod.attributes.dexterity",
@@ -110,6 +116,7 @@
 					},
 					"manipulation": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "social",
 						"label": "wod.attributes.manipulation",
@@ -117,6 +124,7 @@
 					},
 					"wits": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "mental",
 						"label": "wod.attributes.wits",
@@ -124,6 +132,7 @@
 					},
 					"stamina": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "physical",
 						"label": "wod.attributes.stamina",
@@ -131,6 +140,7 @@
 					},
 					"composure": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "social",
 						"label": "wod.attributes.composure",
@@ -138,6 +148,7 @@
 					},
 					"resolve": {
 						"value": 1,
+						"total": 0,
 						"max": 5,
 						"type": "mental",
 						"label": "wod.attributes.resolve",
@@ -562,7 +573,6 @@
 			"Ranged Weapon",
 			"Armor",
 			"Power",
-			"Rite",
 			"Fetish"
 		],
 		"templates": {
