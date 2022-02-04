@@ -7,6 +7,19 @@ export function calculateTotals(actorData) {
 		actorData.data.attributes[i].total = actorData.data.attributes[i].value + shift.value;
 	}    
 
+	if (actorData.type == "Werewolf") {
+		actorData.data.soak.bashing = actorData.data.attributes.stamina.total;
+		actorData.data.soak.lethal = actorData.data.attributes.stamina.total;
+		actorData.data.soak.aggravated = actorData.data.attributes.stamina.total;
+	}
+	else {
+		actorData.data.soak.bashing = actorData.data.attributes.stamina.total;
+		actorData.data.soak.lethal = 0;
+		actorData.data.soak.aggravated = 0;
+	}
+
+	actorData.data.initiative.base = parseInt(actorData.data.attributes.dexterity.total) + parseInt(actorData.data.attributes.wits.total);
+
     return actorData;
 }
 

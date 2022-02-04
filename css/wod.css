@@ -191,6 +191,10 @@
 	width: 100%;	
 }
 
+input.shortBox {
+  width: 25%;
+}
+
 input.sheet-infoValues {
 	font-family: Verdana, sans-serif;
 	font-weight: normal;

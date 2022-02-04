@@ -23,7 +23,12 @@
 {{#each actor.rangedWeapons as |item id|}}
 
 <div class="clearareaBox">
-    <div class="pullLeft combat-mediumBox headlineNormal {{#if item.data.attack.roll}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.attack.attribute}}" data-dice2="{{item.data.attack.ability}}" data-diff="{{item.data.diff}}">{{captilizeFirst item.name}}</div>
+    <div class="pullLeft combat-mediumBox headlineNormal {{#if item.data.attack.roll}}vrollable{{/if}}" 
+        data-rollitem="true" 
+        data-label="{{captilizeFirst item.name}}" 
+        data-dice1="{{item.data.attack.attribute}}" 
+        data-dice2="{{item.data.attack.ability}}" 
+        data-diff="{{item.data.diff}}">{{captilizeFirst item.name}}</div>
     <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.attribute}}</div>
     <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.ability}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.diff}}</div>
@@ -40,7 +45,12 @@
     <!--<div class="pullLeft combat-valueBox headlineNormal">
         {{#if item.data.mode.reload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.data.mode.burst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.data.mode.fullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.data.mode.spray}}{{localize "wod.combat.mode.spray"}}{{/if}}
     </div>-->
-    <div class="pullLeft combat-mediumBox headlineNormal {{#if item.data.damage.roll}}vrollable{{/if}}">{{#if item.data.damage.roll}}{{localize "wod.labels.rolldamage"}}{{else}}&nbsp;{{/if}}</div>
+    <div class="pullLeft combat-mediumBox headlineNormal {{#if item.data.damage.roll}}vrollable{{/if}}" 
+        data-rolldamage="true" 
+        data-label="{{captilizeFirst item.name}}" 
+        data-dice1="{{item.data.damage.attribute}}" 
+        data-dice2="{{item.data.damage.bonus}}" 
+        data-type="{{item.data.damage.type}}">{{#if item.data.damage.roll}}{{localize "wod.labels.rolldamage"}}{{else}}&nbsp;{{/if}}</div>
     <div class="pullLeft">
         <a class="item-delete" title="{{localize "wod.labels.remove.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
     </div>

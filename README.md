@@ -1,5 +1,16 @@
 # Foundry_WoD20
 
+Fix i 0.3.8
+- Töm Health Level högerklick
+- Visa Attribute Total i settings
+- Om ta bort fråga först
+- Roll Damage
+- Macro: Slå initiative
+- Kunna modifiera initiativ bonus
+- Soak beräknas baserat på form och typ av sheet
+- Macro: Slå Soak
+- Macro: Slå X st tärningar (t ex Willpower)
+
 Fix i v0.3.7
 - Sätta ut Rank
 - Flytta upp Tab brevid upplåsningknapp

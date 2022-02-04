@@ -199,6 +199,7 @@
 			"description": "Description",
 			"nodamage": "No Damage",
 			"varies": "Varies",
+			"damagetype": "Damage Type",
 			"numberdamagebashing": "Damage Bashing",
 			"numberdamagelethal": "Damage Lethal",
 			"numberdamageaggravated": "Damage Aggravated",
@@ -223,6 +224,8 @@
 				"armor": "Add Armor"
 			},
 			"remove": {
+				"item": "Remove Item",
+				"removing": "Removing",
 				"naturalweapon": "Remove Natural Weapon",
 				"meleeweapon": "Remove Melee Weapon",
 				"rangedweapon": "Remove Ranged Weapon",
@@ -231,7 +234,8 @@
 				"rite": "Remove Rite"
 			},
 			"yes": "yes",
-			"rolldamage": "Roll Damage"
+			"rolldamage": "Roll Damage",
+			"numdices": "Number of Dices"
 		},
 		"dice": {
 			"rollattack": "Roll Attack",

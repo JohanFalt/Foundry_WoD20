@@ -151,30 +151,6 @@ Hooks.once("init", async function() {
 		return "";
 	});
 
-	Handlebars.registerHelper("dclearHealthamageState", function (healthStates) {
-		let num = 0;
-		let oldHealthLevel = "";
-
-		for (const i of healthStates) {
-			if (oldHealthLevel != healthLevel) {
-				num = 0;
-				oldHealthLevel = healthLevel;
-			}
-
-			if (i.label == healthLevel) {
-				if (num == index) {
-					return i.status;
-				}
-
-				num += 1;
-			}			
-		}
-
-		return "";
-	});
-
-	
-
 	Handlebars.registerHelper("captilizeFirst", function (text) {
 		return text.charAt(0).toUpperCase() + text.slice(1);
 	});

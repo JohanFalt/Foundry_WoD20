@@ -7,8 +7,50 @@
 	<input class="sheet-infoValues" name="data.worldanvil" type="text" value="{{data.data.worldanvil}}" data-name="data.data.worldanvil" {{#if locked}} readonly {{/if}} />
 </div>
 
-Antalet boxar i health <br />
+<div>Attribute</div>
+{{#each data.data.attributes as |attribute key|}}
 <div>
+	<div class="clearareaBox">
+		<label for="data.data.attributes.{{key}}.value" class="headlineGroup">{{localize attribute.label}}</label>	
+		<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{attribute.value}}" readonly /><input class="pullLeft sheet-infoValues shortBox" type="text" value="{{attribute.total}}" readonly />
+	</div>
+</div>
+{{/each}}
+
+<div>Soak</div>
+<div>
+	<div class="clearareaBox">
+		<div>
+			<label for="data.data.soak.bashing" class="headlineGroup">{{localize "wod.labels.soak.bashing"}}</label>	
+			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.soak.bashing}}" readonly />
+		</div>
+		<div>
+			<label for="data.data.soak.lethal" class="headlineGroup">{{localize "wod.labels.soak.lethal"}}</label>	
+			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.soak.lethal}}" readonly />
+		</div>
+		<div>
+			<label for="data.data.soak.aggravated" class="headlineGroup">{{localize "wod.labels.soak.aggravated"}}</label>	
+			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.soak.aggravated}}" readonly />
+		</div>
+	</div>
+</div>
+
+<div>Initiative</div>
+<div>
+	<div class="clearareaBox">
+		<div>
+			<label for="data.data.initiative.base" class="headlineGroup">{{localize "wod.labels.initiativ"}}</label>	
+			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.initiative.base}}" readonly />
+		</div>
+		<div>
+			<label for="data.data.initiative.bonus" class="headlineGroup">{{localize "wod.labels.initiativ.bonus"}}</label>	
+			<input class="pullLeft sheet-infoValues shortBox" name="data.initiative.bonus" type="text" value="{{data.data.initiative.bonus}}" {{#if locked}}readonly{{/if}} />
+		</div>
+	</div>
+</div>
+
+<div>Num boxes in Health</div>
+<div class="clearareaBox">
 	<label for="data.data.health.bruised.value" class="headlineGroup centerText" data-label="{{data.data.health.bruised.value}}" data-ability="true">{{localize "wod.health.bruised"}}</label>
 	<input class="sheet-infoValues" name="data.health.bruised.value" type="text" value="{{data.data.health.bruised.value}}" data-name="data.data.health.bruised.value" {{#if locked}} readonly {{/if}} />
 </div>

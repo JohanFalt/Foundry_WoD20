@@ -16,8 +16,6 @@
 
     {{#iff item.data.type "==" "wod.types.gift"}}
 
-    {{logg item}}
-
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>

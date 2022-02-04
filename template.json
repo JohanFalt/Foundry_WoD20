@@ -74,6 +74,10 @@
 					"max": 10,
 					"roll": 0,
 					"label": "wod.advantages.willpower"
+				},
+				"initiative": {
+					"base": 0,
+					"bonus": 0
 				}
 			},
 			"mortal": {

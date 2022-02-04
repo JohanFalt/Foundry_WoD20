@@ -12,7 +12,6 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 	let rolledOne = false;
 	let roll;
 
-	//if (!zeroDices) {
 	roll = new Roll(dice + "d10");
 	roll.evaluate({async:true});		
 
@@ -29,7 +28,6 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 			rolledOne = true;
 		}
 	});
-	//}
 
 	successRoll = success > 0;		
 	

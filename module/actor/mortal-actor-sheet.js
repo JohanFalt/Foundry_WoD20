@@ -130,6 +130,9 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".health > .resource-counter > .resource-value-step")
 			.click(this._onSquareCounterChange.bind(this));
+		html
+			.find(".health > .resource-counter > .resource-value-step")
+			.on('contextmenu', this._onSquareCounterClear.bind(this));
 
 		// Rollable stuff
 		html
@@ -147,46 +150,22 @@ export class MortalActorSheet extends ActorSheet {
 	}
 	
 	_onRollDialog(event) {		
-		function getAbility(ability, property, key) {
-			let value = "";
-			
-			if (key == "") {
-				return value;
-			}
-			
-			value = ability.talent[key]?.[property];
-			
-			if (value == undefined) {
-				value = ability.skill[key]?.[property];
-				
-				if (value == undefined) {
-					value = ability.knowledge[key]?.[property];
-				}
-			}			
-			
-			return value;
-		}
-	
 		console.log("WoD | Mortal Sheet _onRollDialog");
 	
 		event.preventDefault();
 
 		const element = event.currentTarget;
-		const dataset = element.dataset;
-    
-		let options1 = "";
-		let options2 = "";
-		let options3 = "";
-		let healthOptions = "";		
+		const dataset = element.dataset;    
 		
 		let wounded = "";
 		let specialty = `<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>`;
 		let selectAbility = "";
 		let difficulty = 6;
 		let selector = "";
+		let template = "";
 
-		if (dataset.noability=="true") {
-			wounded = "";
+		// show wounded, selectAbility
+		if ((dataset.noability=="true") || (dataset.rolldamage=="true")) {
 		}
 		else { 
 			if (this.actor.data.data.health.damage.woundlevel != "") {
@@ -194,6 +173,8 @@ export class MortalActorSheet extends ActorSheet {
 			}			
 		
 			if (dataset.ability == "true") {
+				let options1 = "";
+
 				for (const [key, value] of Object.entries(this.actor.data.data.attributes)) {
 					options1 = options1.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
 				}
@@ -208,35 +189,64 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 
-		//<input type="text" min="3" id="inputDif" value="${difficulty}">
-		
-
-		for (let i = 3; i <= 10; i++) {
-			if (i == difficulty) {
-				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
-			}
-			else {
-				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
+		// set final difficulty
+		if (dataset.rolldamage=="true") {
+		}
+		else {
+			for (let i = 3; i <= 10; i++) {
+				if (i == difficulty) {
+					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
+				}
+				else {
+					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
+				}
 			}
 		}
 
-		const template = `
-			<form>
-				`
-				+ selectAbility + 
-				`
-				<div class="form-group">
-					<label>${game.i18n.localize("wod.labels.modifier")}</label>
-					<input type="text" id="inputMod" value="0">
-				</div>  
-				<div class="form-group">
-					<label>${game.i18n.localize("wod.labels.difficulty")}</label>
+		if (dataset.noability=="true") {
+			template = `
+				<form>
+					<div class="form-group">
+						<label>${game.i18n.localize("wod.labels.modifier")}</label>
+						<input type="text" id="inputMod" value="0">
+					</div>  
+					<div class="form-group">
+						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
+						`
+						+ selector + 
+						`
+					</div>
+					` + specialty +`
+				</form>`;
+		} 
+		else if (dataset.rolldamage=="true") {
+			template = `
+				<form>
+					<div class="form-group">
+						<label>${game.i18n.localize("wod.labels.modifier")}</label>
+						<input type="text" id="inputMod" value="0">
+					</div> 
+				</form>`;
+		}
+		else {
+			template = `
+				<form>
 					`
-					+ selector + 
+					+ selectAbility + 
 					`
-				</div>
-				` + wounded + specialty +`
-			</form>`;
+					<div class="form-group">
+						<label>${game.i18n.localize("wod.labels.modifier")}</label>
+						<input type="text" id="inputMod" value="0">
+					</div>  
+					<div class="form-group">
+						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
+						`
+						+ selector + 
+						`
+					</div>
+					` + wounded + specialty +`
+				</form>`;
+		}		
 
 		let buttons = {};
 		buttons = {
@@ -254,9 +264,9 @@ export class MortalActorSheet extends ActorSheet {
 					let numDice = 0;
 					let diceUsed = "";
 
-					const modifier = parseInt(html.find("#inputMod")[0].value || 0);
-					//const difficulty = parseInt(html.find("#inputDif")[0].value || 0);
-					const difficulty = parseInt(html.find("#inputDif:checked")[0].value || 0);
+					const modifier = parseInt(html.find("#inputMod")[0]?.value || 0);
+					let modifierText = "";
+					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 0);
 					const specialty = html.find("#specialty")[0]?.checked || false;
 
 					if (this.actor.data.data.conditions.ignorepain) {
@@ -266,60 +276,77 @@ export class MortalActorSheet extends ActorSheet {
 						woundPenaltyVal = this.actor.data.data.health.damage.woundpenalty;
 					}
 
+					if (modifier > 0) {
+						modifierText = `+${modifier}`;
+					}
+					else if (modifier < 0) {
+						modifierText = `${modifier}`;
+					}
+
 					if (dataset.ability == "true") {
 						attribute = html.find("#attributeSelect")[0]?.value;
-						attributeVal = this.actor.data.data.attributes[attribute].total;
+						attributeVal = parseInt(this.actor.data.data.attributes[attribute].total);
 						
 						attributeName = game.i18n.localize(this.actor.data.data.attributes[attribute].label);
 						numDice = attributeVal + parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal})`;
+						diceUsed = `${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}`;
 					} 
 					else if (dataset.attribute == "true") {
 						attribute = dataset.label.toLowerCase();
 						attributeVal = dataset.roll;
 						attributeName = "";
 						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll})`;
+						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
 					}
 					else if (dataset.noability == "true") {
 						woundPenaltyVal = 0;
 						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll})`;
+						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
 					}
 					else if (dataset.rollitem == "true") {
 
 						if (this.actor.data.data.attributes[dataset.dice1]?.value != undefined) {
-							attributeVal = this.actor.data.data.attributes[dataset.dice1].total;
+							attributeVal = parseInt(this.actor.data.data.attributes[dataset.dice1].total);
 							attributeName = game.i18n.localize(this.actor.data.data.attributes[dataset.dice1].label);
 						}
 						else if (this.actor.data.data[dataset.dice1]?.roll != undefined) { 
-							attributeVal = this.actor.data.data[dataset.dice1].value;
+							attributeVal = parseInt(this.actor.data.data[dataset.dice1].roll);
 							attributeName = game.i18n.localize(this.actor.data.data[dataset.dice1].label);
 						}
 
 						if (this.actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
-							abilityVal = this.actor.data.data.abilities.talent[dataset.dice2].value;
+							abilityVal = parseInt(this.actor.data.data.abilities.talent[dataset.dice2].value);
 							abilityName = game.i18n.localize(this.actor.data.data.abilities.talent[dataset.dice2].label);
 						}
 						else if (this.actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
-							abilityVal = this.actor.data.data.abilities.skill[dataset.dice2].value;
+							abilityVal = parseInt(this.actor.data.data.abilities.skill[dataset.dice2].value);
 							abilityName = game.i18n.localize(this.actor.data.data.abilities.skill[dataset.dice2].label);
 						}
 						else if (this.actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
-							abilityVal = this.actor.data.data.abilities.knowledge[dataset.dice2].value;
+							abilityVal = parseInt(this.actor.data.data.abilities.knowledge[dataset.dice2].value);
 							abilityName = game.i18n.localize(this.actor.data.data.abilities.knowledge[dataset.dice2].label);
 						}		
 						
 						numDice = attributeVal + abilityVal + modifier;
-						diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal})`;
-					}									
-					
-					if (modifier > 0) {
-						diceUsed += ` +${modifier}`;
-					}
-					else if (modifier < 0) {
-						diceUsed += ` ${modifier}`;
-					}
+						diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal}) ${modifierText}`;
+					}	
+					else if (dataset.rolldamage=="true") {
+						let bonusVal = parseInt(dataset.dice2);
+						let damageCode = game.i18n.localize(CONFIG.wod.damageTypes[dataset.type]);
+
+						woundPenaltyVal = 0;
+						difficulty = 6;
+						attributeVal = parseInt(this.actor.data.data.attributes[dataset.dice1]?.total || 0);
+						attributeName = game.i18n.localize(this.actor.data.data.attributes[dataset.dice1]?.label || "");
+						numDice = attributeVal + bonusVal + modifier;
+						
+						if (attributeVal > 0) {
+							diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}`;
+						}
+						else {
+							diceUsed = `${dataset.label}<br />${bonusVal} ${modifierText}<br />${damageCode}`;
+						}
+					}	
 					
 					rollDice(
 						numDice,
@@ -353,8 +380,7 @@ export class MortalActorSheet extends ActorSheet {
 		this._render();
 	}
 
-
-	 _setupDotCounters(html) {
+	_setupDotCounters(html) {
 		html.find(".resource-value").each(function () {
 			const value = Number(this.dataset.value);
 			$(this)
@@ -376,7 +402,7 @@ export class MortalActorSheet extends ActorSheet {
 					}
 				});
 		});
-	 }
+	}
   
 	_onDotCounterChange(event) {
 		console.log("WoD | Mortal Sheet _onDotCounterChange");
@@ -494,6 +520,34 @@ export class MortalActorSheet extends ActorSheet {
 		this.actor.update(actorData);
 	}
 
+	_onSquareCounterClear(event) {
+		console.log("WoD | Clear Health Level");
+
+		event.preventDefault();
+
+		const element = event.currentTarget;
+		const oldState = element.dataset.state || "";
+		const actorData = duplicate(this.actor);
+
+		if (oldState == "") {
+			return
+		}
+		else if (oldState == "/") { 
+			actorData.data.health.damage.bashing = parseInt(actorData.data.health.damage.bashing) - 1;
+		}
+		else if (oldState == "x") { 
+			actorData.data.health.damage.lethal = parseInt(actorData.data.health.damage.lethal) - 1;
+		}
+		else if (oldState == "*") { 
+			actorData.data.health.damage.aggravated = parseInt(actorData.data.health.damage.aggravated) - 1;
+		}
+
+		this.handleCalculations(actorData);
+		this.handleWouldLevelCalculations(actorData);
+
+		this.actor.update(actorData);
+	}
+
 	_onItemCreate(event) {
 		event.preventDefault();
 
@@ -511,7 +565,7 @@ export class MortalActorSheet extends ActorSheet {
 		return this.actor.createEmbeddedDocuments('Item', [itemData])
 	}
 
-	_onItemDelete(event) {
+	async _onItemDelete(event) {
 		if (this.locked) {
 			console.log("WoD | Sheet locked aborts");
 			return;
@@ -521,49 +575,29 @@ export class MortalActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
+		const li = $(event.currentTarget).parents(".item");
 		let item = this.actor.getEmbeddedDocument("Item", itemId);
 
         if (!item)
             return;
 
-		const performDelete = true;
-
-        /*const performDelete = await new Promise((resolve) => {
+        const performDelete = await new Promise((resolve) => {
             Dialog.confirm({
-                title: game.i18n.format("swnr.deleteTitle", { name: item.name }),
+                title: game.i18n.format(game.i18n.localize("wod.labels.remove.item"), { name: item.name }),
                 yes: () => resolve(true),
                 no: () => resolve(false),
-                content: game.i18n.format("swnr.deleteContent", {
+                content: game.i18n.format(game.i18n.localize("wod.labels.remove.removing") + " " + item.name, {
                     name: item.name,
                     actor: this.actor.name,
                 }),
             });
-        });*/
+        });
 
         if (!performDelete)
             return;
 
-		this.actor.deleteEmbeddedDocuments("Item", [itemId]);
-
-        /*li.slideUp(200, () => {
-            requestAnimationFrame(() => {
-                //this.actor.deleteEmbeddedDocuments("Item", [li.data("item-id")]);
-				
-            });
-        });*/
+		this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
 	}
-
-	/*getItemDefaultName(type, data) {
-		if (type === "SpecialityAttribute") {
-			return `${game.i18n.localize("wod.types.speciality")}`;
-		}
-
-		if (type === "Melee Weapon") {
-			return `${game.i18n.localize("wod.types.meleeweapon")}`;
-		}
-
-		return `${game.i18n.localize("VTM5E." + type.capitalize())}`;
-	}*/
 	  
 	/**
 	* If any changes are done to the Actor values.
@@ -617,7 +651,7 @@ export class MortalActorSheet extends ActorSheet {
 		actorData = calculateTotals(actorData);
 
 		// willpower
-		actorData.data.willpower.permanent = actorData.data.attributes.composure.value + actorData.data.attributes.resolve.value;
+		actorData.data.willpower.permanent = parseInt(actorData.data.attributes.composure.value) + parseInt(actorData.data.attributes.resolve.value);
 		
 		if (actorData.data.willpower.permanent > actorData.data.willpower.max) {
 			actorData.data.willpower.permanent = actorData.data.willpower.max;
