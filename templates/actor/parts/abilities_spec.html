@@ -1,0 +1,80 @@
+<div class="clearareaBox" style="width: 100%;">
+
+	<div class="sheet-headline">
+		{{localize 'wod.abilities.abilities'}}
+		<!--<a class="item-create" title="{{localize "wod.labels.add.speciality"}}" data-type="SpecialityAbility">
+			<i class="fas fa-plus-circle"></i>
+		</a>-->
+	</div>
+
+	<div class="clearareaBox">
+		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.talents"}}</div>
+		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.skills"}}</div>
+		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.knowledges"}}</div>
+	</div>
+	
+	<div class="ability-statArea pullLeft">
+	
+		{{#each data.data.abilities.talent as |ability key|}}	
+		
+		<div class="clearareaBox">
+			<label for="data.data.abilities.talent.{{key}}.value" 
+				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
+			{{#iff ability.value ">=" "4"}}
+			<div class="resource-value pullRight">
+				<input type="text" 
+					class="specialityBox"
+					name="data.abilities.talent.{{key}}.speciality" 
+					value="{{ability.speciality}}" 
+					data-name="data.abilities.talent.{{key}}.speciality" />
+			</div>
+			{{/iff}}
+		</div>	
+		
+		{{/each}}
+	
+	</div>
+	<div class="ability-statArea pullLeft">
+	
+		{{#each data.data.abilities.skill as |ability key|}}
+		
+		<div class="clearareaBox">
+			<label for="data.data.abilities.skill.{{key}}.value" 
+				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
+			{{#iff ability.value ">=" "4"}}
+			<div class="resource-value pullRight">
+				<input type="text" 
+					class="specialityBox"
+					name="data.abilities.skill.{{key}}.speciality" 
+					value="{{ability.speciality}}" 
+					data-name="data.abilities.skill.{{key}}.speciality" />				
+			</div>
+			{{/iff}}
+		</div>
+		
+		{{/each}}
+	
+	</div>
+	<div class="ability-statArea pullLeft">
+	
+		{{#each data.data.abilities.knowledge as |ability key|}}
+		
+		<div class="clearareaBox">
+			<label for="data.data.abilities.knowledge.{{key}}.value" 
+				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
+			{{#iff ability.value ">=" "4"}}
+			<div class="resource-value pullRight">
+				<input type="text" 
+				class="specialityBox"
+					name="data.abilities.knowledge.{{key}}.speciality" 
+					value="{{ability.speciality}}" 
+					data-name="data.abilities.knowledge.{{key}}.speciality" />					
+			</div>
+			{{/iff}}
+		</div>
+		
+		{{/each}}
+	
+	</div>
+	
+</div>	

@@ -6,6 +6,8 @@
 			"background": "Background",
 			"merit": "Merit",
 			"flaw": "Flaw",
+			"expspent": "Spent Experience",
+			"expgained": "Gained Experience",
 			"meleeweapon": "Melee Weapon",
 			"rangedweapon": "Ranged Weapon",
 			"armor": "Armor",
@@ -17,6 +19,8 @@
 		"tab": {
 			"bio": "Bio",
 			"core": "Core",
+			"normal": "View as Normal",
+			"specialities": "View Specialities",
 			"combat": "Combat",
 			"gear": "Gear",
 			"notes": "Notes",
@@ -145,7 +149,9 @@
 					"na": "N/A"
 				},
 				"twohanded": "Two-handed",
-				"natural": "Natural Weapon"
+				"natural": "Natural Weapon",
+				"initiative": "Initiative",
+				"initiativebonus": "Initiative Bonus"
 			},
 			"armor": {
 				"active": "Active",
@@ -162,7 +168,8 @@
 				"burst": "Burst",
 				"fullauto": "Full Auto",
 				"spray": "Spray"
-			}
+			},
+			"initiative": "Initiative"
 		},
 		"shapes": {
 			"shapes": "Shapes",
@@ -184,12 +191,17 @@
 			"diff": "Diff",
 			"rites": "Rites"
 		},
+		"experience": {
+			"amount": "Amount",
+			"spent": "Spent"
+		},
 		"labels": {
 			"rolling": "Rolling",
 			"cancel": "Cancel",
 			"difficulty": "Difficulty",
 			"modifier": "Modifier",
 			"selectwound": "Select Wound",
+			"woundlevel": "Wound Level",
 			"selectability": "Select Ability",
 			"selectattribute": "Select Attribute",
 			"specialty": "Speciality",			
@@ -197,6 +209,7 @@
 			"none": "None",
 			"type": "Type",
 			"description": "Description",
+			"details": "Details",
 			"nodamage": "No Damage",
 			"varies": "Varies",
 			"damagetype": "Damage Type",
@@ -218,10 +231,21 @@
 				"varies": "Varies",
 				"system": "System"
 			},
+			"notes": {
+				"backgrounds": "Backgrounds",
+				"merits": "Merits",
+				"flaws": "Flaws"
+			},
 			"add": {
 				"meleeweapon": "Add Melee Weapon",
 				"rangedweapon": "Add Ranged Weapon",
 				"armor": "Add Armor"
+			},
+			"edit": {
+				"naturalweapon": "Edit Natural Weapon",
+				"meleeweapon": "Edit Melee Weapon",
+				"rangedweapon": "Edit Ranged Weapon",
+				"background": "Edit Background"
 			},
 			"remove": {
 				"item": "Remove Item",
@@ -231,11 +255,13 @@
 				"rangedweapon": "Remove Ranged Weapon",
 				"armor": "Remove Armor",
 				"gift": "Remove Gift",
-				"rite": "Remove Rite"
+				"rite": "Remove Rite",
+				"background": "Remove Background"
 			},
 			"yes": "yes",
 			"rolldamage": "Roll Damage",
-			"numdices": "Number of Dices"
+			"numdices": "Number of Dices",
+			"send": "Send to Chatt"
 		},
 		"dice": {
 			"rollattack": "Roll Attack",

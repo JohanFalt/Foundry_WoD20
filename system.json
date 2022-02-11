@@ -2,7 +2,7 @@
 	"name": "worldofdarkness",
 	"title": "World of Darkness 20th",
 	"description": "To play World of Darkness",
-	"version": "0.3.8",
+	"version": "1.0.0",
 	"minimumCoreVersion": "9.238",
 	"compatibleCoreVersion": "9.249",
 	"templateVersion": 1,

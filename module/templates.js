@@ -13,7 +13,9 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/navigation.html",
 		"systems/worldofdarkness/templates/actor/parts/bio.html",
 		"systems/worldofdarkness/templates/actor/parts/attributes.html",
+		"systems/worldofdarkness/templates/actor/parts/attributes_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
+		"systems/worldofdarkness/templates/actor/parts/abilities_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_natural.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
@@ -23,6 +25,8 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/gift.html",
 		"systems/worldofdarkness/templates/actor/parts/stats.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
+		"systems/worldofdarkness/templates/actor/parts/gear.html",
+		"systems/worldofdarkness/templates/actor/parts/notes.html",
 		"systems/worldofdarkness/templates/actor/parts/settings.html"
 
 		// Item Sheet Partials

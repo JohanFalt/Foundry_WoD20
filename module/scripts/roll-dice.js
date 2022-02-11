@@ -1,7 +1,7 @@
 /* global ChatMessage, Roll, game */
 
 // Function to roll dice
-export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, wound) {
+export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, specialityText, wound) {
 	console.log("WoD | rollDice");
   
 	let zeroDices = numDice + wound <= 0;   
@@ -35,11 +35,20 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		wound = ``;
 	}
 
-	label = `<p class="roll-label uppercase">${label}</p>`;
+	if (specialty) {
+		specialityText = `<br /><span>(${specialityText})</span>`;
+	}
+	else {
+		specialityText = "";
+	}
+
+	label = `<p class="roll-label uppercase">${label} ${specialityText}</p>`;
 	label += `<p class="roll-label uppercase">${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</p>`;
 	label += `<p class="roll-label uppercase">${wound}</p>`;
 
 	if (!zeroDices) {
+		
+
 		if (successRoll) {
 			difficultyResult = `( <span class="success">${game.i18n.localize("wod.dice.success")}</span> )`;
 		}
@@ -50,7 +59,7 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 			difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.fail")}</span> )`;
 		}
 		
-		label += `<p class="roll-label result-success">${game.i18n.localize("wod.dice.successes")}: ${success} ${difficultyResult}</p>`;
+		label += `<p class="roll-label result-success">${game.i18n.localize("wod.dice.successes")}: ${success}  ${difficultyResult}</p>`;
 	}
 
 	if (!zeroDices) {

@@ -19,8 +19,9 @@
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        {{#if item.data.rollable}}
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -28,11 +29,19 @@
                 {{item.data.difficulty}}
             {{/iff}}
         </div>
+        {{else}}
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-valueBox headlineNormal">&nbsp;</div>
+        {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
             <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
         </div>
-        <div class="pullLeft">
+        <div class="pullLeft gift-valueBox">
+            <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
+        </div>
+        <div class="pullLeft gift-valueBox">
             <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
         </div>
     </div>
@@ -65,8 +74,9 @@
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        {{#if item.data.rollable}}
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -74,11 +84,19 @@
                 {{item.data.difficulty}}
             {{/iff}}
         </div>
+        {{else}}
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-valueBox headlineNormal">&nbsp;</div>
+        {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
             <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
         </div>
-        <div class="pullLeft">
+        <div class="pullLeft gift-valueBox">
+            <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
+        </div>
+        <div class="pullLeft gift-valueBox">
             <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
         </div>
     </div>
@@ -112,8 +130,9 @@
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        {{#if item.data.rollable}}
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -121,11 +140,19 @@
                 {{item.data.difficulty}}
             {{/iff}}
         </div>
+        {{else}}
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-valueBox headlineNormal">&nbsp;</div>
+        {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
             <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
         </div>
-        <div class="pullLeft">
+        <div class="pullLeft gift-valueBox">
+            <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
+        </div>
+        <div class="pullLeft gift-valueBox">
             <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
         </div>
     </div>
@@ -159,8 +186,9 @@
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        {{#if item.data.rollable}}
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -168,11 +196,19 @@
                 {{item.data.difficulty}}
             {{/iff}}
         </div>
+        {{else}}
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-valueBox headlineNormal">&nbsp;</div>
+        {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
             <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
         </div>
-        <div class="pullLeft">
+        <div class="pullLeft gift-valueBox">
+            <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
+        </div>
+        <div class="pullLeft gift-valueBox">
             <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
         </div>
     </div>
@@ -205,9 +241,15 @@
 
     <div class="clearareaBox">
         <div class="pullLeft gift-valueBox"><input name="data.active" type="checkbox" {{#if data.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-rollitem="true" 
+            data-label="{{captilizeFirst item.name}}" 
+            data-dice1="{{item.data.dice1}}" 
+            data-dice2="{{item.data.dice2}}" 
+            data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
+        {{#if item.data.rollable}}
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{item.data.dice2}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -215,11 +257,19 @@
                 {{item.data.difficulty}}
             {{/iff}}
         </div>
+        {{else}}
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
+        <div class="pullLeft gift-valueBox headlineNormal">&nbsp;</div>
+        {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
             <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
         </div>
-        <div class="pullLeft">
+        <div class="pullLeft gift-valueBox">
+            <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
+        </div>
+        <div class="pullLeft gift-valueBox">
             <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
         </div>
     </div>
@@ -248,7 +298,7 @@
     <div class="clearareaBox">
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" data-rollitem="true" data-label="{{captilizeFirst item.name}}" data-dice1="{{item.data.dice1}}" data-dice2="{{item.data.dice2}}" data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize item.data.dice2}}</div>
+        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">
             {{#iff item.data.difficulty "==" -1}}
                 {{localize "wod.labels.varies"}}
@@ -260,7 +310,10 @@
             <i class="fa fa-sticky-note"></i>
             <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
         </div>
-        <div class="pullLeft">
+        <div class="pullLeft gift-valueBox">
+            <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
+        </div>
+        <div class="pullLeft gift-valueBox">
             <a class="item-delete" title="{{localize "wod.labels.remove.rite"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
         </div>
     </div>

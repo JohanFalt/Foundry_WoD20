@@ -1,5 +1,27 @@
 # Foundry_WoD20
 
+Fix i 0.3.9
+- Lägg till Specialities
+- Edit Combat
+- Feature form
+- Experience item
+- Korrigera utseendet för listning av gifts som ej har slag.
+- Kommer upp i text när man använder grundegenskapen eller färdigheten i tärningsformuläret
+- Använder man spec i tärningsslaget skall dess specialitet synas i chatt.
+- feature: background
+- feature: merits
+- feature: flaws
+- Design Notes
+- Design Gear
+- experience: (earned/spent)
+- räkna total exp
+- Om inte "klar" på spent exp är ikryssad visa inte kostnad och räkna inte den som spenderad
+- Knapp - Skicka Description Gift + Rites till chatt
+
+- Aaron fixad grund, färdigheter, spec, vapen, gifts/rites, background, merits, flaws, exp
+- Delit fixad grund, färdigheter, spec, vapen, gifts/rites, background, merits, flaws, exp
+
+
 Fix i 0.3.8
 - Töm Health Level högerklick
 - Visa Attribute Total i settings

@@ -15,6 +15,7 @@
 				"appearance": "",
 				"background": "",
 				"notes": "",
+				"gear": "",
 				"conditions": {
 					"ignorepain": false,
 					"stunned": false
@@ -81,10 +82,6 @@
 				}
 			},
 			"mortal": {
-				"exp": {
-					"value": 0,
-					"max": 0
-				},
 				"attributes": {
 					"strength": {
 						"value": 1,
@@ -577,7 +574,8 @@
 			"Ranged Weapon",
 			"Armor",
 			"Power",
-			"Fetish"
+			"Fetish",
+			"Experience"
 		],
 		"templates": {
 			"base": {
@@ -604,8 +602,7 @@
 				"conceal": "",
 				"twohanded": false
 			},
-			"power": {
-				
+			"power": {				
 				"dice1": "",
 				"dice2": "",
 				"difficulty": "",
@@ -616,7 +613,8 @@
 			"templates": [
 				"base",
 				"feature"
-			]
+			],
+			"details": ""
 		},
 		"Melee Weapon": {
 			"templates": [
@@ -682,6 +680,13 @@
 			],
 			"gnosis": 0,
 			"diff": 6
+		},
+		"Experience": {
+			"templates": [
+				"base"
+			],
+			"spent": false,
+			"amount": 0
 		}
 	}
 }

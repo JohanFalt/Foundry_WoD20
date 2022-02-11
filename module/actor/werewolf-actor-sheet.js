@@ -1,5 +1,5 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
-import { calculateTotals } from "../scripts/totals.js";
+import ActionHelper from "../scripts/action-helpers.js"
 
 export class WerewolfActorSheet extends MortalActorSheet {
 	
@@ -13,7 +13,12 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
 				initial: "core",
-			}],
+			},
+			{
+				navSelector: ".sheet-spec-tabs",
+				contentSelector: ".sheet-spec-body",
+				initial: "normal",
+			}]
 		});
 	}
   
@@ -38,6 +43,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const powerlist5 = [];
 		const powercombat = [];
 		const ritelist = [];
+		const other = [];
 		let presentform = "";
 
 		console.log("WoD | Werewolf Sheet handling shift data");
@@ -61,44 +67,48 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		console.log("WoD | Werewolf Sheet handling gift lists");
 
 		for (const i of data.items) {
-			if ((i.data.type == "wod.types.gift") && (i.data.level == 1)) {
-				powerlist1.push(i);
+			if (i.type == "Power") {
+				if ((i.data.type == "wod.types.gift") && (i.data.level == 1)) {
+					powerlist1.push(i);
 
-				if ((i.data.combat)&&(i.data.active)) {
-					powercombat.push(i);
+					if ((i.data.combat)&&(i.data.active)) {
+						powercombat.push(i);
+					}
+				}			
+				else if ((i.data.type == "wod.types.gift") && (i.data.level == 2)) {
+					powerlist2.push(i);
+
+					if ((i.data.combat)&&(i.data.active)) {
+						powercombat.push(i);
+					}
 				}
-			}			
-			if ((i.data.type == "wod.types.gift") && (i.data.level == 2)) {
-				powerlist2.push(i);
+				else if ((i.data.type == "wod.types.gift") && (i.data.level == 3)) {
+					powerlist3.push(i);
 
-				if ((i.data.combat)&&(i.data.active)) {
-					powercombat.push(i);
+					if ((i.data.combat)&&(i.data.active)) {
+						powercombat.push(i);
+					}
 				}
-			}
-			if ((i.data.type == "wod.types.gift") && (i.data.level == 3)) {
-				powerlist3.push(i);
+				else if ((i.data.type == "wod.types.gift") && (i.data.level == 4)) {
+					powerlist4.push(i);
 
-				if ((i.data.combat)&&(i.data.active)) {
-					powercombat.push(i);
+					if ((i.data.combat)&&(i.data.active)) {
+						powercombat.push(i);
+					}
 				}
-			}
-			if ((i.data.type == "wod.types.gift") && (i.data.level == 4)) {
-				powerlist4.push(i);
+				else if ((i.data.type == "wod.types.gift") && (i.data.level == 5)) {
+					powerlist5.push(i);
 
-				if ((i.data.combat)&&(i.data.active)) {
-					powercombat.push(i);
+					if ((i.data.combat)&&(i.data.active)) {
+						powercombat.push(i);
+					}
 				}
-			}
-			if ((i.data.type == "wod.types.gift") && (i.data.level == 5)) {
-				powerlist5.push(i);
-
-				if ((i.data.combat)&&(i.data.active)) {
-					powercombat.push(i);
+				else if (i.data.type == "wod.types.rite") {
+					ritelist.push(i);
 				}
-			}
-
-			if (i.data.type == "wod.types.rite") {
-				ritelist.push(i);
+				else {
+					other.push(i);
+				}
 			}
 		}
 
@@ -110,6 +120,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		data.actor.powerlist5 = powerlist5;
 		data.actor.powercombat = powercombat;
 		data.actor.ritelist = ritelist;
+
+		data.actor.other = other;	
 
 		console.log(data.actor);
 
@@ -262,7 +274,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}			
 		}		
 
-		this.handleCalculations(actorData);
+		ActionHelper.handleCalculations(actorData);
 		this.handleWerewolfCalculations(actorData);
 
 		console.log("WoD | Werewolf Sheet updated");
@@ -304,7 +316,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}
 		}
 		
-		this.handleCalculations(actorData);
+		ActionHelper.handleCalculations(actorData);
 		this.handleWerewolfCalculations(actorData);
 		
 		console.log("WoD | Werewolf Sheet updated");

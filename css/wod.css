@@ -87,6 +87,10 @@
 
 /* START - Dice roll links */
 
+.mortal .send-chat:hover,
+.mortal .send-chat:focus,
+.mortal .item-edit:hover,
+.mortal .item-edit:focus,
 .mortal .item-delete:hover,
 .mortal .item-delete:focus,
 .mortal .vrollable:hover,
@@ -94,6 +98,10 @@
 	text-shadow: 0 0 10px #184e77 !important;
 }
 
+.werewolf .send-chat:hover,
+.werewolf.send-chat:focus,
+.werewolf .item-edit:hover,
+.werewolf .item-edit:focus,
 .werewolf .item-delete:hover,
 .werewolf .item-delete:focus,
 .werewolf .vrollable:hover,
@@ -101,6 +109,10 @@
 	text-shadow: 0 0 10px #583101 !important;
 }
 
+.vampire .send-chat:hover,
+.vampire .send-chat:focus,
+.vampire .item-edit:hover,
+.vampire .item-edit:focus,
 .vampire .item-delete:hover,
 .vampire .item-delete:focus,
 .vampire .vrollable:hover,
@@ -215,6 +227,14 @@ textarea.sheet-infoValues {
 	float: right;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .headlineNormal {
 	font-family: Verdana, sans-serif;
 	font-weight: normal;
@@ -293,6 +313,14 @@ textarea.sheet-infoValues {
   z-index: 1;
 }
 
+.chatt-headline {
+  font-weight: bold;
+}
+
+.chatt-text {
+
+}
+
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
@@ -330,6 +358,12 @@ textarea.sheet-infoValues {
 
 .ability-headlineWidth {
 	width: 40%;
+}
+
+.specialityBox {
+  width: 130px !important;
+  margin-right: 15px !important;
+  height: 18px !important;
 }
 
 /* END - Core */

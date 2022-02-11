@@ -1,6 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
+import ActionHelper from "../scripts/action-helpers.js"
 import { calculateHealth } from "../scripts/health.js";
-import { calculateTotals } from "../scripts/totals.js";
 
 export class MortalActorSheet extends ActorSheet {
 	
@@ -14,7 +13,12 @@ export class MortalActorSheet extends ActorSheet {
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
 				initial: "core",
-			}],
+			},
+			{
+				navSelector: ".sheet-spec-tabs",
+				contentSelector: ".sheet-spec-body",
+				initial: "normal",
+			}]
 		});
 	}
   
@@ -64,19 +68,54 @@ export class MortalActorSheet extends ActorSheet {
 		const meleeWeapons = [];
 		const rangedWeapons = [];
 		const armors = [];
+		const backgrounds = [];
+		const merits = [];
+		const flaws = [];
+		
+		const expearned = [];
+		const expspend = [];
+
+		let totalExp = 0;
+		let spentExp = 0;
 
 		for (const i of data.items) {
-			if (i.data.label == "wod.types.meleeweapon" && i.data.natural) {
-				naturalWeapons.push(i);
+			if (i.type == "Melee Weapon") {
+				if (i.data.natural) {
+					naturalWeapons.push(i);
+				}
+				else if (!i.data.natural) {
+					meleeWeapons.push(i);
+				}
 			}
-			if (i.data.label == "wod.types.meleeweapon" && !i.data.natural) {
-				meleeWeapons.push(i);
-			}
-			if (i.data.label == "wod.types.rangedweapon") {
+			else if (i.type == "Ranged Weapon") {
 				rangedWeapons.push(i);
 			}
-			if (i.data.label == "wod.types.armor") {
+			else if (i.type == "Armor") {
 				armors.push(i);
+			}
+			else if (i.type == "Feature") {
+				if (i.data.type == "wod.types.background") {
+					backgrounds.push(i);
+				}
+				else if (i.data.type == "wod.types.merit") {
+					merits.push(i);
+				}
+				else if (i.data.type == "wod.types.flaw") {
+					flaws.push(i);
+				}
+			}
+			else if (i.type == "Experience") {
+				if (i.data.type == "wod.types.expgained") {
+					expearned.push(i);
+					totalExp += parseInt(i.data.amount);
+				}
+				else if (i.data.type == "wod.types.expspent") {
+					expspend.push(i);
+
+					if (i.data.spent) {
+						spentExp += parseInt(i.data.amount);
+					}
+				}
 			}
 		}		
 
@@ -89,9 +128,15 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.meleeWeapons = meleeWeapons;
 		data.actor.rangedWeapons = rangedWeapons;	
 		data.actor.armors = armors;	
-		
-		//console.log(data.actor);
+		data.actor.backgrounds = backgrounds;
+		data.actor.merits = merits;
+		data.actor.flaws = flaws;
 
+		data.actor.expearned = expearned;
+		data.actor.expspend = expspend;	
+		data.actor.totalExp = totalExp;
+		data.actor.spentExp = spentExp;
+		
 		return data;
 	}	
 
@@ -112,19 +157,19 @@ export class MortalActorSheet extends ActorSheet {
 
 		// ressource dots
 		html
-		  .find(".resource-value > .resource-value-step")
-		  .click(this._onDotCounterChange.bind(this));
+			.find(".resource-value > .resource-value-step")
+			.click(this._onDotCounterChange.bind(this));
 		html
-		  .find(".resource-value > .resource-value-empty")
-		  .click(this._onDotCounterEmpty.bind(this));
+			.find(".resource-value > .resource-value-empty")
+			.click(this._onDotCounterEmpty.bind(this));
 
 		// temporary squares
 		html
-		  .find(".resource-counter > .resource-value-step")
-		  .click(this._onDotCounterChange.bind(this));
+			.find(".resource-counter > .resource-value-step")
+			.click(this._onDotCounterChange.bind(this));
 		html
-		  .find(".resource-counter > .resource-value-empty")
-		  .click(this._onDotCounterEmpty.bind(this));
+			.find(".resource-counter > .resource-value-empty")
+			.click(this._onDotCounterEmpty.bind(this));
 
 		// health
 		html
@@ -136,240 +181,26 @@ export class MortalActorSheet extends ActorSheet {
 
 		// Rollable stuff
 		html
-		  .find(".vrollable")
-		  .click(this._onRollDialog.bind(this));
+			.find(".vrollable")
+			.click(this._onRollDialog.bind(this));
 
 		// items
+		// Edit Inventory Item
 		html
-			.find(".item-create")
-			.click(this._onItemCreate.bind(this));
-
+			.find(".item-edit")
+			.click(this._onItemEdit.bind(this));
+			
 		html
 			.find(".item-delete")
 			.click(this._onItemDelete.bind(this));
+
+		html
+			.find(".send-chat")
+			.click(this._onSendChat.bind(this));
 	}
 	
 	_onRollDialog(event) {		
-		console.log("WoD | Mortal Sheet _onRollDialog");
-	
-		event.preventDefault();
-
-		const element = event.currentTarget;
-		const dataset = element.dataset;    
-		
-		let wounded = "";
-		let specialty = `<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>`;
-		let selectAbility = "";
-		let difficulty = 6;
-		let selector = "";
-		let template = "";
-
-		// show wounded, selectAbility
-		if ((dataset.noability=="true") || (dataset.rolldamage=="true")) {
-		}
-		else { 
-			if (this.actor.data.data.health.damage.woundlevel != "") {
-				wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.selectwound")}</label>${game.i18n.localize(this.actor.data.data.health.damage.woundlevel)} (${this.actor.data.data.health.damage.woundpenalty})</div>`
-			}			
-		
-			if (dataset.ability == "true") {
-				let options1 = "";
-
-				for (const [key, value] of Object.entries(this.actor.data.data.attributes)) {
-					options1 = options1.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
-				}
-				
-				selectAbility =  `<div class="form-group">
-								<label>${game.i18n.localize("wod.labels.selectattribute")}</label>
-								<select id="attributeSelect">${options1}</select>
-							</div>`;
-			}
-			else if (dataset.rollitem == "true") {
-				difficulty = dataset.diff;
-			}
-		}
-
-		// set final difficulty
-		if (dataset.rolldamage=="true") {
-		}
-		else {
-			for (let i = 3; i <= 10; i++) {
-				if (i == difficulty) {
-					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
-				}
-				else {
-					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
-				}
-			}
-		}
-
-		if (dataset.noability=="true") {
-			template = `
-				<form>
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0">
-					</div>  
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
-						`
-						+ selector + 
-						`
-					</div>
-					` + specialty +`
-				</form>`;
-		} 
-		else if (dataset.rolldamage=="true") {
-			template = `
-				<form>
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0">
-					</div> 
-				</form>`;
-		}
-		else {
-			template = `
-				<form>
-					`
-					+ selectAbility + 
-					`
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0">
-					</div>  
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
-						`
-						+ selector + 
-						`
-					</div>
-					` + wounded + specialty +`
-				</form>`;
-		}		
-
-		let buttons = {};
-		buttons = {
-      
-			draw: {
-				icon: '<i class="fas fa-check"></i>',
-				label: game.i18n.localize("wod.dice.roll"),
-				callback: async (html) => {
-					let attribute = "";
-					let attributeVal = 0;
-					let attributeName = "";
-					let abilityVal = 0;
-					let abilityName = "";
-					let woundPenaltyVal = 0;
-					let numDice = 0;
-					let diceUsed = "";
-
-					const modifier = parseInt(html.find("#inputMod")[0]?.value || 0);
-					let modifierText = "";
-					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 0);
-					const specialty = html.find("#specialty")[0]?.checked || false;
-
-					if (this.actor.data.data.conditions.ignorepain) {
-						woundPenaltyVal = 0;
-					}
-					else {
-						woundPenaltyVal = this.actor.data.data.health.damage.woundpenalty;
-					}
-
-					if (modifier > 0) {
-						modifierText = `+${modifier}`;
-					}
-					else if (modifier < 0) {
-						modifierText = `${modifier}`;
-					}
-
-					if (dataset.ability == "true") {
-						attribute = html.find("#attributeSelect")[0]?.value;
-						attributeVal = parseInt(this.actor.data.data.attributes[attribute].total);
-						
-						attributeName = game.i18n.localize(this.actor.data.data.attributes[attribute].label);
-						numDice = attributeVal + parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}`;
-					} 
-					else if (dataset.attribute == "true") {
-						attribute = dataset.label.toLowerCase();
-						attributeVal = dataset.roll;
-						attributeName = "";
-						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
-					}
-					else if (dataset.noability == "true") {
-						woundPenaltyVal = 0;
-						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
-					}
-					else if (dataset.rollitem == "true") {
-
-						if (this.actor.data.data.attributes[dataset.dice1]?.value != undefined) {
-							attributeVal = parseInt(this.actor.data.data.attributes[dataset.dice1].total);
-							attributeName = game.i18n.localize(this.actor.data.data.attributes[dataset.dice1].label);
-						}
-						else if (this.actor.data.data[dataset.dice1]?.roll != undefined) { 
-							attributeVal = parseInt(this.actor.data.data[dataset.dice1].roll);
-							attributeName = game.i18n.localize(this.actor.data.data[dataset.dice1].label);
-						}
-
-						if (this.actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
-							abilityVal = parseInt(this.actor.data.data.abilities.talent[dataset.dice2].value);
-							abilityName = game.i18n.localize(this.actor.data.data.abilities.talent[dataset.dice2].label);
-						}
-						else if (this.actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
-							abilityVal = parseInt(this.actor.data.data.abilities.skill[dataset.dice2].value);
-							abilityName = game.i18n.localize(this.actor.data.data.abilities.skill[dataset.dice2].label);
-						}
-						else if (this.actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
-							abilityVal = parseInt(this.actor.data.data.abilities.knowledge[dataset.dice2].value);
-							abilityName = game.i18n.localize(this.actor.data.data.abilities.knowledge[dataset.dice2].label);
-						}		
-						
-						numDice = attributeVal + abilityVal + modifier;
-						diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal}) ${modifierText}`;
-					}	
-					else if (dataset.rolldamage=="true") {
-						let bonusVal = parseInt(dataset.dice2);
-						let damageCode = game.i18n.localize(CONFIG.wod.damageTypes[dataset.type]);
-
-						woundPenaltyVal = 0;
-						difficulty = 6;
-						attributeVal = parseInt(this.actor.data.data.attributes[dataset.dice1]?.total || 0);
-						attributeName = game.i18n.localize(this.actor.data.data.attributes[dataset.dice1]?.label || "");
-						numDice = attributeVal + bonusVal + modifier;
-						
-						if (attributeVal > 0) {
-							diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}`;
-						}
-						else {
-							diceUsed = `${dataset.label}<br />${bonusVal} ${modifierText}<br />${damageCode}`;
-						}
-					}	
-					
-					rollDice(
-						numDice,
-						this.actor,
-						diceUsed,
-						difficulty,
-						specialty,
-						woundPenaltyVal
-					);
-				},
-			},
-			cancel: {
-				icon: '<i class="fas fa-times"></i>',
-				label: game.i18n.localize("wod.labels.cancel"),
-			},
-		};
-
-		new Dialog({      
-			title: game.i18n.localize("wod.labels.rolling") + ` ${dataset.label}...`,
-			content: template,
-			buttons: buttons,
-			default: "draw",
-		}).render(true);
+		ActionHelper.RollDialog(event, this.actor);		
 	}
 
 	_onToggleLocked(event) {
@@ -514,8 +345,8 @@ export class MortalActorSheet extends ActorSheet {
 			parseInt(actorData.data.health.damage.aggravated) = 0;
 		}
 
-		this.handleCalculations(actorData);
-		this.handleWouldLevelCalculations(actorData);
+		ActionHelper.handleCalculations(actorData);
+		ActionHelper.handleWouldLevelCalculations(actorData);
 
 		this.actor.update(actorData);
 	}
@@ -542,13 +373,13 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.data.health.damage.aggravated = parseInt(actorData.data.health.damage.aggravated) - 1;
 		}
 
-		this.handleCalculations(actorData);
-		this.handleWouldLevelCalculations(actorData);
+		ActionHelper.handleCalculations(actorData);
+		ActionHelper.handleWouldLevelCalculations(actorData);
 
 		this.actor.update(actorData);
 	}
 
-	_onItemCreate(event) {
+	/*_onItemCreate(event) {
 		event.preventDefault();
 
 		let element = event.currentTarget;
@@ -563,6 +394,40 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		return this.actor.createEmbeddedDocuments('Item', [itemData])
+	}*/
+
+	async _onItemEdit(event) {
+		if (this.locked) {
+			console.log("WoD | Sheet locked aborts");
+			return;
+		}
+
+		var _a;
+		event.preventDefault();
+        event.stopPropagation();
+
+		const itemId = $(event.currentTarget).data("item-id");
+		const item = this.actor.getEmbeddedDocument("Item", itemId);
+
+		if (item instanceof Item)
+            (_a = item.sheet) === null || _a === void 0 ? void 0 : _a.render(true);
+
+        /*if (!item)
+            return;*/
+
+		/*const li = $(event.currentTarget).parents(".item");
+		let itemId = li.data("itemId");
+		let item = this.actor.items.get(itemId);
+		if (!item) {
+			item = game.items.get(itemId);
+	
+			if (!item) {
+			item = await ImportHelpers.findCompendiumEntityById("Item", itemId);
+			}
+		}
+		if (item?.sheet) {
+			item.sheet.render(true);
+		}*/
 	}
 
 	async _onItemDelete(event) {
@@ -575,7 +440,7 @@ export class MortalActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		const li = $(event.currentTarget).parents(".item");
+		//const li = $(event.currentTarget).parents(".item");
 		let item = this.actor.getEmbeddedDocument("Item", itemId);
 
         if (!item)
@@ -597,6 +462,14 @@ export class MortalActorSheet extends ActorSheet {
             return;
 
 		this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
+	}
+
+	_onSendChat(event) {
+		const element = event.currentTarget;
+		const message = element.dataset.message || "";
+		const headline = element.dataset.headline || "";
+
+		ActionHelper.printMessage(headline, message, this.actor);
 	}
 	  
 	/**
@@ -639,55 +512,12 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 
-		this.handleCalculations(actorData);
-		this.handleWouldLevelCalculations(actorData);
+		ActionHelper.handleCalculations(actorData);
+		ActionHelper.handleWouldLevelCalculations(actorData);
 		
 		console.log("WoD | Mortal Sheet updated");
 		this.actor.update(actorData);
-	}
-
-	handleCalculations(actorData) {
-		// attributes totals
-		actorData = calculateTotals(actorData);
-
-		// willpower
-		actorData.data.willpower.permanent = parseInt(actorData.data.attributes.composure.value) + parseInt(actorData.data.attributes.resolve.value);
-		
-		if (actorData.data.willpower.permanent > actorData.data.willpower.max) {
-			actorData.data.willpower.permanent = actorData.data.willpower.max;
-		}
-		
-		if (actorData.data.willpower.permanent < actorData.data.willpower.temporary) {
-			actorData.data.willpower.temporary = actorData.data.willpower.permanent;
-		}
-
-		actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
-
-		console.log("WoD | Mortal Sheet calculations done");
-	}
-
-	handleWouldLevelCalculations(actorData) {
-		let woundLevel = "";
-		let totalWoundLevels = parseInt(actorData.data.health.damage.bashing) + parseInt(actorData.data.health.damage.lethal) + parseInt(actorData.data.health.damage.aggravated);
-
-		if (totalWoundLevels == 0) {
-			actorData.data.health.damage.woundlevel = "";
-			actorData.data.health.damage.woundpenalty = 0;
-
-			return
-		}
-
-		for (const i in CONFIG.wod.woundLevels) {
-			totalWoundLevels = totalWoundLevels - parseInt(actorData.data.health[i].value);
-
-			if (totalWoundLevels == 0) {
-				actorData.data.health.damage.woundlevel = actorData.data.health[i].label;
-				actorData.data.health.damage.woundpenalty = actorData.data.health[i].penalty;
-
-				return
-			}
-		}		
-	}
+	}		
 }
 
 function parseCounterStates(states) {

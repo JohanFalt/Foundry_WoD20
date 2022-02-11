@@ -7,7 +7,7 @@
 	<input class="sheet-infoValues" name="data.worldanvil" type="text" value="{{data.data.worldanvil}}" data-name="data.data.worldanvil" {{#if locked}} readonly {{/if}} />
 </div>
 
-<div>Attribute</div>
+<div>{{localize "wod.attributes.attributes"}}</div>
 {{#each data.data.attributes as |attribute key|}}
 <div>
 	<div class="clearareaBox">
@@ -17,33 +17,33 @@
 </div>
 {{/each}}
 
-<div>Soak</div>
+<div>{{localize "wod.health.soak"}}</div>
 <div>
 	<div class="clearareaBox">
 		<div>
-			<label for="data.data.soak.bashing" class="headlineGroup">{{localize "wod.labels.soak.bashing"}}</label>	
+			<label for="data.data.soak.bashing" class="headlineGroup">{{localize "wod.health.bashing"}}</label>	
 			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.soak.bashing}}" readonly />
 		</div>
 		<div>
-			<label for="data.data.soak.lethal" class="headlineGroup">{{localize "wod.labels.soak.lethal"}}</label>	
+			<label for="data.data.soak.lethal" class="headlineGroup">{{localize "wod.health.lethal"}}</label>	
 			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.soak.lethal}}" readonly />
 		</div>
 		<div>
-			<label for="data.data.soak.aggravated" class="headlineGroup">{{localize "wod.labels.soak.aggravated"}}</label>	
+			<label for="data.data.soak.aggravated" class="headlineGroup">{{localize "wod.health.aggravated"}}</label>	
 			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.soak.aggravated}}" readonly />
 		</div>
 	</div>
 </div>
 
-<div>Initiative</div>
+<div>{{localize "wod.combat.initiative"}}</div>
 <div>
 	<div class="clearareaBox">
 		<div>
-			<label for="data.data.initiative.base" class="headlineGroup">{{localize "wod.labels.initiativ"}}</label>	
+			<label for="data.data.initiative.base" class="headlineGroup">{{localize "wod.combat.weapon.initiative"}}</label>	
 			<input class="pullLeft sheet-infoValues shortBox" type="text" value="{{data.data.initiative.base}}" readonly />
 		</div>
 		<div>
-			<label for="data.data.initiative.bonus" class="headlineGroup">{{localize "wod.labels.initiativ.bonus"}}</label>	
+			<label for="data.data.initiative.bonus" class="headlineGroup">{{localize "wod.combat.weapon.initiativebonus"}}</label>	
 			<input class="pullLeft sheet-infoValues shortBox" name="data.initiative.bonus" type="text" value="{{data.data.initiative.bonus}}" {{#if locked}}readonly{{/if}} />
 		</div>
 	</div>
@@ -96,3 +96,12 @@
 	<label for="data.data.health.damage.aggravated" class="headlineGroup centerText" data-label="{{data.data.health.damage.aggravated}}" data-ability="true">{{localize "wod.labels.numberdamageaggravated"}}</label>
 	<input class="sheet-infoValues" name="data.health.damage.aggravated" type="text" value="{{data.data.health.damage.aggravated}}" data-name="data.data.health.damage.aggravated" {{#if locked}} readonly {{/if}} />
 </div>
+
+<div>{{localize "wod.labels.otheritems"}}</div>
+{{#each actor.other as |item id|}}
+<div>
+	<div class="clearareaBox">
+        <div class="pullLeft gift-mediumBox headlineNormal">{{captilizeFirst item.name}}</div>
+	</div>
+</div>
+{{/each}}
