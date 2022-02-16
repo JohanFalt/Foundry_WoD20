@@ -42,7 +42,11 @@
             <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
-            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{#if ../locked}}
+                &nbsp;
+            {{ else }}
+                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
         </div>
     </div>
 
@@ -97,7 +101,11 @@
             <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
-            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{#if ../locked}}
+                &nbsp;
+            {{ else }}
+                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
         </div>
     </div>
 
@@ -153,7 +161,11 @@
             <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
-            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{#if ../locked}}
+                &nbsp;
+            {{ else }}
+                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
         </div>
     </div>
 
@@ -209,7 +221,11 @@
             <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
-            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{#if ../locked}}
+                &nbsp;
+            {{ else }}
+                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
         </div>
     </div>
 
@@ -270,7 +286,11 @@
             <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
-            <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{#if ../locked}}
+                &nbsp;
+            {{ else }}
+                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
         </div>
     </div>
 
@@ -314,7 +334,11 @@
             <a class="send-chat" title="{{localize "wod.labels.send"}}" data-type="Gift" data-item-id="{{item._id}}" data-headline="{{captilizeFirst item.name}}" data-message="<div class='chatt-headline'>Description:</div><div class='chatt-text'>{{item.data.description}}</div><div class='chatt-headline'>System:</div><div class='chatt-text'>{{item.data.system}}</div>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
-            <a class="item-delete" title="{{localize "wod.labels.remove.rite"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{#if ../locked}}
+                &nbsp;
+            {{ else }}
+                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+            {{/if}}
         </div>
     </div>
 

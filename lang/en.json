@@ -222,6 +222,7 @@
 				"ranged": "Ranged Weapons",
 				"armor": "Armor"
 			},
+			"gear": "Gear",
 			"power": {
 				"level": "Level",
 				"noattribute": "No Attribute",
@@ -234,7 +235,9 @@
 			"notes": {
 				"backgrounds": "Backgrounds",
 				"merits": "Merits",
-				"flaws": "Flaws"
+				"flaws": "Flaws",
+				"expearned": "Earned Experience",
+				"expspend": "Spent Experience"
 			},
 			"add": {
 				"meleeweapon": "Add Melee Weapon",

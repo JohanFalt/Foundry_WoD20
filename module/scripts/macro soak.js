@@ -64,11 +64,9 @@ async function rollSoak(token) {
 
 function printMessage(message) {
     let chatData = {
-        user : game.user._id,
         content : message,
-        blind: true,
-        whisper : ChatMessage.getWhisperRecipients("GM")
-    };
+        speaker : ChatMessage.getSpeaker({ actor: this.actor })
+    };		
 
-    ChatMessage.create(chatData,{});    
+    ChatMessage.create(chatData,{});
 }

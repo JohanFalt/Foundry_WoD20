@@ -42,11 +42,11 @@ Hooks.once("init", async function() {
 		console.log(variable);
 	});
 	
-	/*Handlebars.registerHelper("setVariable", function(varName, varValue, options) {
+	Handlebars.registerHelper("setVariable", function(varName, varValue, options) {
 		console.log("WoD | setVariable " + varName + " value " + varValue);
 		
 		options.data.root[varName] = varValue;
-	});*/
+	});
 		
 	Handlebars.registerHelper("numLoop", function (num, options) {
 		let ret = "";

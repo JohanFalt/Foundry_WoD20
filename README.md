@@ -1,6 +1,15 @@
 # Foundry_WoD20
 
-Fix i 0.3.9
+Fix i 1.0.1
+
+- Döljer Edit/Delete-knappar om LOCKED.
+- Översatt språk som glömts
+- Visa totalt Earned Experience och Spent Experience
+- Korrigera bredd på formulär och sätt max
+- Hanterar bredd på Core och Shift
+- Designa textarea (Bio och Gear)
+
+Fix i 1.0.0
 - Lägg till Specialities
 - Edit Combat
 - Feature form
@@ -17,10 +26,6 @@ Fix i 0.3.9
 - räkna total exp
 - Om inte "klar" på spent exp är ikryssad visa inte kostnad och räkna inte den som spenderad
 - Knapp - Skicka Description Gift + Rites till chatt
-
-- Aaron fixad grund, färdigheter, spec, vapen, gifts/rites, background, merits, flaws, exp
-- Delit fixad grund, färdigheter, spec, vapen, gifts/rites, background, merits, flaws, exp
-
 
 Fix i 0.3.8
 - Töm Health Level högerklick

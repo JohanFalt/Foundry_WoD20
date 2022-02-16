@@ -8,7 +8,7 @@ export class MortalActorSheet extends ActorSheet {
 		return mergeObject(super.defaultOptions, {
 			classes: ["mortal"],
 			template: "systems/worldofdarkness/templates/actor/mortal-sheet.html",
-			height: 700,
+			height: 750,
 			tabs: [{
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",

@@ -353,6 +353,15 @@ export default class ActionHelper {
 	}
 
 	static printMessage(headline, message, actor){
+		/*let chatData = {
+			user : game.user._id,
+			content : message,
+			blind: true,
+			whisper : ChatMessage.getWhisperRecipients("GM")
+		};
+
+		ChatMessage.create(chatData,{});    */
+
 		message = headline + "<br />" + message;
 		message = message.replaceAll("'", '"');
 

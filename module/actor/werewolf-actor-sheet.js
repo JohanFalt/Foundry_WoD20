@@ -8,7 +8,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		return mergeObject(super.defaultOptions, {
 			classes: ["werewolf"],
 			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html",
-			height: 880,
+			height: 940,
 			tabs: [{
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
@@ -34,8 +34,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Werewolf Sheet getData");
 
-		//const shiftmods = [];
-		//const shiftdiffs = [];
 		const powerlist1 = [];
 		const powerlist2 = [];
 		const powerlist3 = [];
