@@ -174,13 +174,13 @@
 }
 
 .locked input {
-  border: 0px !important;
   background: transparent !important;
+  border-style: dashed;
 } 
 
 .locked textarea {
-  border: 0px !important;
   background: transparent !important;
+  border-style: dashed;
 } 
 
 .locked .resource-value-empty {
@@ -358,7 +358,7 @@ textarea.sheet-infoValues {
 }
 
 .attribute-headlineWidth {
-	width: 40%;
+	width: 45%;
 }
 
 .ability-statArea {	
@@ -366,7 +366,7 @@ textarea.sheet-infoValues {
 }
 
 .ability-headlineWidth {
-	width: 40%;
+	width: 45%;
 }
 
 .specialityBox {
@@ -380,7 +380,11 @@ textarea.sheet-infoValues {
 /* START - Combat */
 
 .combat-bottomarea {
-  width: 50%;
+  width: 67%;
+}
+
+.combat-bottomhealth {
+  width: 33%
 }
 
 .combat-valueBox {
@@ -393,6 +397,10 @@ textarea.sheet-infoValues {
 
 .combat-mediumBox {
   width: 100px;
+}
+
+.combat-largeBox {
+  width: 175px;
 }
 
 /* END - Combat */
@@ -469,6 +477,18 @@ textarea.sheet-gearArea {
 }
 
 /* END - Gift */
+
+/* START - Notes */
+
+.notes-largeBox {
+  width: 175px;
+}
+
+.notes-mediumBox {
+  width: 100px;
+}
+
+/* END - Notes */
 
 /* START - Items */
 

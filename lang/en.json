@@ -193,7 +193,8 @@
 		},
 		"experience": {
 			"amount": "Amount",
-			"spent": "Spent"
+			"spent": "Spent",
+			"experience": "Experience Points"
 		},
 		"labels": {
 			"rolling": "Rolling",

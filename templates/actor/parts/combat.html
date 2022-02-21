@@ -30,15 +30,14 @@
         <div class="sheet-headline">Active Gifts</div>
         {{#each actor.powercombat as |item id|}}
         <div class="clearareaBox">
-            <div class="pullLeft gift-mediumBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="{{item.data.system}}">{{captilizeFirst item.name}}</div>
-        </div>
+            <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" title="{{item.data.system}}">{{captilizeFirst item.name}}</div>        </div>
         {{/each}}
         {{else}}
         &nbsp;
         {{/iff}}
     </div>
 
-    <div class="pullLeft combat-bottomarea">
+    <div class="pullLeft combat-bottomhealth">
         <!--<div>Bashing damage can be soaked by any character at difficulty 6.</div>
         <div>Lethal damage can be soaked by Garou and many other supernatural creatures at difficulty 6. Humans cannot normally soak lethal damage</div>
         <div>Aggravated damage, other than that inflicted by silver, can be soaked by Garou at difficulty 6 in any form except their breed form.<br />

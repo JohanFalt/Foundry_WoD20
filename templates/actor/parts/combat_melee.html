@@ -8,7 +8,7 @@
 </div>
 
 <div>
-    <div class="pullLeft combat-mediumBox headlineList">{{localize "wod.combat.weapon.weapon"}}</div>
+    <div class="pullLeft combat-largeBox headlineList">{{localize "wod.combat.weapon.weapon"}}</div>
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.attr"}}</div>
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.diff"}}</div>
@@ -20,7 +20,7 @@
 {{#each actor.meleeWeapons as |item id|}}
 
 <div class="clearareaBox">
-    <div class="pullLeft combat-mediumBox headlineNormal {{#if item.data.attack.roll}}vrollable{{/if}}" 
+    <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.roll}}vrollable{{/if}}" 
         data-rollitem="true" 
         data-label="{{captilizeFirst item.name}}" 
         data-dice1="{{item.data.attack.attribute}}" 

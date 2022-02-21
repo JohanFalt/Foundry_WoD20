@@ -1,4 +1,4 @@
-<div class="clearareaBox" style="width: 100%;">
+<div class="clearareaBox" style="display: flex;">
 
 	<div class="pullLeft" style="width: 33%;">
 
@@ -162,7 +162,12 @@
 	
 		{{/iff}}	
 	
-		<div class="sheet-headline vrollable" data-roll="{{data.data.willpower.roll}}" data-label="{{localize data.data.willpower.label}}" data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
+		<div class="sheet-headline vrollable" 
+				data-roll="{{data.data.willpower.roll}}" 
+				data-label="{{localize data.data.willpower.label}}" 
+				data-speciality1="{{#iff data.data.attributes.composure.value ">=" 4}}{{data.data.attributes.composure.speciality}}{{/iff}}" 
+				data-speciality2="{{#iff data.data.attributes.resolve.value ">=" 4}}{{data.data.attributes.resolve.speciality}}{{/iff}}" 
+				data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
 		<div class="resource-value permValueRow" data-value="{{data.data.willpower.permanent}}" data-name="data.data.willpower.permanent">
 
 			{{#numLoop data.data.willpower.max}}
@@ -193,6 +198,10 @@
 		
 		{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
 
+		<div class="sheet-headline headlineGroup" style="width: 100%; margin-top: 25px;">
+			<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
+			<div class="pullRight">{{actor.experience}}</div>
+		</div>
 	</div>
 
 </div>

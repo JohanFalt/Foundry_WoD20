@@ -25,8 +25,24 @@ export default class ActionHelper {
 		let template = "";
 		let specialityText = "";
 
-		// show wounded, selectAbility
 		if ((dataset.noability=="true") || (dataset.rolldamage=="true")) {
+			if (dataset.label == "Willpower") {
+				if ((dataset.speciality1 != undefined) && (dataset.speciality2 != undefined) && (dataset.speciality1 != "") && (dataset.speciality2 != ""))
+				{
+					specialityText = dataset.speciality1 + ", " + dataset.speciality2;
+				}
+				else if ((dataset.speciality1 != undefined) && (dataset.speciality1 != ""))
+				{
+					specialityText = dataset.speciality1;
+				}
+				else if ((dataset.speciality2 != undefined) && (dataset.speciality2 != ""))
+				{
+					specialityText = dataset.speciality2;
+				}			
+			}
+			else {
+				specialty = "";
+			}
 		}
 		else { 
 			if (actor.data.data.health.damage.woundlevel != "") {
@@ -71,6 +87,7 @@ export default class ActionHelper {
 				hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
 				hiddenForms += `<input type="hidden" id="abilityName" value="${abilityName}" />`;
 				hiddenForms += `<input type="hidden" id="specialityText" value="${specialityText}" />`;
+				hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
 			}
 			else {
 				if (dataset.speciality?.length > 0) {
@@ -122,7 +139,7 @@ export default class ActionHelper {
 						+ selector + 
 						`
 					</div>
-					` + specialty +`
+					` + specialty + ` ` + specialityText + `</div>
 				</form>`;
 		} 
 		else if (dataset.rolldamage=="true") {
@@ -171,6 +188,7 @@ export default class ActionHelper {
 					let numDice = 0;
 					let diceUsed = "";
 					let specialityText = "";
+					let systemText = "";
 
 					const modifier = parseInt(html.find("#inputMod")[0]?.value || 0);
 					let modifierText = "";
@@ -221,6 +239,16 @@ export default class ActionHelper {
 						woundPenaltyVal = 0;
 						numDice = parseInt(dataset.roll) + modifier;
 						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
+
+						if ((parseInt(actor.data.data.attributes.composure.value) >= 4) && (parseInt(actor.data.data.attributes.resolve.value) >= 4)) {
+							specialityText = actor.data.data.attributes.composure.speciality + ", " + actor.data.data.attributes.resolve.speciality;
+						}
+						else if (parseInt(actor.data.data.attributes.composure.value) >= 4) {
+							specialityText = actor.data.data.attributes.composure.speciality
+						}
+						else if (parseInt(actor.data.data.attributes.resolve.value) >= 4) {
+							specialityText = actor.data.data.attributes.resolve.speciality;
+						}
 					}
 					else if (dataset.rollitem == "true") {
 
@@ -263,6 +291,8 @@ export default class ActionHelper {
 						abilityName = html.find("#abilityName")[0]?.value || "";
 
 						specialityText = html.find("#specialityText")[0]?.value || "";
+
+						systemText = html.find("#systemText")[0]?.value || "";
 						
 						numDice = attributeVal + abilityVal + modifier;
 						diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal}) ${modifierText}`;
@@ -292,7 +322,8 @@ export default class ActionHelper {
 						difficulty,
 						specialty,
 						specialityText,
-						woundPenaltyVal
+						woundPenaltyVal,
+						systemText
 					);
 				},
 			},

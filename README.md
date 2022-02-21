@@ -1,7 +1,17 @@
 # Foundry_WoD20
 
-Fix i 1.0.1
+Fix i 1.0.2
+- Fixa spec Willpower
+- Skicka System om Gift/Rituals vid slag
+- Kan sätta gift som aktiv
+- Active Gifts som är märkta som Combat syns i Combat-fliken
+- Bredd på abilities-och attributesrubriker fixade under Core
+- Bredd på weaponnamn fixade
+- Bredd på health under Combat fixade
+- Visa total exp kvar på Core
+- Komprimerat Exp på Notes
 
+Fix i 1.0.1
 - Döljer Edit/Delete-knappar om LOCKED.
 - Översatt språk som glömts
 - Visa totalt Earned Experience och Spent Experience

@@ -8,7 +8,7 @@ export class MortalActorSheet extends ActorSheet {
 		return mergeObject(super.defaultOptions, {
 			classes: ["mortal"],
 			template: "systems/worldofdarkness/templates/actor/mortal-sheet.html",
-			height: 750,
+			height: 790,
 			tabs: [{
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
@@ -134,8 +134,10 @@ export class MortalActorSheet extends ActorSheet {
 
 		data.actor.expearned = expearned;
 		data.actor.expspend = expspend;	
+		
 		data.actor.totalExp = totalExp;
 		data.actor.spentExp = spentExp;
+		data.actor.experience = totalExp - spentExp;
 		
 		return data;
 	}	
@@ -189,6 +191,10 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".item-edit")
 			.click(this._onItemEdit.bind(this));
+
+			html
+			.find(".item-active")
+			.click(this._onItemActive.bind(this));
 			
 		html
 			.find(".item-delete")
@@ -379,23 +385,6 @@ export class MortalActorSheet extends ActorSheet {
 		this.actor.update(actorData);
 	}
 
-	/*_onItemCreate(event) {
-		event.preventDefault();
-
-		let element = event.currentTarget;
-		let itemType = element.dataset.type;
-
-		let itemData = {};
-
-		itemData = {
-			name: itemType,
-			type: itemType,
-			_id: ""
-		}
-
-		return this.actor.createEmbeddedDocuments('Item', [itemData])
-	}*/
-
 	async _onItemEdit(event) {
 		if (this.locked) {
 			console.log("WoD | Sheet locked aborts");
@@ -408,6 +397,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		const itemId = $(event.currentTarget).data("item-id");
 		const item = this.actor.getEmbeddedDocument("Item", itemId);
+		
 
 		if (item instanceof Item)
             (_a = item.sheet) === null || _a === void 0 ? void 0 : _a.render(true);
@@ -430,6 +420,28 @@ export class MortalActorSheet extends ActorSheet {
 		}*/
 	}
 
+	async _onItemActive(event) {
+		event.preventDefault();
+        event.stopPropagation();
+
+		const itemId = $(event.currentTarget).data("item-id");
+		//const item = this.actor.getEmbeddedDocument("Item", itemId);
+		const item = this.actor.items.get(itemId);
+		let active = false;
+
+		if (item.data.data.active) {
+			active = false;
+		}
+		else {
+			active = true;
+		}
+
+		//this.actor.updateEmbeddedDocuments("Item", )
+		await item.update({"data.active" : active});
+
+		console.log("WoD | Editing item id: " + itemId);
+	}
+
 	async _onItemDelete(event) {
 		if (this.locked) {
 			console.log("WoD | Sheet locked aborts");
@@ -440,7 +452,6 @@ export class MortalActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		//const li = $(event.currentTarget).parents(".item");
 		let item = this.actor.getEmbeddedDocument("Item", itemId);
 
         if (!item)
@@ -460,6 +471,8 @@ export class MortalActorSheet extends ActorSheet {
 
         if (!performDelete)
             return;
+
+		console.log("WoD | Deleting item id: " + itemId);
 
 		this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
 	}
