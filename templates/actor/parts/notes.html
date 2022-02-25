@@ -4,9 +4,9 @@
 
     {{#each actor.backgrounds as |item id|}}
 
-    <div class="clearareaBox">
+    <div class="clearareaBox row">
         <div class="pullLeft notes-largeBox headlineNormal">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft notes-largeBox headlineNormal">{{item.data.level}}</div>
+        <div class="pullLeft notes-valueBox headlineNormal">{{item.data.level}}</div>
         <div class="pullLeft notes-largeBox headlineNormal tooltip">
             {{#iff item.data.details "!=" ""}}
                 <i class="fa fa-sticky-note"></i>
@@ -25,7 +25,7 @@
             <a class="item-delete" title="{{localize "wod.labels.remove.background"}}" data-type="Feature" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
             {{/if}}
             
-        </div>        
+        </div>  
     </div>
 
     {{/each}}
@@ -38,9 +38,9 @@
 
     {{#each actor.merits as |item id|}}
 
-    <div class="clearareaBox">
+    <div class="clearareaBox row">
         <div class="pullLeft notes-largeBox headlineNormal">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft notes-largeBox headlineNormal">{{item.data.level}}</div>
+        <div class="pullLeft notes-valueBox headlineNormal">{{item.data.level}}</div>
         <div class="pullLeft notes-largeBox headlineNormal tooltip">
             {{#iff item.data.details "!=" ""}}
                 <i class="fa fa-sticky-note"></i>
@@ -68,9 +68,9 @@
 
     {{#each actor.flaws as |item id|}}
 
-    <div class="clearareaBox">
+    <div class="clearareaBox row">
         <div class="pullLeft notes-largeBox headlineNormal">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft notes-largeBox headlineNormal">{{item.data.level}}</div>
+        <div class="pullLeft notes-valueBox headlineNormal">{{item.data.level}}</div>
         <div class="pullLeft notes-largeBox headlineNormal tooltip">
             {{#iff item.data.details "!=" ""}}
                 <i class="fa fa-sticky-note"></i>
@@ -102,9 +102,9 @@
 
             {{#each actor.expearned as |item id|}}
 
-            <div class="clearareaBox">
-                <div class="pullLeft notes-mediumBox headlineNormal">{{captilizeFirst item.name}}</div>
-                <div class="pullLeft notes-mediumBox headlineNormal">{{item.data.amount}}</div>
+            <div class="clearareaBox row">
+                <div class="pullLeft notes-experienceHeadline headlineNormal">{{captilizeFirst item.name}}</div>
+                <div class="pullLeft notes-valueBox headlineNormal">{{item.data.amount}}</div>
                 {{#if ../locked}}
                 {{else}}
                 <div class="pullLeft">
@@ -126,15 +126,15 @@
 
             {{#each actor.expspend as |item id|}}
 
-            <div class="clearareaBox">
-                <div class="pullLeft notes-mediumBox headlineNormal">
+            <div class="clearareaBox row">
+                <div class="pullLeft notes-experienceHeadline headlineNormal">
                     {{#iff item.data.description "!=" ""}}
                         {{captilizeFirst item.data.description}}
                     {{else}}
                         &nbsp;
                     {{/iff}}
                 </div>
-                <div class="pullLeft notes-mediumBox headlineNormal">
+                <div class="pullLeft notes-valueBox headlineNormal">
                     {{#if item.data.spent}}
                         {{item.data.amount}}
                     {{else}}

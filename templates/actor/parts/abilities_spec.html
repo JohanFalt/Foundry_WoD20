@@ -18,17 +18,19 @@
 		{{#each data.data.abilities.talent as |ability key|}}	
 		
 		<div class="clearareaBox">
-			<label for="data.data.abilities.talent.{{key}}.value" 
-				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
-			{{#iff ability.value ">=" "4"}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-					class="specialityBox"
-					name="data.abilities.talent.{{key}}.speciality" 
-					value="{{ability.speciality}}" 
-					data-name="data.abilities.talent.{{key}}.speciality" />
+			<div class="ability-rowheight">
+				<label for="data.data.abilities.talent.{{key}}.value" 
+					class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
+				{{#iff ability.value ">=" "4"}}
+				<div class="resource-value pullRight">
+					<input type="text" 
+						class="specialityBox"
+						name="data.abilities.talent.{{key}}.speciality" 
+						value="{{ability.speciality}}" 
+						data-name="data.abilities.talent.{{key}}.speciality" />
+				</div>
+				{{/iff}}
 			</div>
-			{{/iff}}
 		</div>	
 		
 		{{/each}}
@@ -39,17 +41,19 @@
 		{{#each data.data.abilities.skill as |ability key|}}
 		
 		<div class="clearareaBox">
-			<label for="data.data.abilities.skill.{{key}}.value" 
-				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
-			{{#iff ability.value ">=" "4"}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-					class="specialityBox"
-					name="data.abilities.skill.{{key}}.speciality" 
-					value="{{ability.speciality}}" 
-					data-name="data.abilities.skill.{{key}}.speciality" />				
+			<div class="ability-rowheight">
+				<label for="data.data.abilities.skill.{{key}}.value" 
+					class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
+				{{#iff ability.value ">=" "4"}}
+				<div class="resource-value pullRight">
+					<input type="text" 
+						class="specialityBox"
+						name="data.abilities.skill.{{key}}.speciality" 
+						value="{{ability.speciality}}" 
+						data-name="data.abilities.skill.{{key}}.speciality" />				
+				</div>
+				{{/iff}}
 			</div>
-			{{/iff}}
 		</div>
 		
 		{{/each}}
@@ -60,17 +64,19 @@
 		{{#each data.data.abilities.knowledge as |ability key|}}
 		
 		<div class="clearareaBox">
-			<label for="data.data.abilities.knowledge.{{key}}.value" 
-				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
-			{{#iff ability.value ">=" "4"}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-				class="specialityBox"
-					name="data.abilities.knowledge.{{key}}.speciality" 
-					value="{{ability.speciality}}" 
-					data-name="data.abilities.knowledge.{{key}}.speciality" />					
+			<div class="ability-rowheight">
+				<label for="data.data.abilities.knowledge.{{key}}.value" 
+					class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
+				{{#iff ability.value ">=" "4"}}
+				<div class="resource-value pullRight">
+					<input type="text" 
+					class="specialityBox"
+						name="data.abilities.knowledge.{{key}}.speciality" 
+						value="{{ability.speciality}}" 
+						data-name="data.abilities.knowledge.{{key}}.speciality" />					
+				</div>
+				{{/iff}}
 			</div>
-			{{/iff}}
 		</div>
 		
 		{{/each}}

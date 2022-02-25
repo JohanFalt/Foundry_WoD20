@@ -73,13 +73,31 @@ export default class ActionHelper {
 				}	
 
 				if ((attributeVal >= 4) && (abilityVal >= 4)) {
-					specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", " + actor.data.data.abilities.talent[dataset.dice2].speciality;
+					specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
+
+					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
+						specialityText += actor.data.data.abilities.talent[dataset.dice2]?.speciality;
+					}
+					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
+						specialityText += actor.data.data.abilities.skill[dataset.dice2]?.speciality;
+					}
+					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
+						specialityText += actor.data.data.abilities.knowledge[dataset.dice2]?.speciality;
+					}
 				}
 				else if (attributeVal >= 4) {
 					specialityText = actor.data.data.attributes[dataset.dice1].speciality;
 				}
 				else if (abilityVal >= 4) {
-					specialityText = actor.data.data.abilities.talent[dataset.dice2].speciality;
+					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
+						specialityText = actor.data.data.abilities.talent[dataset.dice2]?.speciality;
+					}
+					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
+						specialityText = actor.data.data.abilities.skill[dataset.dice2]?.speciality;
+					}
+					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
+						specialityText = actor.data.data.abilities.knowledge[dataset.dice2]?.speciality;
+					}
 				}
 
 				hiddenForms = `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
@@ -225,7 +243,7 @@ export default class ActionHelper {
 						
 						attributeName = game.i18n.localize(actor.data.data.attributes[attribute].label);
 						numDice = attributeVal + parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}`;
+						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}</strong>`;
 					} 
 					else if (dataset.attribute == "true") {
 						attribute = dataset.label.toLowerCase();
@@ -233,12 +251,12 @@ export default class ActionHelper {
 						specialityText = dataset.speciality;
 						attributeName = "";
 						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
+						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 					}
 					else if (dataset.noability == "true") {
 						woundPenaltyVal = 0;
 						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `${dataset.label} (${dataset.roll}) ${modifierText}`;
+						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 
 						if ((parseInt(actor.data.data.attributes.composure.value) >= 4) && (parseInt(actor.data.data.attributes.resolve.value) >= 4)) {
 							specialityText = actor.data.data.attributes.composure.speciality + ", " + actor.data.data.attributes.resolve.speciality;
@@ -251,39 +269,6 @@ export default class ActionHelper {
 						}
 					}
 					else if (dataset.rollitem == "true") {
-
-						/*if (actor.data.data.attributes[dataset.dice1]?.value != undefined) {
-							attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
-							attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
-						}
-						else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
-							attributeVal = parseInt(actor.data.data[dataset.dice1].roll);
-							attributeName = game.i18n.localize(actor.data.data[dataset.dice1].label);
-						}
-
-						if (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
-							abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
-							abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
-						}
-						else if (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
-							abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
-							abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
-						}
-						else if (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
-							abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
-							abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
-						}	
-						
-						if ((attributeVal >= 4) && (abilityVal >= 4)) {
-							specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", " + actor.data.data.abilities.talent[dataset.dice2].speciality;
-						}
-						else if (attributeVal >= 4) {
-							specialityText = actor.data.data.attributes[dataset.dice1].speciality;
-						}
-						else if (abilityVal >= 4) {
-							specialityText = actor.data.data.abilities.talent[dataset.dice2].speciality;
-						}*/
-
 						attributeVal = parseInt(html.find("#attributeVal")[0]?.value || 0);
 						attributeName = html.find("#attributeName")[0]?.value || "";
 
@@ -295,7 +280,10 @@ export default class ActionHelper {
 						systemText = html.find("#systemText")[0]?.value || "";
 						
 						numDice = attributeVal + abilityVal + modifier;
-						diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal}) ${modifierText}`;
+
+						const rollType = (dataset.type == "attack") ? "(attack)" : "";
+
+						diceUsed = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal}) ${modifierText}</strong>`;
 					}	
 					else if (dataset.rolldamage=="true") {
 						let bonusVal = parseInt(dataset.dice2);
@@ -308,10 +296,10 @@ export default class ActionHelper {
 						numDice = attributeVal + bonusVal + modifier;
 						
 						if (attributeVal > 0) {
-							diceUsed = `${dataset.label}<br />${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}`;
+							diceUsed = `<h2>${dataset.label} (damage)</h2> <strong>${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
 						}
 						else {
-							diceUsed = `${dataset.label}<br />${bonusVal} ${modifierText}<br />${damageCode}`;
+							diceUsed = `<h2>${dataset.label} (damage)</h2> <strong>${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
 						}
 					}	
 					
@@ -393,7 +381,7 @@ export default class ActionHelper {
 
 		ChatMessage.create(chatData,{});    */
 
-		message = headline + "<br />" + message;
+		message = headline + message;
 		message = message.replaceAll("'", '"');
 
 		let chatData = {

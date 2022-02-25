@@ -42,7 +42,7 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		specialityText = "";
 	}
 
-	difficulty = `<br />${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</span>`;
+	difficulty = `<br /><span>${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</span>`;
 
 	label = `<p class="roll-label uppercase">${label} ${wound} ${specialityText} ${difficulty}</p>`;
 
@@ -77,6 +77,9 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		}
 		else if (actor.type == "Vampire") { 
 			diceColor = "red_";
+		}
+		else if (actor.type == "Spirit") { 
+			diceColor = "yellow_";
 		}
 		else {
 			diceColor = "black_";

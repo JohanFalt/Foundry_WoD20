@@ -37,13 +37,32 @@ async function rollInitiative(token) {
             printMessage(actor.data.name + '<h2>Has initiative already</h2>');
         }
 
-        const diceColor = "black_";
+        //const diceColor = "black_";
+
+        let diceColor;
+		
+		if (actor.type == "Mortal") {
+			diceColor = "blue_";
+		} 
+		else if (actor.type == "Werewolf") {
+			diceColor = "brown_";
+		}
+		else if (actor.type == "Vampire") { 
+			diceColor = "red_";
+		}
+		else if (actor.type == "Spirit") { 
+			diceColor = "yellow_";
+		}
+		else {
+			diceColor = "black_";
+		}
     
         roll.terms[0].results.forEach((dice) => {
             label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
         });
 
-        printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Initiative:</strong> ' + init + '<br />' + label);
+        //printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Initiative:</strong> ' + init + '<br />' + label);
+        printMessage('<h2>Rolling Initiative</h2>' + init + '<br />' + label);
     }  
     else {
         printMessage(actor.data.name + "<h2>Already added</h2>");

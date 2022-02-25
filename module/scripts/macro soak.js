@@ -28,14 +28,31 @@ async function rollSoak(token) {
             callback: async (template) => {
                 let actor = token.actor;
                 const damageType = template.find("#damageType:checked")[0]?.value;
-                const dice = parseInt(actor.data.data.soak[damageType]);
+                const bonus = parseInt(template.find("#inputMod")[0]?.value);
+                const dice = parseInt(actor.data.data.soak[damageType]) + parseInt(bonus);
                 let successes = 0;
                 let label = "";
 
                 roll = new Roll(dice + "d10");
                 roll.evaluate({async:true});
 
-                const diceColor = "black_";
+                let diceColor;
+		
+                if (actor.type == "Mortal") {
+                    diceColor = "blue_";
+                } 
+                else if (actor.type == "Werewolf") {
+                    diceColor = "brown_";
+                }
+                else if (actor.type == "Vampire") { 
+                    diceColor = "red_";
+                }
+                else if (actor.type == "Spirit") { 
+                    diceColor = "yellow_";
+                }
+                else {
+                    diceColor = "black_";
+                }
                 
                 roll.terms[0].results.forEach((dice) => {
                     if (dice.result >= 6) {
@@ -45,7 +62,8 @@ async function rollSoak(token) {
                     label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
                 });
 
-                printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Soak (' + damageType + ')<br />Successes:</strong> ' + successes + '<br />' + label);
+                //printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Soak (' + damageType + ')<br />Successes:</strong> ' + successes + '<br />' + label);
+                printMessage('<h2>Rolling Soak</h2><strong>' + damageType + '<br />Successes:</strong> ' + successes + '<br />' + label);
             },
         },
         cancel: {

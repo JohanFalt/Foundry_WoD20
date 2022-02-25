@@ -1,5 +1,20 @@
 # Foundry_WoD20
 
+Fix i 1.0.3
+- Fixat färger för Macro-tärningar
+- Fixat bredd på rutor i Notes
+- Lagt till Spirit dice
+- Lagt till Spirit CSS
+- Fixat problem om man anfaller med vapen där man har spec i attribute
+- Fixat bredd på specificationrutor attributes och ability
+- Fixat bredd på bredd Experience på edit
+- Fixat Soak macro tar inte bonus på slaget
+- Fixat Macro Antal tärningar - kan inte se diff 
+- Designat rader i lister lättare att läsa
+- Designat slå tärningar till Chatt
+- Designat skicka beskrivning till Chatt
+- Flyttade visningen av beskrivning av gift/rites till ute i Foundry för testning
+
 Fix i 1.0.2
 - Fixa spec Willpower
 - Skicka System om Gift/Rituals vid slag
@@ -172,18 +187,3 @@ Fix i v0.2
 - Bytt namn på attribute.label
 - Slår grundegenskap alltid en tärning
 - Kan inte uppgradera systemet. (world.json)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

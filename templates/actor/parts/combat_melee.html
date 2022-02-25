@@ -13,15 +13,16 @@
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.diff"}}</div>
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.damage"}}</div>
-    <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.conceal.conceal"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.conceal.conceal"}}</div>
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.twohanded"}}</div>
 </div>   
 
 {{#each actor.meleeWeapons as |item id|}}
 
-<div class="clearareaBox">
+<div class="clearareaBox row">
     <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.roll}}vrollable{{/if}}" 
         data-rollitem="true" 
+        data-type="attack"
         data-label="{{captilizeFirst item.name}}" 
         data-dice1="{{item.data.attack.attribute}}" 
         data-dice2="{{item.data.attack.ability}}" 
@@ -36,14 +37,14 @@
         &nbsp;
         {{/if}}
     </div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.conceal}}</div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{#if item.data.twohanded}}{{localize "wod.labels.yes"}}{{else}}&nbsp;{{/if}}</div>
-    <div class="pullLeft combat-mediumBox headlineNormal {{#if item.data.damage.roll}}vrollable{{/if}}" 
+    <div class="pullLeft combat-valueBox headlineNormal">{{captilizeFirst item.data.conceal}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.twohanded}}{{localize "wod.labels.yes"}}{{else}}&nbsp;{{/if}}</div>
+    <div class="pullLeft {{#if item.data.damage.roll}}vrollable{{/if}}" 
         data-rolldamage="true" 
         data-label="{{captilizeFirst item.name}}" 
         data-dice1="{{item.data.damage.attribute}}" 
         data-dice2="{{item.data.damage.bonus}}" 
-        data-type="{{item.data.damage.type}}">{{#if item.data.damage.roll}}{{localize "wod.labels.rolldamage"}}{{else}}&nbsp;{{/if}}</div>
+        data-type="{{item.data.damage.type}}">{{#if item.data.damage.roll}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.png" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>
     <div class="pullLeft">
         {{#if ../locked}}
             &nbsp;

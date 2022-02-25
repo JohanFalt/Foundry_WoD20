@@ -9,14 +9,9 @@
 /* START - Type of sheet designs */
 
 .mortal,
-.werewolf {
+.werewolf,
+.spirit {
   max-width: 730px;
-}
-
-.mortal .item:hover,
-.mortal .item:focus,
-.mortal .item.active {
-	text-shadow: 0 0 10px #184e77;
 }
 
 .mortal .headlineTabs {
@@ -27,6 +22,11 @@
 .mortal .shape-selector-active {
 	background: #184e77;
 	color: white;
+}
+
+.mortal .row:nth-of-type(odd) {
+  background-color: rgba(24, 78, 119, 0.06);
+  display: flex;
 }
 
 .mortal .thin-border-left,
@@ -40,20 +40,23 @@
   color: white;
 }
 
-.werewolf .item:hover,
-.werewolf .item:focus,
-.werewolf .item.active {
-	text-shadow: 0 0 10px #583101;
-}
-
 .werewolf .headlineTabs {
 	border-bottom-color: #583101;
 }
 
-.werewolf .sheet-character .profile-img-zone  button,
+.werewolf .sheet-character .profile-img-zone button,
 .werewolf .shape-selector-active {
-	background: #583101;
+  background: #583101;
 	color: white;
+}
+
+.werewolf .row:nth-of-type(odd) {
+  background-color: rgba(86, 48, 1, 0.06);
+  display: flex;
+}
+
+.werewolf .sheet-character .profile-img-zone button {
+  width: 35px;
 }
 
 .werewolf .thin-border-left,
@@ -71,7 +74,8 @@
 	border-bottom-color: #790813;
 }
 
-.vampire .sheet-character .profile-img-zone  button,
+.vampire .row:nth-of-type(odd),
+.vampire .sheet-character .profile-img-zone button,
 .vampire .shape-selector-active {
 	background: #790813;
 	color: white;
@@ -86,6 +90,28 @@
 .vampire .resource-value-static .resource-value-static-step.active {
   background-color: #790813;
   color: white;
+}
+
+.spirit .headlineTabs {
+	border-bottom-color: #FFD700;
+}
+
+.spirit .row:nth-of-type(odd),
+.spirit .sheet-character .profile-img-zone button,
+.spirit .shape-selector-active {
+	background: #FFD700;
+	color: black;
+}
+
+.spirit .thin-border-left,
+.spirit .thin-border-right {
+  border-color: #FFD700;
+}
+
+.spirit .tooltip .tooltiptext,
+.spirit .resource-value-static .resource-value-static-step.active {
+  background-color: #FFD700;
+  color: black;
 }
 
 /* END - Type of sheet designs */
@@ -103,6 +129,12 @@
 	text-shadow: 0 0 10px #184e77 !important;
 }
 
+.mortal .item:hover,
+.mortal .item:focus,
+.mortal .item.active {
+	text-shadow: 0 0 10px #184e77;
+}
+
 .werewolf .send-chat:hover,
 .werewolf.send-chat:focus,
 .werewolf .item-edit:hover,
@@ -112,6 +144,12 @@
 .werewolf .vrollable:hover,
 .werewolf .vrollable:focus {
 	text-shadow: 0 0 10px #583101 !important;
+}
+
+.werewolf .item:hover,
+.werewolf .item:focus,
+.werewolf .item.active {
+	text-shadow: 0 0 10px #583101;
 }
 
 .vampire .send-chat:hover,
@@ -132,6 +170,23 @@
 	text-shadow: 0 0 10px #790813 !important;
 }
 
+.spirit .send-chat:hover,
+.spirit .send-chat:focus,
+.spirit .item-edit:hover,
+.spirit .item-edit:focus,
+.spirit .item-delete:hover,
+.spirit .item-delete:focus,
+.spirit .vrollable:hover,
+.spirit .vrollable:focus {
+	text-shadow: 0 0 10px #FFD700 !important;
+}
+
+.spirit .item:hover,
+.spirit .item:focus,
+.spirit .item.active {
+	text-shadow: 0 0 10px #FFD700;
+}
+
 /* END - Dice roll links */
 
 
@@ -146,6 +201,7 @@
 /* END - Chat window */
 
 /* START - handle lock design */
+
 .sheet-character .profile-img-zone {
   max-width: 100px;
   display: flex;
@@ -195,6 +251,12 @@
 /* END - handle lock design */
 
 /* START - General */
+
+img.rolldice {
+  width: 19px;
+  height: 19px;
+  border-width: 0px;
+}
 
 .sheet-character {
 	font-family: "werewolf", Verdana, sans-serif;
@@ -314,11 +376,13 @@ textarea.sheet-infoValues {
   width: 450px;  
   border-radius: 6px;
   padding: 5px;
-  left: -150px;
+  /*left: -300px;*/
+  left: 20px;
   top: 20px;
 
   /* Position the tooltip */
-  position: absolute;
+  /*position: absolute;*/
+  position: fixed;
   z-index: 1;
 }
 
@@ -365,12 +429,20 @@ textarea.sheet-infoValues {
 	width: 33%;
 }
 
+.attribute-rowheight {
+  height: 19px;
+}
+
 .ability-headlineWidth {
 	width: 45%;
 }
 
+.ability-rowheight {
+  height: 19px;
+}
+
 .specialityBox {
-  width: 120px !important;
+  width: 110px !important;
   margin-right: 15px !important;
   height: 18px !important;
 }
@@ -482,10 +554,22 @@ textarea.sheet-gearArea {
 
 .notes-largeBox {
   width: 175px;
+  height: 19px;
 }
 
 .notes-mediumBox {
   width: 100px;
+  height: 19px;
+}
+
+.notes-valueBox {
+  width: 40px;
+  height: 19px;
+}
+
+.notes-experienceHeadline {
+  width: 200px;
+  height: 19px;
 }
 
 /* END - Notes */

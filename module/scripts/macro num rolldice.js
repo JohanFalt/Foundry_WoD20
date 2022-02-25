@@ -49,13 +49,30 @@ async function roll(token) {
                 const specialty = template.find("#specialty")[0]?.checked || false;
                 let successes = 0;
                 let label = "";
+                let dicesRolled = "";
                 let rolledOne = false;
                 let successRoll = false;
 
                 roll = new Roll(dice + "d10");
                 roll.evaluate({async:true});
 
-                const diceColor = "black_";
+                let diceColor;
+		
+                if (actor.type == "Mortal") {
+                    diceColor = "blue_";
+                } 
+                else if (actor.type == "Werewolf") {
+                    diceColor = "brown_";
+                }
+                else if (actor.type == "Vampire") { 
+                    diceColor = "red_";
+                }
+                else if (actor.type == "Spirit") { 
+                    diceColor = "yellow_";
+                }
+                else {
+                    diceColor = "black_";
+                }
                 
                 roll.terms[0].results.forEach((dice) => {
                     if ((dice.result == 10) && (specialty)) {
@@ -68,7 +85,7 @@ async function roll(token) {
                         rolledOne = true;
                     }
 
-                    label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
+                    dicesRolled += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
                 });
 
                 successRoll = successes > 0;
@@ -82,14 +99,17 @@ async function roll(token) {
                 else {
                     difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.fail")}</span> )`;
                 }
+
+                difficulty = `<span>${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</span><br />`;
                 
-                label += `<p class="roll-label result-success">${game.i18n.localize("wod.dice.successes")}: ${successes} ${difficultyResult}</p>`;
+                label += `<p class="roll-label result-success">${difficulty} ${game.i18n.localize("wod.dice.successes")}: ${successes} ${difficultyResult}</p>`;
 
                 if (specialty) {
                     label += `<p class="roll-label result-success">Speciality used</p>`;
                 }
 
-                printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Dice</strong><br />' + label);
+                //printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Dice</strong><br />' + label + dicesRolled);
+                printMessage('<h2>Rolling Dice</h2>' + label + dicesRolled);
             },
         },
         cancel: {
