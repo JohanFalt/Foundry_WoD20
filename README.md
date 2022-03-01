@@ -1,4 +1,21 @@
 # Foundry_WoD20
+Changes to the rules
+
+Removal of Appearance and Perception
+Adding Composure and Resolve
+Changing Wits
+
+Changing Willpower
+
+Additional abilities
+
+1s doesn't remove success
+10 is not automatically success
+
+Change Log
+
+Fix i 1.0.4
+- Fixat kan inte slå gift med bara Rage/Gnosis/Willpower
 
 Fix i 1.0.3
 - Fixat färger för Macro-tärningar

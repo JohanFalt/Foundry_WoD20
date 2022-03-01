@@ -73,30 +73,34 @@ export default class ActionHelper {
 				}	
 
 				if ((attributeVal >= 4) && (abilityVal >= 4)) {
-					specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
+					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
+						specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
+					}
 
 					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
-						specialityText += actor.data.data.abilities.talent[dataset.dice2]?.speciality;
+						specialityText += actor.data.data.abilities.talent[dataset.dice2].speciality;
 					}
 					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
-						specialityText += actor.data.data.abilities.skill[dataset.dice2]?.speciality;
+						specialityText += actor.data.data.abilities.skill[dataset.dice2].speciality;
 					}
 					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
-						specialityText += actor.data.data.abilities.knowledge[dataset.dice2]?.speciality;
+						specialityText += actor.data.data.abilities.knowledge[dataset.dice2].speciality;
 					}
 				}
 				else if (attributeVal >= 4) {
-					specialityText = actor.data.data.attributes[dataset.dice1].speciality;
+					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
+						specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
+					}
 				}
 				else if (abilityVal >= 4) {
 					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
-						specialityText = actor.data.data.abilities.talent[dataset.dice2]?.speciality;
+						specialityText = actor.data.data.abilities.talent[dataset.dice2].speciality;
 					}
 					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
-						specialityText = actor.data.data.abilities.skill[dataset.dice2]?.speciality;
+						specialityText = actor.data.data.abilities.skill[dataset.dice2].speciality;
 					}
 					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
-						specialityText = actor.data.data.abilities.knowledge[dataset.dice2]?.speciality;
+						specialityText = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
 					}
 				}
 
@@ -283,7 +287,13 @@ export default class ActionHelper {
 
 						const rollType = (dataset.type == "attack") ? "(attack)" : "";
 
-						diceUsed = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal}) + ${abilityName} (${abilityVal}) ${modifierText}</strong>`;
+						diceUsed = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal})`;
+
+						if (abilityName != "") {
+							diceUsed += `${abilityName} (${abilityVal})`;
+						}
+
+						diceUsed += ` ${modifierText}</strong>`;
 					}	
 					else if (dataset.rolldamage=="true") {
 						let bonusVal = parseInt(dataset.dice2);
