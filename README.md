@@ -10,9 +10,13 @@ Changing Willpower
 Additional abilities
 
 1s doesn't remove success
-10 is not automatically success
 
 Change Log
+
+Fix i 1.0.5
+- Added migration
+- Added worldVersion system setting
+- Spirit
 
 Fix i 1.0.4
 - Fixat kan inte slå gift med bara Rage/Gnosis/Willpower

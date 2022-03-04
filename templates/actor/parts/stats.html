@@ -3,102 +3,13 @@
 	<div class="pullLeft" style="width: 33%;">
 
 		{{#iff actor.type "==" "Werewolf"}}
-		<div class="sheet-headline">{{localize 'wod.advantages.renown'}}</div>
-		
-		<div class="sheet-headline headlineGroup centerText">{{localize 'wod.advantages.glory'}}</div>
-		
-		<div class="resource-value permValueRow" data-value="{{data.data.renown.glory.permanent}}" data-name="data.data.renown.glory.permanent">
 
-			{{#numLoop data.data.renown.glory.max}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-		
-		<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.glory.temporary}}" data-name="data.data.renown.glory.temporary">
-			<span class="resource-value-empty"></span>
+			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}		
 
-			{{#numLoop data.data.renown.glory.max}}
-			
-			{{#le ../data.data.renown.glory.temporary this}}
-			<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-			{{else}}
-			<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-			{{/le}}
-			
-			{{/numLoop}}
-			
-		</div>
-		
-		<div class="sheet-headline headlineGroup centerText">{{localize 'wod.advantages.honor'}}</div>
-		
-		<div class="resource-value permValueRow" data-value="{{data.data.renown.honor.permanent}}" data-name="data.data.renown.honor.permanent">
-
-			{{#numLoop data.data.renown.honor.max}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-		
-		<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.honor.temporary}}" data-name="data.data.renown.honor.temporary">
-			<span class="resource-value-empty"></span>
-
-			{{#numLoop data.data.renown.honor.max}}
-			
-			{{#le ../data.data.renown.honor.temporary this}}
-			<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-			{{else}}
-			<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-			{{/le}}
-			
-			{{/numLoop}}
-			
-		</div>
-		
-		<div class="sheet-headline headlineGroup centerText">{{localize 'wod.advantages.wisdom'}}</div>
-		
-		<div class="resource-value permValueRow" data-value="{{data.data.renown.wisdom.permanent}}" data-name="data.data.renown.wisdom.permanent">
-
-			{{#numLoop data.data.renown.wisdom.max}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-		
-		<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.wisdom.temporary}}" data-name="data.data.renown.wisdom.temporary">
-			<span class="resource-value-empty"></span>
-
-			{{#numLoop data.data.renown.wisdom.max}}
-			
-			{{#le ../data.data.renown.wisdom.temporary this}}
-			<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-			{{else}}
-			<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-			{{/le}}
-			
-			{{/numLoop}}
-			
-		</div>
-
-		<div class="sheet-headline headlineGroup centerText">{{localize "wod.advantages.rank"}}</div>
-		<div class="resource-value permValueRow" data-value="{{data.data.renown.rank}}" data-name="data.data.renown.rank">
-
-			{{#numLoop 5}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-		
 		{{else}}
-		&nbsp;
+		
+			&nbsp;
+		
 		{{/iff}}
 	
 	</div>
@@ -106,92 +17,14 @@
 	<div class="pullLeft" style="width: 33%;">
 		{{#iff actor.type "==" "Werewolf"}}
 
-		<div class="sheet-headline vrollable" data-roll="{{data.data.rage.roll}}" data-label="{{localize data.data.rage.label}}" data-noability="true">{{localize 'wod.advantages.rage'}}</div>
-		
-		<div class="resource-value permValueRow" data-value="{{data.data.rage.permanent}}" data-name="data.data.rage.permanent">
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
 
-			{{#numLoop data.data.rage.max}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-	
-		<div class="resource-counter tempSquareRow" data-value="{{data.data.rage.temporary}}" data-name="data.data.rage.temporary">
-			<span class="resource-value-empty"></span>
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
 
-			{{#numLoop data.data.rage.max}}
-			
-			{{#le ../data.data.rage.temporary this}}
-			<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-			{{else}}
-			<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-			{{/le}}
-			
-			{{/numLoop}}
-			
-		</div>	
-		
-		<div class="sheet-headline vrollable" data-roll="{{data.data.gnosis.roll}}" data-label="{{localize data.data.gnosis.label}}" data-noability="true">{{localize 'wod.advantages.gnosis'}}</div>
-		
-		<div class="resource-value permValueRow" data-value="{{data.data.gnosis.permanent}}" data-name="data.data.gnosis.permanent">
-
-			{{#numLoop data.data.gnosis.max}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-	
-		<div class="resource-counter tempSquareRow" data-value="{{data.data.gnosis.temporary}}" data-name="data.data.gnosis.temporary">
-			<span class="resource-value-empty"></span>
-
-			{{#numLoop data.data.gnosis.max}}
-			
-			{{#le ../data.data.gnosis.temporary this}}
-			<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-			{{else}}
-			<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-			{{/le}}
-			
-			{{/numLoop}}
-			
-		</div>	
-	
 		{{/iff}}	
 	
-		<div class="sheet-headline vrollable" 
-				data-roll="{{data.data.willpower.roll}}" 
-				data-label="{{localize data.data.willpower.label}}" 
-				data-speciality1="{{#iff data.data.attributes.composure.value ">=" 4}}{{data.data.attributes.composure.speciality}}{{/iff}}" 
-				data-speciality2="{{#iff data.data.attributes.resolve.value ">=" 4}}{{data.data.attributes.resolve.speciality}}{{/iff}}" 
-				data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
-		<div class="resource-value permValueRow" data-value="{{data.data.willpower.permanent}}" data-name="data.data.willpower.permanent">
+		{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 
-			{{#numLoop data.data.willpower.max}}
-			
-			<span class="resource-value-step" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-			
-		</div>
-	
-		<div class="resource-counter tempSquareRow" data-value="{{data.data.willpower.temporary}}" data-name="data.data.willpower.temporary">
-			<span class="resource-value-empty"></span>
-
-			{{#numLoop data.data.willpower.max}}
-			
-			{{#le ../data.data.willpower.temporary this}}
-			<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-			{{else}}
-			<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-			{{/le}}
-			
-			{{/numLoop}}
-			
-		</div>	
 	</div>
 	
 	<div class="pullLeft" style="width: 33%; padding-left: 20px; padding-right: 20px;">

@@ -4,11 +4,78 @@
 	
 	<div class="sheet-character">	
 		
-		<header class="sheet-header">		
-		</header>	
+		<header class="sheet-header">	
+			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+				<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+				<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
+				<a class="item" data-tab="charms">{{localize 'wod.tab.charms'}}</a>	
+				<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
+			</nav>		
+		</header>			
 
 		{{!-- Sheet part --}}
-		<section class="sheet-body">		
+		<section class="sheet-body">	
+			
+			{{!-- Bio Tab --}}
+			<div class="tab bio" data-group="primary" data-tab="bio">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
+
+			</div>
+
+			{{!-- Core Tab --}}
+			<div class="tab core" data-group="primary" data-tab="core">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+
+				{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+
+				{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+
+				<div class="sheet-headline">{{localize 'wod.advantages.essence'}}</div>	
+
+				<div class="essence">
+
+					<input class="sheet-infoValues" 
+						name="data.essence.max" 
+						type="text" 
+						value="{{data.data.essence.max}}" 
+						data-name="data.data.essence.max" 
+						data-dtype="Number" />
+
+					<div class="resource-counter" data-value="{{data.data.essence.temporary}}" data-name="data.data.essence.temporary">
+
+						{{#numLoop data.data.essence.max}}
+						
+						<!--<span class="resource-value-step" data-index="{{this}}"></span>-->
+						{{#le ../data.data.essence.temporary this}}
+						<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+						{{else}}
+						<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+						{{/le}}
+						
+						{{/numLoop}}
+				
+					</div>
+
+				</div>
+
+			</div>
+
+			{{!-- Charms Tab --}}
+			<div class="tab charms" data-group="primary" data-tab="charms">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/spirit/charms.html"}}
+
+			</div>
+
+			{{!-- Settings Tab --}}
+			<div class="tab settings" data-group="primary" data-tab="settings">
+			
+				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
+				
+			</div>
+
 		</section>
 	</div>
 		

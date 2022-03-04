@@ -25,6 +25,7 @@
 			"gear": "Gear",
 			"notes": "Notes",
 			"gifts": "Gifts & Rites",
+			"charms": "Charms",
 			"shapechange": "Shapechange"
 		},
 		"bio": {
@@ -127,7 +128,8 @@
 			"glory": "Glory",
 			"honor": "Honor",
 			"wisdom": "Wisdom",
-			"rank": "Rank"
+			"rank": "Rank",
+			"essence": "Essence"
 		},
 		"combat": {
 			"weapon": {

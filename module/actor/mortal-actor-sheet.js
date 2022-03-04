@@ -138,7 +138,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.totalExp = totalExp;
 		data.actor.spentExp = spentExp;
 		data.actor.experience = totalExp - spentExp;
-		
+
 		return data;
 	}	
 
@@ -399,25 +399,9 @@ export class MortalActorSheet extends ActorSheet {
 		const item = this.actor.getEmbeddedDocument("Item", itemId);
 		
 
-		if (item instanceof Item)
+		if (item instanceof Item) {
             (_a = item.sheet) === null || _a === void 0 ? void 0 : _a.render(true);
-
-        /*if (!item)
-            return;*/
-
-		/*const li = $(event.currentTarget).parents(".item");
-		let itemId = li.data("itemId");
-		let item = this.actor.items.get(itemId);
-		if (!item) {
-			item = game.items.get(itemId);
-	
-			if (!item) {
-			item = await ImportHelpers.findCompendiumEntityById("Item", itemId);
-			}
 		}
-		if (item?.sheet) {
-			item.sheet.render(true);
-		}*/
 	}
 
 	async _onItemActive(event) {
@@ -425,7 +409,6 @@ export class MortalActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		//const item = this.actor.getEmbeddedDocument("Item", itemId);
 		const item = this.actor.items.get(itemId);
 		let active = false;
 
@@ -436,7 +419,6 @@ export class MortalActorSheet extends ActorSheet {
 			active = true;
 		}
 
-		//this.actor.updateEmbeddedDocuments("Item", )
 		await item.update({"data.active" : active});
 
 		console.log("WoD | Editing item id: " + itemId);

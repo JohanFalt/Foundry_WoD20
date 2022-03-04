@@ -1,0 +1,29 @@
+<div class="sheet-headline vrollable" 
+	data-roll="{{data.data.gnosis.roll}}" 
+	data-label="{{localize data.data.gnosis.label}}" 
+	data-noability="true">{{localize 'wod.advantages.gnosis'}}</div>
+
+<div class="resource-value permValueRow" data-value="{{data.data.gnosis.permanent}}" data-name="data.data.gnosis.permanent">
+
+	{{#numLoop data.data.gnosis.max}}
+	
+	<span class="resource-value-step" data-index="{{this}}"></span>
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="resource-counter tempSquareRow" data-value="{{data.data.gnosis.temporary}}" data-name="data.data.gnosis.temporary">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.gnosis.max}}
+	
+	{{#le ../data.data.gnosis.temporary this}}
+	<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+	{{else}}
+	<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+	{{/le}}
+	
+	{{/numLoop}}
+	
+</div>

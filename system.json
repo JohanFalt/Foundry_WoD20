@@ -2,9 +2,9 @@
 	"name": "worldofdarkness",
 	"title": "World of Darkness 20th",
 	"description": "To play World of Darkness",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"minimumCoreVersion": "9.238",
-	"compatibleCoreVersion": "9.249",
+	"compatibleCoreVersion": "9.251",
 	"templateVersion": 1,
 	"author": "Johan Fält",
 	"esmodules": [

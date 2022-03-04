@@ -20,14 +20,22 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/combat_natural.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_ranged.html",
-		"systems/worldofdarkness/templates/actor/parts/combat_armor.html",
-		"systems/worldofdarkness/templates/actor/parts/shift.html",
-		"systems/worldofdarkness/templates/actor/parts/gift.html",
+		"systems/worldofdarkness/templates/actor/parts/combat_armor.html",		
 		"systems/worldofdarkness/templates/actor/parts/stats.html",
+		
+		"systems/worldofdarkness/templates/actor/parts/stats_rage.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_gnosis.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_willpower.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
 		"systems/worldofdarkness/templates/actor/parts/notes.html",
-		"systems/worldofdarkness/templates/actor/parts/settings.html"
+		"systems/worldofdarkness/templates/actor/parts/settings.html",
+
+		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
+
+		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",
 
 		// Item Sheet Partials
 	];

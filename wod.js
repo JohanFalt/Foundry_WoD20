@@ -1,12 +1,28 @@
 //import { weaponSheet } from "./module/sheets/item-sheet.js";
+import { migrations } from "./module/migration.js";
 import { wod } from "./module/config.js";
 import { preloadHandlebarsTemplates } from "./module/templates.js";
 import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
+import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
 import { WoDItemSheet } from "./module/items/item-sheet.js";
 
 Hooks.once("init", async function() {
 	console.log("WoD | Initialising World of Darkness System");
+
+	// "core" is core settings
+	// "worldofdarkness" as system setting
+	// "wod" or other then is module settings
+	game.settings.register("worldofdarkness", "worldVersion", {
+		name: "World Version",
+		hint: "Used to know if World patch is needed",
+		scope: "world",
+		config: true,
+		default: "1",
+		type: String,
+	});
+
+	console.log("WoD | Settings registered");
 	
 	CONFIG.wod = wod;
 
@@ -24,6 +40,12 @@ Hooks.once("init", async function() {
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
+
+	Actors.registerSheet("WoD", SpiritActorSheet, {
+		label: "Spirit Sheet",
+		types: ["Spirit"],
+		makeDefault: true
+	});
 	
 	console.log("WoD | Sheets Registered");
 
@@ -194,5 +216,5 @@ Hooks.once("ready", function () {
     // Do anything once the system is ready
     // Reference a Compendium pack by it's collection ID
     // packImport();
-    //migrations();	
+    migrations();	
 });

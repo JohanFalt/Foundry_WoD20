@@ -45,6 +45,8 @@
 	</div>
 </div>
 
+{{#iff actor.type "!=" "Spirit"}}
+
 <div>Num boxes in Health</div>
 <div class="clearareaBox">
 	<label for="data.data.health.bruised.value" class="headlineGroup centerText" data-label="{{data.data.health.bruised.value}}" data-ability="true">{{localize "wod.health.bruised"}}</label>
@@ -92,6 +94,8 @@
 	<label for="data.data.health.damage.aggravated" class="headlineGroup centerText" data-label="{{data.data.health.damage.aggravated}}" data-ability="true">{{localize "wod.labels.numberdamageaggravated"}}</label>
 	<input class="sheet-infoValues" name="data.health.damage.aggravated" type="text" value="{{data.data.health.damage.aggravated}}" data-name="data.data.health.damage.aggravated" {{#if locked}} readonly {{/if}} />
 </div>
+
+{{/iff}}
 
 <div>{{localize "wod.labels.otheritems"}}</div>
 {{#each actor.other as |item id|}}

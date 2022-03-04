@@ -533,6 +533,11 @@
 					"temporary": 0,
 					"max": 10,
 					"label": "wod.advantages.gnosis"
+				},
+				"essence": {
+					"temporary": 10,
+					"max": 10,
+					"label": "wod.advantages.essence"
 				}
 			}
 		},

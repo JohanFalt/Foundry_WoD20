@@ -262,13 +262,13 @@ export default class ActionHelper {
 						numDice = parseInt(dataset.roll) + modifier;
 						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 
-						if ((parseInt(actor.data.data.attributes.composure.value) >= 4) && (parseInt(actor.data.data.attributes.resolve.value) >= 4)) {
+						if ((parseInt(actor.data.data.attributes?.composure.value) >= 4) && (parseInt(actor.data.data.attributes?.resolve.value) >= 4)) {
 							specialityText = actor.data.data.attributes.composure.speciality + ", " + actor.data.data.attributes.resolve.speciality;
 						}
-						else if (parseInt(actor.data.data.attributes.composure.value) >= 4) {
+						else if (parseInt(actor.data.data.attributes?.composure.value) >= 4) {
 							specialityText = actor.data.data.attributes.composure.speciality
 						}
-						else if (parseInt(actor.data.data.attributes.resolve.value) >= 4) {
+						else if (parseInt(actor.data.data.attributes?.resolve.value) >= 4) {
 							specialityText = actor.data.data.attributes.resolve.speciality;
 						}
 					}
