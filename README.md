@@ -16,7 +16,9 @@ Change Log
 Fix i 1.0.5
 - Added migration
 - Added worldVersion system setting
-- Spirit
+- Spirit sheet
+- Lagt till Charms som Power
+- Flytta ner tooltip ca 20 px så det ej kommer i vägen vid popout
 
 Fix i 1.0.4
 - Fixat kan inte slå gift med bara Rage/Gnosis/Willpower

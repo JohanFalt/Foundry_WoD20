@@ -70,6 +70,26 @@
   color: white;
 }
 
+.spirit .headlineTabs {
+	border-bottom-color: #ad9300;
+}
+
+.spirit .row:nth-of-type(odd) {
+	background-color: rgb(255, 215, 0, 0.06);
+  display: flex;
+}
+
+.spirit .thin-border-left,
+.spirit .thin-border-right {
+  border-color: #ad9300;
+}
+
+.spirit .tooltip .tooltiptext,
+.spirit .resource-value-static .resource-value-static-step.active {
+  background-color: #ad9300;
+  color: black;
+}
+
 .vampire .headlineTabs {
 	border-bottom-color: #790813;
 }
@@ -92,27 +112,7 @@
   color: white;
 }
 
-.spirit .headlineTabs {
-	border-bottom-color: #FFD700;
-}
 
-.spirit .row:nth-of-type(odd),
-.spirit .sheet-character .profile-img-zone button,
-.spirit .shape-selector-active {
-	background: #FFD700;
-	color: black;
-}
-
-.spirit .thin-border-left,
-.spirit .thin-border-right {
-  border-color: #FFD700;
-}
-
-.spirit .tooltip .tooltiptext,
-.spirit .resource-value-static .resource-value-static-step.active {
-  background-color: #FFD700;
-  color: black;
-}
 
 /* END - Type of sheet designs */
 
@@ -178,13 +178,13 @@
 .spirit .item-delete:focus,
 .spirit .vrollable:hover,
 .spirit .vrollable:focus {
-	text-shadow: 0 0 10px #FFD700 !important;
+	text-shadow: 0 0 10px #ad9300 !important;
 }
 
 .spirit .item:hover,
 .spirit .item:focus,
 .spirit .item.active {
-	text-shadow: 0 0 10px #FFD700;
+	text-shadow: 0 0 10px #ad9300;
 }
 
 /* END - Dice roll links */
@@ -378,7 +378,7 @@ textarea.sheet-infoValues {
   padding: 5px;
   /*left: -300px;*/
   left: 20px;
-  top: 20px;
+  top: 70px;
 
   /* Position the tooltip */
   /*position: absolute;*/
@@ -445,6 +445,15 @@ textarea.sheet-infoValues {
   width: 110px !important;
   margin-right: 15px !important;
   height: 18px !important;
+}
+
+.essence {
+  width: 30%;
+  text-align: center;
+}
+
+.essence-counters {
+  width: 215px;
 }
 
 /* END - Core */
@@ -723,5 +732,9 @@ textarea.sheet-gearArea {
 
 .tempSquareRow {
 	margin-left: 17px;
+}
+
+.checkboxgroup:nth-of-type(5n) {
+  margin-right: 10px;
 }
 /* END - handle design of radio buttons */

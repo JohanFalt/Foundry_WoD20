@@ -26,36 +26,51 @@
 			{{!-- Core Tab --}}
 			<div class="tab core" data-group="primary" data-tab="core">
 
-				{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+				<div class="clearareaBox" style="display: flex;">
 
-				{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+					<div class="pullLeft" style="width: 100%;">
 
-				{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+						<div class="clearareaBox" style="width: 100%; text-align: center;">
 
-				<div class="sheet-headline">{{localize 'wod.advantages.essence'}}</div>	
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
 
-				<div class="essence">
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
 
-					<input class="sheet-infoValues" 
-						name="data.essence.max" 
-						type="text" 
-						value="{{data.data.essence.max}}" 
-						data-name="data.data.essence.max" 
-						data-dtype="Number" />
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 
-					<div class="resource-counter" data-value="{{data.data.essence.temporary}}" data-name="data.data.essence.temporary">
+						</div>
 
-						{{#numLoop data.data.essence.max}}
-						
-						<!--<span class="resource-value-step" data-index="{{this}}"></span>-->
-						{{#le ../data.data.essence.temporary this}}
-						<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
-						{{else}}
-						<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
-						{{/le}}
-						
-						{{/numLoop}}
-				
+						<div class="sheet-headline">{{localize 'wod.advantages.essence'}}</div>	
+
+						<div class="clearareaBox" style="width: 100%;">
+
+							<div class="pullLeft" style="width: 35%;">&nbsp;</div>
+
+							<div class="pullLeft essence">
+
+								
+
+								<div class="resource-counter essence-counters" data-value="{{data.data.essence.temporary}}" data-name="data.data.essence.temporary">
+
+									{{#numLoop data.data.essence.max}}
+									
+									<!--<span class="resource-value-step" data-index="{{this}}"></span>-->
+									{{#le ../data.data.essence.temporary this}}
+									<span class="resource-value-step checkboxgroup" data-index="{{this}}" data-state=""></span>
+									{{else}}
+									<span class="resource-value-step checkboxgroup" data-index="{{this}}" data-state="x"></span>
+									{{/le}}
+									
+									{{/numLoop}}
+							
+								</div>
+
+							</div>
+
+							<div class="pullLeft" style="width: 35%;">&nbsp;</div>
+
+						</div>
+
 					</div>
 
 				</div>

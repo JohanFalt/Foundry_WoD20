@@ -45,11 +45,14 @@ export class SpiritActorSheet extends ActorSheet {
 		data.dtypes = ["String", "Number", "Boolean"];
 
 		const charmlist = [];
+		const giftlist = [];
 		const other = [];
 
         for (const i of data.items) {
-			if ((i.type == "Power") && (i.data.type == "wod.types.charm")) {
-				charmlist.push(i);
+			if (i.type == "Power") {
+				if (i.data.type == "wod.types.charm") {
+					charmlist.push(i);
+				}
 			}
 			else {
 				other.push(i);
@@ -57,6 +60,7 @@ export class SpiritActorSheet extends ActorSheet {
 		}
 
 		data.actor.charmlist = charmlist;
+		data.actor.giftlist = giftlist;
 		data.actor.other = other;	
 
 		console.log(data.actor);

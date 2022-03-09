@@ -526,12 +526,14 @@
 					"permanent": 0,
 					"temporary": 0,
 					"max": 10,
+					"roll": 0,
 					"label": "wod.advantages.rage"
 				},
 				"gnosis": {
 					"permanent": 0,
 					"temporary": 0,
 					"max": 10,
+					"roll": 0,
 					"label": "wod.advantages.gnosis"
 				},
 				"essence": {

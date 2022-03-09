@@ -95,6 +95,18 @@
 	<input class="sheet-infoValues" name="data.health.damage.aggravated" type="text" value="{{data.data.health.damage.aggravated}}" data-name="data.data.health.damage.aggravated" {{#if locked}} readonly {{/if}} />
 </div>
 
+{{else}}
+
+<div>
+	<label for="data.data.health.damage.aggravated" class="headlineGroup centerText" data-label="{{data.data.essence.max}}" data-ability="true">{{localize "wod.advantages.essence"}}</label>
+	<input class="sheet-infoValues" 
+		name="data.essence.max" 
+		type="text" 
+		value="{{data.data.essence.max}}" 
+		data-name="data.data.essence.max" 
+		data-dtype="Number" />
+</div>
+
 {{/iff}}
 
 <div>{{localize "wod.labels.otheritems"}}</div>

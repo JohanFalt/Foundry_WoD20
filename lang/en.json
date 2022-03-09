@@ -13,6 +13,7 @@
 			"armor": "Armor",
 			"gift": "Gift",
 			"rite": "Rite",
+			"charm": "Charm",
 			"discipline": "Discipline",
 			"fetish": "Fetish"
 		},
@@ -262,6 +263,7 @@
 				"armor": "Remove Armor",
 				"gift": "Remove Gift",
 				"rite": "Remove Rite",
+				"charm": "Remove Charm",
 				"background": "Remove Background"
 			},
 			"yes": "yes",
