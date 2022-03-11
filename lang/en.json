@@ -133,6 +133,11 @@
 			"essence": "Essence"
 		},
 		"combat": {
+			"conditions": {
+				"frenzy": "Frenzy",
+				"ignorepain": "Ignore Pain",
+				"stunned": "Stunned"
+			},
 			"weapon": {
 				"weapon": "Weapon",
 				"attribute": "Attribute",
@@ -221,6 +226,8 @@
 			"numberdamagelethal": "Damage Lethal",
 			"numberdamageaggravated": "Damage Aggravated",
 			"combat": {
+				"conditions": "Conditions",
+				
 				"natural": "Natural Weapons",
 				"melee": "Melee Weapons",
 				"ranged": "Ranged Weapons",

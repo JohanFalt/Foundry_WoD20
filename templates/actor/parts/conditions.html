@@ -1,0 +1,15 @@
+<div class="sheet-headline">{{localize "wod.labels.combat.conditions"}}</div>
+
+<div class="clearareaBox">
+    {{#iff actor.type "==" "Werewolf"}}
+    <div class="pullLeft condition">
+        <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+    </div>
+    {{/iff}}
+    <div class="pullLeft condition">
+        <input name="data.conditions.ignorepain" type="checkbox" {{#if data.data.conditions.ignorepain}} checked {{/if}}>{{localize "wod.combat.conditions.ignorepain"}}</input>
+    </div>
+    <!--<div class="pullLeft">
+        <input name="data.conditions.stunned" type="checkbox" {{#if data.data.conditions.stunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
+    </div>-->
+</div>

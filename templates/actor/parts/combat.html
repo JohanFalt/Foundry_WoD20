@@ -2,6 +2,12 @@
 
 <div class="clearareaBox">
 
+{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+
+</div>
+
+<div class="clearareaBox">
+
 {{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
 
 </div>
@@ -37,6 +43,10 @@
                         data-dice2="{{item.data.dice2}}" 
                         data-diff="{{item.data.difficulty}}"
                         data-system="{{item.data.system}}">{{captilizeFirst item.name}}</div>
+                    <div class="pullLeft gift-valueBox headlineNormal tooltip">
+                        <i class="fa fa-sticky-note"></i>
+                        <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+                    </div>
                     <div class="pullLeft gift-valueBox">
                         <a class="send-chat" 
                             title="{{localize "wod.labels.send"}}" 

@@ -200,6 +200,7 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".item-delete")
 			.click(this._onItemDelete.bind(this));
 
+		// skicka till chat
 		html
 			.find(".send-chat")
 			.click(this._onSendChat.bind(this));

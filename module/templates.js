@@ -17,6 +17,7 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
+		"systems/worldofdarkness/templates/actor/parts/conditions.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_natural.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_ranged.html",

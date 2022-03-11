@@ -460,6 +460,10 @@ textarea.sheet-infoValues {
 
 /* START - Combat */
 
+.condition {
+  width: 150px;
+}
+
 .combat-bottomarea {
   width: 67%;
 }

@@ -1,29 +1,38 @@
-# Foundry_WoD20
-Changes to the rules
+# Foundry WoD20
 
+# Changes to the rules
+1s doesn't remove success
+Changing Willpower
+
+## Attributes
 Removal of Appearance and Perception
 Adding Composure and Resolve
 Changing Wits
 
-Changing Willpower
+## Abilities
 
-Additional abilities
 
-1s doesn't remove success
+# Change Log
 
-Change Log
+## Fix i 1.0.6
+- Lagt till så man kan se beskrivningen av en gift vid Active Gifts (Combat)
+- Lagt till så man kan fylla i Conditions under Combat
+- Funktionen av Conditions Ignore Pain och Frenzy
+- Conditions syns i slaget
+- BUGG: Kan inte skicka Charm till Chatt
+- BUGG: + ramlat bort om Attribute och Ability finns vid Itemslag.
 
-Fix i 1.0.5
+## Fix i 1.0.5
 - Added migration
 - Added worldVersion system setting
 - Spirit sheet
 - Lagt till Charms som Power
 - Flytta ner tooltip ca 20 px så det ej kommer i vägen vid popout
 
-Fix i 1.0.4
+## Fix i 1.0.4
 - Fixat kan inte slå gift med bara Rage/Gnosis/Willpower
 
-Fix i 1.0.3
+## Fix i 1.0.3
 - Fixat färger för Macro-tärningar
 - Fixat bredd på rutor i Notes
 - Lagt till Spirit dice
@@ -38,7 +47,7 @@ Fix i 1.0.3
 - Designat skicka beskrivning till Chatt
 - Flyttade visningen av beskrivning av gift/rites till ute i Foundry för testning
 
-Fix i 1.0.2
+## Fix i 1.0.2
 - Fixa spec Willpower
 - Skicka System om Gift/Rituals vid slag
 - Kan sätta gift som aktiv
@@ -49,7 +58,7 @@ Fix i 1.0.2
 - Visa total exp kvar på Core
 - Komprimerat Exp på Notes
 
-Fix i 1.0.1
+## Fix i 1.0.1
 - Döljer Edit/Delete-knappar om LOCKED.
 - Översatt språk som glömts
 - Visa totalt Earned Experience och Spent Experience
@@ -57,7 +66,7 @@ Fix i 1.0.1
 - Hanterar bredd på Core och Shift
 - Designa textarea (Bio och Gear)
 
-Fix i 1.0.0
+## Fix i 1.0.0
 - Lägg till Specialities
 - Edit Combat
 - Feature form
@@ -75,7 +84,7 @@ Fix i 1.0.0
 - Om inte "klar" på spent exp är ikryssad visa inte kostnad och räkna inte den som spenderad
 - Knapp - Skicka Description Gift + Rites till chatt
 
-Fix i 0.3.8
+## Fix i 0.3.8
 - Töm Health Level högerklick
 - Visa Attribute Total i settings
 - Om ta bort fråga först
@@ -86,7 +95,7 @@ Fix i 0.3.8
 - Macro: Slå Soak
 - Macro: Slå X st tärningar (t ex Willpower)
 
-Fix i v0.3.7
+## Fix i v0.3.7
 - Sätta ut Rank
 - Flytta upp Tab brevid upplåsningknapp
 - Begränsa Gift baserat på Rank
@@ -115,7 +124,7 @@ Fix i v0.3.7
 - Rite och Gifts difficulty (-1)
 - Radiobutton difficulty
 
-Fix i v0.3.6
+## Fix i v0.3.6
 - Added type to Power
 - Added dice selection to Power
 - Lagt till byta Actor bild
@@ -130,7 +139,7 @@ Fix i v0.3.6
 - Designa hint-text
 - Design Gifts
 
-Fix i v0.3.5
+## Fix i v0.3.5
 - Werewolf: Shiftknapparna shiftar som de ska
 - Werewolf: Shiftfunktionen vet vilken form den har varit och vilken den skall till
 - Garanterat att om inga former så sätts Homid
@@ -141,7 +150,7 @@ Fix i v0.3.5
 - Visa vilken form
 - Snygga till var formikonen finns
 
-Fix i v0.3.4
+## Fix i v0.3.4
 - Lagt till mods och diffs på mortal för att hålla bonusar i slag
 - Lagt till shiftmods och shiftdiffs på werewolf för att hålla bonusar vilken form de har
 - Sorterat i GetData() för mortal och werewolf
@@ -152,13 +161,13 @@ Fix i v0.3.4
 - Ersatt {{equalValue}} med {{iff}}
 - Städat i console.log vid öppnande av sheet så det skrivs ut i rätt ordning
 
-Fix i v0.3.3
+## Fix i v0.3.3
 - Design Armor
 - Armor Drag
 - Armor skapa
 - Armor Ta Bort
 
-Fix i v0.3.2
+## Fix i v0.3.2
 - Ranged Weapons skapa
 - Ranged Weapons Drag
 - Ranged Weapons alla Attribute
@@ -168,7 +177,7 @@ Fix i v0.3.2
 - Health Level hantering
 - Välja health även om låst
 
-Fix i v0.3.1
+## Fix i v0.3.1
 - Bygga om språkfilen
 - Item Natural Weapon
 - Item Melee Weapon
@@ -186,7 +195,7 @@ Fix i v0.3.1
 - Design Melee Weapon
 - Design Combat
 
-Fix i v0.3
+## Fix i v0.3
 - Added bio.html
 - Kan inte slå Gnosis
 - Kan inte slå Rage
@@ -200,7 +209,7 @@ Fix i v0.3
 - Tömma temp Renown
 - Design Bio
 
-Fix i v0.2
+## Fix i v0.2
 - Design slå tärningar från formulär titta på marcro för ideer särskilt med färgschema beroende på vad för slags varelse som slår. Vampire finns, kvar, werewolf och mortal. Från CoD?
 - Speciality dubblar inte success 10.
 - Kan inte slå Skill + Attribute, detta blir Skill + Skill.

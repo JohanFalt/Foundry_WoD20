@@ -11,6 +11,7 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 	let successRoll = false;
 	let rolledOne = false;
 	let roll;
+	let conditions = "";
 
 	roll = new Roll(dice + "d10");
 	roll.evaluate({async:true});		
@@ -30,8 +31,11 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 	});
 
 	successRoll = success > 0;		
-	
-	if (wound > -1) {
+
+	if (actor.data.data.health.damage.woundlevel != "") {
+		wound = `<br /><strong>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${wound})</strong>`;
+	}
+	else {
 		wound = ``;
 	}
 
@@ -42,9 +46,23 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		specialityText = "";
 	}
 
+	if (actor.data.data.conditions != undefined) {
+		if (actor.data.data.conditions?.ignorepain) {
+			conditions += `<br />${game.i18n.localize("wod.combat.conditions.ignorepain")}`;
+		}
+
+		if (actor.data.data.conditions?.stunned) {
+			conditions += `<br />${game.i18n.localize("wod.combat.conditions.stunned")}`;
+		}
+
+		if (actor.data.data.conditions?.frenzy) {
+			conditions += `<br />${game.i18n.localize("wod.combat.conditions.frenzy")}`;
+		}
+	}
+
 	difficulty = `<br /><span>${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</span>`;
 
-	label = `<p class="roll-label uppercase">${label} ${wound} ${specialityText} ${difficulty}</p>`;
+	label = `<p class="roll-label uppercase">${label} ${wound} ${conditions} ${specialityText} ${difficulty}</p>`;
 
 	if (systemText != "") {
 		label += `<p class="roll-label uppercase">${systemText}</p>`;

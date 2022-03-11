@@ -95,10 +95,23 @@ export class SpiritActorSheet extends ActorSheet {
 		html
 			.find(".vrollable")
 			.click(this._onRollDialog.bind(this));
+
+		// skicka till chat
+		html
+			.find(".send-chat")
+			.click(this._onSendChat.bind(this));
 	}
 
 	_onRollDialog(event) {		
 		ActionHelper.RollDialog(event, this.actor);		
+	}
+
+	_onSendChat(event) {
+		const element = event.currentTarget;
+		const message = element.dataset.message || "";
+		const headline = element.dataset.headline || "";
+
+		ActionHelper.printMessage(headline, message, this.actor);
 	}
 
 	_setupDotCounters(html) {

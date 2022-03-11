@@ -25,6 +25,8 @@ export default class ActionHelper {
 		let template = "";
 		let specialityText = "";
 
+		let woundPenaltyVal = 0;
+
 		if ((dataset.noability=="true") || (dataset.rolldamage=="true")) {
 			if (dataset.label == "Willpower") {
 				if ((dataset.speciality1 != undefined) && (dataset.speciality2 != undefined) && (dataset.speciality1 != "") && (dataset.speciality2 != ""))
@@ -46,7 +48,14 @@ export default class ActionHelper {
 		}
 		else { 
 			if (actor.data.data.health.damage.woundlevel != "") {
-				wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${actor.data.data.health.damage.woundpenalty})</div>`
+				if (this._ignoresPain(actor)) {
+					woundPenaltyVal = 0;
+				}
+				else {
+					woundPenaltyVal = actor.data.data.health.damage.woundpenalty;
+				}
+
+				wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${woundPenaltyVal})</div>`
 			}		
 			
 			if (dataset.rollitem == "true") {
@@ -217,7 +226,7 @@ export default class ActionHelper {
 					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 0);
 					const specialty = html.find("#specialty")[0]?.checked || false;
 
-					if (actor.data.data.conditions.ignorepain) {
+					if (this._ignoresPain(actor)) {
 						woundPenaltyVal = 0;
 					}
 					else {
@@ -290,7 +299,7 @@ export default class ActionHelper {
 						diceUsed = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal})`;
 
 						if (abilityName != "") {
-							diceUsed += `${abilityName} (${abilityVal})`;
+							diceUsed += ` + ${abilityName} (${abilityVal})`;
 						}
 
 						diceUsed += ` ${modifierText}</strong>`;
@@ -400,5 +409,21 @@ export default class ActionHelper {
 		};		
 	
 		ChatMessage.create(chatData,{});    
+	}
+
+	static _ignoresPain(actor) {
+		let ignoresPain = false;
+
+		if (actor.data.data.conditions?.ignorepain)
+		{
+			ignoresPain = true;
+		}
+
+		if (actor.data.data.conditions?.frenzy)
+		{
+			ignoresPain = true;
+		}
+
+		return ignoresPain;
 	}
 }
