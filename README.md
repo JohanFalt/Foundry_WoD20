@@ -14,6 +14,20 @@ Changing Wits
 
 # Change Log
 
+## Fix i 1.0.7
+- Patch: Korrigerade Item Experience så visningstexten ligger i Description
+- Added Version on Items
+- Added Item Fetish
+- Fix design Item Melee Weapons
+- Fix design Item Ranged Weapons
+- Fix design Item Armor
+- Fix design Item Power
+- Fix design Item Experience
+- Fix design Item Feature
+- Fix design Item Fetish
+- Göm Charm egenskaper som inte skall synas för spelare
+- Göm Gift egenskaper som inte skall synas för spelare
+
 ## Fix i 1.0.6
 - Lagt till så man kan se beskrivningen av en gift vid Active Gifts (Combat)
 - Lagt till så man kan fylla i Conditions under Combat

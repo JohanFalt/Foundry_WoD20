@@ -343,6 +343,11 @@ textarea.sheet-infoValues {
   width: 50px !important;
 }
 
+.miniBox {
+  width: 25px !important;
+  min-width: 25px !important;
+}
+
 .rowNumberBox {
   width: 25px !important;
 }
@@ -566,7 +571,7 @@ textarea.sheet-gearArea {
 /* START - Notes */
 
 .notes-largeBox {
-  width: 175px;
+  width: 250px;
   height: 19px;
 }
 
@@ -594,6 +599,22 @@ textarea.sheet-gearArea {
   margin-right: 25px;
   float:left; 
   width:30%;
+}
+
+input.item {
+  width: 200px;
+}
+
+select.item {
+  width: 150px;
+}
+
+textarea.item {
+  height: 100px;
+}
+
+.infobox {
+  margin-bottom: 5px;
 }
 
 /* END - Items */

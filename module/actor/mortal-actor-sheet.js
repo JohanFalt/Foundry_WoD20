@@ -28,7 +28,8 @@ export class MortalActorSheet extends ActorSheet {
 		console.log("WoD | Mortal Sheet constructor");
 
 		this.locked = true;
-		this.isCharacter = true;		
+		this.isCharacter = true;	
+		this.isGM = game.user.isGM;	
 	}	
 	
 	/** @override */
@@ -49,6 +50,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.config = CONFIG.wod;		
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
+		data.isGM = this.isGM;
 
 		data.dtypes = ["String", "Number", "Boolean"];
 

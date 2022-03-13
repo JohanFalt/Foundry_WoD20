@@ -13,17 +13,23 @@ export const migrations = async () => {
   console.log('WoD | Current world version: ' + worldVersion);
   console.log('WoD | Getting version: ' + currentVersion);
 
-  if (worldVersion !== currentVersion && worldVersion === '1' && game.user.isGM) {
+  if ((worldVersion !== currentVersion || worldVersion === '1') && game.user.isGM) {
     ui.notifications.info('New version detected; Updating World, please wait.');
 
-    const updates = [];
+    for (const actor of game.actors) {
+      for (const item of actor.items) {
+        if (item.data.data.version == undefined) {
+          item.update({"data.version" : "1.0.7"});
 
-    for (const a of game.actors) {
-      //if (a.data.type !== 'character') continue
-      //updates.push({ _id: a.id, type: 'vampire' })
+          if (item.data.type == "Experience") {
+            if (item.data.data.type == "wod.types.expgained") {
+              item.update({"data.description" : item.name});
+            }
+          }          
+        }        
+      }
     }
 
-    //await Actor.updateDocuments(updates);
     game.settings.set('worldofdarkness', 'worldVersion', currentVersion);
 
     ui.notifications.info('World updated!');

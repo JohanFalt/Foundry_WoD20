@@ -22,7 +22,8 @@ export class SpiritActorSheet extends ActorSheet {
 		console.log("WoD | Spirit Sheet constructor");
 
 		this.locked = false;
-		this.isCharacter = true;		
+		this.isCharacter = true;	
+		this.isGM = game.user.isGM;	
 	}	
 	
 	/** @override */
@@ -41,6 +42,7 @@ export class SpiritActorSheet extends ActorSheet {
 		//data.config = CONFIG.wod;		
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
+		data.isGM = this.isGM;
 
 		data.dtypes = ["String", "Number", "Boolean"];
 

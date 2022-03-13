@@ -1,58 +1,50 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<header class="sheet-header">
-		<img src="{{item.img}}" /> 
-
-		<div class="clearareaBox">
-			<div>
-				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-				<div class="pullLeft">
-					<input class="sheet-infoValues" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-				</div>
-			</div>
-		</div>
+		<img src="{{item.img}}" /> 		
 	</header>
 
 	<section>
 
-		<!-- type -->
-		<div class="clearareaBox">
-			<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
-			<div>
-				<select name="data.type">
-					{{#select data.data.type}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						<option value="wod.types.expspent">{{localize "wod.types.expspent"}}</option>
-						<option value="wod.types.expgained">{{localize "wod.types.expgained"}}</option>
-					{{/select}}
-				</select>
-			</div>
+		{{#if isGM}}
+		<div class="infobox">
+			<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+			<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
 		</div>
+		{{/if}}
 
-		<!-- description -->
-		<div class="clearareaBox">
-			<div>
-				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-				<div class="pullLeft">
-					<input class="sheet-infoValues" name="data.description" type="text" value="{{data.data.description}}" data-name="data.data.description" data-dtype="String" {{#if locked}} readonly {{/if}} />
-				</div>
-			</div>
+		<!-- type -->
+		{{#if isGM}}
+		<div class="infobox">
+			<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
+			<select name="data.type">
+				{{#select data.data.type}}
+					<option value="">- {{localize "wod.labels.select"}} -</option>
+					<option value="wod.types.expspent">{{localize "wod.types.expspent"}}</option>
+					<option value="wod.types.expgained">{{localize "wod.types.expgained"}}</option>
+				{{/select}}
+			</select>
 		</div>
+		{{/if}}
 
 		{{#iff data.data.type "==" "wod.types.expspent"}}
         <!-- spent -->
-        <div class="clearareaBox">
+        <div class="infobox">
             <label class="headlineItem headlineBio" for="data.spent">{{localize "wod.experience.spent"}}</label>
             <input name="data.spent" type="checkbox" {{#if data.data.spent}} checked {{/if}} />
         </div>
 		{{/iff}}
 
         <!-- amount -->
-        <div class="clearareaBox">
+        <div class="infobox">
             <label class="headlineItem headlineBio" for="data.amount">{{localize "wod.experience.amount"}}</label>
-			<div class="pullLeft">
-            	<input class="sheet-infoValues" name="data.amount" type="text" value="{{data.data.amount}}" />
-			</div>
+           	<input class="sheet-infoValues miniBox" name="data.amount" type="text" value="{{data.data.amount}}" />
         </div>
+
+		<!-- description -->
+		<div class="infobox">
+			<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+			<input class="sheet-infoValues item" name="data.description" type="text" value="{{data.data.description}}" data-name="data.data.description" data-dtype="String" {{#if locked}} readonly {{/if}} />
+		</div>
 
 	</section>
 </form>

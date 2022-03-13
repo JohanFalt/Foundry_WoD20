@@ -103,7 +103,7 @@
             {{#each actor.expearned as |item id|}}
 
             <div class="clearareaBox row">
-                <div class="pullLeft notes-experienceHeadline headlineNormal">{{captilizeFirst item.name}}</div>
+                <div class="pullLeft notes-experienceHeadline headlineNormal">{{item.data.description}}</div>
                 <div class="pullLeft notes-valueBox headlineNormal">{{item.data.amount}}</div>
                 {{#if ../locked}}
                 {{else}}

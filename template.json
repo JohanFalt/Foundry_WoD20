@@ -587,7 +587,8 @@
 		"templates": {
 			"base": {
 				"worldanvil": "",
-				"description": ""
+				"description": "",
+				"version": ""
 			},
 			"feature": {
 				"type": "",

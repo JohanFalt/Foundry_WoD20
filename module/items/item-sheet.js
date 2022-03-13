@@ -26,10 +26,19 @@ export class WoDItemSheet extends ItemSheet {
 		const ItemData = data.item.data;
 
 		data.config = CONFIG.wod;
+		data.isGM = game.user.isGM;	
 
 		console.log(ItemData);
 
+		this._isCharm(data.item);
+
 		return data;
+	}
+
+	_isCharm(item) {
+		if ((item.type == "Power") && (item.data.data.type == "wod.types.charm")) {
+			$('[data-area="charm_level"]').style = "display: none;";
+		}
 	}
 	
 }
