@@ -27,127 +27,180 @@ export default class ActionHelper {
 
 		let woundPenaltyVal = 0;
 
-		if ((dataset.noability=="true") || (dataset.rolldamage=="true")) {
+		// specialityText
+		if (dataset.noability=="true") {
 			if (dataset.label == "Willpower") {
-				if ((dataset.speciality1 != undefined) && (dataset.speciality2 != undefined) && (dataset.speciality1 != "") && (dataset.speciality2 != ""))
-				{
-					specialityText = dataset.speciality1 + ", " + dataset.speciality2;
+				if ((actor.data.data.attributes.composure.value >= 4) &&
+						(actor.data.data.attributes.composure.speciality != "")) {
+					specialityText = actor.data.data.attributes.composure.speciality;
 				}
-				else if ((dataset.speciality1 != undefined) && (dataset.speciality1 != ""))
-				{
-					specialityText = dataset.speciality1;
+
+				if ((actor.data.data.attributes.resolve.value >= 4) &&
+						(actor.data.data.attributes.resolve.speciality != "")) {
+					specialityText = specialityText != "" ? specialityText + ", " + actor.data.data.attributes.resolve.speciality : actor.data.data.attributes.resolve.speciality;
 				}
-				else if ((dataset.speciality2 != undefined) && (dataset.speciality2 != ""))
-				{
-					specialityText = dataset.speciality2;
-				}			
 			}
+			// hide speciallity box
 			else {
 				specialty = "";
 			}
 		}
-		else { 
-			if (actor.data.data.health.damage.woundlevel != "") {
-				if (this._ignoresPain(actor)) {
-					woundPenaltyVal = 0;
+		else if (dataset.attribute == "true") {
+			if (actor.data.data.attributes[dataset.label].value >= 4) {
+				specialityText = actor.data.data.attributes[dataset.label].speciality;
+			}
+		}
+		else if (dataset.ability == "true") {
+			if (actor.data.data.abilities.talent[dataset.label]?.value != undefined) {
+				specialityText = actor.data.data.abilities.talent[dataset.label].speciality;
+			}
+			else if (actor.data.data.abilities.skill[dataset.label]?.value != undefined) {
+				specialityText = actor.data.data.abilities.skill[dataset.label].speciality;
+			}
+			else if (actor.data.data.abilities.knowledge[dataset.label]?.value != undefined) {
+				specialityText = actor.data.data.abilities.knowledge[dataset.label].speciality;
+			}	
+
+			let options1 = "";
+
+			for (const i in CONFIG.wod.attributes) {
+				if (actor.data.data.attributes[i].value >= 4) {
+					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(CONFIG.wod.attributes[i])} (${actor.data.data.attributes[i].speciality})</option>`);
 				}
 				else {
-					woundPenaltyVal = actor.data.data.health.damage.woundpenalty;
-				}
-
-				wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${woundPenaltyVal})</div>`
-			}		
-			
-			if (dataset.rollitem == "true") {
-				if (actor.data.data.attributes[dataset.dice1]?.value != undefined) {
-					attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
-					attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
-				}
-				else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
-					attributeVal = parseInt(actor.data.data[dataset.dice1].roll);
-					attributeName = game.i18n.localize(actor.data.data[dataset.dice1].label);
-				}
-
-				if (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
-					abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
-					abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
-				}
-				else if (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
-					abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
-					abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
-				}
-				else if (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
-					abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
-					abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
-				}	
-
-				if ((attributeVal >= 4) && (abilityVal >= 4)) {
-					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
-						specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
-					}
-
-					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
-						specialityText += actor.data.data.abilities.talent[dataset.dice2].speciality;
-					}
-					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
-						specialityText += actor.data.data.abilities.skill[dataset.dice2].speciality;
-					}
-					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
-						specialityText += actor.data.data.abilities.knowledge[dataset.dice2].speciality;
-					}
-				}
-				else if (attributeVal >= 4) {
-					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
-						specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
-					}
-				}
-				else if (abilityVal >= 4) {
-					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
-						specialityText = actor.data.data.abilities.talent[dataset.dice2].speciality;
-					}
-					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
-						specialityText = actor.data.data.abilities.skill[dataset.dice2].speciality;
-					}
-					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
-						specialityText = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
-					}
-				}
-
-				hiddenForms = `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
-				hiddenForms += `<input type="hidden" id="attributeName" value="${attributeName}" />`;
-				hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
-				hiddenForms += `<input type="hidden" id="abilityName" value="${abilityName}" />`;
-				hiddenForms += `<input type="hidden" id="specialityText" value="${specialityText}" />`;
-				hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
+					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(CONFIG.wod.attributes[i])}</option>`);
+				}				
 			}
-			else {
-				if (dataset.speciality?.length > 0) {
-					specialityText = `<span>(` + dataset.speciality + `)</span>`;
-				}
-			}
-		
-			if (dataset.ability == "true") {
-				let options1 = "";
-
-				for (const [key, value] of Object.entries(actor.data.data.attributes)) {
-					options1 = options1.concat(`<option value="${key}">${game.i18n.localize(value.label)}</option>`);
-				}
 				
-				selectAbility =  `<div class="form-group">
-								<label>${game.i18n.localize("wod.labels.selectattribute")}</label>
-								<select id="attributeSelect">${options1}</select>
-							</div>`;
+			selectAbility =  `<div class="form-group">
+									<label>${game.i18n.localize("wod.labels.selectattribute")}</label>
+									<select id="attributeSelect">${options1}</select>
+								</div>`;
+		}
+
+		// items
+		if (dataset.rollitem == "true") {
+			let specText1 = "";
+			let specText2 = "";
+
+			difficulty = dataset.diff;
+
+			// is dice1 an Attribute
+			if (actor.data.data.attributes[dataset.dice1]?.value != undefined) {
+				attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
+				attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
 			}
-			else if (dataset.rollitem == "true") {
-				difficulty = dataset.diff;
+			// is dice1 an Advantage
+			else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
+				attributeVal = parseInt(actor.data.data[dataset.dice1].roll);
+				attributeName = game.i18n.localize(actor.data.data[dataset.dice1].label);
 			}
+
+			// is dice2 a Talent
+			if (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
+				abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
+				abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
+			}
+			// is dice2 a Skill
+			else if (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
+				abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
+				abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
+			}
+			// is dice2 a Knowledge
+			else if (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
+				abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
+				abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
+			}	
+
+			// if ((attributeVal >= 4) && (abilityVal >= 4)) {
+			// 	if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
+			// 		specialityText = actor.data.data.attributes[dataset.dice1].speciality + ", ";
+			// 	}
+
+			// 	if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
+			// 		specialityText += actor.data.data.abilities.talent[dataset.dice2].speciality;
+			// 	}
+			// 	else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
+			// 		specialityText += actor.data.data.abilities.skill[dataset.dice2].speciality;
+			// 	}
+			// 	else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
+			// 		specialityText += actor.data.data.abilities.knowledge[dataset.dice2].speciality;
+			// 	}
+			// }
+			// else if (attributeVal >= 4) {
+			// 	if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
+			// 		specialityText = actor.data.data.attributes[dataset.dice1].speciality;
+			// 	}
+			// }
+			// else if (abilityVal >= 4) {
+			// 	if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
+			// 		specialityText = actor.data.data.abilities.talent[dataset.dice2].speciality;
+			// 	}
+			// 	else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
+			// 		specialityText = actor.data.data.abilities.skill[dataset.dice2].speciality;
+			// 	}
+			// 	else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
+			// 		specialityText = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
+			// 	}
+			// }
+
+			if (attributeVal >= 4) {
+				if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
+					specText1 = actor.data.data.attributes[dataset.dice1].speciality;
+				}
+			}
+			
+			if (abilityVal >= 4) {
+				if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
+					specText2 = actor.data.data.abilities.talent[dataset.dice2].speciality;
+				}
+				else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
+					specText2 = actor.data.data.abilities.skill[dataset.dice2].speciality;
+				}
+				else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
+					specText2 = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
+				}
+			}
+
+			if ((specText1 != "") && (specText2 != "")) {
+				specialityText = specText1 + ', ' + specText2;
+			}
+			else if (specText1 != "") {
+				specialityText = specText1;
+			}
+			else if (specText2 != "") {
+				specialityText = specText2;
+			}
+
+			hiddenForms += `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
+			hiddenForms += `<input type="hidden" id="attributeName" value="${attributeName}" />`;
+			hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
+			hiddenForms += `<input type="hidden" id="abilityName" value="${abilityName}" />`;
+			hiddenForms += `<input type="hidden" id="specialityText" value="${specialityText}" />`;
+			hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
+		}
+		
+		// damage
+		if (actor.data.data.health.damage.woundlevel != "") {
+			if (this._ignoresPain(actor)) {
+				woundPenaltyVal = 0;			}				
+			else {
+				woundPenaltyVal = actor.data.data.health.damage.woundpenalty;
+			}
+
+			wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${woundPenaltyVal})</div>`
+
+			if ((dataset.noability == "true") || (dataset.rolldamage == "true")) {
+				woundPenaltyVal = 0;
+				wounded = "";
+			}
+
+			hiddenForms += `<input type="hidden" id="woundPenalty" value="${woundPenaltyVal}" />`;				
 		}
 
 		// set final difficulty
-		if (dataset.rolldamage=="true") {
-		}
-		else {
-			for (let i = 3; i <= 10; i++) {
+		if (dataset.rolldamage !="true") {
+			for (let i = 2; i <= 10; i++) {
 				if (i == difficulty) {
 					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
 				}
@@ -199,7 +252,7 @@ export default class ActionHelper {
 						`
 					</div>
 					` + wounded + 
-					`<div>` + specialty + ` ` + specialityText + `</div>
+					`<div>` + specialty + ` <span id="specialityText">` + specialityText + `</span></div>
 				</form>`;
 		}		
 
@@ -214,8 +267,7 @@ export default class ActionHelper {
 					let attributeVal = 0;
 					let attributeName = "";
 					let abilityVal = 0;
-					let abilityName = "";
-					let woundPenaltyVal = 0;
+					let abilityName = "";					
 					let numDice = 0;
 					let diceUsed = "";
 					let specialityText = "";
@@ -225,13 +277,7 @@ export default class ActionHelper {
 					let modifierText = "";
 					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 0);
 					const specialty = html.find("#specialty")[0]?.checked || false;
-
-					if (this._ignoresPain(actor)) {
-						woundPenaltyVal = 0;
-					}
-					else {
-						woundPenaltyVal = actor.data.data.health.damage.woundpenalty;
-					}
+					let woundPenaltyVal = parseInt(html.find("#woundPenalty")[0]?.value || 0);
 
 					if (modifier > 0) {
 						modifierText = `+${modifier}`;
@@ -267,7 +313,7 @@ export default class ActionHelper {
 						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 					}
 					else if (dataset.noability == "true") {
-						woundPenaltyVal = 0;
+						//woundPenaltyVal = 0;
 						numDice = parseInt(dataset.roll) + modifier;
 						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 
@@ -308,7 +354,7 @@ export default class ActionHelper {
 						let bonusVal = parseInt(dataset.dice2);
 						let damageCode = game.i18n.localize(CONFIG.wod.damageTypes[dataset.type]);
 
-						woundPenaltyVal = 0;
+						//woundPenaltyVal = 0;
 						difficulty = 6;
 						attributeVal = parseInt(actor.data.data.attributes[dataset.dice1]?.total || 0);
 						attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1]?.label || "");
@@ -348,7 +394,17 @@ export default class ActionHelper {
 		}).render(true);
     }
 
-    static handleCalculations(actorData) {
+    static handleCalculations(actorData) {		
+
+		let advantageRollSetting = true;
+
+		try {
+			advantageRollSetting = game.settings.get('worldofdarkness', 'advantageRolls');
+		} 
+		catch (e) {
+			advantageRollSetting = true;
+		}
+
 		// attributes totals
 		actorData = calculateTotals(actorData);
 
@@ -363,12 +419,17 @@ export default class ActionHelper {
 			actorData.data.willpower.temporary = actorData.data.willpower.permanent;
 		}
 
-		actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+		if (advantageRollSetting) {
+			actorData.data.willpower.roll = actorData.data.willpower.permanent;
+		}
+		else {
+			actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+		}		
 
-		console.log("WoD | Mortal Sheet calculations done");
+		console.log("WoD | Sheet calculations done");
 	}
 
-    static handleWouldLevelCalculations(actorData) {
+    static handleWoundLevelCalculations(actorData) {
 		let totalWoundLevels = parseInt(actorData.data.health.damage.bashing) + parseInt(actorData.data.health.damage.lethal) + parseInt(actorData.data.health.damage.aggravated);
 
 		if (totalWoundLevels == 0) {
@@ -389,6 +450,70 @@ export default class ActionHelper {
 			}
 		}		
 	}
+
+	static handleWerewolfCalculations(actorData) {
+		console.log("WoD | Werewolf handleWerewolfCalculations");		
+
+		// shift
+		if ((!actorData.data.shapes.homid.active) &&
+			(!actorData.data.shapes.glabro.active) &&
+			(!actorData.data.shapes.crinos.active) &&
+			(!actorData.data.shapes.hispo.active) &&
+			(!actorData.data.shapes.lupus.active)) {
+			actorData.data.shapes.homid.active = true;
+		}
+
+		// rage
+		if (actorData.data.rage.permanent > actorData.data.rage.max) {
+			actorData.data.rage.permanent = actorData.data.rage.max;
+		}
+		
+		if (actorData.data.rage.permanent < actorData.data.rage.temporary) {
+			actorData.data.rage.temporary = actorData.data.rage.permanent;
+		}
+		
+		// gnosis
+		if (actorData.data.gnosis.permanent > actorData.data.gnosis.max) {
+			actorData.data.gnosis.permanent = actorData.data.gnosis.max;
+		}
+		
+		if (actorData.data.gnosis.permanent < actorData.data.gnosis.temporary) {
+			actorData.data.gnosis.temporary = actorData.data.gnosis.permanent;
+		}
+
+		let advantageRollSetting = true;
+
+		try {
+			advantageRollSetting = game.settings.get('worldofdarkness', 'advantageRolls');
+		} 
+		catch (e) {
+			advantageRollSetting = true;
+		}
+
+		if (advantageRollSetting) {
+			actorData.data.rage.roll = actorData.data.rage.permanent; 
+			actorData.data.gnosis.roll = actorData.data.gnosis.permanent;
+			actorData.data.willpower.roll = actorData.data.willpower.permanent; 
+		}
+		else {
+			actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
+			actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent;
+			actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+		}		
+
+		if (actorData.data.rage.roll > actorData.data.willpower.roll) {
+			const rageDiff = parseInt(actorData.data.rage.roll) - parseInt(actorData.data.willpower.roll);
+
+			console.log("WoD | Rage: " + actorData.data.rage.roll);
+			console.log("WoD | Willpower: " + actorData.data.willpower.roll);
+			console.log("WoD | rageDiff: " + rageDiff);			
+
+			actorData.data.attributes.charisma.total = parseInt(actorData.data.attributes.charisma.total) - rageDiff;
+			actorData.data.attributes.manipulation.total = parseInt(actorData.data.attributes.manipulation.total) - rageDiff;
+		}
+
+		console.log("WoD | Werewolf Sheet calculations done");
+	}	
 
 	static printMessage(headline, message, actor){
 		/*let chatData = {
@@ -425,5 +550,16 @@ export default class ActionHelper {
 		}
 
 		return ignoresPain;
+	}
+
+	static _changeAttributeSelect(actor) {
+		let attributeSepcText = "";
+		let abilitySpecText = html.find("#abilitySpecialityText")[0]?.value || "";
+
+		let attribute = html.find("#attributeSelect")[0]?.value;
+
+		if (attribute >= 4) {
+			attributeSepcText = actor.data.data.attributes[attribute].speciality;
+		}
 	}
 }

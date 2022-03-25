@@ -8,10 +8,25 @@
 
 /* START - Type of sheet designs */
 
-.mortal,
-.werewolf,
+.mortal {
+  /*max-height: 790px !important;
+  max-width: 730px !important;*/
+  height: 790px !important;
+  width: 730px !important;
+}
+
+.werewolf {
+  /*max-height: 900px !important;
+  max-width: 730px !important;*/
+  height: 920px !important;
+  width: 730px !important;
+}
+
 .spirit {
-  max-width: 730px;
+  /*max-height: 790px !important;
+  max-width: 730px !important;*/
+  height: 790px !important;
+  width: 730px !important;
 }
 
 .mortal .headlineTabs {
@@ -427,7 +442,12 @@ textarea.sheet-infoValues {
 }
 
 .attribute-headlineWidth {
-	width: 45%;
+	width: 40%;
+}
+
+.attribute-total {
+  display: inline-block;
+  width: 10px;
 }
 
 .ability-statArea {	

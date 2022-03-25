@@ -8,7 +8,6 @@ export class MortalActorSheet extends ActorSheet {
 		return mergeObject(super.defaultOptions, {
 			classes: ["mortal"],
 			template: "systems/worldofdarkness/templates/actor/mortal-sheet.html",
-			height: 790,
 			tabs: [{
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
@@ -355,7 +354,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		ActionHelper.handleCalculations(actorData);
-		ActionHelper.handleWouldLevelCalculations(actorData);
+		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		this.actor.update(actorData);
 	}
@@ -383,7 +382,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		ActionHelper.handleCalculations(actorData);
-		ActionHelper.handleWouldLevelCalculations(actorData);
+		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		this.actor.update(actorData);
 	}
@@ -511,7 +510,12 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		ActionHelper.handleCalculations(actorData);
-		ActionHelper.handleWouldLevelCalculations(actorData);
+		ActionHelper.handleWoundLevelCalculations(actorData);
+
+		// if Willpower has been changed then Difference between Rage and Willpower need to be recalculated
+		if ((fields[2] === "willpower") && (actorData.type == "Werewolf")) {
+			ActionHelper.handleWerewolfCalculations(actorData);
+		}
 		
 		console.log("WoD | Mortal Sheet updated");
 		this.actor.update(actorData);

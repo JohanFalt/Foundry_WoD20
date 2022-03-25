@@ -11,11 +11,23 @@ Changing Wits
 
 ## Abilities
 
+## Possible Game Settings
+How to roll advantage Attributes. If using temporary or permanent value.
 
 # Change Log
 
+## Fix i 1.0.8
+- Added the rules regarding Rage and social rolls. If your rolling Rage is greater than your Rolling Willpower you get social penalties on all Charisma and Manipulation Rolls.
+- Design Settings
+- Show total attributes on Core
+- Show rank name with Rank on Core
+- New game setting advantageRolls - using permanent or temporary in rolls with advantage Attributes.
+- Fixed Werewolf sheet height both app and web.
+- Fixed order of attributes in Choose Attribute in Roll Ability
+- Fixed so you can see Attribute speciallity when Roll Ability
+- Cleaned Code rolling dice
+
 ## Fix i 1.0.7
-- Patch: Korrigerade Item Experience så visningstexten ligger i Description
 - Added Version on Items
 - Added Item Fetish
 - Fix design Item Melee Weapons
@@ -25,6 +37,7 @@ Changing Wits
 - Fix design Item Experience
 - Fix design Item Feature
 - Fix design Item Fetish
+- Patch: Korrigerade Item Experience så visningstexten ligger i Description
 - Göm Charm egenskaper som inte skall synas för spelare
 - Göm Gift egenskaper som inte skall synas för spelare
 

@@ -8,7 +8,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		return mergeObject(super.defaultOptions, {
 			classes: ["werewolf"],
 			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html",
-			height: 940,
 			tabs: [{
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
@@ -69,7 +68,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				if ((i.data.type == "wod.types.gift") && (i.data.level == 1)) {
 					powerlist1.push(i);
 
-					//if ((i.data.combat)&&(i.data.active)) {
 					if (i.data.active) {
 						powercombat.push(i);
 					}
@@ -77,7 +75,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				else if ((i.data.type == "wod.types.gift") && (i.data.level == 2)) {
 					powerlist2.push(i);
 
-					//if ((i.data.combat)&&(i.data.active)) {
 					if (i.data.active) {
 						powercombat.push(i);
 					}
@@ -85,7 +82,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				else if ((i.data.type == "wod.types.gift") && (i.data.level == 3)) {
 					powerlist3.push(i);
 
-					//if ((i.data.combat)&&(i.data.active)) {
 					if (i.data.active) {
 						powercombat.push(i);
 					}
@@ -93,7 +89,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				else if ((i.data.type == "wod.types.gift") && (i.data.level == 4)) {
 					powerlist4.push(i);
 
-					//if ((i.data.combat)&&(i.data.active)) {
 					if (i.data.active) {
 						powercombat.push(i);
 					}
@@ -101,7 +96,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				else if ((i.data.type == "wod.types.gift") && (i.data.level == 5)) {
 					powerlist5.push(i);
 
-					//if ((i.data.combat)&&(i.data.active)) {
 					if (i.data.active) {
 						powercombat.push(i);
 					}
@@ -240,13 +234,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}
 		});
 
-		if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "renown"))
-		{
+		if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "renown")) {
 			this._assignToWerewolf(fields, index + 1);
-		}
-		else
-		{
-			this._onDotCounterChange(event);
 		}
 	}
 
@@ -278,7 +267,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		}		
 
 		ActionHelper.handleCalculations(actorData);
-		this.handleWerewolfCalculations(actorData);
+		ActionHelper.handleWerewolfCalculations(actorData);
 
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);
@@ -320,161 +309,9 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		}
 		
 		ActionHelper.handleCalculations(actorData);
-		this.handleWerewolfCalculations(actorData);
+		ActionHelper.handleWerewolfCalculations(actorData);
 		
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);
 	}	
-
-	handleWerewolfCalculations(actorData) {
-		console.log("WoD | Werewolf handleWerewolfCalculations");		
-
-		// shift
-		if ((!actorData.data.shapes.homid.active) &&
-			(!actorData.data.shapes.glabro.active) &&
-			(!actorData.data.shapes.crinos.active) &&
-			(!actorData.data.shapes.hispo.active) &&
-			(!actorData.data.shapes.lupus.active)) {
-			actorData.data.shapes.homid.active = true;
-		}
-
-		// rage
-		if (actorData.data.rage.permanent > actorData.data.rage.max) {
-			actorData.data.rage.permanent = actorData.data.rage.max;
-		}
-		
-		if (actorData.data.rage.permanent < actorData.data.rage.temporary) {
-			actorData.data.rage.temporary = actorData.data.rage.permanent;
-		}
-		
-		// gnosis
-		if (actorData.data.gnosis.permanent > actorData.data.gnosis.max) {
-			actorData.data.gnosis.permanent = actorData.data.gnosis.max;
-		}
-		
-		if (actorData.data.gnosis.permanent < actorData.data.gnosis.temporary) {
-			actorData.data.gnosis.temporary = actorData.data.gnosis.permanent;
-		}
-
-		actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
-		actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent; 
-
-		console.log("WoD | Werewolf Sheet calculations done");
-	}	
 }
-
-/*function handleWerewolfShiftCalculations(actorData, toForm) {
-	// attributes totals
-	for (const i in actorData.data.attributes) {
-		const shift = handleWerewolfShiftAttributeData(actorData.data.attributes[i].label, toForm);
-		//const shiftdiff = handleWerewolfShiftAbilityData(actorData.data.attributes[i], toForm);
-
-		actorData.data.attributes[i].total = actorData.data.attributes[i].total + shift.value;
-	}
-}
-
-function handleWerewolfShiftAttributeData(attribute, presentForm) {
-	let data = {"type": attribute, "value": 0};
-
-	if (presentForm == "wod.shapes.glabro")
-	{
-		if (attribute == "wod.attributes.strength") {
-			data = {"type": attribute, "value": 2};
-		}
-
-		if (attribute == "wod.attributes.stamina") {
-			data = {"type": attribute, "value": 2};
-		}
-
-		if (attribute == "wod.attributes.manipulation") {
-			data = {"type": attribute, "value": -2};
-		}
-	}		
-
-	if (presentForm == "wod.shapes.crinos")
-	{
-		if (attribute == "wod.attributes.strength") {
-			data = {"type": attribute, "value": 4};
-		}
-
-		if (attribute == "wod.attributes.dexterity") {
-			data = {"type": attribute, "value": 1};
-		}
-
-		if (attribute == "wod.attributes.stamina") {
-			data = {"type": attribute, "value": 3};
-		}
-
-		if (attribute == "wod.attributes.manipulation") {
-			data = {"type": attribute, "value": -3};
-		}
-	}
-
-	if (presentForm == "wod.shapes.hispo")
-	{
-		if (attribute == "wod.attributes.strength") {
-			data = {"type": attribute, "value": 3};
-		}
-
-		if (attribute == "wod.attributes.dexterity") {
-			data = {"type": attribute, "value": 2};
-		}
-
-		if (attribute == "wod.attributes.stamina") {
-			data = {"type": attribute, "value": 3};
-		}
-
-		if (attribute == "wod.attributes.manipulation") {
-			data = {"type": attribute, "value": -3};
-		}
-	}
-
-	if (presentForm == "wod.shapes.lupus")
-	{
-		if (attribute == "wod.attributes.strength") {
-			data = {"type": attribute, "value": 1};
-		}
-
-		if (attribute == "wod.attributes.dexterity") {
-			data = {"type": attribute, "value": 2};
-		}
-
-		if (attribute == "wod.attributes.stamina") {
-			data = {"type": attribute, "value": 2};
-		}
-
-		if (attribute == "wod.attributes.manipulation") {
-			data = {"type": attribute, "value": -3};
-		}
-	}
-
-	return data;
-}
-
-function handleWerewolfShiftAbilityData(attribute, presentForm) {
-	let data = {"type": attribute, "value": 0};
-
-	if (presentForm == "wod.shapes.glabro")
-	{
-	}		
-
-	if (presentForm == "wod.shapes.crinos")
-	{
-	}
-
-	if (presentForm == "wod.shapes.hispo")
-	{
-		if (attribute == "wod.attributes.wits") {
-			data = {"type": attribute, "value": -1};
-		}
-	}
-
-	if (presentForm == "wod.shapes.lupus")
-	{
-		if (attribute == "wod.attributes.wits") {
-			data = {"type": attribute, "value": -2};
-		}
-	}
-
-	return data;
-}*/

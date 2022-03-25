@@ -8,6 +8,7 @@ export function calculateTotals(actorData) {
 	}    
 
 	if (actorData.type == "Werewolf") {
+		console.log("WoD | calculate Werewolf totals");
 		actorData.data.soak.bashing = actorData.data.attributes.stamina.total;
 		actorData.data.soak.lethal = actorData.data.attributes.stamina.total;
 		actorData.data.soak.aggravated = actorData.data.attributes.stamina.total;

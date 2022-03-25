@@ -5,6 +5,7 @@ import { preloadHandlebarsTemplates } from "./module/templates.js";
 import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
+import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
 import { WoDItemSheet } from "./module/items/item-sheet.js";
 
 Hooks.once("init", async function() {
@@ -14,12 +15,22 @@ Hooks.once("init", async function() {
 	// "worldofdarkness" as system setting
 	// "wod" or other then is module settings
 	game.settings.register("worldofdarkness", "worldVersion", {
-		name: "World Version",
-		hint: "Used to know if World patch is needed",
+		name: game.i18n.localize('wod.settings.worldversion'),
+		hint: game.i18n.localize('wod.settings.worldversionhint'),
 		scope: "world",
 		config: true,
 		default: "1",
 		type: String,
+	});
+
+	// Are you to use the permanent (check) values or temporary (not checked) of e.g. Willpower in rolls
+	game.settings.register("worldofdarkness", "advantageRolls", {
+		name: game.i18n.localize('wod.settings.advantagerolls'),
+		hint: game.i18n.localize('wod.settings.advantagerollshint'),
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean,
 	});
 
 	console.log("WoD | Settings registered");
@@ -44,6 +55,12 @@ Hooks.once("init", async function() {
 	Actors.registerSheet("WoD", SpiritActorSheet, {
 		label: "Spirit Sheet",
 		types: ["Spirit"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", VampireActorSheet, {
+		label: "Vampire Sheet",
+		types: ["Vampire"],
 		makeDefault: true
 	});
 	
@@ -217,4 +234,8 @@ Hooks.once("ready", function () {
     // Reference a Compendium pack by it's collection ID
     // packImport();
     migrations();	
+});
+
+Hooks.on("renderActorSheet", (sheet) => { 
+	//console.log("WoD | Sheet opened " + sheet.actor.type);  	
 });

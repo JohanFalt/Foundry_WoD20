@@ -267,9 +267,25 @@ export class SpiritActorSheet extends ActorSheet {
 			actorData.data.willpower.temporary = actorData.data.willpower.permanent;
 		}
 
-		actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
-		actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent;
-		actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+		let advantageRollSetting = true;
+
+		try {
+			advantageRollSetting = game.settings.get('worldofdarkness', 'advantageRolls');
+		} 
+		catch (e) {
+			advantageRollSetting = true;
+		}
+
+		if (advantageRollSetting) {
+			actorData.data.rage.roll = actorData.data.rage.permanent; 
+			actorData.data.gnosis.roll = actorData.data.gnosis.permanent;
+			actorData.data.willpower.roll = actorData.data.willpower.permanent; 
+		}
+		else {
+			actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
+			actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent;
+			actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+		}
 
 		actorData.data.initiative.base = parseInt(actorData.data.willpower.permanent);
 

@@ -15,14 +15,28 @@
 	<div class="attribute-statArea" style={{orderAttributes key}}>	
 
 		<div class="attribute-rowheight">
-			<label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
+			<!-- <label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
 				data-roll="{{attribute.total}}" 
 				data-label="{{localize attribute.label}}" 
+				data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
+				data-attribute="true">{{localize attribute.label}}</label> -->
+			<label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
+				data-roll="{{attribute.total}}" 
+				data-label="{{key}}" 
 				data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
 				data-attribute="true">{{localize attribute.label}}</label>
 			<div class="resource-value pullLeft" 
 				data-value="{{attribute.value}}" 
 				data-name="data.attributes.{{key}}.value">
+
+				<span class="attribute-total">
+					{{#iff ../actor.type "==" "Werewolf"}}
+						{{attribute.total}}
+					{{else}}
+						&nbsp;
+					{{/iff}}
+				</span>
+
 				<span class="resource-value-empty"></span>
 
 				{{#numLoop attribute.max}}
