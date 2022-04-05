@@ -6,6 +6,7 @@ import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
 import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
+import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
 import { WoDItemSheet } from "./module/items/item-sheet.js";
 
 Hooks.once("init", async function() {
@@ -33,6 +34,15 @@ Hooks.once("init", async function() {
 		type: Boolean,
 	});
 
+	game.settings.register("worldofdarkness", "theRollofOne", {
+		name: game.i18n.localize('wod.settings.therollofone'),
+		hint: game.i18n.localize('wod.settings.therollofonehint'),
+		scope: "world",
+		config: true,
+		default: true,
+		type: Boolean,
+	});
+
 	console.log("WoD | Settings registered");
 	
 	CONFIG.wod = wod;
@@ -52,15 +62,21 @@ Hooks.once("init", async function() {
 		makeDefault: true
 	});	
 
-	Actors.registerSheet("WoD", SpiritActorSheet, {
-		label: "Spirit Sheet",
-		types: ["Spirit"],
-		makeDefault: true
-	});
-
 	Actors.registerSheet("WoD", VampireActorSheet, {
 		label: "Vampire Sheet",
 		types: ["Vampire"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", CreatureActorSheet, {
+		label: "Creature Sheet",
+		types: ["Creature"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", SpiritActorSheet, {
+		label: "Spirit Sheet",
+		types: ["Spirit"],
 		makeDefault: true
 	});
 	

@@ -13,6 +13,7 @@
 	<div class="ability-statArea pullLeft">
 	
 		{{#each data.data.abilities.talent as |ability key|}}	
+		{{#if ability.visible}}
 		
 		<div class="clearareaBox">
 			<label for="data.data.abilities.talent.{{key}}.value" 
@@ -35,6 +36,7 @@
 				
 			</div>
 		</div>	
+		{{/if}}
 		
 		{{/each}}
 	
@@ -42,6 +44,7 @@
 	<div class="ability-statArea pullLeft">
 	
 		{{#each data.data.abilities.skill as |ability key|}}
+		{{#if ability.visible}}
 		
 		<div class="clearareaBox">
 			<label for="data.data.abilities.skill.{{key}}.value" 
@@ -65,12 +68,14 @@
 			</div>
 		</div>
 		
+		{{/if}}
 		{{/each}}
 	
 	</div>
 	<div class="ability-statArea pullLeft">
 	
 		{{#each data.data.abilities.knowledge as |ability key|}}
+		{{#if ability.visible}}
 		
 		<div class="clearareaBox">
 			<label for="data.data.abilities.knowledge.{{key}}.value" 
@@ -94,6 +99,7 @@
 			</div>
 		</div>
 		
+		{{/if}}
 		{{/each}}
 	
 	</div>

@@ -1,0 +1,136 @@
+<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}}" autocomplete="off">
+
+	{{!-- Creature Sheet Header --}}
+	
+	<div class="sheet-character">				
+	
+		{{!-- Always visible --}}
+		<header class="sheet-header">	
+			
+			{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+			
+			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+				<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+				<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
+				<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
+			</nav>
+
+		</header>	
+
+		{{!-- Sheet part --}}
+		<section class="sheet-body">
+
+			{{!-- Bio Tab --}}
+			<div class="tab bio" data-group="primary" data-tab="bio">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
+
+			</div>
+		
+			{{!-- Core Tab --}}
+			<div class="tab core" data-group="primary" data-tab="core">
+
+				<section class="sheet-spec-body">
+				
+					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+
+					{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+
+					<div class="clearareaBox">
+						<div class="pullLeft" style="width: 70%;">
+							<div class="clearareaBox">
+
+								{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+								
+							</div>
+
+							{{#iff actor.naturalWeapons.length ">" 0}}
+								
+							<div class="clearareaBox">
+								
+								{{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
+								
+							</div>
+
+							{{/iff}}
+
+							{{#iff actor.meleeWeapons.length ">" 0}}
+
+							<div class="clearareaBox">
+								
+								{{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
+									
+							</div>
+
+							{{/iff}}
+
+							{{#iff actor.rangedWeapons.length ">" 0}}
+								
+							<div class="clearareaBox">
+								
+								{{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
+									
+							</div>
+
+							{{/iff}}
+
+							{{#iff actor.armors.length ">" 0}}
+								
+							<div class="clearareaBox">
+									
+								{{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
+								
+							</div>
+
+							{{/iff}}
+						</div>
+						<div class="pullLeft" style="width: 30%; padding-left: 20px;">
+
+							<div class="pullright" style="width: 100%;">
+	
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+
+							</div>
+
+						</div>
+					</div>
+
+					{{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+
+					<div class="clearareaBox" style="display: flex;">
+
+						<div class="pullLeft" style="width: 33%;">
+						
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+
+						</div>
+						
+						<div class="pullLeft" style="width: 33%;">
+					
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+					
+						</div>
+						
+						<div class="pullLeft" style="width: 33%;">
+							
+							{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+
+						</div>
+					
+					</div>
+
+				</section>				
+				
+			</div>
+
+            {{!-- Settings Tab --}}
+			<div class="tab settings" data-group="primary" data-tab="settings">
+			
+				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
+				
+			</div>
+		
+		</section>
+	</div>
+		
+</form>

@@ -4,7 +4,7 @@ export function calculateTotals(actorData) {
     // attributes totals
 	for (const i in actorData.data.attributes) {
 		const shift = handleWerewolfShiftAttributeData(actorData.data.attributes[i].label, toForm);
-		actorData.data.attributes[i].total = actorData.data.attributes[i].value + shift.value;
+		actorData.data.attributes[i].total = parseInt(actorData.data.attributes[i].value) + parseInt(actorData.data.attributes[i].bonus) + parseInt(shift.value);
 	}    
 
 	if (actorData.type == "Werewolf") {

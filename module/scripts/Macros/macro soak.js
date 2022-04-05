@@ -62,7 +62,6 @@ async function rollSoak(token) {
                     label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
                 });
 
-                //printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Soak (' + damageType + ')<br />Successes:</strong> ' + successes + '<br />' + label);
                 printMessage('<h2>Rolling Soak</h2><strong>' + damageType + '<br />Successes:</strong> ' + successes + '<br />' + label);
             },
         },

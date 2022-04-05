@@ -8,25 +8,32 @@
 
 /* START - Type of sheet designs */
 
-.mortal {
+.mortal:not(.minimized) {
   /*max-height: 790px !important;
   max-width: 730px !important;*/
   height: 790px !important;
   width: 730px !important;
 }
 
-.werewolf {
+.werewolf:not(.minimized) {
   /*max-height: 900px !important;
   max-width: 730px !important;*/
   height: 920px !important;
   width: 730px !important;
 }
 
-.spirit {
+.spirit:not(.minimized) {
   /*max-height: 790px !important;
   max-width: 730px !important;*/
   height: 790px !important;
   width: 730px !important;
+}
+
+.creature:not(.minimized) {
+  /*max-height: 790px !important;
+  max-width: 730px !important;*/
+  height: 790px !important;
+  width: 900px !important;
 }
 
 .mortal .headlineTabs {
@@ -81,6 +88,11 @@
 
 .werewolf .tooltip .tooltiptext,
 .werewolf .resource-value-static .resource-value-static-step.active {
+  background-color: #583101;
+  color: white;
+}
+
+.creature .tooltip .tooltiptext {
   background-color: #583101;
   color: white;
 }
@@ -424,6 +436,13 @@ textarea.sheet-infoValues {
   cursor: pointer;
 }
 
+.lock-btn:hover,
+.lock-btn:focus,
+.switch:hover,
+.switch:focus {
+  cursor: pointer;
+}
+
 /* END - General */
 
 /* START - Bio */
@@ -443,6 +462,10 @@ textarea.sheet-infoValues {
 
 .attribute-headlineWidth {
 	width: 40%;
+}
+
+.creature .attribute-headlineWidth {
+	width: 25%;
 }
 
 .attribute-total {
@@ -571,7 +594,7 @@ textarea.sheet-gearArea {
 /* START - Gift */
 
 .gift-largeBox {
-  width: 175px;
+  width: 230px;
 }
 
 .gift-mediumBox {
@@ -606,7 +629,7 @@ textarea.sheet-gearArea {
 }
 
 .notes-experienceHeadline {
-  width: 200px;
+  width: 230px;
   height: 19px;
 }
 

@@ -8,7 +8,7 @@
 			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
 				<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
 				<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
-				<a class="item" data-tab="charms">{{localize 'wod.tab.charms'}}</a>	
+				<!--<a class="item" data-tab="charms">{{localize 'wod.tab.charms'}}</a>	-->
 				<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
 			</nav>		
 		</header>			
@@ -71,6 +71,8 @@
 
 						</div>
 
+						{{> "systems/worldofdarkness/templates/actor/parts/spirit/charms.html"}}
+
 					</div>
 
 				</div>
@@ -78,11 +80,11 @@
 			</div>
 
 			{{!-- Charms Tab --}}
-			<div class="tab charms" data-group="primary" data-tab="charms">
+			<!--<div class="tab charms" data-group="primary" data-tab="charms">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/spirit/charms.html"}}
 
-			</div>
+			</div>-->
 
 			{{!-- Settings Tab --}}
 			<div class="tab settings" data-group="primary" data-tab="settings">

@@ -1,13 +1,6 @@
-const tokens = canvas.tokens.controlled;
+roll();
 
-if (tokens.length > 0) {
-    roll(tokens[0]);
-} 
-else {
-    printMessage('<h2>No Tokens were selected</h2>');
-}
-
-async function roll(token) {
+async function roll() {
 
     let selector = "";
 
@@ -43,7 +36,6 @@ async function roll(token) {
             icon: '<i class="fas fa-check"></i>',
             label: game.i18n.localize("wod.dice.roll"),
             callback: async (template) => {
-                let actor = token.actor;
                 const dice = template.find("#dices")[0]?.value;
                 let difficulty = parseInt(template.find("#inputDif:checked")[0]?.value || 0);
                 const specialty = template.find("#specialty")[0]?.checked || false;
@@ -52,48 +44,56 @@ async function roll(token) {
                 let dicesRolled = "";
                 let rolledOne = false;
                 let successRoll = false;
+                let rolledAnySuccesses = false;
+                let handlingOnes = true;
+
+                try {
+                    handlingOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+                } 
+                catch (e) {
+                    handlingOnes = true;
+                }
 
                 roll = new Roll(dice + "d10");
                 roll.evaluate({async:true});
 
                 let diceColor;
-		
-                if (actor.type == "Mortal") {
-                    diceColor = "blue_";
-                } 
-                else if (actor.type == "Werewolf") {
-                    diceColor = "brown_";
-                }
-                else if (actor.type == "Vampire") { 
-                    diceColor = "red_";
-                }
-                else if (actor.type == "Spirit") { 
-                    diceColor = "yellow_";
-                }
-                else {
-                    diceColor = "black_";
-                }
+
+                diceColor = "black_";
                 
                 roll.terms[0].results.forEach((dice) => {
                     if ((dice.result == 10) && (specialty)) {
                         successes += 2;
+                        rolledAnySuccesses = true;
                     }
                     else if (dice.result >= difficulty) {
                         successes++;
+                        rolledAnySuccesses = true;
                     }
                     else if (dice.result == 1) {
+                        if (handlingOnes) {
+                            successes--;
+                        }
+
                         rolledOne = true;
                     }
 
                     dicesRolled += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
                 });
 
+                if (successes < 0) {
+                    successes = 0;
+                }
+
                 successRoll = successes > 0;
 
                 if (successRoll) {
                     difficultyResult = `( <span class="success">${game.i18n.localize("wod.dice.success")}</span> )`;
                 }
-                else if (rolledOne) {
+                else if ((handlingOnes) && (rolledOne) && (!rolledAnySuccesses)) {
+                    difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.botch")}</span> )`;
+                }
+                else if ((!handlingOnes) && (rolledOne)) {
                     difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.botch")}</span> )`;
                 }
                 else {
@@ -108,7 +108,6 @@ async function roll(token) {
                     label += `<p class="roll-label result-success">Speciality used</p>`;
                 }
 
-                //printMessage('<h2>' + actor.data.name + '</h2><strong>Rolling Dice</strong><br />' + label + dicesRolled);
                 printMessage('<h2>Rolling Dice</h2>' + label + dicesRolled);
             },
         },

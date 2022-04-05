@@ -37,6 +37,7 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
 
 		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",
+		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
 
 		// Item Sheet Partials
 	];

@@ -29,6 +29,16 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 	/** @override */
 	getData() {
+		const actorData = duplicate(this.actor);
+
+		if (!actorData.data.settings.created) {
+			if (actorData.type == "Werewolf") {
+				ActionHelper._setWerewolfAbilities(actorData);
+				actorData.data.settings.created = true;
+				this.actor.update(actorData);
+			}	 	
+		}
+
 		const data = super.getData();
 
 		console.log("WoD | Werewolf Sheet getData");
@@ -120,6 +130,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		data.actor.other = other;	
 
+		console.log("Werewolf");
 		console.log(data.actor);
 
 		return data;
@@ -149,10 +160,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterWerewolfChange.bind(this));
-		html
-			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterWerewolfEmpty.bind(this));
-
 		html
 			.find(".resource-counter > .resource-value-empty")
 			.click(this._onDotCounterWerewolfEmpty.bind(this));

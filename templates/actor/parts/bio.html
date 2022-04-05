@@ -10,6 +10,19 @@
 	</div>
 </div>
 
+<div class="clearareaBox">
+	<div>
+		<label class="headlineText headlineBio" for="actor.worldanvil">{{localize "wod.bio.worldanvil"}}</label>
+		<div class="pullLeft">
+			{{#if locked}}
+			<a href="{{data.data.worldanvil}}">{{data.data.worldanvil}}</a>
+			{{else}}
+			<input class="sheet-infoValues" name="data.worldanvil" type="text" value="{{data.data.worldanvil}}" data-name="data.data.worldanvil" data-dtype="String" />
+			{{/if}}
+		</div>
+	</div>
+</div>
+
 {{#iff actor.type "==" "Werewolf"}}
 
 <div class="clearareaBox">

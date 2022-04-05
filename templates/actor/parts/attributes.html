@@ -33,7 +33,11 @@
 					{{#iff ../actor.type "==" "Werewolf"}}
 						{{attribute.total}}
 					{{else}}
+						{{#iff attribute.value "!=" attribute.total}}
+						{{attribute.total}}
+						{{else}}
 						&nbsp;
+						{{/iff}}
 					{{/iff}}
 				</span>
 

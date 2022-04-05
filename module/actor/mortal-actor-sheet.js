@@ -1,5 +1,6 @@
 import ActionHelper from "../scripts/action-helpers.js"
 import { calculateHealth } from "../scripts/health.js";
+import { calculateTotals } from "../scripts/totals.js";
 
 export class MortalActorSheet extends ActorSheet {
 	
@@ -35,13 +36,21 @@ export class MortalActorSheet extends ActorSheet {
 	get template() {
 		console.log("WoD | Mortal Sheet get template");
 		
-		//if (!game.user.isGM && this.actor.limited)
-		//	return "systems/worldofdarkness/templates/actor/limited-sheet.html";
 		return "systems/worldofdarkness/templates/actor/mortal-sheet.html";
 	}
 	
 	/** @override */
 	getData() {
+		const actorData = duplicate(this.actor);
+
+		if (!actorData.data.settings.created) {
+			if (actorData.type == "Mortal") {
+				ActionHelper._setMortalAbilities(actorData);
+				actorData.data.settings.created = true;
+				this.actor.update(actorData);
+			}	 	
+		}	
+
 		const data = super.getData();
 
 		console.log("WoD | Mortal Sheet getData");
@@ -51,18 +60,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
 
-		data.dtypes = ["String", "Number", "Boolean"];
-
-		const mods = [];
-		const diffs = [];
-
-		for (const i in data.config.attributes) {
-			const mod = {"type": data.config.attributes[i], "value": 0};
-			mods.push(mod);
-
-			const diff = {"type": data.config.attributes[i], "value": 0};
-			diffs.push(diff);
-		}
+		data.dtypes = ["String", "Number", "Boolean"];		
 
 		// Organize actor items
 		const naturalWeapons = [];
@@ -120,9 +118,6 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}		
 
-		data.actor.mods = mods;
-		data.actor.diffs = diffs;
-
 		data.actor.health = calculateHealth(data.actor);
 
 		data.actor.naturalWeapons = naturalWeapons;
@@ -139,6 +134,11 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.totalExp = totalExp;
 		data.actor.spentExp = spentExp;
 		data.actor.experience = totalExp - spentExp;
+
+		if (actorData.type == "Mortal") {
+			console.log("Mortal");
+			console.log(data.actor);
+		}
 
 		return data;
 	}	
@@ -187,6 +187,10 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".vrollable")
 			.click(this._onRollDialog.bind(this));
 
+		html
+			.find(".switch")
+			.click(this._switchSetting.bind(this));
+
 		// items
 		// Edit Inventory Item
 		html
@@ -212,11 +216,22 @@ export class MortalActorSheet extends ActorSheet {
 	}
 
 	_onToggleLocked(event) {
-		console.log("WoD | Mortal Sheet _onToggleLocked");
-		
 		event.preventDefault();
 		this.locked = !this.locked;
 		this._render();
+	}
+
+	_switchSetting(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const ability = dataset.label;
+		const abilityType = dataset.type;
+		const actorData = duplicate(this.actor);
+
+		actorData.data.abilities[abilityType][ability].visible = !actorData.data.abilities[abilityType][ability].visible;
+		this.actor.update(actorData);
 	}
 
 	_setupDotCounters(html) {

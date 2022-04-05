@@ -22,7 +22,9 @@
 					<option value="">- {{localize "wod.labels.select"}} -</option>
 					<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
 					<option value="wod.types.rite">{{localize "wod.types.rite"}}</option>
+					<option value="wod.types.discipline">{{localize "wod.types.discipline"}}</option>
 					<option value="wod.types.charm">{{localize "wod.types.charm"}}</option>
+					<option value="wod.types.power">{{localize "wod.types.power"}}</option>
 				{{/select}}
 			</select>
 		</div>
@@ -30,19 +32,21 @@
 
 		<!-- level -->
 		{{#iff data.data.type "!=" "wod.types.charm"}}
-		<div class="infobox" data-area="charm_level">
-			<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-			<select name="data.level">
-				{{#select data.data.level}}
-					<option value="0">- {{localize "wod.labels.select"}} -</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				{{/select}}
-			</select>
-		</div>
+			{{#iff data.data.type "!=" "wod.types.power"}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+				<select name="data.level">
+					{{#select data.data.level}}
+						<option value="0">- {{localize "wod.labels.select"}} -</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					{{/select}}
+				</select>
+			</div>
+			{{/iff}}
 		{{/iff}}
 
 		<!-- dice -->
@@ -108,10 +112,14 @@
 		</div>
 
 		<!-- system -->
-		<div class="infobox" data-area="charm_system">
-			<label class="headlineItem headlineBio" for="data.system">{{localize "wod.labels.power.system"}}</label>
-			<textarea class="item" name="data.system" data-dtype="String">{{data.data.system}}</textarea>
-		</div>
+		{{#iff data.data.type "!=" "wod.types.charm"}}
+			{{#iff data.data.type "!=" "wod.types.power"}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.system">{{localize "wod.labels.power.system"}}</label>
+				<textarea class="item" name="data.system" data-dtype="String">{{data.data.system}}</textarea>
+			</div>
+			{{/iff}}
+		{{/iff}}
 	</section>
 
 </form>

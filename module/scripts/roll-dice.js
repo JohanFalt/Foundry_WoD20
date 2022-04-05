@@ -1,7 +1,7 @@
 /* global ChatMessage, Roll, game */
 
 // Function to roll dice
-export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, specialityText, wound, systemText) {
+export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, specialityText, wound, systemText, handlingOnes) {
 	console.log("WoD | rollDice");
   
 	let zeroDices = numDice + wound <= 0;   
@@ -9,9 +9,10 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 	let difficultyResult = "<span></span>";
 	let success = 0;
 	let successRoll = false;
+	let rolledAnySuccesses = false;
 	let rolledOne = false;
 	let roll;
-	let conditions = "";
+	let conditions = "";	
 
 	roll = new Roll(dice + "d10");
 	roll.evaluate({async:true});		
@@ -21,14 +22,24 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 	roll.terms[0].results.forEach((dice) => {
 		if ((dice.result == 10) && (specialty)) {
 			success += 2;
+			rolledAnySuccesses = true;
 		}
 		else if (dice.result >= difficulty) {
 			success++;
+			rolledAnySuccesses = true;
 		}
 		else if (dice.result == 1) {
+			if (handlingOnes) {
+				success--;
+			}
+
 			rolledOne = true;
 		}
 	});
+
+	if (success < 0) {
+		success = 0;
+	}
 
 	successRoll = success > 0;		
 
@@ -72,14 +83,15 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		if (successRoll) {
 			difficultyResult = `( <span class="success">${game.i18n.localize("wod.dice.success")}</span> )`;
 		}
-		else if (rolledOne) {
+		else if ((handlingOnes) && (rolledOne) && (!rolledAnySuccesses)) {
+			difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.botch")}</span> )`;
+		}
+		else if ((!handlingOnes) && (rolledOne)) {
 			difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.botch")}</span> )`;
 		}
 		else {
 			difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.fail")}</span> )`;
-		}
-		
-		
+		}		
 
 		label += `<p class="roll-label result-success">${game.i18n.localize("wod.dice.successes")}: ${success}  ${difficultyResult}</p>`;		
 	}
