@@ -90,6 +90,8 @@ How to handle 1s in dice rolls. If an one (1) removes a success or not.
 
 # Change Log
 
+## Fix i 1.0.10
+
 ## Fix i 1.0.9
 - Added Creature Sheet.
 - Added auto-bonus to Attributes in Settings.

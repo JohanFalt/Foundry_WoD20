@@ -2,7 +2,7 @@
 	"name": "worldofdarkness",
 	"title": "World of Darkness 20th",
 	"description": "To play World of Darkness",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"minimumCoreVersion": "9.238",
 	"compatibleCoreVersion": "9.255",
 	"templateVersion": 1,
@@ -25,5 +25,9 @@
 	"gridDistance": 2,
 	"gridUnits": "m",
 	"primaryTokenAttribute": "",
-	"secondaryTokenAttribute": ""
+	"secondaryTokenAttribute": "",
+	"url": "https://github.com/JohanFalt/Foundry_WoD20",
+  	"manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/main/system.json",
+  	"download": "",
+  	"license": "LICENSE.txt"
 }
