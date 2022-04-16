@@ -10,8 +10,4 @@
 # Getting Started
 
 # Changelog
-<<<<<<< HEAD
 Release CHANGELOG can be found [here](https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog).
-=======
-Release CHANGELOG can be found [here](https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog).
->>>>>>> b04e4dfb06d01477956876dc87408631260e245c
