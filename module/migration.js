@@ -77,20 +77,20 @@ export const migrations = async () => {
     ui.notifications.info('World updated!');
 
     console.log('WoD | Patches done');
-  }  
 
-  const headline = "<h1><b>Version 1.1.0 installed</b></h1>";
+    const headline = "<h1><b>Version 1.1.0 installed</b></h1>";
 
-  let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-i-110">Changelog</a>.<br /><br />';
-  message += '<h2>Short Summery:</h2>';
-  message += '<ul>';
-  message += "<li>Creature sheet released</li>";
-  message += "<li>Added new System Setting where you can switch to use 5th ed Attributes and 5th ed Willpower.</li>";
-  message += "<li>Added new alternatives in sheet Settings</li>";
-  message += "<li>And a bunch of bug fixes</li>";
-  message += '</ul>';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-i-110">Changelog</a>.<br /><br />';
+    message += '<h2>Short Summery:</h2>';
+    message += '<ul>';
+    message += "<li>Creature sheet released</li>";
+    message += "<li>Added new System Setting where you can switch to use 5th ed Attributes and 5th ed Willpower.</li>";
+    message += "<li>Added new alternatives in sheet Settings</li>";
+    message += "<li>And a bunch of bug fixes</li>";
+    message += '</ul>';
 
-  ActionHelper.printMessage(headline, message);
+    ActionHelper.printMessage(headline, message);
+  }    
 
   console.log('WoD | Settings starts');
 
