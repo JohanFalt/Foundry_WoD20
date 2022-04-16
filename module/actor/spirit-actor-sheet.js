@@ -35,11 +35,21 @@ export class SpiritActorSheet extends ActorSheet {
 	
 	/** @override */
 	getData() {
+		const actorData = duplicate(this.actor);
+
+		if (!actorData.data.settings.created) {
+			if (actorData.type == "Spirit") {
+				actorData.data.settings.soak.lethal.roll = true;
+				actorData.data.settings.soak.aggravated.roll = true;
+				actorData.data.settings.created = true;
+				this.actor.update(actorData);
+			}	 	
+		}
+
 		const data = super.getData();
 
 		console.log("WoD | Spirit Sheet getData");
 
-		//data.config = CONFIG.wod;		
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
@@ -65,7 +75,10 @@ export class SpiritActorSheet extends ActorSheet {
 		data.actor.giftlist = giftlist;
 		data.actor.other = other;	
 
-		console.log(data.actor);
+		if (data.actor.type == "Spirit") {
+			console.log("Spirit");
+			console.log(data.actor);
+		}	
 		
 		return data;
 	}	
@@ -270,7 +283,7 @@ export class SpiritActorSheet extends ActorSheet {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = game.settings.get('worldofdarkness', 'advantageRolls');
+			advantageRollSetting = CONFIG.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;

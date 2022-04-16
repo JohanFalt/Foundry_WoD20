@@ -9,29 +9,21 @@
 /* START - Type of sheet designs */
 
 .mortal:not(.minimized) {
-  /*max-height: 790px !important;
-  max-width: 730px !important;*/
   height: 790px !important;
   width: 730px !important;
 }
 
 .werewolf:not(.minimized) {
-  /*max-height: 900px !important;
-  max-width: 730px !important;*/
   height: 920px !important;
   width: 730px !important;
 }
 
 .spirit:not(.minimized) {
-  /*max-height: 790px !important;
-  max-width: 730px !important;*/
   height: 790px !important;
   width: 730px !important;
 }
 
 .creature:not(.minimized) {
-  /*max-height: 790px !important;
-  max-width: 730px !important;*/
   height: 790px !important;
   width: 900px !important;
 }
@@ -92,8 +84,55 @@
   color: white;
 }
 
-.creature .tooltip .tooltiptext {
-  background-color: #583101;
+.vampire .headlineTabs {
+	border-bottom-color: #790813;
+}
+
+.vampire .row:nth-of-type(odd),
+.vampire .sheet-character .profile-img-zone button,
+.vampire .shape-selector-active {
+	background: #790813;
+	color: white;
+}
+
+.vampire .thin-border-left,
+.vampire .thin-border-right {  
+  border-color: #790813;
+}
+
+.vampire .tooltip .tooltiptext,
+.vampire .resource-value-static .resource-value-static-step.active {
+  background-color: #790813;
+  color: white;
+}
+
+.creature .headlineTabs {
+	border-bottom-color: #747373;
+}
+
+.creature .sheet-character .profile-img-zone button,
+.creature .shape-selector-active {
+  background: #747373;
+	color: white;
+}
+
+.creature .row:nth-of-type(odd) {
+  background-color: rgba(116, 115, 115, 0.06);
+  display: flex;
+}
+
+.creature .sheet-character .profile-img-zone button {
+  /* width: 35px; */
+}
+
+.creature .thin-border-left,
+.creature .thin-border-right {
+  border-color: #747373;
+}
+
+.creature .tooltip .tooltiptext,
+.creature .resource-value-static .resource-value-static-step.active {
+  background-color: #747373;
   color: white;
 }
 
@@ -117,27 +156,7 @@
   color: black;
 }
 
-.vampire .headlineTabs {
-	border-bottom-color: #790813;
-}
 
-.vampire .row:nth-of-type(odd),
-.vampire .sheet-character .profile-img-zone button,
-.vampire .shape-selector-active {
-	background: #790813;
-	color: white;
-}
-
-.vampire .thin-border-left,
-.vampire .thin-border-right {  
-  border-color: #790813;
-}
-
-.vampire .tooltip .tooltiptext,
-.vampire .resource-value-static .resource-value-static-step.active {
-  background-color: #790813;
-  color: white;
-}
 
 
 
@@ -163,7 +182,7 @@
 }
 
 .werewolf .send-chat:hover,
-.werewolf.send-chat:focus,
+.werewolf .send-chat:focus,
 .werewolf .item-edit:hover,
 .werewolf .item-edit:focus,
 .werewolf .item-delete:hover,
@@ -195,6 +214,23 @@
 .vampire .item:focus,
 .vampire .item.active {
 	text-shadow: 0 0 10px #790813 !important;
+}
+
+.creature .send-chat:hover,
+.creature .send-chat:focus,
+.creature .item-edit:hover,
+.creature .item-edit:focus,
+.creature .item-delete:hover,
+.creature .item-delete:focus,
+.creature .vrollable:hover,
+.creature .vrollable:focus {
+	text-shadow: 0 0 10px #747373 !important;
+}
+
+.creature .item:hover,
+.creature .item:focus,
+.creature .item.active {
+	text-shadow: 0 0 10px #747373;
 }
 
 .spirit .send-chat:hover,
@@ -354,6 +390,14 @@ textarea.sheet-infoValues {
 
 .headlineGroup {	
 	font-size: 24px;
+}
+
+.center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .headlineTabs {
@@ -634,6 +678,19 @@ textarea.sheet-gearArea {
 }
 
 /* END - Notes */
+
+/* START - Settings */
+
+.settings-leftwidth {
+  width: 100px;
+}
+
+.settings-verticalcenter {
+  height: 26px;
+  line-height: 26px;
+}
+
+/* END - Settings */
 
 /* START - Items */
 

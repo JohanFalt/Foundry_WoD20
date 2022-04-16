@@ -1,6 +1,6 @@
 import ActionHelper from "../scripts/action-helpers.js"
 import { calculateHealth } from "../scripts/health.js";
-import { calculateTotals } from "../scripts/totals.js";
+//import { calculateTotals } from "../scripts/totals.js";
 
 export class MortalActorSheet extends ActorSheet {
 	
@@ -41,11 +41,12 @@ export class MortalActorSheet extends ActorSheet {
 	
 	/** @override */
 	getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = duplicate(this.actor);		
 
 		if (!actorData.data.settings.created) {
 			if (actorData.type == "Mortal") {
 				ActionHelper._setMortalAbilities(actorData);
+				ActionHelper._setMortalAttributes(actorData);
 				actorData.data.settings.created = true;
 				this.actor.update(actorData);
 			}	 	
@@ -138,7 +139,7 @@ export class MortalActorSheet extends ActorSheet {
 		if (actorData.type == "Mortal") {
 			console.log("Mortal");
 			console.log(data.actor);
-		}
+		}			
 
 		return data;
 	}	
@@ -229,8 +230,22 @@ export class MortalActorSheet extends ActorSheet {
 		const ability = dataset.label;
 		const abilityType = dataset.type;
 		const actorData = duplicate(this.actor);
+		const source = dataset.source;
 
-		actorData.data.abilities[abilityType][ability].visible = !actorData.data.abilities[abilityType][ability].visible;
+		if (source == "ability") {
+			actorData.data.abilities[abilityType][ability].visible = !actorData.data.abilities[abilityType][ability].visible;
+		}
+		if (source == "soak") {
+			actorData.data.settings.soak[abilityType].roll = !actorData.data.settings.soak[abilityType].roll;
+
+			if (actorData.data.settings.soak[abilityType].roll) {
+				actorData.data.soak[abilityType] = actorData.data.attributes.stamina.total;
+			}
+			else {
+				actorData.data.soak[abilityType] = 0;
+			}
+		}
+
 		this.actor.update(actorData);
 	}
 
@@ -271,12 +286,16 @@ export class MortalActorSheet extends ActorSheet {
 		const fields = fieldStrings.split(".");
 		const steps = parent.find(".resource-value-step");
 
-		if ((this.locked) && (fieldStrings != "data.data.willpower.temporary")) {
-			console.log("WoD | Sheet locked aborts");
+		if ((fieldStrings == "data.data.rage.temporary") ||
+			(fieldStrings == "data.data.gnosis.temporary")) {
 			return;
 		}
-		if (fieldStrings == "data.data.willpower.permanent") {
-			console.log("WoD | Sheet click on permanent willpower aborts");			
+		if ((this.locked) && (fieldStrings != "data.data.willpower.temporary")) {
+			ui.notifications.info('Can not edit as sheet is locked!');
+			return;
+		}
+		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.attributeSettings == "5th")) {
+			ui.notifications.info('Willpower is based on Composure + Resolve and can not be altered!');	
 			return;
 		}
 
@@ -307,7 +326,8 @@ export class MortalActorSheet extends ActorSheet {
 		const steps = parent.find(".resource-value-empty");
 		
 		if (this.locked) {
-			console.log("WoD | Sheet locked aborts");
+			//console.log("WoD | Sheet locked aborts");	
+			ui.notifications.info('Can not edit as sheet is locked!');
 			return;
 		}
 
@@ -404,7 +424,8 @@ export class MortalActorSheet extends ActorSheet {
 
 	async _onItemEdit(event) {
 		if (this.locked) {
-			console.log("WoD | Sheet locked aborts");
+			//console.log("WoD | Sheet locked aborts");	
+			ui.notifications.info('Can not edit as sheet is locked!');
 			return;
 		}
 
@@ -443,7 +464,8 @@ export class MortalActorSheet extends ActorSheet {
 
 	async _onItemDelete(event) {
 		if (this.locked) {
-			console.log("WoD | Sheet locked aborts");
+			//console.log("WoD | Sheet locked aborts");	
+			ui.notifications.info('Can not edit as sheet is locked!');
 			return;
 		}
 
@@ -505,8 +527,11 @@ export class MortalActorSheet extends ActorSheet {
 			return
 		} 
 		else {
-			if (fields[2] === "willpower") {
+			if ((fields[2] === "willpower") && (CONFIG.attributeSettings == "5th")) {
 				actorData.data.willpower.temporary = value;
+			}
+			else if ((fields[2] === "willpower") && (CONFIG.attributeSettings == "20th")) {
+				actorData.data.willpower[fields[3]] = value;
 			}
 			else if (fields[2] === "gnosis") {
 				return

@@ -34,6 +34,10 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		if (!actorData.data.settings.created) {
 			if (actorData.type == "Werewolf") {
 				ActionHelper._setWerewolfAbilities(actorData);
+				ActionHelper._setMortalAttributes(actorData);
+
+				actorData.data.settings.soak.lethal.roll = true;
+				actorData.data.settings.soak.aggravated.roll = true;
 				actorData.data.settings.created = true;
 				this.actor.update(actorData);
 			}	 	
@@ -181,7 +185,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-empty");
 		
 		if (this.locked) {
-			console.log("WoD | Sheet locked aborts");
+			//console.log("WoD | Sheet locked aborts");	
+			//ui.notifications.info('werewolf Can not edit as sheet is locked!');
 			return;
 		}
 
@@ -221,11 +226,13 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				(fieldStrings != "data.data.glory.temporary") && 
 				(fieldStrings != "data.data.honor.temporary") && 
 				(fieldStrings != "data.data.wisdom.temporary"))) {
-			console.log("WoD | Sheet locked aborts");
+			//console.log("WoD | Sheet locked aborts");	
+			//ui.notifications.info('werewolf Can not edit as sheet is locked!');
 			return;
 		}
 		if (fieldStrings == "data.data.willpower.permanent") {
-			console.log("WoD | Sheet click on permanent willpower aborts");			
+			//console.log("WoD | Sheet click on permanent willpower aborts");	
+			//ui.notifications.info('werewolf Can not edit as sheet is locked!');
 			return;
 		}
 
@@ -254,7 +261,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (actorData.type != "Werewolf") {
-			console.log("WoD | Not Werewolf aborts");
+			//console.log("WoD | Not Werewolf aborts");
+			ui.notifications.info('Not Werewolf aborts!');
 			return
 		}
 

@@ -12,6 +12,18 @@ wod.attributes = {
     resolve: "wod.attributes.resolve"
 }
 
+wod.attributes20 = {
+    strength: "wod.attributes.strength",
+    dexterity: "wod.attributes.dexterity",
+    stamina: "wod.attributes.stamina",
+    charisma: "wod.attributes.charisma",
+    manipulation: "wod.attributes.manipulation",
+    appearance: "wod.attributes.appearance",
+    perception: "wod.attributes.perception",
+    intelligence: "wod.attributes.intelligence",
+    wits: "wod.attributes.wits"
+}
+
 wod.advantages = {
     willpower: "wod.advantages.willpower",
     rage: "wod.advantages.rage",

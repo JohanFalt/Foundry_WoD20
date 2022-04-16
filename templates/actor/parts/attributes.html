@@ -10,50 +10,53 @@
 		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.mental"}}</div>
 	</div>
 
-	{{#each data.data.attributes as |attribute key|}}
+	<div class="clearareaBox">
+		{{#each data.data.attributes as |attribute key|}}
 
-	<div class="attribute-statArea" style={{orderAttributes key}}>	
+		{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
-		<div class="attribute-rowheight">
-			<!-- <label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
-				data-roll="{{attribute.total}}" 
-				data-label="{{localize attribute.label}}" 
-				data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
-				data-attribute="true">{{localize attribute.label}}</label> -->
-			<label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
-				data-roll="{{attribute.total}}" 
-				data-label="{{key}}" 
-				data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
-				data-attribute="true">{{localize attribute.label}}</label>
-			<div class="resource-value pullLeft" 
-				data-value="{{attribute.value}}" 
-				data-name="data.attributes.{{key}}.value">
+		{{#if attribute.visible}}
+		<div>
 
-				<span class="attribute-total">
-					{{#iff ../actor.type "==" "Werewolf"}}
-						{{attribute.total}}
-					{{else}}
-						{{#iff attribute.value "!=" attribute.total}}
-						{{attribute.total}}
+			<div class="attribute-rowheight" style="clear:left;">
+				<label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
+					data-roll="{{attribute.total}}" 
+					data-label="{{key}}" 
+					data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
+					data-attribute="true">{{localize attribute.label}}</label>
+				<div class="resource-value pullLeft" 
+					data-value="{{attribute.value}}" 
+					data-name="data.attributes.{{key}}.value">
+
+					<span class="attribute-total">
+						{{#iff ../actor.type "==" "Werewolf"}}
+							{{attribute.total}}
 						{{else}}
-						&nbsp;
+							{{#iff attribute.value "!=" attribute.total}}
+							{{attribute.total}}
+							{{else}}
+							&nbsp;
+							{{/iff}}
 						{{/iff}}
-					{{/iff}}
-				</span>
+					</span>
 
-				<span class="resource-value-empty"></span>
+					<span class="resource-value-empty"></span>
 
-				{{#numLoop attribute.max}}
-				
-				<span class="resource-value-step" data-index="{{this}}"></span>
-				
-				{{/numLoop}}
-				
+					{{#numLoop attribute.max}}
+					
+					<span class="resource-value-step" data-index="{{this}}"></span>
+					
+					{{/numLoop}}
+					
+				</div>
 			</div>
-		</div>	
-	
-	</div>
-	
-	{{/each}}	
+		
+		</div>
+		{{/if}}
+
+		{{#if (bottenAttributes key)}}</div>{{/if}}
+		
+		{{/each}}	
+	</div> 
 
 </div>	

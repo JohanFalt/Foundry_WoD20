@@ -20,11 +20,11 @@
 			<select name="data.type">
 				{{#select data.data.type}}
 					<option value="">- {{localize "wod.labels.select"}} -</option>
-					<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
-					<option value="wod.types.rite">{{localize "wod.types.rite"}}</option>
-					<option value="wod.types.discipline">{{localize "wod.types.discipline"}}</option>
-					<option value="wod.types.charm">{{localize "wod.types.charm"}}</option>
-					<option value="wod.types.power">{{localize "wod.types.power"}}</option>
+					<option value="wod.types.gift">{{localize "wod.types.gift"}} (Werewolf)</option>
+					<option value="wod.types.rite">{{localize "wod.types.rite"}} (Werewolf)</option>
+					<!--<option value="wod.types.discipline">{{localize "wod.types.discipline"}}</option>-->
+					<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
+					<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
 				{{/select}}
 			</select>
 		</div>
@@ -108,7 +108,7 @@
 		<!-- description -->
 		<div class="infobox">
 			<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-			<textarea class="item" name="data.description" data-dtype="String">{{data.data.description}}</textarea>
+			<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
 		</div>
 
 		<!-- system -->
@@ -116,7 +116,7 @@
 			{{#iff data.data.type "!=" "wod.types.power"}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.system">{{localize "wod.labels.power.system"}}</label>
-				<textarea class="item" name="data.system" data-dtype="String">{{data.data.system}}</textarea>
+				<textarea class="item" name="data.system" data-dtype="String">{{~data.data.system}}</textarea>
 			</div>
 			{{/iff}}
 		{{/iff}}

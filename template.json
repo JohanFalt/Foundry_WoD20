@@ -10,7 +10,18 @@
 		"templates": {
 			"base": {
 				"settings": {
-					"created": false
+					"created": false,
+					"soak": {
+						"bashing": {
+							"roll": true
+						},
+						"lethal": {
+							"roll": false
+						},
+						"aggravated": {
+							"roll": false
+						}
+					}
 				},
 				"worldanvil": "",
 				"name": "",
@@ -421,83 +432,112 @@
 					"strength": {
 						"value": 1,
 						"bonus": 0,
-						"total": 0,
+						"total": 1,
 						"max": 5,
 						"type": "physical",
 						"label": "wod.attributes.strength",
-						"speciality": ""
-					},
-					"charisma": {
-						"value": 1,
-						"bonus": 0,
-						"total": 0,
-						"max": 5,
-						"type": "social",
-						"label": "wod.attributes.charisma",
-						"speciality": ""
-					},
-					"intelligence": {
-						"value": 1,
-						"bonus": 0,
-						"total": 0,
-						"max": 5,
-						"type": "mental",
-						"label": "wod.attributes.intelligence",
-						"speciality": ""
+						"speciality": "",
+						"visible": true
 					},
 					"dexterity": {
 						"value": 1,
 						"bonus": 0,
-						"total": 0,
+						"total": 1,
 						"max": 5,
 						"type": "physical",
 						"label": "wod.attributes.dexterity",
-						"speciality": ""
-					},
-					"manipulation": {
-						"value": 1,
-						"bonus": 0,
-						"total": 0,
-						"max": 5,
-						"type": "social",
-						"label": "wod.attributes.manipulation",
-						"speciality": ""
-					},
-					"wits": {
-						"value": 1,
-						"bonus": 0,
-						"total": 0,
-						"max": 5,
-						"type": "mental",
-						"label": "wod.attributes.wits",
-						"speciality": ""
+						"speciality": "",
+						"visible": true
 					},
 					"stamina": {
 						"value": 1,
 						"bonus": 0,
-						"total": 0,
+						"total": 1,
 						"max": 5,
 						"type": "physical",
 						"label": "wod.attributes.stamina",
-						"speciality": ""
+						"speciality": "",
+						"visible": true
+					},
+					"charisma": {
+						"value": 1,
+						"bonus": 0,
+						"total": 1,
+						"max": 5,
+						"type": "social",
+						"label": "wod.attributes.charisma",
+						"speciality": "",
+						"visible": true
+					},
+					"manipulation": {
+						"value": 1,
+						"bonus": 0,
+						"total": 1,
+						"max": 5,
+						"type": "social",
+						"label": "wod.attributes.manipulation",
+						"speciality": "",
+						"visible": true
+					},
+					"appearance": {
+						"value": 1,
+						"bonus": 0,
+						"total": 1,
+						"max": 5,
+						"type": "social",
+						"label": "wod.attributes.appearance",
+						"speciality": "",
+						"visible": true
 					},
 					"composure": {
 						"value": 1,
 						"bonus": 0,
-						"total": 0,
+						"total": 1,
 						"max": 5,
 						"type": "social",
 						"label": "wod.attributes.composure",
-						"speciality": ""
+						"speciality": "",
+						"visible": false
 					},
+					"perception": {
+						"value": 1,
+						"bonus": 0,
+						"total": 1,
+						"max": 5,
+						"type": "mental",
+						"label": "wod.attributes.perception",
+						"speciality": "",
+						"visible": true
+					},
+					"intelligence": {
+						"value": 1,
+						"bonus": 0,
+						"total": 1,
+						"max": 5,
+						"type": "mental",
+						"label": "wod.attributes.intelligence",
+						"speciality": "",
+						"visible": true
+					},		
+					"wits": {
+						"value": 1,
+						"bonus": 0,
+						"total": 1,
+						"max": 5,
+						"type": "mental",
+						"label": "wod.attributes.wits",
+						"speciality": "",
+						"visible": true
+					},					
 					"resolve": {
 						"value": 1,
 						"bonus": 0,
-						"total": 0,
+						"total": 1,
 						"max": 5,
 						"type": "mental",
 						"label": "wod.attributes.resolve",
-						"speciality": ""
+						"speciality": "",
+						"visible": false
 					}
 				}
 			},

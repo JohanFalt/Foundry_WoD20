@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { calculateTotals } from "../scripts/totals.js";
+import { rollDice } from "./roll-dice.js";
+import { calculateTotals } from "./totals.js";
 
 export default class ActionHelper {
     static RollDialog(event, actor) {
@@ -29,7 +29,7 @@ export default class ActionHelper {
 
 		// specialityText
 		if (dataset.noability=="true") {
-			if (dataset.label == "Willpower") {
+			if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
 				if ((actor.data.data.attributes.composure.value >= 4) &&
 						(actor.data.data.attributes.composure.speciality != "")) {
 					specialityText = actor.data.data.attributes.composure.speciality;
@@ -62,13 +62,21 @@ export default class ActionHelper {
 			}	
 
 			let options1 = "";
+			let list;
 
-			for (const i in CONFIG.wod.attributes) {
+			if (CONFIG.attributeSettings == "5th") {
+				list = CONFIG.wod.attributes;
+			}
+			else if (CONFIG.attributeSettings == "20th") {
+				list = CONFIG.wod.attributes20;
+			}
+
+			for (const i in list) {
 				if (actor.data.data.attributes[i].value >= 4) {
-					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(CONFIG.wod.attributes[i])} (${actor.data.data.attributes[i].speciality})</option>`);
+					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])} (${actor.data.data.attributes[i].speciality})</option>`);
 				}
 				else {
-					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(CONFIG.wod.attributes[i])}</option>`);
+					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])}</option>`);
 				}				
 			}
 				
@@ -249,7 +257,7 @@ export default class ActionHelper {
 					let woundPenaltyVal = parseInt(html.find("#woundPenalty")[0]?.value || 0);
 
 					try {
-						handlingOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+						handlingOnes = CONFIG.handleOnes;
 					} 
 					catch (e) {
 						handlingOnes = true;
@@ -277,30 +285,44 @@ export default class ActionHelper {
 						}
 						
 						attributeName = game.i18n.localize(actor.data.data.attributes[attribute].label);
+
+						if (actor.data.data.abilities.talent[dataset.label]?.value != undefined) {
+							abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.label].label);
+						}
+						else if (actor.data.data.abilities.skill[dataset.label]?.value != undefined) {
+							abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.label].label);
+						}
+						else if (actor.data.data.abilities.knowledge[dataset.label]?.value != undefined) {
+							abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.label].label);
+						}
+
 						numDice = attributeVal + parseInt(dataset.roll) + modifier;
-						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}</strong>`;
+						diceUsed = `<h2>${abilityName}</h2> <strong>${abilityName} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}</strong>`;
 					} 
 					else if (dataset.attribute == "true") {
 						attribute = dataset.label.toLowerCase();
 						attributeVal = dataset.roll;
 						specialityText = dataset.speciality;
-						attributeName = "";
+						attributeName = game.i18n.localize(actor.data.data.attributes[attribute].label);
 						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
+						//diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
+						diceUsed = `<h2>${attributeName}</h2> <strong>${attributeName} (${dataset.roll}) ${modifierText}</strong>`;
 					}
 					else if (dataset.noability == "true") {
 						//woundPenaltyVal = 0;
 						numDice = parseInt(dataset.roll) + modifier;
 						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 
-						if ((parseInt(actor.data.data.attributes?.composure.value) >= 4) && (parseInt(actor.data.data.attributes?.resolve.value) >= 4)) {
-							specialityText = actor.data.data.attributes.composure.speciality + ", " + actor.data.data.attributes.resolve.speciality;
-						}
-						else if (parseInt(actor.data.data.attributes?.composure.value) >= 4) {
-							specialityText = actor.data.data.attributes.composure.speciality
-						}
-						else if (parseInt(actor.data.data.attributes?.resolve.value) >= 4) {
-							specialityText = actor.data.data.attributes.resolve.speciality;
+						if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
+							if ((parseInt(actor.data.data.attributes?.composure.value) >= 4) && (parseInt(actor.data.data.attributes?.resolve.value) >= 4)) {
+								specialityText = actor.data.data.attributes.composure.speciality + ", " + actor.data.data.attributes.resolve.speciality;
+							}
+							else if (parseInt(actor.data.data.attributes?.composure.value) >= 4) {
+								specialityText = actor.data.data.attributes.composure.speciality
+							}
+							else if (parseInt(actor.data.data.attributes?.resolve.value) >= 4) {
+								specialityText = actor.data.data.attributes.resolve.speciality;
+							}
 						}
 					}
 					else if (dataset.rollitem == "true") {
@@ -377,7 +399,7 @@ export default class ActionHelper {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = game.settings.get('worldofdarkness', 'advantageRolls');
+			advantageRollSetting = CONFIG.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
@@ -387,7 +409,9 @@ export default class ActionHelper {
 		actorData = calculateTotals(actorData);
 
 		// willpower
-		actorData.data.willpower.permanent = parseInt(actorData.data.attributes.composure.value) + parseInt(actorData.data.attributes.resolve.value);
+		if (CONFIG.attributeSettings == "5th") {
+			actorData.data.willpower.permanent = parseInt(actorData.data.attributes.composure.value) + parseInt(actorData.data.attributes.resolve.value);
+		}
 		
 		if (actorData.data.willpower.permanent > actorData.data.willpower.max) {
 			actorData.data.willpower.permanent = actorData.data.willpower.max;
@@ -464,7 +488,7 @@ export default class ActionHelper {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = game.settings.get('worldofdarkness', 'advantageRolls');
+			advantageRollSetting = CONFIG.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
@@ -522,17 +546,7 @@ export default class ActionHelper {
 
 		return ignoresPain;
 	}
-
-	// static _changeAttributeSelect(actor) {
-	// 	let attributeSepcText = "";
-	// 	let abilitySpecText = html.find("#abilitySpecialityText")[0]?.value || "";
-
-	// 	let attribute = html.find("#attributeSelect")[0]?.value;
-
-	// 	if (attribute >= 4) {
-	// 		attributeSepcText = actor.data.data.attributes[attribute].speciality;
-	// 	}
-	// }
+	
 
 	static _setMortalAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
@@ -574,6 +588,7 @@ export default class ActionHelper {
 			}		
 		}
 	}
+
 
 	static _setWerewolfAbilities(actor) {		
 		for (const talent in CONFIG.wod.alltalents) {
@@ -617,6 +632,7 @@ export default class ActionHelper {
 		}
 	}
 
+
 	static _setVampireAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
 			if ((actor.data.abilities.talent[talent].label == "wod.abilities.gestures") || 
@@ -658,6 +674,7 @@ export default class ActionHelper {
 		}
 	}
 
+
 	static _setCreatureAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
 			actor.data.abilities.talent[talent].visible = false;
@@ -669,8 +686,55 @@ export default class ActionHelper {
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
 			actor.data.abilities.knowledge[knowledge].visible = false;
-		}
+		}		
+	}
 
-		
+	
+	static _setMortalAttributes(actor) {
+
+		let rage = -1;
+		let gnosis = -1;
+		let willpower = -1;
+
+		if ((actor.type == "Mortal") || (actor.type == "Werewolf") || (actor.type == "Creature")) {
+			for (const attribute in actor.data.attributes) {
+				actor.data.attributes[attribute].visible = true;
+			}
+
+			if (CONFIG.attributeSettings == "20th") {
+				actor.data.attributes.composure.visible = false;
+				actor.data.attributes.resolve.visible = false;
+				actor.data.willpower.permanent = 0;
+			}
+			else if (CONFIG.attributeSettings == "5th") {
+				actor.data.attributes.appearance.visible = false;
+				actor.data.attributes.perception.visible = false;
+				actor.data.willpower.permanent = 2;
+			}
+	  
+			if (CONFIG.rollSettings) {
+			  if (actor.type != "Mortal") {
+				rage = actor.data.rage.permanent; 
+				gnosis = actor.data.gnosis.permanent;
+			  }
+			  
+			  willpower = actor.data.willpower.permanent; 
+			}
+			else {
+			  if (actor.type != "Mortal") {
+				rage = actor.data.rage.permanent > actor.data.rage.temporary ? actor.data.rage.temporary : actor.data.rage.permanent; 
+				gnosis = actor.data.gnosis.permanent > actor.data.gnosis.temporary ? actor.data.gnosis.temporary : actor.data.gnosis.permanent;
+			  }
+			  
+			  willpower = actor.data.willpower.permanent > actor.data.willpower.temporary ? actor.data.willpower.temporary : actor.data.willpower.permanent; 
+			}
+	  
+			if (actor.type != "Mortal") {
+				actor.data.rage.roll = rage;
+				actor.data.gnosis.roll = gnosis;
+			}
+	  
+			actor.data.willpower.roll = willpower;
+		  }
 	}
 }

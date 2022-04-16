@@ -4,9 +4,11 @@
 			"worldversion": "World Version",
 			"worldversionhint": "Used to know if World patch is needed",
 			"advantagerolls": "How roll Advantage attributes",
-			"advantagerollshint": "Are you to use the permanent (check) values or temporary (not checked) of e.g. Willpower in rolls",
+			"advantagerollshint": "Are you to use the permanent (check) values or temporary (not checked) of e.g. Willpower in rolls. Requires restart of Foundry VTT.",
 			"therollofone": "How to handle 1s on Rolls",
-			"therollofonehint": "Normal handling from rules - all one's reduce number of successes by one (check). Ones has no effect normally but if no successes and there one or more ones that is a botch  (not checked)"
+			"therollofonehint": "Normal handling from rules - all one's reduce number of successes by one (check). Ones has no effect normally but if no successes and there one or more ones that is a botch (not checked)",
+			"attributesettings": "Settings for attributes",
+			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default."
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -50,7 +52,8 @@
 			"auspice": "Auspice",
 			"tribe": "Tribe",
 			"packname": "Pack Name",
-			"packtotem": "Pack Totem"
+			"packtotem": "Pack Totem",
+			"worldanvil": "World Anvil"
 		},
 		"attributes": {
 			"attributes": "Attributes",
@@ -65,7 +68,9 @@
 			"wits": "Wits",
 			"stamina": "Stamina",
 			"composure": "Composure",
-			"resolve": "Resolve"
+			"resolve": "Resolve",
+			"perception": "Perception",
+			"appearance": "Appearance"
 		},
 		"abilities": {
 			"abilities": "Abilities",
@@ -172,7 +177,7 @@
 				"twohanded": "Two-handed",
 				"natural": "Natural Weapon",
 				"initiative": "Initiative",
-				"initiativebonus": "Initiative Bonus"
+				"initiativebonus": "Bonus"
 			},
 			"armor": {
 				"active": "Active",
@@ -265,6 +270,13 @@
 				"expearned": "Earned Experience",
 				"expspend": "Spent Experience"
 			},
+			"settings": {
+				"usesoak": "Can soak",
+				"yes": "YES",
+				"no": "NO",
+				"added": "ADDED",
+				"removed": "REMOVED"
+			},
 			"add": {
 				"meleeweapon": "Add Melee Weapon",
 				"rangedweapon": "Add Ranged Weapon",
@@ -274,7 +286,9 @@
 				"naturalweapon": "Edit Natural Weapon",
 				"meleeweapon": "Edit Melee Weapon",
 				"rangedweapon": "Edit Ranged Weapon",
-				"background": "Edit Background"
+				"background": "Edit Background",
+				"gift": "Edit Gift",
+				"rite": "Edit Rite"
 			},
 			"remove": {
 				"item": "Remove Item",

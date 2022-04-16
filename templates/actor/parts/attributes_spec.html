@@ -10,9 +10,12 @@
 		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.mental"}}</div>
 	</div>
 
-	{{#each data.data.attributes as |attribute key|}}
+	<div class="clearareaBox">
+		{{#each data.data.attributes as |attribute key|}}
 
-	<div class="attribute-statArea" style={{orderAttributes key}}>	
+		{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
+
+		{{#if attribute.visible}}
 
 		<div class="attribute-rowheight">
 			<label for="data.data.attributes.{{key}}.speciality" 
@@ -27,8 +30,12 @@
 			</div>
 			{{/iff}}
 		</div>		
-	</div>
 	
-	{{/each}}	
+		{{/if}}
+
+		{{#if (bottenAttributes key)}}</div>{{/if}}
+		
+		{{/each}}	
+	</div> 
 
 </div>	

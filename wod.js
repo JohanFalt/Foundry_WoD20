@@ -43,9 +43,53 @@ Hooks.once("init", async function() {
 		type: Boolean,
 	});
 
+	game.settings.register("worldofdarkness", "attributeSettings", {
+		name: game.i18n.localize('wod.settings.attributesettings'),
+		hint: game.i18n.localize('wod.settings.attributesettingshint'),
+		scope: "world",
+		config: true,
+		default: "20th",
+		type: String,
+		choices: {
+			"20th": "20th edition",
+			"5th": "5th edition"
+		}
+	});
+
+	//patch settings
+	game.settings.register("worldofdarkness", "patch107", {
+		name: "patch107",
+		hint: "patch107",
+		scope: "world",
+		config: false,
+		default: true,
+		type: Boolean,
+	});
+
+	// game.settings.register("worldofdarkness", "patch109", {
+	// 	name: "patch109",
+	// 	hint: "patch109",
+	// 	scope: "world",
+	// 	config: false,
+	// 	default: false,
+	// 	type: Boolean,
+	// });
+
+	game.settings.register("worldofdarkness", "patch110", {
+		name: "patch110",
+		hint: "patch110",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
 	console.log("WoD | Settings registered");
 	
 	CONFIG.wod = wod;
+	CONFIG.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
+	CONFIG.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+	CONFIG.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
@@ -158,9 +202,18 @@ Hooks.once("init", async function() {
 	});
 
 	Handlebars.registerHelper("getAttributes", function (attribute) {
-		for (const i in CONFIG.wod.attributes) {
+		let list;
+
+		if (CONFIG.attributeSettings == "5th") {
+			list = CONFIG.wod.attributes;
+		}
+		else if (CONFIG.attributeSettings == "20th") {
+			list = CONFIG.wod.attributes20;
+		}
+		
+		for (const i in list) {
 			if (i == attribute) {
-				return CONFIG.wod.attributes[i];
+				return list[i];
 			}
 		}
 
@@ -173,14 +226,67 @@ Hooks.once("init", async function() {
 		return attribute;
 	});
 
+	Handlebars.registerHelper("getAbility", function (ability) {
+		for (const i in CONFIG.wod.alltalents) {
+			if (i == ability) {
+				return CONFIG.wod.alltalents[i];
+			}
+		}
+
+		for (const i in CONFIG.wod.allskills) {
+			if (i == ability) {
+				return CONFIG.wod.allskills[i];
+			}
+		}
+
+		for (const i in CONFIG.wod.allknowledges) {
+			if (i == ability) {
+				return CONFIG.wod.allknowledges[i];
+			}
+		}
+
+		return ability;
+	});
+
 	Handlebars.registerHelper("orderAttributes", function (attribute) {
 		var list = ["strength","dexterity","stamina"];
 		
 		if (list.includes(attribute)) {
-			return "clear:left;float:left;";
+			//return "clear:left;float:left;";
+			return "clear:left";
 		}
 		else {
 			return "float:left;";
+		}
+	});
+
+	Handlebars.registerHelper("topAttributes", function (attribute) {
+		var list = ["strength","charisma","perception"];
+
+		if (CONFIG.attributeSettings == "5th") {
+			list = ["strength","charisma","intelligence"];
+		}
+		
+		if (list.includes(attribute)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	});
+
+	Handlebars.registerHelper("bottenAttributes", function (attribute) {
+		var list = ["stamina","appearance","wits"];
+
+		if (CONFIG.attributeSettings == "5th") {
+			list = ["stamina","composure","resolve"];
+		}
+		
+		if (list.includes(attribute)) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	});
 
