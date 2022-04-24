@@ -8,7 +8,7 @@ if (tokens.length > 0){
 
 async function rollInitiative(token) {
     let actor = token.actor;
-    const bonus = parseInt(actor.data.data.initiative.base) + parseInt(actor.data.data.initiative.bonus);
+    const bonus = parseInt(actor.data.data.initiative.total);
     let formula = "1d10";
     let init = 0;
     let label = "";

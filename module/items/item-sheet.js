@@ -2,14 +2,7 @@ export class WoDItemSheet extends ItemSheet {
 	
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			/*classes: [],
-			template: "systems/worldofdarkness/templates/actor/mortal-sheet.html",
-			height: 700,
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			}],*/
+			classes: ["itemsheet"]
 		});
 	}
 
@@ -21,6 +14,7 @@ export class WoDItemSheet extends ItemSheet {
 		return `systems/worldofdarkness/templates/sheets/${sheet}-sheet.html`;
 	}
 
+	/** @override */
 	getData() {
 		const data = super.getData();
 		const ItemData = data.item.data;
@@ -28,8 +22,29 @@ export class WoDItemSheet extends ItemSheet {
 		data.config = CONFIG.wod;
 		data.isGM = game.user.isGM;	
 
-		console.log(ItemData);
+		if (data.item.locked == undefined) {
+			data.item.locked = true;
+		}		
+
+		console.log(data.item);
 		
 		return data;
+	}
+
+	/** @override */
+	activateListeners(html) {
+		console.log("WoD | Item Sheet activateListeners");
+  
+		super.activateListeners(html);
+		// lock button
+		html
+			.find(".lock-btn")
+			.click(this._onToggleLocked.bind(this));
+	}
+
+	_onToggleLocked(event) {
+		event.preventDefault();
+		this.item.locked = !this.item.locked;
+		this._render();
 	}
 }

@@ -40,6 +40,9 @@ const templatePaths = [
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
 
 		// Item Sheet Partials
+		"systems/worldofdarkness/templates/sheets/parts/lock.html",
+		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
+		"systems/worldofdarkness/templates/sheets/parts/power_description.html"		
 	];
 
 	/* Load the template parts

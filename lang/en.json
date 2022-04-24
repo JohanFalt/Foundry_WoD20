@@ -53,7 +53,9 @@
 			"tribe": "Tribe",
 			"packname": "Pack Name",
 			"packtotem": "Pack Totem",
-			"worldanvil": "World Anvil"
+			"worldanvil": "World Anvil",
+			"worldanvillink": "World Anvil Page",
+			"noworldanvillink": "No World Anvil link"
 		},
 		"attributes": {
 			"attributes": "Attributes",
@@ -161,7 +163,6 @@
 				"attribute": "Attribute",
 				"attr": "Attr.",
 				"ability": "Ability",
-				"difficulty": "Difficulty",
 				"diff": "Diff",
 				"damage": "Damage",
 				"range": "Range",
@@ -176,8 +177,7 @@
 				},
 				"twohanded": "Two-handed",
 				"natural": "Natural Weapon",
-				"initiative": "Initiative",
-				"initiativebonus": "Bonus"
+				"initiative": "Initiative"
 			},
 			"armor": {
 				"active": "Active",
@@ -224,6 +224,9 @@
 		},
 		"labels": {
 			"rolling": "Rolling",
+			"bonus": "Bonus",
+			"value": "Value",
+			"total": "Total",
 			"cancel": "Cancel",
 			"difficulty": "Difficulty",
 			"modifier": "Modifier",
@@ -307,6 +310,12 @@
 			"numdices": "Number of Dices",
 			"send": "Send to Chatt"
 		},
+		"info": {
+			"spendexp": "If you have spend the experience or not",
+			"rollinititative": "Roll for initiative",
+			"rollsoak": "Roll for soak",
+			"rolldice": "Roll a number of dices"
+		},
 		"dice": {
 			"rollattack": "Roll Attack",
 			"rolldamage": "Roll Damage",
@@ -314,7 +323,8 @@
 			"successes": "Successes",
 			"botch": "Botch",
 			"fail": "Fail",
-			"success": "Success"
+			"success": "Success",
+			"rollingdice": "Rolling Dice"
 		}
 	}	
 }

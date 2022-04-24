@@ -66,18 +66,18 @@ Hooks.once("init", async function() {
 		type: Boolean,
 	});
 
-	// game.settings.register("worldofdarkness", "patch109", {
-	// 	name: "patch109",
-	// 	hint: "patch109",
-	// 	scope: "world",
-	// 	config: false,
-	// 	default: false,
-	// 	type: Boolean,
-	// });
-
 	game.settings.register("worldofdarkness", "patch110", {
 		name: "patch110",
 		hint: "patch110",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
+	game.settings.register("worldofdarkness", "patch120", {
+		name: "patch120",
+		hint: "patch120",
 		scope: "world",
 		config: false,
 		default: false,
@@ -314,6 +314,10 @@ Hooks.once("init", async function() {
 
 	Handlebars.registerHelper("captilizeFirst", function (text) {
 		return text.charAt(0).toUpperCase() + text.slice(1);
+	});
+
+	Handlebars.registerHelper("captilize", function (text) {
+		return text.toUpperCase();
 	});
 
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {

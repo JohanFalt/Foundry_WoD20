@@ -1,54 +1,70 @@
 <form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-		<img src="{{item.img}}" />
 
-		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/armor.svg" />		
-	</header>
+	<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/armor.svg" />		
 
-	<section class="sheet-body">
+	<div class="sheet-item">
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-			<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-		</div>
+		<header class="sheet-header">
+			<div class="top-area">
+				<div class="top-side">
+					<img src="{{item.img}}" /> 
+					<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
+				</div>
+				<div class="top-center top-headline centerText">
+					{{item.name}}
+				</div>
+				<div class="top-side top-sidetext centerText">
+					ARMOR
+				</div>				
+			</div>
+		</header>
 
-		<!-- Soak -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.soak.bashing">{{localize "wod.combat.armor.soakbashing"}}</label>
-			<input class="sheet-infoValues numberBox" name="data.soak.bashing" type="text" value="{{data.data.soak.bashing}}" data-dtype="Number" />
-		</div>
+		<section class="item-body">
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.soak.lethal">{{localize "wod.combat.armor.soaklethal"}}</label>
-			<input class="sheet-infoValues numberBox" name="data.soak.lethal" type="text" value="{{data.data.soak.lethal}}" data-dtype="Number" />
-		</div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+			</div>
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.soak.aggravated">{{localize "wod.combat.armor.soakaggravated"}}</label>
-			<input class="sheet-infoValues numberBox" name="data.soak.aggravated" type="text" value="{{data.data.soak.aggravated}}" data-dtype="Number" />
-		</div>
+			<!-- Soak -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.soak.bashing">{{localize "wod.combat.armor.soakbashing"}}</label>
+				<input class="sheet-infoValues numberBox" name="data.soak.bashing" type="text" value="{{data.data.soak.bashing}}" data-dtype="Number" />
+			</div>
 
-		<!-- Dexterity Penalty -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.dexpenalty">{{localize "wod.combat.armor.penalty"}}</label>
-			<input class="sheet-infoValues numberBox" name="data.dexpenalty" type="text" value="{{data.data.dexpenalty}}" data-dtype="Number" />
-		</div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.soak.lethal">{{localize "wod.combat.armor.soaklethal"}}</label>
+				<input class="sheet-infoValues numberBox" name="data.soak.lethal" type="text" value="{{data.data.soak.lethal}}" data-dtype="Number" />
+			</div>
 
-		<!-- Shapes -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.shapes" style="width:100%">{{localize "wod.shapes.shapes"}}</label>
-			<input name="data.forms.homid" type="checkbox" {{#if data.data.forms.homid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
-			<input name="data.forms.glabro" type="checkbox" {{#if data.data.forms.glabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
-			<input name="data.forms.crinos" type="checkbox" {{#if data.data.forms.crinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
-			<input name="data.forms.hispo" type="checkbox" {{#if data.data.forms.hispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
-			<input name="data.forms.lupus" type="checkbox" {{#if data.data.forms.lupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
-		</div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.soak.aggravated">{{localize "wod.combat.armor.soakaggravated"}}</label>
+				<input class="sheet-infoValues numberBox" name="data.soak.aggravated" type="text" value="{{data.data.soak.aggravated}}" data-dtype="Number" />
+			</div>
 
-		<!-- description -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-			<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
-		</div>
+			<!-- Dexterity Penalty -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.dexpenalty">{{localize "wod.combat.armor.penalty"}}</label>
+				<input class="sheet-infoValues numberBox" name="data.dexpenalty" type="text" value="{{data.data.dexpenalty}}" data-dtype="Number" />
+			</div>
 
-	</section>
+			<!-- Shapes -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.shapes" style="width:100%">{{localize "wod.shapes.shapes"}}</label>
+				<input name="data.forms.homid" type="checkbox" {{#if data.data.forms.homid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
+				<input name="data.forms.glabro" type="checkbox" {{#if data.data.forms.glabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
+				<input name="data.forms.crinos" type="checkbox" {{#if data.data.forms.crinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
+				<input name="data.forms.hispo" type="checkbox" {{#if data.data.forms.hispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
+				<input name="data.forms.lupus" type="checkbox" {{#if data.data.forms.lupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
+			</div>
+
+			<!-- description -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
+			</div>
+
+		</section>
+
+	</div>
 </form>

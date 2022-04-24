@@ -1,5 +1,6 @@
-<div class="sheet-headline">{{localize "wod.labels.combat.conditions"}}</div>
+<!--<div class="sheet-headline">{{localize "wod.labels.combat.conditions"}}</div>-->
 
+{{#iff actor.type "!=" "Spirit"}}
 <div class="clearareaBox">
     {{#iff actor.type "==" "Werewolf"}}
     <div class="pullLeft condition">
@@ -13,3 +14,8 @@
         <input name="data.conditions.stunned" type="checkbox" {{#if data.data.conditions.stunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
     </div>-->
 </div>
+{{/iff}}
+
+<img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-source="initiative" title="{{localize "wod.info.rollinititative"}}">
+<img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/soak.svg" data-source="soak" title="{{localize "wod.info.rollsoak"}}">
+<img class="macroBtn" src="systems/worldofdarkness/assets/img/dice/d10.png" data-source="dices" title="{{localize "wod.info.rolldice"}}">

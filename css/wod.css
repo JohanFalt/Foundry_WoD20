@@ -14,7 +14,7 @@
 }
 
 .werewolf:not(.minimized) {
-  height: 920px !important;
+  height: 930px !important;
   width: 730px !important;
 }
 
@@ -27,6 +27,11 @@
   height: 790px !important;
   width: 900px !important;
 }
+
+.itemsheet:not(.minimized) {
+  /* height: 700px !important; */
+  width: 600px !important;
+} 
 
 .mortal .headlineTabs {
 	border-bottom-color: #184e77;
@@ -274,8 +279,12 @@
   margin-right: 10px;
 }
 
-.sheet-character .profile-img-zone button {
-  
+.sheet-item .lock-btn {
+  max-width: 25px;
+  margin-right: 10px;
+}
+
+.sheet-character .profile-img-zone button {  
   font-family: Verdana, sans-serif;
   font-weight: bold;
   border: none;
@@ -324,6 +333,34 @@ img.rolldice {
 .sheet-character {
 	font-family: "werewolf", Verdana, sans-serif;
 	font-weight: bold;
+}
+
+.sheet-header {
+
+}
+
+.sheet-body {
+
+}
+
+.sheet-area {
+  display: flex;
+  flex-flow: column nowrap;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.area-box {
+  width: 100%;
+}
+
+.item-body {
+  margin-top: 10px;
+}
+
+.item-area {
+
 }
 
 .sheet-headline {
@@ -390,10 +427,6 @@ textarea.sheet-infoValues {
 
 .headlineGroup {	
 	font-size: 24px;
-}
-
-.center {
-  text-align: center;
 }
 
 .bold {
@@ -480,11 +513,24 @@ textarea.sheet-infoValues {
   cursor: pointer;
 }
 
+.macroBtn:hover,
+.macroBtn:focus,
 .lock-btn:hover,
 .lock-btn:focus,
 .switch:hover,
 .switch:focus {
   cursor: pointer;
+}
+
+.macroBtn {
+  height: 50px;
+  width: 50px;
+  margin-right: .5rem;
+}
+
+.row {
+  height: 23px;
+  line-height: 23px;
 }
 
 /* END - General */
@@ -494,6 +540,11 @@ textarea.sheet-infoValues {
 .headlineBio {
   float:left; 
   width:40%;
+}
+
+.bio-verticalcenter {
+  height: 30px;
+  line-height: 30px;
 }
 
 /* END - Bio */
@@ -594,8 +645,6 @@ textarea.sheet-gearArea {
 
 .shape-background {
 	background: url(https://www.busigafamiljen.se/rpg/werewolf20th/five_forms.jpg);
-	/*width: 740px;
-	height: 450px;*/
   width: 715px; /* width x 1,65 = height */
 	height: 433px;
   background-repeat: no-repeat;
@@ -717,7 +766,47 @@ textarea.item {
   margin-bottom: 5px;
 }
 
-/* END - Items */
+.sheet-header > .top-area > .top-side > img {
+  height: 80px;
+  border: 0px;
+}
+
+.information-area {
+  font-size: 10px;
+  color: #7e7e7e;
+}
+
+/* START - Power */
+.top-headline {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.top-sidetext {
+  color: #7e7e7e;
+  font-weight: normal;
+}
+
+.top-area {	
+  flex-wrap: nowrap;
+  flex-flow: row nowrap;
+  display: flex;
+  align-items: center;
+  font-family: Verdana, sans-serif;
+}
+
+.top-side {	
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.top-center {	
+	flex-grow: 2;
+  flex-basis: auto;  
+}
+
+/* END - Power */
 
 /* START - handle design of radio buttons */
 .difficulty-value .resource-value-step,

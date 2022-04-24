@@ -32,91 +32,112 @@
 
 				<section class="sheet-spec-body">
 				
-					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+					<div class="sheet-area">
+						{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+					</div>
 
-					{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+					<div class="sheet-area">
+						{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+					</div>
 
-					<div class="clearareaBox">
-						<div class="pullLeft" style="width: 70%;">
-							<div class="clearareaBox">
+					<div class="sheet-area">
+						<div class="clearareaBox area-box">
+							<div class="pullLeft" style="width: 70%;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+								<div class="sheet-area">
+									<div class="clearareaBox area-box">
+
+										{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+										
+									</div>
+								</div>
+
+								{{#iff actor.naturalWeapons.length ">" 0}}
 								
-							</div>
+								<div class="sheet-area">
+									<div class="clearareaBox area-box">
+										
+										{{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
+										
+									</div>
+								</div>
 
-							{{#iff actor.naturalWeapons.length ">" 0}}
-								
-							<div class="clearareaBox">
-								
-								{{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
-								
-							</div>
+								{{/iff}}
 
-							{{/iff}}
+								{{#iff actor.meleeWeapons.length ">" 0}}
 
-							{{#iff actor.meleeWeapons.length ">" 0}}
+								<div class="sheet-area">
+									<div class="clearareaBox area-box">
+										
+										{{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
+											
+									</div>
+								</div>
 
-							<div class="clearareaBox">
-								
-								{{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
+								{{/iff}}
+
+								{{#iff actor.rangedWeapons.length ">" 0}}
 									
-							</div>
+								<div class="sheet-area">
+									<div class="clearareaBox area-box">
+										
+										{{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
+											
+									</div>
+								</div>
 
-							{{/iff}}
+								{{/iff}}
 
-							{{#iff actor.rangedWeapons.length ">" 0}}
-								
-							<div class="clearareaBox">
-								
-								{{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
+								{{#iff actor.armors.length ">" 0}}
 									
+								<div class="sheet-area">
+									<div class="clearareaBox area-box">
+											
+										{{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
+										
+									</div>
+								</div>
+
+								{{/iff}}
 							</div>
+							<div class="pullLeft" style="width: 30%; padding-left: 20px;">
 
-							{{/iff}}
+								<div class="pullright" style="width: 100%;">
+		
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
 
-							{{#iff actor.armors.length ">" 0}}
-								
-							<div class="clearareaBox">
-									
-								{{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
-								
-							</div>
-
-							{{/iff}}
-						</div>
-						<div class="pullLeft" style="width: 30%; padding-left: 20px;">
-
-							<div class="pullright" style="width: 100%;">
-	
-							{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+								</div>
 
 							</div>
-
 						</div>
 					</div>
 
-					{{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+					<div class="sheet-area">
+						{{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+					</div>
 
-					<div class="clearareaBox" style="display: flex;">
+					<div class="sheet-area">
+						<div class="clearareaBox area-box">
 
-						<div class="pullLeft" style="width: 33%;">
-						
-							{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
-
-						</div>
-						
-						<div class="pullLeft" style="width: 33%;">
-					
-							{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
-					
-						</div>
-						
-						<div class="pullLeft" style="width: 33%;">
+							<div class="pullLeft" style="width: 33%;">
 							
-							{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
 
+							</div>
+							
+							<div class="pullLeft" style="width: 33%;">
+						
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+						
+							</div>
+							
+							<div class="pullLeft" style="width: 33%;">
+								
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+
+							</div>
+						
 						</div>
-					
 					</div>
 
 				</section>				

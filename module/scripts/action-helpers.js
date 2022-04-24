@@ -394,6 +394,259 @@ export default class ActionHelper {
 		}).render(true);
     }
 
+	static async RollInitiative(event, actor) {
+		event.preventDefault();		
+
+		let foundToken = false;
+		let foundEncounter = true;
+		let tokenAdded = false;
+		let rolledInitiative = false;
+		let formula = "1d10";
+		let init = 0;
+		let label = "";
+		let message = "";
+		let diceColor;
+
+		let token = await canvas.tokens.placeables.find(t => t.data.actorId === actor.id);
+		if(token) foundToken = true;
+
+		if (game.combat == null) {
+			foundEncounter = false;
+	   	}
+
+		let roll = new Roll(formula);		
+
+		roll.evaluate({async:true});
+		roll.terms[0].results.forEach((dice) => {
+			init += parseInt(dice.result);
+		});
+
+		init += parseInt(parseInt(actor.data.data.initiative.total));
+
+		if ((foundToken) && (foundEncounter)) {
+			if (!this.inTurn(token)) {
+				await token.toggleCombat();
+
+				if (token.combatant.data.initiative == undefined) {      
+					await token.combatant.update({initiative: init});
+					rolledInitiative = true;
+				}
+				
+				tokenAdded = true;
+			}
+		}		
+			
+		if (actor.type == "Mortal") {
+			diceColor = "blue_";
+		} 
+		else if (actor.type == "Werewolf") {
+			diceColor = "brown_";
+		}
+		else if (actor.type == "Vampire") { 
+			diceColor = "red_";
+		}
+		else if (actor.type == "Spirit") { 
+			diceColor = "yellow_";
+		}
+		else {
+			diceColor = "black_";
+		}
+	
+		
+
+		roll.terms[0].results.forEach((dice) => {
+			label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
+		});
+		
+		if (!foundEncounter) {
+			message += "<em>No encounter found in Combat Tracker</em>";			
+		}
+		else {
+			if (!foundToken) {
+				message += "<em>No Token found in scene</em><br />";				
+			}
+			else {
+				if (!tokenAdded) {
+					message += "<em>Character already added to Combat Tracker</em><br />";
+					label = "";
+					init = "";
+				}
+				if (!rolledInitiative) {
+					message += "<em>" + actor.data.name + " has initiative already</em><br />";
+					label = "";
+					init = "";
+				}
+			}
+		}
+
+		if (label != "") {
+			label = "<br />" + label;
+		}
+		if (message != "") {
+			message = "<br />" + message;
+		}
+
+		this.printMessage('', '<h2>Rolling Initiative</h2>' + init + label + message, actor);			
+	}
+
+	static RollSoak(event, actor) {
+		event.preventDefault();
+
+		let buttons = {};
+		let template = `<form>
+							<div class="form-group">
+								<label>${game.i18n.localize("wod.labels.modifier")}</label>
+								<input type="text" id="inputMod" value="0">
+							</div>  
+							<div class="form-group">
+								<input type="radio" id="damageType" name="damageType" value="bashing">${game.i18n.localize("wod.health.bashing")}</input>
+								<input type="radio" id="damageType" name="damageType" value="lethal">${game.i18n.localize("wod.health.lethal")}</input>
+								<input type="radio" id="damageType" name="damageType" value="aggravated">${game.i18n.localize("wod.health.aggravated")}</input>
+							</div>
+						</form>`;
+
+		buttons = {
+			draw: {
+				icon: '<i class="fas fa-check"></i>',
+				label: game.i18n.localize("wod.dice.roll"),
+				callback: async (template) => {
+					const damageType = template.find("#damageType:checked")[0]?.value;
+					const bonus = parseInt(template.find("#inputMod")[0]?.value);
+					const dice = parseInt(actor.data.data.soak[damageType]) + parseInt(bonus);
+					let successes = 0;
+					let label = "";
+
+					let roll = new Roll(dice + "d10");
+					roll.evaluate({async:true});
+
+					let diceColor;
+			
+					if (actor.type == "Mortal") {
+						diceColor = "blue_";
+					} 
+					else if (actor.type == "Werewolf") {
+						diceColor = "brown_";
+					}
+					else if (actor.type == "Vampire") { 
+						diceColor = "red_";
+					}
+					else if (actor.type == "Spirit") { 
+						diceColor = "yellow_";
+					}
+					else {
+						diceColor = "black_";
+					}
+					
+					roll.terms[0].results.forEach((dice) => {
+						if (dice.result >= 6) {
+							successes++;
+						}
+
+						label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
+					});
+
+					this.printMessage('', '<h2>Rolling Soak</h2><strong>' + damageType + '<br />Successes:</strong> ' + successes + '<br />' + label, actor);
+				},
+			},
+			cancel: {
+				icon: '<i class="fas fa-times"></i>',
+				label: game.i18n.localize("wod.labels.cancel"),
+			},
+		};
+
+		new Dialog({      
+			title: game.i18n.localize("wod.labels.rolling"),
+			content: template,
+			buttons: buttons,
+			default: "draw",
+		}).render(true);    
+	}
+
+	static RollDices(event, actor) {
+		event.preventDefault();
+
+		let selector = "";
+
+		for (let i = 3; i <= 10; i++) {
+			if (i == 6) {
+				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
+			}
+			else {
+				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
+			}
+		}
+
+		let buttons = {};
+		let template = `<form>
+							<div class="form-group">
+								<label>${game.i18n.localize("wod.labels.numdices")}</label>
+								<input type="text" id="dices" value="0">
+							</div>  
+							<div class="form-group">
+							<label>${game.i18n.localize("wod.labels.difficulty")}</label>
+							`
+							+ selector + 
+							`
+							</div> 
+							<div class="form-group">
+								<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>
+							</div>
+						</div>
+						</form>`;
+		buttons = {
+			draw: {
+				icon: '<i class="fas fa-check"></i>',
+				label: game.i18n.localize("wod.dice.roll"),
+				callback: async (template) => {
+					const numDice = parseInt(template.find("#dices")[0]?.value);
+					let difficulty = parseInt(template.find("#inputDif:checked")[0]?.value || 0);
+					const specialty = template.find("#specialty")[0]?.checked || false;
+					let handlingOnes = true;
+
+					try {
+						handlingOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+					} 
+					catch (e) {
+						handlingOnes = true;
+					}
+
+					rollDice(
+						numDice,
+						actor,
+						game.i18n.localize("wod.dice.rollingdice"),
+						difficulty,
+						specialty,
+						"",
+						0,
+						"",
+						handlingOnes
+					);
+				},
+			},
+			cancel: {
+				icon: '<i class="fas fa-times"></i>',
+				label: game.i18n.localize("wod.labels.cancel"),
+			},
+		};	
+		
+		new Dialog({      
+			title: game.i18n.localize("wod.labels.rolling"),
+			content: template,
+			buttons: buttons,
+			default: "draw",
+		}).render(true);  
+	}
+
+ 	static inTurn(token) {
+		for (let count = 0; count < game.combat.combatants.size; count++) {
+			if (token.id == game.combat.combatants.contents[count].token.id) {
+				return true;
+			}
+		}
+	
+		return false;
+	}
+
     static handleCalculations(actorData) {		
 
 		let advantageRollSetting = true;

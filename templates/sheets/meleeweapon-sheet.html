@@ -1,124 +1,155 @@
 <form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-		<img src="{{item.img}}" />
 
-		{{#if data.data.natural}}
+	{{#if data.data.natural}}
 		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/naturalweapons.svg" />
-		{{else}}
+	{{else}}
 		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/meleeweapons.svg" />
-		{{/if}}
-		
-	</header>
+	{{/if}}
 
-	<section class="sheet-body">
+	<div class="sheet-item">
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-			<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-		</div>
+		<header class="sheet-header">
+			<div class="top-area">
+				<div class="top-side">
+					<img src="{{item.img}}" /> 
+					<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
+				</div>
+				<div class="top-center top-headline centerText">
+					{{item.name}}
+				</div>
+				<div class="top-side top-sidetext centerText">
+					{{#if data.data.natural}} 
+					NATURAL WEAPON
+					{{else}}
+					MELEE WEAPON
+					{{/if}}
+				</div>				
+			</div>
+		</header>
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.attack.roll">{{localize "wod.dice.rollattack"}}</label>
-			<input name="data.attack.roll" type="checkbox" {{#if data.data.attack.roll}} checked {{/if}} />
-		</div>
+		<section class="item-body">
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
-			<select class="item" name="data.attack.attribute">
-				{{#select data.data.attack.attribute}}
-					<option value="">- {{localize "wod.labels.select"}} -</option>
-					{{#each config.attackAttributes as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
-				{{/select}}
-			</select>
-		</div>
+			{{#if isGM}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+			</div>
+			{{/if}}
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.attack.ability">{{localize "wod.combat.weapon.ability"}}</label>
-			<select class="item" name="data.attack.ability">
-				{{#select data.data.attack.ability}}
-					<option value="">- {{localize "wod.labels.select"}} -</option>
-					{{#each config.attackMeleeAbilities as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
-				{{/select}}
-			</select>
-		</div>
+			{{#if isGM}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.attack.roll">{{localize "wod.dice.rollattack"}}</label>
+				<input name="data.attack.roll" type="checkbox" {{#if data.data.attack.roll}} checked {{/if}} />
+			</div>
+			{{/if}}
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.combat.weapon.difficulty"}}</label>
-			<select class="numberBox" name="data.diff">
-				{{#select data.data.diff}}
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				{{/select}}
-			</select>
-		</div>
-
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.damage.roll">{{localize "wod.dice.rolldamage"}}</label>
-			<input name="data.damage.roll" type="checkbox" {{#if data.data.damage.roll}} checked {{/if}} />
-		</div>
-
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
-			<div>
-				<select name="data.damage.attribute">
-					{{#select data.data.damage.attribute}}
-					<option value="">- {{localize "wod.labels.none"}} -</option>
-					<option value="strength">{{localize "wod.attributes.strength"}}</option>
-					{{/select}}
-				</select>
-				&nbsp;+&nbsp;
-				<input class="sheet-infoValues miniBox" name="data.damage.bonus" type="text" value="{{data.data.damage.bonus}}" data-dtype="Number" />
-				<select name="data.damage.type">
-					{{#select data.data.damage.type}}
-					<option value="">- {{localize "wod.labels.select"}} -</option>
-					{{#each config.damageTypes as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
+			{{#if data.data.attack.roll}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
+				<select class="item" name="data.attack.attribute">
+					{{#select data.data.attack.attribute}}
+						<option value="">- {{localize "wod.labels.select"}} -</option>
+						{{#each config.attackAttributes as | name type|}}
+						<option value="{{type}}">{{localize name}}</option>
+						{{/each}}
 					{{/select}}
 				</select>
 			</div>
-		</div>
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.conceal">{{localize "wod.combat.weapon.conceal.conceal"}}</label>
-			<select class="item" name="data.conceal">
-				{{#select data.data.conceal}}
-				<option value="">- {{localize "wod.labels.select"}} -</option>
-				<option value="P">{{localize "wod.combat.weapon.conceal.pocket"}}</option>
-				<option value="J">{{localize "wod.combat.weapon.conceal.jacket"}}</option>
-				<option value="T">{{localize "wod.combat.weapon.conceal.trenchcoat"}}</option>
-				<option value="NA">{{localize "wod.combat.weapon.conceal.na"}}</option>
-				{{/select}}
-			</select>
-		</div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.attack.ability">{{localize "wod.combat.weapon.ability"}}</label>
+				<select class="item" name="data.attack.ability">
+					{{#select data.data.attack.ability}}
+						<option value="">- {{localize "wod.labels.select"}} -</option>
+						{{#each config.attackMeleeAbilities as | name type|}}
+						<option value="{{type}}">{{localize name}}</option>
+						{{/each}}
+					{{/select}}
+				</select>
+			</div>
 
-		<!-- 2-handed true/false -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.twohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
-			<input name="data.twohanded" type="checkbox" {{#if data.data.twohanded}} checked {{/if}}></input>
-		</div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.labels.difficulty"}}</label>
+				<select class="numberBox" name="data.diff">
+					{{#select data.data.diff}}
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					{{/select}}
+				</select>
+			</div>
+			{{/if}}
 
-		<!-- natural true/false -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.natural">{{localize "wod.combat.weapon.natural"}}</label>
-			<input name="data.natural" type="checkbox" {{#if data.data.natural}} checked {{/if}}></input>
-		</div>
+			{{#if isGM}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.damage.roll">{{localize "wod.dice.rolldamage"}}</label>
+				<input name="data.damage.roll" type="checkbox" {{#if data.data.damage.roll}} checked {{/if}} />
+			</div>
+			{{/if}}
 
-		<!-- description -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-			<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
-		</div>
+			{{#if data.data.damage.roll}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
+				<div>
+					<select name="data.damage.attribute">
+						{{#select data.data.damage.attribute}}
+						<option value="">- {{localize "wod.labels.none"}} -</option>
+						<option value="strength">{{localize "wod.attributes.strength"}}</option>
+						{{/select}}
+					</select>
+					&nbsp;+&nbsp;
+					<input class="sheet-infoValues miniBox" name="data.damage.bonus" type="text" value="{{data.data.damage.bonus}}" data-dtype="Number" />
+					<select name="data.damage.type">
+						{{#select data.data.damage.type}}
+						<option value="">- {{localize "wod.labels.select"}} -</option>
+						{{#each config.damageTypes as | name type|}}
+						<option value="{{type}}">{{localize name}}</option>
+						{{/each}}
+						{{/select}}
+					</select>
+				</div>
+			</div>
+			{{/if}}
 
-	</section>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.conceal">{{localize "wod.combat.weapon.conceal.conceal"}}</label>
+				<select class="item" name="data.conceal">
+					{{#select data.data.conceal}}
+					<option value="">- {{localize "wod.labels.select"}} -</option>
+					<option value="P">{{localize "wod.combat.weapon.conceal.pocket"}}</option>
+					<option value="J">{{localize "wod.combat.weapon.conceal.jacket"}}</option>
+					<option value="T">{{localize "wod.combat.weapon.conceal.trenchcoat"}}</option>
+					<option value="NA">{{localize "wod.combat.weapon.conceal.na"}}</option>
+					{{/select}}
+				</select>
+			</div>
+
+			<!-- 2-handed true/false -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.twohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
+				<input name="data.twohanded" type="checkbox" {{#if data.data.twohanded}} checked {{/if}}></input>
+			</div>
+
+			{{#if isGM}}
+			<!-- natural true/false -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.natural">{{localize "wod.combat.weapon.natural"}}</label>
+				<input name="data.natural" type="checkbox" {{#if data.data.natural}} checked {{/if}}></input>
+			</div>
+			{{/if}}
+
+			<!-- description -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
+			</div>
+
+		</section>
+
+	</div>
 </form>

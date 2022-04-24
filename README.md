@@ -1,5 +1,8 @@
 # Werewolf the Apocalypse 20th ed
 
+# Contributions
+German translation - Pat Shaw
+
 # Installing System
 1. Open Foundry VTT
 2. Go to the "Game Systems" Tab

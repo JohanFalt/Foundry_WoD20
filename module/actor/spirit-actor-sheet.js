@@ -111,6 +111,10 @@ export class SpiritActorSheet extends ActorSheet {
 			.find(".vrollable")
 			.click(this._onRollDialog.bind(this));
 
+		html
+			.find(".macroBtn")
+			.click(this._rollMacro.bind(this));			
+
 		// skicka till chat
 		html
 			.find(".send-chat")
@@ -127,6 +131,24 @@ export class SpiritActorSheet extends ActorSheet {
 		const headline = element.dataset.headline || "";
 
 		ActionHelper.printMessage(headline, message, this.actor);
+	}
+
+	async _rollMacro(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const source = dataset.source;
+
+		if (source == "initiative") {
+			await ActionHelper.RollInitiative(event, this.actor);
+		}
+		if (source == "soak") {
+			ActionHelper.RollSoak(event, this.actor);
+		}
+		if (source == "dices") {
+			ActionHelper.RollDices(event, this.actor);
+		}
 	}
 
 	_setupDotCounters(html) {
@@ -301,6 +323,7 @@ export class SpiritActorSheet extends ActorSheet {
 		}
 
 		actorData.data.initiative.base = parseInt(actorData.data.willpower.permanent);
+		actorData.data.initiative.total = parseInt(actorData.data.initiative.base) + parseInt(actorData.data.initiative.bonus);
 
 		actorData.data.soak.bashing = parseInt(actorData.data.willpower.permanent);
 		actorData.data.soak.lethal = parseInt(actorData.data.willpower.permanent);

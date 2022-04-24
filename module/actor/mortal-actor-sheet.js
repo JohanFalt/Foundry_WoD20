@@ -192,6 +192,10 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".switch")
 			.click(this._switchSetting.bind(this));
 
+		html
+			.find(".macroBtn")
+			.click(this._rollMacro.bind(this));			
+
 		// items
 		// Edit Inventory Item
 		html
@@ -249,6 +253,24 @@ export class MortalActorSheet extends ActorSheet {
 		this.actor.update(actorData);
 	}
 
+	async _rollMacro(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const source = dataset.source;
+
+		if (source == "initiative") {
+			await ActionHelper.RollInitiative(event, this.actor);
+		}
+		if (source == "soak") {
+			ActionHelper.RollSoak(event, this.actor);
+		}
+		if (source == "dices") {
+			ActionHelper.RollDices(event, this.actor);
+		}
+	}	
+
 	_setupDotCounters(html) {
 		html.find(".resource-value").each(function () {
 			const value = Number(this.dataset.value);
@@ -287,7 +309,8 @@ export class MortalActorSheet extends ActorSheet {
 		const steps = parent.find(".resource-value-step");
 
 		if ((fieldStrings == "data.data.rage.temporary") ||
-			(fieldStrings == "data.data.gnosis.temporary")) {
+			(fieldStrings == "data.data.gnosis.temporary") ||
+			(fields[2] == "health")) {
 			return;
 		}
 		if ((this.locked) && (fieldStrings != "data.data.willpower.temporary")) {

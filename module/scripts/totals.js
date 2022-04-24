@@ -38,6 +38,7 @@ export function calculateTotals(actorData) {
 	// }
 
 	actorData.data.initiative.base = parseInt(actorData.data.attributes.dexterity.total) + parseInt(actorData.data.attributes.wits.total);
+	actorData.data.initiative.total = parseInt(actorData.data.initiative.base) + parseInt(actorData.data.initiative.bonus);
 
     return actorData;
 }

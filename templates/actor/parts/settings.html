@@ -6,9 +6,9 @@
 	<div class="headlineGroup">{{localize "wod.attributes.attributes"}}</div>
 	<div class="clearareaBox">
 		<div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
-		<div class="pullLeft headlineNormal numberBox">Value</div>
-		<div class="pullLeft headlineNormal numberBox">Bonus</div>
-		<div class="pullLeft headlineNormal numberBox">Total</div>
+		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
+		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
+		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
 		{{#iff actor.type "==" "Creature"}}
 		<div class="pullLeft headlineNormal numberBox">Max</div>
 		{{/iff}}
@@ -140,12 +140,12 @@
 	<div class="clearareaBox">
 		<div class="pullLeft headlineGroup settings-leftwidth">{{localize "wod.health.soak"}}</div>
 		<div class="pullLeft numberBox">&nbsp;</div>
-		<div class="pullLeft headlineGroup settings-leftwidth center">{{localize "wod.labels.settings.usesoak"}}</div>
+		<div class="pullLeft headlineGroup settings-leftwidth centerText">{{localize "wod.labels.settings.usesoak"}}</div>
 	</div>
 	<div class="clearareaBox">
 		<label for="data.data.soak.bashing" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>	
 		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.bashing}}" readonly />
-		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold center" data-label="soak" data-type="bashing" data-source="soak">
+		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="bashing" data-source="soak">
 			{{#if data.data.settings.soak.bashing.roll}}
 			{{localize "wod.labels.settings.yes"}}
 			{{else}}
@@ -156,7 +156,7 @@
 	<div class="clearareaBox">
 		<label for="data.data.soak.lethal" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>	
 		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.lethal}}" readonly />
-		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold center" data-label="soak" data-type="lethal" data-source="soak">
+		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="lethal" data-source="soak">
 			{{#if data.data.settings.soak.lethal.roll}}
 			{{localize "wod.labels.settings.yes"}}
 			{{else}}
@@ -167,7 +167,7 @@
 	<div class="clearareaBox">
 		<label for="data.data.soak.aggravated" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>	
 		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.aggravated}}" readonly />
-		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold center" data-label="soak" data-type="aggravated" data-source="soak">
+		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="aggravated" data-source="soak">
 			{{#if data.data.settings.soak.aggravated.roll}}
 			{{localize "wod.labels.settings.yes"}}
 			{{else}}
@@ -180,12 +180,19 @@
 <div class="clearareaBox">
 	<div class="headlineGroup">{{localize "wod.combat.initiative"}}</div>
 	<div class="clearareaBox">
-		<label for="data.data.initiative.base" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.combat.weapon.initiative"}}</label>	
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.base}}" readonly />
+		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
+		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
+		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
 	</div>
 	<div class="clearareaBox">
-		<label for="data.data.initiative.bonus" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.combat.weapon.initiativebonus"}}</label>	
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.bonus}}" readonly />
+		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.base}}" readonly />
+		<input class="pullLeft sheet-infoValues numberBox" 
+			name="data.initiative.bonus" 
+			type="text" 
+			value="{{data.data.initiative.bonus}}"
+			data-name="data.data.initiative.bonus" 
+			data-dtype="Number" {{#if locked}} readonly {{/if}} />
+		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.total}}" readonly />
 	</div>
 </div>
 
@@ -197,10 +204,18 @@
 		<label for="data.data.health.bruised.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
 			data-label="{{data.data.health.bruised.value}}" 
 			data-ability="true">{{localize "wod.health.bruised"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.bruised.value" type="text" value="{{data.data.health.bruised.value}}" 
-			data-name="data.data.health.bruised.value" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.bruised.penalty" type="text" value="{{data.data.health.bruised.penalty}}" 
-			data-name="data.data.health.bruised.penalty" {{#if locked}} readonly {{/if}} />
+		<input class="pullLeft sheet-infoValues numberBox" 
+			name="data.health.bruised.value" 
+			type="text" 
+			value="{{data.data.health.bruised.value}}" 
+			data-name="data.data.health.bruised.value"
+			data-dtype="Number" {{#if locked}} readonly {{/if}} />
+		<input class="pullLeft sheet-infoValues numberBox" 
+			name="data.health.bruised.penalty" 
+			type="text" 
+			value="{{data.data.health.bruised.penalty}}" 
+			data-name="data.data.health.bruised.penalty"
+			data-dtype="Number" {{#if locked}} readonly {{/if}} />
 	</div>
 
 	<div class="clearareaBox">
@@ -305,6 +320,7 @@
 
 {{#if isGM}}
 
+{{#iff actor.other.length ">" 0}}
 <div class="clearareaBox">
 	<div class="headlineGroup">{{localize "wod.labels.otheritems"}}</div>
 
@@ -313,5 +329,6 @@
 	{{/each}}
 
 </div>
+{{/iff}}
 
 {{/if}}

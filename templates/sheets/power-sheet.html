@@ -1,125 +1,112 @@
 <form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-		<img src="{{item.img}}" /> 
-		<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
+	<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/power.svg" />		
 
-		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/power.svg" />		
-	</header>
-	
-	<section>
+	<div class="sheet-item">
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-			<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-		</div>
+		<header class="sheet-header">
 
-		<!-- type -->
-		{{#if isGM}}
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
-			<select name="data.type">
-				{{#select data.data.type}}
-					<option value="">- {{localize "wod.labels.select"}} -</option>
-					<option value="wod.types.gift">{{localize "wod.types.gift"}} (Werewolf)</option>
-					<option value="wod.types.rite">{{localize "wod.types.rite"}} (Werewolf)</option>
-					<!--<option value="wod.types.discipline">{{localize "wod.types.discipline"}}</option>-->
-					<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
-					<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
-				{{/select}}
-			</select>
-		</div>
-		{{/if}}
+			<div class="top-area">
+				<div class="top-side">
+					<img src="{{item.img}}" /> 
+					<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
+				</div>
+				<div class="top-center top-headline centerText">
+					{{item.name}}
+				</div>
+				<div class="top-side top-sidetext centerText">
+					{{#iff data.data.type "==" "wod.types.gift"}} 
+					GIFT<br />
+					RANK {{data.data.level}}
+					{{/iff}}
 
-		<!-- level -->
-		{{#iff data.data.type "!=" "wod.types.charm"}}
-			{{#iff data.data.type "!=" "wod.types.power"}}
+					{{#iff data.data.type "==" "wod.types.rite"}} 
+					RITE<br />
+					RANK {{data.data.level}}
+					{{/iff}}
+
+					{{#iff data.data.type "==" "wod.types.charm"}} 
+					CHARM
+					{{/iff}}
+
+					{{#iff data.data.type "==" "wod.types.power"}} 
+					POWER
+					{{/iff}}
+				</div>				
+			</div>
+			
+		</header>
+		
+		<section class="item-body">
+
+			{{#if isGM}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-				<select name="data.level">
-					{{#select data.data.level}}
-						<option value="0">- {{localize "wod.labels.select"}} -</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+			</div>
+			{{/if}}
+
+			<!-- type -->
+			{{#if isGM}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
+				<select name="data.type">
+					{{#select data.data.type}}
+						<option value="">- {{localize "wod.labels.select"}} -</option>
+						<option value="wod.types.gift">{{localize "wod.types.gift"}} (Werewolf)</option>
+						<option value="wod.types.rite">{{localize "wod.types.rite"}} (Werewolf)</option>
+						<!--<option value="wod.types.discipline">{{localize "wod.types.discipline"}} (Vampire)</option>-->
+						<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
+						<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
 					{{/select}}
 				</select>
 			</div>
-			{{/iff}}
-		{{/iff}}
+			{{/if}}
 
-		<!-- dice -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.rollable">{{localize "wod.labels.power.rollable"}}</label>
-			<input name="data.rollable" type="checkbox" {{#if data.data.rollable}} checked {{/if}} />
-		</div>
 
-		<div class="infobox">
-			<select name="data.dice1">
-				{{#select data.data.dice1}}
-					<option value="">- {{localize "wod.labels.power.noattribute"}} -</option>
-					{{#each config.attributes as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
-					<option value="rage">{{localize "wod.advantages.rage"}}</option>
-					<option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
-					<option value="willpower">{{localize "wod.advantages.willpower"}}</option>
-					
-				{{/select}}
-			</select>
-			<select name="data.dice2">
-				{{#select data.data.dice2}}
-					<option value="">- {{localize "wod.labels.power.noability"}} -</option>
-					{{#each config.talents as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
-					{{#each config.skills as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
-					{{#each config.knowledges as | name type|}}
-					<option value="{{type}}">{{localize name}}</option>
-					{{/each}}
-				{{/select}}
-			</select>
-			<select name="data.difficulty">
-				{{#select data.data.difficulty}}
-					<option value="">- {{localize "wod.labels.difficulty"}} -</option>
-					<option value="-1">- {{localize "wod.labels.power.varies"}} -</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-				{{/select}}
-			</select>
-		</div>
+			{{#if isGM}}
+				<!-- level -->
+				{{#iff data.data.type "!=" "wod.types.charm"}}
+					{{#iff data.data.type "!=" "wod.types.power"}}
+					<div class="infobox">
+						<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+						<select name="data.level">
+							{{#select data.data.level}}
+								<option value="0">- {{localize "wod.labels.select"}} -</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							{{/select}}
+						</select>
+					</div>
+					{{/iff}}
+				{{/iff}}
+			{{/if}}
 
-		<!--<div class="infobox">
-			<div>
-				<label class="headlineItem headlineBio" for="data.combat">{{localize "wod.labels.power.combat"}}</label>
-				<input name="data.combat" type="checkbox" {{#if data.data.combat}} checked {{/if}}></input>
-			</div>
-		</div>-->		
-
-		<!-- description -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-			<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
-		</div>
-
-		<!-- system -->
-		{{#iff data.data.type "!=" "wod.types.charm"}}
-			{{#iff data.data.type "!=" "wod.types.power"}}
+			{{#if isGM}}
+			<!-- dice -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.system">{{localize "wod.labels.power.system"}}</label>
-				<textarea class="item" name="data.system" data-dtype="String">{{~data.data.system}}</textarea>
+				<label class="headlineItem headlineBio" for="data.rollable">{{localize "wod.labels.power.rollable"}}</label>
+				<input name="data.rollable" type="checkbox" {{#if data.data.rollable}} checked {{/if}} />
 			</div>
-			{{/iff}}
-		{{/iff}}
-	</section>
+			{{/if}}
+
+			{{#if data.data.rollable}}
+				{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
+			{{/if}}
+
+			<!--<div class="infobox">
+				<div>
+					<label class="headlineItem headlineBio" for="data.combat">{{localize "wod.labels.power.combat"}}</label>
+					<input name="data.combat" type="checkbox" {{#if data.data.combat}} checked {{/if}}></input>
+				</div>
+			</div>-->		
+
+			{{~> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}
+			
+		</section>
+
+	</div>
 
 </form>

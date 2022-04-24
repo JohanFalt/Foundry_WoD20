@@ -92,7 +92,8 @@
 				},
 				"initiative": {
 					"base": 0,
-					"bonus": 0
+					"bonus": 0,
+					"total": 0
 				}
 			},
 			"ability": {
