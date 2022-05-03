@@ -1,4 +1,5 @@
 # Werewolf the Apocalypse 20th ed
+Licensed materials will NOT be provided as this is a system provided for public use for free.
 
 # Contributions
 Code for dot/box counters taken from Foundry-V5 (credit to erizocosmico) https://github.com/erizocosmico/foundry-V5
