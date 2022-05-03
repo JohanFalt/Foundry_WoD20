@@ -12,7 +12,7 @@
             <div class="pullLeft notes-largeBox headlineNormal tooltip">
                 {{#iff item.data.details "!=" ""}}
                     <i class="fa fa-sticky-note"></i>
-                    <span class="tooltiptext">{{item.data.details}}</span>
+                    <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.details"}}: {{item.data.details}}</span>
                 {{else}}
                     &nbsp;
                 {{/iff}}

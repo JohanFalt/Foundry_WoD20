@@ -1,0 +1,27 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+                {{#select data.data.breed}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Homid">Homid</option>
+                <option value="Latrani">Latrani</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label for="data.packtotem" class="headlineText headlineBio">{{localize "wod.bio.totem"}}</label>
+        <div class="pullLeft">
+            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>

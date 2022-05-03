@@ -20,6 +20,9 @@ export class WoDItemSheet extends ItemSheet {
 		const ItemData = data.item.data;
 
 		data.config = CONFIG.wod;
+		data.config.attributeSettings = CONFIG.attributeSettings;
+		data.config.rollSettings = CONFIG.rollSettings;
+		data.config.handleOnes = CONFIG.handleOnes;
 		data.isGM = game.user.isGM;	
 
 		if (data.item.locked == undefined) {

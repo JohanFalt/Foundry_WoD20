@@ -12,7 +12,7 @@ async function rollSoak(token) {
     let template = `<form>
                         <div class="form-group">
                             <label>${game.i18n.localize("wod.labels.modifier")}</label>
-                            <input type="text" id="inputMod" value="0">
+                            <input type="text" id="inputMod" value="0" autofocus />
                         </div>  
                         <div class="form-group">
                             <input type="radio" id="damageType" name="damageType" value="bashing">${game.i18n.localize("wod.health.bashing")}</input>
@@ -41,7 +41,7 @@ async function rollSoak(token) {
                 if (actor.type == "Mortal") {
                     diceColor = "blue_";
                 } 
-                else if (actor.type == "Werewolf") {
+                else if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
                     diceColor = "brown_";
                 }
                 else if (actor.type == "Vampire") { 

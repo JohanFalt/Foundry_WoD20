@@ -1,0 +1,96 @@
+<div class="sheet-headline">{{localize "wod.advantages.renown"}}</div>
+
+<div class="sheet-headline headlineGroup centerText">{{localize "wod.advantages.glory"}}</div>
+
+<div class="resource-value tempSquareRow" data-value="{{data.data.renown.glory.permanent}}" data-name="data.data.renown.glory.permanent">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.renown.glory.max}}
+	
+	<span class="resource-value-step" data-index="{{this}}"></span>
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.glory.temporary}}" data-name="data.data.renown.glory.temporary">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.renown.glory.max}}
+	
+	{{#le ../data.data.renown.glory.temporary this}}
+	<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+	{{else}}
+	<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+	{{/le}}
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="sheet-headline headlineGroup centerText">{{localize "wod.advantages.honor"}}</div>
+
+<div class="resource-value tempSquareRow" data-value="{{data.data.renown.honor.permanent}}" data-name="data.data.renown.honor.permanent">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.renown.honor.max}}
+	
+	<span class="resource-value-step" data-index="{{this}}"></span>
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.honor.temporary}}" data-name="data.data.renown.honor.temporary">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.renown.honor.max}}
+	
+	{{#le ../data.data.renown.honor.temporary this}}
+	<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+	{{else}}
+	<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+	{{/le}}
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="sheet-headline headlineGroup centerText">{{localize "wod.advantages.wisdom"}}</div>
+
+<div class="resource-value tempSquareRow" data-value="{{data.data.renown.wisdom.permanent}}" data-name="data.data.renown.wisdom.permanent">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.renown.wisdom.max}}
+	
+	<span class="resource-value-step" data-index="{{this}}"></span>
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.wisdom.temporary}}" data-name="data.data.renown.wisdom.temporary">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.renown.wisdom.max}}
+	
+	{{#le ../data.data.renown.wisdom.temporary this}}
+	<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+	{{else}}
+	<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+	{{/le}}
+	
+	{{/numLoop}}
+	
+</div>
+
+<div class="sheet-headline headlineGroup centerText">{{localize "wod.advantages.rank"}}</div>
+<div class="resource-value permValueRow" data-value="{{data.data.renown.rank}}" data-name="data.data.renown.rank">
+
+	{{#numLoop 5}}
+	
+	<span class="resource-value-step" data-index="{{this}}"></span>
+	
+	{{/numLoop}}
+	
+</div>

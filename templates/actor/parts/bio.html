@@ -7,17 +7,21 @@
 			</div>
 			<div class="top-center top-headline centerText">
 				{{#if locked}}
-				{{actor.name}}
+					{{actor.name}}
 				{{else}}
-				<!-- <label class="headlineText headlineBio" for="name">{{localize "wod.bio.name"}}</label> 
-				<div class="pullLeft">
 					<input class="sheet-infoValues" name="name" type="text" value="{{actor.name}}" data-dtype="String" {{#if locked}} readonly {{/if}} />
-				</div>-->
-				<input class="sheet-infoValues" name="name" type="text" value="{{actor.name}}" data-dtype="String" {{#if locked}} readonly {{/if}} />
 				{{/if}}
 			</div>
 			<div class="top-side top-sidetext centerText">
+				{{#iff actor.type "==" "Changing Breed"}}
+					{{#iff data.data.changingbreed "!=" ""}}
+						{{captilize data.data.changingbreed}}
+					{{else}}
+						{{captilize actor.data.type}}
+					{{/iff}}
+				{{else}}
 				{{captilize actor.data.type}}
+				{{/iff}}
 			</div>				
 		</div>
 	</div>
@@ -32,124 +36,100 @@
 			<div class="pullLeft headlineNormal bio-verticalcenter">
 				{{#if locked}}
 					{{#iff data.data.worldanvil "!=" ""}}
-					<a href="{{data.data.worldanvil}}" target="_blank">{{localize "wod.bio.worldanvillink"}}</a>
+						<a href="{{data.data.worldanvil}}" target="_blank">{{localize "wod.bio.worldanvillink"}}</a>
 					{{else}}
-					{{localize "wod.bio.noworldanvillink"}}
+						{{localize "wod.bio.noworldanvillink"}}
 					{{/iff}}
 				{{else}}
-				<input class="sheet-infoValues" name="data.worldanvil" type="text" value="{{data.data.worldanvil}}" data-name="data.data.worldanvil" data-dtype="String" />
+					<input class="sheet-infoValues" name="data.worldanvil" type="text" value="{{data.data.worldanvil}}" data-name="data.data.worldanvil" data-dtype="String" />
 				{{/if}}
 			</div>
 		</div>
 	</div>
-	{{/iff}}
-
-	{{#iff actor.type "==" "Werewolf"}}
-
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
-			<div class="pullLeft">
-				{{#if locked}}
-				<input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
-				{{else}}
-				<select name="data.breed" data-name="data.data.breed" data-dtype="String">
-					{{#select data.data.breed}}
-					<option value="">- {{localize "wod.labels.select"}}</option>
-					<option value="Homid">Homid</option>
-					<option value="Metis">Metis</option>
-					<option value="Lupus">Lupus</option>
-					{{/select}}
-				</select>
-				{{/if}}
-			</div>
-		</div>
-	</div>
-
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
-			<div class="pullLeft">
-				{{#if locked}}
-				<input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
-				{{else}}
-				<select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
-					{{#select data.data.auspice}}
-					<option value="">- {{localize "wod.labels.select"}}</option>
-					<option value="Ragabash">Ragabash</option>
-					<option value="Theurge">Theurge</option>
-					<option value="Philodox">Philodox</option>
-					<option value="Galliard">Galliard</option>
-					<option value="Ahroun">Ahroun</option>
-					{{/select}}
-				</select>
-				{{/if}}
-			</div>
-		</div>
-	</div>
-
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
-			<div class="pullLeft">
-				{{#if locked}}
-				<input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
-				{{else}}
-				<select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
-					{{#select data.data.tribe}}
-					<option value="">- {{localize "wod.labels.select"}}</option>
-					<option value="Black Furies">Black Furies</option>
-					<option value="Bone Gnawers">Bone Gnawers</option>
-					<option value="Children of Gaia">Children of Gaia</option>
-					<option value="Fianna">Fianna</option>
-					<option value="Get of Fenris">Get of Fenris</option>
-					<option value="Glass Walkers">Glass Walkers</option>
-					<option value="Red Talons">Red Talons</option>
-					<option value="Shadow Lords">Shadow Lords</option>
-					<option value="Silent Striders">Silent Striders</option>
-					<option value="Silver Fangs">Silver Fangs</option>
-					<option value="Stargazers">Stargazers</option>
-					<option value="Uktena">Uktena</option>
-					<option value="Wendigo">Wendigo</option>
-					<option value="Black Spiral Dancer">Black Spiral Dancers</option>
-					<option value="Skin Dancer">Skin Dancers</option>
-					{{/select}}
-				</select>
-				{{/if}}
-			</div>
-		</div>
-	</div>
-
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio" for="data.packname">{{localize "wod.bio.packname"}}</label>
-			<div class="pullLeft">
-				<input class="sheet-infoValues" name="data.packname" type="text" value="{{data.data.packname}}" data-name="data.data.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
-			</div>
-		</div>
-	</div>
-
-	<div class="clearareaBox area-box">
-		<div>
-			<label for="data.packtotem" class="headlineText headlineBio">{{localize "wod.bio.packtotem"}}</label>
-			<div class="pullLeft">
-				<input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
-			</div>
-		</div>
-	</div>
-
 	{{/iff}}
 
 	<div class="clearareaBox area-box">
 		<div>
 			<label class="headlineText headlineBio" for="data.concept">{{localize "wod.bio.concept"}}</label>
-			<!--{{!-- TODO: fix is for wrapping around text, because this is a little fixed --}}
-			{{editor content=data.data.concept target="data..concept" button=true owner=owner editable=editable }}-->
 			<div class="pullLeft">
 				<input class="sheet-infoValues" name="data.concept" type="text" value="{{data.data.concept}}" data-name="data.data.concept" data-dtype="String" {{#if locked}} readonly {{/if}} />
 			</div>
 		</div>
 	</div>
+
+	{{#iff actor.type "==" "Werewolf"}}
+
+	{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}
+
+	{{/iff}}
+
+	{{#iff actor.type "==" "Changing Breed"}}
+
+	<div class="clearareaBox area-box">
+		<div>
+			<label class="headlineText headlineBio" for="data.changingbreed">{{localize "wod.bio.changingbreed"}}</label>
+			<div class="pullLeft headlineNormal bio-verticalcenter">
+				{{#if locked}}
+					{{#iff data.data.changingbreed "!=" ""}}{{data.data.changingbreed}}{{else}}{{localize "wod.labels.select"}}{{/iff}}
+				{{else}}
+					<select name="data.changingbreed" data-name="data.data.changingbreed" data-dtype="String">
+						{{#select data.data.changingbreed}}
+						<option value="">- {{localize "wod.labels.select"}} -</option>
+						<option value="Ajaba">Ajaba</option>
+						<option value="Ananasi">Ananasi</option>
+						<option value="Bastet">Bastet</option>
+						<option value="Corax">Corax</option>
+						<option value="Gurahl">Gurahl</option>				
+						<option value="Kitsune">Kitsune</option>	
+						<option value="Mokolé">Mokolé</option>
+						<option value="Nagah">Nagah</option>
+						<option value="Nuwisha">Nuwisha</option>
+						<option value="Ratkin">Ratkin</option>
+						<option value="Rokea">Rokea</option>
+						{{/select}}
+					</select>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+
+		{{#iff data.data.changingbreed "==" "Ajaba"}}
+		{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ajaba_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Ananasi"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ananasi_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Bastet"}}
+		{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_bastet_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Corax"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_corax_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Gurahl"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_gurahl_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Kitsune"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_kitsune_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Mokolé"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_mokole_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Nagah"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_nagah_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Nuwisha"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_nuwisha_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Ratkin"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html"}}
+		{{/iff}}
+		{{#iff data.data.changingbreed "==" "Rokea"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html"}}
+		{{/iff}}
+
+	{{/iff}}
+
+	
 </div>
 
 <div class="sheet-area">

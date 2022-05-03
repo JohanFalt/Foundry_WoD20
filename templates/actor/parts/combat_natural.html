@@ -17,8 +17,10 @@
         data-dice1="{{item.data.attack.attribute}}" 
         data-dice2="{{item.data.attack.ability}}" 
         data-diff="{{item.data.diff}}">{{captilizeFirst item.name}}</div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.attribute}}</div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.ability}}</div>
+    <!-- <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.attribute}}</div> -->
+    <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.data.attack.attribute)}}</div>
+    <!-- <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.ability}}</div> -->
+    <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAbility item.data.attack.ability)}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.diff}}</div>
     <div class="pullLeft combat-smallBox headlineNormal">
         {{#if item.data.damage.roll}}

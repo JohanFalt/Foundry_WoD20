@@ -3,6 +3,7 @@
 		"types": [
 			"Mortal",
 			"Werewolf",
+			"Changing Breed",
 			"Vampire",
 			"Creature",
 			"Spirit"
@@ -82,6 +83,11 @@
 					"bashing": 0,
 					"lethal": 0,
 					"aggravated": 0
+				},
+				"bloodpool": {
+					"temporary": 0,
+					"max": 10,
+					"label": "wod.advantages.bloodpool"
 				},
 				"willpower": {
 					"permanent": 0,
@@ -546,6 +552,7 @@
 				"conditions": {
 					"frenzy": false
 				},
+				"changingbreed": "",
 				"breed": "",
 				"auspice": "",
 				"tribe": "",
@@ -713,6 +720,15 @@
 				"werewolf"
 			]
 		},
+		"Changing Breed": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal",
+				"werewolf"
+			],
+			"yava": ""
+		},
 		"Vampire": {
 			"templates": [
 				"base",
@@ -784,7 +800,8 @@
 				"base",
 				"feature"
 			],
-			"details": ""
+			"details": "",
+			"roll": false
 		},
 		"Melee Weapon": {
 			"templates": [

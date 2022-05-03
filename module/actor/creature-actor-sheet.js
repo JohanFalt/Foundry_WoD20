@@ -109,8 +109,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-empty");
 		
 		if (this.locked) {
-			//console.log("WoD | Sheet locked aborts");
-			//ui.notifications.info('creature Can not edit as sheet is locked!');
 			return;
 		}
 
@@ -147,13 +145,9 @@ export class CreatureActorSheet extends MortalActorSheet {
 		if ((this.locked) && 
 				((fieldStrings != "data.data.rage.temporary") && 
 				(fieldStrings != "data.data.gnosis.temporary"))) {
-			//console.log("WoD | Sheet locked aborts");
-			//ui.notifications.info('creature Can not edit as sheet is locked!');
 			return;
 		}
 		if (fieldStrings == "data.data.willpower.permanent") {
-			//console.log("WoD | Sheet click on permanent willpower aborts");	
-			//ui.notifications.info('creature Can not edit as sheet is locked!');		
 			return;
 		}
 

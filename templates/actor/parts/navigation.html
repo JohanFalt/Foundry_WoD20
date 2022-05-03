@@ -8,6 +8,11 @@
 	<a class="item" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
 	<a class="item" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
 	{{/iff}}
+
+	{{#iff actor.type "==" "Changing Breed"}}
+	<a class="item" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+	<a class="item" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+	{{/iff}}
 	
 	{{#iff actor.type "==" "Vampire"}}
 	{{/iff}}

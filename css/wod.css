@@ -13,9 +13,19 @@
   width: 730px !important;
 }
 
+.mortal:not(.minimized).langDE {
+  height: 790px !important;
+  width: 900px !important;
+}
+
 .werewolf:not(.minimized) {
   height: 930px !important;
   width: 730px !important;
+}
+
+.werewolf:not(.minimized).langDE {
+  height: 930px !important;
+  width: 900px !important;
 }
 
 .spirit:not(.minimized) {
@@ -23,13 +33,22 @@
   width: 730px !important;
 }
 
-.creature:not(.minimized) {
+.spirit:not(.minimized).langDE {
   height: 790px !important;
+  width: 730px !important;
+}
+
+.creature:not(.minimized) {
+  height: 900px !important;
   width: 900px !important;
 }
 
+.creature:not(.minimized).langDE {
+  height: 900px !important;
+  width: 1000px !important;
+}
+
 .itemsheet:not(.minimized) {
-  /* height: 700px !important; */
   width: 600px !important;
 } 
 
@@ -162,10 +181,23 @@
 }
 
 
-
-
-
 /* END - Type of sheet designs */
+
+/* START - Dialogs */
+
+#rules {
+  width: 550px;
+}
+
+.setting-area {
+  margin-bottom: 20px !important;
+}
+
+#rules.sheet-footer {
+  height: 48px;
+}
+
+/* END - Dialogs */
 
 /* START - Dice roll links */
 
@@ -364,7 +396,8 @@ img.rolldice {
 }
 
 .sheet-headline {
-	font-size: 30px;
+	/* font-size: 30px; */
+  font-size: 24px;
 	font-weight: bold;
 	text-align: center;
 	width: 100%;	
@@ -426,7 +459,8 @@ textarea.sheet-infoValues {
 }
 
 .headlineGroup {	
-	font-size: 24px;
+	/* font-size: 24px;*/
+  font-size: 20px;
 }
 
 .bold {
@@ -434,9 +468,11 @@ textarea.sheet-infoValues {
 }
 
 .headlineTabs {
-	font-size: 24px;    
+  /*font-size: 24px;    */
+	font-size: 20px;    
   border-bottom-style: solid;
   border-bottom-width: 1px;
+  height: 30px;
 }
 
 .clearareaBox {
@@ -563,6 +599,10 @@ textarea.sheet-infoValues {
 	width: 25%;
 }
 
+.creature.langDE .attribute-headlineWidth {
+  width: 35%;
+}
+
 .attribute-total {
   display: inline-block;
   width: 10px;
@@ -596,7 +636,7 @@ textarea.sheet-infoValues {
 }
 
 .essence-counters {
-  width: 215px;
+  width: 200px;
 }
 
 /* END - Core */
@@ -607,6 +647,11 @@ textarea.sheet-infoValues {
   width: 150px;
 }
 
+.langDE .condition {
+  width: 175px;
+}
+
+
 .combat-bottomarea {
   width: 67%;
 }
@@ -616,11 +661,20 @@ textarea.sheet-infoValues {
 }
 
 .combat-valueBox {
-  width: 50px;
+  width: 60px;
 }
+
+.langDE .combat-valueBox  {
+  width: 70px;
+}
+
 
 .combat-smallBox {
   width: 75px;
+}
+
+.langDE .combat-smallBox {
+  width: 105px;
 }
 
 .combat-mediumBox {
@@ -644,18 +698,171 @@ textarea.sheet-gearArea {
 /* START - Shapechange */
 
 .shape-background {
-	background: url(https://www.busigafamiljen.se/rpg/werewolf20th/five_forms.jpg);
-  width: 715px; /* width x 1,65 = height */
+	background: url('../assets/img/werewolf/form/five_forms.jpg');
+  width: 715px; /* width / 1,65 = height */
 	height: 433px;
   background-repeat: no-repeat;
 	background-size: contain;
+  filter:grayscale(100%);
 	opacity: 0.2;
   position: absolute;
   margin-top: 30px;
 }
 
+.shape-background.shape-ajaba {
+  background: url('../assets/img/werewolf/form/forms_ajaba.webp');
+  width: 715px; /* width / 1,84 = height */
+	height: 388px;  
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-ananasi {
+  background: url('../assets/img/werewolf/form/forms_ananasi.webp');
+  width: 715px; /* width / 1,27 = height */
+	height: 563px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-bastet {
+  background: url('../assets/img/werewolf/form/forms_bastet.jpg');
+  width: 715px; /* width / 1,71 = height */
+  height: 418px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-corax {
+  background: url('../assets/img/werewolf/form/forms_corax.webp');
+  width: 715px; /* width / 1,17 = height */
+  height: 610px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-gurahl {
+  background: url('../assets/img/werewolf/form/forms_gurahl.webp');
+  width: 715px; /* width / 1,40 = height */
+  height: 510px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-kitsune {
+  background: url('../assets/img/werewolf/form/forms_kitsune.webp');
+  width: 715px; /* width / 1,32 = height */
+  height: 541px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-mokole {
+  background: url('../assets/img/werewolf/form/forms_mokole.webp');
+  width: 715px; /* width / 1,38 = height */
+  height: 518px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-nagah {
+  background: url('../assets/img/werewolf/form/forms_nagah.webp');
+  width: 715px; /* width / 1,22 = height */
+  height: 586px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-nuwisha {
+  background: url('../assets/img/werewolf/form/forms_nuwisha.webp');
+  width: 715px; /* width / 1,79 = height */
+  height: 400px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-ratkin {
+  background: url('../assets/img/werewolf/form/forms_ratkin.webp');
+  width: 715px; /* width / 1,41 = height */
+  height: 507px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shape-background.shape-rokea {
+  background: url('../assets/img/werewolf/form/forms_rokea.webp');
+  width: 715px; /* width / 1,44 = height */
+  height: 497px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.langDE .shape-background {
+  width: 885px;
+  height: calc(100vw / 1.65);
+}
+
+.shape-background.shape-ajaba {
+  width: 885px; /* width / 1,84 = height */
+  height: calc(100vw / 1.84);
+}
+
+.shape-background.shape-ananasi {
+  width: 885px; /* width / 1,27 = height */
+  height: calc(100vw / 1.27);
+}
+
+.shape-background.shape-bastet {
+  width: 885px; /* width / 1,71 = height */
+  height: calc(100vw / 1.71);
+}
+
+.shape-background.shape-corax {
+  width: 885px; 
+  height: calc(100vw / 1.17);
+}
+
+.shape-background.shape-gurahl {
+  width: 885px; /* width / 1,40 = height */
+  height: calc(100vw / 1.40);
+}
+
+.shape-background.shape-kitsune {
+  width: 885px; /* width / 1,32 = height */
+  height: calc(100vw / 1.32);
+}
+
+.shape-background.shape-mokole {
+  width: 885px; /* width / 1,38 = height */
+  height: calc(100vw / 1.38);
+}
+
+.shape-background.shape-nagah {
+  width: 885px; /* width / 1,22 = height */
+  height: calc(100vw / 1.22);
+}
+
+.shape-background.shape-nuwisha {
+  width: 885px; /* width / 1,79 = height */
+  height: calc(100vw / 1.79);
+}
+
+.shape-background.shape-ratkin {
+  width: 885px; /* width / 1,41 = height */
+  height: calc(100vw / 1.41);
+}
+
+.shape-background.shape-rokea {
+  width: 885px; /* width / 1,44 = height */
+  height: calc(100vw / 1.44);
+}
+
 .shape-area {
   width: 715px;
+}
+
+.langDE .shape-area {
+  width: 885px;
 }
 
 .shape-selector {
@@ -680,6 +887,20 @@ textarea.sheet-gearArea {
   font-family: Verdana, sans-serif;
   text-align: center;
   margin-top: 100px;
+}
+
+.shape-selectortext.shape-ananasi,
+.shape-selector.shape-ananasi {
+  width: 25%;
+}
+
+.shape-selectortext.shape-corax,
+.shape-selector.shape-corax,
+.shape-selectortext.shape-mokole,
+.shape-selector.shape-mokole,
+.shape-selectortext.shape-ratkin,
+.shape-selector.shape-ratkin {
+  width: 33%;
 }
 
 /* END - Shapechange */

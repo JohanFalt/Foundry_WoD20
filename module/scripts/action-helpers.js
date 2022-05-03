@@ -94,7 +94,7 @@ export default class ActionHelper {
 			difficulty = dataset.diff;
 
 			// is dice1 an Attribute
-			if (actor.data.data.attributes[dataset.dice1]?.value != undefined) {
+			if ((actor.data.data?.attributes != undefined) && (actor.data.data.attributes[dataset.dice1]?.value != undefined)) {
 				attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
 				attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
 			}
@@ -105,28 +105,28 @@ export default class ActionHelper {
 			}
 
 			// is dice2 a Talent
-			if (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined) {
+			if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined)) {
 				abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
 				abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
 			}
 			// is dice2 a Skill
-			else if (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined) {
+			else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined)) {
 				abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
 				abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
 			}
 			// is dice2 a Knowledge
-			else if (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined) {
+			else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined)) {
 				abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
 				abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
 			}	
 
-			if (attributeVal >= 4) {
+			if ((actor.data.data?.abilities != undefined) && (attributeVal >= 4)) {
 				if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
 					specText1 = actor.data.data.attributes[dataset.dice1].speciality;
 				}
 			}
 			
-			if (abilityVal >= 4) {
+			if ((actor.data.data?.abilities != undefined) && (abilityVal >= 4)) {
 				if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
 					specText2 = actor.data.data.abilities.talent[dataset.dice2].speciality;
 				}
@@ -191,7 +191,7 @@ export default class ActionHelper {
 				<form>
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0">
+						<input type="text" id="inputMod" value="0" autofocus />
 					</div>  
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
@@ -207,7 +207,7 @@ export default class ActionHelper {
 				<form>
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0">
+						<input type="text" id="inputMod" value="0" autofocus />
 					</div> 
 				</form>`;
 		}
@@ -219,7 +219,7 @@ export default class ActionHelper {
 					`
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0">
+						<input type="text" id="inputMod" value="0" autofocus />
 					</div>  
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
@@ -252,7 +252,7 @@ export default class ActionHelper {
 
 					const modifier = parseInt(html.find("#inputMod")[0]?.value || 0);
 					let modifierText = "";
-					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 0);
+					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 6);
 					const specialty = html.find("#specialty")[0]?.checked || false;
 					let woundPenaltyVal = parseInt(html.find("#woundPenalty")[0]?.value || 0);
 
@@ -439,7 +439,7 @@ export default class ActionHelper {
 		if (actor.type == "Mortal") {
 			diceColor = "blue_";
 		} 
-		else if (actor.type == "Werewolf") {
+		else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
 			diceColor = "brown_";
 		}
 		else if (actor.type == "Vampire") { 
@@ -494,12 +494,13 @@ export default class ActionHelper {
 
 		let buttons = {};
 		let template = `<form>
-							<div class="form-group">
-								<label>${game.i18n.localize("wod.labels.modifier")}</label>
-								<input type="text" id="inputMod" value="0">
+							<div style="margin-bottom: 25px;">
+								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.modifier")}</div>
+								<input type="text" id="inputMod" value="0" autofocus />
 							</div>  
-							<div class="form-group">
-								<input type="radio" id="damageType" name="damageType" value="bashing">${game.i18n.localize("wod.health.bashing")}</input>
+							<div style="margin-bottom: 25px;">
+								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.damagetype")}</div>
+								<input type="radio" id="damageType" name="damageType" value="bashing" checked>${game.i18n.localize("wod.health.bashing")}</input>
 								<input type="radio" id="damageType" name="damageType" value="lethal">${game.i18n.localize("wod.health.lethal")}</input>
 								<input type="radio" id="damageType" name="damageType" value="aggravated">${game.i18n.localize("wod.health.aggravated")}</input>
 							</div>
@@ -524,7 +525,7 @@ export default class ActionHelper {
 					if (actor.type == "Mortal") {
 						diceColor = "blue_";
 					} 
-					else if (actor.type == "Werewolf") {
+					else if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
 						diceColor = "brown_";
 					}
 					else if (actor.type == "Vampire") { 
@@ -566,29 +567,48 @@ export default class ActionHelper {
 		event.preventDefault();
 
 		let selector = "";
+		let diceselector = "";
 
 		for (let i = 3; i <= 10; i++) {
 			if (i == 6) {
-				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
+				selector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input></span>`;
 			}
 			else {
-				selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
+				selector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input></span>`;
 			}
 		}
 
+		for (let i = 1; i <= 20; i++) {
+			if (i == 3) {
+				diceselector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="dices" name="dices" value="${i}" checked>${i}</input></span>`;
+			}
+			else {
+				diceselector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="dices" name="dices" value="${i}">${i}</input></span>`;
+			}
+
+			if (i % 10 === 0) {
+				diceselector += `<br />`;
+			}
+		}
+
+		//<label>${game.i18n.localize("wod.labels.numdices")}</label>
+		//<input type="text" id="dices" value="0" autofocus />
+
 		let buttons = {};
 		let template = `<form>
-							<div class="form-group">
-								<label>${game.i18n.localize("wod.labels.numdices")}</label>
-								<input type="text" id="dices" value="0">
+							<div style="margin-bottom: 25px;">
+								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.numdices")}</div>
+								`
+								+ diceselector + 
+								`
 							</div>  
-							<div class="form-group">
-							<label>${game.i18n.localize("wod.labels.difficulty")}</label>
-							`
-							+ selector + 
-							`
+							<div style="margin-bottom: 25px;">
+								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.difficulty")}</div>
+								`
+								+ selector + 
+								`
 							</div> 
-							<div class="form-group">
+							<div style="margin-bottom: 25px;">
 								<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>
 							</div>
 						</div>
@@ -598,7 +618,8 @@ export default class ActionHelper {
 				icon: '<i class="fas fa-check"></i>',
 				label: game.i18n.localize("wod.dice.roll"),
 				callback: async (template) => {
-					const numDice = parseInt(template.find("#dices")[0]?.value);
+					//const numDice = parseInt(template.find("#dices")[0]?.value);
+					const numDice = parseInt(template.find("#dices:checked")[0]?.value || 3);
 					let difficulty = parseInt(template.find("#inputDif:checked")[0]?.value || 0);
 					const specialty = template.find("#specialty")[0]?.checked || false;
 					let handlingOnes = true;
@@ -707,16 +728,25 @@ export default class ActionHelper {
 	}
 
 	static handleWerewolfCalculations(actorData) {
-		console.log("WoD | Werewolf handleWerewolfCalculations");		
+		console.log("WoD | handleWerewolfCalculations");
+		
+		let advantageRollSetting = true;
 
 		// shift
-		if (actorData.type == "Werewolf") {
+		if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
 			if ((!actorData.data.shapes.homid.active) &&
 				(!actorData.data.shapes.glabro.active) &&
 				(!actorData.data.shapes.crinos.active) &&
 				(!actorData.data.shapes.hispo.active) &&
 				(!actorData.data.shapes.lupus.active)) {
 				actorData.data.shapes.homid.active = true;
+			}
+		}
+
+		if (actorData.type == "Changing Breed") {
+			if ((actorData.data.changingbreed == "Ananasi") || (actorData.data.changingbreed == "Nuwisha")) {
+				actorData.data.rage.permanent = 0;
+				actorData.data.rage.temporary = 0;
 			}
 		}
 
@@ -736,9 +766,7 @@ export default class ActionHelper {
 		
 		if (actorData.data.gnosis.permanent < actorData.data.gnosis.temporary) {
 			actorData.data.gnosis.temporary = actorData.data.gnosis.permanent;
-		}
-
-		let advantageRollSetting = true;
+		}		
 
 		try {
 			advantageRollSetting = CONFIG.rollSettings;
@@ -768,8 +796,6 @@ export default class ActionHelper {
 			actorData.data.attributes.charisma.total = parseInt(actorData.data.attributes.charisma.total) - rageDiff;
 			actorData.data.attributes.manipulation.total = parseInt(actorData.data.attributes.manipulation.total) - rageDiff;
 		}
-
-		console.log("WoD | Werewolf Sheet calculations done");
 	}	
 
 	static printMessage(headline, message, actor){
@@ -949,7 +975,7 @@ export default class ActionHelper {
 		let gnosis = -1;
 		let willpower = -1;
 
-		if ((actor.type == "Mortal") || (actor.type == "Werewolf") || (actor.type == "Creature")) {
+		if ((actor.type == "Mortal") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
 			for (const attribute in actor.data.attributes) {
 				actor.data.attributes[attribute].visible = true;
 			}

@@ -13,9 +13,16 @@
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} B</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} L</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} A</div>
-    <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.armor.dexpen"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.armor.dexpen"}}</div>
 
     {{#iff actor.type "==" "Werewolf"}}
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.homid"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.glabro"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.crinos"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.hispo"}}</div>
+    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.lupus"}}</div>
+    {{/iff}}
+    {{#iff actor.type "==" "Changing Breed"}}
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.homid"}}</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.glabro"}}</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.crinos"}}</div>
@@ -32,14 +39,21 @@
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.bashing}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.lethal}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.aggravated}}</div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{item.data.dexpenalty}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.dexpenalty}}</div>
 
     {{#iff ../actor.type "==" "Werewolf"}}
-    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.homid}}Yes{{else}}No{{/if}}</input></div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.glabro}}Yes{{else}}No{{/if}}</input></div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.crinos}}Yes{{else}}No{{/if}}</input></div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.hispo}}Yes{{else}}No{{/if}}</input></div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.lupus}}Yes{{else}}No{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.homid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.glabro}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.crinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.hispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.lupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    {{/iff}}
+    {{#iff ../actor.type "==" "Changing Breed"}}
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.homid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.glabro}}{{localize "wod.labels.yes"}}s{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.crinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.hispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.lupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
     {{/iff}}
 
     <div class="pullLeft">

@@ -1,6 +1,5 @@
 import ActionHelper from "../scripts/action-helpers.js"
 import { calculateHealth } from "../scripts/health.js";
-//import { calculateTotals } from "../scripts/totals.js";
 
 export class MortalActorSheet extends ActorSheet {
 	
@@ -52,11 +51,14 @@ export class MortalActorSheet extends ActorSheet {
 			}	 	
 		}	
 
-		const data = super.getData();
+		const data = super.getData();		
 
 		console.log("WoD | Mortal Sheet getData");
 
 		data.config = CONFIG.wod;		
+		data.config.attributeSettings = CONFIG.attributeSettings;
+		data.config.rollSettings = CONFIG.rollSettings;
+		data.config.handleOnes = CONFIG.handleOnes;
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
@@ -310,11 +312,12 @@ export class MortalActorSheet extends ActorSheet {
 
 		if ((fieldStrings == "data.data.rage.temporary") ||
 			(fieldStrings == "data.data.gnosis.temporary") ||
+			(fieldStrings == "data.data.bloodpool.temporary") ||
 			(fields[2] == "health")) {
 			return;
 		}
 		if ((this.locked) && (fieldStrings != "data.data.willpower.temporary")) {
-			ui.notifications.info('Can not edit as sheet is locked!');
+			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.attributeSettings == "5th")) {
@@ -350,7 +353,7 @@ export class MortalActorSheet extends ActorSheet {
 		
 		if (this.locked) {
 			//console.log("WoD | Sheet locked aborts");	
-			ui.notifications.info('Can not edit as sheet is locked!');
+			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
@@ -448,7 +451,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _onItemEdit(event) {
 		if (this.locked) {
 			//console.log("WoD | Sheet locked aborts");	
-			ui.notifications.info('Can not edit as sheet is locked!');
+			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
@@ -488,7 +491,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _onItemDelete(event) {
 		if (this.locked) {
 			//console.log("WoD | Sheet locked aborts");	
-			ui.notifications.info('Can not edit as sheet is locked!');
+			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
@@ -556,6 +559,9 @@ export class MortalActorSheet extends ActorSheet {
 			else if ((fields[2] === "willpower") && (CONFIG.attributeSettings == "20th")) {
 				actorData.data.willpower[fields[3]] = value;
 			}
+			else if (fields[2] === "bloodpool") {
+				return
+			}
 			else if (fields[2] === "gnosis") {
 				return
 			}
@@ -576,7 +582,7 @@ export class MortalActorSheet extends ActorSheet {
 		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		// if Willpower has been changed then Difference between Rage and Willpower need to be recalculated
-		if ((fields[2] === "willpower") && (actorData.type == "Werewolf")) {
+		if ((fields[2] === "willpower") && ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed"))) {
 			ActionHelper.handleWerewolfCalculations(actorData);
 		}
 		

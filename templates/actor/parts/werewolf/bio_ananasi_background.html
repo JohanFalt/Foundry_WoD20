@@ -1,0 +1,58 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+                {{#select data.data.breed}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Homid">Homid</option>
+                <option value="Arachnid">Arachnid</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.aspect"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
+                {{#select data.data.auspice}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Tenere">Tenere</option>
+                <option value="Hatar">Hatar</option>
+                <option value="Kumoti">Kumoti</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>		
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.tribe">{{localize "wod.bio.faction"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
+                {{#select data.data.tribe}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Myrmidon">Myrmidon</option>
+                <option value="Viskir">Viskir</option>
+                <option value="Wyrsta">Wyrsta</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>

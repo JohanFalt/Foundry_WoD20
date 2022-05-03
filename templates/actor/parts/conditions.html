@@ -3,9 +3,18 @@
 {{#iff actor.type "!=" "Spirit"}}
 <div class="clearareaBox">
     {{#iff actor.type "==" "Werewolf"}}
-    <div class="pullLeft condition">
-        <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
-    </div>
+        <div class="pullLeft condition">
+            <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+        </div>
+    {{/iff}}
+    {{#iff actor.type "==" "Changing Breed"}}
+        {{#iff data.data.changingbreed "!=" "Ananasi"}}
+            {{#iff data.data.changingbreed "!=" "Nuwisha"}}
+            <div class="pullLeft condition">
+                <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+            </div>
+            {{/iff}}
+        {{/iff}}    
     {{/iff}}
     <div class="pullLeft condition">
         <input name="data.conditions.ignorepain" type="checkbox" {{#if data.data.conditions.ignorepain}} checked {{/if}}>{{localize "wod.combat.conditions.ignorepain"}}</input>

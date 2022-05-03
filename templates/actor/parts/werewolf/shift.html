@@ -8,7 +8,7 @@
     </div>
 
     <div>
-    <div class="pullLeft shape-background">        
+        <div class="pullLeft shape-background">        
     </div>
     <div class="clearareaBox">
         <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">
@@ -18,12 +18,14 @@
             Str (+2)<br />
             Sta (+2)<br />
             Man (-2)
+            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
         <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.active}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+4)<br />
             Dex (+1)<br />
             Sta (+3)<br />
             Man (-3)
+            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
         <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.active}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />

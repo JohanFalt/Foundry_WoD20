@@ -32,10 +32,14 @@
 						{{#iff ../actor.type "==" "Werewolf"}}
 							{{attribute.total}}
 						{{else}}
-							{{#iff attribute.value "!=" attribute.total}}
-							{{attribute.total}}
+							{{#iff ../actor.type "==" "Changing Breed"}}
+								{{attribute.total}}
 							{{else}}
-							&nbsp;
+								{{#iff attribute.value "!=" attribute.total}}
+								{{attribute.total}}
+								{{else}}
+								&nbsp;
+								{{/iff}}
 							{{/iff}}
 						{{/iff}}
 					</span>

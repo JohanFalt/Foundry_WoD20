@@ -1,0 +1,40 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+                {{#select data.data.breed}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Kojin">Kojin</option>
+                <option value="Shinju">Shinju</option>
+                <option value="Roko">Roko</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.path"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
+                {{#select data.data.auspice}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Kataribe">Kataribe</option>
+                <option value="Gukutsushi">Gukutsushi</option>
+                <option value="Doshi">Doshi</option>
+                <option value="Eji">Eji</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>	

@@ -108,30 +108,48 @@
 
 	<div class="clearareaBox">
 		<div class="headlineGroup">{{localize "wod.advantages.advantages"}} (permanent/temporary/roll)</div>
+		{{#iff actor.type "==" "Werewolf"}}
+			<div class="clearareaBox">
+				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.rage"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.permanent}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.temporary}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.roll}}" readonly />
+			</div>
+
+			<div class="clearareaBox">
+				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
+			</div>			
+		{{/iff}}
+
+		{{#iff actor.type "==" "Changing Breed"}}
+			{{#iff data.data.changingbreed "!=" "Ananasi"}}
+				{{#iff data.data.changingbreed "!=" "Nuwisha"}}
+				<div class="clearareaBox">
+					<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.rage"}}</label>	
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.permanent}}" readonly />
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.temporary}}" readonly />
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.roll}}" readonly />
+				</div>
+				{{/iff}}
+			{{/iff}}
+
+			<div class="clearareaBox">
+				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
+			</div>
+		{{/iff}}
+
 		<div class="clearareaBox">
 			<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.willpower"}}</label>	
 			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.permanent}}" readonly />
 			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.temporary}}" readonly />
 			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.roll}}" readonly />
 		</div>
-
-		{{#iff actor.type "!=" "Mortal"}}
-
-		<div class="clearareaBox">
-			<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.rage"}}</label>	
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.permanent}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.temporary}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.roll}}" readonly />
-		</div>
-
-		<div class="clearareaBox">
-			<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
-		</div>
-
-		{{/iff}}
 
 	</div>
 </div>

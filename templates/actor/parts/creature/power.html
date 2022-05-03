@@ -38,14 +38,14 @@
         {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
                 title="{{localize "wod.labels.send"}}" 
                 data-type="Power" data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">

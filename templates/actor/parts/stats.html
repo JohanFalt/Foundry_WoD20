@@ -1,27 +1,8 @@
 <div class="clearareaBox" style="display: flex;">
 
-	<div class="pullLeft" style="width: 33%;">
-
-		{{#iff actor.type "==" "Werewolf"}}
-
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}		
-
-		{{else}}
-		
-			&nbsp;
-		
-		{{/iff}}
-	
-	</div>
+	<div class="pullLeft" style="width: 33%;">&nbsp;</div>
 	
 	<div class="pullLeft" style="width: 33%;">
-		{{#iff actor.type "==" "Werewolf"}}
-
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
-
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
-
-		{{/iff}}	
 	
 		{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 

@@ -1,0 +1,44 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+                {{#select data.data.breed}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Homid">Homid</option>
+                <option value="Metis">Metis</option>
+                <option value="Rodens">Rodens</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.aspect"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
+                {{#select data.data.auspice}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Tunnel Runner">Tunnel Runner</option>
+                <option value="Shadow Seer">Shadow Seer</option>
+                <option value="Knife Skulker">Knife Skulker</option>
+                <option value="Warrior">Warrior</option>
+                <option value="Engineers">Engineers</option>
+                <option value="Plague Lords">Plague Lords</option>
+                <option value="Munchmausen">Munchmausen</option>
+                <option value="Twitchers">Twitchers</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>

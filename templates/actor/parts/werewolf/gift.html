@@ -1,3 +1,11 @@
+{{#iff data.data.renown.rank "==" 0}}
+
+<div class="clearareaBox">
+    <div class="sheet-headline">{{localize "wod.power.rank0"}}</div> 
+</div>
+
+{{/iff}}
+
 {{#iff data.data.renown.rank ">=" 1}}
 
 <div class="clearareaBox">
@@ -42,17 +50,17 @@
         {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
                 title="{{localize "wod.labels.send"}}" 
                 data-type="Gift" data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>
                                 <br />
-                                <span class='chatt-headline'>System:</span>
+                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                 <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
@@ -116,17 +124,17 @@
         {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
                 title="{{localize "wod.labels.send"}}" 
                 data-type="Gift" data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>
                                 <br />
-                                <span class='chatt-headline'>System:</span>
+                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                 <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
@@ -191,7 +199,7 @@
         {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
@@ -199,10 +207,10 @@
                 data-type="Gift" 
                 data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>
                                 <br />
-                                <span class='chatt-headline'>System:</span>
+                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                 <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
@@ -267,7 +275,7 @@
         {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
@@ -275,10 +283,10 @@
                 data-type="Gift" 
                 data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>
                                 <br />
-                                <span class='chatt-headline'>System:</span>
+                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                 <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
@@ -343,7 +351,7 @@
         {{/if}}
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
@@ -351,10 +359,10 @@
                 data-type="Gift" 
                 data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>
                                 <br />
-                                <span class='chatt-headline'>System:</span>
+                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                 <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">
@@ -407,7 +415,7 @@
         </div>
         <div class="pullLeft gift-valueBox headlineNormal tooltip">
             <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">Description: {{item.data.description}}<br /><br />System: {{item.data.system}}</span>
+            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
         </div>
         <div class="pullLeft gift-valueBox">
             <a class="send-chat" 
@@ -415,10 +423,10 @@
                 data-type="Gift" 
                 data-item-id="{{item._id}}" 
                 data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>Description:</span>
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                 <span class='chatt-text'>{{item.data.description}}</span>
                                 <br />
-                                <span class='chatt-headline'>System:</span>
+                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                 <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
         </div>
         <div class="pullLeft gift-valueBox">

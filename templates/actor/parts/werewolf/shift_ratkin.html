@@ -1,0 +1,48 @@
+<div class="shape-area">
+    <div class="clearareaBox">
+        <div class="pullLeft shape-selector shape-ratkin thin-border-left {{#if data.data.shapes.homid.active}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
+        <div class="pullLeft shape-selector shape-ratkin thin-border-left {{#if data.data.shapes.crinos.active}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.crinos"}}</div>
+        <div class="pullLeft shape-selector shape-ratkin thin-border-left thin-border-right {{#if data.data.shapes.lupus.active}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.rodens"}}</div>
+    </div>
+
+    <div class="pullLeft shape-background shape-ratkin"></div>
+    <div class="clearareaBox">
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">
+            No Change
+        </div>
+        {{#iff data.data.breed "==" "Metis"}}
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.crinos.active}}text-focus{{else}}text-unfocus{{/if}}">
+            Str (+3)<br />
+            Dex (+4)<br />
+            Sta (+1)<br />
+            Man (-2)
+            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
+            <br />App (-1)
+            <br />Per (+1)
+            {{/iff}}
+        </div>
+        {{else}}
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.crinos.active}}text-focus{{else}}text-unfocus{{/if}}">
+            Str (+1)<br />
+            Dex (+4)<br />
+            Sta (+2)<br />
+            Man (-2)
+            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
+            <br />App (-1)
+            <br />Per (+1)
+            {{/iff}}
+        </div>
+        {{/iff}}
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+            Str (-1)<br />
+            Dex (+2)<br />
+            Sta (+2)<br />
+            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />Per (+3){{/iff}}
+        </div>
+    </div>
+    <div class="clearareaBox">
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.crinos.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+                {{#select data.data.breed}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Homid">Homid</option>
+                <option value="Archid">Archid</option>
+                <option value="Suchid">Suchid</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
+                {{#select data.data.auspice}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Rising Sun">Rising Sun</option>
+                <option value="Noonday Sun">Noonday Sun</option>
+                <option value="Setting Sun">Setting Sun</option>
+                <option value="Shrouded Sun">Shrouded Sun</option>
+                <option value="Midnight Sun">Midnight Sun</option>
+                <option value="Decorated Sun">Decorated Sun</option>
+                <option value="Eclipsed Sun">Eclipsed Sun</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>	
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.tribe">{{localize "wod.bio.varna"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
+                {{#select data.data.tribe}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Champsa">Champsa</option>
+                <option value="Gharial">Gharial</option>
+                <option value="Halpatee">Halpatee</option>
+                <option value="Karna">Karna</option>                
+                <option value="Makara">Makara</option>
+                <option value="Ora">Ora</option>                
+                <option value="Paisa">Paisa</option>                
+                <option value="Syrta">Syrta</option>                
+                <option value="Unktehi">Unktehi</option>                
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>

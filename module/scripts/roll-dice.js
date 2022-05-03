@@ -102,7 +102,7 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		if (actor.type == "Mortal") {
 			diceColor = "blue_";
 		} 
-		else if (actor.type == "Werewolf") {
+		else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
 			diceColor = "brown_";
 		}
 		else if (actor.type == "Vampire") { 

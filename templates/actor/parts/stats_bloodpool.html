@@ -1,0 +1,15 @@
+<div class="sheet-headline">{{localize "wod.advantages.bloodpool"}}</div>
+<div class="resource-counter tempSquareRow" data-value="{{data.data.bloodpool.temporary}}" data-name="data.data.bloodpool.temporary">
+	<span class="resource-value-empty"></span>
+
+	{{#numLoop data.data.bloodpool.max}}
+	
+	{{#le ../data.data.bloodpool.temporary this}}
+	<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+	{{else}}
+	<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+	{{/le}}
+	
+	{{/numLoop}}
+	
+</div>	

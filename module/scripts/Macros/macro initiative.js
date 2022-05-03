@@ -42,7 +42,7 @@ async function rollInitiative(token) {
 		if (actor.type == "Mortal") {
 			diceColor = "blue_";
 		} 
-		else if (actor.type == "Werewolf") {
+		else if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
 			diceColor = "brown_";
 		}
 		else if (actor.type == "Vampire") { 

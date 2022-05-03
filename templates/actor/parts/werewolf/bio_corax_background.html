@@ -1,0 +1,44 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+                {{#select data.data.breed}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Homid">Homid</option>
+                <option value="Corvid">Corvid</option>
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>	
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
+        <div class="pullLeft">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
+                {{#select data.data.tribe}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <option value="Chasers">Chasers</option>
+                <option value="Leshy">Leshy</option>
+                <option value="Hermetic Order of Swift Light">Hermetic Order of Swift Light</option>
+                <option value="The Gulls of Battle">The Gulls of Battle</option>
+                <option value="The Morrigan">The Morrigan</option>
+                <option value="Murder's Gaughters">Murder's Gaughters</option>
+                <option value="The Sun-Lost">The Sun-Lost</option>
+                <option value="Simba">Simba</option>
+                <option value="Tulugaq">Tulugaq</option>                
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
