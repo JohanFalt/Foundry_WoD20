@@ -1,6 +1,7 @@
 # Werewolf the Apocalypse 20th ed
 
 # Contributions
+Code for dot/box counters taken from Foundry-V5 (credit to erizocosmico) https://github.com/erizocosmico/foundry-V5
 German translation - Pat Shaw
 
 # Installing System
