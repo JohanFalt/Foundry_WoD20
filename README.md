@@ -12,6 +12,8 @@ Licensed materials will NOT be provided as this is a system provided for public 
 
 Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit [worldofdarkness.com](https://www.worldofdarkness.com/).
 
+This material is NOT an official World of Darkness material.
+
 <img src="https://github.com/JohanFalt/Foundry_WoD20/blob/main/doc/darkpack_logo2.png" width="300px" height="300px">
 
 # Contributions
