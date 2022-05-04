@@ -5,6 +5,7 @@ Licensed materials will NOT be provided as this is a system provided for public 
 Code for dot/box counters taken from Foundry-V5 (credit to erizocosmico) https://github.com/erizocosmico/foundry-V5
 
 German translation - Pat Shaw
+Spanish translation - Duke
 
 # Installing System
 1. Open Foundry VTT
