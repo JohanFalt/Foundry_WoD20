@@ -11,7 +11,7 @@ Supported sheets at this moment are:
 Licensed materials will NOT be provided as this is a system provided for public use for free.
 
 Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit [worldofdarkness.com](https://www.worldofdarkness.com/).
-![Dark Pack](./doc/darkpack_logo2.png)
+![Dark Pack](./doc/darkpack_logo2.png | width=300)
 
 # Contributions
 Code for dot/box counters taken from Foundry-V5 (credit to [erizocosmico](https://github.com/erizocosmico/foundry-V5)) 
