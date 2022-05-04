@@ -525,7 +525,7 @@ export default class ActionHelper {
 					if (actor.type == "Mortal") {
 						diceColor = "blue_";
 					} 
-					else if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
+					else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
 						diceColor = "brown_";
 					}
 					else if (actor.type == "Vampire") { 
