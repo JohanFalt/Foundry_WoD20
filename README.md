@@ -1,11 +1,14 @@
 # Werewolf the Apocalypse 20th ed
-Licensed materials will NOT be provided as this is a system provided for public use for free.
 Supported sheets at this moment are:
 - Mortals
 - Werewolfs
 - Changing Breeds
 - Spirits
 - Creatures
+
+# Disclaimer
+Licensed materials will NOT be provided as this is a system provided for public use for free.
+All images provided are Copyright of White Wolf Game Studio.
 
 # Contributions
 Code for dot/box counters taken from Foundry-V5 (credit to [erizocosmico](https://github.com/erizocosmico/foundry-V5)) 
