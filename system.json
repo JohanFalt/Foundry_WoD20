@@ -21,6 +21,11 @@
 			"lang": "de",
 			"name": "German",
 			"path": "lang/de.json"
+		},
+		{
+			"lang": "es",
+			"name": "Spanish",
+			"path": "lang/es.json"
 		}
 	],
 	"initiative": "1d10 + @initiative.total",
