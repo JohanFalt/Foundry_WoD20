@@ -1,16 +1,16 @@
 {
 	"wod": {
 		"system": {
-			"patches": "New version detected; Updating World, please wait.",
-			"updates": "Checking character's settings!",
-			"characters": "Characters updated!",
-			"world": "World updated!",
-			"done": "Done!",
-			"sheetlocked": "Can not edit as sheet is locked!"
+			"patches": "Se ha detectado una nueva versión; Actualizando Mundo, por favor espere.",
+			"updates": "¡Revisando opciones de personajes!",
+			"characters": "¡Personajes actualizados!",
+			"world": "¡Mundo actualizado!",
+			"done": "¡Hecho!",
+			"sheetlocked": "No se puede editar esta ficha ¡Está bloqueada!"
 		},
 		"settings": {
-			"rulesettings": "Rule Settings",
-			"rulesettingshint": "All gathered settings about rules",
+			"rulesettings": "Configuración de Reglas",
+			"rulesettingshint": "Todas las configuraciones de reglas reunidas.",
 			"worldversion": "Version del Mundo",
 			"worldversionhint": "Saber si se necesita saber si el parche del mundo es necesitado",
 			"advantagerolls": "Como tirar atributos con ventaja",
@@ -21,8 +21,8 @@
 			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default."
 		},
 		"dialogs": {
-				"save": "Save",
-				"reset": "Reset"
+				"save": "Guardar",
+				"reset": "Reiniciar"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -351,11 +351,6 @@
 				"no": "NO",
 				"added": "AGREGADO",
 				"removed": "REMOVER"
-			},
-			"add": {
-				"meleeweapon": "Agregar Arma",
-				"rangedweapon": "Agregar Arma a distancia",
-				"armor": "Agregar Armadura"
 			},
 			"edit": {
 				"naturalweapon": "Editar Arma Natural",

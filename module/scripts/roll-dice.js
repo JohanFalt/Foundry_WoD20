@@ -1,7 +1,7 @@
 /* global ChatMessage, Roll, game */
 
 // Function to roll dice
-export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, specialityText, wound, systemText, handlingOnes) {
+export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 0, systemText = "", specialty = false, specialityText = "", wound = 0) {
 	console.log("WoD | rollDice");
   
 	let zeroDices = numDice + wound <= 0;   
@@ -104,6 +104,9 @@ export function rollDice(numDice, actor, label = "", difficulty = 0, specialty, 
 		} 
 		else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
 			diceColor = "brown_";
+		}
+		else if (actor.type == "Mage") { 
+			diceColor = "purple_";
 		}
 		else if (actor.type == "Vampire") { 
 			diceColor = "red_";

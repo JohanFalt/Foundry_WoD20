@@ -1,80 +1,103 @@
 <form class="{{cssClass}}" autocomplete="off">
-	<header class="sheet-header">
-
-		<img src="{{item.img}}" /> 
-		<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
-
-		<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/fetish.svg" />
-
-	</header>
 	
-	<section class="item-body">
+	<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/fetish.svg" />
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-			<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-		</div>
+	<div class="sheet-item">
+		<header class="sheet-header">
+			<div class="top-area">
+				<div class="top-side">
+					<img src="{{item.img}}" /> 
+					<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
+				</div>
+				<div class="top-center top-headline centerText">
+					{{item.name}}
+				</div>
+				<div class="top-side top-sidetext centerText">
+					{{#iff data.data.type "==" "wod.types.fetish"}} 
+						FETISH
+					{{/iff}}
+					{{#iff data.data.type "==" "wod.types.talen"}} 
+						TALEN
+					{{/iff}}
+				</div>				
+			</div>
+		</header>
+		
+		<section class="item-body">
 
-		<!-- type -->
-		{{#if isGM}}
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
-			<select name="data.type">
-				{{#select data.data.type}}
-					<option value="">- {{localize "wod.labels.select"}} -</option>
-					<option value="wod.types.talen">{{localize "wod.types.talen"}}</option>
-					<option value="wod.types.fetish">{{localize "wod.types.fetish"}}</option>
-				{{/select}}
-			</select>
-		</div>
-		{{/if}}
+			{{#if isGM}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+			</div>
+			{{/if}}
 
-		<!-- level -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-			<select name="data.level">
-				{{#select data.data.level}}
-					<option value="0">- {{localize "wod.labels.select"}} -</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
+			<!-- type -->
+			{{#if isGM}}
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
+				<select name="data.type">
+					{{#select data.data.type}}
+						<option value="">- {{localize "wod.labels.select"}} -</option>
+						<option value="wod.types.talen">{{localize "wod.types.talen"}}</option>
+						<option value="wod.types.fetish">{{localize "wod.types.fetish"}}</option>
+					{{/select}}
+				</select>
+			</div>
+			{{/if}}
+
+			{{#iff data.data.type "==" "wod.types.fetish"}}
+			<!-- level -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+				<select name="data.level">
+					{{#select data.data.level}}
+						<option value="0">- {{localize "wod.labels.select"}} -</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					{{/select}}
+				</select>
+			</div>
+			{{else}}
+			<input type="hidden" name="data.level" value="1" />
+			{{/iff}}
+
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.labels.difficulty"}}</label>
+				<select class="numberBox" name="data.diff">
+					{{#select data.data.diff}}
 					<option value="3">3</option>
 					<option value="4">4</option>
 					<option value="5">5</option>
-				{{/select}}
-			</select>
-		</div>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					{{/select}}
+				</select>
+			</div>
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.labels.difficulty"}}</label>
-			<select class="numberBox" name="data.diff">
-				{{#select data.data.diff}}
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				{{/select}}
-			</select>
-		</div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.gnosis">{{localize "wod.advantages.gnosis"}}</label>
+				<input class="sheet-infoValues miniBox" name="data.gnosis" type="text" value="{{data.data.gnosis}}" data-dtype="Number" />
+			</div>
 
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.gnosis">{{localize "wod.advantages.gnosis"}}</label>
-			<input class="sheet-infoValues miniBox" name="data.gnosis" type="text" value="{{data.data.gnosis}}" data-dtype="Number" />
-		</div>
+			<!-- description -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
+			</div>
 
-		<!-- description -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-			<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
-		</div>
+			<!-- details -->
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.details">{{localize "wod.labels.details"}}</label>
+				<textarea class="item" name="data.details" data-dtype="String">{{~data.data.details}}</textarea>
+			</div>
+		</section>
 
-		<!-- details -->
-		<div class="infobox">
-			<label class="headlineItem headlineBio" for="data.details">{{localize "wod.labels.details"}}</label>
-			<textarea class="item" name="data.details" data-dtype="String">{{~data.data.details}}</textarea>
-		</div>
-	</section>
+	</div>
 </form>

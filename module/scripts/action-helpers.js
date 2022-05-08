@@ -27,133 +27,151 @@ export default class ActionHelper {
 
 		let woundPenaltyVal = 0;
 
-		// specialityText
-		if (dataset.noability=="true") {
-			if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
-				if ((actor.data.data.attributes.composure.value >= 4) &&
-						(actor.data.data.attributes.composure.speciality != "")) {
-					specialityText = actor.data.data.attributes.composure.speciality;
+		const item = getItem(dataset.itemId, actor.data.items);
+
+		if (!item) {
+			// specialityText
+			if (dataset.noability=="true") {
+				if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
+					if ((actor.data.data.attributes.composure.value >= 4) &&
+							(actor.data.data.attributes.composure.speciality != "")) {
+						specialityText = actor.data.data.attributes.composure.speciality;
+					}
+
+					if ((actor.data.data.attributes.resolve.value >= 4) &&
+							(actor.data.data.attributes.resolve.speciality != "")) {
+						specialityText = specialityText != "" ? specialityText + ", " + actor.data.data.attributes.resolve.speciality : actor.data.data.attributes.resolve.speciality;
+					}
 				}
-
-				if ((actor.data.data.attributes.resolve.value >= 4) &&
-						(actor.data.data.attributes.resolve.speciality != "")) {
-					specialityText = specialityText != "" ? specialityText + ", " + actor.data.data.attributes.resolve.speciality : actor.data.data.attributes.resolve.speciality;
-				}
-			}
-			// hide speciallity box
-			else {
-				specialty = "";
-			}
-		}
-		else if (dataset.attribute == "true") {
-			if (actor.data.data.attributes[dataset.label].value >= 4) {
-				specialityText = actor.data.data.attributes[dataset.label].speciality;
-			}
-		}
-		else if (dataset.ability == "true") {
-			if (actor.data.data.abilities.talent[dataset.label]?.value != undefined) {
-				specialityText = actor.data.data.abilities.talent[dataset.label].speciality;
-			}
-			else if (actor.data.data.abilities.skill[dataset.label]?.value != undefined) {
-				specialityText = actor.data.data.abilities.skill[dataset.label].speciality;
-			}
-			else if (actor.data.data.abilities.knowledge[dataset.label]?.value != undefined) {
-				specialityText = actor.data.data.abilities.knowledge[dataset.label].speciality;
-			}	
-
-			let options1 = "";
-			let list;
-
-			if (CONFIG.attributeSettings == "5th") {
-				list = CONFIG.wod.attributes;
-			}
-			else if (CONFIG.attributeSettings == "20th") {
-				list = CONFIG.wod.attributes20;
-			}
-
-			for (const i in list) {
-				if (actor.data.data.attributes[i].value >= 4) {
-					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])} (${actor.data.data.attributes[i].speciality})</option>`);
-				}
+				// hide speciallity box
 				else {
-					options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])}</option>`);
-				}				
+					specialty = "";
+				}
 			}
+			else if (dataset.attribute == "true") {
+				if (actor.data.data.attributes[dataset.label].value >= 4) {
+					specialityText = actor.data.data.attributes[dataset.label].speciality;
+				}
+			}
+			else if (dataset.ability == "true") {
+				if (actor.data.data.abilities.talent[dataset.label]?.value != undefined) {
+					specialityText = actor.data.data.abilities.talent[dataset.label].speciality;
+				}
+				else if (actor.data.data.abilities.skill[dataset.label]?.value != undefined) {
+					specialityText = actor.data.data.abilities.skill[dataset.label].speciality;
+				}
+				else if (actor.data.data.abilities.knowledge[dataset.label]?.value != undefined) {
+					specialityText = actor.data.data.abilities.knowledge[dataset.label].speciality;
+				}	
+
+				let options1 = "";
+				let list;
+
+				if (CONFIG.attributeSettings == "5th") {
+					list = CONFIG.wod.attributes;
+				}
+				else if (CONFIG.attributeSettings == "20th") {
+					list = CONFIG.wod.attributes20;
+				}
+
+				for (const i in list) {
+					if (actor.data.data.attributes[i].value >= 4) {
+						options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])} (${actor.data.data.attributes[i].speciality})</option>`);
+					}
+					else {
+						options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])}</option>`);
+					}				
+				}
+					
+				selectAbility =  `<div class="form-group">
+										<label>${game.i18n.localize("wod.labels.selectattribute")}</label>
+										<select id="attributeSelect">${options1}</select>
+									</div>`;
+			}
+
+			// items
+			if (dataset.rollitem == "true") {
+				let specText1 = "";
+				let specText2 = "";
+
+				difficulty = dataset.diff;
+
+				// is dice1 an Attribute
+				if ((actor.data.data?.attributes != undefined) && (actor.data.data.attributes[dataset.dice1]?.value != undefined)) {
+					attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
+					attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
+				}
+				// is dice1 an Advantage
+				else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
+					attributeVal = parseInt(actor.data.data[dataset.dice1].roll);
+					attributeName = game.i18n.localize(actor.data.data[dataset.dice1].label);
+				}
+
+				// is dice2 a Talent
+				if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined)) {
+					abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
+					abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
+				}
+				// is dice2 a Skill
+				else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined)) {
+					abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
+					abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
+				}
+				// is dice2 a Knowledge
+				else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined)) {
+					abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
+					abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
+				}	
+
+				if ((actor.data.data?.abilities != undefined) && (attributeVal >= 4)) {
+					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
+						specText1 = actor.data.data.attributes[dataset.dice1].speciality;
+					}
+				}
 				
-			selectAbility =  `<div class="form-group">
-									<label>${game.i18n.localize("wod.labels.selectattribute")}</label>
-									<select id="attributeSelect">${options1}</select>
-								</div>`;
+				if ((actor.data.data?.abilities != undefined) && (abilityVal >= 4)) {
+					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
+						specText2 = actor.data.data.abilities.talent[dataset.dice2].speciality;
+					}
+					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
+						specText2 = actor.data.data.abilities.skill[dataset.dice2].speciality;
+					}
+					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
+						specText2 = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
+					}
+				}
+
+				if ((specText1 != "") && (specText2 != "")) {
+					specialityText = specText1 + ', ' + specText2;
+				}
+				else if (specText1 != "") {
+					specialityText = specText1;
+				}
+				else if (specText2 != "") {
+					specialityText = specText2;
+				}
+
+				hiddenForms += `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
+				hiddenForms += `<input type="hidden" id="attributeName" value="${attributeName}" />`;
+				hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
+				hiddenForms += `<input type="hidden" id="abilityName" value="${abilityName}" />`;
+				hiddenForms += `<input type="hidden" id="specialityText" value="${specialityText}" />`;
+				hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
+			}
 		}
+		else if (dataset.rollitem == "true") {
+			if (item.data.type == "Fetish") {
+				rollDice(
+					CONFIG.handleOnes,
+					parseInt(actor.data.data.gnosis.roll),
+					actor,
+					`<h2>${game.i18n.localize("wod.dice.activate")} ${item.data.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.data.data.gnosis.roll})</strong>`,
+					parseInt(item.data.data.diff),
+					item.data.data.details
+				);
+			}			
 
-		// items
-		if (dataset.rollitem == "true") {
-			let specText1 = "";
-			let specText2 = "";
-
-			difficulty = dataset.diff;
-
-			// is dice1 an Attribute
-			if ((actor.data.data?.attributes != undefined) && (actor.data.data.attributes[dataset.dice1]?.value != undefined)) {
-				attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
-				attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
-			}
-			// is dice1 an Advantage
-			else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
-				attributeVal = parseInt(actor.data.data[dataset.dice1].roll);
-				attributeName = game.i18n.localize(actor.data.data[dataset.dice1].label);
-			}
-
-			// is dice2 a Talent
-			if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined)) {
-				abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
-				abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
-			}
-			// is dice2 a Skill
-			else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined)) {
-				abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
-				abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
-			}
-			// is dice2 a Knowledge
-			else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined)) {
-				abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
-				abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
-			}	
-
-			if ((actor.data.data?.abilities != undefined) && (attributeVal >= 4)) {
-				if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
-					specText1 = actor.data.data.attributes[dataset.dice1].speciality;
-				}
-			}
-			
-			if ((actor.data.data?.abilities != undefined) && (abilityVal >= 4)) {
-				if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
-					specText2 = actor.data.data.abilities.talent[dataset.dice2].speciality;
-				}
-				else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
-					specText2 = actor.data.data.abilities.skill[dataset.dice2].speciality;
-				}
-				else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
-					specText2 = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
-				}
-			}
-
-			if ((specText1 != "") && (specText2 != "")) {
-				specialityText = specText1 + ', ' + specText2;
-			}
-			else if (specText1 != "") {
-				specialityText = specText1;
-			}
-			else if (specText2 != "") {
-				specialityText = specText2;
-			}
-
-			hiddenForms += `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
-			hiddenForms += `<input type="hidden" id="attributeName" value="${attributeName}" />`;
-			hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
-			hiddenForms += `<input type="hidden" id="abilityName" value="${abilityName}" />`;
-			hiddenForms += `<input type="hidden" id="specialityText" value="${specialityText}" />`;
-			hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
+			return;
 		}
 		
 		// damage
@@ -368,15 +386,15 @@ export default class ActionHelper {
 					}	
 					
 					rollDice(
+						handlingOnes,
 						numDice,
 						actor,
 						diceUsed,
 						difficulty,
+						systemText,
 						specialty,
 						specialityText,
-						woundPenaltyVal,
-						systemText,
-						handlingOnes
+						woundPenaltyVal												
 					);
 				},
 			},
@@ -442,6 +460,9 @@ export default class ActionHelper {
 		else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
 			diceColor = "brown_";
 		}
+		else if (actor.type == "Mage") { 
+			diceColor = "purple_";
+		}
 		else if (actor.type == "Vampire") { 
 			diceColor = "red_";
 		}
@@ -450,9 +471,7 @@ export default class ActionHelper {
 		}
 		else {
 			diceColor = "black_";
-		}
-	
-		
+		}	
 
 		roll.terms[0].results.forEach((dice) => {
 			label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
@@ -527,6 +546,9 @@ export default class ActionHelper {
 					} 
 					else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
 						diceColor = "brown_";
+					}
+					else if (actor.type == "Mage") { 
+						diceColor = "purple_";
 					}
 					else if (actor.type == "Vampire") { 
 						diceColor = "red_";
@@ -632,15 +654,12 @@ export default class ActionHelper {
 					}
 
 					rollDice(
+						handlingOnes,
 						numDice,
 						actor,
 						game.i18n.localize("wod.dice.rollingdice"),
 						difficulty,
-						specialty,
-						"",
-						0,
-						"",
-						handlingOnes
+						specialty						
 					);
 				},
 			},
@@ -829,129 +848,221 @@ export default class ActionHelper {
 
 	static _setMortalAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.gestures") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intuition") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") ||
-					(actor.data.abilities.talent[talent].label == "wod.abilities.seduction") ||
-					(actor.data.abilities.talent[talent].label == "wod.abilities.diplomacy")) {
-				actor.data.abilities.talent[talent].visible = false;
+
+			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.art") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.data.abilities.talent[talent].visible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].visible = true;
+				actor.data.abilities.talent[talent].visible = false;
 			}			
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.pilot") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.archery")) {
-				actor.data.abilities.skill[skill].visible = false;
+			
+			if ((actor.data.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.larceny") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.data.abilities.skill[skill].visible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].visible = true;
+				actor.data.abilities.skill[skill].visible = false;
 			}			
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.culture") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.hearthwisdom") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.herbalism") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.legends") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals")) {
-				actor.data.abilities.knowledge[knowledge].visible = false;
+
+			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.data.abilities.knowledge[knowledge].visible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].visible = true;
+				actor.data.abilities.knowledge[knowledge].visible = false;
 			}		
 		}
 	}
 
+	static _setMageAbilities(actor) {		
+		for (const talent in CONFIG.wod.alltalents) {
+
+			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.art") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.awareness") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.data.abilities.talent[talent].visible = true;
+			}
+			else {
+				actor.data.abilities.talent[talent].visible = false;
+			}			
+		}
+
+		for (const skill in CONFIG.wod.allskills) {
+			
+			if ((actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.martialarts") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.research") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.data.abilities.skill[skill].visible = true;
+			}
+			else {
+				actor.data.abilities.skill[skill].visible = false;
+			}			
+		}
+
+		for (const knowledge in CONFIG.wod.allknowledges) {
+
+			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.esoterica") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.data.abilities.knowledge[knowledge].visible = true;
+			}
+			else {
+				actor.data.abilities.knowledge[knowledge].visible = false;
+			}		
+		}
+	}
 
 	static _setWerewolfAbilities(actor) {		
 		for (const talent in CONFIG.wod.alltalents) {
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.art") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.diplomacy") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.gestures") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intuition") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.seduction")) {
-				actor.data.abilities.talent[talent].visible = false;
+			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership")	|| 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.data.abilities.talent[talent].visible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].visible = true;
+				actor.data.abilities.talent[talent].visible = false;
 			}			
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.archery") ||
-			(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.pilot")) {
-				actor.data.abilities.skill[skill].visible = false;
+			if ((actor.data.abilities.skill[skill].label == "wod.abilities.animalken") ||	
+					(actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||	
+					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.larceny")	|| 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.data.abilities.skill[skill].visible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].visible = true;
+				actor.data.abilities.skill[skill].visible = false;
 			}			
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.bureaucracy") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.culture") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.finance") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.hearthwisdom") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.herbalism") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.legends") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics")) {
-				actor.data.abilities.knowledge[knowledge].visible = false;
-			}
-			else {
-				actor.data.abilities.knowledge[knowledge].visible = true;
-			}		
-		}
-	}
-
-
-	static _setVampireAbilities(actor) {
-		for (const talent in CONFIG.wod.alltalents) {
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.gestures") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intuition") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") ||
-					(actor.data.abilities.talent[talent].label == "wod.abilities.seduction") ||
-					(actor.data.abilities.talent[talent].label == "wod.abilities.diplomacy")) {
-				actor.data.abilities.talent[talent].visible = false;
-			}
-			else {
-				actor.data.abilities.talent[talent].visible = true;
-			}			
-		}
-
-		for (const skill in CONFIG.wod.allskills) {
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.pilot") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.archery")) {
-				actor.data.abilities.skill[skill].visible = false;
-			}
-			else {
-				actor.data.abilities.skill[skill].visible = true;
-			}			
-		}
-
-		for (const knowledge in CONFIG.wod.allknowledges) {
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.culture") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
+			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||	
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") ||	
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.hearthwisdom") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.herbalism") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.legends") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals")) {
-				actor.data.abilities.knowledge[knowledge].visible = false;
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult")	|| 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.data.abilities.knowledge[knowledge].visible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].visible = true;
+				actor.data.abilities.knowledge[knowledge].visible = false;
 			}		
 		}
 	}
+
+	// static _setVampireAbilities(actor) {
+	// 	for (const talent in CONFIG.wod.alltalents) {
+	// 		if ((actor.data.abilities.talent[talent].label == "wod.abilities.gestures") || 
+	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.intuition") || 
+	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") ||
+	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.seduction") ||
+	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.diplomacy")) {
+	// 			actor.data.abilities.talent[talent].visible = false;
+	// 		}
+	// 		else {
+	// 			actor.data.abilities.talent[talent].visible = true;
+	// 		}			
+	// 	}
+
+	// 	for (const skill in CONFIG.wod.allskills) {
+	// 		if ((actor.data.abilities.skill[skill].label == "wod.abilities.pilot") || 
+	// 				(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") || 
+	// 				(actor.data.abilities.skill[skill].label == "wod.abilities.archery")) {
+	// 			actor.data.abilities.skill[skill].visible = false;
+	// 		}
+	// 		else {
+	// 			actor.data.abilities.skill[skill].visible = true;
+	// 		}			
+	// 	}
+
+	// 	for (const knowledge in CONFIG.wod.allknowledges) {
+	// 		if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.culture") || 
+	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
+	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
+	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.hearthwisdom") || 
+	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.herbalism") || 
+	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.legends") || 
+	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals")) {
+	// 			actor.data.abilities.knowledge[knowledge].visible = false;
+	// 		}
+	// 		else {
+	// 			actor.data.abilities.knowledge[knowledge].visible = true;
+	// 		}		
+	// 	}
+	// }
 
 
 	static _setCreatureAbilities(actor) {
@@ -975,7 +1086,7 @@ export default class ActionHelper {
 		let gnosis = -1;
 		let willpower = -1;
 
-		if ((actor.type == "Mortal") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
+		if ((actor.type == "Mortal") || (actor.type == "Mage") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
 			for (const attribute in actor.data.attributes) {
 				actor.data.attributes[attribute].visible = true;
 			}
@@ -992,23 +1103,23 @@ export default class ActionHelper {
 			}
 	  
 			if (CONFIG.rollSettings) {
-			  if (actor.type != "Mortal") {
-				rage = actor.data.rage.permanent; 
-				gnosis = actor.data.gnosis.permanent;
-			  }
+				if ((actor.type != "Mortal") && (actor.type != "Mage")) {
+					rage = actor.data.rage.permanent; 
+					gnosis = actor.data.gnosis.permanent;
+			  	}
 			  
-			  willpower = actor.data.willpower.permanent; 
+				willpower = actor.data.willpower.permanent; 
 			}
 			else {
-			  if (actor.type != "Mortal") {
-				rage = actor.data.rage.permanent > actor.data.rage.temporary ? actor.data.rage.temporary : actor.data.rage.permanent; 
-				gnosis = actor.data.gnosis.permanent > actor.data.gnosis.temporary ? actor.data.gnosis.temporary : actor.data.gnosis.permanent;
-			  }
+				if ((actor.type != "Mortal") && (actor.type != "Mage")) {
+					rage = actor.data.rage.permanent > actor.data.rage.temporary ? actor.data.rage.temporary : actor.data.rage.permanent; 
+					gnosis = actor.data.gnosis.permanent > actor.data.gnosis.temporary ? actor.data.gnosis.temporary : actor.data.gnosis.permanent;
+			  	}
 			  
-			  willpower = actor.data.willpower.permanent > actor.data.willpower.temporary ? actor.data.willpower.temporary : actor.data.willpower.permanent; 
+			  	willpower = actor.data.willpower.permanent > actor.data.willpower.temporary ? actor.data.willpower.temporary : actor.data.willpower.permanent; 
 			}
 	  
-			if (actor.type != "Mortal") {
+			if ((actor.type != "Mortal") && (actor.type != "Mage")) {
 				actor.data.rage.roll = rage;
 				actor.data.gnosis.roll = gnosis;
 			}
@@ -1016,4 +1127,20 @@ export default class ActionHelper {
 			actor.data.willpower.roll = willpower;
 		  }
 	}
+}
+
+// get a specific item on an actor
+function getItem(id, itemlist)
+{
+	if (id == undefined) {
+		return false;
+	}
+
+	for (const i of itemlist) {
+		if (i.data._id == id) {
+			return i;
+		}
+	}
+
+	return false;
 }
