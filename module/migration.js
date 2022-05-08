@@ -19,6 +19,9 @@ export const patches = async (installedVersion, currentVersion) => {
   let patch130 = false;
   let hasRun130 = false;
 
+  let patch140 = false;
+  let hasRun140 = false;
+
   let newfunctions = "";
 
   try {
@@ -27,6 +30,7 @@ export const patches = async (installedVersion, currentVersion) => {
     patch110 = game.settings.get('worldofdarkness', 'patch110');
     patch120 = game.settings.get('worldofdarkness', 'patch120');
     patch130 = game.settings.get('worldofdarkness', 'patch130');
+    //patch140 = game.settings.get('worldofdarkness', 'patch140');
   } 
   catch (e) {
     console.log("Fel uppstod i migration.js");
@@ -60,6 +64,7 @@ export const patches = async (installedVersion, currentVersion) => {
   hasRun110 = true;
   hasRun120 = true;
   hasRun130 = true;
+  hasRun140 = true;
 
   if ((!patch107) && (hasRun107)) {
     game.settings.set('worldofdarkness', 'patch107', true);
@@ -95,6 +100,13 @@ export const patches = async (installedVersion, currentVersion) => {
     newfunctions += "<li>Fixed graphical problems if using German Translation</li>";
     newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1">#1</a> a problem where the Attribute Setting in Power Items did not read the setting if you where using the 20th or 5th System setting</li>';
     newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/2">#2</a> so you can clear permanent Renown</li>';
+  }
+
+  if ((!patch140) && (hasRun140)) {
+    //game.settings.set('worldofdarkness', 'patch140', true);
+
+    newfunctions += "<li>Added Spanish</li>";
+    newfunctions += "<li>Added new item - Fetish, can be used by Werewolf and Changing Breed.</li>";
   }
 
   game.settings.set('worldofdarkness', 'worldVersion', currentVersion);
@@ -139,7 +151,7 @@ export const updates = async () => {
   let totalinit = -1;
 
   for (const actor of game.actors) {
-    if ((actor.type == "Mortal") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
+    if ((actor.type == "Mortal") || (actor.type == "Mage") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
       if (attributeSettings == "20th") {
         actor.update({"data.attributes.strength.visible" : true,
           "data.attributes.dexterity.visible" : true,
@@ -168,7 +180,7 @@ export const updates = async () => {
       }
 
       if (rollSettings) {
-        if (actor.type != "Mortal") {
+        if ((actor.type != "Mortal") && (actor.type != "Mage")) {
           rage = actor.data.data.rage.permanent; 
           gnosis = actor.data.data.gnosis.permanent;
         }
@@ -176,7 +188,7 @@ export const updates = async () => {
         willpower = actor.data.data.willpower.permanent; 
       }
       else {
-        if (actor.type != "Mortal") {
+        if ((actor.type != "Mortal") && (actor.type != "Mage")) {
           rage = actor.data.data.rage.permanent > actor.data.data.rage.temporary ? actor.data.data.rage.temporary : actor.data.data.rage.permanent; 
           gnosis = actor.data.data.gnosis.permanent > actor.data.data.gnosis.temporary ? actor.data.data.gnosis.temporary : actor.data.data.gnosis.permanent;
         }
@@ -184,7 +196,7 @@ export const updates = async () => {
         willpower = actor.data.data.willpower.permanent > actor.data.data.willpower.temporary ? actor.data.data.willpower.temporary : actor.data.data.willpower.permanent; 
       }
 
-      if (actor.type != "Mortal") {
+      if ((actor.type != "Mortal") && (actor.type != "Mage")) {
         actor.update({"data.gnosis.roll" : gnosis,
           "data.rage.roll" : rage});
       }
