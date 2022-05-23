@@ -23,13 +23,13 @@
     <select name="data.dice2">
         {{#select data.data.dice2}}
             <option value="">- {{localize "wod.labels.power.noability"}} -</option>
-            {{#each config.talents as | name type|}}
+            {{#each config.alltalents as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
-            {{#each config.skills as | name type|}}
+            {{#each config.allskills as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
-            {{#each config.knowledges as | name type|}}
+            {{#each config.allknowledges as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         {{/select}}

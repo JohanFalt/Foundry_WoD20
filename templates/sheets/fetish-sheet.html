@@ -1,13 +1,20 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} werewolfItem" autocomplete="off">
 	
+	{{#iff data.settings.created "==" false}}
 	<input type="hidden" name="img" value="systems/worldofdarkness/assets/img/items/fetish.svg" />
+	{{/iff}}
+
+	<input type="checkbox" name="data.settings.created" checked style="display:none;" />
 
 	<div class="sheet-item">
 		<header class="sheet-header">
 			<div class="top-area">
 				<div class="top-side">
-					<img src="{{item.img}}" /> 
-					<!--<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />-->
+					{{#if isGM}}
+					<img class="profile-img" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+                    {{else}}
+                    <img src="{{item.img}}" />
+                    {{/if}}
 				</div>
 				<div class="top-center top-headline centerText">
 					{{item.name}}

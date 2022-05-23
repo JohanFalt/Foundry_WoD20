@@ -1,0 +1,13 @@
+<div class="pullLeft">
+    {{#iff actor.type "==" "Werewolf"}}
+    <img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/frenzy.svg" data-type="Werewolf" data-rollfrenzy="true" title="{{localize "wod.dialog.checkfrenzy.headline"}}">
+    {{/iff}}
+
+    {{#iff actor.type "==" "Mage"}}
+    <img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/castspell.svg" data-type="Mage" data-rollarete="true" title="{{localize "wod.dialog.aretecasting.castspell"}}">
+    {{/iff}}
+
+    <img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-source="initiative" title="{{localize "wod.info.rollinititative"}}">
+    <img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/soak.svg" data-source="soak" title="{{localize "wod.info.rollsoak"}}">
+    <img class="macroBtn" src="systems/worldofdarkness/assets/img/dice/d10.png" data-source="dices" title="{{localize "wod.info.rolldice"}}">
+</div>

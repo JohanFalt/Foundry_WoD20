@@ -19,7 +19,9 @@
 		<div>
 
 			<div class="attribute-rowheight" style="clear:left;">
-				<label for="data.data.attributes.{{key}}.value" class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
+				<label for="data.data.attributes.{{key}}.value" 
+					class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
+					data-type="Mortal"
 					data-roll="{{attribute.total}}" 
 					data-label="{{key}}" 
 					data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
@@ -44,11 +46,11 @@
 						{{/iff}}
 					</span>
 
-					<span class="resource-value-empty"></span>
+					<span class="resource-value-empty" data-type="Mortal"></span>
 
 					{{#numLoop attribute.max}}
 					
-					<span class="resource-value-step" data-index="{{this}}"></span>
+					<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
 					
 					{{/numLoop}}
 					

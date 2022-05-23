@@ -15,6 +15,7 @@
     <div class="clearareaBox row">
         <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-type="Mortal"
             data-rollitem="true" 
             data-label="{{captilizeFirst item.name}}" 
             data-dice1="{{item.data.dice1}}" 

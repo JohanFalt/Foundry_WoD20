@@ -1,35 +1,67 @@
 import { rollDice } from "./roll-dice.js";
 import { calculateTotals } from "./totals.js";
+import { Rote } from "../dialogs/dialog-aretecasting.js";
+import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
 
 export default class ActionHelper {
+
     static RollDialog(event, actor) {
         console.log("WoD | Mortal Sheet _onRollDialog");
 	
 		event.preventDefault();
 
 		const element = event.currentTarget;
-		const dataset = element.dataset;    
+		const dataset = element.dataset;   
+		let item = false; 
 
 		let hiddenForms = "";
+		let woundedHTML = "";
+		let woundPenaltyVal = 0;
+		let selectorHTML = "";
+		let templateHTML = "";	
+		let difficulty = 6;	
 
 		let attributeVal = 0;
 		let attributeName = "";
 		let abilityVal = 0;
-		let abilityName = "";
-		
-		let wounded = "";
+		let abilityName = "";			
+			
 		let specialty = `<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>`;
 		let selectAbility = "";
-		let difficulty = 6;
-		let selector = "";
-		let template = "";
+			
 		let specialityText = "";
 
-		let woundPenaltyVal = 0;
 
-		const item = getItem(dataset.itemId, actor.data.items);
+		// the new roll system
+		if ((dataset.rollitem == "true") && (dataset.itemId != undefined)) {
+			item = getItem(dataset.itemId, actor.data.items);
 
-		if (!item) {
+			// used a Fetish
+			if (item.data.type == "Fetish") {
+				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.data.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.data.data.gnosis.roll})</strong>`;
+
+				rollDice(
+					CONFIG.handleOnes,
+					parseInt(actor.data.data.gnosis.roll),
+					actor,
+					templateHTML,
+					parseInt(item.data.data.diff),
+					item.data.data.details
+				);
+			}	
+			
+			// used a Rote
+			if (item.data.type == "Rote") {
+				const rote = new Rote(item);
+				let areteCasting = new DialogAreteCasting(actor, rote);
+				areteCasting.render(true);
+
+				return;
+			}
+
+			return;
+		}
+		else if (!item) {
 			// specialityText
 			if (dataset.noability=="true") {
 				if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
@@ -42,6 +74,10 @@ export default class ActionHelper {
 							(actor.data.data.attributes.resolve.speciality != "")) {
 						specialityText = specialityText != "" ? specialityText + ", " + actor.data.data.attributes.resolve.speciality : actor.data.data.attributes.resolve.speciality;
 					}
+
+					if (specialityText == "") {
+						specialty = "";
+					}
 				}
 				// hide speciallity box
 				else {
@@ -51,6 +87,9 @@ export default class ActionHelper {
 			else if (dataset.attribute == "true") {
 				if (actor.data.data.attributes[dataset.label].value >= 4) {
 					specialityText = actor.data.data.attributes[dataset.label].speciality;
+				}
+				else {
+					specialty = "";
 				}
 			}
 			else if (dataset.ability == "true") {
@@ -93,13 +132,19 @@ export default class ActionHelper {
 			if (dataset.rollitem == "true") {
 				let specText1 = "";
 				let specText2 = "";
+				let hasAttributeSpeciality = false;
+
 
 				difficulty = dataset.diff;
 
 				// is dice1 an Attribute
 				if ((actor.data.data?.attributes != undefined) && (actor.data.data.attributes[dataset.dice1]?.value != undefined)) {
 					attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
-					attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
+ 					attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
+
+					if (parseInt(actor.data.data.attributes[dataset.dice1].value) >= 4) {
+						hasAttributeSpeciality = true;
+					}
 				}
 				// is dice1 an Advantage
 				else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
@@ -123,7 +168,7 @@ export default class ActionHelper {
 					abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
 				}	
 
-				if ((actor.data.data?.abilities != undefined) && (attributeVal >= 4)) {
+				if ((actor.data.data?.abilities != undefined) && (hasAttributeSpeciality)) {
 					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
 						specText1 = actor.data.data.attributes[dataset.dice1].speciality;
 					}
@@ -151,6 +196,10 @@ export default class ActionHelper {
 					specialityText = specText2;
 				}
 
+				if (specialityText == "") {
+					specialty = "";
+				}
+
 				hiddenForms += `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
 				hiddenForms += `<input type="hidden" id="attributeName" value="${attributeName}" />`;
 				hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
@@ -159,20 +208,7 @@ export default class ActionHelper {
 				hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
 			}
 		}
-		else if (dataset.rollitem == "true") {
-			if (item.data.type == "Fetish") {
-				rollDice(
-					CONFIG.handleOnes,
-					parseInt(actor.data.data.gnosis.roll),
-					actor,
-					`<h2>${game.i18n.localize("wod.dice.activate")} ${item.data.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.data.data.gnosis.roll})</strong>`,
-					parseInt(item.data.data.diff),
-					item.data.data.details
-				);
-			}			
-
-			return;
-		}
+		
 		
 		// damage
 		if (actor.data.data.health.damage.woundlevel != "") {
@@ -182,11 +218,11 @@ export default class ActionHelper {
 				woundPenaltyVal = actor.data.data.health.damage.woundpenalty;
 			}
 
-			wounded = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${woundPenaltyVal})</div>`
+			woundedHTML = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${woundPenaltyVal})</div>`
 
 			if ((dataset.noability == "true") || (dataset.rolldamage == "true")) {
 				woundPenaltyVal = 0;
-				wounded = "";
+				woundedHTML = "";
 			}
 
 			hiddenForms += `<input type="hidden" id="woundPenalty" value="${woundPenaltyVal}" />`;				
@@ -196,16 +232,16 @@ export default class ActionHelper {
 		if (dataset.rolldamage !="true") {
 			for (let i = 2; i <= 10; i++) {
 				if (i == difficulty) {
-					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
+					selectorHTML += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
 				}
 				else {
-					selector += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
+					selectorHTML += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
 				}
 			}
 		}
 
 		if (dataset.noability=="true") {
-			template = `
+			templateHTML = `
 				<form>
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.modifier")}</label>
@@ -214,14 +250,14 @@ export default class ActionHelper {
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
 						`
-						+ selector + 
+						+ selectorHTML + 
 						`
 					</div>
 					` + specialty + ` ` + specialityText + `</div>
 				</form>`;
 		} 
 		else if (dataset.rolldamage=="true") {
-			template = `
+			templateHTML = `
 				<form>
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.modifier")}</label>
@@ -230,7 +266,7 @@ export default class ActionHelper {
 				</form>`;
 		}
 		else {
-			template = `
+			templateHTML = `
 				<form>
 					`
 					+ hiddenForms + selectAbility + 
@@ -242,10 +278,10 @@ export default class ActionHelper {
 					<div class="form-group">
 						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
 						`
-						+ selector + 
+						+ selectorHTML + 
 						`
 					</div>
-					` + wounded + 
+					` + woundedHTML + 
 					`<div>` + specialty + ` <span id="specialityText">` + specialityText + `</span></div>
 				</form>`;
 		}		
@@ -263,10 +299,11 @@ export default class ActionHelper {
 					let abilityVal = 0;
 					let abilityName = "";					
 					let numDice = 0;
-					let diceUsed = "";
+					let rollHTML = "";
 					let specialityText = "";
 					let systemText = "";
 					let handlingOnes = true;
+					let hasAttributeSpeciality = false;
 
 					const modifier = parseInt(html.find("#inputMod")[0]?.value || 0);
 					let modifierText = "";
@@ -292,10 +329,14 @@ export default class ActionHelper {
 						attribute = html.find("#attributeSelect")[0]?.value;
 						attributeVal = parseInt(actor.data.data.attributes[attribute].total);
 
-						if ((attributeVal >= 4) && (parseInt(dataset.roll) >= 4)) {
+						if (parseInt(actor.data.data.attributes[attribute].value) >= 4) {
+							hasAttributeSpeciality = true;
+						}
+
+						if ((hasAttributeSpeciality) && (parseInt(dataset.roll) >= 4)) {
 							specialityText = actor.data.data.attributes[attribute].speciality + ", " + dataset.speciality;
 						}
-						else if (attributeVal >= 4) {
+						else if (hasAttributeSpeciality) {
 							specialityText = actor.data.data.attributes[attribute].speciality;
 						}
 						else if (parseInt(dataset.roll) >= 4) {
@@ -315,7 +356,7 @@ export default class ActionHelper {
 						}
 
 						numDice = attributeVal + parseInt(dataset.roll) + modifier;
-						diceUsed = `<h2>${abilityName}</h2> <strong>${abilityName} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}</strong>`;
+						rollHTML = `<h2>${abilityName}</h2> <strong>${abilityName} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}</strong>`;
 					} 
 					else if (dataset.attribute == "true") {
 						attribute = dataset.label.toLowerCase();
@@ -323,13 +364,12 @@ export default class ActionHelper {
 						specialityText = dataset.speciality;
 						attributeName = game.i18n.localize(actor.data.data.attributes[attribute].label);
 						numDice = parseInt(dataset.roll) + modifier;
-						//diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
-						diceUsed = `<h2>${attributeName}</h2> <strong>${attributeName} (${dataset.roll}) ${modifierText}</strong>`;
+						rollHTML = `<h2>${attributeName}</h2> <strong>${attributeName} (${dataset.roll}) ${modifierText}</strong>`;
 					}
 					else if (dataset.noability == "true") {
 						//woundPenaltyVal = 0;
 						numDice = parseInt(dataset.roll) + modifier;
-						diceUsed = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
+						rollHTML = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
 
 						if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
 							if ((parseInt(actor.data.data.attributes?.composure.value) >= 4) && (parseInt(actor.data.data.attributes?.resolve.value) >= 4)) {
@@ -356,19 +396,19 @@ export default class ActionHelper {
 						
 						numDice = attributeVal + abilityVal + modifier;
 
-						const rollType = (dataset.type == "attack") ? "(attack)" : "";
+						const rollType = (dataset.rollattack == "true") ? "(attack)" : "";
 
-						diceUsed = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal})`;
+						rollHTML = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal})`;
 
 						if (abilityName != "") {
-							diceUsed += ` + ${abilityName} (${abilityVal})`;
+							rollHTML += ` + ${abilityName} (${abilityVal})`;
 						}
 
-						diceUsed += ` ${modifierText}</strong>`;
+						rollHTML += ` ${modifierText}</strong>`;
 					}	
 					else if (dataset.rolldamage=="true") {
 						let bonusVal = parseInt(dataset.dice2);
-						let damageCode = game.i18n.localize(CONFIG.wod.damageTypes[dataset.type]);
+						let damageCode = game.i18n.localize(CONFIG.wod.damageTypes[dataset.damagetype]);
 
 						//woundPenaltyVal = 0;
 						difficulty = 6;
@@ -378,10 +418,10 @@ export default class ActionHelper {
 						handlingOnes = false;
 						
 						if (attributeVal > 0) {
-							diceUsed = `<h2>${dataset.label} (damage)</h2> <strong>${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
+							rollHTML = `<h2>${dataset.label} (damage)</h2> <strong>${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
 						}
 						else {
-							diceUsed = `<h2>${dataset.label} (damage)</h2> <strong>${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
+							rollHTML = `<h2>${dataset.label} (damage)</h2> <strong>${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
 						}
 					}	
 					
@@ -389,7 +429,7 @@ export default class ActionHelper {
 						handlingOnes,
 						numDice,
 						actor,
-						diceUsed,
+						rollHTML,
 						difficulty,
 						systemText,
 						specialty,
@@ -406,11 +446,13 @@ export default class ActionHelper {
 
 		new Dialog({      
 			title: game.i18n.localize("wod.labels.rolling") + ` ${dataset.label}...`,
-			content: template,
+			content: templateHTML,
 			buttons: buttons,
 			default: "draw",
 		}).render(true);
     }
+
+	
 
 	static async RollInitiative(event, actor) {
 		event.preventDefault();		
@@ -442,7 +484,7 @@ export default class ActionHelper {
 		init += parseInt(parseInt(actor.data.data.initiative.total));
 
 		if ((foundToken) && (foundEncounter)) {
-			if (!this.inTurn(token)) {
+			if (!this._inTurn(token)) {
 				await token.toggleCombat();
 
 				if (token.combatant.data.initiative == undefined) {      
@@ -478,20 +520,20 @@ export default class ActionHelper {
 		});
 		
 		if (!foundEncounter) {
-			message += "<em>No encounter found in Combat Tracker</em>";			
+			message += "<em>"+game.i18n.localize("wod.dice.noencounterfound")+"</em>";			
 		}
 		else {
 			if (!foundToken) {
-				message += "<em>No Token found in scene</em><br />";				
+				message += "<em>"+game.i18n.localize("wod.dice.notokenfound")+"</em><br />";				
 			}
 			else {
 				if (!tokenAdded) {
-					message += "<em>Character already added to Combat Tracker</em><br />";
+					message += "<em>"+game.i18n.localize("wod.dice.characteradded")+"</em><br />";
 					label = "";
 					init = "";
 				}
 				if (!rolledInitiative) {
-					message += "<em>" + actor.data.name + " has initiative already</em><br />";
+					message += "<em>" + actor.data.name + " "+game.i18n.localize("wod.dice.initiativealready")+"</em><br />";
 					label = "";
 					init = "";
 				}
@@ -505,14 +547,14 @@ export default class ActionHelper {
 			message = "<br />" + message;
 		}
 
-		this.printMessage('', '<h2>Rolling Initiative</h2>' + init + label + message, actor);			
+		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2>' + init + label + message, actor);			
 	}
 
 	static RollSoak(event, actor) {
 		event.preventDefault();
 
 		let buttons = {};
-		let template = `<form>
+		let templateHTML = `<form>
 							<div style="margin-bottom: 25px;">
 								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.modifier")}</div>
 								<input type="text" id="inputMod" value="0" autofocus />
@@ -529,9 +571,9 @@ export default class ActionHelper {
 			draw: {
 				icon: '<i class="fas fa-check"></i>',
 				label: game.i18n.localize("wod.dice.roll"),
-				callback: async (template) => {
-					const damageType = template.find("#damageType:checked")[0]?.value;
-					const bonus = parseInt(template.find("#inputMod")[0]?.value);
+				callback: async (templateHTML) => {
+					const damageType = templateHTML.find("#damageType:checked")[0]?.value;
+					const bonus = parseInt(templateHTML.find("#inputMod")[0]?.value);
 					const dice = parseInt(actor.data.data.soak[damageType]) + parseInt(bonus);
 					let successes = 0;
 					let label = "";
@@ -568,7 +610,7 @@ export default class ActionHelper {
 						label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
 					});
 
-					this.printMessage('', '<h2>Rolling Soak</h2><strong>' + damageType + '<br />Successes:</strong> ' + successes + '<br />' + label, actor);
+					this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollingsoak")+'</h2><strong>' + damageType + '<br />'+game.i18n.localize("wod.dice.successes")+':</strong> ' + successes + '<br />' + label, actor);
 				},
 			},
 			cancel: {
@@ -579,24 +621,49 @@ export default class ActionHelper {
 
 		new Dialog({      
 			title: game.i18n.localize("wod.labels.rolling"),
-			content: template,
+			content: templateHTML,
 			buttons: buttons,
 			default: "draw",
 		}).render(true);    
 	}
 
+	static RollParadox(event, actor) {
+		event.preventDefault();
+
+		const numDice = parseInt(actor.data.data.paradox.roll);
+		const difficulty = 6;
+		let handlingOnes = true;
+		let rollHTML = `<h2>${game.i18n.localize("wod.advantages.paradox")}</h2>`;
+		rollHTML += `${game.i18n.localize("wod.advantages.paradox")} (${actor.data.data.paradox.roll})`;
+
+		try {
+			handlingOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+		} 
+		catch (e) {
+			handlingOnes = true;
+		}
+
+		rollDice(
+			handlingOnes,
+			numDice,
+			actor,
+			rollHTML,
+			difficulty					
+		); 
+	}
+
 	static RollDices(event, actor) {
 		event.preventDefault();
 
-		let selector = "";
+		let selectorHTML = "";
 		let diceselector = "";
 
 		for (let i = 3; i <= 10; i++) {
 			if (i == 6) {
-				selector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input></span>`;
+				selectorHTML += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input></span>`;
 			}
 			else {
-				selector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input></span>`;
+				selectorHTML += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input></span>`;
 			}
 		}
 
@@ -613,11 +680,8 @@ export default class ActionHelper {
 			}
 		}
 
-		//<label>${game.i18n.localize("wod.labels.numdices")}</label>
-		//<input type="text" id="dices" value="0" autofocus />
-
 		let buttons = {};
-		let template = `<form>
+		let templateHTML = `<form>
 							<div style="margin-bottom: 25px;">
 								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.numdices")}</div>
 								`
@@ -627,7 +691,7 @@ export default class ActionHelper {
 							<div style="margin-bottom: 25px;">
 								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.difficulty")}</div>
 								`
-								+ selector + 
+								+ selectorHTML + 
 								`
 							</div> 
 							<div style="margin-bottom: 25px;">
@@ -639,11 +703,10 @@ export default class ActionHelper {
 			draw: {
 				icon: '<i class="fas fa-check"></i>',
 				label: game.i18n.localize("wod.dice.roll"),
-				callback: async (template) => {
-					//const numDice = parseInt(template.find("#dices")[0]?.value);
-					const numDice = parseInt(template.find("#dices:checked")[0]?.value || 3);
-					let difficulty = parseInt(template.find("#inputDif:checked")[0]?.value || 0);
-					const specialty = template.find("#specialty")[0]?.checked || false;
+				callback: async (templateHTML) => {
+					const numDice = parseInt(templateHTML.find("#dices:checked")[0]?.value || 3);
+					let difficulty = parseInt(templateHTML.find("#inputDif:checked")[0]?.value || 0);
+					const specialty = templateHTML.find("#specialty")[0]?.checked || false;
 					let handlingOnes = true;
 
 					try {
@@ -653,11 +716,13 @@ export default class ActionHelper {
 						handlingOnes = true;
 					}
 
+					let rollHTML = `<h2>${game.i18n.localize("wod.dice.rollingdice")}</h2>`;
+
 					rollDice(
 						handlingOnes,
 						numDice,
 						actor,
-						game.i18n.localize("wod.dice.rollingdice"),
+						rollHTML,
 						difficulty,
 						specialty						
 					);
@@ -671,13 +736,13 @@ export default class ActionHelper {
 		
 		new Dialog({      
 			title: game.i18n.localize("wod.labels.rolling"),
-			content: template,
+			content: templateHTML,
 			buttons: buttons,
 			default: "draw",
 		}).render(true);  
 	}
 
- 	static inTurn(token) {
+ 	static _inTurn(token) {
 		for (let count = 0; count < game.combat.combatants.size; count++) {
 			if (token.id == game.combat.combatants.contents[count].token.id) {
 				return true;
@@ -687,7 +752,7 @@ export default class ActionHelper {
 		return false;
 	}
 
-    static handleCalculations(actorData) {		
+    static _handleCalculations(actorData) {		
 
 		let advantageRollSetting = true;
 
@@ -817,6 +882,13 @@ export default class ActionHelper {
 		}
 	}	
 
+	static handleMageCalculations(actorData) {
+		console.log("WoD | handleMageCalculations");
+
+		actorData.data.arete.roll = parseInt(actorData.data.arete.permanent);
+		actorData.data.paradox.roll = parseInt(actorData.data.paradox.temporary) + parseInt(actorData.data.paradox.permanent);
+	}	
+
 	static printMessage(headline, message, actor){
 		message = headline + message;
 		message = message.replaceAll("'", '"');
@@ -843,7 +915,8 @@ export default class ActionHelper {
 		}
 
 		return ignoresPain;
-	}
+	}	
+
 	
 
 	static _setMortalAbilities(actor) {
@@ -1077,6 +1150,10 @@ export default class ActionHelper {
 		for (const knowledge in CONFIG.wod.allknowledges) {
 			actor.data.abilities.knowledge[knowledge].visible = false;
 		}		
+	}
+
+	static _setMageAttributes(actor) {
+		
 	}
 
 	

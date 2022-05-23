@@ -12,6 +12,11 @@ export class SpiritActorSheet extends ActorSheet {
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
 				initial: "core",
+			},
+			{
+				navSelector: ".sheet-setting-tabs",
+				contentSelector: ".sheet-setting-body",
+				initial: "attributes",
 			}]
 		});
 	}
@@ -90,6 +95,11 @@ export class SpiritActorSheet extends ActorSheet {
 		super.activateListeners(html);
 		this._setupDotCounters(html);
 
+		// Rollable stuff
+		html
+			.find(".vrollable")
+			.click(this._onRollSpiritDialog.bind(this));
+
 		// ressource dots
 		html
 			.find(".resource-value > .resource-value-step")
@@ -104,12 +114,7 @@ export class SpiritActorSheet extends ActorSheet {
 			.click(this._onDotCounterChange.bind(this));
 		html
 			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterEmpty.bind(this));
-
-		// Rollable stuff
-		html
-			.find(".vrollable")
-			.click(this._onRollDialog.bind(this));
+			.click(this._onDotCounterEmpty.bind(this));		
 
 		html
 			.find(".macroBtn")
@@ -121,8 +126,20 @@ export class SpiritActorSheet extends ActorSheet {
 			.click(this._onSendChat.bind(this));
 	}
 
-	_onRollDialog(event) {		
-		ActionHelper.RollDialog(event, this.actor);		
+	_onRollSpiritDialog(event) {		
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		if ((dataset.label == "Rage") || (dataset.label == "Gnosis") || (dataset.label == "Willpower")) {
+			// todo
+			// helt ok!
+		}
+		else if (dataset.type != "Spirit") {
+			return;
+		}
+
+		ActionHelper.RollDialog(event, this.actor);
 	}
 
 	_onSendChat(event) {

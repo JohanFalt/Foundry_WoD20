@@ -12,6 +12,11 @@ export class CreatureActorSheet extends MortalActorSheet {
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
 				initial: "core",
+			},
+			{
+				navSelector: ".sheet-setting-tabs",
+				contentSelector: ".sheet-setting-body",
+				initial: "attributes",
 			}]
 		});
 	}
@@ -82,6 +87,11 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Creature Sheet activateListeners");
 
+		// Rollable stuff
+		html
+			.find(".vrollable")
+			.click(this._onRollCreatureDialog.bind(this));
+
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterCreatureChange.bind(this));
@@ -96,6 +106,22 @@ export class CreatureActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-counter > .resource-value-empty")
 			.click(this._onDotCounterCreatureEmpty.bind(this));
+	}
+
+	_onRollCreatureDialog(event) {		
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		if ((dataset.label == "Rage") || (dataset.label == "Gnosis")) {
+			// todo
+			// helt ok!
+		}
+		else if (dataset.type != "Creature") {
+			return;
+		}
+
+		ActionHelper.RollDialog(event, this.actor);
 	}
 
 	_onDotCounterCreatureEmpty(event) {
@@ -129,7 +155,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 			this._onDotCounterEmpty(event);		
 		}		
 	}
-	
+
 	_onDotCounterCreatureChange(event) {
 		console.log("WoD | Creature Sheet _onDotCounterCreatureChange");
 		
@@ -190,7 +216,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}
 		}
 		
-		ActionHelper.handleCalculations(actorData);
+		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWerewolfCalculations(actorData);
 		
 		console.log("WoD | Creature Sheet updated");

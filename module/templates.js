@@ -18,6 +18,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/abilities_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/conditions.html",
+		"systems/worldofdarkness/templates/actor/parts/macro_icons.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_natural.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_ranged.html",
@@ -32,6 +33,14 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
 		"systems/worldofdarkness/templates/actor/parts/notes.html",
 		"systems/worldofdarkness/templates/actor/parts/settings.html",
+
+		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/stats_quintessence.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/combat_active.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ajaba_background.html",
@@ -58,6 +67,8 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_rokea_renown.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
 
+		"systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html",
+
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ajaba.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ananasi.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_bastet.html",
@@ -70,6 +81,9 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ratkin.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_rokea.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",
+		
+
+		"systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
 		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",
@@ -88,6 +102,8 @@ export const preloadHandlebarsTemplates = async function () {
 };
 
 export const registerHandlebarsHelpers = function () {
+
+	/* Is used to error handling in html */
 	Handlebars.registerHelper("logg", function(variable, options) {
 		console.log(variable);
 	});
@@ -102,6 +118,26 @@ export const registerHandlebarsHelpers = function () {
 		let ret = "";
 
 		for (let i = 0, j = num; i < j; i++) {
+			ret = ret + options.fn(i);
+		}
+
+		return ret;
+	});
+
+	Handlebars.registerHelper("numFromLoop", function (from, num, options) {
+		let ret = "";
+
+		for (let i = from; i <= num; i++) {
+			ret = ret + options.fn(i);
+		}
+
+		return ret;
+	});
+
+	Handlebars.registerHelper("numDownToLoop", function (from, num, options) {
+		let ret = "";
+
+		for (let i = from; i >= num; i--) {
 			ret = ret + options.fn(i);
 		}
 
@@ -241,6 +277,28 @@ export const registerHandlebarsHelpers = function () {
 		}
 	});
 
+	Handlebars.registerHelper("topSpheres", function (sphere) {
+		var list = ["correspondence","life","prime"];
+
+		if (list.includes(sphere)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	});
+
+	Handlebars.registerHelper("bottenSpheres", function (sphere) {
+		var list = ["forces","mind","time"];
+
+		if (list.includes(sphere)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	});
+
 	Handlebars.registerHelper("damageState", function (healthLevel, healthStates, index) {
 		let num = 0;
 		let oldHealthLevel = "";
@@ -261,6 +319,28 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return "";
+	});
+
+	Handlebars.registerHelper("quintessenceWheel", function (quintessence, paradox, index) {
+		let state = "";
+		const square = index + 1;
+
+		if ((paradox.permanent > 0) && (20 - paradox.permanent  < square)) {
+			state = "*";
+			return state;
+		}
+
+		if ((paradox.temporary > 0) && (20 - (paradox.permanent + paradox.temporary) < square)) {
+			state = "x";
+			return state;
+		}
+
+		if ((quintessence.temporary > 0) && (square <= quintessence.temporary))  {
+			state = "Ψ";
+			return state;
+		}
+
+		return state;
 	});
 
 	Handlebars.registerHelper("captilizeFirst", function (text) {

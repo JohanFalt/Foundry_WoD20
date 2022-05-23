@@ -18,6 +18,7 @@
 		<div class="clearareaBox">
 			<label for="data.data.abilities.talent.{{key}}.value" 
 				class="vrollable pullLeft ability-headlineWidth headlineNormal" 
+				data-type="Mortal"
 				data-roll="{{ability.value}}" 
 				data-label="{{key}}" 
 				data-speciality="{{#iff ability.value ">=" 4}}{{ability.speciality}}{{/iff}}"
@@ -26,11 +27,11 @@
 				data-value="{{ability.value}}" 
 				data-name="data.abilities.talent.{{key}}.value">
 
-				<span class="resource-value-empty"></span>
+				<span class="resource-value-empty" data-type="Mortal"></span>
 
 				{{#numLoop ability.max}}
 				
-				<span class="resource-value-step" data-index="{{this}}"></span>
+				<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
@@ -48,6 +49,7 @@
 		<div class="clearareaBox">
 			<label for="data.data.abilities.skill.{{key}}.value" 
 				class="vrollable pullLeft ability-headlineWidth headlineNormal" 
+				data-type="Mortal"
 				data-roll="{{ability.value}}" 
 				data-label="{{key}}" 
 				data-speciality="{{#iff ability.value ">=" 4}}{{ability.speciality}}{{/iff}}"
@@ -56,11 +58,11 @@
 				data-value="{{ability.value}}" 
 				data-name="data.abilities.skill.{{key}}.value">
 
-				<span class="resource-value-empty"></span>
+				<span class="resource-value-empty" data-type="Mortal"></span>
 
 				{{#numLoop ability.max}}
 				
-				<span class="resource-value-step" data-index="{{this}}"></span>
+				<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
@@ -79,6 +81,7 @@
 		<div class="clearareaBox">
 			<label for="data.data.abilities.knowledge.{{key}}.value" 
 				class="vrollable pullLeft ability-headlineWidth headlineNormal" 
+				data-type="Mortal"
 				data-roll="{{ability.value}}" 
 				data-label="{{key}}" 
 				data-speciality="{{#iff ability.value ">=" 4}}{{ability.speciality}}{{/iff}}"
@@ -87,11 +90,11 @@
 				data-value="{{ability.value}}" 
 				data-name="data.abilities.knowledge.{{key}}.value">
 				
-				<span class="resource-value-empty"></span>
+				<span class="resource-value-empty" data-type="Mortal"></span>
 
 				{{#numLoop ability.max}}
 				
-				<span class="resource-value-step" data-index="{{this}}"></span>
+				<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				

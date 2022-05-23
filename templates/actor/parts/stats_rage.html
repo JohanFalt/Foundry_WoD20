@@ -1,4 +1,5 @@
 <div class="sheet-headline vrollable" 
+	data-type="Werewolf"
 	data-roll="{{data.data.rage.roll}}" 
 	data-label="{{localize data.data.rage.label}}" 
 	data-noability="true">{{localize 'wod.advantages.rage'}}</div>
@@ -7,21 +8,21 @@
 
 	{{#numLoop data.data.rage.max}}
 	
-	<span class="resource-value-step" data-index="{{this}}"></span>
+	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}"></span>
 	
 	{{/numLoop}}
 	
 </div>
 
 <div class="resource-counter tempSquareRow" data-value="{{data.data.rage.temporary}}" data-name="data.data.rage.temporary">
-	<span class="resource-value-empty"></span>
+	<span class="resource-value-empty" data-type="Werewolf"></span>
 
 	{{#numLoop data.data.rage.max}}
 	
 	{{#le ../data.data.rage.temporary this}}
-	<span class="resource-value-step" data-index="{{this}}" data-state=""></span>
+	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state=""></span>
 	{{else}}
-	<span class="resource-value-step" data-index="{{this}}" data-state="x"></span>
+	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state="x"></span>
 	{{/le}}
 	
 	{{/numLoop}}

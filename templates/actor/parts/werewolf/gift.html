@@ -27,6 +27,7 @@
     <div class="clearareaBox row">
         <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-type="Werewolf"
             data-rollitem="true" 
             data-label="{{captilizeFirst item.name}}" 
             data-dice1="{{item.data.dice1}}" 
@@ -101,6 +102,7 @@
     <div class="clearareaBox row">
         <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-type="Werewolf"
             data-rollitem="true" 
             data-label="{{captilizeFirst item.name}}" 
             data-dice1="{{item.data.dice1}}" 
@@ -176,6 +178,7 @@
     <div class="clearareaBox row">
         <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-type="Werewolf"
             data-rollitem="true" 
             data-label="{{captilizeFirst item.name}}" 
             data-dice1="{{item.data.dice1}}" 
@@ -252,6 +255,7 @@
     <div class="clearareaBox row">
         <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-type="Werewolf"
             data-rollitem="true" 
             data-label="{{captilizeFirst item.name}}" 
             data-dice1="{{item.data.dice1}}" 
@@ -328,6 +332,7 @@
     <div class="clearareaBox row">
         <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
+            data-type="Werewolf"
             data-rollitem="true" 
             data-label="{{captilizeFirst item.name}}" 
             data-dice1="{{item.data.dice1}}" 
@@ -398,12 +403,13 @@
 
     <div class="clearareaBox row">
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
-                data-rollitem="true" 
-                data-label="{{captilizeFirst item.name}}" 
-                data-dice1="{{item.data.dice1}}" 
-                data-dice2="{{item.data.dice2}}" 
-                data-diff="{{item.data.difficulty}}"
-                data-system="{{item.data.system}}">{{captilizeFirst item.name}}</div>
+            data-type="Werewolf"
+            data-rollitem="true" 
+            data-label="{{captilizeFirst item.name}}" 
+            data-dice1="{{item.data.dice1}}" 
+            data-dice2="{{item.data.dice2}}" 
+            data-diff="{{item.data.difficulty}}"
+            data-system="{{item.data.system}}">{{captilizeFirst item.name}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
         <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize (getAbility item.data.dice2)}}{{else}}&nbsp;{{/iff}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">

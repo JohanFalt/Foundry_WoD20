@@ -17,6 +17,11 @@ export class MortalActorSheet extends ActorSheet {
 				navSelector: ".sheet-spec-tabs",
 				contentSelector: ".sheet-spec-body",
 				initial: "normal",
+			},
+			{
+				navSelector: ".sheet-setting-tabs",
+				contentSelector: ".sheet-setting-body",
+				initial: "attributes",
 			}]
 		});
 	}
@@ -219,6 +224,14 @@ export class MortalActorSheet extends ActorSheet {
 	}
 	
 	_onRollDialog(event) {		
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		if (dataset.type != "Mortal") {
+			return;
+		}
+
 		ActionHelper.RollDialog(event, this.actor);		
 	}
 
@@ -285,16 +298,16 @@ export class MortalActorSheet extends ActorSheet {
 				});
 		});
 		
-		html.find(".resource-value-static").each(function () {
-			const value = Number(this.dataset.value);
-			$(this)
-				.find(".resource-value-static-step")
-				.each(function (i) {
-					if (i + 1 <= value) {
-						$(this).addClass("active");
-					}
-				});
-		});
+		// html.find(".resource-value-static").each(function () {
+		// 	const value = Number(this.dataset.value);
+		// 	$(this)
+		// 		.find(".resource-value-static-step")
+		// 		.each(function (i) {
+		// 			if (i + 1 <= value) {
+		// 				$(this).addClass("active");
+		// 			}
+		// 		});
+		// });
 	}
   
 	_onDotCounterChange(event) {
@@ -304,24 +317,34 @@ export class MortalActorSheet extends ActorSheet {
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
+		const type = dataset.type;
+
+		if (type != "Mortal") {
+			return;
+		}
+		
 		const index = Number(dataset.index);
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
 		const fields = fieldStrings.split(".");
 		const steps = parent.find(".resource-value-step");
 
-		if ((fieldStrings == "data.data.rage.temporary") ||
-			(fieldStrings == "data.data.gnosis.temporary") ||
-			(fieldStrings == "data.data.bloodpool.temporary") ||
-			(fields[2] == "health")) {
+		// if ((fieldStrings == "data.data.rage.temporary") ||
+		// 	(fieldStrings == "data.data.gnosis.temporary") ||
+		// 	(fieldStrings == "data.data.bloodpool.temporary") ||
+		// 	(fields[2] == "health") || 
+		// 	(fields[2] == "quintessence")) {
+		// 	return;
+		// }
+		if (fields[2] == "health") {
 			return;
 		}
 		if ((this.locked) && (fieldStrings != "data.data.willpower.temporary")) {
-			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
-			return;
+		 	ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+		 	return;
 		}
 		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.attributeSettings == "5th")) {
-			ui.notifications.info('Willpower is based on Composure + Resolve and can not be altered!');	
+			ui.notifications.error('Willpower is based on Composure + Resolve and can not be altered!');	
 			return;
 		}
 
@@ -346,14 +369,20 @@ export class MortalActorSheet extends ActorSheet {
 		event.preventDefault();
 
 		const element = event.currentTarget;
+		const dataset = element.dataset;
+		const type = dataset.type;
+
+		if (type != "Mortal") {
+			return;
+		}		
+
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
 		const fields = fieldStrings.split(".");
 		const steps = parent.find(".resource-value-empty");
 		
 		if (this.locked) {
-			//console.log("WoD | Sheet locked aborts");	
-			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
@@ -367,7 +396,6 @@ export class MortalActorSheet extends ActorSheet {
 		
 		this._assignToActorField(fields, 0);
 	}
-
 	
 	_onSquareCounterChange(event) {
 		console.log("WoD | Update Health Levels");
@@ -403,18 +431,18 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		if (parseInt(actorData.data.health.damage.bashing) < 0) {
-			parseInt(actorData.data.health.damage.bashing) = 0;
+			actorData.data.health.damage.bashing = 0;
 		}
 
 		if (parseInt(actorData.data.health.damage.lethal) < 0) {
-			parseInt(actorData.data.health.damage.lethal) = 0;
+			actorData.data.health.damage.lethal = 0;
 		}
 
 		if (parseInt(actorData.data.health.damage.aggravated) < 0) {
-			parseInt(actorData.data.health.damage.aggravated) = 0;
+			actorData.data.health.damage.aggravated = 0;
 		}
 
-		ActionHelper.handleCalculations(actorData);
+		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		this.actor.update(actorData);
@@ -442,7 +470,7 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.data.health.damage.aggravated = parseInt(actorData.data.health.damage.aggravated) - 1;
 		}
 
-		ActionHelper.handleCalculations(actorData);
+		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		this.actor.update(actorData);
@@ -451,7 +479,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _onItemEdit(event) {
 		if (this.locked) {
 			//console.log("WoD | Sheet locked aborts");	
-			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
@@ -491,7 +519,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _onItemDelete(event) {
 		if (this.locked) {
 			//console.log("WoD | Sheet locked aborts");	
-			ui.notifications.info(game.i18n.localize("wod.system.sheetlocked"));
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
@@ -578,7 +606,7 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 
-		ActionHelper.handleCalculations(actorData);
+		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		// if Willpower has been changed then Difference between Rage and Willpower need to be recalculated

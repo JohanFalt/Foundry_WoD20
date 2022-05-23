@@ -1,0 +1,15 @@
+<div class="sheet-headline sheet-headlineQuintessence">{{localize 'wod.advantages.quintessence'}}</div>
+
+<div class="quintessence">
+    <div class="resource-counter" data-name="data.data.quintessence">
+    {{#numLoop 20}}
+            
+        <span class="resource-value-step quintessence wheel-{{this}}" data-type="Mage" data-index="{{this}}" data-state="{{quintessenceWheel ../data.data.quintessence ../data.data.paradox this}}"></span>
+            
+    {{/numLoop}}
+    </div>
+</div>
+
+<div class="sheet-headline sheet-headlineParadox vrollable" 
+    data-type="Mage"
+    data-rollparadox="true" >{{localize 'wod.advantages.paradox'}}</div>

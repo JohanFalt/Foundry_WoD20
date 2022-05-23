@@ -17,6 +17,11 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				navSelector: ".sheet-spec-tabs",
 				contentSelector: ".sheet-spec-body",
 				initial: "normal",
+			},
+			{
+				navSelector: ".sheet-setting-tabs",
+				contentSelector: ".sheet-setting-body",
+				initial: "attributes",
 			}]
 		});
 	}
@@ -54,6 +59,8 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const powerlist5 = [];
 		const powercombat = [];
 		const ritelist = [];
+		const fetishlist = [];
+		const talenlist = [];
 		const other = [];
 		let presentform = "";
 
@@ -119,6 +126,17 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				}
 				else {
 					other.push(i);
+				}			
+			}
+			if (i.type == "Fetish") {
+				if (i.data.type == "wod.types.fetish") {
+					fetishlist.push(i);
+				}
+				else if (i.data.type == "wod.types.talen") {
+					talenlist.push(i);
+				}	
+				else {
+					other.push(i);
 				}
 			}
 		}
@@ -131,11 +149,15 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		data.actor.powerlist5 = powerlist5;
 		data.actor.powercombat = powercombat;
 		data.actor.ritelist = ritelist;
+		data.actor.fetishlist = fetishlist;
+		data.actor.talenlist = talenlist;
 
 		data.actor.other = other;	
 
-		console.log("Changing Breed");
-		console.log(data.actor);
+		if (actorData.type == "Changing Breed") {
+			console.log("Changing Breed");
+			console.log(data.actor);
+		}
 
 		return data;
 	}
@@ -152,6 +174,11 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		super.activateListeners(html);
 
 		console.log("WoD | Changing Breed Sheet activateListeners");
+
+		// Rollable stuff
+		html
+			.find(".vrollable")
+			.click(this._onRollWerewolfDialog.bind(this));
 		
 		html
 			.find(".resource-value > .resource-value-step")
@@ -174,11 +201,31 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			.click(this._onShiftForm.bind(this));
 	}
 
+	_onRollWerewolfDialog(event) {		
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		if (dataset.type != "Werewolf") {
+			return;
+		}
+
+		ActionHelper.RollDialog(event, this.actor);
+	}
+
 	_onDotCounterWerewolfEmpty(event) {
 		console.log("WoD | Changing Breed Sheet _onDotCounterEmpty");
 		
 		event.preventDefault();
+
 		const element = event.currentTarget;
+		const dataset = element.dataset;
+		const type = dataset.type;
+
+		if (type != "Werewolf") {
+			return;
+		}
+
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
 		const fields = fieldStrings.split(".");
@@ -196,14 +243,12 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			}
 		});
 		
-		if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "bloodpool") || (fields[2] === "renown"))
-		{
-			this._assignToWerewolf(fields, 0);
-		}
-		else
-		{
-			this._onDotCounterEmpty(event);		
-		}		
+		// if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "bloodpool") || (fields[2] === "renown"))
+		// {
+		// 	this._assignToWerewolf(fields, 0);
+		// }	
+
+		this._assignToWerewolf(fields, 0);
 	}
 	
 	_onDotCounterWerewolfChange(event) {
@@ -212,6 +257,12 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
+		const type = dataset.type;
+
+		if (type != "Werewolf") {
+			return;
+		}
+
 		const index = Number(dataset.index);
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
@@ -243,9 +294,11 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			}
 		});
 
-		if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "bloodpool") || (fields[2] === "renown")) {
-			this._assignToWerewolf(fields, index + 1);
-		}
+		// if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "bloodpool") || (fields[2] === "renown")) {
+		// 	this._assignToWerewolf(fields, index + 1);
+		// }
+
+		this._assignToWerewolf(fields, index + 1);
 	}
 
 	_onShiftForm(event) {
@@ -256,7 +309,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (actorData.type != "Changing Breed") {
-			ui.notifications.info('Not Changing Breed aborts!');
+			ui.notifications.error('Not Changing Breed aborts!');
 			return
 		}
 
@@ -275,7 +328,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			}			
 		}		
 
-		ActionHelper.handleCalculations(actorData);
+		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWerewolfCalculations(actorData);
 
 		console.log("WoD | Changing Breed Sheet updated");
@@ -320,7 +373,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			}
 		}
 		
-		ActionHelper.handleCalculations(actorData);
+		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWerewolfCalculations(actorData);
 		
 		console.log("WoD | Werewolf Sheet updated");

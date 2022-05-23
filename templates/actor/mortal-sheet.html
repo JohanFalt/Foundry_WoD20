@@ -6,7 +6,11 @@
 		
 		{{!-- Always visible --}}
 		<header class="sheet-header">		
-			{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}							
+			<div class="clearareaBox">
+				<div class="pullLeft">
+					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+				</div>
+			</div>
 		</header>	
 
 		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}			
@@ -30,6 +34,11 @@
 				</nav>
 
 				<section class="sheet-spec-body">
+
+					<div class="sheet-area clearareaBox">
+						{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
+					</div>
+					
 					<div class="tab normal" data-group="secondary" data-tab="normal">
 				
 						<div class="sheet-area">

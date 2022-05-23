@@ -48,6 +48,7 @@
 							<div class="clearareaBox area-box" style="width: 100%; text-align: center;">
 
 								{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+								{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
 								
 							</div>
 						</div>
@@ -67,11 +68,10 @@
 
 										{{#numLoop data.data.essence.max}}
 										
-										<!--<span class="resource-value-step" data-index="{{this}}"></span>-->
 										{{#le ../data.data.essence.temporary this}}
-										<span class="resource-value-step checkboxgroup" data-index="{{this}}" data-state=""></span>
+										<span class="resource-value-step checkboxgroup" data-type="Spirit" data-index="{{this}}" data-state=""></span>
 										{{else}}
-										<span class="resource-value-step checkboxgroup" data-index="{{this}}" data-state="x"></span>
+										<span class="resource-value-step checkboxgroup" data-type="Spirit" data-index="{{this}}" data-state="x"></span>
 										{{/le}}
 										
 										{{/numLoop}}

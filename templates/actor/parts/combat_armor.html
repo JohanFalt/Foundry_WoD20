@@ -10,10 +10,10 @@
 <div>
     <!--<div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.armor.active"}}</div>-->
     <div class="pullLeft combat-mediumBox headlineList">{{localize "wod.combat.armor.armor"}}</div>
-    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} B</div>
-    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} L</div>
-    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.health.soak"}} A</div>
-    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.armor.dexpen"}}</div>
+    <div class="pullLeft combat-valueBoxArmor headlineList">{{localize "wod.health.soak"}} B</div>
+    <div class="pullLeft combat-valueBoxArmor headlineList">{{localize "wod.health.soak"}} L</div>
+    <div class="pullLeft combat-valueBoxArmor headlineList">{{localize "wod.health.soak"}} A</div>
+    <div class="pullLeft combat-valueBoxArmor headlineList">{{localize "wod.combat.armor.dexpen"}}</div>
 
     {{#iff actor.type "==" "Werewolf"}}
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.shapes.homid"}}</div>
@@ -36,10 +36,10 @@
 <div class="clearareaBox row">
     <!--<div class="pullLeft combat-valueBox headlineList"><input name="item.data.active" type="checkbox" {{#if item.data.active}} checked {{/if}}></input></div>-->
     <div class="pullLeft combat-mediumBox headlineNormal">{{captilizeFirst item.name}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.bashing}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.lethal}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.soak.aggravated}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.dexpenalty}}</div>
+    <div class="pullLeft combat-valueBoxArmor headlineNormal">{{item.data.soak.bashing}}</div>
+    <div class="pullLeft combat-valueBoxArmor headlineNormal">{{item.data.soak.lethal}}</div>
+    <div class="pullLeft combat-valueBoxArmor headlineNormal">{{item.data.soak.aggravated}}</div>
+    <div class="pullLeft combat-valueBoxArmor headlineNormal">{{item.data.dexpenalty}}</div>
 
     {{#iff ../actor.type "==" "Werewolf"}}
     <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.homid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
@@ -50,7 +50,7 @@
     {{/iff}}
     {{#iff ../actor.type "==" "Changing Breed"}}
     <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.homid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.glabro}}{{localize "wod.labels.yes"}}s{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.glabro}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
     <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.crinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
     <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.hispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
     <div class="pullLeft combat-valueBox headlineNormal">{{#if item.data.forms.lupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>

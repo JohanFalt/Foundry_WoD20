@@ -1,352 +1,417 @@
-<div class="clearareaBox">
+<section class="sheet-setting-body">
 
-	{{#iff actor.type "!=" "Spirit"}}
+	<nav class="sheet-setting-tabs tabs" data-group="secondary">
+		<a class="item" data-tab="attributes">{{localize "wod.attributes.attributes"}}</a>
 
-	<div class="clearareaBox">
-	<div class="headlineGroup">{{localize "wod.attributes.attributes"}}</div>
-	<div class="clearareaBox">
-		<div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
-		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
-		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
-		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
-		{{#iff actor.type "==" "Creature"}}
-		<div class="pullLeft headlineNormal numberBox">Max</div>
-		{{/iff}}
-	</div>
-	{{#each data.data.attributes as |attribute key|}}
+		{{#iff actor.type "!=" "Spirit"}}
+		<a class="item" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>
 
-		{{#if attribute.visible}}
-		<div class="clearareaBox">
-			<label for="data.data.attributes.{{key}}.value" class="pullLeft headlineNormal settings-leftwidth">{{localize attribute.label}}</label>	
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.value}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.bonus}}" name="data.attributes.{{key}}.bonus" 
-				data-value="{{attribute.bonus}}" 
-				data-name="data.attributes.{{key}}.bonus" 
-				data-dtype="Number" {{#if locked}} readonly {{/if}} />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
-
-			{{#iff ../actor.type "==" "Creature"}}
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.max}}" name="data.attributes.{{key}}.max" 
-			data-value="{{attribute.max}}" 
-			data-name="data.attributes.{{key}}.max" 
-			data-dtype="Number" {{#if locked}} readonly {{/if}} />
+			{{#iff actor.type "==" "Mage"}}
+				<a class="item" data-tab="power">{{localize "wod.tab.power"}}</a>
 			{{/iff}}
-		</div>
-		{{/if}}
-		
-	{{/each}}
-	</div>
 
-	<div class="clearareaBox">
-		<div class="headlineGroup">{{localize "wod.abilities.abilities"}}</div>
-
-		<div class="clearareaBox">
-			<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.talents"}}</div>
-			<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.skills"}}</div>
-			<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.knowledges"}}</div>
-		</div>
-		
-		<div class="ability-statArea pullLeft">
-		
-			{{#each data.data.abilities.talent as |ability key|}}	
-			
-			<div class="clearareaBox row">
-				<label for="data.data.abilities.talent.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
-				<div class="switch headlineNormal bold" data-label="{{key}}" data-type="talent" data-source="ability">
-					{{#if ability.visible}}
-					{{localize "wod.labels.settings.added"}}
-					{{else}}
-					{{localize "wod.labels.settings.removed"}}
-					{{/if}}
-				</div>
-			</div>	
-			
-			{{/each}}
-		
-		</div>
-		<div class="ability-statArea pullLeft">
-		
-			{{#each data.data.abilities.skill as |ability key|}}
-			
-			<div class="clearareaBox row">
-				<label for="data.data.abilities.skill.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
-
-				<div class="switch headlineNormal bold" data-label="{{key}}" data-type="skill" data-source="ability">
-					{{#if ability.visible}}
-					{{localize "wod.labels.settings.added"}}
-					{{else}}
-					{{localize "wod.labels.settings.removed"}}
-					{{/if}}
-				</div>
-			</div>
-			
-			{{/each}}
-		
-		</div>
-		<div class="ability-statArea pullLeft">
-		
-			{{#each data.data.abilities.knowledge as |ability key|}}
-			
-			<div class="clearareaBox row">
-				<label for="data.data.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
-
-				<div class="switch headlineNormal bold" data-label="{{key}}" data-type="knowledge" data-source="ability">
-					{{#if ability.visible}}
-					{{localize "wod.labels.settings.added"}}
-					{{else}}
-					{{localize "wod.labels.settings.removed"}}
-					{{/if}}
-				</div>
-			</div>
-			
-			{{/each}}
-		
-		</div>
-	</div>
-
-	{{/iff}}
-
-	<div class="clearareaBox">
-		<div class="headlineGroup">{{localize "wod.advantages.advantages"}} (permanent/temporary/roll)</div>
-		{{#iff actor.type "==" "Werewolf"}}
-			<div class="clearareaBox">
-				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.rage"}}</label>	
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.permanent}}" readonly />
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.temporary}}" readonly />
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.roll}}" readonly />
-			</div>
-
-			<div class="clearareaBox">
-				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
-			</div>			
+		<a class="item" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
 		{{/iff}}
 
-		{{#iff actor.type "==" "Changing Breed"}}
-			{{#iff data.data.changingbreed "!=" "Ananasi"}}
-				{{#iff data.data.changingbreed "!=" "Nuwisha"}}
+		{{#if isGM}}
+		<a class="item" data-tab="st">ST</a>
+		{{/if}}
+	</nav>
+
+	{{!-- Attribute Tab --}}
+	<div class="tab attributes" data-group="secondary" data-tab="attributes">
+
+		{{#iff actor.type "!=" "Spirit"}}
+
+			<div class="clearareaBox">
+				<div class="clearareaBox">
+					<div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
+					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
+					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
+					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
+					{{#iff actor.type "==" "Creature"}}
+					<div class="pullLeft headlineNormal numberBox">Max</div>
+					{{/iff}}
+				</div>
+
+				{{#each data.data.attributes as |attribute key|}}
+			
+					{{#if attribute.visible}}
+					<div class="clearareaBox">
+						<label for="data.data.attributes.{{key}}.value" class="pullLeft headlineNormal settings-leftwidth">{{localize attribute.label}}</label>	
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.value}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.bonus}}" name="data.attributes.{{key}}.bonus" 
+							data-value="{{attribute.bonus}}" 
+							data-name="data.attributes.{{key}}.bonus" 
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
+			
+						{{#iff ../actor.type "==" "Creature"}}
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.max}}" name="data.attributes.{{key}}.max" 
+						data-value="{{attribute.max}}" 
+						data-name="data.attributes.{{key}}.max" 
+						data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						{{/iff}}
+					</div>
+					{{/if}}
+					
+				{{/each}}
+			</div>
+
+			{{#iff actor.type "==" "Werewolf"}}
+
+				<div class="clearareaBox">
+					<label for="data.data.rage.bonus" class="headlineGroup" style="width: 150px;">{{localize "wod.labels.settings.frenzybonus"}}</label>
+					<div>
+						<input class="sheet-infoValues numberBox" 
+							name="data.rage.bonus" 
+							type="text" 
+							value="{{data.data.rage.bonus}}"
+							data-name="data.data.rage.bonus" 
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+				</div>
+
+			{{/iff}}
+
+		{{else}}
+
+			<div class="clearareaBox">
+				<label for="data.data.essence.max" class="pullLeft headlineGroup" style="width: 150px;" 
+					data-label="{{data.data.essence.max}}" 
+						data-ability="true">{{localize "wod.advantages.essence"}}</label>
+				<input class="pullLeft sheet-infoValues numberBox" 
+					name="data.essence.max" 
+					type="text" 
+					value="{{data.data.essence.max}}" 
+					data-name="data.data.essence.max" 
+					data-dtype="Number" />
+			</div>
+
+		{{/iff}}
+
+	</div>
+
+	{{!-- Abilities Tab --}}
+	<div class="tab abilities" data-group="secondary" data-tab="abilities">
+
+		<div class="clearareaBox">
+
+			<div class="clearareaBox">
+				<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.talents"}}</div>
+				<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.skills"}}</div>
+				<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.knowledges"}}</div>
+			</div>
+			
+			<div class="ability-statArea pullLeft">
+			
+				{{#each data.data.abilities.talent as |ability key|}}	
+				
+				<div class="clearareaBox row">
+					<label for="data.data.abilities.talent.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
+					<div class="switch headlineNormal bold" data-label="{{key}}" data-type="talent" data-source="ability">
+						{{#if ability.visible}}
+						{{localize "wod.labels.settings.added"}}
+						{{else}}
+						{{localize "wod.labels.settings.removed"}}
+						{{/if}}
+					</div>
+				</div>	
+				
+				{{/each}}
+			
+			</div>
+			<div class="ability-statArea pullLeft">
+			
+				{{#each data.data.abilities.skill as |ability key|}}
+				
+				<div class="clearareaBox row">
+					<label for="data.data.abilities.skill.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
+
+					<div class="switch headlineNormal bold" data-label="{{key}}" data-type="skill" data-source="ability">
+						{{#if ability.visible}}
+						{{localize "wod.labels.settings.added"}}
+						{{else}}
+						{{localize "wod.labels.settings.removed"}}
+						{{/if}}
+					</div>
+				</div>
+				
+				{{/each}}
+			
+			</div>
+			<div class="ability-statArea pullLeft">
+			
+				{{#each data.data.abilities.knowledge as |ability key|}}
+				
+				<div class="clearareaBox row">
+					<label for="data.data.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
+
+					<div class="switch headlineNormal bold" data-label="{{key}}" data-type="knowledge" data-source="ability">
+						{{#if ability.visible}}
+						{{localize "wod.labels.settings.added"}}
+						{{else}}
+						{{localize "wod.labels.settings.removed"}}
+						{{/if}}
+					</div>
+				</div>
+				
+				{{/each}}
+			
+			</div>
+		</div>
+
+	</div>
+
+	{{!-- Power Tab --}}
+	<div class="tab power" data-group="secondary" data-tab="power">
+
+		<div class="clearareaBox">
+			<label for="data.data.paradox.permanent" class="headlineGroup" style="width: 150px;">{{localize "wod.labels.settings.permparadox"}}</label>
+			<div>
+				<input class="sheet-infoValues numberBox" 
+					name="data.paradox.permanent" 
+					type="text" 
+					value="{{data.data.paradox.permanent}}"
+					data-name="data.data.paradox.permanent" 
+					data-dtype="Number" {{#if locked}} readonly {{/if}} />
+			</div>
+		</div>
+
+	</div>
+
+	{{!-- Combat Tab --}}
+	<div class="tab combat" data-group="secondary" data-tab="combat">
+
+		<div class="clearareaBox">
+			<div class="clearareaBox">
+				<div class="pullLeft headlineGroup settings-leftwidth">{{localize "wod.health.soak"}}</div>
+				<div class="pullLeft numberBox">&nbsp;</div>
+				<div class="pullLeft headlineGroup settings-leftwidth centerText">{{localize "wod.labels.settings.usesoak"}}</div>
+			</div>
+			<div class="clearareaBox">
+				<label for="data.data.soak.bashing" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.bashing}}" readonly />
+				<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="bashing" data-source="soak">
+					{{#if data.data.settings.soak.bashing.roll}}
+					{{localize "wod.labels.settings.yes"}}
+					{{else}}
+					{{localize "wod.labels.settings.no"}}
+					{{/if}}
+				</div>
+			</div>
+			<div class="clearareaBox">
+				<label for="data.data.soak.lethal" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.lethal}}" readonly />
+				<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="lethal" data-source="soak">
+					{{#if data.data.settings.soak.lethal.roll}}
+					{{localize "wod.labels.settings.yes"}}
+					{{else}}
+					{{localize "wod.labels.settings.no"}}
+					{{/if}}
+				</div>
+			</div>
+			<div class="clearareaBox">
+				<label for="data.data.soak.aggravated" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.aggravated}}" readonly />
+				<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="aggravated" data-source="soak">
+					{{#if data.data.settings.soak.aggravated.roll}}
+					{{localize "wod.labels.settings.yes"}}
+					{{else}}
+					{{localize "wod.labels.settings.no"}}
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		
+		<div class="clearareaBox">
+			<div class="headlineGroup">{{localize "wod.combat.initiative"}}</div>
+			<div class="clearareaBox">
+				<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
+				<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
+				<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
+			</div>
+			<div class="clearareaBox">
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.base}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" 
+					name="data.initiative.bonus" 
+					type="text" 
+					value="{{data.data.initiative.bonus}}"
+					data-name="data.data.initiative.bonus" 
+					data-dtype="Number" {{#if locked}} readonly {{/if}} />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.total}}" readonly />
+			</div>
+		</div>
+
+		{{#iff actor.type "!=" "Spirit"}}
+			<div class="clearareaBox">
+				<div class="headlineGroup">{{localize "wod.labels.numhealthboxes"}} (number of boxes for that level/wound penalty modifier)</div>
+				<div class="clearareaBox">
+					<label for="data.data.health.bruised.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
+						data-label="{{data.data.health.bruised.value}}" 
+						data-ability="true">{{localize "wod.health.bruised"}}</label>
+					<input class="pullLeft sheet-infoValues numberBox" 
+						name="data.health.bruised.value" 
+						type="text" 
+						value="{{data.data.health.bruised.value}}" 
+						data-name="data.data.health.bruised.value"
+						data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					<input class="pullLeft sheet-infoValues numberBox" 
+						name="data.health.bruised.penalty" 
+						type="text" 
+						value="{{data.data.health.bruised.penalty}}" 
+						data-name="data.data.health.bruised.penalty"
+						data-dtype="Number" {{#if locked}} readonly {{/if}} />
+				</div>
+
+				<div class="clearareaBox">
+					<label for="data.data.health.hurt.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
+						data-label="{{data.data.health.hurt.value}}" 
+						data-ability="true">{{localize "wod.health.hurt"}}</label>	
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.hurt.value" type="text" value="{{data.data.health.hurt.value}}" 
+						data-name="data.data.health.hurt.value" {{#if locked}} readonly {{/if}} />
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.hurt.penalty" type="text" value="{{data.data.health.hurt.penalty}}" 
+						data-name="data.data.health.hurt.penalty" {{#if locked}} readonly {{/if}} />
+				</div>
+
+				<div class="clearareaBox">
+					<label for="data.data.health.injured.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+						data-label="{{data.data.health.injured.value}}" 
+						data-ability="true">{{localize "wod.health.injured"}}</label>
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.injured.value" type="text" value="{{data.data.health.injured.value}}" 
+						data-name="data.data.health.injured.value" {{#if locked}} readonly {{/if}} />
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.injured.penalty" type="text" value="{{data.data.health.injured.penalty}}" 
+						data-name="data.data.health.injured.penalty" {{#if locked}} readonly {{/if}} />
+				</div>
+
+				<div class="clearareaBox">
+					<label for="data.data.health.wounded.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
+						data-label="{{data.data.health.wounded.value}}" 
+						data-ability="true">{{localize "wod.health.wounded"}}</label>
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.wounded.value" type="text" value="{{data.data.health.wounded.value}}" 
+						data-name="data.data.health.wounded.value" {{#if locked}} readonly {{/if}} />
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.wounded.penalty" type="text" value="{{data.data.health.wounded.penalty}}" 
+						data-name="data.data.health.wounded.penalty" {{#if locked}} readonly {{/if}} />
+				</div>
+
+				<div class="clearareaBox">
+					<label for="data.data.health.mauled.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
+						data-label="{{data.data.health.mauled.value}}" 
+						data-ability="true">{{localize "wod.health.mauled"}}</label>
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.mauled.value" type="text" value="{{data.data.health.mauled.value}}" 
+						data-name="data.data.health.mauled.value" {{#if locked}} readonly {{/if}} />
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.mauled.penalty" type="text" value="{{data.data.health.mauled.penalty}}" 
+						data-name="data.data.health.mauled.penalty" {{#if locked}} readonly {{/if}} />
+				</div>
+
+				<div class="clearareaBox">
+					<label for="data.data.health.crippled.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
+						data-label="{{data.data.health.crippled.value}}" 
+						data-ability="true">{{localize "wod.health.crippled"}}</label>
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.crippled.value" type="text" value="{{data.data.health.crippled.value}}" 
+						data-name="data.data.health.crippled.value" {{#if locked}} readonly {{/if}} />
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.crippled.penalty" type="text" value="{{data.data.health.crippled.penalty}}" 
+						data-name="data.data.health.crippled.penalty" {{#if locked}} readonly {{/if}} />
+				</div>
+
+				<div class="clearareaBox">
+					<label for="data.data.health.incapacitated.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
+						data-label="{{data.data.health.incapacitated.value}}" 
+						data-ability="true">{{localize "wod.health.incapacitated"}}</label>
+					<input class="pullLeft sheet-infoValues numberBox" name="data.health.incapacitated.value" type="text" value="{{data.data.health.incapacitated.value}}" 
+						data-name="data.data.health.incapacitated.value" {{#if locked}} readonly {{/if}} />
+				</div>
+			</div>
+		
+		{{/iff}}
+
+	</div>
+
+	{{!-- ST Tab --}}
+	<div class="tab st" data-group="secondary" data-tab="st">
+
+		<div class="clearareaBox">
+			<div class="headlineGroup">{{localize "wod.advantages.advantages"}} (permanent/temporary/roll)</div>
+			{{#iff actor.type "==" "Werewolf"}}
 				<div class="clearareaBox">
 					<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.rage"}}</label>	
 					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.permanent}}" readonly />
 					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.temporary}}" readonly />
 					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.roll}}" readonly />
 				</div>
+
+				<div class="clearareaBox">
+					<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
+				</div>			
+			{{/iff}}
+
+			{{#iff actor.type "==" "Changing Breed"}}
+				{{#iff data.data.changingbreed "!=" "Ananasi"}}
+					{{#iff data.data.changingbreed "!=" "Nuwisha"}}
+					<div class="clearareaBox">
+						<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.rage"}}</label>	
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.permanent}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.temporary}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.rage.roll}}" readonly />
+					</div>
+					{{/iff}}
 				{{/iff}}
+
+				<div class="clearareaBox">
+					<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
+					<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
+				</div>
 			{{/iff}}
 
 			<div class="clearareaBox">
-				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.gnosis"}}</label>	
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.permanent}}" readonly />
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.temporary}}" readonly />
-				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.gnosis.roll}}" readonly />
+				<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.willpower"}}</label>	
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.permanent}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.temporary}}" readonly />
+				<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.roll}}" readonly />
 			</div>
-		{{/iff}}
+		</div>
 
 		<div class="clearareaBox">
-			<label class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.advantages.willpower"}}</label>	
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.permanent}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.temporary}}" readonly />
-			<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.willpower.roll}}" readonly />
+			<div class="headlineGroup">{{localize "wod.labels.numdamagetaken"}}</div>
+			<div class="clearareaBox">
+				<label for="data.data.health.damage.bashing" class="pullLeft headlineNormal settings-verticalcenter" style="width: 150px;" 
+					data-label="{{data.data.health.damage.bashing}}" 
+					data-ability="true">{{localize "wod.labels.numberdamagebashing"}}</label>
+				<input class="pullLeft sheet-infoValues numberBox" name="data.health.damage.bashing" type="text" value="{{data.data.health.damage.bashing}}" 
+					data-name="data.data.health.damage.bashing" readonly />
+			</div>
+			<div class="clearareaBox">
+				<label for="ddata.data.health.damage.lethal" class="pullLeft headlineNormal settings-verticalcenter" style="width: 150px;" 
+					data-label="{{data.data.health.damage.lethal}}" 
+					data-ability="true">{{localize "wod.labels.numberdamagelethal"}}</label>
+				<input class="pullLeft sheet-infoValues numberBox" name="data.health.damage.lethal" type="text" value="{{data.data.health.damage.lethal}}" 
+					data-name="data.data.health.damage.lethal" readonly />
+			</div>
+			<div class="clearareaBox">
+				<label for="data.data.health.damage.aggravated" class="pullLeft headlineNormal settings-verticalcenter" style="width: 150px;" 
+					data-label="{{data.data.health.damage.aggravated}}" 
+					data-ability="true">{{localize "wod.labels.numberdamageaggravated"}}</label>
+				<input class="pullLeft sheet-infoValues numberBox" name="data.health.damage.aggravated" type="text" value="{{data.data.health.damage.aggravated}}" 
+					data-name="data.data.health.damage.aggravated" readonly />
+			</div>
 		</div>
 
-	</div>
-</div>
+		{{#iff actor.other.length ">" 0}}
+		<div class="clearareaBox">
+			<div class="headlineGroup">{{localize "wod.labels.otheritems"}}</div>
 
-<div class="clearareaBox">
-	<div class="clearareaBox">
-		<div class="pullLeft headlineGroup settings-leftwidth">{{localize "wod.health.soak"}}</div>
-		<div class="pullLeft numberBox">&nbsp;</div>
-		<div class="pullLeft headlineGroup settings-leftwidth centerText">{{localize "wod.labels.settings.usesoak"}}</div>
-	</div>
-	<div class="clearareaBox">
-		<label for="data.data.soak.bashing" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>	
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.bashing}}" readonly />
-		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="bashing" data-source="soak">
-			{{#if data.data.settings.soak.bashing.roll}}
-			{{localize "wod.labels.settings.yes"}}
-			{{else}}
-			{{localize "wod.labels.settings.no"}}
-			{{/if}}
+			{{#each actor.other as |item id|}}
+			<div class="gift-mediumBox headlineNormal">{{captilizeFirst item.name}}</div>
+			{{/each}}
+
 		</div>
-	</div>
-	<div class="clearareaBox">
-		<label for="data.data.soak.lethal" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>	
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.lethal}}" readonly />
-		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="lethal" data-source="soak">
-			{{#if data.data.settings.soak.lethal.roll}}
-			{{localize "wod.labels.settings.yes"}}
-			{{else}}
-			{{localize "wod.labels.settings.no"}}
-			{{/if}}
-		</div>
-	</div>
-	<div class="clearareaBox">
-		<label for="data.data.soak.aggravated" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>	
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.soak.aggravated}}" readonly />
-		<div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText" data-label="soak" data-type="aggravated" data-source="soak">
-			{{#if data.data.settings.soak.aggravated.roll}}
-			{{localize "wod.labels.settings.yes"}}
-			{{else}}
-			{{localize "wod.labels.settings.no"}}
-			{{/if}}
-		</div>
-	</div>
-</div>
+		{{/iff}}
 
-<div class="clearareaBox">
-	<div class="headlineGroup">{{localize "wod.combat.initiative"}}</div>
-	<div class="clearareaBox">
-		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
-		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
-		<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
-	</div>
-	<div class="clearareaBox">
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.base}}" readonly />
-		<input class="pullLeft sheet-infoValues numberBox" 
-			name="data.initiative.bonus" 
-			type="text" 
-			value="{{data.data.initiative.bonus}}"
-			data-name="data.data.initiative.bonus" 
-			data-dtype="Number" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.data.initiative.total}}" readonly />
-	</div>
-</div>
-
-{{#iff actor.type "!=" "Spirit"}}
-
-<div class="clearareaBox">
-	<div class="headlineGroup">{{localize "wod.labels.numhealthboxes"}} (number of boxes for that level/wound penalty modifier)</div>
-	<div class="clearareaBox">
-		<label for="data.data.health.bruised.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
-			data-label="{{data.data.health.bruised.value}}" 
-			data-ability="true">{{localize "wod.health.bruised"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" 
-			name="data.health.bruised.value" 
-			type="text" 
-			value="{{data.data.health.bruised.value}}" 
-			data-name="data.data.health.bruised.value"
-			data-dtype="Number" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" 
-			name="data.health.bruised.penalty" 
-			type="text" 
-			value="{{data.data.health.bruised.penalty}}" 
-			data-name="data.data.health.bruised.penalty"
-			data-dtype="Number" {{#if locked}} readonly {{/if}} />
 	</div>
 
-	<div class="clearareaBox">
-		<label for="data.data.health.hurt.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
-			data-label="{{data.data.health.hurt.value}}" 
-			data-ability="true">{{localize "wod.health.hurt"}}</label>	
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.hurt.value" type="text" value="{{data.data.health.hurt.value}}" 
-			data-name="data.data.health.hurt.value" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.hurt.penalty" type="text" value="{{data.data.health.hurt.penalty}}" 
-			data-name="data.data.health.hurt.penalty" {{#if locked}} readonly {{/if}} />
-	</div>
-
-	<div class="clearareaBox">
-		<label for="data.data.health.injured.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
-			data-label="{{data.data.health.injured.value}}" 
-			data-ability="true">{{localize "wod.health.injured"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.injured.value" type="text" value="{{data.data.health.injured.value}}" 
-			data-name="data.data.health.injured.value" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.injured.penalty" type="text" value="{{data.data.health.injured.penalty}}" 
-			data-name="data.data.health.injured.penalty" {{#if locked}} readonly {{/if}} />
-	</div>
-
-	<div class="clearareaBox">
-		<label for="data.data.health.wounded.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
-			data-label="{{data.data.health.wounded.value}}" 
-			data-ability="true">{{localize "wod.health.wounded"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.wounded.value" type="text" value="{{data.data.health.wounded.value}}" 
-			data-name="data.data.health.wounded.value" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.wounded.penalty" type="text" value="{{data.data.health.wounded.penalty}}" 
-			data-name="data.data.health.wounded.penalty" {{#if locked}} readonly {{/if}} />
-	</div>
-
-	<div class="clearareaBox">
-		<label for="data.data.health.mauled.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
-			data-label="{{data.data.health.mauled.value}}" 
-			data-ability="true">{{localize "wod.health.mauled"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.mauled.value" type="text" value="{{data.data.health.mauled.value}}" 
-			data-name="data.data.health.mauled.value" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.mauled.penalty" type="text" value="{{data.data.health.mauled.penalty}}" 
-			data-name="data.data.health.mauled.penalty" {{#if locked}} readonly {{/if}} />
-	</div>
-
-	<div class="clearareaBox">
-		<label for="data.data.health.crippled.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
-			data-label="{{data.data.health.crippled.value}}" 
-			data-ability="true">{{localize "wod.health.crippled"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.crippled.value" type="text" value="{{data.data.health.crippled.value}}" 
-			data-name="data.data.health.crippled.value" {{#if locked}} readonly {{/if}} />
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.crippled.penalty" type="text" value="{{data.data.health.crippled.penalty}}" 
-			data-name="data.data.health.crippled.penalty" {{#if locked}} readonly {{/if}} />
-	</div>
-
-	<div class="clearareaBox">
-		<label for="data.data.health.incapacitated.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter" 
-			data-label="{{data.data.health.incapacitated.value}}" 
-			data-ability="true">{{localize "wod.health.incapacitated"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.incapacitated.value" type="text" value="{{data.data.health.incapacitated.value}}" 
-			data-name="data.data.health.incapacitated.value" {{#if locked}} readonly {{/if}} />
-	</div>
-</div>
-
-<div class="clearareaBox">
-	<div class="headlineGroup">{{localize "wod.labels.numdamagetaken"}}</div>
-	<div class="clearareaBox">
-		<label for="data.data.health.damage.bashing" class="pullLeft headlineNormal settings-verticalcenter" style="width: 150px;" 
-			data-label="{{data.data.health.damage.bashing}}" 
-			data-ability="true">{{localize "wod.labels.numberdamagebashing"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.damage.bashing" type="text" value="{{data.data.health.damage.bashing}}" 
-			data-name="data.data.health.damage.bashing" readonly />
-	</div>
-	<div class="clearareaBox">
-		<label for="ddata.data.health.damage.lethal" class="pullLeft headlineNormal settings-verticalcenter" style="width: 150px;" 
-			data-label="{{data.data.health.damage.lethal}}" 
-			data-ability="true">{{localize "wod.labels.numberdamagelethal"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.damage.lethal" type="text" value="{{data.data.health.damage.lethal}}" 
-			data-name="data.data.health.damage.lethal" readonly />
-	</div>
-	<div class="clearareaBox">
-		<label for="data.data.health.damage.aggravated" class="pullLeft headlineNormal settings-verticalcenter" style="width: 150px;" 
-			data-label="{{data.data.health.damage.aggravated}}" 
-			data-ability="true">{{localize "wod.labels.numberdamageaggravated"}}</label>
-		<input class="pullLeft sheet-infoValues numberBox" name="data.health.damage.aggravated" type="text" value="{{data.data.health.damage.aggravated}}" 
-			data-name="data.data.health.damage.aggravated" readonly />
-	</div>
-</div>
-
-{{else}}
-
-<div class="clearareaBox">
-	<label for="data.data.essence.max" class="pullLeft headlineGroup" style="width: 150px;" 
-		data-label="{{data.data.essence.max}}" 
-			data-ability="true">{{localize "wod.advantages.essence"}}</label>
-	<input class="pullLeft sheet-infoValues numberBox" 
-		name="data.essence.max" 
-		type="text" 
-		value="{{data.data.essence.max}}" 
-		data-name="data.data.essence.max" 
-		data-dtype="Number" />
-</div>
-
-{{/iff}}
-
-{{#if isGM}}
-
-{{#iff actor.other.length ">" 0}}
-<div class="clearareaBox">
-	<div class="headlineGroup">{{localize "wod.labels.otheritems"}}</div>
-
-	{{#each actor.other as |item id|}}
-	<div class="gift-mediumBox headlineNormal">{{captilizeFirst item.name}}</div>
-	{{/each}}
-
-</div>
-{{/iff}}
-
-{{/if}}
+</section>

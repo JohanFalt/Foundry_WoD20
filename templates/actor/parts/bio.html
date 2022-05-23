@@ -20,7 +20,7 @@
 						{{captilize actor.data.type}}
 					{{/iff}}
 				{{else}}
-				{{captilize actor.data.type}}
+					{{captilize actor.data.type}}
 				{{/iff}}
 			</div>				
 		</div>
@@ -50,6 +50,24 @@
 
 	<div class="clearareaBox area-box">
 		<div>
+			<label class="headlineText headlineBio" for="data.nature">{{localize "wod.bio.nature"}}</label>
+			<div class="pullLeft">
+				<input class="sheet-infoValues" name="data.nature" type="text" value="{{data.data.nature}}" data-name="data.data.nature" data-dtype="String" {{#if locked}} readonly {{/if}} />
+			</div>
+		</div>
+	</div>
+
+	<div class="clearareaBox area-box">
+		<div>
+			<label class="headlineText headlineBio" for="data.demeanor">{{localize "wod.bio.demeanor"}}</label>
+			<div class="pullLeft">
+				<input class="sheet-infoValues" name="data.demeanor" type="text" value="{{data.data.demeanor}}" data-name="data.data.demeanor" data-dtype="String" {{#if locked}} readonly {{/if}} />
+			</div>
+		</div>
+	</div>
+
+	<div class="clearareaBox area-box">
+		<div>
 			<label class="headlineText headlineBio" for="data.concept">{{localize "wod.bio.concept"}}</label>
 			<div class="pullLeft">
 				<input class="sheet-infoValues" name="data.concept" type="text" value="{{data.data.concept}}" data-name="data.data.concept" data-dtype="String" {{#if locked}} readonly {{/if}} />
@@ -57,41 +75,47 @@
 		</div>
 	</div>
 
+	{{#iff actor.type "==" "Mage"}}
+
+		{{> "systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html"}}
+
+	{{/iff}}
+
 	{{#iff actor.type "==" "Werewolf"}}
 
-	{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}
+		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}
 
 	{{/iff}}
 
 	{{#iff actor.type "==" "Changing Breed"}}
 
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio" for="data.changingbreed">{{localize "wod.bio.changingbreed"}}</label>
-			<div class="pullLeft headlineNormal bio-verticalcenter">
-				{{#if locked}}
-					{{#iff data.data.changingbreed "!=" ""}}{{data.data.changingbreed}}{{else}}{{localize "wod.labels.select"}}{{/iff}}
-				{{else}}
-					<select name="data.changingbreed" data-name="data.data.changingbreed" data-dtype="String">
-						{{#select data.data.changingbreed}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						<option value="Ajaba">Ajaba</option>
-						<option value="Ananasi">Ananasi</option>
-						<option value="Bastet">Bastet</option>
-						<option value="Corax">Corax</option>
-						<option value="Gurahl">Gurahl</option>				
-						<option value="Kitsune">Kitsune</option>	
-						<option value="Mokolé">Mokolé</option>
-						<option value="Nagah">Nagah</option>
-						<option value="Nuwisha">Nuwisha</option>
-						<option value="Ratkin">Ratkin</option>
-						<option value="Rokea">Rokea</option>
-						{{/select}}
-					</select>
-				{{/if}}
+		<div class="clearareaBox area-box">
+			<div>
+				<label class="headlineText headlineBio" for="data.changingbreed">{{localize "wod.bio.changingbreed"}}</label>
+				<div class="pullLeft headlineNormal bio-verticalcenter">
+					{{#if locked}}
+						{{#iff data.data.changingbreed "!=" ""}}{{data.data.changingbreed}}{{else}}{{localize "wod.labels.select"}}{{/iff}}
+					{{else}}
+						<select name="data.changingbreed" data-name="data.data.changingbreed" data-dtype="String">
+							{{#select data.data.changingbreed}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>
+							<option value="Ajaba">Ajaba</option>
+							<option value="Ananasi">Ananasi</option>
+							<option value="Bastet">Bastet</option>
+							<option value="Corax">Corax</option>
+							<option value="Gurahl">Gurahl</option>				
+							<option value="Kitsune">Kitsune</option>	
+							<option value="Mokolé">Mokolé</option>
+							<option value="Nagah">Nagah</option>
+							<option value="Nuwisha">Nuwisha</option>
+							<option value="Ratkin">Ratkin</option>
+							<option value="Rokea">Rokea</option>
+							{{/select}}
+						</select>
+					{{/if}}
+				</div>
 			</div>
 		</div>
-	</div>
 
 		{{#iff data.data.changingbreed "==" "Ajaba"}}
 		{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ajaba_background.html"}}

@@ -13,9 +13,14 @@
 
         <div class="clearareaBox row">
             <div class="pullLeft combat-largeBox headlineNormal vrollable" 
+                data-type="Werewolf"
                 data-rollitem="true" 
                 data-item-id="{{item._id}}">{{captilizeFirst item.name}}</div>
             <div class="pullLeft combat-valueBox headlineNormal">{{item.data.diff}}</div>
+            <div class="pullLeft gift-valueBox headlineNormal tooltip">
+                <i class="fa fa-sticky-note"></i>
+                <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.details}}</span>
+            </div>
             <div class="pullLeft gift-valueBox">
                 <a class="send-chat" 
                     title="{{localize "wod.labels.send"}}" 
@@ -56,11 +61,14 @@
 
         <div class="clearareaBox row">
             <div class="pullLeft combat-largeBox headlineNormal vrollable" 
+                data-type="Werewolf"
                 data-rollitem="true" 
-                data-type="item"
-                data-label="{{captilizeFirst item.name}}" 
-                data-diff="{{item.data.diff}}">{{captilizeFirst item.name}}</div>
+                data-item-id="{{item._id}}">{{captilizeFirst item.name}}</div>
             <div class="pullLeft combat-valueBox headlineNormal">{{item.data.diff}}</div>
+            <div class="pullLeft gift-valueBox headlineNormal tooltip">
+                <i class="fa fa-sticky-note"></i>
+                <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
+            </div>
             <div class="pullLeft gift-valueBox">
                 <a class="send-chat" 
                     title="{{localize "wod.labels.send"}}" 

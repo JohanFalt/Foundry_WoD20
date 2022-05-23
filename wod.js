@@ -7,6 +7,7 @@ import * as templates from "./module/templates.js";
 
 import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
+import { MageActorSheet } from "./module/actor/mage-actor-sheet.js";
 import { ChangingBreedActorSheet } from "./module/actor/changingbreed-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
 import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
@@ -41,6 +42,12 @@ Hooks.once("init", async function() {
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
+
+	Actors.registerSheet("WoD", MageActorSheet, {
+		label: "Mage Sheet",
+		types: ["Mage"],
+		makeDefault: true
+	});
 
 	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
 		label: "Changing Breed Sheet",
@@ -90,6 +97,7 @@ Hooks.once("setup", function () {
     // Do anything after initialization but before
     // ready
 });
+
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
@@ -116,6 +124,26 @@ Hooks.on("renderActorSheet", (sheet) => {
 	// adding the means to control the CSS by what language is used.
 	if (CONFIG.language == "de") {
 		sheet.element[0].classList.add("langDE");
+	}
+	else if (CONFIG.language == "es") {
+	 	sheet.element[0].classList.add("langES");
+	}
+	else {
+		sheet.element[0].classList.add("langEN");
+	}
+
+	//if (actor && actor.isOwner) {
+	//	return;
+	//}
+});
+
+Hooks.on("renderFormApplication", (sheet) => { 
+	// adding the means to control the CSS by what language is used.
+	if (CONFIG.language == "de") {
+		sheet.element[0].classList.add("langDE");
+	}
+	else if (CONFIG.language == "es") {
+	 	sheet.element[0].classList.add("langES");
 	}
 	else {
 		sheet.element[0].classList.add("langEN");

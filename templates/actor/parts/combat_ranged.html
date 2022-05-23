@@ -11,7 +11,7 @@
 <div>
     <div class="pullLeft combat-largeBox headlineList">{{localize "wod.combat.weapon.weapon"}}</div>
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.attr"}}</div>
-    <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
+    <div class="pullLeft combat-abilityBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.diff"}}</div>
     <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.damage"}}</div>
     <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.range"}}</div>
@@ -24,16 +24,15 @@
 
 <div class="clearareaBox row">
     <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.roll}}vrollable{{/if}}" 
+        data-type="Mortal"
         data-rollitem="true" 
-        data-type="attack"
+        data-source="attack"
         data-label="{{captilizeFirst item.name}}" 
         data-dice1="{{item.data.attack.attribute}}" 
         data-dice2="{{item.data.attack.ability}}" 
         data-diff="{{item.data.diff}}">{{captilizeFirst item.name}}</div>
-    <!-- <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.attribute}}</div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{captilizeFirst item.data.attack.ability}}</div> -->
     <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.data.attack.attribute)}}</div>
-    <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAbility item.data.attack.ability)}}</div>
+    <div class="pullLeft combat-abilityBox headlineNormal">{{localize (getAbility item.data.attack.ability)}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.diff}}</div>
     <div class="pullLeft combat-smallBox headlineNormal">
         {{#if item.data.damage.roll}}
@@ -49,11 +48,12 @@
         {{#if item.data.mode.reload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.data.mode.burst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.data.mode.fullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.data.mode.spray}}{{localize "wod.combat.mode.spray"}}{{/if}}
     </div>-->
     <div class="pullLeft {{#if item.data.damage.roll}}vrollable{{/if}}" 
+        data-type="Mortal"
         data-rolldamage="true" 
         data-label="{{captilizeFirst item.name}}" 
         data-dice1="{{item.data.damage.attribute}}" 
         data-dice2="{{item.data.damage.bonus}}" 
-        data-type="{{item.data.damage.type}}">{{#if item.data.damage.roll}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>
+        data-damagetype="{{item.data.damage.type}}">{{#if item.data.damage.roll}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>
     <div class="pullLeft">
         {{#if ../locked}}
             &nbsp;

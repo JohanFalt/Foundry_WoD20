@@ -10,11 +10,12 @@
 
     <div class="clearareaBox row">
         <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
-                data-rollitem="true" 
-                data-label="{{captilizeFirst item.name}}" 
-                data-dice1="{{item.data.dice1}}" 
-                data-diff="{{item.data.difficulty}}"
-                data-system="{{item.data.description}}">{{captilizeFirst item.name}}</div>
+            data-type="Spirit"
+            data-rollitem="true" 
+            data-label="{{captilizeFirst item.name}}" 
+            data-dice1="{{item.data.dice1}}" 
+            data-diff="{{item.data.difficulty}}"
+            data-system="{{item.data.description}}">{{captilizeFirst item.name}}</div>
         {{#if item.data.rollable}}
         <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
         <div class="pullLeft gift-valueBox headlineNormal">

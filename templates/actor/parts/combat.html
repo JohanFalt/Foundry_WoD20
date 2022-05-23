@@ -2,7 +2,8 @@
 
 <div class="sheet-area">    
     <div class="clearareaBox area-box">
-        {{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+        {{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
+        {{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}        
     </div>
 </div>
 
@@ -33,37 +34,19 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
         <div class="pullLeft combat-bottomarea">
-            {{#iff actor.type "!=" "Mortal"}}
-                <div class="sheet-headline">Active Gifts</div>
-                {{#each actor.powercombat as |item id|}}
-                    <div class="clearareaBox row">
-                        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
-                            data-rollitem="true" 
-                            data-label="{{captilizeFirst item.name}}" 
-                            data-dice1="{{item.data.dice1}}" 
-                            data-dice2="{{item.data.dice2}}" 
-                            data-diff="{{item.data.difficulty}}"
-                            data-system="{{item.data.system}}">{{captilizeFirst item.name}}</div>
-                        <div class="pullLeft gift-valueBox headlineNormal tooltip">
-                            <i class="fa fa-sticky-note"></i>
-                            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
-                        </div>
-                        <div class="pullLeft gift-valueBox">
-                            <a class="send-chat" 
-                                title="{{localize "wod.labels.send"}}" 
-                                data-type="Gift" 
-                                data-item-id="{{item._id}}" 
-                                data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                    <span class='chatt-text'>{{item.data.description}}</span>
-                                    <br />
-                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                    <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
-                        </div>
-                    </div>
-                {{/each}}
+            {{#iff actor.type "==" "Werewolf"}}
+                {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
             {{else}}
-                &nbsp;
+                {{#iff actor.type "==" "Changing Breed"}}
+                    {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
+                {{else}}
+                    {{#iff actor.type "==" "Mage"}}
+                        <!-- {{> "systems/worldofdarkness/templates/actor/parts/mage/combat_active.html"}} -->
+                        &nbsp;
+                    {{else}}
+                        &nbsp;
+                    {{/iff}}
+                {{/iff}}                
             {{/iff}}
         </div>
 

@@ -1,0 +1,36 @@
+<form class="{{cssClass}} checkfrenzy-dialog" autocomplete="off">
+
+    <div class="dialog-area headlineGroup">{{localize "wod.dialog.checkfrenzy.headline"}}</div>
+
+    <div class="dialog-area">
+        <div class="headline">{{localize "wod.dialog.checkfrenzy.moonphase"}}</div>
+        <div>
+            <input class="moon" type="radio" id="moon" name="moon" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</input>            
+        </div>
+        <div>
+            <input type="radio" id="moon" name="moon" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</input>
+        </div>
+        <div>
+            <input type="radio" id="moon" name="moon" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</input>            
+        </div>
+        <div>
+            <input type="radio" id="moon" name="moon" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</input>            
+        </div>
+        <div>
+            <input type="radio" id="moon" name="moon" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</input>
+        </div>
+    </div>
+
+    <div class="dialog-area">
+        <div class="headline">{{localize "wod.dialog.checkfrenzy.ragebonus"}}</div>
+        <div class="dialog-valueBox">
+            <input type="text" id="rageMod" name="rageMod" value="0" autofocus />
+        </div>
+    </div>
+
+    <div class="centerText">
+        <button id="actionButton" class="button actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+    </div>
+
+</form>

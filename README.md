@@ -27,7 +27,7 @@ Systems I have checked to learn general structure and the typical "how do you do
 ## Translations
 German translation - Pat Schw
 
-Spanish translation - Duke
+Spanish translation - Duke and Wharomaru
 
 ## Icons
 https://fontawesome.com/v4.7/icons/

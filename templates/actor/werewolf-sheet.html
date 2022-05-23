@@ -47,14 +47,20 @@
 			{{!-- Core Tab --}}
 			<div class="tab core" data-group="primary" data-tab="core">
 
-				<nav class="sheet-spec-tabs tabs" data-group="secondary">
-					<a class="item" data-tab="normal">{{localize 'wod.tab.normal'}}</a>
-					<a class="item" data-tab="specialities">{{localize 'wod.tab.specialities'}}</a>
-				</nav>
+				<section class="sheet-spec-body">	
+					
+					<nav class="sheet-spec-tabs tabs" data-group="secondary">
+						<a class="item" data-tab="normal">{{localize 'wod.tab.normal'}}</a>
+						<a class="item" data-tab="specialities">{{localize 'wod.tab.specialities'}}</a>
+					</nav>
 
-				<section class="sheet-spec-body">
-					<div class="tab normal" data-group="secondary" data-tab="normal">
-				
+					<div class="sheet-area clearareaBox">
+						{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
+					</div>
+
+					<!-- Core Normal -->
+					<div class="tab normal" data-group="secondary" data-tab="normal">						
+
 						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
 						</div>
@@ -97,6 +103,7 @@
 
 					</div>
 
+					<!-- Core with Specialities -->
 					<div class="tab specialities" data-group="secondary" data-tab="specialities">
 
 						<div class="sheet-area">

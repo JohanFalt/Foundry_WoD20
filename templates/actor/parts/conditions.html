@@ -1,30 +1,25 @@
-<!--<div class="sheet-headline">{{localize "wod.labels.combat.conditions"}}</div>-->
-
 {{#iff actor.type "!=" "Spirit"}}
-<div class="clearareaBox">
+<div class="pullLeft">
     {{#iff actor.type "==" "Werewolf"}}
-        <div class="pullLeft condition">
+        <div class="condition">
             <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
         </div>
     {{/iff}}
     {{#iff actor.type "==" "Changing Breed"}}
         {{#iff data.data.changingbreed "!=" "Ananasi"}}
             {{#iff data.data.changingbreed "!=" "Nuwisha"}}
-            <div class="pullLeft condition">
+            <div class="condition">
                 <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
             </div>
             {{/iff}}
         {{/iff}}    
     {{/iff}}
-    <div class="pullLeft condition">
+    <div class="condition">
         <input name="data.conditions.ignorepain" type="checkbox" {{#if data.data.conditions.ignorepain}} checked {{/if}}>{{localize "wod.combat.conditions.ignorepain"}}</input>
     </div>
-    <!--<div class="pullLeft">
-        <input name="data.conditions.stunned" type="checkbox" {{#if data.data.conditions.stunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
-    </div>-->
 </div>
 {{/iff}}
 
-<img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-source="initiative" title="{{localize "wod.info.rollinititative"}}">
-<img class="macroBtn" src="systems/worldofdarkness/assets/img/buttons/soak.svg" data-source="soak" title="{{localize "wod.info.rollsoak"}}">
-<img class="macroBtn" src="systems/worldofdarkness/assets/img/dice/d10.png" data-source="dices" title="{{localize "wod.info.rolldice"}}">
+<!--<div class="pullLeft">
+        <input name="data.conditions.stunned" type="checkbox" {{#if data.data.conditions.stunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
+    </div>-->
