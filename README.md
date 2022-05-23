@@ -2,6 +2,7 @@
 Supported sheets at this moment are:
 - Mortals
 - Werewolfs
+- Mages
 - Changing Breeds
 - Spirits
 - Creatures
