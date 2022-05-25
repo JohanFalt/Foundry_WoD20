@@ -29,9 +29,7 @@
 					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
 					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
 					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
-					{{#iff actor.type "==" "Creature"}}
-					<div class="pullLeft headlineNormal numberBox">Max</div>
-					{{/iff}}
+					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.max"}}</div>
 				</div>
 
 				{{#each data.data.attributes as |attribute key|}}
@@ -45,13 +43,10 @@
 							data-name="data.attributes.{{key}}.bonus" 
 							data-dtype="Number" {{#if locked}} readonly {{/if}} />
 						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
-			
-						{{#iff ../actor.type "==" "Creature"}}
 						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.max}}" name="data.attributes.{{key}}.max" 
 						data-value="{{attribute.max}}" 
 						data-name="data.attributes.{{key}}.max" 
 						data-dtype="Number" {{#if locked}} readonly {{/if}} />
-						{{/iff}}
 					</div>
 					{{/if}}
 					

@@ -23,51 +23,29 @@
     <div>
         <label class="headlineText headlineBio" for="data.sect">{{localize "wod.bio.sect"}}</label>
         <div class="pullLeft headlineNormal bio-verticalcenter">
-            <input class="sheet-infoValues" name="data.sect" type="text" value="{{data.data.sect}}" data-name="data.data.sect" data-dtype="String" {{#if locked}} readonly {{/if}} />
-            <!-- {{#if locked}}
-            <input class="sheet-infoValues" name="data.sect" type="text" value="{{localize data.data.sect}}" data-name="data.data.sect" data-dtype="String" readonly />
-            {{else}}                
-                <select name="data.sect" data-name="data.data.sect" data-dtype="String">
-                    {{#select data.data.sect}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    {{#iff data.data.affiliation "==" "wod.bio.tradition"}}
-                    <option value="wod.bio.sect.akashicbrotherhood">{{localize "wod.bio.sect.akashicbrotherhood"}}</option>
-                    <option value="wod.bio.sect.celestialchorus">{{localize "wod.bio.sect.celestialchorus"}}</option>
-                    <option value="wod.bio.sect.cultofecstasy">{{localize "wod.bio.sect.cultofecstasy"}}</option>
-                    <option value="wod.bio.sect.dreamspeakers">{{localize "wod.bio.sect.dreamspeakers"}}</option>
-                    <option value="wod.bio.sect.euthanatos">{{localize "wod.bio.sect.euthanatos"}}</option>
-                    <option value="wod.bio.sect.orderofhermes">{{localize "wod.bio.sect.orderofhermes"}}</option>
-                    <option value="wod.bio.sect.societyofether">{{localize "wod.bio.sect.societyofether"}}</option>
-                    <option value="wod.bio.sect.verbena">{{localize "wod.bio.sect.verbena"}}</option>
-                    <option value="wod.bio.sect.virtualadepts">{{localize "wod.bio.sect.virtualadepts"}}</option>
-                    {{/iff}}
-                    {{#iff data.data.affiliation "==" "wod.bio.technocracy"}}
-                    <option value="wod.bio.sect.iterationx">{{localize "wod.bio.sect.iterationx"}}</option>
-                    <option value="wod.bio.sect.newworldorder">{{localize "wod.bio.sect.newworldorder"}}</option>
-                    <option value="wod.bio.sect.progenitors">{{localize "wod.bio.sect.progenitors"}}</option>
-                    <option value="wod.bio.sect.syndicate">{{localize "wod.bio.sect.syndicate"}}</option>
-                    <option value="wod.bio.sect.voidengineers">{{localize "wod.bio.sect.voidengineers"}}</option>
-                    {{/iff}}
-                    {{#iff data.data.affiliation "==" "wod.bio.disparate"}}
-                    <option value="wod.bio.sect.ahlibatin">{{localize "wod.bio.sect.ahlibatin"}}</option>
-                    <option value="wod.bio.sect.bataa">{{localize "wod.bio.sect.bataa"}}</option>
-                    <option value="wod.bio.sect.solificati">{{localize "wod.bio.sect.solificati"}}</option>
-                    <option value="wod.bio.sect.hollowones">{{localize "wod.bio.sect.hollowones"}}</option>
-                    <option value="wod.bio.sect.kopaloei">{{localize "wod.bio.sect.kopaloei"}}</option>
-                    <option value="wod.bio.sect.ngoma">{{localize "wod.bio.sect.ngoma"}}</option>
-                    <option value="wod.bio.sect.orphans">{{localize "wod.bio.sect.orphans"}}</option>
-                    <option value="wod.bio.sect.hippolytoi">{{localize "wod.bio.sect.hippolytoi"}}</option>
-                    <option value="wod.bio.sect.taftani">{{localize "wod.bio.sect.taftani"}}</option>
-                    <option value="wod.bio.sect.templarknights">{{localize "wod.bio.sect.templarknights"}}</option>
-                    <option value="wod.bio.sect.wulung">{{localize "wod.bio.sect.wulung"}}</option>
-                    {{/iff}}
-                    {{#iff data.data.affiliation "==" "wod.bio.other"}}
-                    <option value="wod.bio.sect.nephandi">{{localize "wod.bio.sect.nephandi"}}</option>
-                    <option value="wod.bio.sect.marauder">{{localize "wod.bio.sect.marauder"}}</option>
-                    {{/iff}}
-                    {{/select}}
-                </select>
-            {{/if}} -->
+            <input class="sheet-infoValues" name="data.sect" type="text" value="{{data.data.sect}}" data-name="data.data.sect" data-dtype="String" {{#if locked}} readonly {{/if}} />            
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.affinity">{{localize "wod.bio.affinitysphere"}}</label>
+        <div class="pullLeft headlineNormal bio-verticalcenter">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.affinity" type="text" value="{{localize data.data.affinity}}" data-name="data.data.affinity" data-dtype="String" readonly />
+            {{else}}
+            <select name="data.affinity" data-name="data.data.affinity" data-dtype="String">
+                {{#select data.data.spheres.affinity}}
+                <option value="">- {{localize "wod.labels.select"}} -</option>
+
+                {{#each config.allSpheres as | name type|}}
+                <option value="{{name}}">{{localize name}}</option>
+                {{/each}}
+
+                {{/select}}
+            </select>
+            {{/if}}
         </div>
     </div>
 </div>

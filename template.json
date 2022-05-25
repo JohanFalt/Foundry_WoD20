@@ -916,6 +916,7 @@
 			"mage": {
 				"affiliation": "",
 				"sect": "",
+				"affinity": "",
 				"essence": "",
 				"arete": {
 					"permanent": 0,
@@ -937,7 +938,7 @@
 					"roll": 0,
 					"label": "wod.advantages.paradox"
 				},
-				"spheres": {
+				"spheres": {					
 					"correspondence": {
 						"value": 0,
 						"max": 5,

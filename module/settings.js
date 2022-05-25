@@ -90,6 +90,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch150", {
+		name: "patch150",
+		hint: "patch150",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
 
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),

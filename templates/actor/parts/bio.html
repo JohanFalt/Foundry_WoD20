@@ -3,7 +3,11 @@
 
 		<div class="top-area">
 			<div class="top-side">
-				<img class="profile-img" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+				{{#if isGM}}
+					<img class="profile-img shift-image" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+				{{else}}
+					<img class="profile-img" src="{{actor.img}}" />
+				{{/if}}
 			</div>
 			<div class="top-center top-headline centerText">
 				{{#if locked}}

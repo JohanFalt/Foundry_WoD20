@@ -5,26 +5,25 @@
 	<div class="clearareaBox">
 		{{#each data.data.spheres as |sphere key|}}
 
-		{{#if (topSpheres key)}}<div class="attribute-statArea pullLeft">{{/if}}
+		{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
 
-		<div>
-			<div class="attribute-rowheight" style="clear:left;">
-				<label for="data.data.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal">{{localize sphere.label}}</label>
-				<div class="resource-value pullLeft" 
-					data-value="{{sphere.value}}"
-					data-name="data.spheres.{{key}}.value">
+		<div class="attribute-rowheight" style="clear:left;">
+			<label for="data.data.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#iff sphere.label "==" ../data.data.affinity}}bold{{/iff}}" 
+				{{#iff sphere.label "==" ../data.data.affinity}}title="{{localize "wod.bio.affinitysphere"}}"{{/iff}}>{{localize sphere.label}}</label>
+			<div class="resource-value pullLeft" 
+				data-value="{{sphere.value}}"
+				data-name="data.spheres.{{key}}.value">
 
-					<span class="resource-value-empty" data-type="Mage"></span>
+				<span class="resource-value-empty" data-type="Mage"></span>
 
-					{{#numLoop sphere.max}}
-					
-					<span class="resource-value-step" data-type="Mage" data-index="{{this}}"></span>
-					
-					{{/numLoop}}
-					
-				</div>
-			</div>		
-		</div>
+				{{#numLoop sphere.max}}
+				
+				<span class="resource-value-step" data-type="Mage" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+				
+			</div>
+		</div>		
 
 		{{#if (bottenSpheres key)}}</div>{{/if}}
 		

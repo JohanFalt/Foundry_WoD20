@@ -6,6 +6,16 @@ export class WoDItemSheet extends ItemSheet {
 		});
 	}
 
+	constructor(item, options) {
+		super(item, options);
+
+		this.locked = true;
+		this.isCharacter = false;	
+		this.isGM = game.user.isGM;	
+		
+		console.log("WoD | Item Sheet constructor");
+	}
+
 	/** @override */
 	get template() {
 		let sheet = this.item.data.type;
@@ -27,6 +37,12 @@ export class WoDItemSheet extends ItemSheet {
 		if (data.item.locked == undefined) {
 			data.item.locked = true;
 		}		
+
+		const imgUrl = getImage(data.item);
+
+		if (imgUrl != "") {
+			data.item.data.img = imgUrl;
+		}
 
 		console.log(data.item);
 		
@@ -112,7 +128,49 @@ export class WoDItemSheet extends ItemSheet {
 			itemData.data[fields[2]] = value;
 			this.item.update(itemData);
 		}		
+	}	
+}
+
+function getImage(item) {
+	if (!item.data.img.startsWith("systems/")) {
+		return "";
 	}
 
-	
+	if (item.type == "Armor") {
+		return "systems/worldofdarkness/assets/img/items/armor.svg";
+	}
+
+	if (item.type == "Fetish") {
+		return "systems/worldofdarkness/assets/img/items/fetish.svg";
+	}
+
+	if ((item.type == "Melee Weapon") && (item.data.data.natural)) {
+		return "systems/worldofdarkness/assets/img/items/naturalweapons.svg";
+	}
+
+	if ((item.type == "Melee Weapon") && (!item.data.data.natural)) {
+		return "systems/worldofdarkness/assets/img/items/meleeweapons.svg";
+	}
+
+	if (item.type == "Ranged Weapon") {
+		return "systems/worldofdarkness/assets/img/items/rangedweapons.svg";
+	}
+
+	if (item.type == "Feature") {
+		return "systems/worldofdarkness/assets/img/items/feature.svg";
+	}
+
+	if (item.type == "Experience") {
+		return "systems/worldofdarkness/assets/img/items/feature.svg";
+	}
+
+	if (item.type == "Power") {
+		return "systems/worldofdarkness/assets/img/items/power.svg";
+	}
+
+	if (item.type == "Rote") {
+		return "systems/worldofdarkness/assets/img/items/rote.svg";
+	}
+
+	return "";
 }

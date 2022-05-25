@@ -50,7 +50,7 @@
 
 					{{#numLoop attribute.max}}
 					
-					<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
+					<span class="{{#iff attribute.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
 					
 					{{/numLoop}}
 					

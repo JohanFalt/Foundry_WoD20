@@ -22,6 +22,9 @@ export const patches = async (installedVersion, currentVersion) => {
     let patch140 = false;
     let hasRun140 = false;
 
+    let patch150 = false;
+    let hasRun150 = false;
+
     let newfunctions = "";
 
     try {
@@ -31,6 +34,7 @@ export const patches = async (installedVersion, currentVersion) => {
         patch120 = game.settings.get('worldofdarkness', 'patch120');
         patch130 = game.settings.get('worldofdarkness', 'patch130');
         patch140 = game.settings.get('worldofdarkness', 'patch140');
+        patch150 = game.settings.get('worldofdarkness', 'patch150');
     } 
     catch (e) {
         console.log("Fel uppstod i migration.js");
@@ -65,6 +69,7 @@ export const patches = async (installedVersion, currentVersion) => {
     hasRun120 = true;
     hasRun130 = true;
     hasRun140 = true;
+    hasRun150 = true;
 
     if ((!patch107) && (hasRun107)) {
         game.settings.set('worldofdarkness', 'patch107', true);
@@ -108,14 +113,17 @@ export const patches = async (installedVersion, currentVersion) => {
         newfunctions += "<li>Added Spanish</li>";
         newfunctions += "<li>Added Mage the Ascention</li>";
         newfunctions += "<li>Added Secondary Abilities is added under Settings</li>";
-        newfunctions += "<li>[Wta] Added icon to roll frenzy</li>";
+        newfunctions += "<li>[WtA] Added icon to roll frenzy</li>";
         newfunctions += "<li>[WtA] Added new item - Fetish listed in Gear</li>";
         newfunctions += "<li>[MtA] Added icon to roll cast spell</li>";
         newfunctions += "<li>[MtA] Added support to create and cast Rote spells</li>";
-        newfunctions += "<li>Fixed graphical problems if using Spanish Translation</li>";
-        
+        newfunctions += "<li>Fixed graphical problems if using Spanish Translation</li>";        
     }
 
+    // if ((!patch150) && (hasRun150)) {
+    //   //game.settings.set('worldofdarkness', 'patch150', true);
+    // }    
+      
     game.settings.set('worldofdarkness', 'worldVersion', currentVersion);
 
     if (characterChanged) {
@@ -139,82 +147,80 @@ export const patches = async (installedVersion, currentVersion) => {
 }
 
 export const updates = async () => {
-  console.log('WoD | Settings starts');
+    console.log('WoD | Settings starts');
 
-  let attributeSettings = "20th";
-  let rollSettings = true;
+    let attributeSettings = "20th";
+    let rollSettings = true;
 
-  try {
-		attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
-		rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
-	} 
-	catch (e) {
-		console.log("Fel uppstod i migration.js");
-	}
-
-  // handle Game settings  
-  let willpower = -1;
-  let gnosis = -1;
-  let rage = -1;
-  let totalinit = -1;
-
-  for (const actor of game.actors) {
-    if ((actor.type == "Mortal") || (actor.type == "Mage") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
-      if (attributeSettings == "20th") {
-        actor.update({"data.attributes.strength.visible" : true,
-          "data.attributes.dexterity.visible" : true,
-          "data.attributes.stamina.visible" : true,
-          "data.attributes.charisma.visible" : true,
-          "data.attributes.manipulation.visible" : true,
-          "data.attributes.appearance.visible" : true,
-          "data.attributes.composure.visible" : false,
-          "data.attributes.perception.visible" : true,
-          "data.attributes.intelligence.visible" : true,
-          "data.attributes.wits.visible" : true,
-          "data.attributes.resolve.visible" : false});
-      }
-      else if (attributeSettings == "5th") {
-        actor.update({"data.attributes.strength.visible" : true,
-          "data.attributes.dexterity.visible" : true,
-          "data.attributes.stamina.visible" : true,
-          "data.attributes.charisma.visible" : true,
-          "data.attributes.manipulation.visible" : true,
-          "data.attributes.appearance.visible" : false,
-          "data.attributes.composure.visible" : true,
-          "data.attributes.perception.visible" : false,
-          "data.attributes.intelligence.visible" : true,
-          "data.attributes.wits.visible" : true,
-          "data.attributes.resolve.visible" : true});
-      }
-
-      if (rollSettings) {
-        if ((actor.type != "Mortal") && (actor.type != "Mage")) {
-          rage = actor.data.data.rage.permanent; 
-          gnosis = actor.data.data.gnosis.permanent;
+    try {
+            attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
+            rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+        } 
+        catch (e) {
+            console.log("Fel uppstod i migration.js");
         }
-        
-        willpower = actor.data.data.willpower.permanent; 
-      }
-      else {
-        if ((actor.type != "Mortal") && (actor.type != "Mage")) {
-          rage = actor.data.data.rage.permanent > actor.data.data.rage.temporary ? actor.data.data.rage.temporary : actor.data.data.rage.permanent; 
-          gnosis = actor.data.data.gnosis.permanent > actor.data.data.gnosis.temporary ? actor.data.data.gnosis.temporary : actor.data.data.gnosis.permanent;
+
+    // handle Game settings  
+    let willpower = -1;
+    let gnosis = -1;
+    let rage = -1;
+    let totalinit = -1;
+
+    for (const actor of game.actors) {
+        if ((actor.type == "Mortal") || (actor.type == "Mage") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
+        if (attributeSettings == "20th") {
+            actor.update({"data.attributes.strength.visible" : true,
+            "data.attributes.dexterity.visible" : true,
+            "data.attributes.stamina.visible" : true,
+            "data.attributes.charisma.visible" : true,
+            "data.attributes.manipulation.visible" : true,
+            "data.attributes.appearance.visible" : true,
+            "data.attributes.composure.visible" : false,
+            "data.attributes.perception.visible" : true,
+            "data.attributes.intelligence.visible" : true,
+            "data.attributes.wits.visible" : true,
+            "data.attributes.resolve.visible" : false});
         }
-        
-        willpower = actor.data.data.willpower.permanent > actor.data.data.willpower.temporary ? actor.data.data.willpower.temporary : actor.data.data.willpower.permanent; 
-      }
+        else if (attributeSettings == "5th") {
+            actor.update({"data.attributes.strength.visible" : true,
+            "data.attributes.dexterity.visible" : true,
+            "data.attributes.stamina.visible" : true,
+            "data.attributes.charisma.visible" : true,
+            "data.attributes.manipulation.visible" : true,
+            "data.attributes.appearance.visible" : false,
+            "data.attributes.composure.visible" : true,
+            "data.attributes.perception.visible" : false,
+            "data.attributes.intelligence.visible" : true,
+            "data.attributes.wits.visible" : true,
+            "data.attributes.resolve.visible" : true});
+        }
 
-      if ((actor.type != "Mortal") && (actor.type != "Mage")) {
-        actor.update({"data.gnosis.roll" : gnosis,
-          "data.rage.roll" : rage});
-      }
+        if (rollSettings) {
+            if ((actor.type != "Mortal") && (actor.type != "Mage")) {
+            rage = actor.data.data.rage.permanent; 
+            gnosis = actor.data.data.gnosis.permanent;
+            }
+            
+            willpower = actor.data.data.willpower.permanent; 
+        }
+        else {
+            if ((actor.type != "Mortal") && (actor.type != "Mage")) {
+            rage = actor.data.data.rage.permanent > actor.data.data.rage.temporary ? actor.data.data.rage.temporary : actor.data.data.rage.permanent; 
+            gnosis = actor.data.data.gnosis.permanent > actor.data.data.gnosis.temporary ? actor.data.data.gnosis.temporary : actor.data.data.gnosis.permanent;
+            }
+            
+            willpower = actor.data.data.willpower.permanent > actor.data.data.willpower.temporary ? actor.data.data.willpower.temporary : actor.data.data.willpower.permanent; 
+        }
 
-      actor.update({"data.willpower.roll" : willpower});        
-    }
+        if ((actor.type != "Mortal") && (actor.type != "Mage")) {
+            actor.update({"data.gnosis.roll" : gnosis,
+            "data.rage.roll" : rage});
+        }
 
-    totalinit = parseInt(actor.data.data.initiative.base) + parseInt(actor.data.data.initiative.bonus);
-    actor.update({"data.initiative.total" : totalinit});       
-  }
+        actor.update({"data.willpower.roll" : willpower});        
+        }
 
-  
+        totalinit = parseInt(actor.data.data.initiative.base) + parseInt(actor.data.data.initiative.bonus);
+        actor.update({"data.initiative.total" : totalinit});       
+    }  
 }
