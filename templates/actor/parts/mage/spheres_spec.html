@@ -1,0 +1,28 @@
+<div class="clearareaBox area-box">
+
+	<div class="sheet-headline">{{localize 'wod.spheres.spheres'}}</div>
+
+	<div class="clearareaBox">
+		{{#each data.data.spheres as |sphere key|}}
+
+		{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
+		<div class="attribute-rowheight" style="clear:left;">
+			<label for="data.data.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#iff sphere.label "==" ../data.data.affinity}}bold{{/iff}}" 
+				{{#iff sphere.label "==" ../data.data.affinity}}title="{{localize "wod.bio.affinitysphere"}}"{{/iff}}>{{localize sphere.label}}</label>
+            {{#iff sphere.value ">=" "4"}}
+            <div class="resource-value pullRight">
+                <input type="text" 
+                    class="specialityBox"
+                    name="data.spheres.{{key}}.speciality" 
+                    value="{{sphere.speciality}}" 
+                    data-name="data.spheres.{{key}}.speciality" />
+            </div>
+            {{/iff}}
+		</div>		
+
+		{{#if (bottenSpheres key)}}</div>{{/if}}
+		
+		{{/each}}	
+	</div> 
+
+</div>	

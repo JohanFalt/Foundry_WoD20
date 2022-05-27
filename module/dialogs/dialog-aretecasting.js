@@ -55,6 +55,8 @@ export class Rote {
         this.sumSelectedDifficulty = 0;
         this.totalDifficulty = 0;           // all in all difficulty
 
+        this.useSpeciality = false;
+
         this.isRote = false;
         this.canCast = false;
         this.close = false;
@@ -220,6 +222,8 @@ export class DialogAreteCasting extends FormApplication {
         this.object.difficultyModifier = parseInt(formData["object.difficultyModifier"]);
         this.object.spelltype = formData["object.spelltype"];
         this.object.witnesses = formData["object.witnesses"];
+
+        this.object.useSpeciality = formData["specialty"];
         
         this.object.areteModifier = parseInt(formData["object.areteModifier"]);
 
@@ -262,7 +266,6 @@ export class DialogAreteCasting extends FormApplication {
         const parent = $(element.parentNode);
         const index = Number(dataset.index);
         const sphere = parent[0].dataset.name;
-        //const fields = sphere.split(".");		
         const steps = parent.find(".resource-value-step");
 
         if (index < 0 || index > steps.length) {
@@ -284,6 +287,8 @@ export class DialogAreteCasting extends FormApplication {
     /* clicked on cast Spell */
     _castSpell(event) {
         let templateHTML = "";
+        let specialityRoll = false;
+        let specialityText = "";
 
         this.object.canCast = this._calculateDifficulty(true);
 
@@ -333,6 +338,11 @@ export class DialogAreteCasting extends FormApplication {
                 let exists = (this.object.selectedSpheres[sphere] === undefined) ? false : true;
 
                 if (exists) {
+                    if ((parseInt(this.actor.data.data.spheres[sphere].value) >= 4) && (this.object.useSpeciality)) {
+                        specialityRoll = true;
+                        specialityText = specialityText != "" ? specialityText + ", " + this.actor.data.data.spheres[sphere].speciality : this.actor.data.data.spheres[sphere].speciality;
+                    }
+
                     templateHTML += game.i18n.localize(CONFIG.wod.allSpheres[sphere]) + ` (${this.object.selectedSpheres[sphere]})<br />`;
                 }
             }
@@ -343,7 +353,9 @@ export class DialogAreteCasting extends FormApplication {
                 this.actor,
                 templateHTML,
                 parseInt(this.object.totalDifficulty),
-                this.object.description);            
+                this.object.description,
+                specialityRoll,
+                specialityText);            
         }
     }
 
@@ -353,8 +365,6 @@ export class DialogAreteCasting extends FormApplication {
     }
 
     _changedSelectedSphere(selected, spherename, value) {
-        //
-
         let exists = (selected[spherename] === undefined) ? false : true;
 
         if ((exists) && (value == 0)) {

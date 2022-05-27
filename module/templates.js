@@ -35,6 +35,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/settings.html",
 
 		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html",
