@@ -132,7 +132,7 @@ export class WoDItemSheet extends ItemSheet {
 }
 
 function getImage(item) {
-	if (!item.data.img.startsWith("systems/")) {
+	if ((!item.data.img.startsWith("systems/")) && (!item.data.img.startsWith("icons/"))) {
 		return "";
 	}
 
