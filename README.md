@@ -26,7 +26,7 @@ Systems I have checked to learn general structure and the typical "how do you do
 - https://github.com/StarWarsFoundryVTT/StarWarsFFG
 
 ## Translations
-German translation - Pat Schw
+German translation - Nocther
 
 Spanish translation - Duke and Wharomaru
 
