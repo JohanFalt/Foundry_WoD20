@@ -36,15 +36,16 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.created) {
+		if (!actorData.data.settings.iscreated) {
 			if (actorData.type == "Changing Breed") {
 				ActionHelper._setWerewolfAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
+				ActionHelper._setWerewolfAttributes(actorData);
 
-				actorData.data.settings.soak.lethal.roll = true;
-				actorData.data.settings.soak.aggravated.roll = true;
-				actorData.data.settings.created = true;
-				this.actor.update(actorData);
+				actorData.data.settings.soak.lethal.isrollable = true;
+				actorData.data.settings.soak.aggravated.isrollable = true;
+				actorData.data.settings.iscreated = true;
+				 this.actor.update(actorData);
 			}	 	
 		}
 
@@ -66,16 +67,16 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Changing Breed Sheet handling shift data");
 
-		if (data.actor.data.data.shapes.glabro.active) {
+		if (data.actor.data.data.shapes.glabro.isactive) {
 			presentform = data.actor.data.data.shapes.glabro.label;
 		}
-		else if (data.actor.data.data.shapes.crinos.active) {
+		else if (data.actor.data.data.shapes.crinos.isactive) {
 			presentform = data.actor.data.data.shapes.crinos.label;
 		}
-		else if (data.actor.data.data.shapes.hispo.active) {
+		else if (data.actor.data.data.shapes.hispo.isactive) {
 			presentform = data.actor.data.data.shapes.hispo.label;
 		}
-		else if (data.actor.data.data.shapes.lupus.active) {
+		else if (data.actor.data.data.shapes.lupus.isactive) {
 			presentform = data.actor.data.data.shapes.lupus.label;
 		}
 		else {
@@ -142,20 +143,20 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		}
 
 		data.actor.presentform = presentform;
-		data.actor.powerlist1 = powerlist1;
-		data.actor.powerlist2 = powerlist2;
-		data.actor.powerlist3 = powerlist3;
-		data.actor.powerlist4 = powerlist4;
-		data.actor.powerlist5 = powerlist5;
-		data.actor.powercombat = powercombat;
-		data.actor.ritelist = ritelist;
-		data.actor.fetishlist = fetishlist;
-		data.actor.talenlist = talenlist;
+		data.actor.powerlist1 = powerlist1.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.powerlist2 = powerlist2.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.powerlist3 = powerlist3.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.powerlist4 = powerlist4.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.powerlist5 = powerlist5.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.powercombat = powercombat.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.ritelist = ritelist.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.fetishlist = fetishlist.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.talenlist = talenlist.sort((a, b) => a.name.localeCompare(b.name));
 
 		data.actor.other = other;	
 
-		if (actorData.type == "Changing Breed") {
-			console.log("Changing Breed");
+		if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+			console.log(CONFIG.wod.sheettype.changingbreed);
 			console.log(data.actor);
 		}
 
@@ -172,6 +173,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
+		ActionHelper._setupDotCounters(html);
 
 		console.log("WoD | Changing Breed Sheet activateListeners");
 
@@ -206,7 +208,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != "Werewolf") {
+		if ((type != CONFIG.wod.sheettype.werewolf) && (type != CONFIG.wod.sheettype.changingbreed)) {
 			return;
 		}
 
@@ -222,7 +224,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != "Werewolf") {
+		if ((type != CONFIG.wod.sheettype.werewolf) && (type != CONFIG.wod.sheettype.changingbreed)) {
 			return;
 		}
 
@@ -237,17 +239,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		steps.removeClass("active");
 		
-		steps.each(function (i) {
-			if (i <= 0) {
-				$(this).addClass("active");
-			}
-		});
-		
-		// if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "bloodpool") || (fields[2] === "renown"))
-		// {
-		// 	this._assignToWerewolf(fields, 0);
-		// }	
-
 		this._assignToWerewolf(fields, 0);
 	}
 	
@@ -259,7 +250,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != "Werewolf") {
+		if ((type != CONFIG.wod.sheettype.werewolf) && (type != CONFIG.wod.sheettype.changingbreed)) {
 			return;
 		}
 
@@ -294,10 +285,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			}
 		});
 
-		// if ((fields[2] === "gnosis") || (fields[2] === "rage") || (fields[2] === "bloodpool") || (fields[2] === "renown")) {
-		// 	this._assignToWerewolf(fields, index + 1);
-		// }
-
 		this._assignToWerewolf(fields, index + 1);
 	}
 
@@ -320,11 +307,11 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		for (const i in actorData.data.shapes) {
 			if (actorData.data.shapes[i].label == fromForm)  {
-				actorData.data.shapes[i].active = false;
+				actorData.data.shapes[i].isactive = false;
 			}
 
 			if (actorData.data.shapes[i].label == toForm) {
-				actorData.data.shapes[i].active = true;
+				actorData.data.shapes[i].isactive = true;
 			}			
 		}		
 

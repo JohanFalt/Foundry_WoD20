@@ -1,11 +1,7 @@
 {
 	"wod": {
 		"system": {
-			"patches": "Neue Version erkannt; Aktualisierung der Welt, bitte warten.",
-			"updates": "Überprüfe Charakter Einstellungen!",
-			"characters": "Charaktere aktualisiert!",
 			"world": "Weld aktualisiert!",
-			"done": "Fertig!",
 			"sheetlocked": "Kann nicht bearbeitet werden, Charakterbogen ist gesperrt!"
 		},
 		"settings": {
@@ -19,10 +15,6 @@
 			"therollofonehint": "Normale Handhabung von Regeln - alle Einsen reduzieren die Anzahl der Erfolge um eins (Check). Einsen hat normalerweise keine Auswirkung, aber wenn keine Erfolge und eine oder mehrere Einsen vorhanden sind, ist das ein Patzer (nicht geprüft)",
 			"attributesettings": "Einstellungen für Attribute",
 			"attributesettingshint": "Es gibt zwei Möglichkeiten, aus denen man wählen kann. Entweder man verwendet den Standard aus der 20. Edition, wo man Erscheinungsbild und Wahrnehmung hat und Willenskraft als Wert berechnet. Oder du verwendest die 5. Edition, tauschst Aussehen und Wahrnehmung gegen Fassung und Entschlossenheit und berechnest Willenskraft mit Fassung + Entschlossenheit. 20th ed sind Standard. Nach der Änderung der Einstellung muss Foundry VTT neu gestartet werden."
-		},
-		"dialogs": {
-			"save": "Speichern",
-			"reset": "Zurücksetzen"
 		},
 		"types": {
 			"mortal": "Sterbliche",
@@ -38,7 +30,6 @@
 			"armor": "Rüstung",
 			"gift": "Gabe",
 			"rite": "Ritus",
-			"charm": "Charm",
 			"discipline": "Disziplin",
 			"talen": "Talen",
 			"fetish": "Fetisch",
@@ -97,11 +88,9 @@
 			"physical": "Körperlich",
 			"social": "Gesellschaftlich",
 			"mental": "Geistig",
-			"strength": "Stärke",
-			"charisma": "Charisma",
+			"strength": "Stärke",			
 			"intelligence": "Intelligenz",
-			"dexterity": "Geschick",
-			"manipulation": "Manipulation",
+			"dexterity": "Geschick",			
 			"wits": "Geistesschärfe",
 			"stamina": "Widerstand",
 			"composure": "Fassung",
@@ -141,8 +130,7 @@
 			"subterfuge": "Ausflüchte",
 
 			"animalken": "Tierkunde",
-			"archery": "Bogenschießen",
-			"biotech": "Biotech",
+			"archery": "Bogenschießen",			
 			"blindfighting": "Blind Kämpfen",
 			"craft": "Handwerk",
 			"disguise": "Verkleidung",
@@ -159,11 +147,8 @@
 			"gambling": "Glückspiel",
 			"larceny": "Diebstahl",
 			"martialarts": "Kampfkünste",
-			"meditation": "Meditation",
-			"melee": "Nahkampf",
-			"networking": "Net-working",
+			"melee": "Nahkampf",			
 			"performance": "Vortrag",
-			"pilot": "Pilot",
 			"psychology": "Psychologie",
 			"riding": "Reiten",
 			"research": "Recherche",
@@ -177,9 +162,7 @@
 			"chantry": "Kantorei",
 			"chemistry": "Chemie",
 			"culture": "Kultur",
-			"computer": "Computer",
 			"cryptography": "Kryptographie",
-			"enigmas": "Enigmas",
 			"esoterica": "Esoterik",
 			"finance": "Finanzen",
 			"history": "Geschichte",
@@ -190,13 +173,10 @@
 			"medicine": "Medizin",
 			"occult": "Okkultismus",
 			"politics": "Politik",
-			"propaganda": "Propaganda",
-			"religion": "Religion",
 			"science": "Wissenschaft",
 			"theology": "Theologie",
 			"technology": "Technologie",
-			"gestures": "Gesten",
-			"intuition": "Intuition",			
+			"gestures": "Gesten",			
 			"cosmology": "Kosmologie",
 			"hearthwisdom": "Herzensweisheit",
 			"herbalism": "Kräuterkunde",
@@ -220,7 +200,6 @@
 		"advantages": {
 			"advantages": "Vorteile",
 			"rage": "Zorn",
-			"gnosis": "Gnosis",
 			"willpower": "Willenskraft",
 			"bloodpool": "Blutpunkte",
 			"renown": "Ruf",
@@ -386,7 +365,6 @@
 			"none": "Kein",
 			"type": "Typ",
 			"description": "Beschreibung",
-			"details": "Details",
 			"nodamage": "Kein Schaden",
 			"varies": "variiert",
 			"damagetype": "Schadenstyp",
@@ -485,11 +463,11 @@
 			"characteradded": "Charakter bereits zum Combat Tracker hinzugefügt",
 			"initiativealready": "hat bereits Initiative",
 			"rollinginitiative": "Würfel Initative",
-			"rollingsoak": "Würfel Absorbation",
-			"rollingfrenzy": "Zornwurf",			
-			"frenzysuccesses": "Anzahl der erforderlichen Erfolge"
+			"rollingsoak": "Würfel Absorbation"
 		},
-		"dialog": {			
+		"dialog": {	
+			"save": "Speichern",
+			"reset": "Zurücksetzen",
 			"close": "Schließen",
 			"aretecasting": {
 				"castspell": "Zaubern",
@@ -544,7 +522,8 @@
 				"half": "Halbmond",
 				"gibbous": "Dreiviertelmond",
 				"full": "Vollmond",
-				"nomoonphase": "Keine Mondphase ausgewählt"
+				"nomoonphase": "Keine Mondphase ausgewählt",
+				"frenzysuccesses": "Anzahl der erforderlichen Erfolge"
 			}
 		}
 	}	

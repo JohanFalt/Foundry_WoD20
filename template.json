@@ -12,19 +12,19 @@
 		"templates": {
 			"base": {
 				"settings": {
-					"created": false,
 					"iscreated": false,
+					"version": "",
 					"soak": {
 						"bashing": {
-							"roll": true,
+							"bonus": 0,
 							"isrollable": true
 						},
 						"lethal": {
-							"roll": false,
+							"bonus": 0,
 							"isrollable": true
 						},
 						"aggravated": {
-							"roll": false,
+							"bonus": 0,
 							"isrollable": true
 						}
 					}
@@ -39,9 +39,7 @@
 				"notes": "",
 				"gear": "",
 				"conditions": {
-					"ignorepain": false,
 					"isignoringpain": false,
-					"stunned": false,
 					"isstunned": false
 				},
 				"health": {
@@ -96,7 +94,7 @@
 				"bloodpool": {
 					"temporary": 0,
 					"max": 10,
-					"label": "wod.advantages.bloodpool"
+					"perturn": 1
 				},
 				"willpower": {
 					"permanent": 0,
@@ -119,7 +117,6 @@
 							"max": 5,
 							"label": "wod.abilities.alertness",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"animalkinskip": {
@@ -127,7 +124,6 @@
 							"max": 5,
 							"label": "wod.abilities.animalkinskip",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"art": {
@@ -135,7 +131,6 @@
 							"max": 5,
 							"label": "wod.abilities.art",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"athletics": {
@@ -143,7 +138,6 @@
 							"max": 5,
 							"label": "wod.abilities.athletics",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"awareness": {
@@ -151,7 +145,6 @@
 							"max": 5,
 							"label": "wod.abilities.awareness",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"blatancy": {
@@ -159,7 +152,6 @@
 							"max": 5,
 							"label": "wod.abilities.blatancy",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"brawl": {
@@ -167,7 +159,6 @@
 							"max": 5,
 							"label": "wod.abilities.brawl",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"carousing": {
@@ -175,7 +166,6 @@
 							"max": 5,
 							"label": "wod.abilities.carousing",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"cooking": {
@@ -183,7 +173,6 @@
 							"max": 5,
 							"label": "wod.abilities.cooking",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"diplomacy": {
@@ -191,7 +180,6 @@
 							"max": 5,
 							"label": "wod.abilities.diplomacy",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"do": {
@@ -199,7 +187,6 @@
 							"max": 5,
 							"label": "wod.abilities.do",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"empathy": {
@@ -207,7 +194,6 @@
 							"max": 5,
 							"label": "wod.abilities.empathy",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"expression": {
@@ -215,7 +201,6 @@
 							"max": 5,
 							"label": "wod.abilities.expression",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"gestures": {
@@ -223,7 +208,6 @@
 							"max": 5,
 							"label": "wod.abilities.gestures",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"highritual": {
@@ -231,7 +215,6 @@
 							"max": 5,
 							"label": "wod.abilities.highritual",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"instruction": {
@@ -239,7 +222,6 @@
 							"max": 5,
 							"label": "wod.abilities.instruction",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"intrigue": {
@@ -247,7 +229,6 @@
 							"max": 5,
 							"label": "wod.abilities.intrigue",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"intimidation": {
@@ -255,7 +236,6 @@
 							"max": 5,
 							"label": "wod.abilities.intimidation",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"intuition": {
@@ -263,7 +243,6 @@
 							"max": 5,
 							"label": "wod.abilities.intuition",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"leadership": {
@@ -271,7 +250,6 @@
 							"max": 5,
 							"label": "wod.abilities.leadership",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"luciddreaming": {
@@ -279,7 +257,6 @@
 							"max": 5,
 							"label": "wod.abilities.luciddreaming",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"mimicry": {
@@ -287,7 +264,6 @@
 							"max": 5,
 							"label": "wod.abilities.mimicry",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"negotiation": {
@@ -295,7 +271,6 @@
 							"max": 5,
 							"label": "wod.abilities.negotiation",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"primalurge": {
@@ -303,7 +278,6 @@
 							"max": 5,
 							"label": "wod.abilities.primalurge",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"seduction": {
@@ -311,7 +285,6 @@
 							"max": 5,
 							"label": "wod.abilities.seduction",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"streetwise": {
@@ -319,7 +292,6 @@
 							"max": 5,
 							"label": "wod.abilities.streetwise",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"style": {
@@ -327,7 +299,6 @@
 							"max": 5,
 							"label": "wod.abilities.style",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"subterfuge": {
@@ -335,7 +306,6 @@
 							"max": 5,
 							"label": "wod.abilities.subterfuge",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						}
 					},
@@ -345,7 +315,6 @@
 							"max": 5,
 							"label": "wod.abilities.animalken",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"archery": {
@@ -353,7 +322,6 @@
 							"max": 5,
 							"label": "wod.abilities.archery",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"biotech": {
@@ -361,7 +329,6 @@
 							"max": 5,
 							"label": "wod.abilities.biotech",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"blindfighting": {
@@ -369,7 +336,6 @@
 							"max": 5,
 							"label": "wod.abilities.blindfighting",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"craft": {
@@ -377,7 +343,6 @@
 							"max": 5,
 							"label": "wod.abilities.craft",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"disguise": {
@@ -385,7 +350,6 @@
 							"max": 5,
 							"label": "wod.abilities.disguise",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"energyweapons": {
@@ -393,7 +357,6 @@
 							"max": 5,
 							"label": "wod.abilities.energyweapons",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"drive": {
@@ -401,7 +364,6 @@
 							"max": 5,
 							"label": "wod.abilities.drive",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"escapology": {
@@ -409,7 +371,6 @@
 							"max": 5,
 							"label": "wod.abilities.escapology",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"etiquette": {
@@ -417,7 +378,6 @@
 							"max": 5,
 							"label": "wod.abilities.etiquette",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"fastdraw": {
@@ -425,7 +385,6 @@
 							"max": 5,
 							"label": "wod.abilities.fastdraw",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"firearms": {
@@ -433,7 +392,6 @@
 							"max": 5,
 							"label": "wod.abilities.firearms",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"fortunetelling": {
@@ -441,7 +399,6 @@
 							"max": 5,
 							"label": "wod.abilities.fortunetelling",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"gambling": {
@@ -449,7 +406,6 @@
 							"max": 5,
 							"label": "wod.abilities.gambling",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"heavyweapons": {
@@ -457,7 +413,6 @@
 							"max": 5,
 							"label": "wod.abilities.heavyweapons",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"hypnotism": {
@@ -465,7 +420,6 @@
 							"max": 5,
 							"label": "wod.abilities.hypnotism",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"hypertech": {
@@ -473,7 +427,6 @@
 							"max": 5,
 							"label": "wod.abilities.hypertech",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"larceny": {
@@ -481,7 +434,6 @@
 							"max": 5,
 							"label": "wod.abilities.larceny",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"martialarts": {
@@ -489,7 +441,6 @@
 							"max": 5,
 							"label": "wod.abilities.martialarts",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"meditation": {
@@ -497,7 +448,6 @@
 							"max": 5,
 							"label": "wod.abilities.meditation",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"melee": {
@@ -505,7 +455,6 @@
 							"max": 5,
 							"label": "wod.abilities.melee",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"networking": {
@@ -513,7 +462,6 @@
 							"max": 5,
 							"label": "wod.abilities.networking",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"performance": {
@@ -521,7 +469,6 @@
 							"max": 5,
 							"label": "wod.abilities.performance",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"pilot": {
@@ -529,7 +476,6 @@
 							"max": 5,
 							"label": "wod.abilities.pilot",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"psychology": {
@@ -537,7 +483,6 @@
 							"max": 5,
 							"label": "wod.abilities.psychology",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"research": {
@@ -545,7 +490,6 @@
 							"max": 5,
 							"label": "wod.abilities.research",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},	
 						"riding": {
@@ -553,7 +497,6 @@
 							"max": 5,
 							"label": "wod.abilities.riding",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"security": {
@@ -561,7 +504,6 @@
 							"max": 5,
 							"label": "wod.abilities.security",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},					
 						"stealth": {
@@ -569,7 +511,6 @@
 							"max": 5,
 							"label": "wod.abilities.stealth",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"survival": {
@@ -577,7 +518,6 @@
 							"max": 5,
 							"label": "wod.abilities.survival",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"torture": {
@@ -585,7 +525,6 @@
 							"max": 5,
 							"label": "wod.abilities.torture",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						}
 					},
@@ -595,7 +534,6 @@
 							"max": 5,
 							"label": "wod.abilities.academics",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"bureaucracy": {
@@ -603,7 +541,6 @@
 							"max": 5,
 							"label": "wod.abilities.bureaucracy",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"chantry": {
@@ -611,7 +548,6 @@
 							"max": 5,
 							"label": "wod.abilities.chantry",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"chemistry": {
@@ -619,7 +555,6 @@
 							"max": 5,
 							"label": "wod.abilities.chemistry",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"culture": {
@@ -627,7 +562,6 @@
 							"max": 5,
 							"label": "wod.abilities.culture",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"computer": {
@@ -635,7 +569,6 @@
 							"max": 5,
 							"label": "wod.abilities.computer",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"cosmology": {
@@ -643,7 +576,6 @@
 							"max": 5,
 							"label": "wod.abilities.cosmology",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"cryptography": {
@@ -651,7 +583,6 @@
 							"max": 5,
 							"label": "wod.abilities.cryptography",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"enigmas": {
@@ -659,7 +590,6 @@
 							"max": 5,
 							"label": "wod.abilities.enigmas",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"esoterica": {
@@ -667,7 +597,6 @@
 							"max": 5,
 							"label": "wod.abilities.esoterica",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},						
 						"finance": {
@@ -675,7 +604,6 @@
 							"max": 5,
 							"label": "wod.abilities.finance",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"hearthwisdom": {
@@ -683,7 +611,6 @@
 							"max": 5,
 							"label": "wod.abilities.hearthwisdom",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"herbalism": {
@@ -691,7 +618,6 @@
 							"max": 5,
 							"label": "wod.abilities.herbalism",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"history": {
@@ -699,7 +625,6 @@
 							"max": 5,
 							"label": "wod.abilities.history",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"investigation": {
@@ -707,7 +632,6 @@
 							"max": 5,
 							"label": "wod.abilities.investigation",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"law": {
@@ -715,7 +639,6 @@
 							"max": 5,
 							"label": "wod.abilities.law",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"legends": {
@@ -723,7 +646,6 @@
 							"max": 5,
 							"label": "wod.abilities.legends",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"media": {
@@ -731,7 +653,6 @@
 							"max": 5,
 							"label": "wod.abilities.media",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"medicine": {
@@ -739,7 +660,6 @@
 							"max": 5,
 							"label": "wod.abilities.medicine",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"occult": {
@@ -747,7 +667,6 @@
 							"max": 5,
 							"label": "wod.abilities.occult",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"politics": {
@@ -755,7 +674,6 @@
 							"max": 5,
 							"label": "wod.abilities.politics",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"propaganda": {
@@ -763,7 +681,6 @@
 							"max": 5,
 							"label": "wod.abilities.propaganda",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"religion": {
@@ -771,7 +688,6 @@
 							"max": 5,
 							"label": "wod.abilities.religion",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"rituals": {
@@ -779,7 +695,6 @@
 							"max": 5,
 							"label": "wod.abilities.rituals",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"science": {
@@ -787,7 +702,6 @@
 							"max": 5,
 							"label": "wod.abilities.science",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"theology": {
@@ -795,7 +709,6 @@
 							"max": 5,
 							"label": "wod.abilities.theology",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"technology": {
@@ -803,7 +716,6 @@
 							"max": 5,
 							"label": "wod.abilities.technology",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						},
 						"vice": {
@@ -811,7 +723,6 @@
 							"max": 5,
 							"label": "wod.abilities.vice",
 							"speciality": "",
-							"visible": false,
 							"isvisible": false
 						}
 					}
@@ -827,7 +738,6 @@
 						"type": "physical",
 						"label": "wod.attributes.strength",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"dexterity": {
@@ -838,7 +748,6 @@
 						"type": "physical",
 						"label": "wod.attributes.dexterity",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"stamina": {
@@ -849,7 +758,6 @@
 						"type": "physical",
 						"label": "wod.attributes.stamina",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"charisma": {
@@ -860,7 +768,6 @@
 						"type": "social",
 						"label": "wod.attributes.charisma",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"manipulation": {
@@ -871,7 +778,6 @@
 						"type": "social",
 						"label": "wod.attributes.manipulation",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"appearance": {
@@ -882,7 +788,6 @@
 						"type": "social",
 						"label": "wod.attributes.appearance",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"composure": {
@@ -893,7 +798,6 @@
 						"type": "social",
 						"label": "wod.attributes.composure",
 						"speciality": "",
-						"visible": false,
 						"isvisible": false
 					},
 					"perception": {
@@ -904,7 +808,6 @@
 						"type": "mental",
 						"label": "wod.attributes.perception",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},
 					"intelligence": {
@@ -915,7 +818,6 @@
 						"type": "mental",
 						"label": "wod.attributes.intelligence",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},		
 					"wits": {
@@ -926,7 +828,6 @@
 						"type": "mental",
 						"label": "wod.attributes.wits",
 						"speciality": "",
-						"visible": true,
 						"isvisible": true
 					},					
 					"resolve": {
@@ -937,14 +838,12 @@
 						"type": "mental",
 						"label": "wod.attributes.resolve",
 						"speciality": "",
-						"visible": false,
 						"isvisible": false
 					}
 				}
 			},
 			"werewolf": {
 				"conditions": {
-					"frenzy": false,
 					"isfrenzy": false
 				},
 				"changingbreed": "",
@@ -993,31 +892,26 @@
 					"homid": {
 						"label": "wod.shapes.homid",
 						"diff": 6,
-						"active": true,
 						"isactive": true
 					},
 					"glabro": {
 						"label": "wod.shapes.glabro",
 						"diff": 7,
-						"active": false,
 						"isactive": false
 					},
 					"crinos": {
 						"label": "wod.shapes.crinos",
 						"diff": 6,
-						"active": false,
 						"isactive": false
 					},
 					"hispo": {
 						"label": "wod.shapes.hispo",
 						"diff": 7,
-						"active": false,
 						"isactive": false
 					},
 					"lupus": {
 						"label": "wod.shapes.lupus",
 						"diff": 6,
-						"active": false,
 						"isactive": false
 					}
 				}
@@ -1037,7 +931,6 @@
 					"permanent": 0,
 					"temporary": 0,
 					"max": 20,
-					"roll": 0,
 					"label": "wod.advantages.quintessence"
 				},
 				"paradox": {
@@ -1052,110 +945,100 @@
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.correspondence",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"entropy": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.entropy",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"forces": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.forces",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"life": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.life",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"matter": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.matter",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"mind": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.mind",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"prime": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.prime",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"spirit": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.spirit",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					},
 					"time": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.time",
-						"speciality": "",
-						"visible": false
+						"speciality": ""
 					}
 				}
 			},
 			"vampire": {
 				"conditions": {
-					"frenzy": false
+					"isfrenzy": false
 				},
+				"sect": "",
 				"clan": "",
+				"bloodline": "",
 				"weakness": "",
 				"generation": 13,
 				"sire": "",
 				"virtues": {
 					"conscience": {
-						"permanent": 0,
 						"value": 0,
 						"max": 5,
 						"roll": 0,
-						"label": ""
+						"label": "wod.advantages.virtue.conscience"
 					},
 					"selfcontrol": {
 						"permanent": 0,
 						"value": 0,
 						"max": 5,
 						"roll": 0,
-						"label": ""
+						"label": "wod.advantages.virtue.selfcontrol"
 					},
 					"courage": {
 						"permanent": 0,
 						"value": 0,
 						"max": 5,
 						"roll": 0,
-						"label": ""
+						"label": "wod.advantages.virtue.courage"
 					}
+				},
+				"rage": {
+					"bonus": 0
 				},
 				"path": {
 					"value": 0,
 					"max": 10,
 					"roll": 0,
-					"label": ""
-				},
-				"bloodpool" : {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 0,
-					"roll": 0,
-					"label": ""
+					"bearing": 0,
+					"bearingtext": "",
+					"label": "wod.advantages.path.humanity"
 				}
 			},
 			"creature": {
@@ -1266,9 +1149,9 @@
 		],
 		"templates": {
 			"settings": {
-				"created": false,
 				"iscreated": false,
-				"version": ""				
+				"version": "",
+				"parentid": ""
 			},
 			"base": {
 				"worldanvil": "",
@@ -1276,30 +1159,29 @@
 			},
 			"feature": {
 				"type": "",
-				"level": 0
+				"level": "0",
+				"value": 0,
+				"max": 5
 			},
 			"object": {
-				"isEquipped": false,
-				"isMagical": false
+				"isequipped": false,
+				"ismagical": false
 			},
 			"weapon": {
 				"attack": {
 					"attribute": "",
 					"ability": "",
-					"roll": true,
-					"isRollable": true
+					"accuracy": 0,
+					"isrollable": true
 				},
 				"damage": {
 					"attribute": "",
 					"bonus": 0,
 					"type": "",
-					"roll": true,
-					"isRollable": true
+					"isrollable": true
 				},
-				"diff": 6,
 				"difficulty": 6,
 				"conceal": "",
-				"twohanded": false,
 				"istwohanded": false
 			},
 			"power": {				
@@ -1307,10 +1189,12 @@
 				"dice2": "",
 				"bonus": 0,
 				"difficulty": 0,
-				"rollable": true,
-				"isRollable": true,
-				"active": false,
-				"isactive": false
+				"isrollable": true,
+				"isactive": false,
+				"spendwillpower": false,
+				"spendrage": false,
+				"spendgnosis": false,
+				"spendblood": false
 			}
 		},
 		"Armor": {
@@ -1326,15 +1210,10 @@
 			},	
 			"dexpenalty": 0,
 			"forms": {
-				"homid": true,
 				"hashomid": true,
-				"glabro": false,
 				"hasglabro": false,
-				"crinos": false,
 				"hascrinos": false,
-				"hispo": false,
 				"hashispo": false,
-				"lupus": false,
 				"haslupus": false
 			}				
 		},
@@ -1345,7 +1224,7 @@
 				"object",
 				"weapon"
 			],
-			"natural": false
+			"isnatural": false
 		},
 		"Ranged Weapon": {
 			"templates": [
@@ -1357,10 +1236,6 @@
 			"range": 0,
 			"rate": 0,
 			"mode": {
-				"reload": false,
-				"burst": false,
-				"fullauto": false,
-				"spray": false,
 				"hasreload": false,
 				"hasburst": false,
 				"hasfullauto": false,
@@ -1377,8 +1252,7 @@
 				"base",
 				"feature",
 				"power"
-			],
-			"groupname": ""
+			]
 		},
 		"Rote": {
 			"templates": [
@@ -1395,8 +1269,6 @@
 			"spirit": 0,
 			"time": 0,
 			"instrument": {
-				"personalized": false,
-				"unique": false,
 				"ispersonalized": false,
 				"isunique": false
 			},
@@ -1411,7 +1283,6 @@
 				"feature"
 			],
 			"gnosis": 0,
-			"diff": 6,
 			"difficulty": 6
 		},
 		"Feature": {
@@ -1421,14 +1292,13 @@
 				"feature"
 			],
 			"details": "",
-			"roll": false,
-			"isRollable": false
+			"isrollable": false
 		},				
 		"Experience": {
 			"templates": [
+				"settings",
 				"base"
 			],
-			"spent": true,
 			"isspent": true,
 			"amount": 0
 		}

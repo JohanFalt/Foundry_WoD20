@@ -12,96 +12,79 @@
 	
 	<div class="ability-statArea pullLeft">
 	
-		{{#each data.data.abilities.talent as |ability key|}}	
-		{{#if ability.visible}}
-		
+		{{#each actor.ability_talents as |ability key|}}	
 		<div class="clearareaBox">
-			<label for="data.data.abilities.talent.{{key}}.value" 
-				class="vrollable pullLeft ability-headlineWidth headlineNormal" 
-				data-type="Mortal"
-				data-roll="{{ability.value}}" 
-				data-label="{{key}}" 
-				data-speciality="{{#iff ability.value ">=" 4}}{{ability.speciality}}{{/iff}}"
+			<label for="data.data.abilities.talent.{{ability._id}}.value" 
+				class="vrollable pullLeft {{#iff ../actor.type "==" ../config.sheettype.werewolf}}ability-headlineWidth{{else}}attribute-headlineWidth{{/iff}} headlineNormal" 
+				data-type="{{../config.sheettype.mortal}}"
+				data-key="{{ability._id}}"
 				data-ability="true">{{localize ability.label}}</label>
 			<div class="resource-value pullLeft" 
 				data-value="{{ability.value}}" 
-				data-name="data.abilities.talent.{{key}}.value">
+				data-name="data.abilities.talent.{{ability._id}}.value">
 
-				<span class="resource-value-empty" data-type="Mortal"></span>
+				<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
 
 				{{#numLoop ability.max}}
 				
-				<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
+				<span class="{{#iff ability.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
 			</div>
 		</div>	
-		{{/if}}		
 		{{/each}}
 	
 	</div>
 	<div class="ability-statArea pullLeft">
 	
-		{{#each data.data.abilities.skill as |ability key|}}
-		{{#if ability.visible}}
-		
+		{{#each actor.ability_skills as |ability key|}}
 		<div class="clearareaBox">
-			<label for="data.data.abilities.skill.{{key}}.value" 
-				class="vrollable pullLeft ability-headlineWidth headlineNormal" 
-				data-type="Mortal"
-				data-roll="{{ability.value}}" 
-				data-label="{{key}}" 
-				data-speciality="{{#iff ability.value ">=" 4}}{{ability.speciality}}{{/iff}}"
+			<label for="data.data.abilities.skill.{{ability._id}}.value" 
+				class="vrollable pullLeft {{#iff ../actor.type "==" ../config.sheettype.werewolf}}ability-headlineWidth{{else}}attribute-headlineWidth {{/iff}} headlineNormal" 
+				data-type="{{../config.sheettype.mortal}}"
+				data-key="{{ability._id}}"
 				data-ability="true">{{localize ability.label}}</label>
 			<div class="resource-value pullLeft" 
 				data-value="{{ability.value}}" 
-				data-name="data.abilities.skill.{{key}}.value">
+				data-name="data.abilities.skill.{{ability._id}}.value">
 
-				<span class="resource-value-empty" data-type="Mortal"></span>
+				<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
 
 				{{#numLoop ability.max}}
 				
-				<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
+				<span class="{{#iff ability.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
 			</div>
 		</div>
-		
-		{{/if}}
 		{{/each}}
 	
 	</div>
 	<div class="ability-statArea pullLeft">
 	
-		{{#each data.data.abilities.knowledge as |ability key|}}
-		{{#if ability.visible}}
-		
+		{{#each actor.ability_knowledges as |ability key|}}
 		<div class="clearareaBox">
-			<label for="data.data.abilities.knowledge.{{key}}.value" 
-				class="vrollable pullLeft ability-headlineWidth headlineNormal" 
-				data-type="Mortal"
-				data-roll="{{ability.value}}" 
-				data-label="{{key}}" 
-				data-speciality="{{#iff ability.value ">=" 4}}{{ability.speciality}}{{/iff}}"
+			<label for="data.data.abilities.knowledge.{{ability._id}}.value" 
+				class="vrollable pullLeft {{#iff ../actor.type "==" ../config.sheettype.werewolf}}ability-headlineWidth{{else}}attribute-headlineWidth {{/iff}} headlineNormal" 
+				data-type="{{../config.sheettype.mortal}}"
+				data-key="{{ability._id}}"
 				data-ability="true">{{localize ability.label}}</label>
 			<div class="resource-value pullLeft" 
 				data-value="{{ability.value}}" 
-				data-name="data.abilities.knowledge.{{key}}.value">
+				data-name="data.abilities.knowledge.{{ability._id}}.value">
 				
-				<span class="resource-value-empty" data-type="Mortal"></span>
+				<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
 
 				{{#numLoop ability.max}}
 				
-				<span class="resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
+				<span class="{{#iff ability.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
 			</div>
 		</div>
-		
-		{{/if}}
 		{{/each}}
 	
 	</div>

@@ -1,0 +1,35 @@
+<form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
+
+    <div class="dialog-area headlineGroup">
+        {{localize "wod.info.rollsoak"}}: {{object.attributeValue}} {{#iff object.attributeBonus ">" 0}}(+{{object.attributeBonus}}){{/iff}}
+    </div>
+
+    <div class="centerText dialog-area">
+        {{#each config.damageTypes as |type key|}}
+            <button id="attribute" class="button pointer dialog-attribute-button {{#iff ../object.damageKey "==" key}}active{{/iff}}" value="{{key}}">{{localize type}}</button>
+        {{/each}}
+    </div>
+
+    <div class="dialog-area">
+        <div class="headline">{{localize "wod.labels.bonus"}}</div>
+        <div class="dialog-valueBox">
+            <input type="text" name="bonus" value="{{object.bonus}}" autofocus />
+        </div>
+    </div>
+
+    <div class="dialog-area headlineGroup">
+        {{localize "wod.labels.difficulty"}}
+    </div>
+
+    <div class="centerText dialog-area">
+        {{#numFromLoop 3 10}}
+            <button id="difficulty" class="button pointer dialog-difficulty-button {{#iff ../object.difficulty "==" this}}active{{/iff}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+        {{/numFromLoop}}
+    </div>
+
+    <div class="centerText">
+        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+    </div>
+
+</form>

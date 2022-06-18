@@ -1,0 +1,36 @@
+<form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
+
+    <div class="dialog-area headlineGroup">{{object.name}} ({{object.level}})</div>
+
+    <div class="dialog-area">
+        <div class="infobox">
+            {{#if object.isDiscipline}}
+                {{#each object.disciplinelist as |discipline key|}}
+                    <button id="parentid" class="button pointer dialog-discipline-button {{#iff ../object.parentid "==" discipline._id}}active{{/iff}}" value="{{discipline._id}}">{{discipline.name}}</button>
+                {{/each}}
+            {{/if}}
+            {{#if object.isPath}}
+                {{#each object.disciplinelist as |discipline key|}}
+                    <button id="parentid" class="button pointer dialog-discipline-button {{#iff ../object.parentid "==" discipline._id}}active{{/iff}}" value="{{discipline._id}}">{{discipline.name}}</button>
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
+
+    <div class="dialog-area">
+        <div class="infobox">
+            <label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
+            <textarea class="item" name="object.description" data-dtype="String">{{object.description}}</textarea>
+        </div>
+        <div class="infobox">
+            <label class="headlineItem headlineBio" for="data.system">{{localize "wod.labels.power.system"}}</label>
+            <textarea class="item" name="object.system" data-dtype="String">{{object.system}}</textarea>
+        </div>            
+    </div>
+
+    <div class="centerText">
+        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dialog.save"}}</button>
+        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+    </div>
+
+</form>

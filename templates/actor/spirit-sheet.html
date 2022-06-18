@@ -31,17 +31,27 @@
 					<div class="pullLeft" style="width: 100%;">
 
 						<div class="sheet-area">
-
-							<div class="clearareaBox area-box" style="width: 100%; text-align: center;">
-
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
-
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
-
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
-
+							<div class="clearareaBox area-box">
+	
+								<div class="pullLeft" style="width: 33%;">
+								
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+	
+								</div>
+								
+								<div class="pullLeft" style="width: 33%;">
+							
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+							
+								</div>
+								
+								<div class="pullLeft" style="width: 33%;">
+									
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+	
+								</div>
+							
 							</div>
-
 						</div>
 
 						<div class="sheet-area">    
@@ -58,11 +68,9 @@
 						<div class="sheet-area">  
 							<div class="clearareaBox area-box" style="width: 100%;">
 
-								<div class="pullLeft" style="width: 35%;">&nbsp;</div>
+								<div class="pullLeft" style="width: 23%;">&nbsp;</div>
 
-								<div class="pullLeft essence">
-
-									
+								<div class="pullLeft essence">									
 
 									<div class="resource-counter essence-counters" data-value="{{data.data.essence.temporary}}" data-name="data.data.essence.temporary">
 
@@ -80,7 +88,7 @@
 
 								</div>
 
-								<div class="pullLeft" style="width: 35%;">&nbsp;</div>
+								<div class="pullLeft" style="width: 23%;">&nbsp;</div>
 
 							</div>
 						</div>
@@ -94,13 +102,6 @@
 				</div>
 
 			</div>
-
-			{{!-- Charms Tab --}}
-			<!--<div class="tab charms" data-group="primary" data-tab="charms">
-
-				{{> "systems/worldofdarkness/templates/actor/parts/spirit/charms.html"}}
-
-			</div>-->
 
 			{{!-- Settings Tab --}}
 			<div class="tab settings" data-group="primary" data-tab="settings">

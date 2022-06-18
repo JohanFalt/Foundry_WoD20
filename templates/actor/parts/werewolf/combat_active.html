@@ -1,29 +1,29 @@
 <div class="sheet-headline">{{localize "wod.power.activegift"}}</div>
 {{#each actor.powercombat as |item id|}}
     <div class="clearareaBox row">
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
-            data-type="Mortal"
-            data-rollitem="true" 
-            data-label="{{captilizeFirst item.name}}" 
-            data-dice1="{{item.data.dice1}}" 
-            data-dice2="{{item.data.dice2}}" 
-            data-diff="{{item.data.difficulty}}"
-            data-system="{{item.data.system}}">{{captilizeFirst item.name}}</div>
-        <div class="pullLeft gift-valueBox headlineNormal tooltip">
-            <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">{{localize "wod.labels.desrciption"}}: {{item.data.description}}<br /><br />{{localize "wod.labels.power.system"}}: {{item.data.system}}</span>
-        </div>
-        <div class="pullLeft gift-valueBox">
-            <a class="send-chat" 
-                title="{{localize "wod.labels.send"}}" 
-                data-type="Gift" 
-                data-item-id="{{item._id}}" 
-                data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                    <span class='chatt-text'>{{item.data.description}}</span>
-                    <br />
-                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                    <span class='chatt-text'>{{item.data.system}}</span>"><i class="fa fa-commenting"></i></a>
+        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.data.isrollable}}vrollable{{/if}}" 
+                data-type="{{../config.sheettype.werewolf}}"
+                data-object="Gift"
+                data-rollitem="true"
+                data-itemid="{{item._id}}">{{captilizeFirst item.name}}</div>
+
+        <div class="gift-iconbox">
+            <div class="pullLeft pointer headlineNormal tooltip">
+                <i class="icon fa fa-sticky-note"></i>
+                <span class="tooltiptext">{{#iff item.data.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}{{/iff}}<br /><br />{{#iff item.data.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.data.system}}{{/iff}}</span>
+            </div>
+            <div class="pullLeft">
+                <a class="send-chat" 
+                    title="{{localize "wod.labels.send"}}" 
+                    data-type="Gift" 
+                    data-item-id="{{item._id}}" 
+                    data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
+                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                    <span class='chatt-text'>{{item.data.description}}</span>
+                                    <br />
+                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
+                                    <span class='chatt-text'>{{item.data.system}}</span>"><i class="icon fa fa-commenting"></i></a>
+            </div>            
         </div>
     </div>
 {{/each}}

@@ -41,10 +41,10 @@
 			{{/if}}
 
 			{{#iff data.data.type "==" "wod.types.expspent"}}
-			<!-- spent -->
+			<!-- isspent -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.spent">{{localize "wod.experience.spent"}}</label>
-				<input name="data.spent" type="checkbox" {{#if data.data.spent}} checked {{/if}} title="{{localize "wod.info.spendexp"}}"" />
+				<label class="headlineItem headlineBio" for="data.isspent">{{localize "wod.experience.spent"}}</label>
+				<input name="data.isspent" type="checkbox" {{#if data.data.isspent}} checked {{/if}} title="{{localize "wod.info.spendexp"}}"" />
 			</div>
 			{{/iff}}
 

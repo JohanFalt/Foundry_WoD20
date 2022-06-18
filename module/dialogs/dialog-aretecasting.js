@@ -1,4 +1,5 @@
 import { rollDice } from "../scripts/roll-dice.js";
+import { DiceRoll } from "../scripts/roll-dice.js";
 
 /**
     * Handles the information needed to use magic.
@@ -180,17 +181,6 @@ export class DialogAreteCasting extends FormApplication {
                     });
             }
 		});
-		
-		// html.find(".resource-value-static").each(function () {
-		// 	const value = Number(this.dataset.value);
-		// 	$(this)
-		// 		.find(".resource-value-static-step")
-		// 		.each(function (i) {
-		// 			if (i + 1 <= value) {
-		// 				$(this).addClass("active");
-		// 			}
-		// 		});
-		// });
 	}
 
     async _updateObject(event, formData){
@@ -201,13 +191,10 @@ export class DialogAreteCasting extends FormApplication {
 
         event.preventDefault();    
         
-        //this._fillForm(this.object);
-        
         let totalDiff = 0;
 
         for (const value in formData) {
             if ((value.startsWith('object.check_')) && (formData[value])) {
-                //totalDiff += parseInt(document.querySelector('.'+value+':checked').value);
                 let elementName = '[name="'+value+'"]';
                 totalDiff += parseInt(document.querySelector(elementName+':checked').value);
             }
@@ -236,11 +223,7 @@ export class DialogAreteCasting extends FormApplication {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
-        const type = dataset.type;        
-
-        if (type != "Mage") {
-            return;
-        }
+        const type = dataset.type;    
 
         const parent = $(element.parentNode);
         const sphere = parent[0].dataset.name;
@@ -258,10 +241,6 @@ export class DialogAreteCasting extends FormApplication {
         const element = event.currentTarget;
         const dataset = element.dataset;
         const type = dataset.type;
-
-        if (type != "Mage") {
-            return;
-        }
 
         const parent = $(element.parentNode);
         const index = Number(dataset.index);
@@ -347,15 +326,29 @@ export class DialogAreteCasting extends FormApplication {
                 }
             }
 
-            rollDice(
-                CONFIG.handleOnes,
-                parseInt(this.actor.data.data.arete.roll) + parseInt(this.object.areteModifier),
-                this.actor,
-                templateHTML,
-                parseInt(this.object.totalDifficulty),
-                this.object.description,
-                specialityRoll,
-                specialityText);            
+            const numDices = parseInt(this.actor.data.data.arete.roll) + parseInt(this.object.areteModifier);
+
+            const castingRoll = new DiceRoll(this.actor);
+            castingRoll.handlingOnes = CONFIG.handleOnes;    
+            castingRoll.origin = "magic";
+            castingRoll.numDices = numDices;
+            castingRoll.difficulty = parseInt(this.object.totalDifficulty);          
+            castingRoll.templateHTML = templateHTML;        
+            castingRoll.systemText = this.object.description;
+            castingRoll.speciality = specialityRoll;
+            castingRoll.specialityText = specialityText;
+
+            rollDice(castingRoll);
+
+            // rollDice(
+            //     CONFIG.handleOnes,
+            //     parseInt(this.actor.data.data.arete.roll) + parseInt(this.object.areteModifier),
+            //     this.actor,
+            //     templateHTML,
+            //     parseInt(this.object.totalDifficulty),
+            //     this.object.description,
+            //     specialityRoll,
+            //     specialityText);            
         }
     }
 

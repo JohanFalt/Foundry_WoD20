@@ -1,28 +1,31 @@
 <div class="sheet-headline vrollable" 
-	data-type="Werewolf"
-	data-roll="{{data.data.rage.roll}}" 
-	data-label="{{localize data.data.rage.label}}" 
+	data-type="{{config.sheettype.werewolf}}"
+	data-key="rage"
 	data-noability="true">{{localize 'wod.advantages.rage'}}</div>
+
+{{#iff actor.type "==" config.sheettype.werewolf}}
+	<div class="information-area centerText">{{localize "wod.advantages.ragepenalty"}}: {{ragePenalty}}</div>
+{{/iff}}
 		
 <div class="resource-value permValueRow" data-value="{{data.data.rage.permanent}}" data-name="data.data.rage.permanent">
 
 	{{#numLoop data.data.rage.max}}
 	
-	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}"></span>
+	<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
 	
 	{{/numLoop}}
 	
 </div>
 
 <div class="resource-counter tempSquareRow" data-value="{{data.data.rage.temporary}}" data-name="data.data.rage.temporary">
-	<span class="resource-value-empty" data-type="Werewolf"></span>
+	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
 	{{#numLoop data.data.rage.max}}
 	
 	{{#le ../data.data.rage.temporary this}}
-	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state=""></span>
+	<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state=""></span>
 	{{else}}
-	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state="x"></span>
+	<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state="x"></span>
 	{{/le}}
 	
 	{{/numLoop}}

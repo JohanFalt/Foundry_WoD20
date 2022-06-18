@@ -5,7 +5,7 @@ export function calculateTotals(actorData) {
 	for (const i in actorData.data.attributes) {
 		let shift = {"type": i, "value": 0};
 
-		if (actorData.type == "Werewolf") {
+		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
 			shift = handleWerewolfShiftAttributeData(actorData.data.attributes[i].label, toForm);
 		}
 		if (actorData.type == "Changing Breed") {
@@ -14,7 +14,7 @@ export function calculateTotals(actorData) {
 
 		actorData.data.attributes[i].total = parseInt(actorData.data.attributes[i].value) + parseInt(actorData.data.attributes[i].bonus) + parseInt(shift.value);
 
-		if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
+		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed")) {
 
 			if (actorData.data.attributes[i].label == "wod.attributes.strength") {
 				if (actorData.type == "Changing Breed") {
@@ -78,13 +78,13 @@ export function calculateTotals(actorData) {
 	actorData.data.soak.lethal = 0;
 	actorData.data.soak.aggravated = 0;
 
-	if (actorData.data.settings.soak.bashing.roll) {
+	if (actorData.data.settings.soak.bashing.isrollable) {
 		actorData.data.soak.bashing = actorData.data.attributes.stamina.total;
 	}
-	if (actorData.data.settings.soak.lethal.roll) {
+	if (actorData.data.settings.soak.lethal.isrollable) {
 		actorData.data.soak.lethal = actorData.data.attributes.stamina.total;
 	}
-	if (actorData.data.settings.soak.aggravated.roll) {
+	if (actorData.data.settings.soak.aggravated.isrollable) {
 		actorData.data.soak.aggravated = actorData.data.attributes.stamina.total;
 	}
 
@@ -102,7 +102,7 @@ function getForm(actorData) {
 	}
 
 	for (const i in actorData.data.shapes) {
-		if (actorData.data.shapes[i].active) {
+		if (actorData.data.shapes[i].isactive) {
 			 label = actorData.data.shapes[i].label;
 			 return label;
 		}			

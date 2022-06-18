@@ -12,9 +12,7 @@
 	
 	<div class="ability-statArea pullLeft">
 	
-		{{#each data.data.abilities.talent as |ability key|}}	
-		{{#if ability.visible}}
-		
+		{{#each actor.ability_talents as |ability key|}}		
 		<div class="clearareaBox">
 			<label for="data.data.abilities.talent.{{key}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
@@ -27,17 +25,13 @@
 					data-name="data.abilities.talent.{{key}}.speciality" />
 			</div>
 			{{/iff}}
-		</div>	
-
-		{{/if}}
+		</div>
 		{{/each}}
 	
 	</div>
 	<div class="ability-statArea pullLeft">
 	
-		{{#each data.data.abilities.skill as |ability key|}}
-		{{#if ability.visible}}
-		
+		{{#each actor.ability_skills as |ability key|}}
 		<div class="clearareaBox">
 			<label for="data.data.abilities.skill.{{key}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
@@ -51,16 +45,12 @@
 			</div>
 			{{/iff}}
 		</div>
-		
-		{{/if}}
 		{{/each}}
 	
 	</div>
 	<div class="ability-statArea pullLeft">
 	
-		{{#each data.data.abilities.knowledge as |ability key|}}
-		{{#if ability.visible}}
-		
+		{{#each actor.ability_knowledges as |ability key|}}
 		<div class="clearareaBox">
 			<label for="data.data.abilities.knowledge.{{key}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
@@ -74,8 +64,6 @@
 			</div>
 			{{/iff}}
 		</div>
-		
-		{{/if}}
 		{{/each}}
 	
 	</div>

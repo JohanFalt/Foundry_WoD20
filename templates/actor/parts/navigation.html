@@ -1,28 +1,35 @@
+{{#iff (checkSystemsetting "observersSeeFullActor") "==" "full"}}
 <nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-	<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-	<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>
+	<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+	<a class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
 
-	{{#iff actor.type "==" "Mage"}}
-	<a class="item" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
+	{{#iff actor.type "==" config.sheettype.mage}}
+	<a class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
 	{{/iff}}
 
-	<a class="item" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
-	<a class="item" data-tab="gear">{{localize 'wod.tab.gear'}}</a>
+	<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+	<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>
 	
-	{{#iff actor.type "==" "Werewolf"}}
-	<a class="item" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
-	<a class="item" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+	{{#iff actor.type "==" config.sheettype.werewolf}}
+	<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+	<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
 	{{/iff}}
 
 	{{#iff actor.type "==" "Changing Breed"}}
-	<a class="item" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
-	<a class="item" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+	<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+	<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
 	{{/iff}}
 	
-	{{#iff actor.type "==" "Vampire"}}
+	{{#iff actor.type "==" config.sheettype.vampire}}
+	<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
 	{{/iff}}
 	
-	<a class="item" data-tab="note">{{localize 'wod.tab.notes'}}</a>
+	<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
 	<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
 </nav>	
+{{else}}
+<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+	<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+</nav>
+{{/iff}}
 

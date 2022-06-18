@@ -15,42 +15,39 @@
 
 		{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
-		{{#if attribute.visible}}
+		{{#if attribute.isvisible}}
 		<div>
 
 			<div class="attribute-rowheight" style="clear:left;">
 				<label for="data.data.attributes.{{key}}.value" 
 					class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
-					data-type="Mortal"
-					data-roll="{{attribute.total}}" 
-					data-label="{{key}}" 
-					data-speciality="{{#iff attribute.value ">=" 4}}{{attribute.speciality}}{{/iff}}"
+					data-type="{{../config.sheettype.mortal}}"
+					data-key="{{key}}"
 					data-attribute="true">{{localize attribute.label}}</label>
 				<div class="resource-value pullLeft" 
 					data-value="{{attribute.value}}" 
 					data-name="data.attributes.{{key}}.value">
 
-					<span class="attribute-total">
-						{{#iff ../actor.type "==" "Werewolf"}}
-							{{attribute.total}}
-						{{else}}
-							{{#iff ../actor.type "==" "Changing Breed"}}
-								{{attribute.total}}
-							{{else}}
-								{{#iff attribute.value "!=" attribute.total}}
-								{{attribute.total}}
-								{{else}}
-								&nbsp;
-								{{/iff}}
-							{{/iff}}
-						{{/iff}}
-					</span>
+					{{#iff ../actor.type "==" ../config.sheettype.werewolf}}
+					<span class="attribute-total">{{attribute.total}}</span>
+					{{/iff}}
+							
+					{{#iff ../actor.type "==" "Changing Breed"}}
+					<span class="attribute-total">{{attribute.total}}</span>
+					{{/iff}}
 
-					<span class="resource-value-empty" data-type="Mortal"></span>
+				<!--		
+					{{#iff attribute.value "!=" attribute.total}}
+					{{attribute.total}}
+					{{/iff}}  
+				
+				-->
+
+					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
 
 					{{#numLoop attribute.max}}
 					
-					<span class="{{#iff attribute.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="Mortal" data-index="{{this}}"></span>
+					<span class="{{#iff attribute.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 					
 					{{/numLoop}}
 					

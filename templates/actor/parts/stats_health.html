@@ -10,7 +10,7 @@
 
         {{#numLoop data.data.health.bruised.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.bruised.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.bruised.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -25,7 +25,7 @@
 
         {{#numLoop data.data.health.hurt.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.hurt.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.hurt.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -40,7 +40,7 @@
 
         {{#numLoop data.data.health.injured.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.injured.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.injured.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -55,7 +55,7 @@
 
         {{#numLoop data.data.health.wounded.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.wounded.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.wounded.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -70,7 +70,7 @@
 
         {{#numLoop data.data.health.mauled.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.mauled.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.mauled.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -85,7 +85,7 @@
 
         {{#numLoop data.data.health.crippled.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.crippled.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.crippled.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -100,7 +100,7 @@
 
         {{#numLoop data.data.health.incapacitated.value}}
         
-        <span class="resource-value-step" data-type="Mortal" data-index="{{this}}" data-state="{{damageState ../data.data.health.incapacitated.label ../actor.health this}}"></span>
+        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.incapacitated.label ../actor.health this}}"></span>
         
         {{/numLoop}}
 
@@ -109,3 +109,5 @@
     {{/iff}}
 
 </div>
+
+<div class="information-area centerText">{{localize "wod.health.penalty"}}: {{ignorePain data.data.health.damage.woundpenalty}}</div>

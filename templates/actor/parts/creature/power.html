@@ -1,62 +1,52 @@
 <div class="clearareaBox area-box">
 
-    <div class="sheet-headline">{{localize "wod.tab.power"}}</div>    
-
-    <div class="clearareaBox">
-        <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.active"}}</div>
-        <div class="pullLeft gift-largeBox headlineList">{{localize "wod.types.gift"}}</div>
-        <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.attr"}}</div>
-        <div class="pullLeft gift-mediumBox headlineList">{{localize "wod.power.ability"}}</div>
-        <div class="pullLeft gift-valueBox headlineList">{{localize "wod.power.diff"}}</div>
-    </div>
+    <div class="gift-headlineRow">{{localize "wod.tab.power"}}</div>
 
     {{#each actor.powerlist as |item id|}}
 
-    <div class="clearareaBox row">
-        <div class="pullLeft gift-valueBox"><input class="item-active" name="data.active" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.active}} checked {{/if}}></input></div>
-        <div class="pullLeft gift-largeBox headlineNormal {{#if item.data.rollable}}vrollable{{/if}}" 
-            data-type="Mortal"
-            data-rollitem="true" 
-            data-label="{{captilizeFirst item.name}}" 
-            data-dice1="{{item.data.dice1}}" 
-            data-dice2="{{item.data.dice2}}" 
-            data-diff="{{item.data.difficulty}}"
-            data-system="{{item.data.system}}">{{captilizeFirst item.name}}</div>
-        {{#if item.data.rollable}}
-        <div class="pullLeft gift-mediumBox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize item.data.dice2}}{{else}}&nbsp;{{/iff}}</div>
-        <div class="pullLeft gift-valueBox headlineNormal">
-            {{#iff item.data.difficulty "==" -1}}
-                {{localize "wod.labels.varies"}}
-            {{else}}
-                {{item.data.difficulty}}
-            {{/iff}}
-        </div>
-        {{else}}
-        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
-        <div class="pullLeft gift-mediumBox headlineNormal">&nbsp;</div>
-        <div class="pullLeft gift-valueBox headlineNormal">&nbsp;</div>
-        {{/if}}
-        <div class="pullLeft gift-valueBox headlineNormal tooltip">
-            <i class="fa fa-sticky-note"></i>
-            <span class="tooltiptext">{{localize "wod.labels.description"}}: {{item.data.description}}</span>
-        </div>
-        <div class="pullLeft gift-valueBox">
-            <a class="send-chat" 
-                title="{{localize "wod.labels.send"}}" 
-                data-type="Power" data-item-id="{{item._id}}" 
-                data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                <span class='chatt-text'>{{item.data.description}}</span>"><i class="fa fa-commenting"></i></a>
-        </div>
-        <div class="pullLeft gift-valueBox">
-            {{#if ../locked}}
-                &nbsp;
-            {{ else }}
-                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Power" data-item-id="{{item._id}}"><i class="fas fa-trash"></i></a>
+        <div class="clearareaBox {{#if item.data.isrollable}}creature-rollablerow{{else}}creature-row{{/if}}">
+            <div class="pullLeft gift-activeBox"><input class="item-active" name="data.isactive" type="checkbox" data-item-id="{{item._id}}" {{#if item.data.isactive}} checked {{/if}}></input></div>
+            <div class="pullLeft gift-headlineBox headlineNormal {{#if item.data.isrollable}}vrollable{{/if}}" 
+                data-type="Creature"
+                data-object="Power"
+                data-rollitem="true"
+                data-itemid="{{item._id}}">{{captilizeFirst item.name}}</div>
+            {{#if item.data.isrollable}}
+            <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
+            <div class="pullLeft gift-dicebox headlineNormal">{{#iff item.data.dice2 "!=" ""}}{{localize (getAbility item.data.dice2)}}{{else}}&nbsp;{{/iff}}</div>
+            <div class="pullLeft gift-valueBox headlineNormal centerText">
+                {{#iff item.data.difficulty "==" -1}}
+                    {{localize "wod.labels.varies"}}
+                {{else}}
+                    {{item.data.difficulty}}
+                {{/iff}}
+            </div>
             {{/if}}
+
+            <div class="gift-iconbox">
+                <div class="pullLeft pointer headlineNormal tooltip">
+                    <i class="icon fa fa-sticky-note"></i>
+                    <span class="tooltiptext">{{#iff item.data.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}{{/iff}}<br /><br />{{#iff item.data.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.data.system}}{{/iff}}</span>
+                </div>
+                <div class="pullLeft">
+                    <a class="send-chat" 
+                        title="{{localize "wod.labels.send"}}" 
+                        data-type="Gift" 
+                        data-item-id="{{item._id}}" 
+                        data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
+                        data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                        <span class='chatt-text'>{{item.data.description}}</span>
+                                        <br />
+                                        <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
+                                        <span class='chatt-text'>{{item.data.system}}</span>"><i class="icon fa fa-commenting"></i></a>
+                    {{#if ../locked}}
+                    {{else}}
+                        <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Power" data-item-id="{{item._id}}"><i class="icon fas fa-edit"></i></a>
+                        <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Power" data-item-id="{{item._id}}"><i class="icon fas fa-trash"></i></a>
+                    {{/if}}
+                </div>            
+            </div>
         </div>
-    </div>
 
     {{/each}}
 

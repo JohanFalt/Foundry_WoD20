@@ -1,31 +1,31 @@
 <div class="shape-area">
     <div class="clearareaBox">
-        <div class="pullLeft shape-selector shape-ananasi thin-border-left {{#if data.data.shapes.homid.active}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
-        <div class="pullLeft shape-selector shape-ananasi thin-border-left {{#if data.data.shapes.glabro.active}}shape-selector-active{{/if}}" data-form="wod.shapes.glabro">{{localize "wod.shapes.lilian"}}</div>
-        <div class="pullLeft shape-selector shape-ananasi thin-border-left {{#if data.data.shapes.hispo.active}}shape-selector-active{{/if}}" data-form="wod.shapes.hispo">{{localize "wod.shapes.pithus"}}</div>
-        <div class="pullLeft shape-selector shape-ananasi thin-border-left thin-border-right {{#if data.data.shapes.lupus.active}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.crawlerling"}}</div>
+        <div class="pullLeft shape-selector shape-ananasi thin-border-left {{#if data.data.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
+        <div class="pullLeft shape-selector shape-ananasi thin-border-left {{#if data.data.shapes.glabro.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.glabro">{{localize "wod.shapes.lilian"}}</div>
+        <div class="pullLeft shape-selector shape-ananasi thin-border-left {{#if data.data.shapes.hispo.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.hispo">{{localize "wod.shapes.pithus"}}</div>
+        <div class="pullLeft shape-selector shape-ananasi thin-border-left thin-border-right {{#if data.data.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.crawlerling"}}</div>
     </div>
 
     <div class="pullLeft shape-background shape-background shape-ananasi"></div>
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.glabro.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+2)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.hispo.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+4)<br />
             Dex (+1)<br />
             Sta (+3)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (0)<br />
             Dex (+5)<br />
             Sta (0)<br />
@@ -34,9 +34,9 @@
         </div>
     </div>
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.glabro.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.hispo.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
+        <div class="pullLeft shape-selectortext shape-ananasi {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
     </div>
 </div>

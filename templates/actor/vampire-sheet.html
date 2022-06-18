@@ -30,24 +30,68 @@
 			<div class="tab core" data-group="primary" data-tab="core">
 
 				<nav class="sheet-spec-tabs tabs" data-group="secondary">
-					<a class="item" data-tab="normal">{{localize 'wod.tab.normal'}}</a>
-					<a class="item" data-tab="specialities">{{localize 'wod.tab.specialities'}}</a>
+					<a class="item secondHeadlineTabs" data-tab="normal">{{localize 'wod.tab.normal'}}</a>
+					<a class="item secondHeadlineTabs" data-tab="specialities">{{localize 'wod.tab.specialities'}}</a>
 				</nav>
+
+				<div class="sheet-area clearareaBox">
+					{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
+				</div>
 
 				<section class="sheet-spec-body">
 					<div class="tab normal" data-group="secondary" data-tab="normal">
 				
-						{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+						</div>
 
-						{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+						</div>
+
+						<div class="sheet-area">
+							<div class="clearareaBox" style="display: flex;">
+
+								<div class="pullLeft" style="width: 33%;">
+							
+									{{> "systems/worldofdarkness/templates/actor/parts/vampire/stats_virtue.html"}}
+									
+								</div>
+								
+								<div class="pullLeft" style="width: 33%;">
+
+									{{> "systems/worldofdarkness/templates/actor/parts/vampire/stats_path.html"}}
+						
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+							
+								</div>
+								
+								<div class="pullLeft" style="width: 33%; padding-left: 20px; padding-right: 20px;">
+									
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+							
+									<div class="sheet-headline headlineGroup" style="width: 100%; margin-top: 25px;">
+										<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
+										<div class="pullRight">{{actor.experience}}</div>
+									</div>
+								</div>
+							
+							</div>
+						</div>
 
 					</div>
 
 					<div class="tab specialities" data-group="secondary" data-tab="specialities">
 
-						{{> "systems/worldofdarkness/templates/actor/parts/attributes_spec.html"}} 	
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/attributes_spec.html"}} 	
+						</div>
 
-						{{> "systems/worldofdarkness/templates/actor/parts/abilities_spec.html"}}
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/abilities_spec.html"}}
+						</div>
 
 					</div>
 				</section>				
@@ -65,6 +109,13 @@
 			<div class="tab gear" data-group="primary" data-tab="gear">
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
+
+			</div>
+
+			{{!-- Gift Tab --}}
+			<div class="tab discipline" data-group="primary" data-tab="discipline">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
 
 			</div>
 

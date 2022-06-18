@@ -34,13 +34,13 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
         <div class="pullLeft combat-bottomarea">
-            {{#iff actor.type "==" "Werewolf"}}
+            {{#iff actor.type "==" config.sheettype.werewolf}}
                 {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
             {{else}}
                 {{#iff actor.type "==" "Changing Breed"}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
                 {{else}}
-                    {{#iff actor.type "==" "Mage"}}
+                    {{#iff actor.type "==" config.sheettype.mage}}
                         <!-- {{> "systems/worldofdarkness/templates/actor/parts/mage/combat_active.html"}} -->
                         &nbsp;
                     {{else}}

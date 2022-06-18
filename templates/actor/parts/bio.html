@@ -4,7 +4,7 @@
 		<div class="top-area">
 			<div class="top-side">
 				{{#if isGM}}
-					<img class="profile-img shift-image" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+					<img class="profile-img pointer" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
 				{{else}}
 					<img class="profile-img" src="{{actor.img}}" />
 				{{/if}}
@@ -79,13 +79,19 @@
 		</div>
 	</div>
 
-	{{#iff actor.type "==" "Mage"}}
+	{{#iff actor.type "==" config.sheettype.vampire}}
+
+		{{~> "systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html"}}
+
+	{{/iff}}
+
+	{{#iff actor.type "==" config.sheettype.mage}}
 
 		{{> "systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html"}}
 
 	{{/iff}}
 
-	{{#iff actor.type "==" "Werewolf"}}
+	{{#iff actor.type "==" config.sheettype.werewolf}}
 
 		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}
 

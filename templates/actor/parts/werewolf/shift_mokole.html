@@ -1,16 +1,16 @@
 <div class="shape-area">
     <div class="clearareaBox">
-        <div class="pullLeft shape-selector shape-mokole thin-border-left {{#if data.data.shapes.homid.active}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
-        <div class="pullLeft shape-selector shape-mokole thin-border-left {{#if data.data.shapes.crinos.active}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.archid"}}</div>
-        <div class="pullLeft shape-selector shape-mokole thin-border-left thin-border-right {{#if data.data.shapes.lupus.active}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.suchid"}}</div>
+        <div class="pullLeft shape-selector shape-mokole thin-border-left {{#if data.data.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
+        <div class="pullLeft shape-selector shape-mokole thin-border-left {{#if data.data.shapes.crinos.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.archid"}}</div>
+        <div class="pullLeft shape-selector shape-mokole thin-border-left thin-border-right {{#if data.data.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.suchid"}}</div>
     </div>
 
     <div class="pullLeft shape-background shape-mokole"></div>
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.crinos.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+4)<br />
             Dex (-1)<br />
             Sta (+4)<br />
@@ -19,7 +19,7 @@
         </div>       
 
         {{#iff data.data.tribe "==" "Champsa"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (-2)<br />
             Sta (+3)<br />
@@ -28,7 +28,7 @@
         {{/iff}}        
 
         {{#iff data.data.tribe "==" "Gharial"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (-1)<br />
             Sta (+3)<br />
@@ -37,7 +37,7 @@
         {{/iff}}
 
         {{#iff data.data.tribe "==" "Halpatee"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (-1)<br />
             Sta (+3)<br />
@@ -46,7 +46,7 @@
         {{/iff}}
 
         {{#iff data.data.tribe "==" "Karna"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (-2)<br />
             Sta (+3)<br />
@@ -55,7 +55,7 @@
         {{/iff}}
 
         {{#iff data.data.tribe "==" "Makara"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Sta (+2)<br />
             Man (-3)
@@ -63,7 +63,7 @@
         {{/iff}}
 
         {{#iff data.data.tribe "==" "Ora"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Sta (+2)<br />
             Man (-4)
         </div>
@@ -71,7 +71,7 @@
 
         
         {{#iff data.data.tribe "==" "Paisa"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (-1)<br />
             Sta (+3)<br />
@@ -80,7 +80,7 @@
         {{/iff}}
 
         {{#iff data.data.tribe "==" "Syrta"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (-1)<br />
             Sta (+3)<br />
@@ -89,7 +89,7 @@
         {{/iff}}
 
         {{#iff data.data.tribe "==" "Unktehi"}}
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (-1)<br />
             Sta (+1)<br />
             Man (-3)
@@ -99,8 +99,8 @@
 
     </div>
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.homid.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.crinos.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.active}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext shape-mokole {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
     </div>
 </div>

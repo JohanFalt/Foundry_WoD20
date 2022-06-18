@@ -1,11 +1,7 @@
 {
 	"wod": {
 		"system": {
-			"patches": "New version detected; Updating World, please wait.",
-			"updates": "Checking character's settings!",
-			"characters": "Characters updated!",
 			"world": "World updated!",
-			"done": "Done!",
 			"sheetlocked": "Can not edit as sheet is locked!"
 		},
 		"settings": {
@@ -18,11 +14,9 @@
 			"therollofone": "How to handle 1s on Rolls",
 			"therollofonehint": "Normal handling from rules - all one's reduce number of successes by one (check). Ones has no effect normally but if no successes and there one or more ones that is a botch (not checked)",
 			"attributesettings": "Settings for attributes",
-			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default. After this setting has changed you have to restart Foundry VTT."
-		},
-		"dialogs": {
-			"save": "Save",
-			"reset": "Reset"
+			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default. After this setting has changed you have to restart Foundry VTT.",
+			"observersactorpermission": "Observers full view permission",
+			"observersactorpermissionhint": "This settings able it to limit how much an observer can see of a sheet, either they can see the full sheet or they can only see the Bio tab"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -40,6 +34,10 @@
 			"rite": "Rite",
 			"charm": "Charm",
 			"discipline": "Discipline",
+			"disciplinepower": "Discipline Power",
+			"disciplinepath": "Discipline Path",
+			"disciplinepathpower": "Discipline Path Power",
+			"ritual": "Ritual",
 			"talen": "Talen",
 			"fetish": "Fetish",
 			"power": "Power"
@@ -84,7 +82,7 @@
 			"pride": "Pride",
 			"varna": "Varna",
 			"jamak": "Jamak",
-			"yava": "Yava",
+			"yava": "Yava",	
 			"affiliation": "Affiliation",			
 			"essence": "Essence",
 			"sect": "Sect",
@@ -92,7 +90,33 @@
 			"tradition": "Tradition",
 			"technocracy": "Technocracy",
 			"disparate": "Disparate",
-			"other": "Other"
+			"other": "Other",			
+			"vampire": {
+				"sect": "Sect",
+				"camarilla": "Camarilla",
+				"sabbat": "Sabbat",
+				"anarch": "Anarch Movement",
+				"independent": "Independent",
+				"clan": "Clan",
+				"caitiff": "Caitiff",
+				"assamite": "Assamite",
+				"brujah": "Brujah",
+				"set": "Followers of Set",
+				"gangrel": "Gangrel",
+				"giovanni": "Giovanni",
+				"lasombra": "Lasombra",
+				"malkavian": "Malkavian",
+				"nosferatu": "Nosferatu",
+				"ravnos": "Ravnos",
+				"toreador": "Toreador",
+				"tremere": "Tremere",
+				"tzimisce": "Tzimisce",
+				"ventrue": "Ventrue",
+				"bloodline": "Bloodline",
+				"generation": "Generation",
+				"sire": "Sire",
+				"weakness": "Weakness"
+			}
 		},
 		"attributes": {
 			"attributes": "Attributes",
@@ -218,14 +242,42 @@
 			"bashing": "Bashing",
 			"lethal": "Lethal",
 			"aggravated": "Aggravated",
-			"soak": "Soak"
+			"soak": "Soak",
+			"penalty": "Wound Penalty"
 		},
 		"advantages": {
 			"advantages": "Advantages",
 			"rage": "Rage",
+			"ragepenalty": "Rage Penalty",
 			"gnosis": "Gnosis",
 			"willpower": "Willpower",
-			"bloodpool": "Blood Pool",
+			"willpowerchange": "Willpower is based on Composure + Resolve in System Setting and can not be altered!",
+			"path": {
+				"humanity": "Humanity",
+				"blood": "Path of Blood",
+				"bones": "Path of the Bones",
+				"caine": "Path of Caine",
+				"cathari": "Path of Cathari",
+				"feralheart": "Path of the Feral Heart",
+				"accord": "Path of Honorable Accord",
+				"lilith": "Path of Lilith",
+				"metamorphosis": "Path of Metamorphosis",
+				"night": "Path of Night",
+				"paradox": "Path of Paradox",
+				"innervoice": "Path of Power and the Inner Voice",
+				"typhon": "Path of Typthon"
+			},
+			"virtue": {
+				"headline": "Virtue",
+				"conscience": "Conscience",
+				"conviction": "Conviction",
+				"selfcontrol": "Self-Control",
+				"instinct": "Instinct",
+				"courage": "Courage"
+			},
+			"bloodpool": "Blood Pool",	
+			"perturn": "Blood per turn",
+			"bearing": "Bearing",
 			"renown": "Renown",
 			"glory": "Glory",
 			"honor": "Honor",
@@ -258,6 +310,7 @@
 				"attribute": "Attribute",
 				"attr": "Attr.",
 				"ability": "Ability",
+				"accuracy": "Accuracy",
 				"diff": "Diff",
 				"damage": "Damage",
 				"range": "Range",
@@ -345,9 +398,15 @@
 			"attr": "Attr.",
 			"ability": "Ability",
 			"diff": "Diff",
+			"gifts": "Gifts",
 			"rites": "Rites",
 			"activegift": "Active Gift",
-			"activerote": "Active Rote"
+			"activerote": "Active Rote",
+			"disciplines": "Disciplines",
+			"paths": "Paths",
+			"rituals": "Rituals",
+			"unsorteddisciplines": "Here is all unsorted discipline powers which needs to get a selected Discipline. Click on the headline to sort one.",
+			"unsortedpaths": "Here is all unsorted path powers which needs to get a selected Path. Click on the headline to sort one."
 		},
 		"spheres": {
 			"spheres": "Spheres",
@@ -386,7 +445,7 @@
 			"selectability": "Select Ability",
 			"selectattribute": "Select Attribute",
 			"specialty": "Use Speciality",			
-			"select": "Choose",
+			"select": "Select",
 			"none": "None",
 			"type": "Type",
 			"description": "Description",
@@ -415,7 +474,9 @@
 				"rollable": "Rollable",
 				"combat": "Used in combat",
 				"varies": "Varies",
-				"system": "System"
+				"system": "System",
+				"cleardiscipline": "Clear Discipline connection",
+				"clearpath": "Clear Path connection"
 			},
 			"notes": {
 				"backgrounds": "Backgrounds",
@@ -431,7 +492,8 @@
 				"added": "ADDED",
 				"removed": "REMOVED",
 				"frenzybonus": "Frenzy Dice Bonus",
-				"permparadox": "Permanent Paradox"
+				"permparadox": "Permanent Paradox",
+				"selectpath": "Selected Path"
 			},
 			"edit": {
 				"naturalweapon": "Edit Natural Weapon",
@@ -440,6 +502,9 @@
 				"background": "Edit Background",
 				"gift": "Edit Gift",
 				"rite": "Edit Rite",
+				"discipline": "Edit Discipline",
+				"disciplinepower": "Edit Discipline Power",
+				"ritual": "Edit Ritual",
 				"fetish": "Edit Fetish",
 				"talen": "Edit Talen",
 				"rote": "Edit Rote"
@@ -453,6 +518,9 @@
 				"armor": "Remove Armor",
 				"gift": "Remove Gift",
 				"rite": "Remove Rite",
+				"discipline": "Remove Discipline",
+				"disciplinepower": "Remove Discipline Power",
+				"ritual": "Remove Ritual",
 				"charm": "Remove Charm",
 				"background": "Remove Background",
 				"fetish": "Remove Fetish",
@@ -475,7 +543,7 @@
 			}
 		},
 		"dice": {
-			"activate": "Roll to activate",
+			"activate": "Roll to activate",			
 			"rollattack": "Roll Attack",
 			"rolldamage": "Roll Damage",
 			"roll": "Roll",
@@ -489,12 +557,14 @@
 			"characteradded": "Character already added to Combat Tracker",
 			"initiativealready": "has initiative already",
 			"rollinginitiative": "Rolling Initiative",
-			"rollingsoak": "Rolling Soak",
-			"rollingfrenzy": "Rolling Fenzy",			
-			"frenzysuccesses": "Number of successes required"
+			"rollingsoak": "Rolling Soak"
 		},
-		"dialog": {			
+		"dialog": {	
+			"save": "Save",
+			"reset": "Reset",
 			"close": "Close",
+			"missingdifficulty": "You need to select a difficulty",
+			"usingspeciality": "Is using speciality",
 			"aretecasting": {
 				"castspell": "Cast Spell",
 				"castingspell": "Casting Spell",	
@@ -541,14 +611,25 @@
 			},
 			"checkfrenzy": {
 				"headline": "Roll for frenzy",
-				"ragebonus": "Bonus to Rage",
+				"ragebonus": "Bonus dice to Rage",
+				"fenzybonus": "Bonus dice to Frenzy",
 				"moonphase": "Present moon phase",
 				"new": "New moon",
 				"crescent": "Crescent moon",
 				"half": "Half moon",
 				"gibbous": "Gibbous moon",
 				"full": "Full moon",
-				"nomoonphase": "No moon phase selected"
+				"nomoonphase": "No moon phase selected",		
+				"frenzysuccesses": "Number of successes required",
+				"successesrolled": "Successes rolled already",
+				"numbersuccesses": "Total number of successes"
+			},
+			"weapon": {
+				"attack": "Attack",
+				"damage": "Damage"
+			},
+			"soak": {
+				"missingdamage": "You need to select a damage type"
 			}
 		}
 	}	

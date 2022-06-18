@@ -33,11 +33,13 @@ export class CreatureActorSheet extends MortalActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.created) {
+		if (!actorData.data.settings.iscreated) {
 			if (actorData.type == "Creature") {
 				ActionHelper._setCreatureAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				actorData.data.settings.created = true;
+				ActionHelper._setWerewolfAttributes(actorData);
+
+				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -63,7 +65,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}
 		}
 
-		data.actor.powerlist = powerlist;
+		data.actor.powerlist = powerlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.other = other;
 
 		if (actorData.type == "Creature") {

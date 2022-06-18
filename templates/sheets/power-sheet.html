@@ -7,7 +7,7 @@
 			<div class="top-area">
 				<div class="top-side">
 					{{#if isGM}}
-					<img class="profile-img shift-image" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+					<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
                     {{else}}
                     <img src="{{item.img}}" />
                     {{/if}}
@@ -16,6 +16,29 @@
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
+					{{#iff data.data.type "==" "wod.types.discipline"}} 
+					DISCIPLINE
+					{{/iff}}
+
+					{{#iff data.data.type "==" "wod.types.disciplinepower"}} 
+					DISCIPLINE POWER<br />
+					LEVEL {{data.data.level}}
+					{{/iff}}
+
+					{{#iff data.data.type "==" "wod.types.disciplinepath"}} 
+					DISCIPLINE PATH
+					{{/iff}}
+
+					{{#iff data.data.type "==" "wod.types.disciplinepathpower"}} 
+					DISCIPLINE PATH POWER<br />
+					LEVEL {{data.data.level}}
+					{{/iff}}
+
+					{{#iff data.data.type "==" "wod.types.ritual"}} 
+					RITUAL<br />
+					LEVEL {{data.data.level}}
+					{{/iff}}
+
 					{{#iff data.data.type "==" "wod.types.gift"}} 
 					GIFT<br />
 					RANK {{data.data.level}}
@@ -41,69 +64,131 @@
 		<section class="item-body">
 
 			{{#if isGM}}
-			<div class="infobox">
-				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>
-			{{/if}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
+					<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+				</div>			
 
-			<!-- type -->
-			{{#if isGM}}
-			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
-				<select name="data.type">
-					{{#select data.data.type}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						<option value="wod.types.gift">{{localize "wod.types.gift"}} (Werewolf)</option>
-						<option value="wod.types.rite">{{localize "wod.types.rite"}} (Werewolf)</option>
-						<!--<option value="wod.types.discipline">{{localize "wod.types.discipline"}} (Vampire)</option>-->
-						<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
-						<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
-					{{/select}}
-				</select>
-			</div>
-			{{/if}}
-
-
-			{{#if isGM}}
+				<!-- type -->
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
+					<select name="data.type">
+						{{#select data.data.type}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>
+							<option value="wod.types.discipline">{{localize "wod.types.discipline"}} (Vampire)</option>
+							<option value="wod.types.disciplinepower">{{localize "wod.types.disciplinepower"}} (Vampire)</option>
+							<option value="wod.types.disciplinepath">{{localize "wod.types.disciplinepath"}} (Vampire)</option>
+							<option value="wod.types.disciplinepathpower">{{localize "wod.types.disciplinepathpower"}} (Vampire)</option>
+							<option value="wod.types.ritual">{{localize "wod.types.ritual"}} (Vampire)</option>
+							<option value="wod.types.gift">{{localize "wod.types.gift"}} (Werewolf)</option>
+							<option value="wod.types.rite">{{localize "wod.types.rite"}} (Werewolf)</option>						
+							<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
+							<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
+						{{/select}}
+					</select>
+				</div>
+				
 				<!-- level -->
-				{{#iff data.data.type "!=" "wod.types.charm"}}
-					{{#iff data.data.type "!=" "wod.types.power"}}
+				{{#iff data.data.type "==" "wod.types.disciplinepower"}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select name="data.level">
+						{{#select data.data.level}}
+							<option value="0">- {{localize "wod.labels.select"}} -</option>
+							{{#numFromLoop 1 9}}
+							<option value="{{this}}">{{this}}</option>
+							{{/numFromLoop}}
+						{{/select}}
+					</select>
+				</div>
+				{{/iff}}
+
+				{{#iff data.data.type "==" "wod.types.disciplinepathpower"}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select name="data.level">
+						{{#select data.data.level}}
+							<option value="0">- {{localize "wod.labels.select"}} -</option>
+							{{#numFromLoop 1 9}}
+							<option value="{{this}}">{{this}}</option>
+							{{/numFromLoop}}
+						{{/select}}
+					</select>
+				</div>
+				{{/iff}}
+
+				{{#iff data.data.type "==" "wod.types.ritual"}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select name="data.level">
+						{{#select data.data.level}}
+							<option value="0">- {{localize "wod.labels.select"}} -</option>
+							{{#numFromLoop 1 5}}
+							<option value="{{this}}">{{this}}</option>
+							{{/numFromLoop}}
+						{{/select}}
+					</select>
+				</div>
+				{{/iff}}
+
+				{{#iff data.data.type "==" "wod.types.gift"}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select name="data.level">
+						{{#select data.data.level}}
+							<option value="0">- {{localize "wod.labels.select"}} -</option>
+							{{#numFromLoop 1 6}}
+							<option value="{{this}}">{{this}}</option>
+							{{/numFromLoop}}
+						{{/select}}
+					</select>
+				</div>
+				{{/iff}}
+
+				{{#iff data.data.type "==" "wod.types.rite"}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select name="data.level">
+						{{#select data.data.level}}
+							<option value="0">- {{localize "wod.labels.select"}} -</option>
+							{{#numFromLoop 1 6}}
+							<option value="{{this}}">{{this}}</option>
+							{{/numFromLoop}}
+						{{/select}}
+					</select>
+				</div>
+				{{/iff}}
+
+				<!-- dice -->
+				{{#iff data.data.type "!=" "wod.types.discipline"}}
+					{{#iff data.data.type "!=" "wod.types.disciplinepath"}}
 					<div class="infobox">
-						<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select name="data.level">
-							{{#select data.data.level}}
-								<option value="0">- {{localize "wod.labels.select"}} -</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-							{{/select}}
-						</select>
+						<label class="headlineItem headlineBio" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
+						<input name="data.isrollable" type="checkbox" {{#if data.data.isrollable}} checked {{/if}} />
 					</div>
 					{{/iff}}
 				{{/iff}}
 			{{/if}}
 
-			{{#if isGM}}
-			<!-- dice -->
-			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.rollable">{{localize "wod.labels.power.rollable"}}</label>
-				<input name="data.rollable" type="checkbox" {{#if data.data.rollable}} checked {{/if}} />
-			</div>
-			{{/if}}
-
-			{{#if data.data.rollable}}
+			{{#if data.data.isrollable}}
 				{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
 			{{/if}}
 
-			<!--<div class="infobox">
-				<div>
-					<label class="headlineItem headlineBio" for="data.combat">{{localize "wod.labels.power.combat"}}</label>
-					<input name="data.combat" type="checkbox" {{#if data.data.combat}} checked {{/if}}></input>
-				</div>
-			</div>-->		
+			{{#iff data.data.type "==" "wod.types.disciplinepower"}}
+					{{#iff data.data.parentid "!=" ""}}
+					<div class="infobox">
+						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.cleardiscipline"}}</button>
+					</div>
+					{{/iff}}
+			{{/iff}}
+
+			{{#iff data.data.type "==" "wod.types.disciplinepathpower"}}
+					{{#iff data.data.parentid "!=" ""}}
+					<div class="infobox">
+						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.clearpath"}}</button>
+					</div>
+					{{/iff}}
+			{{/iff}}
 
 			{{~> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}
 			

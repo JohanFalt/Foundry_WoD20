@@ -1,25 +1,30 @@
 {{#iff actor.type "!=" "Spirit"}}
 <div class="pullLeft">
-    {{#iff actor.type "==" "Werewolf"}}
+    {{#iff actor.type "==" config.sheettype.vampire}}
         <div class="condition">
-            <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+            <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
         </div>
     {{/iff}}
+    {{#iff actor.type "==" config.sheettype.werewolf}}
+        <div class="condition">
+            <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+        </div>
+    {{/iff}}    
     {{#iff actor.type "==" "Changing Breed"}}
         {{#iff data.data.changingbreed "!=" "Ananasi"}}
             {{#iff data.data.changingbreed "!=" "Nuwisha"}}
             <div class="condition">
-                <input name="data.conditions.frenzy" type="checkbox" {{#if data.data.conditions.frenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+                <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
             </div>
             {{/iff}}
         {{/iff}}    
     {{/iff}}
     <div class="condition">
-        <input name="data.conditions.ignorepain" type="checkbox" {{#if data.data.conditions.ignorepain}} checked {{/if}}>{{localize "wod.combat.conditions.ignorepain"}}</input>
+        <input name="data.conditions.isignoringpain" type="checkbox" {{#if data.data.conditions.isignoringpain}} checked {{/if}}>{{localize "wod.combat.conditions.ignorepain"}}</input>
     </div>
 </div>
 {{/iff}}
 
 <!--<div class="pullLeft">
-        <input name="data.conditions.stunned" type="checkbox" {{#if data.data.conditions.stunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
+        <input name="data.conditions.isstunned" type="checkbox" {{#if data.data.conditions.isstunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
     </div>-->

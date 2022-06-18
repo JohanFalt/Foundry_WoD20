@@ -34,14 +34,13 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/notes.html",
 		"systems/worldofdarkness/templates/actor/parts/settings.html",
 
-		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
+		"systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html",
+		"systems/worldofdarkness/templates/actor/parts/vampire/stats_path.html",
+		"systems/worldofdarkness/templates/actor/parts/vampire/stats_virtue.html",
+
+		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",		
 		"systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/stats_quintessence.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/combat_active.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ajaba_background.html",
@@ -69,6 +68,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/combat_active.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ajaba.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ananasi.html",
@@ -81,14 +81,19 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_nuwisha.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ratkin.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_rokea.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",
-		
+		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html",
 
+		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
+		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
 		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
+
+		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
 
 		// Item Sheet Partials
 		"systems/worldofdarkness/templates/sheets/parts/lock.html",
@@ -240,7 +245,6 @@ export const registerHandlebarsHelpers = function () {
 		var list = ["strength","dexterity","stamina"];
 		
 		if (list.includes(attribute)) {
-			//return "clear:left;float:left;";
 			return "clear:left";
 		}
 		else {
@@ -361,6 +365,10 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.handleOnes;
 		}
 
+		if (text == "observersSeeFullActor") {
+			return CONFIG.observersSeeFullActor;
+		}
+
 		return false;
 	});
 
@@ -388,5 +396,36 @@ export const registerHandlebarsHelpers = function () {
 		code += " " + type;
 
 		return code;
+	});
+
+	Handlebars.registerHelper("ignorePain", function (value) {
+		let ignoresPain = false;
+
+		if (this.actor.data.data.conditions?.isignoringpain)
+		{
+			ignoresPain = true;
+		}
+
+		if (this.actor.data.data.conditions?.isfrenzy)
+		{
+			ignoresPain = true;
+		}
+
+		if (ignoresPain) {
+			return 0;
+		}
+		else {
+			return value;
+		}
+	});
+
+	Handlebars.registerHelper("ragePenalty", function (value) {
+		let rageDiff = parseInt(this.actor.data.data.rage.roll) - parseInt(this.actor.data.data.willpower.roll);
+
+		if (rageDiff < 0) {
+			rageDiff = 0;
+		}
+
+		return rageDiff * -1;
 	});
 }

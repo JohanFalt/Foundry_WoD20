@@ -26,6 +26,19 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	getData() {
+		const itemData = duplicate(this.item);
+
+		if (!itemData.data.iscreated) {
+			itemData.data.version = game.data.system.data.version;
+			itemData.data.iscreated = true;
+			this.item.update(itemData);
+		}
+
+		if ((itemData.type == "Power") && ((itemData.data.type == "wod.types.discipline")||(itemData.data.type == "wod.types.disciplinepath"))) {
+			itemData.data.isrollable = false;
+			this.item.update(itemData);
+		}
+
 		const data = super.getData();
 
 		data.config = CONFIG.wod;
@@ -44,6 +57,7 @@ export class WoDItemSheet extends ItemSheet {
 			data.item.data.img = imgUrl;
 		}
 
+		console.log(data.item.type);
 		console.log(data.item);
 		
 		return data;
@@ -55,17 +69,16 @@ export class WoDItemSheet extends ItemSheet {
   
 		super.activateListeners(html);
 
-		// lock button
-		html
-			.find(".lock-btn")
-			.click(this._onToggleLocked.bind(this));
-
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterChange.bind(this));
 		html
 			.find(".resource-value > .resource-value-empty")
 			.click(this._onDotCounterEmpty.bind(this));
+
+		html
+			.find(".clearDiscipline")
+			.click(this._clearDiscipline.bind(this));
 	}
 
 	_onDotCounterChange(event) {
@@ -92,7 +105,7 @@ export class WoDItemSheet extends ItemSheet {
 			}
 		});
 
-		this._assignToActorField(fields, index + 1);
+		this._assignToItemField(fields, index + 1);
 	}
 
 	_onDotCounterEmpty(event) {
@@ -112,17 +125,18 @@ export class WoDItemSheet extends ItemSheet {
 			}
 		});
 		
-		this._assignToActorField(fields, 0);
+		this._assignToItemField(fields, 0);
 	}
 
-	_onToggleLocked(event) {
-		event.preventDefault();
-		this.item.locked = !this.item.locked;
-		this._render();
-	}
-
-	_assignToActorField(fields, value) {
+	_clearDiscipline(event) {
 		const itemData = duplicate(this.item);
+		itemData.data.parentid = "";
+		this.item.update(itemData);
+		this.render(false);
+	}
+
+	_assignToItemField(fields, value) {
+		const itemData = duplicate(this.item);		
 
 		if (fields[1] === "spheres") {
 			itemData.data[fields[2]] = value;
@@ -131,7 +145,7 @@ export class WoDItemSheet extends ItemSheet {
 	}	
 }
 
-function getImage(item) {
+export function getImage(item) {
 	if ((!item.data.img.startsWith("systems/")) && (!item.data.img.startsWith("icons/"))) {
 		return "";
 	}
@@ -144,11 +158,11 @@ function getImage(item) {
 		return "systems/worldofdarkness/assets/img/items/fetish.svg";
 	}
 
-	if ((item.type == "Melee Weapon") && (item.data.data.natural)) {
+	if ((item.type == "Melee Weapon") && (item.data.data.isnatural)) {
 		return "systems/worldofdarkness/assets/img/items/naturalweapons.svg";
 	}
 
-	if ((item.type == "Melee Weapon") && (!item.data.data.natural)) {
+	if ((item.type == "Melee Weapon") && (!item.data.data.isnatural)) {
 		return "systems/worldofdarkness/assets/img/items/meleeweapons.svg";
 	}
 
@@ -165,11 +179,31 @@ function getImage(item) {
 	}
 
 	if (item.type == "Power") {
+		if ((item.data.data.type == "wod.types.discipline") || (item.data.data.type == "wod.types.disciplinepath")) {
+			return "systems/worldofdarkness/assets/img/items/mainpower_vampire.svg";
+		}
+
+		if ((item.data.data.type == "wod.types.disciplinepower") || (item.data.data.type == "wod.types.disciplinepathpower")) {
+			return "systems/worldofdarkness/assets/img/items/power_vampire.svg";
+		}
+
+		if (item.data.data.type == "wod.types.ritual") {
+			return "systems/worldofdarkness/assets/img/items/ritual_vampire.svg";
+		}
+
+		if (item.data.data.type == "wod.types.gift") {
+			return "systems/worldofdarkness/assets/img/items/power_werewolf.svg";
+		}
+
+		if (item.data.data.type == "wod.types.rite") {
+			return "systems/worldofdarkness/assets/img/items/ritual_werewolf.svg";
+		}
+
 		return "systems/worldofdarkness/assets/img/items/power.svg";
 	}
 
 	if (item.type == "Rote") {
-		return "systems/worldofdarkness/assets/img/items/rote.svg";
+		return "systems/worldofdarkness/assets/img/items/rote_mage.svg";
 	}
 
 	return "";

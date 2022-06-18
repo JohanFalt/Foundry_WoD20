@@ -6,7 +6,7 @@
 			<div class="top-area">
 				<div class="top-side">
 					{{#if isGM}}
-					<img class="profile-img shift-image" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+					<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
                     {{else}}
                     <img src="{{item.img}}" />
                     {{/if}}
@@ -52,11 +52,11 @@
 			<!-- Shapes -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.shapes" style="width:100%">{{localize "wod.shapes.shapes"}}</label>
-				<input name="data.forms.homid" type="checkbox" {{#if data.data.forms.homid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
-				<input name="data.forms.glabro" type="checkbox" {{#if data.data.forms.glabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
-				<input name="data.forms.crinos" type="checkbox" {{#if data.data.forms.crinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
-				<input name="data.forms.hispo" type="checkbox" {{#if data.data.forms.hispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
-				<input name="data.forms.lupus" type="checkbox" {{#if data.data.forms.lupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
+				<input name="data.forms.hashomid" type="checkbox" {{#if data.data.forms.hashomid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
+				<input name="data.forms.hasglabro" type="checkbox" {{#if data.data.forms.hasglabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
+				<input name="data.forms.hascrinos" type="checkbox" {{#if data.data.forms.hascrinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
+				<input name="data.forms.hashispo" type="checkbox" {{#if data.data.forms.hashispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
+				<input name="data.forms.haslupus" type="checkbox" {{#if data.data.forms.haslupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
 			</div>
 
 			<!-- description -->

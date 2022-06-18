@@ -47,11 +47,11 @@ export class MortalActorSheet extends ActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);		
 
-		if (!actorData.data.settings.created) {
-			if (actorData.type == "Mortal") {
+		if (!actorData.data.settings.iscreated) {
+			if (actorData.type == CONFIG.wod.sheettype.mortal) {
 				ActionHelper._setMortalAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				actorData.data.settings.created = true;
+				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}	
@@ -70,6 +70,39 @@ export class MortalActorSheet extends ActorSheet {
 
 		data.dtypes = ["String", "Number", "Boolean"];		
 
+		let ability_talents = [];
+
+		for (const i in data.config.alltalents) {
+			if (this.actor.data.data.abilities.talent[i].isvisible) {
+				let talent = this.actor.data.data.abilities.talent[i];
+				talent._id = i;
+				talent.name = game.i18n.localize(talent.label);
+				ability_talents.push(talent);
+			}
+		}
+
+		let ability_skills = [];
+
+		for (const i in data.config.allskills) {
+			if (this.actor.data.data.abilities.skill[i].isvisible) {
+				let skill = this.actor.data.data.abilities.skill[i];
+				skill._id = i;
+				skill.name = game.i18n.localize(skill.label);				
+				ability_skills.push(skill);
+			}
+		}
+
+		let ability_knowledges = [];
+
+		for (const i in data.config.allknowledges) {
+			if (this.actor.data.data.abilities.knowledge[i].isvisible) {
+				let knowledge = this.actor.data.data.abilities.knowledge[i];
+				knowledge._id = i;
+				knowledge.name = game.i18n.localize(knowledge.label);
+				ability_knowledges.push(knowledge);
+			}
+		}
+
 		// Organize actor items
 		const naturalWeapons = [];
 		const meleeWeapons = [];
@@ -78,7 +111,7 @@ export class MortalActorSheet extends ActorSheet {
 		const backgrounds = [];
 		const merits = [];
 		const flaws = [];
-		
+
 		const expearned = [];
 		const expspend = [];
 
@@ -87,10 +120,10 @@ export class MortalActorSheet extends ActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Melee Weapon") {
-				if (i.data.natural) {
+				if (i.data.isnatural) {
 					naturalWeapons.push(i);
 				}
-				else if (!i.data.natural) {
+				else if (!i.data.isnatural) {
 					meleeWeapons.push(i);
 				}
 			}
@@ -119,7 +152,7 @@ export class MortalActorSheet extends ActorSheet {
 				else if (i.data.type == "wod.types.expspent") {
 					expspend.push(i);
 
-					if (i.data.spent) {
+					if (i.data.isspent) {
 						spentExp += parseInt(i.data.amount);
 					}
 				}
@@ -128,23 +161,29 @@ export class MortalActorSheet extends ActorSheet {
 
 		data.actor.health = calculateHealth(data.actor);
 
-		data.actor.naturalWeapons = naturalWeapons;
-		data.actor.meleeWeapons = meleeWeapons;
-		data.actor.rangedWeapons = rangedWeapons;	
-		data.actor.armors = armors;	
-		data.actor.backgrounds = backgrounds;
-		data.actor.merits = merits;
-		data.actor.flaws = flaws;
+		data.actor.ability_talents = ability_talents.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.ability_skills = ability_skills.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.ability_knowledges = ability_knowledges.sort((a, b) => a.name.localeCompare(b.name));
 
+		data.actor.naturalWeapons = naturalWeapons.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.meleeWeapons = meleeWeapons.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.rangedWeapons = rangedWeapons.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.armors = armors.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.backgrounds = backgrounds.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.merits = merits.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.flaws = flaws.sort((a, b) => a.name.localeCompare(b.name));
+
+		//data.actor.expearned = expearned.sort((a, b) => b.data.description.localeCompare(a.description));
 		data.actor.expearned = expearned;
-		data.actor.expspend = expspend;	
+		//data.actor.expspend = expspend.sort((a, b) => b.name.localeCompare(a.description));	
+		data.actor.expspend = expspend;
 		
 		data.actor.totalExp = totalExp;
 		data.actor.spentExp = spentExp;
 		data.actor.experience = totalExp - spentExp;
 
-		if (actorData.type == "Mortal") {
-			console.log("Mortal");
+		if (actorData.type == CONFIG.wod.sheettype.mortal) {
+			console.log(CONFIG.wod.sheettype.mortal);
 			console.log(data.actor);
 		}			
 
@@ -156,10 +195,15 @@ export class MortalActorSheet extends ActorSheet {
 		console.log("WoD | Mortal Sheet activateListeners");
 	  
 		super.activateListeners(html);
-		this._setupDotCounters(html);
+		ActionHelper._setupDotCounters(html);
 
 		// Everything below here is only needed if the sheet is editable
 		if (!this.options.editable) return;
+
+		// Sort item table
+		// html
+		// 	.find(".sort-headline")
+		// 	.click(event => this._onTableSort(event));
 		
 		// lock button
 		html
@@ -201,7 +245,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		html
 			.find(".macroBtn")
-			.click(this._rollMacro.bind(this));			
+			.click(this._onRollDialog.bind(this));			
 
 		// items
 		// Edit Inventory Item
@@ -209,7 +253,7 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".item-edit")
 			.click(this._onItemEdit.bind(this));
 
-			html
+		html
 			.find(".item-active")
 			.click(this._onItemActive.bind(this));
 			
@@ -228,7 +272,7 @@ export class MortalActorSheet extends ActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != "Mortal") {
+		if (dataset.type != CONFIG.wod.sheettype.mortal) {
 			return;
 		}
 
@@ -252,12 +296,12 @@ export class MortalActorSheet extends ActorSheet {
 		const source = dataset.source;
 
 		if (source == "ability") {
-			actorData.data.abilities[abilityType][ability].visible = !actorData.data.abilities[abilityType][ability].visible;
+			actorData.data.abilities[abilityType][ability].isvisible = !actorData.data.abilities[abilityType][ability].isvisible;
 		}
 		if (source == "soak") {
-			actorData.data.settings.soak[abilityType].roll = !actorData.data.settings.soak[abilityType].roll;
+			actorData.data.settings.soak[abilityType].isrollable = !actorData.data.settings.soak[abilityType].isrollable;
 
-			if (actorData.data.settings.soak[abilityType].roll) {
+			if (actorData.data.settings.soak[abilityType].isrollable) {
 				actorData.data.soak[abilityType] = actorData.data.attributes.stamina.total;
 			}
 			else {
@@ -268,47 +312,52 @@ export class MortalActorSheet extends ActorSheet {
 		this.actor.update(actorData);
 	}
 
-	async _rollMacro(event) {
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
+	// async _rollMacro(event) {
+	// 	event.preventDefault();
+	// 	const element = event.currentTarget;
+	// 	const dataset = element.dataset;
 
-		const source = dataset.source;
+	// 	const source = dataset.source;
 
-		if (source == "initiative") {
-			await ActionHelper.RollInitiative(event, this.actor);
-		}
-		if (source == "soak") {
-			ActionHelper.RollSoak(event, this.actor);
-		}
-		if (source == "dices") {
-			ActionHelper.RollDices(event, this.actor);
-		}
-	}	
+	// 	if (source == "initiative") {
+	// 		await ActionHelper.RollInitiative(event, this.actor);
+	// 	}
+	// 	if (source == "soak") {
+	// 		await ActionHelper.RollSoak(event, this.actor);
+	// 	}
+	// 	if (source == "dices") {
+	// 		await ActionHelper.RollDices(event, this.actor);
+	// 	}
+	// }	
 
-	_setupDotCounters(html) {
-		html.find(".resource-value").each(function () {
-			const value = Number(this.dataset.value);
-			$(this)
-				.find(".resource-value-step")
-				.each(function (i) {
-					if (i + 1 <= value) {
-						$(this).addClass("active");
-					}
-				});
-		});
-		
-		// html.find(".resource-value-static").each(function () {
-		// 	const value = Number(this.dataset.value);
-		// 	$(this)
-		// 		.find(".resource-value-static-step")
-		// 		.each(function (i) {
-		// 			if (i + 1 <= value) {
-		// 				$(this).addClass("active");
-		// 			}
-		// 		});
-		// });
-	}
+	// async _onTableSort(event) {
+	// 	const et = $(event.currentTarget).children(".fas");
+	// 	if (et.hasClass('fa-sort')) { // sort A-Z
+	// 	  et.removeClass("fa-sort");
+	// 	  et.addClass("fa-sort-up");
+		  
+	// 	  // Update user flags, so that sorted state is saved
+	// 	  let updateData = {'flags':{'wod':{[this.actor.id]:{[event.currentTarget.dataset.origintype]:{sort: 'up'}}}}};
+	// 	  await game.user.update(updateData);
+	// 	}
+	// 	else if (et.hasClass('fa-sort-up')) { // sort Z-A
+	// 	  et.removeClass("fa-sort-up");
+	// 	  et.addClass("fa-sort-down");
+		  
+	// 	  // Update user flags, so that sorted state is saved
+	// 	  let updateData = {'flags':{'wod':{[this.actor.id]:{[event.currentTarget.dataset.origintype]:{sort: 'down'}}}}};
+	// 	  await game.user.update(updateData);
+	// 	}
+	// 	else {
+	// 	  et.removeClass("fa-sort-down"); // unsorted
+	// 	  et.addClass("fa-sort");
+		  
+	// 	  // Update user flags, so that sorted state is saved
+	// 	  let updateData = {'flags':{'wod':{[this.actor.id]:{[event.currentTarget.dataset.origintype]:{sort: 'up'}}}}};
+	// 	  await game.user.update(updateData);
+	// 	}
+	// 	this.render()
+	// }
   
 	_onDotCounterChange(event) {
 		console.log("WoD | Mortal Sheet _onDotCounterChange");
@@ -319,7 +368,7 @@ export class MortalActorSheet extends ActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != "Mortal") {
+		if (type != CONFIG.wod.sheettype.mortal) {
 			return;
 		}
 		
@@ -329,13 +378,6 @@ export class MortalActorSheet extends ActorSheet {
 		const fields = fieldStrings.split(".");
 		const steps = parent.find(".resource-value-step");
 
-		// if ((fieldStrings == "data.data.rage.temporary") ||
-		// 	(fieldStrings == "data.data.gnosis.temporary") ||
-		// 	(fieldStrings == "data.data.bloodpool.temporary") ||
-		// 	(fields[2] == "health") || 
-		// 	(fields[2] == "quintessence")) {
-		// 	return;
-		// }
 		if (fields[2] == "health") {
 			return;
 		}
@@ -344,7 +386,7 @@ export class MortalActorSheet extends ActorSheet {
 		 	return;
 		}
 		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.attributeSettings == "5th")) {
-			ui.notifications.error('Willpower is based on Composure + Resolve and can not be altered!');	
+			ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 			return;
 		}
 
@@ -372,7 +414,7 @@ export class MortalActorSheet extends ActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != "Mortal") {
+		if (type != CONFIG.wod.sheettype.mortal) {
 			return;
 		}		
 
@@ -386,14 +428,7 @@ export class MortalActorSheet extends ActorSheet {
 			return;
 		}
 
-		steps.removeClass("active");
-		
-		steps.each(function (i) {
-			if (i <= 0) {
-				$(this).addClass("active");
-			}
-		});
-		
+		steps.removeClass("active");		
 		this._assignToActorField(fields, 0);
 	}
 	
@@ -478,7 +513,6 @@ export class MortalActorSheet extends ActorSheet {
 
 	async _onItemEdit(event) {
 		if (this.locked) {
-			//console.log("WoD | Sheet locked aborts");	
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
@@ -504,21 +538,20 @@ export class MortalActorSheet extends ActorSheet {
 		const item = this.actor.items.get(itemId);
 		let active = false;
 
-		if (item.data.data.active) {
+		if (item.data.data.isactive) {
 			active = false;
 		}
 		else {
 			active = true;
 		}
 
-		await item.update({"data.active" : active});
+		item.update({"data.isactive" : active});
 
 		console.log("WoD | Editing item id: " + itemId);
 	}
 
 	async _onItemDelete(event) {
 		if (this.locked) {
-			//console.log("WoD | Sheet locked aborts");	
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
@@ -587,18 +620,18 @@ export class MortalActorSheet extends ActorSheet {
 			else if ((fields[2] === "willpower") && (CONFIG.attributeSettings == "20th")) {
 				actorData.data.willpower[fields[3]] = value;
 			}
-			else if (fields[2] === "bloodpool") {
-				return
-			}
-			else if (fields[2] === "gnosis") {
-				return
-			}
-			else if (fields[2] === "rage") {
-				return
-			}
-			else if (fields[2] === "renown") {
-				return
-			}
+			// else if (fields[2] === "bloodpool") {
+			// 	return
+			// }
+			// else if (fields[2] === "gnosis") {
+			// 	return
+			// }
+			// else if (fields[2] === "rage") {
+			// 	return
+			// }
+			// else if (fields[2] === "renown") {
+			// 	return
+			// }
 			
 			else {			
 				const lastField = fields.pop();
@@ -610,7 +643,7 @@ export class MortalActorSheet extends ActorSheet {
 		ActionHelper.handleWoundLevelCalculations(actorData);
 
 		// if Willpower has been changed then Difference between Rage and Willpower need to be recalculated
-		if ((fields[2] === "willpower") && ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed"))) {
+		if ((fields[2] === "willpower") && ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed"))) {
 			ActionHelper.handleWerewolfCalculations(actorData);
 		}
 		

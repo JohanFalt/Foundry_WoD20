@@ -42,11 +42,11 @@ export class SpiritActorSheet extends ActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.created) {
+		if (!actorData.data.settings.iscreated) {
 			if (actorData.type == "Spirit") {
-				actorData.data.settings.soak.lethal.roll = true;
-				actorData.data.settings.soak.aggravated.roll = true;
-				actorData.data.settings.created = true;
+				actorData.data.settings.soak.lethal.isrollable = true;
+				actorData.data.settings.soak.aggravated.isrollable = true;
+				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -76,8 +76,8 @@ export class SpiritActorSheet extends ActorSheet {
 			}
 		}
 
-		data.actor.charmlist = charmlist;
-		data.actor.giftlist = giftlist;
+		data.actor.charmlist = charmlist.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.giftlist = giftlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.other = other;	
 
 		if (data.actor.type == "Spirit") {
@@ -93,7 +93,7 @@ export class SpiritActorSheet extends ActorSheet {
 		console.log("WoD | Spirit Sheet activateListeners");
 	  
 		super.activateListeners(html);
-		this._setupDotCounters(html);
+		ActionHelper._setupDotCounters(html);
 
 		// Rollable stuff
 		html
@@ -118,7 +118,8 @@ export class SpiritActorSheet extends ActorSheet {
 
 		html
 			.find(".macroBtn")
-			.click(this._rollMacro.bind(this));			
+			//.click(this._rollMacro.bind(this));	
+			.click(this._onRollSpiritDialog.bind(this));		
 
 		// skicka till chat
 		html
@@ -150,47 +151,23 @@ export class SpiritActorSheet extends ActorSheet {
 		ActionHelper.printMessage(headline, message, this.actor);
 	}
 
-	async _rollMacro(event) {
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
+	// async _rollMacro(event) {
+	// 	event.preventDefault();
+	// 	const element = event.currentTarget;
+	// 	const dataset = element.dataset;
 
-		const source = dataset.source;
+	// 	const source = dataset.source;
 
-		if (source == "initiative") {
-			await ActionHelper.RollInitiative(event, this.actor);
-		}
-		if (source == "soak") {
-			ActionHelper.RollSoak(event, this.actor);
-		}
-		if (source == "dices") {
-			ActionHelper.RollDices(event, this.actor);
-		}
-	}
-
-	_setupDotCounters(html) {
-		html.find(".resource-value").each(function () {
-			const value = Number(this.dataset.value);
-			$(this)
-				.find(".resource-value-step")
-				.each(function (i) {
-					if (i + 1 <= value) {
-						$(this).addClass("active");
-					}
-				});
-		});
-		
-		html.find(".resource-value-static").each(function () {
-			const value = Number(this.dataset.value);
-			$(this)
-				.find(".resource-value-static-step")
-				.each(function (i) {
-					if (i + 1 <= value) {
-						$(this).addClass("active");
-					}
-				});
-		});
-	}
+	// 	if (source == "initiative") {
+	// 		await ActionHelper.RollInitiative(event, this.actor);
+	// 	}
+	// 	if (source == "soak") {
+	// 		await ActionHelper.RollSoak(event, this.actor);
+	// 	}
+	// 	if (source == "dices") {
+	// 		await ActionHelper.RollDices(event, this.actor);
+	// 	}
+	// }
 
 	_onDotCounterChange(event) {
 		console.log("WoD | Spirit Sheet _onDotCounterChange");

@@ -5,7 +5,7 @@
 			<div class="top-area">
 				<div class="top-side">
 					{{#if isGM}}
-					<img class="profile-img shift-image" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+					<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
                     {{else}}
                     <img src="{{item.img}}" />
                     {{/if}}
@@ -31,12 +31,12 @@
 			{{#if isGM}}
 			<!-- data.attack -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.attack.roll">{{localize "wod.dice.rollattack"}}</label>
-				<input name="data.attack.roll" type="checkbox" {{#if data.data.attack.roll}} checked {{/if}} />
+				<label class="headlineItem headlineBio" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
+				<input name="data.attack.isrollable" type="checkbox" {{#if data.data.attack.isrollable}} checked {{/if}} />
 			</div>
 			{{/if}}
 
-			{{#if data.data.attack.roll}}
+			{{#if data.data.attack.isrollable}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
 				<select class="item" name="data.attack.attribute">
@@ -62,9 +62,14 @@
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.labels.difficulty"}}</label>
-				<select name="data.diff" class="numberBox">
-					{{#select data.data.diff}}
+				<label class="headlineItem headlineBio" for="data.attack.accuracy">{{localize "wod.combat.weapon.accuracy"}}</label>
+				<input class="sheet-infoValues miniBox" name="data.attack.accuracy" type="text" value="{{data.data.attack.accuracy}}" data-dtype="Number" />
+			</div>
+
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
+				<select name="data.difficulty" class="numberBox">
+					{{#select data.data.difficulty}}
 					<option value="3">3</option>
 					<option value="4">4</option>
 					<option value="5">5</option>
@@ -80,12 +85,12 @@
 
 			{{#if isGM}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.damage.roll">{{localize "wod.dice.rolldamage"}}</label>
-				<input name="data.damage.roll" type="checkbox" {{#if data.data.damage.roll}} checked {{/if}} />
+				<label class="headlineItem headlineBio" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
+				<input name="data.damage.isrollable" type="checkbox" {{#if data.data.damage.isrollable}} checked {{/if}} />
 			</div>
 			{{/if}}
 
-			{{#if data.data.damage.roll}}
+			{{#if data.data.damage.isrollable}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
 				<div>
@@ -127,10 +132,10 @@
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
 				<div>
-					<input name="data.mode.reload" type="checkbox" {{#if data.data.mode.reload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
-					<input name="data.mode.burst" type="checkbox" {{#if data.data.mode.burst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
-					<input name="data.mode.fullauto" type="checkbox" {{#if data.data.mode.fullauto}} checked {{/if}}>{{localize "wod.combat.mode.fullauto"}}</input>
-					<input name="data.mode.spray" type="checkbox" {{#if data.data.mode.spray}} checked {{/if}}>{{localize "wod.combat.mode.spray"}}</input>
+					<input name="data.mode.hasreload" type="checkbox" {{#if data.data.mode.hasreload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
+					<input name="data.mode.hasburst" type="checkbox" {{#if data.data.mode.hasburst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
+					<input name="data.mode.hasfullauto" type="checkbox" {{#if data.data.mode.hasfullauto}} checked {{/if}}>{{localize "wod.combat.mode.fullauto"}}</input>
+					<input name="data.mode.hasspray" type="checkbox" {{#if data.data.mode.hasspray}} checked {{/if}}>{{localize "wod.combat.mode.spray"}}</input>
 				</div>
 			</div>
 
@@ -149,8 +154,8 @@
 
 			<!-- 2-handed true/false -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.twohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
-				<input name="data.twohanded" type="checkbox" {{#if data.data.twohanded}} checked {{/if}}></input>
+				<label class="headlineItem headlineBio" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
+				<input name="data.istwohanded" type="checkbox" {{#if data.data.istwohanded}} checked {{/if}}></input>
 			</div>
 
 			<!-- description -->

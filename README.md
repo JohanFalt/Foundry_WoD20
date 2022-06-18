@@ -1,9 +1,14 @@
-# Werewolf the Apocalypse 20th ed
-Supported sheets at this moment are:
-- Mortals
-- Werewolfs
-- Mages
-- Changing Breeds
+# World of Darkness 20th ed
+Vampire the Masquerade 20th ed
+Mage the Ascention 20th ed
+Werewolf the Apocalypse 20th ed
+
+## Supported sheets
+- [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mortal)
+- [Vampires](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#vampire)
+- [Mages](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mage)
+- [Werewolfs](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#werewolf)
+- [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#changing-breed)
 - Spirits
 - Creatures
 
@@ -16,6 +21,7 @@ Portions of the materials are the copyrights and trademarks of Paradox Interacti
 This material is NOT an official World of Darkness material.
 
 <img src="https://github.com/JohanFalt/Foundry_WoD20/blob/main/doc/darkpack_logo2.png" width="300px" height="300px">
+
 
 # Contributions
 Code for dot/box counters taken from Foundry-V5 (credit to [erizocosmico](https://github.com/erizocosmico/foundry-V5)) 

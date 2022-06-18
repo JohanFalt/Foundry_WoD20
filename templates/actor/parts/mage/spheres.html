@@ -14,11 +14,11 @@
 				data-value="{{sphere.value}}"
 				data-name="data.spheres.{{key}}.value">
 
-				<span class="resource-value-empty" data-type="Mage"></span>
+				<span class="resource-value-empty" data-type="{{../config.sheettype.mage}}"></span>
 
 				{{#numLoop sphere.max}}
 				
-				<span class="resource-value-step" data-type="Mage" data-index="{{this}}"></span>
+				<span class="resource-value-step" data-type="{{../config.sheettype.mage}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				

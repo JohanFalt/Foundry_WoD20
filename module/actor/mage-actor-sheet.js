@@ -42,11 +42,13 @@ export class MageActorSheet extends MortalActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.created) {
-			if (actorData.type == "Mage") {
+		if (!actorData.data.settings.iscreated) {
+			if (actorData.type == CONFIG.wod.sheettype.mage) {
 				ActionHelper._setMageAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				actorData.data.settings.created = true;
+				ActionHelper._setMageAttributes(actorData);
+
+				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -63,10 +65,10 @@ export class MageActorSheet extends MortalActorSheet {
 			}
 		}
 
-		data.actor.rotes = rotes;
+		data.actor.rotes = rotes.sort((a, b) => a.name.localeCompare(b.name));
 
-		if (actorData.type == "Mage") {
-			console.log("Mage");
+		if (actorData.type == CONFIG.wod.sheettype.mage) {
+			console.log(CONFIG.wod.sheettype.mage);
 			console.log(data.actor);
 		}
 
@@ -83,6 +85,7 @@ export class MageActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);		
+		ActionHelper._setupDotCounters(html);
 
 		// Rollable stuff
 		html
@@ -116,23 +119,15 @@ export class MageActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != "Mage") {
+		if (dataset.type != CONFIG.wod.sheettype.mage) {
 			return;
-		}
+		}			
 
-		if (dataset.rollarete == "true") {
-			let rote = new Rote(undefined);
+		// if (dataset.rollparadox == "true") {
+		// 	ActionHelper.RollParadox(event, this.actor);
 
-			let areteCasting = new DialogAreteCasting(this.actor, rote);
-			areteCasting.render(true);
-
-			return;
-		}	
-		if (dataset.rollparadox == "true") {
-			ActionHelper.RollParadox(event, this.actor);
-
-			return;
-		}	
+		// 	return;
+		// }	
 		
 		ActionHelper.RollDialog(event, this.actor);
 	}
@@ -145,7 +140,7 @@ export class MageActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != "Mage") {
+		if (type != CONFIG.wod.sheettype.mage) {
 			return;
 		}
 
@@ -159,12 +154,6 @@ export class MageActorSheet extends MortalActorSheet {
 		}
 
 		steps.removeClass("active");
-		
-		steps.each(function (i) {
-			if (i <= 0) {
-				$(this).addClass("active");
-			}
-		});	
 
 		this._assignToMage(fields, 0);
 	}
@@ -177,7 +166,7 @@ export class MageActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != "Mage") {
+		if (type != CONFIG.wod.sheettype.mage) {
 			return;
 		}
 

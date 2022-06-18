@@ -1,0 +1,22 @@
+<div class="sheet-headline vrollable" 
+	data-type="{{config.sheettype.vampire}}"
+	data-key="path"
+	data-noability="true">{{localize data.data.path.label}}</div>
+		
+<div class="resource-value permValueRow" data-value="{{data.data.path.value}}" data-name="data.data.path.value">
+
+	{{#numLoop data.data.path.max}}
+	
+	<span class="resource-value-step" data-type="{{../config.sheettype.vampire}}" data-index="{{this}}"></span>
+	
+	{{/numLoop}}
+	
+</div>	
+
+<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:  
+	{{#if locked}}
+		{{data.data.path.bearingtext}}
+	{{else}}
+		<input class="sheet-infoValues" name="data.path.bearingtext" type="text" value="{{data.data.path.bearingtext}}" data-name="data.data.path.bearingtext" data-dtype="String" />
+	{{/if}} ({{data.data.path.bearing}})
+</div>

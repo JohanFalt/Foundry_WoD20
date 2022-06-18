@@ -1,4 +1,5 @@
 <div class="infobox">
+    <label class="headlineItem headlineBio">{{localize "wod.dice.roll"}}</label>
     <select name="data.dice1">
         {{#select data.data.dice1}}
             <option value="">- {{localize "wod.labels.power.noattribute"}} -</option>
@@ -20,23 +21,29 @@
             
         {{/select}}
     </select>
-    <select name="data.dice2">
+    + <select name="data.dice2">
         {{#select data.data.dice2}}
             <option value="">- {{localize "wod.labels.power.noability"}} -</option>
-            {{#each config.alltalents as | name type|}}
+            {{#each config.talents as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
-            {{#each config.allskills as | name type|}}
+            {{#each config.skills as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
-            {{#each config.allknowledges as | name type|}}
+            {{#each config.knowledges as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         {{/select}}
     </select>
+    + <input class="sheet-infoValues numberBox" name="data.bonus" type="text" value="{{data.data.bonus}}" data-dtype="Number" />
+      
+</div>
+
+<div class="infobox">
+    <label class="headlineItem headlineBio" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
     <select name="data.difficulty">
         {{#select data.data.difficulty}}
-            <option value="">- {{localize "wod.labels.difficulty"}} -</option>
+            <option value="">- {{localize "wod.labels.select"}} -</option>
             <option value="-1">- {{localize "wod.labels.power.varies"}} -</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -47,5 +54,5 @@
             <option value="9">9</option>
             <option value="10">10</option>
         {{/select}}
-    </select>
+    </select>  
 </div>

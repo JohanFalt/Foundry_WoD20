@@ -1,0 +1,57 @@
+<div class="sheet-headline">{{localize "wod.advantages.virtue.headline"}}</div>
+
+<div class="clearareaBox">
+	<div>
+		<div class="pullLeft headlineNormal vrollable attribute-headlineWidth" 
+			data-type="{{config.sheettype.vampire}}"
+			data-key="conscience"
+			data-noability="true">{{localize data.data.virtues.conscience.label}}</div>
+				
+		<div class="resource-value permValueRow" data-value="{{data.data.virtues.conscience.value}}" data-name="data.data.virtues.conscience.value">
+			<span class="resource-value-empty" data-type="{{config.sheettype.vampire}}"></span>
+
+			{{#numLoop data.data.virtues.conscience.max}}
+			
+			<span class="{{#iff ../data.data.virtues.conscience.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../config.sheettype.vampire}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
+			
+		</div>
+	</div>	
+
+	<div>
+		<div class="pullLeft  headlineNormal vrollable attribute-headlineWidth" 
+			data-type="{{config.sheettype.vampire}}"
+			data-key="selfcontrol"
+			data-noability="true">{{localize data.data.virtues.selfcontrol.label}}</div>
+				
+		<div class="resource-value permValueRow" data-value="{{data.data.virtues.selfcontrol.value}}" data-name="data.data.virtues.selfcontrol.value">
+			<span class="resource-value-empty" data-type="{{config.sheettype.vampire}}"></span>
+
+			{{#numLoop data.data.virtues.selfcontrol.max}}
+			
+			<span class="{{#iff ../data.data.virtues.selfcontrol.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../config.sheettype.vampire}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
+			
+		</div>	
+	</div>
+
+	<div>
+		<div class="pullLeft headlineNormal vrollable attribute-headlineWidth" 
+			data-type="{{config.sheettype.vampire}}"
+			data-key="courage"
+			data-noability="true">{{localize data.data.virtues.courage.label}}</div>
+				
+		<div class="resource-value permValueRow" data-value="{{data.data.virtues.courage.value}}" data-name="data.data.virtues.courage.value">
+			<span class="resource-value-empty" data-type="{{config.sheettype.vampire}}"></span>
+
+			{{#numLoop data.data.virtues.courage.max}}
+			
+			<span class="{{#iff ../data.data.virtues.courage.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../config.sheettype.vampire}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
+			
+		</div>	
+	</div>
+</div>

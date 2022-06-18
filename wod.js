@@ -1,8 +1,8 @@
 import * as migration from "./module/migration.js";
+import * as patch from "./module/scripts/patch.js";
 
 import { wod } from "./module/config.js";
 import { systemSettings } from "./module/settings.js";
-//import { preloadHandlebarsTemplates } from "./module/templates.js";
 import * as templates from "./module/templates.js";
 
 import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
@@ -26,22 +26,24 @@ Hooks.once("init", async function() {
 	CONFIG.wod = wod;
 	CONFIG.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
 	CONFIG.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
-	CONFIG.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+
+	try {
+		CONFIG.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+	} 
+	catch (e) {
+		CONFIG.handleOnes = true;
+	}	
+
+	CONFIG.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
 	
-	Actors.registerSheet("WoD", MortalActorSheet, {
-		label: "Mortal Sheet",
-		types: ["Mortal"],
+	Actors.registerSheet("WoD", VampireActorSheet, {
+		label: "Vampire Sheet",
+		types: ["Vampire"],
 		makeDefault: true
 	});
-	
-	Actors.registerSheet("WoD", WerewolfActorSheet, {
-		label: "Werewolf Sheet",
-		types: ["Werewolf"],
-		makeDefault: true
-	});	
 
 	Actors.registerSheet("WoD", MageActorSheet, {
 		label: "Mage Sheet",
@@ -49,21 +51,27 @@ Hooks.once("init", async function() {
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
-		label: "Changing Breed Sheet",
-		types: ["Changing Breed"],
+	Actors.registerSheet("WoD", WerewolfActorSheet, {
+		label: "Werewolf Sheet",
+		types: ["Werewolf"],
 		makeDefault: true
 	});	
 
-	Actors.registerSheet("WoD", VampireActorSheet, {
-		label: "Vampire Sheet",
-		types: ["Vampire"],
+	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
+		label: "Changing Breed Sheet",
+		types: ["Changing Breed"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", CreatureActorSheet, {
 		label: "Creature Sheet",
 		types: ["Creature"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", MortalActorSheet, {
+		label: "Mortal Sheet",
+		types: ["Mortal"],
 		makeDefault: true
 	});
 
@@ -103,19 +111,18 @@ Hooks.once("setup", function () {
 /* ------------------------------------ */
 Hooks.once("ready", function () {
     // Do anything once the system is ready
-    // Reference a Compendium pack by it's collection ID
-    // packImport();
 	const installedVersion = game.settings.get('worldofdarkness', 'worldVersion');
-  	const currentVersion = game.data.system.data.version;	
+  	const systemVersion = game.data.system.data.version;	
 
 	if (game.user.isGM) {
-		if ((installedVersion !== currentVersion || installedVersion === null)) {
-			ui.notifications.info(game.i18n.localize("wod.system.patches"));
-			migration.patches(installedVersion, currentVersion);	
+		if ((installedVersion !== systemVersion || installedVersion === null)) {
+			migration.UpdateWorld(installedVersion, systemVersion);
 		}
-		ui.notifications.info(game.i18n.localize("wod.system.updates"));
-		migration.updates();
-		ui.notifications.info(game.i18n.localize("wod.system.done"));
+		else {
+			ui.notifications.info("Checking character's settings!");
+			migration.updates();
+			ui.notifications.info("Done!");
+		}
 	}
 	CONFIG.language = game.i18n.lang;
 });

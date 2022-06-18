@@ -1,7 +1,28 @@
 import { rollDice } from "./roll-dice.js";
+import { DiceRoll } from "../scripts/roll-dice.js";
 import { calculateTotals } from "./totals.js";
+import { MeleeWeapon } from "../dialogs/dialog-weapon.js";
+import { RangedWeapon } from "../dialogs/dialog-weapon.js";
+import { Damage } from "../dialogs/dialog-weapon.js";
+import { DialogWeapon } from "../dialogs/dialog-weapon.js";
+import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js";
 import { Rote } from "../dialogs/dialog-aretecasting.js";
+import { Gift } from "../dialogs/dialog-power.js";
+import { Charm } from "../dialogs/dialog-power.js";
+import { Power } from "../dialogs/dialog-power.js";
+import { DisciplinePower } from "../dialogs/dialog-power.js";
+import { PathPower } from "../dialogs/dialog-power.js";
+import { RitualPower } from "../dialogs/dialog-power.js";
 import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
+import { DialogPower } from "../dialogs/dialog-power.js";
+import { SortDisciplinePower } from "../dialogs/dialog-sortdisciplinepower.js";
+import { SortPathPower } from "../dialogs/dialog-sortdisciplinepower.js";
+import { DialogSortDisciplinePower } from "../dialogs/dialog-sortdisciplinepower.js";
+import { VampireFrenzy } from "../dialogs/dialog-checkfrenzy.js";
+import { WerewolfFrenzy } from "../dialogs/dialog-checkfrenzy.js";
+import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
+import { Soak } from "../dialogs/dialog-soak.js";
+import { DialogSoakRoll } from "../dialogs/dialog-soak.js";
 
 export default class ActionHelper {
 
@@ -12,46 +33,85 @@ export default class ActionHelper {
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;   
+
 		let item = false; 
-
-		let hiddenForms = "";
-		let woundedHTML = "";
-		let woundPenaltyVal = 0;
-		let selectorHTML = "";
 		let templateHTML = "";	
-		let difficulty = 6;	
-
-		let attributeVal = 0;
-		let attributeName = "";
-		let abilityVal = 0;
-		let abilityName = "";			
-			
-		let specialty = `<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>`;
-		let selectAbility = "";
-			
-		let specialityText = "";
-
 
 		// the new roll system
-		if ((dataset.rollitem == "true") && (dataset.itemId != undefined)) {
-			item = getItem(dataset.itemId, actor.data.items);
+		if ((dataset.rollitem == "true") && (dataset.itemid != undefined)) {
+			item = getItem(dataset.itemid, actor.data.items);
+
+			// used a Weapon
+			if (dataset.object == "Melee") {
+				const weapon = new MeleeWeapon(item);
+				let weaponUse = new DialogWeapon(actor, weapon);
+				weaponUse.render(true);
+
+				return;
+			}
+
+			if (dataset.object == "Ranged") {
+				const weapon = new RangedWeapon(item);
+				let weaponUse = new DialogWeapon(actor, weapon);
+				weaponUse.render(true);
+
+				return;
+			}
+
+			if (dataset.object == "Damage") {
+				const damage = new Damage(item);
+				let weaponUse = new DialogWeapon(actor, damage);
+				weaponUse.render(true);
+
+				return;
+			}
 
 			// used a Fetish
-			if (item.data.type == "Fetish") {
+			if (dataset.object == "Fetish") {
 				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.data.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.data.data.gnosis.roll})</strong>`;
 
-				rollDice(
-					CONFIG.handleOnes,
-					parseInt(actor.data.data.gnosis.roll),
-					actor,
-					templateHTML,
-					parseInt(item.data.data.diff),
-					item.data.data.details
-				);
+				const fetishRoll = new DiceRoll(actor);
+				fetishRoll.handlingOnes = CONFIG.handleOnes;
+				fetishRoll.numDices = parseInt(actor.data.data.gnosis.roll);
+				fetishRoll.difficulty = parseInt(item.data.data.difficulty);
+				fetishRoll.templateHTML = templateHTML;
+				fetishRoll.origin = "paradox";
+				fetishRoll.systemText = item.data.data.details;
+
+				rollDice(fetishRoll);
+
+				// rollDice(
+				// 	CONFIG.handleOnes,
+				// 	parseInt(actor.data.data.gnosis.roll),
+				// 	actor,
+				// 	templateHTML,
+				// 	parseInt(item.data.data.difficulty),
+				// 	item.data.data.details
+				// );
+
+				return;
 			}	
 			
+			// used a Gift
+			if (dataset.object == "Gift") {
+				const gift = new Gift(item);
+				let giftUse = new DialogPower(actor, gift);
+				giftUse.render(true);
+
+				return;
+			}
+
+			// used a Rite
+			if (dataset.object == "Rite") {
+				const rite = new Gift(item);
+				let riteUse = new DialogPower(actor, rite);
+				riteUse.render(true);
+
+				return;
+			}
+			
 			// used a Rote
-			if (item.data.type == "Rote") {
+			if (dataset.object == "Rote") {
 				const rote = new Rote(item);
 				let areteCasting = new DialogAreteCasting(actor, rote);
 				areteCasting.render(true);
@@ -59,400 +119,155 @@ export default class ActionHelper {
 				return;
 			}
 
+			// used a Charm
+			if (dataset.object == "Charm") {
+				const charm = new Charm(item);
+				let charmUse = new DialogPower(actor, charm);
+				charmUse.render(true);
+
+				return;
+			}
+
+			// used a Power
+			if (dataset.object == "Power") {
+				const power = new Power(item);
+				let powerUse = new DialogPower(actor, power);
+				powerUse.render(true);
+
+				return;
+			}
+
+			// used a DisciplinePower
+			if (dataset.object == "Discipline") {
+				const discipline = new DisciplinePower(item);
+				let powerUse = new DialogPower(actor, discipline);
+				powerUse.render(true);
+
+				return;
+			}
+
+			// used a PathPower
+			if (dataset.object == "Path") {
+				const path = new PathPower(item);
+				let powerUse = new DialogPower(actor, path);
+				powerUse.render(true);
+
+				return;
+			}
+
+			// used a Ritual
+			if (dataset.object == "Ritual") {
+				const ritual = new RitualPower(item);
+				let powerUse = new DialogPower(actor, ritual);
+				powerUse.render(true);
+
+				return;
+			}
+
+			// placing Disicpline Power in correct discipline
+			if (dataset.object == "SortDisciplinePower") {
+				const discipline = new SortDisciplinePower(item);
+				let powerUse = new DialogSortDisciplinePower(actor, discipline);
+				powerUse.render(true);
+
+				return;
+			}
+
+			if (dataset.object == "SortPathPower") {
+				const discipline = new SortPathPower(item);
+				let powerUse = new DialogSortDisciplinePower(actor, discipline);
+				powerUse.render(true);
+
+				return;
+			}			
+
+			ui.notifications.error("Item Roll missing function");
+
 			return;
 		}
-		else if (!item) {
-			// specialityText
-			if (dataset.noability=="true") {
-				if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
-					if ((actor.data.data.attributes.composure.value >= 4) &&
-							(actor.data.data.attributes.composure.speciality != "")) {
-						specialityText = actor.data.data.attributes.composure.speciality;
-					}
+		else if (dataset.attribute == "true") {
+			const roll = new GeneralRoll(dataset.key, "attribute");
+			let generalRollUse = new DialogGeneralRoll(actor, roll);
+			generalRollUse.render(true);
 
-					if ((actor.data.data.attributes.resolve.value >= 4) &&
-							(actor.data.data.attributes.resolve.speciality != "")) {
-						specialityText = specialityText != "" ? specialityText + ", " + actor.data.data.attributes.resolve.speciality : actor.data.data.attributes.resolve.speciality;
-					}
-
-					if (specialityText == "") {
-						specialty = "";
-					}
-				}
-				// hide speciallity box
-				else {
-					specialty = "";
-				}
-			}
-			else if (dataset.attribute == "true") {
-				if (actor.data.data.attributes[dataset.label].value >= 4) {
-					specialityText = actor.data.data.attributes[dataset.label].speciality;
-				}
-				else {
-					specialty = "";
-				}
-			}
-			else if (dataset.ability == "true") {
-				if (actor.data.data.abilities.talent[dataset.label]?.value != undefined) {
-					specialityText = actor.data.data.abilities.talent[dataset.label].speciality;
-				}
-				else if (actor.data.data.abilities.skill[dataset.label]?.value != undefined) {
-					specialityText = actor.data.data.abilities.skill[dataset.label].speciality;
-				}
-				else if (actor.data.data.abilities.knowledge[dataset.label]?.value != undefined) {
-					specialityText = actor.data.data.abilities.knowledge[dataset.label].speciality;
-				}	
-
-				let options1 = "";
-				let list;
-
-				if (CONFIG.attributeSettings == "5th") {
-					list = CONFIG.wod.attributes;
-				}
-				else if (CONFIG.attributeSettings == "20th") {
-					list = CONFIG.wod.attributes20;
-				}
-
-				for (const i in list) {
-					if (actor.data.data.attributes[i].value >= 4) {
-						options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])} (${actor.data.data.attributes[i].speciality})</option>`);
-					}
-					else {
-						options1 = options1.concat(`<option value="${i}">${game.i18n.localize(list[i])}</option>`);
-					}				
-				}
-					
-				selectAbility =  `<div class="form-group">
-										<label>${game.i18n.localize("wod.labels.selectattribute")}</label>
-										<select id="attributeSelect">${options1}</select>
-									</div>`;
-			}
-
-			// items
-			if (dataset.rollitem == "true") {
-				let specText1 = "";
-				let specText2 = "";
-				let hasAttributeSpeciality = false;
-
-
-				difficulty = dataset.diff;
-
-				// is dice1 an Attribute
-				if ((actor.data.data?.attributes != undefined) && (actor.data.data.attributes[dataset.dice1]?.value != undefined)) {
-					attributeVal = parseInt(actor.data.data.attributes[dataset.dice1].total);
- 					attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1].label);
-
-					if (parseInt(actor.data.data.attributes[dataset.dice1].value) >= 4) {
-						hasAttributeSpeciality = true;
-					}
-				}
-				// is dice1 an Advantage
-				else if (actor.data.data[dataset.dice1]?.roll != undefined) { 
-					attributeVal = parseInt(actor.data.data[dataset.dice1].roll);
-					attributeName = game.i18n.localize(actor.data.data[dataset.dice1].label);
-				}
-
-				// is dice2 a Talent
-				if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.talent[dataset.dice2]?.value != undefined)) {
-					abilityVal = parseInt(actor.data.data.abilities.talent[dataset.dice2].value);
-					abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.dice2].label);
-				}
-				// is dice2 a Skill
-				else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.skill[dataset.dice2]?.value != undefined)) {
-					abilityVal = parseInt(actor.data.data.abilities.skill[dataset.dice2].value);
-					abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.dice2].label);
-				}
-				// is dice2 a Knowledge
-				else if ((actor.data.data?.abilities != undefined) && (actor.data.data.abilities.knowledge[dataset.dice2]?.value != undefined)) {
-					abilityVal = parseInt(actor.data.data.abilities.knowledge[dataset.dice2].value);
-					abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.dice2].label);
-				}	
-
-				if ((actor.data.data?.abilities != undefined) && (hasAttributeSpeciality)) {
-					if (actor.data.data.attributes[dataset.dice1]?.speciality != undefined) {
-						specText1 = actor.data.data.attributes[dataset.dice1].speciality;
-					}
-				}
-				
-				if ((actor.data.data?.abilities != undefined) && (abilityVal >= 4)) {
-					if (actor.data.data.abilities.talent[dataset.dice2]?.speciality != undefined) {
-						specText2 = actor.data.data.abilities.talent[dataset.dice2].speciality;
-					}
-					else if (actor.data.data.abilities.skill[dataset.dice2]?.speciality != undefined) {
-						specText2 = actor.data.data.abilities.skill[dataset.dice2].speciality;
-					}
-					else if (actor.data.data.abilities.knowledge[dataset.dice2]?.speciality != undefined) {
-						specText2 = actor.data.data.abilities.knowledge[dataset.dice2].speciality;
-					}
-				}
-
-				if ((specText1 != "") && (specText2 != "")) {
-					specialityText = specText1 + ', ' + specText2;
-				}
-				else if (specText1 != "") {
-					specialityText = specText1;
-				}
-				else if (specText2 != "") {
-					specialityText = specText2;
-				}
-
-				if (specialityText == "") {
-					specialty = "";
-				}
-
-				hiddenForms += `<input type="hidden" id="attributeVal" value="${attributeVal}" />`;
-				hiddenForms += `<input type="hidden" id="attributeName" value="${attributeName}" />`;
-				hiddenForms += `<input type="hidden" id="abilityVal" value="${abilityVal}" />`;
-				hiddenForms += `<input type="hidden" id="abilityName" value="${abilityName}" />`;
-				hiddenForms += `<input type="hidden" id="specialityText" value="${specialityText}" />`;
-				hiddenForms += `<input type="hidden" id="systemText" value="${dataset?.system || ""}" />`;
-			}
+			return;
 		}
-		
-		
-		// damage
-		if (actor.data.data.health.damage.woundlevel != "") {
-			if (this._ignoresPain(actor)) {
-				woundPenaltyVal = 0;			}				
-			else {
-				woundPenaltyVal = actor.data.data.health.damage.woundpenalty;
+		else if (dataset.ability == "true") {
+			const roll = new GeneralRoll(dataset.key, "ability");
+			let generalRollUse = new DialogGeneralRoll(actor, roll);
+			generalRollUse.render(true);
+
+			return;
+		}
+		else if (dataset.noability == "true") {
+			if (dataset.key == "paradox") {
+				this.RollParadox(event, actor);
+
+				return;
 			}
 
-			woundedHTML = `<div class="form-group"><label>${game.i18n.localize("wod.labels.woundlevel")}</label>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${woundPenaltyVal})</div>`
+			const roll = new GeneralRoll(dataset.key, "noability");
+			let generalRollUse = new DialogGeneralRoll(actor, roll);
+			generalRollUse.render(true);
 
-			if ((dataset.noability == "true") || (dataset.rolldamage == "true")) {
-				woundPenaltyVal = 0;
-				woundedHTML = "";
+			return;
+		}
+		else if (dataset.macroimage == "true") {
+			if (dataset.rollinitiative == "true") {
+				this.RollInitiative(event, actor);
+
+				return;
 			}
 
-			hiddenForms += `<input type="hidden" id="woundPenalty" value="${woundPenaltyVal}" />`;				
-		}
+			if (dataset.rollsoak == "true") {
+				const soak = new Soak(actor);
+				let soakUse = new DialogSoakRoll(actor, soak);
+				soakUse.render(true);
 
-		// set final difficulty
-		if (dataset.rolldamage !="true") {
-			for (let i = 2; i <= 10; i++) {
-				if (i == difficulty) {
-					selectorHTML += `<input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input>`;
-				}
-				else {
-					selectorHTML += `<input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input>`;
-				}
+				return;
 			}
-		}
 
-		if (dataset.noability=="true") {
-			templateHTML = `
-				<form>
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0" autofocus />
-					</div>  
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
-						`
-						+ selectorHTML + 
-						`
-					</div>
-					` + specialty + ` ` + specialityText + `</div>
-				</form>`;
-		} 
-		else if (dataset.rolldamage=="true") {
-			templateHTML = `
-				<form>
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0" autofocus />
-					</div> 
-				</form>`;
-		}
-		else {
-			templateHTML = `
-				<form>
-					`
-					+ hiddenForms + selectAbility + 
-					`
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.modifier")}</label>
-						<input type="text" id="inputMod" value="0" autofocus />
-					</div>  
-					<div class="form-group">
-						<label>${game.i18n.localize("wod.labels.difficulty")}</label>
-						`
-						+ selectorHTML + 
-						`
-					</div>
-					` + woundedHTML + 
-					`<div>` + specialty + ` <span id="specialityText">` + specialityText + `</span></div>
-				</form>`;
-		}		
+			if (dataset.rolldices == "true") {
+				const roll = new GeneralRoll(dataset.key, "dice");
+				let generalRollUse = new DialogGeneralRoll(actor, roll);
+				generalRollUse.render(true);
 
-		let buttons = {};
-		buttons = {
-      
-			draw: {
-				icon: '<i class="fas fa-check"></i>',
-				label: game.i18n.localize("wod.dice.roll"),
-				callback: async (html) => {
-					let attribute = "";
-					let attributeVal = 0;
-					let attributeName = "";
-					let abilityVal = 0;
-					let abilityName = "";					
-					let numDice = 0;
-					let rollHTML = "";
-					let specialityText = "";
-					let systemText = "";
-					let handlingOnes = true;
-					let hasAttributeSpeciality = false;
+				return;
+			}
 
-					const modifier = parseInt(html.find("#inputMod")[0]?.value || 0);
-					let modifierText = "";
-					let difficulty = parseInt(html.find("#inputDif:checked")[0]?.value || 6);
-					const specialty = html.find("#specialty")[0]?.checked || false;
-					let woundPenaltyVal = parseInt(html.find("#woundPenalty")[0]?.value || 0);
-
-					try {
-						handlingOnes = CONFIG.handleOnes;
-					} 
-					catch (e) {
-						handlingOnes = true;
-					}
-
-					if (modifier > 0) {
-						modifierText = `+${modifier}`;
-					}
-					else if (modifier < 0) {
-						modifierText = `${modifier}`;
-					}
-
-					if (dataset.ability == "true") {
-						attribute = html.find("#attributeSelect")[0]?.value;
-						attributeVal = parseInt(actor.data.data.attributes[attribute].total);
-
-						if (parseInt(actor.data.data.attributes[attribute].value) >= 4) {
-							hasAttributeSpeciality = true;
-						}
-
-						if ((hasAttributeSpeciality) && (parseInt(dataset.roll) >= 4)) {
-							specialityText = actor.data.data.attributes[attribute].speciality + ", " + dataset.speciality;
-						}
-						else if (hasAttributeSpeciality) {
-							specialityText = actor.data.data.attributes[attribute].speciality;
-						}
-						else if (parseInt(dataset.roll) >= 4) {
-							specialityText = dataset.speciality;
-						}
-						
-						attributeName = game.i18n.localize(actor.data.data.attributes[attribute].label);
-
-						if (actor.data.data.abilities.talent[dataset.label]?.value != undefined) {
-							abilityName = game.i18n.localize(actor.data.data.abilities.talent[dataset.label].label);
-						}
-						else if (actor.data.data.abilities.skill[dataset.label]?.value != undefined) {
-							abilityName = game.i18n.localize(actor.data.data.abilities.skill[dataset.label].label);
-						}
-						else if (actor.data.data.abilities.knowledge[dataset.label]?.value != undefined) {
-							abilityName = game.i18n.localize(actor.data.data.abilities.knowledge[dataset.label].label);
-						}
-
-						numDice = attributeVal + parseInt(dataset.roll) + modifier;
-						rollHTML = `<h2>${abilityName}</h2> <strong>${abilityName} (${dataset.roll}) + ${attributeName} (${attributeVal}) ${modifierText}</strong>`;
-					} 
-					else if (dataset.attribute == "true") {
-						attribute = dataset.label.toLowerCase();
-						attributeVal = dataset.roll;
-						specialityText = dataset.speciality;
-						attributeName = game.i18n.localize(actor.data.data.attributes[attribute].label);
-						numDice = parseInt(dataset.roll) + modifier;
-						rollHTML = `<h2>${attributeName}</h2> <strong>${attributeName} (${dataset.roll}) ${modifierText}</strong>`;
-					}
-					else if (dataset.noability == "true") {
-						//woundPenaltyVal = 0;
-						numDice = parseInt(dataset.roll) + modifier;
-						rollHTML = `<h2>${dataset.label}</h2> <strong>${dataset.label} (${dataset.roll}) ${modifierText}</strong>`;
-
-						if ((dataset.label == "Willpower") && (CONFIG.attributeSettings == "5th")) {
-							if ((parseInt(actor.data.data.attributes?.composure.value) >= 4) && (parseInt(actor.data.data.attributes?.resolve.value) >= 4)) {
-								specialityText = actor.data.data.attributes.composure.speciality + ", " + actor.data.data.attributes.resolve.speciality;
-							}
-							else if (parseInt(actor.data.data.attributes?.composure.value) >= 4) {
-								specialityText = actor.data.data.attributes.composure.speciality
-							}
-							else if (parseInt(actor.data.data.attributes?.resolve.value) >= 4) {
-								specialityText = actor.data.data.attributes.resolve.speciality;
-							}
-						}
-					}
-					else if (dataset.rollitem == "true") {
-						attributeVal = parseInt(html.find("#attributeVal")[0]?.value || 0);
-						attributeName = html.find("#attributeName")[0]?.value || "";
-
-						abilityVal = parseInt(html.find("#abilityVal")[0]?.value || 0);
-						abilityName = html.find("#abilityName")[0]?.value || "";
-
-						specialityText = html.find("#specialityText")[0]?.value || "";
-
-						systemText = html.find("#systemText")[0]?.value || "";
-						
-						numDice = attributeVal + abilityVal + modifier;
-
-						const rollType = (dataset.rollattack == "true") ? "(attack)" : "";
-
-						rollHTML = `<h2>${dataset.label} ${rollType}</h2> <strong>${attributeName} (${attributeVal})`;
-
-						if (abilityName != "") {
-							rollHTML += ` + ${abilityName} (${abilityVal})`;
-						}
-
-						rollHTML += ` ${modifierText}</strong>`;
-					}	
-					else if (dataset.rolldamage=="true") {
-						let bonusVal = parseInt(dataset.dice2);
-						let damageCode = game.i18n.localize(CONFIG.wod.damageTypes[dataset.damagetype]);
-
-						//woundPenaltyVal = 0;
-						difficulty = 6;
-						attributeVal = parseInt(actor.data.data.attributes[dataset.dice1]?.total || 0);
-						attributeName = game.i18n.localize(actor.data.data.attributes[dataset.dice1]?.label || "");
-						numDice = attributeVal + bonusVal + modifier;
-						handlingOnes = false;
-						
-						if (attributeVal > 0) {
-							rollHTML = `<h2>${dataset.label} (damage)</h2> <strong>${attributeName} (${attributeVal}) + ${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
-						}
-						else {
-							rollHTML = `<h2>${dataset.label} (damage)</h2> <strong>${bonusVal} ${modifierText}<br />${damageCode}</strong>`;
-						}
-					}	
-					
-					rollDice(
-						handlingOnes,
-						numDice,
-						actor,
-						rollHTML,
-						difficulty,
-						systemText,
-						specialty,
-						specialityText,
-						woundPenaltyVal												
-					);
-				},
-			},
-			cancel: {
-				icon: '<i class="fas fa-times"></i>',
-				label: game.i18n.localize("wod.labels.cancel"),
-			},
-		};
-
-		new Dialog({      
-			title: game.i18n.localize("wod.labels.rolling") + ` ${dataset.label}...`,
-			content: templateHTML,
-			buttons: buttons,
-			default: "draw",
-		}).render(true);
-    }
-
+			if (dataset.rollaretecatsing == "true") {
+				let rote = new Rote(undefined);
+				let areteCasting = new DialogAreteCasting(actor, rote);
+				areteCasting.render(true);
 	
+				return;
+			}
+
+			if (dataset.rollfrenzy == "true") {
+				let frenzy = undefined;
+
+				if (dataset.type == CONFIG.wod.sheettype.vampire) {
+					frenzy = new VampireFrenzy(dataset);
+				}
+				if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+					frenzy = new WerewolfFrenzy(actor, dataset);
+				}
+
+				let checkFrenzy = new DialogCheckFrenzy(actor, frenzy);
+				checkFrenzy.render(true);
+
+				return;
+			}
+
+			ui.notifications.error("Macro roll missing function");
+
+			return;
+		}
+
+		ui.notifications.error("Roll missing function");
+
+		return;
+    }	
 
 	static async RollInitiative(event, actor) {
 		event.preventDefault();		
@@ -496,16 +311,16 @@ export default class ActionHelper {
 			}
 		}		
 			
-		if (actor.type == "Mortal") {
+		if (actor.type == CONFIG.wod.sheettype.mortal) {
 			diceColor = "blue_";
 		} 
-		else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
+		else if ((actor.type == CONFIG.wod.sheettype.werewolf) || (actor.type == "Changing Breed")) {
 			diceColor = "brown_";
 		}
-		else if (actor.type == "Mage") { 
+		else if (actor.type == CONFIG.wod.sheettype.mage) { 
 			diceColor = "purple_";
 		}
-		else if (actor.type == "Vampire") { 
+		else if (actor.type == CONFIG.wod.sheettype.vampire) { 
 			diceColor = "red_";
 		}
 		else if (actor.type == "Spirit") { 
@@ -550,196 +365,30 @@ export default class ActionHelper {
 		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2>' + init + label + message, actor);			
 	}
 
-	static RollSoak(event, actor) {
-		event.preventDefault();
-
-		let buttons = {};
-		let templateHTML = `<form>
-							<div style="margin-bottom: 25px;">
-								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.modifier")}</div>
-								<input type="text" id="inputMod" value="0" autofocus />
-							</div>  
-							<div style="margin-bottom: 25px;">
-								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.damagetype")}</div>
-								<input type="radio" id="damageType" name="damageType" value="bashing" checked>${game.i18n.localize("wod.health.bashing")}</input>
-								<input type="radio" id="damageType" name="damageType" value="lethal">${game.i18n.localize("wod.health.lethal")}</input>
-								<input type="radio" id="damageType" name="damageType" value="aggravated">${game.i18n.localize("wod.health.aggravated")}</input>
-							</div>
-						</form>`;
-
-		buttons = {
-			draw: {
-				icon: '<i class="fas fa-check"></i>',
-				label: game.i18n.localize("wod.dice.roll"),
-				callback: async (templateHTML) => {
-					const damageType = templateHTML.find("#damageType:checked")[0]?.value;
-					const bonus = parseInt(templateHTML.find("#inputMod")[0]?.value);
-					const dice = parseInt(actor.data.data.soak[damageType]) + parseInt(bonus);
-					let successes = 0;
-					let label = "";
-
-					let roll = new Roll(dice + "d10");
-					roll.evaluate({async:true});
-
-					let diceColor;
-			
-					if (actor.type == "Mortal") {
-						diceColor = "blue_";
-					} 
-					else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
-						diceColor = "brown_";
-					}
-					else if (actor.type == "Mage") { 
-						diceColor = "purple_";
-					}
-					else if (actor.type == "Vampire") { 
-						diceColor = "red_";
-					}
-					else if (actor.type == "Spirit") { 
-						diceColor = "yellow_";
-					}
-					else {
-						diceColor = "black_";
-					}
-					
-					roll.terms[0].results.forEach((dice) => {
-						if (dice.result >= 6) {
-							successes++;
-						}
-
-						label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
-					});
-
-					this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollingsoak")+'</h2><strong>' + damageType + '<br />'+game.i18n.localize("wod.dice.successes")+':</strong> ' + successes + '<br />' + label, actor);
-				},
-			},
-			cancel: {
-				icon: '<i class="fas fa-times"></i>',
-				label: game.i18n.localize("wod.labels.cancel"),
-			},
-		};
-
-		new Dialog({      
-			title: game.i18n.localize("wod.labels.rolling"),
-			content: templateHTML,
-			buttons: buttons,
-			default: "draw",
-		}).render(true);    
-	}
-
 	static RollParadox(event, actor) {
 		event.preventDefault();
 
 		const numDice = parseInt(actor.data.data.paradox.roll);
-		const difficulty = 6;
-		let handlingOnes = true;
+		const difficulty = 6;		
 		let rollHTML = `<h2>${game.i18n.localize("wod.advantages.paradox")}</h2>`;
 		rollHTML += `${game.i18n.localize("wod.advantages.paradox")} (${actor.data.data.paradox.roll})`;
 
-		try {
-			handlingOnes = game.settings.get('worldofdarkness', 'theRollofOne');
-		} 
-		catch (e) {
-			handlingOnes = true;
-		}
+		const paradoxRoll = new DiceRoll(actor);
+        paradoxRoll.handlingOnes = CONFIG.handleOnes;
+        paradoxRoll.numDices = parseInt(numDice);
+        paradoxRoll.difficulty = parseInt(difficulty);
+        paradoxRoll.templateHTML = rollHTML;
+        paradoxRoll.origin = "paradox";
 
-		rollDice(
-			handlingOnes,
-			numDice,
-			actor,
-			rollHTML,
-			difficulty					
-		); 
-	}
+		rollDice(paradoxRoll);
 
-	static RollDices(event, actor) {
-		event.preventDefault();
-
-		let selectorHTML = "";
-		let diceselector = "";
-
-		for (let i = 3; i <= 10; i++) {
-			if (i == 6) {
-				selectorHTML += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}" checked>${i}</input></span>`;
-			}
-			else {
-				selectorHTML += `<span style="width: 35px; display: inline-block;"><input type="radio" id="inputDif" name="inputDif" value="${i}">${i}</input></span>`;
-			}
-		}
-
-		for (let i = 1; i <= 20; i++) {
-			if (i == 3) {
-				diceselector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="dices" name="dices" value="${i}" checked>${i}</input></span>`;
-			}
-			else {
-				diceselector += `<span style="width: 35px; display: inline-block;"><input type="radio" id="dices" name="dices" value="${i}">${i}</input></span>`;
-			}
-
-			if (i % 10 === 0) {
-				diceselector += `<br />`;
-			}
-		}
-
-		let buttons = {};
-		let templateHTML = `<form>
-							<div style="margin-bottom: 25px;">
-								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.numdices")}</div>
-								`
-								+ diceselector + 
-								`
-							</div>  
-							<div style="margin-bottom: 25px;">
-								<div style="font-size: 16px; font-weight: bold">${game.i18n.localize("wod.labels.difficulty")}</div>
-								`
-								+ selectorHTML + 
-								`
-							</div> 
-							<div style="margin-bottom: 25px;">
-								<input id="specialty" type="checkbox">${game.i18n.localize("wod.labels.specialty")}</input>
-							</div>
-						</div>
-						</form>`;
-		buttons = {
-			draw: {
-				icon: '<i class="fas fa-check"></i>',
-				label: game.i18n.localize("wod.dice.roll"),
-				callback: async (templateHTML) => {
-					const numDice = parseInt(templateHTML.find("#dices:checked")[0]?.value || 3);
-					let difficulty = parseInt(templateHTML.find("#inputDif:checked")[0]?.value || 0);
-					const specialty = templateHTML.find("#specialty")[0]?.checked || false;
-					let handlingOnes = true;
-
-					try {
-						handlingOnes = game.settings.get('worldofdarkness', 'theRollofOne');
-					} 
-					catch (e) {
-						handlingOnes = true;
-					}
-
-					let rollHTML = `<h2>${game.i18n.localize("wod.dice.rollingdice")}</h2>`;
-
-					rollDice(
-						handlingOnes,
-						numDice,
-						actor,
-						rollHTML,
-						difficulty,
-						specialty						
-					);
-				},
-			},
-			cancel: {
-				icon: '<i class="fas fa-times"></i>',
-				label: game.i18n.localize("wod.labels.cancel"),
-			},
-		};	
-		
-		new Dialog({      
-			title: game.i18n.localize("wod.labels.rolling"),
-			content: templateHTML,
-			buttons: buttons,
-			default: "draw",
-		}).render(true);  
+		// rollDice(
+		// 	handlingOnes,
+		// 	numDice,
+		// 	actor,
+		// 	rollHTML,
+		// 	difficulty					
+		// ); 
 	}
 
  	static _inTurn(token) {
@@ -811,19 +460,51 @@ export default class ActionHelper {
 		}		
 	}
 
+	static handleVampireCalculations(actorData) {
+		console.log("WoD | handleVampireCalculations");
+
+		actorData.data.path.roll = parseInt(actorData.data.path.value);
+		actorData.data.virtues.conscience.roll = parseInt(actorData.data.virtues.conscience.value);
+		actorData.data.virtues.selfcontrol.roll = parseInt(actorData.data.virtues.selfcontrol.value);
+		actorData.data.virtues.courage.roll = parseInt(actorData.data.virtues.courage.value);	
+		
+		if (actorData.data.path.value == 1) {
+			actorData.data.path.bearing = 2;
+		}
+		else if ((actorData.data.path.value >= 2) && (actorData.data.path.value <= 3)) {
+			actorData.data.path.bearing = 1;
+		}
+		else if ((actorData.data.path.value >= 4) && (actorData.data.path.value <= 7)) {
+			actorData.data.path.bearing = 0;
+		}
+		else if ((actorData.data.path.value >= 8) && (actorData.data.path.value <= 9)) {
+			actorData.data.path.bearing = -1;
+		}
+		else if (actorData.data.path.value == 10) {
+			actorData.data.path.bearing = 2;
+		}
+	}
+
+	static handleMageCalculations(actorData) {
+		console.log("WoD | handleMageCalculations");
+
+		actorData.data.arete.roll = parseInt(actorData.data.arete.permanent);
+		actorData.data.paradox.roll = parseInt(actorData.data.paradox.temporary) + parseInt(actorData.data.paradox.permanent);
+	}
+
 	static handleWerewolfCalculations(actorData) {
 		console.log("WoD | handleWerewolfCalculations");
 		
 		let advantageRollSetting = true;
 
 		// shift
-		if ((actorData.type == "Werewolf") || (actorData.type == "Changing Breed")) {
-			if ((!actorData.data.shapes.homid.active) &&
-				(!actorData.data.shapes.glabro.active) &&
-				(!actorData.data.shapes.crinos.active) &&
-				(!actorData.data.shapes.hispo.active) &&
-				(!actorData.data.shapes.lupus.active)) {
-				actorData.data.shapes.homid.active = true;
+		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed")) {
+			if ((!actorData.data.shapes.homid.isactive) &&
+				(!actorData.data.shapes.glabro.isactive) &&
+				(!actorData.data.shapes.crinos.isactive) &&
+				(!actorData.data.shapes.hispo.isactive) &&
+				(!actorData.data.shapes.lupus.isactive)) {
+				actorData.data.shapes.homid.isactive = true;
 			}
 		}
 
@@ -880,14 +561,7 @@ export default class ActionHelper {
 			actorData.data.attributes.charisma.total = parseInt(actorData.data.attributes.charisma.total) - rageDiff;
 			actorData.data.attributes.manipulation.total = parseInt(actorData.data.attributes.manipulation.total) - rageDiff;
 		}
-	}	
-
-	static handleMageCalculations(actorData) {
-		console.log("WoD | handleMageCalculations");
-
-		actorData.data.arete.roll = parseInt(actorData.data.arete.permanent);
-		actorData.data.paradox.roll = parseInt(actorData.data.paradox.temporary) + parseInt(actorData.data.paradox.permanent);
-	}	
+	}			
 
 	static printMessage(headline, message, actor){
 		message = headline + message;
@@ -904,12 +578,12 @@ export default class ActionHelper {
 	static _ignoresPain(actor) {
 		let ignoresPain = false;
 
-		if (actor.data.data.conditions?.ignorepain)
+		if (actor.data.data.conditions?.isignoringpain)
 		{
 			ignoresPain = true;
 		}
 
-		if (actor.data.data.conditions?.frenzy)
+		if (actor.data.data.conditions?.isfrenzy)
 		{
 			ignoresPain = true;
 		}
@@ -932,10 +606,10 @@ export default class ActionHelper {
 					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
 					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
 					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].visible = true;
+				actor.data.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].visible = false;
+				actor.data.abilities.talent[talent].isvisible = false;
 			}			
 		}
 
@@ -951,10 +625,10 @@ export default class ActionHelper {
 					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") ||
 					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
 					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.data.abilities.skill[skill].visible = true;
+				actor.data.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].visible = false;
+				actor.data.abilities.skill[skill].isvisible = false;
 			}			
 		}
 
@@ -970,11 +644,70 @@ export default class ActionHelper {
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.data.abilities.knowledge[knowledge].visible = true;
+				actor.data.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].visible = false;
+				actor.data.abilities.knowledge[knowledge].isvisible = false;
 			}		
+		}
+	}
+
+	static _setVampireAbilities(actor) {		
+		for (const talent in CONFIG.wod.alltalents) {
+
+			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.awareness") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.data.abilities.talent[talent].isvisible = true;
+			}
+			else {
+				actor.data.abilities.talent[talent].isvisible = false;
+			}			
+		}
+
+		for (const skill in CONFIG.wod.allskills) {
+
+			if ((actor.data.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.larceny") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.data.abilities.skill[skill].isvisible = true;
+			}
+			else {
+				actor.data.abilities.skill[skill].isvisible = false;
+			}			
+		}
+
+		for (const knowledge in CONFIG.wod.allknowledges) {
+
+			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.finance") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.data.abilities.knowledge[knowledge].isvisible = true;
+			}
+			else {
+				actor.data.abilities.knowledge[knowledge].isvisible = false;
+			}				
 		}
 	}
 
@@ -992,11 +725,11 @@ export default class ActionHelper {
 					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
 					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
 					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].visible = true;
+				actor.data.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].visible = false;
-			}			
+				actor.data.abilities.talent[talent].isvisible = false;
+			}	
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
@@ -1011,11 +744,11 @@ export default class ActionHelper {
 					(actor.data.abilities.skill[skill].label == "wod.abilities.research") ||
 					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
 					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.data.abilities.skill[skill].visible = true;
+				actor.data.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].visible = false;
-			}			
+				actor.data.abilities.skill[skill].isvisible = false;
+			}	
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
@@ -1032,11 +765,11 @@ export default class ActionHelper {
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.data.abilities.knowledge[knowledge].visible = true;
+				actor.data.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].visible = false;
-			}		
+				actor.data.abilities.knowledge[knowledge].isvisible = false;
+			}						
 		}
 	}
 
@@ -1052,10 +785,10 @@ export default class ActionHelper {
 					(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") || 
 					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
 					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].visible = true;
+				actor.data.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].visible = false;
+				actor.data.abilities.talent[talent].isvisible = false;
 			}			
 		}
 
@@ -1070,10 +803,10 @@ export default class ActionHelper {
 					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") || 
 					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") || 
 					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.data.abilities.skill[skill].visible = true;
+				actor.data.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].visible = false;
+				actor.data.abilities.skill[skill].isvisible = false;
 			}			
 		}
 
@@ -1088,121 +821,94 @@ export default class ActionHelper {
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.data.abilities.knowledge[knowledge].visible = true;
+				actor.data.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].visible = false;
+				actor.data.abilities.knowledge[knowledge].isvisible = false;
 			}		
 		}
 	}
 
-	// static _setVampireAbilities(actor) {
-	// 	for (const talent in CONFIG.wod.alltalents) {
-	// 		if ((actor.data.abilities.talent[talent].label == "wod.abilities.gestures") || 
-	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.intuition") || 
-	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") ||
-	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.seduction") ||
-	// 				(actor.data.abilities.talent[talent].label == "wod.abilities.diplomacy")) {
-	// 			actor.data.abilities.talent[talent].visible = false;
-	// 		}
-	// 		else {
-	// 			actor.data.abilities.talent[talent].visible = true;
-	// 		}			
-	// 	}
-
-	// 	for (const skill in CONFIG.wod.allskills) {
-	// 		if ((actor.data.abilities.skill[skill].label == "wod.abilities.pilot") || 
-	// 				(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") || 
-	// 				(actor.data.abilities.skill[skill].label == "wod.abilities.archery")) {
-	// 			actor.data.abilities.skill[skill].visible = false;
-	// 		}
-	// 		else {
-	// 			actor.data.abilities.skill[skill].visible = true;
-	// 		}			
-	// 	}
-
-	// 	for (const knowledge in CONFIG.wod.allknowledges) {
-	// 		if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.culture") || 
-	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
-	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
-	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.hearthwisdom") || 
-	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.herbalism") || 
-	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.legends") || 
-	// 				(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals")) {
-	// 			actor.data.abilities.knowledge[knowledge].visible = false;
-	// 		}
-	// 		else {
-	// 			actor.data.abilities.knowledge[knowledge].visible = true;
-	// 		}		
-	// 	}
-	// }
-
-
 	static _setCreatureAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
-			actor.data.abilities.talent[talent].visible = false;
+			actor.data.abilities.talent[talent].isvisible = false;
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
-			actor.data.abilities.skill[skill].visible = false;
+			actor.data.abilities.skill[skill].isvisible = false;
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
-			actor.data.abilities.knowledge[knowledge].visible = false;
+			actor.data.abilities.knowledge[knowledge].isvisible = false;
 		}		
+	}
+	
+	static _setMortalAttributes(actor) {
+		let willpower = -1;
+
+		for (const attribute in actor.data.attributes) {
+			actor.data.attributes[attribute].isvisible = true;
+		}
+
+		if (CONFIG.attributeSettings == "20th") {
+			actor.data.attributes.composure.isvisible = false;
+			actor.data.attributes.resolve.isvisible = false;
+			actor.data.willpower.permanent = 0;
+		}
+		else if (CONFIG.attributeSettings == "5th") {
+			actor.data.attributes.appearance.isvisible = false;
+			actor.data.attributes.perception.isvisible = false;
+			actor.data.willpower.permanent = 2;
+		}
+	
+		if (CONFIG.rollSettings) {
+			willpower = actor.data.willpower.permanent; 
+		}
+		else {
+			willpower = actor.data.willpower.permanent > actor.data.willpower.temporary ? actor.data.willpower.temporary : actor.data.willpower.permanent; 
+		}
+	
+		actor.data.willpower.roll = willpower;
+	}
+
+	static _setVampireAttributes(actor) {
+		actor.data.bloodpool.temporary = 0;
+		actor.data.bloodpool.max = 10;
+	}
+
+	static _setWerewolfAttributes(actor) {
+		let rage = -1;
+		let gnosis = -1;
+
+		if (CONFIG.rollSettings) {
+			rage = actor.data.rage.permanent; 
+			gnosis = actor.data.gnosis.permanent;
+		}
+		else {
+			rage = actor.data.rage.permanent > actor.data.rage.temporary ? actor.data.rage.temporary : actor.data.rage.permanent; 
+			gnosis = actor.data.gnosis.permanent > actor.data.gnosis.temporary ? actor.data.gnosis.temporary : actor.data.gnosis.permanent;
+		}
+
+		actor.data.rage.roll = rage;
+		actor.data.gnosis.roll = gnosis;
 	}
 
 	static _setMageAttributes(actor) {
-		
+		actor.data.arete.permanent = 1;
+		actor.data.arete.roll = 1;
 	}
 
-	
-	static _setMortalAttributes(actor) {
-
-		let rage = -1;
-		let gnosis = -1;
-		let willpower = -1;
-
-		if ((actor.type == "Mortal") || (actor.type == "Mage") || (actor.type == "Werewolf") || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
-			for (const attribute in actor.data.attributes) {
-				actor.data.attributes[attribute].visible = true;
-			}
-
-			if (CONFIG.attributeSettings == "20th") {
-				actor.data.attributes.composure.visible = false;
-				actor.data.attributes.resolve.visible = false;
-				actor.data.willpower.permanent = 0;
-			}
-			else if (CONFIG.attributeSettings == "5th") {
-				actor.data.attributes.appearance.visible = false;
-				actor.data.attributes.perception.visible = false;
-				actor.data.willpower.permanent = 2;
-			}
-	  
-			if (CONFIG.rollSettings) {
-				if ((actor.type != "Mortal") && (actor.type != "Mage")) {
-					rage = actor.data.rage.permanent; 
-					gnosis = actor.data.gnosis.permanent;
-			  	}
-			  
-				willpower = actor.data.willpower.permanent; 
-			}
-			else {
-				if ((actor.type != "Mortal") && (actor.type != "Mage")) {
-					rage = actor.data.rage.permanent > actor.data.rage.temporary ? actor.data.rage.temporary : actor.data.rage.permanent; 
-					gnosis = actor.data.gnosis.permanent > actor.data.gnosis.temporary ? actor.data.gnosis.temporary : actor.data.gnosis.permanent;
-			  	}
-			  
-			  	willpower = actor.data.willpower.permanent > actor.data.willpower.temporary ? actor.data.willpower.temporary : actor.data.willpower.permanent; 
-			}
-	  
-			if ((actor.type != "Mortal") && (actor.type != "Mage")) {
-				actor.data.rage.roll = rage;
-				actor.data.gnosis.roll = gnosis;
-			}
-	  
-			actor.data.willpower.roll = willpower;
-		  }
+	static _setupDotCounters(html) {
+		html.find(".resource-value").each(function () {
+			const value = Number(this.dataset.value);
+			$(this)
+				.find(".resource-value-step")
+				.each(function (i) {
+					if (i + 1 <= value) {
+						$(this).addClass("active");
+					}
+				});
+		});
 	}
 }
 

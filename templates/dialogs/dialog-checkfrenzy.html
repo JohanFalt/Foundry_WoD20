@@ -1,36 +1,57 @@
-<form class="{{cssClass}} checkfrenzy-dialog" autocomplete="off">
+<form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
     <div class="dialog-area headlineGroup">{{localize "wod.dialog.checkfrenzy.headline"}}</div>
 
-    <div class="dialog-area">
-        <div class="headline">{{localize "wod.dialog.checkfrenzy.moonphase"}}</div>
-        <div>
-            <input class="moon" type="radio" id="moon" name="moon" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</input>            
-        </div>
-        <div>
-            <input type="radio" id="moon" name="moon" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</input>
-        </div>
-        <div>
-            <input type="radio" id="moon" name="moon" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</input>            
-        </div>
-        <div>
-            <input type="radio" id="moon" name="moon" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</input>            
-        </div>
-        <div>
-            <input type="radio" id="moon" name="moon" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</input>
-        </div>
-    </div>
+    {{#iff object.type "==" "Vampire"}}
 
-    <div class="dialog-area">
-        <div class="headline">{{localize "wod.dialog.checkfrenzy.ragebonus"}}</div>
-        <div class="dialog-valueBox">
-            <input type="text" id="rageMod" name="rageMod" value="0" autofocus />
+        <div class="dialog-area">
+            <div class="headline">{{localize "wod.labels.difficulty"}}</div>
         </div>
-    </div>
+
+        <div class="centerText dialog-area">
+            {{#numFromLoop 3 10}}
+                <button id="difficulty" class="button pointer dialog-difficulty-button {{#iff ../object.totalDifficulty "==" this}}active{{/iff}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+            {{/numFromLoop}}
+        </div>
+
+        <div class="dialog-area">
+            <div class="headline">{{localize "wod.dialog.checkfrenzy.fenzybonus"}}</div>
+            <div class="dialog-valueBox">
+                <input type="text" id="rageMod" name="rageMod" value="0" autofocus />
+            </div>
+        </div>
+
+        <div class="dialog-area">
+            <div class="headline">{{localize "wod.dialog.checkfrenzy.successesrolled"}}</div>
+            <div class="dialog-valueBox">
+                <input type="text" value="{{object.numSuccesses}}" />
+            </div>
+        </div>
+
+    {{/iff}}
+
+    {{#iff object.type "==" "Werewolf"}}
+
+        <div class="centerText dialog-area">
+            <button id="moon" class="button pointer dialog-moon-button {{#iff object.selectedMoon "==" "new"}}active{{/iff}}" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</button>
+            <button id="moon" class="button pointer dialog-moon-button {{#iff object.selectedMoon "==" "crescent"}}active{{/iff}}" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</button>
+            <button id="moon" class="button pointer dialog-moon-button {{#iff object.selectedMoon "==" "half"}}active{{/iff}}" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</button>
+            <button id="moon" class="button pointer dialog-moon-button {{#iff object.selectedMoon "==" "gibbous"}}active{{/iff}}" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</button>
+            <button id="moon" class="button pointer dialog-moon-button {{#iff object.selectedMoon "==" "full"}}active{{/iff}}" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</button>
+        </div>
+
+        <div class="dialog-area">
+            <div class="headline">{{localize "wod.dialog.checkfrenzy.ragebonus"}}</div>
+            <div class="dialog-valueBox">
+                <input type="text" id="rageMod" name="rageMod" value="0" autofocus />
+            </div>
+        </div>
+        
+    {{/iff}}
 
     <div class="centerText">
-        <button id="actionButton" class="button actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

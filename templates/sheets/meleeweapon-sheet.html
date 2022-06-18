@@ -6,7 +6,7 @@
 			<div class="top-area">
 				<div class="top-side">
 					{{#if isGM}}
-					<img class="profile-img shift-image" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+					<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
                     {{else}}
                     <img src="{{item.img}}" />
                     {{/if}}
@@ -15,7 +15,7 @@
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
-					{{#if data.data.natural}} 
+					{{#if data.data.isnatural}} 
 						NATURAL WEAPON
 					{{else}}
 						MELEE WEAPON
@@ -35,12 +35,12 @@
 
 			{{#if isGM}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.attack.roll">{{localize "wod.dice.rollattack"}}</label>
-				<input name="data.attack.roll" type="checkbox" {{#if data.data.attack.roll}} checked {{/if}} />
+				<label class="headlineItem headlineBio" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
+				<input name="data.attack.isrollable" type="checkbox" {{#if data.data.attack.isrollable}} checked {{/if}} />
 			</div>
 			{{/if}}
 
-			{{#if data.data.attack.roll}}
+			{{#if data.data.attack.isrollable}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
 				<select class="item" name="data.attack.attribute">
@@ -66,9 +66,14 @@
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.diff">{{localize "wod.labels.difficulty"}}</label>
-				<select class="numberBox" name="data.diff">
-					{{#select data.data.diff}}
+				<label class="headlineItem headlineBio" for="data.attack.accuracy">{{localize "wod.combat.weapon.accuracy"}}</label>
+				<input class="sheet-infoValues miniBox" name="data.attack.accuracy" type="text" value="{{data.data.attack.accuracy}}" data-dtype="Number" />
+			</div>
+
+			<div class="infobox">
+				<label class="headlineItem headlineBio" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
+				<select class="numberBox" name="data.difficulty">
+					{{#select data.data.difficulty}}
 					<option value="3">3</option>
 					<option value="4">4</option>
 					<option value="5">5</option>
@@ -84,12 +89,12 @@
 
 			{{#if isGM}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.damage.roll">{{localize "wod.dice.rolldamage"}}</label>
-				<input name="data.damage.roll" type="checkbox" {{#if data.data.damage.roll}} checked {{/if}} />
+				<label class="headlineItem headlineBio" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
+				<input name="data.damage.isrollable" type="checkbox" {{#if data.data.damage.isrollable}} checked {{/if}} />
 			</div>
 			{{/if}}
 
-			{{#if data.data.damage.roll}}
+			{{#if data.data.damage.isrollable}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
 				<div>
@@ -128,15 +133,15 @@
 
 			<!-- 2-handed true/false -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.twohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
-				<input name="data.twohanded" type="checkbox" {{#if data.data.twohanded}} checked {{/if}}></input>
+				<label class="headlineItem headlineBio" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
+				<input name="data.istwohanded" type="checkbox" {{#if data.data.istwohanded}} checked {{/if}}></input>
 			</div>
 
 			{{#if isGM}}
 			<!-- natural true/false -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.natural">{{localize "wod.combat.weapon.natural"}}</label>
-				<input name="data.natural" type="checkbox" {{#if data.data.natural}} checked {{/if}}></input>
+				<label class="headlineItem headlineBio" for="data.isnatural">{{localize "wod.combat.weapon.natural"}}</label>
+				<input name="data.isnatural" type="checkbox" {{#if data.data.isnatural}} checked {{/if}}></input>
 			</div>
 			{{/if}}
 

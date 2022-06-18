@@ -44,6 +44,19 @@ export const systemSettings = function() {
 		}
 	});
 
+    game.settings.register("worldofdarkness", "observersFullActorViewPermission", {
+		name: game.i18n.localize('wod.settings.observersactorpermission'),
+		hint: game.i18n.localize('wod.settings.observersactorpermissionhint'),
+		scope: "world",
+		config: false,
+		default: "full",
+		type: String,
+		choices: {
+			"full": "Obeservers can see full sheet",
+			"limited": "Observers can see Core tab only"
+		}
+	});
+
 	//patch settings
 	game.settings.register("worldofdarkness", "patch107", {
 		name: "patch107",
@@ -103,7 +116,7 @@ export const systemSettings = function() {
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
         hint: game.i18n.localize('wod.settings.rulesettingshint'),
-        label: "Rule Settings",
+        label: game.i18n.localize('wod.settings.rulesettings'),
         icon: "fa fa-cog",
         type: Rules,
         restricted: true,
@@ -115,8 +128,8 @@ export default class Rules extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "rules",
-            classes: [],
-            title: "Rule Settings",
+            classes: ["rule-dialog"],
+            title: game.i18n.localize('wod.settings.rulesettings'),
             template: "systems/worldofdarkness/templates/dialogs/rule-settings-dialog.html",
         });
     }
@@ -135,7 +148,7 @@ export default class Rules extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "advantageRolls") || (s.key == "theRollofOne") || (s.key == "attributeSettings")) {
+                if ((s.key == "advantageRolls") || (s.key == "theRollofOne") || (s.key == "attributeSettings") || (s.key == "observersFullActorViewPermission")) {
                     // Update setting data
                     const setting = duplicate(s);
 

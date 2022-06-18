@@ -1,0 +1,106 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.sect">{{localize "wod.bio.vampire.sect"}}</label>
+        <div class="pullLeft headlineNormal bio-verticalcenter">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.sect" type="text" value="{{localize data.data.sect}}" data-name="data.data.sect" data-dtype="String" readonly />
+            {{else}}
+                <select name="data.sect" data-name="data.data.sect" data-dtype="String">
+                    {{#select data.data.sect}}
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="wod.bio.vampire.camarilla">{{localize "wod.bio.vampire.camarilla"}}</option>
+                    <option value="wod.bio.vampire.sabbat">{{localize "wod.bio.vampire.sabbat"}}</option>
+                    <option value="wod.bio.vampire.anarch">{{localize "wod.bio.vampire.anarch"}}</option>
+                    <option value="wod.bio.vampire.independent">{{localize "wod.bio.vampire.independent"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.clan">{{localize "wod.bio.vampire.clan"}}</label>
+        <div class="pullLeft headlineNormal bio-verticalcenter">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.clan" type="text" value="{{localize data.data.clan}}" data-name="data.data.clan" data-dtype="String" readonly />
+            {{else}}
+                <select name="data.clan" data-name="data.data.clan" data-dtype="String">
+                    {{#select data.data.clan}}
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="wod.bio.vampire.caitiff">{{localize "wod.bio.vampire.caitiff"}}</option>
+                    <option value="wod.bio.vampire.assamite">{{localize "wod.bio.vampire.assamite"}}</option>
+                    <option value="wod.bio.vampire.brujah">{{localize "wod.bio.vampire.brujah"}}</option>
+                    <option value="wod.bio.vampire.set">{{localize "wod.bio.vampire.set"}}</option>
+                    <option value="wod.bio.vampire.gangrel">{{localize "wod.bio.vampire.gangrel"}}</option>
+                    <option value="wod.bio.vampire.giovanni">{{localize "wod.bio.vampire.giovanni"}}</option>
+                    <option value="wod.bio.vampire.lasombra">{{localize "wod.bio.vampire.lasombra"}}</option>
+                    <option value="wod.bio.vampire.malkavian">{{localize "wod.bio.vampire.malkavian"}}</option>
+                    <option value="wod.bio.vampire.nosferatu">{{localize "wod.bio.vampire.nosferatu"}}</option>
+                    <option value="wod.bio.vampire.ravnos">{{localize "wod.bio.vampire.ravnos"}}</option>
+                    <option value="wod.bio.vampire.toreador">{{localize "wod.bio.vampire.toreador"}}</option>
+                    <option value="wod.bio.vampire.tremere">{{localize "wod.bio.vampire.tremere"}}</option>
+                    <option value="wod.bio.vampire.tzimisce">{{localize "wod.bio.vampire.tzimisce"}}</option>
+                    <option value="wod.bio.vampire.ventrue">{{localize "wod.bio.vampire.ventrue"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.bloodline">{{localize "wod.bio.vampire.bloodline"}}</label>
+        <div class="pullLeft">
+            <input class="sheet-infoValues" name="data.bloodline" type="text" value="{{data.data.bloodline}}" data-name="data.data.bloodline" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.generation">{{localize "wod.bio.vampire.generation"}}</label>
+        <div class="pullLeft headlineNormal bio-verticalcenter">
+            {{#if locked}}
+            <input class="sheet-infoValues" name="data.generation" type="text" value="{{data.data.generation}}" data-name="data.data.generation" data-dtype="Number" readonly />
+            {{else}}
+                <select class="selectGeneration" data-type="{{config.sheettype.vampire}}" name="data.generation" data-name="data.data.generation" data-dtype="Number">
+                    {{#select data.data.generation}}
+                    <option value="4">4th</option>
+                    <option value="5">5th</option>
+                    <option value="6">6th</option>
+                    <option value="7">7th</option>
+                    <option value="8">8th</option>
+                    <option value="9">9th</option>
+                    <option value="10">10th</option>
+                    <option value="11">11th</option>
+                    <option value="12">12th</option>
+                    <option value="13">13th</option>
+                    <option value="14">14th</option>
+                    <option value="15">15th</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.affinity">{{localize "wod.bio.vampire.sire"}}</label>
+        <div class="pullLeft">
+            <input class="sheet-infoValues" name="data.sire" type="text" value="{{data.data.sire}}" data-name="data.data.sire" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio" for="data.weakness">{{localize "wod.bio.vampire.weakness"}}</label>
+        <div class="pullLeft">
+            <input class="sheet-infoValues" name="data.weakness" type="text" value="{{data.data.weakness}}" data-name="data.data.weakness" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>

@@ -1,5 +1,15 @@
 export const wod = {};
 
+wod.sheettype = {
+    mortal: "Mortal",
+    vampire: "Vampire",
+    mage: "Mage",
+    werewolf: "Werewolf",
+    creature: "Creature",
+    changingbreed: "Changing Breed",
+    spirit: "Spirit"
+}
+
 wod.attributes = {
     strength: "wod.attributes.strength",
     dexterity: "wod.attributes.dexterity",
@@ -62,23 +72,19 @@ wod.alltalents = {
     subterfuge: "wod.abilities.subterfuge"
 }
 
-wod.secondtalents = {   
-    animalkinskip: "wod.abilities.animalkinskip", 
-    blatancy: "wod.abilities.blatancy",
-    carousing: "wod.abilities.carousing",
-    cooking: "wod.abilities.cooking",
-    diplomacy: "wod.abilities.diplomacy",
-    do: "wod.abilities.do",
-    gestures: "wod.abilities.gestures",
-    highritual: "wod.abilities.highritual",
-    instruction: "wod.abilities.instruction",
-    intrigue: "wod.abilities.intrigue",
-    intuition: "wod.abilities.intuition",
-    luciddreaming: "wod.abilities.luciddreaming",
-    mimicry: "wod.abilities.mimicry",
-    negotiation: "wod.abilities.negotiation",
-    seduction: "wod.abilities.seduction",
-    style: "wod.abilities.style"
+wod.talents = {
+    alertness: "wod.abilities.alertness",
+    art: "wod.abilities.art",
+    athletics: "wod.abilities.athletics",
+    awareness: "wod.abilities.awareness",
+    brawl: "wod.abilities.brawl",
+    empathy: "wod.abilities.empathy",
+    expression: "wod.abilities.expression",
+    intimidation: "wod.abilities.intimidation",
+    leadership: "wod.abilities.leadership",
+    primalurge: "wod.abilities.primalurge",
+    streetwise: "wod.abilities.streetwise",
+    subterfuge: "wod.abilities.subterfuge"
 }
 
 wod.allskills = {
@@ -115,25 +121,20 @@ wod.allskills = {
     torture: "wod.abilities.torture"
 }
 
-wod.secondskills = {
-    archery: "wod.abilities.archery",
-    biotech: "wod.abilities.biotech",
-    blindfighting: "wod.abilities.blindfighting",
-    disguise: "wod.abilities.disguise",
-    energyweapons: "wod.abilities.energyweapons",
-    escapology: "wod.abilities.escapology",
-    fastdraw: "wod.abilities.fastdraw",
-    fortunetelling: "wod.abilities.fortunetelling",
-    gambling: "wod.abilities.gambling",
-    heavyweapons: "wod.abilities.heavyweapons",
-    hypertech: "wod.abilities.hypertech",
-    hypnotism: "wod.abilities.hypnotism",
-    networking: "wod.abilities.networking",
-    pilot: "wod.abilities.pilot",
-    psychology: "wod.abilities.psychology",
-    riding: "wod.abilities.riding",
-    security: "wod.abilities.security",
-    torture: "wod.abilities.torture"
+wod.skills = {
+    animalken: "wod.abilities.animalken",
+    craft: "wod.abilities.craft",
+    drive: "wod.abilities.drive",
+    etiquette: "wod.abilities.etiquette",
+    firearms: "wod.abilities.firearms",
+    larceny: "wod.abilities.larceny",
+    martialarts: "wod.abilities.martialarts",
+    meditation: "wod.abilities.meditation",
+    melee: "wod.abilities.melee",
+    performance: "wod.abilities.performance",
+    research: "wod.abilities.research",
+    stealth: "wod.abilities.stealth",    
+    survival: "wod.abilities.survival"
 }
 
 wod.allknowledges = {
@@ -167,20 +168,22 @@ wod.allknowledges = {
     vice: "wod.abilities.vice"
 }
 
-wod.secondknowledges = {
-    chantry: "wod.abilities.chantry",
-    chemistry: "wod.abilities.chemistry",
-    cryptography: "wod.abilities.cryptography",
-    culture: "wod.abilities.culture",
-    hearthwisdom: "wod.abilities.hearthwisdom",
-    herbalism: "wod.abilities.herbalism",
-    history: "wod.abilities.history",
-    legends: "wod.abilities.legends",
-    media: "wod.abilities.media",
-    propaganda: "wod.abilities.propaganda",
-    religion: "wod.abilities.religion",
-    theology: "wod.abilities.theology",
-    vice: "wod.abilities.vice"
+wod.knowledges = {
+    academics: "wod.abilities.academics",
+    bureaucracy: "wod.abilities.bureaucracy",
+    cosmology: "wod.abilities.cosmology",
+    computer: "wod.abilities.computer",
+    enigmas: "wod.abilities.enigmas",
+    esoterica: "wod.abilities.esoterica",
+    finance: "wod.abilities.finance",
+    investigation: "wod.abilities.investigation",
+    law: "wod.abilities.law",
+    medicine: "wod.abilities.medicine",
+    occult: "wod.abilities.occult",
+    politics: "wod.abilities.politics",
+    rituals: "wod.abilities.rituals",
+    science: "wod.abilities.science",
+    technology: "wod.abilities.technology"
 }
 
 wod.attackAttributes = {

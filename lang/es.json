@@ -1,11 +1,7 @@
 {
 	"wod": {
 		"system": {
-			"patches": "Se ha detectado una nueva versión; Actualizando Mundo, por favor espere.",
-			"updates": "¡Revisando opciones de personajes!",
-			"characters": "¡Personajes actualizados!",
 			"world": "¡Mundo Actualizado!",
-			"done": "¡Listo!",
 			"sheetlocked": "No se puede editar esta ficha ¡Está bloqueada!"
 		},
 		"settings": {
@@ -16,13 +12,8 @@
 			"advantagerolls": "Como tirar atributos con ventaja",
 			"advantagerollshint": "Vas a utilizar los valores permanentes (check) o temporales (sin check) por ejemplo Fuerza Voluntad en tiradas. Requiere reinicio de FVTT",
 			"therollofone": "Como llevar los 1 en las tiradas",
-			"therollofonehint": "Normal handling from rules - all one's reduce number of successes by one (check). Ones has no effect normally but if no successes and there one or more ones that is a botch (not checked)",
 			"attributesettings": "Configuracion de los atributos",
 			"attributesettingshint": "Hay dos opciones las cuales escoger. Puedes usar la de edicion 20 aniversario donde tienes Apariencia y Percepcion y calcula Fuerza de voluntad como estadistica. O 5ta edicion, cambiando Apariencia y Percepcion con Compostura y Resolución y calcula Fuerza de Voluntad con Compostura + Resolución. 20a esta por defecto."
-		},
-		"dialogs": {
-				"save": "Guardar",
-				"reset": "Reiniciar"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -485,11 +476,11 @@
 			"characteradded": "El Personaje ya se ha agregado al Asistente de Combate",
 			"initiativealready": "ya tiene iniciativa",
 			"rollinginitiative": "Tirando por Iniciativa",
-			"rollingsoak": "Tirando Absorción",
-			"rollingfrenzy": "Tirando Frenesí",			
-			"frenzysuccesses": "Número de éxitos requeridos"
+			"rollingsoak": "Tirando Absorción"
 		},
-		"dialog": {			
+		"dialog": {	
+			"save": "Guardar",
+			"reset": "Reiniciar",
 			"close": "Cerrar",
 			"aretecasting": {
 				"castspell": "Lanzar Hechizo",
@@ -544,7 +535,8 @@
 				"half": "Media Luna",
 				"gibbous": "Luna Gibosa",
 				"full": "Luna Llena",
-				"nomoonphase": "No hay fase lunar seleccionada"
+				"nomoonphase": "No hay fase lunar seleccionada",
+				"frenzysuccesses": "Número de éxitos requeridos"
 			}
 		}
 	}	

@@ -1,12 +1,43 @@
 /* global ChatMessage, Roll, game */
+export class DiceRoll {
+    constructor(actor) {
+		this.actor = actor;  			// rolling actor
+		this.origin = "";    			// where did the roll come from
+
+		this.handlingOnes = false;		// how should Ones handle?
+		this.numDices = 0;				// number dice called for
+		this.difficulty = 6;			// difficulty of the roll
+		this.wound = 0;  				// wound penalty of the roll
+
+		this.speciality = false;			// speciallity roll?
+		this.specialityText = "";
+
+		this.templateHTML = "";				// this shown chat text
+		this.systemText = "";			// if there are a system text to be shown		
+    }
+}
 
 // Function to roll dice
-export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 0, systemText = "", specialty = false, specialityText = "", wound = 0) {
+//export async function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 0, systemText = "", specialty = false, specialityText = "", wound = 0) {
+export async function rollDice(diceRoll) {
 	console.log("WoD | rollDice");
+
+	const actor = diceRoll.actor;
+	const origin = diceRoll.origin;
+
+	const handlingOnes = diceRoll.handlingOnes;
+	const numDices = parseInt(diceRoll.numDices);
+	let difficulty = parseInt(diceRoll.difficulty);
+	let wound = parseInt(diceRoll.wound);
+	
+	let label = diceRoll.templateHTML;
+	const systemText = diceRoll.systemText;
+	const speciality = diceRoll.speciality;
+	let specialityText = diceRoll.specialityText;	
   
-	let zeroDices = numDice + wound <= 0;   
-	let dice = zeroDices ? 0 : parseInt(numDice + wound);
-	let difficultyResult = "<span></span>";
+	let zeroDices = numDices + wound <= 0;   
+	let dice = zeroDices ? 0 : numDices + wound;
+	let difficultyResult = "";
 	let success = 0;
 	let successRoll = false;
 	let rolledAnySuccesses = false;
@@ -14,13 +45,19 @@ export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 
 	let roll;
 	let conditions = "";	
 
+	let canBotch = true;
+
+	if ((origin == "soak") || (origin == "damage")) {
+		canBotch = false;
+	}
+
 	roll = new Roll(dice + "d10");
 	roll.evaluate({async:true});		
 
 	difficulty = difficulty < 3 ? 3 : difficulty;
 
 	roll.terms[0].results.forEach((dice) => {
-		if ((dice.result == 10) && (specialty)) {
+		if ((dice.result == 10) && (speciality)) {
 			success += 2;
 			rolledAnySuccesses = true;
 		}
@@ -43,35 +80,40 @@ export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 
 
 	successRoll = success > 0;		
 
-	if (actor.data.data.health.damage.woundlevel != "") {
-		wound = `<br /><strong>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${wound})</strong>`;
+	if ((actor.data.data.health.damage.woundlevel != "") &&(wound < 0)) {
+		wound = `<div><strong>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${wound})</strong></div>`;
 	}
 	else {
 		wound = ``;
 	}
 
-	if (specialty) {
-		specialityText = `<br /><span>(${specialityText})</span>`;
+	if (speciality) {
+		if (specialityText == "") {
+			specialityText = `<div>${game.i18n.localize("wod.dialog.usingspeciality")}</div>`;
+		}
+		else {
+			specialityText = `<div>(${specialityText})</div>`;
+		}
 	}
 	else {
 		specialityText = "";
 	}
 
 	if (actor.data.data.conditions != undefined) {
-		if (actor.data.data.conditions?.ignorepain) {
-			conditions += `<br />${game.i18n.localize("wod.combat.conditions.ignorepain")}`;
+		if (actor.data.data.conditions?.isignoringpain) {
+			conditions += `<div>${game.i18n.localize("wod.combat.conditions.ignorepain")}</div>`;
 		}
 
-		if (actor.data.data.conditions?.stunned) {
-			conditions += `<br />${game.i18n.localize("wod.combat.conditions.stunned")}`;
+		if (actor.data.data.conditions?.isstunned) {
+			conditions += `<div>${game.i18n.localize("wod.combat.conditions.stunned")}</div>`;
 		}
 
-		if (actor.data.data.conditions?.frenzy) {
-			conditions += `<br />${game.i18n.localize("wod.combat.conditions.frenzy")}`;
+		if (actor.data.data.conditions?.isfrenzy) {
+			conditions += `<div>${game.i18n.localize("wod.combat.conditions.frenzy")}</div>`;
 		}
 	}
 
-	difficulty = `<br /><span>${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</span>`;
+	difficulty = `<div>${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}</div>`;
 
 	label = `<p class="roll-label uppercase">${label} ${wound} ${conditions} ${specialityText} ${difficulty}</p>`;
 
@@ -83,10 +125,10 @@ export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 
 		if (successRoll) {
 			difficultyResult = `( <span class="success">${game.i18n.localize("wod.dice.success")}</span> )`;
 		}
-		else if ((handlingOnes) && (rolledOne) && (!rolledAnySuccesses)) {
+		else if ((handlingOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
 			difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.botch")}</span> )`;
 		}
-		else if ((!handlingOnes) && (rolledOne)) {
+		else if ((!handlingOnes) && (rolledOne) && (canBotch)) {
 			difficultyResult = `( <span class="danger">${game.i18n.localize("wod.dice.botch")}</span> )`;
 		}
 		else {
@@ -99,16 +141,16 @@ export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 
 	if (!zeroDices) {
 		let diceColor;
 		
-		if (actor.type == "Mortal") {
+		if (actor.type == CONFIG.wod.sheettype.mortal) {
 			diceColor = "blue_";
 		} 
-		else if ((actor.type == "Werewolf") || (actor.type == "Changing Breed")) {
+		else if ((actor.type == CONFIG.wod.sheettype.werewolf) || (actor.type == "Changing Breed")) {
 			diceColor = "brown_";
 		}
-		else if (actor.type == "Mage") { 
+		else if (actor.type == CONFIG.wod.sheettype.mage) { 
 			diceColor = "purple_";
 		}
-		else if (actor.type == "Vampire") { 
+		else if (actor.type == CONFIG.wod.sheettype.vampire) { 
 			diceColor = "red_";
 		}
 		else if (actor.type == "Spirit") { 
@@ -129,4 +171,6 @@ export function rollDice(handlingOnes, numDice, actor, label = "", difficulty = 
 		speaker: ChatMessage.getSpeaker({ actor: actor }),
 		content: label,
 	});
+
+	return success;
 }
