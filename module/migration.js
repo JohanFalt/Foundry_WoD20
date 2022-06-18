@@ -519,6 +519,7 @@ export const updates = async () => {
     let patch130 = false;
     let patch140 = false;
     let patch150 = false;
+    let patch151 = false;
 
     let newfunctions = "";
 
@@ -530,6 +531,7 @@ export const updates = async () => {
         patch130 = game.settings.get('worldofdarkness', 'patch130');
         patch140 = game.settings.get('worldofdarkness', 'patch140');
         patch150 = game.settings.get('worldofdarkness', 'patch150');
+        patch151 = game.settings.get('worldofdarkness', 'patch151');
     } 
     catch (e) {
     }
@@ -588,6 +590,13 @@ export const updates = async () => {
         newfunctions += "<li>All item lists are sorted</li>";
         newfunctions += "<li>Fixed a number of bugs and graphical issues</li>";
     } 
+
+    if (!patch151) {
+        game.settings.set('worldofdarkness', 'patch151', true);
+
+        newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/124">#124</a> Could not alter a Sphere value</li>';
+        newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/126">#126</a> that pain penalty was not calculated in Rolls</li>';
+    }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
@@ -779,5 +788,6 @@ function getVersion(version) {
 //     }
 //     ui.notifications.info(game.i18n.localize("wod.system.done"));
 // }
+
 
 

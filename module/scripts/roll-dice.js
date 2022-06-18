@@ -7,7 +7,7 @@ export class DiceRoll {
 		this.handlingOnes = false;		// how should Ones handle?
 		this.numDices = 0;				// number dice called for
 		this.difficulty = 6;			// difficulty of the roll
-		this.wound = 0;  				// wound penalty of the roll
+		this.woundpenalty = 0;  				// wound penalty of the roll
 
 		this.speciality = false;			// speciallity roll?
 		this.specialityText = "";
@@ -28,7 +28,7 @@ export async function rollDice(diceRoll) {
 	const handlingOnes = diceRoll.handlingOnes;
 	const numDices = parseInt(diceRoll.numDices);
 	let difficulty = parseInt(diceRoll.difficulty);
-	let wound = parseInt(diceRoll.wound);
+	let wound = parseInt(diceRoll.woundpenalty);
 	
 	let label = diceRoll.templateHTML;
 	const systemText = diceRoll.systemText;
