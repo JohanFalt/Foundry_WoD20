@@ -1186,57 +1186,68 @@ textarea.sheet-gearArea {
   height: calc(100vw / 1.65);
 }
 
-.shape-background.shape-ajaba {
+.langDE .shape-background.shape-ajaba,
+.langES .shape-background.shape-ajaba {
   width: 885px; /* width / 1,84 = height */
   height: calc(100vw / 1.84);
 }
 
-.shape-background.shape-ananasi {
+.langDE .shape-background.shape-ananasi,
+.langES .shape-background.shape-ananasi {
   width: 885px; /* width / 1,27 = height */
   height: calc(100vw / 1.27);
 }
 
-.shape-background.shape-bastet {
+.langDE .shape-background.shape-bastet,
+.langES .shape-background.shape-bastet {
   width: 885px; /* width / 1,71 = height */
   height: calc(100vw / 1.71);
 }
 
-.shape-background.shape-corax {
+.langDE .shape-background.shape-corax,
+.langES .shape-background.shape-corax {
   width: 885px; 
   height: calc(100vw / 1.17);
 }
 
-.shape-background.shape-gurahl {
+.langDE .shape-background.shape-gurahl,
+.langES .shape-background.shape-gurahl {
   width: 885px; /* width / 1,40 = height */
   height: calc(100vw / 1.40);
 }
 
-.shape-background.shape-kitsune {
+.langDE .shape-background.shape-kitsune,
+.langES .shape-background.shape-kitsune {
   width: 885px; /* width / 1,32 = height */
   height: calc(100vw / 1.32);
 }
 
-.shape-background.shape-mokole {
+.langDE .shape-background.shape-mokole,
+.langES .shape-background.shape-mokole {
   width: 885px; /* width / 1,38 = height */
   height: calc(100vw / 1.38);
 }
 
-.shape-background.shape-nagah {
+.langDE .shape-background.shape-nagah,
+.langES .shape-background.shape-nagah {
   width: 885px; /* width / 1,22 = height */
   height: calc(100vw / 1.22);
 }
 
-.shape-background.shape-nuwisha {
+.langDE .shape-background.shape-nuwisha,
+.langES .shape-background.shape-nuwisha {
   width: 885px; /* width / 1,79 = height */
   height: calc(100vw / 1.79);
 }
 
-.shape-background.shape-ratkin {
+.langDE .shape-background.shape-ratkin,
+.langES .shape-background.shape-ratkin {
   width: 885px; /* width / 1,41 = height */
   height: calc(100vw / 1.41);
 }
 
-.shape-background.shape-rokea {
+.langDE .shape-background.shape-rokea,
+.langES .shape-background.shape-rokea {
   width: 885px; /* width / 1,44 = height */
   height: calc(100vw / 1.44);
 }
@@ -1489,7 +1500,7 @@ textarea.sheet-gearArea {
 }
 
 .notes-valueBox {
-  width: 40px;
+  width: 55px;
   height: 19px;
 }
 

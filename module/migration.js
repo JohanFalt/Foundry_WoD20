@@ -520,6 +520,7 @@ export const updates = async () => {
     let patch140 = false;
     let patch150 = false;
     let patch151 = false;
+    let patch152 = false;
 
     let newfunctions = "";
 
@@ -532,6 +533,7 @@ export const updates = async () => {
         patch140 = game.settings.get('worldofdarkness', 'patch140');
         patch150 = game.settings.get('worldofdarkness', 'patch150');
         patch151 = game.settings.get('worldofdarkness', 'patch151');
+        patch152 = game.settings.get('worldofdarkness', 'patch152');
     } 
     catch (e) {
     }
@@ -596,6 +598,15 @@ export const updates = async () => {
 
         newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/124">#124</a> Could not alter a Sphere value</li>';
         newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/126">#126</a> that pain penalty was not calculated in Rolls</li>';
+    }
+
+    if (!patch152) {
+        game.settings.set('worldofdarkness', 'patch152', true);
+
+        newfunctions += '<li>[VtM] Added Cappadocian and Salubri as clans <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/128">#128</a></li>';
+        newfunctions += '<li>[WtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/135">#135</a> the shifter image in Changing Breeds sheet had wrong width for English</li>';
+        newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/130">#130</a> could not set Affinity Sphere</li>';
+        newfunctions += '<li>[MtA] Got report that Features did not work in Notes - Unrepeatable. Added descriptive texts if item has no values</li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

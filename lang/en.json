@@ -426,6 +426,13 @@
 			"vulgarspell": "Vulgar spell without witnesses",
 			"vulgarspellwitness": "Vulgar spell with witnesses"
 		},
+		"notes": {
+			"unnamedbackground": "Unnamed background",
+			"unnamedmerit": "Unnamed merit",
+			"unnamedflaw": "Unnamed flaw",
+			"descriptionmissing": "Description missing",
+			"unspent": "Unspent"
+		},
 		"experience": {
 			"amount": "Amount",
 			"spent": "Spent",

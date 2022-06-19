@@ -35,16 +35,28 @@
             {{#if locked}}
             <input class="sheet-infoValues" name="data.affinity" type="text" value="{{localize data.data.affinity}}" data-name="data.data.affinity" data-dtype="String" readonly />
             {{else}}
-            <select name="data.affinity" data-name="data.data.affinity" data-dtype="String">
-                {{#select data.data.spheres.affinity}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
+                <select name="data.affinity" data-name="data.data.affinity" data-dtype="String">
+                    {{#select data.data.affinity}}
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    {{#each config.allSpheres as | name type|}}
+                        <option value="{{name}}">{{localize name}}</option>
+                    {{/each}}
+           <!--         <option value="wod.spheres.correspondence">{{localize "wod.spheres.correspondence"}}</option>
+                    <option value="wod.spheres.entropy">{{localize "wod.spheres.entropy"}}</option>
+                    <option value="wod.spheres.forces">{{localize "wod.spheres.forces"}}</option>
+                    <option value="wod.spheres.life">{{localize "wod.spheres.life"}}</option>
+                    <option value="wod.spheres.matter">{{localize "wod.spheres.matter"}}</option>
+                    <option value="wod.spheres.mind">{{localize "wod.spheres.mind"}}</option>
+                    <option value="wod.spheres.prime">{{localize "wod.spheres.prime"}}</option>
+                    <option value="wod.spheres.spirit">{{localize "wod.spheres.spirit"}}</option>
+                    <option value="wod.spheres.time">{{localize "wod.spheres.time"}}</option>-->
+                    {{/select}}
+                </select>
+ <!--                   
+                    -->
 
-                {{#each config.allSpheres as | name type|}}
-                <option value="{{name}}">{{localize name}}</option>
-                {{/each}}
-
-                {{/select}}
-            </select>
+                    
+                
             {{/if}}
         </div>
     </div>
