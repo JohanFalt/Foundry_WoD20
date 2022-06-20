@@ -1,6 +1,8 @@
 # World of Darkness 20th ed
 Vampire the Masquerade 20th ed
+
 Mage the Ascention 20th ed
+
 Werewolf the Apocalypse 20th ed
 
 ## Supported sheets

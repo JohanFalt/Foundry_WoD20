@@ -28,6 +28,10 @@ export class VampireActorSheet extends MortalActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);
+
+		this.locked = true;
+		this.isCharacter = true;	
+		this.isGM = game.user.isGM;
 		
 		console.log("WoD | Vampire Sheet constructor");
 	}

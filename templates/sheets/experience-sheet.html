@@ -19,7 +19,7 @@
 
 		<section class="item-body">
 
-			{{#if isGM}}
+			{{#if config.userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
 				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
@@ -27,7 +27,7 @@
 			{{/if}}
 
 			<!-- type -->
-			{{#if isGM}}
+			{{#if config.userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
 				<select name="data.type">

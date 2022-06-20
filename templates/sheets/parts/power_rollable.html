@@ -4,12 +4,12 @@
         {{#select data.data.dice1}}
             <option value="">- {{localize "wod.labels.power.noattribute"}} -</option>
 
-            {{#iff config.attributeSettings "==" "5th"}}
+            {{#iff (checkSystemsetting "attributeSettings") "==" "5th"}}
                 {{#each config.attributes as | name type|}}
                 <option value="{{type}}">{{localize name}}</option>
                 {{/each}}
             {{/iff}}
-            {{#iff config.attributeSettings "==" "20th"}}
+            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
                 {{#each config.attributes20 as | name type|}}
                 <option value="{{type}}">{{localize name}}</option>
                 {{/each}}
@@ -28,7 +28,9 @@
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
             {{#each config.skills as | name type|}}
-            <option value="{{type}}">{{localize name}}</option>
+                {{#iff type "!=" "technology"}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/iff}}
             {{/each}}
             {{#each config.knowledges as | name type|}}
             <option value="{{type}}">{{localize name}}</option>

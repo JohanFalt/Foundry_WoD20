@@ -1,5 +1,5 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
-import ActionHelper from "../scripts/action-helpers.js"
+import ActionHelper from "../scripts/action-helpers.js";
 // import { Frenzy } from "../dialogs/dialog-checkfrenzy.js";
 // import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 
@@ -30,6 +30,10 @@ export class WerewolfActorSheet extends MortalActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);
+
+		this.locked = true;
+		this.isCharacter = true;	
+		this.isGM = game.user.isGM;
 		
 		console.log("WoD | Werewolf Sheet constructor");
 	}

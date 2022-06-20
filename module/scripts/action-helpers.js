@@ -24,6 +24,14 @@ import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 import { Soak } from "../dialogs/dialog-soak.js";
 import { DialogSoakRoll } from "../dialogs/dialog-soak.js";
 
+export class UserPermissions {
+    constructor(user) {
+        this.changeActorImage = false;
+        this.changeItemImage = false;
+		this.itemAdministrator = user.isGM;
+    }
+}
+
 export default class ActionHelper {
 
     static RollDialog(event, actor) {
@@ -79,15 +87,6 @@ export default class ActionHelper {
 				fetishRoll.systemText = item.data.data.details;
 
 				rollDice(fetishRoll);
-
-				// rollDice(
-				// 	CONFIG.handleOnes,
-				// 	parseInt(actor.data.data.gnosis.roll),
-				// 	actor,
-				// 	templateHTML,
-				// 	parseInt(item.data.data.difficulty),
-				// 	item.data.data.details
-				// );
 
 				return;
 			}	
@@ -381,14 +380,6 @@ export default class ActionHelper {
         paradoxRoll.origin = "paradox";
 
 		rollDice(paradoxRoll);
-
-		// rollDice(
-		// 	handlingOnes,
-		// 	numDice,
-		// 	actor,
-		// 	rollHTML,
-		// 	difficulty					
-		// ); 
 	}
 
  	static _inTurn(token) {
@@ -589,9 +580,7 @@ export default class ActionHelper {
 		}
 
 		return ignoresPain;
-	}	
-
-	
+	}		
 
 	static _setMortalAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
@@ -743,7 +732,8 @@ export default class ActionHelper {
 					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
 					(actor.data.abilities.skill[skill].label == "wod.abilities.research") ||
 					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
+					(actor.data.abilities.skill[skill].label == "wod.abilities.survival") || 
+					(actor.data.abilities.skill[skill].label == "wod.abilities.technology")) {
 				actor.data.abilities.skill[skill].isvisible = true;
 			}
 			else {
@@ -763,8 +753,7 @@ export default class ActionHelper {
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
 					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
 				actor.data.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
@@ -909,6 +898,39 @@ export default class ActionHelper {
 					}
 				});
 		});
+	}
+
+/**
+ * Sets the usersettings used in the System
+ * @param user   The logged in user of Foundry
+ * 
+ */
+	static _getUserPermissions(user) {
+		// set default values
+		const permissions = new UserPermissions(user);
+
+		// check existing setting values
+		const itemAdministratorLevel = game.settings.get('worldofdarkness', 'itemAdministratorLevel');
+		const changeActorImage = game.settings.get('worldofdarkness', 'changeActorImagePermission');
+		const changeItemImage = game.settings.get('worldofdarkness', 'changeItemImagePermission');
+
+		// update default values from user permission
+		if ((changeActorImage) || user.isGM) {
+			permissions.changeActorImage = true;
+		}
+
+		if ((changeItemImage) || user.isGM) {
+			permissions.changeItemImage = true;
+		}
+		
+		if (((itemAdministratorLevel == "gm") || (itemAdministratorLevel == "assistant")) && user.isGM) {
+			permissions.itemAdministrator = true;
+		}
+		if ((itemAdministratorLevel == "trusted") && user.isTrusted) {
+			permissions.itemAdministrator = true;
+		}		
+
+		return permissions;
 	}
 }
 

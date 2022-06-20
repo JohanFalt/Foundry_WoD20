@@ -520,6 +520,13 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"technology": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.technology",
+							"speciality": "",
+							"isvisible": false
+						},
 						"torture": {
 							"value": 0,
 							"max": 5,

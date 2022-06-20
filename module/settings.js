@@ -52,12 +52,44 @@ export const systemSettings = function() {
 		default: "full",
 		type: String,
 		choices: {
-			"full": "Obeservers can see full sheet",
-			"limited": "Observers can see Core tab only"
+			"full": game.i18n.localize('wod.settings.observersfullsheet'),
+			"limited": game.i18n.localize('wod.settings.observerspartialsheet')
 		}
 	});
 
-	//patch settings
+	game.settings.register("worldofdarkness", "changeActorImagePermission", {
+		name: game.i18n.localize('wod.settings.changeactorimage'),
+		hint: game.i18n.localize('wod.settings.changeactorimagehint'),
+		scope: "world",
+		config: false,
+		default: true,
+		type: Boolean,
+	});
+
+	game.settings.register("worldofdarkness", "changeItemImagePermission", {
+		name: game.i18n.localize('wod.settings.changeitemimage'),
+		hint: game.i18n.localize('wod.settings.changeitemimagehint'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
+	game.settings.register("worldofdarkness", "itemAdministratorLevel", {
+		name: game.i18n.localize('wod.settings.itemadministrator'),
+		hint: game.i18n.localize('wod.settings.itemadministratorhint'),
+		scope: "world",
+		config: false,
+		default: "gm",
+		type: String,
+		choices: {
+			"trusted": game.i18n.localize('wod.settings.trustedplayer'),
+			"assistant": game.i18n.localize('wod.settings.assistantgm'),
+			"gm": "GM"
+		}
+	});
+
+	/* patch settings */
 	game.settings.register("worldofdarkness", "patch107", {
 		name: "patch107",
 		hint: "patch107",
@@ -130,7 +162,16 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch153", {
+		name: "patch153",
+		hint: "patch153",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
 
+    /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
         hint: game.i18n.localize('wod.settings.rulesettingshint'),
@@ -139,16 +180,25 @@ export const systemSettings = function() {
         type: Rules,
         restricted: true,
     });
+
+	game.settings.registerMenu("worldofdarkness", "permissionSettings", {
+        name: game.i18n.localize('wod.settings.permissionsettings'),
+        hint: game.i18n.localize('wod.settings.permissionsettingshint'),
+        label: game.i18n.localize('wod.settings.permissionsettings'),
+        icon: "fa fa-cog",
+        type: Permissions,
+        restricted: true,
+    });
 };
 
-export default class Rules extends FormApplication {
+export class Rules extends FormApplication {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "rules",
             classes: ["rule-dialog"],
             title: game.i18n.localize('wod.settings.rulesettings'),
-            template: "systems/worldofdarkness/templates/dialogs/rule-settings-dialog.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
     }
   
@@ -166,7 +216,108 @@ export default class Rules extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "advantageRolls") || (s.key == "theRollofOne") || (s.key == "attributeSettings") || (s.key == "observersFullActorViewPermission")) {
+                if ((s.key == "advantageRolls") || (s.key == "theRollofOne") || (s.key == "attributeSettings")) {
+                    // Update setting data
+                    const setting = duplicate(s);
+
+                    setting.name = game.i18n.localize(setting.name);
+                    setting.hint = game.i18n.localize(setting.hint);
+                    setting.value = game.settings.get("worldofdarkness", setting.key);
+                    setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.isBoolean = s.type === Boolean;
+                    setting.isSelect = s.choices !== undefined;
+
+                    data.system.settings.push(setting);
+                } 
+            }
+        }
+  
+        // Return data
+        return {
+            user: game.user,
+            canConfigure: hasPermission,
+            systemTitle: game.system.data.title,
+            data: data
+        };
+    }
+  
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".submenu button").click(this._onClickSubmenu.bind(this));
+        html.find('button[name="reset"]').click(this._onResetDefaults.bind(this));
+    }
+  
+    /**
+     * Handle activating the button to configure User Role permissions
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onClickSubmenu(event) {
+        event.preventDefault();
+        const menu = game.settings.menus.get(event.currentTarget.dataset.key);
+        if (!menu) return ui.notifications.error("No submenu found for the provided key");
+        const app = new menu.type();
+        return app.render(true);
+    }
+  
+    /**
+     * Handle button click to reset default settings
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onResetDefaults(event) {
+        event.preventDefault();
+        const button = event.currentTarget;
+        const form = button.form;
+
+        for (let [k, v] of game.settings.settings.entries()) {
+            if (v.config) {
+                let input = form[k];
+                if (input.type === "checkbox") input.checked = v.default;
+                else if (input) input.value = v.default;
+            }
+        }
+    }
+  
+    /** @override */
+    async _updateObject(event, formData) {
+        for (let [k, v] of Object.entries(flattenObject(formData))) {
+            let s = game.settings.settings.get(k);
+            let current = game.settings.get("worldofdarkness", s.key);
+
+            if (v !== current) {
+                await game.settings.set("worldofdarkness", s.key, v);
+            }
+        }
+    }
+}
+
+export class Permissions extends FormApplication {
+    /** @override */
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            id: "rules",
+            classes: ["rule-dialog"],
+            title: game.i18n.localize('wod.settings.permissionsettings'),
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
+        });
+    }
+  
+    getData(options) {
+        const hasPermission = game.user.can("SETTINGS_MODIFY");  
+        const data = {
+            system: { 
+                title: game.system.data.title, 
+                menus: [], 
+                settings: [] 
+            }
+        };
+
+        // Classify all settings
+        if (hasPermission) {
+            for (let s of game.settings.settings.values()) {
+                // Exclude settings the user cannot change
+                if ((s.key == "changeActorImagePermission") || (s.key == "changeItemImagePermission") || (s.key == "itemAdministratorLevel") || (s.key == "observersFullActorViewPermission")) {
                     // Update setting data
                     const setting = duplicate(s);
 

@@ -4,17 +4,17 @@
 		<a class="item secondHeadlineTabs" data-tab="attributes">{{localize "wod.attributes.attributes"}}</a>
 
 		{{#iff actor.type "!=" "Spirit"}}
-		<a class="item secondHeadlineTabs" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>
+			<a class="item secondHeadlineTabs" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>
 
-			{{#iff actor.type "==" config.sheettype.mage}}
-				<a class="item secondHeadlineTabs" data-tab="power">{{localize "wod.tab.power"}}</a>
-			{{/iff}}
+				{{#iff actor.type "==" config.sheettype.mage}}
+					<a class="item secondHeadlineTabs" data-tab="power">{{localize "wod.tab.power"}}</a>
+				{{/iff}}
 
-		<a class="item secondHeadlineTabs" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+			<a class="item secondHeadlineTabs" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
 		{{/iff}}
 
 		{{#if isGM}}
-		<a class="item secondHeadlineTabs" data-tab="st">ST</a>
+			<a class="item secondHeadlineTabs" data-tab="st">ST</a>
 		{{/if}}
 	</nav>
 
@@ -179,20 +179,46 @@
 			
 			</div>
 			<div class="ability-statArea pullLeft">
-			
+
 				{{#each data.data.abilities.knowledge as |ability key|}}
 				
-				<div class="clearareaBox row">
-					<label for="data.data.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
+					{{#iff ../actor.type "==" ../config.sheettype.mage}}
+						{{#iff key "==" "technology"}}
+							{{#if ability.isvisible}}
+								<div class="clearareaBox row">
+									<label for="data.data.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
 
-					<div class="switch headlineNormal bold pointer" data-label="{{key}}" data-type="knowledge" data-source="ability">
-						{{#if ability.isvisible}}
-						{{localize "wod.labels.settings.added"}}
+									<div class="switch headlineNormal bold pointer" data-label="{{key}}" data-type="knowledge" data-source="ability">
+										{{localize "wod.labels.settings.removed"}}
+									</div>
+								</div>
+							{{/if}}
 						{{else}}
-						{{localize "wod.labels.settings.removed"}}
-						{{/if}}
-					</div>
-				</div>
+							<div class="clearareaBox row">
+								<label for="data.data.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
+
+								<div class="switch headlineNormal bold pointer" data-label="{{key}}" data-type="knowledge" data-source="ability">
+									{{#if ability.isvisible}}										
+										{{localize "wod.labels.settings.added"}}
+									{{else}}
+									{{localize "wod.labels.settings.removed"}}
+									{{/if}}
+								</div>
+							</div>
+						{{/iff}}
+					{{else}}
+						<div class="clearareaBox row">
+							<label for="data.data.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 150px;">{{localize ability.label}}</label>
+
+							<div class="switch headlineNormal bold pointer" data-label="{{key}}" data-type="knowledge" data-source="ability">
+								{{#if ability.isvisible}}									
+									{{localize "wod.labels.settings.added"}}
+								{{else}}
+								{{localize "wod.labels.settings.removed"}}
+								{{/if}}
+							</div>
+						</div>
+					{{/iff}}
 				
 				{{/each}}
 			

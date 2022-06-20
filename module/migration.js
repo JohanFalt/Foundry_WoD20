@@ -22,7 +22,6 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         for (const actor of game.actors) {
             try {
                 await updateActor(actor, migrationVersion);
-                console.log(`Migrating Actor entity ${actor.name}`);
             } catch(err) {
                 err.message = `Failed migration for Actor ${actor.name}: ${err.message}`;
                 console.error(err);
@@ -201,11 +200,10 @@ export const updates = async () => {
 /**
  * patch an actor to the latest version
  * @param {Actor} actor   The actor to Update
- * @param migrationVersion   The version that is being pushed at the world
- * 
+ * @param migrationVersion   The version that is being pushed at the world * 
  */
  export const updateActor = async function(actor, migrationVersion) {
-    if (getVersion(actor.data.data.version) < 150) {
+    if (getVersion(actor.data.data.settings.version) < 150) {
         const updateData = duplicate(actor);
 
         updateData.data.settings.version = migrationVersion;
@@ -521,6 +519,7 @@ export const updates = async () => {
     let patch150 = false;
     let patch151 = false;
     let patch152 = false;
+    let patch153 = false;
 
     let newfunctions = "";
 
@@ -534,6 +533,7 @@ export const updates = async () => {
         patch150 = game.settings.get('worldofdarkness', 'patch150');
         patch151 = game.settings.get('worldofdarkness', 'patch151');
         patch152 = game.settings.get('worldofdarkness', 'patch152');
+        patch153 = game.settings.get('worldofdarkness', 'patch153');
     } 
     catch (e) {
     }
@@ -608,6 +608,12 @@ export const updates = async () => {
         newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/130">#130</a> could not set Affinity Sphere</li>';
         newfunctions += '<li>[MtA] Got report that Features did not work in Notes - Unrepeatable. Added descriptive texts if item has no values</li>';
     }
+
+    if (!patch153) {
+        game.settings.set('worldofdarkness', 'patch153', true);
+
+        newfunctions += '<li>[MTA] Added Technology as a Skill Ability <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/125">#125</a></li>';
+        newfunctions += '<li>Added User Permissions <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/141">#141</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';    }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 

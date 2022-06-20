@@ -27,7 +27,7 @@ export class SpiritActorSheet extends ActorSheet {
 		console.log("WoD | Spirit Sheet constructor");
 
 		this.locked = false;
-		this.isCharacter = true;	
+		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
 	}	
 	
@@ -52,6 +52,9 @@ export class SpiritActorSheet extends ActorSheet {
 		}
 
 		const data = super.getData();
+
+		data.config = CONFIG.wod;		
+		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 
 		console.log("WoD | Spirit Sheet getData");
 

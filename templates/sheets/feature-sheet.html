@@ -5,11 +5,11 @@
 		<header class="sheet-header">
 			<div class="top-area">
 				<div class="top-side">
-					{{#if isGM}}
-					<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
-                    {{else}}
-                    <img src="{{item.img}}" />
-                    {{/if}}
+					{{#if config.userpermissions.changeItemImage}}
+						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+					{{else}}
+						<img src="{{item.img}}" />
+					{{/if}}
 				</div>
 				<div class="top-center top-headline centerText">
 					{{item.name}}
@@ -35,7 +35,7 @@
 
 		<section class="item-body">
 
-			{{#if isGM}}
+			{{#if config.userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
 				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
@@ -43,7 +43,7 @@
 			{{/if}}
 
 			<!-- type -->
-			{{#if isGM}}
+			{{#if config.userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
 				<select name="data.type">
@@ -58,7 +58,7 @@
 			{{/if}}
 
 			<!-- level -->
-			{{#if isGM}}
+			{{#if config.userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
 				<select name="data.level">

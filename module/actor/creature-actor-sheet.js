@@ -25,6 +25,8 @@ export class CreatureActorSheet extends MortalActorSheet {
 		super(actor, options);
 
 		this.locked = true;
+		this.isCharacter = false;	
+		this.isGM = game.user.isGM;
 		
 		console.log("WoD | Creature Sheet constructor");
 	}

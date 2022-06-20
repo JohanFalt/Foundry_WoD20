@@ -1,3 +1,5 @@
+import ActionHelper from "../scripts/action-helpers.js";
+
 export class WoDItemSheet extends ItemSheet {
 	
 	static get defaultOptions() {
@@ -9,7 +11,7 @@ export class WoDItemSheet extends ItemSheet {
 	constructor(item, options) {
 		super(item, options);
 
-		this.locked = true;
+		this.locked = false;
 		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
 		
@@ -42,14 +44,15 @@ export class WoDItemSheet extends ItemSheet {
 		const data = super.getData();
 
 		data.config = CONFIG.wod;
-		data.config.attributeSettings = CONFIG.attributeSettings;
-		data.config.rollSettings = CONFIG.rollSettings;
-		data.config.handleOnes = CONFIG.handleOnes;
-		data.isGM = game.user.isGM;	
+		data.config.userpermissions = ActionHelper._getUserPermissions(game.user);
 
-		if (data.item.locked == undefined) {
-			data.item.locked = true;
-		}		
+		// data.config.attributeSettings = CONFIG.attributeSettings;
+		// data.config.rollSettings = CONFIG.rollSettings;
+		// data.config.handleOnes = CONFIG.handleOnes;
+
+		data.locked = this.locked;
+		data.isCharacter = this.isCharacter;
+		data.isGM = game.user.isGM;	
 
 		const imgUrl = getImage(data.item);
 

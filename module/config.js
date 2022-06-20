@@ -118,6 +118,7 @@ wod.allskills = {
     security: "wod.abilities.security",
     stealth: "wod.abilities.stealth",    
     survival: "wod.abilities.survival",
+    technology: "wod.abilities.technology",
     torture: "wod.abilities.torture"
 }
 
@@ -134,7 +135,8 @@ wod.skills = {
     performance: "wod.abilities.performance",
     research: "wod.abilities.research",
     stealth: "wod.abilities.stealth",    
-    survival: "wod.abilities.survival"
+    survival: "wod.abilities.survival",
+    technology: "wod.abilities.technology",
 }
 
 wod.allknowledges = {

@@ -3,10 +3,14 @@
 
 		<div class="top-area">
 			<div class="top-side">
-				{{#if isGM}}
-					<img class="profile-img pointer" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+				{{#if locked}}
+					<img class="profile-img" src="{{actor.img}}" />	
 				{{else}}
-					<img class="profile-img" src="{{actor.img}}" />
+					{{#if config.userpermissions.changeItemImage}}
+					<img class="profile-img pointer" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+					{{else}}
+						<img class="profile-img" src="{{actor.img}}" />	
+					{{/if}}
 				{{/if}}
 			</div>
 			<div class="top-center top-headline centerText">

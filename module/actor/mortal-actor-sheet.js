@@ -1,4 +1,4 @@
-import ActionHelper from "../scripts/action-helpers.js"
+import ActionHelper from "../scripts/action-helpers.js";
 import { calculateHealth } from "../scripts/health.js";
 
 export class MortalActorSheet extends ActorSheet {
@@ -30,7 +30,7 @@ export class MortalActorSheet extends ActorSheet {
 		super(actor, options);
 
 		console.log("WoD | Mortal Sheet constructor");
-
+		
 		this.locked = true;
 		this.isCharacter = true;	
 		this.isGM = game.user.isGM;	
@@ -61,9 +61,10 @@ export class MortalActorSheet extends ActorSheet {
 		console.log("WoD | Mortal Sheet getData");
 
 		data.config = CONFIG.wod;		
-		data.config.attributeSettings = CONFIG.attributeSettings;
-		data.config.rollSettings = CONFIG.rollSettings;
-		data.config.handleOnes = CONFIG.handleOnes;
+		data.userpermissions = ActionHelper._getUserPermissions(game.user);
+		// data.config.attributeSettings = CONFIG.attributeSettings;
+		// data.config.rollSettings = CONFIG.rollSettings;
+		// data.config.handleOnes = CONFIG.handleOnes;
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;

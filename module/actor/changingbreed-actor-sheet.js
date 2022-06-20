@@ -28,6 +28,10 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);
+
+		this.locked = true;
+		this.isCharacter = true;	
+		this.isGM = game.user.isGM;
 		
 		console.log("WoD | Changing Breed Sheet constructor");
 	}
