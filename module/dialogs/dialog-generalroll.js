@@ -42,17 +42,17 @@ export class GeneralRoll {
         else if (type == "ability") {
             this.abilityKey = key;
 
-            if (CONFIG.wod.talents[key] != undefined) {
-                this.abilityName = game.i18n.localize(CONFIG.wod.alltalents[key]);
-            }
-            else if (CONFIG.wod.skills[key] != undefined) {
-                this.abilityName = game.i18n.localize(CONFIG.wod.allskills[key]);
-            }
-            else if (CONFIG.wod.knowledges[key] != undefined) {
-                this.abilityName = game.i18n.localize(CONFIG.wod.allknowledges[key]);
-            }
+            // if ((CONFIG.wod.alltalents[key] != undefined) && (CONFIG.wod.alltalents[key].isvisible)) {
+            //     this.abilityName = game.i18n.localize(CONFIG.wod.alltalents[key]);
+            // }
+            // else if ((CONFIG.wod.allskills[key] != undefined) && (CONFIG.wod.allskills[key].isvisible)) {
+            //     this.abilityName = game.i18n.localize(CONFIG.wod.allskills[key]);
+            // }
+            // else if ((CONFIG.wod.allknowledges[key] != undefined) && (CONFIG.wod.allknowledges[key].isvisible)) {
+            //     this.abilityName = game.i18n.localize(CONFIG.wod.allknowledges[key]);
+            // }
 
-            this.name = this.abilityName;
+            //this.name = this.abilityName;
         }
         else if (type == "noability") {
             this.attributeKey = key;            
@@ -153,17 +153,19 @@ export class DialogGeneralRoll extends FormApplication {
             if (abilityKey != "") {
                 let ability = undefined;
 
-                if (data.actorData.data.abilities.talent[abilityKey] != undefined) {
+                if ((data.actorData.data.abilities.talent[abilityKey] != undefined) && (data.actorData.data.abilities.talent[abilityKey].isvisible)) {
                     ability = data.actorData.data.abilities.talent[abilityKey];
                 }
-                else if (data.actorData.data.abilities.skill[abilityKey] != undefined) {
+                else if ((data.actorData.data.abilities.skill[abilityKey] != undefined) && (data.actorData.data.abilities.skill[abilityKey].isvisible)) {
                     ability = data.actorData.data.abilities.skill[abilityKey];
                 }
-                else if (data.actorData.data.abilities.knowledge[abilityKey] != undefined) {
+                else if ((data.actorData.data.abilities.knowledge[abilityKey] != undefined) && (data.actorData.data.abilities.knowledge[abilityKey].isvisible)) {
                     ability = data.actorData.data.abilities.knowledge[abilityKey];
                 }
 
                 data.object.abilityValue = parseInt(ability.value);
+                data.object.abilityName = game.i18n.localize(ability.label);
+                data.object.name = data.object.abilityName;
 
                 if (parseInt(ability.value) >= 4) {
                     data.object.hasSpeciality = true;
@@ -236,8 +238,6 @@ export class DialogGeneralRoll extends FormApplication {
     }
 
     _setDifficulty(event) {
-        //event.preventDefault();
-
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".dialog-difficulty-button");
@@ -257,13 +257,9 @@ export class DialogGeneralRoll extends FormApplication {
                 $(this).addClass("active");
             }
         });
-
-        //this.getData();
     }
 
     _setNumDices(event) {
-        //event.preventDefault();
-
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".dialog-numdices-button");
@@ -390,17 +386,6 @@ export class DialogGeneralRoll extends FormApplication {
         generalRoll.specialityText = specialityText;
 
         rollDice(generalRoll);
-
-        // rollDice(
-        //     CONFIG.handleOnes,
-        //     numDices,
-        //     this.actor,
-        //     templateHTML,
-        //     parseInt(this.object.difficulty),
-        //     this.object.system,
-        //     this.object.useSpeciality,
-        //     specialityText,
-        //     woundPenaltyVal);   
 
         this.object.close = true;
     }
