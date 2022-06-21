@@ -839,7 +839,7 @@ export default class ActionHelper {
 			actor.data.attributes[attribute].isvisible = true;
 		}
 
-		if (CONFIG.qod.attributeSettings == "20th") {
+		if (CONFIG.wod.attributeSettings == "20th") {
 			actor.data.attributes.composure.isvisible = false;
 			actor.data.attributes.resolve.isvisible = false;
 			actor.data.willpower.permanent = 0;
