@@ -520,6 +520,7 @@ export const updates = async () => {
     let patch151 = false;
     let patch152 = false;
     let patch153 = false;
+    let patch154 = false;
 
     let newfunctions = "";
 
@@ -534,6 +535,7 @@ export const updates = async () => {
         patch151 = game.settings.get('worldofdarkness', 'patch151');
         patch152 = game.settings.get('worldofdarkness', 'patch152');
         patch153 = game.settings.get('worldofdarkness', 'patch153');
+        patch154 = game.settings.get('worldofdarkness', 'patch154');
     } 
     catch (e) {
     }
@@ -613,7 +615,16 @@ export const updates = async () => {
         game.settings.set('worldofdarkness', 'patch153', true);
 
         newfunctions += '<li>[MTA] Added Technology as a Skill Ability <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/125">#125</a></li>';
-        newfunctions += '<li>Added User Permissions <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/141">#141</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';    }
+        newfunctions += '<li>Added User Permissions <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/141">#141</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';    
+    }
+
+    if (!patch154) {
+        game.settings.set('worldofdarkness', 'patch154', true);
+
+        newfunctions += '<li>Fixed so you could add Ability Specialities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/145">#145</a></li>';
+        newfunctions += '<li>Fixed problems rolling Attributes and Abilities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/146">#146</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/147">#147</a></li>';    
+        newfunctions += '<li>[VtM] Fixed so you can clear Blood Pool <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/148">#148</a></li>';
+    }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 

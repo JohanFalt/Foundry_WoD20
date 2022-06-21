@@ -150,7 +150,7 @@ export class DialogWeapon extends FormApplication {
             data.object.attributeName = game.i18n.localize(this.actor.data.data[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.data.data[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.attributeSettings == "5th")) {
+            if ((this.actor.data.data[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
                 if (parseInt(this.actor.data.data.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
@@ -291,7 +291,7 @@ export class DialogWeapon extends FormApplication {
         }    
         
         const weaponRoll = new DiceRoll(this.actor);
-        weaponRoll.handlingOnes = CONFIG.handleOnes;             
+        weaponRoll.handlingOnes = CONFIG.wod.handleOnes;             
 
         if (this.object.type == "Damage") {
             weaponRoll.origin = "damage";

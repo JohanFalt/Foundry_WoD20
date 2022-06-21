@@ -79,7 +79,7 @@ export default class ActionHelper {
 				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.data.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.data.data.gnosis.roll})</strong>`;
 
 				const fetishRoll = new DiceRoll(actor);
-				fetishRoll.handlingOnes = CONFIG.handleOnes;
+				fetishRoll.handlingOnes = CONFIG.wod.handleOnes;
 				fetishRoll.numDices = parseInt(actor.data.data.gnosis.roll);
 				fetishRoll.difficulty = parseInt(item.data.data.difficulty);
 				fetishRoll.templateHTML = templateHTML;
@@ -373,7 +373,7 @@ export default class ActionHelper {
 		rollHTML += `${game.i18n.localize("wod.advantages.paradox")} (${actor.data.data.paradox.roll})`;
 
 		const paradoxRoll = new DiceRoll(actor);
-        paradoxRoll.handlingOnes = CONFIG.handleOnes;
+        paradoxRoll.handlingOnes = CONFIG.wod.handleOnes;
         paradoxRoll.numDices = parseInt(numDice);
         paradoxRoll.difficulty = parseInt(difficulty);
         paradoxRoll.templateHTML = rollHTML;
@@ -397,7 +397,7 @@ export default class ActionHelper {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = CONFIG.rollSettings;
+			advantageRollSetting = CONFIG.wod.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
@@ -407,7 +407,7 @@ export default class ActionHelper {
 		actorData = calculateTotals(actorData);
 
 		// willpower
-		if (CONFIG.attributeSettings == "5th") {
+		if (CONFIG.wod.attributeSettings == "5th") {
 			actorData.data.willpower.permanent = parseInt(actorData.data.attributes.composure.value) + parseInt(actorData.data.attributes.resolve.value);
 		}
 		
@@ -525,7 +525,7 @@ export default class ActionHelper {
 		}		
 
 		try {
-			advantageRollSetting = CONFIG.rollSettings;
+			advantageRollSetting = CONFIG.wod.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
@@ -839,18 +839,18 @@ export default class ActionHelper {
 			actor.data.attributes[attribute].isvisible = true;
 		}
 
-		if (CONFIG.attributeSettings == "20th") {
+		if (CONFIG.qod.attributeSettings == "20th") {
 			actor.data.attributes.composure.isvisible = false;
 			actor.data.attributes.resolve.isvisible = false;
 			actor.data.willpower.permanent = 0;
 		}
-		else if (CONFIG.attributeSettings == "5th") {
+		else if (CONFIG.wod.attributeSettings == "5th") {
 			actor.data.attributes.appearance.isvisible = false;
 			actor.data.attributes.perception.isvisible = false;
 			actor.data.willpower.permanent = 2;
 		}
 	
-		if (CONFIG.rollSettings) {
+		if (CONFIG.wod.rollSettings) {
 			willpower = actor.data.willpower.permanent; 
 		}
 		else {
@@ -869,7 +869,7 @@ export default class ActionHelper {
 		let rage = -1;
 		let gnosis = -1;
 
-		if (CONFIG.rollSettings) {
+		if (CONFIG.wod.rollSettings) {
 			rage = actor.data.rage.permanent; 
 			gnosis = actor.data.gnosis.permanent;
 		}

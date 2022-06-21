@@ -207,7 +207,7 @@ export class DialogPower extends FormApplication {
             data.object.attributeName = game.i18n.localize(this.actor.data.data[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.data.data[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.attributeSettings == "5th")) {
+            if ((this.actor.data.data[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
                 if (parseInt(this.actor.data.data.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
@@ -368,7 +368,7 @@ export class DialogPower extends FormApplication {
         }
         
         const powerRoll = new DiceRoll(this.actor);
-        powerRoll.handlingOnes = CONFIG.handleOnes;    
+        powerRoll.handlingOnes = CONFIG.wod.handleOnes;    
         powerRoll.origin = "power";
         powerRoll.numDices = numDices;
         powerRoll.woundpenalty = parseInt(woundPenaltyVal);

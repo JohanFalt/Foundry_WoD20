@@ -173,7 +173,7 @@ export class DialogCheckFrenzy extends FormApplication {
         if (this.object.canRoll) {
             
             const frenzyRoll = new DiceRoll(this.actor);
-            frenzyRoll.handlingOnes = CONFIG.handleOnes;    
+            frenzyRoll.handlingOnes = CONFIG.wod.handleOnes;    
             frenzyRoll.origin = "frenzy";
             frenzyRoll.numDices = numDices;
             frenzyRoll.difficulty = parseInt(this.object.totalDifficulty);          

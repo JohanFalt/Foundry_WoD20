@@ -24,17 +24,17 @@ Hooks.once("init", async function() {
 	console.log("WoD | Settings registered");
 	
 	CONFIG.wod = wod;
-	CONFIG.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
-	CONFIG.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+	CONFIG.wod.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
+	CONFIG.wod.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
 
 	try {
-		CONFIG.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+		CONFIG.wod.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
 	} 
 	catch (e) {
-		CONFIG.handleOnes = true;
+		CONFIG.wod.handleOnes = true;
 	}	
 
-	CONFIG.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
+	CONFIG.wod.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);

@@ -329,7 +329,7 @@ export class DialogAreteCasting extends FormApplication {
             const numDices = parseInt(this.actor.data.data.arete.roll) + parseInt(this.object.areteModifier);
 
             const castingRoll = new DiceRoll(this.actor);
-            castingRoll.handlingOnes = CONFIG.handleOnes;    
+            castingRoll.handlingOnes = CONFIG.wod.handleOnes;    
             castingRoll.origin = "magic";
             castingRoll.numDices = numDices;
             castingRoll.difficulty = parseInt(this.object.totalDifficulty);          

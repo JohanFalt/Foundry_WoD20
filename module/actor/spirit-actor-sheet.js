@@ -302,7 +302,7 @@ export class SpiritActorSheet extends ActorSheet {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = CONFIG.rollSettings;
+			advantageRollSetting = CONFIG.wod.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;

@@ -89,6 +89,8 @@ export class DialogGeneralRoll extends FormApplication {
         const data = super.getData();
         const attributeKey = data.object.attributeKey;
         const abilityKey = data.object.abilityKey;
+        let attributeSpeciality = "";
+        let abilitySpeciality = "";
 
         data.actorData = this.actor.data;   
         data.config = CONFIG.wod;
@@ -124,12 +126,17 @@ export class DialogGeneralRoll extends FormApplication {
                     if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
                         if (parseInt(data.actorData.data.attributes.composure.value) >= 4) {
                             data.object.hasSpeciality = true;
-                            specialityText = data.actorData.data.attributes.composure.speciality;
+                            attributeSpeciality = data.actorData.data.attributes.composure.speciality;
                         }
         
                         if ((parseInt(data.actorData.data.attributes.resolve.value) >= 4) && (data.actorData.data.attributes.resolve.speciality != "")) {
                             data.object.hasSpeciality = true;
-                            specialityText = data.actorData.data.attributes.resolve.speciality;
+
+                            if (attributeSpeciality != "") {
+                                attributeSpeciality += ", ";
+                            }
+
+                            attributeSpeciality += data.actorData.data.attributes.resolve.speciality;
                         }
                     }                
                 }            
@@ -138,7 +145,7 @@ export class DialogGeneralRoll extends FormApplication {
 
                     if (parseInt(data.actorData.data.attributes[attributeKey].value) >= 4) {
                         data.object.hasSpeciality = true;
-                        specialityText = data.actorData.data.attributes[attributeKey].speciality;
+                        attributeSpeciality = data.actorData.data.attributes[attributeKey].speciality;
                     }
                 }
             }
@@ -160,10 +167,22 @@ export class DialogGeneralRoll extends FormApplication {
 
                 if (parseInt(ability.value) >= 4) {
                     data.object.hasSpeciality = true;
-                    specialityText = ability.speciality;
+                    abilitySpeciality = ability.speciality;
                 }
             }
         }        
+
+        if (data.object.hasSpeciality) {
+            if ((attributeSpeciality != "") && (abilitySpeciality != "")) {
+                specialityText = attributeSpeciality + ", " + abilitySpeciality;
+            }
+            else if (attributeSpeciality != "") {
+                specialityText = attributeSpeciality;
+            }
+            else if (abilitySpeciality != "") {
+                specialityText = abilitySpeciality;
+            }
+        }
 
         data.object.specialityText = specialityText;
 
@@ -361,7 +380,7 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         const generalRoll = new DiceRoll(this.actor);
-        generalRoll.handlingOnes = CONFIG.handleOnes;    
+        generalRoll.handlingOnes = CONFIG.wod.handleOnes;    
         generalRoll.origin = "general";
         generalRoll.numDices = numDices;
         generalRoll.woundpenalty = parseInt(woundPenaltyVal);

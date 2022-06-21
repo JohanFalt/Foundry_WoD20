@@ -62,9 +62,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		data.config = CONFIG.wod;		
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
-		// data.config.attributeSettings = CONFIG.attributeSettings;
-		// data.config.rollSettings = CONFIG.rollSettings;
-		// data.config.handleOnes = CONFIG.handleOnes;
+
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
@@ -386,7 +384,7 @@ export class MortalActorSheet extends ActorSheet {
 		 	ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 		 	return;
 		}
-		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.attributeSettings == "5th")) {
+		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.wod.attributeSettings == "5th")) {
 			ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 			return;
 		}
@@ -615,10 +613,10 @@ export class MortalActorSheet extends ActorSheet {
 			return
 		} 
 		else {
-			if ((fields[2] === "willpower") && (CONFIG.attributeSettings == "5th")) {
+			if ((fields[2] === "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
 				actorData.data.willpower.temporary = value;
 			}
-			else if ((fields[2] === "willpower") && (CONFIG.attributeSettings == "20th")) {
+			else if ((fields[2] === "willpower") && (CONFIG.wod.attributeSettings == "20th")) {
 				actorData.data.willpower[fields[3]] = value;
 			}
 			// else if (fields[2] === "bloodpool") {

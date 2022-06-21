@@ -180,7 +180,7 @@ export class DialogSoakRoll extends FormApplication {
         templateHTML += `)</strong>`;    
         
         const soakRoll = new DiceRoll(this.actor);
-        soakRoll.handlingOnes = CONFIG.handleOnes;
+        soakRoll.handlingOnes = CONFIG.wod.handleOnes;
         soakRoll.numDices = parseInt(numDices);
         soakRoll.difficulty = parseInt(this.object.difficulty);
         soakRoll.templateHTML = templateHTML;

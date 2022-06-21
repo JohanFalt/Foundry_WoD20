@@ -528,7 +528,12 @@ export class VampireActorSheet extends MortalActorSheet {
 			actorData.data.virtues[fields[3]].value = value;
 		}
 		else if (fields[2] === "bloodpool")	 {
-			actorData.data.bloodpool.temporary = value;
+			if (actorData.data.bloodpool.temporary == value) {
+				actorData.data.bloodpool.temporary = parseInt(actorData.data.bloodpool.temporary) - 1;
+			}	
+			else {
+				actorData.data.bloodpool.temporary = value;
+			}
 		}
 		
 		ActionHelper._handleCalculations(actorData);

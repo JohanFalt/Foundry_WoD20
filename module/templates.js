@@ -197,10 +197,10 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("getAttributes", function (attribute) {
 		let list;
 
-		if (CONFIG.attributeSettings == "5th") {
+		if (CONFIG.wod.attributeSettings == "5th") {
 			list = CONFIG.wod.attributes;
 		}
-		else if (CONFIG.attributeSettings == "20th") {
+		else if (CONFIG.wod.attributeSettings == "20th") {
 			list = CONFIG.wod.attributes20;
 		}
 		
@@ -255,7 +255,7 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("topAttributes", function (attribute) {
 		var list = ["strength","charisma","perception"];
 
-		if (CONFIG.attributeSettings == "5th") {
+		if (CONFIG.wod.attributeSettings == "5th") {
 			list = ["strength","charisma","intelligence"];
 		}
 		
@@ -270,7 +270,7 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("bottenAttributes", function (attribute) {
 		var list = ["stamina","appearance","wits"];
 
-		if (CONFIG.attributeSettings == "5th") {
+		if (CONFIG.wod.attributeSettings == "5th") {
 			list = ["stamina","composure","resolve"];
 		}
 		
@@ -354,19 +354,19 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("checkSystemsetting", function (text) {
 		if (text == "attributeSettings") {
-			return CONFIG.attributeSettings;
+			return CONFIG.wod.attributeSettings;
 		}
 
 		if (text == "rollSettings") {
-			return CONFIG.rollSettings;
+			return CONFIG.wod.rollSettings;
 		}
 
 		if (text == "theRollofOne") {
-			return CONFIG.handleOnes;
+			return CONFIG.wod.handleOnes;
 		}
 
 		if (text == "observersSeeFullActor") {
-			return CONFIG.observersSeeFullActor;
+			return CONFIG.wod.observersSeeFullActor;
 		}
 
 		return false;

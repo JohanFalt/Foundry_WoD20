@@ -46,10 +46,6 @@ export class WoDItemSheet extends ItemSheet {
 		data.config = CONFIG.wod;
 		data.config.userpermissions = ActionHelper._getUserPermissions(game.user);
 
-		// data.config.attributeSettings = CONFIG.attributeSettings;
-		// data.config.rollSettings = CONFIG.rollSettings;
-		// data.config.handleOnes = CONFIG.handleOnes;
-
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
