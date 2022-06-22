@@ -54,11 +54,9 @@
     </div>-->
     <div class="pullLeft {{#if item.data.damage.isrollable}}vrollable{{/if}}" 
         data-type="{{../config.sheettype.mortal}}"
-        data-rolldamage="true" 
-        data-label="{{captilizeFirst item.name}}" 
-        data-dice1="{{item.data.damage.attribute}}" 
-        data-dice2="{{item.data.damage.bonus}}" 
-        data-damagetype="{{item.data.damage.type}}">{{#if item.data.damage.isrollable}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>
+        data-object="Damage"
+        data-rollitem="true" 
+        data-itemid="{{item._id}}">{{#if item.data.damage.isrollable}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>
     <div class="pullLeft">
         {{#if ../locked}}
             &nbsp;

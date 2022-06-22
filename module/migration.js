@@ -626,6 +626,10 @@ export const updates = async () => {
         newfunctions += '<li>[VtM] Fixed so you can clear Blood Pool <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/148">#148</a></li>';
     }
 
+    if (newfunctions == "") {
+        newfunctions = '<li>General bug fixes</li>';
+    }
+
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
