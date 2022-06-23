@@ -6,7 +6,7 @@
 				{{#if locked}}
 					<img class="profile-img" src="{{actor.img}}" />	
 				{{else}}
-					{{#if config.userpermissions.changeItemImage}}
+					{{#if userpermissions.changeItemImage}}
 					<img class="profile-img pointer" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
 					{{else}}
 						<img class="profile-img" src="{{actor.img}}" />	

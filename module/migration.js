@@ -521,6 +521,7 @@ export const updates = async () => {
     let patch152 = false;
     let patch153 = false;
     let patch154 = false;
+    let patch158 = false;
 
     let newfunctions = "";
 
@@ -536,6 +537,7 @@ export const updates = async () => {
         patch152 = game.settings.get('worldofdarkness', 'patch152');
         patch153 = game.settings.get('worldofdarkness', 'patch153');
         patch154 = game.settings.get('worldofdarkness', 'patch154');
+        patch158 = game.settings.get('worldofdarkness', 'patch158');
     } 
     catch (e) {
     }
@@ -624,6 +626,13 @@ export const updates = async () => {
         newfunctions += '<li>Fixed so you could add Ability Specialities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/145">#145</a></li>';
         newfunctions += '<li>Fixed problems rolling Attributes and Abilities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/146">#146</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/147">#147</a></li>';    
         newfunctions += '<li>[VtM] Fixed so you can clear Blood Pool <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/148">#148</a></li>';
+    }
+
+    if (!patch158) {
+        game.settings.set('worldofdarkness', 'patch158', true);
+
+        newfunctions += '<li>Fixed problems with permissions to alter Actor and Item images <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
+        newfunctions += '<li>Added Bone Craft as a selective Skill <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/162">#162</a></li>';    
     }
 
     if (newfunctions == "") {

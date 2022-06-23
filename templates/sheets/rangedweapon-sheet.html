@@ -4,7 +4,7 @@
 		<header class="sheet-header">
 			<div class="top-area">
 				<div class="top-side">
-					{{#if config.userpermissions.changeItemImage}}
+					{{#if userpermissions.changeItemImage}}
 						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
 					{{else}}
 						<img src="{{item.img}}" />
@@ -21,14 +21,14 @@
 
 		<section class="item-body">
 
-			{{#if config.userpermissions.itemAdministrator}}
+			{{#if userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
 				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
 			</div>
 			{{/if}}
 
-			{{#if config.userpermissions.itemAdministrator}}
+			{{#if userpermissions.itemAdministrator}}
 			<!-- data.attack -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
@@ -83,7 +83,7 @@
 			</div>
 			{{/if}}
 
-			{{#if config.userpermissions.itemAdministrator}}
+			{{#if userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
 				<input name="data.damage.isrollable" type="checkbox" {{#if data.data.damage.isrollable}} checked {{/if}} />

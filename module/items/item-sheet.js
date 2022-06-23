@@ -44,7 +44,7 @@ export class WoDItemSheet extends ItemSheet {
 		const data = super.getData();
 
 		data.config = CONFIG.wod;
-		data.config.userpermissions = ActionHelper._getUserPermissions(game.user);
+		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;

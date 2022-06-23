@@ -103,6 +103,10 @@ export class SpiritActorSheet extends ActorSheet {
 			.find(".vrollable")
 			.click(this._onRollSpiritDialog.bind(this));
 
+		html
+			.find(".macroBtn")
+			.click(this._onRollSpiritDialog.bind(this));
+
 		// ressource dots
 		html
 			.find(".resource-value > .resource-value-step")
@@ -117,12 +121,7 @@ export class SpiritActorSheet extends ActorSheet {
 			.click(this._onDotCounterChange.bind(this));
 		html
 			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterEmpty.bind(this));		
-
-		html
-			.find(".macroBtn")
-			//.click(this._rollMacro.bind(this));	
-			.click(this._onRollSpiritDialog.bind(this));		
+			.click(this._onDotCounterEmpty.bind(this));						
 
 		// skicka till chat
 		html

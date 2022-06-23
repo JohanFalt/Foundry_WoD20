@@ -6,7 +6,11 @@
 
 			<div class="top-area">
 				<div class="top-side">
-                    <img src="{{item.img}}" />
+                    {{#if userpermissions.changeItemImage}}
+						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+					{{else}}
+						<img src="{{item.img}}" />
+					{{/if}}
 				</div>
 				<div class="top-center top-headline centerText">
 					{{item.name}}

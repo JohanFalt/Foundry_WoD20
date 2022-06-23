@@ -366,6 +366,10 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		if (text == "observersSeeFullActor") {
+			if (game.user.isGM) {
+				return "full";
+			}
+
 			return CONFIG.wod.observersSeeFullActor;
 		}
 

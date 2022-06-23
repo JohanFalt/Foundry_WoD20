@@ -338,6 +338,13 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"bonecraft": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.bonecraft",
+							"speciality": "",
+							"isvisible": false
+						},
 						"craft": {
 							"value": 0,
 							"max": 5,
