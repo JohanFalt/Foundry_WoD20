@@ -472,7 +472,7 @@ export default class ActionHelper {
 			actorData.data.path.bearing = -1;
 		}
 		else if (actorData.data.path.value == 10) {
-			actorData.data.path.bearing = 2;
+			actorData.data.path.bearing = -2;
 		}
 	}
 
