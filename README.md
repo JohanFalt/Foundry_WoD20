@@ -1,21 +1,21 @@
 # World of Darkness 20th ed
-Vampire the Masquerade 20th ed
+This is a non-official (fan-made) system.
 
-Mage the Ascention 20th ed
+- Vampire the Masquerade 20th ed
+- Mage the Ascention 20th ed
+- Werewolf the Apocalypse 20th ed
 
-Werewolf the Apocalypse 20th ed
+I would never require it by anyone or even expect someone to do but if you really want to feel free to [buy me a coffee](https://ko-fi.com/johanfk) :)
 
 
 # Foundry VTT
-
 https://foundryvtt.com/packages/worldofdarkness
-
 
 ## Supported sheets
 - [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mortal)
-- [Vampires](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#vampire)
-- [Mages](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mage)
-- [Werewolfs](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#werewolf)
+- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#vampire)
+- [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mage)
+- [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#werewolf)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#changing-breed)
 - Spirits
 - Creatures
@@ -28,7 +28,10 @@ Portions of the materials are the copyrights and trademarks of Paradox Interacti
 
 This material is NOT an official World of Darkness material.
 
-<img src="https://github.com/JohanFalt/Foundry_WoD20/blob/main/doc/darkpack_logo2.png" width="300px" height="300px">
+[<img src="https://github.com/JohanFalt/Foundry_WoD20/blob/main/doc/darkpack_logo2.png" width="300px" height="300px">](https://www.worldofdarkness.com/dark-pack)
+
+
+https://ko-fi.com/johanfk
 
 
 # Contributions
@@ -42,7 +45,7 @@ Systems I have checked to learn general structure and the typical "how do you do
 ## Translations
 German translation - Nocther
 
-Spanish translation - Duke and Wharomaru
+Spanish translation (last update v1.4) - Duke and Wharomaru
 
 ## Icons
 https://fontawesome.com/v4.7/icons/
