@@ -54,6 +54,32 @@ export class Charm {
     }
 }
 
+export class CharmGift {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";
+
+        this.name = item.data["name"];
+        this.type = item.data.data["type"];
+        this.dice1 = ActionHelper._transformToSpiritAttributes(item.data.data["dice1"]);
+        this.dice2 = "";
+        this.bonus = parseInt(item.data.data["bonus"]);
+        this.difficulty = parseInt(item.data.data["difficulty"]);
+        this.description = "";
+        this.system = item.data.data["description"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "spiritDialog";
+    }
+}
+
 export class Power {
     constructor(item) {
         this.attributeValue = 0;
@@ -299,7 +325,6 @@ export class DialogPower extends FormApplication {
         
         this.object.useSpeciality = formData["specialty"];
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
-        //this.object.close = this.difficulty > -1 ? true : false;   
     }
 
     _setDifficulty(event) {
@@ -379,17 +404,6 @@ export class DialogPower extends FormApplication {
         powerRoll.specialityText = specialityText;
 
         rollDice(powerRoll);
-
-        // rollDice(
-        //     CONFIG.handleOnes,
-        //     numDices,
-        //     this.actor,
-        //     templateHTML,
-        //     parseInt(this.object.difficulty),
-        //     this.object.system,
-        //     this.object.useSpeciality,
-        //     specialityText,
-        //     woundPenaltyVal);   
     }
 
     /* clicked to close form */

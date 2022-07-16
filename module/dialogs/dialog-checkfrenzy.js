@@ -12,7 +12,10 @@ export class WerewolfFrenzy {
         this.numSuccesses = 0;
         this.sheettype = "werewolfDialog";
 
-        if (actor.data.data.renown.rank == 5) {
+        if (actor.data.data.renown.rank == 6) {
+            this.successesRequired = 6;
+        }
+        else if (actor.data.data.renown.rank == 5) {
             this.successesRequired = 5;
         }
         else {
@@ -254,11 +257,8 @@ export class DialogCheckFrenzy extends FormApplication {
         if (this.actor.data.data.renown.rank == 3) {
             difficulty = baseDifficulty + 1;
         }
-        if (this.actor.data.data.renown.rank == 4) {
+        if (this.actor.data.data.renown.rank >= 4) {
             difficulty = baseDifficulty + 2;
-        }
-        if (this.actor.data.data.renown.rank == 5) {
-            difficulty = baseDifficulty + 2;	
         }
         else {
             difficulty = baseDifficulty;

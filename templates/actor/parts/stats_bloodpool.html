@@ -1,16 +1,19 @@
-<div class="sheet-headline">{{localize "wod.advantages.bloodpool"}}</div>
-<div class="bloodpool resource-counter permValueRow" data-value="{{data.data.bloodpool.temporary}}" data-name="data.data.bloodpool.temporary">
+<div class="sheet-headline splatFont">{{localize "wod.advantages.bloodpool"}}</div>
 
-	{{#numLoop data.data.bloodpool.max}}
-	
-	{{#le ../data.data.bloodpool.temporary this}}
-	<span class="bloodpool resource-value-step" data-type="{{../actor.type}}" data-index="{{this}}" data-state=""></span>
-	{{else}}
-	<span class="bloodpool resource-value-step" data-type="{{../actor.type}}" data-index="{{this}}" data-state="x"></span>
-	{{/le}}
-	
-	{{/numLoop}}
-	
-</div>	
+<div class="sheet-boxcontainer">
+	<div class="bloodpool resource-counter" data-value="{{data.data.bloodpool.temporary}}" data-name="data.data.bloodpool.temporary">
+
+		{{#numLoop data.data.bloodpool.max}}
+		
+			{{#le ../data.data.bloodpool.temporary this}}
+				<span class="bloodpool resource-value-step" data-type="{{../actor.type}}" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="bloodpool resource-value-step" data-type="{{../actor.type}}" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>
 
 <div class="information-area centerText">{{localize "wod.advantages.perturn"}}: {{data.data.bloodpool.perturn}}</div>

@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
+
 // import { Frenzy } from "../dialogs/dialog-checkfrenzy.js";
 // import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 
@@ -47,9 +48,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				ActionHelper._setWerewolfAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setWerewolfAttributes(actorData);
-
-				actorData.data.settings.soak.lethal.isrollable = true;
-				actorData.data.settings.soak.aggravated.isrollable = true;
+				
 				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
@@ -104,7 +103,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				else if ((i.data.type == "wod.types.gift") && (i.data.level == 2)) {
 					powerlist2.push(i);
 
-					if (i.data.isactivee) {
+					if (i.data.isactive) {
 						powercombat.push(i);
 					}
 				}
@@ -189,6 +188,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
+
 		ActionHelper._setupDotCounters(html);
 
 		console.log("WoD | Werewolf Sheet activateListeners");
@@ -343,33 +343,55 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if ((fields[2] === "rage") || (fields[2] === "gnosis")) {
-			if (fields[3] === "permanent") {
-				actorData.data[fields[2]].permanent = value;
+			if (actorData.data[fields[2]][fields[3]] == value) {
+				actorData.data[fields[2]][fields[3]] = parseInt(actorData.data[fields[2]][fields[3]]) - 1;
 			}
 			else {
-				actorData.data[fields[2]].temporary = value;
+				actorData.data[fields[2]][fields[3]] = value;
 			}
-		}		
-		// else if (fields[2] === "gnosis") {
-		// 	if (fields[3] === "permanent") {
-		// 		actorData.data.gnosis.permanent = value;
-		// 	}
-		// 	else {
-		// 		actorData.data.gnosis.temporary = value;
-		// 	}
-		// }
+		}			
 		else if (fields[2] === "renown") {
 			let renowntype = fields[3];
 
 			if (renowntype === "rank") {
-				actorData.data.renown[renowntype] = value;
+				//actorData.data.renown[renowntype] = value;
+
+				if (actorData.data.renown[renowntype] == value) {
+					actorData.data.renown[renowntype] = parseInt(actorData.data.renown[renowntype]) - 1;
+				}
+				else {
+					actorData.data.renown[renowntype] = value;
+				}
 			}
-			else if (fields[4] === "permanent") {
-				actorData.data.renown[renowntype].permanent = value;
+			else if (fields[4] != undefined) {
+				if (actorData.data.renown[renowntype][fields[4]] == value) {
+					actorData.data.renown[renowntype][fields[4]] = parseInt(actorData.data.renown[renowntype][fields[4]]) - 1;
+				}
+				else {
+					actorData.data.renown[renowntype][fields[4]] = value;
+				}
 			}
-			else {
-				actorData.data.renown[renowntype].temporary = value;
-			}
+
+			// else if (fields[4] === "permanent") {
+			// 	//actorData.data.renown[renowntype].permanent = value;
+
+			// 	if (actorData.data.renown[renowntype].permanent == value) {
+			// 		actorData.data.renown[renowntype].permanent = parseInt(actorData.data.renown[renowntype].permanent) - 1;
+			// 	}
+			// 	else {
+			// 		actorData.data.renown[renowntype].permanent = value;
+			// 	}
+			// }
+			// else {
+			// 	//actorData.data.renown[renowntype].temporary = value;
+
+			// 	if (actorData.data.renown[renowntype].temporary == value) {
+			// 		actorData.data.renown[renowntype].temporary = parseInt(actorData.data.renown[renowntype].temporary) - 1;
+			// 	}
+			// 	else {
+			// 		actorData.data.renown[renowntype].temporary = value;
+			// 	}
+			// }
 		}
 		
 		ActionHelper._handleCalculations(actorData);

@@ -8,6 +8,7 @@ import { DialogWeapon } from "../dialogs/dialog-weapon.js";
 import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js";
 import { Rote } from "../dialogs/dialog-aretecasting.js";
 import { Gift } from "../dialogs/dialog-power.js";
+import { CharmGift } from "../dialogs/dialog-power.js";
 import { Charm } from "../dialogs/dialog-power.js";
 import { Power } from "../dialogs/dialog-power.js";
 import { DisciplinePower } from "../dialogs/dialog-power.js";
@@ -32,6 +33,12 @@ export class UserPermissions {
     }
 }
 
+export class GraphicSettings {
+    constructor() {
+        this.useLinkPlatform = false;
+    }
+}
+
 export default class ActionHelper {
 
     static RollDialog(event, actor) {
@@ -46,8 +53,8 @@ export default class ActionHelper {
 		let templateHTML = "";	
 
 		// the new roll system
-		if ((dataset.rollitem == "true") && (dataset.itemid != undefined)) {
-			item = getItem(dataset.itemid, actor.data.items);
+		if ((dataset.rollitem == "true") && ((dataset.itemid != undefined) || (dataset.itemid != "undefined"))) {
+			item = this._getItem(dataset.itemid, actor.data.items);
 
 			// used a Weapon
 			if (dataset.object == "Melee") {
@@ -67,6 +74,7 @@ export default class ActionHelper {
 			}
 
 			if (dataset.object == "Damage") {
+				item.data.extraSuccesses = 0;
 				const damage = new Damage(item);
 				let weaponUse = new DialogWeapon(actor, damage);
 				weaponUse.render(true);
@@ -92,7 +100,14 @@ export default class ActionHelper {
 			}	
 			
 			// used a Gift
-			if (dataset.object == "Gift") {
+			if ((dataset.object == "Gift") && (dataset.type == CONFIG.wod.sheettype.spirit)) {
+				const gift = new CharmGift(item);
+				let giftUse = new DialogPower(actor, gift);
+				giftUse.render(true);
+
+				return;
+			}
+			else if (dataset.object == "Gift") {
 				const gift = new Gift(item);
 				let giftUse = new DialogPower(actor, gift);
 				giftUse.render(true);
@@ -180,7 +195,7 @@ export default class ActionHelper {
 				return;
 			}			
 
-			ui.notifications.error("Item Roll missing function");
+			ui.notifications.error("Item Roll missing function - " + dataset.object);
 
 			return;
 		}
@@ -258,11 +273,13 @@ export default class ActionHelper {
 				return;
 			}
 
+			console.log(dataset);
 			ui.notifications.error("Macro roll missing function");
 
 			return;
 		}
 
+		console.log(dataset);
 		ui.notifications.error("Roll missing function");
 
 		return;
@@ -280,6 +297,7 @@ export default class ActionHelper {
 		let label = "";
 		let message = "";
 		let diceColor;
+		let initAttribute = "";
 
 		let token = await canvas.tokens.placeables.find(t => t.data.actorId === actor.id);
 		if(token) foundToken = true;
@@ -308,8 +326,20 @@ export default class ActionHelper {
 				
 				tokenAdded = true;
 			}
-		}		
-			
+		}	
+
+		if (actor.type != CONFIG.wod.sheettype.spirit) {
+			if (parseInt(actor.data.data.attributes.dexterity.total) >= parseInt(actor.data.data.attributes.wits.total)) {
+				initAttribute = game.i18n.localize(actor.data.data.attributes.dexterity.label) + " " + actor.data.data.attributes.dexterity.total;
+			}
+			else {
+				initAttribute = game.i18n.localize(actor.data.data.attributes.wits.label) + " " + actor.data.data.attributes.wits.total;
+			}			
+		}
+		else {
+			initAttribute = game.i18n.localize(actor.data.data.willpower.label) + " " + actor.data.data.willpower.permanent;
+		}
+
 		if (actor.type == CONFIG.wod.sheettype.mortal) {
 			diceColor = "blue_";
 		} 
@@ -322,7 +352,7 @@ export default class ActionHelper {
 		else if (actor.type == CONFIG.wod.sheettype.vampire) { 
 			diceColor = "red_";
 		}
-		else if (actor.type == "Spirit") { 
+		else if (actor.type == CONFIG.wod.sheettype.spirit) { 
 			diceColor = "yellow_";
 		}
 		else {
@@ -354,14 +384,14 @@ export default class ActionHelper {
 			}
 		}
 
-		if (label != "") {
-			label = "<br />" + label;
-		}
-		if (message != "") {
-			message = "<br />" + message;
-		}
+		// if (label != "") {
+		// 	label = "<br /><br />" + label;
+		// }
+		// if (message != "") {
+		// 	message = "<br />" + message;
+		// }
 
-		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2>' + init + label + message, actor);			
+		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2><strong>'+game.i18n.localize("wod.dice.totalvalue") + ': ' + init + '</strong><br />'+initAttribute+'<p>' + label + '</p>' + '<p>' + message + '</p>', actor);			
 	}
 
 	static RollParadox(event, actor) {
@@ -497,6 +527,37 @@ export default class ActionHelper {
 				(!actorData.data.shapes.lupus.isactive)) {
 				actorData.data.shapes.homid.isactive = true;
 			}
+
+			if (actorData.data.shapes.homid.isactive) {
+				actorData.data.shapes.glabro.isactive = false;
+				actorData.data.shapes.crinos.isactive = false;
+				actorData.data.shapes.hispo.isactive = false;
+				actorData.data.shapes.lupus.isactive = false;
+			}
+			else if (actorData.data.shapes.glabro.isactive) {
+				actorData.data.shapes.homid.isactive = false;
+				actorData.data.shapes.crinos.isactive = false;
+				actorData.data.shapes.hispo.isactive = false;
+				actorData.data.shapes.lupus.isactive = false;
+			}
+			else if (actorData.data.shapes.crinos.isactive) {
+				actorData.data.shapes.homid.isactive = false;
+				actorData.data.shapes.glabro.isactive = false;
+				actorData.data.shapes.hispo.isactive = false;
+				actorData.data.shapes.lupus.isactive = false;
+			}
+			else if (actorData.data.shapes.hispo.isactive) {
+				actorData.data.shapes.homid.isactive = false;
+				actorData.data.shapes.glabro.isactive = false;
+				actorData.data.shapes.crinos.isactive = false;
+				actorData.data.shapes.lupus.isactive = false;
+			}
+			else if (actorData.data.shapes.lupus.isactive) {
+				actorData.data.shapes.homid.isactive = false;
+				actorData.data.shapes.glabro.isactive = false;
+				actorData.data.shapes.crinos.isactive = false;
+				actorData.data.shapes.hispo.isactive = false;
+			}
 		}
 
 		if (actorData.type == "Changing Breed") {
@@ -512,7 +573,8 @@ export default class ActionHelper {
 		}
 		
 		if (actorData.data.rage.permanent < actorData.data.rage.temporary) {
-			actorData.data.rage.temporary = actorData.data.rage.permanent;
+			//actorData.data.rage.temporary = actorData.data.rage.permanent;
+			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
 		}
 		
 		// gnosis
@@ -544,10 +606,6 @@ export default class ActionHelper {
 
 		if (actorData.data.rage.roll > actorData.data.willpower.roll) {
 			const rageDiff = parseInt(actorData.data.rage.roll) - parseInt(actorData.data.willpower.roll);
-
-			console.log("WoD | Rage: " + actorData.data.rage.roll);
-			console.log("WoD | Willpower: " + actorData.data.willpower.roll);
-			console.log("WoD | rageDiff: " + rageDiff);			
 
 			actorData.data.attributes.charisma.total = parseInt(actorData.data.attributes.charisma.total) - rageDiff;
 			actorData.data.attributes.manipulation.total = parseInt(actorData.data.attributes.manipulation.total) - rageDiff;
@@ -858,16 +916,28 @@ export default class ActionHelper {
 		}
 	
 		actor.data.willpower.roll = willpower;
+
+		actor.data.settings.soak.bashing.isrollable = true;
+		actor.data.settings.soak.lethal.isrollable = false;
+		actor.data.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setVampireAttributes(actor) {
 		actor.data.bloodpool.temporary = 0;
 		actor.data.bloodpool.max = 10;
+
+		actor.data.settings.soak.bashing.isrollable = true;
+		actor.data.settings.soak.lethal.isrollable = true;
+		actor.data.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setWerewolfAttributes(actor) {
 		let rage = -1;
 		let gnosis = -1;
+
+		actor.data.settings.soak.bashing.isrollable = true;
+		actor.data.settings.soak.lethal.isrollable = true;
+		actor.data.settings.soak.aggravated.isrollable = true;
 
 		if (CONFIG.wod.rollSettings) {
 			rage = actor.data.rage.permanent; 
@@ -885,6 +955,16 @@ export default class ActionHelper {
 	static _setMageAttributes(actor) {
 		actor.data.arete.permanent = 1;
 		actor.data.arete.roll = 1;
+
+		actor.data.settings.soak.bashing.isrollable = true;
+		actor.data.settings.soak.lethal.isrollable = false;
+		actor.data.settings.soak.aggravated.isrollable = false;
+	}
+
+	static _setCreatureAttributes(actor) {
+		actor.data.settings.soak.bashing.isrollable = true;
+		actor.data.settings.soak.lethal.isrollable = false;
+		actor.data.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setupDotCounters(html) {
@@ -922,30 +1002,99 @@ export default class ActionHelper {
 		if ((changeItemImage) || user.isGM) {
 			permissions.changeItemImage = true;
 		}
-		
-		if (((itemAdministratorLevel == "gm") || (itemAdministratorLevel == "assistant")) && user.isGM) {
-			permissions.itemAdministrator = true;
+
+		let requiredRole = 0;
+
+		if (itemAdministratorLevel == "gm") {
+			requiredRole = 4;
 		}
-		if ((itemAdministratorLevel == "trusted") && user.isTrusted) {
-			permissions.itemAdministrator = true;
-		}		
+		if (itemAdministratorLevel == "assistant") {
+			requiredRole = 3;
+		}
+		if (itemAdministratorLevel == "trusted") {
+			requiredRole = 2;
+		}
+		if (itemAdministratorLevel == "player") {
+			requiredRole = 1;
+		}
+
+		permissions.itemAdministrator = game.user.role >= requiredRole;
+		
+		// if (((itemAdministratorLevel == "gm") || (itemAdministratorLevel == "assistant")) && user.isGM) {
+		// 	permissions.itemAdministrator = true;
+		// }
+		// if ((itemAdministratorLevel == "trusted") && user.isTrusted) {
+		// 	permissions.itemAdministrator = true;
+		// }		
+		// if (itemAdministratorLevel == "player") {
+		// 	permissions.itemAdministrator = true;
+		// }
 
 		return permissions;
 	}
-}
 
-// get a specific item on an actor
-function getItem(id, itemlist)
-{
-	if (id == undefined) {
-		return false;
+	static _getGraphicSettings(user) {
+		// set default values
+		const settings = new GraphicSettings(user);
+
+		// check existing setting values
+		const useLinkPlatform = game.settings.get('worldofdarkness', 'useLinkPlatform');
+
+		// update default values from user permission
+		if (useLinkPlatform) {
+			settings.useLinkPlatform = useLinkPlatform;
+		}
+
+		return settings;
 	}
 
-	for (const i of itemlist) {
-		if (i.data._id == id) {
-			return i;
+	/**
+	 * Transform a normal attribute to a spriti one
+	 * @param attribute
+	 * 
+	 */
+	static _transformToSpiritAttributes(attribute) {
+		const list = CONFIG.wod.advantages;
+
+		for (const i in list) {
+			if (i == attribute) {
+				return attribute;
+			}
+		}
+
+		if (attribute == "strength") {
+			return "rage";
+		}
+		else if ((attribute == "dexterity") || (attribute == "stamina")) {
+			return "willpower";
+		}
+		else {
+			return "gnosis";
 		}
 	}
 
-	return false;
+	/**
+	 * Get a specific item on an actor
+	 * @param id
+	 * @param itemlist
+	 * 
+	 */
+	static _getItem(id, itemlist)
+	{
+		if (id == undefined) {
+			return false;
+		}
+
+		for (const i of itemlist) {
+			if (i.data._id == id) {
+				return i;
+			}
+		}
+
+		return false;
+	}
 }
+
+
+
+

@@ -10,11 +10,11 @@
 						<img src="{{item.img}}" />
 					{{/if}}
 				</div>
-				<div class="top-center top-headline centerText">
+				<div class="top-center top-headline splatFont centerText">
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
-					RANGED WEAPONS
+					{{captilize (localize "wod.types.rangedweapon")}}
 				</div>				
 			</div>
 		</header>
@@ -23,23 +23,23 @@
 
 			{{#if userpermissions.itemAdministrator}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
 			</div>
 			{{/if}}
 
 			{{#if userpermissions.itemAdministrator}}
 			<!-- data.attack -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
+				<label class="headlineItem headlineBio splatFont" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
 				<input name="data.attack.isrollable" type="checkbox" {{#if data.data.attack.isrollable}} checked {{/if}} />
 			</div>
 			{{/if}}
 
 			{{#if data.data.attack.isrollable}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
-				<select class="item" name="data.attack.attribute">
+				<label class="headlineItem headlineBio splatFont" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
+				<select class="item editable" name="data.attack.attribute">
 					{{#select data.data.attack.attribute}}
 					<option value="">- {{localize "wod.labels.select"}} -</option>
 					{{#each config.attackAttributes as | name type|}}
@@ -50,8 +50,8 @@
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.attack.ability">{{localize "wod.combat.weapon.ability"}}</label>
-				<select class="item" name="data.attack.ability">
+				<label class="headlineItem headlineBio splatFont" for="data.attack.ability">{{localize "wod.combat.weapon.ability"}}</label>
+				<select class="item editable" name="data.attack.ability">
 					{{#select data.data.attack.ability}}
 					<option value="">- {{localize "wod.labels.select"}} -</option>
 					{{#each config.attackRangedAbilities as | name type|}}
@@ -62,13 +62,13 @@
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.attack.accuracy">{{localize "wod.combat.weapon.accuracy"}}</label>
-				<input class="sheet-infoValues miniBox" name="data.attack.accuracy" type="text" value="{{data.data.attack.accuracy}}" data-dtype="Number" />
+				<label class="headlineItem headlineBio splatFont" for="data.attack.accuracy">{{localize "wod.combat.weapon.accuracy"}}</label>
+				<input class="sheet-infoValues miniBox editable" name="data.attack.accuracy" type="text" value="{{data.data.attack.accuracy}}" data-dtype="Number" />
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
-				<select name="data.difficulty" class="numberBox">
+				<label class="headlineItem headlineBio splatFont" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
+				<select name="data.difficulty" class="numberBox editable">
 					{{#select data.data.difficulty}}
 					<option value="3">3</option>
 					<option value="4">4</option>
@@ -85,24 +85,24 @@
 
 			{{#if userpermissions.itemAdministrator}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
+				<label class="headlineItem headlineBio splatFont" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
 				<input name="data.damage.isrollable" type="checkbox" {{#if data.data.damage.isrollable}} checked {{/if}} />
 			</div>
 			{{/if}}
 
 			{{#if data.data.damage.isrollable}}
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
+				<label class="headlineItem headlineBio splatFont" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
 				<div>
-					<select name="data.damage.attribute">
+					<select class="editable" name="data.damage.attribute">
 						{{#select data.data.damage.attribute}}
 						<option value="">- {{localize "wod.labels.none"}} -</option>
 						<option value="strength">{{localize "wod.attributes.strength"}}</option>
 						{{/select}}
 					</select>
 					&nbsp;+&nbsp;
-					<input class="sheet-infoValues numberBox" name="data.damage.bonus" type="text" value="{{data.data.damage.bonus}}" data-dtype="Number" />
-					<select name="data.damage.type">
+					<input class="sheet-infoValues numberBox editable" name="data.damage.bonus" type="text" value="{{data.data.damage.bonus}}" data-dtype="Number" />
+					<select class="editable" name="data.damage.type">
 						{{#select data.data.damage.type}}
 						<option value="">- {{localize "wod.labels.select"}} -</option>
 						{{#each config.damageTypes as | name type|}}
@@ -115,22 +115,22 @@
 			{{/if}}
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.range">{{localize "wod.combat.weapon.range"}}</label>
-				<input class="sheet-infoValues numberBox" name="data.range" type="text" value="{{data.data.range}}" data-dtype="Number" />
+				<label class="headlineItem headlineBio splatFont" for="data.range">{{localize "wod.combat.weapon.range"}}</label>
+				<input class="sheet-infoValues numberBox editable" name="data.range" type="text" value="{{data.data.range}}" data-dtype="Number" />
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.rate">{{localize "wod.combat.weapon.rate"}}</label>
-				<input class="sheet-infoValues numberBox" name="data.rate" type="text" value="{{data.data.rate}}" data-dtype="Number" />
+				<label class="headlineItem headlineBio splatFont" for="data.rate">{{localize "wod.combat.weapon.rate"}}</label>
+				<input class="sheet-infoValues numberBox editable" name="data.rate" type="text" value="{{data.data.rate}}" data-dtype="Number" />
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.clip.max">{{localize "wod.combat.weapon.clip"}}</label>
-				<input class="sheet-infoValues numberBox" name="data.clip.max" type="text" value="{{data.data.clip.max}}" data-dtype="Number" />
+				<label class="headlineItem headlineBio splatFont" for="data.clip.max">{{localize "wod.combat.weapon.clip"}}</label>
+				<input class="sheet-infoValues numberBox editable" name="data.clip.max" type="text" value="{{data.data.clip.max}}" data-dtype="Number" />
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
+				<label class="headlineItem headlineBio splatFont" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
 				<div>
 					<input name="data.mode.hasreload" type="checkbox" {{#if data.data.mode.hasreload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
 					<input name="data.mode.hasburst" type="checkbox" {{#if data.data.mode.hasburst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
@@ -140,8 +140,8 @@
 			</div>
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.conceal">{{localize "wod.combat.weapon.conceal.conceal"}}</label>
-				<select name="data.conceal">
+				<label class="headlineItem headlineBio splatFont" for="data.conceal">{{localize "wod.combat.weapon.conceal.conceal"}}</label>
+				<select class="editable" name="data.conceal">
 					{{#select data.data.conceal}}
 					<option value="">- {{localize "wod.labels.select"}} -</option>
 					<option value="P">{{localize "wod.combat.weapon.conceal.pocket"}}</option>
@@ -154,14 +154,14 @@
 
 			<!-- 2-handed true/false -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
+				<label class="headlineItem headlineBio splatFont" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
 				<input name="data.istwohanded" type="checkbox" {{#if data.data.istwohanded}} checked {{/if}}></input>
 			</div>
 
 			<!-- description -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-				<textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
+				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+				<textarea class="item editable" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
 			</div>
 
 		</section>

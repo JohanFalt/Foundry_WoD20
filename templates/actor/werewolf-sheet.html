@@ -61,41 +61,48 @@
 					<!-- Core Normal -->
 					<div class="tab normal" data-group="secondary" data-tab="normal">						
 
+						<!-- Core Attributes -->
 						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
 						</div>
 
+						<!-- Core Abilities -->
 						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
 						</div>
 
-						<div>
+						<!-- Core Stats -->
+						<div class="sheet-area">
 							<div class="clearareaBox" style="display: flex;">
 
-								<div class="pullLeft" style="width: 33%;">
-							
-									{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}		
-									
-								</div>
+								<div class="sheet-boxcontainer">
+
+									<div class="pullLeft" style="width: 33%;">
 								
-								<div class="pullLeft" style="width: 33%;">
-						
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
-					
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
-							
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
-							
-								</div>
-								
-								<div class="pullLeft" style="width: 33%; padding-left: 20px; padding-right: 20px;">
-									
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
-							
-									<div class="sheet-headline headlineGroup" style="width: 100%; margin-top: 25px;">
-										<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-										<div class="pullRight">{{actor.experience}}</div>
+										{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}		
+										
 									</div>
+									
+									<div class="pullLeft" style="width: 33%">
+							
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+						
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+								
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+								
+									</div>
+									
+									<div class="pullLeft healthBox" style="width: 33%;">
+										
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+								
+										<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
+											<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
+											<div class="pullRight experienceValue">{{actor.experience}}</div>
+										</div>
+									</div>
+
 								</div>
 							
 							</div>

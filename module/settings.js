@@ -83,10 +83,29 @@ export const systemSettings = function() {
 		default: "gm",
 		type: String,
 		choices: {
+            "player": game.i18n.localize('wod.settings.player'),
 			"trusted": game.i18n.localize('wod.settings.trustedplayer'),
 			"assistant": game.i18n.localize('wod.settings.assistantgm'),
 			"gm": "GM"
 		}
+	});
+
+    game.settings.register("worldofdarkness", "useSplatFonts", {
+		name: game.i18n.localize('wod.settings.usesplatfont'),
+		hint: game.i18n.localize('wod.settings.usesplatfonthint'),
+		scope: "world",
+		config: false,
+		default: true,
+		type: Boolean,
+	});
+
+    game.settings.register("worldofdarkness", "useLinkPlatform", {
+		name: game.i18n.localize('wod.settings.usesworldanvil'),
+		hint: game.i18n.localize('wod.settings.usesworldanvilhint'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
 	});
 
 	/* patch settings */
@@ -144,45 +163,9 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
-    game.settings.register("worldofdarkness", "patch151", {
-		name: "patch151",
-		hint: "patch151",
-		scope: "world",
-		config: false,
-		default: false,
-		type: Boolean,
-	});
-
-	game.settings.register("worldofdarkness", "patch152", {
-		name: "patch152",
-		hint: "patch152",
-		scope: "world",
-		config: false,
-		default: false,
-		type: Boolean,
-	});
-
-    game.settings.register("worldofdarkness", "patch153", {
-		name: "patch153",
-		hint: "patch153",
-		scope: "world",
-		config: false,
-		default: false,
-		type: Boolean,
-	});
-
-    game.settings.register("worldofdarkness", "patch154", {
-		name: "patch154",
-		hint: "patch154",
-		scope: "world",
-		config: false,
-		default: false,
-		type: Boolean,
-	});
-
-    game.settings.register("worldofdarkness", "patch158", {
-		name: "patch158",
-		hint: "patch158",
+    game.settings.register("worldofdarkness", "patch160", {
+		name: "patch160",
+		hint: "patch160",
 		scope: "world",
 		config: false,
 		default: false,
@@ -205,6 +188,15 @@ export const systemSettings = function() {
         label: game.i18n.localize('wod.settings.permissionsettings'),
         icon: "fa fa-cog",
         type: Permissions,
+        restricted: true,
+    });
+
+    game.settings.registerMenu("worldofdarkness", "graphicSettings", {
+        name: game.i18n.localize('wod.settings.graphicsettings'),
+        hint: game.i18n.localize('wod.settings.graphicsettingshint'),
+        label: game.i18n.localize('wod.settings.graphicsettings'),
+        icon: "fa fa-cog",
+        type: Graphics,
         restricted: true,
     });
 };
@@ -242,6 +234,7 @@ export class Rules extends FormApplication {
                     setting.hint = game.i18n.localize(setting.hint);
                     setting.value = game.settings.get("worldofdarkness", setting.key);
                     setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
                     setting.isBoolean = s.type === Boolean;
                     setting.isSelect = s.choices !== undefined;
 
@@ -315,7 +308,7 @@ export class Permissions extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "rules",
-            classes: ["rule-dialog"],
+            classes: ["permission-dialog"],
             title: game.i18n.localize('wod.settings.permissionsettings'),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
@@ -343,6 +336,109 @@ export class Permissions extends FormApplication {
                     setting.hint = game.i18n.localize(setting.hint);
                     setting.value = game.settings.get("worldofdarkness", setting.key);
                     setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
+                    setting.isBoolean = s.type === Boolean;
+                    setting.isSelect = s.choices !== undefined;
+
+                    data.system.settings.push(setting);
+                } 
+            }
+        }
+  
+        // Return data
+        return {
+            user: game.user,
+            canConfigure: hasPermission,
+            systemTitle: game.system.data.title,
+            data: data
+        };
+    }
+  
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".submenu button").click(this._onClickSubmenu.bind(this));
+        html.find('button[name="reset"]').click(this._onResetDefaults.bind(this));
+    }
+  
+    /**
+     * Handle activating the button to configure User Role permissions
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onClickSubmenu(event) {
+        event.preventDefault();
+        const menu = game.settings.menus.get(event.currentTarget.dataset.key);
+        if (!menu) return ui.notifications.error("No submenu found for the provided key");
+        const app = new menu.type();
+        return app.render(true);
+    }
+  
+    /**
+     * Handle button click to reset default settings
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onResetDefaults(event) {
+        event.preventDefault();
+        const button = event.currentTarget;
+        const form = button.form;
+
+        for (let [k, v] of game.settings.settings.entries()) {
+            if (v.config) {
+                let input = form[k];
+                if (input.type === "checkbox") input.checked = v.default;
+                else if (input) input.value = v.default;
+            }
+        }
+    }
+  
+    /** @override */
+    async _updateObject(event, formData) {
+        for (let [k, v] of Object.entries(flattenObject(formData))) {
+            let s = game.settings.settings.get(k);
+            let current = game.settings.get("worldofdarkness", s.key);
+
+            if (v !== current) {
+                await game.settings.set("worldofdarkness", s.key, v);
+            }
+        }
+    }
+}
+
+export class Graphics extends FormApplication {
+    /** @override */
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            id: "graphics",
+            classes: ["graphics-dialog"],
+            title: game.i18n.localize('wod.settings.graphicsettings'),
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
+        });
+    }
+  
+    getData(options) {
+        const hasPermission = game.user.can("SETTINGS_MODIFY");  
+        const data = {
+            system: { 
+                title: game.system.data.title, 
+                menus: [], 
+                settings: [] 
+            }
+        };
+
+        // Classify all settings
+        if (hasPermission) {
+            for (let s of game.settings.settings.values()) {
+                // Exclude settings the user cannot change
+                if ((s.key == "useSplatFonts") || (s.key == "useLinkPlatform")) {
+                    // Update setting data
+                    const setting = duplicate(s);
+
+                    setting.name = game.i18n.localize(setting.name);
+                    setting.hint = game.i18n.localize(setting.hint);
+                    setting.value = game.settings.get("worldofdarkness", setting.key);
+                    setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
                     setting.isBoolean = s.type === Boolean;
                     setting.isSelect = s.choices !== undefined;
 

@@ -1,0 +1,669 @@
+/* Mortal */
+  .mortal:not(.minimized) {
+    min-width: 900px;
+    min-height: 900px;
+  }
+  
+  /* Vampire */
+  .vampire:not(.minimized) {
+    min-width: 900px;
+    min-height: 900px;
+  }
+  
+  /* Mage */
+  .mage:not(.minimized) {
+    min-width: 900px;
+    min-height: 900px;
+  }
+  
+  .mage:not(.minimized).langDE {
+    min-width: 950px;
+  }
+
+  .mage:not(.minimized).langES {
+    min-width: 950px;
+  }
+  
+  /* Werewolf */
+  .werewolf:not(.minimized) {
+    min-width: 900px;
+    min-height: 900px;
+  }
+  
+  .werewolf:not(.minimized).langDE {
+    min-width: 950px;
+  }
+
+  .werewolf:not(.minimized).langES {
+    min-width: 950px;
+  }
+  
+  /* Spirit */
+  .spirit:not(.minimized) {
+    min-width: 800px;
+  }
+  
+  /* Creature */
+  .creature:not(.minimized) {
+    min-width: 900px;
+    min-height: 850px;
+  }
+
+.mortalDialog,
+.mortal {
+  --color-shadow-primary: var(--main-mortal-color);
+}
+
+.vampireDialog,
+.vampire {
+  --color-shadow-primary: var(--main-vampire-color);
+}
+
+.mageDialog,
+.mage {
+  --color-shadow-primary: var(--main-mage-color);
+}
+
+.werewolfDialog,
+.werewolf {
+  --color-shadow-primary: var(--main-werewolf-color);
+}
+
+.spiritDialog,
+.spirit {
+  --color-shadow-primary: var(--main-spirit-color);
+}
+
+.creatureDialog,
+.creature {
+  --color-shadow-primary: var(--main-creature-color);
+}
+
+/* MORTAL COLOR BEGINS */
+
+.mortalDialog .button,
+.mortal .sheet-character .profile-img-zone button {
+	background: var(--main-mortal-color);
+	color: white;
+}
+
+.mortalDialog .button.active {
+  background: white;
+	color: var(--main-mortal-color);
+}
+
+.mortal .headlineTabs {
+	border-bottom-color: var(--main-mortal-color);
+}
+
+.mortal:not(.noSplatFont) .headlineTabs {
+  font-size: 24px;
+}
+
+.mortal .row:nth-of-type(odd) {
+  background-color: var(--main-mortal-dim-color);
+  display: flex;
+}
+
+.mortal .row:nth-of-type(even) {
+  display: flex;
+}
+
+.mortal .thin-border-left,
+.mortal .thin-border-right {
+  border-color: var(--main-mortal-color);
+}
+
+.mortal .tooltip .tooltiptext,
+.mortal .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-mortal-color);
+  color: white;
+}
+
+.mortal input.editable,
+.mortal select.editable,
+.mortal textarea.editable {
+  border: 1px solid var(--main-mortal-color);
+  box-shadow: 2px 2px 5px var(--main-mortal-mid-color);
+}
+
+/* MORTAL COLOR ENDS */
+
+/* VAMPIRE COLOR BEGINS */
+
+.vampire .headlineTabs {
+	border-bottom-color: var(--main-vampire-color);  
+}
+
+.vampire:not(.noSplatFont) .headlineTabs {
+  line-height: 25px;
+}
+
+.vampire:not(.noSplatFont) .itemTabsText {
+  font-size: 30px;
+}
+
+.vampireDialog .button,
+.vampire .sheet-character .profile-img-zone button {
+  background: var(--main-vampire-color);
+	color: white;
+}
+
+.vampireDialog .button.active {
+  background: white;
+	color: var(--main-vampire-color);
+}
+
+.vampireDialog .button.active {
+  background: white;
+	color: var(--main-vampire-color);
+}
+
+.vampire .row:nth-of-type(odd) {
+  background-color: var(--main-vampire-dim-color);
+  display: flex;
+}
+
+.vampire .row:nth-of-type(even) {
+  display: flex;
+}
+
+.vampire .thin-border-left,
+.vampire .thin-border-right {
+  border-color: var(--main-vampire-color);
+}
+
+.vampire .tooltip .tooltiptext,
+.vampire .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-vampire-color);
+  color: white;
+}
+
+.vampire input.editable,
+.vampire select.editable,
+.vampire textarea.editable {
+  border: 1px solid var(--main-vampire-color);
+  box-shadow: 2px 2px 5px var(--main-vampire-mid-color);
+}
+
+/* VAMPIRE COLOR ENDS */
+
+/* MAGE COLOR BEGINS */
+
+.mage .headlineTabs {
+	border-bottom-color: var(--main-mage-color);
+}
+
+.mageDialog .button,
+.mage .sheet-character .profile-img-zone button {
+	background: var(--main-mage-color);
+	color: white;
+}
+
+.mageDialog .button.active {
+  background: white;
+	color: var(--main-mage-color);
+}
+
+.mage .row:nth-of-type(odd),
+.aretecasting-dialog .row:nth-of-type(odd) {
+  background-color: var(--main-mage-dim-color);
+  display: flex;
+}
+
+.mage .row:nth-of-type(even),
+.aretecasting-dialog .row:nth-of-type(even) {
+   display: flex;
+}
+
+.mage .thin-border-left,
+.mage .thin-border-right {
+  border-color: var(--main-mage-color);
+}
+
+.mage .tooltip .tooltiptext,
+.mage .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-mage-color);
+  color: white;
+}
+
+.mage input.editable,
+.mage select.editable,
+.mage textarea.editable {
+  border: 1px solid var(--main-mage-color);
+  box-shadow: 2px 2px 5px var(--main-mage-mid-color);
+}
+
+/* MAGE COLOR ENDS */
+
+/* WEREWOLF COLOR BEGINS */
+
+.werewolf .headlineTabs {
+	border-bottom-color: var(--main-werewolf-color);
+}
+
+.werewolfDialog .button,
+.werewolf .sheet-character .profile-img-zone button,
+.werewolf .shape-selector-active {
+  background: var(--main-werewolf-color);
+	color: white;
+}
+
+.werewolfDialog .button.active {
+  background: white;
+	color: var(--main-werewolf-color);
+}
+
+.werewolf .row:nth-of-type(odd) {
+  background-color: var(--main-werewolf-dim-color);
+  display: flex;
+}
+
+.werewolf .row:nth-of-type(even) {
+  display: flex;
+}
+
+.werewolf .thin-border-left,
+.werewolf .thin-border-right {
+  border-color: var(--main-werewolf-color);
+}
+
+.werewolf .tooltip .tooltiptext,
+.werewolf .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-werewolf-color);
+  color: white;
+}
+
+.werewolf input.editable,
+.werewolf select.editable,
+.werewolf textarea.editable {
+  border: 1px solid var(--main-werewolf-color);
+  box-shadow: 2px 2px 5px var(--main-werewolf-mid-color);
+}
+
+/* WEREWOLF COLOR ENDS */
+
+/* CREATURE COLOR START */
+
+.creature .headlineTabs {
+	border-bottom-color: var(--main-creature-color);
+}
+
+.creature .sheet-character .profile-img-zone button {
+  background: var(--main-creature-color);
+	color: white;
+}
+
+.creature .row:nth-of-type(odd) {
+  background-color: var(--main-creature-dim-color);
+  display: flex;
+}
+
+.creature .row:nth-of-type(even) {
+  display: flex;
+}
+
+.creature .thin-border-left,
+.creature .thin-border-right {
+  border-color: var(--main-creature-color);
+}
+
+.creatureDialog .button.active,
+.creature .tooltip .tooltiptext,
+.creature .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-creature-color);
+  color: white;
+}
+
+.creatureDialog .button.active {
+  background: white;
+	color: var(--main-creature-color);
+}
+
+.creature input.editable,
+.creature select.editable,
+.creature textarea.editable {
+  border: 1px solid var(--main-creature-color);
+  box-shadow: 2px 2px 5px var(--main-creature-mid-color);
+}
+
+/* CREATURE COLOR ENDS */
+
+/* SPIRIT COLOR START */
+
+.spirit .headlineTabs {
+	border-bottom-color: var(--main-spirit-color);
+}
+
+.spirit .row:nth-of-type(odd) {
+	background-color: var(--main-spirit-dim-color);
+  display: flex;
+}
+
+.spirit .row:nth-of-type(even) {
+  display: flex;
+}
+
+.spirit .thin-border-left,
+.spirit .thin-border-right {
+  border-color: var(--main-spirit-color);
+}
+
+.spiritDialog .button.active,
+.spirit .tooltip .tooltiptext,
+.spirit .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-spirit-color);
+  color: black;
+}
+
+.spiritDialog .button.active {
+  background: black;
+	color: var(--main-spirit-color);
+}
+
+.spirit input.editable,
+.spirit select.editable,
+.spirit textarea.editable {
+  border: 1px solid var(--main-spirit-color);
+  box-shadow: 2px 2px 5px var(--main-spirit-mid-color);
+}
+
+/* SPIRIT COLOR ENDS */
+
+.mortal .sheet-character .profile-img-zone button,
+.vampire .sheet-character .profile-img-zone button,
+.werewolf .sheet-character .profile-img-zone button,
+.mage .sheet-character .profile-img-zone button {
+  width: 35px;
+}
+
+/* END - Type of sheet designs */
+
+/* START - Dice roll links */
+
+.mortal .send-chat:hover,
+.mortal .send-chat:focus,
+.mortal .item-edit:hover,
+.mortal .item-edit:focus,
+.mortal .item-delete:hover,
+.mortal .item-delete:focus,
+.mortal .vrollable:hover,
+.mortal .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-mortal-color) !important;
+}
+
+.mortal .item:hover,
+.mortal .item:focus,
+.mortal .item.active {
+	text-shadow: 0 0 10px var(--main-mortal-color);
+}
+
+.vampire .send-chat:hover,
+.vampire .send-chat:focus,
+.vampire .item-edit:hover,
+.vampire .item-edit:focus,
+.vampire .item-delete:hover,
+.vampire .item-delete:focus,
+.vampire .vrollable:hover,
+.vampiree .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-vampire-color) !important;
+}
+
+.vampire .item:hover,
+.vampire .item:focus,
+.vampire .item.active {
+	text-shadow: 0 0 10px var(--main-vampire-color);
+}
+
+.mage .send-chat:hover,
+.mage .send-chat:focus,
+.mage .item-edit:hover,
+.mage .item-edit:focus,
+.mage .item-delete:hover,
+.mage .item-delete:focus,
+.mage .vrollable:hover,
+.mage .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-mage-color) !important;
+}
+
+.mage .item:hover,
+.mage .item:focus,
+.mage .item.active {
+	text-shadow: 0 0 10px var(--main-mage-color);
+}
+
+.werewolf .send-chat:hover,
+.werewolf .send-chat:focus,
+.werewolf .item-edit:hover,
+.werewolf .item-edit:focus,
+.werewolf .item-delete:hover,
+.werewolf .item-delete:focus,
+.werewolf .vrollable:hover,
+.werewolf .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-werewolf-color) !important;
+}
+
+.werewolf .item:hover,
+.werewolf .item:focus,
+.werewolf .item.active {
+	text-shadow: 0 0 10px var(--main-werewolf-color);
+}
+
+.creature .send-chat:hover,
+.creature .send-chat:focus,
+.creature .item-edit:hover,
+.creature .item-edit:focus,
+.creature .item-delete:hover,
+.creature .item-delete:focus,
+.creature .vrollable:hover,
+.creature .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-creature-color) !important;
+}
+
+.creature .item:hover,
+.creature .item:focus,
+.creature .item.active {
+	text-shadow: 0 0 10px var(--main-creature-color);
+}
+
+.spirit .send-chat:hover,
+.spirit .send-chat:focus,
+.spirit .item-edit:hover,
+.spirit .item-edit:focus,
+.spirit .item-delete:hover,
+.spirit .item-delete:focus,
+.spirit .vrollable:hover,
+.spirit .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-spirit-color) !important;
+}
+
+.spirit .item:hover,
+.spirit .item:focus,
+.spirit .item.active {
+	text-shadow: 0 0 10px var(--main-spirit-color);
+}
+
+/* END - Dice roll links */
+
+/* START - General */
+
+.mortal:not(.noSplatFont) nav,
+.mortal:not(.noSplatFont) .splatFont,
+.mortalDialog:not(.noSplatFont) .splatFont {
+	font-family: "mortal", var(--main-font);
+}
+
+.vampire:not(.noSplatFont) nav,
+.vampire:not(.noSplatFont) .splatFont,
+.vampireDialog:not(.noSplatFont) .splatFont {
+	font-family: "vampire", var(--main-font);
+}
+
+.mage:not(.noSplatFont) nav,
+.mage:not(.noSplatFont) .splatFont,
+.mageDialog:not(.noSplatFont) .splatFont {
+	font-family: "mage", var(--main-font);
+}
+
+.werewolf:not(.noSplatFont) nav,
+.creature:not(.noSplatFont) nav,
+.spirit:not(.noSplatFont) nav,
+.werewolf:not(.noSplatFont) .splatFont,
+.werewolfDialog:not(.noSplatFont) .splatFont,
+.creature:not(.noSplatFont) .splatFont,
+.creatureDialog:not(.noSplatFont) .splatFont,
+.spirit:not(.noSplatFont) .splatFont,
+.spiritDialog:not(.noSplatFont) .splatFont {
+	font-family: "werewolf", var(--main-font);
+}
+
+.vampire:not(.noSplatFont) .sheet-headline {
+    font-size: 34px;
+}
+
+.vampire:not(.noSplatFont) .headlineGroup {
+    font-size:24px;
+}
+
+.mortal .headlineRow {
+    border-bottom: 1px solid var(--main-mortal-color);
+    background-color: var(--main-mortal-dim-color);
+}
+  
+.werewolf .headlineRow {
+    border-bottom: 1px solid var(--main-werewolf-color);
+    background-color: var(--main-werewolf-dim-color);
+}
+  
+.mage .headlineRow {
+    border-bottom: 1px solid var(--main-mage-color);
+    background-color: var(--main-mage-dim-color);
+}
+
+.mage .headlineRow:not(.noSplatFont) {
+    font-size: 10px;
+}
+  
+.vampire .headlineRow {
+    border-bottom: 1px solid var(--main-vampire-color);
+    background-color: var(--main-vampire-dim-color);
+}
+  
+.creature .headlineRow {
+    border-bottom: 1px solid var(--main-creature-color);
+    background-color: var(--main-creature-dim-color);
+    display: flex;
+    height: 23px;
+    line-height: 23px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+  
+.spirit .headlineRow {
+    border-bottom: 1px solid var(--main-spirit-color);
+    background-color: var(--main-spirit-dim-color);
+    display: flex;
+    height: 23px;
+    line-height: 23px;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.creature:not(.noSplatFont) .headlineText,
+.werewolf:not(.noSplatFont) .headlineText {
+	font-size: 18px;
+}
+
+.werewolf:not(.noSplatFont) .headlineList {
+  font-size: 12px;
+}
+
+.spirit:not(.noSplatFont) .secondHeadlineTabs,
+.creature:not(.noSplatFont) .secondHeadlineTabs,
+.mortal:not(.noSplatFont) .secondHeadlineTabs,
+.werewolf:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 14px;
+}
+
+.mage:not(.noSplatFont) .headlineText {
+	font-size: 16px;
+}
+
+.mage:not(.noSplatFont) .sheet-headline {
+  font-size: 22px;
+}
+
+.mage:not(.noSplatFont) .headlineGroup {
+  font-size: 16px;
+}
+
+.mage:not(.noSplatFont) .condition {
+  font-size: 10px;
+}
+
+.mage:not(.noSplatFont) .headlineList {
+  font-size: 10px;
+}
+
+.mage:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 14px;
+}
+
+/* END - General */
+
+/* Check so screen is large enough - START */
+
+@media all and (max-width : 1280px)
+{
+  .werewolf:not(.minimized).langDE,
+  .werewolf:not(.minimized).langES,
+  .werewolf:not(.minimized) {
+    min-width: 400px;
+  }
+
+  .vampire:not(.minimized) {
+    min-width: 400px;
+  }  
+
+  .mage:not(.minimized).langDE,
+  .mage:not(.minimized).langES
+  .mage:not(.minimized) {
+    min-width: 400px;
+  }
+
+  .mortal:not(.minimized) {
+    min-width: 400px;
+  }
+
+  .spirit:not(.minimized) {
+    min-width: 400px;
+  }
+
+  .creature:not(.minimized) {
+    min-width: 400px;
+  }
+}
+
+@media all and (max-height : 1024px)
+{
+  .werewolf:not(.minimized) {
+    min-height: 400px;
+  }
+  .vampire:not(.minimized) {
+    min-height: 400px;
+  }  
+
+  .mage:not(.minimized) {
+    min-height: 400px;
+  }
+
+  .mortal:not(.minimized) {
+    min-height: 400px;
+  }
+
+  .creature:not(.minimized) {
+    min-height: 400px;
+  }
+}
+
+/* Check so screen is large enough - END */

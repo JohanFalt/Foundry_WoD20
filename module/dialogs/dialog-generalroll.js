@@ -124,12 +124,12 @@ export class DialogGeneralRoll extends FormApplication {
                     data.object.name = data.object.attributeName;
 
                     if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                        if (parseInt(data.actorData.data.attributes.composure.value) >= 4) {
+                        if (parseInt(data.actorData.data.attributes?.composure.value) >= 4) {
                             data.object.hasSpeciality = true;
                             attributeSpeciality = data.actorData.data.attributes.composure.speciality;
                         }
         
-                        if ((parseInt(data.actorData.data.attributes.resolve.value) >= 4) && (data.actorData.data.attributes.resolve.speciality != "")) {
+                        if ((parseInt(data.actorData.data.attributes?.resolve.value) >= 4) && (data.actorData.data.attributes?.resolve.speciality != "")) {
                             data.object.hasSpeciality = true;
 
                             if (attributeSpeciality != "") {

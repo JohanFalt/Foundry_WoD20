@@ -8,7 +8,6 @@
 			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
 				<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
 				<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
-				<!--<a class="item" data-tab="charms">{{localize 'wod.tab.charms'}}</a>	-->
 				<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
 			</nav>		
 		</header>			
@@ -29,6 +28,15 @@
 				<div class="clearareaBox" style="display: flex;">
 
 					<div class="pullLeft" style="width: 100%;">
+
+						<div class="sheet-area">    
+							<div class="clearareaBox area-box" style="width: 100%; text-align: center;">
+
+								{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+								{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
+								
+							</div>
+						</div>
 
 						<div class="sheet-area">
 							<div class="clearareaBox area-box">
@@ -52,44 +60,19 @@
 								</div>
 							
 							</div>
-						</div>
+						</div>						
 
-						<div class="sheet-area">    
-							<div class="clearareaBox area-box" style="width: 100%; text-align: center;">
-
-								{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
-								{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
+						<div class="sheet-area">
+							<div class="clearareaBox" style="display: flex;">
+								<div class="pullLeft" style="width: 33%;">&nbsp;</div>
 								
-							</div>
-						</div>
+								<div class="pullLeft" style="width: 33%;">
 
-						<div class="sheet-headline">{{localize 'wod.advantages.essence'}}</div>	
-
-						<div class="sheet-area">  
-							<div class="clearareaBox area-box" style="width: 100%;">
-
-								<div class="pullLeft" style="width: 23%;">&nbsp;</div>
-
-								<div class="pullLeft essence">									
-
-									<div class="resource-counter essence-counters" data-value="{{data.data.essence.temporary}}" data-name="data.data.essence.temporary">
-
-										{{#numLoop data.data.essence.max}}
-										
-										{{#le ../data.data.essence.temporary this}}
-										<span class="resource-value-step checkboxgroup" data-type="Spirit" data-index="{{this}}" data-state=""></span>
-										{{else}}
-										<span class="resource-value-step checkboxgroup" data-type="Spirit" data-index="{{this}}" data-state="x"></span>
-										{{/le}}
-										
-										{{/numLoop}}
-								
-									</div>
-
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_essence.html"}}
+							
 								</div>
 
-								<div class="pullLeft" style="width: 23%;">&nbsp;</div>
-
+								<div class="pullLeft" style="width: 33%;">&nbsp;</div>													
 							</div>
 						</div>
 

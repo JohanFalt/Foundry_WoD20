@@ -1,11 +1,11 @@
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
-        <div class="pullLeft">
+        <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
+            <select class="sheet-infoValues editable" name="data.breed" data-name="data.data.breed" data-dtype="String">
                 {{#select data.data.breed}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Homid">Homid</option>
@@ -20,51 +20,57 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
-        <div class="pullLeft">
+        <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
+        <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.data.auspice}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
-                {{#select data.data.auspice}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Ragabash">Ragabash</option>
-                <option value="Theurge">Theurge</option>
-                <option value="Philodox">Philodox</option>
-                <option value="Galliard">Galliard</option>
-                <option value="Ahroun">Ahroun</option>
-                {{/select}}
-            </select>
+                <select class="sheet-infoValues editable" name="data.auspice" data-name="data.data.auspice" data-dtype="String">
+                    {{#select data.data.auspice}}
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Ragabash">Ragabash</option>
+                    <option value="Theurge">Theurge</option>
+                    <option value="Philodox">Philodox</option>
+                    <option value="Galliard">Galliard</option>
+                    <option value="Ahroun">Ahroun</option>
+                    {{/select}}
+                </select>
+
+                <!-- <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.auspice}}" data-koptions="Ragabash/Theurge/Philodox/Galliard/Ahroun"/> -->
             {{/if}}
+
         </div>
     </div>
 </div>
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
-        <div class="pullLeft">
+        <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
+        <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{localize data.data.tribe}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
+            <select class="sheet-infoValues editable" name="data.tribe" data-name="data.data.tribe" data-dtype="String">
                 {{#select data.data.tribe}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Black Furies">Black Furies</option>
-                <option value="Bone Gnawers">Bone Gnawers</option>
-                <option value="Children of Gaia">Children of Gaia</option>
-                <option value="Fianna">Fianna</option>
-                <option value="Get of Fenris">Get of Fenris</option>
-                <option value="Glass Walkers">Glass Walkers</option>
-                <option value="Red Talons">Red Talons</option>
-                <option value="Shadow Lords">Shadow Lords</option>
-                <option value="Silent Striders">Silent Striders</option>
-                <option value="Silver Fangs">Silver Fangs</option>
-                <option value="Stargazers">Stargazers</option>
-                <option value="Uktena">Uktena</option>
-                <option value="Wendigo">Wendigo</option>
-                <option value="Black Spiral Dancer">Black Spiral Dancers</option>
-                <option value="Skin Dancer">Skin Dancers</option>
+                <option value="wod.bio.werewolf.blackfuries">{{localize "wod.bio.werewolf.blackfuries"}}</option>
+                <option value="wod.bio.werewolf.bonegnawer">{{localize "wod.bio.werewolf.bonegnawer"}}</option>
+                <option value="wod.bio.werewolf.childrenofgaia">{{localize "wod.bio.werewolf.childrenofgaia"}}</option>
+                <option value="wod.bio.werewolf.fianna">{{localize "wod.bio.werewolf.fianna"}}</option>
+                <option value="wod.bio.werewolf.getoffenris">{{localize "wod.bio.werewolf.getoffenris"}}</option>
+                <option value="wod.bio.werewolf.glasswalker">{{localize "wod.bio.werewolf.glasswalker"}}</option>
+                <option value="wod.bio.werewolf.redtalon">{{localize "wod.bio.werewolf.redtalon"}}</option>
+                <option value="wod.bio.werewolf.shadowlord">{{localize "wod.bio.werewolf.shadowlord"}}</option>
+                <option value="wod.bio.werewolf.silentstrider">{{localize "wod.bio.werewolf.silentstrider"}}</option>
+                <option value="wod.bio.werewolf.silverfang">{{localize "wod.bio.werewolf.silverfang"}}</option>
+                <option value="wod.bio.werewolf.stargazer">{{localize "wod.bio.werewolf.stargazer"}}</option>
+                <option value="wod.bio.werewolf.uktena">{{localize "wod.bio.werewolf.uktena"}}</option>
+                <option value="wod.bio.werewolf.wendigo">{{localize "wod.bio.werewolf.wendigo"}}</option>
+                <option value="wod.bio.werewolf.blackspiraldancer">{{localize "wod.bio.werewolf.blackspiraldancer"}}</option>
+                <option value="wod.bio.werewolf.skindancer">{{localize "wod.bio.werewolf.skindancer"}}</option>
+                <option value="wod.bio.werewolf.bunyip">{{localize "wod.bio.werewolf.bunyip"}}</option>
+                <option value="wod.bio.werewolf.croatan">{{localize "wod.bio.werewolf.croatan"}}</option>
+                <option value="wod.bio.werewolf.whitehowler">{{localize "wod.bio.werewolf.whitehowler"}}</option>
                 {{/select}}
             </select>
             {{/if}}
@@ -74,18 +80,18 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio" for="data.packname">{{localize "wod.bio.packname"}}</label>
-        <div class="pullLeft">
-            <input class="sheet-infoValues" name="data.packname" type="text" value="{{data.data.packname}}" data-name="data.data.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        <label class="headlineText headlineBio splatFont" for="data.packname">{{localize "wod.bio.packname"}}</label>
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.packname" type="text" value="{{data.data.packname}}" data-name="data.data.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
 
 <div class="clearareaBox area-box">
     <div>
-        <label for="data.packtotem" class="headlineText headlineBio">{{localize "wod.bio.packtotem"}}</label>
-        <div class="pullLeft">
-            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        <label for="data.packtotem" class="headlineText headlineBio splatFont">{{localize "wod.bio.packtotem"}}</label>
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>

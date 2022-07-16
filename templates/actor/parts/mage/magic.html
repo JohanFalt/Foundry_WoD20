@@ -10,8 +10,21 @@
 </div>
 
 <div class="sheet-area">
+    <div class="clearareaBox" style="display: flex;">
 
-    {{> "systems/worldofdarkness/templates/actor/parts/mage/rotes.html"}}
+        <div class="pullLeft" style="width: 50%;">
+
+            {{> "systems/worldofdarkness/templates/actor/parts/mage/rotes.html"}}
+
+        </div>
+
+        <div class="pullLeft" style="width: 50%;">
+
+            {{~> "systems/worldofdarkness/templates/actor/parts/mage/focus.html"}}
+
+        </div>
+        
+    </div>
 
 </div>
 
@@ -23,11 +36,15 @@
             {{> "systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html"}}
 
         </div>        
-        
-        <div class="pullLeft" style="width: 33%;">
 
-            {{> "systems/worldofdarkness/templates/actor/parts/mage/stats_quintessence.html"}}
-    
+        <div class="pullLeft" style="width: 33%;">
+            <div class="sheet-boxcontainer">
+                <div style="width: 225px; margin: 0 auto;">
+                    
+                    {{> "systems/worldofdarkness/templates/actor/parts/mage/stats_quintessence.html"}}																		
+            
+                </div>
+            </div>
         </div>
         
         <div class="pullLeft" style="width: 33%;"">

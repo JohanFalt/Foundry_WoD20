@@ -1,58 +1,82 @@
-<div class="sheet-headline">{{localize "wod.labels.combat.natural"}}</div>
+<div class="headlineRow splatFont">{{localize "wod.labels.combat.natural"}}</div>
+
 <div class="clearareaBox">
-    <div class="pullLeft combat-largeBox headlineList">{{localize "wod.combat.weapon.weapon"}}</div>
-    <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.attr"}}</div>
-    <div class="pullLeft combat-abilityBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
-    <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.diff"}}</div>
-    <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.damage"}}</div>
+    <!-- <div class="pullLeft combat-namebox headlineList">{{localize "wod.combat.weapon.weapon"}}</div> -->
+    <div class="pullLeft combat-namebox headlineList">&nbsp;</div>
+    <div class="pullLeft combat-smallBox headlineList splatFont">{{localize "wod.combat.weapon.attr"}}</div>
+    <div class="pullLeft combat-abilityBox headlineList splatFont">{{localize "wod.combat.weapon.ability"}}</div>
+    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.acc"}}</div>
+    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.diff"}}</div>
+    <div class="pullLeft combat-smallBox headlineList splatFont">{{localize "wod.combat.weapon.damage"}}</div>
 </div>
 
 {{#each actor.naturalWeapons as |item id|}}
 
 <div class="clearareaBox row">
-<!--    <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.isrollable}}vrollable{{/if}}" 
-        data-type="{{../config.sheettype.mortal}}"
-        data-rollitem="true" 
-        data-source="attack"
-        data-label="{{captilizeFirst item.name}}" 
-        data-dice1="{{item.data.attack.attribute}}" 
-        data-dice2="{{item.data.attack.ability}}" 
-        data-diff="{{item.data.difficulty}}">{{captilizeFirst item.name}}</div> -->
-    <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.isrollable}}vrollable{{/if}}" 
-        data-type="{{../config.sheettype.mortal}}"
-        data-object="Melee"
-        data-rollitem="true" 
-        data-itemid="{{item._id}}">{{captilizeFirst item.name}}</div>
+    
+    {{#if item.data.attack.isrollable}}
+        <div class="weapon-rolliconbox"><img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.dice.rollattack"}}"></div>
+        <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.isrollable}}vrollable{{/if}}" 
+            data-type="{{../config.sheettype.mortal}}"
+            data-object="Melee"
+            data-rollitem="true" 
+            data-itemid="{{item._id}}">            
+            {{item.name}}
+        </div>
+    {{else}}
+        {{#if item.data.damage.isrollable}}
+            <div class="weapon-rolliconbox"><img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.dice.rolldamage"}}"></div>
+            <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.damage.isrollable}}vrollable{{/if}}" 
+                data-type="{{../config.sheettype.mortal}}"
+                data-object="Damage"
+                data-rollitem="true" 
+                data-itemid="{{item._id}}">
+                {{item.name}}
+            </div>
+        {{else}}
+            <div class="weapon-rolliconbox-empty">&nbsp;</div>
+            <div class="pullLeft combat-largeBox headlineNormal">{{item.name}}</div>
+        {{/if}}
+    {{/if}}
     <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.data.attack.attribute)}}</div>
-    <div class="pullLeft combat-abilityBox headlineNormal">{{localize (getAbility item.data.attack.ability)}}</div>
+    <div class="pullLeft combat-abilityBox headlineNormal">{{shorten (localize (getAbility item.data.attack.ability)) 10}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.attack.accuracy}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.data.difficulty}}</div>
     <div class="pullLeft combat-smallBox headlineNormal">
         {{#if item.data.damage.isrollable}}
-        {{captilizeFirst (convertDamageCode item.data.damage.attribute item.data.damage.bonus item.data.damage.type)}}
+            {{captilizeFirst (convertDamageCode item.data.damage.attribute item.data.damage.bonus item.data.damage.type)}}
         {{else}}
-        &nbsp;
-        {{/if}}
-    </div>
-<!--    <div class="pullLeft {{#if item.data.damage.isrollable}}vrollable{{/if}}" 
-        data-type="{{../config.sheettype.mortal}}"
-        data-rolldamage="true" 
-        data-label="{{captilizeFirst item.name}}" 
-        data-dice1="{{item.data.damage.attribute}}" 
-        data-dice2="{{item.data.damage.bonus}}" 
-        data-damagetype="{{item.data.damage.type}}">{{#if item.data.damage.isrollable}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>-->
-    <div class="pullLeft {{#if item.data.damage.isrollable}}vrollable{{/if}}" 
-        data-type="{{../config.sheettype.mortal}}"
-        data-object="Damage"
-        data-rollitem="true" 
-        data-itemid="{{item._id}}">{{#if item.data.damage.isrollable}}<img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.labels.rolldamage"}}">{{else}}&nbsp;{{/if}}</div>
-    <div class="pullLeft">
-        {{#if ../locked}}
             &nbsp;
-        {{ else }}
-        <a class="item-edit" title="{{localize "wod.labels.edit.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fas fa-edit"></i></a>
-        <a class="item-delete" title="{{localize "wod.labels.remove.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fas fa-trash"></i></a>
         {{/if}}
     </div>
+
+    <div>
+        <div class="pullLeft headlineNormal {{#if (ne item.data.description "")}}pointer tooltip{{/if}}">
+            {{#if (ne item.data.description "")}}
+                <i class="icon fa fa-sticky-note"></i>
+                <span class="tooltiptext">                
+                    <b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}                
+                </span>
+            {{else}}
+                <i class="icon fa fa-sticky-note"></i>
+            {{/if}}
+        </div>        
+        <div class="pullLeft">
+            <a class="send-chat" 
+                title="{{localize "wod.labels.send"}}" 
+                data-type="Weapon" 
+                data-item-id="{{item._id}}" 
+                data-headline="<h2>{{item.name}}</h2>" 
+                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                <span class='chatt-text'>{{item.data.description}}</span>"><i class="icon fa fa-commenting"></i></a>
+
+            {{#if (eq ../locked false)}}                                
+                <a class="item-edit" title="{{localize "wod.labels.edit.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fas fa-edit"></i></a>
+                <a class="item-delete" title="{{localize "wod.labels.remove.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fas fa-trash"></i></a>
+            {{/if}}
+        </div>
+    </div>
+
 </div>
 
 {{/each}}

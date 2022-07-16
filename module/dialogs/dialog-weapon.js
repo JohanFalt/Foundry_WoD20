@@ -13,13 +13,17 @@ export class MeleeWeapon {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item.data["_id"];
         this.name = item.data["name"];
         this.type = item.data["type"];
 
         this.dice1 = item.data.data.attack["attribute"];
         this.dice2 = item.data.data.attack["ability"];
-        this.bonus = item.data.data.attack["accuracy"];
+        this.bonus =  parseInt(item.data.data.attack["accuracy"]);
         this.difficulty = parseInt(item.data.data["difficulty"]);
+
+        this.rollattack = item.data.data.attack["isrollable"];
+        this.rolldamage = item.data.data.damage["isrollable"];
 
         this.system = item.data.data["description"];
 
@@ -40,13 +44,17 @@ export class RangedWeapon {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item.data["_id"];
         this.name = item.data["name"];
         this.type = item.data["type"];
 
         this.dice1 = item.data.data.attack["attribute"];
         this.dice2 = item.data.data.attack["ability"];
-        this.bonus = item.data.data.attack["accuracy"];
+        this.bonus =  parseInt(item.data.data.attack["accuracy"]);
         this.difficulty = parseInt(item.data.data["difficulty"]);
+
+        this.rollattack = item.data.data.attack["isrollable"];
+        this.rolldamage = item.data.data.damage["isrollable"];
 
         this.system = item.data.data["description"];
 
@@ -70,7 +78,7 @@ export class Damage {
         this.attributeValue = 0;
         this.attributeName = "";
 
-        this.abilityValue = item.data.data.damage["bonus"];
+        this.abilityValue = 0;
         this.abilityName = "";
 
         this.hasSpeciality = false;
@@ -81,10 +89,17 @@ export class Damage {
 
         this.dice1 = item.data.data.damage["attribute"];
         this.dice2 = "";        
-        this.bonus = 0;
+        this.bonus = parseInt(item.data.data.damage["bonus"]);
         this.difficulty = 6;
         this.damageType = item.data.data.damage["type"];
         this.damageCode = game.i18n.localize(CONFIG.wod.damageTypes[this.damageType]);
+
+        if (item.data.data.extraSuccesses != undefined) {
+            this.extraSuccesses = parseInt(item.data.data.extraSuccesses);
+        }
+        else {
+            this.extraSuccesses = 0;
+        }
 
         this.system = item.data.data["description"];
 
@@ -275,7 +290,7 @@ export class DialogWeapon extends FormApplication {
         });
     }
 
-    _rollAttack(event) {
+    async _rollAttack(event) {
         if (this.object.close) {
             this.close();
             return;
@@ -291,7 +306,9 @@ export class DialogWeapon extends FormApplication {
         }    
         
         const weaponRoll = new DiceRoll(this.actor);
-        weaponRoll.handlingOnes = CONFIG.wod.handleOnes;             
+        weaponRoll.handlingOnes = CONFIG.wod.handleOnes;    
+        
+        let numDices = 0;
 
         if (this.object.type == "Damage") {
             weaponRoll.origin = "damage";
@@ -308,7 +325,13 @@ export class DialogWeapon extends FormApplication {
                 templateHTML += ` + ${this.object.bonus}`;
             }
 
-            templateHTML += ` ${this.object.damageCode}</strong>`;
+            if (this.object.extraSuccesses > 0) {
+                templateHTML += ` + ${this.object.extraSuccesses}`;
+            }
+
+            templateHTML += ` ${this.object.damageCode}</strong>`;            
+
+            numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus) + parseInt(this.object.extraSuccesses);
         }
         else {
             weaponRoll.origin = "attack";
@@ -326,15 +349,24 @@ export class DialogWeapon extends FormApplication {
             }
     
             templateHTML += `</strong>`;     
+
+            templateHTML += `<div class="chat-rollbutton pointer vrollable" 
+                                data-type="Mortal"
+                                data-object="Damage"
+                                data-rollitem="true" 
+                                data-itemid="${this.object._id}">
+                                    ${game.i18n.localize("wod.dialog.weapon.rolldamage")}
+                            </div>`;
             
             if (ActionHelper._ignoresPain(this.actor)) {
                 woundPenaltyVal = 0;			}				
             else {
                 woundPenaltyVal = parseInt(this.actor.data.data.health.damage.woundpenalty);
             }
-        }            
 
-        const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
+            numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
+        }            
+        
         let specialityText = "";
         this.object.close = true;
 
@@ -343,26 +375,37 @@ export class DialogWeapon extends FormApplication {
         }
 
         weaponRoll.numDices = numDices;
-        weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
         weaponRoll.difficulty = parseInt(this.object.difficulty);          
-        weaponRoll.templateHTML = templateHTML;        
-        weaponRoll.systemText = this.object.system;
-        weaponRoll.speciality = this.object.useSpeciality;
-        weaponRoll.specialityText = specialityText;
+        weaponRoll.templateHTML = templateHTML;      
+        
+        if (weaponRoll.origin == "attack") {
+            weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
+            weaponRoll.systemText = this.object.system;
+            weaponRoll.speciality = this.object.useSpeciality;
+            weaponRoll.specialityText = specialityText;
+        }        
+        else {
+            weaponRoll.woundpenalty = 0;
+            weaponRoll.speciality = false;
+            weaponRoll.systemText = "";
+        }
 
-        rollDice(weaponRoll);
+        if ((weaponRoll.origin == "attack") && (this.object.rollattack)) {
+            const numberOfSuccesses = await rollDice(weaponRoll);     
+            
+            if (numberOfSuccesses > 0) {
+                let item = ActionHelper._getItem(this.object._id, this.actor.data.items);
 
-        // rollDice(
-        //     CONFIG.handleOnes,
-        //     numDices,
-        //     this.actor,
-        //     templateHTML,
-        //     parseInt(this.object.difficulty),
-        //     this.object.system,
-
-        //     this.object.useSpeciality,
-        //     specialityText,
-        //     woundPenaltyVal);   
+                // add number of successes to Damage roll
+                item.data.data.extraSuccesses = parseInt(numberOfSuccesses) - 1;
+                const damageData = new Damage(item);
+                let rollDamage = new DialogWeapon(this.actor, damageData);
+                rollDamage.render(true);
+            }
+        } 
+        else {
+            rollDice(weaponRoll);
+        }
     }
 
     /* clicked to close form */

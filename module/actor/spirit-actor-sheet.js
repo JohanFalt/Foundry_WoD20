@@ -43,7 +43,8 @@ export class SpiritActorSheet extends ActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.data.settings.iscreated) {
-			if (actorData.type == "Spirit") {
+			if (actorData.type == CONFIG.wod.sheettype.spirit) {
+				actorData.data.settings.soak.bashing.isrollable = true;
 				actorData.data.settings.soak.lethal.isrollable = true;
 				actorData.data.settings.soak.aggravated.isrollable = true;
 				actorData.data.settings.iscreated = true;
@@ -55,6 +56,7 @@ export class SpiritActorSheet extends ActorSheet {
 
 		data.config = CONFIG.wod;		
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
+		data.graphicsettings = ActionHelper._getGraphicSettings();
 
 		console.log("WoD | Spirit Sheet getData");
 
@@ -73,6 +75,9 @@ export class SpiritActorSheet extends ActorSheet {
 				if (i.data.type == "wod.types.charm") {
 					charmlist.push(i);
 				}
+				if (i.data.type == "wod.types.gift") {
+					giftlist.push(i);
+				}
 			}
 			else {
 				other.push(i);
@@ -83,8 +88,8 @@ export class SpiritActorSheet extends ActorSheet {
 		data.actor.giftlist = giftlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.other = other;	
 
-		if (data.actor.type == "Spirit") {
-			console.log("Spirit");
+		if (data.actor.type == CONFIG.wod.sheettype.spirit) {
+			console.log(CONFIG.wod.sheettype.spirit);
 			console.log(data.actor);
 		}	
 		
@@ -102,7 +107,7 @@ export class SpiritActorSheet extends ActorSheet {
 		html
 			.find(".vrollable")
 			.click(this._onRollSpiritDialog.bind(this));
-
+		
 		html
 			.find(".macroBtn")
 			.click(this._onRollSpiritDialog.bind(this));
@@ -111,17 +116,27 @@ export class SpiritActorSheet extends ActorSheet {
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterEmpty.bind(this));
+		// html
+		// 	.find(".resource-value > .resource-value-empty")
+		// 	.click(this._onDotCounterEmpty.bind(this));
 
 		// temporary squares
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterChange.bind(this));
+		// html
+		// 	.find(".resource-counter > .resource-value-empty")
+		// 	.click(this._onDotCounterEmpty.bind(this));		
+
+		// items
+		// Edit Inventory Item
 		html
-			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterEmpty.bind(this));						
+			.find(".item-edit")
+			.click(this._onItemEdit.bind(this));
+
+		html
+			.find(".item-delete")
+			.click(this._onItemDelete.bind(this));
 
 		// skicka till chat
 		html
@@ -129,16 +144,69 @@ export class SpiritActorSheet extends ActorSheet {
 			.click(this._onSendChat.bind(this));
 	}
 
+	async _onItemEdit(event) {
+		if (this.locked) {
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+			return;
+		}
+
+		var _a;
+		event.preventDefault();
+        event.stopPropagation();
+
+		const itemId = $(event.currentTarget).data("item-id");
+		const item = this.actor.getEmbeddedDocument("Item", itemId);		
+
+		if (item instanceof Item) {
+            (_a = item.sheet) === null || _a === void 0 ? void 0 : _a.render(true);
+		}
+	}
+
+	async _onItemDelete(event) {
+		if (this.locked) {
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+			return;
+		}
+
+		event.preventDefault();
+        event.stopPropagation();
+
+		const itemId = $(event.currentTarget).data("item-id");
+		let item = this.actor.getEmbeddedDocument("Item", itemId);
+
+        if (!item)
+            return;
+
+        const performDelete = await new Promise((resolve) => {
+            Dialog.confirm({
+                title: game.i18n.format(game.i18n.localize("wod.labels.remove.item"), { name: item.name }),
+                yes: () => resolve(true),
+                no: () => resolve(false),
+                content: game.i18n.format(game.i18n.localize("wod.labels.remove.removing") + " " + item.name, {
+                    name: item.name,
+                    actor: this.actor.name,
+                }),
+            });
+        });
+
+        if (!performDelete)
+            return;
+
+		console.log("WoD | Deleting item id: " + itemId);
+
+		this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
+	}
+
 	_onRollSpiritDialog(event) {		
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if ((dataset.label == "Rage") || (dataset.label == "Gnosis") || (dataset.label == "Willpower")) {
+		if (dataset.key == "willpower") {
 			// todo
 			// helt ok!
 		}
-		else if (dataset.type != "Spirit") {
+		else if (dataset.type != CONFIG.wod.sheettype.spirit) {
 			return;
 		}
 
@@ -153,24 +221,6 @@ export class SpiritActorSheet extends ActorSheet {
 		ActionHelper.printMessage(headline, message, this.actor);
 	}
 
-	// async _rollMacro(event) {
-	// 	event.preventDefault();
-	// 	const element = event.currentTarget;
-	// 	const dataset = element.dataset;
-
-	// 	const source = dataset.source;
-
-	// 	if (source == "initiative") {
-	// 		await ActionHelper.RollInitiative(event, this.actor);
-	// 	}
-	// 	if (source == "soak") {
-	// 		await ActionHelper.RollSoak(event, this.actor);
-	// 	}
-	// 	if (source == "dices") {
-	// 		await ActionHelper.RollDices(event, this.actor);
-	// 	}
-	// }
-
 	_onDotCounterChange(event) {
 		console.log("WoD | Spirit Sheet _onDotCounterChange");
 		
@@ -178,6 +228,15 @@ export class SpiritActorSheet extends ActorSheet {
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
+
+		if (dataset.key == "willpower") {
+			// todo
+			// helt ok!
+		}
+		else if (dataset.type != CONFIG.wod.sheettype.spirit) {
+			return;
+		}
+
 		const index = Number(dataset.index);
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
@@ -199,27 +258,27 @@ export class SpiritActorSheet extends ActorSheet {
 		this._assignToActorField(fields, index + 1);
 	}
 
-	_onDotCounterEmpty(event) {
-		console.log("WoD | Spirit Sheet _onDotCounterEmpty");
+	// _onDotCounterEmpty(event) {
+	// 	console.log("WoD | Spirit Sheet _onDotCounterEmpty");
 		
-		event.preventDefault();
+	// 	event.preventDefault();
 
-		const element = event.currentTarget;
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
-		const steps = parent.find(".resource-value-empty");
+	// 	const element = event.currentTarget;
+	// 	const parent = $(element.parentNode);
+	// 	const fieldStrings = parent[0].dataset.name;
+	// 	const fields = fieldStrings.split(".");
+	// 	const steps = parent.find(".resource-value-empty");
 
-		steps.removeClass("active");
+	// 	steps.removeClass("active");
 		
-		steps.each(function (i) {
-			if (i <= 0) {
-				$(this).addClass("active");
-			}
-		});
+	// 	steps.each(function (i) {
+	// 		if (i <= 0) {
+	// 			$(this).addClass("active");
+	// 		}
+	// 	});
 		
-		this._assignToActorField(fields, 0);
-	}
+	// 	this._assignToActorField(fields, 0);
+	// }
 	
  	/**
 	* If any changes are done to the Actor values.
@@ -238,33 +297,46 @@ export class SpiritActorSheet extends ActorSheet {
 				}
 			}
 		}
-		else if (fields[2] === "rage") {
-			if (fields[3] === "permanent") {
-				actorData.data.rage.permanent = value;
+		else if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "willpower")) {
+			if (actorData.data[fields[2]][fields[3]] == value) {
+				actorData.data[fields[2]][fields[3]] = parseInt(actorData.data[fields[2]][fields[3]]) - 1;
 			}
 			else {
-				actorData.data.rage.temporary = value;
+				actorData.data[fields[2]][fields[3]] = value;
 			}
+		}
+		// else if (fields[2] === "rage") {
+		// 	if (fields[3] === "permanent") {
+		// 		actorData.data.rage.permanent = value;
+		// 	}
+		// 	else {
+		// 		actorData.data.rage.temporary = value;
+		// 	}
 
-		}
-		else if (fields[2] === "gnosis") {
-			if (fields[3] === "permanent") {
-				actorData.data.gnosis.permanent = value;
-			}
-			else {
-				actorData.data.gnosis.temporary = value;
-			}
-		}
-		else if (fields[2] === "willpower") {
-			if (fields[3] === "permanent") {
-				actorData.data.willpower.permanent = value;
-			}
-			else {
-				actorData.data.willpower.temporary = value;
-			}
-		}
+		// }
+		// else if (fields[2] === "gnosis") {
+		// 	if (fields[3] === "permanent") {
+		// 		actorData.data.gnosis.permanent = value;
+		// 	}
+		// 	else {
+		// 		actorData.data.gnosis.temporary = value;
+		// 	}
+		// }
+		// else if (fields[2] === "willpower") {
+		// 	if (fields[3] === "permanent") {
+		// 		actorData.data.willpower.permanent = value;
+		// 	}
+		// 	else {
+		// 		actorData.data.willpower.temporary = value;
+		// 	}
+		// }
 		else if (fields[2] === "essence") {
-			actorData.data.essence.temporary = value;
+			if (actorData.data.essence.temporary == value) {
+				actorData.data.essence.temporary = parseInt(actorData.data.essence.temporary) - 1;
+			}
+			else {
+				actorData.data.essence.temporary = value;
+			}
 		}
 		else {
     		const lastField = fields.pop();

@@ -1,19 +1,18 @@
-<div class="sheet-headline vrollable"	
+<div class="sheet-headline splatFont vrollable"	
 	data-type="{{config.sheettype.mage}}"
 	data-key="arete"
 	data-noability="true">{{localize 'wod.advantages.arete'}}</div>
-<div class="resource-value tempSquareRow"  data-value="{{data.data.arete.permanent}}" data-name="data.data.arete.permanent">
-	<span class="resource-value-empty" data-type="{{config.sheettype.mage}}"></span>
 
-	{{#numLoop data.data.arete.max}}
+<div class="sheet-boxcontainer">
+	<div class="resource-value tempSquareRow"  data-value="{{data.data.arete.permanent}}" data-name="data.data.arete.permanent">
 
-	<!-- data-value="{{../data.data.arete.permanent}}" 
-		data-name="data.data.arete.permanent"  -->
-	
-	<span class="resource-value-step" 		
-		data-type="{{../config.sheettype.mage}}" 
-		data-index="{{this}}"></span>
-	
-	{{/numLoop}}
-	
+		{{#numLoop data.data.arete.max}}
+
+		<span class="resource-value-step" 		
+			data-type="{{../config.sheettype.mage}}" 
+			data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+		
+	</div>
 </div>

@@ -12,11 +12,11 @@
 						<img src="{{item.img}}" />
 					{{/if}}
 				</div>
-				<div class="top-center top-headline centerText">
+				<div class="top-center top-headline splatFont centerText">
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
-					ROTE
+					{{captilize (localize "wod.types.rote")}}
 				</div>				
 			</div>
 			
@@ -24,215 +24,232 @@
 		
 		<section class="item-body">
 
-			<div class="infobox">
-				<label class="headlineItem item-label" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>
+            <div class="sheet-area">
 
-			<div class="infobox">
-                <label class="headlineItem item-label" for="data.instrument.ispersonalized">{{localize "wod.dialog.aretecasting.instrumentperson"}}</label>
-                <input name="data.instrument.ispersonalized" type="checkbox" {{#if data.data.instrument.ispersonalized}} checked {{/if}}></input>
-			</div>
-
-            <div class="infobox">
-                <label class="headlineItem item-label" for="data.instrument.isunique">{{localize "wod.dialog.aretecasting.instrumentunique"}}</label>
-                <input name="data.instrument.isunique" type="checkbox" {{#if data.data.instrument.isunique}} checked {{/if}}></input>
-			</div>
-
-            <div class="infobox">
-				<label class="headlineItem item-label" for="data.spendingtime">{{localize "wod.dialog.aretecasting.timeextra"}}</label>
-				<select name="data.spendingtime">
-					{{#select data.data.spendingtime}}
-                    <option value="0">0</option>
-					<option value="-1">-1</option>
-					<option value="-2">-2</option>
-                    <option value="-3">-3</option>
-					{{/select}}
-				</select>
-			</div>
-
-            <div class="infobox">
-				<label class="headlineItem item-label" for="data.spelltype">{{localize "wod.dialog.aretecasting.castingtype"}}</label>
-				<select name="data.spelltype">
-					{{#select data.data.spelltype}}
-                    <option value="">- {{localize "wod.labels.varies"}} -</option>
-					<option value="coincidental">{{localize "wod.spheres.coincidental"}}</option>
-					<option value="vulgar">{{localize "wod.spheres.vulgar"}}</option>
-					{{/select}}
-				</select>
-			</div>
-
-            <div class="item-area">
-                <div class="infobox top-sidetext item-info">{{localize "wod.info.items.spheres"}}</div>
-            
-                <!-- Spheres -->
                 <div class="infobox">
-                    <label for="data.correspondence" class="headlineItem headlineBio">{{localize "wod.spheres.correspondence"}}</label>
-                    <div class="resource-value" data-value="{{data.correspondence}}" data-name="data.spheres.correspondence">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.correspondence ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
+                    <label class="headlineItem item-label" for="name">{{localize "wod.bio.name"}}</label>
+                    <input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
                 </div>
 
                 <div class="infobox">
-                    <label for="data.spheres.entropy" class="headlineItem headlineBio">{{localize "wod.spheres.entropy"}}</label>
-                    <div class="resource-value" data-value="{{data.entropy}}" data-name="data.spheres.entropy">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.entropy ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
+                    <label class="headlineItem item-label" for="data.instrument.ispersonalized">{{localize "wod.dialog.aretecasting.instrumentperson"}}</label>
+                    <input name="data.instrument.ispersonalized" type="checkbox" {{#if data.data.instrument.ispersonalized}} checked {{/if}}></input>
                 </div>
 
                 <div class="infobox">
-                    <label for="data.spheres.forces" class="headlineItem headlineBio">{{localize "wod.spheres.forces"}}</label>
-                    <div class="resource-value" data-value="{{data.forces}}" data-name="data.spheres.forces">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.forces ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
+                    <label class="headlineItem item-label" for="data.instrument.isunique">{{localize "wod.dialog.aretecasting.instrumentunique"}}</label>
+                    <input name="data.instrument.isunique" type="checkbox" {{#if data.data.instrument.isunique}} checked {{/if}}></input>
                 </div>
 
                 <div class="infobox">
-                    <label for="data.spheres.life" class="headlineItem headlineBio">{{localize "wod.spheres.life"}}</label>
-                    <div class="resource-value" data-value="{{data.life}}" data-name="data.spheres.life">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.life ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
+                    <label class="headlineItem item-label" for="data.spendingtime">{{localize "wod.dialog.aretecasting.timeextra"}}</label>
+                    <select class="editable" name="data.spendingtime">
+                        {{#select data.data.spendingtime}}
+                        <option value="0">0</option>
+                        <option value="-1">-1</option>
+                        <option value="-2">-2</option>
+                        <option value="-3">-3</option>
+                        {{/select}}
+                    </select>
                 </div>
 
                 <div class="infobox">
-                    <label for="data.spheres.matter" class="headlineItem headlineBio">{{localize "wod.spheres.matter"}}</label>
-                    <div class="resource-value" data-value="{{data.matter}}" data-name="data.spheres.matter">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.matter ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
+                    <label class="headlineItem item-label" for="data.spelltype">{{localize "wod.dialog.aretecasting.castingtype"}}</label>
+                    <select class="editable" name="data.spelltype">
+                        {{#select data.data.spelltype}}
+                            <option value="">- {{localize "wod.labels.varies"}} -</option>
+                            <option value="coincidental">{{localize "wod.spheres.coincidental"}}</option>
+                            <option value="vulgar">{{localize "wod.spheres.vulgar"}}</option>
+                        {{/select}}
+                    </select>
                 </div>
 
                 <div class="infobox">
-                    <label for="data.spheres.mind" class="headlineItem headlineBio">{{localize "wod.spheres.mind"}}</label>
-                    <div class="resource-value" data-value="{{data.mind}}" data-name="data.spheres.mind">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.mind ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
+                    <label class="headlineItem item-label" for="data.spelltype">{{localize "wod.dialog.aretecasting.extendedcasting"}}</label>
+                    <input name="data.isextended" type="checkbox" {{#if data.data.isextended}} checked {{/if}}></input>
                 </div>
 
-                <div class="infobox">
-                    <label for="data.spheres.prime" class="headlineItem headlineBio">{{localize "wod.spheres.prime"}}</label>
-                    <div class="resource-value" data-value="{{data.prime}}" data-name="data.spheres.prime">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.prime ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
-                </div>
-
-                <div class="infobox">
-                    <label for="data.spheres.spirit" class="headlineItem headlineBio">{{localize "wod.spheres.spirit"}}</label>
-                    <div class="resource-value" data-value="{{data.spirit}}" data-name="data.spheres.spirit">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.spirit ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
-                </div>
-
-                <div class="infobox">
-                    <label for="data.spheres.time" class="headlineItem headlineBio">{{localize "wod.spheres.time"}}</label>
-                    <div class="resource-value" data-value="{{data.time}}" data-name="data.spheres.time">
-                        <span class="resource-value-empty"></span>
-
-                        {{#numLoop 5}}
-                            
-                        {{#iff ../data.data.time ">" this}}
-                        <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                        <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
-                            
-                        {{/numLoop}}
-                            
-                    </div>
-                </div>
             </div>
 
-            <!-- description -->
-            <div class="infobox">
-                <label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-                <textarea class="item" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
+            <div class="sheet-area">
+
+                <div class="item-area">
+                    <!-- Spheres -->
+                    <div class="infobox">
+                        <label for="data.correspondence" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.correspondence"}}</label>
+                        <div class="resource-value" data-value="{{data.correspondence}}" data-name="data.spheres.correspondence">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.correspondence ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.entropy" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.entropy"}}</label>
+                        <div class="resource-value" data-value="{{data.entropy}}" data-name="data.spheres.entropy">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.entropy ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.forces" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.forces"}}</label>
+                        <div class="resource-value" data-value="{{data.forces}}" data-name="data.spheres.forces">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.forces ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.life" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.life"}}</label>
+                        <div class="resource-value" data-value="{{data.life}}" data-name="data.spheres.life">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.life ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.matter" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.matter"}}</label>
+                        <div class="resource-value" data-value="{{data.matter}}" data-name="data.spheres.matter">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.matter ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.mind" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.mind"}}</label>
+                        <div class="resource-value" data-value="{{data.mind}}" data-name="data.spheres.mind">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.mind ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.prime" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.prime"}}</label>
+                        <div class="resource-value" data-value="{{data.prime}}" data-name="data.spheres.prime">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.prime ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.spirit" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.spirit"}}</label>
+                        <div class="resource-value" data-value="{{data.spirit}}" data-name="data.spheres.spirit">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.spirit ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="infobox">
+                        <label for="data.spheres.time" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.time"}}</label>
+                        <div class="resource-value" data-value="{{data.time}}" data-name="data.spheres.time">
+                            <span class="resource-value-empty"></span>
+
+                            {{#numLoop 5}}
+                                
+                            {{#iff ../data.data.time ">" this}}
+                            <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                            <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/iff}}
+                                
+                            {{/numLoop}}
+                                
+                        </div>
+                    </div>
+
+                    <div class="information-area">{{localize "wod.info.items.spheres"}}</div>
+                    
+                </div>
+            </div>        
+            
+            <div class="sheet-area">
+
+                <!-- description -->
+                <div class="infobox">
+                    <label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+                    <textarea class="item editable" name="data.description" data-dtype="String">{{~data.data.description}}</textarea>
+                </div>
+
             </div>
 
 		</section>

@@ -1,29 +1,47 @@
-{{#iff actor.type "!=" "Spirit"}}
-<div class="pullLeft">
-    {{#iff actor.type "==" config.sheettype.vampire}}
-        <div class="condition">
-            <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
-        </div>
-    {{/iff}}
-    {{#iff actor.type "==" config.sheettype.werewolf}}
-        <div class="condition">
-            <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
-        </div>
-    {{/iff}}    
-    {{#iff actor.type "==" "Changing Breed"}}
-        {{#iff data.data.changingbreed "!=" "Ananasi"}}
-            {{#iff data.data.changingbreed "!=" "Nuwisha"}}
-            <div class="condition">
-                <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>{{localize "wod.combat.conditions.frenzy"}}</input>
+{{#if (ne actor.type config.sheettype.spirit)}}
+<div class="pullLeft splatFont">
+    {{#if (eq actor.type config.sheettype.vampire)}}
+        <div class="condition clearareaBox">
+            <div class="pullLeft condition-checkbox">
+                <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>
             </div>
-            {{/iff}}
-        {{/iff}}    
-    {{/iff}}
-    <div class="condition">
-        <input name="data.conditions.isignoringpain" type="checkbox" {{#if data.data.conditions.isignoringpain}} checked {{/if}}>{{localize "wod.combat.conditions.ignorepain"}}</input>
+            <div class="pullLeft condition-checkbox">
+                {{localize "wod.combat.conditions.frenzy"}}
+            </div>
+        </div>
+    {{/if}}
+    {{#if (eq actor.type config.sheettype.werewolf)}}
+        <div class="condition clearareaBox">
+            <div class="pullLeft condition-checkbox">
+                <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>
+            </div>
+            <div class="pullLeft condition-checkbox">
+                {{localize "wod.combat.conditions.frenzy"}}
+            </div>
+        </div>
+    {{/if}}    
+    {{#if (eq actor.type "Changing Breed")}}
+        {{#if (eqAnyNot data.data.changingbreed "Ananasi" "Nuwisha")}}
+            <div class="condition clearareaBox">
+                <div class="pullLeft condition-checkbox">
+                    <input name="data.conditions.isfrenzy" type="checkbox" {{#if data.data.conditions.isfrenzy}} checked {{/if}}>
+                </div>
+                <div class="pullLeft condition-checkbox">
+                    {{localize "wod.combat.conditions.frenzy"}}
+                </div>
+            </div>
+        {{/if}}    
+    {{/if}}
+    <div class="condition clearareaBox">
+        <div class="pullLeft condition-checkbox">
+            <input name="data.conditions.isignoringpain" type="checkbox" {{#if data.data.conditions.isignoringpain}} checked {{/if}}>
+        </div>
+        <div class="pullLeft condition-checkbox">
+            {{localize "wod.combat.conditions.ignorepain"}}
+        </div>
     </div>
 </div>
-{{/iff}}
+{{/if}}
 
 <!--<div class="pullLeft">
         <input name="data.conditions.isstunned" type="checkbox" {{#if data.data.conditions.isstunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>

@@ -1,35 +1,35 @@
-{{#iff (checkSystemsetting "observersSeeFullActor") "==" "full"}}
-<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-	<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-	<a class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
+{{#if (eq (checkSystemsetting "observersSeeFullActor") "full")}}
+	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+		<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+		<a class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
 
-	{{#iff actor.type "==" config.sheettype.mage}}
-	<a class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
-	{{/iff}}
+		{{#if (eq actor.type config.sheettype.mage)}}
+			<a class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
+		{{/if}}
 
-	<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
-	<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>
-	
-	{{#iff actor.type "==" config.sheettype.werewolf}}
-	<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
-	<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
-	{{/iff}}
+		<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+		<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>
+		
+		{{#if (eq actor.type config.sheettype.werewolf)}}
+			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+		{{/if}}
 
-	{{#iff actor.type "==" "Changing Breed"}}
-	<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
-	<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
-	{{/iff}}
-	
-	{{#iff actor.type "==" config.sheettype.vampire}}
-	<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
-	{{/iff}}
-	
-	<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
-	<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
-</nav>	
+		{{#if (eq actor.type "Changing Breed")}}
+			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+		{{/if}}
+		
+		{{#if (eq actor.type config.sheettype.vampire)}}
+			<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
+		{{/if}}
+		
+		<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
+		<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
+	</nav>	
 {{else}}
-<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-	<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-</nav>
-{{/iff}}
+	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+		<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+	</nav>
+{{/if}}
 

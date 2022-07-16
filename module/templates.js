@@ -29,6 +29,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/stats_gnosis.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_willpower.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_essence.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
 		"systems/worldofdarkness/templates/actor/parts/notes.html",
@@ -54,17 +55,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_nuwisha_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html",
-
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_ajaba_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_ananasi_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_bastet_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_corax_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_gurahl_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_kitsune_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_mokole_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_nuwisha_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_ratkin_renown.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_rokea_renown.html",
+		
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html",
@@ -94,9 +85,9 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",
 
 		// Item Sheet Partials
-		"systems/worldofdarkness/templates/sheets/parts/lock.html",
 		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
 		"systems/worldofdarkness/templates/sheets/parts/power_description.html"		
 	];
@@ -108,11 +99,6 @@ export const preloadHandlebarsTemplates = async function () {
 };
 
 export const registerHandlebarsHelpers = function () {
-
-	/* Is used to error handling in html */
-	Handlebars.registerHelper("logg", function(variable, options) {
-		console.log(variable);
-	});
 
 	Handlebars.registerHelper("setVariable", function(varName, varValue, options) {
 		console.log("WoD | setVariable " + varName + " value " + varValue);
@@ -189,9 +175,42 @@ export const registerHandlebarsHelpers = function () {
 		}
 	});
 
+	Handlebars.registerHelper('eqAny', function () {
+		for(let i = 1; i < arguments.length; i++) {
+		  	if(arguments[0] === arguments[i]) {
+				return true;
+		  	}
+		}
+		return false;
+	});
+
+	Handlebars.registerHelper('eqAnyNot', function () {
+		let found = false;
+
+		for(let i = 1; i < arguments.length; i++) {
+		  	if(arguments[0] === arguments[i]) {
+				found = true;
+		  	}
+		}
+		
+		return !found;
+	});
+
 	Handlebars.registerHelper('le', function( a, b ){
 		var next =  arguments[arguments.length-1];
 		return (a <= b) ? next.fn(this) : next.inverse(this);
+	});
+
+	Handlebars.registerHelper("shorten", function (text, i) {
+		let result = text;
+
+		if (text.length > i) {
+			if (text.length > i + 3) {
+				result = text.substring(0, i) + "...";
+			}
+		}
+
+		return result;
 	});
 
 	Handlebars.registerHelper("getAttributes", function (attribute) {
@@ -241,17 +260,6 @@ export const registerHandlebarsHelpers = function () {
 		return ability;
 	});
 
-	Handlebars.registerHelper("orderAttributes", function (attribute) {
-		var list = ["strength","dexterity","stamina"];
-		
-		if (list.includes(attribute)) {
-			return "clear:left";
-		}
-		else {
-			return "float:left;";
-		}
-	});
-
 	Handlebars.registerHelper("topAttributes", function (attribute) {
 		var list = ["strength","charisma","perception"];
 
@@ -281,6 +289,82 @@ export const registerHandlebarsHelpers = function () {
 			return false;
 		}
 	});
+
+	Handlebars.registerHelper("getShifterRenown", function (type, renown) {
+		let newtext = renown;
+
+		if ((type == "Ajaba") || (type == "Bastet")) {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.ferocity";
+			}
+			if (renown == "Wisdom") { 
+				newtext = "wod.advantages.cunning";
+			}
+		}
+		if (type == "Ananasi") {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.obedience";
+			}
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.cunning";
+			}
+		}
+		if (type == "Kitsune") {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.chie";
+			}
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.toku";
+			}
+			if (renown == "Wisdom") { 
+				newtext = "wod.advantages.kagayaki";
+			}
+		}
+		if (type == "Ratkin") {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.infamy";
+			}
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.obligation";
+			}
+			if (renown == "Wisdom") { 
+				newtext = "wod.advantages.cunning";
+			}
+		}
+		if (type == "Rokea") {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.valor";
+			}
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.harmony";
+			}
+			if (renown == "Wisdom") { 
+				newtext = "wod.advantages.innovation";
+			}
+		}
+
+		return newtext;
+	});
+
+	Handlebars.registerHelper("getSpiritAttributes", function (attribute) {
+		const list = CONFIG.wod.advantages;
+
+		for (const i in list) {
+			if (i == attribute) {
+				return list[i];
+			}
+		}
+
+		if (attribute == "strength") {
+			return "wod.advantages.rage";
+		}
+		else if ((attribute == "dexterity") || (attribute == "stamina")) {
+			return "wod.advantages.willpower";
+		}
+		else {
+			return "wod.advantages.gnosis";
+		}
+	});		
 
 	Handlebars.registerHelper("topSpheres", function (sphere) {
 		var list = ["correspondence","life","prime"];
@@ -386,6 +470,10 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("captilize", function (text) {
 		return text.toUpperCase();
+	});
+
+	Handlebars.registerHelper("lowercase", function (text) {
+		return text.toLowerCase();
 	});
 
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {

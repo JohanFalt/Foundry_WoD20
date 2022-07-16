@@ -37,7 +37,7 @@ export class VampireActorSheet extends MortalActorSheet {
 	}
 
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.data.settings.iscreated) {
@@ -45,17 +45,20 @@ export class VampireActorSheet extends MortalActorSheet {
 				ActionHelper._setVampireAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setVampireAttributes(actorData);
-
-				actorData.data.settings.soak.lethal.isrollable = true;
-				actorData.data.settings.soak.aggravated.isrollable = false;
+				
 				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
 
+		const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.data.data.generation));
+		await keepDisciplinesCorrect(disciplineMax, this.actor)		
+
 		const data = super.getData();
 
 		console.log("WoD | Vampire Sheet getData");
+
+		const bloodbounds = [];
 
 		const disciplinelist = [];
 		const tempdisclist = [];
@@ -104,6 +107,11 @@ export class VampireActorSheet extends MortalActorSheet {
 					rituallist.push(i);
 				}
 			}
+			if (i.type == "Feature") {
+				if (i.data.type == "wod.types.bloodbound") {
+					bloodbounds.push(i);
+				}
+			}
 		}
 
 		tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
@@ -139,6 +147,7 @@ export class VampireActorSheet extends MortalActorSheet {
 			}
 		}
 
+		data.actor.bloodbounds = bloodbounds;
 		data.actor.pathlist = pathlist;
 		data.actor.listedpaths = temppathlist;
 		data.actor.unlistedpaths = unlistedpathlist;
@@ -204,6 +213,8 @@ export class VampireActorSheet extends MortalActorSheet {
 			.change(this._onSelectGeneration.bind(this));
 		
 	}
+
+	
 
 	_onRollVampireDialog(event) {		
 		event.preventDefault();
@@ -295,62 +306,10 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		const selectedGeneration = parseInt(element.value);
 
-		let traitMax = 5;
-		let disciplineMax = traitMax;
-		let bloodpoolMax = 10;
-		let bloodSpending = 1;
-
-		if (selectedGeneration == 15) {
-			bloodpoolMax = 6;
-			disciplineMax = 3;
-		}
-		if (selectedGeneration == 14) {
-			bloodpoolMax = 8;
-			disciplineMax = 4;
-		}
-		if (selectedGeneration == 13) {
-		}
-		if (selectedGeneration == 12) {
-			bloodpoolMax = 11;
-		}
-		if (selectedGeneration == 11) {
-			bloodpoolMax = 12;
-		}
-		if (selectedGeneration == 10) {
-			bloodpoolMax = 13;
-		}
-		if (selectedGeneration == 9) {
-			bloodpoolMax = 14;
-			bloodSpending = 2;
-		}
-		if (selectedGeneration == 8) {
-			bloodpoolMax = 15;
-			bloodSpending = 3;
-		}
-		if (selectedGeneration == 7) {
-			bloodpoolMax = 20;
-			bloodSpending = 4;
-			traitMax = 6;
-			disciplineMax = traitMax;
-		}
-		if (selectedGeneration == 6) {
-			bloodpoolMax = 30;
-			bloodSpending = 6;
-			traitMax = 7;
-			disciplineMax = traitMax;
-		}
-		if (selectedGeneration == 5) {
-			bloodpoolMax = 40;
-			bloodSpending = 8;
-			traitMax = 8;
-			disciplineMax = traitMax;
-		}
-		if (selectedGeneration == 4) {
-			bloodpoolMax = 50;
-			bloodSpending = 10;
-			traitMax = 9;
-			disciplineMax = traitMax;
-		}
+		const bloodpoolMax = calculteMaxBlood(selectedGeneration);
+		const bloodSpending = calculteMaxBloodSpend(selectedGeneration);
+		const traitMax = calculteMaxTrait(selectedGeneration);
+		const disciplineMax = calculteMaxDiscipline(selectedGeneration);
 
 		const actorData = duplicate(this.actor);
 
@@ -414,20 +373,9 @@ export class VampireActorSheet extends MortalActorSheet {
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
 
-		// discipline
-		for (const item of this.actor.items) {
-			if ((item.type == "Power") && (item.data.data.type == "wod.types.discipline")) {
-				const itemData = duplicate(item);
-				itemData.data.max = parseInt(traitMax);
-				await item.update(itemData);
-			}
-			if ((item.type == "Power") && (item.data.data.type == "wod.types.disciplinepower")) {
-				const itemData = duplicate(item);
-				itemData.data.value = 0;
-				itemData.data.max = 0;
-				await item.update(itemData);
-			}
-		}
+		await keepDisciplinesCorrect(disciplineMax, this.actor);
+
+		this.render(false);
 	}
 
 	_onDotCounterVampireEmpty(event) {
@@ -522,7 +470,12 @@ export class VampireActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (fields[2] === "path") {
-			actorData.data.path.value = value;
+			if (actorData.data.path.value == value) {
+				actorData.data.path.value = parseInt(actorData.data.path.value) - 1;
+			}	
+			else {
+				actorData.data.path.value = value;
+			}
 		}	
 		else if (fields[2] === "virtues")	 {
 			actorData.data.virtues[fields[3]].value = value;
@@ -541,5 +494,132 @@ export class VampireActorSheet extends MortalActorSheet {
 		
 		console.log("WoD | Vampire Sheet updated");
 		this.actor.update(actorData);
+	}
+}
+
+function calculteMaxBlood(selectedGeneration) {
+	let bloodpoolMax = 10;
+
+	if (selectedGeneration == 15) {
+		bloodpoolMax = 6;
+	}
+	if (selectedGeneration == 14) {
+		bloodpoolMax = 8;
+	}
+	if (selectedGeneration == 12) {
+		bloodpoolMax = 11;
+	}
+	if (selectedGeneration == 11) {
+		bloodpoolMax = 12;
+	}
+	if (selectedGeneration == 10) {
+		bloodpoolMax = 13;
+	}
+	if (selectedGeneration == 9) {
+		bloodpoolMax = 14;
+	}
+	if (selectedGeneration == 8) {
+		bloodpoolMax = 15;
+	}
+	if (selectedGeneration == 7) {
+		bloodpoolMax = 20;
+	}
+	if (selectedGeneration == 6) {
+		bloodpoolMax = 30;
+	}
+	if (selectedGeneration == 5) {
+		bloodpoolMax = 40;
+	}
+	if (selectedGeneration == 4) {
+		bloodpoolMax = 50;
+	}
+
+	return bloodpoolMax;
+}
+
+function calculteMaxBloodSpend(selectedGeneration) {
+	let bloodSpending = 1;
+
+	if (selectedGeneration == 9) {
+		bloodSpending = 2;
+	}
+	if (selectedGeneration == 8) {
+		bloodSpending = 3;
+	}
+	if (selectedGeneration == 7) {
+		bloodSpending = 4;
+	}
+	if (selectedGeneration == 6) {
+		bloodSpending = 6;
+	}
+	if (selectedGeneration == 5) {
+		bloodSpending = 8;
+	}
+	if (selectedGeneration == 4) {
+		bloodSpending = 10;
+	}
+
+	return bloodSpending;
+}
+
+function calculteMaxTrait(selectedGeneration) {
+	let traitMax = 5;
+
+	if (selectedGeneration == 7) {
+		traitMax = 6;
+	}
+	if (selectedGeneration == 6) {
+		traitMax = 7;
+	}
+	if (selectedGeneration == 5) {
+		traitMax = 8;
+	}
+	if (selectedGeneration == 4) {
+		traitMax = 9;
+	}
+
+	return traitMax;
+
+}
+
+function calculteMaxDiscipline(selectedGeneration) {
+	let disciplineMax = 5;
+
+	if (selectedGeneration == 15) {
+		disciplineMax = 3;
+	}
+	if (selectedGeneration == 14) {
+		disciplineMax = 4;
+	}
+	if (selectedGeneration == 7) {
+		disciplineMax = 6;
+	}
+	if (selectedGeneration == 6) {
+		disciplineMax = 7;
+	}
+	if (selectedGeneration == 5) {
+		disciplineMax = 8;
+	}
+	if (selectedGeneration == 4) {
+		disciplineMax = 9;
+	}
+
+	return disciplineMax;
+}
+
+async function keepDisciplinesCorrect(disciplineMax, actor) {
+	// discipline
+	for (const item of actor.items) {
+		if ((item.type == "Power") && (item.data.data.type == "wod.types.discipline")) {
+			const itemData = duplicate(item);
+			itemData.data.max = parseInt(disciplineMax);
+			await item.update(itemData);
+		}
+		if ((item.type == "Power") && (item.data.data.type == "wod.types.disciplinepower")) {
+			const itemData = duplicate(item);
+			itemData.data.value = 0;
+			itemData.data.max = 0;
+			await item.update(itemData);
+		}
 	}
 }

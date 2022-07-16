@@ -14,6 +14,8 @@ export class DiceRoll {
 
 		this.templateHTML = "";				// this shown chat text
 		this.systemText = "";			// if there are a system text to be shown		
+
+		this.rollDamage = "";
     }
 }
 
@@ -29,8 +31,13 @@ export async function rollDice(diceRoll) {
 	const numDices = parseInt(diceRoll.numDices);
 	let difficulty = parseInt(diceRoll.difficulty);
 	let wound = parseInt(diceRoll.woundpenalty);
+
+	console.log("handlingOnes: " + handlingOnes);
+	console.log("numDices:" + numDices);
+	console.log("difficulty: " + difficulty);
 	
 	let label = diceRoll.templateHTML;
+	const rollDamage = diceRoll.rollDamage;
 	const systemText = diceRoll.systemText;
 	const speciality = diceRoll.speciality;
 	let specialityText = diceRoll.specialityText;	
@@ -58,20 +65,25 @@ export async function rollDice(diceRoll) {
 
 	roll.terms[0].results.forEach((dice) => {
 		if ((dice.result == 10) && (speciality)) {
+			console.log("Rolled 10: +2 successes");
 			success += 2;
 			rolledAnySuccesses = true;
 		}
 		else if (dice.result >= difficulty) {
+			console.log("Rolled success: +1 successes");
 			success++;
 			rolledAnySuccesses = true;
 		}
 		else if (dice.result == 1) {
 			if (handlingOnes) {
+				console.log("Rolled 1: -1 successes");
 				success--;
 			}
 
 			rolledOne = true;
 		}
+
+		console.log("Number successes:" + success);
 	});
 
 	if (success < 0) {
@@ -80,7 +92,7 @@ export async function rollDice(diceRoll) {
 
 	successRoll = success > 0;		
 
-	if ((actor.data.data.health.damage.woundlevel != "") &&(wound < 0)) {
+	if ((actor.data.data.health.damage.woundlevel != "") && (wound < 0)) {
 		wound = `<div><strong>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${wound})</strong></div>`;
 	}
 	else {
@@ -136,6 +148,10 @@ export async function rollDice(diceRoll) {
 		}		
 
 		label += `<p class="roll-label result-success">${game.i18n.localize("wod.dice.successes")}: ${success}  ${difficultyResult}</p>`;		
+
+		if (rollDamage != "") {
+			label += rollDamage;
+		}
 	}
 
 	if (!zeroDices) {
@@ -153,7 +169,7 @@ export async function rollDice(diceRoll) {
 		else if (actor.type == CONFIG.wod.sheettype.vampire) { 
 			diceColor = "red_";
 		}
-		else if (actor.type == "Spirit") { 
+		else if (actor.type == CONFIG.wod.sheettype.spirit) { 
 			diceColor = "yellow_";
 		}
 		else {

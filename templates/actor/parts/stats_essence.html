@@ -1,0 +1,17 @@
+<div class="sheet-headline splatFont">{{localize 'wod.advantages.essence'}}</div>	
+
+<div class="sheet-boxcontainer">
+	<div class="essence-counters resource-counter" data-value="{{data.data.essence.temporary}}" data-name="data.data.essence.temporary">
+
+        {{#numLoop data.data.essence.max}}
+		
+            {{#le ../data.data.essence.temporary this}}
+				<span class="checkboxgroup resource-value-step" data-type="{{../actor.type}}" data-key="essence" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="checkboxgroup resource-value-step" data-type="{{../actor.type}}" data-key="essence" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+        
+    </div>
+</div>

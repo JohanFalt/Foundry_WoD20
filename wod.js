@@ -1,5 +1,4 @@
 import * as migration from "./module/migration.js";
-import * as patch from "./module/scripts/patch.js";
 
 import { wod } from "./module/config.js";
 import { systemSettings } from "./module/settings.js";
@@ -14,6 +13,8 @@ import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
 import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
 
 import { WoDItemSheet } from "./module/items/item-sheet.js";
+
+import ActionHelper from "./module/scripts/action-helpers.js";
 
 Hooks.once("init", async function() {
 	console.log("WoD | Initialising World of Darkness System");
@@ -128,6 +129,10 @@ Hooks.once("ready", function () {
 });
 
 Hooks.on("renderActorSheet", (sheet) => { 
+	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
+
+	clearHTML(sheet);
+
 	// adding the means to control the CSS by what language is used.
 	if (CONFIG.language == "de") {
 		sheet.element[0].classList.add("langDE");
@@ -135,16 +140,47 @@ Hooks.on("renderActorSheet", (sheet) => {
 	else if (CONFIG.language == "es") {
 	 	sheet.element[0].classList.add("langES");
 	}
+	else if (CONFIG.language == "it") {
+		sheet.element[0].classList.add("langIT");
+    }
 	else {
 		sheet.element[0].classList.add("langEN");
 	}
 
-	//if (actor && actor.isOwner) {
-	//	return;
-	//}
+	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
+		sheet.element[0].classList.add("noSplatFont");
+	}
+});
+
+Hooks.on("renderItemSheet", (sheet) => { 
+	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
+
+	clearHTML(sheet);
+
+	// adding the means to control the CSS by what language is used.
+	if (CONFIG.language == "de") {
+		sheet.element[0].classList.add("langDE");
+	}
+	else if (CONFIG.language == "es") {
+	 	sheet.element[0].classList.add("langES");
+	}
+	else if (CONFIG.language == "it") {
+		sheet.element[0].classList.add("langIT");
+    }
+	else {
+		sheet.element[0].classList.add("langEN");
+	}
+
+	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
+		sheet.element[0].classList.add("noSplatFont");
+	}
 });
 
 Hooks.on("renderFormApplication", (sheet) => { 
+	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');	
+
+	clearHTML(sheet);	
+
 	// adding the means to control the CSS by what language is used.
 	if (CONFIG.language == "de") {
 		sheet.element[0].classList.add("langDE");
@@ -152,11 +188,26 @@ Hooks.on("renderFormApplication", (sheet) => {
 	else if (CONFIG.language == "es") {
 	 	sheet.element[0].classList.add("langES");
 	}
+	else if (CONFIG.language == "it") {
+		sheet.element[0].classList.add("langIT");
+    }
+	if (CONFIG.language == "fr") {
+		sheet.element[0].classList.add("langFR");
+	}
 	else {
 		sheet.element[0].classList.add("langEN");
 	}
 
-	//if (actor && actor.isOwner) {
-	//	return;
-	//}
+	if (!useSplatFonts) {
+		sheet.element[0].classList.add("noSplatFont");
+	}
 });
+
+function clearHTML(sheet) {
+	sheet.element[0].classList.remove("langDE");
+	sheet.element[0].classList.remove("langES");
+	sheet.element[0].classList.remove("langIT");
+	sheet.element[0].classList.remove("langFR");
+	sheet.element[0].classList.remove("langEN");
+	sheet.element[0].classList.remove("noSplatFont");
+}

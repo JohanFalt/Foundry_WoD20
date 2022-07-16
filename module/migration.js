@@ -10,7 +10,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
     let updateWorld = false;
     let isError = false;
 
-    if (getVersion(installedVersion) < getVersion(migrationVersion)) {
+    if (compareVersion(installedVersion, migrationVersion)) {
         updateWorld = true;
 
         ui.notifications.warn(`Updating World from version ${installedVersion} to ${migrationVersion} do not close your game or shut down your server. Please wait this can take a while...`, {permanent: true});
@@ -79,7 +79,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         ui.notifications.error(`An error occured during the system migration. Please check the console (F12) for details.`, {permanent: true});
     }
     else if (updateWorld) {
-        getVersionText(migrationVersion);  
+        getVersionText(installedVersion, migrationVersion);  
     }
 }
 
@@ -110,8 +110,7 @@ export const updates = async () => {
     for (const actor of game.actors) {
         const actorData = duplicate(actor);
 
-        //if ((actor.type == CONFIG.wod.sheettype.mortal) || (actor.type == CONFIG.wod.sheettype.vampire) || (actor.type == CONFIG.wod.sheettype.mage) || (actor.type == CONFIG.wod.sheettype.werewolf) || (actor.type == "Changing Breed") || (actor.type == "Creature")) {
-        if (actor.type != "Spirit") {
+        if (actor.type != CONFIG.wod.sheettype.spirit) {
             
             if (attributeSettings == "20th") {
                 for (const attribute in CONFIG.wod.attributes20) {
@@ -203,7 +202,8 @@ export const updates = async () => {
  * @param migrationVersion   The version that is being pushed at the world * 
  */
  export const updateActor = async function(actor, migrationVersion) {
-    if (getVersion(actor.data.data.settings.version) < 150) {
+    if (compareVersion(actor.data.data.settings.version, "1.5.0")) {
+        
         const updateData = duplicate(actor);
 
         updateData.data.settings.version = migrationVersion;
@@ -232,7 +232,7 @@ export const updates = async () => {
         }
         
 
-        if (updateData.type != "Spirit") {
+        if (updateData.type != CONFIG.wod.sheettype.spirit) {
             for (const attribute in updateData.data.attributes) {
                 if(updateData.data.attributes[attribute].visible != undefined) {
                     updateData.data.attributes[attribute].isvisible = updateData.data.attributes[attribute].visible;   
@@ -290,7 +290,7 @@ export const updates = async () => {
         updateData.data.conditions['-=ignorepain'] = null;
         updateData.data.conditions['-=stunned'] = null;
 
-        if (updateData.type != "Spirit") {
+        if (updateData.type != CONFIG.wod.sheettype.spirit) {
             for (const attribute in updateData.data.attributes) {
                 updateData.data.attributes[attribute]['-=visible'] = null;
             }
@@ -320,6 +320,83 @@ export const updates = async () => {
 
         await actor.update(updateData);
     }
+    if (compareVersion(actor.data.data.settings.version, "1.6.0")) {
+        const updateData = duplicate(actor);
+        let update = false;
+        updateData.data.settings.version = migrationVersion;
+
+        if (updateData.type == CONFIG.wod.sheettype.creature) {
+            update = true;            
+
+            updateData.data.settings.hasrage = true;
+            updateData.data.settings.hasgnosis = true;
+            updateData.data.settings.haswillpower = true;
+            updateData.data.settings.hasessence = false;
+            updateData.data.settings.hasbloodpool = false;                    
+        }   
+        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+            update = true;  
+
+            if (updateData.data.tribe == "Black Furies") {
+                updateData.data.tribe = "wod.bio.werewolf.blackfuries";
+            }
+            if (updateData.data.tribe == "Bone Gnawers") {
+                updateData.data.tribe = "wod.bio.werewolf.bonegnawer";
+            }
+            if (updateData.data.tribe == "Children of Gaia") {
+                updateData.data.tribe = "wod.bio.werewolf.childrenofgaia";
+            }
+            if (updateData.data.tribe == "Fianna") {
+                updateData.data.tribe = "wod.bio.werewolf.fianna";
+            }
+            if (updateData.data.tribe == "Get of Fenris") {
+                updateData.data.tribe = "wod.bio.werewolf.getoffenris";
+            }
+            if (updateData.data.tribe == "Glass Walkers") {
+                updateData.data.tribe = "wod.bio.werewolf.glasswalker";
+            }
+            if (updateData.data.tribe == "Red Talons") {
+                updateData.data.tribe = "wod.bio.werewolf.redtalon";
+            }
+            if (updateData.data.tribe == "Shadow Lords") {
+                updateData.data.tribe = "wod.bio.werewolf.shadowlord";
+            }
+            if (updateData.data.tribe == "Silent Striders") {
+                updateData.data.tribe = "wod.bio.werewolf.silentstrider";
+            }
+            if (updateData.data.tribe == "Silver Fangs") {
+                updateData.data.tribe = "wod.bio.werewolf.silverfang";
+            }
+            if (updateData.data.tribe == "Stargazers") {
+                updateData.data.tribe = "wod.bio.werewolf.stargazer";
+            }
+            if (updateData.data.tribe == "Uktena") {
+                updateData.data.tribe = "wod.bio.werewolf.uktena";
+            }
+            if (updateData.data.tribe == "Wendigo") {
+                updateData.data.tribe = "wod.bio.werewolf.wendigo";
+            }
+            if (updateData.data.tribe == "Black Spiral Dancers") {
+                updateData.data.tribe = "wod.bio.werewolf.blackspiraldancer";
+            }
+            if (updateData.data.tribe == "Skin Dancers") {
+                updateData.data.tribe = "wod.bio.werewolf.skindancer";
+            }
+            if (updateData.data.tribe == "Bunyip") {
+                updateData.data.tribe = "wod.bio.werewolf.bunyip";
+            }
+            if (updateData.data.tribe == "Croatan") {
+                updateData.data.tribe = "wod.bio.werewolf.croatan";
+            }
+            if (updateData.data.tribe == "White Howlers") {
+                updateData.data.tribe = "wod.bio.werewolf.whitehowler";
+            }
+        }
+        
+        if (update) {
+            await actor.update(updateData);
+        }
+    }
 
     for (const item of actor.items) {
         await updateItem(item, migrationVersion);
@@ -333,7 +410,7 @@ export const updates = async () => {
  * 
  */
  export const updateItem = async function(item, migrationVersion) {
-    if (getVersion(item.data.data.version) < 150) {
+    if (compareVersion(item.data.data.version, "1.5.0")) {
         const itemData = duplicate(item);
 
         if (item.type == "Armor") {
@@ -510,18 +587,14 @@ export const updates = async () => {
  * @param migrationVersion   The version that is being pushed at the world
  * 
  */
- function getVersionText(migrationVersion) {
+ function getVersionText(installedVersion, migrationVersion) {
     let patch107 = false;
     let patch110 = false;
     let patch120 = false;
     let patch130 = false;
     let patch140 = false;
     let patch150 = false;
-    let patch151 = false;
-    let patch152 = false;
-    let patch153 = false;
-    let patch154 = false;
-    let patch158 = false;
+    let patch160 = false;
 
     let newfunctions = "";
 
@@ -533,11 +606,7 @@ export const updates = async () => {
         patch130 = game.settings.get('worldofdarkness', 'patch130');
         patch140 = game.settings.get('worldofdarkness', 'patch140');
         patch150 = game.settings.get('worldofdarkness', 'patch150');
-        patch151 = game.settings.get('worldofdarkness', 'patch151');
-        patch152 = game.settings.get('worldofdarkness', 'patch152');
-        patch153 = game.settings.get('worldofdarkness', 'patch153');
-        patch154 = game.settings.get('worldofdarkness', 'patch154');
-        patch158 = game.settings.get('worldofdarkness', 'patch158');
+        patch160 = game.settings.get('worldofdarkness', 'patch160');
     } 
     catch (e) {
     }
@@ -595,44 +664,35 @@ export const updates = async () => {
         newfunctions += "<li>Altered design of all power tabs</li>";
         newfunctions += "<li>All item lists are sorted</li>";
         newfunctions += "<li>Fixed a number of bugs and graphical issues</li>";
-    } 
-
-    if (!patch151) {
-        game.settings.set('worldofdarkness', 'patch151', true);
-
         newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/124">#124</a> Could not alter a Sphere value</li>';
         newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/126">#126</a> that pain penalty was not calculated in Rolls</li>';
-    }
-
-    if (!patch152) {
-        game.settings.set('worldofdarkness', 'patch152', true);
-
         newfunctions += '<li>[VtM] Added Cappadocian and Salubri as clans <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/128">#128</a></li>';
         newfunctions += '<li>[WtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/135">#135</a> the shifter image in Changing Breeds sheet had wrong width for English</li>';
         newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/130">#130</a> could not set Affinity Sphere</li>';
         newfunctions += '<li>[MtA] Got report that Features did not work in Notes - Unrepeatable. Added descriptive texts if item has no values</li>';
-    }
-
-    if (!patch153) {
-        game.settings.set('worldofdarkness', 'patch153', true);
-
         newfunctions += '<li>[MTA] Added Technology as a Skill Ability <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/125">#125</a></li>';
-        newfunctions += '<li>Added User Permissions <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/141">#141</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';    
-    }
-
-    if (!patch154) {
-        game.settings.set('worldofdarkness', 'patch154', true);
-
+        newfunctions += '<li>Added User Permissions <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/141">#141</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
         newfunctions += '<li>Fixed so you could add Ability Specialities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/145">#145</a></li>';
         newfunctions += '<li>Fixed problems rolling Attributes and Abilities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/146">#146</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/147">#147</a></li>';    
         newfunctions += '<li>[VtM] Fixed so you can clear Blood Pool <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/148">#148</a></li>';
-    }
-
-    if (!patch158) {
-        game.settings.set('worldofdarkness', 'patch158', true);
-
-        newfunctions += '<li>Fixed problems with permissions to alter Actor and Item images <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
         newfunctions += '<li>Added Bone Craft as a selective Skill <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/162">#162</a></li>';    
+        newfunctions += '<li>Fixed problems with permissions to alter Actor and Item images <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
+        newfunctions += '<li>Fixed that spirits could not roll macro buttons <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/163">#163</a></li>';
+    } 
+
+    if (!patch160) {
+        game.settings.set('worldofdarkness', 'patch160', true);
+
+        newfunctions += "<li>Major update of the graphics way too much to list here</li>";
+        newfunctions += "<li>Can turn off the special sheet fonts</li>";
+        newfunctions += "<li>German and Spanish updated</li>";
+        newfunctions += "<li>Added an Add-button to add backgrounds, mertis, flaws and blood bounds to the sheet</li>";
+        newfunctions += "<li>[WtA] Added rank 6</li>";
+        newfunctions += "<li>[WtA] Spirits can have Gifts</li>";
+        newfunctions += "<li>[MtA] Added Paradigm, Practice and Instruments</li>";
+        newfunctions += "<li>[MtA] Supports Constructs and Familiars</li>";
+        newfunctions += "<li>[VtM] Added Blood Bounded people under Info</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and stuff of irritation</li>";
     }
 
     if (newfunctions == "") {
@@ -643,13 +703,16 @@ export const updates = async () => {
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-150">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-160">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System">HERE</a><br /><br />';
-    message += '<h2>Short Summery of update:</h2>';
-    message += '<ul>';
-    message += newfunctions;
-    message += '</ul>';
+
+    if (installedVersion != "1") {
+        message += '<h2>Short Summery of update:</h2>';
+        message += '<ul>';
+        message += newfunctions;
+        message += '</ul>';
+    } 
 
     ActionHelper.printMessage(headline, message);
 }
@@ -677,158 +740,35 @@ function getVersion(version) {
     }
 }
 
-/* ----------------------------------------------------------------- */
+  /**
+ * Compares two version numbers to see if the new one is newer than the old one
+ * @param oldVersion   The existing version no: e.g. 1.5.9
+ * @param newVersion   The new version no: e.g. 1.5.10
+ */
+function compareVersion(oldVersion, newVersion) {
+    if (newVersion == "") {
+        return false;
+    }
 
-// export const patches = async (installedVersion, currentVersion) => {
-//     //let worldVersion = '1';
+    if (newVersion == undefined) {
+        return false;
+    }
 
-//     //const currentVersion = game.data.system.data.version;  
-//     let patch107 = false;
-//     let hasRun107 = false;
+    let greaterVersion = false;
 
-//     let patch110 = false;
-//     let hasRun110 = false;
+    try {
+        const newfields = newVersion.split(".");
+        const oldfields = oldVersion.split(".");
 
-//     let patch120 = false;
-//     let hasRun120 = false;
+        for (let i = 0; i <= 2; i++) {
+            if (parseInt(newfields[i]) > parseInt(oldfields[i])) {
+                greaterVersion = true;
+            }
+        }
 
-//     let patch130 = false;
-//     let hasRun130 = false;
-
-//     let patch140 = false;
-//     let hasRun140 = false;
-
-//     let patch150 = false;
-//     let hasRun150 = false;
-
-//     let newfunctions = "";
-
-//     try {
-//         // add the new setting in settings.js
-//         patch107 = game.settings.get('worldofdarkness', 'patch107');
-//         patch110 = game.settings.get('worldofdarkness', 'patch110');
-//         patch120 = game.settings.get('worldofdarkness', 'patch120');
-//         patch130 = game.settings.get('worldofdarkness', 'patch130');
-//         patch140 = game.settings.get('worldofdarkness', 'patch140');
-//         patch150 = game.settings.get('worldofdarkness', 'patch150');
-//     } 
-//     catch (e) {
-//         console.log("Fel uppstod i migration.js");
-//     }
-
-//     console.log('WoD | Current world version: ' + installedVersion);
-//     console.log('WoD | Getting version: ' + currentVersion);
-
-//     // go through all of the game's items
-
-//     hasRun107 = true;
-//     hasRun110 = true;
-//     hasRun120 = true;
-//     hasRun130 = true;
-//     hasRun140 = true;
-//     hasRun150 = true;
-
-//     if ((!patch107) && (hasRun107)) {
-//         try {
-//             if (Patch.patch1_0_7(item, patch107)) {
-//                 characterChanged = true;            
-//             }
-    
-//             game.settings.set('worldofdarkness', 'patch107', true);        
-//         }
-//         catch (e) {
-//         }
-//     }
-
-//     if ((!patch110) && (hasRun110)) {
-//         game.settings.set('worldofdarkness', 'patch110', true);
-
-//         newfunctions += "<li>Creature sheet released</li>";
-//         newfunctions += "<li>Added new System Setting where you can switch to use 5th ed Attributes and 5th ed Willpower.</li>";
-//         newfunctions += "<li>Added new alternatives in sheet Settings</li>";
-//         newfunctions += "<li>And a bunch of bug fixes</li>";
-//     }
-
-//     if ((!patch120) && (hasRun120)) {
-//         game.settings.set('worldofdarkness', 'patch120', true);
-
-//         newfunctions += "<li>Added buttons to handle Initiative, Soak and general dice rolling</li>";
-//         newfunctions += "<li>Added German Translation</li>";
-//         newfunctions += "<li>Fixed the System can use Foundry rolling of Initiative</li>";
-//         newfunctions += "<li>Worked on design on the different sheets";
-//     }
-
-//     if ((!patch130) && (hasRun130)) {
-//         game.settings.set('worldofdarkness', 'patch130', true);
-
-//         newfunctions += "<li>Added Changing Breed sheets. Supports Ajaba, Ananasi, Bastet, Corax, Gurahl, Kitsune, Mokole, Nagah, Nuwisha, Ratkin and Rokea</li>";
-//         newfunctions += "<li>Worked on design on the sheets of the macro buttons</li>";
-//         newfunctions += "<li>Changed font</li>";
-//         newfunctions += "<li>Worked on design on the combat section of the sheets</li>";
-//         newfunctions += "<li>Fixed graphical problems if using German Translation</li>";
-//         newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1">#1</a> a problem where the Attribute Setting in Power Items did not read the setting if you where using the 20th or 5th System setting</li>';
-//         newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/2">#2</a> so you can clear permanent Renown</li>';
-//     }
-
-//     if ((!patch140) && (hasRun140)) {
-//         game.settings.set('worldofdarkness', 'patch140', true);
-
-//         newfunctions += "<li>Added Spanish</li>";
-//         newfunctions += "<li>Added Mage the Ascention</li>";
-//         newfunctions += "<li>Added Secondary Abilities is added under Settings</li>";
-//         newfunctions += "<li>[WtA] Added icon to roll frenzy</li>";
-//         newfunctions += "<li>[WtA] Added new item - Fetish listed in Gear</li>";
-//         newfunctions += "<li>[MtA] Added icon to roll cast spell</li>";
-//         newfunctions += "<li>[MtA] Added support to create and cast Rote spells</li>";
-//         newfunctions += "<li>Fixed graphical problems if using Spanish Translation</li>";        
-//     }
-
-//     // if ((!patch150) && (hasRun150)) {
-//     //   //game.settings.set('worldofdarkness', 'patch150', true);
-    
-//     // }     
-      
-//     game.settings.set('worldofdarkness', 'worldVersion', currentVersion);
-
-//     // if (characterChanged) {
-//     //     ui.notifications.info(game.i18n.localize("wod.system.characters"));    
-//     // }
-
-//     ui.notifications.info(game.i18n.localize("wod.system.world"));
-
-//     console.log('WoD | Patches done');
-
-//     const headline = "<h1><b>Version "+currentVersion+" installed</b></h1>";
-
-//     let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-140">Changelog</a>.<br /><br />';
-//     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
-//     message += '<h2>Short Summery:</h2>';
-//     message += '<ul>';
-//     message += newfunctions;
-//     message += '</ul>';
-
-//     ActionHelper.printMessage(headline, message);
-
-//     if ((!patch150) && (hasRun150)) {
-//         ActionHelper.printMessage("<h1>Patch 1.5.0 - Begins</h1>", "Please wait this can take a while...");
-
-//         try {
-//             await Patch.patch1_5_0(currentVersion);   
-//         }
-//         catch (e) {
-//         }
-
-//         ActionHelper.printMessage("<h1>Patch 1.5.0 - Done</h1>", "See! I told you it would take some time...");
-//     }
-
-//     ui.notifications.info(game.i18n.localize("wod.system.updates"));
-//     try {
-//         await this.updates();
-//     }
-//     catch (e) {
-//     }
-//     ui.notifications.info(game.i18n.localize("wod.system.done"));
-// }
-
-
-
+        return greaterVersion;
+    }
+    catch {
+        return false;
+    }
+}

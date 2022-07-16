@@ -1,13 +1,13 @@
 <div class="clearareaBox area-box">
 
-	<div class="sheet-headline">
+	<div class="sheet-headline splatFont">
 		{{localize 'wod.abilities.abilities'}}
 	</div>
 
 	<div class="clearareaBox">
-		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.talents"}}</div>
-		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.skills"}}</div>
-		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.knowledges"}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.talents'}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.skills'}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.knowledges'}}</div>
 	</div>
 	
 	<div class="ability-statArea pullLeft">
@@ -17,7 +17,7 @@
 		<div class="clearareaBox">
 			<label for="data.data.abilities.talent.{{ability._id}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
-			{{#iff ability.value ">=" "4"}}
+			{{#if (gte ability.value 4)}}
 			<div class="resource-value pullRight">
 				<input type="text" 
 					class="specialityBox"
@@ -25,7 +25,7 @@
 					value="{{ability.speciality}}" 
 					data-name="data.abilities.talent.{{ability._id}}.speciality" />
 			</div>
-			{{/iff}}
+			{{/if}}
 		</div>
 		{{/each}}
 	
@@ -36,7 +36,7 @@
 		<div class="clearareaBox">
 			<label for="data.data.abilities.skill.{{ability._id}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
-			{{#iff ability.value ">=" "4"}}
+			{{#if (gte ability.value 4)}}
 			<div class="resource-value pullRight">
 				<input type="text" 
 					class="specialityBox"
@@ -44,7 +44,7 @@
 					value="{{ability.speciality}}" 
 					data-name="data.abilities.skill.{{ability._id}}.speciality" />				
 			</div>
-			{{/iff}}
+			{{/if}}
 		</div>
 		{{/each}}
 	
@@ -55,7 +55,7 @@
 		<div class="clearareaBox">
 			<label for="data.data.abilities.knowledge.{{ability._id}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
-			{{#iff ability.value ">=" "4"}}
+			{{#if (gte ability.value 4)}}
 			<div class="resource-value pullRight">
 				<input type="text" 
 				class="specialityBox"
@@ -63,7 +63,7 @@
 					value="{{ability.speciality}}" 
 					data-name="data.abilities.knowledge.{{ability._id}}.speciality" />					
 			</div>
-			{{/iff}}
+			{{/if}}
 		</div>
 		{{/each}}
 	

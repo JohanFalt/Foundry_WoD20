@@ -1,6 +1,6 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
-    <div class="dialog-area headlineGroup">
+    <div class="dialog-area headlineGroup splatFont">
         {{localize "wod.info.rollsoak"}}: {{object.attributeValue}} {{#iff object.attributeBonus ">" 0}}(+{{object.attributeBonus}}){{/iff}}
     </div>
 
@@ -11,13 +11,13 @@
     </div>
 
     <div class="dialog-area">
-        <div class="headline">{{localize "wod.labels.bonus"}}</div>
+        <div class="headline splatFont">{{localize "wod.labels.bonus"}}</div>
         <div class="dialog-valueBox">
             <input type="text" name="bonus" value="{{object.bonus}}" autofocus />
         </div>
     </div>
 
-    <div class="dialog-area headlineGroup">
+    <div class="dialog-area headlineGroup splatFont">
         {{localize "wod.labels.difficulty"}}
     </div>
 

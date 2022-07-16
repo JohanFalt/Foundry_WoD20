@@ -1,16 +1,37 @@
-<div class="sheet-headline sheet-headlineQuintessence">{{localize 'wod.advantages.quintessence'}}</div>
+<div class="sheet-headline splatFont">{{localize 'wod.advantages.quintessence'}}</div>
 
-<div class="quintessence">
-    <div class="resource-counter" data-name="data.data.quintessence">
-    {{#numLoop 20}}
-            
-        <span class="resource-value-step quintessence wheel-{{this}}" data-type="{{../config.sheettype.mage}}" data-index="{{this}}" data-state="{{quintessenceWheel ../data.data.quintessence ../data.data.paradox this}}"></span>
-            
-    {{/numLoop}}
+<div class="quintessence" data-name="data.data.quintessence" style="height: 150px; display: flex; flex-wrap: wrap; flex-direction: row; display: -webkit-flex; -webkit-flex-wrap: wrap; -webkit-flex-direction: row;">
+    <div class="resource-counter" style="flex: 0 0 50%; -webkit-flex: 0 0 50%; position: relative;">
+        <span class="resource-value-step quintessence wheel-0" data-type="{{config.sheettype.mage}}" data-index="0" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 0}}"></span>
+        <span class="resource-value-step quintessence wheel-1" data-type="{{config.sheettype.mage}}" data-index="1" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 1}}"></span>
+        <span class="resource-value-step quintessence wheel-2" data-type="{{config.sheettype.mage}}" data-index="2" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 2}}"></span>
+        <span class="resource-value-step quintessence wheel-3" data-type="{{config.sheettype.mage}}" data-index="3" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 3}}"></span>
+        <span class="resource-value-step quintessence wheel-4" data-type="{{config.sheettype.mage}}" data-index="4" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 4}}"></span>
+    </div>
+    <div class="resource-counter" style="flex: 0 0 50%; -webkit-flex: 0 0 50%; position: relative;">
+        <span class="resource-value-step quintessence wheel-5" data-type="{{config.sheettype.mage}}" data-index="5" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 5}}"></span>
+        <span class="resource-value-step quintessence wheel-6" data-type="{{config.sheettype.mage}}" data-index="6" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 6}}"></span>
+        <span class="resource-value-step quintessence wheel-7" data-type="{{config.sheettype.mage}}" data-index="7" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 7}}"></span>
+        <span class="resource-value-step quintessence wheel-8" data-type="{{config.sheettype.mage}}" data-index="8" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 8}}"></span>
+        <span class="resource-value-step quintessence wheel-9" data-type="{{config.sheettype.mage}}" data-index="9" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 9}}"></span>                
+    </div>
+    <div class="resource-counter" style="flex: 0 0 50%; -webkit-flex: 0 0 50%; position: relative;">
+        <span class="resource-value-step quintessence wheel-19" data-type="{{config.sheettype.mage}}" data-index="19" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 19}}"></span>
+        <span class="resource-value-step quintessence wheel-18" data-type="{{config.sheettype.mage}}" data-index="18" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 18}}"></span>
+        <span class="resource-value-step quintessence wheel-17" data-type="{{config.sheettype.mage}}" data-index="17" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 17}}"></span>
+        <span class="resource-value-step quintessence wheel-16" data-type="{{config.sheettype.mage}}" data-index="16" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 16}}"></span>
+        <span class="resource-value-step quintessence wheel-15" data-type="{{config.sheettype.mage}}" data-index="15" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 15}}"></span>                
+    </div>
+    <div class="resource-counter" style="flex: 0 0 50%; -webkit-flex: 0 0 50%; position: relative;">
+        <span class="resource-value-step quintessence wheel-14" data-type="{{config.sheettype.mage}}" data-index="14" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 14}}"></span>
+        <span class="resource-value-step quintessence wheel-13" data-type="{{config.sheettype.mage}}" data-index="13" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 13}}"></span>
+        <span class="resource-value-step quintessence wheel-12" data-type="{{config.sheettype.mage}}" data-index="12" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 12}}"></span>
+        <span class="resource-value-step quintessence wheel-11" data-type="{{config.sheettype.mage}}" data-index="11" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 11}}"></span>
+        <span class="resource-value-step quintessence wheel-10" data-type="{{config.sheettype.mage}}" data-index="10" data-state="{{quintessenceWheel data.data.quintessence data.data.paradox 10}}"></span>
     </div>
 </div>
 
-<div class="sheet-headline sheet-headlineParadox vrollable" 
+<div class="sheet-headline vrollable splatFont" 
     data-type="{{config.sheettype.mage}}"
     data-key="paradox"
-	data-noability="true">{{localize 'wod.advantages.paradox'}}</div>
+    data-noability="true">{{localize 'wod.advantages.paradox'}}</div>

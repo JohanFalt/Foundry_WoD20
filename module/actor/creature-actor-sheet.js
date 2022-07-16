@@ -36,10 +36,11 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.data.settings.iscreated) {
-			if (actorData.type == "Creature") {
+			if (actorData.type == CONFIG.wod.sheettype.creature) {
 				ActionHelper._setCreatureAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setWerewolfAttributes(actorData);
+				ActionHelper._setCreatureAttributes(actorData);
 
 				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
@@ -70,8 +71,8 @@ export class CreatureActorSheet extends MortalActorSheet {
 		data.actor.powerlist = powerlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.other = other;
 
-		if (actorData.type == "Creature") {
-			console.log("Creature");
+		if (actorData.type == CONFIG.wod.sheettype.creature) {
+			console.log(CONFIG.wod.sheettype.creature);
 			console.log(data.actor);
 		}
 
@@ -97,6 +98,11 @@ export class CreatureActorSheet extends MortalActorSheet {
 			.click(this._onRollCreatureDialog.bind(this));
 
 		html
+			.find(".switch")
+			.click(this._switchCreatureSetting.bind(this));
+
+		// ressource dots
+		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterCreatureChange.bind(this));
 		html
@@ -112,16 +118,51 @@ export class CreatureActorSheet extends MortalActorSheet {
 			.click(this._onDotCounterCreatureEmpty.bind(this));
 	}
 
+	_switchCreatureSetting(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		if (dataset.type != CONFIG.wod.sheettype.creature) {
+			return;
+		}
+
+		const actorData = duplicate(this.actor);
+		const source = dataset.source;
+		const type = dataset.switchtype;
+
+		if (source == "advantages") {
+			if (type == "rage") {
+				actorData.data.settings.hasrage = !actorData.data.settings.hasrage;
+			}
+			if (type == "gnosis") {
+				actorData.data.settings.hasgnosis = !actorData.data.settings.hasgnosis;
+			}
+			if (type == "willpower") {
+				actorData.data.settings.haswillpower = !actorData.data.settings.haswillpower;
+			}
+			if (type == "essence") {
+				actorData.data.settings.hasessence = !actorData.data.settings.hasessence;
+			}
+			if (type == "bloodpool") {
+				actorData.data.settings.hasbloodpool = !actorData.data.settings.hasbloodpool;
+			}
+		}
+
+		this.actor.update(actorData);
+	}
+
 	_onRollCreatureDialog(event) {		
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if ((dataset.label == "Rage") || (dataset.label == "Gnosis")) {
-			// todo
-			// helt ok!
-		}
-		else if (dataset.type != "Creature") {
+		// if ((dataset.key == "rage") || (dataset.key == "gnosis")) {
+		// 	// todo
+		// 	// helt ok!
+		// }
+		// else 
+		if (dataset.type != CONFIG.wod.sheettype.creature) {
 			return;
 		}
 
@@ -150,14 +191,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}
 		});
 		
-		if ((fields[2] === "gnosis") || (fields[2] === "rage"))
-		{
-			this._assignToCreature(fields, 0);
-		}
-		else
-		{
-			this._onDotCounterEmpty(event);		
-		}		
+		this._onDotCounterEmpty(event);		
 	}
 
 	_onDotCounterCreatureChange(event) {
@@ -166,6 +200,11 @@ export class CreatureActorSheet extends MortalActorSheet {
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
+
+		if (dataset.type != CONFIG.wod.sheettype.creature) {
+			return;
+		}
+
 		const index = Number(dataset.index);
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
@@ -175,11 +214,12 @@ export class CreatureActorSheet extends MortalActorSheet {
 		if ((this.locked) && 
 				((fieldStrings != "data.data.rage.temporary") && 
 				(fieldStrings != "data.data.gnosis.temporary"))) {
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
-		if (fieldStrings == "data.data.willpower.permanent") {
-			return;
-		}
+		// if (fieldStrings == "data.data.willpower.permanent") {
+		// 	return;
+		// }
 
 		if (index < 0 || index > steps.length) {
 			return;
@@ -193,9 +233,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}
 		});
 
-		if ((fields[2] === "gnosis") || (fields[2] === "rage")) {
-			this._assignToCreature(fields, index + 1);
-		}
+		this._assignToCreature(fields, index + 1);
 	}
 
 	_assignToCreature(fields, value) {
@@ -203,20 +241,12 @@ export class CreatureActorSheet extends MortalActorSheet {
 		
 		const actorData = duplicate(this.actor);
 
-		if (fields[2] === "rage") {
-			if (fields[3] === "permanent") {
-				actorData.data.rage.permanent = value;
+		if ((fields[2] === "rage") || (fields[2] === "gnosis")) {
+			if (actorData.data[fields[2]][fields[3]] == value) {
+				actorData.data[fields[2]][fields[3]] = parseInt(actorData.data[fields[2]][fields[3]]) - 1;
 			}
 			else {
-				actorData.data.rage.temporary = value;
-			}
-		}		
-		else if (fields[2] === "gnosis") {
-			if (fields[3] === "permanent") {
-				actorData.data.gnosis.permanent = value;
-			}
-			else {
-				actorData.data.gnosis.temporary = value;
+				actorData.data[fields[2]][fields[3]] = value;
 			}
 		}
 		

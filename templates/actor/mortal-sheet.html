@@ -18,14 +18,14 @@
 		{{!-- Sheet part --}}
 		<section class="sheet-body">
 		
-			{{!-- Bio Tab --}}
+			<!-- Bio tab -->
 			<div class="tab bio" data-group="primary" data-tab="bio">
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
 
 			</div>
 
-			{{!-- Core Tab --}}
+			<!-- Core Normal -->
 			<div class="tab core" data-group="primary" data-tab="core">
 		
 				<nav class="sheet-spec-tabs tabs" data-group="secondary">
@@ -41,15 +41,18 @@
 					
 					<div class="tab normal" data-group="secondary" data-tab="normal">
 				
+						<!-- Core Attributes -->
 						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
 						</div>
 
+						<!-- Core Abilities -->
 						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
 						</div>
 
-						<div>
+						<!-- Core Stats -->
+						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/stats.html"}}
 						</div>
 

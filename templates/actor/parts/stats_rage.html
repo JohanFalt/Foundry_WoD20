@@ -1,33 +1,36 @@
-<div class="sheet-headline vrollable" 
-	data-type="{{config.sheettype.werewolf}}"
+<div class="sheet-headline splatFont vrollable" 
+	data-type="{{actor.type}}"
 	data-key="rage"
 	data-noability="true">{{localize 'wod.advantages.rage'}}</div>
 
-{{#iff actor.type "==" config.sheettype.werewolf}}
+{{#if (eq actor.type config.sheettype.werewolf)}}
 	<div class="information-area centerText">{{localize "wod.advantages.ragepenalty"}}: {{ragePenalty}}</div>
-{{/iff}}
+{{/if}}
 		
-<div class="resource-value permValueRow" data-value="{{data.data.rage.permanent}}" data-name="data.data.rage.permanent">
+<div class="sheet-boxcontainer">
+	<div class="resource-value permValueRow" data-value="{{data.data.rage.permanent}}" data-name="data.data.rage.permanent">
 
-	{{#numLoop data.data.rage.max}}
-	
-	<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
-	
-	{{/numLoop}}
-	
+		{{#numLoop data.data.rage.max}}
+		
+		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="rage" data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+		
+	</div>
 </div>
 
-<div class="resource-counter tempSquareRow" data-value="{{data.data.rage.temporary}}" data-name="data.data.rage.temporary">
-	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
+<div class="sheet-boxcontainer">
+	<div class="resource-counter tempSquareRow" data-value="{{data.data.rage.temporary}}" data-name="data.data.rage.temporary">
 
-	{{#numLoop data.data.rage.max}}
-	
-	{{#le ../data.data.rage.temporary this}}
-	<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state=""></span>
-	{{else}}
-	<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state="x"></span>
-	{{/le}}
-	
-	{{/numLoop}}
-	
+		{{#numLoop data.data.rage.max}}
+		
+		{{#le ../data.data.rage.temporary this}}
+		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="rage" data-index="{{this}}" data-state=""></span>
+		{{else}}
+		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="rage" data-index="{{this}}" data-state="x"></span>
+		{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>
 </div>

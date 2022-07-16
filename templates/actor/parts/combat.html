@@ -1,5 +1,3 @@
-<!--<div>Flank or Rear Attacks: By attacking an opponent’s flank, the assailant reduces his difficulty by one; by attacking from the rear, he reduces it by two.</div>-->
-
 <div class="sheet-area">    
     <div class="clearareaBox area-box">
         {{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
@@ -34,24 +32,21 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
         <div class="pullLeft combat-bottomarea">
-            {{#iff actor.type "==" config.sheettype.werewolf}}
+            {{#if (eqAny actor.type config.sheettype.werewolf "Changing Breed")}}
                 {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
             {{else}}
-                {{#iff actor.type "==" "Changing Breed"}}
-                    {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
+                {{#if (eq actor.type config.sheettype.mage)}}
+                    <!-- {{> "systems/worldofdarkness/templates/actor/parts/mage/combat_active.html"}} -->
+                    &nbsp;
                 {{else}}
-                    {{#iff actor.type "==" config.sheettype.mage}}
-                        <!-- {{> "systems/worldofdarkness/templates/actor/parts/mage/combat_active.html"}} -->
-                        &nbsp;
-                    {{else}}
-                        &nbsp;
-                    {{/iff}}
-                {{/iff}}                
-            {{/iff}}
+                    &nbsp;
+                {{/if}}
+            {{/if}}
+
         </div>
 
         <div class="pullLeft combat-bottomhealth">
-            <div class="pullLeft" style="width: 100%; padding-left: 20px; padding-right: 20px;">
+            <div class="pullLeft healthBox" style="width: 100%;">
 
                 {{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
 

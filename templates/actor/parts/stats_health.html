@@ -1,112 +1,115 @@
-<div class="sheet-headline">{{localize 'wod.health.health'}}</div>	
+<div class="sheet-headline splatFont">{{localize 'wod.health.health'}}</div>	
 <!--<div>Vänsterklick att lägga till skada, högerklick rensar aktuell ruta.</div>-->
     
 <div class="health">
 
-    {{#iff data.data.health.bruised.value ">" 0 }}
+    {{#if (gt data.data.health.bruised.value 0)}}
 
-    <label for="data.data.health.bruised" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.bruised}}" data-label="{{localize 'wod.health.bruised'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.bruised'}}</label>	
-    <div class="resource-counter" data-value="{{data.data.health.bruised}}" data-name="data.data.health.bruised" style="text-align: right;">
+        <label for="data.data.health.bruised" class="pullLeft attribute-headlineWidth headlineNormal" 
+            data-roll="{{data.data.health.bruised}}" 
+            data-label="{{localize 'wod.health.bruised'}}" 
+            data-ability="true" style="text-align: left;">{{localize 'wod.health.bruised'}}</label>	
+        <div class="resource-counter" data-value="{{data.data.health.bruised}}" data-name="data.data.health.bruised" style="text-align: right;">
 
-        {{#numLoop data.data.health.bruised.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.bruised.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.bruised.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.bruised.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>
+        </div>
 
-    {{/iff}}
+    {{/if}}
 
-    {{#iff data.data.health.hurt.value ">" 0 }}
+    {{#if (gt data.data.health.hurt.value 0)}}
 
         <label for="data.data.health.hurt" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.hurt}}" data-label="{{localize 'wod.health.hurt'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.hurt'}}</label>
         <div class="resource-counter" data-value="{{data.data.health.hurt}}" data-name="data.data.health.hurt" style="text-align: right;">
 
-        {{#numLoop data.data.health.hurt.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.hurt.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.hurt.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.hurt.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>
+        </div>
 
-    {{/iff}}
+    {{/if}}
 
-    {{#iff data.data.health.injured.value ">" 0 }}
+    {{#if (gt data.data.health.injured.value 0)}}
 
-    <label for="data.data.health.injured" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.injured}}" data-label="{{localize 'wod.health.injured'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.injured'}}</label>
-    <div class="resource-counter" data-value="{{data.data.health.injured}}" data-name="data.data.health.injured" style="text-align: right;">
+        <label for="data.data.health.injured" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.injured}}" data-label="{{localize 'wod.health.injured'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.injured'}}</label>
+        <div class="resource-counter" data-value="{{data.data.health.injured}}" data-name="data.data.health.injured" style="text-align: right;">
 
-        {{#numLoop data.data.health.injured.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.injured.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.injured.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.injured.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>
+        </div>
 
-    {{/iff}}
+    {{/if}}
 
-    {{#iff data.data.health.wounded.value ">" 0 }}
+    {{#if (gt data.data.health.wounded.value 0)}}
 
-    <label for="data.data.health.wounded" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.wounded}}" data-label="{{localize 'wod.health.wounded'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.wounded'}}</label>
-    <div class="resource-counter" data-value="{{data.data.health.wounded}}" data-name="data.data.health.wounded" style="text-align: right;">
+        <label for="data.data.health.wounded" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.wounded}}" data-label="{{localize 'wod.health.wounded'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.wounded'}}</label>
+        <div class="resource-counter" data-value="{{data.data.health.wounded}}" data-name="data.data.health.wounded" style="text-align: right;">
 
-        {{#numLoop data.data.health.wounded.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.wounded.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.wounded.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.wounded.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>
+        </div>
 
-    {{/iff}}
+    {{/if}}
 
-    {{#iff data.data.health.mauled.value ">" 0 }}
+    {{#if (gt data.data.health.mauled.value 0)}}
 
-    <label for="data.data.health.mauled" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.mauled}}" data-label="{{localize 'wod.health.mauled'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.mauled'}}</label>
-    <div class="resource-counter" data-value="{{data.data.health.mauled}}" data-name="data.data.health.mauled" style="text-align: right;">
+        <label for="data.data.health.mauled" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.mauled}}" data-label="{{localize 'wod.health.mauled'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.mauled'}}</label>
+        <div class="resource-counter" data-value="{{data.data.health.mauled}}" data-name="data.data.health.mauled" style="text-align: right;">
 
-        {{#numLoop data.data.health.mauled.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.mauled.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.mauled.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.mauled.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>
+        </div>
 
-    {{/iff}}
+    {{/if}}
 
-    {{#iff data.data.health.crippled.value ">" 0 }}
+    {{#if (gt data.data.health.crippled.value 0)}}
 
-    <label for="data.data.health.crippled" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.crippled}}" data-label="{{localize 'wod.health.crippled'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.crippled'}}</label>
-    <div class="resource-counter" data-value="{{data.data.health.crippled}}" data-name="data.data.health.crippled" style="text-align: right;">
+        <label for="data.data.health.crippled" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.crippled}}" data-label="{{localize 'wod.health.crippled'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.crippled'}}</label>
+        <div class="resource-counter" data-value="{{data.data.health.crippled}}" data-name="data.data.health.crippled" style="text-align: right;">
 
-        {{#numLoop data.data.health.crippled.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.crippled.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.crippled.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.crippled.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>
+        </div>
 
-    {{/iff}}
+    {{/if}}
 
-    {{#iff data.data.health.incapacitated.value ">" 0 }}
+    {{#if (gt data.data.health.incapacitated.value 0)}}
 
-    <label for="data.data.health.incapacitated" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.incapacitated}}" data-label="{{localize 'wod.health.incapacitated'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.incapacitated'}}</label>
-    <div class="resource-counter" data-value="{{data.data.health.incapacitated}}" data-name="data.data.health.incapacitated" style="text-align: right;">
+        <label for="data.data.health.incapacitated" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.data.health.incapacitated}}" data-label="{{localize 'wod.health.incapacitated'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.incapacitated'}}</label>
+        <div class="resource-counter" data-value="{{data.data.health.incapacitated}}" data-name="data.data.health.incapacitated" style="text-align: right;">
 
-        {{#numLoop data.data.health.incapacitated.value}}
-        
-        <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.incapacitated.label ../actor.health this}}"></span>
-        
-        {{/numLoop}}
+            {{#numLoop data.data.health.incapacitated.value}}
+            
+            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.data.health.incapacitated.label ../actor.health this}}"></span>
+            
+            {{/numLoop}}
 
-    </div>	
+        </div>	
 
-    {{/iff}}
+    {{/if}}
 
 </div>
 

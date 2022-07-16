@@ -1,21 +1,24 @@
 <form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}}" autocomplete="off">
 
 	{{!-- Creature Sheet Header --}}
-	
-	<div class="sheet-character">				
-	
+	<div class="sheet-character">
+
 		{{!-- Always visible --}}
 		<header class="sheet-header">	
 			
-			{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
-			
-			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-				<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-				<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
-				<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
-			</nav>
+			<div class="clearareaBox">
+				<div class="pullLeft">
+					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+				</div>
+			</div>		
 
-		</header>	
+		</header>
+
+		<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+			<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+			<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
+			<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
+		</nav>
 
 		{{!-- Sheet part --}}
 		<section class="sheet-body">
@@ -26,11 +29,20 @@
 				{{~> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
 
 			</div>
-		
+
 			{{!-- Core Tab --}}
 			<div class="tab core" data-group="primary" data-tab="core">
 
 				<section class="sheet-spec-body">
+
+					<div class="sheet-area">
+						<div class="clearareaBox area-box">
+
+							{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
+							{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+							
+						</div>
+					</div>
 				
 					<div class="sheet-area">
 						{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
@@ -42,70 +54,62 @@
 
 					<div class="sheet-area">
 						<div class="clearareaBox area-box">
-							<div class="pullLeft" style="width: 70%;">
+							<div>								
 
-								<div class="sheet-area">
-									<div class="clearareaBox area-box">
+								{{#if (gt actor.naturalWeapons.length 0)}}
 
-										{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
-										{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
-										
-									</div>
-								</div>
-
-								{{#iff actor.naturalWeapons.length ">" 0}}
-								
-								<div class="sheet-area">
-									<div class="clearareaBox area-box">
-										
-										{{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
-										
-									</div>
-								</div>
-
-								{{/iff}}
-
-								{{#iff actor.meleeWeapons.length ">" 0}}
-
-								<div class="sheet-area">
-									<div class="clearareaBox area-box">
-										
-										{{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
+									<div class="sheet-area">
+										<div class="clearareaBox area-box">
 											
-									</div>
-								</div>
-
-								{{/iff}}
-
-								{{#iff actor.rangedWeapons.length ">" 0}}
-									
-								<div class="sheet-area">
-									<div class="clearareaBox area-box">
-										
-										{{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
+											{{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
 											
+										</div>
 									</div>
-								</div>
 
-								{{/iff}}
+								{{/if}}
 
-								{{#iff actor.armors.length ">" 0}}
-									
-								<div class="sheet-area">
-									<div class="clearareaBox area-box">
+								{{#if (gt actor.meleeWeapons.length 0)}}
+
+									<div class="sheet-area">
+										<div class="clearareaBox area-box">
 											
-										{{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
-										
+											{{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
+												
+										</div>
 									</div>
-								</div>
 
-								{{/iff}}
+								{{/if}}
+
+								{{#if (gt actor.rangedWeapons.length 0)}}
+
+									<div class="sheet-area">
+										<div class="clearareaBox area-box">
+											
+											{{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
+												
+										</div>
+									</div>
+
+								{{/if}}
+
+								{{#if (gt actor.armors.length 0)}}
+
+									<div class="sheet-area">
+										<div class="clearareaBox area-box">
+												
+											{{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
+											
+										</div>
+									</div>
+
+								{{/if}}
+
 							</div>
-							<div class="pullLeft" style="width: 30%; padding-left: 20px;">
+							<div class="healthBox" style="width:30%;">
 
 								<div class="pullright" style="width: 100%;">
 		
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
 
 								</div>
 
@@ -118,26 +122,65 @@
 					</div>
 
 					<div class="sheet-area">
+						<div class="headlineRow splatFont">{{localize 'wod.advantages.advantages'}}</div>
+
 						<div class="clearareaBox area-box">
 
 							<div class="pullLeft" style="width: 33%;">
+
+								{{#if actor.data.data.settings.hasrage}}
 							
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+
+								{{/if}}
 
 							</div>
 							
 							<div class="pullLeft" style="width: 33%;">
 						
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+								{{#if actor.data.data.settings.hasgnosis}}
+
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+
+								{{/if}}
 						
 							</div>
 							
 							<div class="pullLeft" style="width: 33%;">
+
+								{{#if actor.data.data.settings.haswillpower}}
 								
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+
+								{{/if}}
 
 							</div>
-						
+						</div>
+
+						<div class="clearareaBox area-box">
+
+							<div class="pullLeft" style="width: 100%;">
+
+								{{#if actor.data.data.settings.hasessence}}
+								
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_essence.html"}}
+
+								{{/if}}
+
+							</div>
+						</div>
+
+						<div class="clearareaBox area-box">
+
+							<div class="pullLeft" style="width: 100%;">
+
+								{{#if actor.data.data.settings.hasbloodpool}}
+								
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+
+								{{/if}}
+
+							</div>						
 						</div>
 					</div>
 
@@ -145,14 +188,15 @@
 				
 			</div>
 
-            {{!-- Settings Tab --}}
+			{{!-- Settings Tab --}}
 			<div class="tab settings" data-group="primary" data-tab="settings">
 			
 				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
 				
 			</div>
-		
+
 		</section>
+
 	</div>
 		
 </form>

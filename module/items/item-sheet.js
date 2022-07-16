@@ -28,7 +28,7 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	getData() {
-		const itemData = duplicate(this.item);
+		const itemData = duplicate(this.item);		
 
 		if (!itemData.data.iscreated) {
 			itemData.data.version = game.data.system.data.version;
@@ -36,15 +36,16 @@ export class WoDItemSheet extends ItemSheet {
 			this.item.update(itemData);
 		}
 
-		if ((itemData.type == "Power") && ((itemData.data.type == "wod.types.discipline")||(itemData.data.type == "wod.types.disciplinepath"))) {
+		if ((itemData.type == "Power") && ((itemData.data.type == "wod.types.discipline") || (itemData.data.type == "wod.types.disciplinepath"))) {
 			itemData.data.isrollable = false;
 			this.item.update(itemData);
-		}
+		}		
 
 		const data = super.getData();
 
 		data.config = CONFIG.wod;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
+		data.graphicsettings = ActionHelper._getGraphicSettings();
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
@@ -65,7 +66,8 @@ export class WoDItemSheet extends ItemSheet {
 	/** @override */
 	activateListeners(html) {
 		console.log("WoD | Item Sheet activateListeners");
-  
+		//const owner = this.actor;
+
 		super.activateListeners(html);
 
 		html

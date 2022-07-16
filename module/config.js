@@ -10,6 +10,10 @@ wod.sheettype = {
     spirit: "Spirit"
 }
 
+wod.sheetsettings = {
+    useSplatFonts: true
+}
+
 wod.attributes = {
     strength: "wod.attributes.strength",
     dexterity: "wod.attributes.dexterity",
@@ -31,6 +35,30 @@ wod.attributes20 = {
     appearance: "wod.attributes.appearance",
     perception: "wod.attributes.perception",
     intelligence: "wod.attributes.intelligence",
+    wits: "wod.attributes.wits"
+}
+
+wod.attributeslist = {
+    strength: "wod.attributes.strength",
+    charisma: "wod.attributes.charisma",
+    intelligence: "wod.attributes.intelligence",
+    dexterity: "wod.attributes.dexterity",
+    manipulation: "wod.attributes.manipulation",
+    wits: "wod.attributes.wits",
+    stamina: "wod.attributes.stamina",    
+    composure: "wod.attributes.composure",    
+    resolve: "wod.attributes.resolve"
+}
+
+wod.attributes20list = {
+    strength: "wod.attributes.strength",
+    charisma: "wod.attributes.charisma",
+    perception: "wod.attributes.perception",
+    dexterity: "wod.attributes.dexterity",
+    manipulation: "wod.attributes.manipulation",
+    intelligence: "wod.attributes.intelligence",
+    stamina: "wod.attributes.stamina",
+    appearance: "wod.attributes.appearance",
     wits: "wod.attributes.wits"
 }
 
@@ -62,11 +90,15 @@ wod.alltalents = {
     intimidation: "wod.abilities.intimidation",
     intuition: "wod.abilities.intuition",
     leadership: "wod.abilities.leadership",
+    legerdemain: "wod.abilities.legerdemain",
     luciddreaming: "wod.abilities.luciddreaming",
     mimicry: "wod.abilities.mimicry",
     negotiation: "wod.abilities.negotiation",
+    newspeak: "wod.abilities.newspeak",
     primalurge: "wod.abilities.primalurge",
-    seduction: "wod.abilities.seduction",
+    scan: "wod.abilities.scan",
+    scan: "wod.abilities.scan",
+    scrounging: "wod.abilities.scrounging",
     streetwise: "wod.abilities.streetwise",
     style: "wod.abilities.style",
     subterfuge: "wod.abilities.subterfuge"
@@ -92,23 +124,33 @@ wod.allskills = {
     archery: "wod.abilities.archery",
     biotech: "wod.abilities.biotech",
     blindfighting: "wod.abilities.blindfighting",
+    bonecraft: "wod.abilities.bonecraft",
+    climbing: "wod.abilities.climbing",
+    commerce: "wod.abilities.commerce",
     craft: "wod.abilities.craft",
     disguise: "wod.abilities.disguise",
     drive: "wod.abilities.drive",
+    elusion: "wod.abilities.elusion",
     energyweapons: "wod.abilities.energyweapons",
     escapology: "wod.abilities.escapology",
     etiquette: "wod.abilities.etiquette",
     fastdraw: "wod.abilities.fastdraw",
+    fasttalk: "wod.abilities.fasttalk",
+    fencing: "wod.abilities.fencing",
     firearms: "wod.abilities.firearms",
     fortunetelling: "wod.abilities.fortunetelling",
     gambling: "wod.abilities.gambling",
     heavyweapons: "wod.abilities.heavyweapons",
     hypertech: "wod.abilities.hypertech",
     hypnotism: "wod.abilities.hypnotism",
+    hunting: "wod.abilities.hunting",
+    juryrigging: "wod.abilities.juryrigging",
     larceny: "wod.abilities.larceny",
     martialarts: "wod.abilities.martialarts",
     meditation: "wod.abilities.meditation",
     melee: "wod.abilities.melee",
+    microgravityoperations: "wod.abilities.microgravityoperations",
+    misdirections: "wod.abilities.misdirections",
     networking: "wod.abilities.networking",
     performance: "wod.abilities.performance",
     pilot: "wod.abilities.pilot",
@@ -116,8 +158,10 @@ wod.allskills = {
     research: "wod.abilities.research",
     riding: "wod.abilities.riding",
     security: "wod.abilities.security",
+    speedreading: "wod.abilities.speedreading",    
     stealth: "wod.abilities.stealth",    
     survival: "wod.abilities.survival",
+    swimming: "wod.abilities.swimming",
     technology: "wod.abilities.technology",
     torture: "wod.abilities.torture"
 }
@@ -144,15 +188,19 @@ wod.allknowledges = {
     bureaucracy: "wod.abilities.bureaucracy",
     chantry: "wod.abilities.chantry",
     chemistry: "wod.abilities.chemistry",
+    conspiracytheory: "wod.abilities.conspiracytheory",
+    covertculture: "wod.abilities.covertculture",
     cosmology: "wod.abilities.cosmology",
     cryptography: "wod.abilities.cryptography",
-    culture: "wod.abilities.culture",
+    culturalsavvy: "wod.abilities.culturalsavvy",
+    culture: "wod.abilities.culture",    
     computer: "wod.abilities.computer",
     enigmas: "wod.abilities.enigmas",
     esoterica: "wod.abilities.esoterica",
     finance: "wod.abilities.finance",
     hearthwisdom: "wod.abilities.hearthwisdom",
     herbalism: "wod.abilities.herbalism",
+    helmsman: "wod.abilities.helmsman",
     history: "wod.abilities.history",
     investigation: "wod.abilities.investigation",
     law: "wod.abilities.law",
@@ -161,12 +209,15 @@ wod.allknowledges = {
     medicine: "wod.abilities.medicine",
     occult: "wod.abilities.occult",
     politics: "wod.abilities.politics",
+    powerbrokering: "wod.abilities.powerbrokering",
     propaganda: "wod.abilities.propaganda",
     religion: "wod.abilities.religion",
     rituals: "wod.abilities.rituals",
+    seneschal: "wod.abilities.seneschal",
     science: "wod.abilities.science",
     theology: "wod.abilities.theology",
     technology: "wod.abilities.technology",
+    unconventionalwarfare: "wod.abilities.unconventionalwarfare",
     vice: "wod.abilities.vice"
 }
 

@@ -12,49 +12,49 @@
 						<img src="{{item.img}}" />
 					{{/if}}
 				</div>
-				<div class="top-center top-headline centerText">
+				<div class="top-center top-headline splatFont centerText">
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
 					{{#iff data.data.type "==" "wod.types.discipline"}} 
-					DISCIPLINE
+						{{captilize (localize "wod.types.discipline")}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.disciplinepower"}} 
-					DISCIPLINE POWER<br />
-					LEVEL {{data.data.level}}
+						{{captilize (localize "wod.types.disciplinepower")}}<br />
+						{{captilize (localize "wod.labels.level")}} {{data.data.level}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.disciplinepath"}} 
-					DISCIPLINE PATH
+						{{captilize (localize "wod.types.disciplinepath")}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.disciplinepathpower"}} 
-					DISCIPLINE PATH POWER<br />
-					LEVEL {{data.data.level}}
+						{{captilize (localize "wod.types.disciplinepathpower")}}<br />
+						{{captilize (localize "wod.labels.level")}} {{data.data.level}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.ritual"}} 
-					RITUAL<br />
-					LEVEL {{data.data.level}}
+						{{captilize (localize "wod.types.ritual")}}<br />
+						{{captilize (localize "wod.labels.level")}} {{data.data.level}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.gift"}} 
-					GIFT<br />
-					RANK {{data.data.level}}
+						{{captilize (localize "wod.types.gift")}}<br />
+						{{captilize (localize "wod.labels.rank")}} {{data.data.level}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.rite"}} 
-					RITE<br />
-					RANK {{data.data.level}}
+						{{captilize (localize "wod.types.rite")}}<br />
+						{{captilize (localize "wod.labels.rank")}}  {{data.data.level}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.charm"}} 
-					CHARM
+						{{captilize (localize "wod.types.charm")}}
 					{{/iff}}
 
 					{{#iff data.data.type "==" "wod.types.power"}} 
-					POWER
+						{{captilize (localize "wod.types.power")}}
 					{{/iff}}
 				</div>				
 			</div>
@@ -65,14 +65,14 @@
 
 			{{#if userpermissions.itemAdministrator}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="name">{{localize "wod.bio.name"}}</label>
-					<input class="sheet-infoValues item" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+					<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
+					<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
 				</div>			
 
 				<!-- type -->
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="data.type">{{localize "wod.labels.type"}}</label>
-					<select name="data.type">
+					<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.labels.type"}}</label>
+					<select class="editable" name="data.type">
 						{{#select data.data.type}}
 							<option value="">- {{localize "wod.labels.select"}} -</option>
 							<option value="wod.types.discipline">{{localize "wod.types.discipline"}} (Vampire)</option>
@@ -91,8 +91,8 @@
 				<!-- level -->
 				{{#iff data.data.type "==" "wod.types.disciplinepower"}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-					<select name="data.level">
+					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select class="editable" name="data.level">
 						{{#select data.data.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 9}}
@@ -105,8 +105,8 @@
 
 				{{#iff data.data.type "==" "wod.types.disciplinepathpower"}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-					<select name="data.level">
+					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select class="editable" name="data.level">
 						{{#select data.data.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 9}}
@@ -119,8 +119,8 @@
 
 				{{#iff data.data.type "==" "wod.types.ritual"}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-					<select name="data.level">
+					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select class="editable" name="data.level">
 						{{#select data.data.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 5}}
@@ -133,8 +133,8 @@
 
 				{{#iff data.data.type "==" "wod.types.gift"}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-					<select name="data.level">
+					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select class="editable" name="data.level">
 						{{#select data.data.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 6}}
@@ -147,11 +147,11 @@
 
 				{{#iff data.data.type "==" "wod.types.rite"}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio" for="data.level">{{localize "wod.labels.power.level"}}</label>
-					<select name="data.level">
+					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+					<select class="editable" name="data.level">
 						{{#select data.data.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
-							{{#numFromLoop 1 6}}
+							{{#numFromLoop 1 5}}
 							<option value="{{this}}">{{this}}</option>
 							{{/numFromLoop}}
 						{{/select}}
@@ -163,7 +163,7 @@
 				{{#iff data.data.type "!=" "wod.types.discipline"}}
 					{{#iff data.data.type "!=" "wod.types.disciplinepath"}}
 					<div class="infobox">
-						<label class="headlineItem headlineBio" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
+						<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
 						<input name="data.isrollable" type="checkbox" {{#if data.data.isrollable}} checked {{/if}} />
 					</div>
 					{{/iff}}

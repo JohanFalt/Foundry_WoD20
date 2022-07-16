@@ -1,11 +1,11 @@
-<div class="sheet-headline">{{localize "wod.power.activegift"}}</div>
+<div class="sheet-headline splatFont">{{localize "wod.power.activegift"}}</div>
 {{#each actor.powercombat as |item id|}}
     <div class="clearareaBox row">
         <div class="pullLeft gift-headlineBox headlineNormal {{#if item.data.isrollable}}vrollable{{/if}}" 
                 data-type="{{../config.sheettype.werewolf}}"
                 data-object="Gift"
                 data-rollitem="true"
-                data-itemid="{{item._id}}">{{captilizeFirst item.name}}</div>
+                data-itemid="{{item._id}}">{{item.name}}</div>
 
         <div class="gift-iconbox">
             <div class="pullLeft pointer headlineNormal tooltip">
@@ -17,7 +17,7 @@
                     title="{{localize "wod.labels.send"}}" 
                     data-type="Gift" 
                     data-item-id="{{item._id}}" 
-                    data-headline="<h2>{{captilizeFirst item.name}}</h2>" 
+                    data-headline="<h2>{{item.name}}</h2>" 
                     data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
                                     <span class='chatt-text'>{{item.data.description}}</span>
                                     <br />

@@ -47,7 +47,7 @@ export class MageActorSheet extends MortalActorSheet {
 				ActionHelper._setMageAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setMageAttributes(actorData);
-
+				
 				actorData.data.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
@@ -283,7 +283,12 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (fields[2] === "arete") {
-			actorData.data.arete.permanent = value;
+			if (actorData.data.arete.permanent == value) {
+				actorData.data.arete.permanent = parseInt(actorData.data.arete.permanent) - 1;
+			}
+			else {
+				actorData.data.arete.permanent = value;
+			}
 		}
 		if (fields[1] === "spheres") {
 			actorData.data.spheres[fields[2]].value = value;
@@ -303,4 +308,4 @@ function parseCounterStates(states) {
 	  obj[k] = v;
 	  return obj;
 	}, {});
-  }
+}

@@ -14,6 +14,7 @@
 				"settings": {
 					"iscreated": false,
 					"version": "",
+					"usesplatfont": true,
 					"soak": {
 						"bashing": {
 							"bonus": 0,
@@ -36,6 +37,7 @@
 				"concept": "",
 				"appearance": "",
 				"background": "",
+				"derangement": "",
 				"notes": "",
 				"gear": "",
 				"conditions": {
@@ -252,10 +254,24 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"legerdemain": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.legerdemain",
+							"speciality": "",
+							"isvisible": false
+						},
 						"luciddreaming": {
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.luciddreaming",
+							"speciality": "",
+							"isvisible": false
+						},
+						"newspeak": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.newspeak",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -277,6 +293,20 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.primalurge",
+							"speciality": "",
+							"isvisible": false
+						},
+						"scan": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.scan",
+							"speciality": "",
+							"isvisible": false
+						},
+						"scrounging": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.scrounging",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -345,6 +375,20 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"climbing": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.climbing",
+							"speciality": "",
+							"isvisible": false
+						},
+						"commerce": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.commerce",
+							"speciality": "",
+							"isvisible": false
+						},
 						"craft": {
 							"value": 0,
 							"max": 5,
@@ -356,6 +400,13 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.disguise",
+							"speciality": "",
+							"isvisible": false
+						},
+						"elusion": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.elusion",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -394,6 +445,20 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"fasttalk": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.fasttalk",
+							"speciality": "",
+							"isvisible": false
+						},
+						"fencing": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.fencing",
+							"speciality": "",
+							"isvisible": false
+						},
 						"firearms": {
 							"value": 0,
 							"max": 5,
@@ -422,6 +487,13 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"hunting": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.hunting",
+							"speciality": "",
+							"isvisible": false
+						},
 						"hypnotism": {
 							"value": 0,
 							"max": 5,
@@ -433,6 +505,13 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.hypertech",
+							"speciality": "",
+							"isvisible": false
+						},
+						"juryrigging": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.juryrigging",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -461,6 +540,20 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.melee",
+							"speciality": "",
+							"isvisible": false
+						},
+						"microgravityoperations": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.microgravityoperations",
+							"speciality": "",
+							"isvisible": false
+						},
+						"misdirections": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.misdirections",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -512,7 +605,14 @@
 							"label": "wod.abilities.security",
 							"speciality": "",
 							"isvisible": false
-						},					
+						},	
+						"speedreading": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.speedreading",
+							"speciality": "",
+							"isvisible": false
+						},				
 						"stealth": {
 							"value": 0,
 							"max": 5,
@@ -524,6 +624,13 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.survival",
+							"speciality": "",
+							"isvisible": false
+						},
+						"swimming": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.swimming",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -570,14 +677,7 @@
 							"label": "wod.abilities.chemistry",
 							"speciality": "",
 							"isvisible": false
-						},
-						"culture": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.culture",
-							"speciality": "",
-							"isvisible": false
-						},
+						},						
 						"computer": {
 							"value": 0,
 							"max": 5,
@@ -585,10 +685,38 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"conspiracytheory": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.conspiracytheory",
+							"speciality": "",
+							"isvisible": false
+						},
 						"cosmology": {
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.cosmology",
+							"speciality": "",
+							"isvisible": false
+						},
+						"covertculture": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.covertculture",
+							"speciality": "",
+							"isvisible": false
+						},
+						"culturalsavvy": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.culturalsavvy",
+							"speciality": "",
+							"isvisible": false
+						},
+						"culture": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.culture",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -617,6 +745,13 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.finance",
+							"speciality": "",
+							"isvisible": false
+						},
+						"helmsman": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.helmsman",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -690,6 +825,13 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"powerbrokering": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.powerbrokering",
+							"speciality": "",
+							"isvisible": false
+						},
 						"propaganda": {
 							"value": 0,
 							"max": 5,
@@ -711,6 +853,13 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"seneschal": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.seneschal",
+							"speciality": "",
+							"isvisible": false
+						},
 						"science": {
 							"value": 0,
 							"max": 5,
@@ -729,6 +878,13 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.technology",
+							"speciality": "",
+							"isvisible": false
+						},
+						"unconventionalwarfare": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.unconventionalwarfare",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -935,6 +1091,11 @@
 				"sect": "",
 				"affinity": "",
 				"essence": "",
+				"focus": {
+					"paradigm": "",
+					"practice": "",
+					"instruments": ""
+				},
 				"arete": {
 					"permanent": 0,
 					"max": 10,
@@ -1056,6 +1217,13 @@
 				}
 			},
 			"creature": {
+				"settings": {
+					"hasrage": false,
+					"hasgnosis": false,
+					"haswillpower": true,
+					"hasessence": false,
+					"hasbloodpool": false
+				},
 				"rage": {
 					"permanent": 0,
 					"temporary": 0,
@@ -1287,7 +1455,8 @@
 				"isunique": false
 			},
 			"spendingtime": 0,
-			"spelltype": ""
+			"spelltype": "",
+			"isextended": false
 		},
 		"Fetish": {
 			"templates": [

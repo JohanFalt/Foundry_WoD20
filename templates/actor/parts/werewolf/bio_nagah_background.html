@@ -1,9 +1,9 @@
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio" for="data.breed">{{localize "wod.bio.breed"}}</label>
-        <div class="pullLeft">
+        <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" name="data.breed" type="text" value="{{data.data.breed}}" data-name="data.data.breed" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
             {{else}}
             <select name="data.breed" data-name="data.data.breed" data-dtype="String">
                 {{#select data.data.breed}}
@@ -20,10 +20,10 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
-        <div class="pullLeft">
+        <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
+        <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" name="data.auspice" type="text" value="{{data.data.auspice}}" data-name="data.data.auspice" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.data.auspice}}" data-dtype="String" readonly />
             {{else}}
             <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
                 {{#select data.data.auspice}}

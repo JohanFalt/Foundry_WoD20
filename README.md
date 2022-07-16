@@ -9,7 +9,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 
 
 # Foundry VTT
-https://foundryvtt.com/packages/worldofdarkness
+[Foundry page](https://foundryvtt.com/packages/worldofdarkness)
 
 ## Supported sheets
 - [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mortal)
@@ -31,9 +31,6 @@ This material is NOT an official World of Darkness material.
 [<img src="https://github.com/JohanFalt/Foundry_WoD20/blob/main/doc/darkpack_logo2.png" width="300px" height="300px">](https://www.worldofdarkness.com/dark-pack)
 
 
-https://ko-fi.com/johanfk
-
-
 # Contributions
 Code for dot/box counters taken from Foundry-V5 (credit to [erizocosmico](https://github.com/erizocosmico/foundry-V5)) 
 
@@ -43,9 +40,14 @@ Systems I have checked to learn general structure and the typical "how do you do
 - https://github.com/StarWarsFoundryVTT/StarWarsFFG
 
 ## Translations
+
+French translation (last update v1.5) - Naurthoron
+
 German translation - Nocther
 
-Spanish translation (last update v1.4) - Duke and Wharomaru
+Italian translation (still working on)
+
+Spanish translation - Duke and Wharomaru
 
 ## Icons
 https://fontawesome.com/v4.7/icons/

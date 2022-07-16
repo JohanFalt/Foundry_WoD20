@@ -3,9 +3,9 @@
     <label>{{this.name}}</label>
     <div class="form-fields">
         {{#if this.isBoolean}}
-            <input type="checkbox" name="worldofdarkness.{{this.key}}" data-dtype="Boolean" {{checked this.value}} />
+            <input type="checkbox" name="{{this.scope}}.{{this.key}}" data-dtype="Boolean" {{checked this.value}} />
         {{else if this.isSelect}}
-            <select name="worldofdarkness.{{this.key}}">
+            <select name="{{this.scope}}.{{this.key}}">
             {{#select this.value}} 
                 {{#each this.choices as |name k|}}
                     <option value="{{k}}">{{localize name}}</option>
@@ -13,7 +13,7 @@
             {{/select}}
             </select>
         {{else}}
-            <input type="text" name="worldofdarkness.{{this.key}}" value="{{this.value}}" data-dtype="{{this.type}}" />
+            <input type="text" name="{{this.scope}}.{{this.key}}" value="{{this.value}}" data-dtype="{{this.type}}" />
         {{/if}}
     </div>
 

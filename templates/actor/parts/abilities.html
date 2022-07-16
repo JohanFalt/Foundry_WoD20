@@ -1,13 +1,13 @@
 <div class="clearareaBox area-box">
 
-	<div class="sheet-headline">
+	<div class="sheet-headline splatFont">
 		{{localize 'wod.abilities.abilities'}}
 	</div>
 
 	<div class="clearareaBox">
-		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.talents"}}</div>
-		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.skills"}}</div>
-		<div class="ability-statArea pullLeft headlineGroup centerText">{{localize "wod.abilities.knowledges"}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.talents'}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.skills'}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.knowledges'}}</div>
 	</div>
 	
 	<div class="ability-statArea pullLeft">
@@ -15,11 +15,11 @@
 		{{#each actor.ability_talents as |ability key|}}	
 		<div class="clearareaBox">
 			<label for="data.data.abilities.talent.{{ability._id}}.value" 
-				class="vrollable pullLeft {{#iff ../actor.type "==" ../config.sheettype.werewolf}}ability-headlineWidth{{else}}attribute-headlineWidth{{/iff}} headlineNormal" 
+				class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
 				data-type="{{../config.sheettype.mortal}}"
 				data-key="{{ability._id}}"
 				data-ability="true">{{localize ability.label}}</label>
-			<div class="resource-value pullLeft" 
+			<div class="resource-value dotvalueArea pullRight" 
 				data-value="{{ability.value}}" 
 				data-name="data.abilities.talent.{{ability._id}}.value">
 
@@ -27,7 +27,7 @@
 
 				{{#numLoop ability.max}}
 				
-				<span class="{{#iff ability.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
+				<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
@@ -41,11 +41,11 @@
 		{{#each actor.ability_skills as |ability key|}}
 		<div class="clearareaBox">
 			<label for="data.data.abilities.skill.{{ability._id}}.value" 
-				class="vrollable pullLeft {{#iff ../actor.type "==" ../config.sheettype.werewolf}}ability-headlineWidth{{else}}attribute-headlineWidth {{/iff}} headlineNormal" 
+				class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
 				data-type="{{../config.sheettype.mortal}}"
 				data-key="{{ability._id}}"
 				data-ability="true">{{localize ability.label}}</label>
-			<div class="resource-value pullLeft" 
+			<div class="resource-value dotvalueArea pullRight" 
 				data-value="{{ability.value}}" 
 				data-name="data.abilities.skill.{{ability._id}}.value">
 
@@ -53,7 +53,7 @@
 
 				{{#numLoop ability.max}}
 				
-				<span class="{{#iff ability.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
+				<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				
@@ -67,11 +67,11 @@
 		{{#each actor.ability_knowledges as |ability key|}}
 		<div class="clearareaBox">
 			<label for="data.data.abilities.knowledge.{{ability._id}}.value" 
-				class="vrollable pullLeft {{#iff ../actor.type "==" ../config.sheettype.werewolf}}ability-headlineWidth{{else}}attribute-headlineWidth {{/iff}} headlineNormal" 
+				class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
 				data-type="{{../config.sheettype.mortal}}"
 				data-key="{{ability._id}}"
 				data-ability="true">{{localize ability.label}}</label>
-			<div class="resource-value pullLeft" 
+			<div class="resource-value dotvalueArea pullRight" 
 				data-value="{{ability.value}}" 
 				data-name="data.abilities.knowledge.{{ability._id}}.value">
 				
@@ -79,7 +79,7 @@
 
 				{{#numLoop ability.max}}
 				
-				<span class="{{#iff ability.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
+				<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				

@@ -62,6 +62,9 @@ export class Rote {
         this.canCast = false;
         this.close = false;
 
+        this.isExtendedCasting = false;
+        this.totalSuccesses = 0;
+
         if (item != undefined) {
             this.name = item.data["name"];
 
@@ -80,9 +83,11 @@ export class Rote {
                 this.spelltype = item.data.data["spelltype"];
             }
 
-            this.check_instrumentPerson = item.data.data.instrument["personalized"];
-		    this.check_instrumentUnique = item.data.data.instrument["unique"];
+            this.check_instrumentPerson = item.data.data.instrument["ispersonalized"];
+		    this.check_instrumentUnique = item.data.data.instrument["isunique"];
 		    this.select_spendingTime = item.data.data["spendingtime"];
+
+            this.isExtendedCasting = item.data.data["isextended"];
 
             this.isRote = true;
         }
@@ -207,8 +212,16 @@ export class DialogAreteCasting extends FormApplication {
         this.object.quintessence = parseInt(formData["object.quintessence"]);
         this.object.sumSelectedDifficulty = parseInt(totalDiff);
         this.object.difficultyModifier = parseInt(formData["object.difficultyModifier"]);
-        this.object.spelltype = formData["object.spelltype"];
+
+        if (formData["object.spelltype"] != "null") {
+            this.object.spelltype = formData["object.spelltype"];
+        }
+        else {
+            this.object.spelltype = "";
+        }
+        
         this.object.witnesses = formData["object.witnesses"];
+        this.object.isExtendedCasting = formData["object.isExtendedCasting"];
 
         this.object.useSpeciality = formData["specialty"];
         
@@ -264,7 +277,7 @@ export class DialogAreteCasting extends FormApplication {
     }
 
     /* clicked on cast Spell */
-    _castSpell(event) {
+    async _castSpell(event) {
         let templateHTML = "";
         let specialityRoll = false;
         let specialityText = "";
@@ -338,17 +351,16 @@ export class DialogAreteCasting extends FormApplication {
             castingRoll.speciality = specialityRoll;
             castingRoll.specialityText = specialityText;
 
-            rollDice(castingRoll);
-
-            // rollDice(
-            //     CONFIG.handleOnes,
-            //     parseInt(this.actor.data.data.arete.roll) + parseInt(this.object.areteModifier),
-            //     this.actor,
-            //     templateHTML,
-            //     parseInt(this.object.totalDifficulty),
-            //     this.object.description,
-            //     specialityRoll,
-            //     specialityText);            
+            let successes = await rollDice(castingRoll);
+            
+            if (!this.object.isExtendedCasting) {
+                this.object.close = true;
+            }
+            else {
+                this.object.difficultyModifier = parseInt(this.object.difficultyModifier) + 1;
+                this.object.totalSuccesses = parseInt(this.object.totalSuccesses) + parseInt(successes);
+                this.render(false);
+            }
         }
     }
 
@@ -369,28 +381,6 @@ export class DialogAreteCasting extends FormApplication {
 
         return selected;
     }
-
-    // _fillForm(rote) {
-    //     for (const sphere in CONFIG.wod.allSpheres) {
-    //         let exists = (rote.selectedSpheres[sphere] === undefined) ? false : true;
-
-    //         const search = '[id^="'+ sphere +'"]';
-    //         const steps = document.querySelectorAll(search);
-    //         const index = Number(rote.selectedSpheres[sphere]);
-
-    //         if (index < 0 || index > steps.length) {
-    //             return;
-    //         }        
-
-    //         steps.removeClass("active");
-
-    //         steps.each(function (i) {
-    //             if (i <= index) {
-    //                 $(this).addClass("active");
-    //             }
-    //         });
-    //     }
-    // }
 
     /* calculating the difficulty based on the checked variables */
     _calculateDifficulty(showMessage) {
@@ -425,12 +415,6 @@ export class DialogAreteCasting extends FormApplication {
         }
 
         if (diff > -1) {
-            // if (diff > -1) {
-            //     const diffname = "inputDif" + diff;
-            //     const radiobtn = document.getElementById(diffname);
-            //     radiobtn.checked = true;
-            // }
-
             this.object.baseDifficulty = diff;
             this.object.totalDifficulty = parseInt(this.object.baseDifficulty) + parseInt(this.object.sumSelectedDifficulty) + parseInt(this.object.difficultyModifier) + parseInt(this.object.quintessence);
 

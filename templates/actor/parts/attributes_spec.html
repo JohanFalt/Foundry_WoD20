@@ -1,39 +1,39 @@
 <div class="clearareaBox area-box">
 
-	<div class="sheet-headline">
+	<div class="sheet-headline splatFont">
 		{{localize 'wod.attributes.attributes'}}
 	</div>
 
 	<div class="clearareaBox">
-		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.physical"}}</div>
-		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.social"}}</div>
-		<div class="attribute-statArea pullLeft headlineGroup centerText">{{localize "wod.attributes.mental"}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.physical'}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.social'}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.mental'}}</div>
 	</div>
 
 	<div class="clearareaBox">
 		{{#each data.data.attributes as |attribute key|}}
 
-		{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
+			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
-		{{#if attribute.isvisible}}
+				{{#if attribute.isvisible}}
 
-		<div class="attribute-rowheight">
-			<label for="data.data.attributes.{{key}}.speciality" 
-				class="pullLeft attribute-headlineWidth headlineNormal">{{localize attribute.label}}</label>
-			{{#iff attribute.value ">=" "4"}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-					class="specialityBox"
-					name="data.attributes.{{key}}.speciality" 
-					value="{{attribute.speciality}}" 
-					data-name="data.attributes.{{key}}.speciality" />
-			</div>
-			{{/iff}}
-		</div>		
-	
-		{{/if}}
+					<div class="attribute-rowheight">
+						<label for="data.data.attributes.{{key}}.speciality" 
+							class="pullLeft attribute-headlineWidth headlineNormal">{{localize attribute.label}}</label>
+						{{#if (gte attribute.value 4)}}
+						<div class="resource-value pullRight">
+							<input type="text" 
+								class="specialityBox"
+								name="data.attributes.{{key}}.speciality" 
+								value="{{attribute.speciality}}" 
+								data-name="data.attributes.{{key}}.speciality" />
+						</div>
+						{{/if}}
+					</div>		
+			
+				{{/if}}
 
-		{{#if (bottenAttributes key)}}</div>{{/if}}
+			{{#if (bottenAttributes key)}}</div>{{/if}}
 		
 		{{/each}}	
 	</div> 
