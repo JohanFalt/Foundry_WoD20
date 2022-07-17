@@ -12,11 +12,11 @@ I would never require it by anyone or even expect someone to do but if you reall
 [Foundry page](https://foundryvtt.com/packages/worldofdarkness)
 
 ## Supported sheets
-- [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mortal)
-- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#vampire)
-- [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#mage)
-- [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#werewolf)
-- [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System#changing-breed)
+- [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mortal-v1.6)
+- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki)
+- [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension-v1.6)
+- [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse-v1.6)
+- [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)
 - Spirits
 - Creatures
 
@@ -45,7 +45,7 @@ French translation (last update v1.5) - Naurthoron
 
 German translation - Nocther
 
-Italian translation (still working on)
+Italian translation (still working on) - EldritchTranslator
 
 Spanish translation - Duke and Wharomaru
 
