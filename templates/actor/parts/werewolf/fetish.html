@@ -19,19 +19,19 @@
                 data-object="Fetish"
                 data-rollitem="true"
                 data-itemid="{{item._id}}">{{item.name}}</div>
-            <div class="pullLeft gear-valueBox headlineNormal">{{item.data.gnosis}}</div>
-            <div class="pullLeft gear-valueBox headlineNormal">{{item.data.difficulty}}</div>
+            <div class="pullLeft gear-valueBox headlineNormal">{{item.system.gnosis}}</div>
+            <div class="pullLeft gear-valueBox headlineNormal">{{item.system.difficulty}}</div>
 
             <div class="gift-iconbox">
                 <div class="pullLeft pointer headlineNormal tooltip">
                     <i class="icon fa fa-sticky-note"></i>
                     <span class="tooltiptext">
-                        {{#if (ne item.data.description "")}}
-                            <b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}
+                        {{#if (ne item.system.description "")}}
+                            <b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}
                         {{/if}}
                         <br /><br />
-                        {{#if (ne item.data.details "")}}
-                            <b>{{localize "wod.labels.power.system"}}:</b> {{item.data.details}}
+                        {{#if (ne item.system.details "")}}
+                            <b>{{localize "wod.labels.power.system"}}:</b> {{item.system.details}}
                         {{/if}}
                     </span>
                 </div>
@@ -41,10 +41,10 @@
                         data-type="Fetish" 
                         data-headline="<h2>{{item.name}}</h2>" 
                         data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                        <span class='chatt-text'>{{item.data.description}}</span>
+                                        <span class='chatt-text'>{{item.system.description}}</span>
                                         <br />
                                         <span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
-                                        <span class='chatt-text'>{{item.data.details}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                        <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa fa-commenting"></i></a>
                     {{#if ../locked}}
                         &nbsp;
                     {{ else }}
@@ -80,18 +80,18 @@
                 data-object="Talen"
                 data-rollitem="true" 
                 data-itemid="{{item._id}}">{{item.name}}</div>
-            <div class="pullLeft gear-valueBox headlineNormal">{{item.data.gnosis}}</div>
-            <div class="pullLeft gear-valueBox headlineNormal">{{item.data.difficulty}}</div>
+            <div class="pullLeft gear-valueBox headlineNormal">{{item.system.gnosis}}</div>
+            <div class="pullLeft gear-valueBox headlineNormal">{{item.system.difficulty}}</div>
             <div class="gift-iconbox">
                 <div class="pullLeft pointer headlineNormal tooltip">
                     <i class="icon fa fa-sticky-note"></i>
                     <span class="tooltiptext">
-                        {{#if (ne item.data.description "")}}
-                            <b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}
+                        {{#if (ne item.system.description "")}}
+                            <b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}
                         {{/if}}
                         <br /><br />
-                        {{#if (ne item.data.details "")}}
-                            <b>{{localize "wod.labels.power.system"}}:</b> {{item.data.details}}
+                        {{#if (ne item.system.details "")}}
+                            <b>{{localize "wod.labels.power.system"}}:</b> {{item.system.details}}
                         {{/if}}
                     </span>
                 </div>
@@ -101,10 +101,10 @@
                         data-type="Talen" 
                         data-headline="<h2>{{item.name}}</h2>" 
                         data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                        <span class='chatt-text'>{{item.data.description}}</span>
+                                        <span class='chatt-text'>{{item.system.description}}</span>
                                         <br />
                                         <span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
-                                        <span class='chatt-text'>{{item.data.details}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                        <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa fa-commenting"></i></a>
                     {{#if ../locked}}
                         &nbsp;
                     {{ else }}

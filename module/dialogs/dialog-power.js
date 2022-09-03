@@ -13,14 +13,14 @@ export class Gift {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = item.data.data["dice1"];
-        this.dice2 = item.data.data["dice2"];
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
-        this.description = item.data.data["description"];
-        this.system = item.data.data["system"];
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["system"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -39,14 +39,14 @@ export class Charm {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = item.data.data["dice1"];
-        this.dice2 = item.data.data["dice2"];
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
         this.description = "";
-        this.system = item.data.data["description"];
+        this.system = item.system["description"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -65,14 +65,14 @@ export class CharmGift {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = ActionHelper._transformToSpiritAttributes(item.data.data["dice1"]);
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = ActionHelper._transformToSpiritAttributes(item.system["dice1"]);
         this.dice2 = "";
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
         this.description = "";
-        this.system = item.data.data["description"];
+        this.system = item.system["description"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -91,14 +91,14 @@ export class Power {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = item.data.data["dice1"];
-        this.dice2 = item.data.data["dice2"];
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
         this.description = "";
-        this.system = item.data.data["description"];
+        this.system = item.system["description"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -117,14 +117,14 @@ export class DisciplinePower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = item.data.data["dice1"];
-        this.dice2 = item.data.data["dice2"];
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
-        this.description = item.data.data["description"];
-        this.system = item.data.data["system"];
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["system"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -143,14 +143,14 @@ export class PathPower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = item.data.data["dice1"];
-        this.dice2 = item.data.data["dice2"];
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
-        this.description = item.data.data["description"];
-        this.system = item.data.data["system"];
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["system"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -169,14 +169,14 @@ export class RitualPower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
-        this.type = item.data.data["type"];
-        this.dice1 = item.data.data["dice1"];
-        this.dice2 = item.data.data["dice2"];
-        this.bonus = parseInt(item.data.data["bonus"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
-        this.description = item.data.data["description"];
-        this.system = item.data.data["system"];
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["system"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -214,87 +214,97 @@ export class DialogPower extends FormApplication {
         data.config = CONFIG.wod;
 
         // is dice1 an Attributes
-        if ((this.actor.data.data?.attributes != undefined) && (this.actor.data.data.attributes[data.object.dice1]?.value != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.data.data.attributes[data.object.dice1].total);
-            data.object.attributeName = game.i18n.localize(this.actor.data.data.attributes[data.object.dice1].label);
+        if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
+            data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
+            data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
 
-            if (parseInt(this.actor.data.data.attributes[data.object.dice1].value) >= 4) {
+            if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.attributes[data.object.dice1].speciality;
+                data.object.specialityText += this.actor.system.attributes[data.object.dice1].speciality;
             }
         }
         // is dice1 an Advantage
-        else if (this.actor.data.data[data.object.dice1]?.roll != undefined) { 
-            data.object.attributeValue = parseInt(this.actor.data.data[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.data.data[data.object.dice1].label);
+        else if (this.actor.system[data.object.dice1]?.roll != undefined) { 
+            data.object.attributeValue = parseInt(this.actor.system[data.object.dice1].roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.data.data[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                if (parseInt(this.actor.data.data.attributes?.composure.value) >= 4) {
+            if ((this.actor.system[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+                if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
                     if (data.object.specialityText != "") {
                         data.object.specialityText += ", ";
                     }
-                    data.object.specialityText += this.actor.data.data.attributes.composure.speciality;
+                    data.object.specialityText += this.actor.system.attributes.composure.speciality;
                 }
-                if (parseInt(this.actor.data.data.attributes?.resolve.value) >= 4) {
+                if (parseInt(this.actor.system.attributes?.resolve.value) >= 4) {
                     data.object.hasSpeciality = true;
 
                     if (data.object.specialityText != "") {
                         data.object.specialityText += ", ";
                     }
-                    data.object.specialityText += this.actor.data.data.attributes.resolve.speciality;
+                    data.object.specialityText += this.actor.system.attributes.resolve.speciality;
                 }
             }
+        }
+        // virtues
+        else if (this.actor.system.virtues[data.object.dice1]?.roll != undefined) {
+            data.object.attributeValue = parseInt(this.actor.system.virtues[data.object.dice1].roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.virtues[data.object.dice1].label);
         }
 
         // is dice2 a Talent
-        if ((this.actor.data.data?.abilities != undefined) && (this.actor.data.data.abilities.talent[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.data.data.abilities.talent[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.data.data.abilities.talent[data.object.dice2].label);
+        if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities.talent[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.talent[data.object.dice2].label);
 
-            if (parseInt(this.actor.data.data.abilities.talent[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities.talent[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.abilities.talent[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities.talent[data.object.dice2].speciality;
             }
         }
         // is dice2 a Skill
-        else if ((this.actor.data.data?.abilities != undefined) && (this.actor.data.data.abilities.skill[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.data.data.abilities.skill[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.data.data.abilities.skill[data.object.dice2].label);
+        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.skill[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities.skill[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.skill[data.object.dice2].label);
 
-            if (parseInt(this.actor.data.data.abilities.skill[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities.skill[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.abilities.skill[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities.skill[data.object.dice2].speciality;
             }
         }
         // is dice2 a Knowledge
-        else if ((this.actor.data.data?.abilities != undefined) && (this.actor.data.data.abilities.knowledge[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.data.data.abilities.knowledge[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.data.data.abilities.knowledge[data.object.dice2].label);
+        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.knowledge[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.knowledge[data.object.dice2].label);
 
-            if (parseInt(this.actor.data.data.abilities.knowledge[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.abilities.knowledge[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities.knowledge[data.object.dice2].speciality;
             }
-        }        
+        }     
+        // virtues
+        else if (this.actor.system.virtues[data.object.dice2]?.roll != undefined) {
+            data.object.abilityValue = parseInt(this.actor.system.virtues[data.object.dice2].roll);
+            data.object.abilityName = game.i18n.localize(this.actor.system.virtues[data.object.dice2].label);
+        }    
 
         return data;
     }
@@ -389,7 +399,7 @@ export class DialogPower extends FormApplication {
             woundPenaltyVal = 0;
         }				
         else {
-            woundPenaltyVal = parseInt(this.actor.data.data.health.damage.woundpenalty);
+            woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
         }
         
         const powerRoll = new DiceRoll(this.actor);

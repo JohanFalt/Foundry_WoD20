@@ -51,8 +51,8 @@ export class DialogSoakRoll extends FormApplication {
         }
 
         if (data.object.damageKey != "") {
-            data.object.attributeValue = parseInt(data.actorData.data.soak[data.object.damageKey]);
-            data.object.attributeBonus = parseInt(data.actorData.data.settings.soak[data.object.damageKey].bonus);
+            data.object.attributeValue = parseInt(data.actorData.system.soak[data.object.damageKey]);
+            data.object.attributeBonus = parseInt(data.actorData.system.settings.soak[data.object.damageKey].bonus);
         }
         else {
             data.object.attributeValue = 0;

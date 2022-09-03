@@ -13,19 +13,19 @@ export class MeleeWeapon {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this._id = item.data["_id"];
-        this.name = item.data["name"];
-        this.type = item.data["type"];
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.type = item.system["type"];
 
-        this.dice1 = item.data.data.attack["attribute"];
-        this.dice2 = item.data.data.attack["ability"];
-        this.bonus =  parseInt(item.data.data.attack["accuracy"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
+        this.dice1 = item.system.attack["attribute"];
+        this.dice2 = item.system.attack["ability"];
+        this.bonus =  parseInt(item.system.attack["accuracy"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
 
-        this.rollattack = item.data.data.attack["isrollable"];
-        this.rolldamage = item.data.data.damage["isrollable"];
+        this.rollattack = item.system.attack["isrollable"];
+        this.rolldamage = item.system.damage["isrollable"];
 
-        this.system = item.data.data["description"];
+        this.system = item.system["description"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -44,19 +44,19 @@ export class RangedWeapon {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this._id = item.data["_id"];
-        this.name = item.data["name"];
-        this.type = item.data["type"];
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.type = item.system["type"];
 
-        this.dice1 = item.data.data.attack["attribute"];
-        this.dice2 = item.data.data.attack["ability"];
-        this.bonus =  parseInt(item.data.data.attack["accuracy"]);
-        this.difficulty = parseInt(item.data.data["difficulty"]);
+        this.dice1 = item.system.attack["attribute"];
+        this.dice2 = item.system.attack["ability"];
+        this.bonus =  parseInt(item.system.attack["accuracy"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
 
-        this.rollattack = item.data.data.attack["isrollable"];
-        this.rolldamage = item.data.data.damage["isrollable"];
+        this.rollattack = item.system.attack["isrollable"];
+        this.rolldamage = item.system.damage["isrollable"];
 
-        this.system = item.data.data["description"];
+        this.system = item.system["description"];
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -84,24 +84,24 @@ export class Damage {
         this.hasSpeciality = false;
         this.specialityText = "";
 
-        this.name = item.data["name"];
+        this.name = item["name"];
         this.type = "Damage";
 
-        this.dice1 = item.data.data.damage["attribute"];
+        this.dice1 = item.system.damage["attribute"];
         this.dice2 = "";        
-        this.bonus = parseInt(item.data.data.damage["bonus"]);
+        this.bonus = parseInt(item.system.damage["bonus"]);
         this.difficulty = 6;
-        this.damageType = item.data.data.damage["type"];
+        this.damageType = item.system.damage["type"];
         this.damageCode = game.i18n.localize(CONFIG.wod.damageTypes[this.damageType]);
 
-        if (item.data.data.extraSuccesses != undefined) {
-            this.extraSuccesses = parseInt(item.data.data.extraSuccesses);
+        if (item.system.extraSuccesses != undefined) {
+            this.extraSuccesses = parseInt(item.system.extraSuccesses);
         }
         else {
             this.extraSuccesses = 0;
         }
 
-        this.system = item.data.data["description"];
+        this.system = item.system["description"];
 
         this.canRoll = true;
         this.close = false;
@@ -146,85 +146,85 @@ export class DialogWeapon extends FormApplication {
         }
 
         // is dice1 an Attributes
-        if ((this.actor.data.data?.attributes != undefined) && (this.actor.data.data.attributes[data.object.dice1]?.value != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.data.data.attributes[data.object.dice1].total);
-            data.object.attributeName = game.i18n.localize(this.actor.data.data.attributes[data.object.dice1].label);
+        if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
+            data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
+            data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
 
-            if (parseInt(this.actor.data.data.attributes[data.object.dice1].value) >= 4) {
+            if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.attributes[data.object.dice1].speciality;
+                data.object.specialityText += this.actor.system.attributes[data.object.dice1].speciality;
             }
         }
         // is dice1 an Advantage
-        else if (this.actor.data.data[data.object.dice1]?.roll != undefined) { 
-            data.object.attributeValue = parseInt(this.actor.data.data[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.data.data[data.object.dice1].label);
+        else if (this.actor.system[data.object.dice1]?.roll != undefined) { 
+            data.object.attributeValue = parseInt(this.actor.system[data.object.dice1].roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.data.data[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                if (parseInt(this.actor.data.data.attributes?.composure.value) >= 4) {
+            if ((this.actor.system[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+                if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
                     if (data.object.specialityText != "") {
                         data.object.specialityText += ", ";
                     }
-                    data.object.specialityText += this.actor.data.data.attributes.composure.speciality;
+                    data.object.specialityText += this.actor.system.attributes.composure.speciality;
                 }
-                if (parseInt(this.actor.data.data.attributes?.resolve.value) >= 4) {
+                if (parseInt(this.actor.system.attributes?.resolve.value) >= 4) {
                     data.object.hasSpeciality = true;
 
                     if (data.object.specialityText != "") {
                         data.object.specialityText += ", ";
                     }
-                    data.object.specialityText += this.actor.data.data.attributes.resolve.speciality;
+                    data.object.specialityText += this.actor.system.attributes.resolve.speciality;
                 }
             }
         }
 
         // is dice2 a Talent
-        if ((this.actor.data.data?.abilities != undefined) && (this.actor.data.data.abilities.talent[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.data.data.abilities.talent[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.data.data.abilities.talent[data.object.dice2].label);
+        if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities.talent[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.talent[data.object.dice2].label);
 
-            if (parseInt(this.actor.data.data.abilities.talent[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities.talent[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.abilities.talent[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities.talent[data.object.dice2].speciality;
             }
         }
         // is dice2 a Skill
-        else if ((this.actor.data.data?.abilities != undefined) && (this.actor.data.data.abilities.skill[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.data.data.abilities.skill[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.data.data.abilities.skill[data.object.dice2].label);
+        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.skill[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities.skill[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.skill[data.object.dice2].label);
 
-            if (parseInt(this.actor.data.data.abilities.skill[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities.skill[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.abilities.skill[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities.skill[data.object.dice2].speciality;
             }
         }
         // is dice2 a Knowledge
-        else if ((this.actor.data.data?.abilities != undefined) && (this.actor.data.data.abilities.knowledge[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.data.data.abilities.knowledge[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.data.data.abilities.knowledge[data.object.dice2].label);
+        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.knowledge[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.knowledge[data.object.dice2].label);
 
-            if (parseInt(this.actor.data.data.abilities.knowledge[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.data.data.abilities.knowledge[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities.knowledge[data.object.dice2].speciality;
             }
         }        
 
@@ -361,7 +361,7 @@ export class DialogWeapon extends FormApplication {
             if (ActionHelper._ignoresPain(this.actor)) {
                 woundPenaltyVal = 0;			}				
             else {
-                woundPenaltyVal = parseInt(this.actor.data.data.health.damage.woundpenalty);
+                woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
             }
 
             numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
@@ -394,10 +394,11 @@ export class DialogWeapon extends FormApplication {
             const numberOfSuccesses = await rollDice(weaponRoll);     
             
             if (numberOfSuccesses > 0) {
-                let item = ActionHelper._getItem(this.object._id, this.actor.data.items);
+                //let item = ActionHelper._getItem(this.object._id, this.actor.data.items);
+                let item = this.actor.getEmbeddedDocument("Item", this.object._id);
 
                 // add number of successes to Damage roll
-                item.data.data.extraSuccesses = parseInt(numberOfSuccesses) - 1;
+                item.system.extraSuccesses = parseInt(numberOfSuccesses) - 1;
                 const damageData = new Damage(item);
                 let rollDamage = new DialogWeapon(this.actor, damageData);
                 rollDamage.render(true);

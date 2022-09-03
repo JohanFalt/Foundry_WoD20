@@ -113,7 +113,7 @@ Hooks.once("setup", function () {
 Hooks.once("ready", function () {
     // Do anything once the system is ready
 	const installedVersion = game.settings.get('worldofdarkness', 'worldVersion');
-  	const systemVersion = game.data.system.data.version;	
+  	const systemVersion = game.data.system.version;	
 
 	if (game.user.isGM) {
 		if ((installedVersion !== systemVersion || installedVersion === null)) {

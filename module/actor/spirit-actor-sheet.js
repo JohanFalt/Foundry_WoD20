@@ -42,12 +42,12 @@ export class SpiritActorSheet extends ActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.iscreated) {
+		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.spirit) {
-				actorData.data.settings.soak.bashing.isrollable = true;
-				actorData.data.settings.soak.lethal.isrollable = true;
-				actorData.data.settings.soak.aggravated.isrollable = true;
-				actorData.data.settings.iscreated = true;
+				actorData.system.settings.soak.bashing.isrollable = true;
+				actorData.system.settings.soak.lethal.isrollable = true;
+				actorData.system.settings.soak.aggravated.isrollable = true;
+				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -72,10 +72,10 @@ export class SpiritActorSheet extends ActorSheet {
 
         for (const i of data.items) {
 			if (i.type == "Power") {
-				if (i.data.type == "wod.types.charm") {
+				if (i.system.type == "wod.types.charm") {
 					charmlist.push(i);
 				}
-				if (i.data.type == "wod.types.gift") {
+				if (i.system.type == "wod.types.gift") {
 					giftlist.push(i);
 				}
 			}
@@ -292,50 +292,50 @@ export class SpiritActorSheet extends ActorSheet {
 		if (fields.length === 2 && fields[0] === "items") {
 			for (const i of actorData.items) {
 				if (fields[1] === i._id) {
-					i.data.points = value;
+					i.system.points = value;
 					break;
 				}
 			}
 		}
 		else if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "willpower")) {
-			if (actorData.data[fields[2]][fields[3]] == value) {
-				actorData.data[fields[2]][fields[3]] = parseInt(actorData.data[fields[2]][fields[3]]) - 1;
+			if (actorData.system[fields[2]][fields[3]] == value) {
+				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
 			}
 			else {
-				actorData.data[fields[2]][fields[3]] = value;
+				actorData.system[fields[2]][fields[3]] = value;
 			}
 		}
 		// else if (fields[2] === "rage") {
 		// 	if (fields[3] === "permanent") {
-		// 		actorData.data.rage.permanent = value;
+		// 		actorData.system.rage.permanent = value;
 		// 	}
 		// 	else {
-		// 		actorData.data.rage.temporary = value;
+		// 		actorData.system.rage.temporary = value;
 		// 	}
 
 		// }
 		// else if (fields[2] === "gnosis") {
 		// 	if (fields[3] === "permanent") {
-		// 		actorData.data.gnosis.permanent = value;
+		// 		actorData.system.gnosis.permanent = value;
 		// 	}
 		// 	else {
-		// 		actorData.data.gnosis.temporary = value;
+		// 		actorData.system.gnosis.temporary = value;
 		// 	}
 		// }
 		// else if (fields[2] === "willpower") {
 		// 	if (fields[3] === "permanent") {
-		// 		actorData.data.willpower.permanent = value;
+		// 		actorData.system.willpower.permanent = value;
 		// 	}
 		// 	else {
-		// 		actorData.data.willpower.temporary = value;
+		// 		actorData.system.willpower.temporary = value;
 		// 	}
 		// }
 		else if (fields[2] === "essence") {
-			if (actorData.data.essence.temporary == value) {
-				actorData.data.essence.temporary = parseInt(actorData.data.essence.temporary) - 1;
+			if (actorData.system.essence.temporary == value) {
+				actorData.system.essence.temporary = parseInt(actorData.system.essence.temporary) - 1;
 			}
 			else {
-				actorData.data.essence.temporary = value;
+				actorData.system.essence.temporary = value;
 			}
 		}
 		else {
@@ -344,30 +344,30 @@ export class SpiritActorSheet extends ActorSheet {
 		}
 
 		// rage
-		if (actorData.data.rage.permanent > actorData.data.rage.max) {
-			actorData.data.rage.permanent = actorData.data.rage.max;
+		if (actorData.system.rage.permanent > actorData.system.rage.max) {
+			actorData.system.rage.permanent = actorData.system.rage.max;
 		}
 		
-		if (actorData.data.rage.permanent < actorData.data.rage.temporary) {
-			actorData.data.rage.temporary = actorData.data.rage.permanent;
+		if (actorData.system.rage.permanent < actorData.system.rage.temporary) {
+			actorData.system.rage.temporary = actorData.system.rage.permanent;
 		}
 		
 		// gnosis
-		if (actorData.data.gnosis.permanent > actorData.data.gnosis.max) {
-			actorData.data.gnosis.permanent = actorData.data.gnosis.max;
+		if (actorData.system.gnosis.permanent > actorData.system.gnosis.max) {
+			actorData.system.gnosis.permanent = actorData.system.gnosis.max;
 		}
 		
-		if (actorData.data.gnosis.permanent < actorData.data.gnosis.temporary) {
-			actorData.data.gnosis.temporary = actorData.data.gnosis.permanent;
+		if (actorData.system.gnosis.permanent < actorData.system.gnosis.temporary) {
+			actorData.system.gnosis.temporary = actorData.system.gnosis.permanent;
 		}
 
 		// willpower
-		if (actorData.data.willpower.permanent > actorData.data.willpower.max) {
-			actorData.data.willpower.permanent = actorData.data.willpower.max;
+		if (actorData.system.willpower.permanent > actorData.system.willpower.max) {
+			actorData.system.willpower.permanent = actorData.system.willpower.max;
 		}
 		
-		if (actorData.data.willpower.permanent < actorData.data.willpower.temporary) {
-			actorData.data.willpower.temporary = actorData.data.willpower.permanent;
+		if (actorData.system.willpower.permanent < actorData.system.willpower.temporary) {
+			actorData.system.willpower.temporary = actorData.system.willpower.permanent;
 		}
 
 		let advantageRollSetting = true;
@@ -380,22 +380,22 @@ export class SpiritActorSheet extends ActorSheet {
 		}
 
 		if (advantageRollSetting) {
-			actorData.data.rage.roll = actorData.data.rage.permanent; 
-			actorData.data.gnosis.roll = actorData.data.gnosis.permanent;
-			actorData.data.willpower.roll = actorData.data.willpower.permanent; 
+			actorData.system.rage.roll = actorData.system.rage.permanent; 
+			actorData.system.gnosis.roll = actorData.system.gnosis.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent; 
 		}
 		else {
-			actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
-			actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent;
-			actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+			actorData.system.rage.roll = actorData.system.rage.permanent > actorData.system.rage.temporary ? actorData.system.rage.temporary : actorData.system.rage.permanent; 
+			actorData.system.gnosis.roll = actorData.system.gnosis.permanent > actorData.system.gnosis.temporary ? actorData.system.gnosis.temporary : actorData.system.gnosis.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
 		}
 
-		actorData.data.initiative.base = parseInt(actorData.data.willpower.permanent);
-		actorData.data.initiative.total = parseInt(actorData.data.initiative.base) + parseInt(actorData.data.initiative.bonus);
+		actorData.system.initiative.base = parseInt(actorData.system.willpower.permanent);
+		actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
 
-		actorData.data.soak.bashing = parseInt(actorData.data.willpower.permanent);
-		actorData.data.soak.lethal = parseInt(actorData.data.willpower.permanent);
-		actorData.data.soak.aggravated = parseInt(actorData.data.willpower.permanent);
+		actorData.system.soak.bashing = parseInt(actorData.system.willpower.permanent);
+		actorData.system.soak.lethal = parseInt(actorData.system.willpower.permanent);
+		actorData.system.soak.aggravated = parseInt(actorData.system.willpower.permanent);
 		
 		console.log("WoD | Spirit Sheet updated");
 		this.actor.update(actorData);

@@ -13,7 +13,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 
 ## Supported sheets
 - [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mortal-v1.6)
-- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki)
+- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade-v1.6)
 - [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension-v1.6)
 - [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse-v1.6)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)

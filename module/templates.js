@@ -501,12 +501,12 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("ignorePain", function (value) {
 		let ignoresPain = false;
 
-		if (this.actor.data.data.conditions?.isignoringpain)
+		if (this.actor.system.conditions?.isignoringpain)
 		{
 			ignoresPain = true;
 		}
 
-		if (this.actor.data.data.conditions?.isfrenzy)
+		if (this.actor.system.conditions?.isfrenzy)
 		{
 			ignoresPain = true;
 		}
@@ -520,7 +520,7 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("ragePenalty", function (value) {
-		let rageDiff = parseInt(this.actor.data.data.rage.roll) - parseInt(this.actor.data.data.willpower.roll);
+		let rageDiff = parseInt(this.actor.system.rage.roll) - parseInt(this.actor.system.willpower.roll);
 
 		if (rageDiff < 0) {
 			rageDiff = 0;

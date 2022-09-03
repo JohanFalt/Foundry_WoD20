@@ -1,11 +1,11 @@
 export class SortDisciplinePower {
     constructor(item) {
-        this._id = item.data["_id"];
-        this.name = item.data["name"];
-        this.level = item.data.data["level"];
-        this.description = item.data.data["description"];
-        this.system = item.data.data["system"];
-        this.parentid = item.data.data["parentid"];
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.level = item.system["level"];
+        this.description = item.system["description"];
+        this.system = item.system["system"];
+        this.parentid = item.system["parentid"];
         this.disciplinelist = [];
 
         this.isDiscipline = true;
@@ -18,12 +18,12 @@ export class SortDisciplinePower {
 
 export class SortPathPower {
     constructor(item) {
-        this._id = item.data["_id"];
-        this.name = item.data["name"];
-        this.level = item.data.data["level"];
-        this.description = item.data.data["description"];
-        this.system = item.data.data["system"];
-        this.parentid = item.data.data["parentid"];
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.level = item.system["level"];
+        this.description = item.system["description"];
+        this.system = item.system["system"];
+        this.parentid = item.system["parentid"];
         this.disciplinelist = [];
 
         this.isDiscipline = false;
@@ -124,10 +124,10 @@ export class DialogSortDisciplinePower extends FormApplication {
         }
     
         for (const item of this.actor.data.items) {
-            if (item.data._id == this.object._id) {
+            if (item._id == this.object._id) {
                 const itemData = duplicate(item);
 
-                itemData.data.parentid = this.object.parentid;
+                itemData.system.parentid = this.object.parentid;
                 await item.update(itemData);
 
                 this.close();

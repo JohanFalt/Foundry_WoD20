@@ -1,7 +1,7 @@
 <div class="sheet-headline splatFont">{{localize "wod.power.activegift"}}</div>
 {{#each actor.powercombat as |item id|}}
     <div class="clearareaBox row">
-        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.data.isrollable}}vrollable{{/if}}" 
+        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
                 data-type="{{../config.sheettype.werewolf}}"
                 data-object="Gift"
                 data-rollitem="true"
@@ -10,7 +10,7 @@
         <div class="gift-iconbox">
             <div class="pullLeft pointer headlineNormal tooltip">
                 <i class="icon fa fa-sticky-note"></i>
-                <span class="tooltiptext">{{#iff item.data.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}{{/iff}}<br /><br />{{#iff item.data.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.data.system}}{{/iff}}</span>
+                <span class="tooltiptext">{{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}{{/iff}}<br /><br />{{#iff item.system.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.system.system}}{{/iff}}</span>
             </div>
             <div class="pullLeft">
                 <a class="send-chat" 
@@ -19,10 +19,10 @@
                     data-item-id="{{item._id}}" 
                     data-headline="<h2>{{item.name}}</h2>" 
                     data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                    <span class='chatt-text'>{{item.data.description}}</span>
+                                    <span class='chatt-text'>{{item.system.description}}</span>
                                     <br />
                                     <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                    <span class='chatt-text'>{{item.data.system}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                    <span class='chatt-text'>{{item.system.system}}</span>"><i class="icon fa fa-commenting"></i></a>
             </div>            
         </div>
     </div>

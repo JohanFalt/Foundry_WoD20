@@ -17,9 +17,9 @@
 {{#each actor.rangedWeapons as |item id|}}
 
 <div class="clearareaBox row">
-    {{#if item.data.attack.isrollable}}
+    {{#if item.system.attack.isrollable}}
         <div class="weapon-rolliconbox"><img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.dice.rollattack"}}"></div>
-        <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.attack.isrollable}}vrollable{{/if}}" 
+        <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
             data-type="{{../config.sheettype.mortal}}"
             data-object="Ranged"
             data-rollitem="true" 
@@ -27,9 +27,9 @@
             {{item.name}}
         </div>
     {{else}}
-        {{#if item.data.damage.isrollable}}
+        {{#if item.system.damage.isrollable}}
             <div class="weapon-rolliconbox"><img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.dice.rolldamage"}}"></div>
-            <div class="pullLeft combat-largeBox headlineNormal {{#if item.data.damage.isrollable}}vrollable{{/if}}" 
+            <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.damage.isrollable}}vrollable{{/if}}" 
                 data-type="{{../config.sheettype.mortal}}"
                 data-object="Damage"
                 data-rollitem="true" 
@@ -41,29 +41,29 @@
             <div class="pullLeft combat-largeBox headlineNormal">{{item.name}}</div>
         {{/if}}
     {{/if}}
-    <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.data.attack.attribute)}}</div>
-    <div class="pullLeft combat-abilityBox headlineNormal">{{shorten (localize (getAbility item.data.attack.ability)) 10}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.attack.accuracy}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.difficulty}}</div>
+    <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.system.attack.attribute)}}</div>
+    <div class="pullLeft combat-abilityBox headlineNormal">{{shorten (localize (getAbility item.system.attack.ability)) 10}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.difficulty}}</div>
     <div class="pullLeft combat-smallBox headlineNormal">
-        {{#if item.data.damage.isrollable}}
-        {{captilizeFirst (convertDamageCode item.data.damage.attribute item.data.damage.bonus item.data.damage.type)}}
+        {{#if item.system.damage.isrollable}}
+        {{captilizeFirst (convertDamageCode item.system.damage.attribute item.system.damage.bonus item.system.damage.type)}}
         {{else}}
         &nbsp;
         {{/if}}
     </div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.range}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.rate}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.data.clip.max}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.range}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.rate}}</div>
+    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.clip.max}}</div>
     <!--<div class="pullLeft combat-valueBox headlineNormal">
-        {{#if item.data.mode.hasreload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.data.mode.hasburst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.data.mode.hasfullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.data.mode.hasspray}}{{localize "wod.combat.mode.spray"}}{{/if}}
+        {{#if item.system.mode.hasreload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.system.mode.hasburst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.system.mode.hasfullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.system.mode.hasspray}}{{localize "wod.combat.mode.spray"}}{{/if}}
     </div>-->
     <div class="gift-iconbox">
-        <div class="pullLeft headlineNormal {{#if (ne item.data.description "")}}pointer tooltip{{/if}}">
-            {{#if (ne item.data.description "")}}
+        <div class="pullLeft headlineNormal {{#if (ne item.system.description "")}}pointer tooltip{{/if}}">
+            {{#if (ne item.system.description "")}}
                 <i class="icon fa fa-sticky-note"></i>
                 <span class="tooltiptext">                
-                    <b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}                
+                    <b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}                
                 </span>
             {{else}}
                 <i class="icon fa fa-sticky-note"></i>
@@ -76,7 +76,7 @@
                 data-item-id="{{item._id}}" 
                 data-headline="<h2>{{item.name}}</h2>" 
                 data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                <span class='chatt-text'>{{item.data.description}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                <span class='chatt-text'>{{item.system.description}}</span>"><i class="icon fa fa-commenting"></i></a>
 
             {{#if (eq ../locked false)}}                                
                 <a class="item-edit" title="{{localize "wod.labels.edit.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fas fa-edit"></i></a>

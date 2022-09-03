@@ -92,8 +92,8 @@ export async function rollDice(diceRoll) {
 
 	successRoll = success > 0;		
 
-	if ((actor.data.data.health.damage.woundlevel != "") && (wound < 0)) {
-		wound = `<div><strong>${game.i18n.localize(actor.data.data.health.damage.woundlevel)} (${wound})</strong></div>`;
+	if ((actor.system.health.damage.woundlevel != "") && (wound < 0)) {
+		wound = `<div><strong>${game.i18n.localize(actor.system.health.damage.woundlevel)} (${wound})</strong></div>`;
 	}
 	else {
 		wound = ``;
@@ -111,16 +111,16 @@ export async function rollDice(diceRoll) {
 		specialityText = "";
 	}
 
-	if (actor.data.data.conditions != undefined) {
-		if (actor.data.data.conditions?.isignoringpain) {
+	if (actor.system.conditions != undefined) {
+		if (actor.system.conditions?.isignoringpain) {
 			conditions += `<div>${game.i18n.localize("wod.combat.conditions.ignorepain")}</div>`;
 		}
 
-		if (actor.data.data.conditions?.isstunned) {
+		if (actor.system.conditions?.isstunned) {
 			conditions += `<div>${game.i18n.localize("wod.combat.conditions.stunned")}</div>`;
 		}
 
-		if (actor.data.data.conditions?.isfrenzy) {
+		if (actor.system.conditions?.isfrenzy) {
 			conditions += `<div>${game.i18n.localize("wod.combat.conditions.frenzy")}</div>`;
 		}
 	}

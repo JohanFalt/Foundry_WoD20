@@ -40,13 +40,13 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.iscreated) {
+		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == "Changing Breed") {
 				ActionHelper._setWerewolfAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setWerewolfAttributes(actorData);
 				
-				actorData.data.settings.iscreated = true;
+				actorData.system.settings.iscreated = true;
 				 this.actor.update(actorData);
 			}	 	
 		}
@@ -70,69 +70,69 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Changing Breed Sheet handling shift data");
 
-		if (data.actor.data.data.shapes.glabro.isactive) {
-			presentform = data.actor.data.data.shapes.glabro.label;
+		if (data.actor.system.shapes.glabro.isactive) {
+			presentform = data.actor.system.shapes.glabro.label;
 		}
-		else if (data.actor.data.data.shapes.crinos.isactive) {
-			presentform = data.actor.data.data.shapes.crinos.label;
+		else if (data.actor.system.shapes.crinos.isactive) {
+			presentform = data.actor.system.shapes.crinos.label;
 		}
-		else if (data.actor.data.data.shapes.hispo.isactive) {
-			presentform = data.actor.data.data.shapes.hispo.label;
+		else if (data.actor.system.shapes.hispo.isactive) {
+			presentform = data.actor.system.shapes.hispo.label;
 		}
-		else if (data.actor.data.data.shapes.lupus.isactive) {
-			presentform = data.actor.data.data.shapes.lupus.label;
+		else if (data.actor.system.shapes.lupus.isactive) {
+			presentform = data.actor.system.shapes.lupus.label;
 		}
 		else {
-			presentform = data.actor.data.data.shapes.homid.label;
+			presentform = data.actor.system.shapes.homid.label;
 		}
 
 		console.log("WoD | Changing Breed Sheet handling gift lists");
 
 		for (const i of data.items) {
 			if (i.type == "Power") {
-				if ((i.data.type == "wod.types.gift") && (i.data.level == 1)) {
+				if ((i.system.type == "wod.types.gift") && (i.system.level == 1)) {
 					powerlist1.push(i);
 
-					if (i.data.isactive) {
+					if (i.system.isactive) {
 						powercombat.push(i);
 					}
 				}			
-				else if ((i.data.type == "wod.types.gift") && (i.data.level == 2)) {
+				else if ((i.system.type == "wod.types.gift") && (i.system.level == 2)) {
 					powerlist2.push(i);
 
-					if (i.data.isactive) {
+					if (i.system.isactive) {
 						powercombat.push(i);
 					}
 				}
-				else if ((i.data.type == "wod.types.gift") && (i.data.level == 3)) {
+				else if ((i.system.type == "wod.types.gift") && (i.system.level == 3)) {
 					powerlist3.push(i);
 
-					if (i.data.isactive) {
+					if (i.system.isactive) {
 						powercombat.push(i);
 					}
 				}
-				else if ((i.data.type == "wod.types.gift") && (i.data.level == 4)) {
+				else if ((i.system.type == "wod.types.gift") && (i.system.level == 4)) {
 					powerlist4.push(i);
 
-					if (i.data.isactive) {
+					if (i.system.isactive) {
 						powercombat.push(i);
 					}
 				}
-				else if ((i.data.type == "wod.types.gift") && (i.data.level == 5)) {
+				else if ((i.system.type == "wod.types.gift") && (i.system.level == 5)) {
 					powerlist5.push(i);
 
-					if (i.data.isactive) {
+					if (i.system.isactive) {
 						powercombat.push(i);
 					}
 				}
-				else if ((i.data.type == "wod.types.gift") && (i.data.level == 6)) {
+				else if ((i.system.type == "wod.types.gift") && (i.system.level == 6)) {
 					powerlist6.push(i);
 
-					if (i.data.isactive) {
+					if (i.system.isactive) {
 						powercombat.push(i);
 					}
 				}
-				else if (i.data.type == "wod.types.rite") {
+				else if (i.system.type == "wod.types.rite") {
 					ritelist.push(i);
 				}
 				else {
@@ -140,10 +140,10 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				}			
 			}
 			if (i.type == "Fetish") {
-				if (i.data.type == "wod.types.fetish") {
+				if (i.system.type == "wod.types.fetish") {
 					fetishlist.push(i);
 				}
-				else if (i.data.type == "wod.types.talen") {
+				else if (i.system.type == "wod.types.talen") {
 					talenlist.push(i);
 				}	
 				else {
@@ -318,13 +318,13 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const fromForm = this.actor.presentform;
 		const toForm = dataset.form;
 
-		for (const i in actorData.data.shapes) {
-			if (actorData.data.shapes[i].label == fromForm)  {
-				actorData.data.shapes[i].isactive = false;
+		for (const i in actorData.system.shapes) {
+			if (actorData.system.shapes[i].label == fromForm)  {
+				actorData.system.shapes[i].isactive = false;
 			}
 
-			if (actorData.data.shapes[i].label == toForm) {
-				actorData.data.shapes[i].isactive = true;
+			if (actorData.system.shapes[i].label == toForm) {
+				actorData.system.shapes[i].isactive = true;
 			}			
 		}		
 
@@ -341,38 +341,38 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if ((fields[2] === "rage") || (fields[2] === "gnosis")) {
-			if (actorData.data[fields[2]][fields[3]] == value) {
-				actorData.data[fields[2]][fields[3]] = parseInt(actorData.data[fields[2]][fields[3]]) - 1;
+			if (actorData.system[fields[2]][fields[3]] == value) {
+				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
 			}
 			else {
-				actorData.data[fields[2]][fields[3]] = value;
+				actorData.system[fields[2]][fields[3]] = value;
 			}
 		}		
 		else if (fields[2] === "bloodpool") {
-			if (actorData.data.bloodpool.temporary == value) {
-				actorData.data.bloodpool.temporary = parseInt(actorData.data.bloodpool.temporary) - 1;
+			if (actorData.system.bloodpool.temporary == value) {
+				actorData.system.bloodpool.temporary = parseInt(actorData.system.bloodpool.temporary) - 1;
 			}	
 			else {
-				actorData.data.bloodpool.temporary = value;
+				actorData.system.bloodpool.temporary = value;
 			}
 		}	
 		else if (fields[2] === "renown") {
 			let renowntype = fields[3];
 
 			if (renowntype === "rank") {
-				if (actorData.data.renown[renowntype] == value) {
-					actorData.data.renown[renowntype] = parseInt(actorData.data.renown[renowntype]) - 1;
+				if (actorData.system.renown[renowntype] == value) {
+					actorData.system.renown[renowntype] = parseInt(actorData.system.renown[renowntype]) - 1;
 				}
 				else {
-					actorData.data.renown[renowntype] = value;
+					actorData.system.renown[renowntype] = value;
 				}
 			}
 			else if (fields[4] != undefined) {
-				if (actorData.data.renown[renowntype][fields[4]] == value) {
-					actorData.data.renown[renowntype][fields[4]] = parseInt(actorData.data.renown[renowntype][fields[4]]) - 1;
+				if (actorData.system.renown[renowntype][fields[4]] == value) {
+					actorData.system.renown[renowntype][fields[4]] = parseInt(actorData.system.renown[renowntype][fields[4]]) - 1;
 				}
 				else {
-					actorData.data.renown[renowntype][fields[4]] = value;
+					actorData.system.renown[renowntype][fields[4]] = value;
 				}
 			}
 		}

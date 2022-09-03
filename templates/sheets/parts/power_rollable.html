@@ -18,6 +18,11 @@
             <option value="rage">{{localize "wod.advantages.rage"}}</option>
             <option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
             <option value="willpower">{{localize "wod.advantages.willpower"}}</option>
+            <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
+            <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
+            <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
+            <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
+            <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
             
         {{/select}}
     </select>
@@ -35,6 +40,11 @@
             {{#each config.knowledges as | name type|}}
             <option value="{{type}}">{{localize name}}</option>
             {{/each}}
+            <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
+            <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
+            <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
+            <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
+            <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
         {{/select}}
     </select>
     + <input class="sheet-infoValues numberBox editable" name="data.bonus" type="text" value="{{data.data.bonus}}" data-dtype="Number" />

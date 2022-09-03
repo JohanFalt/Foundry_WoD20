@@ -1239,6 +1239,11 @@
 					"roll": 0,
 					"label": "wod.advantages.gnosis",
 					"isvisible": false
+				},
+				"essence": {
+					"temporary": 0,
+					"max": 10,
+					"label": "wod.advantages.essence"
 				}
 			},
 			"spirit": {

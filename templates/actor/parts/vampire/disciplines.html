@@ -5,36 +5,36 @@
 
         {{#each actor.disciplinelist as | item id|}}
 
-            <div class="clearareaBox {{#iff item.data.type '==' 'wod.types.discipline'}}discipline-row{{else}}disciplinepower-row{{/iff}}">
-                <div class="pullLeft discipline-headline {{#iff item.data.type '==' 'wod.types.discipline'}}splatFont headlineGroup{{else}}headlineNormal{{/iff}} {{#if item.data.isrollable}}vrollable{{/if}}" 
+            <div class="clearareaBox {{#iff item.system.type '==' 'wod.types.discipline'}}discipline-row{{else}}disciplinepower-row{{/iff}}">
+                <div class="pullLeft discipline-headline {{#iff item.system.type '==' 'wod.types.discipline'}}splatFont headlineGroup{{else}}headlineNormal{{/iff}} {{#if item.system.isrollable}}vrollable{{/if}}" 
                     data-type="{{../config.sheettype.vampire}}"
                     data-object="Discipline"
                     data-rollitem="true"
                     data-itemid="{{item._id}}">{{item.name}}</div>
 
-                {{#iff item.data.type "==" "wod.types.discipline"}}
+                {{#iff item.system.type "==" "wod.types.discipline"}}
                     <div class="resource-value pullLeft discipline-dotBox" 
-                        data-value="{{item.data.value}}" 
+                        data-value="{{item.system.value}}" 
                         data-itemid="{{item._id}}">
 
                         <span class="resource-value-empty" data-type="{{../config.sheettype.vampire}}"></span>
 
-                        {{#numLoop item.data.max}}
+                        {{#numLoop item.system.max}}
                         
-                        <span class="{{#iff item.data.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.vampire}}" data-index="{{this}}"></span>
+                        <span class="{{#iff item.system.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.vampire}}" data-index="{{this}}"></span>
                         
                         {{/numLoop}}
                     </div>
                 {{/iff}}
 
-                {{#if item.data.isrollable}}
-                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAbility item.data.dice2)}}</div>
+                {{#if item.system.isrollable}}
+                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
+                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
                     <div class="pullLeft discipline-valuebox headlineNormal centerText">
-                        {{#iff item.data.difficulty "==" -1}}
+                        {{#iff item.system.difficulty "==" -1}}
                             {{localize "wod.labels.varies"}}
                         {{else}}
-                            {{item.data.difficulty}}
+                            {{item.system.difficulty}}
                         {{/iff}}
                     </div>
                 {{/if}}
@@ -42,7 +42,7 @@
                 <div class="discipline-iconbox">
                     <div class="pullLeft pointer headlineNormal tooltip">
                         <i class="icon fa fa-sticky-note"></i>
-                        <span class="tooltiptext">{{#iff item.data.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}{{/iff}}<br /><br />{{#iff item.data.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.data.system}}{{/iff}}</span>
+                        <span class="tooltiptext">{{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}{{/iff}}<br /><br />{{#iff item.system.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.system.system}}{{/iff}}</span>
                     </div>
                     <div class="pullLeft">
                         <a class="send-chat" 
@@ -51,10 +51,10 @@
                             data-item-id="{{item._id}}" 
                             data-headline="<h2>{{item.name}}</h2>" 
                             data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.data.description}}</span>
+                                            <span class='chatt-text'>{{item.system.description}}</span>
                                             <br />
                                             <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                            <span class='chatt-text'>{{item.data.system}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                            <span class='chatt-text'>{{item.system.system}}</span>"><i class="icon fa fa-commenting"></i></a>
 
                     {{#if ../locked}}
                     {{else}}
@@ -112,36 +112,36 @@
 
         {{#each actor.pathlist as | item id|}}
 
-            <div class="clearareaBox {{#iff item.data.type '==' 'wod.types.disciplinepath'}}discipline-row{{else}}disciplinepower-row{{/iff}}">
-                <div class="pullLeft discipline-headline {{#iff item.data.type '==' 'wod.types.disciplinepath'}}splatFont headlineGroup{{else}}headlineNormal{{/iff}} {{#if item.data.isrollable}}vrollable{{/if}}" 
+            <div class="clearareaBox {{#iff item.system.type '==' 'wod.types.disciplinepath'}}discipline-row{{else}}disciplinepower-row{{/iff}}">
+                <div class="pullLeft discipline-headline {{#iff item.system.type '==' 'wod.types.disciplinepath'}}splatFont headlineGroup{{else}}headlineNormal{{/iff}} {{#if item.system.isrollable}}vrollable{{/if}}" 
                     data-type="{{../config.sheettype.vampire}}"
                     data-object="Path"
                     data-rollitem="true"
                     data-itemid="{{item._id}}">{{item.name}}</div>
 
-                {{#iff item.data.type "==" "wod.types.disciplinepath"}}
+                {{#iff item.system.type "==" "wod.types.disciplinepath"}}
                     <div class="resource-value pullLeft discipline-dotBox" 
-                        data-value="{{item.data.value}}" 
+                        data-value="{{item.system.value}}" 
                         data-itemid="{{item._id}}">
 
                         <span class="resource-value-empty" data-type="{{../config.sheettype.vampire}}"></span>
 
-                        {{#numLoop item.data.max}}
+                        {{#numLoop item.system.max}}
                         
-                        <span class="{{#iff item.data.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.vampire}}" data-index="{{this}}"></span>
+                        <span class="{{#iff item.system.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.vampire}}" data-index="{{this}}"></span>
                         
                         {{/numLoop}}
                     </div>
                 {{/iff}}
 
-                {{#if item.data.isrollable}}
-                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAbility item.data.dice2)}}</div>
+                {{#if item.system.isrollable}}
+                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
+                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
                     <div class="pullLeft discipline-valuebox headlineNormal centerText">
-                        {{#iff item.data.difficulty "==" -1}}
+                        {{#iff item.system.difficulty "==" -1}}
                             {{localize "wod.labels.varies"}}
                         {{else}}
-                            {{item.data.difficulty}}
+                            {{item.system.difficulty}}
                         {{/iff}}
                     </div>
                 {{/if}}
@@ -149,7 +149,7 @@
                 <div class="discipline-iconbox">
                     <div class="pullLeft pointer headlineNormal tooltip">
                         <i class="icon fa fa-sticky-note"></i>
-                        <span class="tooltiptext">{{#iff item.data.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}{{/iff}}<br /><br />{{#iff item.data.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.data.system}}{{/iff}}</span>
+                        <span class="tooltiptext">{{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}{{/iff}}<br /><br />{{#iff item.system.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.system.system}}{{/iff}}</span>
                     </div>
                     <div class="pullLeft">
                         <a class="send-chat" 
@@ -158,10 +158,10 @@
                             data-item-id="{{item._id}}" 
                             data-headline="<h2>{{item.name}}</h2>" 
                             data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.data.description}}</span>
+                                            <span class='chatt-text'>{{item.system.description}}</span>
                                             <br />
                                             <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                            <span class='chatt-text'>{{item.data.system}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                            <span class='chatt-text'>{{item.system.system}}</span>"><i class="icon fa fa-commenting"></i></a>
 
                     {{#if ../locked}}
                     {{else}}
@@ -219,20 +219,20 @@
     {{#each actor.rituallist as | item id|}}
 
             <div class="clearareaBox ritual-row row">
-                <div class="pullLeft ritual-headline headlineNormal {{#if item.data.isrollable}}vrollable{{/if}}" 
+                <div class="pullLeft ritual-headline headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
                     data-type="{{../config.sheettype.vampire}}"
                     data-object="Ritual"
                     data-rollitem="true"
                     data-itemid="{{item._id}}">{{item.name}}</div>
 
-                {{#if item.data.isrollable}}
-                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAttributes item.data.dice1)}}</div>
-                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAbility item.data.dice2)}}</div>
+                {{#if item.system.isrollable}}
+                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
+                    <div class="pullLeft discipline-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
                     <div class="pullLeft discipline-valuebox headlineNormal centerText">
-                        {{#iff item.data.difficulty "==" -1}}
+                        {{#iff item.system.difficulty "==" -1}}
                             {{localize "wod.labels.varies"}}
                         {{else}}
-                            {{item.data.difficulty}}
+                            {{item.system.difficulty}}
                         {{/iff}}
                     </div>
                 {{/if}}
@@ -240,7 +240,7 @@
                 <div class="discipline-iconbox">
                     <div class="pullLeft pointer headlineNormal tooltip">
                         <i class="icon fa fa-sticky-note"></i>
-                        <span class="tooltiptext">{{#iff item.data.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}{{/iff}}<br /><br />{{#iff item.data.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.data.system}}{{/iff}}</span>
+                        <span class="tooltiptext">{{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}{{/iff}}<br /><br />{{#iff item.system.system "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{item.system.system}}{{/iff}}</span>
                     </div>
                     <div class="pullLeft">
                         <a class="send-chat" 
@@ -249,10 +249,10 @@
                             data-item-id="{{item._id}}" 
                             data-headline="<h2>{{item.name}}</h2>" 
                             data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.data.description}}</span>
+                                            <span class='chatt-text'>{{item.system.description}}</span>
                                             <br />
                                             <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                            <span class='chatt-text'>{{item.data.system}}</span>"><i class="icon fa fa-commenting"></i></a>
+                                            <span class='chatt-text'>{{item.system.system}}</span>"><i class="icon fa fa-commenting"></i></a>
 
                     {{#if ../locked}}
                     {{else}}

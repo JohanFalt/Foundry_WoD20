@@ -42,13 +42,13 @@ export class MageActorSheet extends MortalActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.iscreated) {
+		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.mage) {
 				ActionHelper._setMageAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setMageAttributes(actorData);
 				
-				actorData.data.settings.iscreated = true;
+				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -215,13 +215,13 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			actorData.data.quintessence.temporary = parseInt(actorData.data.quintessence.temporary) + 1;
+			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) + 1;
 		}
 		// else if (oldState == "x") {
-		// 	actorData.data.paradox.temporary = parseInt(actorData.data.paradox.temporary) - 1;
+		// 	actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) - 1;
 		// }
 		else if (oldState == "Ψ") { 
-			actorData.data.quintessence.temporary = parseInt(actorData.data.quintessence.temporary) - 1;			
+			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;			
 		}
 		else {
 			return;
@@ -252,20 +252,20 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			actorData.data.paradox.temporary = parseInt(actorData.data.paradox.temporary) + 1;
+			actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;
 		}
 		else if (oldState == "x") {
-			actorData.data.paradox.temporary = parseInt(actorData.data.paradox.temporary) - 1;
+			actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) - 1;
 		}
 		else if (oldState == "*") {
 			return;
 		}
-		else if ((oldState == "Ψ") && (parseInt(actorData.data.quintessence.temporary) + parseInt(actorData.data.paradox.temporary) + parseInt(actorData.data.paradox.permanent) + 1 > 20)) { 
-			actorData.data.quintessence.temporary = parseInt(actorData.data.quintessence.temporary) - 1;	
-			actorData.data.paradox.temporary = parseInt(actorData.data.paradox.temporary) + 1;		
+		else if ((oldState == "Ψ") && (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1 > 20)) { 
+			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;	
+			actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;		
 		}
 		else if (oldState == "Ψ") {
-			actorData.data.quintessence.temporary = parseInt(actorData.data.quintessence.temporary) - 1;
+			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;
 		}
 		else {
 			return;
@@ -283,15 +283,15 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (fields[2] === "arete") {
-			if (actorData.data.arete.permanent == value) {
-				actorData.data.arete.permanent = parseInt(actorData.data.arete.permanent) - 1;
+			if (actorData.system.arete.permanent == value) {
+				actorData.system.arete.permanent = parseInt(actorData.system.arete.permanent) - 1;
 			}
 			else {
-				actorData.data.arete.permanent = value;
+				actorData.system.arete.permanent = value;
 			}
 		}
 		if (fields[1] === "spheres") {
-			actorData.data.spheres[fields[2]].value = value;
+			actorData.system.spheres[fields[2]].value = value;
 		}
 
 		ActionHelper._handleCalculations(actorData);

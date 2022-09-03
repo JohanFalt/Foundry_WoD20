@@ -66,28 +66,28 @@ export class Rote {
         this.totalSuccesses = 0;
 
         if (item != undefined) {
-            this.name = item.data["name"];
+            this.name = item["name"];
 
             for (const sphere in CONFIG.wod.allSpheres) {
-                if (item.data.data[sphere] > 0) {
-                    this.selectedSpheres[sphere] = item.data.data[sphere];
+                if (item.system[sphere] > 0) {
+                    this.selectedSpheres[sphere] = item.system[sphere];
                 }
             }
 
-            //this.selectedSpheres = item.data["selectedSpheres"];
-            if (item.data.data["description"] != "") {
-                this.description = item.data.data["description"];
+            //this.selectedSpheres = item.system["selectedSpheres"];
+            if (item.system["description"] != "") {
+                this.description = item.system["description"];
             }
 
-            if (item.data.data["spelltype"] != "") {
-                this.spelltype = item.data.data["spelltype"];
+            if (item.system["spelltype"] != "") {
+                this.spelltype = item.system["spelltype"];
             }
 
-            this.check_instrumentPerson = item.data.data.instrument["ispersonalized"];
-		    this.check_instrumentUnique = item.data.data.instrument["isunique"];
-		    this.select_spendingTime = item.data.data["spendingtime"];
+            this.check_instrumentPerson = item.system.instrument["ispersonalized"];
+		    this.check_instrumentUnique = item.system.instrument["isunique"];
+		    this.select_spendingTime = item.system["spendingtime"];
 
-            this.isExtendedCasting = item.data.data["isextended"];
+            this.isExtendedCasting = item.system["isextended"];
 
             this.isRote = true;
         }
@@ -143,7 +143,7 @@ export class DialogAreteCasting extends FormApplication {
         const data = super.getData();
 
         data.config = CONFIG.wod;
-        data.actorData = this.actor.data.data;          // used in the dialog html
+        data.actorData = this.actor.system;          // used in the dialog html
 
         return data;
     }
@@ -330,16 +330,16 @@ export class DialogAreteCasting extends FormApplication {
                 let exists = (this.object.selectedSpheres[sphere] === undefined) ? false : true;
 
                 if (exists) {
-                    if ((parseInt(this.actor.data.data.spheres[sphere].value) >= 4) && (this.object.useSpeciality)) {
+                    if ((parseInt(this.actor.system.spheres[sphere].value) >= 4) && (this.object.useSpeciality)) {
                         specialityRoll = true;
-                        specialityText = specialityText != "" ? specialityText + ", " + this.actor.data.data.spheres[sphere].speciality : this.actor.data.data.spheres[sphere].speciality;
+                        specialityText = specialityText != "" ? specialityText + ", " + this.actor.system.spheres[sphere].speciality : this.actor.system.spheres[sphere].speciality;
                     }
 
                     templateHTML += game.i18n.localize(CONFIG.wod.allSpheres[sphere]) + ` (${this.object.selectedSpheres[sphere]})<br />`;
                 }
             }
 
-            const numDices = parseInt(this.actor.data.data.arete.roll) + parseInt(this.object.areteModifier);
+            const numDices = parseInt(this.actor.system.arete.roll) + parseInt(this.object.areteModifier);
 
             const castingRoll = new DiceRoll(this.actor);
             castingRoll.handlingOnes = CONFIG.wod.handleOnes;    

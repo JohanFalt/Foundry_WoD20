@@ -7,20 +7,20 @@ export function calculateHealth(actor) {
     const healthLevels = [];
     let woundPenalty = 0;
     
-    bashing = actor.data.data.health.damage.bashing;
-    lethal = actor.data.data.health.damage.lethal;
-    aggravated = actor.data.data.health.damage.aggravated;
+    bashing = actor.system.health.damage.bashing;
+    lethal = actor.system.health.damage.lethal;
+    aggravated = actor.system.health.damage.aggravated;
 
-    if (actor.data.data.health.bruised.value > 0) {
-        for (let i=0; i < actor.data.data.health.bruised.value; i++) {
+    if (actor.system.health.bruised.value > 0) {
+        for (let i=0; i < actor.system.health.bruised.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.bruised.penalty;
+                woundPenalty = actor.system.health.bruised.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.bruised.label, 
+                label: actor.system.health.bruised.label, 
                 status: status
             };
 
@@ -28,16 +28,16 @@ export function calculateHealth(actor) {
         }
     }
 
-    if (actor.data.data.health.hurt.value > 0) {
-        for (let i=0; i < actor.data.data.health.hurt.value; i++) {
+    if (actor.system.health.hurt.value > 0) {
+        for (let i=0; i < actor.system.health.hurt.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.hurt.penalty;
+                woundPenalty = actor.system.health.hurt.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.hurt.label, 
+                label: actor.system.health.hurt.label, 
                 status: status
             };
 
@@ -45,16 +45,16 @@ export function calculateHealth(actor) {
         }
     }
 
-    if (actor.data.data.health.injured.value > 0) {
-        for (let i=0; i < actor.data.data.health.injured.value; i++) {
+    if (actor.system.health.injured.value > 0) {
+        for (let i=0; i < actor.system.health.injured.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.injured.penalty;
+                woundPenalty = actor.system.health.injured.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.injured.label, 
+                label: actor.system.health.injured.label, 
                 status: status
             };
 
@@ -62,16 +62,16 @@ export function calculateHealth(actor) {
         }
     }
 
-    if (actor.data.data.health.wounded.value > 0) {
-        for (let i=0; i < actor.data.data.health.wounded.value; i++) {
+    if (actor.system.health.wounded.value > 0) {
+        for (let i=0; i < actor.system.health.wounded.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.wounded.penalty;
+                woundPenalty = actor.system.health.wounded.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.wounded.label, 
+                label: actor.system.health.wounded.label, 
                 status: status
             };
 
@@ -79,16 +79,16 @@ export function calculateHealth(actor) {
         }
     }
 
-    if (actor.data.data.health.mauled.value > 0) {
-        for (let i=0; i < actor.data.data.health.mauled.value; i++) {
+    if (actor.system.health.mauled.value > 0) {
+        for (let i=0; i < actor.system.health.mauled.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.mauled.penalty;
+                woundPenalty = actor.system.health.mauled.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.mauled.label, 
+                label: actor.system.health.mauled.label, 
                 status: status
             };
 
@@ -96,16 +96,16 @@ export function calculateHealth(actor) {
         }
     }
 
-    if (actor.data.data.health.crippled.value > 0) {
-        for (let i=0; i < actor.data.data.health.crippled.value; i++) {
+    if (actor.system.health.crippled.value > 0) {
+        for (let i=0; i < actor.system.health.crippled.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.crippled.penalty;
+                woundPenalty = actor.system.health.crippled.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.crippled.label, 
+                label: actor.system.health.crippled.label, 
                 status: status
             };
 
@@ -113,16 +113,16 @@ export function calculateHealth(actor) {
         }
     }
 
-    if (actor.data.data.health.incapacitated.value > 0) {
-        for (let i=0; i < actor.data.data.health.incapacitated.value; i++) {
+    if (actor.system.health.incapacitated.value > 0) {
+        for (let i=0; i < actor.system.health.incapacitated.value; i++) {
             let status = calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.data.data.health.incapacitated.penalty;
+                woundPenalty = actor.system.health.incapacitated.penalty;
             }
 
             const healthLevel = {
-                label: actor.data.data.health.incapacitated.label, 
+                label: actor.system.health.incapacitated.label, 
                 status: status
             };
 

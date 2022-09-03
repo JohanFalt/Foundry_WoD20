@@ -35,14 +35,14 @@ export class CreatureActorSheet extends MortalActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.iscreated) {
+		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.creature) {
 				ActionHelper._setCreatureAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setWerewolfAttributes(actorData);
 				ActionHelper._setCreatureAttributes(actorData);
 
-				actorData.data.settings.iscreated = true;
+				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -56,7 +56,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Power") {
-				if (i.data.type == "wod.types.power") {
+				if (i.system.type == "wod.types.power") {
 					powerlist.push(i);
 				}
 				else {
@@ -133,19 +133,19 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		if (source == "advantages") {
 			if (type == "rage") {
-				actorData.data.settings.hasrage = !actorData.data.settings.hasrage;
+				actorData.system.settings.hasrage = !actorData.system.settings.hasrage;
 			}
 			if (type == "gnosis") {
-				actorData.data.settings.hasgnosis = !actorData.data.settings.hasgnosis;
+				actorData.system.settings.hasgnosis = !actorData.system.settings.hasgnosis;
 			}
 			if (type == "willpower") {
-				actorData.data.settings.haswillpower = !actorData.data.settings.haswillpower;
+				actorData.system.settings.haswillpower = !actorData.system.settings.haswillpower;
 			}
 			if (type == "essence") {
-				actorData.data.settings.hasessence = !actorData.data.settings.hasessence;
+				actorData.system.settings.hasessence = !actorData.system.settings.hasessence;
 			}
 			if (type == "bloodpool") {
-				actorData.data.settings.hasbloodpool = !actorData.data.settings.hasbloodpool;
+				actorData.system.settings.hasbloodpool = !actorData.system.settings.hasbloodpool;
 			}
 		}
 
@@ -213,7 +213,9 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		if ((this.locked) && 
 				((fieldStrings != "data.data.rage.temporary") && 
-				(fieldStrings != "data.data.gnosis.temporary"))) {
+				(fieldStrings != "data.data.gnosis.temporary") &&
+				(fieldStrings != "data.data.essence.temporary") && 
+				(fieldStrings != "data.data.bloodpool.temporary"))) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
@@ -241,12 +243,12 @@ export class CreatureActorSheet extends MortalActorSheet {
 		
 		const actorData = duplicate(this.actor);
 
-		if ((fields[2] === "rage") || (fields[2] === "gnosis")) {
-			if (actorData.data[fields[2]][fields[3]] == value) {
-				actorData.data[fields[2]][fields[3]] = parseInt(actorData.data[fields[2]][fields[3]]) - 1;
+		if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "essence") || (fields[2] === "bloodpool")) {
+			if (actorData.system[fields[2]][fields[3]] == value) {
+				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
 			}
 			else {
-				actorData.data[fields[2]][fields[3]] = value;
+				actorData.system[fields[2]][fields[3]] = value;
 			}
 		}
 		

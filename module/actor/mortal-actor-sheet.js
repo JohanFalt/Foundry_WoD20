@@ -49,15 +49,15 @@ export class MortalActorSheet extends ActorSheet {
 	getData() {
 		const actorData = duplicate(this.actor);		
 
-		if (!actorData.data.settings.iscreated) {
+		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.mortal) {
 				ActionHelper._setMortalAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 
-				actorData.data.settings.soak.bashing.isrollable = true;
-				actorData.data.settings.soak.lethal.isrollable = false;
-				actorData.data.settings.soak.aggravated.isrollable = false;
-				actorData.data.settings.iscreated = true;
+				actorData.system.settings.soak.bashing.isrollable = true;
+				actorData.system.settings.soak.lethal.isrollable = false;
+				actorData.system.settings.soak.aggravated.isrollable = false;
+				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}	
@@ -65,7 +65,7 @@ export class MortalActorSheet extends ActorSheet {
 		console.log("WoD | Mortal Sheet getData");
 		const data = super.getData();		
 
-		CONFIG.wod.sheetsettings.useSplatFonts = this.actor.data.data.settings.usesplatfont;	
+		CONFIG.wod.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
 		
 		data.config = CONFIG.wod;				
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
@@ -79,9 +79,11 @@ export class MortalActorSheet extends ActorSheet {
 		
 		let ability_talents = [];
 
+		const bloodbounds = [];
+
 		for (const i in data.config.alltalents) {
-			if (this.actor.data.data.abilities.talent[i].isvisible) {
-				let talent = this.actor.data.data.abilities.talent[i];
+			if (this.actor.system.abilities.talent[i].isvisible) {
+				let talent = this.actor.system.abilities.talent[i];
 				talent._id = i;
 				talent.name = game.i18n.localize(talent.label);
 				ability_talents.push(talent);
@@ -91,8 +93,8 @@ export class MortalActorSheet extends ActorSheet {
 		let ability_skills = [];
 
 		for (const i in data.config.allskills) {
-			if (this.actor.data.data.abilities.skill[i].isvisible) {
-				let skill = this.actor.data.data.abilities.skill[i];
+			if (this.actor.system.abilities.skill[i].isvisible) {
+				let skill = this.actor.system.abilities.skill[i];
 				skill._id = i;
 				skill.name = game.i18n.localize(skill.label);				
 				ability_skills.push(skill);
@@ -102,8 +104,8 @@ export class MortalActorSheet extends ActorSheet {
 		let ability_knowledges = [];
 
 		for (const i in data.config.allknowledges) {
-			if (this.actor.data.data.abilities.knowledge[i].isvisible) {
-				let knowledge = this.actor.data.data.abilities.knowledge[i];
+			if (this.actor.system.abilities.knowledge[i].isvisible) {
+				let knowledge = this.actor.system.abilities.knowledge[i];
 				knowledge._id = i;
 				knowledge.name = game.i18n.localize(knowledge.label);
 				ability_knowledges.push(knowledge);
@@ -127,40 +129,43 @@ export class MortalActorSheet extends ActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Melee Weapon") {
-				if (i.data.isnatural) {
+				if (i.system.isnatural) {
 					naturalWeapons.push(i);
 				}
-				else if (!i.data.isnatural) {
+				else if (!i.system.isnatural) {
 					meleeWeapons.push(i);
 				}
 			}
-			else if (i.type == "Ranged Weapon") {
+			if (i.type == "Ranged Weapon") {
 				rangedWeapons.push(i);
 			}
-			else if (i.type == "Armor") {
+			if (i.type == "Armor") {
 				armors.push(i);
 			}
-			else if (i.type == "Feature") {
-				if (i.data.type == "wod.types.background") {
+			if (i.type == "Feature") {
+				if (i.system.type == "wod.types.background") {
 					backgrounds.push(i);
 				}
-				else if (i.data.type == "wod.types.merit") {
+				if (i.system.type == "wod.types.merit") {
 					merits.push(i);
 				}
-				else if (i.data.type == "wod.types.flaw") {
+				if (i.system.type == "wod.types.flaw") {
 					flaws.push(i);
 				}
-			}
-			else if (i.type == "Experience") {
-				if (i.data.type == "wod.types.expgained") {
-					expearned.push(i);
-					totalExp += parseInt(i.data.amount);
+				if (i.system.type == "wod.types.bloodbound") {
+					bloodbounds.push(i);
 				}
-				else if (i.data.type == "wod.types.expspent") {
+			}
+			if (i.type == "Experience") {
+				if (i.system.type == "wod.types.expgained") {
+					expearned.push(i);
+					totalExp += parseInt(i.system.amount);
+				}
+				else if (i.system.type == "wod.types.expspent") {
 					expspend.push(i);
 
-					if (i.data.isspent) {
-						spentExp += parseInt(i.data.amount);
+					if (i.system.isspent) {
+						spentExp += parseInt(i.system.amount);
 					}
 				}
 			}
@@ -179,6 +184,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.backgrounds = backgrounds.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.merits = merits.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.flaws = flaws.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.bloodbounds = bloodbounds.sort((a, b) => a.name.localeCompare(b.name));
 
 		//data.actor.expearned = expearned.sort((a, b) => b.data.description.localeCompare(a.description));
 		data.actor.expearned = expearned;
@@ -304,7 +310,7 @@ export class MortalActorSheet extends ActorSheet {
 				value = 0;
 			}		
 
-			actorData.data.attributes[attribute].bonus = value;
+			actorData.system.attributes[attribute].bonus = value;
 			ActionHelper._handleCalculations(actorData);			
 		}	
 		if (source == "frenzy") {
@@ -316,7 +322,7 @@ export class MortalActorSheet extends ActorSheet {
 				value = 0;
 			}
 
-			actorData.data.rage.bonus = value;
+			actorData.system.rage.bonus = value;
 		}
 		if (source == "soak") {
 			let value = 0;
@@ -328,7 +334,7 @@ export class MortalActorSheet extends ActorSheet {
 				value = 0;
 			}
 
-			actorData.data.settings.soak[type].bonus = value;
+			actorData.system.settings.soak[type].bonus = value;
 		}
 		if (source == "initiative") {
 			let value = 0;
@@ -340,7 +346,7 @@ export class MortalActorSheet extends ActorSheet {
 				value = 0;
 			}
 
-			actorData.data.initiative.bonus = value;
+			actorData.system.initiative.bonus = value;
 			ActionHelper._handleCalculations(actorData);
 		}
 
@@ -381,20 +387,20 @@ export class MortalActorSheet extends ActorSheet {
 		const source = dataset.source;
 
 		if (source == "ability") {
-			actorData.data.abilities[abilityType][ability].isvisible = !actorData.data.abilities[abilityType][ability].isvisible;
+			actorData.system.abilities[abilityType][ability].isvisible = !actorData.system.abilities[abilityType][ability].isvisible;
 		}
 		if (source == "soak") {
-			actorData.data.settings.soak[abilityType].isrollable = !actorData.data.settings.soak[abilityType].isrollable;
+			actorData.system.settings.soak[abilityType].isrollable = !actorData.system.settings.soak[abilityType].isrollable;
 
-			if (actorData.data.settings.soak[abilityType].isrollable) {
-				actorData.data.soak[abilityType] = actorData.data.attributes.stamina.total;
+			if (actorData.system.settings.soak[abilityType].isrollable) {
+				actorData.system.soak[abilityType] = actorData.system.attributes.stamina.total;
 			}
 			else {
-				actorData.data.soak[abilityType] = 0;
+				actorData.system.soak[abilityType] = 0;
 			}
 		}
 		if (source == "usesplatfont") {
-			actorData.data.settings.usesplatfont = !actorData.data.settings.usesplatfont;
+			actorData.system.settings.usesplatfont = !actorData.system.settings.usesplatfont;
 		}
 
 		this.actor.update(actorData);
@@ -422,11 +428,11 @@ export class MortalActorSheet extends ActorSheet {
 		if (fields[2] == "health") {
 			return;
 		}
-		if ((this.locked) && (fieldStrings != "data.data.willpower.temporary")) {
+		if ((this.locked) && (fieldStrings != "system.willpower.temporary")) {
 		 	ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 		 	return;
 		}
-		if ((fieldStrings == "data.data.willpower.permanent") && (CONFIG.wod.attributeSettings == "5th")) {
+		if ((fieldStrings == "system.willpower.permanent") && (CONFIG.wod.attributeSettings == "5th")) {
 			ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 			return;
 		}
@@ -492,30 +498,30 @@ export class MortalActorSheet extends ActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			actorData.data.health.damage.bashing = parseInt(actorData.data.health.damage.bashing) + 1;
+			actorData.system.health.damage.bashing = parseInt(actorData.system.health.damage.bashing) + 1;
 		}
 		else if (oldState == "/") { 
-			actorData.data.health.damage.bashing = parseInt(actorData.data.health.damage.bashing) - 1;
-			actorData.data.health.damage.lethal = parseInt(actorData.data.health.damage.lethal) + 1;			
+			actorData.system.health.damage.bashing = parseInt(actorData.system.health.damage.bashing) - 1;
+			actorData.system.health.damage.lethal = parseInt(actorData.system.health.damage.lethal) + 1;			
 		}
 		else if (oldState == "x") { 
-			actorData.data.health.damage.lethal = parseInt(actorData.data.health.damage.lethal) - 1;
-			actorData.data.health.damage.aggravated = parseInt(actorData.data.health.damage.aggravated) + 1;
+			actorData.system.health.damage.lethal = parseInt(actorData.system.health.damage.lethal) - 1;
+			actorData.system.health.damage.aggravated = parseInt(actorData.system.health.damage.aggravated) + 1;
 		}
 		else if (oldState == "*") { 
-			actorData.data.health.damage.aggravated = parseInt(actorData.data.health.damage.aggravated) - 1;
+			actorData.system.health.damage.aggravated = parseInt(actorData.system.health.damage.aggravated) - 1;
 		}
 
-		if (parseInt(actorData.data.health.damage.bashing) < 0) {
-			actorData.data.health.damage.bashing = 0;
+		if (parseInt(actorData.system.health.damage.bashing) < 0) {
+			actorData.system.health.damage.bashing = 0;
 		}
 
-		if (parseInt(actorData.data.health.damage.lethal) < 0) {
-			actorData.data.health.damage.lethal = 0;
+		if (parseInt(actorData.system.health.damage.lethal) < 0) {
+			actorData.system.health.damage.lethal = 0;
 		}
 
-		if (parseInt(actorData.data.health.damage.aggravated) < 0) {
-			actorData.data.health.damage.aggravated = 0;
+		if (parseInt(actorData.system.health.damage.aggravated) < 0) {
+			actorData.system.health.damage.aggravated = 0;
 		}
 
 		ActionHelper._handleCalculations(actorData);
@@ -537,13 +543,13 @@ export class MortalActorSheet extends ActorSheet {
 			return
 		}
 		else if (oldState == "/") { 
-			actorData.data.health.damage.bashing = parseInt(actorData.data.health.damage.bashing) - 1;
+			actorData.system.health.damage.bashing = parseInt(actorData.system.health.damage.bashing) - 1;
 		}
 		else if (oldState == "x") { 
-			actorData.data.health.damage.lethal = parseInt(actorData.data.health.damage.lethal) - 1;
+			actorData.system.health.damage.lethal = parseInt(actorData.system.health.damage.lethal) - 1;
 		}
 		else if (oldState == "*") { 
-			actorData.data.health.damage.aggravated = parseInt(actorData.data.health.damage.aggravated) - 1;
+			actorData.system.health.damage.aggravated = parseInt(actorData.system.health.damage.aggravated) - 1;
 		}
 
 		ActionHelper._handleCalculations(actorData);
@@ -660,7 +666,7 @@ export class MortalActorSheet extends ActorSheet {
 		const item = this.actor.items.get(itemId);
 		let active = false;
 
-		if (item.data.data.isactive) {
+		if (item.system.isactive) {
 			active = false;
 		}
 		else {
@@ -727,7 +733,7 @@ export class MortalActorSheet extends ActorSheet {
 		if (fields.length === 2 && fields[0] === "items") {
 			for (const i of actorData.items) {
 				if (fields[1] === i._id) {
-					i.data.points = value;
+					i.system.points = value;
 					break;
 				}
 			}
@@ -738,20 +744,20 @@ export class MortalActorSheet extends ActorSheet {
 		else {
 			if (fields[2] === "willpower") {
 				if (fields[3] === "temporary") {
-					if (actorData.data.willpower.temporary == value) {
-						actorData.data.willpower.temporary = parseInt(actorData.data.willpower.temporary) - 1;
+					if (actorData.system.willpower.temporary == value) {
+						actorData.system.willpower.temporary = parseInt(actorData.system.willpower.temporary) - 1;
 					}
 					else {
-						actorData.data.willpower.temporary = value;
+						actorData.system.willpower.temporary = value;
 					}
 				}
 				else if (CONFIG.wod.attributeSettings == "20th") {
 					if (fields[3] === "permanent") {
-						if (actorData.data.willpower.permanent == value) {
-							actorData.data.willpower.permanent = parseInt(actorData.data.willpower.permanent) - 1;
+						if (actorData.system.willpower.permanent == value) {
+							actorData.system.willpower.permanent = parseInt(actorData.system.willpower.permanent) - 1;
 						}
 						else {
-							actorData.data.willpower.permanent = value;
+							actorData.system.willpower.permanent = value;
 						}
 					}
 				}				

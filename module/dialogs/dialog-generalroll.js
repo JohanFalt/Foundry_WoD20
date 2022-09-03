@@ -113,39 +113,39 @@ export class DialogGeneralRoll extends FormApplication {
             if (attributeKey != "") {
                 if (data.object.type == "noability") {
                     if ((attributeKey == "conscience") || (attributeKey == "selfcontrol") || (attributeKey == "courage")) {
-                        data.object.attributeName = game.i18n.localize(data.actorData.data.virtues[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData.data.virtues[attributeKey].roll);
+                        data.object.attributeName = game.i18n.localize(data.actorData.system.virtues[attributeKey].label);
+                        data.object.attributeValue = parseInt(data.actorData.system.virtues[attributeKey].roll);
                     }
                     else {
-                        data.object.attributeName = game.i18n.localize(data.actorData.data[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData.data[attributeKey].roll);
+                        data.object.attributeName = game.i18n.localize(data.actorData.system[attributeKey].label);
+                        data.object.attributeValue = parseInt(data.actorData.system[attributeKey].roll);
                     }
                     
                     data.object.name = data.object.attributeName;
 
                     if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                        if (parseInt(data.actorData.data.attributes?.composure.value) >= 4) {
+                        if (parseInt(data.actorData.system.attributes?.composure.value) >= 4) {
                             data.object.hasSpeciality = true;
-                            attributeSpeciality = data.actorData.data.attributes.composure.speciality;
+                            attributeSpeciality = data.actorData.system.attributes.composure.speciality;
                         }
         
-                        if ((parseInt(data.actorData.data.attributes?.resolve.value) >= 4) && (data.actorData.data.attributes?.resolve.speciality != "")) {
+                        if ((parseInt(data.actorData.system.attributes?.resolve.value) >= 4) && (data.actorData.system.attributes?.resolve.speciality != "")) {
                             data.object.hasSpeciality = true;
 
                             if (attributeSpeciality != "") {
                                 attributeSpeciality += ", ";
                             }
 
-                            attributeSpeciality += data.actorData.data.attributes.resolve.speciality;
+                            attributeSpeciality += data.actorData.system.attributes.resolve.speciality;
                         }
                     }                
                 }            
                 else {
-                    data.object.attributeValue = parseInt(data.actorData.data.attributes[attributeKey].total);
+                    data.object.attributeValue = parseInt(data.actorData.system.attributes[attributeKey].total);
 
-                    if (parseInt(data.actorData.data.attributes[attributeKey].value) >= 4) {
+                    if (parseInt(data.actorData.system.attributes[attributeKey].value) >= 4) {
                         data.object.hasSpeciality = true;
-                        attributeSpeciality = data.actorData.data.attributes[attributeKey].speciality;
+                        attributeSpeciality = data.actorData.system.attributes[attributeKey].speciality;
                     }
                 }
             }
@@ -153,14 +153,14 @@ export class DialogGeneralRoll extends FormApplication {
             if (abilityKey != "") {
                 let ability = undefined;
 
-                if ((data.actorData.data.abilities.talent[abilityKey] != undefined) && (data.actorData.data.abilities.talent[abilityKey].isvisible)) {
-                    ability = data.actorData.data.abilities.talent[abilityKey];
+                if ((data.actorData.system.abilities.talent[abilityKey] != undefined) && (data.actorData.system.abilities.talent[abilityKey].isvisible)) {
+                    ability = data.actorData.system.abilities.talent[abilityKey];
                 }
-                else if ((data.actorData.data.abilities.skill[abilityKey] != undefined) && (data.actorData.data.abilities.skill[abilityKey].isvisible)) {
-                    ability = data.actorData.data.abilities.skill[abilityKey];
+                else if ((data.actorData.system.abilities.skill[abilityKey] != undefined) && (data.actorData.system.abilities.skill[abilityKey].isvisible)) {
+                    ability = data.actorData.system.abilities.skill[abilityKey];
                 }
-                else if ((data.actorData.data.abilities.knowledge[abilityKey] != undefined) && (data.actorData.data.abilities.knowledge[abilityKey].isvisible)) {
-                    ability = data.actorData.data.abilities.knowledge[abilityKey];
+                else if ((data.actorData.system.abilities.knowledge[abilityKey] != undefined) && (data.actorData.system.abilities.knowledge[abilityKey].isvisible)) {
+                    ability = data.actorData.system.abilities.knowledge[abilityKey];
                 }
 
                 data.object.abilityValue = parseInt(ability.value);
@@ -303,7 +303,7 @@ export class DialogGeneralRoll extends FormApplication {
             this.object.attributeName = game.i18n.localize(CONFIG.wod.attributes[key]);
         }
 
-        this.object.attributeValue = this.actor.data.data.attributes[key].total;
+        this.object.attributeValue = this.actor.system.attributes[key].total;
 
         steps.removeClass("active");
 
@@ -371,7 +371,7 @@ export class DialogGeneralRoll extends FormApplication {
                 woundPenaltyVal = 0;
             }
             else {
-                woundPenaltyVal = parseInt(this.actor.data.data.health.damage.woundpenalty);
+                woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
             }
         }
 

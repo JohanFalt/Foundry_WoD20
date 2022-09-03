@@ -12,18 +12,18 @@ export class WerewolfFrenzy {
         this.numSuccesses = 0;
         this.sheettype = "werewolfDialog";
 
-        if (actor.data.data.renown.rank == 6) {
+        if (actor.system.renown.rank == 6) {
             this.successesRequired = 6;
         }
-        else if (actor.data.data.renown.rank == 5) {
+        else if (actor.system.renown.rank == 5) {
             this.successesRequired = 5;
         }
         else {
             this.successesRequired = 4;     
         }
         
-        this.isCrinos = actor.data.data.shapes.crinos.isactive;
-        this.hasAuspice = actor.data.data.auspice; 
+        this.isCrinos = actor.system.shapes.crinos.isactive;
+        this.hasAuspice = actor.system.auspice; 
     }
 }
 
@@ -66,7 +66,7 @@ export class DialogCheckFrenzy extends FormApplication {
         const data = super.getData();       
         
         data.config = CONFIG.wod;
-        data.actorData = this.actor.data.data;
+        data.actorData = this.actor.system;
 
         return data;
     }
@@ -155,7 +155,7 @@ export class DialogCheckFrenzy extends FormApplication {
         let numDices = 0;
 
         try {
-            frenzyBonus = parseInt(this.actor.data.data.rage.bonus);
+            frenzyBonus = parseInt(this.actor.system.rage.bonus);
         }
         catch (e) {
             frenzyBonus = 0
@@ -164,13 +164,13 @@ export class DialogCheckFrenzy extends FormApplication {
         if (this.object.type == CONFIG.wod.sheettype.werewolf) {
             this.object.canRoll = this._calculateDifficulty(true);
             templateHTML += `${game.i18n.localize("wod.dialog.checkfrenzy.frenzysuccesses")}: ${this.object.successesRequired}`;
-            numDices = parseInt(this.actor.data.data.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
+            numDices = parseInt(this.actor.system.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
             this.object.close = true;
         }
         else if (this.object.type == CONFIG.wod.sheettype.vampire) {
             this.object.canRoll = this.object.totalDifficulty > -1 ? true : false;
             templateHTML += `${game.i18n.localize("wod.dialog.checkfrenzy.numbersuccesses")}: ${this.object.numSuccesses}`;
-            numDices = parseInt(this.actor.data.data.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);
+            numDices = parseInt(this.actor.system.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);
         }
 
         if (this.object.canRoll) {
@@ -254,10 +254,10 @@ export class DialogCheckFrenzy extends FormApplication {
             return false;
         }				
 
-        if (this.actor.data.data.renown.rank == 3) {
+        if (this.actor.system.renown.rank == 3) {
             difficulty = baseDifficulty + 1;
         }
-        if (this.actor.data.data.renown.rank >= 4) {
+        if (this.actor.system.renown.rank >= 4) {
             difficulty = baseDifficulty + 2;
         }
         else {

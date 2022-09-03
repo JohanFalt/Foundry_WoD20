@@ -40,25 +40,23 @@ export class VampireActorSheet extends MortalActorSheet {
 	async getData() {
 		const actorData = duplicate(this.actor);
 
-		if (!actorData.data.settings.iscreated) {
+		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.vampire) {
 				ActionHelper._setVampireAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setVampireAttributes(actorData);
 				
-				actorData.data.settings.iscreated = true;
+				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
 
-		const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.data.data.generation));
+		const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.system.generation));
 		await keepDisciplinesCorrect(disciplineMax, this.actor)		
 
 		const data = super.getData();
 
 		console.log("WoD | Vampire Sheet getData");
-
-		const bloodbounds = [];
 
 		const disciplinelist = [];
 		const tempdisclist = [];
@@ -77,12 +75,12 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Power") {
-				if (i.data.type == "wod.types.discipline") {
+				if (i.system.type == "wod.types.discipline") {
 					tempdisclist.push(i);
 				}
-				if (i.data.type == "wod.types.disciplinepower") {
-					if (i.data.parentid != "") {
-						i.data.level = i.data.level.toString();
+				if (i.system.type == "wod.types.disciplinepower") {
+					if (i.system.parentid != "") {
+						i.system.level = i.system.level.toString();
 						templist.push(i);
 					}
 					else {
@@ -90,12 +88,12 @@ export class VampireActorSheet extends MortalActorSheet {
 						unlisted = true;
 					}					
 				}
-				if (i.data.type == "wod.types.disciplinepath") {
+				if (i.system.type == "wod.types.disciplinepath") {
 					temppathlist.push(i);
 				}
-				if (i.data.type == "wod.types.disciplinepathpower") {
-					if (i.data.parentid != "") {
-						i.data.level = i.data.level.toString();
+				if (i.system.type == "wod.types.disciplinepathpower") {
+					if (i.system.parentid != "") {
+						i.system.level = i.system.level.toString();
 						temp2list.push(i);
 					}
 					else {
@@ -103,15 +101,10 @@ export class VampireActorSheet extends MortalActorSheet {
 						unlistedpath = true;
 					}					
 				}
-				if (i.data.type == "wod.types.ritual") {
+				if (i.system.type == "wod.types.ritual") {
 					rituallist.push(i);
 				}
-			}
-			if (i.type == "Feature") {
-				if (i.data.type == "wod.types.bloodbound") {
-					bloodbounds.push(i);
-				}
-			}
+			}			
 		}
 
 		tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
@@ -146,8 +139,7 @@ export class VampireActorSheet extends MortalActorSheet {
 				}
 			}
 		}
-
-		data.actor.bloodbounds = bloodbounds;
+		
 		data.actor.pathlist = pathlist;
 		data.actor.listedpaths = temppathlist;
 		data.actor.unlistedpaths = unlistedpathlist;
@@ -242,51 +234,51 @@ export class VampireActorSheet extends MortalActorSheet {
 		const selectedPath = element.value;
 		const actorData = duplicate(this.actor);
 
-		actorData.data.virtues.conscience.label = "wod.advantages.virtue.conscience";
-		actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.selfcontrol";
-		actorData.data.virtues.courage.label = "wod.advantages.virtue.courage";
+		actorData.system.virtues.conscience.label = "wod.advantages.virtue.conscience";
+		actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.selfcontrol";
+		actorData.system.virtues.courage.label = "wod.advantages.virtue.courage";
 
 		if (selectedPath === "wod.advantages.path.blood") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 		if (selectedPath === "wod.advantages.path.bones") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 		if (selectedPath === "wod.advantages.path.caine") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.cathari") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.feralheart") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.accord") {
 		}
 		if (selectedPath === "wod.advantages.path.lilith") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.metamorphosis") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.night") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.paradox") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 		if (selectedPath === "wod.advantages.path.innervoice") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.data.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.typhon") {
-			actorData.data.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 
 		console.log("WoD | Vampire Sheet updated");
@@ -314,56 +306,56 @@ export class VampireActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		// attributes max
-		for (const i in actorData.data.attributes) {
-			actorData.data.attributes[i].max = traitMax;
+		for (const i in actorData.system.attributes) {
+			actorData.system.attributes[i].max = traitMax;
 
-			if (actorData.data.attributes[i].value > traitMax) {
-				actorData.data.attributes[i].value = traitMax;
+			if (actorData.system.attributes[i].value > traitMax) {
+				actorData.system.attributes[i].value = traitMax;
 			}
 		}
 
 		// ability max
-		for (const i in actorData.data.abilities.talent) {
-			actorData.data.abilities.talent[i].max = traitMax;
+		for (const i in actorData.system.abilities.talent) {
+			actorData.system.abilities.talent[i].max = traitMax;
 
-			if (actorData.data.abilities.talent[i].value > traitMax) {
-				actorData.data.abilities.talent[i].value = traitMax;
+			if (actorData.system.abilities.talent[i].value > traitMax) {
+				actorData.system.abilities.talent[i].value = traitMax;
 			}
 		}
 
-		for (const i in actorData.data.abilities.skill) {
-			actorData.data.abilities.skill[i].max = traitMax;
+		for (const i in actorData.system.abilities.skill) {
+			actorData.system.abilities.skill[i].max = traitMax;
 
-			if (actorData.data.abilities.skill[i].value > traitMax) {
-				actorData.data.abilities.skill[i].value = traitMax;
+			if (actorData.system.abilities.skill[i].value > traitMax) {
+				actorData.system.abilities.skill[i].value = traitMax;
 			}
 		}
 
-		for (const i in actorData.data.abilities.knowledge) {
-			actorData.data.abilities.knowledge[i].max = traitMax;
+		for (const i in actorData.system.abilities.knowledge) {
+			actorData.system.abilities.knowledge[i].max = traitMax;
 
-			if (actorData.data.abilities.knowledge[i].value > traitMax) {
-				actorData.data.abilities.knowledge[i].value = traitMax;
+			if (actorData.system.abilities.knowledge[i].value > traitMax) {
+				actorData.system.abilities.knowledge[i].value = traitMax;
 			}
 		}
 
 		// virtues
-		for (const i in actorData.data.virtues) {
-			actorData.data.virtues[i].max = traitMax;
+		for (const i in actorData.system.virtues) {
+			actorData.system.virtues[i].max = traitMax;
 
-			if (actorData.data.virtues[i].value > traitMax) {
-				actorData.data.virtues[i].value = traitMax;
-				actorData.data.virtues[i].roll = traitMax;
+			if (actorData.system.virtues[i].value > traitMax) {
+				actorData.system.virtues[i].value = traitMax;
+				actorData.system.virtues[i].roll = traitMax;
 			}
 
 		}
 
 		// blood pool
-		actorData.data.bloodpool.max = bloodpoolMax;
-		actorData.data.bloodpool.perturn = bloodSpending;
+		actorData.system.bloodpool.max = bloodpoolMax;
+		actorData.system.bloodpool.perturn = bloodSpending;
 
-		if (actorData.data.bloodpool.temporary > bloodpoolMax) {
-			actorData.data.bloodpool.temporary = bloodpoolMax;
+		if (actorData.system.bloodpool.temporary > bloodpoolMax) {
+			actorData.system.bloodpool.temporary = bloodpoolMax;
 		}
 
 		// to recalculate total values
@@ -430,9 +422,9 @@ export class VampireActorSheet extends MortalActorSheet {
 			const itemid = parent[0].dataset.itemid;
 
 			for (const item of this.actor.items) {
-				if (item.data._id == itemid) {
+				if (item.system._id == itemid) {
 					const itemData = duplicate(item);
-					itemData.data.value = parseInt(index) + 1;
+					itemData.system.value = parseInt(index) + 1;
 					await item.update(itemData);
 					break;
 				}
@@ -470,22 +462,22 @@ export class VampireActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (fields[2] === "path") {
-			if (actorData.data.path.value == value) {
-				actorData.data.path.value = parseInt(actorData.data.path.value) - 1;
+			if (actorData.system.path.value == value) {
+				actorData.system.path.value = parseInt(actorData.system.path.value) - 1;
 			}	
 			else {
-				actorData.data.path.value = value;
+				actorData.system.path.value = value;
 			}
 		}	
 		else if (fields[2] === "virtues")	 {
-			actorData.data.virtues[fields[3]].value = value;
+			actorData.system.virtues[fields[3]].value = value;
 		}
 		else if (fields[2] === "bloodpool")	 {
-			if (actorData.data.bloodpool.temporary == value) {
-				actorData.data.bloodpool.temporary = parseInt(actorData.data.bloodpool.temporary) - 1;
+			if (actorData.system.bloodpool.temporary == value) {
+				actorData.system.bloodpool.temporary = parseInt(actorData.system.bloodpool.temporary) - 1;
 			}	
 			else {
-				actorData.data.bloodpool.temporary = value;
+				actorData.system.bloodpool.temporary = value;
 			}
 		}
 		
@@ -610,15 +602,15 @@ function calculteMaxDiscipline(selectedGeneration) {
 async function keepDisciplinesCorrect(disciplineMax, actor) {
 	// discipline
 	for (const item of actor.items) {
-		if ((item.type == "Power") && (item.data.data.type == "wod.types.discipline")) {
+		if ((item.type == "Power") && (item.system.type == "wod.types.discipline")) {
 			const itemData = duplicate(item);
-			itemData.data.max = parseInt(disciplineMax);
+			itemData.system.max = parseInt(disciplineMax);
 			await item.update(itemData);
 		}
-		if ((item.type == "Power") && (item.data.data.type == "wod.types.disciplinepower")) {
+		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower")) {
 			const itemData = duplicate(item);
-			itemData.data.value = 0;
-			itemData.data.max = 0;
+			itemData.system.value = 0;
+			itemData.system.max = 0;
 			await item.update(itemData);
 		}
 	}

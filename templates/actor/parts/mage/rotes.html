@@ -16,32 +16,32 @@
 
 			<!-- <div class="pullLeft">
 
-				{{#iff item.data.correspondence "!=" 0}}
-					{{localize "wod.spheres.correspondence"}} ({{item.data.correspondence}})
+				{{#iff item.system.correspondence "!=" 0}}
+					{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})
 				{{/iff}}
-				{{#iff item.data.entropy "!=" 0}}
-					{{localize "wod.spheres.entropy"}} ({{item.data.entropy}})
+				{{#iff item.system.entropy "!=" 0}}
+					{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})
 				{{/iff}}
-				{{#iff item.data.forces "!=" 0}}
-					{{localize "wod.spheres.forces"}} ({{item.data.forces}})
+				{{#iff item.system.forces "!=" 0}}
+					{{localize "wod.spheres.forces"}} ({{item.system.forces}})
 				{{/iff}}
-				{{#iff item.data.life "!=" 0}}
-					{{localize "wod.spheres.life"}} ({{item.data.life}})
+				{{#iff item.system.life "!=" 0}}
+					{{localize "wod.spheres.life"}} ({{item.system.life}})
 				{{/iff}}
-				{{#iff item.data.matter "!=" 0}}
-					{{localize "wod.spheres.matter"}} ({{item.data.matter}})
+				{{#iff item.system.matter "!=" 0}}
+					{{localize "wod.spheres.matter"}} ({{item.system.matter}})
 				{{/iff}}
-				{{#iff item.data.mind "!=" 0}}
-					{{localize "wod.spheres.mind"}} ({{item.data.mind}})
+				{{#iff item.system.mind "!=" 0}}
+					{{localize "wod.spheres.mind"}} ({{item.system.mind}})
 				{{/iff}}
-				{{#iff item.data.prime "!=" 0}}
-					{{localize "wod.spheres.prime"}} ({{item.data.prime}})
+				{{#iff item.system.prime "!=" 0}}
+					{{localize "wod.spheres.prime"}} ({{item.system.prime}})
 				{{/iff}}
-				{{#iff item.data.spirit "!=" 0}}
-					{{localize "wod.spheres.spirit"}} ({{item.data.spirit}})
+				{{#iff item.system.spirit "!=" 0}}
+					{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})
 				{{/iff}}
-				{{#iff item.data.time "!=" 0}}
-					{{localize "wod.spheres.time"}} ({{item.data.time}})
+				{{#iff item.system.time "!=" 0}}
+					{{localize "wod.spheres.time"}} ({{item.system.time}})
 				{{/iff}}
 
 			</div> -->
@@ -50,33 +50,33 @@
 				<div class="pullLeft headlineNormal pointer tooltip">
 					<i class="icon fa fa-sticky-note"></i>
 					<span class="tooltiptext">                
-						<div><b>{{localize "wod.labels.description"}}:</b> {{item.data.description}}</div>
-						{{#iff item.data.correspondence "!=" 0}}
-							<div>{{localize "wod.spheres.correspondence"}} ({{item.data.correspondence}})</div>
+						<div><b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}</div>
+						{{#iff item.system.correspondence "!=" 0}}
+							<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
 						{{/iff}}
-						{{#iff item.data.entropy "!=" 0}}
-							<div>{{localize "wod.spheres.entropy"}} ({{item.data.entropy}})</div>
+						{{#iff item.system.entropy "!=" 0}}
+							<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
 						{{/iff}}
-						{{#iff item.data.forces "!=" 0}}
-							<div>{{localize "wod.spheres.forces"}} ({{item.data.forces}})</div>
+						{{#iff item.system.forces "!=" 0}}
+							<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
 						{{/iff}}
-						{{#iff item.data.life "!=" 0}}
-							<div>{{localize "wod.spheres.life"}} ({{item.data.life}})</div>
+						{{#iff item.system.life "!=" 0}}
+							<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
 						{{/iff}}
-						{{#iff item.data.matter "!=" 0}}
-							<div>{{localize "wod.spheres.matter"}} ({{item.data.matter}})</div>
+						{{#iff item.system.matter "!=" 0}}
+							<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
 						{{/iff}}
-						{{#iff item.data.mind "!=" 0}}
-							<div>{{localize "wod.spheres.mind"}} ({{item.data.mind}})</div>
+						{{#iff item.system.mind "!=" 0}}
+							<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
 						{{/iff}}
-						{{#iff item.data.prime "!=" 0}}
-							<div>{{localize "wod.spheres.prime"}} ({{item.data.prime}})</div>
+						{{#iff item.system.prime "!=" 0}}
+							<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
 						{{/iff}}
-						{{#iff item.data.spirit "!=" 0}}
-							<div>{{localize "wod.spheres.spirit"}} ({{item.data.spirit}})</div>
+						{{#iff item.system.spirit "!=" 0}}
+							<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
 						{{/iff}}
-						{{#iff item.data.time "!=" 0}}
-							<div>{{localize "wod.spheres.time"}} ({{item.data.time}})</div>
+						{{#iff item.system.time "!=" 0}}
+							<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
 						{{/iff}}         
 					</span>
 				</div>        
@@ -86,36 +86,36 @@
 						data-type="Weapon" 
 						data-item-id="{{item._id}}" 
 						data-headline="<h2>{{item.name}}</h2>" 
-						data-message="{{#iff item.data.correspondence "!=" 0}}
-											<div>{{localize "wod.spheres.correspondence"}} ({{item.data.correspondence}})</div>
+						data-message="{{#iff item.system.correspondence "!=" 0}}
+											<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
 										{{/iff}}
-										{{#iff item.data.entropy "!=" 0}}
-											<div>{{localize "wod.spheres.entropy"}} ({{item.data.entropy}})</div>
+										{{#iff item.system.entropy "!=" 0}}
+											<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
 										{{/iff}}
-										{{#iff item.data.forces "!=" 0}}
-											<div>{{localize "wod.spheres.forces"}} ({{item.data.forces}})</div>
+										{{#iff item.system.forces "!=" 0}}
+											<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
 										{{/iff}}
-										{{#iff item.data.life "!=" 0}}
-											<div>{{localize "wod.spheres.life"}} ({{item.data.life}})</div>
+										{{#iff item.system.life "!=" 0}}
+											<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
 										{{/iff}}
-										{{#iff item.data.matter "!=" 0}}
-											<div>{{localize "wod.spheres.matter"}} ({{item.data.matter}})</div>
+										{{#iff item.system.matter "!=" 0}}
+											<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
 										{{/iff}}
-										{{#iff item.data.mind "!=" 0}}
-											<div>{{localize "wod.spheres.mind"}} ({{item.data.mind}})</div>
+										{{#iff item.system.mind "!=" 0}}
+											<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
 										{{/iff}}
-										{{#iff item.data.prime "!=" 0}}
-											<div>{{localize "wod.spheres.prime"}} ({{item.data.prime}})</div>
+										{{#iff item.system.prime "!=" 0}}
+											<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
 										{{/iff}}
-										{{#iff item.data.spirit "!=" 0}}
-											<div>{{localize "wod.spheres.spirit"}} ({{item.data.spirit}})</div>
+										{{#iff item.system.spirit "!=" 0}}
+											<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
 										{{/iff}}
-										{{#iff item.data.time "!=" 0}}
-											<div>{{localize "wod.spheres.time"}} ({{item.data.time}})</div>
+										{{#iff item.system.time "!=" 0}}
+											<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
 										{{/iff}}
 										<div>
 											<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-											<span class='chatt-text'>{{item.data.description}}</span>
+											<span class='chatt-text'>{{item.system.description}}</span>
 										</div>"><i class="icon fa fa-commenting"></i></a>
 				</div>
 				{{#if (eq ../locked false)}}

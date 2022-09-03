@@ -54,7 +54,8 @@ export default class ActionHelper {
 
 		// the new roll system
 		if ((dataset.rollitem == "true") && ((dataset.itemid != undefined) || (dataset.itemid != "undefined"))) {
-			item = this._getItem(dataset.itemid, actor.data.items);
+			//item = this._getItem(dataset.itemid, actor.data.items);
+			item = actor.getEmbeddedDocument("Item", dataset.itemid);
 
 			// used a Weapon
 			if (dataset.object == "Melee") {
@@ -74,7 +75,7 @@ export default class ActionHelper {
 			}
 
 			if (dataset.object == "Damage") {
-				item.data.extraSuccesses = 0;
+				item.system.extraSuccesses = 0;
 				const damage = new Damage(item);
 				let weaponUse = new DialogWeapon(actor, damage);
 				weaponUse.render(true);
@@ -84,15 +85,15 @@ export default class ActionHelper {
 
 			// used a Fetish
 			if (dataset.object == "Fetish") {
-				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.data.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.data.data.gnosis.roll})</strong>`;
+				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.system.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.gnosis.roll})</strong>`;
 
 				const fetishRoll = new DiceRoll(actor);
 				fetishRoll.handlingOnes = CONFIG.wod.handleOnes;
-				fetishRoll.numDices = parseInt(actor.data.data.gnosis.roll);
-				fetishRoll.difficulty = parseInt(item.data.data.difficulty);
+				fetishRoll.numDices = parseInt(actor.system.gnosis.roll);
+				fetishRoll.difficulty = parseInt(item.system.difficulty);
 				fetishRoll.templateHTML = templateHTML;
 				fetishRoll.origin = "paradox";
-				fetishRoll.systemText = item.data.data.details;
+				fetishRoll.systemText = item.system.details;
 
 				rollDice(fetishRoll);
 
@@ -313,7 +314,7 @@ export default class ActionHelper {
 			init += parseInt(dice.result);
 		});
 
-		init += parseInt(parseInt(actor.data.data.initiative.total));
+		init += parseInt(parseInt(actor.system.initiative.total));
 
 		if ((foundToken) && (foundEncounter)) {
 			if (!this._inTurn(token)) {
@@ -329,15 +330,15 @@ export default class ActionHelper {
 		}	
 
 		if (actor.type != CONFIG.wod.sheettype.spirit) {
-			if (parseInt(actor.data.data.attributes.dexterity.total) >= parseInt(actor.data.data.attributes.wits.total)) {
-				initAttribute = game.i18n.localize(actor.data.data.attributes.dexterity.label) + " " + actor.data.data.attributes.dexterity.total;
+			if (parseInt(actor.system.attributes.dexterity.total) >= parseInt(actor.system.attributes.wits.total)) {
+				initAttribute = game.i18n.localize(actor.system.attributes.dexterity.label) + " " + actor.system.attributes.dexterity.total;
 			}
 			else {
-				initAttribute = game.i18n.localize(actor.data.data.attributes.wits.label) + " " + actor.data.data.attributes.wits.total;
+				initAttribute = game.i18n.localize(actor.system.attributes.wits.label) + " " + actor.system.attributes.wits.total;
 			}			
 		}
 		else {
-			initAttribute = game.i18n.localize(actor.data.data.willpower.label) + " " + actor.data.data.willpower.permanent;
+			initAttribute = game.i18n.localize(actor.system.willpower.label) + " " + actor.system.willpower.permanent;
 		}
 
 		if (actor.type == CONFIG.wod.sheettype.mortal) {
@@ -397,10 +398,10 @@ export default class ActionHelper {
 	static RollParadox(event, actor) {
 		event.preventDefault();
 
-		const numDice = parseInt(actor.data.data.paradox.roll);
+		const numDice = parseInt(actor.system.paradox.roll);
 		const difficulty = 6;		
 		let rollHTML = `<h2>${game.i18n.localize("wod.advantages.paradox")}</h2>`;
-		rollHTML += `${game.i18n.localize("wod.advantages.paradox")} (${actor.data.data.paradox.roll})`;
+		rollHTML += `${game.i18n.localize("wod.advantages.paradox")} (${actor.system.paradox.roll})`;
 
 		const paradoxRoll = new DiceRoll(actor);
         paradoxRoll.handlingOnes = CONFIG.wod.handleOnes;
@@ -438,43 +439,43 @@ export default class ActionHelper {
 
 		// willpower
 		if (CONFIG.wod.attributeSettings == "5th") {
-			actorData.data.willpower.permanent = parseInt(actorData.data.attributes.composure.value) + parseInt(actorData.data.attributes.resolve.value);
+			actorData.system.willpower.permanent = parseInt(actorData.system.attributes.composure.value) + parseInt(actorData.system.attributes.resolve.value);
 		}
 		
-		if (actorData.data.willpower.permanent > actorData.data.willpower.max) {
-			actorData.data.willpower.permanent = actorData.data.willpower.max;
+		if (actorData.system.willpower.permanent > actorData.system.willpower.max) {
+			actorData.system.willpower.permanent = actorData.system.willpower.max;
 		}
 		
-		if (actorData.data.willpower.permanent < actorData.data.willpower.temporary) {
-			actorData.data.willpower.temporary = actorData.data.willpower.permanent;
+		if (actorData.system.willpower.permanent < actorData.system.willpower.temporary) {
+			actorData.system.willpower.temporary = actorData.system.willpower.permanent;
 		}
 
 		if (advantageRollSetting) {
-			actorData.data.willpower.roll = actorData.data.willpower.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent;
 		}
 		else {
-			actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
 		}		
 
 		console.log("WoD | Sheet calculations done");
 	}
 
     static handleWoundLevelCalculations(actorData) {
-		let totalWoundLevels = parseInt(actorData.data.health.damage.bashing) + parseInt(actorData.data.health.damage.lethal) + parseInt(actorData.data.health.damage.aggravated);
+		let totalWoundLevels = parseInt(actorData.system.health.damage.bashing) + parseInt(actorData.system.health.damage.lethal) + parseInt(actorData.system.health.damage.aggravated);
 
 		if (totalWoundLevels == 0) {
-			actorData.data.health.damage.woundlevel = "";
-			actorData.data.health.damage.woundpenalty = 0;
+			actorData.system.health.damage.woundlevel = "";
+			actorData.system.health.damage.woundpenalty = 0;
 
 			return
 		}
 
 		for (const i in CONFIG.wod.woundLevels) {
-			totalWoundLevels = totalWoundLevels - parseInt(actorData.data.health[i].value);
+			totalWoundLevels = totalWoundLevels - parseInt(actorData.system.health[i].value);
 
 			if (totalWoundLevels == 0) {
-				actorData.data.health.damage.woundlevel = actorData.data.health[i].label;
-				actorData.data.health.damage.woundpenalty = actorData.data.health[i].penalty;
+				actorData.system.health.damage.woundlevel = actorData.system.health[i].label;
+				actorData.system.health.damage.woundpenalty = actorData.system.health[i].penalty;
 
 				return
 			}
@@ -484,33 +485,33 @@ export default class ActionHelper {
 	static handleVampireCalculations(actorData) {
 		console.log("WoD | handleVampireCalculations");
 
-		actorData.data.path.roll = parseInt(actorData.data.path.value);
-		actorData.data.virtues.conscience.roll = parseInt(actorData.data.virtues.conscience.value);
-		actorData.data.virtues.selfcontrol.roll = parseInt(actorData.data.virtues.selfcontrol.value);
-		actorData.data.virtues.courage.roll = parseInt(actorData.data.virtues.courage.value);	
+		actorData.system.path.roll = parseInt(actorData.system.path.value);
+		actorData.system.virtues.conscience.roll = parseInt(actorData.system.virtues.conscience.value);
+		actorData.system.virtues.selfcontrol.roll = parseInt(actorData.system.virtues.selfcontrol.value);
+		actorData.system.virtues.courage.roll = parseInt(actorData.system.virtues.courage.value);	
 		
-		if (actorData.data.path.value == 1) {
-			actorData.data.path.bearing = 2;
+		if (actorData.system.path.value == 1) {
+			actorData.system.path.bearing = 2;
 		}
-		else if ((actorData.data.path.value >= 2) && (actorData.data.path.value <= 3)) {
-			actorData.data.path.bearing = 1;
+		else if ((actorData.system.path.value >= 2) && (actorData.system.path.value <= 3)) {
+			actorData.system.path.bearing = 1;
 		}
-		else if ((actorData.data.path.value >= 4) && (actorData.data.path.value <= 7)) {
-			actorData.data.path.bearing = 0;
+		else if ((actorData.system.path.value >= 4) && (actorData.system.path.value <= 7)) {
+			actorData.system.path.bearing = 0;
 		}
-		else if ((actorData.data.path.value >= 8) && (actorData.data.path.value <= 9)) {
-			actorData.data.path.bearing = -1;
+		else if ((actorData.system.path.value >= 8) && (actorData.system.path.value <= 9)) {
+			actorData.system.path.bearing = -1;
 		}
-		else if (actorData.data.path.value == 10) {
-			actorData.data.path.bearing = -2;
+		else if (actorData.system.path.value == 10) {
+			actorData.system.path.bearing = -2;
 		}
 	}
 
 	static handleMageCalculations(actorData) {
 		console.log("WoD | handleMageCalculations");
 
-		actorData.data.arete.roll = parseInt(actorData.data.arete.permanent);
-		actorData.data.paradox.roll = parseInt(actorData.data.paradox.temporary) + parseInt(actorData.data.paradox.permanent);
+		actorData.system.arete.roll = parseInt(actorData.system.arete.permanent);
+		actorData.system.paradox.roll = parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent);
 	}
 
 	static handleWerewolfCalculations(actorData) {
@@ -520,70 +521,70 @@ export default class ActionHelper {
 
 		// shift
 		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed")) {
-			if ((!actorData.data.shapes.homid.isactive) &&
-				(!actorData.data.shapes.glabro.isactive) &&
-				(!actorData.data.shapes.crinos.isactive) &&
-				(!actorData.data.shapes.hispo.isactive) &&
-				(!actorData.data.shapes.lupus.isactive)) {
-				actorData.data.shapes.homid.isactive = true;
+			if ((!actorData.system.shapes.homid.isactive) &&
+				(!actorData.system.shapes.glabro.isactive) &&
+				(!actorData.system.shapes.crinos.isactive) &&
+				(!actorData.system.shapes.hispo.isactive) &&
+				(!actorData.system.shapes.lupus.isactive)) {
+				actorData.system.shapes.homid.isactive = true;
 			}
 
-			if (actorData.data.shapes.homid.isactive) {
-				actorData.data.shapes.glabro.isactive = false;
-				actorData.data.shapes.crinos.isactive = false;
-				actorData.data.shapes.hispo.isactive = false;
-				actorData.data.shapes.lupus.isactive = false;
+			if (actorData.system.shapes.homid.isactive) {
+				actorData.system.shapes.glabro.isactive = false;
+				actorData.system.shapes.crinos.isactive = false;
+				actorData.system.shapes.hispo.isactive = false;
+				actorData.system.shapes.lupus.isactive = false;
 			}
-			else if (actorData.data.shapes.glabro.isactive) {
-				actorData.data.shapes.homid.isactive = false;
-				actorData.data.shapes.crinos.isactive = false;
-				actorData.data.shapes.hispo.isactive = false;
-				actorData.data.shapes.lupus.isactive = false;
+			else if (actorData.system.shapes.glabro.isactive) {
+				actorData.system.shapes.homid.isactive = false;
+				actorData.system.shapes.crinos.isactive = false;
+				actorData.system.shapes.hispo.isactive = false;
+				actorData.system.shapes.lupus.isactive = false;
 			}
-			else if (actorData.data.shapes.crinos.isactive) {
-				actorData.data.shapes.homid.isactive = false;
-				actorData.data.shapes.glabro.isactive = false;
-				actorData.data.shapes.hispo.isactive = false;
-				actorData.data.shapes.lupus.isactive = false;
+			else if (actorData.system.shapes.crinos.isactive) {
+				actorData.system.shapes.homid.isactive = false;
+				actorData.system.shapes.glabro.isactive = false;
+				actorData.system.shapes.hispo.isactive = false;
+				actorData.system.shapes.lupus.isactive = false;
 			}
-			else if (actorData.data.shapes.hispo.isactive) {
-				actorData.data.shapes.homid.isactive = false;
-				actorData.data.shapes.glabro.isactive = false;
-				actorData.data.shapes.crinos.isactive = false;
-				actorData.data.shapes.lupus.isactive = false;
+			else if (actorData.system.shapes.hispo.isactive) {
+				actorData.system.shapes.homid.isactive = false;
+				actorData.system.shapes.glabro.isactive = false;
+				actorData.system.shapes.crinos.isactive = false;
+				actorData.system.shapes.lupus.isactive = false;
 			}
-			else if (actorData.data.shapes.lupus.isactive) {
-				actorData.data.shapes.homid.isactive = false;
-				actorData.data.shapes.glabro.isactive = false;
-				actorData.data.shapes.crinos.isactive = false;
-				actorData.data.shapes.hispo.isactive = false;
+			else if (actorData.system.shapes.lupus.isactive) {
+				actorData.system.shapes.homid.isactive = false;
+				actorData.system.shapes.glabro.isactive = false;
+				actorData.system.shapes.crinos.isactive = false;
+				actorData.system.shapes.hispo.isactive = false;
 			}
 		}
 
 		if (actorData.type == "Changing Breed") {
-			if ((actorData.data.changingbreed == "Ananasi") || (actorData.data.changingbreed == "Nuwisha")) {
-				actorData.data.rage.permanent = 0;
-				actorData.data.rage.temporary = 0;
+			if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nuwisha")) {
+				actorData.system.rage.permanent = 0;
+				actorData.system.rage.temporary = 0;
 			}
 		}
 
 		// rage
-		if (actorData.data.rage.permanent > actorData.data.rage.max) {
-			actorData.data.rage.permanent = actorData.data.rage.max;
+		if (actorData.system.rage.permanent > actorData.system.rage.max) {
+			actorData.system.rage.permanent = actorData.system.rage.max;
 		}
 		
-		if (actorData.data.rage.permanent < actorData.data.rage.temporary) {
-			//actorData.data.rage.temporary = actorData.data.rage.permanent;
+		if (actorData.system.rage.permanent < actorData.system.rage.temporary) {
+			//actorData.system.rage.temporary = actorData.system.rage.permanent;
 			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
 		}
 		
 		// gnosis
-		if (actorData.data.gnosis.permanent > actorData.data.gnosis.max) {
-			actorData.data.gnosis.permanent = actorData.data.gnosis.max;
+		if (actorData.system.gnosis.permanent > actorData.system.gnosis.max) {
+			actorData.system.gnosis.permanent = actorData.system.gnosis.max;
 		}
 		
-		if (actorData.data.gnosis.permanent < actorData.data.gnosis.temporary) {
-			actorData.data.gnosis.temporary = actorData.data.gnosis.permanent;
+		if (actorData.system.gnosis.permanent < actorData.system.gnosis.temporary) {
+			actorData.system.gnosis.temporary = actorData.system.gnosis.permanent;
 		}		
 
 		try {
@@ -594,21 +595,21 @@ export default class ActionHelper {
 		}
 
 		if (advantageRollSetting) {
-			actorData.data.rage.roll = actorData.data.rage.permanent; 
-			actorData.data.gnosis.roll = actorData.data.gnosis.permanent;
-			actorData.data.willpower.roll = actorData.data.willpower.permanent; 
+			actorData.system.rage.roll = actorData.system.rage.permanent; 
+			actorData.system.gnosis.roll = actorData.system.gnosis.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent; 
 		}
 		else {
-			actorData.data.rage.roll = actorData.data.rage.permanent > actorData.data.rage.temporary ? actorData.data.rage.temporary : actorData.data.rage.permanent; 
-			actorData.data.gnosis.roll = actorData.data.gnosis.permanent > actorData.data.gnosis.temporary ? actorData.data.gnosis.temporary : actorData.data.gnosis.permanent;
-			actorData.data.willpower.roll = actorData.data.willpower.permanent > actorData.data.willpower.temporary ? actorData.data.willpower.temporary : actorData.data.willpower.permanent; 
+			actorData.system.rage.roll = actorData.system.rage.permanent > actorData.system.rage.temporary ? actorData.system.rage.temporary : actorData.system.rage.permanent; 
+			actorData.system.gnosis.roll = actorData.system.gnosis.permanent > actorData.system.gnosis.temporary ? actorData.system.gnosis.temporary : actorData.system.gnosis.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
 		}		
 
-		if (actorData.data.rage.roll > actorData.data.willpower.roll) {
-			const rageDiff = parseInt(actorData.data.rage.roll) - parseInt(actorData.data.willpower.roll);
+		if (actorData.system.rage.roll > actorData.system.willpower.roll) {
+			const rageDiff = parseInt(actorData.system.rage.roll) - parseInt(actorData.system.willpower.roll);
 
-			actorData.data.attributes.charisma.total = parseInt(actorData.data.attributes.charisma.total) - rageDiff;
-			actorData.data.attributes.manipulation.total = parseInt(actorData.data.attributes.manipulation.total) - rageDiff;
+			actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total) - rageDiff;
+			actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total) - rageDiff;
 		}
 	}			
 
@@ -627,12 +628,12 @@ export default class ActionHelper {
 	static _ignoresPain(actor) {
 		let ignoresPain = false;
 
-		if (actor.data.data.conditions?.isignoringpain)
+		if (actor.system.conditions?.isignoringpain)
 		{
 			ignoresPain = true;
 		}
 
-		if (actor.data.data.conditions?.isfrenzy)
+		if (actor.system.conditions?.isfrenzy)
 		{
 			ignoresPain = true;
 		}
@@ -1079,20 +1080,20 @@ export default class ActionHelper {
 	 * @param itemlist
 	 * 
 	 */
-	static _getItem(id, itemlist)
-	{
-		if (id == undefined) {
-			return false;
-		}
+	// static _getItem(id, itemlist)
+	// {
+	// 	if (id == undefined) {
+	// 		return false;
+	// 	}
 
-		for (const i of itemlist) {
-			if (i.data._id == id) {
-				return i;
-			}
-		}
+	// 	for (const i of itemlist) {
+	// 		if (i.system._id == id) {
+	// 			return i;
+	// 		}
+	// 	}
 
-		return false;
-	}
+	// 	return false;
+	// }
 }
 
 

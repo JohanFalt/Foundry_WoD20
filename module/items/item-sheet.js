@@ -20,7 +20,7 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	get template() {
-		let sheet = this.item.data.type;
+		let sheet = this.item.type;
 		sheet = sheet.toLowerCase().replace(" ", "");
 
 		return `systems/worldofdarkness/templates/sheets/${sheet}-sheet.html`;
@@ -30,14 +30,14 @@ export class WoDItemSheet extends ItemSheet {
 	getData() {
 		const itemData = duplicate(this.item);		
 
-		if (!itemData.data.iscreated) {
-			itemData.data.version = game.data.system.data.version;
-			itemData.data.iscreated = true;
+		if (!itemData.system.iscreated) {
+			itemData.system.version = game.data.system.version;
+			itemData.system.iscreated = true;
 			this.item.update(itemData);
 		}
 
-		if ((itemData.type == "Power") && ((itemData.data.type == "wod.types.discipline") || (itemData.data.type == "wod.types.disciplinepath"))) {
-			itemData.data.isrollable = false;
+		if ((itemData.type == "Power") && ((itemData.system.type == "wod.types.discipline") || (itemData.system.type == "wod.types.disciplinepath"))) {
+			itemData.system.isrollable = false;
 			this.item.update(itemData);
 		}		
 
@@ -54,7 +54,7 @@ export class WoDItemSheet extends ItemSheet {
 		const imgUrl = getImage(data.item);
 
 		if (imgUrl != "") {
-			data.item.data.img = imgUrl;
+			data.item.img = imgUrl;
 		}
 
 		console.log(data.item.type);
@@ -131,7 +131,7 @@ export class WoDItemSheet extends ItemSheet {
 
 	_clearDiscipline(event) {
 		const itemData = duplicate(this.item);
-		itemData.data.parentid = "";
+		itemData.system.parentid = "";
 		this.item.update(itemData);
 		this.render(false);
 	}
@@ -140,14 +140,14 @@ export class WoDItemSheet extends ItemSheet {
 		const itemData = duplicate(this.item);		
 
 		if (fields[1] === "spheres") {
-			itemData.data[fields[2]] = value;
+			itemData.system[fields[2]] = value;
 			this.item.update(itemData);
 		}		
 	}	
 }
 
 export function getImage(item) {
-	if ((!item.data.img.startsWith("systems/")) && (!item.data.img.startsWith("icons/"))) {
+	if ((!item.img.startsWith("systems/")) && (!item.img.startsWith("icons/"))) {
 		return "";
 	}
 
@@ -159,11 +159,11 @@ export function getImage(item) {
 		return "systems/worldofdarkness/assets/img/items/fetish.svg";
 	}
 
-	if ((item.type == "Melee Weapon") && (item.data.data.isnatural)) {
+	if ((item.type == "Melee Weapon") && (item.system.isnatural)) {
 		return "systems/worldofdarkness/assets/img/items/naturalweapons.svg";
 	}
 
-	if ((item.type == "Melee Weapon") && (!item.data.data.isnatural)) {
+	if ((item.type == "Melee Weapon") && (!item.system.isnatural)) {
 		return "systems/worldofdarkness/assets/img/items/meleeweapons.svg";
 	}
 
@@ -180,23 +180,23 @@ export function getImage(item) {
 	}
 
 	if (item.type == "Power") {
-		if ((item.data.data.type == "wod.types.discipline") || (item.data.data.type == "wod.types.disciplinepath")) {
+		if ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepath")) {
 			return "systems/worldofdarkness/assets/img/items/mainpower_vampire.svg";
 		}
 
-		if ((item.data.data.type == "wod.types.disciplinepower") || (item.data.data.type == "wod.types.disciplinepathpower")) {
+		if ((item.system.type == "wod.types.disciplinepower") || (item.system.type == "wod.types.disciplinepathpower")) {
 			return "systems/worldofdarkness/assets/img/items/power_vampire.svg";
 		}
 
-		if (item.data.data.type == "wod.types.ritual") {
+		if (item.system.type == "wod.types.ritual") {
 			return "systems/worldofdarkness/assets/img/items/ritual_vampire.svg";
 		}
 
-		if (item.data.data.type == "wod.types.gift") {
+		if (item.system.type == "wod.types.gift") {
 			return "systems/worldofdarkness/assets/img/items/power_werewolf.svg";
 		}
 
-		if (item.data.data.type == "wod.types.rite") {
+		if (item.system.type == "wod.types.rite") {
 			return "systems/worldofdarkness/assets/img/items/ritual_werewolf.svg";
 		}
 

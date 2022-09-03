@@ -2,71 +2,71 @@ export function calculateTotals(actorData) {
 	let toForm = getForm(actorData);
 
     // attributes totals
-	for (const i in actorData.data.attributes) {
+	for (const i in actorData.system.attributes) {
 		let shift = {"type": i, "value": 0};
 
 		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
-			shift = handleWerewolfShiftAttributeData(actorData.data.attributes[i].label, toForm);
+			shift = handleWerewolfShiftAttributeData(actorData.system.attributes[i].label, toForm);
 		}
 		if (actorData.type == "Changing Breed") {
-			shift = getShiftAttributeBonus(actorData.data.attributes[i].label, toForm, actorData);
+			shift = getShiftAttributeBonus(actorData.system.attributes[i].label, toForm, actorData);
 		}
 
-		actorData.data.attributes[i].total = parseInt(actorData.data.attributes[i].value) + parseInt(actorData.data.attributes[i].bonus) + parseInt(shift.value);
+		actorData.system.attributes[i].total = parseInt(actorData.system.attributes[i].value) + parseInt(actorData.system.attributes[i].bonus) + parseInt(shift.value);
 
 		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed")) {
 
-			if (actorData.data.attributes[i].label == "wod.attributes.strength") {
+			if (actorData.system.attributes[i].label == "wod.attributes.strength") {
 				if (actorData.type == "Changing Breed") {
-					if (actorData.data.changingbreed == "Ananasi") {
+					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.data.attributes[i].total = 0;
+							actorData.system.attributes[i].total = 0;
 						}
 					}
 				}
 			}
 
-			if (actorData.data.attributes[i].label == "wod.attributes.stamina") {
+			if (actorData.system.attributes[i].label == "wod.attributes.stamina") {
 				if (actorData.type == "Changing Breed") {
-					if (actorData.data.changingbreed == "Ananasi") {
+					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.data.attributes[i].total = 0;
+							actorData.system.attributes[i].total = 0;
 						}
 					}
 				}
 			}
 
-			if (actorData.data.attributes[i].label == "wod.attributes.manipulation") {
+			if (actorData.system.attributes[i].label == "wod.attributes.manipulation") {
 				if (actorData.type == "Changing Breed") {
-					if ((actorData.data.changingbreed == "Ananasi") || (actorData.data.changingbreed == "Nagah")) {
+					if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nagah")) {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.data.attributes[i].total = 0;
+							actorData.system.attributes[i].total = 0;
 						}
 					}
 				}
 			}
 
-			if (actorData.data.attributes[i].label == "wod.attributes.appearance") {
-				if ((toForm == "wod.shapes.crinos") && ((actorData.data?.changingbreed != "Kitsune") && (actorData.data?.changingbreed != "Ratkin"))) {
-					actorData.data.attributes[i].total = 0;
+			if (actorData.system.attributes[i].label == "wod.attributes.appearance") {
+				if ((toForm == "wod.shapes.crinos") && ((actorData.system?.changingbreed != "Kitsune") && (actorData.system?.changingbreed != "Ratkin"))) {
+					actorData.system.attributes[i].total = 0;
 				}
 
 				if (actorData.type == "Changing Breed") {
-					if ((actorData.data.changingbreed == "Ajaba") && (toForm == "wod.shapes.hispo")) {
-						actorData.data.attributes[i].total = 0;
+					if ((actorData.system.changingbreed == "Ajaba") && (toForm == "wod.shapes.hispo")) {
+						actorData.system.attributes[i].total = 0;
 					}
 
-					if (actorData.data.changingbreed == "Ananasi") {
+					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.glabro") {
-							actorData.data.attributes[i].total = 0;
+							actorData.system.attributes[i].total = 0;
 						}
 
 						if (toForm == "wod.shapes.hispo") {
-							actorData.data.attributes[i].total = 0;
+							actorData.system.attributes[i].total = 0;
 						}
 
 						if (toForm == "wod.shapes.lupus") {
-							actorData.data.attributes[i].total = 0;
+							actorData.system.attributes[i].total = 0;
 						}
 					}
 				}
@@ -74,22 +74,22 @@ export function calculateTotals(actorData) {
 		}
 	}    
 
-	actorData.data.soak.bashing = 0;
-	actorData.data.soak.lethal = 0;
-	actorData.data.soak.aggravated = 0;
+	actorData.system.soak.bashing = 0;
+	actorData.system.soak.lethal = 0;
+	actorData.system.soak.aggravated = 0;
 
-	if (actorData.data.settings.soak.bashing.isrollable) {
-		actorData.data.soak.bashing = actorData.data.attributes.stamina.total;
+	if (actorData.system.settings.soak.bashing.isrollable) {
+		actorData.system.soak.bashing = actorData.system.attributes.stamina.total;
 	}
-	if (actorData.data.settings.soak.lethal.isrollable) {
-		actorData.data.soak.lethal = actorData.data.attributes.stamina.total;
+	if (actorData.system.settings.soak.lethal.isrollable) {
+		actorData.system.soak.lethal = actorData.system.attributes.stamina.total;
 	}
-	if (actorData.data.settings.soak.aggravated.isrollable) {
-		actorData.data.soak.aggravated = actorData.data.attributes.stamina.total;
+	if (actorData.system.settings.soak.aggravated.isrollable) {
+		actorData.system.soak.aggravated = actorData.system.attributes.stamina.total;
 	}
 
-	actorData.data.initiative.base = parseInt(actorData.data.attributes.dexterity.total) + parseInt(actorData.data.attributes.wits.total);
-	actorData.data.initiative.total = parseInt(actorData.data.initiative.base) + parseInt(actorData.data.initiative.bonus);
+	actorData.system.initiative.base = parseInt(actorData.system.attributes.dexterity.total) + parseInt(actorData.system.attributes.wits.total);
+	actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
 
     return actorData;
 }
@@ -97,13 +97,13 @@ export function calculateTotals(actorData) {
 function getForm(actorData) {
 	let label = "wod.shapes.homid";
 
-	if (actorData.data.shapes == undefined) {
+	if (actorData.system.shapes == undefined) {
 		return label;
 	}
 
-	for (const i in actorData.data.shapes) {
-		if (actorData.data.shapes[i].isactive) {
-			 label = actorData.data.shapes[i].label;
+	for (const i in actorData.system.shapes) {
+		if (actorData.system.shapes[i].isactive) {
+			 label = actorData.system.shapes[i].label;
 			 return label;
 		}			
 	}

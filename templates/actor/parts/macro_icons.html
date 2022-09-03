@@ -5,7 +5,7 @@
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.vampire)}}
-            {{#if (eq actor.data.data.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
+            {{#if (eq actor.system.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
                 <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/frenzy.svg" data-macroimage="true" data-rollfrenzy="true" data-type="{{config.sheettype.vampire}}" title="{{localize "wod.dialog.checkfrenzy.headline"}}">
             {{/if}}
         {{/if}}
@@ -30,7 +30,7 @@
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.vampire)}}
-            {{#if (eq actor.data.data.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
+            {{#if (eq actor.system.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
             {{/if}}
         {{/if}}

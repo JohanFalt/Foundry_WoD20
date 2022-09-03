@@ -114,44 +114,44 @@ export const updates = async () => {
             
             if (attributeSettings == "20th") {
                 for (const attribute in CONFIG.wod.attributes20) {
-                    actorData.data.attributes[attribute].isvisible = true;
+                    actorData.system.attributes[attribute].isvisible = true;
                 }
                 
-                actorData.data.attributes.composure.isvisible = false;
-                actorData.data.attributes.resolve.isvisible = false;
+                actorData.system.attributes.composure.isvisible = false;
+                actorData.system.attributes.resolve.isvisible = false;
             }
             else if (attributeSettings == "5th") {
                 for (const attribute in CONFIG.wod.attributes) {
-                    actorData.data.attributes[attribute].isvisible = true;
+                    actorData.system.attributes[attribute].isvisible = true;
                 }
 
-                actorData.data.attributes.appearance.isvisible = false;
-                actorData.data.attributes.perception.isvisible = false;
+                actorData.system.attributes.appearance.isvisible = false;
+                actorData.system.attributes.perception.isvisible = false;
             }
 
             if (rollSettings) {
                 if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.vampire) && (actor.type != CONFIG.wod.sheettype.mage)) {
-                rage = actor.data.data.rage.permanent; 
-                gnosis = actor.data.data.gnosis.permanent;
+                rage = actor.system.rage.permanent; 
+                gnosis = actor.system.gnosis.permanent;
                 }
                 
-                willpower = actor.data.data.willpower.permanent; 
+                willpower = actor.system.willpower.permanent; 
             }
             else {
                 if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.vampire) && (actor.type != CONFIG.wod.sheettype.mage)) {
-                rage = parseInt(actor.data.data.rage.permanent) > parseInt(actor.data.data.rage.temporary) ? actor.data.data.rage.temporary : actor.data.data.rage.permanent; 
-                gnosis = parseInt(actor.data.data.gnosis.permanent) > parseInt(actor.data.data.gnosis.temporary) ? actor.data.data.gnosis.temporary : actor.data.data.gnosis.permanent;
+                rage = parseInt(actor.system.rage.permanent) > parseInt(actor.system.rage.temporary) ? actor.system.rage.temporary : actor.system.rage.permanent; 
+                gnosis = parseInt(actor.system.gnosis.permanent) > parseInt(actor.system.gnosis.temporary) ? actor.system.gnosis.temporary : actor.system.gnosis.permanent;
                 }
                 
-                willpower = parseInt(actor.data.data.willpower.permanent) > parseInt(actor.data.data.willpower.temporary) ? actor.data.data.willpower.temporary : actor.data.data.willpower.permanent; 
+                willpower = parseInt(actor.system.willpower.permanent) > parseInt(actor.system.willpower.temporary) ? actor.system.willpower.temporary : actor.system.willpower.permanent; 
             }
 
             if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.vampire) && (actor.type != CONFIG.wod.sheettype.mage)) {
-                actorData.data.rage.roll = parseInt(rage);
-                actorData.data.gnosis.roll = parseInt(gnosis);
+                actorData.system.rage.roll = parseInt(rage);
+                actorData.system.gnosis.roll = parseInt(gnosis);
             }
 
-            actorData.data.willpower.roll = parseInt(willpower);
+            actorData.system.willpower.roll = parseInt(willpower);
 
             for (const item of actor.items) {
 
@@ -170,8 +170,8 @@ export const updates = async () => {
             }
         }
 
-        totalinit = parseInt(actor.data.data.initiative.base) + parseInt(actor.data.data.initiative.bonus);
-        actorData.data.initiative.total = parseInt(totalinit);
+        totalinit = parseInt(actor.system.initiative.base) + parseInt(actor.system.initiative.bonus);
+        actorData.system.initiative.total = parseInt(totalinit);
 
         await actor.update(actorData);
     }
@@ -202,194 +202,194 @@ export const updates = async () => {
  * @param migrationVersion   The version that is being pushed at the world * 
  */
  export const updateActor = async function(actor, migrationVersion) {
-    if (compareVersion(actor.data.data.settings.version, "1.5.0")) {
+    if (compareVersion(actor.system.settings.version, "1.5.0")) {
         
         const updateData = duplicate(actor);
 
-        updateData.data.settings.version = migrationVersion;
+        updateData.system.settings.version = migrationVersion;
 
-        if(updateData.data.settings.created != undefined) {
-            updateData.data.settings.iscreated = updateData.data.settings.created;   
+        if(updateData.system.settings.created != undefined) {
+            updateData.system.settings.iscreated = updateData.system.settings.created;   
         }        
 
-        if(updateData.data.settings.soak.bashing.roll != undefined) {
-            updateData.data.settings.soak.bashing.isrollable = updateData.data.settings.soak.bashing.roll;            
+        if(updateData.system.settings.soak.bashing.roll != undefined) {
+            updateData.system.settings.soak.bashing.isrollable = updateData.system.settings.soak.bashing.roll;            
         }
 
-        if(updateData.data.settings.soak.lethal.roll != undefined) {
-            updateData.data.settings.soak.lethal.isrollable = updateData.data.settings.soak.lethal.roll;            
+        if(updateData.system.settings.soak.lethal.roll != undefined) {
+            updateData.system.settings.soak.lethal.isrollable = updateData.system.settings.soak.lethal.roll;            
         }        
 
-        if(updateData.data.settings.soak.aggravated.roll != undefined) {
-            updateData.data.settings.soak.aggravated.isrollable = updateData.data.settings.soak.aggravated.roll;            
+        if(updateData.system.settings.soak.aggravated.roll != undefined) {
+            updateData.system.settings.soak.aggravated.isrollable = updateData.system.settings.soak.aggravated.roll;            
         }        
 
-        if(updateData.data.conditions.ignorepain != undefined) {
-            updateData.data.conditions.isignoringpain = updateData.data.conditions.ignorepain;        
+        if(updateData.system.conditions.ignorepain != undefined) {
+            updateData.system.conditions.isignoringpain = updateData.system.conditions.ignorepain;        
         }
-        if(updateData.data.conditions.stunned != undefined) {
-        updateData.data.conditions.isstunned = updateData.data.conditions.stunned;
+        if(updateData.system.conditions.stunned != undefined) {
+        updateData.system.conditions.isstunned = updateData.system.conditions.stunned;
         }
         
 
         if (updateData.type != CONFIG.wod.sheettype.spirit) {
-            for (const attribute in updateData.data.attributes) {
-                if(updateData.data.attributes[attribute].visible != undefined) {
-                    updateData.data.attributes[attribute].isvisible = updateData.data.attributes[attribute].visible;   
+            for (const attribute in updateData.system.attributes) {
+                if(updateData.system.attributes[attribute].visible != undefined) {
+                    updateData.system.attributes[attribute].isvisible = updateData.system.attributes[attribute].visible;   
                 }
             }
 
-            for (const ability in updateData.data.abilities.talent) {
-                if(updateData.data.abilities.talent[ability].visible != undefined) {
-                    updateData.data.abilities.talent[ability].isvisible = updateData.data.abilities.talent[ability].visible;  
+            for (const ability in updateData.system.abilities.talent) {
+                if(updateData.system.abilities.talent[ability].visible != undefined) {
+                    updateData.system.abilities.talent[ability].isvisible = updateData.system.abilities.talent[ability].visible;  
                 }                  
             }
 
-            for (const ability in updateData.data.abilities.skill) {
-                if(updateData.data.abilities.skill[ability].visible != undefined) {
-                    updateData.data.abilities.skill[ability].isvisible = updateData.data.abilities.skill[ability].visible; 
+            for (const ability in updateData.system.abilities.skill) {
+                if(updateData.system.abilities.skill[ability].visible != undefined) {
+                    updateData.system.abilities.skill[ability].isvisible = updateData.system.abilities.skill[ability].visible; 
                 }
             }
 
-            for (const ability in updateData.data.abilities.knowledge) {
-                if(updateData.data.abilities.knowledge[ability].visible != undefined) {
-                    updateData.data.abilities.knowledge[ability].isvisible = updateData.data.abilities.knowledge[ability].visible; 
+            for (const ability in updateData.system.abilities.knowledge) {
+                if(updateData.system.abilities.knowledge[ability].visible != undefined) {
+                    updateData.system.abilities.knowledge[ability].isvisible = updateData.system.abilities.knowledge[ability].visible; 
                 }
             }
         }
 
         if (updateData.type == CONFIG.wod.sheettype.werewolf) {
-            if(updateData.data.conditions.frenzy != undefined) {
-                updateData.data.conditions.isfrenzy = updateData.data.conditions.frenzy;
+            if(updateData.system.conditions.frenzy != undefined) {
+                updateData.system.conditions.isfrenzy = updateData.system.conditions.frenzy;
             }
 
-            if(updateData.data.shapes.homid.active != undefined) {
-                updateData.data.shapes.homid.isactive = updateData.data.shapes.homid.active;
+            if(updateData.system.shapes.homid.active != undefined) {
+                updateData.system.shapes.homid.isactive = updateData.system.shapes.homid.active;
             }
-            if(updateData.data.shapes.glabro.active != undefined) {
-                updateData.data.shapes.glabro.isactive = updateData.data.shapes.glabro.active;
+            if(updateData.system.shapes.glabro.active != undefined) {
+                updateData.system.shapes.glabro.isactive = updateData.system.shapes.glabro.active;
             }
-            if(updateData.data.shapes.crinos.active != undefined) {
-                updateData.data.shapes.crinos.isactive = updateData.data.shapes.crinos.active;
+            if(updateData.system.shapes.crinos.active != undefined) {
+                updateData.system.shapes.crinos.isactive = updateData.system.shapes.crinos.active;
             }
-            if(updateData.data.shapes.hispo.active != undefined) {
-                updateData.data.shapes.hispo.isactive = updateData.data.shapes.hispo.active;
+            if(updateData.system.shapes.hispo.active != undefined) {
+                updateData.system.shapes.hispo.isactive = updateData.system.shapes.hispo.active;
             }
-            if(updateData.data.shapes.lupus.active != undefined) {
-                updateData.data.shapes.lupus.isactive = updateData.data.shapes.lupus.active;
+            if(updateData.system.shapes.lupus.active != undefined) {
+                updateData.system.shapes.lupus.isactive = updateData.system.shapes.lupus.active;
             }
         } 
 
         await actor.update(updateData);
 
-        updateData.data.settings['-=created'] = null;
-        updateData.data.settings.soak.bashing['-=roll'] = null;
-        updateData.data.settings.soak.lethal['-=roll'] = null;
-        updateData.data.settings.soak.aggravated['-=roll'] = null;
+        updateData.system.settings['-=created'] = null;
+        updateData.system.settings.soak.bashing['-=roll'] = null;
+        updateData.system.settings.soak.lethal['-=roll'] = null;
+        updateData.system.settings.soak.aggravated['-=roll'] = null;
 
-        updateData.data.conditions['-=ignorepain'] = null;
-        updateData.data.conditions['-=stunned'] = null;
+        updateData.system.conditions['-=ignorepain'] = null;
+        updateData.system.conditions['-=stunned'] = null;
 
         if (updateData.type != CONFIG.wod.sheettype.spirit) {
-            for (const attribute in updateData.data.attributes) {
-                updateData.data.attributes[attribute]['-=visible'] = null;
+            for (const attribute in updateData.system.attributes) {
+                updateData.system.attributes[attribute]['-=visible'] = null;
             }
 
-            for (const ability in updateData.data.abilities.talent) {
-                updateData.data.abilities.talent[ability]['-=visible'] = null;
+            for (const ability in updateData.system.abilities.talent) {
+                updateData.system.abilities.talent[ability]['-=visible'] = null;
             }
 
-            for (const ability in updateData.data.abilities.skill) {
-                updateData.data.abilities.skill[ability]['-=visible'] = null;                   
+            for (const ability in updateData.system.abilities.skill) {
+                updateData.system.abilities.skill[ability]['-=visible'] = null;                   
             }
 
-            for (const ability in updateData.data.abilities.knowledge) {
-                updateData.data.abilities.knowledge[ability]['-=visible'] = null;                   
+            for (const ability in updateData.system.abilities.knowledge) {
+                updateData.system.abilities.knowledge[ability]['-=visible'] = null;                   
             }
         }
 
         if (updateData.type == CONFIG.wod.sheettype.werewolf) {
-            updateData.data.conditions['-=frenzy'] = null;
+            updateData.system.conditions['-=frenzy'] = null;
 
-            updateData.data.shapes.homid['-=active'] = null;
-            updateData.data.shapes.glabro['-=active'] = null;
-            updateData.data.shapes.crinos['-=active'] = null;
-            updateData.data.shapes.hispo['-=active'] = null;
-            updateData.data.shapes.lupus['-=active'] = null;
+            updateData.system.shapes.homid['-=active'] = null;
+            updateData.system.shapes.glabro['-=active'] = null;
+            updateData.system.shapes.crinos['-=active'] = null;
+            updateData.system.shapes.hispo['-=active'] = null;
+            updateData.system.shapes.lupus['-=active'] = null;
         } 
 
         await actor.update(updateData);
     }
-    if (compareVersion(actor.data.data.settings.version, "1.6.0")) {
+    if (compareVersion(actor.system.settings.version, "1.6.0")) {
         const updateData = duplicate(actor);
         let update = false;
-        updateData.data.settings.version = migrationVersion;
+        updateData.system.settings.version = migrationVersion;
 
         if (updateData.type == CONFIG.wod.sheettype.creature) {
             update = true;            
 
-            updateData.data.settings.hasrage = true;
-            updateData.data.settings.hasgnosis = true;
-            updateData.data.settings.haswillpower = true;
-            updateData.data.settings.hasessence = false;
-            updateData.data.settings.hasbloodpool = false;                    
+            updateData.system.settings.hasrage = true;
+            updateData.system.settings.hasgnosis = true;
+            updateData.system.settings.haswillpower = true;
+            updateData.system.settings.hasessence = false;
+            updateData.system.settings.hasbloodpool = false;                    
         }   
         if (updateData.type == CONFIG.wod.sheettype.werewolf) {
             update = true;  
 
-            if (updateData.data.tribe == "Black Furies") {
-                updateData.data.tribe = "wod.bio.werewolf.blackfuries";
+            if (updateData.system.tribe == "Black Furies") {
+                updateData.system.tribe = "wod.bio.werewolf.blackfuries";
             }
-            if (updateData.data.tribe == "Bone Gnawers") {
-                updateData.data.tribe = "wod.bio.werewolf.bonegnawer";
+            if (updateData.system.tribe == "Bone Gnawers") {
+                updateData.system.tribe = "wod.bio.werewolf.bonegnawer";
             }
-            if (updateData.data.tribe == "Children of Gaia") {
-                updateData.data.tribe = "wod.bio.werewolf.childrenofgaia";
+            if (updateData.system.tribe == "Children of Gaia") {
+                updateData.system.tribe = "wod.bio.werewolf.childrenofgaia";
             }
-            if (updateData.data.tribe == "Fianna") {
-                updateData.data.tribe = "wod.bio.werewolf.fianna";
+            if (updateData.system.tribe == "Fianna") {
+                updateData.system.tribe = "wod.bio.werewolf.fianna";
             }
-            if (updateData.data.tribe == "Get of Fenris") {
-                updateData.data.tribe = "wod.bio.werewolf.getoffenris";
+            if (updateData.system.tribe == "Get of Fenris") {
+                updateData.system.tribe = "wod.bio.werewolf.getoffenris";
             }
-            if (updateData.data.tribe == "Glass Walkers") {
-                updateData.data.tribe = "wod.bio.werewolf.glasswalker";
+            if (updateData.system.tribe == "Glass Walkers") {
+                updateData.system.tribe = "wod.bio.werewolf.glasswalker";
             }
-            if (updateData.data.tribe == "Red Talons") {
-                updateData.data.tribe = "wod.bio.werewolf.redtalon";
+            if (updateData.system.tribe == "Red Talons") {
+                updateData.system.tribe = "wod.bio.werewolf.redtalon";
             }
-            if (updateData.data.tribe == "Shadow Lords") {
-                updateData.data.tribe = "wod.bio.werewolf.shadowlord";
+            if (updateData.system.tribe == "Shadow Lords") {
+                updateData.system.tribe = "wod.bio.werewolf.shadowlord";
             }
-            if (updateData.data.tribe == "Silent Striders") {
-                updateData.data.tribe = "wod.bio.werewolf.silentstrider";
+            if (updateData.system.tribe == "Silent Striders") {
+                updateData.system.tribe = "wod.bio.werewolf.silentstrider";
             }
-            if (updateData.data.tribe == "Silver Fangs") {
-                updateData.data.tribe = "wod.bio.werewolf.silverfang";
+            if (updateData.system.tribe == "Silver Fangs") {
+                updateData.system.tribe = "wod.bio.werewolf.silverfang";
             }
-            if (updateData.data.tribe == "Stargazers") {
-                updateData.data.tribe = "wod.bio.werewolf.stargazer";
+            if (updateData.system.tribe == "Stargazers") {
+                updateData.system.tribe = "wod.bio.werewolf.stargazer";
             }
-            if (updateData.data.tribe == "Uktena") {
-                updateData.data.tribe = "wod.bio.werewolf.uktena";
+            if (updateData.system.tribe == "Uktena") {
+                updateData.system.tribe = "wod.bio.werewolf.uktena";
             }
-            if (updateData.data.tribe == "Wendigo") {
-                updateData.data.tribe = "wod.bio.werewolf.wendigo";
+            if (updateData.system.tribe == "Wendigo") {
+                updateData.system.tribe = "wod.bio.werewolf.wendigo";
             }
-            if (updateData.data.tribe == "Black Spiral Dancers") {
-                updateData.data.tribe = "wod.bio.werewolf.blackspiraldancer";
+            if (updateData.system.tribe == "Black Spiral Dancers") {
+                updateData.system.tribe = "wod.bio.werewolf.blackspiraldancer";
             }
-            if (updateData.data.tribe == "Skin Dancers") {
-                updateData.data.tribe = "wod.bio.werewolf.skindancer";
+            if (updateData.system.tribe == "Skin Dancers") {
+                updateData.system.tribe = "wod.bio.werewolf.skindancer";
             }
-            if (updateData.data.tribe == "Bunyip") {
-                updateData.data.tribe = "wod.bio.werewolf.bunyip";
+            if (updateData.system.tribe == "Bunyip") {
+                updateData.system.tribe = "wod.bio.werewolf.bunyip";
             }
-            if (updateData.data.tribe == "Croatan") {
-                updateData.data.tribe = "wod.bio.werewolf.croatan";
+            if (updateData.system.tribe == "Croatan") {
+                updateData.system.tribe = "wod.bio.werewolf.croatan";
             }
-            if (updateData.data.tribe == "White Howlers") {
-                updateData.data.tribe = "wod.bio.werewolf.whitehowler";
+            if (updateData.system.tribe == "White Howlers") {
+                updateData.system.tribe = "wod.bio.werewolf.whitehowler";
             }
         }
         
@@ -410,126 +410,126 @@ export const updates = async () => {
  * 
  */
  export const updateItem = async function(item, migrationVersion) {
-    if (compareVersion(item.data.data.version, "1.5.0")) {
+    if (compareVersion(item.system.version, "1.5.0")) {
         const itemData = duplicate(item);
 
         if (item.type == "Armor") {
-            itemData.data.forms.hashomid = itemData.data.forms.homid;
-            itemData.data.forms.hasglabro = itemData.data.forms.glabro;
-            itemData.data.forms.hascrinos = itemData.data.forms.crinos;
-            itemData.data.forms.hashispo = itemData.data.forms.hispo;
-            itemData.data.forms.haslupus = itemData.data.forms.lupus;
+            itemData.system.forms.hashomid = itemData.system.forms.homid;
+            itemData.system.forms.hasglabro = itemData.system.forms.glabro;
+            itemData.system.forms.hascrinos = itemData.system.forms.crinos;
+            itemData.system.forms.hashispo = itemData.system.forms.hispo;
+            itemData.system.forms.haslupus = itemData.system.forms.lupus;
         }
 
         // Weapons
         if ((item.type == "Melee Weapon") || (item.type == "Ranged Weapon")) {
-            itemData.data.attack.isrollable = itemData.data.attack.roll;
-            itemData.data.damage.isrollable = itemData.data.damage.roll;
-            itemData.data.difficulty = parseInt(itemData.data.diff);
-            itemData.data.istwohanded = itemData.data.twohanded;
+            itemData.system.attack.isrollable = itemData.system.attack.roll;
+            itemData.system.damage.isrollable = itemData.system.damage.roll;
+            itemData.system.difficulty = parseInt(itemData.system.diff);
+            itemData.system.istwohanded = itemData.system.twohanded;
         }
 
         if (item.type == "Melee Weapon") {
-            itemData.data.isnatural = itemData.data.natural;
+            itemData.system.isnatural = itemData.system.natural;
         }
 
         if (item.type == "Ranged Weapon") {
-            itemData.data.mode.hasreload = itemData.data.mode.reload;
-            itemData.data.mode.hasburst = itemData.data.mode.burst;
-            itemData.data.mode.hasfullauto = itemData.data.mode.fullauto;
-            itemData.data.mode.hasspray = itemData.data.mode.spray;
+            itemData.system.mode.hasreload = itemData.system.mode.reload;
+            itemData.system.mode.hasburst = itemData.system.mode.burst;
+            itemData.system.mode.hasfullauto = itemData.system.mode.fullauto;
+            itemData.system.mode.hasspray = itemData.system.mode.spray;
         }
 
         if (item.type == "Fetish") {
-            itemData.data.difficulty = parseInt(itemData.data.diff);
+            itemData.system.difficulty = parseInt(itemData.system.diff);
         }
 
         // Alla actor items POWER skall flytta active -> isactive
         if (item.type == "Power") {
-            itemData.data.isactive = itemData.data.active;
-            itemData.data.isrollable = itemData.data.rollable;                        
+            itemData.system.isactive = itemData.system.active;
+            itemData.system.isrollable = itemData.system.rollable;                        
         }                      
 
         if (item.type == "Rote") {
-            itemData.data.instrument.ispersonalized = itemData.data.instrument.personalized;
-            itemData.data.instrument.isunique = itemData.data.instrument.unique;
+            itemData.system.instrument.ispersonalized = itemData.system.instrument.personalized;
+            itemData.system.instrument.isunique = itemData.system.instrument.unique;
         }
 
         if (item.type == "Feature") {
-            itemData.data.isrollable = itemData.data.roll;
+            itemData.system.isrollable = itemData.system.roll;
         }
         
         if (item.type == "Experience") {
-            itemData.data.isspent = itemData.data.spent;
+            itemData.system.isspent = itemData.system.spent;
         }
 
-        itemData.data.version = migrationVersion;
-        itemData.data.iscreated = true;
+        itemData.system.version = migrationVersion;
+        itemData.system.iscreated = true;
 
         await item.update(itemData);
 
         // Armor
         if (item.type == "Armor") {
-            itemData.data.forms['-=homid'] = null;
-            itemData.data.forms['-=glabro'] = null;
-            itemData.data.forms['-=crinos'] = null;
-            itemData.data.forms['-=hispo'] = null;
-            itemData.data.forms['-=lupus'] = null;
+            itemData.system.forms['-=homid'] = null;
+            itemData.system.forms['-=glabro'] = null;
+            itemData.system.forms['-=crinos'] = null;
+            itemData.system.forms['-=hispo'] = null;
+            itemData.system.forms['-=lupus'] = null;
         }
 
         // Weapons
         if ((item.type == "Melee Weapon") || (item.type == "Ranged Weapon")) {
-            itemData.data.attack['-=roll'] = null;
-            itemData.data.attack['-=isRollable'] = null;
-            itemData.data.damage['-=roll'] = null;
-            itemData.data.damage['-=isRollable'] = null;
-            itemData.data['-=diff'] = null;
-            itemData.data['-=twohanded'] = null;
+            itemData.system.attack['-=roll'] = null;
+            itemData.system.attack['-=isRollable'] = null;
+            itemData.system.damage['-=roll'] = null;
+            itemData.system.damage['-=isRollable'] = null;
+            itemData.system['-=diff'] = null;
+            itemData.system['-=twohanded'] = null;
         }
 
         // Melee Weapon
         if (item.type == "Melee Weapon") {
-            itemData.data['-=natural'] = null;
+            itemData.system['-=natural'] = null;
         }
 
         // Ranged Weapon
         if (item.type == "Ranged Weapon") {
-            itemData.data.mode['-=reload'] = null;
-            itemData.data.mode['-=burst'] = null;
-            itemData.data.mode['-=fullauto'] = null;
-            itemData.data.mode['-=spray'] = null;
+            itemData.system.mode['-=reload'] = null;
+            itemData.system.mode['-=burst'] = null;
+            itemData.system.mode['-=fullauto'] = null;
+            itemData.system.mode['-=spray'] = null;
         }
 
         // Fetish
         if (item.type == "Fetish") {
-            itemData.data['-=diff'] = null;
+            itemData.system['-=diff'] = null;
         }
 
         // Power
         if (item.type == "Power") {
-            itemData.data['-=active'] = null;
-            itemData.data['-=rollable'] = null;
-            itemData.data['-=isRollable'] = null;
+            itemData.system['-=active'] = null;
+            itemData.system['-=rollable'] = null;
+            itemData.system['-=isRollable'] = null;
         }                      
 
         // Rote
         if (item.type == "Rote") {
-            itemData.data.instrument['-=personalized'] = null;
-            itemData.data.instrument['-=unique'] = null;
+            itemData.system.instrument['-=personalized'] = null;
+            itemData.system.instrument['-=unique'] = null;
         }
 
         // Feature
         if (item.type == "Feature") {
-            itemData.data['-=roll'] = null;
-            itemData.data['-=isRollable'] = null;
+            itemData.system['-=roll'] = null;
+            itemData.system['-=isRollable'] = null;
         }
         
         if (item.type == "Experience") {
-            itemData.data['-=spent'] = null;
+            itemData.system['-=spent'] = null;
         }
 
         if (item.type != "Experience") {      
-            itemData.data['-=created'] = null;  
+            itemData.system['-=created'] = null;  
         }
 
         await item.update(itemData);
@@ -595,6 +595,7 @@ export const updates = async () => {
     let patch140 = false;
     let patch150 = false;
     let patch160 = false;
+    let patch200 = false;
 
     let newfunctions = "";
 
@@ -607,6 +608,7 @@ export const updates = async () => {
         patch140 = game.settings.get('worldofdarkness', 'patch140');
         patch150 = game.settings.get('worldofdarkness', 'patch150');
         patch160 = game.settings.get('worldofdarkness', 'patch160');
+        patch200 = game.settings.get('worldofdarkness', 'patch200');
     } 
     catch (e) {
     }
@@ -695,6 +697,12 @@ export const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and stuff of irritation</li>";
     }
 
+    if (!patch200) {
+        game.settings.set('worldofdarkness', 'patch200', true);
+
+        newfunctions += "<li>Support Foundry v10</li>";
+    }
+
     if (newfunctions == "") {
         newfunctions = '<li>General bug fixes</li>';
     }
@@ -703,7 +711,7 @@ export const updates = async () => {
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-160">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-200">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System">HERE</a><br /><br />';
 

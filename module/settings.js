@@ -172,6 +172,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch200", {
+		name: "patch200",
+		hint: "patch200",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
