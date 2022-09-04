@@ -8,9 +8,9 @@
 {{/if}}
 		
 <div class="sheet-boxcontainer">
-	<div class="resource-value permValueRow" data-value="{{data.data.rage.permanent}}" data-name="data.data.rage.permanent">
+	<div class="resource-value permValueRow" data-value="{{data.system.rage.permanent}}" data-name="data.system.rage.permanent">
 
-		{{#numLoop data.data.rage.max}}
+		{{#numLoop data.system.rage.max}}
 		
 		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="rage" data-index="{{this}}"></span>
 		
@@ -20,11 +20,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.data.rage.temporary}}" data-name="data.data.rage.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.rage.temporary}}" data-name="data.system.rage.temporary">
 
-		{{#numLoop data.data.rage.max}}
+		{{#numLoop data.system.rage.max}}
 		
-		{{#le ../data.data.rage.temporary this}}
+		{{#le ../data.system.rage.temporary this}}
 		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="rage" data-index="{{this}}" data-state=""></span>
 		{{else}}
 		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="rage" data-index="{{this}}" data-state="x"></span>

@@ -15,16 +15,16 @@
 		{{#each actor.ability_talents as |ability key|}}	
 		
 		<div class="clearareaBox">
-			<label for="data.data.abilities.talent.{{ability._id}}.value" 
+			<label for="data.system.abilities.talent.{{ability._id}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
 			{{#if (gte ability.value 4)}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-					class="specialityBox"
-					name="data.abilities.talent.{{ability._id}}.speciality" 
-					value="{{ability.speciality}}" 
-					data-name="data.abilities.talent.{{ability._id}}.speciality" />
-			</div>
+				<div class="resource-value pullRight">
+					<input type="text" 
+						class="specialityBox"
+						name="data.abilities.talent.{{ability._id}}.speciality" 
+						value="{{ability.speciality}}" 
+						data-name="data.abilities.talent.{{ability._id}}.speciality" />
+				</div>
 			{{/if}}
 		</div>
 		{{/each}}
@@ -34,16 +34,16 @@
 	
 		{{#each actor.ability_skills as |ability key|}}
 		<div class="clearareaBox">
-			<label for="data.data.abilities.skill.{{ability._id}}.value" 
+			<label for="data.system.abilities.skill.{{ability._id}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
 			{{#if (gte ability.value 4)}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-					class="specialityBox"
-					name="data.abilities.skill.{{ability._id}}.speciality" 
-					value="{{ability.speciality}}" 
-					data-name="data.abilities.skill.{{ability._id}}.speciality" />				
-			</div>
+				<div class="resource-value pullRight">
+					<input type="text" 
+						class="specialityBox"
+						name="data.abilities.skill.{{ability._id}}.speciality" 
+						value="{{ability.speciality}}" 
+						data-name="data.abilities.skill.{{ability._id}}.speciality" />				
+				</div>
 			{{/if}}
 		</div>
 		{{/each}}
@@ -53,16 +53,16 @@
 	
 		{{#each actor.ability_knowledges as |ability key|}}
 		<div class="clearareaBox">
-			<label for="data.data.abilities.knowledge.{{ability._id}}.value" 
+			<label for="data.system.abilities.knowledge.{{ability._id}}.value" 
 				class="pullLeft ability-headlineWidth headlineNormal">{{localize ability.label}}</label>
 			{{#if (gte ability.value 4)}}
-			<div class="resource-value pullRight">
-				<input type="text" 
-				class="specialityBox"
-					name="data.abilities.knowledge.{{ability._id}}.speciality" 
-					value="{{ability.speciality}}" 
-					data-name="data.abilities.knowledge.{{ability._id}}.speciality" />					
-			</div>
+				<div class="resource-value pullRight">
+					<input type="text" 
+					class="specialityBox"
+						name="data.abilities.knowledge.{{ability._id}}.speciality" 
+						value="{{ability.speciality}}" 
+						data-name="data.abilities.knowledge.{{ability._id}}.speciality" />					
+				</div>
 			{{/if}}
 		</div>
 		{{/each}}

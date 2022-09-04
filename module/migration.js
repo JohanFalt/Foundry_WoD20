@@ -69,7 +69,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
     }
 
     if (updateWorld) {
-        ui.notifications.info(`World updated to version ${game.system.data.version}!`, {permanent: true});
+        ui.notifications.info(`World updated to version ${game.system.version}!`, {permanent: true});
     }
     else {
         ui.notifications.info("Done!", {permanent: true});

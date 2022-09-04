@@ -3,10 +3,10 @@
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
             {{else}}
-            <select class="sheet-infoValues editable" name="data.breed" data-name="data.data.breed" data-dtype="String">
-                {{#select data.data.breed}}
+            <select class="sheet-infoValues editable" name="data.breed" data-name="data.system.breed" data-dtype="String">
+                {{#select data.system.breed}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Homid">Homid</option>
                 <option value="Metis">Metis</option>
@@ -23,10 +23,10 @@
         <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.auspice}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
             {{else}}
-                <select class="sheet-infoValues editable" name="data.auspice" data-name="data.data.auspice" data-dtype="String">
-                    {{#select data.data.auspice}}
+                <select class="sheet-infoValues editable" name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+                    {{#select data.system.auspice}}
                     <option value="">- {{localize "wod.labels.select"}} -</option>
                     <option value="Ragabash">Ragabash</option>
                     <option value="Theurge">Theurge</option>
@@ -48,10 +48,10 @@
         <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{localize data.data.tribe}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{localize data.system.tribe}}" data-dtype="String" readonly />
             {{else}}
-            <select class="sheet-infoValues editable" name="data.tribe" data-name="data.data.tribe" data-dtype="String">
-                {{#select data.data.tribe}}
+            <select class="sheet-infoValues editable" name="data.tribe" data-name="data.system.tribe" data-dtype="String">
+                {{#select data.system.tribe}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="wod.bio.werewolf.blackfuries">{{localize "wod.bio.werewolf.blackfuries"}}</option>
                 <option value="wod.bio.werewolf.bonegnawer">{{localize "wod.bio.werewolf.bonegnawer"}}</option>
@@ -82,7 +82,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.packname">{{localize "wod.bio.packname"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.packname" type="text" value="{{data.data.packname}}" data-name="data.data.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.packname" type="text" value="{{data.system.packname}}" data-name="data.system.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -91,7 +91,7 @@
     <div>
         <label for="data.packtotem" class="headlineText headlineBio splatFont">{{localize "wod.bio.packtotem"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>

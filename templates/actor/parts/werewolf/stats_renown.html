@@ -5,14 +5,14 @@
 	{{#if (eq actor.type config.sheettype.werewolf)}}
 		{{localize 'wod.advantages.glory'}}
 	{{else}}
-		{{localize (getShifterRenown data.data.changingbreed "Glory")}}
+		{{localize (getShifterRenown data.system.changingbreed "Glory")}}
 	{{/if}}
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value tempSquareRow" data-value="{{data.data.renown.glory.permanent}}" data-name="data.data.renown.glory.permanent">
+	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.glory.permanent}}" data-name="data.system.renown.glory.permanent">
 
-		{{#numLoop data.data.renown.glory.max}}
+		{{#numLoop data.system.renown.glory.max}}
 		
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
 		
@@ -22,11 +22,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.glory.temporary}}" data-name="data.data.renown.glory.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.glory.temporary}}" data-name="data.system.renown.glory.temporary">
 
-		{{#numLoop data.data.renown.glory.max}}
+		{{#numLoop data.system.renown.glory.max}}
 		
-		{{#le ../data.data.renown.glory.temporary this}}
+		{{#le ../data.system.renown.glory.temporary this}}
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state=""></span>
 		{{else}}
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state="x"></span>
@@ -41,14 +41,14 @@
 	{{#if (eq actor.type config.sheettype.werewolf)}}
 		{{localize 'wod.advantages.honor'}}
 	{{else}}
-		{{localize (getShifterRenown data.data.changingbreed "Honor")}}
+		{{localize (getShifterRenown data.system.changingbreed "Honor")}}
 	{{/if}}
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value tempSquareRow" data-value="{{data.data.renown.honor.permanent}}" data-name="data.data.renown.honor.permanent">
+	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.honor.permanent}}" data-name="data.system.renown.honor.permanent">
 
-		{{#numLoop data.data.renown.honor.max}}
+		{{#numLoop data.system.renown.honor.max}}
 		
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
 		
@@ -58,11 +58,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.honor.temporary}}" data-name="data.data.renown.honor.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.honor.temporary}}" data-name="data.system.renown.honor.temporary">
 
-		{{#numLoop data.data.renown.honor.max}}
+		{{#numLoop data.system.renown.honor.max}}
 		
-		{{#le ../data.data.renown.honor.temporary this}}
+		{{#le ../data.system.renown.honor.temporary this}}
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state=""></span>
 		{{else}}
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state="x"></span>
@@ -77,14 +77,14 @@
 	{{#if (eq actor.type config.sheettype.werewolf)}}
 		{{localize 'wod.advantages.wisdom'}}
 	{{else}}
-		{{localize (getShifterRenown data.data.changingbreed "Wisdom")}}
+		{{localize (getShifterRenown data.system.changingbreed "Wisdom")}}
 	{{/if}}
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value tempSquareRow" data-value="{{data.data.renown.wisdom.permanent}}" data-name="data.data.renown.wisdom.permanent">
+	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.wisdom.permanent}}" data-name="data.system.renown.wisdom.permanent">
 
-		{{#numLoop data.data.renown.wisdom.max}}
+		{{#numLoop data.system.renown.wisdom.max}}
 		
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
 		
@@ -94,11 +94,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.wisdom.temporary}}" data-name="data.data.renown.wisdom.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.wisdom.temporary}}" data-name="data.system.renown.wisdom.temporary">
 
-		{{#numLoop data.data.renown.wisdom.max}}
+		{{#numLoop data.system.renown.wisdom.max}}
 		
-		{{#le ../data.data.renown.wisdom.temporary this}}
+		{{#le ../data.system.renown.wisdom.temporary this}}
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state=""></span>
 		{{else}}
 		<span class="resource-value-step" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}" data-state="x"></span>
@@ -110,7 +110,7 @@
 </div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.rank"}}</div>
-<div class="resource-value permValueRow" data-value="{{data.data.renown.rank}}" data-name="data.data.renown.rank">
+<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="data.system.renown.rank">
 
 	{{#numLoop 6}}
 	
@@ -119,25 +119,25 @@
 	{{/numLoop}}
 
 	<span class="splatFont">
-		{{#if (eq data.data.renown.rank 0)}}
+		{{#if (eq data.system.renown.rank 0)}}
 			Cub
 		{{/if}}
-		{{#if (eq data.data.renown.rank 1)}}
+		{{#if (eq data.system.renown.rank 1)}}
 			Cliath
 		{{/if}}
-		{{#if (eq data.data.renown.rank 2)}}
+		{{#if (eq data.system.renown.rank 2)}}
 			Fostern
 		{{/if}}
-		{{#if (eq data.data.renown.rank 3)}}
+		{{#if (eq data.system.renown.rank 3)}}
 			Adren
 		{{/if}}
-		{{#if (eq data.data.renown.rank 4)}}
+		{{#if (eq data.system.renown.rank 4)}}
 			Athro
 		{{/if}}
-		{{#if (eq data.data.renown.rank 5)}}
+		{{#if (eq data.system.renown.rank 5)}}
 			Elder
 		{{/if}}
-		{{#if (eq data.data.renown.rank 6)}}
+		{{#if (eq data.system.renown.rank 6)}}
 			Legend
 		{{/if}}
 	</span>

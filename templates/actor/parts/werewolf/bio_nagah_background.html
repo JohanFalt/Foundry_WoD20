@@ -3,10 +3,10 @@
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
-                {{#select data.data.breed}}
+            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+                {{#select data.system.breed}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Balaram">Balaram</option>
                 <option value="Ahi">Ahi</option>
@@ -23,10 +23,10 @@
         <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.auspice}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
-                {{#select data.data.auspice}}
+            <select name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+                {{#select data.system.auspice}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Kamakshi">Kamakshi</option>
                 <option value="Kartikeya">Kartikeya</option>

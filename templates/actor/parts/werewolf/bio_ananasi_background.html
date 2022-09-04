@@ -3,10 +3,10 @@
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
-                {{#select data.data.breed}}
+            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+                {{#select data.system.breed}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Homid">Homid</option>
                 <option value="Arachnid">Arachnid</option>
@@ -22,10 +22,10 @@
         <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.aspect"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.auspice}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
-                {{#select data.data.auspice}}
+            <select name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+                {{#select data.system.auspice}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Tenere">Tenere</option>
                 <option value="Hatar">Hatar</option>
@@ -42,10 +42,10 @@
         <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.faction"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" readonly />
+            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.system.tribe}}" data-name="data.system.tribe" data-dtype="String" readonly />
             {{else}}
-            <select name="data.tribe" data-name="data.data.tribe" data-dtype="String">
-                {{#select data.data.tribe}}
+            <select name="data.tribe" data-name="data.system.tribe" data-dtype="String">
+                {{#select data.system.tribe}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Myrmidon">Myrmidon</option>
                 <option value="Viskir">Viskir</option>

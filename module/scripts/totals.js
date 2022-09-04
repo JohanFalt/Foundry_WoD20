@@ -114,47 +114,47 @@ function getForm(actorData) {
 function getShiftAttributeBonus(attribute, presentForm, actor) {
 	let data = 0;
 
-	if (actor.data.changingbreed == "Ajaba") {
+	if (actor.system.changingbreed == "Ajaba") {
 		data = handleAjabaShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Ananasi") {
+	if (actor.system.changingbreed == "Ananasi") {
 		data = handleAnanasiShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Bastet") {
-		data = handleBastetShiftAttributeData(actor.data.tribe, attribute, presentForm);
+	if (actor.system.changingbreed == "Bastet") {
+		data = handleBastetShiftAttributeData(actor.system.tribe, attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Corax") {
+	if (actor.system.changingbreed == "Corax") {
 		data = handleCoraxShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Gurahl") {
+	if (actor.system.changingbreed == "Gurahl") {
 		data = handleGurahlShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Kitsune") {
+	if (actor.system.changingbreed == "Kitsune") {
 		data = handleKitsuneShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Mokolé") {
-		data = handleMokoleShiftAttributeData(actor.data.tribe, attribute, presentForm);
+	if (actor.system.changingbreed == "Mokolé") {
+		data = handleMokoleShiftAttributeData(actor.system.tribe, attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Nagah") {
+	if (actor.system.changingbreed == "Nagah") {
 		data = handleNagahShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Nuwisha") {
+	if (actor.system.changingbreed == "Nuwisha") {
 		data = handleNuwishaShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Ratkin") {
-		data = handleRatkinShiftAttributeData(actor.data.breed, attribute, presentForm);
+	if (actor.system.changingbreed == "Ratkin") {
+		data = handleRatkinShiftAttributeData(actor.system.breed, attribute, presentForm);
 	}
 
-	if (actor.data.changingbreed == "Rokea") {
+	if (actor.system.changingbreed == "Rokea") {
 		// glöm inte vatten för dex etc...
 		data = handleRokeaShiftAttributeData(attribute, presentForm);
 	}

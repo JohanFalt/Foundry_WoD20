@@ -280,11 +280,11 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-step");
 
 		if ((this.locked) && 
-				((fieldStrings != "data.data.rage.temporary") && 
-				(fieldStrings != "data.data.gnosis.temporary") && 
-				(fieldStrings != "data.data.glory.temporary") && 
-				(fieldStrings != "data.data.honor.temporary") && 
-				(fieldStrings != "data.data.wisdom.temporary"))) {
+				((fieldStrings != "data.system.rage.temporary") && 
+				(fieldStrings != "data.system.gnosis.temporary") && 
+				(fieldStrings != "data.system.glory.temporary") && 
+				(fieldStrings != "data.system.honor.temporary") && 
+				(fieldStrings != "data.system.wisdom.temporary"))) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}

@@ -253,7 +253,7 @@ export class DialogPower extends FormApplication {
             }
         }
         // virtues
-        else if (this.actor.system.virtues[data.object.dice1]?.roll != undefined) {
+        else if ((this.actor.system.virtues != undefined) && (this.actor.system.virtues[data.object.dice1]?.roll != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.virtues[data.object.dice1].roll);
             data.object.attributeName = game.i18n.localize(this.actor.system.virtues[data.object.dice1].label);
         }
@@ -301,7 +301,7 @@ export class DialogPower extends FormApplication {
             }
         }     
         // virtues
-        else if (this.actor.system.virtues[data.object.dice2]?.roll != undefined) {
+        else if ((this.actor.system.virtues != undefined) && (this.actor.system.virtues[data.object.dice2]?.roll != undefined)) {
             data.object.abilityValue = parseInt(this.actor.system.virtues[data.object.dice2].roll);
             data.object.abilityName = game.i18n.localize(this.actor.system.virtues[data.object.dice2].label);
         }    

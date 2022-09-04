@@ -3,10 +3,10 @@
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
-                {{#select data.data.breed}}
+            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+                {{#select data.system.breed}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Homid">Homid</option>
                 <option value="Latrani">Latrani</option>
@@ -21,7 +21,7 @@
     <div>
         <label for="data.packtotem" class="headlineText headlineBio splatFont">{{localize "wod.bio.totem"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>

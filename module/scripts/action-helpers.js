@@ -54,7 +54,6 @@ export default class ActionHelper {
 
 		// the new roll system
 		if ((dataset.rollitem == "true") && ((dataset.itemid != undefined) || (dataset.itemid != "undefined"))) {
-			//item = this._getItem(dataset.itemid, actor.data.items);
 			item = actor.getEmbeddedDocument("Item", dataset.itemid);
 
 			// used a Weapon
@@ -378,7 +377,7 @@ export default class ActionHelper {
 					init = "";
 				}
 				if (!rolledInitiative) {
-					message += "<em>" + actor.data.name + " "+game.i18n.localize("wod.dice.initiativealready")+"</em><br />";
+					message += "<em>" + actor.name + " "+game.i18n.localize("wod.dice.initiativealready")+"</em><br />";
 					label = "";
 					init = "";
 				}
@@ -644,58 +643,58 @@ export default class ActionHelper {
 	static _setMortalAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
 
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.art") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].isvisible = true;
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.art") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].isvisible = false;
+				actor.system.abilities.talent[talent].isvisible = false;
 			}			
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
 			
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.animalken") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.larceny") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.data.abilities.skill[skill].isvisible = true;
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.system.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].isvisible = false;
+				actor.system.abilities.skill[skill].isvisible = false;
 			}			
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
 
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.data.abilities.knowledge[knowledge].isvisible = true;
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].isvisible = false;
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
 			}		
 		}
 	}
@@ -703,58 +702,58 @@ export default class ActionHelper {
 	static _setVampireAbilities(actor) {		
 		for (const talent in CONFIG.wod.alltalents) {
 
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.awareness") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].isvisible = true;
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.awareness") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].isvisible = false;
+				actor.system.abilities.talent[talent].isvisible = false;
 			}			
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
 
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.animalken") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.larceny") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.data.abilities.skill[skill].isvisible = true;
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.system.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].isvisible = false;
+				actor.system.abilities.skill[skill].isvisible = false;
 			}			
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
 
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.finance") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.data.abilities.knowledge[knowledge].isvisible = true;
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.finance") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].isvisible = false;
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
 			}				
 		}
 	}
@@ -762,210 +761,210 @@ export default class ActionHelper {
 	static _setMageAbilities(actor) {		
 		for (const talent in CONFIG.wod.alltalents) {
 
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.art") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.awareness") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].isvisible = true;
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.art") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.awareness") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].isvisible = false;
+				actor.system.abilities.talent[talent].isvisible = false;
 			}	
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
 			
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.martialarts") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.meditation") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.research") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.data.abilities.skill[skill].label == "wod.abilities.survival") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.technology")) {
-				actor.data.abilities.skill[skill].isvisible = true;
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.martialarts") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.meditation") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.research") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.technology")) {
+				actor.system.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].isvisible = false;
+				actor.system.abilities.skill[skill].isvisible = false;
 			}	
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
 
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.esoterica") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
-				actor.data.abilities.knowledge[knowledge].isvisible = true;
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.cosmology") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.esoterica") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].isvisible = false;
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
 			}						
 		}
 	}
 
 	static _setWerewolfAbilities(actor) {		
 		for (const talent in CONFIG.wod.alltalents) {
-			if ((actor.data.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.athletics") ||	
-					(actor.data.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.leadership")	|| 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.primalurge") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.data.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.data.abilities.talent[talent].isvisible = true;
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership")	|| 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.primalurge") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
 			}
 			else {
-				actor.data.abilities.talent[talent].isvisible = false;
+				actor.system.abilities.talent[talent].isvisible = false;
 			}			
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
-			if ((actor.data.abilities.skill[skill].label == "wod.abilities.animalken") ||	
-					(actor.data.abilities.skill[skill].label == "wod.abilities.craft") ||	
-					(actor.data.abilities.skill[skill].label == "wod.abilities.drive") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.etiquette") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.firearms") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.larceny")	|| 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.melee") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.performance") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.stealth") || 
-					(actor.data.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.data.abilities.skill[skill].isvisible = true;
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||	
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||	
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny")	|| 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") || 
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.system.abilities.skill[skill].isvisible = true;
 			}
 			else {
-				actor.data.abilities.skill[skill].isvisible = false;
+				actor.system.abilities.skill[skill].isvisible = false;
 			}			
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
-			if ((actor.data.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||	
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.computer") ||	
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.occult")	|| 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.rituals") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
-					(actor.data.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.data.abilities.knowledge[knowledge].isvisible = true;
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||	
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") ||	
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult")	|| 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.rituals") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
 			}
 			else {
-				actor.data.abilities.knowledge[knowledge].isvisible = false;
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
 			}		
 		}
 	}
 
 	static _setCreatureAbilities(actor) {
 		for (const talent in CONFIG.wod.alltalents) {
-			actor.data.abilities.talent[talent].isvisible = false;
+			actor.system.abilities.talent[talent].isvisible = false;
 		}
 
 		for (const skill in CONFIG.wod.allskills) {
-			actor.data.abilities.skill[skill].isvisible = false;
+			actor.system.abilities.skill[skill].isvisible = false;
 		}
 
 		for (const knowledge in CONFIG.wod.allknowledges) {
-			actor.data.abilities.knowledge[knowledge].isvisible = false;
+			actor.system.abilities.knowledge[knowledge].isvisible = false;
 		}		
 	}
 	
 	static _setMortalAttributes(actor) {
 		let willpower = -1;
 
-		for (const attribute in actor.data.attributes) {
-			actor.data.attributes[attribute].isvisible = true;
+		for (const attribute in actor.system.attributes) {
+			actor.system.attributes[attribute].isvisible = true;
 		}
 
 		if (CONFIG.wod.attributeSettings == "20th") {
-			actor.data.attributes.composure.isvisible = false;
-			actor.data.attributes.resolve.isvisible = false;
-			actor.data.willpower.permanent = 0;
+			actor.system.attributes.composure.isvisible = false;
+			actor.system.attributes.resolve.isvisible = false;
+			actor.system.willpower.permanent = 0;
 		}
 		else if (CONFIG.wod.attributeSettings == "5th") {
-			actor.data.attributes.appearance.isvisible = false;
-			actor.data.attributes.perception.isvisible = false;
-			actor.data.willpower.permanent = 2;
+			actor.system.attributes.appearance.isvisible = false;
+			actor.system.attributes.perception.isvisible = false;
+			actor.system.willpower.permanent = 2;
 		}
 	
 		if (CONFIG.wod.rollSettings) {
-			willpower = actor.data.willpower.permanent; 
+			willpower = actor.system.willpower.permanent; 
 		}
 		else {
-			willpower = actor.data.willpower.permanent > actor.data.willpower.temporary ? actor.data.willpower.temporary : actor.data.willpower.permanent; 
+			willpower = actor.system.willpower.permanent > actor.system.willpower.temporary ? actor.system.willpower.temporary : actor.system.willpower.permanent; 
 		}
 	
-		actor.data.willpower.roll = willpower;
+		actor.system.willpower.roll = willpower;
 
-		actor.data.settings.soak.bashing.isrollable = true;
-		actor.data.settings.soak.lethal.isrollable = false;
-		actor.data.settings.soak.aggravated.isrollable = false;
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = false;
+		actor.system.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setVampireAttributes(actor) {
-		actor.data.bloodpool.temporary = 0;
-		actor.data.bloodpool.max = 10;
+		actor.system.bloodpool.temporary = 0;
+		actor.system.bloodpool.max = 10;
 
-		actor.data.settings.soak.bashing.isrollable = true;
-		actor.data.settings.soak.lethal.isrollable = true;
-		actor.data.settings.soak.aggravated.isrollable = false;
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = true;
+		actor.system.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setWerewolfAttributes(actor) {
 		let rage = -1;
 		let gnosis = -1;
 
-		actor.data.settings.soak.bashing.isrollable = true;
-		actor.data.settings.soak.lethal.isrollable = true;
-		actor.data.settings.soak.aggravated.isrollable = true;
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = true;
+		actor.system.settings.soak.aggravated.isrollable = true;
 
 		if (CONFIG.wod.rollSettings) {
-			rage = actor.data.rage.permanent; 
-			gnosis = actor.data.gnosis.permanent;
+			rage = actor.system.rage.permanent; 
+			gnosis = actor.system.gnosis.permanent;
 		}
 		else {
-			rage = actor.data.rage.permanent > actor.data.rage.temporary ? actor.data.rage.temporary : actor.data.rage.permanent; 
-			gnosis = actor.data.gnosis.permanent > actor.data.gnosis.temporary ? actor.data.gnosis.temporary : actor.data.gnosis.permanent;
+			rage = actor.system.rage.permanent > actor.system.rage.temporary ? actor.system.rage.temporary : actor.system.rage.permanent; 
+			gnosis = actor.system.gnosis.permanent > actor.system.gnosis.temporary ? actor.system.gnosis.temporary : actor.system.gnosis.permanent;
 		}
 
-		actor.data.rage.roll = rage;
-		actor.data.gnosis.roll = gnosis;
+		actor.system.rage.roll = rage;
+		actor.system.gnosis.roll = gnosis;
 	}
 
 	static _setMageAttributes(actor) {
-		actor.data.arete.permanent = 1;
-		actor.data.arete.roll = 1;
+		actor.system.arete.permanent = 1;
+		actor.system.arete.roll = 1;
 
-		actor.data.settings.soak.bashing.isrollable = true;
-		actor.data.settings.soak.lethal.isrollable = false;
-		actor.data.settings.soak.aggravated.isrollable = false;
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = false;
+		actor.system.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setCreatureAttributes(actor) {
-		actor.data.settings.soak.bashing.isrollable = true;
-		actor.data.settings.soak.lethal.isrollable = false;
-		actor.data.settings.soak.aggravated.isrollable = false;
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = false;
+		actor.system.settings.soak.aggravated.isrollable = false;
 	}
 
 	static _setupDotCounters(html) {

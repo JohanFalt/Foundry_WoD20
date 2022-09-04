@@ -3,10 +3,10 @@
         <label class="headlineText headlineBio splatFont" for="data.affiliation">{{localize "wod.bio.affiliation"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{localize data.data.affiliation}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{localize data.system.affiliation}}" data-dtype="String" readonly />
             {{else}}
-                <select class="sheet-infoValues editable" name="data.affiliation" data-name="data.data.affiliation" data-dtype="String">
-                    {{#select data.data.affiliation}}
+                <select class="sheet-infoValues editable" name="data.affiliation" data-name="data.system.affiliation" data-dtype="String">
+                    {{#select data.system.affiliation}}
                     <option value="">- {{localize "wod.labels.select"}} -</option>
                     <option value="wod.bio.tradition">{{localize "wod.bio.tradition"}}</option>
                     <option value="wod.bio.technocracy">{{localize "wod.bio.technocracy"}}</option>
@@ -23,7 +23,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.sect">{{localize "wod.bio.sect"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.sect" type="text" value="{{data.data.sect}}" data-name="data.data.sect" data-dtype="String" {{#if locked}} readonly {{/if}} />            
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.sect" type="text" value="{{data.system.sect}}" data-name="data.system.sect" data-dtype="String" {{#if locked}} readonly {{/if}} />            
         </div>
     </div>
 </div>
@@ -33,10 +33,10 @@
         <label class="headlineText headlineBio splatFont" for="data.affinity">{{localize "wod.bio.affinitysphere"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{localize data.data.affinity}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{localize data.system.affinity}}" data-dtype="String" readonly />
             {{else}}
-                <select class="sheet-infoValues editable" name="data.affinity" data-name="data.data.affinity" data-dtype="String">
-                    {{#select data.data.affinity}}
+                <select class="sheet-infoValues editable" name="data.affinity" data-name="data.system.affinity" data-dtype="String">
+                    {{#select data.system.affinity}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
                         {{#each config.allSpheres as | name type|}}
                             <option value="{{name}}">{{localize name}}</option>
@@ -53,7 +53,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.essence">{{localize "wod.bio.essence"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.essence" type="text" value="{{data.data.essence}}" data-name="data.data.essence" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.essence" type="text" value="{{data.system.essence}}" data-name="data.system.essence" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>

@@ -3,12 +3,12 @@
 	<div class="sheet-headline splatFont">{{localize 'wod.spheres.spheres'}}</div>
 
 	<div class="clearareaBox">
-		{{#each data.data.spheres as |sphere key|}}
+		{{#each data.system.spheres as |sphere key|}}
 
 		{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
 		<div class="attribute-rowheight" style="clear:left;">
-			<label for="data.data.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#iff sphere.label "==" ../data.data.affinity}}bold{{/iff}}" 
-				{{#iff sphere.label "==" ../data.data.affinity}}title="{{localize "wod.bio.affinitysphere"}}"{{/iff}}>{{localize sphere.label}}</label>
+			<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#iff sphere.label "==" ../data.system.affinity}}bold{{/iff}}" 
+				{{#iff sphere.label "==" ../data.system.affinity}}title="{{localize "wod.bio.affinitysphere"}}"{{/iff}}>{{localize sphere.label}}</label>
             {{#iff sphere.value ">=" "4"}}
             <div class="resource-value pullRight">
                 <input type="text" 

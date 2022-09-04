@@ -13,19 +13,19 @@
 				</div>
 				
 				<div class="pullRight">
-					{{#if data.data.shapes.homid.isactive}}
+					{{#if data.system.shapes.homid.isactive}}
 					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_homid.svg" />
 					{{/if}}
-					{{#if data.data.shapes.glabro.isactive}}
+					{{#if data.system.shapes.glabro.isactive}}
 					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_glabro.svg" />
 					{{/if}}
-					{{#if data.data.shapes.crinos.isactive}}
+					{{#if data.system.shapes.crinos.isactive}}
 					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_crinos.svg" />
 					{{/if}}
-					{{#if data.data.shapes.hispo.isactive}}
+					{{#if data.system.shapes.hispo.isactive}}
 					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_hispo.svg" />
 					{{/if}}
-					{{#if data.data.shapes.lupus.isactive}}
+					{{#if data.system.shapes.lupus.isactive}}
 					<img style="height:30px; width: 30px;" src="systems/worldofdarkness/assets/img/werewolf/form/form_lupus.svg" />
 					{{/if}}
 				</div>
@@ -74,7 +74,7 @@
 							<div class="clearareaBox" style="display: flex;">
 
                                 <div class="pullLeft" style="width: 33%;">
-									{{#if (ne data.data.changingbreed "Nagah")}}
+									{{#if (ne data.system.changingbreed "Nagah")}}
 										{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}
 									{{else}}
 										&nbsp;
@@ -83,7 +83,7 @@
                                 
                                 <div class="pullLeft" style="width: 33%;">
 
-                                    {{#if (or (eq data.data.changingbreed "Ananasi") (eq data.data.changingbreed "Nuwisha"))}}
+                                    {{#if (or (eq data.system.changingbreed "Ananasi") (eq data.system.changingbreed "Nuwisha"))}}
                                     {{else}}
                                         {{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}    
                                     {{/if}}
@@ -92,7 +92,7 @@
 
                                     {{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}    
                                     
-                                    {{#if (eq data.data.changingbreed "Ananasi")}}                                    
+                                    {{#if (eq data.system.changingbreed "Ananasi")}}                                    
                                         {{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}                                    
                                     {{/if}}
                             
@@ -149,37 +149,37 @@
 			{{!-- Shapechange Tab --}}
 			<div class="tab shapechange" data-group="primary" data-tab="shapechange">
 
-				{{#if (eq data.data.changingbreed "Ajaba")}}
+				{{#if (eq data.system.changingbreed "Ajaba")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_ajaba.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Ananasi")}}
+                {{#if (eq data.system.changingbreed "Ananasi")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_ananasi.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Bastet")}}
+                {{#if (eq data.system.changingbreed "Bastet")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_bastet.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Corax")}}
+                {{#if (eq data.system.changingbreed "Corax")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_corax.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Gurahl")}}
+                {{#if (eq data.system.changingbreed "Gurahl")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_gurahl.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Kitsune")}}
+                {{#if (eq data.system.changingbreed "Kitsune")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_kitsune.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Mokolé")}}
+                {{#if (eq data.system.changingbreed "Mokolé")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_mokole.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Nagah")}}
+                {{#if (eq data.system.changingbreed "Nagah")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_nagah.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Nuwisha")}}
+                {{#if (eq data.system.changingbreed "Nuwisha")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_nuwisha.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Ratkin")}}
+                {{#if (eq data.system.changingbreed "Ratkin")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_ratkin.html"}}
                 {{/if}}
-                {{#if (eq data.data.changingbreed "Rokea")}}
+                {{#if (eq data.system.changingbreed "Rokea")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_rokea.html"}}
                 {{/if}}
 

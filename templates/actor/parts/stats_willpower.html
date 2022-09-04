@@ -4,9 +4,9 @@
 	data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
 	
 <div class="sheet-boxcontainer">
-	<div class="resource-value permValueRow" data-value="{{data.data.willpower.permanent}}" data-name="data.data.willpower.permanent">
+	<div class="resource-value permValueRow" data-value="{{data.system.willpower.permanent}}" data-name="data.system.willpower.permanent">
 
-		{{#numLoop data.data.willpower.max}}
+		{{#numLoop data.system.willpower.max}}
 		
 			<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}"></span>
 		
@@ -16,11 +16,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.data.willpower.temporary}}" data-name="data.data.willpower.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.willpower.temporary}}" data-name="data.system.willpower.temporary">
 
-		{{#numLoop data.data.willpower.max}}
+		{{#numLoop data.system.willpower.max}}
 		
-			{{#le ../data.data.willpower.temporary this}}
+			{{#le ../data.system.willpower.temporary this}}
 				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}" data-state=""></span>
 			{{else}}
 				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}" data-state="x"></span>

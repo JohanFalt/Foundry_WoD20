@@ -14,7 +14,7 @@
 	
 		{{#each actor.ability_talents as |ability key|}}	
 		<div class="clearareaBox">
-			<label for="data.data.abilities.talent.{{ability._id}}.value" 
+			<label for="data.system.abilities.talent.{{ability._id}}.value" 
 				class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
 				data-type="{{../config.sheettype.mortal}}"
 				data-key="{{ability._id}}"
@@ -40,7 +40,7 @@
 	
 		{{#each actor.ability_skills as |ability key|}}
 		<div class="clearareaBox">
-			<label for="data.data.abilities.skill.{{ability._id}}.value" 
+			<label for="data.system.abilities.skill.{{ability._id}}.value" 
 				class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
 				data-type="{{../config.sheettype.mortal}}"
 				data-key="{{ability._id}}"
@@ -66,7 +66,7 @@
 	
 		{{#each actor.ability_knowledges as |ability key|}}
 		<div class="clearareaBox">
-			<label for="data.data.abilities.knowledge.{{ability._id}}.value" 
+			<label for="data.system.abilities.knowledge.{{ability._id}}.value" 
 				class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
 				data-type="{{../config.sheettype.mortal}}"
 				data-key="{{ability._id}}"

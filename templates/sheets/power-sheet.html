@@ -16,44 +16,44 @@
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
-					{{#iff data.data.type "==" "wod.types.discipline"}} 
+					{{#iff data.system.type "==" "wod.types.discipline"}} 
 						{{captilize (localize "wod.types.discipline")}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.disciplinepower"}} 
+					{{#iff data.system.type "==" "wod.types.disciplinepower"}} 
 						{{captilize (localize "wod.types.disciplinepower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.data.level}}
+						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.disciplinepath"}} 
+					{{#iff data.system.type "==" "wod.types.disciplinepath"}} 
 						{{captilize (localize "wod.types.disciplinepath")}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.disciplinepathpower"}} 
+					{{#iff data.system.type "==" "wod.types.disciplinepathpower"}} 
 						{{captilize (localize "wod.types.disciplinepathpower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.data.level}}
+						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.ritual"}} 
+					{{#iff data.system.type "==" "wod.types.ritual"}} 
 						{{captilize (localize "wod.types.ritual")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.data.level}}
+						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.gift"}} 
+					{{#iff data.system.type "==" "wod.types.gift"}} 
 						{{captilize (localize "wod.types.gift")}}<br />
-						{{captilize (localize "wod.labels.rank")}} {{data.data.level}}
+						{{captilize (localize "wod.labels.rank")}} {{data.system.level}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.rite"}} 
+					{{#iff data.system.type "==" "wod.types.rite"}} 
 						{{captilize (localize "wod.types.rite")}}<br />
-						{{captilize (localize "wod.labels.rank")}}  {{data.data.level}}
+						{{captilize (localize "wod.labels.rank")}}  {{data.system.level}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.charm"}} 
+					{{#iff data.system.type "==" "wod.types.charm"}} 
 						{{captilize (localize "wod.types.charm")}}
 					{{/iff}}
 
-					{{#iff data.data.type "==" "wod.types.power"}} 
+					{{#iff data.system.type "==" "wod.types.power"}} 
 						{{captilize (localize "wod.types.power")}}
 					{{/iff}}
 				</div>				
@@ -73,7 +73,7 @@
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.labels.type"}}</label>
 					<select class="editable" name="data.type">
-						{{#select data.data.type}}
+						{{#select data.system.type}}
 							<option value="">- {{localize "wod.labels.select"}} -</option>
 							<option value="wod.types.discipline">{{localize "wod.types.discipline"}} (Vampire)</option>
 							<option value="wod.types.disciplinepower">{{localize "wod.types.disciplinepower"}} (Vampire)</option>
@@ -89,11 +89,11 @@
 				</div>
 				
 				<!-- level -->
-				{{#iff data.data.type "==" "wod.types.disciplinepower"}}
+				{{#iff data.system.type "==" "wod.types.disciplinepower"}}
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
 					<select class="editable" name="data.level">
-						{{#select data.data.level}}
+						{{#select data.system.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 9}}
 							<option value="{{this}}">{{this}}</option>
@@ -103,11 +103,11 @@
 				</div>
 				{{/iff}}
 
-				{{#iff data.data.type "==" "wod.types.disciplinepathpower"}}
+				{{#iff data.system.type "==" "wod.types.disciplinepathpower"}}
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
 					<select class="editable" name="data.level">
-						{{#select data.data.level}}
+						{{#select data.system.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 9}}
 							<option value="{{this}}">{{this}}</option>
@@ -117,11 +117,11 @@
 				</div>
 				{{/iff}}
 
-				{{#iff data.data.type "==" "wod.types.ritual"}}
+				{{#iff data.system.type "==" "wod.types.ritual"}}
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
 					<select class="editable" name="data.level">
-						{{#select data.data.level}}
+						{{#select data.system.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 5}}
 							<option value="{{this}}">{{this}}</option>
@@ -131,11 +131,11 @@
 				</div>
 				{{/iff}}
 
-				{{#iff data.data.type "==" "wod.types.gift"}}
+				{{#iff data.system.type "==" "wod.types.gift"}}
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
 					<select class="editable" name="data.level">
-						{{#select data.data.level}}
+						{{#select data.system.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 6}}
 							<option value="{{this}}">{{this}}</option>
@@ -145,11 +145,11 @@
 				</div>
 				{{/iff}}
 
-				{{#iff data.data.type "==" "wod.types.rite"}}
+				{{#iff data.system.type "==" "wod.types.rite"}}
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
 					<select class="editable" name="data.level">
-						{{#select data.data.level}}
+						{{#select data.system.level}}
 							<option value="0">- {{localize "wod.labels.select"}} -</option>
 							{{#numFromLoop 1 5}}
 							<option value="{{this}}">{{this}}</option>
@@ -160,30 +160,30 @@
 				{{/iff}}
 
 				<!-- dice -->
-				{{#iff data.data.type "!=" "wod.types.discipline"}}
-					{{#iff data.data.type "!=" "wod.types.disciplinepath"}}
+				{{#iff data.system.type "!=" "wod.types.discipline"}}
+					{{#iff data.system.type "!=" "wod.types.disciplinepath"}}
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
-						<input name="data.isrollable" type="checkbox" {{#if data.data.isrollable}} checked {{/if}} />
+						<input name="data.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
 					</div>
 					{{/iff}}
 				{{/iff}}
 			{{/if}}
 
-			{{#if data.data.isrollable}}
+			{{#if data.system.isrollable}}
 				{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
 			{{/if}}
 
-			{{#iff data.data.type "==" "wod.types.disciplinepower"}}
-					{{#iff data.data.parentid "!=" ""}}
+			{{#iff data.system.type "==" "wod.types.disciplinepower"}}
+					{{#iff data.system.parentid "!=" ""}}
 					<div class="infobox">
 						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.cleardiscipline"}}</button>
 					</div>
 					{{/iff}}
 			{{/iff}}
 
-			{{#iff data.data.type "==" "wod.types.disciplinepathpower"}}
-					{{#iff data.data.parentid "!=" ""}}
+			{{#iff data.system.type "==" "wod.types.disciplinepathpower"}}
+					{{#iff data.system.parentid "!=" ""}}
 					<div class="infobox">
 						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.clearpath"}}</button>
 					</div>

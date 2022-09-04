@@ -11,7 +11,7 @@
 	</div>
 
 	<div class="clearareaBox">
-		{{#each data.data.attributes as |attribute key|}}
+		{{#each data.system.attributes as |attribute key|}}
 
 			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
@@ -19,7 +19,7 @@
 				<div>
 
 					<div class="attribute-rowheight attributes" style="clear:left;">
-						<label for="data.data.attributes.{{key}}.value" 
+						<label for="data.system.attributes.{{key}}.value" 
 							class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
 							data-type="{{../config.sheettype.mortal}}"
 							data-key="{{key}}"

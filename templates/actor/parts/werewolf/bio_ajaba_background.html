@@ -3,10 +3,10 @@
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.breed}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.breed" data-name="data.data.breed" data-dtype="String">
-                {{#select data.data.breed}}
+            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+                {{#select data.system.breed}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Homid">Homid</option>
                 <option value="Metis">Metis</option>
@@ -23,10 +23,10 @@
         <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.aspect"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.data.auspice}}" data-dtype="String" readonly />
+            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
             {{else}}
-            <select name="data.auspice" data-name="data.data.auspice" data-dtype="String">
-                {{#select data.data.auspice}}
+            <select name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+                {{#select data.system.auspice}}
                 <option value="">- {{localize "wod.labels.select"}} -</option>
                 <option value="Dawn">Dawn</option>
                 <option value="Midnight">Midnight</option>
@@ -42,7 +42,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.clan"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.data.tribe}}" data-name="data.data.tribe" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.system.tribe}}" data-name="data.system.tribe" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.packname">{{localize "wod.bio.packname"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.packname" type="text" value="{{data.data.packname}}" data-name="data.data.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues" name="data.packname" type="text" value="{{data.system.packname}}" data-name="data.system.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
     <div>
         <label for="data.packtotem" class="headlineText headlineBio splatFont">{{localize "wod.bio.packtotem"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.data.packtotem}}" data-name="data.data.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -68,6 +68,6 @@
 <div class="clearareaBox area-box">
     <div>
         <label class="headlineText headlineBio splatFont" for="data.yava">{{localize "wod.bio.yava"}}</label>
-        <textarea class="sheet-infoValues pullLeft" name="data.yava" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.data.yava}}</textarea>
+        <textarea class="sheet-infoValues pullLeft" name="data.yava" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.yava}}</textarea>
     </div>
 </div>

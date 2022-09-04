@@ -11,14 +11,14 @@
 	</div>
 
 	<div class="clearareaBox">
-		{{#each data.data.attributes as |attribute key|}}
+		{{#each data.system.attributes as |attribute key|}}
 
 			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
 				{{#if attribute.isvisible}}
 
 					<div class="attribute-rowheight">
-						<label for="data.data.attributes.{{key}}.speciality" 
+						<label for="data.system.attributes.{{key}}.speciality" 
 							class="pullLeft attribute-headlineWidth headlineNormal">{{localize attribute.label}}</label>
 						{{#if (gte attribute.value 4)}}
 						<div class="resource-value pullRight">

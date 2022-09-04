@@ -436,7 +436,7 @@ export class VampireActorSheet extends MortalActorSheet {
 			const fields = fieldStrings.split(".");
 			
 
-			if ((this.locked) && ((fieldStrings != "data.data.bloodpool.temporary"))) {
+			if ((this.locked) && ((fieldStrings != "data.system.bloodpool.temporary"))) {
 				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				return;
 			}

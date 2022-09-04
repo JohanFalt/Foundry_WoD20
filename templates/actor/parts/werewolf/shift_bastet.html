@@ -1,41 +1,41 @@
 <div class="shape-area">
     <div class="clearareaBox">
-        <div class="pullLeft shape-selector thin-border-left {{#if data.data.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
-        <div class="pullLeft shape-selector thin-border-left {{#if data.data.shapes.glabro.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.glabro">{{localize "wod.shapes.sokto"}}</div>
-        <div class="pullLeft shape-selector thin-border-left {{#if data.data.shapes.crinos.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.crinos"}}</div>
-        <div class="pullLeft shape-selector thin-border-left {{#if data.data.shapes.hispo.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.hispo">{{localize "wod.shapes.chatro"}}</div>
-        <div class="pullLeft shape-selector thin-border-left thin-border-right {{#if data.data.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.feline"}}</div>
+        <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
+        <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.glabro.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.glabro">{{localize "wod.shapes.sokto"}}</div>
+        <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.crinos.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.crinos"}}</div>
+        <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.hispo.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.hispo">{{localize "wod.shapes.chatro"}}</div>
+        <div class="pullLeft shape-selector thin-border-left thin-border-right {{#if data.system.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.feline"}}</div>
     </div>
 
     <div class="pullLeft shape-background shape-background shape-bastet"></div>
 
-    {{#iff data.data.tribe "==" "Bagheera"}}
+    {{#iff data.system.tribe "==" "Bagheera"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+1)<br />
             Sta (+2)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+3)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-2){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+3)<br />
             Sta (+2)<br />
@@ -44,32 +44,32 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.tribe "==" "Balam"}}
+    {{#iff data.system.tribe "==" "Balam"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+1)<br />
             Sta (+2)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-4)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-4)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+2)<br />
             Sta (+2)<br />
@@ -78,30 +78,30 @@
     </div>
     {{/iff}}    
 
-    {{#iff data.data.tribe "==" "Bubasti"}}
+    {{#iff data.system.tribe "==" "Bubasti"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Dex (+1)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+3)<br />
             Sta (+1)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+1)<br />
             Man (-2)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (-1)<br />
             Dex (+4)<br />
             Sta (+1)<br />
@@ -110,30 +110,30 @@
     </div>
     {{/iff}}    
 
-    {{#iff data.data.tribe "==" "Ceilican"}}
+    {{#iff data.system.tribe "==" "Ceilican"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Dex (+2)<br />
             Sta (+1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+3)<br />
             Sta (+1)<br />
             Man (-2)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Dex (+4)<br />
             Sta (+1)<br />
             Man (-2)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-2){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (-1)<br />
             Dex (+4)<br />
             Man (-2)
@@ -141,32 +141,32 @@
     </div>
     {{/iff}}    
 
-    {{#iff data.data.tribe "==" "Khan"}}
+    {{#iff data.system.tribe "==" "Khan"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+1)<br />
             Sta (+2)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+4)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-3)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+2)<br />
             Sta (+2)<br />
@@ -175,32 +175,32 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.tribe "==" "Pumonca"}}
+    {{#iff data.system.tribe "==" "Pumonca"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+2)<br />
             Sta (+1)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+3)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+3)<br />
             Sta (+2)<br />
             Man (-3)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+2)<br />
             Sta (+2)<br />
@@ -209,62 +209,62 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.tribe "==" "Qualmi"}}
+    {{#iff data.system.tribe "==" "Qualmi"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Dex (+2)<br />
             Sta (+1)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+2)<br />
             Sta (+2)<br />
             Man (-2)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+2)<br />
             Man (-2)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Dex (+3)
         </div>
     </div>
     {{/iff}}
 
-    {{#iff data.data.tribe "==" "Simba"}}
+    {{#iff data.system.tribe "==" "Simba"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+1)<br />
             Sta (+2)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+3)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-2)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+4)<br />
             Dex (+2)<br />
             Sta (+3)<br />
             Man (-2)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+2)<br />
@@ -273,32 +273,32 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.tribe "==" "Swara"}}
+    {{#iff data.system.tribe "==" "Swara"}}
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             No Change
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+2)<br />
             Sta (+1)<br />
             Man (-1)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+3)<br />
             Sta (+2)<br />
             Man (-3)
             {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+2)<br />
             Dex (+4)<br />
             Sta (+2)<br />
             Man (-3)
         </div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
             Str (+1)<br />
             Dex (+4)<br />
             Sta (+1)<br />
@@ -308,10 +308,10 @@
     {{/iff}}
 
     <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-        <div class="pullLeft shape-selectortext {{#if data.data.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
+        <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
     </div>
 </div>

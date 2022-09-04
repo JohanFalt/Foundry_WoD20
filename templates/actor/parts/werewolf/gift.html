@@ -1,11 +1,11 @@
 <div class="sheet-area">
     <div class="sheet-headline splatFont">{{localize "wod.power.gifts"}}</div>
 
-    {{#iff data.data.renown.rank "==" 0}}
+    {{#iff data.system.renown.rank "==" 0}}
     <div class="sheet-headline splatFont">{{localize "wod.power.rank0"}}</div> 
     {{/iff}}
 
-    {{#iff data.data.renown.rank ">=" 1}}
+    {{#iff data.system.renown.rank ">=" 1}}
     <div class="clearareaBox">
 
         <div class="headlineRow splatFont">{{localize "wod.power.rank1"}}</div>    
@@ -63,7 +63,7 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.renown.rank ">=" 2}}
+    {{#iff data.system.renown.rank ">=" 2}}
     <div class="clearareaBox">
 
         <div class="headlineRow splatFont">{{localize "wod.power.rank2"}}</div>    
@@ -121,7 +121,7 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.renown.rank ">=" 3}}
+    {{#iff data.system.renown.rank ">=" 3}}
     <div class="clearareaBox">
 
         <div class="headlineRow splatFont">{{localize "wod.power.rank3"}}</div>    
@@ -179,7 +179,7 @@
     </div>
     {{/iff}}
 
-    {{#iff data.data.renown.rank ">=" 4}}
+    {{#iff data.system.renown.rank ">=" 4}}
     <div class="clearareaBox">
 
         <div class="headlineRow splatFont">{{localize "wod.power.rank4"}}</div>    
@@ -237,7 +237,7 @@
     </div>
     {{/iff}}
 
-    {{#if (gte data.data.renown.rank 5)}}
+    {{#if (gte data.system.renown.rank 5)}}
     <div class="clearareaBox">
 
         <div class="headlineRow splatFont">{{localize "wod.power.rank5"}}</div>    
@@ -303,7 +303,7 @@
     </div>
     {{/if}}
 
-    {{#if (gte data.data.renown.rank 6)}}
+    {{#if (gte data.system.renown.rank 6)}}
     <div class="clearareaBox">
 
         <div class="headlineRow splatFont">{{localize "wod.power.rank6"}}</div>    

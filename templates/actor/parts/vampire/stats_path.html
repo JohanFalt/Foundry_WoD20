@@ -1,12 +1,12 @@
 <div class="sheet-headline splatFont vrollable" 
 	data-type="{{config.sheettype.vampire}}"
 	data-key="path"
-	data-noability="true">{{localize data.data.path.label}}</div>
+	data-noability="true">{{localize data.system.path.label}}</div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value permValueRow" data-value="{{data.data.path.value}}" data-name="data.data.path.value">
+	<div class="resource-value permValueRow" data-value="{{data.system.path.value}}" data-name="data.system.path.value">
 
-		{{#numLoop data.data.path.max}}
+		{{#numLoop data.system.path.max}}
 		
 		<span class="resource-value-step" data-type="{{../config.sheettype.vampire}}" data-index="{{this}}"></span>
 		
@@ -17,14 +17,14 @@
 
 {{#if locked}}
 	<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:  
-		{{data.data.path.bearingtext}}
-		({{data.data.path.bearing}})
+		{{data.system.path.bearingtext}}
+		({{data.system.path.bearing}})
 	</div>
 {{else}}
 	<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:</div>
 	<div class="sheet-boxcontainer">
 		<div class="information-area">  
-			<input class="sheet-infoValues shortNotebox editable" name="data.path.bearingtext" type="text" value="{{data.data.path.bearingtext}}" data-name="data.data.path.bearingtext" data-dtype="String" />
+			<input class="sheet-infoValues shortNotebox editable" name="data.path.bearingtext" type="text" value="{{data.system.path.bearingtext}}" data-name="data.system.path.bearingtext" data-dtype="String" />
 		</div>
 	</div>
 {{/if}} 

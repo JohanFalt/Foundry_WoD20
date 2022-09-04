@@ -225,7 +225,7 @@ export class Rules extends FormApplication {
         const hasPermission = game.user.can("SETTINGS_MODIFY");  
         const data = {
             system: { 
-                title: game.system.data.title, 
+                title: game.system.title, 
                 menus: [], 
                 settings: [] 
             }
@@ -256,7 +256,7 @@ export class Rules extends FormApplication {
         return {
             user: game.user,
             canConfigure: hasPermission,
-            systemTitle: game.system.data.title,
+            systemTitle: game.system.title,
             data: data
         };
     }
@@ -327,7 +327,7 @@ export class Permissions extends FormApplication {
         const hasPermission = game.user.can("SETTINGS_MODIFY");  
         const data = {
             system: { 
-                title: game.system.data.title, 
+                title: game.system.title, 
                 menus: [], 
                 settings: [] 
             }
@@ -358,7 +358,7 @@ export class Permissions extends FormApplication {
         return {
             user: game.user,
             canConfigure: hasPermission,
-            systemTitle: game.system.data.title,
+            systemTitle: game.system.title,
             data: data
         };
     }
@@ -429,7 +429,7 @@ export class Graphics extends FormApplication {
         const hasPermission = game.user.can("SETTINGS_MODIFY");  
         const data = {
             system: { 
-                title: game.system.data.title, 
+                title: game.system.title, 
                 menus: [], 
                 settings: [] 
             }
@@ -460,7 +460,7 @@ export class Graphics extends FormApplication {
         return {
             user: game.user,
             canConfigure: hasPermission,
-            systemTitle: game.system.data.title,
+            systemTitle: game.system.title,
             data: data
         };
     }

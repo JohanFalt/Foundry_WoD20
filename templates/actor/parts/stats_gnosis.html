@@ -4,9 +4,9 @@
 	data-noability="true">{{localize 'wod.advantages.gnosis'}}</div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value permValueRow" data-value="{{data.data.gnosis.permanent}}" data-name="data.data.gnosis.permanent">
+	<div class="resource-value permValueRow" data-value="{{data.system.gnosis.permanent}}" data-name="data.system.gnosis.permanent">
 
-		{{#numLoop data.data.gnosis.max}}
+		{{#numLoop data.system.gnosis.max}}
 		
 		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="gnosis" data-index="{{this}}"></span>
 		
@@ -16,11 +16,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.data.gnosis.temporary}}" data-name="data.data.gnosis.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.gnosis.temporary}}" data-name="data.system.gnosis.temporary">
 
-		{{#numLoop data.data.gnosis.max}}
+		{{#numLoop data.system.gnosis.max}}
 		
-		{{#le ../data.data.gnosis.temporary this}}
+		{{#le ../data.system.gnosis.temporary this}}
 		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="gnosis" data-index="{{this}}" data-state=""></span>
 		{{else}}
 		<span class="resource-value-step" data-type="{{../actor.type}}" data-key="gnosis" data-index="{{this}}" data-state="x"></span>

@@ -40,11 +40,11 @@
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.spirit)}}
-            <div class="pullLeft macroBtnInfo centerText"><span class="information-area">{{#if (gt data.data.initiative.total -1)}}+{{else}}-{{/if}}{{data.data.initiative.total}}</span></div>
+            <div class="pullLeft macroBtnInfo centerText"><span class="information-area">{{#if (gt data.system.initiative.total -1)}}+{{else}}-{{/if}}{{data.system.initiative.total}}</span></div>
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
         {{else}}
-            <div class="pullLeft macroBtnInfo centerText"><span class="information-area">{{#if (gt data.data.initiative.total -1)}}+{{else}}-{{/if}}{{data.data.initiative.total}}</span></div>
+            <div class="pullLeft macroBtnInfo centerText"><span class="information-area">{{#if (gt data.system.initiative.total -1)}}+{{else}}-{{/if}}{{data.system.initiative.total}}</span></div>
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
         {{/if}}

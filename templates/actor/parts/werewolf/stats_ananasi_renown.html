@@ -2,10 +2,10 @@
 
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.obedience"}}</div>
 
-<div class="resource-value tempSquareRow" data-value="{{data.data.renown.glory.permanent}}" data-name="data.data.renown.glory.permanent">
+<div class="resource-value tempSquareRow" data-value="{{data.system.renown.glory.permanent}}" data-name="data.system.renown.glory.permanent">
 	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
-	{{#numLoop data.data.renown.glory.max}}
+	{{#numLoop data.system.renown.glory.max}}
 	
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}"></span>
 	
@@ -13,12 +13,12 @@
 	
 </div>
 
-<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.glory.temporary}}" data-name="data.data.renown.glory.temporary">
+<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.glory.temporary}}" data-name="data.system.renown.glory.temporary">
 	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
-	{{#numLoop data.data.renown.glory.max}}
+	{{#numLoop data.system.renown.glory.max}}
 	
-	{{#le ../data.data.renown.glory.temporary this}}
+	{{#le ../data.system.renown.glory.temporary this}}
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state=""></span>
 	{{else}}
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state="x"></span>
@@ -30,10 +30,10 @@
 
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.cunning"}}</div>
 
-<div class="resource-value tempSquareRow" data-value="{{data.data.renown.honor.permanent}}" data-name="data.data.renown.honor.permanent">
+<div class="resource-value tempSquareRow" data-value="{{data.system.renown.honor.permanent}}" data-name="data.system.renown.honor.permanent">
 	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
-	{{#numLoop data.data.renown.honor.max}}
+	{{#numLoop data.system.renown.honor.max}}
 	
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}"></span>
 	
@@ -41,12 +41,12 @@
 	
 </div>
 
-<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.honor.temporary}}" data-name="data.data.renown.honor.temporary">
+<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.honor.temporary}}" data-name="data.system.renown.honor.temporary">
 	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
-	{{#numLoop data.data.renown.honor.max}}
+	{{#numLoop data.system.renown.honor.max}}
 	
-	{{#le ../data.data.renown.honor.temporary this}}
+	{{#le ../data.system.renown.honor.temporary this}}
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state=""></span>
 	{{else}}
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state="x"></span>
@@ -58,10 +58,10 @@
 
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.wisdom"}}</div>
 
-<div class="resource-value tempSquareRow" data-value="{{data.data.renown.wisdom.permanent}}" data-name="data.data.renown.wisdom.permanent">
+<div class="resource-value tempSquareRow" data-value="{{data.system.renown.wisdom.permanent}}" data-name="data.system.renown.wisdom.permanent">
 	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
-	{{#numLoop data.data.renown.wisdom.max}}
+	{{#numLoop data.system.renown.wisdom.max}}
 	
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}"></span>
 	
@@ -69,12 +69,12 @@
 	
 </div>
 
-<div class="resource-counter tempSquareRow" data-value="{{data.data.renown.wisdom.temporary}}" data-name="data.data.renown.wisdom.temporary">
+<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.wisdom.temporary}}" data-name="data.system.renown.wisdom.temporary">
 	<span class="resource-value-empty" data-type="{{config.sheettype.werewolf}}"></span>
 
-	{{#numLoop data.data.renown.wisdom.max}}
+	{{#numLoop data.system.renown.wisdom.max}}
 	
-	{{#le ../data.data.renown.wisdom.temporary this}}
+	{{#le ../data.system.renown.wisdom.temporary this}}
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state=""></span>
 	{{else}}
 	<span class="resource-value-step" data-type="Werewolf" data-index="{{this}}" data-state="x"></span>
@@ -85,7 +85,7 @@
 </div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.rank"}}</div>
-<div class="resource-value permValueRow" data-value="{{data.data.renown.rank}}" data-name="data.data.renown.rank">
+<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="data.system.renown.rank">
 
 	{{#numLoop 5}}
 	
