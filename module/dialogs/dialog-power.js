@@ -210,7 +210,7 @@ export class DialogPower extends FormApplication {
     getData() {
         const data = super.getData();
 
-        data.actorData = this.actor.data;
+        data.actorData = this.actor.system;
         data.config = CONFIG.wod;
 
         // is dice1 an Attributes

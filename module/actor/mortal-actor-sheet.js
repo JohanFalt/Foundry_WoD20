@@ -764,7 +764,7 @@ export class MortalActorSheet extends ActorSheet {
 			}			
 			else {			
 				const lastField = fields.pop();
-				fields.reduce((data, field) => data[field], actorData)[lastField] = value;
+				fields.reduce((system, field) => system[field], actorData)[lastField] = value;
 			}
 		}
 

@@ -135,7 +135,7 @@ export class DialogWeapon extends FormApplication {
     getData() {
         const data = super.getData();
 
-        data.actorData = this.actor.data;
+        data.actorData = this.actor.system;
         data.config = CONFIG.wod;
 
         if (data.actorData.type != CONFIG.wod.changingbreed) {
@@ -394,7 +394,6 @@ export class DialogWeapon extends FormApplication {
             const numberOfSuccesses = await rollDice(weaponRoll);     
             
             if (numberOfSuccesses > 0) {
-                //let item = ActionHelper._getItem(this.object._id, this.actor.data.items);
                 let item = this.actor.getEmbeddedDocument("Item", this.object._id);
 
                 // add number of successes to Damage roll

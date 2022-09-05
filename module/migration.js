@@ -396,7 +396,7 @@ export const updates = async () => {
         if (update) {
             await actor.update(updateData);
         }
-    }
+    } 
 
     for (const item of actor.items) {
         await updateItem(item, migrationVersion);

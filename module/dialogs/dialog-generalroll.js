@@ -92,7 +92,7 @@ export class DialogGeneralRoll extends FormApplication {
         let attributeSpeciality = "";
         let abilitySpeciality = "";
 
-        data.actorData = this.actor.data;   
+        data.actorData = this.actor.system;   
         data.config = CONFIG.wod;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";
@@ -113,39 +113,39 @@ export class DialogGeneralRoll extends FormApplication {
             if (attributeKey != "") {
                 if (data.object.type == "noability") {
                     if ((attributeKey == "conscience") || (attributeKey == "selfcontrol") || (attributeKey == "courage")) {
-                        data.object.attributeName = game.i18n.localize(data.actorData.system.virtues[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData.system.virtues[attributeKey].roll);
+                        data.object.attributeName = game.i18n.localize(data.actorData.virtues[attributeKey].label);
+                        data.object.attributeValue = parseInt(data.actorData.virtues[attributeKey].roll);
                     }
                     else {
-                        data.object.attributeName = game.i18n.localize(data.actorData.system[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData.system[attributeKey].roll);
+                        data.object.attributeName = game.i18n.localize(data.actorData[attributeKey].label);
+                        data.object.attributeValue = parseInt(data.actorData[attributeKey].roll);
                     }
                     
                     data.object.name = data.object.attributeName;
 
                     if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                        if (parseInt(data.actorData.system.attributes?.composure.value) >= 4) {
+                        if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
                             data.object.hasSpeciality = true;
-                            attributeSpeciality = data.actorData.system.attributes.composure.speciality;
+                            attributeSpeciality = data.actorData.attributes.composure.speciality;
                         }
         
-                        if ((parseInt(data.actorData.system.attributes?.resolve.value) >= 4) && (data.actorData.system.attributes?.resolve.speciality != "")) {
+                        if ((parseInt(data.actorData.attributes?.resolve.value) >= 4) && (data.actorData.attributes?.resolve.speciality != "")) {
                             data.object.hasSpeciality = true;
 
                             if (attributeSpeciality != "") {
                                 attributeSpeciality += ", ";
                             }
 
-                            attributeSpeciality += data.actorData.system.attributes.resolve.speciality;
+                            attributeSpeciality += data.actorData.attributes.resolve.speciality;
                         }
                     }                
                 }            
                 else {
-                    data.object.attributeValue = parseInt(data.actorData.system.attributes[attributeKey].total);
+                    data.object.attributeValue = parseInt(data.actorData.attributes[attributeKey].total);
 
-                    if (parseInt(data.actorData.system.attributes[attributeKey].value) >= 4) {
+                    if (parseInt(data.actorData.attributes[attributeKey].value) >= 4) {
                         data.object.hasSpeciality = true;
-                        attributeSpeciality = data.actorData.system.attributes[attributeKey].speciality;
+                        attributeSpeciality = data.actorData.attributes[attributeKey].speciality;
                     }
                 }
             }
@@ -153,14 +153,14 @@ export class DialogGeneralRoll extends FormApplication {
             if (abilityKey != "") {
                 let ability = undefined;
 
-                if ((data.actorData.system.abilities.talent[abilityKey] != undefined) && (data.actorData.system.abilities.talent[abilityKey].isvisible)) {
-                    ability = data.actorData.system.abilities.talent[abilityKey];
+                if ((data.actorData.abilities.talent[abilityKey] != undefined) && (data.actorData.abilities.talent[abilityKey].isvisible)) {
+                    ability = data.actorData.abilities.talent[abilityKey];
                 }
-                else if ((data.actorData.system.abilities.skill[abilityKey] != undefined) && (data.actorData.system.abilities.skill[abilityKey].isvisible)) {
-                    ability = data.actorData.system.abilities.skill[abilityKey];
+                else if ((data.actorData.abilities.skill[abilityKey] != undefined) && (data.actorData.abilities.skill[abilityKey].isvisible)) {
+                    ability = data.actorData.abilities.skill[abilityKey];
                 }
-                else if ((data.actorData.system.abilities.knowledge[abilityKey] != undefined) && (data.actorData.system.abilities.knowledge[abilityKey].isvisible)) {
-                    ability = data.actorData.system.abilities.knowledge[abilityKey];
+                else if ((data.actorData.abilities.knowledge[abilityKey] != undefined) && (data.actorData.abilities.knowledge[abilityKey].isvisible)) {
+                    ability = data.actorData.abilities.knowledge[abilityKey];
                 }
 
                 data.object.abilityValue = parseInt(ability.value);

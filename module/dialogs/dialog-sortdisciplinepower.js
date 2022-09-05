@@ -60,7 +60,7 @@ export class DialogSortDisciplinePower extends FormApplication {
     getData() {
         const data = super.getData();
 
-        data.actorData = this.actor.data;
+        data.actorData = this.actor.system;
 
         if (this.object.isDiscipline) {
             this.object.disciplinelist = this.actor.listeddisciplines;
@@ -123,7 +123,7 @@ export class DialogSortDisciplinePower extends FormApplication {
             return;
         }
     
-        for (const item of this.actor.data.items) {
+        for (const item of this.actor.items) {
             if (item._id == this.object._id) {
                 const itemData = duplicate(item);
 

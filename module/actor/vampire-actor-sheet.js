@@ -108,14 +108,14 @@ export class VampireActorSheet extends MortalActorSheet {
 		}
 
 		tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
-		templist.sort((a, b) => a.data.level.localeCompare(b.data.level));	
+		templist.sort((a, b) => a.system.level.localeCompare(b.system.level));	
 		unlisteddisclist.sort((a, b) => a.name.localeCompare(b.name));	
 
 		for (const discipline of tempdisclist) {
 			disciplinelist.push(discipline);
 
 			for (const power of templist) {
-				if (power.data.parentid == discipline._id) {
+				if (power.system.parentid == discipline._id) {
 					disciplinelist.push(power);
 				}
 			}
@@ -127,14 +127,14 @@ export class VampireActorSheet extends MortalActorSheet {
 		data.actor.hasunlisteddisciplines = unlisted;
 
 		temppathlist.sort((a, b) => a.name.localeCompare(b.name));
-		temp2list.sort((a, b) => a.data.level.localeCompare(b.data.level));	
+		temp2list.sort((a, b) => a.system.level.localeCompare(b.system.level));	
 		unlistedpathlist.sort((a, b) => a.name.localeCompare(b.name));	
 
 		for (const path of temppathlist) {
 			pathlist.push(path);
 
 			for (const power of temp2list) {
-				if (power.data.parentid == path._id) {
+				if (power.system.parentid == path._id) {
 					pathlist.push(power);
 				}
 			}
@@ -422,7 +422,7 @@ export class VampireActorSheet extends MortalActorSheet {
 			const itemid = parent[0].dataset.itemid;
 
 			for (const item of this.actor.items) {
-				if (item.system._id == itemid) {
+				if (item._id == itemid) {
 					const itemData = duplicate(item);
 					itemData.system.value = parseInt(index) + 1;
 					await item.update(itemData);
