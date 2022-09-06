@@ -177,6 +177,11 @@ Hooks.on("renderItemSheet", (sheet) => {
 });
 
 Hooks.on("renderFormApplication", (sheet) => { 
+	if (sheet.isDialog == undefined) {
+		return;
+	}
+
+
 	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');	
 
 	clearHTML(sheet);	

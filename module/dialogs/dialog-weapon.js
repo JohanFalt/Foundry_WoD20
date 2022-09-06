@@ -113,7 +113,7 @@ export class DialogWeapon extends FormApplication {
     constructor(actor, weapon) {
         super(weapon, {submitOnChange: true, closeOnSubmit: false});
         this.actor = actor;
-        
+        this.isDialog = true;        
         this.options.title = `${this.actor.name}`;
     }
 

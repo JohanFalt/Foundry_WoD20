@@ -2,7 +2,7 @@ import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
 
 export class WerewolfFrenzy {
-    constructor(actor, data) {
+    constructor(actor, data) {        
         this.canRoll = false;
         this.close = false;
         this.selectedMoon = undefined;
@@ -44,6 +44,7 @@ export class DialogCheckFrenzy extends FormApplication {
     constructor(actor, frenzy) {
         super(frenzy, {submitOnChange: true, closeOnSubmit: false});
         this.actor = actor;
+        this.isDialog = true;
         
         this.options.title = `${this.actor.name} - ${game.i18n.localize("wod.dialog.checkfrenzy.headline")}`;
     }

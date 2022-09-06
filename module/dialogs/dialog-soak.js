@@ -20,7 +20,8 @@ export class Soak {
 export class DialogSoakRoll extends FormApplication {
     constructor(actor, roll) {
         super(roll, {submitOnChange: true, closeOnSubmit: false});
-        this.actor = actor;       
+        this.actor = actor; 
+        this.isDialog = true;      
         this.options.title = `${this.actor.name}`;
     }
 

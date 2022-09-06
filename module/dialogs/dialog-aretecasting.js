@@ -114,7 +114,8 @@ export class Rote {
 export class DialogAreteCasting extends FormApplication {
     constructor(actor, rote) {
         super(rote, {submitOnChange: true, closeOnSubmit: false});
-        this.actor = actor;        
+        this.actor = actor;   
+        this.isDialog = true;     
 
         if (rote.isRote) {
             this.options.title = `${this.actor.name} - ${game.i18n.localize("wod.dialog.aretecasting.casting")} ${rote.name}`;

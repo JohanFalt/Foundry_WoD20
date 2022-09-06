@@ -38,7 +38,7 @@ export class DialogSortDisciplinePower extends FormApplication {
     constructor(actor, power) {
         super(power, {submitOnChange: true, closeOnSubmit: false});
         this.actor = actor;
-        
+        this.isDialog = true;        
         this.options.title = `${this.actor.name}`;
     }
 
