@@ -50,7 +50,7 @@ German translation - Nocther
 
 Italian translation (still working on) - EldritchTranslator
 
-Spanish translation - Duke and Wharomaru
+Spanish translation (last update v1.6) - Duke and Wharomaru
 
 ## Icons
 https://fontawesome.com/
