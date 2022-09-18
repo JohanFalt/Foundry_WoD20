@@ -58,14 +58,33 @@ export class MageActorSheet extends MortalActorSheet {
 		console.log("WoD | Mage Sheet getData");
 
 		const rotes = [];
+		const fetishlist = [];
+		const talenlist = [];
+		const resonance = [];
 
 		for (const i of data.items) {
 			if (i.type == "Rote") {
 				rotes.push(i);
 			}
+			if (i.type == "Fetish") {
+				if (i.system.type == "wod.types.fetish") {
+					fetishlist.push(i);
+				}
+				if (i.system.type == "wod.types.talen") {
+					talenlist.push(i);
+				}
+			}
+			if (i.type == "Trait") {
+				if (i.system.type == "wod.types.resonance") {
+					resonance.push(i);
+				}
+			}
 		}
 
 		data.actor.rotes = rotes.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.fetishlist = fetishlist.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.talenlist = talenlist.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.resonance = resonance.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.wod.sheettype.mage) {
 			console.log(CONFIG.wod.sheettype.mage);
@@ -132,7 +151,7 @@ export class MageActorSheet extends MortalActorSheet {
 		ActionHelper.RollDialog(event, this.actor);
 	}
 
-	_onDotCounterMageEmpty(event) {
+	async _onDotCounterMageEmpty(event) {
 		console.log("WoD | Mage Sheet _onDotCounterEmpty");
 		
 		event.preventDefault();
@@ -144,9 +163,7 @@ export class MageActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
+		const parent = $(element.parentNode);		
 		const steps = parent.find(".resource-value-empty");
 		
 		if (this.locked) {
@@ -155,10 +172,24 @@ export class MageActorSheet extends MortalActorSheet {
 
 		steps.removeClass("active");
 
-		this._assignToMage(fields, 0);
+		if (dataset.itemid != undefined) {
+			const itemid = dataset.itemid;
+
+			let item = this.actor.getEmbeddedDocument("Item", itemid);
+
+			const itemData = duplicate(item);
+			itemData.system.value = 0;
+			await item.update(itemData);
+		}
+		else {
+			const fieldStrings = parent[0].dataset.name;
+			const fields = fieldStrings.split(".");
+
+			this._assignToMage(fields, 0);
+		}
 	}
 	
-	_onDotCounterMageChange(event) {
+	async _onDotCounterMageChange(event) {
 		console.log("WoD | Mage Sheet _onDotCounterMageChange");
 		
 		event.preventDefault();
@@ -177,14 +208,27 @@ export class MageActorSheet extends MortalActorSheet {
 
 		const parent = $(element.parentNode);
 		const index = Number(dataset.index);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");		
 		const steps = parent.find(".resource-value-step");
 
 		if (index < 0 || index > steps.length) {
 			return;
-		}
+		}		
 
+		if (dataset.itemid != undefined) {
+			const itemid = dataset.itemid;
+
+			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			const itemData = duplicate(item);
+			itemData.system.value = parseInt(index + 1);
+			await item.update(itemData);
+		}
+		else {
+			const fieldStrings = parent[0].dataset.name;
+			const fields = fieldStrings.split(".");				
+	
+			this._assignToMage(fields, index + 1);
+		}	
+		
 		steps.removeClass("active");
 
 		steps.each(function (i) {
@@ -192,8 +236,6 @@ export class MageActorSheet extends MortalActorSheet {
 				$(this).addClass("active");
 			}
 		});
-
-		this._assignToMage(fields, index + 1);
 	}
 
 	_onQuintessenceChange(event) {

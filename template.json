@@ -5,6 +5,7 @@
 			"Werewolf",			
 			"Mage",
 			"Vampire",
+			"Changeling",
 			"Changing Breed",
 			"Creature",
 			"Spirit"
@@ -15,6 +16,12 @@
 					"iscreated": false,
 					"version": "",
 					"usesplatfont": true,
+					"powers": {
+						"hasdisciplines": false,
+						"hasgifts": false,
+						"hascharms": false,
+						"haspowers": false
+					},
 					"soak": {
 						"bashing": {
 							"bonus": 0,
@@ -118,13 +125,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.alertness",
-							"speciality": "",
-							"isvisible": false
-						},
-						"animalkinskip": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.animalkinskip",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -132,6 +133,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.art",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -139,6 +141,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.athletics",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -146,13 +149,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.awareness",
-							"speciality": "",
-							"isvisible": false
-						},
-						"blatancy": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.blatancy",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -160,34 +157,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.brawl",
-							"speciality": "",
-							"isvisible": false
-						},
-						"carousing": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.carousing",
-							"speciality": "",
-							"isvisible": false
-						},
-						"cooking": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.cooking",
-							"speciality": "",
-							"isvisible": false
-						},
-						"diplomacy": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.diplomacy",
-							"speciality": "",
-							"isvisible": false
-						},
-						"do": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.do",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -195,6 +165,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.empathy",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -202,34 +173,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.expression",
-							"speciality": "",
-							"isvisible": false
-						},
-						"gestures": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.gestures",
-							"speciality": "",
-							"isvisible": false
-						},
-						"highritual": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.highritual",
-							"speciality": "",
-							"isvisible": false
-						},
-						"instruction": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.instruction",
-							"speciality": "",
-							"isvisible": false
-						},
-						"intrigue": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.intrigue",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -237,13 +181,15 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.intimidation",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
-						"intuition": {
+						"kenning": {
 							"value": 0,
 							"max": 5,
-							"label": "wod.abilities.intuition",
+							"label": "wod.abilities.kenning",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -251,41 +197,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.leadership",
-							"speciality": "",
-							"isvisible": false
-						},
-						"legerdemain": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.legerdemain",
-							"speciality": "",
-							"isvisible": false
-						},
-						"luciddreaming": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.luciddreaming",
-							"speciality": "",
-							"isvisible": false
-						},
-						"newspeak": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.newspeak",
-							"speciality": "",
-							"isvisible": false
-						},
-						"mimicry": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.mimicry",
-							"speciality": "",
-							"isvisible": false
-						},
-						"negotiation": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.negotiation",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -293,27 +205,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.primalurge",
-							"speciality": "",
-							"isvisible": false
-						},
-						"scan": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.scan",
-							"speciality": "",
-							"isvisible": false
-						},
-						"scrounging": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.scrounging",
-							"speciality": "",
-							"isvisible": false
-						},
-						"seduction": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.seduction",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -321,13 +213,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.streetwise",
-							"speciality": "",
-							"isvisible": false
-						},
-						"style": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.style",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -335,6 +221,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.subterfuge",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						}
@@ -344,48 +231,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.animalken",
-							"speciality": "",
-							"isvisible": false
-						},
-						"archery": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.archery",
-							"speciality": "",
-							"isvisible": false
-						},
-						"biotech": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.biotech",
-							"speciality": "",
-							"isvisible": false
-						},
-						"blindfighting": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.blindfighting",
-							"speciality": "",
-							"isvisible": false
-						},
-						"bonecraft": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.bonecraft",
-							"speciality": "",
-							"isvisible": false
-						},
-						"climbing": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.climbing",
-							"speciality": "",
-							"isvisible": false
-						},
-						"commerce": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.commerce",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -393,27 +239,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.craft",
-							"speciality": "",
-							"isvisible": false
-						},
-						"disguise": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.disguise",
-							"speciality": "",
-							"isvisible": false
-						},
-						"elusion": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.elusion",
-							"speciality": "",
-							"isvisible": false
-						},
-						"energyweapons": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.energyweapons",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -421,13 +247,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.drive",
-							"speciality": "",
-							"isvisible": false
-						},
-						"escapology": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.escapology",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -435,27 +255,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.etiquette",
-							"speciality": "",
-							"isvisible": false
-						},
-						"fastdraw": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.fastdraw",
-							"speciality": "",
-							"isvisible": false
-						},
-						"fasttalk": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.fasttalk",
-							"speciality": "",
-							"isvisible": false
-						},
-						"fencing": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.fencing",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -463,55 +263,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.firearms",
-							"speciality": "",
-							"isvisible": false
-						},
-						"fortunetelling": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.fortunetelling",
-							"speciality": "",
-							"isvisible": false
-						},
-						"gambling": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.gambling",
-							"speciality": "",
-							"isvisible": false
-						},
-						"heavyweapons": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.heavyweapons",
-							"speciality": "",
-							"isvisible": false
-						},
-						"hunting": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.hunting",
-							"speciality": "",
-							"isvisible": false
-						},
-						"hypnotism": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.hypnotism",
-							"speciality": "",
-							"isvisible": false
-						},
-						"hypertech": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.hypertech",
-							"speciality": "",
-							"isvisible": false
-						},
-						"juryrigging": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.juryrigging",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -519,6 +271,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.larceny",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -526,6 +279,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.martialarts",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -533,6 +287,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.meditation",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -540,27 +295,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.melee",
-							"speciality": "",
-							"isvisible": false
-						},
-						"microgravityoperations": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.microgravityoperations",
-							"speciality": "",
-							"isvisible": false
-						},
-						"misdirections": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.misdirections",
-							"speciality": "",
-							"isvisible": false
-						},
-						"networking": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.networking",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -568,20 +303,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.performance",
-							"speciality": "",
-							"isvisible": false
-						},
-						"pilot": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.pilot",
-							"speciality": "",
-							"isvisible": false
-						},
-						"psychology": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.psychology",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -589,34 +311,15 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.research",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},	
-						"riding": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.riding",
-							"speciality": "",
-							"isvisible": false
-						},
-						"security": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.security",
-							"speciality": "",
-							"isvisible": false
-						},	
-						"speedreading": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.speedreading",
-							"speciality": "",
-							"isvisible": false
-						},				
 						"stealth": {
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.stealth",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -624,13 +327,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.survival",
-							"speciality": "",
-							"isvisible": false
-						},
-						"swimming": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.swimming",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -638,13 +335,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.technology",
-							"speciality": "",
-							"isvisible": false
-						},
-						"torture": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.torture",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						}
@@ -654,41 +345,15 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.academics",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
-						"bureaucracy": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.bureaucracy",
-							"speciality": "",
-							"isvisible": false
-						},
-						"chantry": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.chantry",
-							"speciality": "",
-							"isvisible": false
-						},
-						"chemistry": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.chemistry",
-							"speciality": "",
-							"isvisible": false
-						},						
 						"computer": {
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.computer",
-							"speciality": "",
-							"isvisible": false
-						},
-						"conspiracytheory": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.conspiracytheory",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -696,34 +361,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.cosmology",
-							"speciality": "",
-							"isvisible": false
-						},
-						"covertculture": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.covertculture",
-							"speciality": "",
-							"isvisible": false
-						},
-						"culturalsavvy": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.culturalsavvy",
-							"speciality": "",
-							"isvisible": false
-						},
-						"culture": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.culture",
-							"speciality": "",
-							"isvisible": false
-						},
-						"cryptography": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.cryptography",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -731,6 +369,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.enigmas",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -738,6 +377,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.esoterica",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},						
@@ -745,34 +385,15 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.finance",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
-						"helmsman": {
+						"gremayre": {
 							"value": 0,
 							"max": 5,
-							"label": "wod.abilities.helmsman",
-							"speciality": "",
-							"isvisible": false
-						},
-						"hearthwisdom": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.hearthwisdom",
-							"speciality": "",
-							"isvisible": false
-						},
-						"herbalism": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.herbalism",
-							"speciality": "",
-							"isvisible": false
-						},
-						"history": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.history",
+							"label": "wod.abilities.gremayre",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -780,6 +401,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.investigation",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -787,20 +409,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.law",
-							"speciality": "",
-							"isvisible": false
-						},
-						"legends": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.legends",
-							"speciality": "",
-							"isvisible": false
-						},
-						"media": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.media",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -808,6 +417,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.medicine",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -815,6 +425,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.occult",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -822,27 +433,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.politics",
-							"speciality": "",
-							"isvisible": false
-						},
-						"powerbrokering": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.powerbrokering",
-							"speciality": "",
-							"isvisible": false
-						},
-						"propaganda": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.propaganda",
-							"speciality": "",
-							"isvisible": false
-						},
-						"religion": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.religion",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -850,13 +441,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.rituals",
-							"speciality": "",
-							"isvisible": false
-						},
-						"seneschal": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.seneschal",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -864,13 +449,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.science",
-							"speciality": "",
-							"isvisible": false
-						},
-						"theology": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.theology",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						},
@@ -878,20 +457,7 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.technology",
-							"speciality": "",
-							"isvisible": false
-						},
-						"unconventionalwarfare": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.unconventionalwarfare",
-							"speciality": "",
-							"isvisible": false
-						},
-						"vice": {
-							"value": 0,
-							"max": 5,
-							"label": "wod.abilities.vice",
+							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
 						}
@@ -1181,6 +747,7 @@
 				"bloodline": "",
 				"weakness": "",
 				"generation": 13,
+				"generationmod": 0,
 				"sire": "",
 				"virtues": {
 					"conscience": {
@@ -1216,13 +783,86 @@
 					"label": "wod.advantages.path.humanity"
 				}
 			},
+			"changeling": {
+				"settings": {
+					"soak": {
+						"chimerical": {
+							"bashing": {
+								"bonus": 0,
+								"isrollable": true
+							},
+							"lethal": {
+								"bonus": 0,
+								"isrollable": true
+							},
+							"aggravated": {
+								"bonus": 0,
+								"isrollable": true
+							}
+						}
+					}
+				},
+				"health": {
+					"damage": {
+						"chimerical": {
+							"bashing": 0,
+							"lethal" : 0,
+							"aggravated": 0
+						}
+					}
+				},
+				"court": "",
+				"legacyseelie": "",
+				"legacyunseelie": "",
+				"house": "",
+				"birthright1": "",
+				"birthright2": "",
+				"frailty": "",
+				"seeming": "",
+				"kith": "",
+				"antithesis": "",
+				"threshold": "",
+				"affinityrealm": "",
+				"glamour": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.glamour"
+				},
+				"nightmare": {
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.nightmare"
+				},
+				"banality": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.banality"
+				},
+				"willpower": {
+					"imbalance": 0
+				},
+				"soak": {
+					"chimerical": {
+						"bashing": 0,
+						"lethal" : 0,
+						"aggravated": 0
+					}
+				}
+			},
 			"creature": {
 				"settings": {
 					"hasrage": false,
 					"hasgnosis": false,
 					"haswillpower": true,
 					"hasessence": false,
-					"hasbloodpool": false
+					"hasbloodpool": false,
+					"hasglamour": false,
+					"hasbanality": false
 				},
 				"rage": {
 					"permanent": 0,
@@ -1244,6 +884,20 @@
 					"temporary": 0,
 					"max": 10,
 					"label": "wod.advantages.essence"
+				},
+				"glamour": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.glamour"
+				},
+				"banality": {
+					"permanent": 0,
+					"temporary": 0,
+					"max": 10,
+					"roll": 0,
+					"label": "wod.advantages.banality"
 				}
 			},
 			"spirit": {
@@ -1291,15 +945,6 @@
 				"mage"
 			]
 		},
-		"Changing Breed": {
-			"templates": [
-				"base",
-				"ability",
-				"mortal",
-				"werewolf"
-			],
-			"yava": ""
-		},
 		"Vampire": {
 			"templates": [
 				"base",
@@ -1308,6 +953,23 @@
 				"vampire"
 			]
 		},
+		"Changeling": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal",
+				"changeling"
+			]
+		},
+		"Changing Breed": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal",
+				"werewolf"
+			],
+			"yava": ""
+		},		
 		"Creature": {
 			"templates": [
 				"base",
@@ -1329,9 +991,11 @@
 			"Melee Weapon",
 			"Ranged Weapon",
 			"Armor",
+			"Item",
 			"Power",
 			"Rote",
 			"Fetish",
+			"Trait",
 			"Experience"
 		],
 		"templates": {
@@ -1342,6 +1006,7 @@
 			},
 			"base": {
 				"worldanvil": "",
+				"reference": "",
 				"description": ""
 			},
 			"feature": {
@@ -1352,12 +1017,14 @@
 			},
 			"object": {
 				"isequipped": false,
-				"ismagical": false
+				"ismagical": false,
+				"isweapon": false
 			},
 			"weapon": {
 				"attack": {
 					"attribute": "",
 					"ability": "",
+					"secondaryabilityid": "",
 					"accuracy": 0,
 					"isrollable": true
 				},
@@ -1381,7 +1048,8 @@
 				"spendwillpower": false,
 				"spendrage": false,
 				"spendgnosis": false,
-				"spendblood": false
+				"spendblood": false,
+				"spendglamour": false
 			}
 		},
 		"Armor": {
@@ -1393,7 +1061,12 @@
 			"soak": {
 				"bashing": 0,
 				"lethal": 0,
-				"aggravated": 0
+				"aggravated": 0,
+				"chimerical": {
+					"bashing": 0,
+					"lethal": 0,
+					"aggravated": 0
+				}
 			},	
 			"dexpenalty": 0,
 			"forms": {
@@ -1441,6 +1114,19 @@
 				"power"
 			]
 		},
+		"Item": {
+			"templates": [
+				"settings",
+				"base",
+				"object",
+				"feature"
+			],
+			"dice1": "",
+			"dice2": "",
+			"bonus": 0,
+			"difficulty": 6,
+			"isrollable": true
+		},
 		"Rote": {
 			"templates": [
 				"settings",
@@ -1481,12 +1167,23 @@
 			],
 			"details": "",
 			"isrollable": false
-		},				
+		},		
+		"Trait": {
+			"templates": [
+				"settings",
+				"feature"
+			],
+			"reference": "",
+			"ismeleeweapon": false,
+			"israngedeweapon": false,
+			"label": "",
+			"speciality": ""
+		},
 		"Experience": {
 			"templates": [
 				"settings",
 				"base"
-			],
+			],			
 			"isspent": true,
 			"amount": 0
 		}

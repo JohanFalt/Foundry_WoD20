@@ -2,14 +2,21 @@ let bashing = 0;
 let lethal = 0;
 let aggravated = 0;
 
-export function calculateHealth(actor) {
+export function calculateHealth(actor, type) {
 
     const healthLevels = [];
     let woundPenalty = 0;
     
-    bashing = actor.system.health.damage.bashing;
-    lethal = actor.system.health.damage.lethal;
-    aggravated = actor.system.health.damage.aggravated;
+    if (type == CONFIG.wod.sheettype.mortal) {
+        bashing = actor.system.health.damage.bashing;
+        lethal = actor.system.health.damage.lethal;
+        aggravated = actor.system.health.damage.aggravated;
+    }
+    if (type == CONFIG.wod.sheettype.changeling) {
+        bashing = actor.system.health.damage.chimerical.bashing;
+        lethal = actor.system.health.damage.chimerical.lethal;
+        aggravated = actor.system.health.damage.chimerical.aggravated;
+    }
 
     if (actor.system.health.bruised.value > 0) {
         for (let i=0; i < actor.system.health.bruised.value; i++) {

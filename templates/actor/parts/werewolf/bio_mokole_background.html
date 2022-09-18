@@ -2,18 +2,14 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.breed}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Homid">Homid</option>
-                <option value="Archid">Archid</option>
-                <option value="Suchid">Suchid</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                    <option value="Archid">{{localize "wod.bio.breedname.archid"}}</option>
+                    <option value="Suchid">{{localize "wod.bio.breedname.suchid"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>
@@ -22,22 +18,18 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.auspice"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.auspice" data-name="data.system.auspice" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.auspice}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Rising Sun">Rising Sun</option>
-                <option value="Noonday Sun">Noonday Sun</option>
-                <option value="Setting Sun">Setting Sun</option>
-                <option value="Shrouded Sun">Shrouded Sun</option>
-                <option value="Midnight Sun">Midnight Sun</option>
-                <option value="Decorated Sun">Decorated Sun</option>
-                <option value="Eclipsed Sun">Eclipsed Sun</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Rising Sun">{{localize "wod.bio.auspicename.risingsun"}}</option>
+                    <option value="Noonday Sun">{{localize "wod.bio.auspicename.noondaysun"}}</option>
+                    <option value="Setting Sun">{{localize "wod.bio.auspicename.settingsun"}}</option>
+                    <option value="Shrouded Sun">{{localize "wod.bio.auspicename.shroudedsun"}}</option>
+                    <option value="Midnight Sun">{{localize "wod.bio.auspicename.midnightsun"}}</option>
+                    <option value="Decorated Sun">{{localize "wod.bio.auspicename.decoratedsun"}}</option>
+                    <option value="Eclipsed Sun">{{localize "wod.bio.auspicename.eclipsedsun"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>	
@@ -46,24 +38,20 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.varna"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.tribe}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.tribe" data-name="data.system.tribe" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.tribe" data-name="data.system.tribe" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.tribe}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Champsa">Champsa</option>
-                <option value="Gharial">Gharial</option>
-                <option value="Halpatee">Halpatee</option>
-                <option value="Karna">Karna</option>                
-                <option value="Makara">Makara</option>
-                <option value="Ora">Ora</option>                
-                <option value="Paisa">Paisa</option>                
-                <option value="Syrta">Syrta</option>                
-                <option value="Unktehi">Unktehi</option>                
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Champsa">{{localize "wod.bio.varnaname.champsa"}}</option>
+                    <option value="Gharial">{{localize "wod.bio.varnaname.gharial"}}</option>
+                    <option value="Halpatee">{{localize "wod.bio.varnaname.halpatee"}}</option>
+                    <option value="Karna">{{localize "wod.bio.varnaname.karna"}}</option>                
+                    <option value="Makara">{{localize "wod.bio.varnaname.makara"}}</option>
+                    <option value="Ora">{{localize "wod.bio.varnaname.ora"}}</option>                
+                    <option value="Paisa">{{localize "wod.bio.varnaname.paisa"}}</option>                
+                    <option value="Syrta">{{localize "wod.bio.varnaname.syrta"}}</option>                
+                    <option value="Unktehi">{{localize "wod.bio.varnaname.unktehi"}}</option>                
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>

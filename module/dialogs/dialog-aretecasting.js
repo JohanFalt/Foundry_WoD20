@@ -66,7 +66,7 @@ export class Rote {
         this.totalSuccesses = 0;
 
         if (item != undefined) {
-            this.name = item["name"];
+            this.name = item.system["name"];
 
             for (const sphere in CONFIG.wod.allSpheres) {
                 if (item.system[sphere] > 0) {
@@ -74,7 +74,6 @@ export class Rote {
                 }
             }
 
-            //this.selectedSpheres = item.system["selectedSpheres"];
             if (item.system["description"] != "") {
                 this.description = item.system["description"];
             }
@@ -114,8 +113,8 @@ export class Rote {
 export class DialogAreteCasting extends FormApplication {
     constructor(actor, rote) {
         super(rote, {submitOnChange: true, closeOnSubmit: false});
-        this.actor = actor;   
-        this.isDialog = true;     
+        this.actor = actor;        
+        this.isDialog = true;
 
         if (rote.isRote) {
             this.options.title = `${this.actor.name} - ${game.i18n.localize("wod.dialog.aretecasting.casting")} ${rote.name}`;

@@ -1,20 +1,28 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
-    {{#iff object.type "==" "Damage"}}
+    {{#if (eq object.type "Damage")}}
 
         <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.weapon.rolldamage"}} {{object.name}}</div>
 
         <div class="dialog-area">
             <div class="infobox">
-                {{object.attributeName}} ({{object.attributeValue}})
+                {{#if (ne object.attributeName "")}}
+                    {{object.attributeName}} ({{object.attributeValue}})
+                {{/if}}
                 
-                {{#iff object.abilityValue ">" 0}}
-                    + {{object.abilityValue}}
-                {{/iff}}
+                <!-- {{#if (gt object.abilityValue 0)}}
+                    {{#if (ne object.attributeName "")}}
+                    + 
+                    {{/if}}
+                    {{object.abilityValue}}
+                {{/if}} -->
                 
-                {{#iff object.bonus ">" 0}} 
-                    + {{object.bonus}}
-                {{/iff}}
+                {{#if (gt object.bonus 0)}} 
+                    {{#if (gt object.attributeValue 0)}}
+                    + 
+                    {{/if}}
+                    {{object.bonus}}
+                {{/if}}
 
                 {{object.damageCode}}
             </div>
@@ -23,17 +31,17 @@
         <div class="dialog-area">
             <div class="headline splatFont">{{localize "wod.labels.modifier"}}</div>
             <div class="dialog-valueBox">
-                <input type="text" name="bonus" value="{{object.bonus}}" autofocus />
+                <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
             </div>
         </div>
 
         <div class="dialog-area">
-            <div class="headline splatFont">{{localize "wod.dialog.weapon.extrasuccesses"}}</div>
-            <div class="dialog-valueBox">
-                <input type="text" name="extrasuccesses" value="{{object.extraSuccesses}}" />
-            </div>
-        </div>
+            <div class="headline splatFont">{{localize "wod.dialog.weapon.extrasuccesses"}}: {{object.extraSuccesses}}</div>
 
+            {{#if (eq object.modename 'spray')}}
+                <div class="headline splatFont">{{localize "wod.dialog.weapon.selectedtargets"}}: {{object.numberoftargets}}</div>
+            {{/if}}
+        </div>
     {{else}}
 
         <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.weapon.rollattack"}} {{object.name}}</div>
@@ -42,9 +50,9 @@
             <div class="infobox">
                 {{object.attributeName}} ({{object.attributeValue}})
                 
-                {{#iff object.abilityName "!=" ""}}
+                {{#if (ne object.abilityName "")}}
                     + {{object.abilityName}} ({{object.abilityValue}})
-                {{/iff}}
+                {{/if}}
                 
                 {{#iff object.bonus ">" 0}} 
                     + {{object.bonus}}
@@ -52,40 +60,89 @@
             </div>
         </div>
 
+        {{#if (eq object.dice2 "custom")}}
+            {{#if (eq object.type "Melee Weapon")}}
+                <div class="centerText dialog-area">
+                    {{#each config.meleeAbilities as |ability key|}}
+                        <button id="secondaryability" class="button pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.data.label}}</button>
+                    {{/each}}
+                </div>
+            {{/if}}
+
+            {{#if (eq object.type "Ranged Weapon")}}
+                <div class="centerText dialog-area">
+                    {{#each config.rangedAbilities as |ability key|}}
+                        <button id="secondaryability" class="button pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.data.label}}</button>
+                    {{/each}}
+                </div>
+            {{/if}}
+        {{/if}}
+
         <div class="dialog-area">
             <div class="headline splatFont">{{localize "wod.labels.bonus"}}</div>
             <div class="dialog-valueBox">
-                <input type="text" name="bonus" value="{{object.bonus}}" autofocus />
+                <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
             </div>
         </div>
 
         {{#if object.hasSpeciality}}
         <div class="dialog-area">
             <div class="infobox">
-                <input name="specialty" type="checkbox">{{localize "wod.labels.specialty"}}</input>
+                <input class="editable" name="specialty" type="checkbox">{{localize "wod.labels.specialty"}}</input>
                 ({{object.specialityText}})
             </div>
         </div>
         {{/if}}
 
-    {{/iff}}
+    {{/if}}
+
+    {{#if (eqAny true object.hasburst object.hasfullauto object.hasspray)}}
+        <div class="dialog-area headline splatFont">{{localize "wod.dialog.weapon.firemodes"}}</div>
+
+        <div class="centerText dialog-area">
+            <button id="singleshot" class="button pointer dialog-mode-button {{#if (eq object.modename 'single')}}active{{/if}}" value="single">{{localize "wod.dialog.weapon.singleshot"}}</button>
+            {{#if object.hasburst}}
+                <button id="burst" class="button pointer dialog-mode-button {{#if (eq object.modename 'burst')}}active{{/if}}" value="burst">{{localize "wod.dialog.weapon.burst"}}</button>
+            {{/if}}
+            {{#if object.hasfullauto}}
+                <button id="fullauto" class="button pointer dialog-mode-button {{#if (eq object.modename 'fullauto')}}active{{/if}}" value="fullauto">{{localize "wod.dialog.weapon.fullauto"}}</button>
+            {{/if}}
+            {{#if object.hasspray}}
+                <button id="spray" class="button pointer dialog-mode-button {{#if (eq object.modename 'spray')}}active{{/if}}" value="spray">{{localize "wod.dialog.weapon.spray"}}</button>
+            {{/if}}
+        </div>
+
+        <div class="dialog-area headline splatFont">{{localize "wod.dialog.weapon.numbertargets"}}</div>
+    
+        <div class="centerText dialog-area">
+            {{#numLoop 11}}
+                {{#iff this ">" 0}}
+                    <button id="numbertargets" class="button dialog-numbertargets-button {{#if (ne ../object.modename 'spray')}}disabled{{else}}pointer{{/if}} {{#if (eq ../object.numberoftargets this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                {{/iff}}
+            {{/numLoop}}
+        </div>
+    {{/if}}
+
+    <div class="dialog-area headline splatFont">
+        {{localize "wod.labels.difficulty"}}
+    </div>
 
     <div class="centerText dialog-area">
         {{#numLoop 11}}
             {{#iff this ">" 2}}
-            <button id="difficulty" class="button pointer dialog-difficulty-button {{#iff ../object.difficulty "==" this}}active{{/iff}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                <button id="difficulty" class="button pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/iff}}
         {{/numLoop}}
     </div>
 
-    {{#iff object.system "!=" ""}}
-    <div class="dialog-area">
-        <div class="infobox">
-            <label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.description"}}</label>
-            <textarea class="item" name="object.system" data-dtype="String">{{object.system}}</textarea>
-        </div>          
-    </div>
-    {{/iff}}
+    {{#if (ne object.system "")}}
+        <div class="dialog-area">
+            <div class="infobox">
+                <label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.description"}}</label>
+                <textarea class="item" name="object.system" data-dtype="String">{{object.system}}</textarea>
+            </div>          
+        </div>
+    {{/if}}
 
     <div class="centerText">
         <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>

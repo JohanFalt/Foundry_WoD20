@@ -112,33 +112,33 @@
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.rank"}}</div>
 <div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="data.system.renown.rank">
 
-	{{#numLoop 6}}
-	
-	<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
-	
-	{{/numLoop}}
+	{{#if (eq actor.type config.sheettype.werewolf)}}
+		{{#numLoop 6}}
+		
+		<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+	{{else}}
+		{{#if (ne data.system.changingbreed "Nagah")}}
+			{{#numLoop 5}}
+			
+			<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
+		{{else}}
+			{{#numLoop 6}}
+				
+			<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
+		{{/if}}
+	{{/if}}	
 
 	<span class="splatFont">
-		{{#if (eq data.system.renown.rank 0)}}
-			Cub
-		{{/if}}
-		{{#if (eq data.system.renown.rank 1)}}
-			Cliath
-		{{/if}}
-		{{#if (eq data.system.renown.rank 2)}}
-			Fostern
-		{{/if}}
-		{{#if (eq data.system.renown.rank 3)}}
-			Adren
-		{{/if}}
-		{{#if (eq data.system.renown.rank 4)}}
-			Athro
-		{{/if}}
-		{{#if (eq data.system.renown.rank 5)}}
-			Elder
-		{{/if}}
-		{{#if (eq data.system.renown.rank 6)}}
-			Legend
+		{{#if (eq actor.type config.sheettype.werewolf)}}
+			{{getShifterRank config.sheettype.werewolf data.system.renown.rank}}
+		{{else}}
+			{{getShifterRank data.system.changingbreed data.system.renown.rank}}
 		{{/if}}
 	</span>
 	

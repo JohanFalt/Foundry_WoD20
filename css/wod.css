@@ -7,6 +7,11 @@
 }
 
 @font-face {
+  font-family: "changeling";
+  src: url("../assets/fonts/Umb000.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "vampire";
   src: url("../assets/fonts/percexp.ttf") format("truetype");
 }
@@ -24,27 +29,32 @@
 :root {
   --main-font: Arial, Helvetica, sans-serif;
 
-  --main-mortal-color: rgb(24, 78, 119);
+  --main-mortal-color: rgba(24, 78, 119, 1);
   --main-mortal-mid-color: rgba(24, 78, 119, 0.3);
   --main-mortal-dim-color: rgba(24, 78, 119, 0.06);
 
-  --main-werewolf-color: rgb(88, 49, 1);
+  --main-werewolf-color: rgba(88, 49, 1, 1);
   --main-werewolf-mid-color: rgba(88, 49, 1, 0.3);
   --main-werewolf-dim-color: rgba(88, 49, 1, 0.06);
 
-  --main-mage-color: rgb(83, 33, 89);
+  --main-mage-color: rgba(83, 33, 89, 1);
   --main-mage-mid-color: rgba(83, 33, 89, 0.3);
   --main-mage-dim-color: rgba(83, 33, 89, 0.06);
 
-  --main-vampire-color: rgb(121, 8, 19);
+  --main-vampire-color: rgba(121, 8, 19, 1);
   --main-vampire-mid-color: rgb(121, 8, 19, 0.4);
   --main-vampire-dim-color: rgb(121, 8, 19, 0.12);
 
-  --main-creature-color: rgb(116, 115, 115);
+  --main-changeling-color: #017b9c;
+  --main-changeling-color: rgba(1, 123, 156, 1);
+  --main-changeling-mid-color: rgba(1, 123, 156, 0.4);
+  --main-changeling-dim-color: rgba(1, 123, 156, 0.12);
+
+  --main-creature-color: rgba(116, 115, 115, 1);
   --main-creature-mid-color: rgba(72, 71, 71, 0.4);
   --main-creature-dim-color: rgba(72, 71, 71, 0.12);
 
-  --main-spirit-color:rgb(173, 147, 0);
+  --main-spirit-color:rgba(173, 147, 0, 1);
   --main-spirit-dim-color: rgb(255, 215, 0, 0.4);
   --main-spirit-dim-color: rgb(255, 215, 0, 0.12);  
 }
@@ -65,12 +75,14 @@
 .soak-dialog,
 .weapon-dialog,
 .general-dialog,
-.power-dialog {
+.power-dialog,
+.item-dialog {
   width: 500px !important;
 }
 
 .sortdiscipline-dialog,
-.checkfrenzy-dialog {
+.checkfrenzy-dialog,
+.shapechange-dialog {
   width: 700px !important;
 }
 
@@ -110,7 +122,6 @@
 }
 
 .sheet-character .profile-img-zone button {  
-  /* font-family: var(--main-font); */
   font-weight: bold;
   border: none;
 }
@@ -131,12 +142,25 @@
   cursor: pointer;
 }
 
+.nopointer:hover,
+.nopointer:focus {
+  cursor: default;
+}
+
 .locked input,
 .locked select,
-.locked textarea {
+.locked textarea,
+.textarea {
   background: rgba(255, 255, 255, 0.5);
   color: black;
+  border: 1px solid var(--color-border-light-tertiary);
 } 
+
+.textarea {
+  overflow-y: auto;
+  max-height: 200px;
+  max-height: 15vh;
+}
 
 .locked .resource-value-empty {
   opacity: 0;
@@ -151,6 +175,11 @@
 
 /* START - General */
 
+.sheet-item,
+.sheet-character {
+  font-family: var(--main-font);
+}
+
 img.rolldice {
   width: 19px;
   height: 19px;
@@ -160,7 +189,6 @@ img.rolldice {
 input.sheet-infoValues {
   width: 100%;
   text-align: left;
-	/* font-family: var(--main-font); */
 	font-weight: normal;
 	font-size: 12px;
 }
@@ -170,6 +198,13 @@ textarea.editable,
 input.editable {
   background: rgba(255, 255, 255, 0.5);
   color: black;
+}
+
+button.disabled {
+  color: var(--color-text-dark-secondary) !important; 
+  box-shadow: none !important;
+  background: rgba(0, 0, 0, 0.1) !important;
+  border: 2px groove var(--color-border-light-highlight) !important;
 }
 
 input.shortNotebox {
@@ -191,10 +226,8 @@ nav {
 input,
 select,
 textarea {
-  /* font-family: var(--main-font); */
 	font-weight: normal;
-	font-size: 12px;
-  
+	font-size: 12px;  
 }
 
 textarea.sheet-infoValues {
@@ -242,7 +275,6 @@ i.icon {
 	text-align: center;
 	width: 100%;	
 }
-
 
 .pullLeft {
 	float: left;
@@ -391,8 +423,15 @@ i.icon {
   line-height: 23px;
 }
 
+.row:nth-of-type(even) {
+  display: flex;
+}
+
+.row:nth-of-type(odd) {
+  display: flex;
+}
+
 .information-area {
-  /* font-family: var(--main-font); */
   font-size: 10px;
   color: #7e7e7e;
   width: 100%;
@@ -415,14 +454,6 @@ i.icon {
 
 .setting-area {
   margin-bottom: 20px !important;
-}
-
-.langEN .dialog-casting-type-label {
-  width: 250px;
-}
-
-.langDE .dialog-casting-type-label {
-  width: 350px;
 }
 
 .setting-radiospan {
@@ -463,13 +494,22 @@ i.icon {
   height: 34px;
 }
 
+.dialog-realm-button,
 .dialog-discipline-button,
-.dialog-attribute-button {
+.dialog-attribute-button,
+.dialog-secondaryability-button {
   width: 30%;
   height: 34px;
   margin-bottom: 5px;
 }
 
+.dialog-mode-button {
+  width: 20%;
+  height: 34px;
+  margin-bottom: 5px;
+}
+
+.dialog-numbertargets-button,
 .dialog-numdices-button {
   width: 8%;
   height: 34px;
@@ -480,7 +520,8 @@ i.icon {
   height: 34px;
 }
 
-.dialog-moon-button {
+.dialog-moon-button,
+.dialog-shapechange-button {
   width: 18%;
   height: 34px;
 }
@@ -508,6 +549,10 @@ i.icon {
   line-height: 30px;
 }
 
+textarea.smallbox {
+  height: 75px;
+}
+
 /* END - Bio */
 
 /* START - Core */
@@ -526,11 +571,6 @@ i.icon {
 
 .creature .attribute-headlineWidth {
 	width: 25%;
-}
-
-.creature.langDE .attribute-headlineWidth,
-.creature.langES .attribute-headlineWidth {
-  width: 35%;
 }
 
 .attribute-total {
@@ -598,12 +638,16 @@ div.essence-counters {
   margin: 0 auto;
 }
 
+.imbalance {
+  background-color: red !important;
+}
+
 /* END - Core */
 
 /* START - Combat */
 
 .condition {
-  width: 150px;  
+  width: 200px;  
 }
 
 .condition-checkbox {
@@ -625,6 +669,10 @@ div.essence-counters {
   width: 20px;
 } 
 
+.combat-activeBox {
+  width: 30px;
+}
+
 .combat-namebox {
   width: 230px;
 }
@@ -641,9 +689,7 @@ div.essence-counters {
   width: 50px;
 }
 
-.langES .combat-valueBox {
-  width: 60px;
-}
+
 
 .combat-smallBox {
   width: 75px;
@@ -669,10 +715,6 @@ div.essence-counters {
   width: 50px;
 }
 
-.langDE .concealBox {
-  width: 85px;
-}
-
 .combat-valueBoxArmor {
   width: 70px;
 }
@@ -694,7 +736,7 @@ textarea.sheet-gearArea {
 /* START - Shapechange */
 
 .shape-background {
-  background: url(../assets/img/werewolf/form/five_forms.jpg);
+  background: url('../assets/img/werewolf/form/five_forms.jpg');
   width: 98%;
   height: 100%;
   background-repeat: no-repeat;
@@ -782,7 +824,6 @@ textarea.sheet-gearArea {
   text-align: center;
   font-size: 18px;
   font-weight: normal;
-  /* font-family: var(--main-font); */
 }
 
 .shape-selector:hover {
@@ -795,7 +836,6 @@ textarea.sheet-gearArea {
   width: 20%;
   font-size: 14px;
   font-weight: normal;
-  /* font-family: var(--main-font); */
   text-align: center;
   margin-top: 100px;
 }
@@ -864,6 +904,7 @@ textarea.sheet-gearArea {
 
 /* START - Discipline */
 
+.art-headline,
 .discipline-headline {
   width: 250px;
 }
@@ -872,14 +913,17 @@ textarea.sheet-gearArea {
   width: 263px;
 }
 
+.art-dotBox,
 .discipline-dotBox {
   width: 200px;
 }
 
+.art-dicebox,
 .discipline-dicebox {
   width: 100px;
 }
 
+.art-valuebox,
 .discipline-valuebox {
   width: 50px;
 }
@@ -893,9 +937,12 @@ textarea.sheet-gearArea {
   margin-left: 38px;
 }
 
-.discipline-row {
-  border-bottom: 1px solid var(--main-vampire-color);
-  background-color: var(--main-vampire-dim-color);
+.artpower-row .art-iconbox {
+  margin-left: 187px;
+}
+
+.art-row,
+.discipline-row {  
   display: flex;
   height: 23px;
   line-height: 23px;
@@ -903,6 +950,7 @@ textarea.sheet-gearArea {
   margin-bottom: 5px;
 }
 
+.artpower-row,
 .disciplinepower-row {
   display: flex;
   height: 23px;
@@ -910,11 +958,20 @@ textarea.sheet-gearArea {
   margin-left: 13px;
 }
 
+.art-row .resource-value
 .discipline-row .resource-value {
   line-height: 30px;
 }
 
 /* END - Discipline */
+
+/* START - Dreaming */
+
+.realms-headlineWidth {
+  width: 20%;
+}
+
+/* END - Dreaming */
 
 /* START - Power */
 
@@ -967,11 +1024,6 @@ textarea.sheet-gearArea {
   font-size: 24px;
 }
 
-.sheet-item,
-.sheet-character {
-  font-family: var(--main-font);
-}
-
 .top-sidetext {
   color: #7e7e7e;
   font-weight: normal;
@@ -1001,6 +1053,10 @@ textarea.sheet-gearArea {
 
 .rote-headline {
   width: 40%;
+}
+
+.highlightedPower {
+  font-weight: bold;
 }
 
 /* END - Power */
@@ -1054,7 +1110,7 @@ textarea.sheet-gearArea {
 }
 
 .headlineItem {
-  font-size: 18px;
+  font-size: 16px;
   margin-right: 25px;
   float: left; 
   width: 30%;
@@ -1300,16 +1356,9 @@ textarea.item {
   margin-top: 5px;
 }
 
-
-
 /* END - handle design of radio buttons */
 
 /* WHEEL START */
-div.quintessence {
-  /* height: 150px;
-  margin-left: 50px; */
-}
-
 span.quintessence {
   position: relative;
 }
@@ -1319,19 +1368,9 @@ div.sheet-headlineQuintessence {
   margin-left: 35px;
 }
 
-.langDE div.sheet-headlineQuintessence {
-  text-align: start;
-  margin-left: 45px;
-}
-
 div.sheet-headlineParadox {
   text-align: start;
   margin-left: 60px;
-}
-
-.langDE div.sheet-headlineParadox {
-  text-align: start;
-  margin-left: 45px;
 }
 
 .wheel-0:not(.noSplatFont) {

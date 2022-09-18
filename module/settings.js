@@ -172,9 +172,9 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
-    game.settings.register("worldofdarkness", "patch200", {
-		name: "patch200",
-		hint: "patch200",
+    game.settings.register("worldofdarkness", "patch210", {
+		name: "patch210",
+		hint: "patch210",
 		scope: "world",
 		config: false,
 		default: false,
@@ -186,7 +186,7 @@ export const systemSettings = function() {
         name: game.i18n.localize('wod.settings.rulesettings'),
         hint: game.i18n.localize('wod.settings.rulesettingshint'),
         label: game.i18n.localize('wod.settings.rulesettings'),
-        icon: "fa fa-cog",
+        icon: "fa-solid fa-gear",
         type: Rules,
         restricted: true,
     });
@@ -195,7 +195,7 @@ export const systemSettings = function() {
         name: game.i18n.localize('wod.settings.permissionsettings'),
         hint: game.i18n.localize('wod.settings.permissionsettingshint'),
         label: game.i18n.localize('wod.settings.permissionsettings'),
-        icon: "fa fa-cog",
+        icon: "fa-solid fa-gear",
         type: Permissions,
         restricted: true,
     });
@@ -204,7 +204,7 @@ export const systemSettings = function() {
         name: game.i18n.localize('wod.settings.graphicsettings'),
         hint: game.i18n.localize('wod.settings.graphicsettingshint'),
         label: game.i18n.localize('wod.settings.graphicsettings'),
-        icon: "fa fa-cog",
+        icon: "fa-solid fa-gear",
         type: Graphics,
         restricted: true,
     });

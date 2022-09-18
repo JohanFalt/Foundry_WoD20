@@ -36,9 +36,11 @@ export class WoDItemSheet extends ItemSheet {
 			this.item.update(itemData);
 		}
 
-		if ((itemData.type == "Power") && ((itemData.system.type == "wod.types.discipline") || (itemData.system.type == "wod.types.disciplinepath"))) {
-			itemData.system.isrollable = false;
-			this.item.update(itemData);
+		if (itemData.type == "Power") { 
+			if ((itemData.system.type == "wod.types.discipline") || (itemData.system.type == "wod.types.disciplinepath") || (itemData.system.type == "wod.types.art")) {
+				itemData.system.isrollable = false;
+				this.item.update(itemData);
+			}
 		}		
 
 		const data = super.getData();
@@ -159,6 +161,10 @@ export function getImage(item) {
 		return "systems/worldofdarkness/assets/img/items/fetish.svg";
 	}
 
+	if (item.type == "Item") {
+		
+	}
+
 	if ((item.type == "Melee Weapon") && (item.system.isnatural)) {
 		return "systems/worldofdarkness/assets/img/items/naturalweapons.svg";
 	}
@@ -190,6 +196,14 @@ export function getImage(item) {
 
 		if (item.system.type == "wod.types.ritual") {
 			return "systems/worldofdarkness/assets/img/items/ritual_vampire.svg";
+		}
+
+		if (item.system.type == "wod.types.art") {
+			return "systems/worldofdarkness/assets/img/items/mainpower_changeling.svg";
+		}
+
+		if (item.system.type == "wod.types.artpower") {
+			return "systems/worldofdarkness/assets/img/items/power_changeling.svg";
 		}
 
 		if (item.system.type == "wod.types.gift") {

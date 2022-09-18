@@ -65,7 +65,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const ritelist = [];
 		const fetishlist = [];
 		const talenlist = [];
-		const other = [];
 		let presentform = "";
 
 		console.log("WoD | Changing Breed Sheet handling shift data");
@@ -134,10 +133,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				}
 				else if (i.system.type == "wod.types.rite") {
 					ritelist.push(i);
-				}
-				else {
-					other.push(i);
-				}			
+				}		
 			}
 			if (i.type == "Fetish") {
 				if (i.system.type == "wod.types.fetish") {
@@ -145,9 +141,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				}
 				else if (i.system.type == "wod.types.talen") {
 					talenlist.push(i);
-				}	
-				else {
-					other.push(i);
 				}
 			}
 		}
@@ -163,8 +156,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		data.actor.ritelist = ritelist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.fetishlist = fetishlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.talenlist = talenlist.sort((a, b) => a.name.localeCompare(b.name));
-
-		data.actor.other = other;	
 
 		if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 			console.log(CONFIG.wod.sheettype.changingbreed);

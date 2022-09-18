@@ -88,6 +88,74 @@ export function calculateTotals(actorData) {
 		actorData.system.soak.aggravated = actorData.system.attributes.stamina.total;
 	}
 
+	/* If Changeling and Chimerical soak */
+	if (actorData.system.settings.soak.chimerical != undefined) {
+		actorData.system.soak.chimerical.bashing = 0;
+		actorData.system.soak.chimerical.lethal = 0;
+		actorData.system.soak.chimerical.aggravated = 0;
+
+		if (actorData.system.settings.soak.chimerical.bashing.isrollable) {
+			actorData.system.soak.chimerical.bashing = actorData.system.attributes.stamina.total;
+		}
+		if (actorData.system.settings.soak.chimerical.lethal.isrollable) {
+			actorData.system.soak.chimerical.lethal = actorData.system.attributes.stamina.total;
+		}
+		if (actorData.system.settings.soak.chimerical.aggravated.isrollable) {
+			actorData.system.soak.chimerical.aggravated = actorData.system.attributes.stamina.total;
+		}
+	}	
+
+	for (const i of actorData.items) {
+		if ((i.type == "Armor") && (i.system?.isequipped)) {
+			if (actorData.system.shapes == undefined) {
+				actorData.system.soak.bashing += i.system.soak.bashing;
+				actorData.system.soak.lethal += i.system.soak.lethal;
+				actorData.system.soak.aggravated += i.system.soak.aggravated;
+				actorData.system.attributes.dexterity.total += i.system.dexpenalty;
+
+				/* If changeling */
+				if (actorData.system.settings.soak.chimerical != undefined) {
+					actorData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
+					actorData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
+					actorData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
+				}
+			}
+			/* If Werewolf or Changing Breed */
+			else {
+				for (const form in actorData.system.shapes) {
+					if (actorData.system.shapes[form].isactive) {
+						let hasform = false;
+
+						if (form == "homid") {
+							hasform = i.system.forms.hashomid;
+						}
+						if (form == "glabro") {
+							hasform = i.system.forms.hasglabro;
+						}
+						if (form == "crinos") {
+							hasform = i.system.forms.hascrinos;
+						}
+						if (form == "hispo") {
+							hasform = i.system.forms.hashispo;
+						}
+						if (form == "lupus") {
+							hasform = i.system.forms.haslupus;
+						}
+
+						if (hasform) {
+							actorData.system.soak.bashing += i.system.soak.bashing;
+							actorData.system.soak.lethal += i.system.soak.lethal;
+							actorData.system.soak.aggravated += i.system.soak.aggravated;
+							actorData.system.attributes.dexterity.total += i.system.dexpenalty;
+
+							break;
+						}	
+					}		
+				}
+			}
+		}
+	}
+
 	actorData.system.initiative.base = parseInt(actorData.system.attributes.dexterity.total) + parseInt(actorData.system.attributes.wits.total);
 	actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
 

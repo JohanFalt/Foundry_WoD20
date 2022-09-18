@@ -8,11 +8,11 @@
 		{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
 
 		<div class="attribute-rowheight" style="clear:left;">
-			<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#iff sphere.label "==" ../data.system.affinity}}bold{{/iff}}" 
-				{{#iff sphere.label "==" ../data.system.affinity}}title="{{localize "wod.bio.affinitysphere"}}"{{/iff}}>{{localize sphere.label}}</label>
+			<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#if (eq sphere.label ../data.system.affinity)}}highlightedPower{{/if}}" 
+				{{#if (eq sphere.label ../data.system.affinity)}}title="{{localize "wod.bio.mage.affinitysphere"}}"{{/if}}>{{localize sphere.label}}</label>
 			<div class="resource-value pullLeft" 
 				data-value="{{sphere.value}}"
-				data-name="system.spheres.{{key}}.value">
+				data-name="data.system.spheres.{{key}}.value">
 
 				<span class="resource-value-empty" data-type="{{../config.sheettype.mage}}"></span>
 

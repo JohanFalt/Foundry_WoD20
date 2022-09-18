@@ -3,29 +3,37 @@
 		<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
 		<a class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
 
+		{{#if (eq actor.type config.sheettype.changeling)}}
+			<a class="item itemTabsText" data-tab="dreaming">{{localize 'wod.tab.dreaming'}}</a>
+		{{/if}}
+
 		{{#if (eq actor.type config.sheettype.mage)}}
 			<a class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
 		{{/if}}
 
-		<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
-		<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>
-		
+		{{#if (eq actor.type config.sheettype.vampire)}}
+			<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
+		{{/if}}
+
 		{{#if (eq actor.type config.sheettype.werewolf)}}
+			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+		{{/if}}		
+
+		{{#if (eq actor.type config.sheettype.changingbreed)}}
 			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
 			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
 		{{/if}}
 
-		{{#if (eq actor.type "Changing Breed")}}
-			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
-			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
-		{{/if}}
-		
-		{{#if (eq actor.type config.sheettype.vampire)}}
-			<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
-		{{/if}}
+		<!-- {{#if (eq actor.type config.sheettype.mortal)}}
+			<a class="item itemTabsText" data-tab="power">{{localize 'wod.tab.power'}}</a>
+		{{/if}} -->
+
+		<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+		<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>		
 		
 		<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
-		<a class="item" data-tab="settings"><i class="fa fa-cog"></i></a>
+		<a class="item" data-tab="settings"><i class="fa-solid fa-gear"></i></a>
 	</nav>	
 {{else}}
 	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">

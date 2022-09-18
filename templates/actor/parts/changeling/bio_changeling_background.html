@@ -1,0 +1,134 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="system.seeming">{{localize "wod.bio.changeling.seeming"}}</label>
+        <div class="pullLeft bioInformationArea">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.seeming}}" data-dtype="String" readonly />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.seeming" data-name="data.system.seeming" data-dtype="String">
+                    {{#select data.system.seeming}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="wod.bio.changeling.childling">{{localize "wod.bio.changeling.childling"}}</option>
+                        <option value="wod.bio.changeling.wilder">{{localize "wod.bio.changeling.wilder"}}</option>
+                        <option value="wod.bio.changeling.grump">{{localize "wod.bio.changeling.grump"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.kith">{{localize "wod.bio.changeling.kith"}}</label>
+        <div class="pullLeft bioInformationArea">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.kith}}" data-dtype="String" readonly />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.kith" type="text" value="{{data.system.kith}}" data-koptions="--{{localize 'wod.bio.changeling.changelings'}}--/{{localize 'wod.bio.changeling.boggans'}}/{{localize 'wod.bio.changeling.clurichaun'}}/{{localize 'wod.bio.changeling.eshu'}}/{{localize 'wod.bio.changeling.nockers'}}/{{localize 'wod.bio.changeling.piskies'}}/{{localize 'wod.bio.changeling.pooka'}}/{{localize 'wod.bio.changeling.redcap'}}/{{localize 'wod.bio.changeling.satyrs'}}/{{localize 'wod.bio.changeling.selkies'}}/{{localize 'wod.bio.changeling.sidhe'}}/{{localize 'wod.bio.changeling.sluagh'}}/{{localize 'wod.bio.changeling.troll'}}/">
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="system.court">{{localize "wod.bio.changeling.court"}}</label>
+        <div class="pullLeft bioInformationArea">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.court}}" data-dtype="String" readonly />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.court" data-name="data.system.court" data-dtype="String">
+                    {{#select data.system.court}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="wod.bio.changeling.seelie">{{localize "wod.bio.changeling.seelie"}}</option>
+                        <option value="wod.bio.changeling.unseelie">{{localize "wod.bio.changeling.unseelie"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="system.affinityrealm">{{localize "wod.bio.changeling.affinity"}}</label>
+        <div class="pullLeft bioInformationArea">            
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.affinityrealm}}" data-dtype="String" readonly />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.affinityrealm" data-name="data.system.affinityrealm" data-dtype="String">
+                    {{#select data.system.affinityrealm}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        {{#each actor.system.listdata.realms as |realm key|}}
+                            <option value="{{realm.label}}">{{localize realm.label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            {{/if}}            
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.antithesis">{{localize "wod.bio.changeling.antithesis"}}</label>
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.antithesis" type="text" value="{{data.system.antithesis}}" data-name="data.system.antithesis" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>	
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.birthrights">{{localize "wod.bio.changeling.birthright"}}</label>
+        <!-- <textarea class="sheet-infoValues pullLeft {{#if locked}}{{else}}editable{{/if}}" name="system.birthrights" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.birthrights}}</textarea> -->
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.birthright1" type="text" value="{{data.system.birthright1}}" data-name="data.system.birthright1" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>	
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.birthrights">&nbsp;</label>
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.birthright2" type="text" value="{{data.system.birthright2}}" data-name="data.system.birthright2" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.frailty">{{localize "wod.bio.changeling.frailty"}}</label>
+        <!-- <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.frailty" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.frailty}}</textarea> -->
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.frailty" type="text" value="{{data.system.frailty}}" data-name="data.system.frailty" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+    	<label class="headlineText headlineBio splatFont" for="data.house">{{localize "wod.bio.changeling.house"}}</label>
+		<!-- <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.house" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.house}}</textarea> -->
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.house" type="text" value="{{data.system.house}}" data-name="data.system.house" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
+        <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.legacyseelie" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.legacyseelie}}</textarea>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
+        <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.legacyunseelie" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.legacyunseelie}}</textarea>
+    </div>
+</div>
+

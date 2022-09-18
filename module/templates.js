@@ -16,6 +16,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/attributes_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities_spec.html",
+		"systems/worldofdarkness/templates/actor/parts/power.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/conditions.html",
 		"systems/worldofdarkness/templates/actor/parts/macro_icons.html",
@@ -55,8 +56,15 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_nuwisha_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html",
+
+		"systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/stats_glamour.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/stats_nightmare.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/stats_banality.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/treasure.html",
 		
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/combat_active.html",
@@ -75,17 +83,22 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/fetish.html",
 
 		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/resonance.html",
 		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.html",
 		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",
+		"systems/worldofdarkness/templates/actor/parts/spirit/gifts.html",
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
 
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",		
 
 		// Item Sheet Partials
 		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
@@ -238,26 +251,39 @@ export const registerHandlebarsHelpers = function () {
 		return attribute;
 	});
 
-	Handlebars.registerHelper("getAbility", function (ability) {
-		for (const i in CONFIG.wod.alltalents) {
+	Handlebars.registerHelper("getAbility", function (ability, actor = undefined, id = "") {
+		if ((ability == "custom") && (id != "")) {
+			const item = actor.getEmbeddedDocument("Item", id);
+			return item.system.label;	
+		}
+
+		for (const i in CONFIG.wod.talents) {
 			if (i == ability) {
-				return CONFIG.wod.alltalents[i];
+				return CONFIG.wod.talents[i];
 			}
 		}
 
-		for (const i in CONFIG.wod.allskills) {
+		for (const i in CONFIG.wod.skills) {
 			if (i == ability) {
-				return CONFIG.wod.allskills[i];
+				return CONFIG.wod.skills[i];
 			}
 		}
 
-		for (const i in CONFIG.wod.allknowledges) {
+		for (const i in CONFIG.wod.knowledges) {
 			if (i == ability) {
-				return CONFIG.wod.allknowledges[i];
+				return CONFIG.wod.knowledges[i];
 			}
-		}
+		}		
 
 		return ability;
+	});
+
+	Handlebars.registerHelper("getAbilityLabel", function (ability) {
+		if (ability.altlabel == "") {
+			return game.i18n.localize(ability.label);
+		}
+		
+		return ability.altlabel;
 	});
 
 	Handlebars.registerHelper("topAttributes", function (attribute) {
@@ -309,6 +335,14 @@ export const registerHandlebarsHelpers = function () {
 				newtext = "wod.advantages.cunning";
 			}
 		}
+		if (type == "Gurahl") {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.honor";
+			}
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.succor";
+			}
+		}
 		if (type == "Kitsune") {
 			if (renown == "Glory") { 
 				newtext = "wod.advantages.chie";
@@ -318,6 +352,14 @@ export const registerHandlebarsHelpers = function () {
 			}
 			if (renown == "Wisdom") { 
 				newtext = "wod.advantages.kagayaki";
+			}
+		}
+		if (type == "Nuwisha") {
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.humor";
+			}
+			if (renown == "Wisdom") { 
+				newtext = "wod.advantages.cunning";
 			}
 		}
 		if (type == "Ratkin") {
@@ -344,6 +386,71 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return newtext;
+	});
+
+	Handlebars.registerHelper("getShifterRank", function (type, rank) {
+		if (type == "Werewolf") {
+			if (rank == 0) return game.i18n.localize("wod.advantages.ranknames.garou.rank0");
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.garou.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.garou.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.garou.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.garou.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.garou.rank5");
+			if (rank == 6) return game.i18n.localize("wod.advantages.ranknames.garou.rank6");
+		}
+		if (type == "Bastet") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.bastet.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.bastet.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.bastet.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.bastet.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.bastet.rank5");
+		}
+		if (type == "Corax") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.corax.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.corax.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.corax.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.corax.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.corax.rank5");
+		}
+		if (type == "Gurahl") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.gurahl.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.gurahl.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.gurahl.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.gurahl.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.gurahl.rank5");
+		}
+		if (type == "Kitsune") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank5");
+		}
+		if (type == "Mokolé") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.mokole.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.mokole.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.mokole.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.mokole.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.mokole.rank5");
+		}
+		if (type == "Nagah") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.nagah.rank0");
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.nagah.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.nagah.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.nagah.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.nagah.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.nagah.rank5");
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.nagah.rank6");
+		}
+		if (type == "Ratkin") {
+			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.ratkin.rank1");
+			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.ratkin.rank2");
+			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.ratkin.rank3");
+			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.ratkin.rank4");
+			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.ratkin.rank5");
+		}
+
+		return "";
 	});
 
 	Handlebars.registerHelper("getSpiritAttributes", function (attribute) {
@@ -436,6 +543,10 @@ export const registerHandlebarsHelpers = function () {
 		return text.charAt(0).toUpperCase() + text.slice(1);
 	});
 
+	Handlebars.registerHelper("firstLetter", function (text) {
+		return text.charAt(0).toUpperCase();
+	});
+
 	Handlebars.registerHelper("checkSystemsetting", function (text) {
 		if (text == "attributeSettings") {
 			return CONFIG.wod.attributeSettings;
@@ -474,6 +585,10 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("lowercase", function (text) {
 		return text.toLowerCase();
+	});
+
+	Handlebars.registerHelper("enrichHTML", function (text) {
+	 	return TextEditor.enrichHTML(text, {async: false});
 	});
 
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {

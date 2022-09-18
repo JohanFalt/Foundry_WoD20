@@ -1,11 +1,16 @@
 import { rollDice } from "./roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
 import { calculateTotals } from "./totals.js";
+
 import { MeleeWeapon } from "../dialogs/dialog-weapon.js";
 import { RangedWeapon } from "../dialogs/dialog-weapon.js";
 import { Damage } from "../dialogs/dialog-weapon.js";
 import { DialogWeapon } from "../dialogs/dialog-weapon.js";
+import { Treasure } from "../dialogs/dialog-item.js";
+import { DialogItem } from "../dialogs/dialog-item.js";
+
 import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js";
+
 import { Rote } from "../dialogs/dialog-aretecasting.js";
 import { Gift } from "../dialogs/dialog-power.js";
 import { CharmGift } from "../dialogs/dialog-power.js";
@@ -14,14 +19,22 @@ import { Power } from "../dialogs/dialog-power.js";
 import { DisciplinePower } from "../dialogs/dialog-power.js";
 import { PathPower } from "../dialogs/dialog-power.js";
 import { RitualPower } from "../dialogs/dialog-power.js";
+import { ArtPower } from "../dialogs/dialog-power.js";
 import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
 import { DialogPower } from "../dialogs/dialog-power.js";
-import { SortDisciplinePower } from "../dialogs/dialog-sortdisciplinepower.js";
-import { SortPathPower } from "../dialogs/dialog-sortdisciplinepower.js";
-import { DialogSortDisciplinePower } from "../dialogs/dialog-sortdisciplinepower.js";
+
+import { SortDisciplinePower } from "../dialogs/dialog-sortpower.js";
+import { SortPathPower } from "../dialogs/dialog-sortpower.js";
+import { SortArtPower } from "../dialogs/dialog-sortpower.js";
+import { DialogSortPower } from "../dialogs/dialog-sortpower.js";
+
 import { VampireFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 import { WerewolfFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
+
+import { Shape } from "../dialogs/dialog-shapechange.js";
+import { DialogShapeChange } from "../dialogs/dialog-shapechange.js";
+
 import { Soak } from "../dialogs/dialog-soak.js";
 import { DialogSoakRoll } from "../dialogs/dialog-soak.js";
 
@@ -56,6 +69,11 @@ export default class ActionHelper {
 		if ((dataset.rollitem == "true") && ((dataset.itemid != undefined) || (dataset.itemid != "undefined"))) {
 			item = actor.getEmbeddedDocument("Item", dataset.itemid);
 
+			if (item == undefined) {
+				console.log(`WoD | RollDialog - item ${dataset.itemid} not found`);
+				return;
+			}
+
 			// used a Weapon
 			if (dataset.object == "Melee") {
 				const weapon = new MeleeWeapon(item);
@@ -78,6 +96,15 @@ export default class ActionHelper {
 				const damage = new Damage(item);
 				let weaponUse = new DialogWeapon(actor, damage);
 				weaponUse.render(true);
+
+				return;
+			}
+
+			// used a Item
+			if (dataset.object == "Treasure") {
+				const treasure = new Treasure(item);
+				let treasureUse = new DialogItem(actor, treasure);
+				treasureUse.render(true);
 
 				return;
 			}
@@ -178,10 +205,19 @@ export default class ActionHelper {
 				return;
 			}
 
+			// used a Art
+			if (dataset.object == "Art") {
+				const art = new ArtPower(item);
+				let powerUse = new DialogPower(actor, art);
+				powerUse.render(true);
+
+				return;
+			}
+
 			// placing Disicpline Power in correct discipline
 			if (dataset.object == "SortDisciplinePower") {
 				const discipline = new SortDisciplinePower(item);
-				let powerUse = new DialogSortDisciplinePower(actor, discipline);
+				let powerUse = new DialogSortPower(actor, discipline);
 				powerUse.render(true);
 
 				return;
@@ -189,11 +225,19 @@ export default class ActionHelper {
 
 			if (dataset.object == "SortPathPower") {
 				const discipline = new SortPathPower(item);
-				let powerUse = new DialogSortDisciplinePower(actor, discipline);
+				let powerUse = new DialogSortPower(actor, discipline);
 				powerUse.render(true);
 
 				return;
 			}			
+
+			if (dataset.object == "SortArtPower") {
+				const cantrip = new SortArtPower(item);
+				let powerUse = new DialogSortPower(actor, cantrip);
+				powerUse.render(true);
+
+				return;
+			}
 
 			ui.notifications.error("Item Roll missing function - " + dataset.object);
 
@@ -269,6 +313,14 @@ export default class ActionHelper {
 
 				let checkFrenzy = new DialogCheckFrenzy(actor, frenzy);
 				checkFrenzy.render(true);
+
+				return;
+			}
+
+			if (dataset.rollshapechange == "true") {
+				const shape = new Shape(actor);
+				let shapeChange = new DialogShapeChange(actor, shape);
+				shapeChange.render(true);
 
 				return;
 			}
@@ -377,19 +429,12 @@ export default class ActionHelper {
 					init = "";
 				}
 				if (!rolledInitiative) {
-					message += "<em>" + actor.name + " "+game.i18n.localize("wod.dice.initiativealready")+"</em><br />";
+					message += "<em>" + actor.system.name + " "+game.i18n.localize("wod.dice.initiativealready")+"</em><br />";
 					label = "";
 					init = "";
 				}
 			}
 		}
-
-		// if (label != "") {
-		// 	label = "<br /><br />" + label;
-		// }
-		// if (message != "") {
-		// 	message = "<br />" + message;
-		// }
 
 		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2><strong>'+game.i18n.localize("wod.dice.totalvalue") + ': ' + init + '</strong><br />'+initAttribute+'<p>' + label + '</p>' + '<p>' + message + '</p>', actor);			
 	}
@@ -460,7 +505,14 @@ export default class ActionHelper {
 	}
 
     static handleWoundLevelCalculations(actorData) {
-		let totalWoundLevels = parseInt(actorData.system.health.damage.bashing) + parseInt(actorData.system.health.damage.lethal) + parseInt(actorData.system.health.damage.aggravated);
+		let totalNormWoundLevels = parseInt(actorData.system.health.damage.bashing) + parseInt(actorData.system.health.damage.lethal) + parseInt(actorData.system.health.damage.aggravated);
+		let totalChimericalWoundLevels = 0;
+		
+		if (actorData.system.health.damage.chimerical != undefined) {
+			totalChimericalWoundLevels = parseInt(actorData.system.health.damage.chimerical.bashing) + parseInt(actorData.system.health.damage.chimerical.lethal) + parseInt(actorData.system.health.damage.chimerical.aggravated);
+		}
+
+		let totalWoundLevels = totalNormWoundLevels < totalChimericalWoundLevels ? totalChimericalWoundLevels : totalNormWoundLevels;
 
 		if (totalWoundLevels == 0) {
 			actorData.system.health.damage.woundlevel = "";
@@ -472,13 +524,56 @@ export default class ActionHelper {
 		for (const i in CONFIG.wod.woundLevels) {
 			totalWoundLevels = totalWoundLevels - parseInt(actorData.system.health[i].value);
 
-			if (totalWoundLevels == 0) {
+			if (totalWoundLevels <= 0) {
 				actorData.system.health.damage.woundlevel = actorData.system.health[i].label;
 				actorData.system.health.damage.woundpenalty = actorData.system.health[i].penalty;
 
 				return
 			}
 		}		
+	}
+
+	static _handleChangelingCalculations(actorData) {
+		console.log("WoD | handleChangelingCalculations");
+
+		// glamour
+		if (actorData.system.glamour.permanent > actorData.system.glamour.max) {
+			actorData.system.glamour.permanent = actorData.system.glamour.max;
+		}
+		
+		if (actorData.system.glamour.permanent < actorData.system.glamour.temporary) {
+			actorData.system.glamour.temporary = actorData.system.glamour.permanent;
+		}
+
+		// nightmare
+		if (actorData.system.nightmare.temporary > actorData.system.nightmare.max) {
+			actorData.system.nightmare.temporary = actorData.system.nightmare.max;
+		}
+
+		// banality
+		if (actorData.system.banality.permanent > actorData.system.banality.max) {
+			actorData.system.banality.permanent = actorData.system.banality.max;
+		}
+
+		let advantageRollSetting = true;
+
+		try {
+			advantageRollSetting = CONFIG.wod.rollSettings;
+		} 
+		catch (e) {
+			advantageRollSetting = true;
+		}
+
+		if (advantageRollSetting) {
+			actorData.system.glamour.roll = actorData.system.glamour.permanent; 			
+			actorData.system.banality.roll = actorData.system.banality.permanent;
+		}
+		else {
+			actorData.system.glamour.roll = actorData.system.glamour.permanent > actorData.system.glamour.temporary ? actorData.system.glamour.temporary : actorData.system.glamour.permanent; 
+			actorData.system.banality.roll = actorData.system.banality.permanent > actorData.system.banality.temporary ? actorData.system.banality.temporary : actorData.system.banality.permanent;
+		}
+
+		actorData.system.nightmare.roll = actorData.system.nightmare.temporary;
 	}
 
 	static handleVampireCalculations(actorData) {
@@ -573,7 +668,6 @@ export default class ActionHelper {
 		}
 		
 		if (actorData.system.rage.permanent < actorData.system.rage.temporary) {
-			//actorData.system.rage.temporary = actorData.system.rage.permanent;
 			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
 		}
 		
@@ -641,7 +735,7 @@ export default class ActionHelper {
 	}		
 
 	static _setMortalAbilities(actor) {
-		for (const talent in CONFIG.wod.alltalents) {
+		for (const talent in CONFIG.wod.talents) {
 
 			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
 					(actor.system.abilities.talent[talent].label == "wod.abilities.art") ||	
@@ -660,7 +754,7 @@ export default class ActionHelper {
 			}			
 		}
 
-		for (const skill in CONFIG.wod.allskills) {
+		for (const skill in CONFIG.wod.skills) {
 			
 			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
 					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
@@ -679,7 +773,7 @@ export default class ActionHelper {
 			}			
 		}
 
-		for (const knowledge in CONFIG.wod.allknowledges) {
+		for (const knowledge in CONFIG.wod.knowledges) {
 
 			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
 					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
@@ -699,8 +793,67 @@ export default class ActionHelper {
 		}
 	}
 
+	static _setChangelingAbilities(actor) {
+		for (const talent in CONFIG.wod.talents) {
+
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.kenning") ||
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
+			}
+			else {
+				actor.system.abilities.talent[talent].isvisible = false;
+			}			
+		}
+
+		for (const skill in CONFIG.wod.skills) {
+			
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.system.abilities.skill[skill].isvisible = true;
+			}
+			else {
+				actor.system.abilities.skill[skill].isvisible = false;
+			}			
+		}
+
+		for (const knowledge in CONFIG.wod.knowledges) {
+
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.gremayre") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
+			}
+			else {
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
+			}		
+		}
+	}
+
 	static _setVampireAbilities(actor) {		
-		for (const talent in CONFIG.wod.alltalents) {
+		for (const talent in CONFIG.wod.talents) {
 
 			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
 					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
@@ -719,7 +872,7 @@ export default class ActionHelper {
 			}			
 		}
 
-		for (const skill in CONFIG.wod.allskills) {
+		for (const skill in CONFIG.wod.skills) {
 
 			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
 					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
@@ -738,7 +891,7 @@ export default class ActionHelper {
 			}			
 		}
 
-		for (const knowledge in CONFIG.wod.allknowledges) {
+		for (const knowledge in CONFIG.wod.knowledges) {
 
 			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
 					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
@@ -759,7 +912,7 @@ export default class ActionHelper {
 	}
 
 	static _setMageAbilities(actor) {		
-		for (const talent in CONFIG.wod.alltalents) {
+		for (const talent in CONFIG.wod.talents) {
 
 			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
 					(actor.system.abilities.talent[talent].label == "wod.abilities.art") ||	
@@ -779,7 +932,7 @@ export default class ActionHelper {
 			}	
 		}
 
-		for (const skill in CONFIG.wod.allskills) {
+		for (const skill in CONFIG.wod.skills) {
 			
 			if ((actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
 					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
@@ -799,7 +952,7 @@ export default class ActionHelper {
 			}	
 		}
 
-		for (const knowledge in CONFIG.wod.allknowledges) {
+		for (const knowledge in CONFIG.wod.knowledges) {
 
 			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
 					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
@@ -821,7 +974,7 @@ export default class ActionHelper {
 	}
 
 	static _setWerewolfAbilities(actor) {		
-		for (const talent in CONFIG.wod.alltalents) {
+		for (const talent in CONFIG.wod.talents) {
 			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
 					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") ||	
 					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
@@ -839,7 +992,7 @@ export default class ActionHelper {
 			}			
 		}
 
-		for (const skill in CONFIG.wod.allskills) {
+		for (const skill in CONFIG.wod.skills) {
 			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||	
 					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||	
 					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") || 
@@ -857,7 +1010,7 @@ export default class ActionHelper {
 			}			
 		}
 
-		for (const knowledge in CONFIG.wod.allknowledges) {
+		for (const knowledge in CONFIG.wod.knowledges) {
 			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||	
 					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") ||	
 					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") || 
@@ -877,15 +1030,15 @@ export default class ActionHelper {
 	}
 
 	static _setCreatureAbilities(actor) {
-		for (const talent in CONFIG.wod.alltalents) {
+		for (const talent in CONFIG.wod.talents) {
 			actor.system.abilities.talent[talent].isvisible = false;
 		}
 
-		for (const skill in CONFIG.wod.allskills) {
+		for (const skill in CONFIG.wod.skills) {
 			actor.system.abilities.skill[skill].isvisible = false;
 		}
 
-		for (const knowledge in CONFIG.wod.allknowledges) {
+		for (const knowledge in CONFIG.wod.knowledges) {
 			actor.system.abilities.knowledge[knowledge].isvisible = false;
 		}		
 	}
@@ -1086,7 +1239,7 @@ export default class ActionHelper {
 	// 	}
 
 	// 	for (const i of itemlist) {
-	// 		if (i.system._id == id) {
+	// 		if (i._id == id) {
 	// 			return i;
 	// 		}
 	// 	}

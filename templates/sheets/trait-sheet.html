@@ -1,0 +1,67 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+	<div class="sheet-item">
+
+		<header class="sheet-header">
+			<div class="top-area">
+				<!--<div class="top-side">
+					<img src="{{item.img}}" />
+				</div>-->
+				<div class="top-center top-headline splatFont centerText">
+					{{item.name}}
+				</div>
+				<div class="top-side top-sidetext centerText">
+				</div>				
+			</div>
+		</header>
+
+		<section class="item-body">
+
+			<div class="infobox">
+				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+			</div>
+
+            <div>
+                <input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" readonly />
+            </div>            
+
+			<!-- type -->
+			{{#if userpermissions.itemAdministrator}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.labels.type"}}</label>
+					<select class="sheet-infoValues item editable" name="system.type">
+						{{#select data.system.type}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>
+							<option value="wod.types.talentsecondability">{{localize "wod.types.talentsecondability"}}</option>
+							<option value="wod.types.skillsecondability">{{localize "wod.types.skillsecondability"}}</option>
+							<option value="wod.types.knowledgesecondability">{{localize "wod.types.knowledgesecondability"}}</option>
+							<option value="wod.types.realm">{{localize "wod.types.realm"}}</option>
+							<option value="wod.types.resonance">{{localize "wod.types.resonance"}}</option>
+							<option value="wod.types.othertraits">{{localize "wod.types.othertraits"}}</option>
+						{{/select}}
+					</select>
+				</div>
+			{{/if}}
+
+			<!-- if weapon -->
+			{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}
+				<div class="infobox comboboxRow">
+					<label class="headlineItem headlineBio splatFont" for="data.ismeleeweapon">{{localize "wod.labels.trait.meleeweapon"}}</label>
+					<input name="system.ismeleeweapon" type="checkbox" {{#if data.system.ismeleeweapon}} checked {{/if}} />
+				</div>
+
+				<div class="infobox comboboxRow">
+					<label class="headlineItem headlineBio splatFont" for="data.israngedeweapon">{{localize "wod.labels.trait.rangedweapon"}}</label>
+					<input name="system.israngedeweapon" type="checkbox" {{#if data.system.israngedeweapon}} checked {{/if}} />
+				</div>
+			{{/if}}
+
+			<div class="infobox">
+				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
+				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
+			</div>
+		</section>
+
+	</div>
+</form>

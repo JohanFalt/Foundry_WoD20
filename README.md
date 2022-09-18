@@ -2,8 +2,9 @@
 This is a non-official (fan-made) system.
 
 - Vampire the Masquerade 20th ed
-- Mage the Ascention 20th ed
 - Werewolf the Apocalypse 20th ed
+- Mage the Ascention 20th ed
+- Changeling the Dreaming 20th ed
 
 I would never require it by anyone or even expect someone to do but if you really want to feel free to [buy me a coffee](https://ko-fi.com/johanfk) :)
 
@@ -13,9 +14,10 @@ I would never require it by anyone or even expect someone to do but if you reall
 
 ## Supported sheets
 - [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mortal-v1.6)
-- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade-v1.6)
-- [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension-v1.6)
-- [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse-v1.6)
+- [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade)
+- [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension)
+- [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse)
+- [Changeling the Dreaming (C20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changeling-the-Dreaming)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)
 - Spirits
 - Creatures
@@ -32,7 +34,8 @@ This material is NOT an official World of Darkness material.
 
 
 # Contributions
-Code for dot/box counters taken from Foundry-V5 (credit to [erizocosmico](https://github.com/erizocosmico/foundry-V5)) 
+- Original code for dot/box counters and how to get these to work from Foundry-V5 (credit to [erizocosmico](https://github.com/erizocosmico/foundry-V5)) 
+- Code for the input/selector with permission from https://gitlab.com/MarlQ/mta
 
 Systems I have checked to learn general structure and the typical "how do you do this?":
 - https://github.com/Layman2501/wod20
@@ -50,7 +53,7 @@ Italian translation (still working on) - EldritchTranslator
 Spanish translation - Duke and Wharomaru
 
 ## Icons
-https://fontawesome.com/v4.7/icons/
+https://fontawesome.com/
 
 https://game-icons.net/
 

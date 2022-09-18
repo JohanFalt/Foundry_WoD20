@@ -32,7 +32,7 @@
 								<span class="attribute-total">{{attribute.total}}</span>
 							{{/if}}
 									
-							{{#if (eq ../actor.type "Changing Breed")}}
+							{{#if (eq ../actor.type ../config.sheettype.changingbreed)}}
 								<span class="attribute-total">{{attribute.total}}</span>
 							{{/if}}
 
@@ -46,7 +46,7 @@
 
 							{{#numLoop attribute.max}}
 							
-							<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
+								<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
 							
 							{{/numLoop}}
 							

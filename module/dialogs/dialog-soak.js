@@ -13,6 +13,9 @@ export class Soak {
         this.attributeValue = 0;
         this.attributeBonus = 0;
 
+        this.soaktype = "normal";
+        this.useChimerical = actor.system.listdata.settings.haschimericalhealth;
+
         this.sheettype = "";
     }
 }
@@ -20,8 +23,8 @@ export class Soak {
 export class DialogSoakRoll extends FormApplication {
     constructor(actor, roll) {
         super(roll, {submitOnChange: true, closeOnSubmit: false});
-        this.actor = actor; 
-        this.isDialog = true;      
+        this.actor = actor;    
+        this.isDialog = true;   
         this.options.title = `${this.actor.name}`;
     }
 
@@ -41,10 +44,11 @@ export class DialogSoakRoll extends FormApplication {
 
     getData() {
         const data = super.getData();
-        data.actorData = this.actor.system;   
+        data.actorData = this.actor.system;  
+        data.actorData.type = this.actor.type; 
         data.config = CONFIG.wod;
 
-        if (data.actorData.type != CONFIG.wod.changingbreed) {
+        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -52,11 +56,18 @@ export class DialogSoakRoll extends FormApplication {
         }
 
         if (data.object.damageKey != "") {
-            data.object.attributeValue = parseInt(data.actorData.soak[data.object.damageKey]);
-            data.object.attributeBonus = parseInt(data.actorData.settings.soak[data.object.damageKey].bonus);
+            if (data.object.soaktype == "normal") {
+                data.object.attributeValue = parseInt(data.actorData.soak[data.object.damageKey]);
+                data.object.attributeBonus = parseInt(data.actorData.settings.soak[data.object.damageKey].bonus);
+            }
+            else if (data.object.soaktype == "chimerical") {
+                data.object.attributeValue = parseInt(data.actorData.soak.chimerical[data.object.damageKey]);
+                data.object.attributeBonus = parseInt(data.actorData.settings.soak.chimerical[data.object.damageKey].bonus);
+            }
         }
         else {
             data.object.attributeValue = 0;
+            data.object.attributeBonus = 0;
         }
 
         this.render(false);
@@ -130,14 +141,18 @@ export class DialogSoakRoll extends FormApplication {
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".dialog-attribute-button");
-        const key = element.value;
+        const key = element.value;        
 
         if (key == "") {
             steps.removeClass("active");
             return;
         }
 
-        this.object.damageKey = element.value;
+        const dataset = element.dataset;
+        const type = dataset.type;
+
+        this.object.damageKey = key;
+        this.object.soaktype = type;
 
         steps.removeClass("active");
 
@@ -162,12 +177,18 @@ export class DialogSoakRoll extends FormApplication {
             return;
         }
 
-        const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.bonus) + parseInt(this.object.attributeBonus);
+        let numDices = parseInt(this.object.attributeValue) + parseInt(this.object.bonus) + parseInt(this.object.attributeBonus);        
 
         let templateHTML = `<h2>${game.i18n.localize("wod.dice.rollingsoak")}</h2>`;
 
         templateHTML += `<strong>`;
+
         templateHTML += `${game.i18n.localize(CONFIG.wod.damageTypes[this.object.damageKey])}`;
+
+        if (this.object.soaktype == "chimerical") {
+            templateHTML += ` ${game.i18n.localize('wod.health.chimerical')}`;
+        }
+        
         templateHTML += ` (${this.object.attributeValue}`;
 
         if (this.object.attributeBonus > 0) {

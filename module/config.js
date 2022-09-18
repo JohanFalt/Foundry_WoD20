@@ -2,9 +2,10 @@ export const wod = {};
 
 wod.sheettype = {
     mortal: "Mortal",
-    vampire: "Vampire",
-    mage: "Mage",
     werewolf: "Werewolf",
+    mage: "Mage",
+    vampire: "Vampire",
+    changeling: "Changeling",
     creature: "Creature",
     changingbreed: "Changing Breed",
     spirit: "Spirit"
@@ -89,6 +90,7 @@ wod.alltalents = {
     intrigue: "wod.abilities.intrigue",
     intimidation: "wod.abilities.intimidation",
     intuition: "wod.abilities.intuition",
+    kenning: "wod.abilities.kenning",
     leadership: "wod.abilities.leadership",
     legerdemain: "wod.abilities.legerdemain",
     luciddreaming: "wod.abilities.luciddreaming",
@@ -96,7 +98,6 @@ wod.alltalents = {
     negotiation: "wod.abilities.negotiation",
     newspeak: "wod.abilities.newspeak",
     primalurge: "wod.abilities.primalurge",
-    scan: "wod.abilities.scan",
     scan: "wod.abilities.scan",
     scrounging: "wod.abilities.scrounging",
     streetwise: "wod.abilities.streetwise",
@@ -113,6 +114,7 @@ wod.talents = {
     empathy: "wod.abilities.empathy",
     expression: "wod.abilities.expression",
     intimidation: "wod.abilities.intimidation",
+    kenning: "wod.abilities.kenning",
     leadership: "wod.abilities.leadership",
     primalurge: "wod.abilities.primalurge",
     streetwise: "wod.abilities.streetwise",
@@ -198,6 +200,7 @@ wod.allknowledges = {
     enigmas: "wod.abilities.enigmas",
     esoterica: "wod.abilities.esoterica",
     finance: "wod.abilities.finance",
+    gremayre: "wod.abilities.gremayre",
     hearthwisdom: "wod.abilities.hearthwisdom",
     herbalism: "wod.abilities.herbalism",
     helmsman: "wod.abilities.helmsman",
@@ -223,12 +226,12 @@ wod.allknowledges = {
 
 wod.knowledges = {
     academics: "wod.abilities.academics",
-    bureaucracy: "wod.abilities.bureaucracy",
-    cosmology: "wod.abilities.cosmology",
     computer: "wod.abilities.computer",
+    cosmology: "wod.abilities.cosmology",
     enigmas: "wod.abilities.enigmas",
     esoterica: "wod.abilities.esoterica",
     finance: "wod.abilities.finance",
+    gremayre: "wod.abilities.gremayre",
     investigation: "wod.abilities.investigation",
     law: "wod.abilities.law",
     medicine: "wod.abilities.medicine",
@@ -247,17 +250,13 @@ wod.attackAttributes = {
 wod.attackMeleeAbilities = {
     athletics: "wod.abilities.athletics",
     brawl: "wod.abilities.brawl",
-    do: "wod.abilities.do",
     martialarts: "wod.abilities.martialarts",
     melee: "wod.abilities.melee"
 } 
 
 wod.attackRangedAbilities = {
-    archery: "wod.abilities.archery",
     athletics: "wod.abilities.athletics",
-    firearms: "wod.abilities.firearms",
-    heavyweapons: "wod.abilities.heavyweapons",
-    energyweapons: "wod.abilities.energyweapons",
+    firearms: "wod.abilities.firearms"
 } 
 
 wod.damageTypes = {

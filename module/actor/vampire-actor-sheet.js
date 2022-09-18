@@ -1,5 +1,5 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
-import ActionHelper from "../scripts/action-helpers.js"
+import ActionHelper from "../scripts/action-helpers.js";
 
 export class VampireActorSheet extends MortalActorSheet {
 	
@@ -107,9 +107,9 @@ export class VampireActorSheet extends MortalActorSheet {
 			}			
 		}
 
+		// sort disciplines
 		tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
-		templist.sort((a, b) => a.system.level.localeCompare(b.system.level));	
-		unlisteddisclist.sort((a, b) => a.name.localeCompare(b.name));	
+		templist.sort((a, b) => a.system.level.localeCompare(b.system.level));			
 
 		for (const discipline of tempdisclist) {
 			disciplinelist.push(discipline);
@@ -123,9 +123,10 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		data.actor.disciplinelist = disciplinelist;
 		data.actor.listeddisciplines = tempdisclist;
-		data.actor.unlisteddisciplines = unlisteddisclist;
+		data.actor.unlisteddisciplines = unlisteddisclist.sort((a, b) => a.name.localeCompare(b.name));	
 		data.actor.hasunlisteddisciplines = unlisted;
 
+		// sort paths
 		temppathlist.sort((a, b) => a.name.localeCompare(b.name));
 		temp2list.sort((a, b) => a.system.level.localeCompare(b.system.level));	
 		unlistedpathlist.sort((a, b) => a.name.localeCompare(b.name));	
@@ -145,6 +146,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		data.actor.unlistedpaths = unlistedpathlist;
 		data.actor.hasunlistedpaths = unlistedpath;
 
+		// sort rituals
 		data.actor.rituallist = rituallist.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.wod.sheettype.vampire) {
@@ -203,10 +205,13 @@ export class VampireActorSheet extends MortalActorSheet {
 		html
 			.find(".selectGeneration")
 			.change(this._onSelectGeneration.bind(this));
-		
-	}
 
-	
+		// Temp generation
+		html
+			.find('.selectGeneration')
+			.click(this._onSelectGeneration.bind(this));
+		
+	}	
 
 	_onRollVampireDialog(event) {		
 		event.preventDefault();
@@ -290,20 +295,54 @@ export class VampireActorSheet extends MortalActorSheet {
 		event.preventDefault();
 
 		const element = event.currentTarget;
-		const dataset = element.dataset;				
+		const dataset = element.dataset;		
 
 		if (dataset.type != CONFIG.wod.sheettype.vampire) {
 			return;
 		}
 
-		const selectedGeneration = parseInt(element.value);
+		const actorData = duplicate(this.actor);
+		let selectedGeneration = actorData.system.generation;
+		let generationModifier = 0;
+		let error = false;				
+
+		if (dataset.source == "reduce") {
+			generationModifier = actorData.system.generationmod + 1;
+		}
+		else if (dataset.source == "clear") {
+			generationModifier = 0;
+		}
+		else {
+			try {
+				selectedGeneration = parseInt(element.value);
+	
+				if (isNaN(selectedGeneration)) {
+					error = true;
+				}
+			}
+			catch(e){
+				error = true;
+			}
+		}
+
+		if (error) {
+			ui.notifications.warn(game.i18n.localize("wod.labels.bio.wronggeneration"));
+			return;
+		}
+
+		selectedGeneration = selectedGeneration - generationModifier;
+
+		if (selectedGeneration < 4) {
+			ui.notifications.warn(game.i18n.localize("wod.labels.bio.wrongtempgeneration"));
+			return;
+		}
 
 		const bloodpoolMax = calculteMaxBlood(selectedGeneration);
 		const bloodSpending = calculteMaxBloodSpend(selectedGeneration);
 		const traitMax = calculteMaxTrait(selectedGeneration);
 		const disciplineMax = calculteMaxDiscipline(selectedGeneration);
 
-		const actorData = duplicate(this.actor);
+		
 
 		// attributes max
 		for (const i in actorData.system.attributes) {
@@ -341,13 +380,12 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		// virtues
 		for (const i in actorData.system.virtues) {
-			actorData.system.virtues[i].max = traitMax;
+			actorData.system.virtues[i].max = 5;
 
-			if (actorData.system.virtues[i].value > traitMax) {
-				actorData.system.virtues[i].value = traitMax;
-				actorData.system.virtues[i].roll = traitMax;
-			}
-
+			// if (actorData.system.virtues[i].value > traitMax) {
+			// 	actorData.system.virtues[i].value = traitMax;
+			// 	actorData.system.virtues[i].roll = traitMax;
+			// }
 		}
 
 		// blood pool
@@ -357,6 +395,9 @@ export class VampireActorSheet extends MortalActorSheet {
 		if (actorData.system.bloodpool.temporary > bloodpoolMax) {
 			actorData.system.bloodpool.temporary = bloodpoolMax;
 		}
+
+		actorData.system.generation = selectedGeneration + generationModifier;
+		actorData.system.generationmod = generationModifier;
 
 		// to recalculate total values
 		ActionHelper._handleCalculations(actorData);
@@ -420,15 +461,10 @@ export class VampireActorSheet extends MortalActorSheet {
 			}
 
 			const itemid = parent[0].dataset.itemid;
-
-			for (const item of this.actor.items) {
-				if (item._id == itemid) {
-					const itemData = duplicate(item);
-					itemData.system.value = parseInt(index) + 1;
-					await item.update(itemData);
-					break;
-				}
-			}
+			const item = this.actor.getEmbeddedDocument("Item", itemid);
+			const itemData = duplicate(item);
+			itemData.system.value = parseInt(index) + 1;
+			await item.update(itemData);
 		}
 		// updated actor
 		else {
@@ -602,12 +638,12 @@ function calculteMaxDiscipline(selectedGeneration) {
 async function keepDisciplinesCorrect(disciplineMax, actor) {
 	// discipline
 	for (const item of actor.items) {
-		if ((item.type == "Power") && (item.system.type == "wod.types.discipline")) {
+		if ((item.type == "Power") && (item.type == "wod.types.discipline")) {
 			const itemData = duplicate(item);
 			itemData.system.max = parseInt(disciplineMax);
 			await item.update(itemData);
 		}
-		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower")) {
+		if ((item.type == "Power") && (item.type == "wod.types.disciplinepower")) {
 			const itemData = duplicate(item);
 			itemData.system.value = 0;
 			itemData.system.max = 0;

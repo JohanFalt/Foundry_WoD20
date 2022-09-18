@@ -28,41 +28,67 @@
 			</div>
 
 			<!-- Soak -->
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.soak.bashing">{{localize "wod.combat.armor.soakbashing"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="data.soak.bashing" type="text" value="{{data.system.soak.bashing}}" data-dtype="Number" />
+			<div class="clearareaBox">
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.soak.bashing">{{localize "wod.combat.armor.soakbashing"}}</label>
+					<input class="sheet-infoValues numberBox editable" name="system.soak.bashing" type="text" value="{{data.system.soak.bashing}}" data-dtype="Number" />
+				</div>
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.soak.lethal">{{localize "wod.combat.armor.soaklethal"}}</label>
+					<input class="sheet-infoValues numberBox editable" name="system.soak.lethal" type="text" value="{{data.system.soak.lethal}}" data-dtype="Number" />
+				</div>
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.soak.aggravated">{{localize "wod.combat.armor.soakaggravated"}}</label>
+					<input class="sheet-infoValues numberBox editable" name="system.soak.aggravated" type="text" value="{{data.system.soak.aggravated}}" data-dtype="Number" />
+				</div>
 			</div>
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.soak.lethal">{{localize "wod.combat.armor.soaklethal"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="data.soak.lethal" type="text" value="{{data.system.soak.lethal}}" data-dtype="Number" />
-			</div>
+			<div class="infobox headlineItem splatFont">{{localize "wod.health.chimerical"}}</div>
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.soak.aggravated">{{localize "wod.combat.armor.soakaggravated"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="data.soak.aggravated" type="text" value="{{data.system.soak.aggravated}}" data-dtype="Number" />
+			<div class="clearareaBox">
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.soak.chimerical.bashing">{{localize "wod.combat.armor.soakbashing"}}</label>
+					<input class="sheet-infoValues numberBox editable" name="system.soak.chimerical.bashing" type="text" value="{{data.system.soak.chimerical.bashing}}" data-dtype="Number" />
+				</div>
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.soak.lethal">{{localize "wod.combat.armor.soaklethal"}}</label>
+					<input class="sheet-infoValues numberBox editable" name="system.soak.chimerical.lethal" type="text" value="{{data.system.soak.chimerical.lethal}}" data-dtype="Number" />
+				</div>
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.soak.aggravated">{{localize "wod.combat.armor.soakaggravated"}}</label>
+					<input class="sheet-infoValues numberBox editable" name="system.soak.chimerical.aggravated" type="text" value="{{data.system.soak.chimerical.aggravated}}" data-dtype="Number" />
+				</div>
 			</div>
 
 			<!-- Dexterity Penalty -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.dexpenalty">{{localize "wod.combat.armor.penalty"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="data.dexpenalty" type="text" value="{{data.system.dexpenalty}}" data-dtype="Number" />
+				<input class="sheet-infoValues numberBox editable" name="system.dexpenalty" type="text" value="{{data.system.dexpenalty}}" data-dtype="Number" />
 			</div>
 
 			<!-- Shapes -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.shapes" style="width:100%">{{localize "wod.shapes.shapes"}}</label>
-				<input name="data.forms.hashomid" type="checkbox" {{#if data.system.forms.hashomid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
-				<input name="data.forms.hasglabro" type="checkbox" {{#if data.system.forms.hasglabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
-				<input name="data.forms.hascrinos" type="checkbox" {{#if data.system.forms.hascrinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
-				<input name="data.forms.hashispo" type="checkbox" {{#if data.system.forms.hashispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
-				<input name="data.forms.haslupus" type="checkbox" {{#if data.system.forms.haslupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
+				<input name="system.forms.hashomid" type="checkbox" {{#if data.system.forms.hashomid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
+				<input name="system.forms.hasglabro" type="checkbox" {{#if data.system.forms.hasglabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
+				<input name="system.forms.hascrinos" type="checkbox" {{#if data.system.forms.hascrinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
+				<input name="system.forms.hashispo" type="checkbox" {{#if data.system.forms.hashispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
+				<input name="system.forms.haslupus" type="checkbox" {{#if data.system.forms.haslupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
+			</div>
+
+			<div class="infobox">
+				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
+				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
 			</div>
 
 			<!-- description -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-				<textarea class="item editable" name="data.description" data-dtype="String">{{~data.system.description}}</textarea>
+				<textarea class="item editable" name="system.description" data-dtype="String">{{~data.system.description}}</textarea>
 			</div>
 
 		</section>

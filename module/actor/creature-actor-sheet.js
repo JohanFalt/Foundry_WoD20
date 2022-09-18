@@ -43,6 +43,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 				ActionHelper._setCreatureAttributes(actorData);
 
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.powers.haspowers = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -52,24 +53,19 @@ export class CreatureActorSheet extends MortalActorSheet {
 		console.log("WoD | Creature Sheet getData");
 
 		const powerlist = [];
-		const other = [];
 
 		for (const i of data.items) {
 			if (i.type == "Power") {
 				if (i.system.type == "wod.types.power") {
 					powerlist.push(i);
 				}
-				else {
-					other.push(i);
-				}
 			}
 			else if (i.type == "Experience") {
-				other.push(i);
+				// is to use?
 			}
 		}
 
 		data.actor.powerlist = powerlist.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.other = other;
 
 		if (actorData.type == CONFIG.wod.sheettype.creature) {
 			console.log(CONFIG.wod.sheettype.creature);
@@ -127,6 +123,11 @@ export class CreatureActorSheet extends MortalActorSheet {
 			return;
 		}
 
+		if (this.locked) {
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+			return;
+		}
+
 		const actorData = duplicate(this.actor);
 		const source = dataset.source;
 		const type = dataset.switchtype;
@@ -147,6 +148,24 @@ export class CreatureActorSheet extends MortalActorSheet {
 			if (type == "bloodpool") {
 				actorData.system.settings.hasbloodpool = !actorData.system.settings.hasbloodpool;
 			}
+			if (type == "glamour") {
+				actorData.system.settings.hasglamour = !actorData.system.settings.hasglamour;
+			}
+			if (type == "banality") {
+				actorData.system.settings.hasbanality = !actorData.system.settings.hasbanality;
+			}
+		}
+		if (source == "powers") {
+			if (abilityType == "disciplines") {
+				actorData.system.settings.powers.hasdisciplines = !actorData.system.settings.powers.hasdisciplines;
+			}
+			if (abilityType == "gifts") {
+				actorData.system.settings.powers.hasgifts = !actorData.system.settings.powers.hasgifts;
+			}
+			if (abilityType == "charms") {
+				actorData.system.settings.powers.hascharms = !actorData.system.settings.powers.hascharms;
+			}
+			actorData.system.settings.powers.haspowers = true;
 		}
 
 		this.actor.update(actorData);
@@ -184,12 +203,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 		}
 
 		steps.removeClass("active");
-		
-		steps.each(function (i) {
-			if (i <= 0) {
-				$(this).addClass("active");
-			}
-		});
 		
 		this._onDotCounterEmpty(event);		
 	}

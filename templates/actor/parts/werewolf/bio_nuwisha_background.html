@@ -2,17 +2,13 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.breed}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Homid">Homid</option>
-                <option value="Latrani">Latrani</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                    <option value="Latrani">{{localize "wod.bio.breedname.latrani"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>
@@ -21,7 +17,7 @@
     <div>
         <label for="data.packtotem" class="headlineText headlineBio splatFont">{{localize "wod.bio.totem"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>

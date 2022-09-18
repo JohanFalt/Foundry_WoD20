@@ -2,7 +2,7 @@ import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
 
 export class WerewolfFrenzy {
-    constructor(actor, data) {        
+    constructor(actor, data) {
         this.canRoll = false;
         this.close = false;
         this.selectedMoon = undefined;
@@ -164,13 +164,13 @@ export class DialogCheckFrenzy extends FormApplication {
 
         if (this.object.type == CONFIG.wod.sheettype.werewolf) {
             this.object.canRoll = this._calculateDifficulty(true);
-            templateHTML += `${game.i18n.localize("wod.dialog.checkfrenzy.frenzysuccesses")}: ${this.object.successesRequired}`;
+            templateHTML += `${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`;
             numDices = parseInt(this.actor.system.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
             this.object.close = true;
         }
         else if (this.object.type == CONFIG.wod.sheettype.vampire) {
             this.object.canRoll = this.object.totalDifficulty > -1 ? true : false;
-            templateHTML += `${game.i18n.localize("wod.dialog.checkfrenzy.numbersuccesses")}: ${this.object.numSuccesses}`;
+            templateHTML += `${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`;
             numDices = parseInt(this.actor.system.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);
         }
 

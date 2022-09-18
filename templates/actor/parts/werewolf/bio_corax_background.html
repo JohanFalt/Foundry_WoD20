@@ -2,17 +2,13 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.breed}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Homid">Homid</option>
-                <option value="Corvid">Corvid</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                    <option value="Corvid">{{localize "wod.bio.breedname.corvid"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>	
@@ -21,24 +17,19 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.tribe}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.tribe" data-name="data.system.tribe" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.tribe" data-name="data.system.tribe" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.tribe}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Chasers">Chasers</option>
-                <option value="Leshy">Leshy</option>
-                <option value="Hermetic Order of Swift Light">Hermetic Order of Swift Light</option>
-                <option value="The Gulls of Battle">The Gulls of Battle</option>
-                <option value="The Morrigan">The Morrigan</option>
-                <option value="Murder's Gaughters">Murder's Gaughters</option>
-                <option value="The Sun-Lost">The Sun-Lost</option>
-                <option value="Simba">Simba</option>
-                <option value="Tulugaq">Tulugaq</option>                
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Chasers">{{localize "wod.bio.tribename.chasers"}}</option>
+                    <option value="Leshy">{{localize "wod.bio.tribename.leshy"}}</option>
+                    <option value="Hermetic Order of Swift Light">{{localize "wod.bio.tribename.swiftlight"}}</option>
+                    <option value="The Gulls of Battle">{{localize "wod.bio.tribename.gulls"}}</option>
+                    <option value="The Morrigan">{{localize "wod.bio.tribename.morrigan"}}</option>
+                    <option value="Murder's Gaughters">{{localize "wod.bio.tribename.gaughters"}}</option>
+                    <option value="The Sun-Lost">{{localize "wod.bio.tribename.sunlost"}}</option>
+                    <option value="Tulugaq">{{localize "wod.bio.tribename.tulugaq"}}</option>                
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>

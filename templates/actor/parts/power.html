@@ -1,0 +1,27 @@
+{{!-- Disciplines --}}
+{{#if actor.system.settings.powers.hasdisciplines}}
+    {{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
+{{/if}}
+
+{{!-- Gifts --}}
+{{#if actor.system.settings.powers.hasgifts}}
+    <div class="sheet-area">
+        {{> "systems/worldofdarkness/templates/actor/parts/spirit/gifts.html"}}
+    </div>
+    {{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
+{{/if}}
+
+{{!-- Powers --}}
+{{#if actor.system.settings.powers.haspowers}}
+    <div class="sheet-area">
+        {{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+    </div>
+{{/if}}
+
+<!-- 
+{{!-- Charms --}}
+{{#if actor.system.settings.powers.hascharms}}
+    <div class="sheet-area">
+        {{> "systems/worldofdarkness/templates/actor/parts/spirit/charms.html"}}
+    </div>
+{{/if}} -->

@@ -1,116 +1,198 @@
 <div class="sheet-headline splatFont">{{localize 'wod.health.health'}}</div>	
 <!--<div>Vänsterklick att lägga till skada, högerklick rensar aktuell ruta.</div>-->
     
-<div class="health">
+<div>
+    {{#if actor.system.listdata.settings.haschimericalhealth}}
+        <div class="clearareaBox">
+            <div class="pullLeft attribute-headlineWidth">&nbsp;</div>
+            <div class="pullLeft headlineList splatFont">{{localize 'wod.health.normal'}}</div>
+            <div class="pullRight headlineList splatFont">{{localize 'wod.health.chimerical'}}</div>
+        </div>
+    {{/if}}
 
     {{#if (gt data.system.health.bruised.value 0)}}
 
-        <label for="data.system.health.bruised" class="pullLeft attribute-headlineWidth headlineNormal" 
-            data-roll="{{data.system.health.bruised}}" 
-            data-label="{{localize 'wod.health.bruised'}}" 
-            data-ability="true" style="text-align: left;">{{localize 'wod.health.bruised'}}</label>	
-        <div class="resource-counter" data-value="{{data.system.health.bruised}}" data-name="data.system.health.bruised" style="text-align: right;">
-
-            {{#numLoop data.system.health.bruised.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.bruised.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.bruised'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.bruised">
+                {{#numLoop data.system.health.bruised.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.bruised.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.bruised">
+                    {{#numLoop data.system.health.bruised.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.bruised.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
         </div>
 
-    {{/if}}
-
+    {{/if}}  
+    
     {{#if (gt data.system.health.hurt.value 0)}}
 
-        <label for="data.system.health.hurt" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.system.health.hurt}}" data-label="{{localize 'wod.health.hurt'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.hurt'}}</label>
-        <div class="resource-counter" data-value="{{data.system.health.hurt}}" data-name="data.system.health.hurt" style="text-align: right;">
-
-            {{#numLoop data.system.health.hurt.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.hurt.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.hurt'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.hurt">
+                {{#numLoop data.system.health.hurt.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.hurt.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.hurt">
+                    {{#numLoop data.system.health.hurt.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.hurt.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
         </div>
 
     {{/if}}
 
     {{#if (gt data.system.health.injured.value 0)}}
 
-        <label for="data.system.health.injured" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.system.health.injured}}" data-label="{{localize 'wod.health.injured'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.injured'}}</label>
-        <div class="resource-counter" data-value="{{data.system.health.injured}}" data-name="data.system.health.injured" style="text-align: right;">
-
-            {{#numLoop data.system.health.injured.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.injured.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.injured'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.injured">
+                {{#numLoop data.system.health.injured.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.injured.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.injured">
+                    {{#numLoop data.system.health.injured.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.injured.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
         </div>
 
     {{/if}}
 
     {{#if (gt data.system.health.wounded.value 0)}}
 
-        <label for="data.system.health.wounded" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.system.health.wounded}}" data-label="{{localize 'wod.health.wounded'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.wounded'}}</label>
-        <div class="resource-counter" data-value="{{data.system.health.wounded}}" data-name="data.system.health.wounded" style="text-align: right;">
-
-            {{#numLoop data.system.health.wounded.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.wounded.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.wounded'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.wounded">
+                {{#numLoop data.system.health.wounded.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.wounded.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.wounded">
+                    {{#numLoop data.system.health.wounded.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.wounded.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
         </div>
 
     {{/if}}
 
     {{#if (gt data.system.health.mauled.value 0)}}
 
-        <label for="data.system.health.mauled" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.system.health.mauled}}" data-label="{{localize 'wod.health.mauled'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.mauled'}}</label>
-        <div class="resource-counter" data-value="{{data.system.health.mauled}}" data-name="data.system.health.mauled" style="text-align: right;">
-
-            {{#numLoop data.system.health.mauled.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.mauled.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.mauled'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.mauled">
+                {{#numLoop data.system.health.mauled.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.mauled.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.mauled">
+                    {{#numLoop data.system.health.mauled.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.mauled.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
         </div>
 
     {{/if}}
 
     {{#if (gt data.system.health.crippled.value 0)}}
 
-        <label for="data.system.health.crippled" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.system.health.crippled}}" data-label="{{localize 'wod.health.crippled'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.crippled'}}</label>
-        <div class="resource-counter" data-value="{{data.system.health.crippled}}" data-name="data.system.health.crippled" style="text-align: right;">
-
-            {{#numLoop data.system.health.crippled.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.crippled.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.crippled'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.crippled">
+                {{#numLoop data.system.health.crippled.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.crippled.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.crippled">
+                    {{#numLoop data.system.health.crippled.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.crippled.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
         </div>
 
     {{/if}}
 
     {{#if (gt data.system.health.incapacitated.value 0)}}
 
-        <label for="data.system.health.incapacitated" class="pullLeft attribute-headlineWidth headlineNormal" data-roll="{{data.system.health.incapacitated}}" data-label="{{localize 'wod.health.incapacitated'}}" data-ability="true" style="text-align: left;">{{localize 'wod.health.incapacitated'}}</label>
-        <div class="resource-counter" data-value="{{data.system.health.incapacitated}}" data-name="data.system.health.incapacitated" style="text-align: right;">
+        <div class="clearareaBox health">
+            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.incapacitated'}}</div>
+            <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.incapacitated">
+                {{#numLoop data.system.health.incapacitated.value}}            
+                    <span class="resource-value-step" 
+                        data-type="{{../config.sheettype.mortal}}" 
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../data.system.health.incapacitated.label ../actor.system.listdata.health this}}"></span>            
+                {{/numLoop}}
+            </div>
 
-            {{#numLoop data.system.health.incapacitated.value}}
-            
-            <span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="{{damageState ../data.system.health.incapacitated.label ../actor.health this}}"></span>
-            
-            {{/numLoop}}
-
-        </div>	
+            {{#if actor.system.listdata.settings.haschimericalhealth}}
+                <div class="resource-counter pullRight healthbox" style="width: 14px;" data-name="data.system.health.incapacitated">
+                    {{#numLoop data.system.health.incapacitated.value}}            
+                        <span class="resource-value-step" 
+                            data-type="{{../config.sheettype.changeling}}" 
+                            data-index="{{this}}" 
+                            data-state="{{damageState ../data.system.health.incapacitated.label ../actor.system.listdata.chimericalhealth this}}"></span>            
+                    {{/numLoop}}
+                </div>
+            {{/if}}
+        </div>
 
     {{/if}}
 
 </div>
 
-<div class="information-area centerText">{{localize "wod.health.penalty"}}: {{ignorePain data.system.health.damage.woundpenalty}}</div>
+<div class="clearareaBox information-area centerText">{{localize "wod.health.penalty"}}: {{ignorePain data.system.health.damage.woundpenalty}}</div>

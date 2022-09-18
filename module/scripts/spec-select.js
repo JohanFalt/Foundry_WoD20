@@ -1,5 +1,4 @@
 export const registerCustomSelectBoxes = async function(html, parentSheet) {
-  
   let parentEle = html.get(0);
     parentEle.querySelectorAll('input[data-koptions]').forEach( ele => { if(! ele.classList.contains('fancyComboBox')){
       ele.classList.add('fancyComboBox');
@@ -9,6 +8,7 @@ export const registerCustomSelectBoxes = async function(html, parentSheet) {
       }</div>`,'')}</div>`);
       let search = (ele.dataset.koptionsSearch)?true:false;
       let dropDown = ele.nextElementSibling;
+      dropDown.classList.add('fancyTextArea');
       let options = Array.from(dropDown.children).filter(v=>(v.classList.contains('kOptionDelimiter')||v.innerText!=''));
       let activeEle = null;
       let eIndex = 0;

@@ -68,7 +68,6 @@ export class SpiritActorSheet extends ActorSheet {
 
 		const charmlist = [];
 		const giftlist = [];
-		const other = [];
 
         for (const i of data.items) {
 			if (i.type == "Power") {
@@ -79,14 +78,10 @@ export class SpiritActorSheet extends ActorSheet {
 					giftlist.push(i);
 				}
 			}
-			else {
-				other.push(i);
-			}
 		}
 
 		data.actor.charmlist = charmlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.giftlist = giftlist.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.other = other;	
 
 		if (data.actor.type == CONFIG.wod.sheettype.spirit) {
 			console.log(CONFIG.wod.sheettype.spirit);
@@ -340,7 +335,7 @@ export class SpiritActorSheet extends ActorSheet {
 		}
 		else {
     		const lastField = fields.pop();
-			fields.reduce((data, field) => data[field], actorData)[lastField] = value;
+			fields.reduce((system, field) => system[field], actorData)[lastField] = value;
 		}
 
 		// rage

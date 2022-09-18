@@ -33,17 +33,17 @@
 
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.instrument.ispersonalized">{{localize "wod.dialog.aretecasting.instrumentperson"}}</label>
-                    <input name="data.instrument.ispersonalized" type="checkbox" {{#if data.system.instrument.ispersonalized}} checked {{/if}}></input>
+                    <input name="system.instrument.ispersonalized" type="checkbox" {{#if data.system.instrument.ispersonalized}} checked {{/if}}></input>
                 </div>
 
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.instrument.isunique">{{localize "wod.dialog.aretecasting.instrumentunique"}}</label>
-                    <input name="data.instrument.isunique" type="checkbox" {{#if data.system.instrument.isunique}} checked {{/if}}></input>
+                    <input name="system.instrument.isunique" type="checkbox" {{#if data.system.instrument.isunique}} checked {{/if}}></input>
                 </div>
 
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.spendingtime">{{localize "wod.dialog.aretecasting.timeextra"}}</label>
-                    <select class="editable" name="data.spendingtime">
+                    <select class="editable" name="system.spendingtime">
                         {{#select data.system.spendingtime}}
                         <option value="0">0</option>
                         <option value="-1">-1</option>
@@ -55,7 +55,7 @@
 
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.spelltype">{{localize "wod.dialog.aretecasting.castingtype"}}</label>
-                    <select class="editable" name="data.spelltype">
+                    <select class="editable" name="system.spelltype">
                         {{#select data.system.spelltype}}
                             <option value="">- {{localize "wod.labels.varies"}} -</option>
                             <option value="coincidental">{{localize "wod.spheres.coincidental"}}</option>
@@ -65,8 +65,8 @@
                 </div>
 
                 <div class="infobox">
-                    <label class="headlineItem item-label" for="data.spelltype">{{localize "wod.dialog.aretecasting.extendedcasting"}}</label>
-                    <input name="data.isextended" type="checkbox" {{#if data.system.isextended}} checked {{/if}}></input>
+                    <label class="headlineItem item-label" for="data.isextended">{{localize "wod.dialog.aretecasting.extendedcasting"}}</label>
+                    <input name="system.isextended" type="checkbox" {{#if data.system.isextended}} checked {{/if}}></input>
                 </div>
 
             </div>
@@ -221,7 +221,7 @@
 
                     <div class="infobox">
                         <label for="data.spheres.time" class="headlineItem headlineBio splatFont">{{localize "wod.spheres.time"}}</label>
-                        <div class="resource-value" data-value="{{data.time}}" data-name="data.spheres.time">
+                        <div class="resource-value" data-value="{{data.time}}" data-name="data.system.spheres.time">
                             <span class="resource-value-empty"></span>
 
                             {{#numLoop 5}}
@@ -240,14 +240,20 @@
                     <div class="information-area">{{localize "wod.info.items.spheres"}}</div>
                     
                 </div>
+
+                
             </div>        
             
             <div class="sheet-area">
+                <div class="infobox">
+                    <label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
+                    <input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
+                </div>                
 
                 <!-- description -->
                 <div class="infobox">
                     <label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-                    <textarea class="item editable" name="data.description" data-dtype="String">{{~data.system.description}}</textarea>
+                    <textarea class="item editable" name="system.description" data-dtype="String">{{~data.system.description}}</textarea>
                 </div>
 
             </div>

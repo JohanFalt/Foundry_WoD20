@@ -99,15 +99,15 @@ export const updates = async () => {
     } 
     catch (e) {
         console.log("Fel uppstod i migration.js");
-    }
-
-    // handle Game settings  
-    let willpower = -1;
-    let gnosis = -1;
-    let rage = -1;
-    let totalinit = -1;
+    }    
 
     for (const actor of game.actors) {
+        // handle Game settings  
+        let willpower = -1;
+        let gnosis = -1;
+        let rage = -1;
+        let totalinit = -1;
+
         const actorData = duplicate(actor);
 
         if (actor.type != CONFIG.wod.sheettype.spirit) {
@@ -130,24 +130,30 @@ export const updates = async () => {
             }
 
             if (rollSettings) {
-                if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.vampire) && (actor.type != CONFIG.wod.sheettype.mage)) {
-                rage = actor.system.rage.permanent; 
-                gnosis = actor.system.gnosis.permanent;
+                if (actor.system.rage != undefined) {
+                    rage = parseInt(actor.system.rage.permanent);
+                }
+                if (actor.system.gnosis != undefined) {
+                    gnosis = parseInt(actor.system.gnosis.permanent);
                 }
                 
                 willpower = actor.system.willpower.permanent; 
             }
             else {
-                if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.vampire) && (actor.type != CONFIG.wod.sheettype.mage)) {
-                rage = parseInt(actor.system.rage.permanent) > parseInt(actor.system.rage.temporary) ? actor.system.rage.temporary : actor.system.rage.permanent; 
-                gnosis = parseInt(actor.system.gnosis.permanent) > parseInt(actor.system.gnosis.temporary) ? actor.system.gnosis.temporary : actor.system.gnosis.permanent;
+                if (actor.system.rage != undefined) {
+                    rage = parseInt(actor.system.rage.permanent) > parseInt(actor.system.rage.temporary) ? actor.system.rage.temporary : actor.system.rage.permanent;
+                }
+                if (actor.system.gnosis != undefined) {
+                    gnosis = parseInt(actor.system.gnosis.permanent) > parseInt(actor.system.gnosis.temporary) ? actor.system.gnosis.temporary : actor.system.gnosis.permanent;
                 }
                 
                 willpower = parseInt(actor.system.willpower.permanent) > parseInt(actor.system.willpower.temporary) ? actor.system.willpower.temporary : actor.system.willpower.permanent; 
             }
 
-            if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.vampire) && (actor.type != CONFIG.wod.sheettype.mage)) {
+            if (rage > -1) {
                 actorData.system.rage.roll = parseInt(rage);
+            }
+            if (gnosis > -1) {
                 actorData.system.gnosis.roll = parseInt(gnosis);
             }
 
@@ -206,7 +212,7 @@ export const updates = async () => {
         
         const updateData = duplicate(actor);
 
-        updateData.system.settings.version = migrationVersion;
+        updateData.system.settings.version = "1.5.0";
 
         if(updateData.system.settings.created != undefined) {
             updateData.system.settings.iscreated = updateData.system.settings.created;   
@@ -228,7 +234,7 @@ export const updates = async () => {
             updateData.system.conditions.isignoringpain = updateData.system.conditions.ignorepain;        
         }
         if(updateData.system.conditions.stunned != undefined) {
-        updateData.system.conditions.isstunned = updateData.system.conditions.stunned;
+            updateData.system.conditions.isstunned = updateData.system.conditions.stunned;
         }
         
 
@@ -323,7 +329,7 @@ export const updates = async () => {
     if (compareVersion(actor.system.settings.version, "1.6.0")) {
         const updateData = duplicate(actor);
         let update = false;
-        updateData.system.settings.version = migrationVersion;
+        updateData.system.settings.version = "1.6.0";
 
         if (updateData.type == CONFIG.wod.sheettype.creature) {
             update = true;            
@@ -391,12 +397,146 @@ export const updates = async () => {
             if (updateData.system.tribe == "White Howlers") {
                 updateData.system.tribe = "wod.bio.werewolf.whitehowler";
             }
-        }
+        }       
         
         if (update) {
             await actor.update(updateData);
         }
-    } 
+    }
+
+    if (compareVersion(actor.system.settings.version, "2.1.0")) {
+        let updateData = duplicate(actor);
+        let update = false;
+
+        console.log(`TYPE: ${updateData.type}`);
+
+        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+            updateData.system.settings.version = migrationVersion;            
+
+            if (updateData.type == CONFIG.wod.sheettype.mage) {
+                update = true;
+
+                updateData.system.affiliation = game.i18n.localize(updateData.system.affiliation);
+
+                updateData.system.abilities.skill.technology.value = updateData.system.abilities.knowledge.technology.value;
+                updateData.system.abilities.skill.technology.speciality = updateData.system.abilities.knowledge.technology.speciality;
+                updateData.system.abilities.skill.technology.altlabel = updateData.system.abilities.knowledge.technology.altlabel;
+                updateData.system.abilities.skill.technology.isvisible = true;
+
+                updateData.system.abilities.knowledge.technology.value = 0;
+                updateData.system.abilities.knowledge.technology.speciality = "";
+                updateData.system.abilities.knowledge.technology.altlabel = "";
+                updateData.system.abilities.knowledge.technology.isvisible = false;                                
+            }
+            else if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+                update = true;
+
+                updateData.system.tribe = game.i18n.localize(updateData.system.tribe);
+            }
+            else if (updateData.type == CONFIG.wod.sheettype.vampire) {
+                update = true;
+
+                updateData.system.sect = game.i18n.localize(updateData.system.sect);
+                updateData.system.clan = game.i18n.localize(updateData.system.clan);
+            }
+            else if (updateData.type == CONFIG.wod.sheettype.creature) {
+                update = true;
+
+                updateData.system.settings.powers.haspowers = true;                            
+            }
+
+            for (const ability in updateData.system.abilities.talent) {
+                if (issecondability(ability)) {
+                    if (parseInt(actor.system.abilities.talent[ability].value) > 0) {
+                        update = true;
+                        let itemData = {
+                            name: translateSecondaryAbility(actor.system.abilities.talent[ability].label),
+                            type: "Trait",
+                            data: {
+                                iscreated: true,
+                                ismeleeweapon: issecondabilitymelee(actor.system.abilities.talent[ability].label),
+                                israngedeweapon: issecondabilityranged(actor.system.abilities.talent[ability].label),
+                                version: migrationVersion,
+                                value: parseInt(actor.system.abilities.talent[ability].value),
+                                max: parseInt(actor.system.abilities.talent[ability].max),
+                                label: translateSecondaryAbility(actor.system.abilities.talent[ability].label),
+                                speciality: actor.system.abilities.talent[ability].speciality,
+                                type: "wod.types.talentsecondability"
+                            }
+                        };
+
+                        console.log(`MIGRATION: Adds ${actor.system.abilities.talent[ability].label} to ${actor.name}`);
+                        await actor.createEmbeddedDocuments("Item", [itemData]);           
+                    }
+
+                    updateData.system.abilities.talent['-=' + ability] = null;
+                    update = true;
+                }
+            }
+            for (const ability in updateData.system.abilities.skill) {
+                if (issecondability(ability)) {
+                    if (parseInt(updateData.system.abilities.skill[ability].value) > 0) {
+                        update = true;
+                        let itemData = {
+                            name: translateSecondaryAbility(actor.system.abilities.skill[ability].label),
+                            type: "Trait",
+                            data: {
+                                iscreated: true,
+                                ismeleeweapon: issecondabilitymelee(actor.system.abilities.skill[ability].label),
+                                israngedeweapon: issecondabilityranged(actor.system.abilities.skill[ability].label),
+                                version: migrationVersion,
+                                value: parseInt(actor.system.abilities.skill[ability].value),
+                                max: parseInt(actor.system.abilities.skill[ability].max),
+                                label: translateSecondaryAbility(actor.system.abilities.skill[ability].label),
+                                speciality: actor.system.abilities.skill[ability].speciality,
+                                type: "wod.types.skillsecondability"
+                            }
+                        };
+
+                        console.log(`MIGRATION: Adds ${actor.system.abilities.skill[ability].label} to ${actor.name}`);
+                        await actor.createEmbeddedDocuments("Item", [itemData]);                        
+                    }
+
+                    updateData.system.abilities.skill['-=' + ability] = null;
+                    update = true;
+                }
+            }
+            for (const ability in updateData.system.abilities.knowledge) {
+                if (issecondability(ability)) {
+                    if (parseInt(updateData.system.abilities.knowledge[ability].value) > 0) {
+                        update = true;
+                        let itemData = {
+                            name: translateSecondaryAbility(actor.system.abilities.knowledge[ability].label),
+                            type: "Trait",
+                            data: {
+                                iscreated: true,
+                                ismeleeweapon: issecondabilitymelee(actor.system.abilities.knowledge[ability].label),
+                                israngedeweapon: issecondabilityranged(actor.system.abilities.knowledge[ability].label),
+                                version: migrationVersion,
+                                value: parseInt(actor.system.abilities.knowledge[ability].value),
+                                max: parseInt(actor.system.abilities.knowledge[ability].max),
+                                label: translateSecondaryAbility(actor.system.abilities.knowledge[ability].label),
+                                speciality: actor.system.abilities.knowledge[ability].speciality,
+                                type: "wod.types.knowledgesecondability"
+                            }
+                        };
+
+                        console.log(`MIGRATION: Adds ${actor.system.abilities.knowledge[ability].label} to ${actor.name}`);
+                        await actor.createEmbeddedDocuments("Item", [itemData]);                        
+                    }
+
+                    updateData.system.abilities.knowledge['-=' + ability] = null;
+                    update = true;
+                }
+            }
+        }
+
+        if (update) {
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }   
 
     for (const item of actor.items) {
         await updateItem(item, migrationVersion);
@@ -410,6 +550,8 @@ export const updates = async () => {
  * 
  */
  export const updateItem = async function(item, migrationVersion) {
+    let altered = false;
+
     if (compareVersion(item.system.version, "1.5.0")) {
         const itemData = duplicate(item);
 
@@ -447,7 +589,7 @@ export const updates = async () => {
         // Alla actor items POWER skall flytta active -> isactive
         if (item.type == "Power") {
             itemData.system.isactive = itemData.system.active;
-            itemData.system.isrollable = itemData.system.rollable;                        
+            itemData.system.isrollable = itemData.system.rollable;                 
         }                      
 
         if (item.type == "Rote") {
@@ -463,10 +605,16 @@ export const updates = async () => {
             itemData.system.isspent = itemData.system.spent;
         }
 
-        itemData.system.version = migrationVersion;
+        itemData.system.version = "1.5.0";
         itemData.system.iscreated = true;
 
-        await item.update(itemData);
+        altered = true;
+
+        if (altered) {
+            await item.update(itemData);
+
+            altered = false;
+        }
 
         // Armor
         if (item.type == "Armor") {
@@ -475,6 +623,8 @@ export const updates = async () => {
             itemData.system.forms['-=crinos'] = null;
             itemData.system.forms['-=hispo'] = null;
             itemData.system.forms['-=lupus'] = null;
+
+            altered = true;
         }
 
         // Weapons
@@ -485,11 +635,15 @@ export const updates = async () => {
             itemData.system.damage['-=isRollable'] = null;
             itemData.system['-=diff'] = null;
             itemData.system['-=twohanded'] = null;
+
+            altered = true;
         }
 
         // Melee Weapon
         if (item.type == "Melee Weapon") {
             itemData.system['-=natural'] = null;
+
+            altered = true;
         }
 
         // Ranged Weapon
@@ -498,11 +652,15 @@ export const updates = async () => {
             itemData.system.mode['-=burst'] = null;
             itemData.system.mode['-=fullauto'] = null;
             itemData.system.mode['-=spray'] = null;
+
+            altered = true;
         }
 
         // Fetish
         if (item.type == "Fetish") {
             itemData.system['-=diff'] = null;
+
+            altered = true;
         }
 
         // Power
@@ -510,29 +668,82 @@ export const updates = async () => {
             itemData.system['-=active'] = null;
             itemData.system['-=rollable'] = null;
             itemData.system['-=isRollable'] = null;
+
+            altered = true;
         }                      
 
         // Rote
         if (item.type == "Rote") {
             itemData.system.instrument['-=personalized'] = null;
             itemData.system.instrument['-=unique'] = null;
+
+            altered = true;
         }
 
         // Feature
         if (item.type == "Feature") {
             itemData.system['-=roll'] = null;
             itemData.system['-=isRollable'] = null;
+
+            altered = true;
         }
         
         if (item.type == "Experience") {
             itemData.system['-=spent'] = null;
+
+            altered = true;
         }
 
         if (item.type != "Experience") {      
             itemData.system['-=created'] = null;  
+
+            altered = true;
         }
 
-        await item.update(itemData);
+        if (altered) {
+            await item.update(itemData);
+
+            altered = false;
+        }
+    }
+
+    if (compareVersion(item.system.version, "2.1.0")) {
+        const itemData = duplicate(item);
+
+        if (item.type == "Melee Weapon") {
+            if ((itemData.system.attack.ability != "athletics") && (itemData.system.attack.ability != "brawl") && (itemData.system.attack.ability != "martialarts") && (itemData.system.attack.ability != "melee")) {
+                itemData.system.attack.ability = "custom";
+                altered = true;
+            }            
+        }
+
+        if (item.type == "Ranged Weapon") {
+            if ((itemData.system.attack.ability != "athletics") && (itemData.system.attack.ability != "firearms")) {
+                itemData.system.attack.ability = "custom";
+                altered = true;
+            }            
+        }
+
+        itemData.system.version = migrationVersion;
+
+        if (altered) {
+            await item.update(itemData);
+
+            altered = false;
+        }
+
+        if ((item.type == "Armor") || (item.type == "Melee Weapon") || (item.type == "Ranged Weapon") || (item.type == "Fetish")) {
+            itemData.system['-=isEquipped'] = null;
+            itemData.system['-=isMagical'] = null;
+
+            altered = true;
+        }
+
+        if (altered) {
+            await item.update(itemData);
+            
+            altered = false;
+        }
     }
  };
 
@@ -595,7 +806,7 @@ export const updates = async () => {
     let patch140 = false;
     let patch150 = false;
     let patch160 = false;
-    let patch200 = false;
+    let patch210 = false;
 
     let newfunctions = "";
 
@@ -608,7 +819,7 @@ export const updates = async () => {
         patch140 = game.settings.get('worldofdarkness', 'patch140');
         patch150 = game.settings.get('worldofdarkness', 'patch150');
         patch160 = game.settings.get('worldofdarkness', 'patch160');
-        patch200 = game.settings.get('worldofdarkness', 'patch200');
+        patch210 = game.settings.get('worldofdarkness', 'patch210');
     } 
     catch (e) {
     }
@@ -697,10 +908,21 @@ export const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and stuff of irritation</li>";
     }
 
-    if (!patch200) {
-        game.settings.set('worldofdarkness', 'patch200', true);
+    if (!patch210) {
+        game.settings.set('worldofdarkness', 'patch210', true);
 
-        newfunctions += "<li>Support Foundry v10</li>";
+        newfunctions += "<li>Added Changeling the Dreaming</li>";
+        newfunctions += "<li>Added support automatic fire</li>";
+        newfunctions += "<li>Added a Secondary Ability system</li>";
+        newfunctions += "<li>Added editors to textfields</li>";
+        newfunctions += "<li>Added possibility to specialize abilities e.g Craft</li>";
+        newfunctions += "<li>Able you to equip armor that is calculated in soak rolls</li>";
+        newfunctions += "<li>Creature sheet supports Chimeras</li>";
+        newfunctions += "<li>[WtA] Added Shapeshift button</li>";
+        newfunctions += "<li>[VtM] Added support temporary generation</li>";
+        newfunctions += "<li>[MtA] Added resonance and fetish support</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+        
     }
 
     if (newfunctions == "") {
@@ -711,9 +933,9 @@ export const updates = async () => {
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-200">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-210">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
-    message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/World-of-Darkness-20th-ed-System">HERE</a><br /><br />';
+    message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 
     if (installedVersion != "1") {
         message += '<h2>Short Summery of update:</h2>';
@@ -762,6 +984,10 @@ function compareVersion(oldVersion, newVersion) {
         return false;
     }
 
+    if (oldVersion == "") {
+        return true;
+    }
+
     let greaterVersion = false;
 
     try {
@@ -779,4 +1005,1128 @@ function compareVersion(oldVersion, newVersion) {
     catch {
         return false;
     }
+}
+
+/**
+ * Checks if a certain ability is not part of the main ones.
+ * @param ability   
+ */
+function issecondability(ability) {
+    if (CONFIG.wod.talents[ability] != undefined) {
+        return false;
+    }
+    if (CONFIG.wod.skills[ability] != undefined) {
+        return false;
+    }
+    if (CONFIG.wod.knowledges[ability] != undefined) {
+        return false;
+    }
+
+    return true;
+}
+
+function issecondabilitymelee(ability) {
+    if (ability == "wod.abilities.do") {
+        return true;
+    }
+    if (ability == "wod.abilities.fencing") {
+        return true;
+    }
+
+    return false;
+}
+
+function issecondabilityranged(ability) {
+    if (ability == "wod.abilities.archery") {
+        return true;
+    }
+    if (ability == "wod.abilities.energyweapons") {
+        return true;
+    }
+    if (ability == "wod.abilities.heavyweapons") {
+        return true;
+    }
+
+    return false;
+    
+}
+
+function translateSecondaryAbility(label) {
+    /* Talents */
+    if (label == "wod.abilities.animalkinskip") {
+        if (CONFIG.language == "de") {
+            return "Tiergespühr";
+        }
+        else if (CONFIG.language == "es") {
+            return "Afinidad Animal";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Animaux";
+        }
+        else if (CONFIG.language == "it") {
+            return "Affinità Animale";
+        }
+        else {
+            return "Animal Kinship";
+        }
+    }
+    if (label == "wod.abilities.blatancy") {
+        if (CONFIG.language == "de") {
+            return "Dreistigkeit";
+        }
+        else if (CONFIG.language == "es") {
+            return "Descaro";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Aplomb";
+        }
+        else if (CONFIG.language == "it") {
+            return "Vistosità";
+        }
+        else {
+            return "Blatancy";
+        }
+    }
+    if (label == "wod.abilities.carousing") {
+        if (CONFIG.language == "de") {
+            return "Zechen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Juerga";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Picoler";
+        }
+        else if (CONFIG.language == "it") {
+            return "Gozzovigliare";
+        }
+        else {
+            return "Carousing";
+        }
+    }
+    if (label == "wod.abilities.cooking") {
+        if (CONFIG.language == "de") {
+            return "Kochen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Cocinar";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Cuisiner";
+        }
+        else if (CONFIG.language == "it") {
+            return "Cucinare";
+        }
+        else {
+            return "Cooking";
+        }
+    }
+    if (label == "wod.abilities.diplomacy") {
+        if (CONFIG.language == "de") {
+            return "Diplomatie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Diplomacia";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Diplomatie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Diplomazia";
+        }
+        else {
+            return "Diplomacy";
+        }
+    }
+    if (label == "wod.abilities.do") {
+        if (CONFIG.language == "es") {
+            return "Hacer";
+        }
+        else {
+            return "Do";
+        }
+    }
+    if (label == "wod.abilities.gestures") {
+        if (CONFIG.language == "de") {
+            return "Gesten";
+        }
+        else if (CONFIG.language == "es") {
+            return "Gestos";
+        }
+        else if (CONFIG.language == "it") {
+            return "Gesti";
+        }
+        else {
+            return "Gestures";
+        }
+    }
+    if (label == "wod.abilities.highritual") {
+        if (CONFIG.language == "de") {
+            return "Hohes Ritual";
+        }
+        else if (CONFIG.language == "es") {
+            return "Alto Ritual";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Haut rituel";
+        }
+        else if (CONFIG.language == "it") {
+            return "Alto Ritualismo";
+        }
+        else {
+            return "High Ritual";
+        }
+    }
+    if (label == "wod.abilities.instruction") {
+        if (CONFIG.language == "de") {
+            return "Anleitung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Instrucción";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Enseignement";
+        }
+        else if (CONFIG.language == "it") {
+            return "Insegnare";
+        }
+        else {
+            return "Instruction";
+        }
+    }
+    if (label == "wod.abilities.intrigue") {
+        if (CONFIG.language == "de") {
+            return "Intrige";
+        }
+        else if (CONFIG.language == "es") {
+            return "Intriga";
+        }
+        else if (CONFIG.language == "it") {
+            return "Intrighi";
+        }
+        else {
+            return "Intrigue";
+        }
+    }
+    if (label == "wod.abilities.intuition") {
+        if (CONFIG.language == "de") {
+            return "Sechster Sinn";
+        }
+        else if (CONFIG.language == "es") {
+            return "Intuición";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Intuition";
+        }
+        else if (CONFIG.language == "it") {
+            return "Intuizione";
+        }
+        else {
+            return "Intuition";
+        }
+    }
+    if (label == "wod.abilities.legerdemain") {
+        if (CONFIG.language == "de") {
+            return "Taschenspielertricks";
+        }
+        else if (CONFIG.language == "es") {
+            return "Prestidigitación";
+        }
+        else if (CONFIG.language == "it") {
+            return "Rapidità di Mano";
+        }
+        else {
+            return "Legerdemain";
+        }
+    }
+    if (label == "wod.abilities.luciddreaming") {
+        if (CONFIG.language == "de") {
+            return "Luzides Träumen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Sueño Lúcido";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Rêve éveillé";
+        }
+        else if (CONFIG.language == "it") {
+            return "Sogno Lucido";
+        }
+        else {
+            return "Lucid Dreaming";
+        }
+    }
+    if (label == "wod.abilities.mimicry") {
+        if (CONFIG.language == "de") {
+            return "Nachahmung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Mimetismo";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Imitation";
+        }
+        else if (CONFIG.language == "it") {
+            return "Mimica";
+        }
+        else {
+            return "Mimicry";
+        }
+    }
+    if (label == "wod.abilities.negotiation") {
+        if (CONFIG.language == "de") {
+            return "Verhandlung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Negociación";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Négotiation";
+        }
+        else if (CONFIG.language == "it") {
+            return "Negoziare";
+        }
+        else {
+            return "Negotiation";
+        }
+    }
+    if (label == "wod.abilities.newspeak") {
+        if (CONFIG.language == "de") {
+            return "Newspeak";
+        }
+        else if (CONFIG.language == "es") {
+            return "Neolengua";
+        }
+        else if (CONFIG.language == "it") {
+            return "Propaganda";
+        }
+        else {
+            return "Newspeak";
+        }
+    }
+    if (label == "wod.abilities.scan") {
+        if (CONFIG.language == "de") {
+            return "Scannen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Otear";
+        }
+        else {
+            return "Scan";
+        }
+    }
+    if (label == "wod.abilities.scrounging") {
+        if (CONFIG.language == "de") {
+            return "Schnorren";
+        }
+        else if (CONFIG.language == "es") {
+            return "Rebuscar";
+        }
+        else if (CONFIG.language == "it") {
+            return "Cercare";
+        }
+        else {
+            return "Scrounging";
+        }
+    }
+    if (label == "wod.abilities.seduction") {
+        if (CONFIG.language == "de") {
+            return "Verführung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Sedución";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Séduction";
+        }
+        else if (CONFIG.language == "it") {
+            return "Sedurre";
+        }
+        else {
+            return "Seduction";
+        }
+    }
+    if (label == "wod.abilities.style") {
+        if (CONFIG.language == "de") {
+            return "Stil";
+        }
+        else if (CONFIG.language == "es") {
+            return "Estilo";
+        }
+        else if (CONFIG.language == "it") {
+            return "Stile";
+        }
+        else {
+            return "Style";
+        }
+    }
+
+    /* Skills */
+    if (label == "wod.abilities.archery") {
+        if (CONFIG.language == "de") {
+            return "Bogenschießen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Arqueria";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Tir à l'arc";
+        }
+        else if (CONFIG.language == "it") {
+            return "Tiro con l'Arco";
+        }
+        else {
+            return "Archery";
+        }
+    }
+    if (label == "wod.abilities.biotech") {
+        if (CONFIG.language == "de") {
+            return "Biotechnologie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Biotecnología";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Biotechnologie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Biotecnologia";
+        }
+        else {
+            return "Biotech";
+        }
+    }
+    if (label == "wod.abilities.blindfighting") {
+        if (CONFIG.language == "de") {
+            return "Blind Kämpfen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Lucha a Ciegas";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Combat aveugle";
+        }
+        else if (CONFIG.language == "it") {
+            return "Combattere alla Cieca";
+        }
+        else {
+            return "Blind Fighting";
+        }
+    }
+    if (label == "wod.abilities.bonecraft") {
+        if (CONFIG.language == "de") {
+            return "Knochenkunst";
+        }
+        else if (CONFIG.language == "es") {
+            return "Moldear Hueso";
+        }
+        else if (CONFIG.language == "it") {
+            return "Artigianato di Ossa";
+        }
+        else {
+            return "Bone Craft";
+        }
+    }
+    if (label == "wod.abilities.climbing") {
+        if (CONFIG.language == "de") {
+            return "Klettern";
+        }
+        else if (CONFIG.language == "es") {
+            return "Escalada";
+        }
+        else if (CONFIG.language == "it") {
+            return "Scalare";
+        }
+        else {
+            return "Climbing";
+        }
+    }
+    if (label == "wod.abilities.commerce") {
+        if (CONFIG.language == "de") {
+            return "Handel";
+        }
+        else if (CONFIG.language == "es") {
+            return "Comerciar";
+        }
+        else if (CONFIG.language == "it") {
+            return "Commercio";
+        }
+        else {
+            return "Commerce";
+        }
+    }
+    if (label == "wod.abilities.disguise") {
+        if (CONFIG.language == "de") {
+            return "Verkleidung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Disfraz";
+        }
+        else if (CONFIG.language == "it") {
+            return "Camuffare";
+        }
+        else {
+            return "Disguise";
+        }
+    }
+    if (label == "wod.abilities.elusion") {
+        if (CONFIG.language == "de") {
+            return "Trugbild";
+        }
+        else if (CONFIG.language == "es") {
+            return "Elusion";
+        }
+        else if (CONFIG.language == "it") {
+            return "Eludere";
+        }
+        else {
+            return "Elusion";
+        }
+    }
+    if (label == "wod.abilities.energyweapons") {
+        if (CONFIG.language == "de") {
+            return "Energiewaffen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Armas de Energía";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Armes à Energie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Armi a Energia";
+        }
+        else {
+            return "Energy Weapons";
+        }
+    }
+    if (label == "wod.abilities.escapology") {
+        if (CONFIG.language == "de") {
+            return "Fesselung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Escapología";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Art de l'évasion";
+        }
+        else if (CONFIG.language == "it") {
+            return "Artista della Fuga";
+        }
+        else {
+            return "Escapology";
+        }
+    }
+    if (label == "wod.abilities.fastdraw") {
+        if (CONFIG.language == "de") {
+            return "Schnellziehen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Desenfundado Rápido";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Duel au Colt";
+        }
+        else {
+            return "Fast-draw";
+        }
+    }
+    if (label == "wod.abilities.fasttalk") {
+        if (CONFIG.language == "de") {
+            return "Fast-talk";
+        }
+        else if (CONFIG.language == "es") {
+            return "Charlatanería";
+        }
+        else if (CONFIG.language == "it") {
+            return "Parlata Veloce";
+        }
+        else {
+            return "Fast-talk";
+        }
+    }
+    if (label == "wod.abilities.fencing") {
+        if (CONFIG.language == "de") {
+            return "Fechten";
+        }
+        else if (CONFIG.language == "es") {
+            return "Esgrima";
+        }
+        else {
+            return "Fencing";
+        }
+    }
+    if (label == "wod.abilities.fortunetelling") {
+        if (CONFIG.language == "de") {
+            return "Weisagung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Clarividencia";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Voyance";
+        }
+        else if (CONFIG.language == "it") {
+            return "Divinare";
+        }
+        else {
+            return "Fortune-telling";
+        }
+    }
+    if (label == "wod.abilities.gambling") {
+        if (CONFIG.language == "de") {
+            return "Glückspiel";
+        }
+        else if (CONFIG.language == "es") {
+            return "Juegos de Azar";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Jeux d'argent";
+        }
+        else if (CONFIG.language == "it") {
+            return "Azzardo";
+        }
+        else {
+            return "Gambling";
+        }
+    }
+    if (label == "wod.abilities.heavyweapons") {
+        if (CONFIG.language == "de") {
+            return "Schwere Waffen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Armamento Pesado";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Armes Lourdes";
+        }
+        else if (CONFIG.language == "it") {
+            return "Armi Pesanti";
+        }
+        else {
+            return "Heavy Weapons";
+        }
+    }
+    if (label == "wod.abilities.hypertech") {
+        if (CONFIG.language == "de") {
+            return "Hypertechnologie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Hipertecnología";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Hypertechnologie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Ipertecnologia";
+        }
+        else {
+            return "Hypertech";
+        }
+    }
+    if (label == "wod.abilities.hypnotism") {
+        if (CONFIG.language == "de") {
+            return "Hypnose";
+        }
+        else if (CONFIG.language == "es") {
+            return "Hipnotismo";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Hypnotisme";
+        }
+        else if (CONFIG.language == "it") {
+            return "Ipnotizzare";
+        }
+        else {
+            return "Hypnotism";
+        }
+    }
+    if (label == "wod.abilities.hunting") {
+        if (CONFIG.language == "de") {
+            return "Jagen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Caza";
+        }
+        else if (CONFIG.language == "fr") {
+            return "";
+        }
+        else if (CONFIG.language == "it") {
+            return "";
+        }
+        else {
+            return "Hunting";
+        }
+    }
+    if (label == "wod.abilities.juryrigging") {
+        if (CONFIG.language == "de") {
+            return "Jury-Täuschung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Apañar";
+        }
+        else if (CONFIG.language == "it") {
+            return "Cacciare";
+        }
+        else {
+            return "Jury-rigging";
+        }
+    }
+    if (label == "wod.abilities.microgravityoperations") {
+        if (CONFIG.language == "de") {
+            return "Mikrogravitationsoperationen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Operaciones en Microgravedad";
+        }
+        else if (CONFIG.language == "it") {
+            return "Operare in Microgravità";
+        }
+        else {
+            return "Microgravity Operations";
+        }
+    }
+    if (label == "wod.abilities.misdirections") {
+        if (CONFIG.language == "de") {
+            return "Irreführungen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Distracción";
+        }
+        else if (CONFIG.language == "it") {
+            return "Reindirizzare";
+        }
+        else {
+            return "Misdirections";
+        }
+    }
+    if (label == "wod.abilities.networking") {
+        if (CONFIG.language == "de") {
+            return "Netzwerkarbeit";
+        }
+        else if (CONFIG.language == "es") {
+            return "Hacer Contactos";
+        }
+        else {
+            return "Net-working";
+        }
+    }
+    if (label == "wod.abilities.pilot") {
+        if (CONFIG.language == "de") {
+            return "Pilot";
+        }
+        else if (CONFIG.language == "es") {
+            return "Pilotaje";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Piloter";
+        }
+        else if (CONFIG.language == "it") {
+            return "Pilotare";
+        }
+        else {
+            return "Pilot";
+        }
+    }
+    if (label == "wod.abilities.psychology") {
+        if (CONFIG.language == "de") {
+            return "Psychologie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Psicología";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Psychologie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Psicoanalizzare";
+        }
+        else {
+            return "Psychology";
+        }
+    }
+    if (label == "wod.abilities.riding") {
+        if (CONFIG.language == "de") {
+            return "Reiten";
+        }
+        else if (CONFIG.language == "es") {
+            return "Equitación";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Equitation";
+        }
+        else if (CONFIG.language == "it") {
+            return "Cavalcare";
+        }
+        else {
+            return "Riding";
+        }
+    }
+    if (label == "wod.abilities.security") {
+        if (CONFIG.language == "de") {
+            return "Sicherheit";
+        }
+        else if (CONFIG.language == "es") {
+            return "Seguridad";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Securité";
+        }
+        else if (CONFIG.language == "it") {
+            return "Sicurezza";
+        }
+        else {
+            return "Security";
+        }
+    }
+    if (label == "wod.abilities.speedreading") {
+        if (CONFIG.language == "de") {
+            return "Schnelllesen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Lectura Rápida";
+        }
+        else if (CONFIG.language == "it") {
+            return "Lettura Rapida";
+        }
+        else {
+            return "Speed-reading";
+        }
+    }
+    if (label == "wod.abilities.swimming") {
+        if (CONFIG.language == "de") {
+            return "Schwimmen";
+        }
+        else if (CONFIG.language == "es") {
+            return "Natación";
+        }
+        else if (CONFIG.language == "it") {
+            return "Nuotare";
+        }
+        else {
+            return "Swimming";
+        }
+    }
+    if (label == "wod.abilities.torture") {
+        if (CONFIG.language == "de") {
+            return "Folter";
+        }
+        else if (CONFIG.language == "es") {
+            return "Tortura";
+        }
+        else if (CONFIG.language == "it") {
+            return "Torturare";
+        }
+        else {
+            return "Torture";
+        }
+    }
+
+    /* Knowledges */
+    if (label == "wod.abilities.bureaucracy") {
+        if (CONFIG.language == "de") {
+            return "Bürokratie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Burocracia";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Bureaucracie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Costrutti Politici";
+        }
+        else {
+            return "Bureaucracy";
+        }
+    }
+    if (label == "wod.abilities.chantry") {
+        if (CONFIG.language == "de") {
+            return "Glaubenssysteme";
+        }
+        else if (CONFIG.language == "es") {
+            return "Capilla";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Fondation";
+        }
+        else {
+            return "Chantry";
+        }
+    }
+    if (label == "wod.abilities.chemistry") {
+        if (CONFIG.language == "de") {
+            return "Chemie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Química";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Chimie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Chimica";
+        }
+        else {
+            return "Chemistry";
+        }
+    }
+    if (label == "wod.abilities.conspiracytheory") {
+        if (CONFIG.language == "de") {
+            return "Verschwörungstheorie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Teorías de la Conspiración";
+        }
+        else if (CONFIG.language == "it") {
+            return "Teorie Complottiste";
+        }
+        else {
+            return "Conspiracy Theor";
+        }
+    }
+    if (label == "wod.abilities.covertculture") {
+        if (CONFIG.language == "de") {
+            return "Verborgene Kultur";
+        }
+        else if (CONFIG.language == "es") {
+            return "Cultura Encubierta";
+        }
+        else if (CONFIG.language == "it") {
+            return "Cultura Nascosta";
+        }
+        else {
+            return "Covert Culture";
+        }
+    }
+    if (label == "wod.abilities.cryptography") {
+        if (CONFIG.language == "de") {
+            return "Kryptographie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Criptografía";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Cryptographie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Criptografia";
+        }
+        else {
+            return "Cryptography";
+        }
+    }
+    if (label == "wod.abilities.culturalsavvy") {
+        if (CONFIG.language == "de") {
+            return "Kulturelles Geschick";
+        }
+        else if (CONFIG.language == "es") {
+            return "Destreza Cultural";
+        }
+        else if (CONFIG.language == "it") {
+            return "Esperto Culturale";
+        }
+
+        else {
+            return "Cultural Savvy";
+        }
+    }
+    if (label == "wod.abilities.culture") {
+        if (CONFIG.language == "de") {
+            return "Kultur";
+        }
+        else if (CONFIG.language == "es") {
+            return "Cultura";
+        }
+        else {
+            return "Culture";
+        }
+    }
+    if (label == "wod.abilities.hearthwisdom") {
+        if (CONFIG.language == "de") {
+            return "Herzensweisheit";
+        }
+        else if (CONFIG.language == "es") {
+            return "Sabiduria de corazón";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Sagesse populaire";
+        }
+        else if (CONFIG.language == "it") {
+            return "Saggezza Popolare";
+        }
+        else {
+            return "Hearth Wisdom";
+        }
+    }
+    if (label == "wod.abilities.herbalism") {
+        if (CONFIG.language == "de") {
+            return "Kräuterkunde";
+        }
+        else if (CONFIG.language == "es") {
+            return "Herbalismo";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Herboristerie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Erboristeria";
+        }
+        else {
+            return "Herbalism";
+        }
+    }
+    if (label == "wod.abilities.helmsman") {
+        if (CONFIG.language == "de") {
+            return "Steuermann";
+        }
+        else if (CONFIG.language == "es") {
+            return "Helmsman";
+        }
+        else if (CONFIG.language == "it") {
+            return "Navigare (Astronavi)";
+        }
+        else {
+            return "Helmsman";
+        }
+    }
+    if (label == "wod.abilities.history") {
+        if (CONFIG.language == "de") {
+            return "Geschichte";
+        }
+        else if (CONFIG.language == "es") {
+            return "Historia";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Histoire";
+        }
+        else if (CONFIG.language == "it") {
+            return "Storia";
+        }
+        else {
+            return "History";
+        }
+    }
+    if (label == "wod.abilities.legends") {
+        if (CONFIG.language == "de") {
+            return "Legenden";
+        }
+        else if (CONFIG.language == "es") {
+            return "Leyendas";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Légendes";
+        }
+        else if (CONFIG.language == "it") {
+            return "Leggende";
+        }
+        else {
+            return "Legends";
+        }
+    }
+    if (label == "wod.abilities.media") {
+        if (CONFIG.language == "de") {
+            return "Medien";
+        }
+        else if (CONFIG.language == "es") {
+            return "Medios";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Média";
+        }
+        else if (CONFIG.language == "it") {
+            return "Media";
+        }
+        else {
+            return "Media";
+        }
+    }
+    if (label == "wod.abilities.powerbrokering") {
+        if (CONFIG.language == "es") {
+            return "Juegos de Poder";
+        }
+        else {
+            return "Power-brokering";
+        }
+    }
+    if (label == "wod.abilities.propaganda") {
+        if (CONFIG.language == "fr") {
+            return "Propagande";
+        }
+        else {
+            return "Propaganda";
+        }
+    }
+    if (label == "wod.abilities.religion") {
+        if (CONFIG.language == "es") {
+            return "Religión";
+        }
+        else if (CONFIG.language == "it") {
+            return "Religione";
+        }
+        else {
+            return "Religion";
+        }
+    }
+    if (label == "wod.abilities.seneschal") {
+        if (CONFIG.language == "es") {
+            return "Senescal";
+        }
+        else if (CONFIG.language == "it") {
+            return "Governo Domestico";
+        }
+        else {
+            return "Seneschal";
+        }
+    }
+    if (label == "wod.abilities.theology") {
+        if (CONFIG.language == "de") {
+            return "Theologie";
+        }
+        else if (CONFIG.language == "es") {
+            return "Tecnología";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Théologie";
+        }
+        else if (CONFIG.language == "it") {
+            return "Teologia";
+        }
+        else {
+            return "Theology";
+        }
+    }
+    if (label == "wod.abilities.unconventionalwarfare") {
+        if (CONFIG.language == "de") {
+            return "Unkonventionelle Kriegsführung";
+        }
+        else if (CONFIG.language == "es") {
+            return "Unconventional Warfare";
+        }
+        else if (CONFIG.language == "it") {
+            return "Terrorismo";
+        }
+        else {
+            return "Unconventional Warfare";
+        }
+    }
+    if (label == "wod.abilities.vice") {
+        if (CONFIG.language == "de") {
+            return "Laster";
+        }
+        else if (CONFIG.language == "es") {
+            return "Vicio";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Débauche";
+        }
+        else if (CONFIG.language == "it") {
+            return "Vizi";
+        }
+        else {
+            return "Vice";
+        }
+    }
+
+    return label;
 }

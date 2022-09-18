@@ -1,39 +1,31 @@
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
+        <label class="headlineText headlineBio splatFont" for="system.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.breed}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Homid">Homid</option>
-                <option value="Metis">Metis</option>
-                <option value="Hyaenid">Hyaenid</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                    <option value="Metis">{{localize "wod.bio.breedname.metis"}}</option>
+                    <option value="Hyaenid">{{localize "wod.bio.breedname.hyaenid"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.aspect"}}</label>
+        <label class="headlineText headlineBio splatFont" for="system.auspice">{{localize "wod.bio.aspect"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.auspice" data-name="data.system.auspice" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.auspice}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Dawn">Dawn</option>
-                <option value="Midnight">Midnight</option>
-                <option value="Dusk">Dusk</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Dawn">{{localize "wod.bio.aspectname.dawn"}}</option>
+                    <option value="Midnight">{{localize "wod.bio.aspectname.midnight"}}</option>
+                    <option value="Dusk">{{localize "wod.bio.aspectname.dusk"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>
@@ -42,7 +34,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.clan"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.tribe" type="text" value="{{data.system.tribe}}" data-name="data.system.tribe" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.tribe" type="text" value="{{data.system.tribe}}" data-name="data.system.tribe" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -51,7 +43,7 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.packname">{{localize "wod.bio.packname"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.packname" type="text" value="{{data.system.packname}}" data-name="data.system.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.packname" type="text" value="{{data.system.packname}}" data-name="data.system.packname" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -60,7 +52,7 @@
     <div>
         <label for="data.packtotem" class="headlineText headlineBio splatFont">{{localize "wod.bio.packtotem"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues" name="data.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.packtotem" type="text" value="{{data.system.packtotem}}" data-name="data.system.packtotem" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>
@@ -68,6 +60,6 @@
 <div class="clearareaBox area-box">
     <div>
         <label class="headlineText headlineBio splatFont" for="data.yava">{{localize "wod.bio.yava"}}</label>
-        <textarea class="sheet-infoValues pullLeft" name="data.yava" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.yava}}</textarea>
+        <textarea class="sheet-infoValues pullLeft {{#if locked}}{{else}}editable{{/if}}" name="system.yava" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.yava}}</textarea>
     </div>
 </div>

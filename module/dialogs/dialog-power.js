@@ -14,7 +14,7 @@ export class Gift {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -40,7 +40,7 @@ export class Charm {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -66,7 +66,7 @@ export class CharmGift {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = ActionHelper._transformToSpiritAttributes(item.system["dice1"]);
         this.dice2 = "";
         this.bonus = parseInt(item.system["bonus"]);
@@ -92,7 +92,7 @@ export class Power {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -118,7 +118,7 @@ export class DisciplinePower {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -144,7 +144,7 @@ export class PathPower {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -170,7 +170,7 @@ export class RitualPower {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = item.system["type"];
+        this.type = item["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -184,11 +184,88 @@ export class RitualPower {
     }
 }
 
+export class ArtPower {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";
+
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.parentid = item.system["parentid"];
+
+        this.dice1 = "art";
+        this.dice2 = "realm";
+        this.bonus = 0;
+        this.difficulty = 8;
+        this.description = item.system["description"];
+        this.system = item.system["system"];
+
+        this.selectedRealms = [];
+        this.isUnleashing = false;
+
+        this.canRoll = false;
+        this.close = false;
+        this.sheettype = "changelingDialog";
+    }
+
+    _lowestRank() {
+        let lowestRank = 99;
+        let affinitySelected = false;
+        let difficultRealm = false;
+
+        for (const realm of this.selectedRealms) {
+            if ((realm.label != "wod.realms.scene") && (realm.label != "wod.realms.time") && (realm.isselected)) {
+                if (lowestRank > realm.value) {
+                    lowestRank = realm.value;
+                }                
+            }
+            if ((realm.isaffinity) && (realm.isselected)) {
+                affinitySelected = true;
+            }
+            if (((realm.label == "wod.realms.scene") || (realm.label == "wod.realms.time")) && (realm.isselected)) {
+                difficultRealm = true;
+            }
+        }
+
+        if ((affinitySelected) || (difficultRealm)) {
+            this.difficulty = 8;
+
+            if (affinitySelected) {
+                this.difficulty -= 1;
+            }
+            if (difficultRealm) {
+                this.difficulty += 1;
+            }
+        }
+
+        if (lowestRank == 99) {
+            lowestRank = 0;
+        }
+
+        return lowestRank;
+    }
+}
+
 export class DialogPower extends FormApplication {
     constructor(actor, power) {
         super(power, {submitOnChange: true, closeOnSubmit: false});
         this.actor = actor;
-        this.isDialog = true;        
+        this.isDialog = true;
+
+        if ((this.actor.system.listdata != undefined) && (this.actor.system.listdata.realms != undefined)) {
+            this.object.selectedRealms = this.actor.system.listdata.realms;
+
+            for (const realm of this.object.selectedRealms) {
+                realm.isselected = false;
+            }
+        }
+        
         this.options.title = `${this.actor.name}`;
     }
 
@@ -251,11 +328,31 @@ export class DialogPower extends FormApplication {
                     data.object.specialityText += this.actor.system.attributes.resolve.speciality;
                 }
             }
-        }
+        }        
         // virtues
         else if ((this.actor.system.virtues != undefined) && (this.actor.system.virtues[data.object.dice1]?.roll != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.virtues[data.object.dice1].roll);
             data.object.attributeName = game.i18n.localize(this.actor.system.virtues[data.object.dice1].label);
+        }
+        else if (data.object.dice1 == "path") {
+            data.object.attributeValue = parseInt(this.actor.system.path?.roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.path?.label);
+        }
+        else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
+            if (!this.object.isUnleashing) {
+                const art = this.actor.getEmbeddedDocument("Item", data.object.parentid);
+                data.object.attributeValue = art.system.value;
+                data.object.attributeName = art.name;
+            }
+            else {
+                data.object.attributeValue = parseInt(this.actor.system.glamour.roll);
+                data.object.attributeName = game.i18n.localize(this.actor.system.glamour.label);
+                data.object.difficulty = 7;
+
+                for (const realm of data.object.selectedRealms) {
+                    realm.isselected = false;
+                }
+            }
         }
 
         // is dice2 a Talent
@@ -299,12 +396,27 @@ export class DialogPower extends FormApplication {
                 }
                 data.object.specialityText += this.actor.system.abilities.knowledge[data.object.dice2].speciality;
             }
-        }     
+        }                
         // virtues
         else if ((this.actor.system.virtues != undefined) && (this.actor.system.virtues[data.object.dice2]?.roll != undefined)) {
             data.object.abilityValue = parseInt(this.actor.system.virtues[data.object.dice2].roll);
             data.object.abilityName = game.i18n.localize(this.actor.system.virtues[data.object.dice2].label);
         }    
+        else if (data.object.dice2 == "path") {
+            data.object.abilityValue = parseInt(this.actor.system.path?.roll);
+            data.object.abilityName = game.i18n.localize(this.actor.system.path?.label);
+        } 
+        else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
+            if (!this.object.isUnleashing) {
+                const realm = data.object._lowestRank();
+                data.object.bonus = parseInt(realm);
+            }
+            else {
+                data.object.abilityValue = parseInt(this.actor.system.nightmare.roll);
+                data.object.abilityName = game.i18n.localize(this.actor.system.nightmare.label);
+                data.object.bonus = 0;
+            }
+        }
 
         return data;
     }
@@ -321,6 +433,10 @@ export class DialogPower extends FormApplication {
             .click(this._rollPower.bind(this));
 
         html
+            .find('.dialog-realm-button')
+            .click(this._selectRealm.bind(this));            
+
+        html
             .find('.closebutton')
             .click(this._closeForm.bind(this));
     }
@@ -331,14 +447,22 @@ export class DialogPower extends FormApplication {
             return;
         }
 
-        event.preventDefault();       
+        event.preventDefault();      
+        
+        // add the lowest number of dices from selected Realms
+        if (this.object.type == "wod.types.artpower") {
+            this.object.isUnleashing = formData["isUnleashing"];
+        }
         
         this.object.useSpeciality = formData["specialty"];
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
+
+        this.render(false);
     }
 
     _setDifficulty(event) {
         event.preventDefault();
+
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".dialog-difficulty-button");
@@ -360,6 +484,57 @@ export class DialogPower extends FormApplication {
         });
     }
 
+    _selectRealm(event) {
+        const element = event.currentTarget;
+        const parent = $(element.parentNode);
+        const steps = parent.find(".dialog-realm-button");
+        const key = element.value;
+
+        if (key == "") {
+            steps.removeClass("active");            
+            return;
+        }
+
+        const isactive = element.classList.contains("active");
+        this.object.selectedRealms = this._changedSelectedRealm(this.object.selectedRealms, key);
+
+        steps.each(function (i) {
+            if (this.value == key) {
+                if (isactive) {
+                    $(this).removeClass("active");
+                }
+                else {
+                    $(this).addClass("active");
+                }
+            }
+        });
+    }
+
+    _changedSelectedRealm(selected, realmid) {
+        for (const i of selected) {
+            if (i._id == realmid) {
+                i.isselected = !i.isselected;
+            }
+        }
+
+        return selected;
+    }
+
+    // if rolling art/glamour then replace Nightmare number of dices to Nightmare dice (black dices) (p275)
+
+    //     Players can reduce the difficulty of a cantrip roll by 1 by
+    // replacing another three dice in the pool with Nightmare dice.
+    // The character must have three non-Nightmare dice in the pool
+    // to gain this benefit. Doing so does not increase the character’s
+    // Nightmare pool past that one roll (unless the player rolls some
+    // 10s, of course).
+
+    //      Nightmare dice function like normal dice for the roll,
+    // except that when the player rolls a 10 on a Nightmare die, she
+    // immediately adds another point to the character’s Nightmare
+    // pool. The character can accumulate multiple Nightmare points
+    // during a single roll, but the Nightmare rating never exceeds 10.
+    
     _rollPower(event) {
         if (this.object.close) {
             this.close();
@@ -368,6 +543,8 @@ export class DialogPower extends FormApplication {
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
         let woundPenaltyVal = 0;
+        let numSpecialDices = 0;
+        let specialDiceText = "";
 
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
@@ -383,6 +560,31 @@ export class DialogPower extends FormApplication {
 
         if (this.object.bonus > 0) {
             templateHTML += ` + ${this.object.bonus}`;
+        }
+
+        // add selected Realms
+        if (this.object.type == "wod.types.artpower") {
+            if (!this.object.isUnleashing) {
+                this.object.canRoll = false;
+
+                for (const realm of this.object.selectedRealms) {
+                    if (realm.isselected) {
+                        templateHTML += `<br />${game.i18n.localize(realm.label)} (${realm.value})`;
+                        this.object.canRoll = true;
+                    }
+                }
+
+                if (!this.object.canRoll) {
+                    ui.notifications.warn(game.i18n.localize("wod.dialog.power.missingrealm"));
+                    return;
+                }
+
+                numSpecialDices = parseInt(this.actor.system.nightmare.temporary);
+                specialDiceText = game.i18n.localize('wod.dialog.power.nightmaredice');
+            }
+            else {
+                templateHTML += `<br />${game.i18n.localize('wod.dialog.power.unleashing')}`;
+            }
         }
 
         templateHTML += `</strong>`;
@@ -406,6 +608,8 @@ export class DialogPower extends FormApplication {
         powerRoll.handlingOnes = CONFIG.wod.handleOnes;    
         powerRoll.origin = "power";
         powerRoll.numDices = numDices;
+        powerRoll.numSpecialDices = numSpecialDices;
+        powerRoll.specialDiceText = specialDiceText;
         powerRoll.woundpenalty = parseInt(woundPenaltyVal);
         powerRoll.difficulty = parseInt(this.object.difficulty);          
         powerRoll.templateHTML = templateHTML;        

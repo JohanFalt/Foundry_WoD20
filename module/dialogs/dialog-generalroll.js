@@ -41,18 +41,6 @@ export class GeneralRoll {
         }
         else if (type == "ability") {
             this.abilityKey = key;
-
-            // if ((CONFIG.wod.alltalents[key] != undefined) && (CONFIG.wod.alltalents[key].isvisible)) {
-            //     this.abilityName = game.i18n.localize(CONFIG.wod.alltalents[key]);
-            // }
-            // else if ((CONFIG.wod.allskills[key] != undefined) && (CONFIG.wod.allskills[key].isvisible)) {
-            //     this.abilityName = game.i18n.localize(CONFIG.wod.allskills[key]);
-            // }
-            // else if ((CONFIG.wod.allknowledges[key] != undefined) && (CONFIG.wod.allknowledges[key].isvisible)) {
-            //     this.abilityName = game.i18n.localize(CONFIG.wod.allknowledges[key]);
-            // }
-
-            //this.name = this.abilityName;
         }
         else if (type == "noability") {
             this.attributeKey = key;            
@@ -67,8 +55,8 @@ export class GeneralRoll {
 export class DialogGeneralRoll extends FormApplication {
     constructor(actor, roll) {
         super(roll, {submitOnChange: true, closeOnSubmit: false});
-        this.actor = actor;    
-        this.isDialog = true;   
+        this.actor = actor;     
+        this.isDialog = true;  
         this.options.title = `${this.actor.name}`;
     }
 
@@ -94,11 +82,12 @@ export class DialogGeneralRoll extends FormApplication {
         let abilitySpeciality = "";
 
         data.actorData = this.actor.system;   
+        data.actorData.type = this.actor.type;
         data.config = CONFIG.wod;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";
 
-        if (data.actorData.type != CONFIG.wod.changingbreed) {
+        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -156,16 +145,33 @@ export class DialogGeneralRoll extends FormApplication {
 
                 if ((data.actorData.abilities.talent[abilityKey] != undefined) && (data.actorData.abilities.talent[abilityKey].isvisible)) {
                     ability = data.actorData.abilities.talent[abilityKey];
+                    ability.issecondary = false;
                 }
                 else if ((data.actorData.abilities.skill[abilityKey] != undefined) && (data.actorData.abilities.skill[abilityKey].isvisible)) {
                     ability = data.actorData.abilities.skill[abilityKey];
+                    ability.issecondary = false;
                 }
                 else if ((data.actorData.abilities.knowledge[abilityKey] != undefined) && (data.actorData.abilities.knowledge[abilityKey].isvisible)) {
                     ability = data.actorData.abilities.knowledge[abilityKey];
+                    ability.issecondary = false;
+                }
+                else {
+                    const item = this.actor.getEmbeddedDocument("Item", abilityKey);
+
+                    ability = {
+						issecondary: true,
+						isvisible: true,
+						label: item.system.label,
+						max: item.system.max,
+						name: item.name,
+						speciality: item.system.speciality,
+						value: item.system.value,
+						_id: abilityKey
+					}
                 }
 
                 data.object.abilityValue = parseInt(ability.value);
-                data.object.abilityName = game.i18n.localize(ability.label);
+                data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
 
                 if (parseInt(ability.value) >= 4) {
@@ -188,8 +194,6 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         data.object.specialityText = specialityText;
-
-        this.render(false);
 
         return data;
     }
@@ -314,7 +318,7 @@ export class DialogGeneralRoll extends FormApplication {
             }
         });
 
-        this.getData();
+        this.render(false);
     }
 
     /* clicked to roll */

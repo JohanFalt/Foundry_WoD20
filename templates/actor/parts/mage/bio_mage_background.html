@@ -1,19 +1,20 @@
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.affiliation">{{localize "wod.bio.affiliation"}}</label>
+        <label class="headlineText headlineBio splatFont" for="data.affiliation">{{localize "wod.bio.mage.affiliation"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{localize data.system.affiliation}}" data-dtype="String" readonly />
+                <input class="sheet-infoValues" type="text" value="{{data.system.affiliation}}" data-dtype="String" readonly />
             {{else}}
-                <select class="sheet-infoValues editable" name="data.affiliation" data-name="data.system.affiliation" data-dtype="String">
+                <input class="sheet-infoValues editable" name="system.affiliation" type="text" value="{{data.system.affiliation}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.mage.tradition'}}/{{localize 'wod.bio.mage.technocracy'}}/{{localize 'wod.bio.mage.disparate'}}/{{localize 'wod.bio.mage.fallen'}}/{{localize 'wod.bio.mage.mad'}}">
+                <!-- <select class="sheet-infoValues editable" name="system.affiliation" data-name="data.system.affiliation" data-dtype="String">
                     {{#select data.system.affiliation}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    <option value="wod.bio.tradition">{{localize "wod.bio.tradition"}}</option>
-                    <option value="wod.bio.technocracy">{{localize "wod.bio.technocracy"}}</option>
-                    <option value="wod.bio.disparate">{{localize "wod.bio.disparate"}}</option>
-                    <option value="wod.bio.other">{{localize "wod.bio.other"}}</option>
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="wod.bio.tradition">{{localize "wod.bio.tradition"}}</option>
+                        <option value="wod.bio.technocracy">{{localize "wod.bio.technocracy"}}</option>
+                        <option value="wod.bio.disparate">{{localize "wod.bio.disparate"}}</option>
+                        <option value="wod.bio.other">{{localize "wod.bio.other"}}</option>
                     {{/select}}
-                </select>
+                </select> -->
             {{/if}}
         </div>
     </div>
@@ -21,29 +22,32 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.sect">{{localize "wod.bio.sect"}}</label>
+        <label class="headlineText headlineBio splatFont" for="data.sect">{{localize "wod.bio.mage.sect"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.sect" type="text" value="{{data.system.sect}}" data-name="data.system.sect" data-dtype="String" {{#if locked}} readonly {{/if}} />            
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.sect}}" data-dtype="String" readonly />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.sect" type="text" value="{{data.system.sect}}" data-koptions="--{{localize 'wod.bio.mage.tradition'}}--/{{localize 'wod.bio.mage.akashic'}}/{{localize 'wod.bio.mage.chorus'}}/{{localize 'wod.bio.mage.ecstasy'}}/{{localize 'wod.bio.mage.speakers'}}/{{localize 'wod.bio.mage.euthanatos'}}/{{localize 'wod.bio.mage.hermes'}}/{{localize 'wod.bio.mage.ether'}}/{{localize 'wod.bio.mage.verbena'}}/{{localize 'wod.bio.mage.adepts'}}/--{{localize 'wod.bio.mage.technocracy'}}--/{{localize 'wod.bio.mage.iterationx'}}/{{localize 'wod.bio.mage.nwo'}}/{{localize 'wod.bio.mage.progenitors'}}/{{localize 'wod.bio.mage.syndicate'}}/{{localize 'wod.bio.mage.engineers'}}/--{{localize 'wod.bio.mage.disparate'}}--/{{localize 'wod.bio.mage.batin'}}/{{localize 'wod.bio.mage.bataa'}}/{{localize 'wod.bio.mage.children'}}/{{localize 'wod.bio.mage.hollow'}}/{{localize 'wod.bio.mage.kopa'}}/{{localize 'wod.bio.mage.ngoma'}}/{{localize 'wod.bio.mage.orphans'}}/{{localize 'wod.bio.mage.hippolyta'}}/{{localize 'wod.bio.mage.taftani'}}/{{localize 'wod.bio.mage.templar'}}/{{localize 'wod.bio.mage.wulung'}}/--{{localize 'wod.bio.mage.fallen'}}--/{{localize 'wod.bio.mage.nephandi'}}/--{{localize 'wod.bio.mage.mad'}}--/{{localize 'wod.bio.mage.marauder'}}">
+            {{/if}}            
         </div>
     </div>
 </div>
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.affinity">{{localize "wod.bio.affinitysphere"}}</label>
+        <label class="headlineText headlineBio splatFont" for="system.affinity">{{localize "wod.bio.mage.affinitysphere"}}</label>
         <div class="pullLeft bioInformationArea">
             {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{localize data.system.affinity}}" data-dtype="String" readonly />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.affinity}}" data-dtype="String" readonly />
             {{else}}
-                <select class="sheet-infoValues editable" name="data.affinity" data-name="data.system.affinity" data-dtype="String">
+                <select class="sheet-infoValues editable" name="system.affinity" data-name="data.system.affinity" data-dtype="String">
                     {{#select data.system.affinity}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
                         {{#each config.allSpheres as | name type|}}
                             <option value="{{name}}">{{localize name}}</option>
                         {{/each}}
                     {{/select}}
-                </select>
-                
+                </select>                
             {{/if}}
         </div>
     </div>
@@ -51,9 +55,9 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.essence">{{localize "wod.bio.essence"}}</label>
+        <label class="headlineText headlineBio splatFont" for="data.essence">{{localize "wod.bio.mage.essence"}}</label>
         <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="data.essence" type="text" value="{{data.system.essence}}" data-name="data.system.essence" data-dtype="String" {{#if locked}} readonly {{/if}} />
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.essence" type="text" value="{{data.system.essence}}" data-name="data.system.essence" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
     </div>
 </div>

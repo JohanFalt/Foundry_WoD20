@@ -4,11 +4,23 @@
         {{localize "wod.info.rollsoak"}}: {{object.attributeValue}} {{#iff object.attributeBonus ">" 0}}(+{{object.attributeBonus}}){{/iff}}
     </div>
 
+    {{#if object.useChimerical}} 
+        <div class="dialog-area headline splatFont">{{localize 'wod.health.normal'}}</div>
+    {{/if}}
     <div class="centerText dialog-area">
         {{#each config.damageTypes as |type key|}}
-            <button id="attribute" class="button pointer dialog-attribute-button {{#iff ../object.damageKey "==" key}}active{{/iff}}" value="{{key}}">{{localize type}}</button>
+            <button id="attribute" class="button pointer dialog-attribute-button {{#if (eq ../object.soaktype 'normal')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="normal">{{localize type}}</button>
         {{/each}}
     </div>
+
+    {{#if object.useChimerical}}   
+        <div class="dialog-area headline splatFont">{{localize 'wod.health.chimerical'}}</div>
+        <div class="centerText dialog-area">
+            {{#each config.damageTypes as |type key|}}
+                <button id="attribute" class="button pointer dialog-attribute-button {{#if (eq ../object.soaktype 'chimerical')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="chimerical">{{localize type}}</button>
+            {{/each}}
+        </div>
+    {{/if}}
 
     <div class="dialog-area">
         <div class="headline splatFont">{{localize "wod.labels.bonus"}}</div>
@@ -17,7 +29,7 @@
         </div>
     </div>
 
-    <div class="dialog-area headlineGroup splatFont">
+    <div class="dialog-area headline splatFont">
         {{localize "wod.labels.difficulty"}}
     </div>
 

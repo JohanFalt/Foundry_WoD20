@@ -40,7 +40,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	}
 
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
@@ -68,7 +68,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const ritelist = [];
 		const fetishlist = [];
 		const talenlist = [];
-		const other = [];
 		let presentform = "";
 
 		console.log("WoD | Werewolf Sheet handling shift data");
@@ -93,64 +92,66 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Power") {
-				if ((i.system.type == "wod.types.gift") && (i.system.level == 1)) {
-					powerlist1.push(i);
+				if (i.system.type == "wod.types.gift") {
+					i.system.enrichedDescription = await TextEditor.enrichHTML(i.system.description, {async: true});
+					i.system.enrichedSystem = await TextEditor.enrichHTML(i.system.system, {async: true});
 
-					if (i.system.isactive) {
-						powercombat.push(i);
+					if (i.system.level == 1) {						
+						powerlist1.push(i);
+	
+						if (i.system.isactive) {
+							powercombat.push(i);
+						}
+					}			
+					if (i.system.level == 2) {
+						powerlist2.push(i);
+	
+						if (i.system.isactive) {
+							powercombat.push(i);
+						}
 					}
-				}			
-				else if ((i.system.type == "wod.types.gift") && (i.system.level == 2)) {
-					powerlist2.push(i);
-
-					if (i.system.isactive) {
-						powercombat.push(i);
+					if (i.system.level == 3) {
+						powerlist3.push(i);
+	
+						if (i.system.isactive) {
+							powercombat.push(i);
+						}
 					}
-				}
-				else if ((i.system.type == "wod.types.gift") && (i.system.level == 3)) {
-					powerlist3.push(i);
-
-					if (i.system.isactive) {
-						powercombat.push(i);
+					if (i.system.level == 4) {
+						powerlist4.push(i);
+	
+						if (i.system.isactive) {
+							powercombat.push(i);
+						}
 					}
-				}
-				else if ((i.system.type == "wod.types.gift") && (i.system.level == 4)) {
-					powerlist4.push(i);
-
-					if (i.system.isactive) {
-						powercombat.push(i);
+					if (i.system.level == 5) {
+						powerlist5.push(i);
+	
+						if (i.system.isactive) {
+							powercombat.push(i);
+						}
 					}
-				}
-				else if ((i.system.type == "wod.types.gift") && (i.system.level == 5)) {
-					powerlist5.push(i);
-
-					if (i.system.isactive) {
-						powercombat.push(i);
+					if (i.system.level == 6) {
+						powerlist6.push(i);
+	
+						if (i.system.isactive) {
+							powercombat.push(i);
+						}
 					}
-				}
-				else if ((i.system.type == "wod.types.gift") && (i.system.level == 6)) {
-					powerlist6.push(i);
-
-					if (i.system.isactive) {
-						powercombat.push(i);
-					}
-				}
-				else if (i.system.type == "wod.types.rite") {
+				}				
+				if (i.system.type == "wod.types.rite") {
+					i.system.enrichedDescription = await TextEditor.enrichHTML(i.system.description, {async: true});
+					i.system.enrichedSystem = await TextEditor.enrichHTML(i.system.system, {async: true});
+					
 					ritelist.push(i);
-				}	
-				else {
-					other.push(i);
 				}			
 			}
 			if (i.type == "Fetish") {
 				if (i.system.type == "wod.types.fetish") {
 					fetishlist.push(i);
 				}
-				else if (i.system.type == "wod.types.talen") {
+				if (i.system.type == "wod.types.talen") {
 					talenlist.push(i);
-				}	
-				else {
-					other.push(i);
 				}
 			}
 			
@@ -167,8 +168,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		data.actor.ritelist = ritelist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.fetishlist = fetishlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.talenlist = talenlist.sort((a, b) => a.name.localeCompare(b.name));
-
-		data.actor.other = other;	
 
 		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
 			console.log(CONFIG.wod.sheettype.werewolf);
@@ -371,27 +370,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 					actorData.system.renown[renowntype][fields[4]] = value;
 				}
 			}
-
-			// else if (fields[4] === "permanent") {
-			// 	//actorData.system.renown[renowntype].permanent = value;
-
-			// 	if (actorData.system.renown[renowntype].permanent == value) {
-			// 		actorData.system.renown[renowntype].permanent = parseInt(actorData.system.renown[renowntype].permanent) - 1;
-			// 	}
-			// 	else {
-			// 		actorData.system.renown[renowntype].permanent = value;
-			// 	}
-			// }
-			// else {
-			// 	//actorData.system.renown[renowntype].temporary = value;
-
-			// 	if (actorData.system.renown[renowntype].temporary == value) {
-			// 		actorData.system.renown[renowntype].temporary = parseInt(actorData.system.renown[renowntype].temporary) - 1;
-			// 	}
-			// 	else {
-			// 		actorData.system.renown[renowntype].temporary = value;
-			// 	}
-			// }
 		}
 		
 		ActionHelper._handleCalculations(actorData);

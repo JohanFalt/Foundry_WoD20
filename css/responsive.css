@@ -37,6 +37,12 @@
   .werewolf:not(.minimized).langES {
     min-width: 950px;
   }
+
+  /* changeling */
+  .changeling:not(.minimized) {
+    min-width: 900px;
+    min-height: 900px;
+  }
   
   /* Spirit */
   .spirit:not(.minimized) {
@@ -67,6 +73,11 @@
 .werewolfDialog,
 .werewolf {
   --color-shadow-primary: var(--main-werewolf-color);
+}
+
+.changelingDialog,
+.changeling {
+  --color-shadow-primary: var(--main-changeling-color);
 }
 
 .spiritDialog,
@@ -102,11 +113,6 @@
 
 .mortal .row:nth-of-type(odd) {
   background-color: var(--main-mortal-dim-color);
-  display: flex;
-}
-
-.mortal .row:nth-of-type(even) {
-  display: flex;
 }
 
 .mortal .thin-border-left,
@@ -161,11 +167,6 @@
 
 .vampire .row:nth-of-type(odd) {
   background-color: var(--main-vampire-dim-color);
-  display: flex;
-}
-
-.vampire .row:nth-of-type(even) {
-  display: flex;
 }
 
 .vampire .thin-border-left,
@@ -184,6 +185,12 @@
 .vampire textarea.editable {
   border: 1px solid var(--main-vampire-color);
   box-shadow: 2px 2px 5px var(--main-vampire-mid-color);
+}
+
+/* disciplines */
+.vampire .discipline-row {
+  border-bottom: 1px solid var(--main-vampire-color);
+  background-color: var(--main-vampire-dim-color);
 }
 
 /* VAMPIRE COLOR ENDS */
@@ -208,12 +215,6 @@
 .mage .row:nth-of-type(odd),
 .aretecasting-dialog .row:nth-of-type(odd) {
   background-color: var(--main-mage-dim-color);
-  display: flex;
-}
-
-.mage .row:nth-of-type(even),
-.aretecasting-dialog .row:nth-of-type(even) {
-   display: flex;
 }
 
 .mage .thin-border-left,
@@ -256,11 +257,6 @@
 
 .werewolf .row:nth-of-type(odd) {
   background-color: var(--main-werewolf-dim-color);
-  display: flex;
-}
-
-.werewolf .row:nth-of-type(even) {
-  display: flex;
 }
 
 .werewolf .thin-border-left,
@@ -283,6 +279,71 @@
 
 /* WEREWOLF COLOR ENDS */
 
+/* CHANGELING COLOR START */
+
+.changeling .headlineTabs {
+	border-bottom-color: var(--main-changeling-color);  
+}
+
+.changelingDialog .button {
+  background: var(--main-changeling-color);
+  color: white;
+}
+
+
+.changeling .sheet-character .profile-img-zone button {  
+  background: url('../assets/img/buttons/changeling.png');	
+  color: white;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 35px;
+  height: 35px;
+}
+
+.changeling .lock-icon {
+  margin-left: 4px;
+}
+
+.changelingDialog .button.active {
+  background: white;
+	color: var(--main-changeling-color);
+}
+
+.changelingDialog .button.active {
+  background: white;
+	color: var(--main-changeling-color);
+}
+
+.changeling .row:nth-of-type(odd) {
+  background-color: var(--main-changeling-dim-color);
+}
+
+.changeling .thin-border-left,
+.changeling .thin-border-right {
+  border-color: var(--main-changeling-color);
+}
+
+.changeling .tooltip .tooltiptext,
+.changeling .resource-value-static .resource-value-static-step.active {
+  background-color: var(--main-changeling-color);
+  color: white;
+}
+
+.changeling input.editable,
+.changeling select.editable,
+.changeling textarea.editable {
+  border: 1px solid var(--main-changeling-color);
+  box-shadow: 2px 2px 5px var(--main-changeling-mid-color);
+}
+
+/* arts */
+.changeling .art-row {
+  border-bottom: 1px solid var(--main-changeling-color);
+  background-color: var(--main-changeling-dim-color);
+}
+
+/* CHANGELING COLOR ENDS */
+
 /* CREATURE COLOR START */
 
 .creature .headlineTabs {
@@ -296,11 +357,6 @@
 
 .creature .row:nth-of-type(odd) {
   background-color: var(--main-creature-dim-color);
-  display: flex;
-}
-
-.creature .row:nth-of-type(even) {
-  display: flex;
 }
 
 .creature .thin-border-left,
@@ -337,11 +393,6 @@
 
 .spirit .row:nth-of-type(odd) {
 	background-color: var(--main-spirit-dim-color);
-  display: flex;
-}
-
-.spirit .row:nth-of-type(even) {
-  display: flex;
 }
 
 .spirit .thin-border-left,
@@ -373,7 +424,8 @@
 .mortal .sheet-character .profile-img-zone button,
 .vampire .sheet-character .profile-img-zone button,
 .werewolf .sheet-character .profile-img-zone button,
-.mage .sheet-character .profile-img-zone button {
+.mage .sheet-character .profile-img-zone button,
+.changeling .sheet-character .profile-img-zone button {
   width: 35px;
 }
 
@@ -449,6 +501,23 @@
 	text-shadow: 0 0 10px var(--main-werewolf-color);
 }
 
+.changeling .send-chat:hover,
+.changeling .send-chat:focus,
+.changeling .item-edit:hover,
+.changeling .item-edit:focus,
+.changeling .item-delete:hover,
+.changeling .item-delete:focus,
+.changeling .vrollable:hover,
+.changeling .vrollable:focus {
+	text-shadow: 0 0 10px var(--main-changeling-color) !important;
+}
+
+.changeling .item:hover,
+.changeling .item:focus,
+.changeling .item.active {
+	text-shadow: 0 0 10px var(--main-changeling-color);
+}
+
 .creature .send-chat:hover,
 .creature .send-chat:focus,
 .creature .item-edit:hover,
@@ -505,6 +574,12 @@
 	font-family: "mage", var(--main-font);
 }
 
+.changeling:not(.noSplatFont) nav,
+.changeling:not(.noSplatFont) .splatFont,
+.changelingDialog:not(.noSplatFont) .splatFont {
+	font-family: "changeling", var(--main-font);
+}
+
 .werewolf:not(.noSplatFont) nav,
 .creature:not(.noSplatFont) nav,
 .spirit:not(.noSplatFont) nav,
@@ -547,6 +622,11 @@
 .vampire .headlineRow {
     border-bottom: 1px solid var(--main-vampire-color);
     background-color: var(--main-vampire-dim-color);
+}
+
+.changeling .headlineRow {
+  border-bottom: 1px solid var(--main-changeling-color);
+  background-color: var(--main-changeling-dim-color);
 }
   
 .creature .headlineRow {
@@ -611,6 +691,155 @@
 
 /* END - General */
 
+/* START Core */
+
+.creature.langDE .attribute-headlineWidth,
+.creature.langES .attribute-headlineWidth {
+  width: 35%;
+}
+
+.langFR .attribute-headlineWidth {
+  width: 120px;
+}
+
+/* END Core */
+
+/* START Combat */
+
+.langDE .combat-concealBox,
+.langES .combat-concealBox,
+.langIT .combat-concealBox {
+  width: 85px;
+}
+
+.langFR .combat-valueBoxArmor {
+  width: 80px;
+}
+
+.changeling .pullLeft.healthbox {
+  margin-left: 15px;
+}
+
+.changeling .pullRight.healthbox {
+  margin-right: 15px;  
+}
+
+.changeling .leftwrapper {
+  border: 1px solid var(--main-changeling-color);
+  border-bottom: 0px;
+  border-right: 0px;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+.changeling .topwrapper {
+  border: 1px solid var(--main-changeling-color);
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  padding-top: 5px;
+}
+
+.changeling .rightwrapper {
+  border: 1px solid var(--main-changeling-color);
+  border-bottom: 0px;
+  border-left: 0px;
+  padding-top: 5px;
+  margin-right: 5px;
+}
+
+.changeling .wrapperboxleft {
+  padding-left: 10px;
+}
+
+.changeling .wrapperboxright {
+  margin-right: 5px;
+}
+
+/* END Combat */
+
+/* WHEEL START */
+
+.langDE div.sheet-headlineQuintessence {
+  text-align: start;
+  margin-left: 45px;
+}
+
+.langDE div.sheet-headlineParadox {
+  text-align: start;
+  margin-left: 45px;
+}
+
+/* WHEEL END */
+
+/* START Dialog */
+
+.langEN .dialog-casting-type-label {
+  width: 250px;
+}
+
+.langDE .dialog-casting-type-label {
+  width: 350px;
+}
+
+.mortalDialog:not(.noSplatFont) .headlineGroup,
+.changelingDialog:not(.noSplatFont) .headlineGroup,
+.vampireDialog:not(.noSplatFont) .headlineGroup {
+    font-size: 24px;
+    font-size: calc(0.4vw + 0.4vh + 0.7vmin);    
+}
+
+.werewolfDialog:not(.noSplatFont) .headlineGroup,
+.creatureDialog:not(.noSplatFont) .headlineGroup,
+.spiritDialog:not(.noSplatFont) .headlineGroup {
+    font-size: 24px;
+    font-size: calc(0.3vw + 0.3vh + 0.6vmin);
+}
+
+.mortalDialog:not(.noSplatFont) .headlineGroup {
+  border-bottom: 1px solid var(--main-mortal-color);
+}
+
+.changelingDialog:not(.noSplatFont) .headlineGroup {
+    border-bottom: 1px solid var(--main-changeling-color);
+}
+
+.vampireDialog:not(.noSplatFont) .headlineGroup {
+    border-bottom: 1px solid var(--main-vampire-color);
+}
+
+.werewolfDialog:not(.noSplatFont) .headlineGroup {
+    border-bottom: 1px solid var(--main-werewolf-color);
+}
+
+.creatureDialog:not(.noSplatFont) .headlineGroup {
+    border-bottom: 1px solid var(--main-creature-color);
+}
+
+.spiritDialog:not(.noSplatFont) .headlineGroup {
+    border-bottom: 1px solid var(--main-spirit-color);
+}
+
+.mortalDialog:not(.noSplatFont) .headline,
+.changelingDialog:not(.noSplatFont) .headline,
+.vampireDialog:not(.noSplatFont) .headline {
+    font-size: 14px;
+    font-size: calc(0.3vw + 0.3vh + 0.6vmin);
+}
+
+.werewolfDialog:not(.noSplatFont) .headline,
+.creatureDialog:not(.noSplatFont) .headline,
+.spiritDialog:not(.noSplatFont) .headline {
+  font-size: 14px;
+  font-size: calc(0.2vw + 0.2vh + 0.5vmin);
+}
+
+.langDE .comboboxRow {
+  height: 40px;
+}
+
+/* END - Dialog */
+
 /* Check so screen is large enough - START */
 
 @media all and (max-width : 1280px)
@@ -628,6 +857,10 @@
   .mage:not(.minimized).langDE,
   .mage:not(.minimized).langES
   .mage:not(.minimized) {
+    min-width: 400px;
+  }
+
+  .changeling:not(.minimized) {
     min-width: 400px;
   }
 
@@ -657,7 +890,15 @@
     min-height: 400px;
   }
 
+  .changeling:not(.minimized) {
+    min-height: 400px;
+  }
+
   .mortal:not(.minimized) {
+    min-height: 400px;
+  }
+
+  .spirit:not(.minimized) {
     min-height: 400px;
   }
 

@@ -2,18 +2,14 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.breed" data-name="data.system.breed" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.breed}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Kojin">Kojin</option>
-                <option value="Shinju">Shinju</option>
-                <option value="Roko">Roko</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Kojin">{{localize "wod.bio.breedname.kojin"}}</option>
+                    <option value="Shinju">{{localize "wod.bio.breedname.shinju"}}</option>
+                    <option value="Roko">{{localize "wod.bio.breedname.roko"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>
@@ -22,19 +18,15 @@
     <div>
         <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.path"}}</label>
         <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-            <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" data-dtype="String" readonly />
-            {{else}}
-            <select name="data.auspice" data-name="data.system.auspice" data-dtype="String">
+            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.auspice" data-name="data.system.auspice" data-dtype="String" {{#if locked}}disabled{{/if}}>
                 {{#select data.system.auspice}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Kataribe">Kataribe</option>
-                <option value="Gukutsushi">Gukutsushi</option>
-                <option value="Doshi">Doshi</option>
-                <option value="Eji">Eji</option>
+                    <option value="">- {{localize "wod.labels.select"}} -</option>
+                    <option value="Kataribe">{{localize "wod.bio.pathname.kataribe"}}</option>
+                    <option value="Gukutsushi">{{localize "wod.bio.pathname.gukutsushi"}}</option>
+                    <option value="Doshi">{{localize "wod.bio.pathname.doshi"}}</option>
+                    <option value="Eji">{{localize "wod.bio.pathname.eji"}}</option>
                 {{/select}}
             </select>
-            {{/if}}
         </div>
     </div>
 </div>	

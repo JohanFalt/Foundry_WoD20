@@ -7,14 +7,13 @@ import * as templates from "./module/templates.js";
 import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
 import { MageActorSheet } from "./module/actor/mage-actor-sheet.js";
+import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
+import { ChangelingActorSheet } from "./module/actor/changeling-actor-sheet.js";
 import { ChangingBreedActorSheet } from "./module/actor/changingbreed-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
-import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
 import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
 
 import { WoDItemSheet } from "./module/items/item-sheet.js";
-
-import ActionHelper from "./module/scripts/action-helpers.js";
 
 Hooks.once("init", async function() {
 	console.log("WoD | Initialising World of Darkness System");
@@ -40,15 +39,9 @@ Hooks.once("init", async function() {
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
 	
-	Actors.registerSheet("WoD", VampireActorSheet, {
-		label: "Vampire Sheet",
-		types: ["Vampire"],
-		makeDefault: true
-	});
-
-	Actors.registerSheet("WoD", MageActorSheet, {
-		label: "Mage Sheet",
-		types: ["Mage"],
+	Actors.registerSheet("WoD", MortalActorSheet, {
+		label: "Mortal Sheet",
+		types: ["Mortal"],
 		makeDefault: true
 	});
 
@@ -57,6 +50,24 @@ Hooks.once("init", async function() {
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
+
+	Actors.registerSheet("WoD", MageActorSheet, {
+		label: "Mage Sheet",
+		types: ["Mage"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", VampireActorSheet, {
+		label: "Vampire Sheet",
+		types: ["Vampire"],
+		makeDefault: true
+	});
+	
+	Actors.registerSheet("WoD", ChangelingActorSheet, {
+		label: "Changeling Sheet",
+		types: ["Changeling"],
+		makeDefault: true
+	});
 
 	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
 		label: "Changing Breed Sheet",
@@ -68,13 +79,7 @@ Hooks.once("init", async function() {
 		label: "Creature Sheet",
 		types: ["Creature"],
 		makeDefault: true
-	});
-
-	Actors.registerSheet("WoD", MortalActorSheet, {
-		label: "Mortal Sheet",
-		types: ["Mortal"],
-		makeDefault: true
-	});
+	});	
 
 	Actors.registerSheet("WoD", SpiritActorSheet, {
 		label: "Spirit Sheet",
@@ -83,7 +88,7 @@ Hooks.once("init", async function() {
 	});
 	
 	console.log("WoD | Sheets Registered");
-
+	
 	// Register item application classes
 	Items.unregisterSheet("core", ItemSheet);
 
@@ -143,6 +148,9 @@ Hooks.on("renderActorSheet", (sheet) => {
 	else if (CONFIG.language == "it") {
 		sheet.element[0].classList.add("langIT");
     }
+	else if (CONFIG.language == "fr") {
+		sheet.element[0].classList.add("langFR");
+    }
 	else {
 		sheet.element[0].classList.add("langEN");
 	}
@@ -167,6 +175,9 @@ Hooks.on("renderItemSheet", (sheet) => {
 	else if (CONFIG.language == "it") {
 		sheet.element[0].classList.add("langIT");
     }
+	else if (CONFIG.language == "fr") {
+		sheet.element[0].classList.add("langFR");
+    }
 	else {
 		sheet.element[0].classList.add("langEN");
 	}
@@ -177,34 +188,31 @@ Hooks.on("renderItemSheet", (sheet) => {
 });
 
 Hooks.on("renderFormApplication", (sheet) => { 
-	if (sheet.isDialog == undefined) {
-		return;
-	}
+	if (sheet.isDialog) {
+		const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');	
 
+		clearHTML(sheet);	
 
-	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');	
+		// adding the means to control the CSS by what language is used.
+		if (CONFIG.language == "de") {
+			sheet.element[0].classList.add("langDE");
+		}
+		else if (CONFIG.language == "es") {
+			sheet.element[0].classList.add("langES");
+		}
+		else if (CONFIG.language == "it") {
+			sheet.element[0].classList.add("langIT");
+		}
+		if (CONFIG.language == "fr") {
+			sheet.element[0].classList.add("langFR");
+		}
+		else {
+			sheet.element[0].classList.add("langEN");
+		}
 
-	clearHTML(sheet);	
-
-	// adding the means to control the CSS by what language is used.
-	if (CONFIG.language == "de") {
-		sheet.element[0].classList.add("langDE");
-	}
-	else if (CONFIG.language == "es") {
-	 	sheet.element[0].classList.add("langES");
-	}
-	else if (CONFIG.language == "it") {
-		sheet.element[0].classList.add("langIT");
-    }
-	if (CONFIG.language == "fr") {
-		sheet.element[0].classList.add("langFR");
-	}
-	else {
-		sheet.element[0].classList.add("langEN");
-	}
-
-	if (!useSplatFonts) {
-		sheet.element[0].classList.add("noSplatFont");
+		if (!useSplatFonts) {
+			sheet.element[0].classList.add("noSplatFont");
+		}
 	}
 });
 

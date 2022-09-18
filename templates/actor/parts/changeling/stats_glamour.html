@@ -1,0 +1,32 @@
+<div class="sheet-headline splatFont vrollable" 
+	data-type="{{config.sheettype.changeling}}"
+	data-key="glamour"
+	data-noability="true">{{localize 'wod.advantages.glamour'}}</div>
+	
+<div class="sheet-boxcontainer">
+	<div class="resource-value permValueRow" data-value="{{data.system.glamour.permanent}}" data-name="data.system.glamour.permanent">
+
+		{{#numLoop data.system.glamour.max}}
+		
+			<span class="resource-value-step" data-type="{{../config.sheettype.changeling}}" data-key="glamour" data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+		
+	</div>
+</div>
+
+<div class="sheet-boxcontainer">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.glamour.temporary}}" data-name="data.system.glamour.temporary">
+
+		{{#numLoop data.system.glamour.max}}
+		
+			{{#le ../data.system.glamour.temporary this}}
+				<span class="resource-value-step" data-type="{{../config.sheettype.changeling}}" data-key="glamour" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="resource-value-step" data-type="{{../config.sheettype.changeling}}" data-key="glamour" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>
