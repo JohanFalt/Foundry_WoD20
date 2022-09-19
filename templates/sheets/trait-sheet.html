@@ -4,27 +4,20 @@
 
 		<header class="sheet-header">
 			<div class="top-area">
-				<!--<div class="top-side">
-					<img src="{{item.img}}" />
-				</div>-->
 				<div class="top-center top-headline splatFont centerText">
 					{{item.name}}
 				</div>
-				<div class="top-side top-sidetext centerText">
-				</div>				
 			</div>
 		</header>
 
 		<section class="item-body">
 
+			<input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" />
+
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
 				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>
-
-            <div>
-                <input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" readonly />
-            </div>            
+			</div>            
 
 			<!-- type -->
 			{{#if userpermissions.itemAdministrator}}
