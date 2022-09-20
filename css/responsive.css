@@ -844,8 +844,6 @@
 
 @media all and (max-width : 1280px)
 {
-  .werewolf:not(.minimized).langDE,
-  .werewolf:not(.minimized).langES,
   .werewolf:not(.minimized) {
     min-width: 400px;
   }
@@ -854,8 +852,6 @@
     min-width: 400px;
   }  
 
-  .mage:not(.minimized).langDE,
-  .mage:not(.minimized).langES
   .mage:not(.minimized) {
     min-width: 400px;
   }

@@ -32,10 +32,10 @@
 					data-key="{{ability._id}}"
 					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
 
-					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
+					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>
 
 					{{#numLoop ability.max}}					
-						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>					
+						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
 					{{/numLoop}}
 					
 				</div>
@@ -65,10 +65,10 @@
 					data-key="{{ability._id}}"
 					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
 
-					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
+					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>
 
 					{{#numLoop ability.max}}					
-						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>					
+						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
 					{{/numLoop}}
 					
 				</div>
@@ -95,13 +95,13 @@
 				<div class="resource-value dotvalueArea pullRight" 
 					data-value="{{ability.value}}" 
 					data-name="system.abilities.knowledge.{{ability._id}}.value"
-					data-_id="{{ability._id}}"
+					data-key="{{ability._id}}"
 					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
 					
-					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
+					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>
 
 					{{#numLoop ability.max}}					
-						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>					
+						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
 					{{/numLoop}}
 					
 				</div>

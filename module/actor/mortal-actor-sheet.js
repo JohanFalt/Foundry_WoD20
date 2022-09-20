@@ -482,6 +482,7 @@ export class MortalActorSheet extends ActorSheet {
 		ActionHelper.RollDialog(event, this.actor);		
 	}
 
+	/* Lock / unlock the sheet */
 	async _onToggleLocked(event) {
 		event.preventDefault();
 
@@ -545,6 +546,7 @@ export class MortalActorSheet extends ActorSheet {
 		await this.actor.update(actorData);
 	}
   
+	/* Alter dots e.g attributes, abilities */
 	async _onDotCounterChange(event) {
 		console.log("WoD | Mortal Sheet _onDotCounterChange");
 		
@@ -565,29 +567,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		if (index < 0 || index > steps.length) {
 			return;
-		}		
-
-		if (dataset.itemid != undefined) {
-			if (this.locked) {
-				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-				return;
-		   	}
-
-			steps.removeClass("active");
-			steps.each(function (i) {
-				if (i <= index) {
-					$(this).addClass("active");
-				}
-			});
-
-			const itemid = dataset.itemid;
-
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = duplicate(item);
-			itemData.system.value = parseInt(index + 1);
-			await item.update(itemData);
-			return;
-		}
+		}	
 
 		const fieldStrings = parent[0].dataset.name;
 		const fields = fieldStrings.split(".");
@@ -619,6 +599,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 	}
 
+	/* Clear dots from value. Attributes/Abilities */
 	async _onDotCounterEmpty(event) {
 		console.log("WoD | Mortal Sheet _onDotCounterEmpty");
 		
@@ -632,33 +613,29 @@ export class MortalActorSheet extends ActorSheet {
 			return;
 		}		
 
-		const parent = $(element.parentNode);
-		
-		const steps = parent.find(".resource-value-empty");
-		
 		if (this.locked) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
 
-		steps.removeClass("active");		
+		const parent = $(element.parentNode);
+		const abilityType = parent[0].dataset.ability;	
+		
+		const steps = parent.find(".resource-value-empty");
+		steps.removeClass("active");
 
-		if (dataset.itemid != undefined) {
-			const itemid = dataset.itemid;
+		const fieldStrings = parent[0].dataset.name;
+		const fields = fieldStrings.split(".");		
 
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
-
-			const itemData = duplicate(item);
-			itemData.system.value = 0;
-			await item.update(itemData);
+		if (abilityType == "secondary") {
+			await this._updateSecondaryAbility(parent[0].dataset.key, 0);
 		}
-		else {
-			const fieldStrings = parent[0].dataset.name;
-			const fields = fieldStrings.split(".");			
+		else {	
 			await this._assignToActorField(fields, 0);
 		}
 	}
 	
+	/* Clicked health boxes */
 	async _onSquareCounterChange(event) {
 		console.log("WoD | Update Health Levels");
 
@@ -716,6 +693,7 @@ export class MortalActorSheet extends ActorSheet {
 		await this.actor.update(actorData);
 	}
 
+	/* Clear health boxes */
 	async _onSquareCounterClear(event) {
 		console.log("WoD | Clear Health Level");
 

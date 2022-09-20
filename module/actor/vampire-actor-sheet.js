@@ -208,7 +208,7 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		// Temp generation
 		html
-			.find('.selectGeneration')
+			.find('.pointer.selectGeneration')
 			.click(this._onSelectGeneration.bind(this));
 		
 	}	
@@ -405,6 +405,31 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
+
+		// secondary abilities
+		for (const i of this.actor.items) {
+			if (i.type == "Trait") {
+				var hasChanged = false;
+				const itemData = duplicate(i);
+
+				if (i.system.type == "wod.types.talentsecondability") {
+					itemData.system.max = traitMax;
+					hasChanged = true;
+				}
+				if (i.system.type == "wod.types.skillsecondability") {
+					itemData.system.max = traitMax;
+					hasChanged = true;
+				}
+				if (i.system.type == "wod.types.knowledgesecondability") {
+					itemData.system.max = traitMax;
+					hasChanged = true;
+				}
+
+				if (hasChanged) {
+                    await i.update(itemData);
+                }
+			}
+		}
 
 		await keepDisciplinesCorrect(disciplineMax, this.actor);
 

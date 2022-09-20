@@ -408,8 +408,6 @@ export const updates = async () => {
         let updateData = duplicate(actor);
         let update = false;
 
-        console.log(`TYPE: ${updateData.type}`);
-
         if (updateData.type != CONFIG.wod.sheettype.spirit) {
             updateData.system.settings.version = migrationVersion;            
 
