@@ -565,7 +565,11 @@ export const updates = async () => {
         if ((item.type == "Melee Weapon") || (item.type == "Ranged Weapon")) {
             itemData.system.attack.isrollable = itemData.system.attack.roll;
             itemData.system.damage.isrollable = itemData.system.damage.roll;
-            itemData.system.difficulty = parseInt(itemData.system.diff);
+
+            if (itemData.system.diff != undefined) {
+                itemData.system.difficulty = parseInt(itemData.system.diff);
+            }
+            
             itemData.system.istwohanded = itemData.system.twohanded;
         }
 
@@ -707,6 +711,7 @@ export const updates = async () => {
 
     if (compareVersion(item.system.version, "2.1.0")) {
         const itemData = duplicate(item);
+        itemData.system.version = "2.1.0";
 
         if (item.type == "Melee Weapon") {
             if ((itemData.system.attack.ability != "athletics") && (itemData.system.attack.ability != "brawl") && (itemData.system.attack.ability != "martialarts") && (itemData.system.attack.ability != "melee")) {
@@ -721,8 +726,6 @@ export const updates = async () => {
                 altered = true;
             }            
         }
-
-        itemData.system.version = migrationVersion;
 
         if (altered) {
             await item.update(itemData);
