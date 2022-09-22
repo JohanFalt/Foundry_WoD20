@@ -54,7 +54,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.system.generation));
 		await keepDisciplinesCorrect(disciplineMax, this.actor)		
 
-		const data = super.getData();
+		const data = await super.getData();
 
 		console.log("WoD | Vampire Sheet getData");
 

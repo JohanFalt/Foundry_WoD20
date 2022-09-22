@@ -1,6 +1,7 @@
 import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
-import ActionHelper from "../scripts/action-helpers.js"
+//import ActionHelper from "../scripts/action-helpers.js"
+import CombatHelper from "../scripts/combat-helpers.js";
 
 export class GeneralRoll {
     constructor(key, type) {
@@ -369,7 +370,7 @@ export class DialogGeneralRoll extends FormApplication {
                 specialityText = this.object.specialityText;
             }
 
-            if (ActionHelper._ignoresPain(this.actor)) {
+            if (CombatHelper.ignoresPain(this.actor)) {
                 woundPenaltyVal = 0;	
             }				
             else if ((this.object.type == "dice") || (this.object.type == "noability")) {

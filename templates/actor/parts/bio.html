@@ -194,8 +194,11 @@
 		<div>
 			<label class="headlineText headlineBio splatFont" for="data.appearance">{{localize 'wod.bio.appearance'}}</label>
 			<div class="clearareaBox">
-				<!-- {{editor content=data.system.appearance target="data.appearance" button=locked owner=owner editable=locked}} -->
-				{{editor target="system.appearance" button=locked owner=owner editable=locked}}
+				{{#if locked}}
+					<div class="clearareaBox headlineNormal textarea">{{{actor.system.listdata.enrichedAppearance}}}</div>
+				{{else}}
+					{{editor data.appearance target="system.appearance" button=true owner=owner editable=locked}}
+				{{/if}}				
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
+import TokenHelper from "../scripts/token-helpers.js";
 
 // import { Frenzy } from "../dialogs/dialog-checkfrenzy.js";
 // import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
@@ -54,7 +55,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}	 	
 		}
 
-		const data = super.getData();
+		const data = await super.getData();
 
 		console.log("WoD | Werewolf Sheet getData");
 
@@ -331,6 +332,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		ActionHelper._handleCalculations(actorData);
 		ActionHelper.handleWerewolfCalculations(actorData);
+		//TokenHelper.formShift(actorData, fromForm, toForm);
 
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);

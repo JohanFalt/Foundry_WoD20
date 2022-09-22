@@ -44,9 +44,9 @@ Systems I have checked to learn general structure and the typical "how do you do
 
 ## Translations
 
-French translation (last update v1.5) - Naurthoron
-
 German translation - Nocther
+
+French translation - Naurthoron
 
 Italian translation (still working on) - EldritchTranslator
 

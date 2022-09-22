@@ -1,4 +1,5 @@
 import ActionHelper from "../scripts/action-helpers.js";
+import MessageHelper from "../scripts/message-helpers.js"
 import { calculateHealth } from "../scripts/health.js";
 import * as selectbox from "../scripts/spec-select.js";
 
@@ -45,7 +46,7 @@ export class MortalActorSheet extends ActorSheet {
 	}
 	
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);		
 
 		if (!actorData.system.settings.iscreated) {
@@ -62,7 +63,7 @@ export class MortalActorSheet extends ActorSheet {
 		}	
 
 		console.log("WoD | Mortal Sheet getData");
-		const data = super.getData();		
+		const data = await super.getData();	
 
 		CONFIG.wod.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
 		
@@ -73,6 +74,15 @@ export class MortalActorSheet extends ActorSheet {
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
+
+		/* data = {
+			config: CONFIG.wod,
+			userpermissions: ActionHelper._getUserPermissions(game.user),
+			graphicsettings: ActionHelper._getGraphicSettings(),
+			locked: this.locked,
+			isCharacter: this.isCharacter,
+			isGM: this.isGM
+		}; */
 
 		data.dtypes = ["String", "Number", "Boolean"];	
 		
@@ -254,6 +264,8 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		data.actor.system.listdata.health = calculateHealth(data.actor, CONFIG.wod.sheettype.mortal);
+		//data.actor.system.listdata.enrichedAppearance = await TextEditor.enrichHTML(data.actor.system.appearance, {async: true});
+		data.actor.system.listdata.enrichedAppearance = await TextEditor.decodeHTML(data.actor.system.appearance, {async: true});
 		data.actor.system.listdata.settings.haschimericalhealth = false;
 
 		/* Abilities */
@@ -1063,7 +1075,7 @@ export class MortalActorSheet extends ActorSheet {
 		const message = element.dataset.message || "";
 		const headline = element.dataset.headline || "";
 
-		ActionHelper.printMessage(headline, message, this.actor);
+		MessageHelper.printMessage(headline, message, this.actor);
 	}
 
 	async _updateSecondaryAbility(itemId, value) {

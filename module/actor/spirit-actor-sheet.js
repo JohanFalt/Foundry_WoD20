@@ -1,4 +1,5 @@
 import ActionHelper from "../scripts/action-helpers.js"
+import MessageHelper from "../scripts/message-helpers.js"
 
 export class SpiritActorSheet extends ActorSheet {
 	
@@ -213,7 +214,7 @@ export class SpiritActorSheet extends ActorSheet {
 		const message = element.dataset.message || "";
 		const headline = element.dataset.headline || "";
 
-		ActionHelper.printMessage(headline, message, this.actor);
+		MessageHelper.printMessage(headline, message, this.actor);
 	}
 
 	_onDotCounterChange(event) {

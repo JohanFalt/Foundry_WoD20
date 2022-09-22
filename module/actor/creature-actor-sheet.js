@@ -32,7 +32,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 	}
 
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
@@ -48,13 +48,13 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}	 	
 		}
 
-		const data = super.getData();
+		const data = await super.getData();
 
 		console.log("WoD | Creature Sheet getData");
 
 		const powerlist = [];
 
-		for (const i of data.items) {
+		for (const i of actorData.items) {
 			if (i.type == "Power") {
 				if (i.system.type == "wod.types.power") {
 					powerlist.push(i);
@@ -227,14 +227,13 @@ export class CreatureActorSheet extends MortalActorSheet {
 		if ((this.locked) && 
 				((fieldStrings != "data.system.rage.temporary") && 
 				(fieldStrings != "data.system.gnosis.temporary") &&
+				(fieldStrings != "data.system.glamour.temporary") &&
+				(fieldStrings != "data.system.banality.temporary") &&
 				(fieldStrings != "data.system.essence.temporary") && 
 				(fieldStrings != "data.system.bloodpool.temporary"))) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
-		// if (fieldStrings == "data.system.willpower.permanent") {
-		// 	return;
-		// }
 
 		if (index < 0 || index > steps.length) {
 			return;
@@ -256,7 +255,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		
 		const actorData = duplicate(this.actor);
 
-		if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "essence") || (fields[2] === "bloodpool")) {
+		if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "essence") || (fields[2] === "bloodpool") || (fields[2] === "glamour") || (fields[2] === "banality")) {
 			if (actorData.system[fields[2]][fields[3]] == value) {
 				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
 			}
@@ -266,7 +265,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		}
 		
 		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleWerewolfCalculations(actorData);
+		ActionHelper.handleCreatureCalculations(actorData);
 		
 		console.log("WoD | Creature Sheet updated");
 		this.actor.update(actorData);

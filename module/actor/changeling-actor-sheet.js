@@ -146,7 +146,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			}	 	
 		}
 
-		const data = super.getData();
+		const data = await super.getData();
 
 		console.log("WoD | Changeling Sheet getData");
 

@@ -77,7 +77,7 @@
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 					<div class="clearareaBox">
-						{{editor target="system.description" button=true owner=owner editable=locked}}
+						{{editor data.description target="system.description" button=true owner=owner editable=locked}}
 					</div>
 				</div>
 			{{/if}}			
@@ -85,7 +85,7 @@
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.details">{{localize "wod.labels.details"}}</label>
 				<div class="clearareaBox">
-					{{editor target="system.details" button=true owner=owner editable=locked}}
+					{{editor data.details target="system.details" button=true owner=owner editable=locked}}
 				</div>
 			</div>
 		</section>

@@ -1,4 +1,5 @@
-import ActionHelper from "./scripts/action-helpers.js";
+//import ActionHelper from "./scripts/action-helpers.js";
+import MessageHelper from "./scripts/message-helpers.js"
 import { getImage } from "./items/item-sheet.js";
 
 /**
@@ -16,8 +17,8 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         ui.notifications.warn(`Updating World from version ${installedVersion} to ${migrationVersion} do not close your game or shut down your server. Please wait this can take a while...`, {permanent: true});
         console.log(`Updating from ${installedVersion} to ${migrationVersion}`);
 
-        ActionHelper.printMessage("<h1><b>Updating World</b></h1>", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
-        ActionHelper.printMessage("<h3>Starting with Actors</h3>", "");
+        MessageHelper.printMessage("<h1><b>Updating World</b></h1>", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
+        MessageHelper.printMessage("<h3>Starting with Actors</h3>", "");
         //World Actors
         for (const actor of game.actors) {
             try {
@@ -28,9 +29,9 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        ActionHelper.printMessage("<h3>Actors done</h3>", "");
+        MessageHelper.printMessage("<h3>Actors done</h3>", "");
 
-        ActionHelper.printMessage("<h3>Starting with World Items</h3>", "");
+        MessageHelper.printMessage("<h3>Starting with World Items</h3>", "");
         //World Items
         for (const item of game.items) {
             try {
@@ -41,9 +42,9 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        ActionHelper.printMessage("<h3>Items done</h3>", "");
+        MessageHelper.printMessage("<h3>Items done</h3>", "");
 
-        ActionHelper.printMessage("<h3>Starting with World Compendiums</h3>", "");
+        MessageHelper.printMessage("<h3>Starting with World Compendiums</h3>", "");
         // World Compendiums
         for ( let pack of game.packs ) {
             try {
@@ -55,11 +56,11 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        ActionHelper.printMessage("<h3>Compendiums done</h3>", "");
+        MessageHelper.printMessage("<h3>Compendiums done</h3>", "");
 
         console.log("Update completed!"); 
 
-        ActionHelper.printMessage("<h3>Checking character settings</h3>", "");
+        MessageHelper.printMessage("<h3>Checking character settings</h3>", "");
     }
 
     try {
@@ -945,7 +946,7 @@ export const updates = async () => {
         message += '</ul>';
     } 
 
-    ActionHelper.printMessage(headline, message);
+    MessageHelper.printMessage(headline, message);
 }
 
   /**

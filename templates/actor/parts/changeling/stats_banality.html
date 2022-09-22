@@ -1,5 +1,5 @@
 <div class="sheet-headline splatFont vrollable" 
-	data-type="{{config.sheettype.changeling}}"
+	data-type="{{actor.type}}"
 	data-key="banality"
 	data-noability="true">{{localize 'wod.advantages.banality'}}</div>
 	
@@ -8,7 +8,7 @@
 
 		{{#numLoop data.system.banality.max}}
 		
-			<span class="resource-value-step" data-type="{{../config.sheettype.changeling}}" data-key="banality" data-index="{{this}}"></span>
+			<span class="resource-value-step" data-type="{{../actor.type}}" data-key="banality" data-index="{{this}}"></span>
 		
 		{{/numLoop}}
 		
@@ -21,9 +21,9 @@
 		{{#numLoop data.system.banality.max}}
 		
 			{{#le ../data.system.banality.temporary this}}
-				<span class="resource-value-step" data-type="{{../config.sheettype.changeling}}" data-key="banality" data-index="{{this}}" data-state=""></span>
+				<span class="resource-value-step" data-type="{{../actor.type}}" data-key="banality" data-index="{{this}}" data-state=""></span>
 			{{else}}
-				<span class="resource-value-step" data-type="{{../config.sheettype.changeling}}" data-key="banality" data-index="{{this}}" data-state="x"></span>
+				<span class="resource-value-step" data-type="{{../actor.type}}" data-key="banality" data-index="{{this}}" data-state="x"></span>
 			{{/le}}
 		
 		{{/numLoop}}

@@ -37,7 +37,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	}
 
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
@@ -51,7 +51,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			}	 	
 		}
 
-		const data = super.getData();
+		const data = await super.getData();
 
 		console.log("WoD | Changing Breed Sheet getData");
 

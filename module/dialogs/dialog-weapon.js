@@ -1,4 +1,5 @@
-import ActionHelper from "../scripts/action-helpers.js";
+//import ActionHelper from "../scripts/action-helpers.js";
+import CombatHelper from "../scripts/combat-helpers.js";
 import { rollDice } from "../scripts/roll-dice.js";
 import { rollDiceMultiple } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
@@ -565,7 +566,7 @@ export class DialogWeapon extends FormApplication {
             //                         ${game.i18n.localize("wod.dialog.weapon.rolldamage")}
             //                 </div>`;
             
-            if (ActionHelper._ignoresPain(this.actor)) {
+            if (CombatHelper.ignoresPain(this.actor)) {
                 woundPenaltyVal = 0;			}				
             else {
                 woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);

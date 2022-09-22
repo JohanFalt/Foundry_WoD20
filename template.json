@@ -93,7 +93,8 @@
 						"value": 1,
 						"penalty": -99,
 						"label": "wod.health.incapacitated"
-					}
+					},
+					"totalhealthlevels": 7
 				},
 				"soak": {
 					"bashing": 0,

@@ -1,27 +1,34 @@
-import { rollDice } from "./roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { rollDice, DiceRoll } from "./roll-dice.js";
+//import { DiceRoll } from "../scripts/roll-dice.js";
 import { calculateTotals } from "./totals.js";
 
-import { MeleeWeapon } from "../dialogs/dialog-weapon.js";
-import { RangedWeapon } from "../dialogs/dialog-weapon.js";
-import { Damage } from "../dialogs/dialog-weapon.js";
-import { DialogWeapon } from "../dialogs/dialog-weapon.js";
+import CombatHelper from "./combat-helpers.js";
+
+import * as WeaponHelper from "../dialogs/dialog-weapon.js";
+import * as PowerHelper from "../dialogs/dialog-power.js";
+
+//import { MeleeWeapon } from "../dialogs/dialog-weapon.js";
+//import { RangedWeapon } from "../dialogs/dialog-weapon.js";
+//import { Damage } from "../dialogs/dialog-weapon.js";
+//import { DialogWeapon } from "../dialogs/dialog-weapon.js";
+
 import { Treasure } from "../dialogs/dialog-item.js";
 import { DialogItem } from "../dialogs/dialog-item.js";
 
 import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js";
 
 import { Rote } from "../dialogs/dialog-aretecasting.js";
-import { Gift } from "../dialogs/dialog-power.js";
-import { CharmGift } from "../dialogs/dialog-power.js";
-import { Charm } from "../dialogs/dialog-power.js";
-import { Power } from "../dialogs/dialog-power.js";
-import { DisciplinePower } from "../dialogs/dialog-power.js";
-import { PathPower } from "../dialogs/dialog-power.js";
-import { RitualPower } from "../dialogs/dialog-power.js";
-import { ArtPower } from "../dialogs/dialog-power.js";
 import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
-import { DialogPower } from "../dialogs/dialog-power.js";
+
+//import { Gift } from "../dialogs/dialog-power.js";
+//import { CharmGift } from "../dialogs/dialog-power.js";
+// import { Charm } from "../dialogs/dialog-power.js";
+// import { Power } from "../dialogs/dialog-power.js";
+// import { DisciplinePower } from "../dialogs/dialog-power.js";
+// import { PathPower } from "../dialogs/dialog-power.js";
+// import { RitualPower } from "../dialogs/dialog-power.js";
+// import { ArtPower } from "../dialogs/dialog-power.js";
+//import { DialogPower } from "../dialogs/dialog-power.js";
 
 import { SortDisciplinePower } from "../dialogs/dialog-sortpower.js";
 import { SortPathPower } from "../dialogs/dialog-sortpower.js";
@@ -76,16 +83,16 @@ export default class ActionHelper {
 
 			// used a Weapon
 			if (dataset.object == "Melee") {
-				const weapon = new MeleeWeapon(item);
-				let weaponUse = new DialogWeapon(actor, weapon);
+				const weapon = new WeaponHelper.MeleeWeapon(item);
+				let weaponUse = new WeaponHelper.DialogWeapon(actor, weapon);
 				weaponUse.render(true);
 
 				return;
 			}
 
 			if (dataset.object == "Ranged") {
-				const weapon = new RangedWeapon(item);
-				let weaponUse = new DialogWeapon(actor, weapon);
+				const weapon = new WeaponHelper.RangedWeapon(item);
+				let weaponUse = new WeaponHelper.DialogWeapon(actor, weapon);
 				weaponUse.render(true);
 
 				return;
@@ -93,8 +100,8 @@ export default class ActionHelper {
 
 			if (dataset.object == "Damage") {
 				item.system.extraSuccesses = 0;
-				const damage = new Damage(item);
-				let weaponUse = new DialogWeapon(actor, damage);
+				const damage = new WeaponHelper.Damage(item);
+				let weaponUse = new WeaponHelper.DialogWeapon(actor, damage);
 				weaponUse.render(true);
 
 				return;
@@ -128,15 +135,15 @@ export default class ActionHelper {
 			
 			// used a Gift
 			if ((dataset.object == "Gift") && (dataset.type == CONFIG.wod.sheettype.spirit)) {
-				const gift = new CharmGift(item);
-				let giftUse = new DialogPower(actor, gift);
+				const gift = new PowerHelper.CharmGift(item);
+				let giftUse = new PowerHelper.DialogPower(actor, gift);
 				giftUse.render(true);
 
 				return;
 			}
 			else if (dataset.object == "Gift") {
-				const gift = new Gift(item);
-				let giftUse = new DialogPower(actor, gift);
+				const gift = new PowerHelper.Gift(item);
+				let giftUse = new PowerHelper.DialogPower(actor, gift);
 				giftUse.render(true);
 
 				return;
@@ -144,8 +151,8 @@ export default class ActionHelper {
 
 			// used a Rite
 			if (dataset.object == "Rite") {
-				const rite = new Gift(item);
-				let riteUse = new DialogPower(actor, rite);
+				const rite = new PowerHelper.Gift(item);
+				let riteUse = new PowerHelper.DialogPower(actor, rite);
 				riteUse.render(true);
 
 				return;
@@ -162,8 +169,8 @@ export default class ActionHelper {
 
 			// used a Charm
 			if (dataset.object == "Charm") {
-				const charm = new Charm(item);
-				let charmUse = new DialogPower(actor, charm);
+				const charm = new PowerHelper.Charm(item);
+				let charmUse = new PowerHelper.DialogPower(actor, charm);
 				charmUse.render(true);
 
 				return;
@@ -171,8 +178,8 @@ export default class ActionHelper {
 
 			// used a Power
 			if (dataset.object == "Power") {
-				const power = new Power(item);
-				let powerUse = new DialogPower(actor, power);
+				const power = new PowerHelper.Power(item);
+				let powerUse = new PowerHelper.DialogPower(actor, power);
 				powerUse.render(true);
 
 				return;
@@ -180,8 +187,8 @@ export default class ActionHelper {
 
 			// used a DisciplinePower
 			if (dataset.object == "Discipline") {
-				const discipline = new DisciplinePower(item);
-				let powerUse = new DialogPower(actor, discipline);
+				const discipline = new PowerHelper.DisciplinePower(item);
+				let powerUse = new PowerHelper.DialogPower(actor, discipline);
 				powerUse.render(true);
 
 				return;
@@ -189,8 +196,8 @@ export default class ActionHelper {
 
 			// used a PathPower
 			if (dataset.object == "Path") {
-				const path = new PathPower(item);
-				let powerUse = new DialogPower(actor, path);
+				const path = new PowerHelper.PathPower(item);
+				let powerUse = new PowerHelper.DialogPower(actor, path);
 				powerUse.render(true);
 
 				return;
@@ -198,8 +205,8 @@ export default class ActionHelper {
 
 			// used a Ritual
 			if (dataset.object == "Ritual") {
-				const ritual = new RitualPower(item);
-				let powerUse = new DialogPower(actor, ritual);
+				const ritual = new PowerHelper.RitualPower(item);
+				let powerUse = new PowerHelper.DialogPower(actor, ritual);
 				powerUse.render(true);
 
 				return;
@@ -207,8 +214,8 @@ export default class ActionHelper {
 
 			// used a Art
 			if (dataset.object == "Art") {
-				const art = new ArtPower(item);
-				let powerUse = new DialogPower(actor, art);
+				const art = new PowerHelper.ArtPower(item);
+				let powerUse = new PowerHelper.DialogPower(actor, art);
 				powerUse.render(true);
 
 				return;
@@ -272,7 +279,7 @@ export default class ActionHelper {
 		}
 		else if (dataset.macroimage == "true") {
 			if (dataset.rollinitiative == "true") {
-				this.RollInitiative(event, actor);
+				CombatHelper.RollInitiative(event, actor);
 
 				return;
 			}
@@ -337,7 +344,7 @@ export default class ActionHelper {
 		return;
     }	
 
-	static async RollInitiative(event, actor) {
+	/* static async RollInitiative(event, actor) {
 		event.preventDefault();		
 
 		let foundToken = false;
@@ -437,7 +444,7 @@ export default class ActionHelper {
 		}
 
 		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2><strong>'+game.i18n.localize("wod.dice.totalvalue") + ': ' + init + '</strong><br />'+initAttribute+'<p>' + label + '</p>' + '<p>' + message + '</p>', actor);			
-	}
+	} */
 
 	static RollParadox(event, actor) {
 		event.preventDefault();
@@ -457,15 +464,15 @@ export default class ActionHelper {
 		rollDice(paradoxRoll);
 	}
 
- 	static _inTurn(token) {
-		for (let count = 0; count < game.combat.combatants.size; count++) {
-			if (token.id == game.combat.combatants.contents[count].token.id) {
-				return true;
-			}
-		}
+ 	// static _inTurn(token) {
+	// 	for (let count = 0; count < game.combat.combatants.size; count++) {
+	// 		if (token.id == game.combat.combatants.contents[count].token.id) {
+	// 			return true;
+	// 		}
+	// 	}
 	
-		return false;
-	}
+	// 	return false;
+	// }
 
     static _handleCalculations(actorData) {		
 
@@ -521,6 +528,14 @@ export default class ActionHelper {
 			return
 		}
 
+		// calculate total amount of health levels
+		actorData.system.health.totalhealthlevels = 0;
+
+		for (const i in CONFIG.wod.woundLevels) {
+			actorData.system.health.totalhealthlevels += parseInt(actorData.system.health[i].value);
+		}
+
+		// check wound level and wound penalty
 		for (const i in CONFIG.wod.woundLevels) {
 			totalWoundLevels = totalWoundLevels - parseInt(actorData.system.health[i].value);
 
@@ -704,9 +719,69 @@ export default class ActionHelper {
 			actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total) - rageDiff;
 			actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total) - rageDiff;
 		}
-	}			
+	}		
+	
+	static handleCreatureCalculations(actorData) {
+		console.log("WoD | handleCreatureCalculations");
+		
+		let advantageRollSetting = true;
 
-	static printMessage(headline, message, actor){
+		// rage
+		if (actorData.system.rage.permanent > actorData.system.rage.max) {
+			actorData.system.rage.permanent = actorData.system.rage.max;
+		}
+		
+		if (actorData.system.rage.permanent < actorData.system.rage.temporary) {
+			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
+		}
+		
+		// gnosis
+		if (actorData.system.gnosis.permanent > actorData.system.gnosis.max) {
+			actorData.system.gnosis.permanent = actorData.system.gnosis.max;
+		}
+		
+		if (actorData.system.gnosis.permanent < actorData.system.gnosis.temporary) {
+			actorData.system.gnosis.temporary = actorData.system.gnosis.permanent;
+		}		
+
+		// glamour
+		if (actorData.system.glamour.permanent > actorData.system.glamour.max) {
+			actorData.system.glamour.permanent = actorData.system.glamour.max;
+		}
+		
+		if (actorData.system.glamour.permanent < actorData.system.glamour.temporary) {
+			actorData.system.glamour.temporary = actorData.system.glamour.permanent;
+		}
+
+		// banality
+		if (actorData.system.banality.permanent > actorData.system.banality.max) {
+			actorData.system.banality.permanent = actorData.system.banality.max;
+		}
+
+		try {
+			advantageRollSetting = CONFIG.wod.rollSettings;
+		} 
+		catch (e) {
+			advantageRollSetting = true;
+		}
+
+		if (advantageRollSetting) {
+			actorData.system.rage.roll = actorData.system.rage.permanent; 
+			actorData.system.gnosis.roll = actorData.system.gnosis.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent; 
+			actorData.system.glamour.roll = actorData.system.glamour.permanent; 			
+			actorData.system.banality.roll = actorData.system.banality.permanent;
+		}
+		else {
+			actorData.system.rage.roll = actorData.system.rage.permanent > actorData.system.rage.temporary ? actorData.system.rage.temporary : actorData.system.rage.permanent; 
+			actorData.system.gnosis.roll = actorData.system.gnosis.permanent > actorData.system.gnosis.temporary ? actorData.system.gnosis.temporary : actorData.system.gnosis.permanent;
+			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
+			actorData.system.glamour.roll = actorData.system.glamour.permanent > actorData.system.glamour.temporary ? actorData.system.glamour.temporary : actorData.system.glamour.permanent; 
+			actorData.system.banality.roll = actorData.system.banality.permanent > actorData.system.banality.temporary ? actorData.system.banality.temporary : actorData.system.banality.permanent;
+		}	
+	}
+
+	/* static printMessage(headline, message, actor){
 		message = headline + message;
 		message = message.replaceAll("'", '"');
 
@@ -716,9 +791,9 @@ export default class ActionHelper {
 		};		
 	
 		ChatMessage.create(chatData,{});    
-	}
+	} */
 
-	static _ignoresPain(actor) {
+	/* static _ignoresPain(actor) {
 		let ignoresPain = false;
 
 		if (actor.system.conditions?.isignoringpain)
@@ -732,7 +807,7 @@ export default class ActionHelper {
 		}
 
 		return ignoresPain;
-	}		
+	} */		
 
 	static _setMortalAbilities(actor) {
 		for (const talent in CONFIG.wod.talents) {
@@ -1172,16 +1247,6 @@ export default class ActionHelper {
 		}
 
 		permissions.itemAdministrator = game.user.role >= requiredRole;
-		
-		// if (((itemAdministratorLevel == "gm") || (itemAdministratorLevel == "assistant")) && user.isGM) {
-		// 	permissions.itemAdministrator = true;
-		// }
-		// if ((itemAdministratorLevel == "trusted") && user.isTrusted) {
-		// 	permissions.itemAdministrator = true;
-		// }		
-		// if (itemAdministratorLevel == "player") {
-		// 	permissions.itemAdministrator = true;
-		// }
 
 		return permissions;
 	}
@@ -1225,27 +1290,6 @@ export default class ActionHelper {
 			return "gnosis";
 		}
 	}
-
-	/**
-	 * Get a specific item on an actor
-	 * @param id
-	 * @param itemlist
-	 * 
-	 */
-	// static _getItem(id, itemlist)
-	// {
-	// 	if (id == undefined) {
-	// 		return false;
-	// 	}
-
-	// 	for (const i of itemlist) {
-	// 		if (i._id == id) {
-	// 			return i;
-	// 		}
-	// 	}
-
-	// 	return false;
-	// }
 }
 
 
