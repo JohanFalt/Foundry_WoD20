@@ -12,10 +12,18 @@
 		],
 		"templates": {
 			"base": {
+				"traits":{
+					"health": {
+						"totalhealthlevels": {
+							"value": 7,
+							"max": 7
+						}
+					}
+				},
 				"settings": {
 					"iscreated": false,
 					"version": "",
-					"usesplatfont": true,
+					"usesplatfont": true,					
 					"powers": {
 						"hasdisciplines": false,
 						"hasgifts": false,
@@ -93,8 +101,8 @@
 						"value": 1,
 						"penalty": -99,
 						"label": "wod.health.incapacitated"
-					},
-					"totalhealthlevels": 7
+					}
+					
 				},
 				"soak": {
 					"bashing": 0,

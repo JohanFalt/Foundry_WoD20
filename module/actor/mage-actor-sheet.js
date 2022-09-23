@@ -332,8 +332,8 @@ export class MageActorSheet extends MortalActorSheet {
 				actorData.system.arete.permanent = value;
 			}
 		}
-		if (fields[1] === "spheres") {
-			actorData.system.spheres[fields[2]].value = value;
+		if (fields[2] === "spheres") {
+			actorData.system.spheres[fields[3]].value = value;
 		}
 
 		ActionHelper._handleCalculations(actorData);

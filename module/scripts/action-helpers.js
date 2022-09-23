@@ -521,19 +521,21 @@ export default class ActionHelper {
 
 		let totalWoundLevels = totalNormWoundLevels < totalChimericalWoundLevels ? totalChimericalWoundLevels : totalNormWoundLevels;
 
+		// calculate total amount of health levels
+		actorData.system.traits.health.totalhealthlevels.max = 0;
+
+		for (const i in CONFIG.wod.woundLevels) {
+			actorData.system.traits.health.totalhealthlevels.max += parseInt(actorData.system.health[i].value);
+		}
+
+		actorData.system.traits.health.totalhealthlevels.value = actorData.system.traits.health.totalhealthlevels.max - totalWoundLevels;
+
 		if (totalWoundLevels == 0) {
 			actorData.system.health.damage.woundlevel = "";
 			actorData.system.health.damage.woundpenalty = 0;
 
 			return
-		}
-
-		// calculate total amount of health levels
-		actorData.system.health.totalhealthlevels = 0;
-
-		for (const i in CONFIG.wod.woundLevels) {
-			actorData.system.health.totalhealthlevels += parseInt(actorData.system.health[i].value);
-		}
+		}		
 
 		// check wound level and wound penalty
 		for (const i in CONFIG.wod.woundLevels) {

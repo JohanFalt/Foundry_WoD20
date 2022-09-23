@@ -327,6 +327,7 @@ export const updates = async () => {
 
         await actor.update(updateData);
     }
+
     if (compareVersion(actor.system.settings.version, "1.6.0")) {
         const updateData = duplicate(actor);
         let update = false;
@@ -535,8 +536,23 @@ export const updates = async () => {
             await actor.update(updateData);
             update = false;
         }
-    }   
+    }  
 
+/*     if (compareVersion(actor.system.settings.version, "2.2.0")) {        
+        const updateData = duplicate(actor);
+        let update = false;
+
+        updateData.system.settings.version = "2.2.0";
+        updateData.system.health['-=totalhealthlevels'] = null;
+        update = true;
+
+        if (update) {
+
+            await actor.update(updateData);
+            update = false;
+        }
+    } */
+    
     for (const item of actor.items) {
         await updateItem(item, migrationVersion);
     }
@@ -928,7 +944,13 @@ export const updates = async () => {
     }
 
     if (newfunctions == "") {
-        newfunctions = '<li>General bug fixes</li>';
+        //newfunctions = '<li>General bug fixes since 2.1.4</li>';
+        newfunctions += '<li>[VtM] Problems setting vampire disciplines above 5 dots: <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/356">#356</a></li>';
+        newfunctions += '<li>[MtA] Mage can not save sphere dots: <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/354">#354</a></li>';
+        newfunctions += '<li>Changing breed has lost rites: <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/355">#355</a></li>';
+        newfunctions += '<br />';
+        newfunctions += 'Older Issues fix in version:<br />';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/347">#347</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/345">#345</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/343">#343</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/340">#340</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/348">#348</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/339">#339</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a></li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

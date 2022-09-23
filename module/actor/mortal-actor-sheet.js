@@ -387,7 +387,7 @@ export class MortalActorSheet extends ActorSheet {
 		// skicka till chat
 		html
 			.find(".send-chat")
-			.click(this._onSendChat.bind(this));
+			.click(this._onSendChat.bind(this));		
 
 		// setup chat hook for damage roll
 		/* Hooks.on("renderChatMessage", (app, html, messageData) => {

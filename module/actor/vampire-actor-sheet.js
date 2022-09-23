@@ -210,6 +210,19 @@ export class VampireActorSheet extends MortalActorSheet {
 		html
 			.find('.pointer.selectGeneration')
 			.click(this._onSelectGeneration.bind(this));
+
+		Hooks.on("preCreateItem", async function (item, options, id) {
+			if ((item.type == "Power") && (item.system.type == "wod.types.discipline")) {
+				const generation = parseInt(item.actor.system.generation) -  parseInt(item.actor.system.generationmod);
+				const maxRating = calculteMaxDiscipline(generation);
+
+				if (item.system.max < maxRating) {
+					item.updateSource({
+						"system.max": maxRating
+					});
+				}
+			}
+		});
 		
 	}	
 
