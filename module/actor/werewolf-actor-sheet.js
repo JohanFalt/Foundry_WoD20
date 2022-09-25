@@ -94,9 +94,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		for (const i of data.items) {
 			if (i.type == "Power") {
 				if (i.system.type == "wod.types.gift") {
-					i.system.enrichedDescription = await TextEditor.enrichHTML(i.system.description, {async: true});
-					i.system.enrichedSystem = await TextEditor.enrichHTML(i.system.system, {async: true});
-
 					if (i.system.level == 1) {						
 						powerlist1.push(i);
 	
@@ -141,9 +138,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 					}
 				}				
 				if (i.system.type == "wod.types.rite") {
-					i.system.enrichedDescription = await TextEditor.enrichHTML(i.system.description, {async: true});
-					i.system.enrichedSystem = await TextEditor.enrichHTML(i.system.system, {async: true});
-					
 					ritelist.push(i);
 				}			
 			}

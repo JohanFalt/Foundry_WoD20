@@ -53,13 +53,13 @@
         {{#if (ne object.description "")}}
             <div class="infobox">
                 <label class="headline splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-                <div class="clearareaBox textarea">{{{enrichHTML object.description}}}</div>
+                <div class="clearareaBox textarea">{{{object.description}}}</div>
             </div>
         {{/if}}
         {{#if (ne object.details "")}}
             <div class="infobox">
                 <label class="headline splatFont" for="data.details">{{localize "wod.labels.details"}}</label>
-                <div class="clearareaBox textarea">{{{enrichHTML object.details}}}</div>
+                <div class="clearareaBox textarea">{{{object.details}}}</div>
             </div>    
         {{/if}}        
     </div>
