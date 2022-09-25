@@ -945,6 +945,7 @@ export const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += '<li>Note items e.g Backgrounds was not displayed correctly in the tooltip: <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/360">#360</a></li>';
+        newfunctions += '<li>Other traits could not set a value or be cleared: <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/361">#361</a></li>';        
         newfunctions += '<br />';
         newfunctions += 'Older Issues fix in version:<br />';
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/355">#355</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/354">#354</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/356">#356</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/347">#347</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/345">#345</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/343">#343</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/340">#340</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/348">#348</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/339">#339</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a></li>';

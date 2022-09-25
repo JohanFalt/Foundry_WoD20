@@ -571,30 +571,57 @@ export class MortalActorSheet extends ActorSheet {
 		if (type != CONFIG.wod.sheettype.mortal) {
 			return;
 		}
-		
-		const index = Number(dataset.index);
-		const parent = $(element.parentNode);		
-		const abilityType = parent[0].dataset.ability;		
-		const steps = parent.find(".resource-value-step");
 
-		if (index < 0 || index > steps.length) {
+		const parent = $(element.parentNode);	
+		const steps = parent.find(".resource-value-step");	
+		const index = Number(dataset.index);		
+
+		if (dataset.itemid != undefined) {
+			if (this.locked) {
+				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+				return;
+		   	}
+
+		   	const itemid = dataset.itemid;
+
+			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			const itemData = duplicate(item);
+			itemData.system.value = parseInt(index + 1);
+			await item.update(itemData);
+
 			return;
+		}
+		else {
+			const abilityType = parent[0].dataset.ability;				
+			const fieldStrings = parent[0].dataset.name;
+			const fields = fieldStrings.split(".");
+	
+			if (index < 0 || index > steps.length) {
+				return;
+			}
+			
+			if (fields[2] == "health") {
+				return;
+			}
+			if ((this.locked) && (fieldStrings != "data.system.willpower.temporary")) {
+				 ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+				 return;
+			}
+			if ((fieldStrings == "data.system.willpower.permanent") && (CONFIG.wod.attributeSettings == "5th")) {
+				ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
+				return;
+			}
+	
+			
+	
+			if (abilityType == "secondary") {
+				await this._updateSecondaryAbility(parent[0].dataset.key, index + 1);
+			}
+			else {
+				await this._assignToActorField(fields, index + 1);
+			}
 		}	
-
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
 		
-		if (fields[2] == "health") {
-			return;
-		}
-		if ((this.locked) && (fieldStrings != "data.system.willpower.temporary")) {
-		 	ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-		 	return;
-		}
-		if ((fieldStrings == "data.system.willpower.permanent") && (CONFIG.wod.attributeSettings == "5th")) {
-			ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
-			return;
-		}
 
 		steps.removeClass("active");
 		steps.each(function (i) {
@@ -602,13 +629,6 @@ export class MortalActorSheet extends ActorSheet {
 				$(this).addClass("active");
 			}
 		});
-
-		if (abilityType == "secondary") {
-			await this._updateSecondaryAbility(parent[0].dataset.key, index + 1);
-		}
-		else {
-			await this._assignToActorField(fields, index + 1);
-		}
 	}
 
 	/* Clear dots from value. Attributes/Abilities */
@@ -630,21 +650,31 @@ export class MortalActorSheet extends ActorSheet {
 			return;
 		}
 
-		const parent = $(element.parentNode);
-		const abilityType = parent[0].dataset.ability;	
-		
 		const steps = parent.find(".resource-value-empty");
+
+		if (dataset.itemid != undefined) {
+		   const itemid = dataset.itemid;
+
+			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			const itemData = duplicate(item);
+			itemData.system.value = 0;
+			await item.update(itemData);
+		}
+		else {
+			const parent = $(element.parentNode);
+			const abilityType = parent[0].dataset.ability;			
+			const fieldStrings = parent[0].dataset.name;
+			const fields = fieldStrings.split(".");		
+	
+			if (abilityType == "secondary") {
+				await this._updateSecondaryAbility(parent[0].dataset.key, 0);
+			}
+			else {	
+				await this._assignToActorField(fields, 0);
+			}
+		}
+
 		steps.removeClass("active");
-
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");		
-
-		if (abilityType == "secondary") {
-			await this._updateSecondaryAbility(parent[0].dataset.key, 0);
-		}
-		else {	
-			await this._assignToActorField(fields, 0);
-		}
 	}
 	
 	/* Clicked health boxes */
