@@ -16,10 +16,7 @@
     min-height: 900px;
   }
   
-  .mage:not(.minimized).langDE {
-    min-width: 950px;
-  }
-
+  .mage:not(.minimized).langDE,
   .mage:not(.minimized).langES {
     min-width: 950px;
   }
@@ -35,13 +32,17 @@
   }
 
   .werewolf:not(.minimized).langES {
-    min-width: 950px;
+    min-width: 1000px;
   }
 
   /* changeling */
   .changeling:not(.minimized) {
     min-width: 900px;
     min-height: 900px;
+  }
+
+  .changeling:not(.minimized).langES {
+    min-width: 950px;
   }
   
   /* Spirit */
@@ -712,8 +713,13 @@
   width: 85px;
 }
 
+.langES .combat-valueBox {
+  width: 65px;
+}
+
+.langES .combat-valueBoxArmor,
 .langFR .combat-valueBoxArmor {
-  width: 80px;
+  width: 85px;
 }
 
 .changeling .pullLeft.healthbox {
@@ -728,7 +734,7 @@
   border: 1px solid var(--main-changeling-color);
   border-bottom: 0px;
   border-right: 0px;
-  padding-left: 10px;
+  padding-left: 5px;
   padding-top: 5px;
 }
 
@@ -757,6 +763,18 @@
 }
 
 /* END Combat */
+
+/* START Setting */
+
+.langES .settings-abilitylabel {
+  width: 115px;
+}
+
+.langES .settings-ability-altnamefiller {
+  width: 110px;
+}
+
+/* END Setting */
 
 /* WHEEL START */
 

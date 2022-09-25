@@ -239,7 +239,7 @@
 						{{#if (ne ability.label undefined)}}
 
 							<div class="clearareaBox row">
-								<label for="data.system.abilities.talent.{{key}}.value" class="pullLeft headlineNormal" style="width: 90px;">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
+								<label for="data.system.abilities.talent.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
 								{{#if (eq ../locked false)}}
 									<input type="text" 
@@ -248,7 +248,7 @@
 										value="{{ability.altlabel}}" 
 										data-name="data.system.abilities.talent.{{key}}.altlabel" />
 								{{else}}
-									<label style="width: 125px;"></label>
+									<label class="settings-ability-altnamefiller"></label>
 								{{/if}}
 
 								<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="talent" data-source="ability" data-type="{{../config.sheettype.mortal}}">
@@ -274,7 +274,7 @@
 							{{#if (eq key "technology")}}
 								{{#if (eq ../actor.type ../config.sheettype.mage)}}
 									<div class="clearareaBox row">
-										<label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal" style="width: 90px;">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
+										<label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
 										{{#if (eq ../locked false)}}
 											<input type="text" 
@@ -283,7 +283,7 @@
 												value="{{ability.altlabel}}" 
 												data-name="data.system.abilities.skill.{{key}}.altlabel" />
 										{{else}}
-											<label style="width: 125px;"></label>
+											<label class="settings-ability-altnamefiller"></label>
 										{{/if}}
 
 										<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="skill" data-source="ability" data-type="{{../config.sheettype.mortal}}">
@@ -297,7 +297,7 @@
 								{{/if}}	
 							{{else}}
 								<div class="clearareaBox row">
-									<label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal" style="width: 90px;">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
+									<label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
 									{{#if (eq ../locked false)}}
 										<input type="text" 
@@ -306,7 +306,7 @@
 											value="{{ability.altlabel}}" 
 											data-name="data.system.abilities.skill.{{key}}.altlabel" />
 									{{else}}
-										<label style="width: 125px;"></label>
+										<label class="settings-ability-altnamefiller"></label>
 									{{/if}}
 
 									<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="skill" data-source="ability" data-type="{{../config.sheettype.mortal}}">
@@ -334,7 +334,7 @@
 								{{#if (eq key "technology")}}
 									{{#if ability.isvisible}}
 										<div class="clearareaBox row">
-											<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 90px;">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
+											<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
 											{{#if (eq ../locked false)}}
 												<input type="text" 
@@ -343,7 +343,7 @@
 													value="{{ability.altlabel}}" 
 													data-name="data.system.abilities.knowledge.{{key}}.altlabel" />
 											{{else}}
-												<label style="width: 125px;"></label>
+												<label class="settings-ability-altnamefiller"></label>
 											{{/if}}
 
 											<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">
@@ -353,7 +353,7 @@
 									{{/if}}
 								{{else}}
 									<div class="clearareaBox row">
-										<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 90px;">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
+										<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
 										{{#if (eq ../locked false)}}
 											<input type="text" 
@@ -362,7 +362,7 @@
 												value="{{ability.altlabel}}" 
 												data-name="data.system.abilities.knowledge.{{key}}.altlabel" />
 										{{else}}
-											<label style="width: 125px;"></label>
+											<label class="settings-ability-altnamefiller"></label>
 										{{/if}}
 
 										<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">
@@ -376,7 +376,7 @@
 								{{/if}}
 							{{else}}
 								<div class="clearareaBox row">
-									<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal" style="width: 90px;">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
+									<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
 									{{#if (eq ../locked false)}}
 										<input type="text" 
@@ -385,7 +385,7 @@
 											value="{{ability.altlabel}}" 
 											data-name="data.system.abilities.knowledge.{{key}}.altlabel" />
 									{{else}}
-										<label style="width: 125px;"></label>
+										<label class="settings-ability-altnamefiller"></label>
 									{{/if}}
 
 									<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">

@@ -1092,6 +1092,14 @@ textarea.sheet-gearArea {
 
 /* START - Settings */
 
+.settings-abilitylabel {
+  width: 90px;
+}
+
+.settings-ability-altnamefiller {
+  width: 125px;
+}
+
 .settings-leftwidth {
   width: 150px;
 }
