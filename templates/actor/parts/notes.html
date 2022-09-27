@@ -149,7 +149,7 @@
                         {{/if}}
                         <br /><br />
                         {{#if (ne item.system.details "")}}
-                            <b>{{localize "wod.labels.power.system"}}:</b> {{item.system.details}}
+                            <b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}
                         {{/if}}
                     </span>
                 </div>
@@ -202,10 +202,6 @@
                     <div class="pullLeft pointer headlineNormal tooltip">
                         <i class="icon fa-solid fa-memo"></i>
                         <span class="tooltiptext">
-                            {{#if (ne item.system.description "")}}
-                                <b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}
-                            {{/if}}
-                            <br /><br />
                             {{#if (ne item.system.details "")}}
                                 <b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}
                             {{/if}}
@@ -216,10 +212,7 @@
                             title="{{localize 'wod.labels.send'}}"
                             data-type="Fetish" 
                             data-headline="<h2>{{item.name}}</h2>" 
-                            data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.system.description}}</span>
-                                            <br />
-                                            <span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
+                            data-message="<span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
                                             <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
                         {{#if ../locked}}
                             &nbsp;

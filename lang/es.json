@@ -50,7 +50,7 @@
 			"naturalweapon": "Arma natural",
 			"meleeweapon": "Arma C. C",
 			"rangedweapon": "Arma a distancia",
-			"armor": "Armadura",
+			"armor": "Armaduras",
 			"gift": "Don",
 			"rite": "Rito",
 			"charm": "Amuleto",
@@ -86,7 +86,7 @@
 			"power": "Poder",
 			"magic": "Magia",
 			"disciplines": "Disciplinas",
-			"dreaming": "Dreaming",
+			"dreaming": "Ensueño",
 			"shapechange": "Cambio de Forma",
 			"sheet": "Configuración de ficha",
 			"attribute": "Configuración de Atributos"
@@ -297,7 +297,7 @@
 				"generation": "Generación",
 				"sire": "Sire",
 				"weakness": "Debilidad",
-				"lowergeneration": "Reducir Generacion temporalmente",
+				"lowergeneration": "Reducir Generación temporalmente",
 				"cleargeneration": "Borrar Generación temporal"
 			},
 			"mage": {
@@ -330,8 +330,8 @@
 				"hollow": "Huecos",
 				"kopa": "Kopa Loei",
 				"ngoma": "Ngoma",
-				"orphans": "Orphans",
-				"hippolyta": "Sisters of Hippolyta",
+				"orphans": "Huérfanos",
+				"hippolyta": "Hermanas de Hipólita",
 				"taftani": "Taftâni",
 				"templar": "Caballeros Templarios",
 				"wulung": "Wu Lung",
@@ -437,7 +437,7 @@
 			"law": "Leyes",
 			"medicine": "Medicina",
 			"occult": "Ocultismo",
-			"politics": "Políticas",
+			"politics": "Política",
 			"rituals": "Rituales",
 			"seneschal": "Senescal",
 			"science": "Ciencia",
@@ -470,7 +470,7 @@
 			"imbalance": "Desequilibrio",
 			"willpowerchange": "¡La Fuerza de Voluntad está basada en tu Compostura + Resolución en la configuración del Sistema y no puede alterarse!",
 			"path": {
-				"headline": "Path",
+				"headline": "Moralidad",
 				"humanity": "Humanidad",
 				"blood": "Senda de la Sangre",
 				"bones": "Senda de los Huesos",
@@ -617,7 +617,7 @@
 			},
 			"armor": {
 				"active": "Activa",
-				"armor": "Armadura",
+				"armor": "Armaduras",
 				"dexpen": "Pen. de Des.",
 				"soakbashing": "Absorción de Cont.",
 				"soaklethal": "Absorción de Letal",
@@ -782,10 +782,10 @@
 			},
 			"combat": {
 				"conditions": "Condiciones",				
-				"natural": "Armas Naturales",
-				"melee": "Armas C.C",
-				"ranged": "Armas de Rango",
-				"armor": "Armadura"
+				"natural": "Armas naturales",
+				"melee": "Armas C. C.",
+				"ranged": "Armas a distancia",
+				"armor": "Armaduras"
 			},
 			"gear": "Equipo",
 			"power": {

@@ -6,7 +6,9 @@ This is a non-official (fan-made) system.
 - Mage the Ascention 20th ed
 - Changeling the Dreaming 20th ed
 
-I would never require it by anyone or even expect someone to do but if you really want to feel free to [buy me a coffee](https://ko-fi.com/johanfk) [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk) :)
+I would never require it by anyone or even expect someone to do but if you really want to feel free to [buy me a coffee](https://ko-fi.com/johanfk) 
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk) :)
 
 
 # Foundry VTT
