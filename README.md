@@ -5,6 +5,7 @@ This is a non-official (fan-made) system.
 - Werewolf the Apocalypse 20th ed
 - Mage the Ascention 20th ed
 - Changeling the Dreaming 20th ed
+- Hunter the Reckoning
 
 I would never require it by anyone or even expect someone to do but if you really want to feel free to [buy me a coffee](https://ko-fi.com/johanfk) 
 
