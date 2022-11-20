@@ -19,7 +19,7 @@
     <!--<div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.mode.mode"}}</div>-->
 </div>  
 
-{{#each actor.rangedWeapons as |item id|}}
+{{#each actor.system.listdata.combat.rangedWeapons as |item id|}}
 
 <div class="clearareaBox row">
     {{#if item.system.attack.isrollable}}
@@ -56,11 +56,11 @@
     </div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">
-        {{#iff item.system.difficulty "==" -1}}
+        {{#if (eq item.system.difficulty "-1")}}
             {{localize "wod.labels.varies"}}
         {{else}}
             {{item.system.difficulty}}
-        {{/iff}}
+        {{/if}}
     </div>
     <div class="pullLeft combat-smallBox headlineNormal">
         {{#if item.system.damage.isrollable}}
@@ -88,7 +88,7 @@
         </div>        
         <div class="pullLeft">
             <a class="send-chat" 
-                title="{{localize "wod.labels.send"}}" 
+                title="{{localize 'wod.labels.send'}}" 
                 data-type="Weapon" 
                 data-item-id="{{item._id}}" 
                 data-headline="<h2>{{item.name}}</h2>" 

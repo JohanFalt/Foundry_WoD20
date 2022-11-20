@@ -16,8 +16,6 @@
         {{/if}}
 
         <div class="resource-value dotvalueArea pullRight" data-value="{{item.system.value}}">
-            <span class="resource-value-empty" data-type="{{../config.sheettype.mage}}" data-itemid="{{item._id}}"></span>
-
             {{#numLoop item.system.max}}
 
                 <span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-itemid="{{item._id}}" data-index="{{this}}"></span>

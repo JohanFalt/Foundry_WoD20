@@ -1,4 +1,4 @@
-export function calculateTotals(actorData) {
+export async function calculateTotals(actorData) {
 	let toForm = getForm(actorData);
 
     // attributes totals
@@ -8,16 +8,16 @@ export function calculateTotals(actorData) {
 		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
 			shift = handleWerewolfShiftAttributeData(actorData.system.attributes[i].label, toForm);
 		}
-		if (actorData.type == "Changing Breed") {
+		if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 			shift = getShiftAttributeBonus(actorData.system.attributes[i].label, toForm, actorData);
 		}
 
 		actorData.system.attributes[i].total = parseInt(actorData.system.attributes[i].value) + parseInt(actorData.system.attributes[i].bonus) + parseInt(shift.value);
 
-		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed")) {
+		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == CONFIG.wod.sheettype.changingbreed)) {
 
 			if (actorData.system.attributes[i].label == "wod.attributes.strength") {
-				if (actorData.type == "Changing Breed") {
+				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
@@ -27,7 +27,7 @@ export function calculateTotals(actorData) {
 			}
 
 			if (actorData.system.attributes[i].label == "wod.attributes.stamina") {
-				if (actorData.type == "Changing Breed") {
+				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
@@ -37,7 +37,7 @@ export function calculateTotals(actorData) {
 			}
 
 			if (actorData.system.attributes[i].label == "wod.attributes.manipulation") {
-				if (actorData.type == "Changing Breed") {
+				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 					if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nagah")) {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
@@ -51,7 +51,7 @@ export function calculateTotals(actorData) {
 					actorData.system.attributes[i].total = 0;
 				}
 
-				if (actorData.type == "Changing Breed") {
+				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 					if ((actorData.system.changingbreed == "Ajaba") && (toForm == "wod.shapes.hispo")) {
 						actorData.system.attributes[i].total = 0;
 					}
@@ -73,7 +73,7 @@ export function calculateTotals(actorData) {
 			}
 		}
 	}    
-
+	
 	actorData.system.soak.bashing = 0;
 	actorData.system.soak.lethal = 0;
 	actorData.system.soak.aggravated = 0;

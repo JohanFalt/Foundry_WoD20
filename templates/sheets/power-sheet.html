@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} {{sheettype}}" autocomplete="off">
 	
 	<div class="sheet-item">
 
@@ -43,6 +43,15 @@
 						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 					{{/if}}
 
+					{{#if (eq data.system.type "wod.types.edge")}} 
+						{{captilize (localize "wod.types.edge")}}
+					{{/if}}
+
+					{{#if (eq data.system.type "wod.types.edgepower")}} 
+						{{captilize (localize "wod.types.edgepower")}}<br />
+						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+					{{/if}}
+
 					{{#if (eq data.system.type "wod.types.ritual")}} 
 						{{captilize (localize "wod.types.ritual")}}<br />
 						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
@@ -72,11 +81,13 @@
 		
 		<section class="item-body">
 
+			
+			<div class="infobox">  
+				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
+				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
+			</div>	
+				
 			{{#if userpermissions.itemAdministrator}}
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
-					<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-				</div>			
 
 				<!-- type -->
 				<div class="infobox">
@@ -86,6 +97,8 @@
 							<option value="">- {{localize "wod.labels.select"}} -</option>
 							<option value="wod.types.art">{{localize "wod.types.art"}} (Changeling)</option>
 							<option value="wod.types.artpower">{{localize "wod.types.artpower"}} (Changeling)</option>
+							<option value="wod.types.edge">{{localize "wod.types.edge"}} (Hunter)</option>
+							<option value="wod.types.edgepower">{{localize "wod.types.edgepower"}} (Hunter)</option>
 							<option value="wod.types.discipline">{{localize "wod.types.discipline"}} (Vampire)</option>
 							<option value="wod.types.disciplinepower">{{localize "wod.types.disciplinepower"}} (Vampire)</option>
 							<option value="wod.types.disciplinepath">{{localize "wod.types.disciplinepath"}} (Vampire)</option>
@@ -107,7 +120,7 @@
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 9}}
-								<option value="{{this}}">{{this}}</option>
+									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
@@ -121,7 +134,7 @@
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 9}}
-								<option value="{{this}}">{{this}}</option>
+									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
@@ -135,7 +148,7 @@
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 5}}
-								<option value="{{this}}">{{this}}</option>
+									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
@@ -149,7 +162,7 @@
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 6}}
-								<option value="{{this}}">{{this}}</option>
+									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
@@ -163,7 +176,7 @@
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 5}}
-								<option value="{{this}}">{{this}}</option>
+									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
@@ -177,7 +190,21 @@
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 5}}
-								<option value="{{this}}">{{this}}</option>
+									<option value="{{this}}">{{this}}</option>
+								{{/numFromLoop}}
+							{{/select}}
+						</select>
+					</div>
+				{{/if}}
+
+				{{#if (eq data.system.type "wod.types.edgepower")}}
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+						<select class="editable" name="system.level">
+							{{#select data.system.level}}
+								<option value="0">- {{localize "wod.labels.select"}} -</option>
+								{{#numFromLoop 1 5}}
+									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
@@ -185,23 +212,21 @@
 				{{/if}}
 
 				<!-- dice -->
-				{{#if (ne data.system.type "wod.types.discipline")}}
-					{{#if (ne data.system.type "wod.types.disciplinepath")}}
-						{{#if (ne data.system.type "wod.types.art")}}
-							<div class="infobox">
-								<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
-								<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
-							</div>
-						{{/if}}	
+				{{#if (ne data.system.type "")}}
+					{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.artpower" "wod.types.edgepower" "wod.types.charm" "wod.types.power")}}
+						<div class="infobox">
+							<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
+							<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
+						</div>
+
+						{{#if data.system.isrollable}}
+							{{#if (ne data.system.type "wod.types.artpower")}}
+								{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
+							{{/if}}
+						{{/if}}
 					{{/if}}
 				{{/if}}
-			{{/if}}
-
-			{{#if data.system.isrollable}}
-				{{#if (ne data.system.type "wod.types.artpower")}}
-					{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
-				{{/if}}
-			{{/if}}
+			{{/if}}			
 
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
@@ -211,7 +236,7 @@
 			{{#if (eq data.system.type "wod.types.disciplinepower")}}
 				{{#if (ne data.system.parentid "")}}
 					<div class="infobox">
-						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.cleardiscipline"}}</button>
+						<button class="button fullSplatColor pointer clearPower headlineButton">{{localize "wod.labels.power.cleardiscipline"}}</button>
 					</div>
 				{{/if}}
 			{{/if}}
@@ -219,7 +244,7 @@
 			{{#if (eq data.system.type "wod.types.disciplinepathpower")}}
 				{{#if (ne data.system.parentid "")}}
 					<div class="infobox">
-						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.clearpath"}}</button>
+						<button class="button fullSplatColor pointer clearPower headlineButton">{{localize "wod.labels.power.clearpath"}}</button>
 					</div>
 				{{/if}}
 			{{/if}}			
@@ -227,10 +252,18 @@
 			{{#if (eq data.system.type "wod.types.artpower")}}
 				{{#if (ne data.system.parentid "")}}
 					<div class="infobox">
-						<button class="button pointer clearDiscipline headlineButton">{{localize "wod.labels.power.clearart"}}</button>
+						<button class="button fullSplatColor pointer clearPower headlineButton">{{localize "wod.labels.power.clearart"}}</button>
 					</div>
 				{{/if}}
 			{{/if}}		
+
+			{{#if (eq data.system.type "wod.types.edgepower")}}
+				{{#if (ne data.system.parentid "")}}
+					<div class="infobox">
+						<button class="button fullSplatColor pointer clearPower headlineButton">{{localize "wod.labels.power.clearedge"}}</button>
+					</div>
+				{{/if}}
+			{{/if}}	
 
 			{{> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}
 			

@@ -26,6 +26,11 @@
   src: url("../assets/fonts/werewolf.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "hunter";
+  src: url("../assets/fonts/hunter.ttf") format("truetype");
+}
+
 :root {
   --main-font: Arial, Helvetica, sans-serif;
 
@@ -45,18 +50,25 @@
   --main-vampire-mid-color: rgb(121, 8, 19, 0.4);
   --main-vampire-dim-color: rgb(121, 8, 19, 0.12);
 
-  --main-changeling-color: #017b9c;
   --main-changeling-color: rgba(1, 123, 156, 1);
   --main-changeling-mid-color: rgba(1, 123, 156, 0.4);
   --main-changeling-dim-color: rgba(1, 123, 156, 0.12);
+
+  --main-hunter-color: rgb(191, 67, 18);
+  --main-hunter-mid-color: rgba(255, 72, 0, 0.4);
+  --main-hunter-dim-color: rgba(255, 72, 0, 0.12);
 
   --main-creature-color: rgba(116, 115, 115, 1);
   --main-creature-mid-color: rgba(72, 71, 71, 0.4);
   --main-creature-dim-color: rgba(72, 71, 71, 0.12);
 
   --main-spirit-color:rgba(173, 147, 0, 1);
-  --main-spirit-dim-color: rgb(255, 215, 0, 0.4);
+  --main-spirit-mid-color: rgb(255, 215, 0, 0.4);
   --main-spirit-dim-color: rgb(255, 215, 0, 0.12);  
+
+  --main-full-color: var(--main-mortal-color);
+  --main-mid-color: var(--main-mortal-mid-color);
+  --main-dim-color: var(--main-mortal-dim-color);
 }
 
 /* START - Type of sheet designs */
@@ -124,6 +136,7 @@
 .sheet-character .profile-img-zone button {  
   font-weight: bold;
   border: none;
+  width: 35px;
 }
 
 .sheet-character .profile-img {
@@ -162,11 +175,6 @@
   max-height: 15vh;
   min-height: 50px;
   border-radius: 3px;
-}
-
-.locked .resource-value-empty {
-  opacity: 0;
-  cursor: default;
 }
 
 .locked .resource-value-step {
@@ -412,12 +420,14 @@ i.icon {
 .macroBtn {
   height: 50px;
   width: 50px;
-  margin-right: .5rem;
+  border: 0px;
+  margin-right: 0px;
+  padding-right: 0px;
 }
 
 .macroBtnInfo {
   width: 50px;
-  margin-right: .5rem;
+  margin-right: 3px;
 }
 
 .row {
@@ -497,7 +507,7 @@ i.icon {
 }
 
 .dialog-realm-button,
-.dialog-discipline-button,
+.dialog-power-button,
 .dialog-attribute-button,
 .dialog-secondaryability-button {
   width: 30%;
@@ -571,10 +581,6 @@ textarea.smallbox {
 	width: 	110px;
 }
 
-.creature .attribute-headlineWidth {
-	width: 25%;
-}
-
 .attribute-total {
   display: inline-block;
   width: 10px;
@@ -622,7 +628,7 @@ div.tempSquareRow {
   margin: 0 auto;
 }
 
-.supernaturalAttribute:nth-of-type(5n+1) {
+.supernaturalAttribute:nth-of-type(5n) {
   margin-right: 10px;
 }
 
@@ -888,7 +894,7 @@ textarea.sheet-gearArea {
   width: 100px;
 }
 
-.gift-valueBox {
+.power-valueBox {
   width: 50px;
 }
 
@@ -905,7 +911,8 @@ textarea.sheet-gearArea {
 /* START - Discipline */
 
 .art-headline,
-.discipline-headline {
+.discipline-headline,
+.edge-headline {
   width: 250px;
 }
 
@@ -914,52 +921,57 @@ textarea.sheet-gearArea {
 }
 
 .art-dotBox,
-.discipline-dotBox {
+.discipline-dotBox,
+.edge-dotBox {
   width: 200px;
 }
 
-.art-dicebox,
-.discipline-dicebox {
+.power-dicebox {
   width: 100px;
 }
 
-.art-valuebox,
-.discipline-valuebox {
-  width: 50px;
-}
 
-.discipline-row .discipline-iconbox {
+
+.power-row .power-iconbox {
   margin-left: 100px;
 }
 
-.ritual-row .discipline-iconbox,
-.disciplinepower-row .discipline-iconbox {
+.ritual-row .power-iconbox {
   margin-left: 38px;
 }
 
-.artpower-row .art-iconbox {
+.disciplinepower-nonerollablerow .power-iconbox {
+  margin-left: 288px;
+}
+
+.disciplinepower-rollablerow .power-iconbox {
+  margin-left: 38px;
+}
+
+.artpower-row .power-iconbox {
   margin-left: 187px;
 }
 
-.art-row,
-.discipline-row {  
+.power-row,
+.art-row {  
   display: flex;
   height: 23px;
   line-height: 23px;
-  margin-top: 25px;
+  margin-top: 20px;
   margin-bottom: 5px;
 }
 
 .artpower-row,
-.disciplinepower-row {
+.disciplinepower-row,
+.edgepower-row {
   display: flex;
   height: 23px;
   line-height: 23px;
   margin-left: 13px;
 }
 
-.art-row .resource-value
-.discipline-row .resource-value {
+.power-row .resource-value,
+.art-row .resource-value {
   line-height: 30px;
 }
 
@@ -968,7 +980,7 @@ textarea.sheet-gearArea {
 /* START - Dreaming */
 
 .realms-headlineWidth {
-  width: 20%;
+  width: 60%;
 }
 
 /* END - Dreaming */
@@ -1122,6 +1134,7 @@ textarea.sheet-gearArea {
   margin-right: 25px;
   float: left; 
   width: 30%;
+  font-weight: bold;
 }
 
 .headlineButton {
@@ -1197,35 +1210,6 @@ textarea.item {
   border: 1px solid black;
   display: inline-block;
   border-radius: 50%;
-}
-
-.resource-counter .resource-value-empty,
-.resource-value .resource-value-empty {
-  height: 14px;
-  width: 14px;
-  border: 1px solid black;
-  display: inline-block;
-  border-radius: 50%;
-  cursor: pointer;
-  background:
-    linear-gradient(
-      45deg,
-      transparent 0%,
-      transparent 43%,
-      black 45%,
-      black 55%,
-      transparent 57%,
-      transparent 100%
-    ),
-    linear-gradient(
-      135deg,
-      transparent 0%,
-      transparent 43%,
-      black 45%,
-      black 55%,
-      transparent 57%,
-      transparent 100%
-    );
 }
 
 .resource-counter .resource-value-step {

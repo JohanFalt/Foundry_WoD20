@@ -33,9 +33,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		this.locked = true;
-		this.isCharacter = true;	
-		this.isGM = game.user.isGM;
+		/* this.isCharacter = true;	
+		this.isGM = game.user.isGM; */
 		
 		console.log("WoD | Werewolf Sheet constructor");
 	}
@@ -46,11 +45,12 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.werewolf) {
+				actorData.system.settings.iscreated = true;
+
 				ActionHelper._setWerewolfAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setWerewolfAttributes(actorData);
-				
-				actorData.system.settings.iscreated = true;
+				ActionHelper._setWerewolfAttributes(actorData);				
+
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -59,16 +59,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Werewolf Sheet getData");
 
-		const powerlist1 = [];
-		const powerlist2 = [];
-		const powerlist3 = [];
-		const powerlist4 = [];
-		const powerlist5 = [];
-		const powerlist6 = [];
-		const powercombat = [];
-		const ritelist = [];
-		const fetishlist = [];
-		const talenlist = [];
 		let presentform = "";
 
 		console.log("WoD | Werewolf Sheet handling shift data");
@@ -89,80 +79,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			presentform = data.actor.system.shapes.homid.label;
 		}
 
-		console.log("WoD | Werewolf Sheet handling gift lists");
-
-		for (const i of data.items) {
-			if (i.type == "Power") {
-				if (i.system.type == "wod.types.gift") {
-					if (i.system.level == 1) {						
-						powerlist1.push(i);
-	
-						if (i.system.isactive) {
-							powercombat.push(i);
-						}
-					}			
-					if (i.system.level == 2) {
-						powerlist2.push(i);
-	
-						if (i.system.isactive) {
-							powercombat.push(i);
-						}
-					}
-					if (i.system.level == 3) {
-						powerlist3.push(i);
-	
-						if (i.system.isactive) {
-							powercombat.push(i);
-						}
-					}
-					if (i.system.level == 4) {
-						powerlist4.push(i);
-	
-						if (i.system.isactive) {
-							powercombat.push(i);
-						}
-					}
-					if (i.system.level == 5) {
-						powerlist5.push(i);
-	
-						if (i.system.isactive) {
-							powercombat.push(i);
-						}
-					}
-					if (i.system.level == 6) {
-						powerlist6.push(i);
-	
-						if (i.system.isactive) {
-							powercombat.push(i);
-						}
-					}
-				}				
-				if (i.system.type == "wod.types.rite") {
-					ritelist.push(i);
-				}			
-			}
-			if (i.type == "Fetish") {
-				if (i.system.type == "wod.types.fetish") {
-					fetishlist.push(i);
-				}
-				if (i.system.type == "wod.types.talen") {
-					talenlist.push(i);
-				}
-			}
-			
-		}
-
 		data.actor.presentform = presentform;
-		data.actor.powerlist1 = powerlist1.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.powerlist2 = powerlist2.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.powerlist3 = powerlist3.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.powerlist4 = powerlist4.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.powerlist5 = powerlist5.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.powerlist6 = powerlist6.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.powercombat = powercombat.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.ritelist = ritelist.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.fetishlist = fetishlist.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.talenlist = talenlist.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
 			console.log(CONFIG.wod.sheettype.werewolf);
@@ -199,17 +116,11 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterWerewolfChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterWerewolfEmpty.bind(this));
 
 		// temporary squares
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterWerewolfChange.bind(this));
-		html
-			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterWerewolfEmpty.bind(this));
 		
 		// shift form
 		html
@@ -227,32 +138,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		}
 
 		ActionHelper.RollDialog(event, this.actor);
-	}
-	
-	_onDotCounterWerewolfEmpty(event) {
-		console.log("WoD | Werewolf Sheet _onDotCounterEmpty");
-		
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
-		const type = dataset.type;
-
-		if (type != CONFIG.wod.sheettype.werewolf) {
-			return;
-		}
-
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
-		const steps = parent.find(".resource-value-empty");
-		
-		if (this.locked) {
-			return;
-		}
-
-		steps.removeClass("active");
-
-		this._assignToWerewolf(fields, 0);			
 	}
 	
 	_onDotCounterWerewolfChange(event) {
@@ -274,11 +159,11 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-step");
 
 		if ((this.locked) && 
-				((fieldStrings != "data.system.rage.temporary") && 
-				(fieldStrings != "data.system.gnosis.temporary") && 
-				(fieldStrings != "data.system.glory.temporary") && 
-				(fieldStrings != "data.system.honor.temporary") && 
-				(fieldStrings != "data.system.wisdom.temporary"))) {
+				((fieldStrings != "rage.temporary") && 
+				(fieldStrings != "gnosis.temporary") && 
+				(fieldStrings != "renown.glory.temporary") && 
+				(fieldStrings != "renown.honor.temporary") && 
+				(fieldStrings != "renown.wisdom.temporary"))) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
@@ -298,7 +183,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		this._assignToWerewolf(fields, index + 1);
 	}
 
-	_onShiftForm(event) {
+	async _onShiftForm(event) {
 		console.log("WoD | Werewolf onShiftForm");
 
 		event.preventDefault();
@@ -324,33 +209,22 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			}			
 		}		
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleWerewolfCalculations(actorData);
-		//TokenHelper.formShift(actorData, fromForm, toForm);
+		await ActionHelper.handleCalculations(actorData);
+		TokenHelper.formShift(actorData, fromForm, toForm);
 
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);
 	}
 	
-	_assignToWerewolf(fields, value) {
+	async _assignToWerewolf(fields, value) {
 		console.log("WoD | Werewolf Sheet _assignToWerewolf");
 		
 		const actorData = duplicate(this.actor);
 
-		if ((fields[2] === "rage") || (fields[2] === "gnosis")) {
-			if (actorData.system[fields[2]][fields[3]] == value) {
-				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
-			}
-			else {
-				actorData.system[fields[2]][fields[3]] = value;
-			}
-		}			
-		else if (fields[2] === "renown") {
-			let renowntype = fields[3];
+		if (fields[0] === "renown") {
+			let renowntype = fields[1];
 
 			if (renowntype === "rank") {
-				//actorData.system.renown[renowntype] = value;
-
 				if (actorData.system.renown[renowntype] == value) {
 					actorData.system.renown[renowntype] = parseInt(actorData.system.renown[renowntype]) - 1;
 				}
@@ -358,18 +232,17 @@ export class WerewolfActorSheet extends MortalActorSheet {
 					actorData.system.renown[renowntype] = value;
 				}
 			}
-			else if (fields[4] != undefined) {
-				if (actorData.system.renown[renowntype][fields[4]] == value) {
-					actorData.system.renown[renowntype][fields[4]] = parseInt(actorData.system.renown[renowntype][fields[4]]) - 1;
+			else if (fields[2] != undefined) {
+				if (actorData.system.renown[renowntype][fields[2]] == value) {
+					actorData.system.renown[renowntype][fields[2]] = parseInt(actorData.system.renown[renowntype][fields[2]]) - 1;
 				}
 				else {
-					actorData.system.renown[renowntype][fields[4]] = value;
+					actorData.system.renown[renowntype][fields[2]] = value;
 				}
 			}
 		}
 		
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleWerewolfCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
 		
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);

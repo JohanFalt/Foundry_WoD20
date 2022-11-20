@@ -13,7 +13,7 @@
 			"graphicsettingshint": "Toda la configuración con respecto a los gráficos.",
 			"worldversion": "Version del Mundo",
 			"worldversionhint": "Para saber si se necesita parche del Mundo.",
-			"advantagerolls": "Como tirar Atributos de Ventajas",
+			"advantagerolls": "Como tirar Rasgos de Ventajas",
 			"advantagerollshint": "Usar los valores permanentes (activado) o temporales (desactivado) en tiradas de, p. ej., Fuerza Voluntad. Requiere reiniciar Foundry VTT.",
 			"therollofone": "Como gestionar los ‘1’ en las tiradas",
 			"therollofonehint": "Uso normal de reglas (activado): todos los ‘1’ reducen el número de éxitos en uno. (Desactivado): los ‘1’ no tienen efecto normalmente, pero si no hay éxitos y hay uno o más ‘1’ se considera Fracaso.",
@@ -35,7 +35,13 @@
 			"usesplatfont": "Usar fuente temática",
 			"usesplatfonthint": "Con esta opción desactivas a nivel global la fuente especial usada por las diferentes fichas.",
 			"usesworldanvil": "Usar links de World Anvil",
-			"usesworldanvilhint": "Muestra una cuadro de entrada en la Biografía del Personaje donde puedes colocar el enlace de World Anvil de esa ficha."
+			"usesworldanvilhint": "Muestra una cuadro de entrada en la Biografía del Personaje donde puedes colocar el enlace de World Anvil de esa ficha.",
+			"huntersettings": "Hunter Settings",
+			"huntersettingshint": "World settings used in Hunter the Reckoning",
+			"edgesettings": "Gaining Edge setting",
+			"edgesettingshints": "Gaining Edge setting",
+			"choicevirtue": "Spending virtue points",
+			"choiceexperience": "Spending experience points"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -61,6 +67,8 @@
 			"disciplinepathpower": "Poder de Senda de Magia de Sangre",
 			"art": "Arte",
 			"artpower": "Poder de Arte",
+			"edge": "Edge",
+			"edgepower": "Edge Power",
 			"ritual": "Ritual",
 			"talen": "Talismán",
 			"fetish": "Fetiche",
@@ -87,6 +95,7 @@
 			"magic": "Magia",
 			"disciplines": "Disciplinas",
 			"dreaming": "Ensueño",
+			"edge": "Edges",
 			"shapechange": "Cambio de Forma",
 			"sheet": "Configuración de ficha",
 			"attribute": "Configuración de Atributos"
@@ -369,6 +378,19 @@
 				"threshold": "Umbral de Inspiración/Saqueo",
 				"legacyseelie": "Legado Luminoso",
 				"legacyunseelie": "Legado Oscuro"
+			},
+			"hunter": {
+				"creed": "Creed",
+				"avenger": "Avenger",
+				"defender": "Defender",
+				"hermit": "Hermit",
+				"innocent": "Innocent",
+				"judge": "Judge",
+				"martyr": "Martyr",
+				"redeemer": "Redeemer",
+				"visionary": "Visionary",
+				"wayword": "Wayword",
+				"primaryvirtue": "Primary Virtue"
 			}
 		},
 		"attributes": {
@@ -397,11 +419,13 @@
 			"alertness": "Alerta",
 			"art": "Arte",
 			"athletics": "Atletismo",
-			"awareness": "Alerta",
+			"awareness": "Consciencia",
 			"brawl": "Pelea",
+			"dodge": "Dodge",
 			"empathy": "Empatia",
 			"expression": "Expresion",
 			"intimidation": "Intimidación",
+			"intuition": "Intuición",
 			"kenning": "Sagacidad",
 			"leadership": "Liderazgo",
 			"legerdemain": "Prestidigitación",
@@ -411,6 +435,7 @@
 
 			"animalken": "Trato con Animales",
 			"craft": "Artesania",
+			"demolitions": "Demolition",
 			"drive": "Conducir",
 			"etiquette": "Etiqueta",
 			"firearms": "Armas de Fuego",
@@ -420,6 +445,7 @@
 			"melee": "Pelea con Armas",
 			"performance": "Interpretación",
 			"research": "Investigación",
+			"security": "Seguridad",
 			"stealth": "Sigilo",
 			"survival": "Supervivencia",
 
@@ -435,6 +461,7 @@
 			"herbalism": "Herbolaria",
 			"investigation": "Investigación",
 			"law": "Leyes",
+			"linguistics": "Linguistics",
 			"medicine": "Medicina",
 			"occult": "Ocultismo",
 			"politics": "Política",
@@ -491,7 +518,10 @@
 				"conviction": "Convicción",
 				"selfcontrol": "Autocontrol",
 				"instinct": "Instinto",
-				"courage": "Coraje"
+				"courage": "Coraje",
+				"mercy": "Mercy",
+				"vision": "Vision",
+				"zeal": "Zeal"
 			},
 			"bloodpool": "Reserva de Sangre",
 			"perturn": "Sangre por turno",
@@ -582,7 +612,8 @@
 			"paradox": "Paradoja",
 			"glamour": "Glamour",
 			"banality": "Banalidad",
-			"nightmare": "Pesadilla"
+			"nightmare": "Pesadilla",
+			"conviction": "Conviction"
 		},
 		"combat": {
 			"conditions": {
@@ -697,7 +728,9 @@
 			"unsorteddisciplines": "Aquí están todos los Poderes de Disciplinas sin ordenar que necesitan una Disciplina seleccionada. Clic en el título para ordenar uno.",
 			"unsortedpaths": "Aquí están todos los Poderes de Senda sin ordenar que necesitan una Senda seleccionada. Clic en el título para ordenar uno.",
 			"unsortedarts": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Arte. Clic en el título para ordenar uno.",
-			"arts": "Artes"
+			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
+			"arts": "Artes",
+			"edges": "Edges"
 		},
 		"spheres": {
 			"spheres": "Esferas",
@@ -797,7 +830,8 @@
 				"system": "Sistema",
 				"cleardiscipline": "Limpiar conexiones de Disciplina",
 				"clearpath": "Limpiar conexiones de Senda",
-				"clearart": "Limpiar conexiones de Arte"
+				"clearart": "Limpiar conexiones de Arte",
+				"clearedge": "Clear edge connection"
 			},
 			"notes": {
 				"backgrounds": "Trasfondos",
@@ -819,11 +853,14 @@
 				"permparadox": "Paradoja Permanente",
 				"path": "Elige la Senda del personaje",
 				"selectpath": "Senda seleccionada",
-				"usedadvantages": "Determinar qué tipo de Ventajas está usando la Criatura",
+				"usedadvantages": "Set what type of advantages the sheet are using",
 				"usedpowers": "Determinar qué tipo de Poderes está usando la ficha",
 				"essencevalue": "Determinar valor de Esencia",
 				"sheetfont": "Usar fuente especial de ficha",
-				"secondaryabilities": "Habilidades secundarias"
+				"secondaryabilities": "Habilidades secundarias",
+				"abilitiesmaxrating": "Max rating on Abilities",
+				"hasdisciplines": "Has disciplines and rituals",
+				"hasgifts": "Has gifts and rites"
 			},
 			"trait": {
 				"meleeweapon": "Usar para arma C. C.",
@@ -877,6 +914,10 @@
 				"fetish": "Editar Fetiche",
 				"talen": "Editar Talismán",
 				"rote": "Editar Fórmula",
+				"art": "Edit art",
+				"artpower": "Ediy art power",
+				"edge": "Edit edge",
+				"edgepower": "Edit edge power",
 				"ability": "Editar Habilidad secundaria",
 				"resonance": "Editar Resonancia",
 				"othertraits": "Editar Otro Rasgo",
@@ -902,6 +943,10 @@
 				"fetish": "Quitar Fetiche",
 				"talen": "Quitar Talismán",
 				"rote": "Quitar Fórmula",
+				"art": "Remnove art",
+				"artpower": "Remove art power",
+				"edge": "Remove edge",
+				"edgepower": "Remove edge power",
 				"ability": "Quitar Habilidad secundaria",
 				"resonance": "Quitar Resonancia",
 				"othertraits": "Quitar Otro Rasgo",
@@ -945,7 +990,9 @@
 			"characteradded": "El Personaje ya se ha agregado al Asistente de Combate",
 			"initiativealready": "ya tiene iniciativa",
 			"rollinginitiative": "Tirada de Iniciativa",
-			"rollingsoak": "Tirada de absorción"
+			"rollingsoak": "Tirada de absorción",
+			"rollingremainactive": "Roll to remain active",
+			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active."
 		},
 		"dialog": {	
 			"save": "Guardar",
@@ -956,6 +1003,7 @@
 			"successesrolled": "Éxitos acumulados",
 			"numbersuccesses": "Anterior cantidad de éxitos",
 			"neededsuccesses": "Cantidad de éxitos requerida",
+			"usewoundpenalty": "Use wound penalty",
 			"aretecasting": {
 				"castspell": "Lanzar hechizo",
 				"castingspell": "Lanzando hechizo",	

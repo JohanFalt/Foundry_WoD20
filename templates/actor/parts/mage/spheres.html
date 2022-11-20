@@ -9,16 +9,14 @@
 
 		<div class="attribute-rowheight" style="clear:left;">
 			<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#if (eq sphere.label ../data.system.affinity)}}highlightedPower{{/if}}" 
-				{{#if (eq sphere.label ../data.system.affinity)}}title="{{localize "wod.bio.mage.affinitysphere"}}"{{/if}}>{{localize sphere.label}}</label>
+				{{#if (eq sphere.label ../data.system.affinity)}}title="{{localize 'wod.bio.mage.affinitysphere'}}"{{/if}}>{{localize sphere.label}}</label>
 			<div class="resource-value pullLeft" 
 				data-value="{{sphere.value}}"
 				data-name="data.system.spheres.{{key}}.value">
 
-				<span class="resource-value-empty" data-type="{{../config.sheettype.mage}}"></span>
-
 				{{#numLoop sphere.max}}
 				
-				<span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}"></span>
+					<span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}"></span>
 				
 				{{/numLoop}}
 				

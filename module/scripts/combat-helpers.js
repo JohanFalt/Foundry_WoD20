@@ -54,7 +54,7 @@ export default class CombatHelper {
 			}			
 		}
 		else {
-			initAttribute = game.i18n.localize(actor.system.willpower.label) + " " + actor.system.willpower.permanent;
+			initAttribute = game.i18n.localize(actor.system.advantages.willpower.label) + " " + actor.system.advantages.willpower.permanent;
 		}
 
 		if (actor.type == CONFIG.wod.sheettype.mortal) {

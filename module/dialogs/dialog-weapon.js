@@ -168,11 +168,15 @@ export class DialogWeapon extends FormApplication {
     getData() {
         const data = super.getData();
 
+        let attributeSpeciality = "";
+        let abilitySpeciality = "";
+        let specialityText = "";
+
         data.actorData = this.actor.system;
         data.actorData.type = this.actor.type;
         data.config = CONFIG.wod;
-        data.config.meleeAbilities = this.actor.meleeAbilities;
-        data.config.rangedAbilities = this.actor.rangedAbilities;
+        data.config.meleeAbilities = this.actor.system.listdata.meleeAbilities;
+        data.config.rangedAbilities = this.actor.system.listdata.rangedAbilities;
 
         if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
@@ -182,85 +186,67 @@ export class DialogWeapon extends FormApplication {
         }
 
         // is dice1 an Attributes
-        if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
-            data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
+        if ((this.actor.system?.attributes != undefined) && (data.actorData.attributes[data.object.dice1]?.value != undefined)) {
+            data.object.attributeValue = parseInt(data.actorData.attributes[data.object.dice1].total);
+            data.object.attributeName = game.i18n.localize(data.actorData.attributes[data.object.dice1].label);
 
-            if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= 4) {
+            if (parseInt(data.actorData.attributes[data.object.dice1].value) >= 4) {
                 data.object.hasSpeciality = true;
-
-                if (data.object.specialityText != "") {
-                    data.object.specialityText += ", ";
-                }
-                data.object.specialityText += this.actor.system.attributes[data.object.dice1].speciality;
+                attributeSpeciality = data.actorData.attributes[data.object.dice1].speciality;
             }
         }
         // is dice1 an Advantage
-        else if (this.actor.system[data.object.dice1]?.roll != undefined) { 
-            data.object.attributeValue = parseInt(this.actor.system[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system[data.object.dice1].label);
+        else if (data.actorData[data.object.dice1]?.roll != undefined) { 
+            data.object.attributeValue = parseInt(data.actorData[data.object.dice1].roll);
+            data.object.attributeName = game.i18n.localize(data.actorData[data.object.dice1].label);
 
             // om willpower
             if ((this.actor.system[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
+                if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
-
-                    if (data.object.specialityText != "") {
-                        data.object.specialityText += ", ";
-                    }
-                    data.object.specialityText += this.actor.system.attributes.composure.speciality;
+                    attributeSpeciality = data.actorData.attributes.composure.speciality;
                 }
-                if (parseInt(this.actor.system.attributes?.resolve.value) >= 4) {
+
+                if ((parseInt(data.actorData.attributes?.resolve.value) >= 4) && (data.actorData.attributes?.resolve.speciality != "")) {
                     data.object.hasSpeciality = true;
 
-                    if (data.object.specialityText != "") {
-                        data.object.specialityText += ", ";
+                    if (attributeSpeciality != "") {
+                        attributeSpeciality += ", ";
                     }
-                    data.object.specialityText += this.actor.system.attributes.resolve.speciality;
+
+                    attributeSpeciality += data.actorData.attributes.resolve.speciality;
                 }
             }
         }
 
         // is dice2 a Talent
-        if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.abilities.talent[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.talent[data.object.dice2].label);
+        if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities.talent[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(data.actorData.abilities.talent[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(data.actorData.abilities.talent[data.object.dice2].label);
 
-            if (parseInt(this.actor.system.abilities.talent[data.object.dice2].value) >= 4) {
+            if (parseInt(data.actorData.abilities.talent[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
-
-                if (data.object.specialityText != "") {
-                    data.object.specialityText += ", ";
-                }
-                data.object.specialityText += this.actor.system.abilities.talent[data.object.dice2].speciality;
+                abilitySpeciality = data.actorData.abilities.talent[data.object.dice2].speciality;
             }
         }
         // is dice2 a Skill
-        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.skill[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.abilities.skill[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.skill[data.object.dice2].label);
+        else if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities.skill[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(data.actorData.abilities.skill[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(data.actorData.abilities.skill[data.object.dice2].label);
 
-            if (parseInt(this.actor.system.abilities.skill[data.object.dice2].value) >= 4) {
+            if (parseInt(data.actorData.abilities.skill[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
-
-                if (data.object.specialityText != "") {
-                    data.object.specialityText += ", ";
-                }
-                data.object.specialityText += this.actor.system.abilities.skill[data.object.dice2].speciality;
+                abilitySpeciality = data.actorData.abilities.skill[data.object.dice2].speciality;
             }
         }
         // is dice2 a Knowledge
-        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.knowledge[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.knowledge[data.object.dice2].label);
+        else if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities.knowledge[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(data.actorData.abilities.knowledge[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(data.actorData.abilities.knowledge[data.object.dice2].label);
 
-            if (parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value) >= 4) {
+            if (parseInt(data.actorData.abilities.knowledge[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
-
-                if (data.object.specialityText != "") {
-                    data.object.specialityText += ", ";
-                }
-                data.object.specialityText += this.actor.system.abilities.knowledge[data.object.dice2].speciality;
+                abilitySpeciality = data.actorData.abilities.knowledge[data.object.dice2].speciality;                
             }
         } 
         else if (data.object.dice2 == "custom") {
@@ -271,14 +257,24 @@ export class DialogWeapon extends FormApplication {
 
                 if (parseInt(item.system.value) >= 4) {
                     data.object.hasSpeciality = true;
-    
-                    if (data.object.specialityText != "") {
-                        data.object.specialityText += ", ";
-                    }
-                    data.object.specialityText += item.system.speciality;
+                    abilitySpeciality = item.system.speciality;
                 }
             }
         }
+
+        if (data.object.hasSpeciality) {
+            if ((attributeSpeciality != "") && (abilitySpeciality != "")) {
+                specialityText = attributeSpeciality + ", " + abilitySpeciality;
+            }
+            else if (attributeSpeciality != "") {
+                specialityText = attributeSpeciality;
+            }
+            else if (abilitySpeciality != "") {
+                specialityText = abilitySpeciality;
+            }
+        }
+
+        data.object.specialityText = specialityText;
 
         return data;
     }
@@ -556,15 +552,6 @@ export class DialogWeapon extends FormApplication {
             }
     
             templateHTML += `</strong>`;     
-
-            // templateHTML += `<div class="chat-rollbutton pointer vrollable" 
-            //                     data-type="Mortal"
-            //                     data-object="Damage"
-            //                     data-rollitem="true" 
-            //                     data-actorid="${this.actor.id}"
-            //                     data-itemid="${this.object._id}">
-            //                         ${game.i18n.localize("wod.dialog.weapon.rolldamage")}
-            //                 </div>`;
             
             if (CombatHelper.ignoresPain(this.actor)) {
                 woundPenaltyVal = 0;			}				

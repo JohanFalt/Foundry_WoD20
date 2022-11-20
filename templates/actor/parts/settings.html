@@ -6,11 +6,11 @@
 		{{#if (ne actor.type config.sheettype.spirit)}}
 			<a class="item secondHeadlineTabs" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>
 
-				{{#if (eq actor.type config.sheettype.mage)}}
-					<a class="item secondHeadlineTabs" data-tab="power">{{localize "wod.tab.power"}}</a>
-				{{/if}}
+			{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.creature)}}
+				<a class="item secondHeadlineTabs" data-tab="power">{{localize "wod.tab.power"}}</a>				
+			{{/if}}
 
-			<a class="item secondHeadlineTabs" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+			<a class="item secondHeadlineTabs" data-tab="combat">{{localize 'wod.tab.combat'}}</a>			
 		{{/if}}
 
 		<a class="item secondHeadlineTabs" data-tab="sheetsetting">{{localize 'wod.tab.sheet'}}</a>
@@ -67,14 +67,14 @@
 			<div class="sheet-area">
 				<div class="clearareaBox area-box">
 					<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.path"}}</div>
-					<label for="data.system.path.label" class="pullLeft headlineNormal" style="width: 150px;">{{localize "wod.labels.settings.selectpath"}}</label>
+					<label for="data.system.advantages.path.label" class="pullLeft headlineNormal" style="width: 150px;">{{localize "wod.labels.settings.selectpath"}}</label>
 					<div class="pullLeft">
 
 						{{#if locked}}
-							<input class="sheet-infoValues" type="text" value="{{localize data.system.path.label}}" data-dtype="String" readonly />
+							<input class="sheet-infoValues" type="text" value="{{localize data.system.advantages.path.label}}" data-dtype="String" readonly />
 						{{else}}
-							<select class="selectedPath sheet-infoValues editable" data-type="{{config.sheettype.vampire}}" name="system.path.label" data-name="data.system.path.label" data-dtype="String">
-								{{#select data.system.path.label}}
+							<select class="selectedPath sheet-infoValues editable" data-type="{{config.sheettype.vampire}}" name="system.advantages.path.label" data-name="data.system.advantages.path.label" data-dtype="String">
+								{{#select data.system.advantages.path.label}}
 									<option value="wod.advantages.path.humanity">{{localize 'wod.advantages.path.humanity'}}</option>
 									<option value="wod.advantages.path.blood">{{localize 'wod.advantages.path.blood'}}</option>
 									<option value="wod.advantages.path.bones">{{localize 'wod.advantages.path.bones'}}</option>
@@ -103,24 +103,73 @@
 			<div class="sheet-area">
 				<div class="clearareaBox">
 					<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
-					<label for="data.system.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
-					<input class="sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.rage.bonus" type="text" value="{{data.system.rage.bonus}}"
+					<label for="data.system.advantages.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
+					<input class="sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.advantages.rage.bonus" type="text" value="{{data.system.advantages.rage.bonus}}"
 						data-source="frenzy"
 						data-dtype="Number" {{#if locked}} readonly {{/if}} />
 				</div>
 			</div>
 
 		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.changingbreed)}}
+			{{#if data.system.settings.hasrage}}
+				
+				<div class="sheet-area">
+					<div class="clearareaBox">
+						<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
+						<label for="data.system.advantages.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
+						<input class="sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.advantages.rage.bonus" type="text" value="{{data.system.advantages.rage.bonus}}"
+							data-source="frenzy"
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+				</div>
+
+			{{/if}}
+		{{/if}}
 		
-		{{#if (eq actor.type config.sheettype.creature)}}
+		{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
 
 			<div class="sheet-area">
 				<div class="clearareaBox">
 					<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.usedadvantages"}}</div>
+
+					<div class="clearareaBox row">
+						<label for="data.system.settings.haspath" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.path.headline'}}</label>
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="haspath" data-type="{{config.sheettype.mortal}}">
+							{{#if data.system.settings.haspath}}
+								{{localize "wod.labels.settings.yes"}}
+							{{else}}
+								{{localize "wod.labels.settings.no"}}
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="clearareaBox row">
+						<label for="data.system.settings.hasbloodpool" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.bloodpool'}}</label>
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasbloodpool" data-type="{{config.sheettype.mortal}}">
+							{{#if data.system.settings.hasbloodpool}}
+								{{localize "wod.labels.settings.yes"}}
+							{{else}}
+								{{localize "wod.labels.settings.no"}}
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="clearareaBox row">
+						<label for="data.system.settings.hasvirtue" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.virtue.headline'}}</label>
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasvirtue" data-type="{{config.sheettype.mortal}}">
+							{{#if data.system.settings.hasvirtue}}
+								{{localize "wod.labels.settings.yes"}}
+							{{else}}
+								{{localize "wod.labels.settings.no"}}
+							{{/if}}
+						</div>
+					</div>
 					
 					<div class="clearareaBox row">
 						<label for="data.system.settings.hasrage" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.rage'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="rage" data-type="{{config.sheettype.creature}}">
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasrage" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasrage}}
 								{{localize "wod.labels.settings.yes"}}
 							{{else}}
@@ -131,7 +180,7 @@
 
 					<div class="clearareaBox row">
 						<label for="data.system.settings.hasgnosis" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.gnosis'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="gnosis" data-type="{{config.sheettype.creature}}">
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasgnosis" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasgnosis}}
 								{{localize "wod.labels.settings.yes"}}
 							{{else}}
@@ -141,19 +190,8 @@
 					</div>
 
 					<div class="clearareaBox row">
-						<label for="data.system.settings.hasglamour" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.glamour'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="glamour" data-type="{{config.sheettype.creature}}">
-							{{#if data.system.settings.hasglamour}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
-						</div>
-					</div>
-
-					<div class="clearareaBox row">
 						<label for="data.system.settings.hasbanality" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.banality'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="banality" data-type="{{config.sheettype.creature}}">
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasbanality" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasbanality}}
 								{{localize "wod.labels.settings.yes"}}
 							{{else}}
@@ -164,7 +202,7 @@
 
 					<div class="clearareaBox row">
 						<label for="data.system.settings.haswillpower" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.willpower'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="willpower" data-type="{{config.sheettype.creature}}">
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="haswillpower" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.haswillpower}}
 								{{localize "wod.labels.settings.yes"}}
 							{{else}}
@@ -173,48 +211,65 @@
 						</div>
 					</div>
 
-					<div class="clearareaBox row">
-						<label for="data.system.settings.hasessence" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.essence'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="essence" data-type="{{config.sheettype.creature}}">
-							{{#if data.system.settings.hasessence}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
-						</div>
-					</div>
+					{{#if (eq actor.type config.sheettype.creature)}}
 
-					<div class="clearareaBox row">
-						<label for="data.system.settings.hasbloodpool" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.bloodpool'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="bloodpool" data-type="{{config.sheettype.creature}}">
-							{{#if data.system.settings.hasbloodpool}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
+						<div class="clearareaBox row">
+							<label for="data.system.settings.hasessence" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.essence'}}</label>
+							<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasessence" data-type="{{config.sheettype.mortal}}">
+								{{#if data.system.settings.hasessence}}
+									{{localize "wod.labels.settings.yes"}}
+								{{else}}
+									{{localize "wod.labels.settings.no"}}
+								{{/if}}
+							</div>
 						</div>
-					</div>
+
+					{{/if}}
+					
 				</div>
 			</div>
 
-		{{/if}}
+			{{#if data.system.settings.hasbloodpool}}
+
+				<div class="sheet-area">
+					<div class="clearareaBox">
+						<div class="secondHeadlineTabs splatFont">{{localize "wod.advantages.bloodpool"}}</div>
+						<label for="data.system.advantages.bloodpool.perturn" class="pullLeft headlineNormal" style="width: 150px;" 
+							data-label="{{data.system.advantages.bloodpool.perturn}}" 
+								data-ability="true">{{localize "wod.advantages.perturn"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
+							name="system.advantages.bloodpool.perturn" 
+							type="text" 
+							value="{{data.system.advantages.bloodpool.perturn}}" 
+							data-name="data.system.advantages.bloodpool.perturn" 
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+				</div>
+				
+			{{/if}}
+
+		{{/if}}		
 
 		{{#if (eqAny actor.type config.sheettype.spirit config.sheettype.creature)}}
 
-		<div class="sheet-area">
-			<div class="clearareaBox">
-				<div class="secondHeadlineTabs splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
-				<label for="data.system.essence.max" class="pullLeft headlineNormal" style="width: 150px;" 
-					data-label="{{data.system.essence.max}}" 
-						data-ability="true">{{localize "wod.advantages.essence"}}</label>
-				<input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
-					name="system.essence.max" 
-					type="text" 
-					value="{{data.system.essence.max}}" 
-					data-name="data.system.essence.max" 
-					data-dtype="Number" />
-			</div>
-		</div>
+			{{#if data.system.settings.hasessence}}
+
+				<div class="sheet-area">
+					<div class="clearareaBox">
+						<div class="secondHeadlineTabs splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
+						<label for="data.system.essence.max" class="pullLeft headlineNormal" style="width: 150px;" 
+							data-label="{{data.system.essence.max}}" 
+								data-ability="true">{{localize "wod.advantages.essence"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
+							name="system.essence.max" 
+							type="text" 
+							value="{{data.system.essence.max}}" 
+							data-name="data.system.essence.max" 
+							data-dtype="Number" />
+					</div>
+				</div>
+
+			{{/if}}
 
 		{{/if}}
 
@@ -222,6 +277,17 @@
 
 	{{!-- Abilities Tab --}}
 	<div class="tab abilities" data-group="secondary" data-tab="abilities">
+
+		{{#if (ne actor.type config.sheettype.spirit)}}
+		<div class="sheet-area">
+			<div class="clearareaBox">
+				<div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
+				<div class="pullLeft settings-leftwidth settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
+					<input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.abilities.defaultmaxvalue" value="{{data.system.settings.abilities.defaultmaxvalue}}" {{#if locked}} readonly {{/if}} />
+				</div>				
+			</div>
+		</div>
+		{{/if}}
 
 		<div class="sheet-area">
 			<div class="clearareaBox">
@@ -271,31 +337,7 @@
 
 						{{#if (ne ability.label undefined)}}
 
-							{{#if (eq key "technology")}}
-								{{#if (eq ../actor.type ../config.sheettype.mage)}}
-									<div class="clearareaBox row">
-										<label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
-
-										{{#if (eq ../locked false)}}
-											<input type="text" 
-												class="specialityBox"
-												name="system.abilities.skill.{{key}}.altlabel" 
-												value="{{ability.altlabel}}" 
-												data-name="data.system.abilities.skill.{{key}}.altlabel" />
-										{{else}}
-											<label class="settings-ability-altnamefiller"></label>
-										{{/if}}
-
-										<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="skill" data-source="ability" data-type="{{../config.sheettype.mortal}}">
-											{{#if ability.isvisible}}
-												{{localize "wod.labels.settings.added"}}
-											{{else}}
-												{{localize "wod.labels.settings.removed"}}
-											{{/if}}
-										</div>
-									</div>
-								{{/if}}	
-							{{else}}
+							{{#if (showAbility key "skills" ../actor.type)}}
 								<div class="clearareaBox row">
 									<label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
@@ -329,52 +371,8 @@
 					{{#each data.system.abilities.knowledge as |ability key|}}
 
 						{{#if (ne ability.label undefined)}}
-					
-							{{#if (eq ../actor.type ../config.sheettype.mage)}}
-								{{#if (eq key "technology")}}
-									{{#if ability.isvisible}}
-										<div class="clearareaBox row">
-											<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
-											{{#if (eq ../locked false)}}
-												<input type="text" 
-													class="specialityBox"
-													name="system.abilities.knowledge.{{key}}.altlabel" 
-													value="{{ability.altlabel}}" 
-													data-name="data.system.abilities.knowledge.{{key}}.altlabel" />
-											{{else}}
-												<label class="settings-ability-altnamefiller"></label>
-											{{/if}}
-
-											<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">
-												{{localize "wod.labels.settings.removed"}}
-											</div>
-										</div>
-									{{/if}}
-								{{else}}
-									<div class="clearareaBox row">
-										<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
-
-										{{#if (eq ../locked false)}}
-											<input type="text" 
-												class="specialityBox"
-												name="system.abilities.knowledge.{{key}}.altlabel" 
-												value="{{ability.altlabel}}" 
-												data-name="data.system.abilities.knowledge.{{key}}.altlabel" />
-										{{else}}
-											<label class="settings-ability-altnamefiller"></label>
-										{{/if}}
-
-										<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">
-											{{#if ability.isvisible}}										
-												{{localize "wod.labels.settings.added"}}
-											{{else}}
-												{{localize "wod.labels.settings.removed"}}
-											{{/if}}
-										</div>
-									</div>
-								{{/if}}
-							{{else}}
+							{{#if (showAbility key "knowledges" ../actor.type)}}
 								<div class="clearareaBox row">
 									<label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
 
@@ -427,7 +425,7 @@
 				</div>
 
 				<div class="ability-statArea pullLeft">
-					{{#each actor.ability_talents as |ability key|}}
+					{{#each actor.system.listdata.ability_talents as |ability key|}}
 						{{#if ability.issecondary}}
 
 							<div class="clearareaBox row">
@@ -445,7 +443,7 @@
 					&nbsp;
 				</div>
 				<div class="ability-statArea pullLeft">
-					{{#each actor.ability_skills as |ability key|}}
+					{{#each actor.system.listdata.ability_skills as |ability key|}}
 						{{#if ability.issecondary}}
 
 							<div class="clearareaBox row">
@@ -463,7 +461,7 @@
 					&nbsp;
 				</div>
 				<div class="ability-statArea pullLeft">
-					{{#each actor.ability_knowledges as |ability key|}}
+					{{#each actor.system.listdata.ability_knowledges as |ability key|}}
 						{{#if ability.issecondary}}
 
 							<div class="clearareaBox row">
@@ -489,17 +487,49 @@
 	<div class="tab power" data-group="secondary" data-tab="power">
 
 		<div class="sheet-area">
-			<div class="clearareaBox">
-				<label for="data.system.paradox.permanent" class="secondHeadlineTabs splatFont" style="width: 150px;">{{localize "wod.labels.settings.permparadox"}}</label>
-				<div>
-					<input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
-						name="system.paradox.permanent" 
-						type="text" 
-						value="{{data.system.paradox.permanent}}"
-						data-name="data.system.paradox.permanent" 
-						data-dtype="Number" {{#if locked}} readonly {{/if}} />
+
+			{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
+
+				<div class="clearareaBox row">
+					<label for="data.system.settings.powers.hasdisciplines" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasdisciplines"}}</label>
+					<div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasdisciplines" data-type="{{config.sheettype.mortal}}">
+						{{#if data.system.settings.powers.hasdisciplines}}
+							{{localize "wod.labels.settings.yes"}}
+						{{else}}
+							{{localize "wod.labels.settings.no"}}
+						{{/if}}
+					</div>
 				</div>
-			</div>
+
+				<div class="clearareaBox row">
+					<label for="data.system.settings.powers.hasgifts" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasgifts"}}</label>
+					<div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasgifts" data-type="{{config.sheettype.mortal}}">
+						{{#if data.system.settings.powers.hasgifts}}
+							{{localize "wod.labels.settings.yes"}}
+						{{else}}
+							{{localize "wod.labels.settings.no"}}
+						{{/if}}
+					</div>
+				</div>
+
+			{{/if}}
+
+			{{#if (eq actor.type config.sheettype.mage)}}
+				<div class="sheet-area">
+					<div class="clearareaBox">
+						<label for="data.system.paradox.permanent" class="secondHeadlineTabs splatFont" style="width: 200px;">{{localize "wod.labels.settings.permparadox"}}</label>
+						<div>
+							<input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
+								name="system.paradox.permanent" 
+								type="text" 
+								value="{{data.system.paradox.permanent}}"
+								data-name="data.system.paradox.permanent" 
+								data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						</div>
+					</div>
+				</div>
+			{{/if}}		
+
 		</div>
 
 	</div>
@@ -753,59 +783,6 @@
 				</div>
 			</div>
 		</div>
-<!-- 
-		{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
-
-			<div class="sheet-area">
-				<div class="clearareaBox">
-					<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.usedpowers"}}</div>
-					<div class="clearareaBox row">
-						<label for="data.system.settings.powers.hasdisciplines" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.power.disciplines'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="disciplines" data-type="{{actor.type}}">
-							{{#if data.system.settings.powers.hasdisciplines}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
-						</div>
-					</div>	
-
-					<div class="clearareaBox row">
-						<label for="data.system.settings.powers.hasgifts" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.power.gifts'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="gifts" data-type="{{actor.type}}">
-							{{#if data.system.settings.powers.hasgifts}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
-						</div>
-					</div>
-
-					<div class="clearareaBox row">
-						<label for="data.system.settings.powers.hascharms" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.tab.charms'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="charms" data-type="{{actor.type}}">
-							{{#if data.system.settings.powers.hascharms}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
-						</div>
-					</div>
-
-					<div class="clearareaBox row">
-						<label for="data.system.settings.powers.haspowers" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.tab.power'}}</label>
-						<div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="powers" data-type="{{actor.type}}">
-							{{#if data.system.settings.powers.haspowers}}
-								{{localize "wod.labels.settings.yes"}}
-							{{else}}
-								{{localize "wod.labels.settings.no"}}
-							{{/if}}
-						</div>
-					</div>
-				</div>
-			</div>
-
-		{{/if}} -->		
 
 	</div>
 

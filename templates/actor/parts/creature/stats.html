@@ -1,0 +1,63 @@
+<div class="clearareaBox" style="display: flex;">
+
+	<div class="pullLeft" style="width: 33%;">
+	
+		{{#if data.system.settings.hasvirtue}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
+		{{else}}
+			&nbsp;
+		{{/if}}
+		
+	</div>
+
+	<div class="pullLeft" style="width: 33%;">
+
+		{{#if data.system.settings.haspath}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+		{{/if}}
+
+		{{#if data.system.settings.hasrage}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+		{{/if}}
+
+		{{#if data.system.settings.hasgnosis}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+		{{/if}}
+
+		{{#if data.system.settings.hasglamour}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_glamour.html"}}
+		{{/if}}
+
+		{{#if data.system.settings.hasnightmare}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_nightmare.html"}}
+		{{/if}}
+	
+		{{#if data.system.settings.haswillpower}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+		{{/if}}
+
+		{{#if data.system.settings.hasbloodpool}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+		{{/if}}
+
+		{{#if data.system.settings.hasbanality}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_banality.html"}}
+		{{/if}}
+
+        {{#if actor.system.settings.hasessence}}
+            {{> "systems/worldofdarkness/templates/actor/parts/stats_essence.html"}}
+		{{/if}}
+
+	</div>
+
+	<div class="healthBox" style="width:33%;">
+
+		<div class="pullright" style="width: 100%;">
+
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+
+		</div>
+
+	</div>
+
+</div>

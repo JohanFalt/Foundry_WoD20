@@ -1,0 +1,87 @@
+<div class="sheet-headline splatFont">{{localize "wod.advantages.virtue.headline"}}</div>
+
+<div class="clearareaBox">
+	<div class="clearareaBox">
+		<div class="sheet-headline headlineGroup splatFont centerText">{{localize data.system.advantages.virtues.mercy.label}}</div>
+				
+		<div class="sheet-boxcontainer">
+			<div class="resource-value tempSquareRow" data-value="{{data.system.advantages.virtues.mercy.permanent}}" data-name="advantages.virtues.mercy.permanent">
+				{{#numLoop data.system.advantages.virtues.mercy.max}}
+				
+					<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}			
+			</div>
+
+			{{#if (eq (checkSystemsetting "hunteredgeSettings") "virtues")}}
+				<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.virtues.mercy.spent}}" data-name="advantages.virtues.mercy.spent">		
+					{{#numLoop data.system.advantages.virtues.mercy.max}}
+					
+						{{#le ../data.system.advantages.virtues.mercy.spent this}}
+							<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-key="mercy" data-index="{{this}}" data-state=""></span>
+						{{else}}
+							<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-key="mercy" data-index="{{this}}" data-state="x"></span>
+						{{/le}}
+					
+					{{/numLoop}}			
+				</div>	
+			{{/if}}
+		</div>
+	</div>	
+
+	<div class="clearareaBox">
+		<div class="sheet-headline headlineGroup splatFont centerText">{{localize data.system.advantages.virtues.vision.label}}</div>
+
+		<div class="sheet-boxcontainer">				
+			<div class="resource-value tempSquareRow" data-value="{{data.system.advantages.virtues.vision.permanent}}" data-name="advantages.virtues.vision.permanent">
+				{{#numLoop data.system.advantages.virtues.vision.max}}
+				
+					<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+			</div>	
+
+			{{#if (eq (checkSystemsetting "hunteredgeSettings") "virtues")}}
+				<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.virtues.vision.spent}}" data-name="advantages.virtues.vision.spent">		
+					{{#numLoop data.system.advantages.virtues.vision.max}}
+					
+						{{#le ../data.system.advantages.virtues.vision.spent this}}
+							<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-key="vision" data-index="{{this}}" data-state=""></span>
+						{{else}}
+							<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-key="vision" data-index="{{this}}" data-state="x"></span>
+						{{/le}}
+					
+					{{/numLoop}}			
+				</div>
+			{{/if}}
+		</div>
+	</div>
+
+	<div class="clearareaBox">
+		<div class="sheet-headline headlineGroup splatFont centerText">{{localize data.system.advantages.virtues.zeal.label}}</div>
+
+		<div class="sheet-boxcontainer">				
+			<div class="resource-value tempSquareRow" data-value="{{data.system.advantages.virtues.zeal.permanent}}" data-name="advantages.virtues.zeal.permanent">
+				{{#numLoop data.system.advantages.virtues.zeal.max}}
+				
+					<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+			</div>	
+
+			{{#if (eq (checkSystemsetting "hunteredgeSettings") "virtues")}}
+				<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.virtues.zeal.spent}}" data-name="advantages.virtues.zeal.spent">		
+					{{#numLoop data.system.advantages.virtues.zeal.max}}
+					
+						{{#le ../data.system.advantages.virtues.zeal.spent this}}
+							<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-key="zeal" data-index="{{this}}" data-state=""></span>
+						{{else}}
+							<span class="resource-value-step" data-type="{{../config.sheettype.hunter}}" data-key="zeal" data-index="{{this}}" data-state="x"></span>
+						{{/le}}
+					
+					{{/numLoop}}			
+				</div>
+			{{/if}}
+		</div>
+	</div>
+</div>

@@ -32,17 +32,11 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
         <div class="pullLeft combat-bottomarea">
-            {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+            {{#if actor.system.settings.powers.hasgifts}}
                 {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
             {{else}}
-                {{#if (eq actor.type config.sheettype.mage)}}
-                    <!-- {{> "systems/worldofdarkness/templates/actor/parts/mage/combat_active.html"}} -->
-                    &nbsp;
-                {{else}}
-                    &nbsp;
-                {{/if}}
+                &nbsp;
             {{/if}}
-
         </div>
 
         <div class="pullLeft combat-bottomhealth">

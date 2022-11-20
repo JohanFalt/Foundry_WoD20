@@ -36,12 +36,12 @@ export class WoDItemSheet extends ItemSheet {
 			this.item.update(itemData);
 		}
 
-		if (itemData.type == "Power") { 
-			if ((itemData.system.type == "wod.types.discipline") || (itemData.system.type == "wod.types.disciplinepath") || (itemData.system.type == "wod.types.art")) {
+		/* if (itemData.type == "Power") { 
+			if ((itemData.system.type == "wod.types.discipline") || (itemData.system.type == "wod.types.disciplinepath") || (itemData.system.type == "wod.types.art") || (itemData.system.type == "wod.types.edge")) {
 				itemData.system.isrollable = false;
 				this.item.update(itemData);
 			}
-		}		
+		} */
 
 		const data = super.getData();
 
@@ -54,6 +54,16 @@ export class WoDItemSheet extends ItemSheet {
 		data.isGM = game.user.isGM;	
 
 		const imgUrl = getImage(data.item);
+
+		if (this.item.sheetType == undefined) {
+			data.sheettype = "";
+		}
+		else if (this.item.sheetType != CONFIG.wod.sheettype.changingbreed) {
+            data.sheettype = this.item.sheetType.toLowerCase() + "Item";
+        }
+        else {
+            data.sheettype = "werewolfItem";
+        }
 
 		if (imgUrl != "") {
 			data.item.img = imgUrl;
@@ -75,13 +85,10 @@ export class WoDItemSheet extends ItemSheet {
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterEmpty.bind(this));
 
 		html
-			.find(".clearDiscipline")
-			.click(this._clearDiscipline.bind(this));
+			.find(".clearPower")
+			.click(this._clearPower.bind(this));
 	}
 
 	_onDotCounterChange(event) {
@@ -111,27 +118,7 @@ export class WoDItemSheet extends ItemSheet {
 		this._assignToItemField(fields, index + 1);
 	}
 
-	_onDotCounterEmpty(event) {
-		event.preventDefault();
-
-		const element = event.currentTarget;
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
-		const steps = parent.find(".resource-value-empty");
-		
-		steps.removeClass("active");
-		
-		steps.each(function (i) {
-			if (i <= 0) {
-				$(this).addClass("active");
-			}
-		});
-		
-		this._assignToItemField(fields, 0);
-	}
-
-	_clearDiscipline(event) {
+	_clearPower(event) {
 		const itemData = duplicate(this.item);
 		itemData.system.parentid = "";
 		this.item.update(itemData);
@@ -202,8 +189,12 @@ export function getImage(item) {
 			return "systems/worldofdarkness/assets/img/items/mainpower_changeling.svg";
 		}
 
-		if (item.system.type == "wod.types.artpower") {
-			return "systems/worldofdarkness/assets/img/items/power_changeling.svg";
+		if (item.system.type == "wod.types.edge") {
+			return "systems/worldofdarkness/assets/img/items/mainpower_hunter.svg";
+		}
+
+		if (item.system.type == "wod.types.edgepower") {
+			return "systems/worldofdarkness/assets/img/items/power_hunter.svg";
 		}
 
 		if (item.system.type == "wod.types.gift") {

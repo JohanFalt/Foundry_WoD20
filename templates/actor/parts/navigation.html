@@ -3,41 +3,45 @@
 		<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
 		<a class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
 
-		{{#if (eq actor.type config.sheettype.changeling)}}
-			<a class="item itemTabsText" data-tab="dreaming">{{localize 'wod.tab.dreaming'}}</a>
-		{{/if}}
-
 		{{#if (eq actor.type config.sheettype.mage)}}
 			<a class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
 		{{/if}}
 
-		{{#if (eq actor.type config.sheettype.vampire)}}
+		{{#if actor.system.settings.powers.hasdisciplines}}
 			<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
 		{{/if}}
 
-		{{#if (eq actor.type config.sheettype.werewolf)}}
+		{{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
 			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
-			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
-		{{/if}}		
+		{{/if}}
 
-		{{#if (eq actor.type config.sheettype.changingbreed)}}
-			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+		{{#if actor.system.settings.powers.hasgifts}}
 			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
 		{{/if}}
 
-		<!-- {{#if (eq actor.type config.sheettype.mortal)}}
-			<a class="item itemTabsText" data-tab="power">{{localize 'wod.tab.power'}}</a>
-		{{/if}} -->
+		{{#if actor.system.settings.powers.hasarts}}
+			<a class="item itemTabsText" data-tab="dreaming">{{localize 'wod.tab.dreaming'}}</a>
+		{{/if}}
 
-		<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
-		<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>		
+		{{#if (eq actor.type config.sheettype.hunter)}}
+			<a class="item itemTabsText" data-tab="edge">{{localize 'wod.tab.edge'}}</a>
+		{{/if}}
+				
+		{{#if actor.system.settings.powers.haspowers}}
+			<a class="item itemTabsText" data-tab="power">{{localize 'wod.tab.power'}}</a>
+		{{/if}}
+
+		{{#if (ne actor.type config.sheettype.creature)}}
+			<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+			<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>		
 		
-		<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
+			<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
+		{{/if}}
 		<a class="item" data-tab="settings"><i class="fa-solid fa-gear"></i></a>
+		<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item itemTabsText" style="color: black;"><i class="fa-solid fa-circle-question"></i></a>
 	</nav>	
 {{else}}
 	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
 		<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
 	</nav>
 {{/if}}
-

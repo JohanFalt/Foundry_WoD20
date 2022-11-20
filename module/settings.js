@@ -44,6 +44,19 @@ export const systemSettings = function() {
 		}
 	});
 
+    game.settings.register("worldofdarkness", "hunteredgeSettings", {
+		name: game.i18n.localize('wod.settings.edgesettings'),
+		hint: game.i18n.localize('wod.settings.edgesettingshints'),
+		scope: "world",
+		config: false,
+		default: "virtues",
+		type: String,
+		choices: {
+			"virtues": game.i18n.localize('wod.settings.choicevirtue'),
+			"experience": game.i18n.localize('wod.settings.choiceexperience')
+		}
+	});
+
     game.settings.register("worldofdarkness", "observersFullActorViewPermission", {
 		name: game.i18n.localize('wod.settings.observersactorpermission'),
 		hint: game.i18n.localize('wod.settings.observersactorpermissionhint'),
@@ -181,6 +194,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch220", {
+		name: "patch220",
+		hint: "patch220",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
@@ -188,6 +210,15 @@ export const systemSettings = function() {
         label: game.i18n.localize('wod.settings.rulesettings'),
         icon: "fa-solid fa-gear",
         type: Rules,
+        restricted: true,
+    });
+
+    game.settings.registerMenu("worldofdarkness", "hunterSettings", {
+        name: game.i18n.localize('wod.settings.huntersettings'),
+        hint: game.i18n.localize('wod.settings.huntersettingshints'),
+        label: game.i18n.localize('wod.settings.huntersettings'),
+        icon: "fa-solid fa-gear",
+        type: Hunter,
         restricted: true,
     });
 
@@ -236,6 +267,108 @@ export class Rules extends FormApplication {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
                 if ((s.key == "advantageRolls") || (s.key == "theRollofOne") || (s.key == "attributeSettings")) {
+                    // Update setting data
+                    const setting = duplicate(s);
+
+                    setting.name = game.i18n.localize(setting.name);
+                    setting.hint = game.i18n.localize(setting.hint);
+                    setting.value = game.settings.get("worldofdarkness", setting.key);
+                    setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
+                    setting.isBoolean = s.type === Boolean;
+                    setting.isSelect = s.choices !== undefined;
+
+                    data.system.settings.push(setting);
+                } 
+            }
+        }
+  
+        // Return data
+        return {
+            user: game.user,
+            canConfigure: hasPermission,
+            systemTitle: game.system.title,
+            data: data
+        };
+    }
+  
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".submenu button").click(this._onClickSubmenu.bind(this));
+        html.find('button[name="reset"]').click(this._onResetDefaults.bind(this));
+    }
+  
+    /**
+     * Handle activating the button to configure User Role permissions
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onClickSubmenu(event) {
+        event.preventDefault();
+        const menu = game.settings.menus.get(event.currentTarget.dataset.key);
+        if (!menu) return ui.notifications.error("No submenu found for the provided key");
+        const app = new menu.type();
+        return app.render(true);
+    }
+  
+    /**
+     * Handle button click to reset default settings
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onResetDefaults(event) {
+        event.preventDefault();
+        const button = event.currentTarget;
+        const form = button.form;
+
+        for (let [k, v] of game.settings.settings.entries()) {
+            if (v.config) {
+                let input = form[k];
+                if (input.type === "checkbox") input.checked = v.default;
+                else if (input) input.value = v.default;
+            }
+        }
+    }
+  
+    /** @override */
+    async _updateObject(event, formData) {
+        for (let [k, v] of Object.entries(flattenObject(formData))) {
+            let s = game.settings.settings.get(k);
+            let current = game.settings.get("worldofdarkness", s.key);
+
+            if (v !== current) {
+                await game.settings.set("worldofdarkness", s.key, v);
+            }
+        }
+    }
+}
+
+export class Hunter extends FormApplication {
+    /** @override */
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            id: "rules",
+            classes: ["rule-dialog"],
+            title: game.i18n.localize('wod.settings.rulesettings'),
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
+        });
+    }
+  
+    getData(options) {
+        const hasPermission = game.user.can("SETTINGS_MODIFY");  
+        const data = {
+            system: { 
+                title: game.system.title, 
+                menus: [], 
+                settings: [] 
+            }
+        };
+
+        // Classify all settings
+        if (hasPermission) {
+            for (let s of game.settings.settings.values()) {
+                // Exclude settings the user cannot change
+                if ((s.key == "hunteredgeSettings")) {
                     // Update setting data
                     const setting = duplicate(s);
 

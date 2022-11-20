@@ -3,10 +3,11 @@
         {{#if (eq actor.type config.sheettype.werewolf)}}
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/frenzy.svg" data-macroimage="true" data-rollfrenzy="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.dialog.checkfrenzy.headline'}}">
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/shapechange.svg" data-macroimage="true" data-rollshapechange="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.tab.shapechange'}}">
+            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/remainactive.svg" data-macroimage="true" data-rollremainactive="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.dice.rollingremainactive'}}">
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.vampire)}}
-            {{#if (eq actor.system.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
+            {{#if (eq actor.system.advantages.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
                 <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/frenzy.svg" data-macroimage="true" data-rollfrenzy="true" data-type="{{config.sheettype.vampire}}" title="{{localize 'wod.dialog.checkfrenzy.headline'}}">
             {{/if}}
         {{/if}}
@@ -29,10 +30,11 @@
         {{#if (eq actor.type config.sheettype.werewolf)}}
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
+            <div class="pullLeft macroBtnInfo">&nbsp;</div>
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.vampire)}}
-            {{#if (eq actor.system.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
+            {{#if (eq actor.system.advantages.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
             <div class="pullLeft macroBtnInfo">&nbsp;</div>
             {{/if}}
         {{/if}}

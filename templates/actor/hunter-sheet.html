@@ -1,0 +1,147 @@
+<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}}" autocomplete="off">
+
+	{{!-- Hunter Sheet Header --}}
+	
+	<div class="sheet-character">				
+	
+		{{!-- Always visible --}}
+		<header class="sheet-header">	
+
+			<div class="clearareaBox">
+				<div class="pullLeft">
+					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+				</div>
+			</div>
+		</header>	
+
+		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}			
+		
+		{{!-- Sheet part --}}
+		<section class="sheet-body">
+
+			{{!-- Bio Tab --}}
+			<div class="tab bio" data-group="primary" data-tab="bio">
+
+				{{~> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
+
+			</div>
+		
+			{{!-- Core Tab --}}
+			<div class="tab core" data-group="primary" data-tab="core">
+
+				<section class="sheet-spec-body">	
+					
+					<nav class="sheet-spec-tabs tabs" data-group="secondary">
+						<a class="item" data-tab="normal">{{localize 'wod.tab.normal'}}</a>
+						<a class="item" data-tab="specialities">{{localize 'wod.tab.specialities'}}</a>
+					</nav>
+
+					<div class="sheet-area clearareaBox">
+						{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
+					</div>
+
+					<!-- Core Normal -->
+					<div class="tab normal" data-group="secondary" data-tab="normal">						
+
+						<!-- Core Attributes -->
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+						</div>
+
+						<!-- Core Abilities -->
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+						</div>
+
+						<!-- Core Stats -->
+						<div class="sheet-area">
+							<div class="clearareaBox" style="display: flex;">
+
+								<div class="sheet-boxcontainer">
+
+									<div class="pullLeft" style="width: 33%;">
+
+										{{> "systems/worldofdarkness/templates/actor/parts/hunter/stats_virtue.html"}}
+																		
+									</div>
+									
+									<div class="pullLeft" style="width: 33%">
+							
+										{{> "systems/worldofdarkness/templates/actor/parts/hunter/stats_conviction.html"}}
+
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+								
+									</div>
+									
+									<div class="pullLeft healthBox" style="width: 33%;">
+										
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+								
+										<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
+											<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
+											<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
+										</div>
+									</div>
+
+								</div>
+							
+							</div>
+						</div>
+
+					</div>
+
+					<!-- Core with Specialities -->
+					<div class="tab specialities" data-group="secondary" data-tab="specialities">
+
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/attributes_spec.html"}} 	
+						</div>
+
+						<div class="sheet-area">
+							{{> "systems/worldofdarkness/templates/actor/parts/abilities_spec.html"}}
+						</div>
+
+					</div>
+				</section>				
+				
+			</div>
+			
+			{{!-- Combat Tab --}}
+			<div class="tab combat" data-group="primary" data-tab="combat">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/combat.html"}}
+
+			</div>
+
+			{{!-- Gear Tab --}}
+			<div class="tab gear" data-group="primary" data-tab="gear">
+
+				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
+
+			</div>
+			
+			{{!-- Edge Tab --}}
+			<div class="tab edge" data-group="primary" data-tab="edge">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/hunter/edges.html"}}
+
+			</div>
+			
+			{{!-- Notes Tab --}}
+			<div class="tab note" data-group="primary" data-tab="note">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
+
+			</div>
+			
+			{{!-- Settings Tab --}}
+			<div class="tab settings" data-group="primary" data-tab="settings">
+			
+				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
+				
+			</div>
+		
+		</section>
+	</div>
+		
+</form>

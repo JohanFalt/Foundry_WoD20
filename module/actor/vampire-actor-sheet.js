@@ -29,9 +29,8 @@ export class VampireActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		this.locked = true;
-		this.isCharacter = true;	
-		this.isGM = game.user.isGM;
+		/* this.isCharacter = true;	
+		this.isGM = game.user.isGM; */
 		
 		console.log("WoD | Vampire Sheet constructor");
 	}
@@ -42,11 +41,12 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.vampire) {
+				actorData.system.settings.iscreated = true;
+
 				ActionHelper._setVampireAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setVampireAttributes(actorData);
+				ActionHelper._setVampireAttributes(actorData);				
 				
-				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -58,96 +58,96 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Vampire Sheet getData");
 
-		const disciplinelist = [];
-		const tempdisclist = [];
-		const unlisteddisclist = [];
-		let unlisted = false;
+		// const disciplinelist = [];
+		// const tempdisclist = [];
+		// const unlisteddisclist = [];
+		// let unlisted = false;
 
-		const pathlist = [];
-		const temppathlist = [];
-		const unlistedpathlist = [];
-		let unlistedpath = false;
+		// const pathlist = [];
+		// const temppathlist = [];
+		// const unlistedpathlist = [];
+		// let unlistedpath = false;
 
-		const rituallist = [];
+		// const rituallist = [];
 		
-		const templist = [];	
-		const temp2list = [];
+		// const templist = [];	
+		// const temp2list = [];
 
-		for (const i of data.items) {
-			if (i.type == "Power") {
-				if (i.system.type == "wod.types.discipline") {
-					tempdisclist.push(i);
-				}
-				if (i.system.type == "wod.types.disciplinepower") {
-					if (i.system.parentid != "") {
-						i.system.level = i.system.level.toString();
-						templist.push(i);
-					}
-					else {
-						unlisteddisclist.push(i);
-						unlisted = true;
-					}					
-				}
-				if (i.system.type == "wod.types.disciplinepath") {
-					temppathlist.push(i);
-				}
-				if (i.system.type == "wod.types.disciplinepathpower") {
-					if (i.system.parentid != "") {
-						i.system.level = i.system.level.toString();
-						temp2list.push(i);
-					}
-					else {
-						unlistedpathlist.push(i);
-						unlistedpath = true;
-					}					
-				}
-				if (i.system.type == "wod.types.ritual") {
-					rituallist.push(i);
-				}
-			}			
-		}
+		// for (const i of data.items) {
+		// 	if (i.type == "Power") {
+		// 		if (i.system.type == "wod.types.discipline") {
+		// 			tempdisclist.push(i);
+		// 		}
+		// 		if (i.system.type == "wod.types.disciplinepower") {
+		// 			if (i.system.parentid != "") {
+		// 				i.system.level = i.system.level.toString();
+		// 				templist.push(i);
+		// 			}
+		// 			else {
+		// 				unlisteddisclist.push(i);
+		// 				unlisted = true;
+		// 			}					
+		// 		}
+		// 		if (i.system.type == "wod.types.disciplinepath") {
+		// 			temppathlist.push(i);
+		// 		}
+		// 		if (i.system.type == "wod.types.disciplinepathpower") {
+		// 			if (i.system.parentid != "") {
+		// 				i.system.level = i.system.level.toString();
+		// 				temp2list.push(i);
+		// 			}
+		// 			else {
+		// 				unlistedpathlist.push(i);
+		// 				unlistedpath = true;
+		// 			}					
+		// 		}
+		// 		if (i.system.type == "wod.types.ritual") {
+		// 			rituallist.push(i);
+		// 		} 
+		// 	}			
+		// }
 
-		// sort disciplines
-		tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
-		templist.sort((a, b) => a.system.level.localeCompare(b.system.level));			
+		// // sort disciplines
+		// tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
+		// templist.sort((a, b) => a.system.level.localeCompare(b.system.level));			
 
-		for (const discipline of tempdisclist) {
-			disciplinelist.push(discipline);
+		// for (const discipline of tempdisclist) {
+		// 	disciplinelist.push(discipline);
 
-			for (const power of templist) {
-				if (power.system.parentid == discipline._id) {
-					disciplinelist.push(power);
-				}
-			}
-		}		
+		// 	for (const power of templist) {
+		// 		if (power.system.parentid == discipline._id) {
+		// 			disciplinelist.push(power);
+		// 		}
+		// 	}
+		// }		
 
-		data.actor.disciplinelist = disciplinelist;
-		data.actor.listeddisciplines = tempdisclist;
-		data.actor.unlisteddisciplines = unlisteddisclist.sort((a, b) => a.name.localeCompare(b.name));	
-		data.actor.hasunlisteddisciplines = unlisted;
+		// data.actor.disciplinelist = disciplinelist;
+		// data.actor.listeddisciplines = tempdisclist;
+		// data.actor.unlisteddisciplines = unlisteddisclist.sort((a, b) => a.name.localeCompare(b.name));	
+		// data.actor.hasunlisteddisciplines = unlisted;
 
-		// sort paths
-		temppathlist.sort((a, b) => a.name.localeCompare(b.name));
-		temp2list.sort((a, b) => a.system.level.localeCompare(b.system.level));	
-		unlistedpathlist.sort((a, b) => a.name.localeCompare(b.name));	
+		// // sort paths
+		// temppathlist.sort((a, b) => a.name.localeCompare(b.name));
+		// temp2list.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		// unlistedpathlist.sort((a, b) => a.name.localeCompare(b.name));	
 
-		for (const path of temppathlist) {
-			pathlist.push(path);
+		// for (const path of temppathlist) {
+		// 	pathlist.push(path);
 
-			for (const power of temp2list) {
-				if (power.system.parentid == path._id) {
-					pathlist.push(power);
-				}
-			}
-		}
+		// 	for (const power of temp2list) {
+		// 		if (power.system.parentid == path._id) {
+		// 			pathlist.push(power);
+		// 		}
+		// 	}
+		// }
 		
-		data.actor.pathlist = pathlist;
-		data.actor.listedpaths = temppathlist;
-		data.actor.unlistedpaths = unlistedpathlist;
-		data.actor.hasunlistedpaths = unlistedpath;
+		// data.actor.pathlist = pathlist;
+		// data.actor.listedpaths = temppathlist;
+		// data.actor.unlistedpaths = unlistedpathlist;
+		// data.actor.hasunlistedpaths = unlistedpath;
 
-		// sort rituals
-		data.actor.rituallist = rituallist.sort((a, b) => a.name.localeCompare(b.name));
+		// // sort rituals
+		// data.actor.rituallist = rituallist.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.wod.sheettype.vampire) {
 			console.log(CONFIG.wod.sheettype.vampire);
@@ -175,17 +175,11 @@ export class VampireActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterVampireChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterVampireEmpty.bind(this));
 
 		// temporary squares
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterVampireChange.bind(this));
-		html
-			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterVampireEmpty.bind(this));
 
 		// Rollable stuff
 		html
@@ -252,51 +246,51 @@ export class VampireActorSheet extends MortalActorSheet {
 		const selectedPath = element.value;
 		const actorData = duplicate(this.actor);
 
-		actorData.system.virtues.conscience.label = "wod.advantages.virtue.conscience";
-		actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.selfcontrol";
-		actorData.system.virtues.courage.label = "wod.advantages.virtue.courage";
+		actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conscience";
+		actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.selfcontrol";
+		actorData.system.advantages.virtues.courage.label = "wod.advantages.virtue.courage";
 
 		if (selectedPath === "wod.advantages.path.blood") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 		if (selectedPath === "wod.advantages.path.bones") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 		if (selectedPath === "wod.advantages.path.caine") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.cathari") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.feralheart") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.accord") {
 		}
 		if (selectedPath === "wod.advantages.path.lilith") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.metamorphosis") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.night") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.paradox") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 		if (selectedPath === "wod.advantages.path.innervoice") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
 		}
 		if (selectedPath === "wod.advantages.path.typhon") {
-			actorData.system.virtues.conscience.label = "wod.advantages.virtue.conviction";
+			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
 		}
 
 		console.log("WoD | Vampire Sheet updated");
@@ -353,9 +347,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		const bloodpoolMax = calculteMaxBlood(selectedGeneration);
 		const bloodSpending = calculteMaxBloodSpend(selectedGeneration);
 		const traitMax = calculteMaxTrait(selectedGeneration);
-		const disciplineMax = calculteMaxDiscipline(selectedGeneration);
-
-		
+		const disciplineMax = calculteMaxDiscipline(selectedGeneration);		
 
 		// attributes max
 		for (const i in actorData.system.attributes) {
@@ -392,29 +384,24 @@ export class VampireActorSheet extends MortalActorSheet {
 		}
 
 		// virtues
-		for (const i in actorData.system.virtues) {
-			actorData.system.virtues[i].max = 5;
-
-			// if (actorData.system.virtues[i].value > traitMax) {
-			// 	actorData.system.virtues[i].value = traitMax;
-			// 	actorData.system.virtues[i].roll = traitMax;
-			// }
+		for (const i in actorData.system.advantages.virtues) {
+			actorData.system.advantages.virtues[i].max = 5;
 		}
 
 		// blood pool
-		actorData.system.bloodpool.max = bloodpoolMax;
-		actorData.system.bloodpool.perturn = bloodSpending;
+		actorData.system.advantages.bloodpool.max = bloodpoolMax;
+		actorData.system.advantages.bloodpool.perturn = bloodSpending;
 
-		if (actorData.system.bloodpool.temporary > bloodpoolMax) {
-			actorData.system.bloodpool.temporary = bloodpoolMax;
+		if (actorData.system.advantages.bloodpool.temporary > bloodpoolMax) {
+			actorData.system.advantages.bloodpool.temporary = bloodpoolMax;
 		}
 
 		actorData.system.generation = selectedGeneration + generationModifier;
 		actorData.system.generationmod = generationModifier;
 
 		// to recalculate total values
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleVampireCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		//ActionHelper.handleVampireCalculations(actorData);
 
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
@@ -448,32 +435,6 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		this.render(false);
 	}
-
-	_onDotCounterVampireEmpty(event) {
-		console.log("WoD | Vampire Sheet _onDotCounterVampireEmpty");
-		
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
-		const type = dataset.type;
-
-		if (type != CONFIG.wod.sheettype.vampire) {
-			return;
-		}
-
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
-		const steps = parent.find(".resource-value-empty");
-		
-		if (this.locked) {
-			return;
-		}
-
-		steps.removeClass("active");
-
-		this._assignToVampire(fields, 0);			
-	}
 	
 	async _onDotCounterVampireChange(event) {
 		console.log("WoD | Vampire Sheet _onDotCounterVampireChange");
@@ -492,7 +453,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-step");
 
 		// updated item
-		if (parent[0].dataset.itemid != undefined) {
+		/* if (parent[0].dataset.itemid != undefined) {
 			if (this.locked) {
 				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				return;
@@ -503,14 +464,14 @@ export class VampireActorSheet extends MortalActorSheet {
 			const itemData = duplicate(item);
 			itemData.system.value = parseInt(index) + 1;
 			await item.update(itemData);
-		}
+		} */
 		// updated actor
-		else {
+		/* else {
 			const fieldStrings = parent[0].dataset.name;
 			const fields = fieldStrings.split(".");
 			
 
-			if ((this.locked) && ((fieldStrings != "data.system.bloodpool.temporary"))) {
+			if ((this.locked) && ((fieldStrings != "bloodpool.temporary"))) {
 				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				return;
 			}
@@ -520,7 +481,7 @@ export class VampireActorSheet extends MortalActorSheet {
 			}
 
 			this._assignToVampire(fields, index + 1);
-		}
+		} */
 		
 		steps.removeClass("active");
 		steps.each(function (i) {
@@ -530,37 +491,37 @@ export class VampireActorSheet extends MortalActorSheet {
 		});		
 	}
 
-	_assignToVampire(fields, value) {
+	/* _assignToVampire(fields, value) {
 		console.log("WoD |Vampire Sheet _assignToVampire");
 		
 		const actorData = duplicate(this.actor);
 
-		if (fields[2] === "path") {
-			if (actorData.system.path.value == value) {
-				actorData.system.path.value = parseInt(actorData.system.path.value) - 1;
+		if (fields[0] === "path") {
+			if (actorData.system.advantages.path.permanent == value) {
+				actorData.system.advantages.path.permanent = parseInt(actorData.system.advantages.path.permanent) - 1;
 			}	
 			else {
-				actorData.system.path.value = value;
+				actorData.system.advantages.path.permanent = value;
 			}
 		}	
-		else if (fields[2] === "virtues")	 {
-			actorData.system.virtues[fields[3]].value = value;
+		else if (fields[0] === "virtues")	 {
+			actorData.system.advantages.virtues[fields[1]].permanent = value;
 		}
-		else if (fields[2] === "bloodpool")	 {
-			if (actorData.system.bloodpool.temporary == value) {
-				actorData.system.bloodpool.temporary = parseInt(actorData.system.bloodpool.temporary) - 1;
+		else if (fields[0] === "bloodpool")	 {
+			if (actorData.system.advantages.bloodpool.temporary == value) {
+				actorData.system.advantages.bloodpool.temporary = parseInt(actorData.system.advantages.bloodpool.temporary) - 1;
 			}	
 			else {
-				actorData.system.bloodpool.temporary = value;
+				actorData.system.advantages.bloodpool.temporary = value;
 			}
 		}
 		
-		ActionHelper._handleCalculations(actorData);
+		ActionHelper.handleCalculations(actorData);
 		ActionHelper.handleVampireCalculations(actorData);
 		
 		console.log("WoD | Vampire Sheet updated");
 		this.actor.update(actorData);
-	}
+	} */
 }
 
 function calculteMaxBlood(selectedGeneration) {
@@ -676,12 +637,12 @@ function calculteMaxDiscipline(selectedGeneration) {
 async function keepDisciplinesCorrect(disciplineMax, actor) {
 	// discipline
 	for (const item of actor.items) {
-		if ((item.type == "Power") && (item.type == "wod.types.discipline")) {
+		if ((item.type == "Power") && ((item.type == "wod.types.discipline") || (item.type == "wod.types.disciplinepath"))) {
 			const itemData = duplicate(item);
 			itemData.system.max = parseInt(disciplineMax);
 			await item.update(itemData);
 		}
-		if ((item.type == "Power") && (item.type == "wod.types.disciplinepower")) {
+		if ((item.type == "Power") && (item.type == "wod.types.disciplinepower") || (item.type == "wod.types.disciplinepathpower")) {
 			const itemData = duplicate(item);
 			itemData.system.value = 0;
 			itemData.system.max = 0;

@@ -17,7 +17,7 @@
     <div class="pullLeft combat-mediumBox headlineList splatFont">{{localize 'wod.combat.weapon.grip'}}</div>
 </div>   
 
-{{#each actor.meleeWeapons as |item id|}}
+{{#each actor.system.listdata.combat.meleeWeapons as |item id|}}
 
 <div class="clearareaBox row">
     {{#if item.system.attack.isrollable}}
@@ -54,11 +54,11 @@
     </div>
     <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>
     <div class="pullLeft combat-valueBox headlineNormal">
-        {{#iff item.system.difficulty "==" -1}}
+        {{#if (eq item.system.difficulty "-1")}}
             {{localize "wod.labels.varies"}}
         {{else}}
             {{item.system.difficulty}}
-        {{/iff}}
+        {{/if}}
     </div>
     <div class="pullLeft combat-smallBox headlineNormal">
         {{#if item.system.damage.isrollable}}

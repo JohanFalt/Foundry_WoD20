@@ -1,6 +1,5 @@
 import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
-//import ActionHelper from "../scripts/action-helpers.js"
 import CombatHelper from "../scripts/combat-helpers.js";
 
 export class GeneralRoll {
@@ -24,6 +23,7 @@ export class GeneralRoll {
 
         this.useSpeciality = false;
         this.hasSpeciality = false;
+        this.usepain = true;
         this.specialityText = "";
 
         this.sheettype = "";
@@ -79,23 +79,25 @@ export class DialogGeneralRoll extends FormApplication {
         const data = super.getData();
         const attributeKey = data.object.attributeKey;
         const abilityKey = data.object.abilityKey;
+
         let attributeSpeciality = "";
         let abilitySpeciality = "";
+        let specialityText = "";
 
         data.actorData = this.actor.system;   
         data.actorData.type = this.actor.type;
         data.config = CONFIG.wod;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";
+        data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
+        data.object.usepain = !data.object.ignorepain;
 
         if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
             data.object.sheettype = "werewolfDialog";
-        }
-
-        let specialityText = "";
+        }        
 
         if (data.object.type == "dice") {
             data.object.hasSpeciality = this.object.useSpeciality;
@@ -104,32 +106,32 @@ export class DialogGeneralRoll extends FormApplication {
             if (attributeKey != "") {
                 if (data.object.type == "noability") {
                     if ((attributeKey == "conscience") || (attributeKey == "selfcontrol") || (attributeKey == "courage")) {
-                        data.object.attributeName = game.i18n.localize(data.actorData.virtues[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData.virtues[attributeKey].roll);
+                        data.object.attributeName = game.i18n.localize(data.actorData.advantages.virtues[attributeKey].label);
+                        data.object.attributeValue = parseInt(data.actorData.advantages.virtues[attributeKey].roll);
+                        data.object.name = data.object.attributeName; 
                     }
                     else {
-                        data.object.attributeName = game.i18n.localize(data.actorData[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData[attributeKey].roll);
-                    }
-                    
-                    data.object.name = data.object.attributeName;
-
-                    if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
-                        if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
-                            data.object.hasSpeciality = true;
-                            attributeSpeciality = data.actorData.attributes.composure.speciality;
-                        }
-        
-                        if ((parseInt(data.actorData.attributes?.resolve.value) >= 4) && (data.actorData.attributes?.resolve.speciality != "")) {
-                            data.object.hasSpeciality = true;
-
-                            if (attributeSpeciality != "") {
-                                attributeSpeciality += ", ";
+                        if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+                            if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
+                                data.object.hasSpeciality = true;
+                                attributeSpeciality = data.actorData.attributes.composure.speciality;
                             }
-
-                            attributeSpeciality += data.actorData.attributes.resolve.speciality;
-                        }
-                    }                
+            
+                            if ((parseInt(data.actorData.attributes?.resolve.value) >= 4) && (data.actorData.attributes?.resolve.speciality != "")) {
+                                data.object.hasSpeciality = true;
+    
+                                if (attributeSpeciality != "") {
+                                    attributeSpeciality += ", ";
+                                }
+    
+                                attributeSpeciality += data.actorData.attributes.resolve.speciality;
+                            }                        
+                        }  
+    
+                        data.object.attributeName = game.i18n.localize(data.actorData.advantages[attributeKey].label);
+                        data.object.attributeValue = parseInt(data.actorData.advantages[attributeKey].roll);                    
+                        data.object.name = data.object.attributeName; 
+                    }         
                 }            
                 else {
                     data.object.attributeValue = parseInt(data.actorData.attributes[attributeKey].total);
@@ -232,6 +234,7 @@ export class DialogGeneralRoll extends FormApplication {
         event.preventDefault();       
         
         this.object.useSpeciality = formData["specialty"];
+        this.object.usepain = formData["usepain"];
 
         try {
             this.object.bonus = parseInt(formData["bonus"]);
@@ -374,6 +377,9 @@ export class DialogGeneralRoll extends FormApplication {
                 woundPenaltyVal = 0;	
             }				
             else if ((this.object.type == "dice") || (this.object.type == "noability")) {
+                woundPenaltyVal = 0;
+            }
+            else if (!this.object.usepain) {
                 woundPenaltyVal = 0;
             }
             else {

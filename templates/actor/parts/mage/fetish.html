@@ -13,7 +13,7 @@
             <div class="pullLeft gear-valueBox headlineList splatFont">{{localize "wod.advantages.gnosis"}}</div>
         </div>   
 
-        {{#each actor.fetishlist as |item id|}}
+        {{#each actor.system.listdata.gear.fetishlist as |item id|}}
 
         <div class="clearareaBox row">
             <div class="pullLeft combat-largeBox headlineNormal">{{item.name}}</div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="pullLeft">
                     <a class="send-chat" 
-                        title="{{localize "wod.labels.send"}}"
+                        title="{{localize 'wod.labels.send'}}"
                         data-type="Fetish" 
                         data-headline="<h2>{{item.name}}</h2>" 
                         data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
@@ -71,7 +71,7 @@
             <div class="pullLeft gear-valueBox headlineList splatFont">{{localize "wod.advantages.gnosis"}}</div>
         </div>   
 
-        {{#each actor.talenlist as |item id|}}
+        {{#each actor.system.listdata.gear.talenlist as |item id|}}
 
         <div class="clearareaBox row">
             <div class="pullLeft combat-largeBox headlineNormal vrollable" 
@@ -95,7 +95,7 @@
                 </div>
                 <div class="pullLeft">
                     <a class="send-chat" 
-                        title="{{localize "wod.labels.send"}}"
+                        title="{{localize 'wod.labels.send'}}"
                         data-type="Talen" 
                         data-headline="<h2>{{item.name}}</h2>" 
                         data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>

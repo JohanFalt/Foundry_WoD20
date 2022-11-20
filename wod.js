@@ -9,6 +9,7 @@ import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
 import { MageActorSheet } from "./module/actor/mage-actor-sheet.js";
 import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
 import { ChangelingActorSheet } from "./module/actor/changeling-actor-sheet.js";
+import { HunterActorSheet } from "./module/actor/hunter-actor-sheet.js";
 import { ChangingBreedActorSheet } from "./module/actor/changingbreed-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
 import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
@@ -26,6 +27,7 @@ Hooks.once("init", async function() {
 	CONFIG.wod = wod;
 	CONFIG.wod.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
 	CONFIG.wod.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+	CONFIG.wod.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
 
 	try {
 		CONFIG.wod.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
@@ -66,6 +68,12 @@ Hooks.once("init", async function() {
 	Actors.registerSheet("WoD", ChangelingActorSheet, {
 		label: "Changeling Sheet",
 		types: ["Changeling"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", HunterActorSheet, {
+		label: "Hunter Sheet",
+		types: ["Hunter"],
 		makeDefault: true
 	});
 

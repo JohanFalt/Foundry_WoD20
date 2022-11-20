@@ -1,4 +1,4 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} {{sheettype}}" autocomplete="off">
 
 	<div class="sheet-item">
 
@@ -50,10 +50,49 @@
 				</div>
 			{{/if}}
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-			</div>
+			
+
+			{{#if (eq data.system.type "wod.types.othertraits")}}
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
+					<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
+				</div>
+
+				{{#if data.system.isrollable}}
+					{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
+				{{/if}}
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
+					<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
+				</div>
+
+				<!-- description -->
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+					<div class="clearareaBox">
+						{{editor data.description target="system.description" button=true owner=owner editable=locked}}
+					</div>
+				</div>
+
+				<!-- system -->
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
+					<div class="clearareaBox">
+						{{editor data.details target="system.details" button=true owner=owner editable=locked}}
+					</div>
+				</div>
+
+			{{else}}
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
+					<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
+				</div>
+
+			{{/if}}
+			
 		</section>
 
 	</div>

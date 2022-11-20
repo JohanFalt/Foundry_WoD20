@@ -12,7 +12,7 @@
 	
 	<div class="ability-statArea pullLeft">
 	
-		{{#each actor.ability_talents as |ability key|}}			
+		{{#each actor.system.listdata.ability_talents as |ability key|}}			
 			<div class="clearareaBox">
 				<label for="data.system.abilities.talent.{{ability._id}}.value" 
 					class="pullLeft ability-headlineWidth headlineNormal">
@@ -39,7 +39,7 @@
 	</div>
 	<div class="ability-statArea pullLeft">
 	
-		{{#each actor.ability_skills as |ability key|}}
+		{{#each actor.system.listdata.ability_skills as |ability key|}}
 			<div class="clearareaBox">
 				<label for="data.system.abilities.skill.{{ability._id}}.value" 
 					class="pullLeft ability-headlineWidth headlineNormal">
@@ -66,7 +66,7 @@
 	</div>
 	<div class="ability-statArea pullLeft">
 	
-		{{#each actor.ability_knowledges as |ability key|}}
+		{{#each actor.system.listdata.ability_knowledges as |ability key|}}
 			<div class="clearareaBox">
 				<label for="data.system.abilities.knowledge.{{ability._id}}.value" 
 					class="pullLeft ability-headlineWidth headlineNormal">

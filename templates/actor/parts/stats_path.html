@@ -1,0 +1,30 @@
+<div class="sheet-headline splatFont vrollable" 
+	data-type="{{config.sheettype.mortal}}"
+	data-key="path"
+	data-noability="true">{{localize data.system.advantages.path.label}}</div>
+
+<div class="sheet-boxcontainer">
+	<div class="resource-value permValueRow" data-value="{{data.system.advantages.path.permanent}}" data-name="advantages.path.permanent">
+
+		{{#numLoop data.system.advantages.path.max}}
+		
+			<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>
+
+{{#if locked}}
+	<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:  
+		{{data.system.advantages.path.bearingtext}}
+		({{data.system.advantages.path.bearing}})
+	</div>
+{{else}}
+	<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:</div>
+	<div class="sheet-boxcontainer">
+		<div class="information-area">  
+			<input class="sheet-infoValues shortNotebox editable" name="system.advantages.path.bearingtext" type="text" value="{{data.system.advantages.path.bearingtext}}" data-name="path.bearingtext" data-dtype="String" />
+		</div>
+	</div>
+{{/if}} 

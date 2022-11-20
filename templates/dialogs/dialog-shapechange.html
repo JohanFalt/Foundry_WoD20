@@ -3,11 +3,11 @@
     <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.shapechange.headline"}}</div>
 
     <div class="centerText dialog-area">
-        <button id="shape" class="button dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "homid")}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
-        <button id="shape" class="button dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "glabro")}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
-        <button id="shape" class="button dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "crinos")}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
-        <button id="shape" class="button dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "hispo")}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
-        <button id="shape" class="button dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "lupus")}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "homid")}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "glabro")}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
+        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "crinos")}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "hispo")}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
+        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "lupus")}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
     </div>
 
     <div class="dialog-area">
@@ -24,7 +24,7 @@
     <div class="centerText dialog-area">
         {{#numLoop 11}}
             {{#if (gt this 2)}}
-                <button id="difficulty" class="button pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/if}}
         {{/numLoop}}
     </div>
@@ -42,8 +42,8 @@
     </div>
         
     <div class="centerText">
-        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

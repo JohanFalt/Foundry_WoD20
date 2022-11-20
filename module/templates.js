@@ -16,7 +16,6 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/attributes_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities_spec.html",
-		"systems/worldofdarkness/templates/actor/parts/power.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/conditions.html",
 		"systems/worldofdarkness/templates/actor/parts/macro_icons.html",
@@ -24,21 +23,31 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_ranged.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_armor.html",		
-		"systems/worldofdarkness/templates/actor/parts/stats.html",
-		
-		"systems/worldofdarkness/templates/actor/parts/stats_rage.html",
-		"systems/worldofdarkness/templates/actor/parts/stats_gnosis.html",
-		"systems/worldofdarkness/templates/actor/parts/stats_willpower.html",
+
+		"systems/worldofdarkness/templates/actor/parts/stats.html",		
+		"systems/worldofdarkness/templates/actor/parts/stats_banality.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_essence.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_glamour.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_nightmare.html",		
+		"systems/worldofdarkness/templates/actor/parts/stats_gnosis.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_rage.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_willpower.html",
+
+		"systems/worldofdarkness/templates/actor/parts/creature/stats.html",
+
+		"systems/worldofdarkness/templates/actor/parts/stats_path.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_virtue.html",		
+
+		"systems/worldofdarkness/templates/actor/parts/hunter/stats_virtue.html",
+		"systems/worldofdarkness/templates/actor/parts/hunter/stats_conviction.html",			
+		
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
 		"systems/worldofdarkness/templates/actor/parts/notes.html",
 		"systems/worldofdarkness/templates/actor/parts/settings.html",
 
-		"systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html",
-		"systems/worldofdarkness/templates/actor/parts/vampire/stats_path.html",
-		"systems/worldofdarkness/templates/actor/parts/vampire/stats_virtue.html",
+		"systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",		
 		"systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html",
@@ -57,17 +66,15 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html",
 
-		"systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html",
-		"systems/worldofdarkness/templates/actor/parts/changeling/stats_glamour.html",
-		"systems/worldofdarkness/templates/actor/parts/changeling/stats_nightmare.html",
-		"systems/worldofdarkness/templates/actor/parts/changeling/stats_banality.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html",				
 		"systems/worldofdarkness/templates/actor/parts/changeling/treasure.html",
+
+		"systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html",				
 		
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/combat_active.html",
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ajaba.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ananasi.html",
@@ -88,11 +95,12 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/resonance.html",
 		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html",
+		"systems/worldofdarkness/templates/actor/parts/gifts.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.html",
 		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.html",
-		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",
-		"systems/worldofdarkness/templates/actor/parts/spirit/gifts.html",
+		"systems/worldofdarkness/templates/actor/parts/hunter/edges.html",
+		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",		
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
 
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
@@ -273,7 +281,13 @@ export const registerHandlebarsHelpers = function () {
 			if (i == ability) {
 				return CONFIG.wod.knowledges[i];
 			}
-		}		
+		}	
+
+		for (const i in CONFIG.wod.advantages) {
+			if (i == ability) {
+				return CONFIG.wod.advantages[i];
+			}
+		}
 
 		return ability;
 	});
@@ -314,6 +328,39 @@ export const registerHandlebarsHelpers = function () {
 		else {
 			return false;
 		}
+	});
+
+	Handlebars.registerHelper("showAbility", function (ability, abilityType, sheetType) {
+		if (ability == "research") {
+			if ((sheetType == CONFIG.wod.sheettype.hunter) && (abilityType == "skills")) {
+				return false;
+			}
+			else if ((sheetType == CONFIG.wod.sheettype.hunter) && (abilityType == "knowledges")) {
+				return true;
+			}
+			else if (abilityType == "skills") {
+				return true;
+			}
+			else if (abilityType == "knowledges") {
+				return false;
+			}
+		}
+		if (ability == "technology") {
+			if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)) && (abilityType == "skills")) {
+				return true;
+			}
+			else if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)) && (abilityType == "knowledges")) {
+				return false;
+			}
+			else if (abilityType == "skills") {
+				return false;
+			}
+			else if (abilityType == "knowledges") {
+				return true;
+			}
+		}
+
+		return true;
 	});
 
 	Handlebars.registerHelper("getShifterRenown", function (type, renown) {
@@ -560,6 +607,10 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.wod.handleOnes;
 		}
 
+		if (text == "hunteredgeSettings") {
+			return CONFIG.wod.hunteredgeSettings;
+		}
+
 		if (text == "observersSeeFullActor") {
 			if (CONFIG.wod.observersSeeFullActor == "full") {
 				return CONFIG.wod.observersSeeFullActor;
@@ -583,12 +634,13 @@ export const registerHandlebarsHelpers = function () {
 		return text.toUpperCase();
 	});
 
-	Handlebars.registerHelper("lowercase", function (text) {
-		return text.toLowerCase();
-	});
-
-	Handlebars.registerHelper("enrichHTML", function (text) {
-	 	return TextEditor.enrichHTML(text, {async: false});
+	Handlebars.registerHelper("isempty", function (text) {
+		if (text.length == 0) {
+			return "&nbsp;";
+		}
+		else {
+			return;
+		}
 	});
 
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {
@@ -635,7 +687,7 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("ragePenalty", function (value) {
-		let rageDiff = parseInt(this.actor.system.rage.roll) - parseInt(this.actor.system.willpower.roll);
+		let rageDiff = parseInt(this.actor.system.advantages.rage.roll) - parseInt(this.actor.system.advantages.willpower.roll);
 
 		if (rageDiff < 0) {
 			rageDiff = 0;

@@ -24,9 +24,8 @@ export class CreatureActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		this.locked = true;
 		this.isCharacter = false;	
-		this.isGM = game.user.isGM;
+		// this.isGM = game.user.isGM;
 		
 		console.log("WoD | Creature Sheet constructor");
 	}
@@ -37,13 +36,13 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.creature) {
+				actorData.system.settings.iscreated = true;
+
 				ActionHelper._setCreatureAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setWerewolfAttributes(actorData);
+				//ActionHelper._setWerewolfAttributes(actorData);
 				ActionHelper._setCreatureAttributes(actorData);
 
-				actorData.system.settings.iscreated = true;
-				actorData.system.settings.powers.haspowers = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -93,28 +92,22 @@ export class CreatureActorSheet extends MortalActorSheet {
 			.find(".vrollable")
 			.click(this._onRollCreatureDialog.bind(this));
 
-		html
+		/* html
 			.find(".switch")
-			.click(this._switchCreatureSetting.bind(this));
+			.click(this._switchCreatureSetting.bind(this)); */
 
 		// ressource dots
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterCreatureChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterCreatureEmpty.bind(this));
 
 		// temporary squares
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterCreatureChange.bind(this));
-		html
-			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterCreatureEmpty.bind(this));
 	}
 
-	_switchCreatureSetting(event) {
+	/* _switchCreatureSetting(event) {
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
@@ -129,32 +122,8 @@ export class CreatureActorSheet extends MortalActorSheet {
 		}
 
 		const actorData = duplicate(this.actor);
-		const source = dataset.source;
-		const type = dataset.switchtype;
-
-		if (source == "advantages") {
-			if (type == "rage") {
-				actorData.system.settings.hasrage = !actorData.system.settings.hasrage;
-			}
-			if (type == "gnosis") {
-				actorData.system.settings.hasgnosis = !actorData.system.settings.hasgnosis;
-			}
-			if (type == "willpower") {
-				actorData.system.settings.haswillpower = !actorData.system.settings.haswillpower;
-			}
-			if (type == "essence") {
-				actorData.system.settings.hasessence = !actorData.system.settings.hasessence;
-			}
-			if (type == "bloodpool") {
-				actorData.system.settings.hasbloodpool = !actorData.system.settings.hasbloodpool;
-			}
-			if (type == "glamour") {
-				actorData.system.settings.hasglamour = !actorData.system.settings.hasglamour;
-			}
-			if (type == "banality") {
-				actorData.system.settings.hasbanality = !actorData.system.settings.hasbanality;
-			}
-		}
+		const source = dataset.source;		
+		
 		if (source == "powers") {
 			if (abilityType == "disciplines") {
 				actorData.system.settings.powers.hasdisciplines = !actorData.system.settings.powers.hasdisciplines;
@@ -165,46 +134,25 @@ export class CreatureActorSheet extends MortalActorSheet {
 			if (abilityType == "charms") {
 				actorData.system.settings.powers.hascharms = !actorData.system.settings.powers.hascharms;
 			}
+			if (abilityType == "arts") {
+				actorData.system.settings.powers.hasarts = !actorData.system.settings.powers.hasarts;
+			}
 			actorData.system.settings.powers.haspowers = true;
 		}
 
 		this.actor.update(actorData);
-	}
+	} */
 
 	_onRollCreatureDialog(event) {		
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		// if ((dataset.key == "rage") || (dataset.key == "gnosis")) {
-		// 	// todo
-		// 	// helt ok!
-		// }
-		// else 
 		if (dataset.type != CONFIG.wod.sheettype.creature) {
 			return;
 		}
 
 		ActionHelper.RollDialog(event, this.actor);
-	}
-
-	_onDotCounterCreatureEmpty(event) {
-		console.log("WoD | Creature Sheet _onDotCounterEmpty");
-		
-		event.preventDefault();
-		const element = event.currentTarget;
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
-		const steps = parent.find(".resource-value-empty");
-		
-		if (this.locked) {
-			return;
-		}
-
-		steps.removeClass("active");
-		
-		this._onDotCounterEmpty(event);		
 	}
 
 	_onDotCounterCreatureChange(event) {
@@ -225,12 +173,12 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-step");
 
 		if ((this.locked) && 
-				((fieldStrings != "data.system.rage.temporary") && 
-				(fieldStrings != "data.system.gnosis.temporary") &&
-				(fieldStrings != "data.system.glamour.temporary") &&
-				(fieldStrings != "data.system.banality.temporary") &&
-				(fieldStrings != "data.system.essence.temporary") && 
-				(fieldStrings != "data.system.bloodpool.temporary"))) {
+				((fieldStrings != "data.system.advantages.rage.temporary") && 
+				(fieldStrings != "data.system.advantages.gnosis.temporary") &&
+				(fieldStrings != "data.system.advantages.glamour.temporary") &&
+				(fieldStrings != "data.system.advantages.banality.temporary") &&
+				(fieldStrings != "data.system.advantages.essence.temporary") && 
+				(fieldStrings != "data.system.advantages.bloodpool.temporary"))) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
@@ -250,7 +198,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		this._assignToCreature(fields, index + 1);
 	}
 
-	_assignToCreature(fields, value) {
+	async _assignToCreature(fields, value) {
 		console.log("WoD | Creature Sheet _assignToCreature");
 		
 		const actorData = duplicate(this.actor);
@@ -264,8 +212,8 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}
 		}
 		
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleCreatureCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleCreatureCalculations(actorData);
 		
 		console.log("WoD | Creature Sheet updated");
 		this.actor.update(actorData);

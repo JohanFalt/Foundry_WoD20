@@ -156,7 +156,7 @@ export class DialogCheckFrenzy extends FormApplication {
         let numDices = 0;
 
         try {
-            frenzyBonus = parseInt(this.actor.system.rage.bonus);
+            frenzyBonus = parseInt(this.actor.system.advantages.rage.bonus);
         }
         catch (e) {
             frenzyBonus = 0
@@ -165,13 +165,13 @@ export class DialogCheckFrenzy extends FormApplication {
         if (this.object.type == CONFIG.wod.sheettype.werewolf) {
             this.object.canRoll = this._calculateDifficulty(true);
             templateHTML += `${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`;
-            numDices = parseInt(this.actor.system.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
+            numDices = parseInt(this.actor.system.advantages.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
             this.object.close = true;
         }
         else if (this.object.type == CONFIG.wod.sheettype.vampire) {
             this.object.canRoll = this.object.totalDifficulty > -1 ? true : false;
             templateHTML += `${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`;
-            numDices = parseInt(this.actor.system.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);
+            numDices = parseInt(this.actor.system.advantages.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);
         }
 
         if (this.object.canRoll) {

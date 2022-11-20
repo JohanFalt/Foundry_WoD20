@@ -14,11 +14,13 @@
 
 		</header>
 
-		<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
+		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}
+
+	<!-- 	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
 			<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-			<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>			
+			<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>		
 			<a class="item" data-tab="settings"><i class="fa-solid fa-gear"></i></a>
-		</nav>
+		</nav> -->
 
 		{{!-- Sheet part --}}
 		<section class="sheet-body">
@@ -54,9 +56,9 @@
 
 					<div class="sheet-area">
 						<div class="clearareaBox area-box">
-							<div>								
+							<div>				
 
-								{{#if (gt actor.naturalWeapons.length 0)}}
+								{{#if (gt actor.system.listdata.combat.naturalWeapons.length 0)}}
 
 									<div class="sheet-area">
 										<div class="clearareaBox area-box">
@@ -68,7 +70,7 @@
 
 								{{/if}}
 
-								{{#if (gt actor.meleeWeapons.length 0)}}
+								{{#if (gt actor.system.listdata.combat.meleeWeapons.length 0)}}
 
 									<div class="sheet-area">
 										<div class="clearareaBox area-box">
@@ -80,7 +82,7 @@
 
 								{{/if}}
 
-								{{#if (gt actor.rangedWeapons.length 0)}}
+								{{#if (gt actor.system.listdata.combat.rangedWeapons.length 0)}}
 
 									<div class="sheet-area">
 										<div class="clearareaBox area-box">
@@ -92,7 +94,7 @@
 
 								{{/if}}
 
-								{{#if (gt actor.armors.length 0)}}
+								{{#if (gt actor.system.listdata.combat.armors.length 0)}}
 
 									<div class="sheet-area">
 										<div class="clearareaBox area-box">
@@ -105,113 +107,38 @@
 								{{/if}}
 
 							</div>
-							<div class="healthBox" style="width:30%;">
-
-								<div class="pullright" style="width: 100%;">
-		
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
-
-								</div>
-
-							</div>
+							
 						</div>
 					</div>
 
+					<!-- Core Stats -->
 					<div class="sheet-area">
-						{{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
-					</div>
-
-					<div class="sheet-area">
-						<div class="headlineRow splatFont">{{localize 'wod.advantages.advantages'}}</div>
-
-						<div class="clearareaBox area-box">
-
-							{{#if actor.system.settings.hasrage}}
-
-								<div class="pullLeft" style="width: 33%;">
-
-									{{#if actor.system.settings.hasrage}}
-								
-										{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
-
-									{{/if}}
-
-								</div>
-								
-								<div class="pullLeft" style="width: 33%;">
-							
-									{{#if actor.system.settings.hasgnosis}}
-
-										{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
-
-									{{/if}}
-							
-								</div>
-
-							{{else}}
-
-								<div class="pullLeft" style="width: 33%;">
-							
-									{{#if actor.system.settings.hasglamour}}
-
-										{{> "systems/worldofdarkness/templates/actor/parts/changeling/stats_glamour.html"}}
-
-									{{/if}}
-							
-								</div>
-
-								<div class="pullLeft" style="width: 33%;">
-							
-									{{#if actor.system.settings.hasbanality}}
-
-										{{> "systems/worldofdarkness/templates/actor/parts/changeling/stats_banality.html"}}
-
-									{{/if}}
-
-								</div>
-
-							{{/if}}
-							
-							<div class="pullLeft" style="width: 33%;">
-
-								{{#if actor.system.settings.haswillpower}}
-								
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
-
-								{{/if}}
-
-							</div>
-						</div>
-
-						<div class="clearareaBox area-box">
-
-							<div class="pullLeft" style="width: 100%;">
-
-								{{#if actor.system.settings.hasessence}}
-								
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_essence.html"}}
-
-								{{/if}}
-
-							</div>
-						</div>
-
-						<div class="clearareaBox area-box">
-
-							<div class="pullLeft" style="width: 100%;">
-
-								{{#if actor.system.settings.hasbloodpool}}
-								
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
-
-								{{/if}}
-
-							</div>						
-						</div>
+						{{> "systems/worldofdarkness/templates/actor/parts/creature/stats.html"}}						
 					</div>
 
 				</section>				
 				
+			</div>
+
+			{{!-- Gift Tab --}}
+			<div class="tab gift" data-group="primary" data-tab="gift">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
+
+			</div>
+
+			{{!-- Discipline Tab --}}
+			<div class="tab discipline" data-group="primary" data-tab="discipline">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
+
+			</div>
+
+			{{!-- Power Tab --}}
+			<div class="tab power" data-group="primary" data-tab="power">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+
 			</div>
 
 			{{!-- Settings Tab --}}

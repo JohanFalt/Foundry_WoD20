@@ -14,27 +14,27 @@
                     <option value="{{type}}">{{localize name}}</option>
                 {{/each}}
             {{/iff}}
-
-            <option value="rage">{{localize "wod.advantages.rage"}}</option>
-            <option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
-            <option value="willpower">{{localize "wod.advantages.willpower"}}</option>
-            <option value="glamour">{{localize "wod.advantages.glamour"}}</option>
-            <option value="nightmare">{{localize "wod.advantages.nightmare"}}</option>
-            <option value="banality">{{localize "wod.advantages.banality"}}</option>
-            <option value="path">{{localize "wod.advantages.path.headline"}}</option>
-            <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
-            <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
-            <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
-            <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
-            <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
-            
+            {{#if (ne data.system.type "wod.types.edgepower")}}
+                <option value="rage">{{localize "wod.advantages.rage"}}</option>
+                <option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
+                <option value="willpower">{{localize "wod.advantages.willpower"}}</option>
+                <option value="glamour">{{localize "wod.advantages.glamour"}}</option>
+                <option value="nightmare">{{localize "wod.advantages.nightmare"}}</option>
+                <option value="banality">{{localize "wod.advantages.banality"}}</option>
+                <option value="path">{{localize "wod.advantages.path.headline"}}</option>
+                <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
+                <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
+                <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
+                <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
+                <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
+            {{/if}}
         {{/select}}
     </select>
     + <select class="editable" name="system.dice2">
         {{#select data.system.dice2}}
             <option value="">- {{localize "wod.labels.power.noability"}} -</option>
             {{#each config.talents as | name type|}}
-            <option value="{{type}}">{{localize name}}</option>
+                <option value="{{type}}">{{localize name}}</option>
             {{/each}}
             {{#each config.skills as | name type|}}
                 {{#if (ne type "technology")}}
@@ -42,14 +42,22 @@
                 {{/if}}
             {{/each}}
             {{#each config.knowledges as | name type|}}
-                <option value="{{type}}">{{localize name}}</option>
+                {{#if (ne type "research")}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/if}}
             {{/each}}
-            <option value="path">{{localize "wod.advantages.path.headline"}}</option>
-            <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
-            <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
-            <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
-            <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
-            <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
+            {{#if (eq data.system.type "wod.types.edgepower")}}
+                <option value="mercy">{{localize "wod.advantages.virtue.mercy"}}</option>
+                <option value="vision">{{localize "wod.advantages.virtue.vision"}}</option>
+                <option value="zeal">{{localize "wod.advantages.virtue.zeal"}}</option>
+            {{else}}
+                <option value="path">{{localize "wod.advantages.path.headline"}}</option>
+                <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
+                <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
+                <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
+                <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
+                <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
+            {{/if}}
         {{/select}}
     </select>
     + <input class="sheet-infoValues numberBox editable" name="system.bonus" type="text" value="{{data.system.bonus}}" data-dtype="Number" />

@@ -57,13 +57,13 @@
 
 								<div class="pullLeft" style="width: 33%;">
 							
-									{{> "systems/worldofdarkness/templates/actor/parts/vampire/stats_virtue.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
 									
 								</div>
 								
 								<div class="pullLeft" style="width: 33%;">
 
-									{{> "systems/worldofdarkness/templates/actor/parts/vampire/stats_path.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
 						
 									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 
@@ -77,7 +77,7 @@
 							
 									<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
 										<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-										<div class="pullRight experienceValue">{{actor.experience}}</div>
+										<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
 									</div>
 								</div>
 							

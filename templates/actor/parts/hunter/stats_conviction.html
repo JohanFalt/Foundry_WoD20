@@ -1,0 +1,17 @@
+<div class="sheet-headline splatFont">{{localize "wod.advantages.conviction"}}</div>
+
+<div class="sheet-boxcontainer">
+	<div class="conviction resource-counter" data-value="{{data.system.advantages.conviction.temporary}}" data-name="advantages.conviction.temporary">
+
+		{{#numLoop data.system.advantages.conviction.max}}
+		
+			{{#le ../data.system.advantages.conviction.temporary this}}
+				<span class="conviction resource-value-step" data-type="{{../config.sheettype.hunter}}" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="conviction resource-value-step" data-type="{{../config.sheettype.hunter}}" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>

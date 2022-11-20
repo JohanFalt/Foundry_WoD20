@@ -73,6 +73,23 @@ input.fancyComboBox + div > div.kOptionHeader {
   color:white;
 }
 
+/* HUNTER COLOR BEGINS */
+
+.hunter input.fancyComboBox + div {
+  border: var(--main-hunter-color);
+}
+
+.hunter input.fancyComboBox + div > div.kOptionHeader {
+  background: var(--main-hunter-color);
+  color: white;
+}
+
+.hunter input.fancyComboBox + div > div:hover,
+.hunter input.fancyComboBox + div > div.active {
+  background: var(--main-hunter-mid-color);
+  color:white;
+}
+
 /* MAGE COLOR BEGINS */
 
 .mage input.fancyComboBox + div {

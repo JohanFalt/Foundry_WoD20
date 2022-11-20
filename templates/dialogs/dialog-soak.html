@@ -9,7 +9,7 @@
     {{/if}}
     <div class="centerText dialog-area">
         {{#each config.damageTypes as |type key|}}
-            <button id="attribute" class="button pointer dialog-attribute-button {{#if (eq ../object.soaktype 'normal')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="normal">{{localize type}}</button>
+            <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'normal')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="normal">{{localize type}}</button>
         {{/each}}
     </div>
 
@@ -17,7 +17,7 @@
         <div class="dialog-area headline splatFont">{{localize 'wod.health.chimerical'}}</div>
         <div class="centerText dialog-area">
             {{#each config.damageTypes as |type key|}}
-                <button id="attribute" class="button pointer dialog-attribute-button {{#if (eq ../object.soaktype 'chimerical')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="chimerical">{{localize type}}</button>
+                <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'chimerical')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="chimerical">{{localize type}}</button>
             {{/each}}
         </div>
     {{/if}}
@@ -35,13 +35,13 @@
 
     <div class="centerText dialog-area">
         {{#numFromLoop 3 10}}
-            <button id="difficulty" class="button pointer dialog-difficulty-button {{#iff ../object.difficulty "==" this}}active{{/iff}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+            <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#iff ../object.difficulty "==" this}}active{{/iff}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
         {{/numFromLoop}}
     </div>
 
     <div class="centerText">
-        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

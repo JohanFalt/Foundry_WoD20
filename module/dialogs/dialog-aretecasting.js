@@ -66,7 +66,7 @@ export class Rote {
         this.totalSuccesses = 0;
 
         if (item != undefined) {
-            this.name = item.system["name"];
+            this.name = item["name"];
 
             for (const sphere in CONFIG.wod.allSpheres) {
                 if (item.system[sphere] > 0) {
@@ -155,9 +155,6 @@ export class DialogAreteCasting extends FormApplication {
         html
             .find(".resource-value > .resource-value-step")
             .click(this._onDotSphereChange.bind(this));
-        html
-            .find(".resource-value > .resource-value-empty")
-            .click(this._onDotSphereEmpty.bind(this));
 
         html
             .find('.actionbutton')
@@ -229,9 +226,7 @@ export class DialogAreteCasting extends FormApplication {
 
         this.object.canCast = this._calculateDifficulty(false);        
     }
-
-  
-    /* Clears the clicked sphere */
+/*   
     _onDotSphereEmpty(event) {
         event.preventDefault();
         const element = event.currentTarget;
@@ -246,7 +241,7 @@ export class DialogAreteCasting extends FormApplication {
 
         this.object.selectedSpheres = this._changedSelectedSphere(this.object.selectedSpheres, sphere, 0);   
         this.object.canCast = this._calculateDifficulty(false);     
-    }
+    } */
 
     /* sets what level the clicked sphere is to be using */
     _onDotSphereChange(event) {
@@ -339,7 +334,7 @@ export class DialogAreteCasting extends FormApplication {
                 }
             }
 
-            const numDices = parseInt(this.actor.system.arete.roll) + parseInt(this.object.areteModifier);
+            const numDices = parseInt(this.actor.system.advantages.arete.roll) + parseInt(this.object.areteModifier);
 
             const castingRoll = new DiceRoll(this.actor);
             castingRoll.handlingOnes = CONFIG.wod.handleOnes;    

@@ -195,11 +195,9 @@
                     <div class="attribute-rowheight {{#iff sphere.value "==" 0}}hide{{/iff}}">
                         <label for="{{key}}" class="pullLeft spheres-headlineWidth headlineNormal">{{localize sphere.label}}</label>
                         <div class="resource-value pullLeft" id="{{key}}" data-name="{{key}}">
-                            <span class="resource-value-empty" data-type="{{../config.sheettype.mage}}"></span>
-
                             {{#numLoop sphere.value}}
                             
-                            <span class="resource-value-step" data-type="{{../config.sheettype.mage}}" data-index="{{this}}"></span>
+                                <span class="resource-value-step" data-type="{{../config.sheettype.mage}}" data-index="{{this}}"></span>
                             
                             {{/numLoop}}
                         </div>
@@ -268,8 +266,8 @@
     </div>
 
     <div class="centerText">
-        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dialog.aretecasting.castspell"}}</button>
-        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dialog.aretecasting.castspell"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

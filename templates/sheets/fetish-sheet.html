@@ -1,4 +1,4 @@
-<form class="{{cssClass}} werewolfItem" autocomplete="off">
+<form class="{{cssClass}} {{sheettype}}" autocomplete="off">
 
 	<div class="sheet-item">
 		<header class="sheet-header">
@@ -26,12 +26,10 @@
 		
 		<section class="item-body">
 
-			{{#if userpermissions.itemAdministrator}}
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
 				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
 			</div>
-			{{/if}}
 
 			<!-- type -->
 			{{#if userpermissions.itemAdministrator}}
@@ -47,7 +45,7 @@
 			</div>
 			{{/if}}
 
-			{{#iff data.system.type "==" "wod.types.fetish"}}
+			{{#if data.system.type "==" "wod.types.fetish"}}
 			<!-- level -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
@@ -65,22 +63,6 @@
 			{{else}}
 				<input type="hidden" name="system.level" value="1" />
 			{{/iff}}
-
-			<!-- <div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
-				<select class="numberBox editable" name="system.difficulty">
-					{{#select data.system.difficulty}}
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					{{/select}}
-				</select>
-			</div> -->
 
 			<input type="hidden" name="system.difficulty" value="6" />
 

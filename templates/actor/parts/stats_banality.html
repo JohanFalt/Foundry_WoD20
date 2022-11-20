@@ -1,0 +1,32 @@
+<div class="sheet-headline splatFont vrollable" 
+	data-type="{{actor.type}}"
+	data-key="banality"
+	data-noability="true">{{localize 'wod.advantages.banality'}}</div>
+	
+<div class="sheet-boxcontainer">
+	<div class="resource-value permValueRow" data-value="{{data.system.advantages.banality.permanent}}" data-name="advantages.banality.permanent">
+
+		{{#numLoop data.system.advantages.banality.max}}
+		
+			<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="banality" data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+		
+	</div>
+</div>
+
+<div class="sheet-boxcontainer">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.banality.temporary}}" data-name="advantages.banality.temporary">
+
+		{{#numLoop data.system.advantages.banality.max}}
+		
+			{{#le ../data.system.advantages.banality.temporary this}}
+				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="banality" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="banality" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>

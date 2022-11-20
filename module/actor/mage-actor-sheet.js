@@ -31,9 +31,8 @@ export class MageActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		this.locked = true;
-		this.isCharacter = true;	
-		this.isGM = game.user.isGM;	
+		/* this.isCharacter = true;	
+		this.isGM = game.user.isGM;	 */
 		
 		console.log("WoD | Mage Sheet constructor");
 	}
@@ -44,11 +43,12 @@ export class MageActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.mage) {
+				actorData.system.settings.iscreated = true;
+				
 				ActionHelper._setMageAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
 				ActionHelper._setMageAttributes(actorData);
 				
-				actorData.system.settings.iscreated = true;
 				this.actor.update(actorData);
 			}	 	
 		}
@@ -58,21 +58,11 @@ export class MageActorSheet extends MortalActorSheet {
 		console.log("WoD | Mage Sheet getData");
 
 		const rotes = [];
-		const fetishlist = [];
-		const talenlist = [];
 		const resonance = [];
 
 		for (const i of data.items) {
 			if (i.type == "Rote") {
 				rotes.push(i);
-			}
-			if (i.type == "Fetish") {
-				if (i.system.type == "wod.types.fetish") {
-					fetishlist.push(i);
-				}
-				if (i.system.type == "wod.types.talen") {
-					talenlist.push(i);
-				}
 			}
 			if (i.type == "Trait") {
 				if (i.system.type == "wod.types.resonance") {
@@ -82,8 +72,6 @@ export class MageActorSheet extends MortalActorSheet {
 		}
 
 		data.actor.rotes = rotes.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.fetishlist = fetishlist.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.talenlist = talenlist.sort((a, b) => a.name.localeCompare(b.name));
 		data.actor.resonance = resonance.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.wod.sheettype.mage) {
@@ -118,9 +106,6 @@ export class MageActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterMageChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterMageEmpty.bind(this));
 
 		// quintessence
 		html
@@ -149,44 +134,6 @@ export class MageActorSheet extends MortalActorSheet {
 		// }	
 		
 		ActionHelper.RollDialog(event, this.actor);
-	}
-
-	async _onDotCounterMageEmpty(event) {
-		console.log("WoD | Mage Sheet _onDotCounterEmpty");
-		
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
-		const type = dataset.type;
-
-		if (type != CONFIG.wod.sheettype.mage) {
-			return;
-		}
-
-		const parent = $(element.parentNode);		
-		const steps = parent.find(".resource-value-empty");
-		
-		if (this.locked) {
-			return;
-		}
-
-		steps.removeClass("active");
-
-		if (dataset.itemid != undefined) {
-			const itemid = dataset.itemid;
-
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
-
-			const itemData = duplicate(item);
-			itemData.system.value = 0;
-			await item.update(itemData);
-		}
-		else {
-			const fieldStrings = parent[0].dataset.name;
-			const fields = fieldStrings.split(".");
-
-			this._assignToMage(fields, 0);
-		}
 	}
 	
 	async _onDotCounterMageChange(event) {
@@ -219,7 +166,14 @@ export class MageActorSheet extends MortalActorSheet {
 
 			let item = this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
-			itemData.system.value = parseInt(index + 1);
+
+			if ((index == 0) && (itemData.system.value == 1)) {
+				itemData.system.value = 0;
+			}
+			else {
+				itemData.system.value = parseInt(index + 1);
+			}
+			//itemData.system.value = parseInt(index + 1);
 			await item.update(itemData);
 		}
 		else {
@@ -238,7 +192,7 @@ export class MageActorSheet extends MortalActorSheet {
 		});
 	}
 
-	_onQuintessenceChange(event) {
+	async _onQuintessenceChange(event) {
 		console.log("WoD | Update Quintessence");
 
 		event.preventDefault();
@@ -269,13 +223,13 @@ export class MageActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleMageCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleMageCalculations(actorData);
 
 		this.actor.update(actorData);
 	}
 
-	_onParadoxChange(event) {
+	async _onParadoxChange(event) {
 		console.log("WoD | Update Paradox");
 
 		event.preventDefault();
@@ -313,31 +267,38 @@ export class MageActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleMageCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleMageCalculations(actorData);
 
 		this.actor.update(actorData);
 	}	
 
-	_assignToMage(fields, value) {
+	async _assignToMage(fields, value) {
 		console.log("WoD | Mage Sheet _assignToMage");
 		
 		const actorData = duplicate(this.actor);
 
-		if (fields[2] === "arete") {
-			if (actorData.system.arete.permanent == value) {
-				actorData.system.arete.permanent = parseInt(actorData.system.arete.permanent) - 1;
+		if (fields[1] === "arete") {
+			if (actorData.system.advantages.arete.permanent == value) {
+				actorData.system.advantages.arete.permanent = parseInt(actorData.system.advantages.arete.permanent) - 1;
 			}
 			else {
-				actorData.system.arete.permanent = value;
+				actorData.system.advantages.arete.permanent = value;
 			}
 		}
 		if (fields[2] === "spheres") {
-			actorData.system.spheres[fields[3]].value = value;
+			//actorData.system.spheres[fields[3]].value = value;
+
+			if (actorData.system.spheres[fields[3]].value == value) {
+				actorData.system.spheres[fields[3]].value = parseInt(actorData.system.spheres[fields[3]].value) - 1;
+			}
+			else {
+				actorData.system.spheres[fields[3]].value = value;
+			}
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleMageCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleMageCalculations(actorData);
 		
 		console.log("WoD | Mage Sheet updated");
 		this.actor.update(actorData);

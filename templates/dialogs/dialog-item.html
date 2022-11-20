@@ -27,7 +27,7 @@
             <div class="centerText dialog-area">
                 {{#each object.selectedRealms as |realm key|}}
                     {{#if (gt realm.value 0)}}
-                        <button id="{{realm.label}}" class="button pointer dialog-realm-button {{#if realm.isselected}}active{{/if}}" value="{{realm._id}}">{{localize realm.label}} ({{realm.value}})</button>                    
+                        <button id="{{realm.label}}" class="button fullSplatColor pointer dialog-realm-button {{#if realm.isselected}}active{{/if}}" value="{{realm._id}}">{{localize realm.label}} ({{realm.value}})</button>                    
                     {{/if}}
                 {{/each}}
             </div>
@@ -44,7 +44,7 @@
     <div class="dialog-area centerText ">
         {{#numLoop 11}}
             {{#if (gt this 2)}}
-                <button id="difficulty" class="button pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/if}}
         {{/numLoop}}
     </div>
@@ -65,8 +65,8 @@
     </div>
 
     <div class="centerText">
-        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

@@ -1,16 +1,12 @@
 import { rollDice, DiceRoll } from "./roll-dice.js";
-//import { DiceRoll } from "../scripts/roll-dice.js";
+
 import { calculateTotals } from "./totals.js";
 
 import CombatHelper from "./combat-helpers.js";
 
 import * as WeaponHelper from "../dialogs/dialog-weapon.js";
 import * as PowerHelper from "../dialogs/dialog-power.js";
-
-//import { MeleeWeapon } from "../dialogs/dialog-weapon.js";
-//import { RangedWeapon } from "../dialogs/dialog-weapon.js";
-//import { Damage } from "../dialogs/dialog-weapon.js";
-//import { DialogWeapon } from "../dialogs/dialog-weapon.js";
+import * as SortHelper from "../dialogs/dialog-sortpower.js";
 
 import { Treasure } from "../dialogs/dialog-item.js";
 import { DialogItem } from "../dialogs/dialog-item.js";
@@ -20,20 +16,11 @@ import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js
 import { Rote } from "../dialogs/dialog-aretecasting.js";
 import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
 
-//import { Gift } from "../dialogs/dialog-power.js";
-//import { CharmGift } from "../dialogs/dialog-power.js";
-// import { Charm } from "../dialogs/dialog-power.js";
-// import { Power } from "../dialogs/dialog-power.js";
-// import { DisciplinePower } from "../dialogs/dialog-power.js";
-// import { PathPower } from "../dialogs/dialog-power.js";
-// import { RitualPower } from "../dialogs/dialog-power.js";
-// import { ArtPower } from "../dialogs/dialog-power.js";
-//import { DialogPower } from "../dialogs/dialog-power.js";
-
-import { SortDisciplinePower } from "../dialogs/dialog-sortpower.js";
+/* import { SortDisciplinePower } from "../dialogs/dialog-sortpower.js";
 import { SortPathPower } from "../dialogs/dialog-sortpower.js";
 import { SortArtPower } from "../dialogs/dialog-sortpower.js";
-import { DialogSortPower } from "../dialogs/dialog-sortpower.js";
+import { SortEdgePower } from "../dialogs/dialog-sortpower.js";
+import { DialogSortPower } from "../dialogs/dialog-sortpower.js"; */
 
 import { VampireFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 import { WerewolfFrenzy } from "../dialogs/dialog-checkfrenzy.js";
@@ -118,14 +105,13 @@ export default class ActionHelper {
 
 			// used a Fetish
 			if (dataset.object == "Fetish") {
-				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.system.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.gnosis.roll})</strong>`;
+				templateHTML = `<h2>${game.i18n.localize("wod.dice.activate")} ${item.name}</h2> <strong>${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.advantages.gnosis.roll})</strong>`;
 
 				const fetishRoll = new DiceRoll(actor);
 				fetishRoll.handlingOnes = CONFIG.wod.handleOnes;
-				fetishRoll.numDices = parseInt(actor.system.gnosis.roll);
+				fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);
 				fetishRoll.difficulty = parseInt(item.system.difficulty);
 				fetishRoll.templateHTML = templateHTML;
-				fetishRoll.origin = "paradox";
 				fetishRoll.systemText = item.system.details;
 
 				rollDice(fetishRoll);
@@ -212,7 +198,7 @@ export default class ActionHelper {
 				return;
 			}
 
-			// used a Art
+			// used an Art
 			if (dataset.object == "Art") {
 				const art = new PowerHelper.ArtPower(item);
 				let powerUse = new PowerHelper.DialogPower(actor, art);
@@ -221,26 +207,43 @@ export default class ActionHelper {
 				return;
 			}
 
+			// used an Edge
+			if (dataset.object == "Edge") {
+				const edge = new PowerHelper.EdgePower(item);
+				let powerUse = new PowerHelper.DialogPower(actor,edge);
+				powerUse.render(true);
+
+				return;
+			}
+
 			// placing Disicpline Power in correct discipline
 			if (dataset.object == "SortDisciplinePower") {
-				const discipline = new SortDisciplinePower(item);
-				let powerUse = new DialogSortPower(actor, discipline);
+				const discipline = new SortHelper.SortDisciplinePower(item);
+				let powerUse = new SortHelper.DialogSortPower(actor, discipline);
 				powerUse.render(true);
 
 				return;
 			}
 
 			if (dataset.object == "SortPathPower") {
-				const discipline = new SortPathPower(item);
-				let powerUse = new DialogSortPower(actor, discipline);
+				const discipline = new SortHelper.SortPathPower(item);
+				let powerUse = new SortHelper.DialogSortPower(actor, discipline);
 				powerUse.render(true);
 
 				return;
 			}			
 
 			if (dataset.object == "SortArtPower") {
-				const cantrip = new SortArtPower(item);
-				let powerUse = new DialogSortPower(actor, cantrip);
+				const cantrip = new SortHelper.SortArtPower(item);
+				let powerUse = new SortHelper.DialogSortPower(actor, cantrip);
+				powerUse.render(true);
+
+				return;
+			}
+
+			if (dataset.object == "SortEdgePower") {
+				const edge = new SortHelper.SortEdgePower(item);
+				let powerUse = new SortHelper.DialogSortPower(actor, edge);
 				powerUse.render(true);
 
 				return;
@@ -332,6 +335,21 @@ export default class ActionHelper {
 				return;
 			}
 
+			if (dataset.rollremainactive == "true") {
+				templateHTML = `<h2>${game.i18n.localize("wod.dice.rollingremainactive")}</h2> <strong>${game.i18n.localize("wod.advantages.rage")} (${actor.system.advantages.rage.permanent})</strong>`;
+
+				const activeRoll = new DiceRoll(actor);
+				activeRoll.handlingOnes = CONFIG.wod.handleOnes;
+				activeRoll.numDices = parseInt(actor.system.advantages.rage.permanent);
+				activeRoll.difficulty = 8;
+				activeRoll.templateHTML = templateHTML;
+				activeRoll.systemText = game.i18n.localize("wod.dice.rollingremainactivetext");
+
+				rollDice(activeRoll);
+
+				return;
+			}			
+
 			console.log(dataset);
 			ui.notifications.error("Macro roll missing function");
 
@@ -343,108 +361,6 @@ export default class ActionHelper {
 
 		return;
     }	
-
-	/* static async RollInitiative(event, actor) {
-		event.preventDefault();		
-
-		let foundToken = false;
-		let foundEncounter = true;
-		let tokenAdded = false;
-		let rolledInitiative = false;
-		let formula = "1d10";
-		let init = 0;
-		let label = "";
-		let message = "";
-		let diceColor;
-		let initAttribute = "";
-
-		let token = await canvas.tokens.placeables.find(t => t.data.actorId === actor.id);
-		if(token) foundToken = true;
-
-		if (game.combat == null) {
-			foundEncounter = false;
-	   	}
-
-		let roll = new Roll(formula);		
-
-		roll.evaluate({async:true});
-		roll.terms[0].results.forEach((dice) => {
-			init += parseInt(dice.result);
-		});
-
-		init += parseInt(parseInt(actor.system.initiative.total));
-
-		if ((foundToken) && (foundEncounter)) {
-			if (!this._inTurn(token)) {
-				await token.toggleCombat();
-
-				if (token.combatant.data.initiative == undefined) {      
-					await token.combatant.update({initiative: init});
-					rolledInitiative = true;
-				}
-				
-				tokenAdded = true;
-			}
-		}	
-
-		if (actor.type != CONFIG.wod.sheettype.spirit) {
-			if (parseInt(actor.system.attributes.dexterity.total) >= parseInt(actor.system.attributes.wits.total)) {
-				initAttribute = game.i18n.localize(actor.system.attributes.dexterity.label) + " " + actor.system.attributes.dexterity.total;
-			}
-			else {
-				initAttribute = game.i18n.localize(actor.system.attributes.wits.label) + " " + actor.system.attributes.wits.total;
-			}			
-		}
-		else {
-			initAttribute = game.i18n.localize(actor.system.willpower.label) + " " + actor.system.willpower.permanent;
-		}
-
-		if (actor.type == CONFIG.wod.sheettype.mortal) {
-			diceColor = "blue_";
-		} 
-		else if ((actor.type == CONFIG.wod.sheettype.werewolf) || (actor.type == "Changing Breed")) {
-			diceColor = "brown_";
-		}
-		else if (actor.type == CONFIG.wod.sheettype.mage) { 
-			diceColor = "purple_";
-		}
-		else if (actor.type == CONFIG.wod.sheettype.vampire) { 
-			diceColor = "red_";
-		}
-		else if (actor.type == CONFIG.wod.sheettype.spirit) { 
-			diceColor = "yellow_";
-		}
-		else {
-			diceColor = "black_";
-		}	
-
-		roll.terms[0].results.forEach((dice) => {
-			label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
-		});
-		
-		if (!foundEncounter) {
-			message += "<em>"+game.i18n.localize("wod.dice.noencounterfound")+"</em>";			
-		}
-		else {
-			if (!foundToken) {
-				message += "<em>"+game.i18n.localize("wod.dice.notokenfound")+"</em><br />";				
-			}
-			else {
-				if (!tokenAdded) {
-					message += "<em>"+game.i18n.localize("wod.dice.characteradded")+"</em><br />";
-					label = "";
-					init = "";
-				}
-				if (!rolledInitiative) {
-					message += "<em>" + actor.system.name + " "+game.i18n.localize("wod.dice.initiativealready")+"</em><br />";
-					label = "";
-					init = "";
-				}
-			}
-		}
-
-		this.printMessage('', '<h2>'+game.i18n.localize("wod.dice.rollinginitiative")+'</h2><strong>'+game.i18n.localize("wod.dice.totalvalue") + ': ' + init + '</strong><br />'+initAttribute+'<p>' + label + '</p>' + '<p>' + message + '</p>', actor);			
-	} */
 
 	static RollParadox(event, actor) {
 		event.preventDefault();
@@ -464,17 +380,7 @@ export default class ActionHelper {
 		rollDice(paradoxRoll);
 	}
 
- 	// static _inTurn(token) {
-	// 	for (let count = 0; count < game.combat.combatants.size; count++) {
-	// 		if (token.id == game.combat.combatants.contents[count].token.id) {
-	// 			return true;
-	// 		}
-	// 	}
-	
-	// 	return false;
-	// }
-
-    static _handleCalculations(actorData) {		
+    static async handleCalculations(actorData) {		
 
 		let advantageRollSetting = true;
 
@@ -486,32 +392,48 @@ export default class ActionHelper {
 		}
 
 		// attributes totals
-		actorData = calculateTotals(actorData);
+		actorData = await calculateTotals(actorData);
+
+		// abilities max
+		actorData = await this._setAbilityMaxValue(actorData);
 
 		// willpower
 		if (CONFIG.wod.attributeSettings == "5th") {
-			actorData.system.willpower.permanent = parseInt(actorData.system.attributes.composure.value) + parseInt(actorData.system.attributes.resolve.value);
+			actorData.system.advantages.willpower.permanent = parseInt(actorData.system.attributes.composure.value) + parseInt(actorData.system.attributes.resolve.value);
 		}
 		
-		if (actorData.system.willpower.permanent > actorData.system.willpower.max) {
-			actorData.system.willpower.permanent = actorData.system.willpower.max;
+		if (actorData.system.advantages.willpower.permanent > actorData.system.advantages.willpower.max) {
+			actorData.system.advantages.willpower.permanent = actorData.system.advantages.willpower.max;
 		}
 		
-		if (actorData.system.willpower.permanent < actorData.system.willpower.temporary) {
-			actorData.system.willpower.temporary = actorData.system.willpower.permanent;
+		if (actorData.system.advantages.willpower.permanent < actorData.system.advantages.willpower.temporary) {
+			actorData.system.advantages.willpower.temporary = actorData.system.advantages.willpower.permanent;
 		}
 
 		if (advantageRollSetting) {
-			actorData.system.willpower.roll = actorData.system.willpower.permanent;
+			actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent;
 		}
 		else {
-			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
+			actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent > actorData.system.advantages.willpower.temporary ? actorData.system.advantages.willpower.temporary : actorData.system.advantages.willpower.permanent; 
 		}		
 
 		console.log("WoD | Sheet calculations done");
+
+		if ((actorData.system.settings.hasrage) || (actorData.system.settings.hasgnosis)) {
+			await this._handleWerewolfCalculations(actorData);
+		}
+		if ((actorData.system.settings.haspath) || (actorData.system.settings.hasbloodpool) || (actorData.system.settings.hasvirtue)) {
+			await this._handleVampireCalculations(actorData);
+		}
+		if (actorData.system.settings.hasglamour) {
+			await this._handleChangelingCalculations(actorData);
+		}
+		if (actorData.system.settings.hasconviction) {
+			await this._handleHunterCalculations(actorData);
+		}
 	}
 
-    static handleWoundLevelCalculations(actorData) {
+    static async handleWoundLevelCalculations(actorData) {
 		let totalNormWoundLevels = parseInt(actorData.system.health.damage.bashing) + parseInt(actorData.system.health.damage.lethal) + parseInt(actorData.system.health.damage.aggravated);
 		let totalChimericalWoundLevels = 0;
 		
@@ -550,26 +472,26 @@ export default class ActionHelper {
 		}		
 	}
 
-	static _handleChangelingCalculations(actorData) {
+	static async _handleChangelingCalculations(actorData) {
 		console.log("WoD | handleChangelingCalculations");
 
 		// glamour
-		if (actorData.system.glamour.permanent > actorData.system.glamour.max) {
-			actorData.system.glamour.permanent = actorData.system.glamour.max;
+		if (actorData.system.advantages.glamour.permanent > actorData.system.advantages.glamour.max) {
+			actorData.system.advantages.glamour.permanent = actorData.system.advantages.glamour.max;
 		}
 		
-		if (actorData.system.glamour.permanent < actorData.system.glamour.temporary) {
-			actorData.system.glamour.temporary = actorData.system.glamour.permanent;
+		if (actorData.system.advantages.glamour.permanent < actorData.system.advantages.glamour.temporary) {
+			actorData.system.advantages.glamour.temporary = actorData.system.advantages.glamour.permanent;
 		}
 
 		// nightmare
-		if (actorData.system.nightmare.temporary > actorData.system.nightmare.max) {
-			actorData.system.nightmare.temporary = actorData.system.nightmare.max;
+		if (actorData.system.advantages.nightmare.temporary > actorData.system.advantages.nightmare.max) {
+			actorData.system.advantages.nightmare.temporary = actorData.system.advantages.nightmare.max;
 		}
 
 		// banality
-		if (actorData.system.banality.permanent > actorData.system.banality.max) {
-			actorData.system.banality.permanent = actorData.system.banality.max;
+		if (actorData.system.advantages.banality.permanent > actorData.system.advantages.banality.max) {
+			actorData.system.advantages.banality.permanent = actorData.system.advantages.banality.max;
 		}
 
 		let advantageRollSetting = true;
@@ -582,50 +504,95 @@ export default class ActionHelper {
 		}
 
 		if (advantageRollSetting) {
-			actorData.system.glamour.roll = actorData.system.glamour.permanent; 			
-			actorData.system.banality.roll = actorData.system.banality.permanent;
+			actorData.system.advantages.glamour.roll = actorData.system.advantages.glamour.permanent; 			
+			actorData.system.advantages.banality.roll = actorData.system.advantages.banality.permanent;
 		}
 		else {
-			actorData.system.glamour.roll = actorData.system.glamour.permanent > actorData.system.glamour.temporary ? actorData.system.glamour.temporary : actorData.system.glamour.permanent; 
-			actorData.system.banality.roll = actorData.system.banality.permanent > actorData.system.banality.temporary ? actorData.system.banality.temporary : actorData.system.banality.permanent;
+			actorData.system.advantages.glamour.roll = actorData.system.advantages.glamour.permanent > actorData.system.advantages.glamour.temporary ? actorData.system.advantages.glamour.temporary : actorData.system.advantages.glamour.permanent; 
+			actorData.system.advantages.banality.roll = actorData.system.advantages.banality.permanent > actorData.system.advantages.banality.temporary ? actorData.system.advantages.banality.temporary : actorData.system.advantages.banality.permanent;
 		}
 
-		actorData.system.nightmare.roll = actorData.system.nightmare.temporary;
+		actorData.system.advantages.nightmare.roll = actorData.system.advantages.nightmare.temporary;
 	}
 
-	static handleVampireCalculations(actorData) {
+	static async _handleHunterCalculations(actorData) {
+		console.log("WoD | handleHunterCalculations");
+
+		let primary = actorData.system.primaryvirtue;
+
+		if (primary == "wod.advantages.virtue.mercy") {
+			primary = "mercy";
+		}
+		else if (primary == "wod.advantages.virtue.vision") {
+			primary = "vision";
+		}
+		else if (primary == "wod.advantages.virtue.zeal") {
+			primary = "zeal";
+		}
+
+		// virtues
+		if (actorData.system.advantages.virtues.mercy.permanent > actorData.system.advantages.virtues[primary].permanent) {
+			actorData.system.advantages.virtues.mercy.permanent = actorData.system.advantages.virtues[primary].permanent;
+		}
+
+		if (actorData.system.advantages.virtues.mercy.spent > actorData.system.advantages.virtues.mercy.permanent) {
+			actorData.system.advantages.virtues.mercy.spent = actorData.system.advantages.virtues.mercy.permanent;
+		}
+
+		if (actorData.system.advantages.virtues.vision.permanent > actorData.system.advantages.virtues[primary].permanent) {
+			actorData.system.advantages.virtues.vision.permanent = actorData.system.advantages.virtues[primary].permanent;
+		}
+
+		if (actorData.system.advantages.virtues.vision.spent > actorData.system.advantages.virtues.vision.permanent) {
+			actorData.system.advantages.virtues.vision.spent = actorData.system.advantages.virtues.vision.permanent;
+		}
+
+		if (actorData.system.advantages.virtues.zeal.permanent > actorData.system.advantages.virtues[primary].permanent) {
+			actorData.system.advantages.virtues.zeal.permanent = actorData.system.advantages.virtues[primary].permanent;
+		}
+
+		if (actorData.system.advantages.virtues.zeal.spent > actorData.system.advantages.virtues.zeal.permanent) {
+			actorData.system.advantages.virtues.zeal.spent = actorData.system.advantages.virtues.zeal.permanent;
+		}
+		
+		actorData.system.advantages.virtues.mercy.roll = parseInt(actorData.system.advantages.virtues.mercy.permanent);
+		actorData.system.advantages.virtues.vision.roll = parseInt(actorData.system.advantages.virtues.vision.permanent);
+		actorData.system.advantages.virtues.zeal.roll = parseInt(actorData.system.advantages.virtues.zeal.permanent);		
+	}
+
+	static async _handleVampireCalculations(actorData) {
 		console.log("WoD | handleVampireCalculations");
 
-		actorData.system.path.roll = parseInt(actorData.system.path.value);
-		actorData.system.virtues.conscience.roll = parseInt(actorData.system.virtues.conscience.value);
-		actorData.system.virtues.selfcontrol.roll = parseInt(actorData.system.virtues.selfcontrol.value);
-		actorData.system.virtues.courage.roll = parseInt(actorData.system.virtues.courage.value);	
+		actorData.system.advantages.path.roll = parseInt(actorData.system.advantages.path.permanent);
+		actorData.system.advantages.virtues.conscience.roll = parseInt(actorData.system.advantages.virtues.conscience.permanent);
+		actorData.system.advantages.virtues.selfcontrol.roll = parseInt(actorData.system.advantages.virtues.selfcontrol.permanent);
+		actorData.system.advantages.virtues.courage.roll = parseInt(actorData.system.advantages.virtues.courage.permanent);	
 		
-		if (actorData.system.path.value == 1) {
-			actorData.system.path.bearing = 2;
+		if (actorData.system.advantages.path.permanent == 1) {
+			actorData.system.advantages.path.bearing = 2;
 		}
-		else if ((actorData.system.path.value >= 2) && (actorData.system.path.value <= 3)) {
-			actorData.system.path.bearing = 1;
+		else if ((actorData.system.advantages.path.permanent >= 2) && (actorData.system.advantages.path.permanent <= 3)) {
+			actorData.system.advantages.path.bearing = 1;
 		}
-		else if ((actorData.system.path.value >= 4) && (actorData.system.path.value <= 7)) {
-			actorData.system.path.bearing = 0;
+		else if ((actorData.system.advantages.path.permanent >= 4) && (actorData.system.advantages.path.permanent <= 7)) {
+			actorData.system.advantages.path.bearing = 0;
 		}
-		else if ((actorData.system.path.value >= 8) && (actorData.system.path.value <= 9)) {
-			actorData.system.path.bearing = -1;
+		else if ((actorData.system.advantages.path.permanent >= 8) && (actorData.system.advantages.path.permanent <= 9)) {
+			actorData.system.advantages.path.bearing = -1;
 		}
-		else if (actorData.system.path.value == 10) {
-			actorData.system.path.bearing = -2;
+		else if (actorData.system.advantages.path.permanent == 10) {
+			actorData.system.advantages.path.bearing = -2;
 		}
 	}
 
-	static handleMageCalculations(actorData) {
+	static async handleMageCalculations(actorData) {
 		console.log("WoD | handleMageCalculations");
 
-		actorData.system.arete.roll = parseInt(actorData.system.arete.permanent);
+		actorData.system.advantages.arete.roll = parseInt(actorData.system.advantages.arete.permanent);
 		actorData.system.paradox.roll = parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent);
 	}
 
-	static handleWerewolfCalculations(actorData) {
+	static async _handleWerewolfCalculations(actorData) {
 		console.log("WoD | handleWerewolfCalculations");
 		
 		let advantageRollSetting = true;
@@ -672,29 +639,22 @@ export default class ActionHelper {
 			}
 		}
 
-		if (actorData.type == "Changing Breed") {
-			if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nuwisha")) {
-				actorData.system.rage.permanent = 0;
-				actorData.system.rage.temporary = 0;
-			}
-		}
-
 		// rage
-		if (actorData.system.rage.permanent > actorData.system.rage.max) {
-			actorData.system.rage.permanent = actorData.system.rage.max;
+		if (actorData.system.advantages.rage.permanent > actorData.system.advantages.rage.max) {
+			actorData.system.advantages.rage.permanent = actorData.system.advantages.rage.max;
 		}
 		
-		if (actorData.system.rage.permanent < actorData.system.rage.temporary) {
+		if (actorData.system.advantages.rage.permanent < actorData.system.advantages.rage.temporary) {
 			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
 		}
 		
 		// gnosis
-		if (actorData.system.gnosis.permanent > actorData.system.gnosis.max) {
-			actorData.system.gnosis.permanent = actorData.system.gnosis.max;
+		if (actorData.system.advantages.gnosis.permanent > actorData.system.advantages.gnosis.max) {
+			actorData.system.advantages.gnosis.permanent = actorData.system.advantages.gnosis.max;
 		}
 		
-		if (actorData.system.gnosis.permanent < actorData.system.gnosis.temporary) {
-			actorData.system.gnosis.temporary = actorData.system.gnosis.permanent;
+		if (actorData.system.advantages.gnosis.permanent < actorData.system.advantages.gnosis.temporary) {
+			actorData.system.advantages.gnosis.temporary = actorData.system.advantages.gnosis.permanent;
 		}		
 
 		try {
@@ -705,111 +665,30 @@ export default class ActionHelper {
 		}
 
 		if (advantageRollSetting) {
-			actorData.system.rage.roll = actorData.system.rage.permanent; 
-			actorData.system.gnosis.roll = actorData.system.gnosis.permanent;
-			actorData.system.willpower.roll = actorData.system.willpower.permanent; 
+			actorData.system.advantages.rage.roll = actorData.system.advantages.rage.permanent; 
+			actorData.system.advantages.gnosis.roll = actorData.system.advantages.gnosis.permanent;
+			actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent; 
 		}
 		else {
-			actorData.system.rage.roll = actorData.system.rage.permanent > actorData.system.rage.temporary ? actorData.system.rage.temporary : actorData.system.rage.permanent; 
-			actorData.system.gnosis.roll = actorData.system.gnosis.permanent > actorData.system.gnosis.temporary ? actorData.system.gnosis.temporary : actorData.system.gnosis.permanent;
-			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
+			actorData.system.advantages.rage.roll = actorData.system.advantages.rage.permanent > actorData.system.advantages.rage.temporary ? actorData.system.advantages.rage.temporary : actorData.system.advantages.rage.permanent; 
+			actorData.system.advantages.gnosis.roll = actorData.system.advantages.gnosis.permanent > actorData.system.advantages.gnosis.temporary ? actorData.system.advantages.gnosis.temporary : actorData.system.advantages.gnosis.permanent;
+			actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent > actorData.system.advantages.willpower.temporary ? actorData.system.advantages.willpower.temporary : actorData.system.advantages.willpower.permanent; 
 		}		
 
-		if (actorData.system.rage.roll > actorData.system.willpower.roll) {
-			const rageDiff = parseInt(actorData.system.rage.roll) - parseInt(actorData.system.willpower.roll);
+		actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total);
+		actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total);
+
+		if (actorData.system.advantages.rage.roll > actorData.system.advantages.willpower.roll) {
+			const rageDiff = parseInt(actorData.system.advantages.rage.roll) - parseInt(actorData.system.advantages.willpower.roll);
 
 			actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total) - rageDiff;
 			actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total) - rageDiff;
 		}
 	}		
 	
-	static handleCreatureCalculations(actorData) {
-		console.log("WoD | handleCreatureCalculations");
-		
-		let advantageRollSetting = true;
-
-		// rage
-		if (actorData.system.rage.permanent > actorData.system.rage.max) {
-			actorData.system.rage.permanent = actorData.system.rage.max;
-		}
-		
-		if (actorData.system.rage.permanent < actorData.system.rage.temporary) {
-			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
-		}
-		
-		// gnosis
-		if (actorData.system.gnosis.permanent > actorData.system.gnosis.max) {
-			actorData.system.gnosis.permanent = actorData.system.gnosis.max;
-		}
-		
-		if (actorData.system.gnosis.permanent < actorData.system.gnosis.temporary) {
-			actorData.system.gnosis.temporary = actorData.system.gnosis.permanent;
-		}		
-
-		// glamour
-		if (actorData.system.glamour.permanent > actorData.system.glamour.max) {
-			actorData.system.glamour.permanent = actorData.system.glamour.max;
-		}
-		
-		if (actorData.system.glamour.permanent < actorData.system.glamour.temporary) {
-			actorData.system.glamour.temporary = actorData.system.glamour.permanent;
-		}
-
-		// banality
-		if (actorData.system.banality.permanent > actorData.system.banality.max) {
-			actorData.system.banality.permanent = actorData.system.banality.max;
-		}
-
-		try {
-			advantageRollSetting = CONFIG.wod.rollSettings;
-		} 
-		catch (e) {
-			advantageRollSetting = true;
-		}
-
-		if (advantageRollSetting) {
-			actorData.system.rage.roll = actorData.system.rage.permanent; 
-			actorData.system.gnosis.roll = actorData.system.gnosis.permanent;
-			actorData.system.willpower.roll = actorData.system.willpower.permanent; 
-			actorData.system.glamour.roll = actorData.system.glamour.permanent; 			
-			actorData.system.banality.roll = actorData.system.banality.permanent;
-		}
-		else {
-			actorData.system.rage.roll = actorData.system.rage.permanent > actorData.system.rage.temporary ? actorData.system.rage.temporary : actorData.system.rage.permanent; 
-			actorData.system.gnosis.roll = actorData.system.gnosis.permanent > actorData.system.gnosis.temporary ? actorData.system.gnosis.temporary : actorData.system.gnosis.permanent;
-			actorData.system.willpower.roll = actorData.system.willpower.permanent > actorData.system.willpower.temporary ? actorData.system.willpower.temporary : actorData.system.willpower.permanent; 
-			actorData.system.glamour.roll = actorData.system.glamour.permanent > actorData.system.glamour.temporary ? actorData.system.glamour.temporary : actorData.system.glamour.permanent; 
-			actorData.system.banality.roll = actorData.system.banality.permanent > actorData.system.banality.temporary ? actorData.system.banality.temporary : actorData.system.banality.permanent;
-		}	
+	static async handleCreatureCalculations(actorData) {
+		console.log("WoD | handleCreatureCalculations");		
 	}
-
-	/* static printMessage(headline, message, actor){
-		message = headline + message;
-		message = message.replaceAll("'", '"');
-
-		let chatData = {
-			content : message,
-			speaker : ChatMessage.getSpeaker({ actor: actor })
-		};		
-	
-		ChatMessage.create(chatData,{});    
-	} */
-
-	/* static _ignoresPain(actor) {
-		let ignoresPain = false;
-
-		if (actor.system.conditions?.isignoringpain)
-		{
-			ignoresPain = true;
-		}
-
-		if (actor.system.conditions?.isfrenzy)
-		{
-			ignoresPain = true;
-		}
-
-		return ignoresPain;
-	} */		
 
 	static _setMortalAbilities(actor) {
 		for (const talent in CONFIG.wod.talents) {
@@ -868,66 +747,7 @@ export default class ActionHelper {
 				actor.system.abilities.knowledge[knowledge].isvisible = false;
 			}		
 		}
-	}
-
-	static _setChangelingAbilities(actor) {
-		for (const talent in CONFIG.wod.talents) {
-
-			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.kenning") ||
-					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.system.abilities.talent[talent].isvisible = true;
-			}
-			else {
-				actor.system.abilities.talent[talent].isvisible = false;
-			}			
-		}
-
-		for (const skill in CONFIG.wod.skills) {
-			
-			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.system.abilities.skill[skill].isvisible = true;
-			}
-			else {
-				actor.system.abilities.skill[skill].isvisible = false;
-			}			
-		}
-
-		for (const knowledge in CONFIG.wod.knowledges) {
-
-			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.gremayre") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.system.abilities.knowledge[knowledge].isvisible = true;
-			}
-			else {
-				actor.system.abilities.knowledge[knowledge].isvisible = false;
-			}		
-		}
-	}
+	}	
 
 	static _setVampireAbilities(actor) {		
 		for (const talent in CONFIG.wod.talents) {
@@ -1106,6 +926,130 @@ export default class ActionHelper {
 		}
 	}
 
+	static _setChangelingAbilities(actor) {
+		for (const talent in CONFIG.wod.talents) {
+
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.kenning") ||
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
+			}
+			else {
+				actor.system.abilities.talent[talent].isvisible = false;
+			}			
+		}
+
+		for (const skill in CONFIG.wod.skills) {
+			
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
+				actor.system.abilities.skill[skill].isvisible = true;
+			}
+			else {
+				actor.system.abilities.skill[skill].isvisible = false;
+			}			
+		}
+
+		for (const knowledge in CONFIG.wod.knowledges) {
+
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.gremayre") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
+			}
+			else {
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
+			}		
+		}
+	}
+
+	static _setHunterAbilities(actor) {
+		for (const talent in CONFIG.wod.talents) {
+
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.awareness") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.dodge") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intuition") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
+			}
+			else {
+				actor.system.abilities.talent[talent].isvisible = false;
+			}			
+		}
+
+		for (const skill in CONFIG.wod.skills) {
+			
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.demolitions") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.security") ||	
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.technology")) {
+				actor.system.abilities.skill[skill].isvisible = true;
+			}
+			else {
+				actor.system.abilities.skill[skill].isvisible = false;
+			}			
+		}
+
+		for (const knowledge in CONFIG.wod.knowledges) {
+
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.bureaucracy") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.finance") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.linguistics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.research") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
+			}
+			else {
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
+			}		
+		}
+	}
+
 	static _setCreatureAbilities(actor) {
 		for (const talent in CONFIG.wod.talents) {
 			actor.system.abilities.talent[talent].isvisible = false;
@@ -1130,71 +1074,103 @@ export default class ActionHelper {
 		if (CONFIG.wod.attributeSettings == "20th") {
 			actor.system.attributes.composure.isvisible = false;
 			actor.system.attributes.resolve.isvisible = false;
-			actor.system.willpower.permanent = 0;
+			actor.system.advantages.willpower.permanent = 0;
 		}
 		else if (CONFIG.wod.attributeSettings == "5th") {
 			actor.system.attributes.appearance.isvisible = false;
 			actor.system.attributes.perception.isvisible = false;
-			actor.system.willpower.permanent = 2;
+			actor.system.advantages.willpower.permanent = 2;
 		}
 	
 		if (CONFIG.wod.rollSettings) {
-			willpower = actor.system.willpower.permanent; 
+			willpower = actor.system.advantages.willpower.permanent; 
 		}
 		else {
-			willpower = actor.system.willpower.permanent > actor.system.willpower.temporary ? actor.system.willpower.temporary : actor.system.willpower.permanent; 
+			willpower = actor.system.advantages.willpower.permanent > actor.system.advantages.willpower.temporary ? actor.system.advantages.willpower.temporary : actor.system.advantages.willpower.permanent; 
 		}
 	
-		actor.system.willpower.roll = willpower;
+		actor.system.advantages.willpower.roll = willpower;
 
 		actor.system.settings.soak.bashing.isrollable = true;
 		actor.system.settings.soak.lethal.isrollable = false;
 		actor.system.settings.soak.aggravated.isrollable = false;
+
+		actor.system.settings.haswillpower = true;
 	}
 
 	static _setVampireAttributes(actor) {
-		actor.system.bloodpool.temporary = 0;
-		actor.system.bloodpool.max = 10;
-
 		actor.system.settings.soak.bashing.isrollable = true;
 		actor.system.settings.soak.lethal.isrollable = true;
 		actor.system.settings.soak.aggravated.isrollable = false;
+
+		actor.system.settings.haspath = true;
+		actor.system.settings.hasbloodpool = true;		
+		actor.system.settings.hasvirtue = true;
+
+		actor.system.settings.powers.hasdisciplines = true;
 	}
 
 	static _setWerewolfAttributes(actor) {
-		let rage = -1;
-		let gnosis = -1;
-
 		actor.system.settings.soak.bashing.isrollable = true;
 		actor.system.settings.soak.lethal.isrollable = true;
 		actor.system.settings.soak.aggravated.isrollable = true;
 
-		if (CONFIG.wod.rollSettings) {
-			rage = actor.system.rage.permanent; 
-			gnosis = actor.system.gnosis.permanent;
-		}
-		else {
-			rage = actor.system.rage.permanent > actor.system.rage.temporary ? actor.system.rage.temporary : actor.system.rage.permanent; 
-			gnosis = actor.system.gnosis.permanent > actor.system.gnosis.temporary ? actor.system.gnosis.temporary : actor.system.gnosis.permanent;
-		}
+		actor.system.settings.hasrage = true;
+		actor.system.settings.hasgnosis = true;
 
-		actor.system.rage.roll = rage;
-		actor.system.gnosis.roll = gnosis;
+		actor.system.settings.powers.hasgifts = true;
+	}
+
+	static setShifterAttributes(actor, type) {
+		this._setWerewolfAttributes(actor);
+
+		if ((type == "Ananasi") || (type == "Nuwisha")) {
+			actor.system.settings.hasrage = false;
+		}
+		if (type == "Ananasi") {
+			actor.system.settings.hasbloodpool = true;
+		}
 	}
 
 	static _setMageAttributes(actor) {
-		actor.system.arete.permanent = 1;
-		actor.system.arete.roll = 1;
+		actor.system.advantages.arete.permanent = 1;
+		actor.system.advantages.arete.roll = 1;
 
 		actor.system.settings.soak.bashing.isrollable = true;
 		actor.system.settings.soak.lethal.isrollable = false;
 		actor.system.settings.soak.aggravated.isrollable = false;
+	}
+
+	static _setChangelingAttributes(actor) {
+		actor.system.settings.soak.chimerical.bashing.isrollable = true;
+		actor.system.settings.soak.chimerical.lethal.isrollable = true;
+		actor.system.settings.soak.chimerical.aggravated.isrollable = false;
+		
+		actor.system.settings.hasglamour = true;
+		actor.system.settings.hasbanality = true;
+
+		actor.system.settings.powers.hasarts = true;
+	}
+
+	static _setHunterfAttributes(actor) {
+		actor.system.settings.hasconviction = true;
+		actor.system.settings.hasvirtue = true;
+
+		actor.system.settings.powers.hasedges = true;
 	}
 
 	static _setCreatureAttributes(actor) {
 		actor.system.settings.soak.bashing.isrollable = true;
 		actor.system.settings.soak.lethal.isrollable = false;
 		actor.system.settings.soak.aggravated.isrollable = false;
+
+		actor.system.settings.powers.haspowers = true;
+	}
+
+	static _setSpiritAttributes(actor) {
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = true;
+		actor.system.settings.soak.aggravated.isrollable = true;
 	}
 
 	static _setupDotCounters(html) {
@@ -1209,6 +1185,37 @@ export default class ActionHelper {
 				});
 		});
 	}
+
+	static async _setAbilityMaxValue(actorData) {
+		if (actorData.type == CONFIG.wod.sheettype.vampire) {
+			return actorData;
+		}
+
+		if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+			actorData.system.settings.abilities.defaultmaxvalue = 5;
+		}
+
+		for (const i in actorData.system.abilities.talent) {
+			if (actorData.system.abilities.talent[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
+				actorData.system.abilities.talent[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+			}
+		}
+	
+		for (const i in actorData.system.abilities.skill) {
+			if (actorData.system.abilities.skill[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
+				actorData.system.abilities.skill[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+			}
+		}
+	
+		for (const i in actorData.system.abilities.knowledge) {
+			if (actorData.system.abilities.knowledge[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
+				actorData.system.abilities.knowledge[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+			}
+		}
+
+		return actorData;
+	}
+
 
 /**
  * Sets the usersettings used in the System
@@ -1294,6 +1301,8 @@ export default class ActionHelper {
 	}
 }
 
+function isNumber(data) {
+	let value = parseInt(data);
 
-
-
+	return !isNaN(parseFloat(value)) && !isNaN(value - 0);
+}

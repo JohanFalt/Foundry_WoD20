@@ -52,6 +52,10 @@
 					<a class="item" data-tab="specialities">{{localize 'wod.tab.specialities'}}</a>
 				</nav>
 
+				<div class="sheet-area clearareaBox">
+					{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
+				</div>
+
 				<section class="sheet-spec-body">
 					<div class="tab normal" data-group="secondary" data-tab="normal">
 				
@@ -73,40 +77,43 @@
 						<div class="sheet-area">
 							<div class="clearareaBox" style="display: flex;">
 
-                                <div class="pullLeft" style="width: 33%;">
-									{{#if (ne data.system.changingbreed "Nagah")}}
-										{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}
-									{{else}}
-										{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html"}}
-									{{/if}}                            
-                                </div>
-                                
-                                <div class="pullLeft" style="width: 33%;">
+								<div class="sheet-boxcontainer">
 
-                                    {{#if (or (eq data.system.changingbreed "Ananasi") (eq data.system.changingbreed "Nuwisha"))}}
-                                    {{else}}
-                                        {{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}    
-                                    {{/if}}
-                           
-                                    {{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}     
+									<div class="pullLeft" style="width: 33%;">
+										{{#if (ne data.system.changingbreed "Nagah")}}
+											{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}
+										{{else}}
+											{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html"}}
+										{{/if}}                            
+									</div>
+									
+									<div class="pullLeft" style="width: 33%;">
 
-                                    {{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}    
-                                    
-                                    {{#if (eq data.system.changingbreed "Ananasi")}}                                    
-                                        {{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}                                    
-                                    {{/if}}
-                            
-                                </div>
-                                
-                                <div class="pullLeft healthBox" style="width: 33%;">
-                                    
-                                    {{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
-                            
-                                    <div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
-                                        <div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-                                        <div class="pullRight experienceValue">{{actor.experience}}</div>
-                                    </div>
-                                </div>
+										{{#if data.system.settings.hasrage}}
+											{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+										{{/if}}
+							
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}     
+
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}    
+										
+										{{#if data.system.settings.hasbloodpool}}                                    
+											{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}                                    
+										{{/if}}
+								
+									</div>
+									
+									<div class="pullLeft healthBox" style="width: 33%;">
+										
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+								
+										<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
+											<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
+											<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
+										</div>
+									</div>
+
+								</div>
                             
                             </div>
 						</div>
@@ -148,6 +155,10 @@
 
 			{{!-- Shapechange Tab --}}
 			<div class="tab shapechange" data-group="primary" data-tab="shapechange">
+
+				<div class="sheet-area clearareaBox">
+					{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
+				</div>
 
 				{{#if (eq data.system.changingbreed "Ajaba")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_ajaba.html"}}

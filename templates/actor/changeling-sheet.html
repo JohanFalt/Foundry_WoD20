@@ -83,13 +83,13 @@
 								
 								<div class="pullLeft" style="width: 33%;">
 
-									{{> "systems/worldofdarkness/templates/actor/parts/changeling/stats_glamour.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_glamour.html"}}
 
 									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 
-									{{> "systems/worldofdarkness/templates/actor/parts/changeling/stats_nightmare.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_nightmare.html"}}
 
-									{{> "systems/worldofdarkness/templates/actor/parts/changeling/stats_banality.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_banality.html"}}
 
 								</div>
 								
@@ -104,7 +104,7 @@
 						
 									<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
 										<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-										<div class="pullRight experienceValue">{{actor.experience}}</div>
+										<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
 									</div>
 								</div>
 							

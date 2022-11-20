@@ -17,7 +17,7 @@
 		
 		{{!-- Sheet part --}}
 		<section class="sheet-body">
-		
+
 			<!-- Bio tab -->
 			<div class="tab bio" data-group="primary" data-tab="bio">
 
@@ -69,15 +69,7 @@
 						</div>
 
 					</div>
-				</section>
-				
-			</div>
-
-			{{!-- Power Tab --}}
-			<div class="tab power" data-group="primary" data-tab="power">
-
-				{{> "systems/worldofdarkness/templates/actor/parts/power.html"}}
-
+				</section>				
 			</div>
 			
 			{{!-- Combat Tab --}}
@@ -90,10 +82,29 @@
 			{{!-- Gear Tab --}}
 			<div class="tab gear" data-group="primary" data-tab="gear">
 
+				{{#if data.system.settings.hasgnosis}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html"}}
+				{{/if}}
+
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
 
 			</div>
-			
+
+			{{!-- Discipline Tab --}}
+			<div class="tab discipline" data-group="primary" data-tab="discipline">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
+
+			</div>
+
+			{{!-- Gift Tab --}}
+			<div class="tab gift" data-group="primary" data-tab="gift">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
+
+			</div>
+
 			{{!-- Notes Tab --}}
 			<div class="tab note" data-group="primary" data-tab="note">
 

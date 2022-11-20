@@ -16,8 +16,8 @@
 		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}			
 		
 		{{!-- Sheet part --}}
-		<section class="sheet-body">			
-
+		<section class="sheet-body">	
+			
 			{{!-- Bio Tab --}}
 			<div class="tab bio" data-group="primary" data-tab="bio">
 
@@ -59,6 +59,8 @@
 							
 									{{> "systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html"}}
 
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+
 								</div>
 								
 								<div class="pullLeft" style="width: 33%;">
@@ -73,11 +75,11 @@
 								
 								<div class="pullLeft" style="width: 33%">
 
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
 									
 									<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
 										<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-										<div class="pullRight experienceValue">{{actor.experience}}</div>
+										<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
 									</div>
 								</div>
 							
@@ -108,7 +110,7 @@
 			{{!-- Magic Tab --}}
 			<div class="tab magic" data-group="primary" data-tab="magic">
 
-				{{> "systems/worldofdarkness/templates/actor/parts/mage/magic.html"}}
+				{{~> "systems/worldofdarkness/templates/actor/parts/mage/magic.html"}}
 
 			</div>
 			

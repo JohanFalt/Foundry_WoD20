@@ -4,12 +4,12 @@
 	data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
 	
 <div class="sheet-boxcontainer willpower">
-	<div class="resource-value permValueRow" data-value="{{data.system.willpower.permanent}}" data-name="data.system.willpower.permanent">
+	<div class="resource-value permValueRow" data-value="{{data.system.advantages.willpower.permanent}}" data-name="advantages.willpower.permanent">
 
-		{{#numLoop data.system.willpower.max}}
+		{{#numLoop data.system.advantages.willpower.max}}
 		
 			{{#if (eq ../data.type ../config.sheettype.changeling)}}
-				<span class="resource-value-step {{#if (gt ../data.system.willpower.imbalance this)}}imbalance{{/if}}" {{#if (gt ../data.system.willpower.imbalance this)}}title="{{localize 'wod.advantages.imbalance'}}"{{/if}} data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}"></span>
+				<span class="resource-value-step {{#if (gt ../data.system.advantages.willpower.imbalance this)}}imbalance{{/if}}" {{#if (gt ../data.system.advantages.willpower.imbalance this)}}title="{{localize 'wod.advantages.imbalance'}}"{{/if}} data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}"></span>
 			{{else}}
 				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}"></span>
 			{{/if}}
@@ -20,11 +20,11 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.system.willpower.temporary}}" data-name="data.system.willpower.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.willpower.temporary}}" data-name="advantages.willpower.temporary">
 
-		{{#numLoop data.system.willpower.max}}
+		{{#numLoop data.system.advantages.willpower.max}}
 		
-			{{#le ../data.system.willpower.temporary this}}
+			{{#le ../data.system.advantages.willpower.temporary this}}
 				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}" data-state=""></span>
 			{{else}}
 				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-key="willpower" data-index="{{this}}" data-state="x"></span>

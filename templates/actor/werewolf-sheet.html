@@ -99,7 +99,7 @@
 								
 										<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
 											<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-											<div class="pullRight experienceValue">{{actor.experience}}</div>
+											<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
 										</div>
 									</div>
 
@@ -144,6 +144,10 @@
 
 			{{!-- Shapechange Tab --}}
 			<div class="tab shapechange" data-group="primary" data-tab="shapechange">
+
+				<div class="sheet-area clearareaBox">
+					{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
+				</div>
 
 				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift.html"}}
 

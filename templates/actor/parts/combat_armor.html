@@ -6,7 +6,7 @@
 </div>
 
 {{#if actor.system.listdata.settings.haschimericalhealth}}
-<div class="clearareaBox">
+    <div class="clearareaBox">
         <div class="pullLeft combat-activeBox">&nbsp;</div>
         <div class="pullLeft combat-namebox">&nbsp;</div>
         <div class="pullLeft centerText headlineList splatFont" style="width: 210px;">{{localize "wod.health.normal"}}</div>
@@ -46,7 +46,7 @@
     {{/if}}
 </div> 
 
-{{#each actor.armors as |item id|}}
+{{#each actor.system.listdata.combat.armors as |item id|}}
 
     <div class="clearareaBox row">
         <div class="pullLeft combat-activeBox"><input class="item-active" name="system.isequipped" type="checkbox" data-item-id="{{item._id}}" data-type="isequipped" {{#if item.system.isequipped}}checked{{/if}}></input></div>

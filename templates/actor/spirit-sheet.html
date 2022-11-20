@@ -43,19 +43,112 @@
 	
 								<div class="pullLeft" style="width: 33%;">
 								
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+									<div class="sheet-headline splatFont vrollable" 
+										data-type="{{config.sheettype.spirit}}"
+										data-key="rage"
+										data-noability="true">{{localize 'wod.advantages.rage'}}</div>
+
+									<div class="sheet-boxcontainer">
+										<div class="resource-value permValueRow" data-value="{{data.system.advantages.rage.permanent}}" data-name="advantages.rage.permanent">
+
+											{{#numLoop data.system.advantages.rage.max}}
+											
+												<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="rage" data-index="{{this}}"></span>
+											
+											{{/numLoop}}
+											
+										</div>
+									</div>
+
+									<div class="sheet-boxcontainer">
+										<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.rage.temporary}}" data-name="advantages.rage.temporary">
+
+											{{#numLoop data.system.advantages.rage.max}}
+											
+											{{#le ../data.system.advantages.rage.temporary this}}
+												<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="rage" data-index="{{this}}" data-state=""></span>
+											{{else}}
+												<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="rage" data-index="{{this}}" data-state="x"></span>
+											{{/le}}
+											
+											{{/numLoop}}
+											
+										</div>
+									</div>
 	
 								</div>
 								
 								<div class="pullLeft" style="width: 33%;">
 							
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+									<div class="sheet-headline splatFont vrollable" 
+										data-type="{{config.sheettype.spirit}}"
+										data-key="gnosis"
+										data-noability="true">{{localize 'wod.advantages.gnosis'}}</div>
+
+									<div class="sheet-boxcontainer">
+										<div class="resource-value permValueRow" data-value="{{data.system.advantages.gnosis.permanent}}" data-name="advantages.gnosis.permanent">
+
+											{{#numLoop data.system.advantages.gnosis.max}}
+											
+											<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="gnosis" data-index="{{this}}"></span>
+											
+											{{/numLoop}}
+											
+										</div>
+									</div>
+
+									<div class="sheet-boxcontainer">
+										<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.gnosis.temporary}}" data-name="advantages.gnosis.temporary">
+
+											{{#numLoop data.system.advantages.gnosis.max}}
+											
+											{{#le ../data.system.advantages.gnosis.temporary this}}
+											<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="gnosis" data-index="{{this}}" data-state=""></span>
+											{{else}}
+											<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="gnosis" data-index="{{this}}" data-state="x"></span>
+											{{/le}}
+											
+											{{/numLoop}}
+											
+										</div>
+									</div>
 							
 								</div>
 								
 								<div class="pullLeft" style="width: 33%;">
 									
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+									<div class="sheet-headline splatFont vrollable" 
+										data-type="{{config.sheettype.spirit}}"
+										data-key="willpower"
+										data-noability="true">{{localize 'wod.advantages.willpower'}}</div>
+										
+									<div class="sheet-boxcontainer willpower">
+										<div class="resource-value permValueRow" data-value="{{data.system.advantages.willpower.permanent}}" data-name="advantages.willpower.permanent">
+
+											{{#numLoop data.system.advantages.willpower.max}}
+											
+												<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="willpower" data-index="{{this}}"></span>
+											
+											{{/numLoop}}
+											
+										</div>
+									</div>
+
+									<div class="sheet-boxcontainer">
+										<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.willpower.temporary}}" data-name="advantages.willpower.temporary">
+
+											{{#numLoop data.system.advantages.willpower.max}}
+											
+												{{#le ../data.system.advantages.willpower.temporary this}}
+													<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="willpower" data-index="{{this}}" data-state=""></span>
+												{{else}}
+													<span class="resource-value-step" data-type="{{../config.sheettype.spirit}}" data-key="willpower" data-index="{{this}}" data-state="x"></span>
+												{{/le}}
+											
+											{{/numLoop}}
+											
+										</div>	
+									</div>
 	
 								</div>
 							
@@ -78,7 +171,7 @@
 
 						<div class="sheet-area">
 							{{> "systems/worldofdarkness/templates/actor/parts/spirit/charms.html"}}
-							{{> "systems/worldofdarkness/templates/actor/parts/spirit/gifts.html"}}
+							{{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
 						</div>
 
 					</div>

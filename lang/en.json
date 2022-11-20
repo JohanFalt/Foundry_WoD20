@@ -35,7 +35,13 @@
 			"usesplatfont": "Use Splat Font",
 			"usesplatfonthint": "With this setting you turn off the special font-style used by the different sheet on a world level",
 			"usesworldanvil": "Use World Anvil links",
-			"usesworldanvilhint": "With this setting you will show a box in Bio where you can store the link to that sheet's World Anvil page"
+			"usesworldanvilhint": "With this setting you will show a box in Bio where you can store the link to that sheet's World Anvil page",
+			"huntersettings": "Hunter Settings",
+			"huntersettingshint": "World settings used in Hunter the Reckoning",
+			"edgesettings": "Gaining Edge setting",
+			"edgesettingshints": "Gaining Edge setting",
+			"choicevirtue": "Spending virtue points",
+			"choiceexperience": "Spending experience points"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -61,6 +67,8 @@
 			"disciplinepathpower": "Discipline Path Power",
 			"art": "Art",
 			"artpower": "Art Power",
+			"edge": "Edge",
+			"edgepower": "Edge Power",
 			"ritual": "Ritual",
 			"talen": "Talen",
 			"fetish": "Fetish",
@@ -87,6 +95,7 @@
 			"magic": "Magic",
 			"disciplines": "Disciplines",
 			"dreaming": "Dreaming",
+			"edge": "Edges",
 			"shapechange": "Shapechange",
 			"sheet": "Sheet Settings",
 			"attribute": "Attribute Settings"
@@ -369,6 +378,19 @@
 				"threshold": "Ravaging/Musing Threshold",
 				"legacyseelie": "Seelie Legacy",
 				"legacyunseelie": "Unseelie Legacy"
+			},
+			"hunter": {
+				"creed": "Creed",
+				"avenger": "Avenger",
+				"defender": "Defender",
+				"hermit": "Hermit",
+				"innocent": "Innocent",
+				"judge": "Judge",
+				"martyr": "Martyr",
+				"redeemer": "Redeemer",
+				"visionary": "Visionary",
+				"wayword": "Wayword",
+				"primaryvirtue": "Primary Virtue"
 			}
 		},
 		"attributes": {
@@ -399,9 +421,11 @@
 			"athletics": "Athletics",
 			"awareness": "Awareness",
 			"brawl": "Brawl",
+			"dodge": "Dodge",
 			"empathy": "Empathy",
 			"expression": "Expression",
 			"intimidation": "Intimidation",
+			"intuition": "Intuition",
 			"kenning": "Kenning",			
 			"leadership": "Leadership",
 			"legerdemain": "Legerdemain",
@@ -411,6 +435,7 @@
 
 			"animalken": "Animal-Ken",
 			"craft": "Craft",
+			"demolitions": "Demolition",
 			"drive": "Drive",
 			"etiquette": "Etiquette",
 			"firearms": "Firearms",
@@ -420,6 +445,7 @@
 			"melee": "Melee",	
 			"performance": "Performance",
 			"research": "Research",
+			"security": "Security",
 			"stealth": "Stealth",
 			"survival": "Survival",
 
@@ -435,6 +461,7 @@
 			"herbalism": "Herbalism",
 			"investigation": "Investigation",
 			"law": "Law",
+			"linguistics": "Linguistics",
 			"medicine": "Medicine",
 			"occult": "Occult",
 			"politics": "Politics",
@@ -491,10 +518,13 @@
 				"conviction": "Conviction",
 				"selfcontrol": "Self-Control",
 				"instinct": "Instinct",
-				"courage": "Courage"
+				"courage": "Courage",
+				"mercy": "Mercy",
+				"vision": "Vision",
+				"zeal": "Zeal"
 			},
 			"bloodpool": "Blood Pool",	
-			"perturn": "Blood per turn",
+			"perturn": "Blood per turn",			
 			"bearing": "Bearing",
 			"renown": "Renown",
 			"glory": "Glory",
@@ -582,7 +612,8 @@
 			"paradox": "Paradox",
 			"glamour": "Glamour",
 			"banality": "Banality",
-			"nightmare": "Nightmare"
+			"nightmare": "Nightmare",
+			"conviction": "Conviction"
 		},
 		"combat": {
 			"conditions": {
@@ -697,7 +728,9 @@
 			"unsorteddisciplines": "Here is all unsorted discipline powers which needs to get a selected Discipline. Click on the headline to sort one.",
 			"unsortedpaths": "Here is all unsorted path powers which needs to get a selected Path. Click on the headline to sort one.",
 			"unsortedarts": "Here is all unsorted art powers which needs to get a selected Art. Click on the headline to sort one.",
-			"arts": "Arts"
+			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
+			"arts": "Arts",
+			"edges": "Edges"
 		},
 		"spheres": {
 			"spheres": "Spheres",
@@ -797,7 +830,8 @@
 				"system": "System",
 				"cleardiscipline": "Clear discipline connection",
 				"clearpath": "Clear path connection",
-				"clearart": "Clear art connection"
+				"clearart": "Clear art connection",
+				"clearedge": "Clear edge connection"
 			},
 			"notes": {
 				"backgrounds": "Backgrounds",
@@ -819,11 +853,14 @@
 				"permparadox": "Permanent paradox",
 				"path": "Select character path",
 				"selectpath": "Selected path",
-				"usedadvantages": "Set what type of advantages the Creature are using",
+				"usedadvantages": "Set what type of advantages the sheet are using",
 				"usedpowers": "Set what type of powers the sheet are using",
 				"essencevalue": "Set value of essence",
 				"sheetfont": "Use special sheet font",
-				"secondaryabilities": "Secondary Abilities"
+				"secondaryabilities": "Secondary Abilities",
+				"abilitiesmaxrating": "Max rating on Abilities",
+				"hasdisciplines": "Has disciplines and rituals",
+				"hasgifts": "Has gifts and rites"
 			},
 			"trait": {
 				"meleeweapon": "Listed melee weapon",
@@ -877,6 +914,10 @@
 				"fetish": "Edit fetish",
 				"talen": "Edit talen",
 				"rote": "Edit rote",
+				"art": "Edit art",
+				"artpower": "Ediy art power",
+				"edge": "Edit edge",
+				"edgepower": "Edit edge power",
 				"ability": "Edit secondary ability",
 				"resonance": "Edit resonance",
 				"othertraits": "Edit other trait",
@@ -902,6 +943,10 @@
 				"fetish": "Remove fetish",
 				"talen": "Remove talen",
 				"rote": "Remove rote",
+				"art": "Remnove art",
+				"artpower": "Remove art power",
+				"edge": "Remove edge",
+				"edgepower": "Remove edge power",
 				"ability": "Remove secondary ability",
 				"resonance": "Remove resonance",
 				"othertraits": "Remove other trait",
@@ -945,7 +990,9 @@
 			"characteradded": "Character already added to Combat Tracker",
 			"initiativealready": "has initiative already",
 			"rollinginitiative": "Rolling initiative",
-			"rollingsoak": "Rolling soak"
+			"rollingsoak": "Rolling soak",
+			"rollingremainactive": "Roll to remain active",
+			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active."
 		},
 		"dialog": {	
 			"save": "Save",
@@ -956,6 +1003,7 @@
 			"successesrolled": "Successes rolled already",
 			"numbersuccesses": "Prior number of successes",
 			"neededsuccesses": "Number of successes required",
+			"usewoundpenalty": "Use wound penalty",
 			"aretecasting": {
 				"castspell": "Cast spell",
 				"castingspell": "Casting spell",	

@@ -10,7 +10,7 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.glory.permanent}}" data-name="data.system.renown.glory.permanent">
+	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.glory.permanent}}" data-name="renown.glory.permanent">
 
 		{{#numLoop data.system.renown.glory.max}}
 		
@@ -22,7 +22,7 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.glory.temporary}}" data-name="data.system.renown.glory.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.glory.temporary}}" data-name="renown.glory.temporary">
 
 		{{#numLoop data.system.renown.glory.max}}
 		
@@ -46,7 +46,7 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.honor.permanent}}" data-name="data.system.renown.honor.permanent">
+	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.honor.permanent}}" data-name="renown.honor.permanent">
 
 		{{#numLoop data.system.renown.honor.max}}
 		
@@ -58,7 +58,7 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.honor.temporary}}" data-name="data.system.renown.honor.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.honor.temporary}}" data-name="renown.honor.temporary">
 
 		{{#numLoop data.system.renown.honor.max}}
 		
@@ -82,7 +82,7 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.wisdom.permanent}}" data-name="data.system.renown.wisdom.permanent">
+	<div class="resource-value tempSquareRow" data-value="{{data.system.renown.wisdom.permanent}}" data-name="renown.wisdom.permanent">
 
 		{{#numLoop data.system.renown.wisdom.max}}
 		
@@ -94,7 +94,7 @@
 </div>
 
 <div class="sheet-boxcontainer">
-	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.wisdom.temporary}}" data-name="data.system.renown.wisdom.temporary">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.renown.wisdom.temporary}}" data-name="renown.wisdom.temporary">
 
 		{{#numLoop data.system.renown.wisdom.max}}
 		
@@ -110,12 +110,12 @@
 </div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.rank"}}</div>
-<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="data.system.renown.rank">
+<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="renown.rank">
 
 	{{#if (eq actor.type config.sheettype.werewolf)}}
 		{{#numLoop 6}}
 		
-		<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+			<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
 		
 		{{/numLoop}}
 	{{else}}

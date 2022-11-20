@@ -11,11 +11,13 @@
 	</div>
 	
 	<div class="ability-statArea pullLeft">
+
+		{{{isempty actor.system.listdata.ability_talents}}}
 	
-		{{#each actor.ability_talents as |ability key|}}	
+		{{#each actor.system.listdata.ability_talents as |ability key|}}	
 			<div class="clearareaBox">
 				<label for="data.system.abilities.talent.{{ability._id}}.value" 
-					class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
+					class="vrollable pullLeft ability-headlineWidth headlineNormal" 
 					data-type="{{../config.sheettype.mortal}}"
 					data-key="{{ability._id}}"
 					data-ability="true">
@@ -28,11 +30,9 @@
 				
 				<div class="resource-value dotvalueArea pullRight" 
 					data-value="{{ability.value}}" 
-					data-name="system.abilities.talent.{{ability._id}}.value"
+					data-name="abilities.talent.{{ability._id}}.value"
 					data-key="{{ability._id}}"
 					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
-
-					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>
 
 					{{#numLoop ability.max}}					
 						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
@@ -44,11 +44,13 @@
 	
 	</div>
 	<div class="ability-statArea pullLeft">
+
+		{{{isempty actor.system.listdata.ability_skills}}}
 	
-		{{#each actor.ability_skills as |ability key|}}
+		{{#each actor.system.listdata.ability_skills as |ability key|}}
 			<div class="clearareaBox">
 				<label for="data.system.abilities.skill.{{ability._id}}.value" 
-					class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
+					class="vrollable pullLeft ability-headlineWidth headlineNormal"  
 					data-type="{{../config.sheettype.mortal}}"
 					data-key="{{ability._id}}"
 					data-ability="true">
@@ -61,11 +63,9 @@
 
 				<div class="resource-value dotvalueArea pullRight" 
 					data-value="{{ability.value}}" 
-					data-name="system.abilities.skill.{{ability._id}}.value"
+					data-name="abilities.skill.{{ability._id}}.value"
 					data-key="{{ability._id}}"
 					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
-
-					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>
 
 					{{#numLoop ability.max}}					
 						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
@@ -77,11 +77,13 @@
 	
 	</div>
 	<div class="ability-statArea pullLeft">
+
+		{{{isempty actor.system.listdata.ability_knowledges}}}
 	
-		{{#each actor.ability_knowledges as |ability key|}}
+		{{#each actor.system.listdata.ability_knowledges as |ability key|}}
 			<div class="clearareaBox">
 				<label for="data.system.abilities.knowledge.{{ability._id}}.value" 
-					class="vrollable pullLeft {{#if (eq ../actor.type ../config.sheettype.werewolf)}}ability-headlineWidth{{else}}attribute-headlineWidth{{/if}} headlineNormal" 
+					class="vrollable pullLeft ability-headlineWidth headlineNormal" 
 					data-type="{{../config.sheettype.mortal}}"
 					data-key="{{ability._id}}"
 					data-ability="true">
@@ -94,12 +96,10 @@
 
 				<div class="resource-value dotvalueArea pullRight" 
 					data-value="{{ability.value}}" 
-					data-name="system.abilities.knowledge.{{ability._id}}.value"
+					data-name="abilities.knowledge.{{ability._id}}.value"
 					data-key="{{ability._id}}"
 					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
 					
-					<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>
-
 					{{#numLoop ability.max}}					
 						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
 					{{/numLoop}}

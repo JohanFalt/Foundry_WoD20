@@ -169,6 +169,9 @@ export async function rollDice(diceRoll) {
 			diceColor = "lightblue_";
 			specialDiceType = "black_";
 		}
+		else if (actor.type == CONFIG.wod.sheettype.hunter) { 
+			diceColor = "orange_";
+		}
 		else if (actor.type == CONFIG.wod.sheettype.spirit) { 
 			diceColor = "yellow_";
 		}		
@@ -324,6 +327,9 @@ export async function rollDiceMultiple(diceRoll) {
 				else if (actor.type == CONFIG.wod.sheettype.changeling) { 
 					diceColor = "lightblue_";
 					specialDiceType = "black_";
+				}
+				else if (actor.type == CONFIG.wod.sheettype.hunter) { 
+					diceColor = "orange_";
 				}
 				else if (actor.type == CONFIG.wod.sheettype.spirit) { 
 					diceColor = "yellow_";

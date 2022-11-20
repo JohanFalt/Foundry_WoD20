@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        {{#each actor.system.listdata.treasures as |item id|}}
+        {{#each actor.system.listdata.gear.treasures as |item id|}}
 
             <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
                 <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
@@ -18,9 +18,9 @@
                     data-itemid="{{item._id}}">{{item.name}}</div>
                 {{#if item.system.isrollable}}
                     <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                    <div class="pullLeft gift-dicebox headlineNormal">{{#iff item.system.dice2 "!=" ""}}{{localize (getAbility item.system.dice2)}}{{else}}&nbsp;{{/iff}}</div>
-                    <div class="pullLeft gift-valueBox headlineNormal centerText">
-                        {{#if (eq item.system.difficulty -1)}}
+                    <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2)}}{{else}}&nbsp;{{/if}}</div>
+                    <div class="pullLeft power-valueBox headlineNormal centerText">
+                        {{#if (eq item.system.difficulty "-1")}}
                             {{localize "wod.labels.varies"}}
                         {{else}}
                             {{item.system.difficulty}}
@@ -33,11 +33,15 @@
                 <div class="gift-iconbox">
                     <div class="pullLeft pointer headlineNormal tooltip">
                         <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">{{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}<br /><br />{{#if (ne item.system.details "")}}<b>{{localize "wod.labels.details"}}:</b> {{{item.system.details}}}{{/if}}</span>
+                        <span class="tooltiptext">
+                            {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
+                            <br /><br />
+                            {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.details"}}:</b> {{{item.system.details}}}{{/if}}
+                        </span>
                     </div>
                     <div class="pullLeft">
                         <a class="send-chat" 
-                            title="{{localize "wod.labels.send"}}" 
+                            title="{{localize 'wod.labels.send'}}" 
                             data-type="Treasure" 
                             data-item-id="{{item._id}}" 
                             data-headline="<h2>{{item.name}}</h2>" 

@@ -30,9 +30,8 @@ export class ChangelingActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		this.locked = true;
-		this.isCharacter = true;	
-		this.isGM = game.user.isGM;
+		/* this.isCharacter = true;	
+		this.isGM = game.user.isGM; */
 		
 		console.log("WoD | Changeling Sheet constructor");
 
@@ -59,12 +58,9 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.changeling) {
 				const version = game.data.system.version;
 
-				actorData.system.settings.soak.chimerical.bashing.isrollable = true;
-				actorData.system.settings.soak.chimerical.lethal.isrollable = true;
-				actorData.system.settings.soak.chimerical.aggravated.isrollable = false;
-
                 ActionHelper._setChangelingAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);    
+				ActionHelper._setChangelingAttributes(actorData);
 				
 				console.log(`CREATION: Adds Realms to ${this.actor.name}`);
 				
@@ -151,35 +147,8 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		console.log("WoD | Changeling Sheet getData");
 
 		const realms = [];
-		const treasures = [];
-
-		const artlist = [];
-		const tempartlist = [];
-		const unlistedartlist = [];
-		const templist = [];
-		let unlisted = false;
 
 		for (const i of data.items) {
-			if (i.type == "Item") {
-				if (i.system.type == "wod.types.treasure") {
-					treasures.push(i);
-				}
-			}
-			if (i.type == "Power") {
-				if (i.system.type == "wod.types.art") {
-					tempartlist.push(i);
-				}
-				if (i.system.type == "wod.types.artpower") {
-					if (i.system.parentid != "") {
-						i.system.level = i.system.level.toString();
-						templist.push(i);
-					}
-					else {
-						unlistedartlist.push(i);
-						unlisted = true;
-					}					
-				}
-			}
 			if (i.type == "Trait") {
 				if (i.system.type == "wod.types.realms") {
 					let isaffinity = false;
@@ -204,28 +173,10 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		}
 
 		data.actor.system.listdata.chimericalhealth = calculateHealth(data.actor, CONFIG.wod.sheettype.changeling);
+		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = true;
 
-		// sort arts
-		tempartlist.sort((a, b) => a.name.localeCompare(b.name));
-		templist.sort((a, b) => a.system.level.localeCompare(b.system.level));			
-
-		for (const art of tempartlist) {
-			artlist.push(art);
-
-			for (const power of templist) {
-				if (power.system.parentid == art._id) {
-					artlist.push(power);
-				}
-			}
-		}		
-
-		data.actor.system.listdata.artlist = artlist;
-		data.actor.system.listdata.listedarts = tempartlist;
-		data.actor.system.listdata.unlistedarts = unlistedartlist.sort((a, b) => a.name.localeCompare(b.name));	
-		data.actor.system.listdata.hasunlistedarts = unlisted;
-		data.actor.system.listdata.realms = realms.sort((a, b) => a.label.localeCompare(b.label));
-		data.actor.system.listdata.treasures = treasures.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.system.listdata.powers.arts.realms = realms.sort((a, b) => a.label.localeCompare(b.label));
 
 		if (actorData.type == CONFIG.wod.sheettype.changeling) {
 			console.log(CONFIG.wod.sheettype.changeling);
@@ -261,17 +212,11 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterChangelingChange.bind(this));
-		html
-			.find(".resource-value > .resource-value-empty")
-			.click(this._onDotCounterChangelingEmpty.bind(this));
 
 		// temporary squares
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterChangelingChange.bind(this));
-		html
-			.find(".resource-counter > .resource-value-empty")
-			.click(this._onDotCounterChangelingEmpty.bind(this));
 
 		// Rollable stuff
 		html
@@ -281,10 +226,6 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		html
 			.find(".switch")
 			.click(this._switchChangelingSetting.bind(this));
-
-		// html
-		// 	.find(".macroBtn")
-		// 	.click(this._onRollChangelingDialog.bind(this));		
 			
 		html
 			.find(".willpower > .resource-value > .resource-value-step")
@@ -326,50 +267,11 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			actorData.system.settings.soak.chimerical[abilityType].isrollable = !actorData.system.settings.soak.chimerical[abilityType].isrollable;
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleWoundLevelCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleWoundLevelCalculations(actorData);
 
 		await this.actor.update(actorData);
 	}
-
-	async _onDotCounterChangelingEmpty(event) {
-		console.log("WoD | Changeling Sheet _onDotCounterChangelingEmpty");
-		
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
-		const type = dataset.type;
-
-		if (type != CONFIG.wod.sheettype.changeling) {
-			return;
-		}
-
-		const parent = $(element.parentNode);
-		const fieldStrings = parent[0].dataset.name;
-		const fields = fieldStrings.split(".");
-		const steps = parent.find(".resource-value-empty");
-		
-		if (this.locked) {
-			return;
-		}
-
-		steps.removeClass("active");
-
-		// updated item
-		if (parent[0].dataset.itemid != undefined) {
-			const itemid = parent[0].dataset.itemid;
-
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
-
-			const itemData = duplicate(item);
-			itemData.system.value = 0;
-			await item.update(itemData);			
-		}
-		// updated actor
-		else {
-			this._assignToChangeling(fields, 0);
-		}					
-	}		
 	
 	async _onDotCounterChangelingChange(event) {
 		console.log("WoD | Changeling Sheet _onDotCounterChangelingChange");
@@ -399,19 +301,25 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			let item = this.actor.getEmbeddedDocument("Item", itemid);
 
 			const itemData = duplicate(item);
-			itemData.system.value = parseInt(index) + 1;
+
+			if ((index == 0) && (itemData.system.value == 1)) {
+				itemData.system.value = 0;
+			}
+			else {
+				itemData.system.value = parseInt(index + 1);
+			}
+
 			await item.update(itemData);			
 		}
 		// updated actor
 		else {
-			
 			const fieldStrings = parent[0].dataset.name;
 			const fields = fieldStrings.split(".");	
 
 			if ((this.locked) && 
-				((fieldStrings != "data.system.glamour.temporary") && 
-				(fieldStrings != "data.system.nightmare.temporary") && 
-				(fieldStrings != "data.system.banality.temporary"))) {
+				((fieldStrings != "data.system.advantages.glamour.temporary") && 
+				(fieldStrings != "data.system.advantages.nightmare.temporary") && 
+				(fieldStrings != "data.system.advantages.banality.temporary"))) {
 				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				return;
 			}
@@ -486,8 +394,8 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			actorData.system.health.damage.chimerical.aggravated = 0;
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleWoundLevelCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleWoundLevelCalculations(actorData);
 
 		await this.actor.update(actorData);
 	}
@@ -521,8 +429,8 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			actorData.system.health.damage.chimerical.aggravated = parseInt(actorData.system.health.damage.chimerical.aggravated) - 1;
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper.handleWoundLevelCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
+		await ActionHelper.handleWoundLevelCalculations(actorData);
 
 		await this.actor.update(actorData);
 	}
@@ -537,10 +445,6 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const type = dataset.type;
 		let index = parseInt(dataset.index);
 
-		// if (type != CONFIG.wod.sheettype.changeling) {
-		//  	return;
-		// }
-
 		if ((type == CONFIG.wod.sheettype.mortal) && (dataset.key != "willpower")) {
 		  	return;
 		}
@@ -549,77 +453,75 @@ export class ChangelingActorSheet extends MortalActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if ((index == 1) && (actorData.system.willpower.imbalance == 1)) {
-			actorData.system.willpower.imbalance = 0;
+		if ((index == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
+			actorData.system.advantages.willpower.imbalance = 0;
 		}
-		else if (index > actorData.system.willpower.permanent) {
-			actorData.system.willpower.imbalance = actorData.system.willpower.permanent;
+		else if (index > actorData.system.advantages.willpower.permanent) {
+			actorData.system.advantages.willpower.imbalance = actorData.system.advantages.willpower.permanent;
 		}
 		else {
-			actorData.system.willpower.imbalance = index;
+			actorData.system.advantages.willpower.imbalance = index;
 		}
 
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper._handleChangelingCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
 		
 		console.log("WoD | Changeling Sheet updated");
 		await this.actor.update(actorData);
 	}
 
-	_assignToChangeling(fields, value) {
+	async _assignToChangeling(fields, value) {
 		console.log("WoD | Changeling Sheet _assignToChangeling");
 		
 		const actorData = duplicate(this.actor);
 
 		if (fields[2] === "glamour") {
 			if (fields[3] === "temporary") {
-				if (actorData.system.glamour.temporary == value) {
-					actorData.system.glamour.temporary = parseInt(actorData.system.glamour.temporary) - 1;
+				if (actorData.system.advantages.glamour.temporary == value) {
+					actorData.system.advantages.glamour.temporary = parseInt(actorData.system.advantages.glamour.temporary) - 1;
 				}
 				else {
-					actorData.system.glamour.temporary = value;
+					actorData.system.advantages.glamour.temporary = value;
 				}
 			}
 			if (fields[3] === "permanent") {
-				if (actorData.system.glamour.permanent == value) {
-					actorData.system.glamour.permanent = parseInt(actorData.system.glamour.permanent) - 1;
+				if (actorData.system.advantages.glamour.permanent == value) {
+					actorData.system.advantages.glamour.permanent = parseInt(actorData.system.advantages.glamour.permanent) - 1;
 				}
 				else {
-					actorData.system.glamour.permanent = value;
+					actorData.system.advantages.glamour.permanent = value;
 				}
 			}
 	
 		}			
 		else if (fields[2] === "banality") {
 			if (fields[3] === "temporary") {
-				if (actorData.system.banality.temporary == value) {
-					actorData.system.banality.temporary = parseInt(actorData.system.banality.temporary) - 1;
+				if (actorData.system.advantages.banality.temporary == value) {
+					actorData.system.advantages.banality.temporary = parseInt(actorData.system.advantages.banality.temporary) - 1;
 				}
 				else {
-					actorData.system.banality.temporary = value;
+					actorData.system.advantages.banality.temporary = value;
 				}
 			}
 			if (fields[3] === "permanent") {
-				if (actorData.system.banality.permanent == value) {
-					actorData.system.banality.permanent = parseInt(actorData.system.banality.permanent) - 1;
+				if (actorData.system.advantages.banality.permanent == value) {
+					actorData.system.advantages.banality.permanent = parseInt(actorData.system.advantages.banality.permanent) - 1;
 				}
 				else {
-					actorData.system.banality.permanent = value;
+					actorData.system.advantages.banality.permanent = value;
 				}
 			}
 	
 		}
 		else if (fields[2] === "nightmare")	 {
-			if (actorData.system.nightmare.temporary == value) {
-				actorData.system.nightmare.temporary = parseInt(actorData.system.nightmare.temporary) - 1;
+			if (actorData.system.advantages.nightmare.temporary == value) {
+				actorData.system.advantages.nightmare.temporary = parseInt(actorData.system.advantages.nightmare.temporary) - 1;
 			}	
 			else {
-				actorData.system.nightmare.temporary = value;
+				actorData.system.advantages.nightmare.temporary = value;
 			}
 		}
 		
-		ActionHelper._handleCalculations(actorData);
-		ActionHelper._handleChangelingCalculations(actorData);
+		await ActionHelper.handleCalculations(actorData);
 		
 		console.log("WoD | Changeling Sheet updated");
 		this.actor.update(actorData);

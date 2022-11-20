@@ -4,13 +4,14 @@ export class SortDisciplinePower {
         this.name = item["name"];
         this.level = item.system["level"];
         this.description = item.system["description"];
-        this.system = item.system["system"];
+        this.system = item.system["details"];
         this.parentid = item.system["parentid"];
         this.powerlist = [];
 
         this.isDiscipline = true;
         this.isPath = false;
         this.isArt = false;
+        this.isEdge = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -23,13 +24,14 @@ export class SortPathPower {
         this.name = item["name"];
         this.level = item.system["level"];
         this.description = item.system["description"];
-        this.system = item.system["system"];
+        this.system = item.system["details"];
         this.parentid = item.system["parentid"];
         this.powerist = [];
 
         this.isDiscipline = false;
         this.isPath = true;
         this.isArt = false;
+        this.isEdge = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -42,16 +44,37 @@ export class SortArtPower {
         this.name = item["name"];
         this.level = item.system["level"];
         this.description = item.system["description"];
-        this.system = item.system["system"];
+        this.system = item.system["details"];
         this.parentid = item.system["parentid"];
         this.powerlist = [];
 
         this.isDiscipline = false;
         this.isPath = false;
         this.isArt = true;
+        this.isEdge = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "changelingDialog";
+    }
+}
+
+export class SortEdgePower {
+    constructor(item) {
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.level = item.system["level"];
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+        this.parentid = item.system["parentid"];
+        this.powerlist = [];
+
+        this.isDiscipline = false;
+        this.isPath = false;
+        this.isArt = false;
+        this.isEdge = true;
+        this.canSave = false;
+        this.close = false;
+        this.sheettype = "hunterDialog";
     }
 }
 
@@ -85,13 +108,17 @@ export class DialogSortPower extends FormApplication {
         data.actorData = this.actor.system;
 
         if (this.object.isDiscipline) {
-            this.object.powerlist = this.actor.listeddisciplines;
+            this.object.powerlist = this.actor.system.listdata.powers.disciplines.listeddisciplines;
         }
         if (this.object.isPath) {
-            this.object.powerlist = this.actor.listedpaths;
+            this.object.powerlist = this.actor.system.listdata.powers.disciplines.listedpaths;
         }
         if (this.object.isArt) {
-            this.object.powerlist = this.actor.system.listdata.listedarts;
+            this.object.powerlist = this.actor.system.listdata.powers.arts.listedarts;
+        }
+
+        if (this.object.isEdge) {
+            this.object.powerlist = this.actor.system.listdata.powers.edges.listededges;
         }
 
         data.config = CONFIG.wod;    
@@ -103,8 +130,8 @@ export class DialogSortPower extends FormApplication {
         super.activateListeners(html);
 
         html
-            .find('.dialog-discipline-button')
-            .click(this._setDiscipline.bind(this));        
+            .find('.dialog-power-button')
+            .click(this._setPower.bind(this));        
 
         html
             .find('.actionbutton')
@@ -124,11 +151,11 @@ export class DialogSortPower extends FormApplication {
         event.preventDefault();       
     }
 
-    _setDiscipline(event) {
+    _setPower(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const parent = $(element.parentNode);
-        const steps = parent.find(".dialog-discipline-button");
+        const steps = parent.find(".dialog-power-button");
         const id = element.value;   
 
         this.object.parentid = id;   

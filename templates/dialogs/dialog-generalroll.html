@@ -11,7 +11,7 @@
         <div class="centerText dialog-area">
             <div class="headline splatFont"></div>
             {{#numFromLoop 1 10}}
-                <button id="numdices" class="button pointer dialog-numdices-button {{#if (eq ../object.attributeValue this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                <button id="numdices" class="button fullSplatColor pointer dialog-numdices-button {{#if (eq ../object.attributeValue this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/numFromLoop}}
         </div>
         <div class="dialog-area">
@@ -21,6 +21,7 @@
         </div>
 
     {{else}}
+
         <div class="dialog-area">
             <div class="headlineGroup splatFont">
                 {{localize "wod.dice.roll"}}
@@ -40,15 +41,25 @@
             <div class="centerText dialog-area">
                 {{#if (eq (checkSystemsetting "attributeSettings") "5th")}}
                     {{#each config.attributeslist as |attribute key|}}
-                        <button id="attribute" class="button pointer dialog-attribute-button {{#if (eq ../object.attributeKey key)}}active{{/if}}" value="{{key}}">{{localize attribute}}</button>
+                        <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.attributeKey key)}}active{{/if}}" value="{{key}}">{{localize attribute}}</button>
                     {{/each}}
                 {{/if}}
                 {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}
                     {{#each config.attributes20list as |attribute key|}}
-                        <button id="attribute" class="button pointer dialog-attribute-button {{#if (eq ../object.attributeKey key)}}active{{/if}}" value="{{key}}">{{localize attribute}}</button>
+                        <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.attributeKey key)}}active{{/if}}" value="{{key}}">{{localize attribute}}</button>
                     {{/each}}
                 {{/if}}
             </div>
+        {{/if}}
+
+        {{#if (ne actorData.health.damage.woundpenalty 0)}}
+            {{#if (eq object.ignorepain false)}}
+                <div class="dialog-area">
+                    <div class="infobox headline splatFont">
+                        <input name="usepain" type="checkbox" {{#if object.usepain}}checked{{/if}}>{{localize 'wod.dialog.usewoundpenalty'}} ({{actorData.health.damage.woundpenalty}})</input>
+                    </div>
+                </div>
+            {{/if}}
         {{/if}}
 
         <div class="dialog-area">
@@ -64,6 +75,7 @@
                 {{#if object.hasSpeciality}}({{object.specialityText}}){{/if}}
             </div>
         </div>
+
     {{/if}}
 
     <div class="dialog-area headline splatFont">
@@ -72,13 +84,13 @@
 
     <div class="centerText dialog-area">
         {{#numFromLoop 3 10}}
-            <button id="difficulty" class="button pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+            <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
         {{/numFromLoop}}
     </div>
 
     <div class="centerText">
-        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

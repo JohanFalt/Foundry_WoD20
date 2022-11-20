@@ -6,6 +6,7 @@
 			"Mage",
 			"Vampire",
 			"Changeling",
+			"Hunter",
 			"Changing Breed",
 			"Creature",
 			"Spirit"
@@ -21,15 +22,7 @@
 					}
 				},
 				"settings": {
-					"iscreated": false,
-					"version": "",
-					"usesplatfont": true,					
-					"powers": {
-						"hasdisciplines": false,
-						"hasgifts": false,
-						"hascharms": false,
-						"haspowers": false
-					},
+					"iscreated": false,	
 					"soak": {
 						"bashing": {
 							"bonus": 0,
@@ -43,6 +36,9 @@
 							"bonus": 0,
 							"isrollable": true
 						}
+					},
+					"abilities": {
+						"defaultmaxvalue": 5
 					}
 				},
 				"worldanvil": "",
@@ -59,75 +55,18 @@
 					"isignoringpain": false,
 					"isstunned": false
 				},
-				"health": {
-					"damage": {
-						"bashing": 0,
-						"lethal" : 0,
-						"aggravated": 0,
-						"woundlevel": "",
-						"woundpenalty": 0
-					},
-					"bruised": {
-						"value": 1,
-						"penalty": 0,
-						"label": "wod.health.bruised"
-					},
-					"hurt": {
-						"value": 1,
-						"penalty": -1,
-						"label": "wod.health.hurt"
-					},
-					"injured": {
-						"value": 1,
-						"penalty": -1,
-						"label": "wod.health.injured"
-					},
-					"wounded": {
-						"value": 1,
-						"penalty": -2,
-						"label": "wod.health.wounded"
-					},
-					"mauled": {
-						"value": 1,
-						"penalty": -2,
-						"label": "wod.health.mauled"
-					},
-					"crippled": {
-						"value": 1,
-						"penalty": -5,
-						"label": "wod.health.crippled"
-					},
-					"incapacitated": {
-						"value": 1,
-						"penalty": -99,
-						"label": "wod.health.incapacitated"
-					}
-					
-				},
 				"soak": {
 					"bashing": 0,
 					"lethal": 0,
 					"aggravated": 0
-				},
-				"bloodpool": {
-					"temporary": 0,
-					"max": 10,
-					"perturn": 1
-				},
-				"willpower": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.willpower"
-				},
+				},				
 				"initiative": {
 					"base": 0,
 					"bonus": 0,
 					"total": 0
 				}
 			},
-			"ability": {
+			"ability": {				
 				"abilities": {
 					"talent": {
 						"alertness": {
@@ -170,6 +109,14 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"dodge": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.dodge",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
 						"empathy": {
 							"value": 0,
 							"max": 5,
@@ -190,6 +137,14 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.intimidation",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
+						"intuition": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.intuition",
 							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
@@ -248,6 +203,14 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.craft",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
+						"demolitions": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.demolitions",
 							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
@@ -324,6 +287,14 @@
 							"speciality": "",
 							"isvisible": false
 						},	
+						"security": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.security",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
 						"stealth": {
 							"value": 0,
 							"max": 5,
@@ -354,6 +325,14 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.academics",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
+						"bureaucracy": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.bureaucracy",
 							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
@@ -422,6 +401,14 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"linguistics": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.linguistics",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
 						"medicine": {
 							"value": 0,
 							"max": 5,
@@ -442,6 +429,14 @@
 							"value": 0,
 							"max": 5,
 							"label": "wod.abilities.politics",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
+						"research": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.research",
 							"altlabel": "",
 							"speciality": "",
 							"isvisible": false
@@ -474,6 +469,29 @@
 				}
 			},
 			"mortal": {
+				"settings": {
+					"hasrage": false,
+					"hasgnosis": false,
+					"haswillpower": false,					
+					"haspath": false,
+					"hasbloodpool": false,
+					"hasvirtue": false,
+					"hasglamour": false,
+					"hasbanality": false,
+					"hasnightmare": false,
+					"hasconviction": false,
+					"hasessence": false,
+					"version": "",
+					"usesplatfont": true,					
+					"powers": {
+						"hasdisciplines": false,
+						"hasgifts": false,
+						"hasarts": false,
+						"hasedges": false,
+						"hascharms": false,
+						"haspowers": false
+					}
+				},
 				"attributes": {
 					"strength": {
 						"value": 1,
@@ -585,6 +603,129 @@
 						"speciality": "",
 						"isvisible": false
 					}
+				},
+				"advantages": {
+					"rage": {
+						"permanent": 0,
+						"temporary": 0,
+						"bonus": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.rage"
+					},
+					"gnosis": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.gnosis"
+					},				
+					"willpower": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.willpower"
+					},
+					"glamour": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.glamour"
+					},
+					"nightmare": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.nightmare"
+					},
+					"banality": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.banality"
+					},
+					"bloodpool": {
+						"temporary": 0,
+						"max": 10,
+						"perturn": 1
+					},
+					"virtues": {
+						"conscience": {
+							"permanent": 0,
+							"max": 5,
+							"roll": 0,
+							"label": "wod.advantages.virtue.conscience"
+						},
+						"selfcontrol": {
+							"permanent": 0,
+							"max": 5,
+							"roll": 0,
+							"label": "wod.advantages.virtue.selfcontrol"
+						},
+						"courage": {
+							"permanent": 0,
+							"max": 5,
+							"roll": 0,
+							"label": "wod.advantages.virtue.courage"
+						}
+					},
+					"path": {
+						"permanent": 0,
+						"value": 0,
+						"max": 10,
+						"roll": 0,
+						"bearing": 0,
+						"bearingtext": "",
+						"label": "wod.advantages.path.humanity"
+					}
+				},
+				"health": {
+					"damage": {
+						"bashing": 0,
+						"lethal" : 0,
+						"aggravated": 0,
+						"woundlevel": "",
+						"woundpenalty": 0
+					},
+					"bruised": {
+						"value": 1,
+						"penalty": 0,
+						"label": "wod.health.bruised"
+					},
+					"hurt": {
+						"value": 1,
+						"penalty": -1,
+						"label": "wod.health.hurt"
+					},
+					"injured": {
+						"value": 1,
+						"penalty": -1,
+						"label": "wod.health.injured"
+					},
+					"wounded": {
+						"value": 1,
+						"penalty": -2,
+						"label": "wod.health.wounded"
+					},
+					"mauled": {
+						"value": 1,
+						"penalty": -2,
+						"label": "wod.health.mauled"
+					},
+					"crippled": {
+						"value": 1,
+						"penalty": -5,
+						"label": "wod.health.crippled"
+					},
+					"incapacitated": {
+						"value": 1,
+						"penalty": -99,
+						"label": "wod.health.incapacitated"
+					}
+					
 				}
 			},
 			"werewolf": {
@@ -597,21 +738,6 @@
 				"tribe": "",
 				"packname": "",
 				"packtotem": "",
-				"rage": {
-					"permanent": 0,
-					"temporary": 0,
-					"bonus": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.rage"
-				},
-				"gnosis": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.gnosis"
-				},
 				"renown": {
 					"glory": {
 						"permanent": 0,
@@ -671,11 +797,13 @@
 					"practice": "",
 					"instruments": ""
 				},
-				"arete": {
-					"permanent": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.arete"
+				"advantages": {
+					"arete": {
+						"permanent": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.arete"
+					}
 				},
 				"quintessence": {
 					"permanent": 0,
@@ -757,40 +885,7 @@
 				"weakness": "",
 				"generation": 13,
 				"generationmod": 0,
-				"sire": "",
-				"virtues": {
-					"conscience": {
-						"value": 0,
-						"max": 5,
-						"roll": 0,
-						"label": "wod.advantages.virtue.conscience"
-					},
-					"selfcontrol": {
-						"permanent": 0,
-						"value": 0,
-						"max": 5,
-						"roll": 0,
-						"label": "wod.advantages.virtue.selfcontrol"
-					},
-					"courage": {
-						"permanent": 0,
-						"value": 0,
-						"max": 5,
-						"roll": 0,
-						"label": "wod.advantages.virtue.courage"
-					}
-				},
-				"rage": {
-					"bonus": 0
-				},
-				"path": {
-					"value": 0,
-					"max": 10,
-					"roll": 0,
-					"bearing": 0,
-					"bearingtext": "",
-					"label": "wod.advantages.path.humanity"
-				}
+				"sire": ""		
 			},
 			"changeling": {
 				"settings": {
@@ -832,28 +927,10 @@
 				"antithesis": "",
 				"threshold": "",
 				"affinityrealm": "",
-				"glamour": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.glamour"
-				},
-				"nightmare": {
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.nightmare"
-				},
-				"banality": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.banality"
-				},
-				"willpower": {
-					"imbalance": 0
+				"advantages": {
+					"willpower": {
+						"imbalance": 0
+					}
 				},
 				"soak": {
 					"chimerical": {
@@ -863,71 +940,99 @@
 					}
 				}
 			},
+			"hunter": {
+				"primaryvirtue": "",
+				"creed": "",
+				"advantages": {
+					"conviction": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.conviction"
+					},
+					"virtues": {
+						"mercy": {
+							"permanent": 0,
+							"spent": 0,
+							"max": 10,
+							"roll": 0,
+							"label": "wod.advantages.virtue.mercy"
+						},
+						"vision": {
+							"permanent": 0,
+							"spent": 0,
+							"max": 10,
+							"roll": 0,
+							"label": "wod.advantages.virtue.vision"
+						},
+						"zeal": {
+							"permanent": 0,
+							"spent": 0,
+							"max": 10,
+							"roll": 0,
+							"label": "wod.advantages.virtue.zeal"
+						}
+					}
+				}
+			},
 			"creature": {
-				"settings": {
-					"hasrage": false,
-					"hasgnosis": false,
-					"haswillpower": true,
-					"hasessence": false,
-					"hasbloodpool": false,
-					"hasglamour": false,
-					"hasbanality": false
-				},
-				"rage": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.rage",
-					"isvisible": false
-				},
-				"gnosis": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.gnosis",
-					"isvisible": false
-				},
-				"essence": {
-					"temporary": 0,
-					"max": 10,
-					"label": "wod.advantages.essence"
-				},
-				"glamour": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.glamour"
-				},
-				"banality": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.banality"
+				"advantages": {
+					"essence": {
+						"temporary": 0,
+						"max": 10,
+						"label": "wod.advantages.essence"
+					}				
 				}
 			},
 			"spirit": {
-				"rage": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.rage"
+				"settings": {
+					"hasrage": true,
+					"hasgnosis": true,
+					"haswillpower": true,					
+					"haspath": false,
+					"hasbloodpool": false,
+					"hasvirtue": false,
+					"hasglamour": false,
+					"hasbanality": false,
+					"hasnightmare": false,
+					"hasessence": true,
+					"version": "",
+					"usesplatfont": true,					
+					"powers": {
+						"hasdisciplines": false,
+						"hasgifts": true,
+						"hasarts": false,
+						"hascharms": true,
+						"haspowers": false
+					}
 				},
-				"gnosis": {
-					"permanent": 0,
-					"temporary": 0,
-					"max": 10,
-					"roll": 0,
-					"label": "wod.advantages.gnosis"
-				},
-				"essence": {
-					"temporary": 10,
-					"max": 10,
-					"label": "wod.advantages.essence"
+				"advantages": {
+					"rage": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.rage"
+					},
+					"gnosis": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.gnosis"
+					},
+					"willpower": {
+						"permanent": 0,
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.willpower"
+					},
+					"essence": {
+						"temporary": 10,
+						"max": 10,
+						"label": "wod.advantages.essence"
+					}
 				}
 			}
 		},
@@ -968,6 +1073,28 @@
 				"ability",
 				"mortal",
 				"changeling"
+			]
+		},
+		"Hunter": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal",
+				"hunter"
+			]
+		},
+		"Demon": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal"
+			]
+		},
+		"Mummy": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal"
 			]
 		},
 		"Changing Breed": {
@@ -1016,7 +1143,8 @@
 			"base": {
 				"worldanvil": "",
 				"reference": "",
-				"description": ""
+				"description": "",
+				"details": ""
 			},
 			"feature": {
 				"type": "",
@@ -1052,7 +1180,7 @@
 				"dice2": "",
 				"bonus": 0,
 				"difficulty": 0,
-				"isrollable": true,
+				"isrollable": false,
 				"isactive": false,
 				"spendwillpower": false,
 				"spendrage": false,
@@ -1174,19 +1302,23 @@
 				"base",
 				"feature"
 			],
-			"details": "",
 			"isrollable": false
 		},		
 		"Trait": {
 			"templates": [
 				"settings",
+				"base",
 				"feature"
 			],
-			"reference": "",
 			"ismeleeweapon": false,
 			"israngedeweapon": false,
 			"label": "",
-			"speciality": ""
+			"speciality": "",
+			"dice1": "",
+			"dice2": "",
+			"bonus": 0,
+			"difficulty": 6,
+			"isrollable": false
 		},
 		"Experience": {
 			"templates": [
@@ -1198,4 +1330,3 @@
 		}
 	}
 }
-

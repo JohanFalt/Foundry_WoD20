@@ -35,7 +35,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         //World Items
         for (const item of game.items) {
             try {
-                await updateItem(item, migrationVersion);
+                await updateItem(item);
             } catch(err) {
                 err.message = `Failed migration for Actor Item ${item.name}: ${err.message}`;
                 console.error(err);
@@ -48,7 +48,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         // World Compendiums
         for ( let pack of game.packs ) {
             try {
-                if ( pack.metadata.package !== "world" ) continue;
+                if ( pack.metadata.packageType !== "world" ) continue;
                 if ( !["Actor", "Item", "Scene"].includes(pack.documentName) ) continue;
                 await updateCompendium(pack, migrationVersion);
             } catch(err) {
@@ -104,20 +104,16 @@ export const updates = async () => {
 
     for (const actor of game.actors) {
         // handle Game settings  
-        let willpower = -1;
-        let gnosis = -1;
-        let rage = -1;
         let totalinit = -1;
 
         const actorData = duplicate(actor);
 
         if (actor.type != CONFIG.wod.sheettype.spirit) {
-            
             if (attributeSettings == "20th") {
                 for (const attribute in CONFIG.wod.attributes20) {
                     actorData.system.attributes[attribute].isvisible = true;
                 }
-                
+
                 actorData.system.attributes.composure.isvisible = false;
                 actorData.system.attributes.resolve.isvisible = false;
             }
@@ -130,35 +126,72 @@ export const updates = async () => {
                 actorData.system.attributes.perception.isvisible = false;
             }
 
-            if (rollSettings) {
-                if (actor.system.rage != undefined) {
-                    rage = parseInt(actor.system.rage.permanent);
+            for (const advantage in actorData.system.advantages) {
+                if (actorData.system.advantages[advantage] == undefined) {
+                    continue;
                 }
-                if (actor.system.gnosis != undefined) {
-                    gnosis = parseInt(actor.system.gnosis.permanent);
+                if (actorData.system.advantages[advantage].temporary == undefined) {
+                    continue;
                 }
-                
-                willpower = actor.system.willpower.permanent; 
-            }
-            else {
-                if (actor.system.rage != undefined) {
-                    rage = parseInt(actor.system.rage.permanent) > parseInt(actor.system.rage.temporary) ? actor.system.rage.temporary : actor.system.rage.permanent;
+                if (actorData.system.advantages[advantage].roll == undefined) {
+                    continue;
                 }
-                if (actor.system.gnosis != undefined) {
-                    gnosis = parseInt(actor.system.gnosis.permanent) > parseInt(actor.system.gnosis.temporary) ? actor.system.gnosis.temporary : actor.system.gnosis.permanent;
+
+                let permanentValue = 0;
+
+                if (rollSettings) {
+                    permanentValue = parseInt(actorData.system.advantages[advantage].permanent);
                 }
-                
-                willpower = parseInt(actor.system.willpower.permanent) > parseInt(actor.system.willpower.temporary) ? actor.system.willpower.temporary : actor.system.willpower.permanent; 
+                else {
+                    permanentValue = parseInt(actorData.system.advantages[advantage].permanent) > parseInt(actorData.system.advantages[advantage].temporary) ? parseInt(actorData.system.advantages[advantage].temporary) : parseInt(actorData.system.advantages[advantage].permanent);
+                }
+
+                if (permanentValue > -1) {
+                    actorData.system.advantages[advantage].roll = parseInt(permanentValue);
+                }
             }
 
-            if (rage > -1) {
-                actorData.system.rage.roll = parseInt(rage);
-            }
-            if (gnosis > -1) {
-                actorData.system.gnosis.roll = parseInt(gnosis);
+            actorData.system.settings.haswillpower = true;
+
+            if (actorData.type == CONFIG.wod.sheettype.werewolf) {
+                actorData.system.settings.hasrage = true;
+                actorData.system.settings.hasgnosis = true;
+                actorData.system.settings.powers.hasgifts = true;
             }
 
-            actorData.system.willpower.roll = parseInt(willpower);
+            if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+                actorData.system.settings.hasrage = true;
+                actorData.system.settings.hasgnosis = true;
+                actorData.system.settings.powers.hasgifts = true;
+
+                if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nuwisha")) {
+                    actorData.system.settings.hasrage = false;
+                }
+                if (actorData.system.changingbreed == "Ananasi") {
+                    actorData.system.settings.hasbloodpool = true;
+                }
+            }
+
+            if (actorData.type == CONFIG.wod.sheettype.vampire) {
+                actorData.system.settings.haspath = true;
+                actorData.system.settings.hasbloodpool = true;
+                actorData.system.settings.hasvirtue = true;
+                actorData.system.settings.powers.hasdisciplines = true;
+            }
+
+            if (actorData.type == CONFIG.wod.sheettype.mage) {
+            }
+
+            if (actorData.type == CONFIG.wod.sheettype.changeling) {
+                actorData.system.settings.hasglamour = true;
+                actorData.system.settings.hasbanality = true;
+                actorData.system.settings.hasnightmare = true;
+                actorData.system.settings.powers.hasarts = true;
+            }
+
+            if (actorData.type == CONFIG.wod.sheettype.creatures) {
+                actorData.system.settings.powers.haspowers = true;
+            }
 
             for (const item of actor.items) {
 
@@ -209,6 +242,8 @@ export const updates = async () => {
  * @param migrationVersion   The version that is being pushed at the world * 
  */
  export const updateActor = async function(actor, migrationVersion) {
+    let update = false;
+
     if (compareVersion(actor.system.settings.version, "1.5.0")) {
         
         const updateData = duplicate(actor);
@@ -330,7 +365,7 @@ export const updates = async () => {
 
     if (compareVersion(actor.system.settings.version, "1.6.0")) {
         const updateData = duplicate(actor);
-        let update = false;
+        
         updateData.system.settings.version = "1.6.0";
 
         if (updateData.type == CONFIG.wod.sheettype.creature) {
@@ -403,15 +438,15 @@ export const updates = async () => {
         
         if (update) {
             await actor.update(updateData);
+            update = false;
         }
     }
 
     if (compareVersion(actor.system.settings.version, "2.1.0")) {
         let updateData = duplicate(actor);
-        let update = false;
 
         if (updateData.type != CONFIG.wod.sheettype.spirit) {
-            updateData.system.settings.version = migrationVersion;            
+            updateData.system.settings.version = "2.1.0";            
 
             if (updateData.type == CONFIG.wod.sheettype.mage) {
                 update = true;
@@ -538,33 +573,194 @@ export const updates = async () => {
         }
     }  
 
-/*     if (compareVersion(actor.system.settings.version, "2.2.0")) {        
-        const updateData = duplicate(actor);
-        let update = false;
+    if (compareVersion(actor.system.settings.version, "2.2.0")) {        
+        let updateData = duplicate(actor);
 
         updateData.system.settings.version = "2.2.0";
-        updateData.system.health['-=totalhealthlevels'] = null;
-        update = true;
 
-        if (update) {
+        // move of advantages to mortals
+        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+            updateData.system.advantages.willpower = updateData.system.willpower;
+            updateData.system.advantages.bloodpool = updateData.system.bloodpool;
 
-            await actor.update(updateData);
+            updateData.system.settings.haswillpower = true;
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+            updateData.system.advantages.rage = updateData.system.rage;
+            updateData.system.advantages.gnosis = updateData.system.gnosis;
+
+            updateData.system.settings.hasrage = true;
+            updateData.system.settings.hasgnosis = true;
+            
+            updateData.system.settings.powers.hasgifts = true;
+
+            update = true;
+        }        
+
+        if (updateData.type == CONFIG.wod.sheettype.vampire) {
+            updateData.system.advantages.rage.bonus = updateData.system.rage.bonus;       
+            updateData.system.advantages.virtues = updateData.system.virtues;
+            updateData.system.advantages.virtues.conscience.permanent = updateData.system.advantages.virtues.conscience.value;
+            updateData.system.advantages.virtues.selfcontrol.permanent = updateData.system.advantages.virtues.selfcontrol.value;
+            updateData.system.advantages.virtues.courage.permanent = updateData.system.advantages.virtues.courage.value;
+
+            updateData.system.advantages.path = updateData.system.path;
+            updateData.system.advantages.path.permanent = updateData.system.advantages.path.value;
+
+            updateData.system.settings.haspath = true;
+            updateData.system.settings.hasbloodpool = true;
+            updateData.system.settings.hasvirtue = true;
+            updateData.system.settings.powers.hasdisciplines = true;
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.mage) {
+            updateData.system.advantages.arete = updateData.system.arete;
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.changeling) {
+            updateData.system.advantages.glamour = updateData.system.glamour;
+            updateData.system.advantages.banality = updateData.system.banality;
+            updateData.system.advantages.nightmare = updateData.system.nightmare;
+
+            updateData.system.settings.hasglamour = true;
+            updateData.system.settings.hasbanality = true;
+            updateData.system.settings.hasnightmare = true;
+            updateData.system.settings.powers.hasarts = true;
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.changingbreed) {
+            updateData.system.advantages.rage = updateData.system.rage;
+            updateData.system.advantages.gnosis = updateData.system.gnosis;
+
+            updateData.system.settings.hasrage = true;
+            updateData.system.settings.hasgnosis = true;
+            updateData.system.settings.powers.hasgifts = true;
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.creature) {
+            updateData.system.advantages.rage = updateData.system.rage;
+            updateData.system.advantages.gnosis = updateData.system.gnosis;
+            updateData.system.advantages.glamour = updateData.system.glamour;
+            updateData.system.advantages.banality = updateData.system.banality;
+            updateData.system.advantages.nightmare = updateData.system.nightmare;
+            updateData.system.advantages.essence = updateData.system.essence;
+
+            updateData.system.settings.hasrage = true;
+            updateData.system.settings.hasgnosis = true;
+            updateData.system.settings.powers.haspowers = true;
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.spirit) {
+            updateData.system.advantages.rage = updateData.system.rage;
+            updateData.system.advantages.gnosis = updateData.system.gnosis;
+            updateData.system.advantages.willpower = updateData.system.willpower;
+            updateData.system.advantages.bloodpool = updateData.system.bloodpool;
+            updateData.system.advantages.essence = updateData.system.essence;
+
+            updateData.system.settings.hasrage = true;
+            updateData.system.settings.hasgnosis = true;
+            updateData.system.settings.haswillpower = true;
+            updateData.system.settings.hasessence = true;
+
+            updateData.system.settings.powers.hascharms = true;
+            updateData.system.settings.powers.hasgifts = true;
+
             update = false;
         }
-    } */
+
+        if (update) {            
+            await actor.update(updateData);
+            update = false;
+        }        
+
+        // old errors
+        if (updateData.type != CONFIG.wod.sheettype.mage) {
+            updateData['system.-=paradox'] = null;
+        }
+
+        // remove of the old advantages
+        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+            updateData['system.-=willpower'] = null;
+            updateData['system.-=bloodpool'] = null;
+            updateData['system.health.-=totalhealthlevels'] = null;
+            updateData['system.-=isactive'] = null;
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+            updateData['system.-=rage'] = null;
+            updateData['system.-=gnosis'] = null;
+            update = true;
+        }      
+        
+        if (updateData.type == CONFIG.wod.sheettype.vampire) {
+            updateData['system.advantages.path.-=value'] = null;
+            updateData['system.advantages.virtues.conscience.-=value'] = null;
+            updateData['system.advantages.virtues.selfcontrol.-=value'] = null;
+            updateData['system.advantages.virtues.courage.-=value'] = null;
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.mage) {
+            updateData['system.-=arete'] = null;
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.changeling) {
+            updateData['system.-=glamour'] = null;
+            updateData['system.-=banality'] = null;
+            updateData['system.-=nightmare'] = null;
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.creature) {
+            updateData['system.-=rage'] = null;
+            updateData['system.-=gnosis'] = null;
+            updateData['system.-=glamour'] = null;
+            updateData['system.-=banality'] = null;
+            updateData['system.-=nightmare'] = null;
+            updateData['system.-=essence'] = null;
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.spirit) {
+            updateData['system.-=rage'] = null;
+            updateData['system.-=gnosis'] = null;
+            updateData['system.-=willpower'] = null;
+            updateData['system.-=essence'] = null;
+            update = true;
+        }
+
+        if (update) {
+            await actor.update(updateData);
+            update = false;
+        }        
+    }
     
     for (const item of actor.items) {
-        await updateItem(item, migrationVersion);
+        await updateItem(item);
     }
 };
 
 /**
  * patch an item to the latest version
  * @param {Item} item   The Item to Update
- * @param migrationVersion   The version that is being pushed at the world
  * 
  */
- export const updateItem = async function(item, migrationVersion) {
+ export const updateItem = async function(item) {
     let altered = false;
 
     if (compareVersion(item.system.version, "1.5.0")) {
@@ -763,6 +959,28 @@ export const updates = async () => {
             altered = false;
         }
     }
+
+    if (compareVersion(item.system.version, "2.2.0")) {
+        const itemData = duplicate(item);
+        itemData.system.version = "2.2.0";
+
+        if (item.type == "Power") {
+            itemData.system.details = itemData.system.system;
+            itemData['system.-=system'] = null;
+
+            altered = true;
+        }
+        if (item.type == "Fetish") {
+            itemData.system.difficulty = 6;
+            altered = true;
+        }
+
+        if (altered) {
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -791,7 +1009,7 @@ export const updates = async () => {
                     await updateActor(ent, migrationVersion);
                     break;
                 case "Item":
-                    await updateItem(ent, migrationVersion);
+                    await updateItem(ent);
                     break;
                 case "Scene":
                     break;
@@ -801,13 +1019,13 @@ export const updates = async () => {
 
         // Handle migration failures
         catch(err) {
-            err.message = `Failed cofd system migration for entity ${ent.name} in pack ${pack.collection}: ${err.message}`;
+            err.message = `Failed migration for entity ${ent.name} in pack ${pack.collection}: ${err.message}`;
             console.error(err);
         }
     }
 
     // Apply the original locked status for the pack
-    pack.configure({locked: wasLocked});
+    await pack.configure({locked: wasLocked});
     console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
  };
 
@@ -825,6 +1043,7 @@ export const updates = async () => {
     let patch150 = false;
     let patch160 = false;
     let patch210 = false;
+    let patch220 = false;
 
     let newfunctions = "";
 
@@ -838,6 +1057,7 @@ export const updates = async () => {
         patch150 = game.settings.get('worldofdarkness', 'patch150');
         patch160 = game.settings.get('worldofdarkness', 'patch160');
         patch210 = game.settings.get('worldofdarkness', 'patch210');
+        patch220 = game.settings.get('worldofdarkness', 'patch220');
     } 
     catch (e) {
     }
@@ -939,22 +1159,35 @@ export const updates = async () => {
         newfunctions += "<li>[WtA] Added Shapeshift button</li>";
         newfunctions += "<li>[VtM] Added support temporary generation</li>";
         newfunctions += "<li>[MtA] Added resonance and fetish support</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";        
+    }
+
+    if (!patch220) {
+        game.settings.set('worldofdarkness', 'patch220', true);
+
+        newfunctions += "<li>Added Hunter the Reckoning</li>";
+        newfunctions += "<li>Removed the 'clear' icon</li>";
+        newfunctions += "<li>Added functions to handle Ghouls and Kinfolk</li>";
+        newfunctions += "<li>Added more functionality to Other Traits</li>";
+        newfunctions += "<li>Expanded the settings of Mortals and Creatures</li>";
+        newfunctions += "<li>Added to be able to set max trait of abilities to above 5</li>";
+        newfunctions += "<li>[WtA] Added remain active icon</li>";
+        newfunctions += "<li>[WtA] Added shapeshift image on token</li>";
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
-        
     }
 
     if (newfunctions == "") {
-        newfunctions += '<li>Fixed problems with displaying Features on Note tab correctly.</li>';
+        /* newfunctions += '<li>Fixed problems with displaying Features on Note tab correctly.</li>';
         newfunctions += '<br />';
         newfunctions += 'Older Issues fix in version:<br />';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/337">#337</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/361">#361</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/360">#360</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/355">#355</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/354">#354</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/356">#356</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/347">#347</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/345">#345</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/343">#343</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/340">#340</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/348">#348</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/339">#339</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a></li>';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/337">#337</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/361">#361</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/360">#360</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/355">#355</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/354">#354</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/356">#356</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/347">#347</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/345">#345</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/343">#343</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/340">#340</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/348">#348</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/339">#339</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/349">#349</a></li>'; */
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-210">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-220">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 

@@ -10,7 +10,7 @@
 
         <div class="centerText dialog-area">
             {{#numFromLoop 3 10}}
-                <button id="difficulty" class="button pointer dialog-difficulty-button {{#if (eq ../object.totalDifficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.totalDifficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/numFromLoop}}
         </div>
 
@@ -33,11 +33,11 @@
     {{#if (eq object.type "Werewolf")}}
 
         <div class="centerText dialog-area">
-            <button id="moon" class="button pointer dialog-moon-button {{#if (eq object.selectedMoon "new")}}active{{/if}}" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</button>
-            <button id="moon" class="button pointer dialog-moon-button {{#if (eq object.selectedMoon "crescent")}}active{{/if}}" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</button>
-            <button id="moon" class="button pointer dialog-moon-button {{#if (eq object.selectedMoon "half")}}active{{/if}}" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</button>
-            <button id="moon" class="button pointer dialog-moon-button {{#if (eq object.selectedMoon "gibbous")}}active{{/if}}" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</button>
-            <button id="moon" class="button pointer dialog-moon-button {{#if (eq object.selectedMoon "full")}}active{{/if}}" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</button>
+            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "new")}}active{{/if}}" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</button>
+            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "crescent")}}active{{/if}}" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</button>
+            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "half")}}active{{/if}}" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</button>
+            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "gibbous")}}active{{/if}}" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</button>
+            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "full")}}active{{/if}}" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</button>
         </div>
 
         <div class="dialog-area">
@@ -50,8 +50,8 @@
     {{/if}}
 
     <div class="centerText">
-        <button id="actionButton" class="button pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
 </form>

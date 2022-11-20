@@ -2,7 +2,7 @@
 
     <div class="headlineRow splatFont">{{localize "wod.types.charm"}}</div>
 
-    {{#each actor.charmlist as |item id|}}
+    {{#each actor.system.listdata.powers.charms.charmlist as |item id|}}
 
         <div class="clearareaBox {{#if item.system.isrollable}}spirit-rollablerow{{else}}spirit-row{{/if}}">
             <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
@@ -12,27 +12,30 @@
                 data-itemid="{{item._id}}">{{item.name}}</div>
             {{#if item.system.isrollable}}
                 <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                <div class="pullLeft gift-valueBox headlineNormal centerText">
-                    {{#iff item.system.difficulty "==" -1}}
+                <div class="pullLeft power-valueBox headlineNormal centerText">
+                    {{#if (eq item.system.difficulty "-1")}}
                         {{localize "wod.labels.varies"}}
                     {{else}}
                         {{item.system.difficulty}}
-                    {{/iff}}
+                    {{/if}}
                 </div>
             {{/if}}
 
             <div class="gift-iconbox">
                 <div class="pullLeft pointer headlineNormal tooltip">
                     <i class="icon fa-solid fa-memo"></i>
-                    <span class="tooltiptext">{{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}</span>
+                    <span class="tooltiptext">
+                        {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
+                    </span>
                 </div>
                 <div class="pullLeft">
                     <a class="send-chat" 
-                        title="{{localize "wod.labels.send"}}" 
+                        title="{{localize 'wod.labels.send'}}" 
                         data-type="Charm" 
                         data-item-id="{{item._id}}" 
                         data-headline="<h2>{{item.name}}</h2>" 
                         data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                            <br />
                                             <span class='chatt-text'>{{item.system.description}}</span>""><i class="icon fa-solid fa-comment-dots"></i></a>
                     {{#if ../locked}}
                     {{else}}

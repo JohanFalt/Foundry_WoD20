@@ -35,7 +35,13 @@
 			"usesplatfont": "Schriftart Splat verwenden",
 			"usesplatfonthint": "Mit dieser Einstellung schalten Sie den speziellen Schriftstil aus, der von den verschiedenen Bögen auf Weltebene verwendet wird",
 			"usesworldanvil": "World Anvil Links verwenden",
-			"usesworldanvilhint": "Mit dieser Einstellung wird ein Feld in Bio angezeigt, in dem Sie den Link zur World Anvil Seite des Bogens speichern können"
+			"usesworldanvilhint": "Mit dieser Einstellung wird ein Feld in Bio angezeigt, in dem Sie den Link zur World Anvil Seite des Bogens speichern können",
+			"huntersettings": "Hunter Settings",
+			"huntersettingshint": "World settings used in Hunter the Reckoning",
+			"edgesettings": "Gaining Edge setting",
+			"edgesettingshints": "Gaining Edge setting",
+			"choicevirtue": "Spending virtue points",
+			"choiceexperience": "Spending experience points"
 		},
 		"types": {
 			"mortal": "Sterbliche",
@@ -61,6 +67,8 @@
 			"disciplinepathpower": "Disziplin Pfad Kraft",
 			"art": "Künste",
 			"artpower": "Kunstkraft",
+			"edge": "Edge",
+			"edgepower": "Edge Power",
 			"ritual": "Ritual",
 			"talen": "Talen",
 			"fetish": "Fetisch",
@@ -87,6 +95,7 @@
 			"magic": "Magik",
 			"disciplines": "Disziplinen",
 			"dreaming": "Dreaming",
+			"edge": "Edges",
 			"shapechange": "Formen",
 			"sheet": "Bogen Einstellungen",
 			"attribute": "Attributs Einstellungen"
@@ -104,7 +113,7 @@
 			"nature": "Wesen",
 			"demeanor": "Verhalten",
 			"concept": "Konzept",
-			"derangement": "Umnachtung",
+			"derangement": "Geistesströrung",
 			"worldanvil": "World Anvil",
 			"worldanvillink": "World Anvil link",
 			"noworldanvillink": "Kein World Anvil link",
@@ -369,6 +378,19 @@
 				"threshold": "Schwelle für Verwüstung / Missbrauch",
 				"legacyseelie": "Seelie Erbe",
 				"legacyunseelie": "Unseelie Erbe"
+			},
+			"hunter": {
+				"creed": "Creed",
+				"avenger": "Avenger",
+				"defender": "Defender",
+				"hermit": "Hermit",
+				"innocent": "Innocent",
+				"judge": "Judge",
+				"martyr": "Martyr",
+				"redeemer": "Redeemer",
+				"visionary": "Visionary",
+				"wayword": "Wayword",
+				"primaryvirtue": "Primary Virtue"
 			}
 		},
 		"attributes": {
@@ -399,9 +421,11 @@
 			"athletics": "Sportlichkeit",
 			"awareness": "Intuition",
 			"brawl": "Handgemenge",
+			"dodge": "Ausweichen",
 			"empathy": "Empathie",
 			"expression": "Ausdruck",
 			"intimidation": "Einschüchtern",
+			"intuition": "Sechster Sinn",
 			"kenning": "Kenning",
 			"leadership": "Führung",
 			"legerdemain": "Taschenspielertricks",
@@ -411,6 +435,7 @@
 
 			"animalken": "Tierkunde",
 			"craft": "Handwerk",
+			"demolitions": "Sprengstoff",
 			"drive": "Fahren",
 			"etiquette": "Etikette",
 			"firearms": "Schusswaffen",
@@ -420,6 +445,7 @@
 			"melee": "Nahkampf",
 			"performance": "Vortrag",
 			"research": "Recherche",
+			"security": "Sicherheit",
 			"stealth": "Heimlichkeit",
 			"survival": "Überleben",
 
@@ -435,6 +461,7 @@
 			"herbalism": "Kräuterkunde",
 			"investigation": "Nachforschung",
 			"law": "Gesetz",
+			"linguistics": "Sprachen",
 			"medicine": "Medizin",
 			"occult": "Okkultismus",
 			"politics": "Politik",
@@ -491,7 +518,10 @@
 				"conviction": "Überzeugung",
 				"selfcontrol": "Selbstbeherrschung",
 				"instinct": "Instinkt",
-				"courage": "Mut"
+				"courage": "Mut",
+				"mercy": "Mercy",
+				"vision": "Vision",
+				"zeal": "Zeal"
 			},
 			"bloodpool": "Blutpunkte",
 			"perturn": "Blut pro Runde",
@@ -582,7 +612,8 @@
 			"paradox": "Paradoxon",
 			"glamour": "Glamour",
 			"banality": "Banalität",
-			"nightmare": "Alptraum"
+			"nightmare": "Alptraum",
+			"conviction": "Conviction"
 		},
 		"combat": {
 			"conditions": {
@@ -697,7 +728,9 @@
 			"unsorteddisciplines": "Hier sind alle unsortierten Disziplinen, die eine ausgewählte Disziplin erhalten müssen. Klicken Sie auf die Überschrift, um sie zu sortieren.",
 			"unsortedpaths": "Hier sind alle unsortierten Pfadbefugnisse, die einen ausgewählten Pfad erhalten müssen. Klicken Sie auf die Überschrift, um sie zu sortieren.",
 			"unsortedarts": "Hier sind alle unsortierten Künste die zugeordnet werden müssen. Klicken Sie auf die Überschrift, um eine zu zu weisen.",
-			"arts": "Künste"
+			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
+			"arts": "Künste",
+			"edges": "Edges"
 		},
 		"spheres": {
 			"spheres": "Sphären",
@@ -797,7 +830,8 @@
 				"system": "System",
 				"cleardiscipline": "Klare Verbindung zur Disziplin",
 				"clearpath": "Klare Pfad Verbindung",
-				"clearart": "Klare Kunstverbindung"
+				"clearart": "Klare Kunstverbindung",
+				"clearedge": "Clear edge connection"
 			},
 			"notes": {
 				"backgrounds": "Hintergründe",
@@ -819,11 +853,14 @@
 				"permparadox": "Permanentes Paradoxon",
 				"path": "Wähle Charakter Pfad",
 				"selectpath": "Wähle Pfad",
-				"usedadvantages": "Lege fest, welche Art von Vorteilen die Kreatur verwendet",
-				"usedpowers": "Festlegen, welche Art von Kräfte der Bogen verwendet",
+				"usedadvantages": "Festlegen, welche Art von Kräfte der Bogen verwendet",
+				"usedpowers": "Festlegen, welche Art von Kräften der Bogen verwendet",
 				"essencevalue": "Wert der Essenz festlegen",
 				"sheetfont": "Spezielle Schriftart für das Blatt verwenden",
-				"secondaryabilities": "Sekundäre Fähigkeiten"
+				"secondaryabilities": "Sekundäre Fähigkeiten",
+				"abilitiesmaxrating": "Maximale Werte für Fähigkeiten",
+				"hasdisciplines": "verfügt über Disziplinen und Rituale",
+				"hasgifts": "Verfügt über Gaben und Riten"
 			},
 			"trait": {
 				"meleeweapon": "Aufgelistete Nahkampfwaffe",
@@ -877,6 +914,10 @@
 				"fetish": "Fetisch bearbeiten ",
 				"talen": "Talen bearbeiten",
 				"rote": "Zauberformel bearbeiten",
+				"art": "Kunst editieren",
+				"artpower": "Kunstkraft bearbeiten",
+				"edge": "Edit edge",
+				"edgepower": "Edit edge power",
 				"ability": "Sekundäre Fähigkeit bearbeiten",
 				"resonance": "Resonanz bearbeiten",
 				"othertraits": "Andere Eigenschaft bearbeiten",
@@ -902,6 +943,10 @@
 				"fetish": "Fetish entfernen",
 				"talen": "Talen entfernen",
 				"rote": "Zauberformel entfernen",
+				"art": "Entferne Kunst",
+				"artpower": "Kunstkraft entfernen",
+				"edge": "Remove edge",
+				"edgepower": "Remove edge power",
 				"ability": "Sekundäre Fähigkeit entfernen",
 				"resonance": "Resonanz entfernen",
 				"othertraits": "Andere Eigenschaft entfernen",
@@ -945,7 +990,9 @@
 			"characteradded": "Charakter bereits zum Combat Tracker hinzugefügt",
 			"initiativealready": "hat bereits Initiative",
 			"rollinginitiative": "Würfel Initative",
-			"rollingsoak": "Würfel Absorbation"
+			"rollingsoak": "Würfel Absorbation",
+			"rollingremainactive": "Würfel, um aktiv zu bleiben",
+			"rollingremainactivetext": "Jeder Erfolg heilt eine Stufe Lebenspunkte von jeder Art von Schaden. Unabhängig davon, wie viel Schaden geheilt wird, gerät der Charakter in einen Berserkerrausch. Ein Werwolf erhält eine Kampfnarbe, wenn er erfolgreich aktiv bleibt."
 		},
 		"dialog": {	
 			"save": "Speichern",
@@ -956,6 +1003,7 @@
 			"successesrolled": "Erfolge bereits gewürfelt",
 			"numbersuccesses": "Anzahl der bisherigen Erfolge",
 			"neededsuccesses": "Erforderliche Anzahl von Erfolgen",
+			"usewoundpenalty": "Wundabzug verwenden",
 			"aretecasting": {
 				"castspell": "Zaubern",
 				"castingspell": "Zauberspruch",	

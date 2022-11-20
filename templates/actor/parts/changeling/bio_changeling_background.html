@@ -60,7 +60,7 @@
                 <select class="sheet-infoValues editable" name="system.affinityrealm" data-name="data.system.affinityrealm" data-dtype="String">
                     {{#select data.system.affinityrealm}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        {{#each actor.system.listdata.realms as |realm key|}}
+                        {{#each actor.system.listdata.powers.arts.realms as |realm key|}}
                             <option value="{{realm.label}}">{{localize realm.label}}</option>
                         {{/each}}
                     {{/select}}

@@ -1,6 +1,5 @@
 import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
-//import ActionHelper from "../scripts/action-helpers.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 
 export class Treasure {
@@ -63,6 +62,13 @@ export class DialogItem extends FormApplication {
         data.actorData = this.actor.system;
         data.config = CONFIG.wod;
 
+        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+            data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+        }
+        else {
+            data.object.sheettype = "werewolfDialog";
+        }
+
         // is dice1 an Attributes
         if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
@@ -78,12 +84,12 @@ export class DialogItem extends FormApplication {
             }
         }
         // is dice1 an Advantage
-        else if (this.actor.system[data.object.dice1]?.roll != undefined) { 
-            data.object.attributeValue = parseInt(this.actor.system[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system[data.object.dice1].label);
+        else if (this.actor.system?.advantages[data.object.dice1].roll != undefined) { 
+            data.object.attributeValue = parseInt(this.actor.system.advantages[data.object.dice1].roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.system[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+            if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
                 if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
@@ -103,13 +109,13 @@ export class DialogItem extends FormApplication {
             }
         }        
         // virtues
-        else if ((this.actor.system.virtues != undefined) && (this.actor.system.virtues[data.object.dice1]?.roll != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.system.virtues[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system.virtues[data.object.dice1].label);
+        else if ((this.actor.system?.advantages.virtues != undefined) && (this.actor.system.advantages.virtues[data.object.dice1]?.roll != undefined)) {
+            data.object.attributeValue = parseInt(this.actor.system.advantages.virtues[data.object.dice1].roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice1].label);
         }
         else if (data.object.dice1 == "path") {
-            data.object.attributeValue = parseInt(this.actor.system.path?.roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system.path?.label);
+            data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
         }
         else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
             if (!this.object.isUnleashing) {
@@ -118,8 +124,8 @@ export class DialogItem extends FormApplication {
                 data.object.attributeName = art.name;
             }
             else {
-                data.object.attributeValue = parseInt(this.actor.system.glamour.roll);
-                data.object.attributeName = game.i18n.localize(this.actor.system.glamour.label);
+                data.object.attributeValue = parseInt(this.actor.system.advantages.glamour.roll);
+                data.object.attributeName = game.i18n.localize(this.actor.system.advantages.glamour.label);
                 data.object.difficulty = 7;
 
                 for (const realm of data.object.selectedRealms) {
@@ -171,13 +177,13 @@ export class DialogItem extends FormApplication {
             }
         }                
         // virtues
-        else if ((this.actor.system.virtues != undefined) && (this.actor.system.virtues[data.object.dice2]?.roll != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.virtues[data.object.dice2].roll);
-            data.object.abilityName = game.i18n.localize(this.actor.system.virtues[data.object.dice2].label);
+        else if ((this.actor.system.advantages.virtues != undefined) && (this.actor.system.advantages.virtues[data.object.dice2]?.roll != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.advantages.virtues[data.object.dice2].roll);
+            data.object.abilityName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice2].label);
         }    
         else if (data.object.dice2 == "path") {
-            data.object.abilityValue = parseInt(this.actor.system.path?.roll);
-            data.object.abilityName = game.i18n.localize(this.actor.system.path?.label);
+            data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);
+            data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
         } 
         else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
             if (!this.object.isUnleashing) {
@@ -185,8 +191,8 @@ export class DialogItem extends FormApplication {
                 data.object.bonus = parseInt(realm);
             }
             else {
-                data.object.abilityValue = parseInt(this.actor.system.nightmare.roll);
-                data.object.abilityName = game.i18n.localize(this.actor.system.nightmare.label);
+                data.object.abilityValue = parseInt(this.actor.system.advantages.nightmare.roll);
+                data.object.abilityName = game.i18n.localize(this.actor.system.advantages.nightmare.label);
                 data.object.bonus = 0;
             }
         }

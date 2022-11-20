@@ -26,7 +26,7 @@
 							data-attribute="true">{{localize attribute.label}}</label>
 						<div class="resource-value dotvalueArea pullRight" 
 							data-value="{{attribute.value}}" 
-							data-name="system.attributes.{{key}}.value">
+							data-name="attributes.{{key}}.value">
 
 							{{#if (eq ../actor.type ../config.sheettype.werewolf)}}
 								<span class="attribute-total">{{attribute.total}}</span>
@@ -35,14 +35,6 @@
 							{{#if (eq ../actor.type ../config.sheettype.changingbreed)}}
 								<span class="attribute-total">{{attribute.total}}</span>
 							{{/if}}
-
-						<!--		
-							{{#iff attribute.value "!=" attribute.total}}
-							{{attribute.total}}
-							{{/iff}}  
-						-->
-
-							<span class="resource-value-empty" data-type="{{../config.sheettype.mortal}}"></span>
 
 							{{#numLoop attribute.max}}
 							
