@@ -21,6 +21,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 - [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension)
 - [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse)
 - [Changeling the Dreaming (C20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changeling-the-Dreaming)
+- Hunter the Reckoning (HtR)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)
 - Spirits
 - Creatures
