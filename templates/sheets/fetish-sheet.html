@@ -14,12 +14,12 @@
 					{{item.name}}
 				</div>
 				<div class="top-side top-sidetext centerText">
-					{{#iff data.system.type "==" "wod.types.fetish"}} 
+					{{#if (eq data.system.type "wod.types.fetish")}} 
 						{{captilize (localize "wod.types.fetish")}}
-					{{/iff}}
-					{{#iff data.system.type "==" "wod.types.talen"}} 
+					{{/if}}
+					{{#if (eq data.system.type "wod.types.talen")}} 
 						{{captilize (localize "wod.types.talen")}}
-					{{/iff}}
+					{{/if}}
 				</div>				
 			</div>
 		</header>
@@ -45,7 +45,7 @@
 			</div>
 			{{/if}}
 
-			{{#if data.system.type "==" "wod.types.fetish"}}
+			{{#if (eq data.system.type "wod.types.fetish")}}
 			<!-- level -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
@@ -62,7 +62,7 @@
 			</div>
 			{{else}}
 				<input type="hidden" name="system.level" value="1" />
-			{{/iff}}
+			{{/if}}
 
 			<input type="hidden" name="system.difficulty" value="6" />
 

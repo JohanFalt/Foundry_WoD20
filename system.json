@@ -2,7 +2,7 @@
   "id": "worldofdarkness",
   "title": "World of Darkness 20th edition",
   "description": "To play World of Darkness 20th ed. Support for Werewolf the Apocalypse (W20), Mage the Ascension (M20) and Vampire the Masquerade (V20). Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "compatibility": {
     "minimum": "10",
     "verified": "10.290",
@@ -20,8 +20,8 @@
     "wod.js"
   ],
   "styles": [
-    "css/responsive.css",
     "css/wod.css",
+    "css/responsive.css",    
     "lib/koption/koptions.css",
     "lib/editor/editor.css"
   ],

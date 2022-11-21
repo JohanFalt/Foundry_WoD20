@@ -7,13 +7,13 @@
 </div>
 
 <!-- system -->
-{{#iff data.system.type "!=" "wod.types.charm"}}
-    {{#iff data.system.type "!=" "wod.types.power"}}
+{{#if (ne data.system.type "wod.types.charm")}}
+    {{#if (ne data.system.type "wod.types.power")}}
         <div class="infobox">
             <label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
             <div class="clearareaBox">
                 {{editor data.details target="system.details" button=true owner=owner editable=locked}}
             </div>
         </div>
-    {{/iff}}
-{{/iff}}
+    {{/if}}
+{{/if}}
