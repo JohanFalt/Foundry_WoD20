@@ -192,7 +192,7 @@
                     <div class="headlineGroup splatFont">{{localize "wod.dialog.aretecasting.availspheres"}}</div>
 
                     {{#each actorData.spheres as |sphere key|}}
-                    <div class="attribute-rowheight {{#iff sphere.value "==" 0}}hide{{/iff}}">
+                    <div class="attribute-rowheight {{#if (eq sphere.value 0)}}hide{{/if}}">
                         <label for="{{key}}" class="pullLeft spheres-headlineWidth headlineNormal">{{localize sphere.label}}</label>
                         <div class="resource-value pullLeft" id="{{key}}" data-name="{{key}}">
                             {{#numLoop sphere.value}}

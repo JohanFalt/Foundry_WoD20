@@ -109,6 +109,16 @@ export class WoDItemSheet extends ItemSheet {
 
 		steps.removeClass("active");
 
+		if (fields[1] === "spheres") {
+			const itemData = duplicate(this.item);
+			
+			if ((itemData.system[fields[2]] == 1) && (index == 0)) {
+				this._assignToItemField(fields, 0);
+
+				return;
+			}
+		}
+		
 		steps.each(function (i) {
 			if (i <= index) {
 				$(this).addClass("active");

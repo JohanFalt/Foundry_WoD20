@@ -113,7 +113,7 @@
 			"nature": "Wesen",
 			"demeanor": "Verhalten",
 			"concept": "Konzept",
-			"derangement": "Geistesströrung",
+			"derangement": "Geistesstörung",
 			"worldanvil": "World Anvil",
 			"worldanvillink": "World Anvil link",
 			"noworldanvillink": "Kein World Anvil link",
@@ -751,8 +751,8 @@
 			"vulgarspellwitness": "Vulgärer Spruch mit Zeugen",
 			"focus": "Fokus",
 			"paradigm": "Paradigma",
-			"practice": "Übung",
-			"instruments": "Instrumente"
+			"practice": "Praktiken",
+			"instruments": "Hilfsmittel"
 		},
 		"realms": {
 			"headline": "Reiche",

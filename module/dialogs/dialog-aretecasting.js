@@ -248,7 +248,7 @@ export class DialogAreteCasting extends FormApplication {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
-        const type = dataset.type;
+        //const type = dataset.type;
 
         const parent = $(element.parentNode);
         const index = Number(dataset.index);
@@ -261,13 +261,22 @@ export class DialogAreteCasting extends FormApplication {
 
         steps.removeClass("active");
 
-        steps.each(function (i) {
-            if (i <= index) {
-                $(this).addClass("active");
-            }
-        });
+        let value = 0;
 
-        this.object.selectedSpheres = this._changedSelectedSphere(this.object.selectedSpheres, sphere, parseInt(index + 1));
+        if ((index == 0) && (this.object.selectedSpheres[sphere] == 1)) {
+            value = 0;
+        }
+        else {
+            value = parseInt(index + 1);
+
+            steps.each(function (i) {
+                if (i <= index) {
+                    $(this).addClass("active");
+                }
+            });
+        }
+
+        this.object.selectedSpheres = this._changedSelectedSphere(this.object.selectedSpheres, sphere, value);
         this.object.canCast = this._calculateDifficulty(false);
     }
 
@@ -382,6 +391,10 @@ export class DialogAreteCasting extends FormApplication {
         const rank = this.object._highestRank();
         let diff = -1;
         this.object.totalDifficulty = -1;
+
+        if (this.object.spelltype == undefined) {
+            this.object.spelltype = "";
+        }
 
         if ((rank == -1) && (showMessage)) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.aretecasting.nospheres"));
