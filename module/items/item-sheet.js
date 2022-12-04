@@ -50,6 +50,7 @@ export class WoDItemSheet extends ItemSheet {
 		data.graphicsettings = ActionHelper._getGraphicSettings();
 
 		data.locked = this.locked;
+		data.owner = this.actor;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
 
