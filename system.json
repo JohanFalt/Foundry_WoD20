@@ -2,11 +2,11 @@
   "id": "worldofdarkness",
   "title": "World of Darkness 20th edition",
   "description": "To play World of Darkness 20th ed. Support for Werewolf the Apocalypse (W20), Mage the Ascension (M20), Vampire the Masquerade (V20), Changeling the Dreaming (C20), Hunter the Reckoning (HtR). Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "compatibility": {
     "minimum": "10",
     "verified": "10.290",
-    "maximum": "10"
+    "maximum": "10.290"
   },
   "authors": [
     {
