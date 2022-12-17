@@ -36,12 +36,12 @@
 			"usesplatfonthint": "Con esta opción desactivas a nivel global la fuente especial usada por las diferentes fichas.",
 			"usesworldanvil": "Usar links de World Anvil",
 			"usesworldanvilhint": "Muestra una cuadro de entrada en la Biografía del Personaje donde puedes colocar el enlace de World Anvil de esa ficha.",
-			"huntersettings": "Hunter Settings",
-			"huntersettingshint": "World settings used in Hunter the Reckoning",
-			"edgesettings": "Gaining Edge setting",
-			"edgesettingshints": "Gaining Edge setting",
-			"choicevirtue": "Spending virtue points",
-			"choiceexperience": "Spending experience points"
+			"huntersettings": "Configuración de Cazador",
+			"huntersettingshint": "Configuración del mundo para Cazador: la Venganza",
+			"edgesettings": "Configuración adquirir Facultades",
+			"edgesettingshints": "Cómo conseguir Facultades",
+			"choicevirtue": "Gastando puntos de Virtud",
+			"choiceexperience": "Gastando puntos de Experiencia"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -56,7 +56,7 @@
 			"naturalweapon": "Arma natural",
 			"meleeweapon": "Arma C. C",
 			"rangedweapon": "Arma a distancia",
-			"armor": "Armaduras",
+			"armor": "Armadura",
 			"gift": "Don",
 			"rite": "Rito",
 			"charm": "Amuleto",
@@ -67,8 +67,8 @@
 			"disciplinepathpower": "Poder de Senda de Magia de Sangre",
 			"art": "Arte",
 			"artpower": "Poder de Arte",
-			"edge": "Edge",
-			"edgepower": "Edge Power",
+			"edge": "Facultad",
+			"edgepower": "Poder de Facultad",
 			"ritual": "Ritual",
 			"talen": "Talismán",
 			"fetish": "Fetiche",
@@ -95,7 +95,7 @@
 			"magic": "Magia",
 			"disciplines": "Disciplinas",
 			"dreaming": "Ensueño",
-			"edge": "Edges",
+			"edge": "Facultades",
 			"shapechange": "Cambio de Forma",
 			"sheet": "Configuración de ficha",
 			"attribute": "Configuración de Atributos"
@@ -133,7 +133,7 @@
 			},
 			"breed": "Raza",
 			"breedname": {
-				"homid": "Homid",
+				"homid": "Homínido",
 				"metis": "Metis",
 				"lupus": "Lupus",
 				"corvid": "Corvid",
@@ -380,17 +380,17 @@
 				"legacyunseelie": "Legado Oscuro"
 			},
 			"hunter": {
-				"creed": "Creed",
-				"avenger": "Avenger",
-				"defender": "Defender",
-				"hermit": "Hermit",
-				"innocent": "Innocent",
-				"judge": "Judge",
-				"martyr": "Martyr",
-				"redeemer": "Redeemer",
-				"visionary": "Visionary",
-				"wayword": "Wayword",
-				"primaryvirtue": "Primary Virtue"
+				"creed": "Credo",
+				"avenger": "Vengador",
+				"defender": "Defensor",
+				"hermit": "Hermitaño",
+				"innocent": "Inocente",
+				"judge": "Juez",
+				"martyr": "Mártir",
+				"redeemer": "Redentor",
+				"visionary": "Visionario",
+				"wayword": "Descarriado",
+				"primaryvirtue": "Virtud Primaria"
 			}
 		},
 		"attributes": {
@@ -414,14 +414,14 @@
 			"abilities": "Habilidades",
 			"talents": "Talentos",
 			"skills": "Técnicas",
-			"knowledges": "Conocimiento",
+			"knowledges": "Conocimientos",
 
 			"alertness": "Alerta",
 			"art": "Arte",
 			"athletics": "Atletismo",
 			"awareness": "Consciencia",
 			"brawl": "Pelea",
-			"dodge": "Dodge",
+			"dodge": "Esquivar",
 			"empathy": "Empatia",
 			"expression": "Expresion",
 			"intimidation": "Intimidación",
@@ -435,7 +435,7 @@
 
 			"animalken": "Trato con Animales",
 			"craft": "Artesania",
-			"demolitions": "Demolition",
+			"demolitions": "Demoliciones",
 			"drive": "Conducir",
 			"etiquette": "Etiqueta",
 			"firearms": "Armas de Fuego",
@@ -461,7 +461,7 @@
 			"herbalism": "Herbolaria",
 			"investigation": "Investigación",
 			"law": "Leyes",
-			"linguistics": "Linguistics",
+			"linguistics": "Lingüística",
 			"medicine": "Medicina",
 			"occult": "Ocultismo",
 			"politics": "Política",
@@ -519,9 +519,9 @@
 				"selfcontrol": "Autocontrol",
 				"instinct": "Instinto",
 				"courage": "Coraje",
-				"mercy": "Mercy",
-				"vision": "Vision",
-				"zeal": "Zeal"
+				"mercy": "Misericordia",
+				"vision": "Visión",
+				"zeal": "Celo"
 			},
 			"bloodpool": "Reserva de Sangre",
 			"perturn": "Sangre por turno",
@@ -613,7 +613,7 @@
 			"glamour": "Glamour",
 			"banality": "Banalidad",
 			"nightmare": "Pesadilla",
-			"conviction": "Conviction"
+			"conviction": "Convicción"
 		},
 		"combat": {
 			"conditions": {
@@ -728,9 +728,9 @@
 			"unsorteddisciplines": "Aquí están todos los Poderes de Disciplinas sin ordenar que necesitan una Disciplina seleccionada. Clic en el título para ordenar uno.",
 			"unsortedpaths": "Aquí están todos los Poderes de Senda sin ordenar que necesitan una Senda seleccionada. Clic en el título para ordenar uno.",
 			"unsortedarts": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Arte. Clic en el título para ordenar uno.",
-			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
+			"unsortededges": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a una Facultad. Clic en el título para ordenar uno.",
 			"arts": "Artes",
-			"edges": "Edges"
+			"edges": "Facultades"
 		},
 		"spheres": {
 			"spheres": "Esferas",
@@ -831,7 +831,7 @@
 				"cleardiscipline": "Limpiar conexiones de Disciplina",
 				"clearpath": "Limpiar conexiones de Senda",
 				"clearart": "Limpiar conexiones de Arte",
-				"clearedge": "Clear edge connection"
+				"clearedge": "Limpiar conexiones de Facultad"
 			},
 			"notes": {
 				"backgrounds": "Trasfondos",
@@ -853,14 +853,14 @@
 				"permparadox": "Paradoja Permanente",
 				"path": "Elige la Senda del personaje",
 				"selectpath": "Senda seleccionada",
-				"usedadvantages": "Set what type of advantages the sheet are using",
+				"usedadvantages": "Determinar qué tipo de ventajas está usando la ficha",
 				"usedpowers": "Determinar qué tipo de Poderes está usando la ficha",
 				"essencevalue": "Determinar valor de Esencia",
 				"sheetfont": "Usar fuente especial de ficha",
 				"secondaryabilities": "Habilidades secundarias",
-				"abilitiesmaxrating": "Max rating on Abilities",
-				"hasdisciplines": "Has disciplines and rituals",
-				"hasgifts": "Has gifts and rites"
+				"abilitiesmaxrating": "Puntuación máxima en Habilidades",
+				"hasdisciplines": "Tiene Disciplinas y Rituales",
+				"hasgifts": "Tiene Dones y Ritos"
 			},
 			"trait": {
 				"meleeweapon": "Usar para arma C. C.",
@@ -914,10 +914,10 @@
 				"fetish": "Editar Fetiche",
 				"talen": "Editar Talismán",
 				"rote": "Editar Fórmula",
-				"art": "Edit art",
-				"artpower": "Ediy art power",
-				"edge": "Edit edge",
-				"edgepower": "Edit edge power",
+				"art": "Editar Arte",
+				"artpower": "Editar Poder de Arte",
+				"edge": "Editar Facultad",
+				"edgepower": "Editar Poder de Facultad",
 				"ability": "Editar Habilidad secundaria",
 				"resonance": "Editar Resonancia",
 				"othertraits": "Editar Otro Rasgo",
@@ -943,10 +943,10 @@
 				"fetish": "Quitar Fetiche",
 				"talen": "Quitar Talismán",
 				"rote": "Quitar Fórmula",
-				"art": "Remnove art",
-				"artpower": "Remove art power",
-				"edge": "Remove edge",
-				"edgepower": "Remove edge power",
+				"art": "Quitar Arte",
+				"artpower": "Quitar Poder de Arte",
+				"edge": "Quitar Facultad",
+				"edgepower": "Quitar Poder de Facultad",
 				"ability": "Quitar Habilidad secundaria",
 				"resonance": "Quitar Resonancia",
 				"othertraits": "Quitar Otro Rasgo",
@@ -991,8 +991,8 @@
 			"initiativealready": "ya tiene iniciativa",
 			"rollinginitiative": "Tirada de Iniciativa",
 			"rollingsoak": "Tirada de absorción",
-			"rollingremainactive": "Roll to remain active",
-			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active."
+			"rollingremainactive": "Tirada para permanecer activo y consciente",
+			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito."
 		},
 		"dialog": {	
 			"save": "Guardar",
@@ -1003,7 +1003,7 @@
 			"successesrolled": "Éxitos acumulados",
 			"numbersuccesses": "Anterior cantidad de éxitos",
 			"neededsuccesses": "Cantidad de éxitos requerida",
-			"usewoundpenalty": "Use wound penalty",
+			"usewoundpenalty": "Usar penalizador de heridas",
 			"aretecasting": {
 				"castspell": "Lanzar hechizo",
 				"castingspell": "Lanzando hechizo",	
@@ -1072,7 +1072,7 @@
 				"rollattack": "Tirada de ataque",
 				"rolldamage": "Tirada de daño",
 				"extrasuccesses": "Éxitos adicionales",
-				"usingburst": "Using burst fire",
+				"usingburst": "Usando ráfaga",
 				"usingauto": "Usando fuego automático",
 				"usingspray": "Usando fuego de cobertura/supresión",
 				"singleshot": "Disparo único",
