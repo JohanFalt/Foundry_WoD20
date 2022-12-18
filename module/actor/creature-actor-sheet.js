@@ -37,6 +37,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.creature) {
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.version = game.data.system.version;
 
 				ActionHelper._setCreatureAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);

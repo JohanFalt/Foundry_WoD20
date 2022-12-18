@@ -52,7 +52,8 @@ export class MortalActorSheet extends ActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.mortal) {
-				actorData.system.settings.iscreated = true;					
+				actorData.system.settings.iscreated = true;		
+				actorData.system.settings.version = game.data.system.version;
 				
 				ActionHelper._setMortalAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);

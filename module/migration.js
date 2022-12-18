@@ -244,6 +244,12 @@ export const updates = async () => {
  export const updateActor = async function(actor, migrationVersion) {
     let update = false;
 
+    if (actor.system.settings.version == "") {
+        const updateData = duplicate(actor);
+        updateData.system.settings.version = "2.2.0";
+        await actor.update(updateData);
+    }
+
     if (compareVersion(actor.system.settings.version, "1.5.0")) {
         
         const updateData = duplicate(actor);
@@ -453,9 +459,16 @@ export const updates = async () => {
 
                 updateData.system.affiliation = game.i18n.localize(updateData.system.affiliation);
 
-                updateData.system.abilities.skill.technology.value = updateData.system.abilities.knowledge.technology.value;
-                updateData.system.abilities.skill.technology.speciality = updateData.system.abilities.knowledge.technology.speciality;
-                updateData.system.abilities.skill.technology.altlabel = updateData.system.abilities.knowledge.technology.altlabel;
+                if (updateData.system.abilities.knowledge.technology.value != undefined) {
+                    updateData.system.abilities.skill.technology.value = updateData.system.abilities.knowledge.technology.value;
+                }
+                if (updateData.system.abilities.knowledge.technology.speciality != undefined) {
+                    updateData.system.abilities.skill.technology.speciality = updateData.system.abilities.knowledge.technology.speciality;
+                }
+                if (updateData.system.abilities.knowledge.technology.altlabel != undefined) {
+                    updateData.system.abilities.skill.technology.altlabel = updateData.system.abilities.knowledge.technology.altlabel;
+                }
+
                 updateData.system.abilities.skill.technology.isvisible = true;
 
                 updateData.system.abilities.knowledge.technology.value = 0;
@@ -580,8 +593,12 @@ export const updates = async () => {
 
         // move of advantages to mortals
         if (updateData.type != CONFIG.wod.sheettype.spirit) {
-            updateData.system.advantages.willpower = updateData.system.willpower;
-            updateData.system.advantages.bloodpool = updateData.system.bloodpool;
+            if (updateData.system.willpower != undefined) {
+                updateData.system.advantages.willpower = updateData.system.willpower;
+            }
+            if (updateData.system.bloodpool != undefined) {
+                updateData.system.advantages.bloodpool = updateData.system.bloodpool;
+            }
 
             updateData.system.settings.haswillpower = true;
 
@@ -589,8 +606,12 @@ export const updates = async () => {
         }
 
         if (updateData.type == CONFIG.wod.sheettype.werewolf) {
-            updateData.system.advantages.rage = updateData.system.rage;
-            updateData.system.advantages.gnosis = updateData.system.gnosis;
+            if (updateData.system.rage != undefined) {
+                updateData.system.advantages.rage = updateData.system.rage;
+            }
+            if (updateData.system.gnosis != undefined) {
+                updateData.system.advantages.gnosis = updateData.system.gnosis;
+            }
 
             updateData.system.settings.hasrage = true;
             updateData.system.settings.hasgnosis = true;
@@ -601,13 +622,21 @@ export const updates = async () => {
         }        
 
         if (updateData.type == CONFIG.wod.sheettype.vampire) {
-            updateData.system.advantages.rage.bonus = updateData.system.rage.bonus;       
-            updateData.system.advantages.virtues = updateData.system.virtues;
+            if (updateData.system.rage?.bonus != undefined) {
+                updateData.system.advantages.rage.bonus = updateData.system.rage.bonus; 
+            }      
+            if (updateData.system.virtues != undefined) {
+                updateData.system.advantages.virtues = updateData.system.virtues;
+            }
+
             updateData.system.advantages.virtues.conscience.permanent = updateData.system.advantages.virtues.conscience.value;
             updateData.system.advantages.virtues.selfcontrol.permanent = updateData.system.advantages.virtues.selfcontrol.value;
             updateData.system.advantages.virtues.courage.permanent = updateData.system.advantages.virtues.courage.value;
 
-            updateData.system.advantages.path = updateData.system.path;
+            if (updateData.system.path != undefined) {
+                updateData.system.advantages.path = updateData.system.path;
+            }
+
             updateData.system.advantages.path.permanent = updateData.system.advantages.path.value;
 
             updateData.system.settings.haspath = true;
@@ -619,15 +648,23 @@ export const updates = async () => {
         }
 
         if (updateData.type == CONFIG.wod.sheettype.mage) {
-            updateData.system.advantages.arete = updateData.system.arete;
+            if (updateData.system.arete != undefined) {
+                updateData.system.advantages.arete = updateData.system.arete;
+            }
 
             update = true;
         }
 
         if (updateData.type == CONFIG.wod.sheettype.changeling) {
-            updateData.system.advantages.glamour = updateData.system.glamour;
-            updateData.system.advantages.banality = updateData.system.banality;
-            updateData.system.advantages.nightmare = updateData.system.nightmare;
+            if (updateData.system.glamour != undefined) {
+                updateData.system.advantages.glamour = updateData.system.glamour;
+            }
+            if (updateData.system.banality != undefined) {
+                updateData.system.advantages.banality = updateData.system.banality;
+            }
+            if (updateData.system.nightmare != undefined) {
+                updateData.system.advantages.nightmare = updateData.system.nightmare;
+            }
 
             updateData.system.settings.hasglamour = true;
             updateData.system.settings.hasbanality = true;
@@ -638,8 +675,12 @@ export const updates = async () => {
         }
 
         if (updateData.type == CONFIG.wod.sheettype.changingbreed) {
-            updateData.system.advantages.rage = updateData.system.rage;
-            updateData.system.advantages.gnosis = updateData.system.gnosis;
+            if (updateData.system.rage != undefined) {
+                updateData.system.advantages.rage = updateData.system.rage;
+            }
+            if (updateData.system.gnosis != undefined) {
+                updateData.system.advantages.gnosis = updateData.system.gnosis;
+            }
 
             updateData.system.settings.hasrage = true;
             updateData.system.settings.hasgnosis = true;
@@ -649,12 +690,24 @@ export const updates = async () => {
         }
 
         if (updateData.type == CONFIG.wod.sheettype.creature) {
-            updateData.system.advantages.rage = updateData.system.rage;
-            updateData.system.advantages.gnosis = updateData.system.gnosis;
-            updateData.system.advantages.glamour = updateData.system.glamour;
-            updateData.system.advantages.banality = updateData.system.banality;
-            updateData.system.advantages.nightmare = updateData.system.nightmare;
-            updateData.system.advantages.essence = updateData.system.essence;
+            if (updateData.system.rage != undefined) {
+                updateData.system.advantages.rage = updateData.system.rage;
+            }
+            if (updateData.system.gnosis != undefined) {
+                updateData.system.advantages.gnosis = updateData.system.gnosis;
+            }
+            if (updateData.system.glamour != undefined) {
+                updateData.system.advantages.glamour = updateData.system.glamour;
+            }
+            if (updateData.system.banality != undefined) {
+                updateData.system.advantages.banality = updateData.system.banality;
+            }
+            if (updateData.system.nightmare != undefined) {
+                updateData.system.advantages.nightmare = updateData.system.nightmare;
+            }
+            if (updateData.system.essence != undefined) {
+                updateData.system.advantages.essence = updateData.system.essence;
+            }
 
             updateData.system.settings.hasrage = true;
             updateData.system.settings.hasgnosis = true;
@@ -664,11 +717,21 @@ export const updates = async () => {
         }
 
         if (updateData.type == CONFIG.wod.sheettype.spirit) {
-            updateData.system.advantages.rage = updateData.system.rage;
-            updateData.system.advantages.gnosis = updateData.system.gnosis;
-            updateData.system.advantages.willpower = updateData.system.willpower;
-            updateData.system.advantages.bloodpool = updateData.system.bloodpool;
-            updateData.system.advantages.essence = updateData.system.essence;
+            if (updateData.system.rage != undefined) {
+                updateData.system.advantages.rage = updateData.system.rage;
+            }
+            if (updateData.system.gnosis != undefined) {
+                updateData.system.advantages.gnosis = updateData.system.gnosis;
+            }
+            if (updateData.system.willpower != undefined) {
+                updateData.system.advantages.willpower = updateData.system.willpower;
+            }
+            if (updateData.system.bloodpool != undefined) {
+                updateData.system.advantages.bloodpool = updateData.system.bloodpool;
+            }
+            if (updateData.system.essence != undefined) {
+                updateData.system.advantages.essence = updateData.system.essence;
+            }
 
             updateData.system.settings.hasrage = true;
             updateData.system.settings.hasgnosis = true;

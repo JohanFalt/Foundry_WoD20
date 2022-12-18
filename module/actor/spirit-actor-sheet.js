@@ -46,6 +46,7 @@ export class SpiritActorSheet extends ActorSheet {
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.spirit) {
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.version = game.data.system.version;
 
 				ActionHelper._setSpiritAttributes(actorData);
 

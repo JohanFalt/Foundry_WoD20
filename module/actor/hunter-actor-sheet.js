@@ -39,6 +39,7 @@ export class HunterActorSheet extends MortalActorSheet {
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.hunter) {
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.version = game.data.system.version;
 
 				ActionHelper._setHunterAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);

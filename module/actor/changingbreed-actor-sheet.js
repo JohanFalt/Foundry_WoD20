@@ -42,6 +42,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == "Changing Breed") {
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.version = game.data.system.version;
 
 				ActionHelper._setWerewolfAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);

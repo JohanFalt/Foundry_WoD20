@@ -56,7 +56,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.changeling) {
-				const version = game.data.system.version;
+				const version = game.data.system.version;				
 
                 ActionHelper._setChangelingAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);    
@@ -138,6 +138,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				await this.actor.createEmbeddedDocuments("Item", [itemData]);
 
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.version = version;
 				this.actor.update(actorData);
 			}	 	
 		}

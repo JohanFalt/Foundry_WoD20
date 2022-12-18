@@ -44,6 +44,7 @@ export class MageActorSheet extends MortalActorSheet {
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.mage) {
 				actorData.system.settings.iscreated = true;
+				actorData.system.settings.version = game.data.system.version;
 				
 				ActionHelper._setMageAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
