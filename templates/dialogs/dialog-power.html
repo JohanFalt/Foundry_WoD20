@@ -26,9 +26,7 @@
             <div class="dialog-area headline splatFont">{{localize "wod.dialog.power.availrealms"}}</div>
             <div class="centerText dialog-area">
                 {{#each object.selectedRealms as |realm key|}}
-                    {{#if (gt realm.value 0)}}
-                        <button id="{{realm.label}}" class="button fullSplatColor pointer dialog-realm-button {{#if realm.isselected}}active{{/if}}" value="{{realm._id}}">{{localize realm.label}} ({{realm.value}})</button>                    
-                    {{/if}}
+                    <button id="{{realm.label}}" class="button fullSplatColor pointer dialog-realm-button {{#if realm.isselected}}active{{/if}}" value="{{realm._id}}">{{localize realm.label}} ({{realm.value}})</button>                    
                 {{/each}}
             </div>
         {{/if}}
