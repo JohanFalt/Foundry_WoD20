@@ -1,8 +1,11 @@
+import BonusHelper from "./bonus-helpers.js";
+
 /* global ChatMessage, Roll, game */
 export class DiceRoll {
     constructor(actor) {
 		this.actor = actor;  			// rolling actor
 		this.origin = "";    			// where did the roll come from
+		this.attribute = "";
 
 		this.handlingOnes = false;		// how should Ones handle?
 		this.numDices = 0;				// number dice called for
@@ -37,6 +40,7 @@ export async function rollDice(diceRoll) {
 	let difficulty = parseInt(diceRoll.difficulty);
 	let wound = parseInt(diceRoll.woundpenalty);
 
+	const attribute = diceRoll.attribute;
 	let label = diceRoll.templateHTML;
 	const rollDamage = diceRoll.rollDamage;
 	const systemText = diceRoll.systemText;
@@ -53,6 +57,11 @@ export async function rollDice(diceRoll) {
 	let roll;
 	let conditions = "";	
 	let canBotch = true;
+
+	if (await BonusHelper.CheckAttributeAutoBuff(actor, attribute)) {
+		success = await BonusHelper.GetAttributeAutoBuff(actor, attribute);
+		rolledAnySuccesses = success > 0;
+	}
 
 	if ((origin == "soak") || (origin == "damage")) {
 		canBotch = false;
@@ -169,7 +178,7 @@ export async function rollDice(diceRoll) {
 			diceColor = "lightblue_";
 			specialDiceType = "black_";
 		}
-		else if (actor.type == CONFIG.wod.sheettype.hunter) { 
+		else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) { 
 			diceColor = "orange_";
 		}
 		else if (actor.type == CONFIG.wod.sheettype.spirit) { 
@@ -328,7 +337,7 @@ export async function rollDiceMultiple(diceRoll) {
 					diceColor = "lightblue_";
 					specialDiceType = "black_";
 				}
-				else if (actor.type == CONFIG.wod.sheettype.hunter) { 
+				else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) { 
 					diceColor = "orange_";
 				}
 				else if (actor.type == CONFIG.wod.sheettype.spirit) { 

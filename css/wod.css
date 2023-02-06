@@ -31,20 +31,25 @@
   src: url("../assets/fonts/hunter.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "demon";
+  src: url("../assets/fonts/demon.ttf") format("truetype");
+}
+
 :root {
   --main-font: Arial, Helvetica, sans-serif;
 
   --main-mortal-color: rgba(24, 78, 119, 1);
-  --main-mortal-mid-color: rgba(24, 78, 119, 0.3);
-  --main-mortal-dim-color: rgba(24, 78, 119, 0.06);
+  --main-mortal-mid-color: rgba(24, 78, 119, 0.4);
+  --main-mortal-dim-color: rgba(24, 78, 119, 0.12);
 
   --main-werewolf-color: rgba(88, 49, 1, 1);
-  --main-werewolf-mid-color: rgba(88, 49, 1, 0.3);
-  --main-werewolf-dim-color: rgba(88, 49, 1, 0.06);
+  --main-werewolf-mid-color: rgba(88, 49, 1, 0.4);
+  --main-werewolf-dim-color: rgba(88, 49, 1, 0.12);
 
   --main-mage-color: rgba(83, 33, 89, 1);
-  --main-mage-mid-color: rgba(83, 33, 89, 0.3);
-  --main-mage-dim-color: rgba(83, 33, 89, 0.06);
+  --main-mage-mid-color: rgba(83, 33, 89, 0.4);
+  --main-mage-dim-color: rgba(83, 33, 89, 0.12);
 
   --main-vampire-color: rgba(121, 8, 19, 1);
   --main-vampire-mid-color: rgb(121, 8, 19, 0.4);
@@ -55,8 +60,12 @@
   --main-changeling-dim-color: rgba(1, 123, 156, 0.12);
 
   --main-hunter-color: rgb(191, 67, 18);
-  --main-hunter-mid-color: rgba(255, 72, 0, 0.4);
-  --main-hunter-dim-color: rgba(255, 72, 0, 0.12);
+  --main-hunter-mid-color: rgba(191, 67, 18, 0.4);
+  --main-hunter-dim-color: rgba(191, 67, 18, 0.12);
+  
+  --main-demon-color: rgb(229, 111, 8);
+  --main-demon-mid-color: rgba(226, 88, 34, 0.4);
+  --main-demon-dim-color: rgba(226, 88, 34, 0.12);
 
   --main-creature-color: rgba(116, 115, 115, 1);
   --main-creature-mid-color: rgba(72, 71, 71, 0.4);
@@ -99,16 +108,6 @@
 }
 
 /* START - Chat window */
-
-.message-content .chat-rollbutton {
-  width: 50%;
-  border: 1px solid;
-  border-radius: 5px;
-  margin: 5px;
-  height: 23px;
-  line-height: 23px;
-  text-align: center;
-}
 
 .rolldices {
 	width: 50px;
@@ -244,14 +243,23 @@ textarea.sheet-infoValues {
   height: 150px;
 }
 
-textarea.sheet-smallinfoValues {
+.sheet-smallinfoValues {
   height: 75px;
 }
-
 
 i.icon {
   margin-left: 5px;
   margin-right: 5px;
+  line-height: 23px;
+  scale: 1.2;
+}
+
+i.smallicon {
+  scale: 1.0;
+}
+
+i.largeicon {
+  scale: 1.4;
 }
 
 .sheet-header {
@@ -260,6 +268,10 @@ i.icon {
 
 .sheet-body {
 
+}
+
+.sheet-container {
+  min-height: 200px;
 }
 
 .sheet-boxcontainer {
@@ -349,6 +361,12 @@ i.icon {
 
 .clearareaBox {
   clear: both;
+  overflow: hidden;
+}
+
+.largeBox {
+  width: 250px;
+  height: 19px;
 }
 
 .numberBox {
@@ -358,10 +376,6 @@ i.icon {
 .miniBox {
   width: 25px !important;
   min-width: 25px !important;
-}
-
-.rowNumberBox {
-  width: 25px !important;
 }
 
 .text-unfocus {
@@ -451,6 +465,10 @@ i.icon {
   padding-bottom: 2px;
 }
 
+.information-box {
+  width: 75%;
+}
+
 .headlineRow {
   display: flex;
   height: 23px;
@@ -458,6 +476,11 @@ i.icon {
   margin-top: 10px;
   margin-bottom: 5px;
   font-weight: bold;
+}
+
+.item-activeBox {
+  width: 30px;
+  height: 30px;
 }
 
 /* END - General */
@@ -522,7 +545,8 @@ i.icon {
 }
 
 .dialog-numbertargets-button,
-.dialog-numdices-button {
+.dialog-numdices-button,
+.item-bonusvalue-button {
   width: 8%;
   height: 34px;
 }
@@ -542,11 +566,15 @@ i.icon {
   width: 480px;
 }
 
-.chat-rollbutton {
-
-}
-
 /* END - Dialog */
+
+/* START - Navigation */
+
+.navigation {
+  float: left;
+  width: 90%;
+  text-align: center;
+}
 
 /* START - Bio */
 
@@ -561,7 +589,7 @@ i.icon {
   line-height: 30px;
 }
 
-textarea.smallbox {
+.smallbox {
   height: 75px;
 }
 
@@ -603,8 +631,6 @@ textarea.smallbox {
 }
 
 .specialityBox {
-  width: 110px !important;
-  margin-right: 15px !important;
   height: 18px !important;
 }
 
@@ -650,12 +676,91 @@ div.essence-counters {
   background-color: red !important;
 }
 
+.form-apocalyptic {
+  width: 100%;
+  display: flex;
+  height: 23px;
+  line-height: 23px;
+}
+
+.form-apocalyptic-name {
+  width: 140px;
+}
+
+.bonus-apocalyptic-name {
+  margin-left: 40px;
+  width: 150px;
+  height: 23px;
+  line-height: 23px;
+}
+
+.bonus-power-name {
+  margin-left: 60px;
+  width: 455px;
+  height: 23px;
+  line-height: 23px;
+}
+
+div.speciality-ability {
+  float: left;
+  margin-left: 25px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+div.speciality-attribute {
+  float: left;
+  margin-left: 25px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+div.speciality-magic {
+  float: left;
+  margin-left: 25px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+div.speciality-ability-icon {
+  float: right;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+div.speciality-ability-empty-icon {
+  float: right;
+  margin-right: 25px;
+}
+
+div.speciality-attribute-icon {
+  float: right;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+div.speciality-attribute-empty-icon {
+  float: right;
+  margin-right: 25px;
+}
+
+div.speciality-magic-icon {
+  float: right;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+div.speciality-magic-empty-icon {
+  float: right;
+  margin-right: 25px;
+}
+
 /* END - Core */
 
 /* START - Combat */
 
 .condition {
-  width: 200px;  
+  width: 150px;  
 }
 
 .condition-checkbox {
@@ -686,7 +791,7 @@ div.essence-counters {
 }
 
 .combat-bottomarea {
-  width: 67%;
+  width: 33%;
 }
 
 .combat-bottomhealth {
@@ -729,7 +834,7 @@ div.essence-counters {
 
 /* START - Gear */
 
-textarea.sheet-gearArea {
+.sheet-gearArea {
   height: 400px;
 }
 
@@ -878,9 +983,7 @@ textarea.sheet-gearArea {
   margin-left: 13px;
 }
 
-.gift-activeBox {
-  width: 30px;
-}
+
 
 .gift-headlineBox {
   width: 200px;
@@ -912,17 +1015,23 @@ textarea.sheet-gearArea {
 
 .art-headline,
 .discipline-headline,
-.edge-headline {
-  width: 250px;
+.edge-headline,
+.lore-headline {
+  width: 200px;
+}
+
+.discipline-headline.headlineGroup,
+.edge-headline.headlineGroup,
+.lore-headline.headlineGroup {
+  width: 240px;
 }
 
 .ritual-headline {
-  width: 263px;
+  width: 225px;
+  margin-left: 20px;
 }
 
-.art-dotBox,
-.discipline-dotBox,
-.edge-dotBox {
+.power-dotBox {
   width: 200px;
 }
 
@@ -930,18 +1039,20 @@ textarea.sheet-gearArea {
   width: 100px;
 }
 
-
-
 .power-row .power-iconbox {
-  margin-left: 100px;
+  margin-left: 93px;
 }
 
 .ritual-row .power-iconbox {
+  margin-left: 40px;
+}
+
+.bonus-icons.power-iconbox {
   margin-left: 38px;
 }
 
 .disciplinepower-nonerollablerow .power-iconbox {
-  margin-left: 288px;
+  margin-left: 290px;
 }
 
 .disciplinepower-rollablerow .power-iconbox {
@@ -979,11 +1090,47 @@ textarea.sheet-gearArea {
 
 /* START - Dreaming */
 
+.art-row .art-iconbox {
+  margin-left: 13px;
+}
+
+.art-row .power-dotBox {
+  width: 120px;
+}
+
+.artpower-row .art-iconbox {
+  margin-left: 90px;
+}
+
+
+.changeling .bonus-power-name {
+  width: 200px;
+}
+
+.bonuses .art-iconbox {
+  margin-left: 73px;
+}
+
 .realms-headlineWidth {
   width: 60%;
 }
 
 /* END - Dreaming */
+
+/* START - Magic */
+
+.magic-row {
+  display: flex;
+  height: 23px;
+  line-height: 23px;
+  margin-left: 13px;
+}
+
+.mage .bonus-power-name {
+  width: 200px;
+}
+
+/* END - Magic */
 
 /* START - Power */
 
@@ -1075,14 +1222,18 @@ textarea.sheet-gearArea {
 
 /* START - Notes */
 
-.notes-largeBox {
-  width: 250px;
-  height: 19px;
+.note-row {
+  height: 23px;
+  line-height: 23px;
+  margin-left: 13px;
 }
 
-.notes-mediumBox {
-  width: 100px;
-  height: 19px;
+.note-iconbox {
+  margin-left: 180px;
+}
+
+.note-iconTraits {
+  margin-left: 85px;
 }
 
 .notes-valueBox {

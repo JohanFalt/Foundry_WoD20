@@ -1,0 +1,1677 @@
+{
+  "_id": "ExampleWerewolf1",
+  "name": "Example Werewolf the Apocalypse",
+  "type": "Werewolf",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "traits": {
+      "health": {
+        "totalhealthlevels": {
+          "value": 7,
+          "max": 7
+        }
+      }
+    },
+    "settings": {
+      "iscreated": true,
+      "soak": {
+        "bashing": {
+          "bonus": 0,
+          "isrollable": true
+        },
+        "lethal": {
+          "bonus": 0,
+          "isrollable": true
+        },
+        "aggravated": {
+          "bonus": 0,
+          "isrollable": true
+        }
+      },
+      "abilities": {
+        "defaultmaxvalue": "5"
+      },
+      "hasrage": true,
+      "hasgnosis": true,
+      "haswillpower": true,
+      "haspath": false,
+      "hasbloodpool": false,
+      "hasvirtue": false,
+      "hasglamour": false,
+      "hasbanality": false,
+      "hasnightmare": false,
+      "hasconviction": false,
+      "hasfaith": false,
+      "hastorment": false,
+      "hasessence": false,
+      "version": "2.2.0",
+      "usesplatfont": true,
+      "powers": {
+        "hasdisciplines": false,
+        "hasgifts": true,
+        "hasarts": false,
+        "hasedges": false,
+        "haslores": false,
+        "hascharms": false,
+        "haspowers": false
+      }
+    },
+    "worldanvil": "",
+    "name": "",
+    "nature": "",
+    "demeanor": "",
+    "concept": "",
+    "appearance": "",
+    "background": "",
+    "derangement": "",
+    "notes": "",
+    "gear": "",
+    "conditions": {
+      "isignoringpain": false,
+      "isstunned": false,
+      "isfrenzy": false
+    },
+    "soak": {
+      "bashing": 4,
+      "lethal": 4,
+      "aggravated": 3
+    },
+    "initiative": {
+      "base": 5,
+      "bonus": 0,
+      "total": 5
+    },
+    "abilities": {
+      "talent": {
+        "alertness": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.alertness",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "art": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.art",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "athletics": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.athletics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "awareness": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.awareness",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "brawl": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.brawl",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "dodge": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.dodge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "empathy": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.empathy",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "expression": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.expression",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "intimidation": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.intimidation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "intuition": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.intuition",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "kenning": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.kenning",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "leadership": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.leadership",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "primalurge": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.primalurge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "streetwise": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.streetwise",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "subterfuge": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.subterfuge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        }
+      },
+      "skill": {
+        "animalken": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.animalken",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "craft": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.craft",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "demolitions": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.demolitions",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "drive": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.drive",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "etiquette": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.etiquette",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "firearms": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.firearms",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "larceny": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.larceny",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "martialarts": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.martialarts",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "meditation": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.meditation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "melee": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.melee",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "performance": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.performance",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "research": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.research",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "security": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.security",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "stealth": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.stealth",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "survival": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.survival",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "technology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.technology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        }
+      },
+      "knowledge": {
+        "academics": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.academics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "bureaucracy": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.bureaucracy",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "computer": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.computer",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "cosmology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.cosmology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "enigmas": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.enigmas",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "esoterica": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.esoterica",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "finance": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.finance",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "gremayre": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.gremayre",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "investigation": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.investigation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "law": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.law",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "linguistics": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.linguistics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "medicine": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.medicine",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "occult": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.occult",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "politics": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.politics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "religion": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.religion",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "research": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.research",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "rituals": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.rituals",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "science": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.science",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "technology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.technology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        }
+      }
+    },
+    "attributes": {
+      "strength": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.strength",
+        "speciality": "",
+        "isvisible": true
+      },
+      "dexterity": {
+        "value": 3,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.dexterity",
+        "speciality": "",
+        "isvisible": true
+      },
+      "stamina": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.stamina",
+        "speciality": "",
+        "isvisible": true
+      },
+      "charisma": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.charisma",
+        "speciality": "",
+        "isvisible": true
+      },
+      "manipulation": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.manipulation",
+        "speciality": "",
+        "isvisible": true
+      },
+      "appearance": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.appearance",
+        "speciality": "",
+        "isvisible": true
+      },
+      "composure": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.composure",
+        "speciality": "",
+        "isvisible": false
+      },
+      "perception": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.perception",
+        "speciality": "",
+        "isvisible": true
+      },
+      "intelligence": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.intelligence",
+        "speciality": "",
+        "isvisible": true
+      },
+      "wits": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.wits",
+        "speciality": "",
+        "isvisible": true
+      },
+      "resolve": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.resolve",
+        "speciality": "",
+        "isvisible": false
+      }
+    },
+    "advantages": {
+      "rage": {
+        "permanent": 4,
+        "temporary": 4,
+        "bonus": 0,
+        "max": 10,
+        "roll": 4,
+        "label": "wod.advantages.rage"
+      },
+      "gnosis": {
+        "permanent": 3,
+        "temporary": 3,
+        "max": 10,
+        "roll": 3,
+        "label": "wod.advantages.gnosis"
+      },
+      "willpower": {
+        "permanent": 5,
+        "temporary": 5,
+        "max": 10,
+        "roll": 5,
+        "label": "wod.advantages.willpower"
+      },
+      "glamour": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.glamour"
+      },
+      "nightmare": {
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.nightmare"
+      },
+      "banality": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.banality"
+      },
+      "bloodpool": {
+        "temporary": 0,
+        "max": 10,
+        "perturn": 1
+      },
+      "faith": {
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.faith"
+      },
+      "virtues": {
+        "conscience": {
+          "permanent": 0,
+          "max": 5,
+          "roll": 0,
+          "label": "wod.advantages.virtue.conscience"
+        },
+        "selfcontrol": {
+          "permanent": 0,
+          "max": 5,
+          "roll": 0,
+          "label": "wod.advantages.virtue.selfcontrol"
+        },
+        "courage": {
+          "permanent": 0,
+          "max": 5,
+          "roll": 0,
+          "label": "wod.advantages.virtue.courage"
+        }
+      },
+      "path": {
+        "permanent": 0,
+        "value": 0,
+        "max": 10,
+        "roll": 0,
+        "bearing": 0,
+        "bearingtext": "",
+        "label": "wod.advantages.path.humanity"
+      }
+    },
+    "health": {
+      "damage": {
+        "bashing": 0,
+        "lethal": 0,
+        "aggravated": 0,
+        "woundlevel": "",
+        "woundpenalty": 0
+      },
+      "bruised": {
+        "value": 1,
+        "total": 1,
+        "penalty": 0,
+        "label": "wod.health.bruised"
+      },
+      "hurt": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-1",
+        "label": "wod.health.hurt"
+      },
+      "injured": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-1",
+        "label": "wod.health.injured"
+      },
+      "wounded": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-2",
+        "label": "wod.health.wounded"
+      },
+      "mauled": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-2",
+        "label": "wod.health.mauled"
+      },
+      "crippled": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-5",
+        "label": "wod.health.crippled"
+      },
+      "incapacitated": {
+        "value": "1",
+        "total": 1,
+        "penalty": -99,
+        "label": "wod.health.incapacitated"
+      }
+    },
+    "changingbreed": "",
+    "breed": "Homid",
+    "auspice": "Ahroun",
+    "tribe": "Get of Fenris",
+    "packname": "",
+    "packtotem": "",
+    "renown": {
+      "glory": {
+        "permanent": 2,
+        "temporary": 0,
+        "max": 10,
+        "label": "wod.advantages.glory"
+      },
+      "honor": {
+        "permanent": 1,
+        "temporary": 0,
+        "max": 10,
+        "label": "wod.advantages.honor"
+      },
+      "wisdom": {
+        "permanent": 1,
+        "temporary": 0,
+        "max": 10,
+        "label": "wod.advantages.wisdom"
+      },
+      "rank": 1
+    },
+    "shapes": {
+      "homid": {
+        "label": "wod.shapes.homid",
+        "diff": 6,
+        "isactive": true
+      },
+      "glabro": {
+        "label": "wod.shapes.glabro",
+        "diff": 7,
+        "isactive": false
+      },
+      "crinos": {
+        "label": "wod.shapes.crinos",
+        "diff": 6,
+        "isactive": false
+      },
+      "hispo": {
+        "label": "wod.shapes.hispo",
+        "diff": 7,
+        "isactive": false
+      },
+      "lupus": {
+        "label": "wod.shapes.lupus",
+        "diff": 6,
+        "isactive": false
+      }
+    },
+    "isequipped": true
+  },
+  "prototypeToken": { },
+  "items": [
+    {
+      "_id": "ohPzX2bjsLfkUHV6",
+      "name": "Razer Claws",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_werewolf.svg",
+      "effects": [],
+      "folder": "pw76Ns5PFF1AqttB",
+      "sort": 150000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.ECdByoXFLtibFm7I"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p171",
+        "description": "",
+        "details": "",
+        "type": "wod.types.gift",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": "",
+        "isrollable": false,
+        "isactive": true,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "werewolf",
+        "groupname": "",
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "combat": true
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969160073,
+        "modifiedTime": 1674477074906,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "Y50pP5Ygo88tuvnn",
+      "name": "Persuasion",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_werewolf.svg",
+      "effects": [],
+      "folder": "SX2nGNnhsW6XHI3s",
+      "sort": 150000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.sZTwnJ0STSGGTPoh"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p153",
+        "description": "",
+        "details": "",
+        "type": "wod.types.gift",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "charisma",
+        "dice2": "subterfuge",
+        "bonus": 0,
+        "difficulty": "7",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "werewolf",
+        "groupname": "",
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "combat": false
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969183874,
+        "modifiedTime": 1674477074930,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "VkMSmEVeM4T71SCF",
+      "name": "Lightning Reflexes",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_werewolf.svg",
+      "effects": [],
+      "folder": "ifa5KUgtik9lslqA",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.aq5rnNjgK46JgdQS"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p180",
+        "description": "",
+        "details": "",
+        "type": "wod.types.gift",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": "",
+        "isrollable": false,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "werewolf",
+        "groupname": "",
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "combat": false
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969193744,
+        "modifiedTime": 1674477074953,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "c5p6ie2SqSxuRI7a",
+      "name": "Rite of the Jackdaw",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/ritual_werewolf.svg",
+      "effects": [],
+      "folder": "DVdaL187D6wEvaE5",
+      "sort": 100000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.p366iG7GX9XHJpN3"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p214",
+        "description": "",
+        "details": "",
+        "type": "wod.types.rite",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "manipulation",
+        "dice2": "subterfuge",
+        "bonus": 0,
+        "difficulty": "7",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "werewolf",
+        "groupname": "",
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "combat": false
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969219615,
+        "modifiedTime": 1674477074976,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "IWQauOBr2Ri5I03r",
+      "name": "Rite of Talisman Dedication",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/ritual_werewolf.svg",
+      "effects": [],
+      "folder": "7yLA1ST3BdBeDapp",
+      "sort": 162500,
+      "flags": {
+        "core": {
+          "sourceId": "Item.fmaHM4VUw8oohQnl"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p211",
+        "description": "",
+        "details": "",
+        "type": "wod.types.rite",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "wits",
+        "dice2": "rituals",
+        "bonus": 0,
+        "difficulty": "7",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "werewolf",
+        "groupname": "",
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "combat": false
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969225596,
+        "modifiedTime": 1674477075001,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "KOFwn4xvt9wtGK4c",
+      "name": "Bite",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 800000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.SHFqWbmcFWCsY0ct"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 1,
+          "type": "aggravated",
+          "isrollable": true
+        },
+        "difficulty": 5,
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969239763,
+        "modifiedTime": 1674477075015,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "OTGcC1Tcqd9KaF66",
+      "name": "Claw",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 900000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.bbt2dBYt87OXMkA0"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 1,
+          "type": "aggravated",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969240950,
+        "modifiedTime": 1674477075035,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "XAGKvruQFDT8na5Q",
+      "name": "Razor Claws",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 900000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.bbt2dBYt87OXMkA0"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 3,
+          "type": "aggravated",
+          "isrollable": true
+        },
+        "difficulty": "5",
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969243774,
+        "modifiedTime": 1674477075051,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "siv8Pv0g6mJWZUZb",
+      "name": "Axe",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/meleeweapons.svg",
+      "effects": [],
+      "folder": "mYAjN9wm7CQJBcKl",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.O6VladhCEy9CUz4U"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "melee",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 3,
+          "type": "lethal",
+          "isrollable": true
+        },
+        "difficulty": "7",
+        "conceal": "T",
+        "istwohanded": false,
+        "isnatural": false,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969275336,
+        "modifiedTime": 1674477075065,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "dEoSxctKPvBVbABE",
+      "name": "Sword",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/meleeweapons.svg",
+      "effects": [],
+      "folder": "mYAjN9wm7CQJBcKl",
+      "sort": 400000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.uSGRzQe0LKAzQID2"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "melee",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 2,
+          "type": "lethal",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "T",
+        "istwohanded": false,
+        "isnatural": false,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969277966,
+        "modifiedTime": 1674477075083,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "7vvECwsWXGxTMfQd",
+      "name": "Pistol (hvy.)",
+      "type": "Ranged Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/rangedweapons.svg",
+      "effects": [],
+      "folder": "Tl5NwrrruicoxKVe",
+      "sort": 250000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.aksQxX5j3ASazbVH"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "firearms",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "",
+          "bonus": 5,
+          "type": "lethal",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "J",
+        "istwohanded": false,
+        "range": 30,
+        "rate": 3,
+        "mode": {
+          "hasreload": false,
+          "hasburst": false,
+          "hasfullauto": false,
+          "hasspray": false
+        },
+        "clip": {
+          "value": 0,
+          "max": 17
+        },
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.rangedweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969282422,
+        "modifiedTime": 1674477075103,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "MMeQl7m4FFmFqA74",
+      "name": "Biker Jacket",
+      "type": "Armor",
+      "img": "systems/worldofdarkness/assets/img/items/armor.svg",
+      "effects": [],
+      "folder": "7T6COUSjovPntqKN",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.SKwhIofSakNxDJi9"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": true,
+        "ismagical": false,
+        "isweapon": false,
+        "soak": {
+          "bashing": 1,
+          "lethal": 1,
+          "aggravated": 0,
+          "chimerical": {
+            "bashing": 0,
+            "lethal": 0,
+            "aggravated": 0
+          }
+        },
+        "dexpenalty": -1,
+        "forms": {
+          "hashomid": true,
+          "hasglabro": false,
+          "hascrinos": false,
+          "hashispo": false,
+          "haslupus": false
+        },
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "active": false,
+        "label": "wod.types.armor"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969286805,
+        "modifiedTime": 1674477075117,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "SoMxZN6aj6t8dRUU",
+      "name": "Magpie’s Swag",
+      "type": "Fetish",
+      "img": "systems/worldofdarkness/assets/img/items/fetish.svg",
+      "effects": [],
+      "folder": "Ln790RMtDeh4YDwB",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.ToM23DGnGTlO8ttT"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.2.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "type": "wod.types.fetish",
+        "level": "3",
+        "value": 0,
+        "max": 5,
+        "gnosis": 5,
+        "difficulty": 6
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1668969307187,
+        "modifiedTime": 1674477075142,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Charisma diff -1",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "Y50pP5Ygo88tuvnn",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_diff",
+        "level": "0",
+        "value": -1,
+        "max": 5,
+        "settingtype": "charisma",
+        "isactive": false
+      },
+      "_id": "a9vNZlOAwZ2itQQa",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674543225577,
+        "modifiedTime": 1674543431944,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Manipulation diff -1",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "Y50pP5Ygo88tuvnn",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_diff",
+        "level": "0",
+        "value": -1,
+        "max": 5,
+        "settingtype": "manipulation",
+        "isactive": false
+      },
+      "_id": "2FVVNMO3txo0Zya3",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674543226230,
+        "modifiedTime": 1674543449923,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Apperance",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "Y50pP5Ygo88tuvnn",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_diff",
+        "level": "0",
+        "value": -1,
+        "max": 5,
+        "settingtype": "appearance",
+        "isactive": false
+      },
+      "_id": "Kj8GqeTf9wKI6i5d",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674543226747,
+        "modifiedTime": 1674543464231,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "ownership": {
+    "default": 3
+  },
+  "flags": { }
+}

@@ -21,8 +21,12 @@
 			"attributesettingshint": "Hay dos opciones: Puedes usar la de edición 20 aniversario, donde tienes Apariencia y Percepción y se calcula Fuerza de Voluntad como estadística (por defecto). O 5ª edicion, cambiando Apariencia y Percepción por Compostura y Resolución y calculando Fuerza de Voluntad con Compostura + Resolución.",
 			"observersactorpermission": "Permisos de vista a observadores",
 			"observersactorpermissionhint": "Estas opciones permiten limitar cuánto puede ver de una ficha un observador, toda la ficha o sólo la pestaña de Biografía.",
+			"limitedactorpermission": "Limited users has full view permission",
+			"limitedactorpermissionhint": "This settings able it to limit how much an limited user can see of a sheet, either they can see the full sheet or they can only see the Bio tab",
 			"observersfullsheet": "Los observadores pueden ver toda la ficha",
-			"observerspartialsheet": "Los observadores sólo pueden ver la pestaña principal (core)",
+			"observerspartialsheet": "Los observadores sólo pueden ver la pestaña principal (bio)",
+			"limitedfullsheet": "Limited users can see full sheet",
+			"limitedpartialsheet": "Limited users can see Bio tab only",
 			"changeactorimage": "Cambiar imagen de Personaje",
 			"changeactorimagehint": "Todo el mundo puede cambiar la imagen de un Personaje, si pueden editar el mismo.",
 			"changeitemimage": "Cambiar imagen de Objeto",
@@ -69,6 +73,8 @@
 			"artpower": "Poder de Arte",
 			"edge": "Facultad",
 			"edgepower": "Poder de Facultad",
+			"lore": "Lore",
+			"lorepower": "Lore Power",
 			"ritual": "Ritual",
 			"talen": "Talismán",
 			"fetish": "Fetiche",
@@ -79,7 +85,8 @@
 			"knowledgesecondability": "Conocimiento secundario",
 			"realm": "Reino",
 			"resonance": "Resonancia",
-			"othertraits": "Otros Rasgos"
+			"othertraits": "Otros Rasgos",
+			"apacolypticform": "Apocalyptic Form"
 		},
 		"tab": {
 			"bio": "Biografía",
@@ -96,6 +103,7 @@
 			"disciplines": "Disciplinas",
 			"dreaming": "Ensueño",
 			"edge": "Facultades",
+			"lore": "Lores",
 			"shapechange": "Cambio de Forma",
 			"sheet": "Configuración de ficha",
 			"attribute": "Configuración de Atributos"
@@ -391,6 +399,23 @@
 				"visionary": "Visionario",
 				"wayword": "Descarriado",
 				"primaryvirtue": "Virtud Primaria"
+			},
+			"demon": {
+				"house": "House",
+				"faction": "Faction",
+				"visage": "Visage",
+				"defiler": "Defiler",
+				"devil": "Devil",
+				"devourer": "Devourer",
+				"fiend": "Fiend",
+				"malefactor": "Malefactor",
+				"scourge": "Scourge",
+				"slayer": "Slayer",
+				"faustian": "Faustian",
+				"cryptic": "Cryptic",
+				"luciferan": "Luciferan",
+				"ravener": "Ravener",
+				"reconciler": "Reconciler"
 			}
 		},
 		"attributes": {
@@ -465,6 +490,7 @@
 			"medicine": "Medicina",
 			"occult": "Ocultismo",
 			"politics": "Política",
+			"religion": "Religion",
 			"rituals": "Rituales",
 			"seneschal": "Senescal",
 			"science": "Ciencia",
@@ -613,13 +639,24 @@
 			"glamour": "Glamour",
 			"banality": "Banalidad",
 			"nightmare": "Pesadilla",
-			"conviction": "Convicción"
+			"conviction": "Convicción",
+			"faith": "Faith",
+			"torment": "Torment",
+			"apocalypticforms": "Apocalyptic Forms"
 		},
 		"combat": {
 			"conditions": {
 				"frenzy": "Frenesí",
 				"ignorepain": "Ignorar dolor",
 				"stunned": "Aturdido"
+			},
+			"movement": {
+				"walk": "Walk",
+				"jog": "Jog",
+				"run": "Run",
+				"fly": "Fly",
+				"vjump": "Vertical jump (feet per suc)",
+				"hjump": "Horizant jump (feet per suc)"
 			},
 			"weapon": {
 				"weapon": "Arma",
@@ -729,8 +766,10 @@
 			"unsortedpaths": "Aquí están todos los Poderes de Senda sin ordenar que necesitan una Senda seleccionada. Clic en el título para ordenar uno.",
 			"unsortedarts": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Arte. Clic en el título para ordenar uno.",
 			"unsortededges": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a una Facultad. Clic en el título para ordenar uno.",
+			"unsortedlores": "Here is all unsorted lore powers which needs to get a selected Lore. Click on the headline to sort one.",
 			"arts": "Artes",
-			"edges": "Facultades"
+			"edges": "Facultades",
+			"lores": "Lores"
 		},
 		"spheres": {
 			"spheres": "Esferas",
@@ -763,6 +802,11 @@
 			"scene": "Escena",
 			"time": "Tiempo"
 		},
+		"gear": {
+			"money": "Money",
+			"moneycarried": "Carried",
+			"moneybank": "In bank"
+		},
 		"notes": {
 			"unnamedbackground": "Trasfondo sin nombre",
 			"unnamedmerit": "Mérito sin nombre",
@@ -777,7 +821,7 @@
 		},
 		"labels": {
 			"rolling": "Tirada",
-			"bonus": "Bonus",
+			"addedbonus": "Added bonuses",
 			"value": "Valor",
 			"penalty": "Penalizador",
 			"total": "Total",
@@ -791,6 +835,7 @@
 			"selectattribute": "Selecciona Atributo",
 			"specialty": "Especialidad",			
 			"select": "Escoger",
+			"noneselect": "Nothing selected",
 			"none": "Ninguno",
 			"type": "Tipo",
 			"description": "Descripción",
@@ -831,7 +876,17 @@
 				"cleardiscipline": "Limpiar conexiones de Disciplina",
 				"clearpath": "Limpiar conexiones de Senda",
 				"clearart": "Limpiar conexiones de Arte",
-				"clearedge": "Limpiar conexiones de Facultad"
+				"clearedge": "Limpiar conexiones de Facultad",
+				"clearlore": "Clear lore connection",
+				"disconnect": "Disconnect power",
+				"disconnectlabel": "Disconnecting power",
+				"removebonus": {
+					"art": "Remove connected bonuses to art",
+					"lore": "Remove connected bonuses to lore",
+					"edge": "Remove connected bonuses to edge",
+					"discipline": "Remove connected bonuses to discipline",
+					"path": "Remove connected bonuses to path"
+				}
 			},
 			"notes": {
 				"backgrounds": "Trasfondos",
@@ -867,6 +922,28 @@
 				"rangedweapon": "Usar para arma a distancia",
 				"reference": "Referencia"
 			},
+			"bonus": {
+				"headline": "Bonus",
+				"attributebonus": "Attribute bonus",
+				"attributebonushint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value by the selected amount. Can go beyond the max rating of the attribute.",
+				"attributediff": "Attribute difficulty",
+				"attributediffhint": "This bonus changes the difficulty of any use of this attribute when you make a roll.",
+				"attributesucc": "Automatic attribute successes",
+				"attributesucchint": "This bonus adds/subtracts a value to the number of rolled successes with this selected attribute.",
+				"abilitybonus": "Ability bonus",
+				"abilitybonushint": "This bonus adds/subtracts a value to the selected ability itself altering the total value by the selected amount. Can go beyond the max rating of the ability.",
+				"abilitydiff": "Ability difficulty",
+				"abilitydiffhint": "This bonus changes the difficulty of any use of this ability when you make a roll.",
+				"soakbonus": "Soak bonus",
+				"soakbonushint": "This bonus changes the value of the number dices rolled when making any soak rolls.",
+				"healthbuff": "Health level bonus",
+				"healthbuffhint": "This bonus adds the number of bruised health levels the character has.",
+				"initbonus": "Initiative bonus",
+				"initbonushint": "This bonus adds the number to the initiative score.",
+				"movebonus": "Movement bonus",
+				"movebonushint": "This bonus adds bonuses to the character's movement.",
+				"multiplier": "Movement multiplier"
+			},
 			"new": {
 				"armor": "Nueva Armadura",
 				"naturalweapon": "Nueva arma natural",
@@ -886,7 +963,8 @@
 				"othertraits": "Nuevo 'Otro Rasgo'",
 				"addexp": "Añadir Experiencia",
 				"spentexp": "Gastar Experiencia",
-				"treasure": "Nuevo Tesoro"
+				"treasure": "Nuevo Tesoro",
+				"bonus": "New bonus"
 			},
 			"add": {
 				"background": "Añadir Trasfondo",
@@ -896,7 +974,10 @@
 				"ability": "Añadir Habilidad secundaria",
 				"resonance": "Añadir Resonancia",
 				"othertraits": "Añadir 'Otro Rasgo'",
-				"treasure": "Añadir Tesoro"
+				"treasure": "Añadir Tesoro",
+				"bonus": "Add bonus",
+				"experience": "Add experience",
+				"spentexp": "Add spent experience"
 			},
 			"edit": {
 				"naturalweapon": "Editar Arma natural",
@@ -918,10 +999,13 @@
 				"artpower": "Editar Poder de Arte",
 				"edge": "Editar Facultad",
 				"edgepower": "Editar Poder de Facultad",
+				"lore": "Edit lore",
+				"lorepower": "Edit lore power",
 				"ability": "Editar Habilidad secundaria",
 				"resonance": "Editar Resonancia",
 				"othertraits": "Editar Otro Rasgo",
-				"treasure": "Editar Tesoro"
+				"treasure": "Editar Tesoro",
+				"bonus": "Edit bonus"
 			},
 			"remove": {
 				"item": "Quitar Objeto",
@@ -947,10 +1031,23 @@
 				"artpower": "Quitar Poder de Arte",
 				"edge": "Quitar Facultad",
 				"edgepower": "Quitar Poder de Facultad",
+				"lore": "Remove lore",
+				"lorepower": "Remove lore power",
 				"ability": "Quitar Habilidad secundaria",
 				"resonance": "Quitar Resonancia",
 				"othertraits": "Quitar Otro Rasgo",
-				"treasure": "Quitar Tesoro"
+				"treasure": "Quitar Tesoro",
+				"bonus": "Remove bonus"
+			},
+			"show": {
+				"background": "Show backgrounds",
+				"merit": "Show merits",
+				"flaw": "Show flaws",
+				"bloodbound": "Show bloodbounds",
+				"traits": "Show other traits",
+				"experience": "Show added experience",
+				"spentexp": "Show spent experience",
+				"bonus": "Show added bonus"
 			},
 			"yes": "Sí",
 			"no": "No",

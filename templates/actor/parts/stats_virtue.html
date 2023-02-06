@@ -1,48 +1,50 @@
-<div class="sheet-headline splatFont">{{localize "wod.advantages.virtue.headline"}}</div>
-
 <div class="clearareaBox">
+	<div class="sheet-headline splatFont">{{localize "wod.advantages.virtue.headline"}}</div>
+
 	<div class="clearareaBox">
-		<div class="pullLeft headlineNormal vrollable attribute-headlineWidth" 
-			data-type="{{config.sheettype.mortal}}"
-			data-key="conscience"
-			data-noability="true">{{localize data.system.advantages.virtues.conscience.label}}</div>
+		<div class="clearareaBox">
+			<div class="pullLeft headlineNormal vrollable attribute-headlineWidth" 
+				data-type="{{config.sheettype.mortal}}"
+				data-key="conscience"
+				data-noability="true">{{localize data.system.advantages.virtues.conscience.label}}</div>
+					
+			<div class="resource-value dotvalueArea pullRight" data-value="{{data.system.advantages.virtues.conscience.permanent}}" data-name="advantages.virtues.conscience.permanent">
+				{{#numLoop data.system.advantages.virtues.conscience.max}}
 				
-		<div class="resource-value dotvalueArea pullRight" data-value="{{data.system.advantages.virtues.conscience.permanent}}" data-name="advantages.virtues.conscience.permanent">
-			{{#numLoop data.system.advantages.virtues.conscience.max}}
-			
-				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
-			
-			{{/numLoop}}			
+					<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}			
+			</div>
+		</div>	
+
+		<div class="clearareaBox">
+			<div class="pullLeft  headlineNormal vrollable attribute-headlineWidth" 
+				data-type="{{config.sheettype.mortal}}"
+				data-key="selfcontrol"
+				data-noability="true">{{localize data.system.advantages.virtues.selfcontrol.label}}</div>
+					
+			<div class="resource-value dotvalueArea pullRight" data-value="{{data.system.advantages.virtues.selfcontrol.permanent}}" data-name="advantages.virtues.selfcontrol.permanent">
+				{{#numLoop data.system.advantages.virtues.selfcontrol.max}}
+				
+					<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+			</div>	
 		</div>
-	</div>	
 
-	<div class="clearareaBox">
-		<div class="pullLeft  headlineNormal vrollable attribute-headlineWidth" 
-			data-type="{{config.sheettype.mortal}}"
-			data-key="selfcontrol"
-			data-noability="true">{{localize data.system.advantages.virtues.selfcontrol.label}}</div>
+		<div class="clearareaBox">
+			<div class="pullLeft headlineNormal vrollable attribute-headlineWidth" 
+				data-type="{{config.sheettype.mortal}}"
+				data-key="courage"
+				data-noability="true">{{localize data.system.advantages.virtues.courage.label}}</div>
+					
+			<div class="resource-value dotvalueArea pullRight" data-value="{{data.system.advantages.virtues.courage.permanent}}" data-name="advantages.virtues.courage.permanent">
+				{{#numLoop data.system.advantages.virtues.courage.max}}
 				
-		<div class="resource-value dotvalueArea pullRight" data-value="{{data.system.advantages.virtues.selfcontrol.permanent}}" data-name="advantages.virtues.selfcontrol.permanent">
-			{{#numLoop data.system.advantages.virtues.selfcontrol.max}}
-			
-				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-		</div>	
-	</div>
-
-	<div class="clearareaBox">
-		<div class="pullLeft headlineNormal vrollable attribute-headlineWidth" 
-			data-type="{{config.sheettype.mortal}}"
-			data-key="courage"
-			data-noability="true">{{localize data.system.advantages.virtues.courage.label}}</div>
+					<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
 				
-		<div class="resource-value dotvalueArea pullRight" data-value="{{data.system.advantages.virtues.courage.permanent}}" data-name="advantages.virtues.courage.permanent">
-			{{#numLoop data.system.advantages.virtues.courage.max}}
-			
-				<span class="resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-		</div>	
+				{{/numLoop}}
+			</div>	
+		</div>
 	</div>
 </div>

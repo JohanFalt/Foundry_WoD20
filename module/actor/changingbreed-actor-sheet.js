@@ -14,11 +14,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				initial: "core",
 			},
 			{
-				navSelector: ".sheet-spec-tabs",
-				contentSelector: ".sheet-spec-body",
-				initial: "normal",
-			},
-			{
 				navSelector: ".sheet-setting-tabs",
 				contentSelector: ".sheet-setting-body",
 				initial: "attributes",

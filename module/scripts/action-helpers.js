@@ -3,24 +3,20 @@ import { rollDice, DiceRoll } from "./roll-dice.js";
 import { calculateTotals } from "./totals.js";
 
 import CombatHelper from "./combat-helpers.js";
+import BonusHelper from "./bonus-helpers.js";
 
 import * as WeaponHelper from "../dialogs/dialog-weapon.js";
 import * as PowerHelper from "../dialogs/dialog-power.js";
 import * as SortHelper from "../dialogs/dialog-sortpower.js";
 
-import { Treasure } from "../dialogs/dialog-item.js";
-import { DialogItem } from "../dialogs/dialog-item.js";
+import * as ItemHelper from "../dialogs/dialog-item.js";
+//import { Treasure } from "../dialogs/dialog-item.js";
+//import { DialogItem } from "../dialogs/dialog-item.js";
 
 import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js";
 
 import { Rote } from "../dialogs/dialog-aretecasting.js";
 import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
-
-/* import { SortDisciplinePower } from "../dialogs/dialog-sortpower.js";
-import { SortPathPower } from "../dialogs/dialog-sortpower.js";
-import { SortArtPower } from "../dialogs/dialog-sortpower.js";
-import { SortEdgePower } from "../dialogs/dialog-sortpower.js";
-import { DialogSortPower } from "../dialogs/dialog-sortpower.js"; */
 
 import { VampireFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 import { WerewolfFrenzy } from "../dialogs/dialog-checkfrenzy.js";
@@ -48,7 +44,7 @@ export class GraphicSettings {
 
 export default class ActionHelper {
 
-    static RollDialog(event, actor) {
+    static async RollDialog(event, actor) {
         console.log("WoD | Mortal Sheet _onRollDialog");
 	
 		event.preventDefault();
@@ -66,6 +62,33 @@ export default class ActionHelper {
 			if (item == undefined) {
 				console.log(`WoD | RollDialog - item ${dataset.itemid} not found`);
 				return;
+			}
+
+			if (item.type == "Power") {
+				if (await BonusHelper.CheckAttributeBonus(actor, item.dice1)) {
+					let bonus = await BonusHelper.GetAttributeBonus(actor, item.dice1);
+					item.difficulty += parseInt(bonus);
+				}
+				else if (await BonusHelper.CheckAttributeBonus(actor, item.dice2)) {
+					let bonus = await BonusHelper.GetAttributeBonus(actor, item.dice2);
+					item.difficulty += parseInt(bonus);
+				}
+
+				if (await BonusHelper.CheckAbilityBonus(actor, item.dice2)) {
+                    let bonus = await BonusHelper.GetAbilityBonus(actor, item.dice2);
+                    item.difficulty += parseInt(bonus);
+                }
+			}
+			if ((item.type == "Melee Weapon") || (item.type == "Ranged Weapon")) {
+				if (await BonusHelper.CheckAttributeBonus(actor, item.system.attack.attribute)) {
+					let bonus = await BonusHelper.GetAttributeBonus(actor, item.system.attack.attribute);
+					item.system.difficulty += parseInt(bonus);
+				}
+
+				if (await BonusHelper.CheckAbilityBonus(actor, item.system.attack.ability)) {
+                    let bonus = await BonusHelper.GetAbilityBonus(actor, item.system.attack.ability);
+                    item.system.difficulty += parseInt(bonus);
+                }
 			}
 
 			// used a Weapon
@@ -96,8 +119,8 @@ export default class ActionHelper {
 
 			// used a Item
 			if (dataset.object == "Treasure") {
-				const treasure = new Treasure(item);
-				let treasureUse = new DialogItem(actor, treasure);
+				const treasure = new ItemHelper.Treasure(item);
+				let treasureUse = new ItemHelper.DialogItem(actor, treasure);
 				treasureUse.render(true);
 
 				return;
@@ -216,6 +239,15 @@ export default class ActionHelper {
 				return;
 			}
 
+			// used an Lore
+			if (dataset.object == "Lore") {
+				const lore = new PowerHelper.LorePower(item);
+				let powerUse = new PowerHelper.DialogPower(actor,lore);
+				powerUse.render(true);
+
+				return;
+			}
+
 			// placing Disicpline Power in correct discipline
 			if (dataset.object == "SortDisciplinePower") {
 				const discipline = new SortHelper.SortDisciplinePower(item);
@@ -244,6 +276,14 @@ export default class ActionHelper {
 			if (dataset.object == "SortEdgePower") {
 				const edge = new SortHelper.SortEdgePower(item);
 				let powerUse = new SortHelper.DialogSortPower(actor, edge);
+				powerUse.render(true);
+
+				return;
+			}
+
+			if (dataset.object == "SortLorePower") {
+				const lore = new SortHelper.SortLorePower(item);
+				let powerUse = new SortHelper.DialogSortPower(actor, lore);
 				powerUse.render(true);
 
 				return;
@@ -419,6 +459,15 @@ export default class ActionHelper {
 
 		console.log("WoD | Sheet calculations done");
 
+		// make sure all bonuses connected to an item have the same status as the item itself.
+		for (const item of actorData.items) {
+			for (const bonus of actorData.items) {
+				if ((bonus.type == "Bonus") && (bonus.system.parentid == item._id)) {
+					bonus.system.isactive = item.system.isactive;
+				}
+			}
+		}
+
 		if ((actorData.system.settings.hasrage) || (actorData.system.settings.hasgnosis)) {
 			await this._handleWerewolfCalculations(actorData);
 		}
@@ -431,6 +480,11 @@ export default class ActionHelper {
 		if (actorData.system.settings.hasconviction) {
 			await this._handleHunterCalculations(actorData);
 		}
+		if ((actorData.system.settings.hasfaith) || (actorData.system.settings.hastorment)) {
+			await this._handleDemonCalculations(actorData);
+		}
+
+		actorData.system.movement = await CombatHelper.CalculateMovement(actorData);
 	}
 
     static async handleWoundLevelCalculations(actorData) {
@@ -447,7 +501,7 @@ export default class ActionHelper {
 		actorData.system.traits.health.totalhealthlevels.max = 0;
 
 		for (const i in CONFIG.wod.woundLevels) {
-			actorData.system.traits.health.totalhealthlevels.max += parseInt(actorData.system.health[i].value);
+			actorData.system.traits.health.totalhealthlevels.max += parseInt(actorData.system.health[i].total);
 		}
 
 		actorData.system.traits.health.totalhealthlevels.value = actorData.system.traits.health.totalhealthlevels.max - totalWoundLevels;
@@ -461,7 +515,7 @@ export default class ActionHelper {
 
 		// check wound level and wound penalty
 		for (const i in CONFIG.wod.woundLevels) {
-			totalWoundLevels = totalWoundLevels - parseInt(actorData.system.health[i].value);
+			totalWoundLevels = totalWoundLevels - parseInt(actorData.system.health[i].total);
 
 			if (totalWoundLevels <= 0) {
 				actorData.system.health.damage.woundlevel = actorData.system.health[i].label;
@@ -531,33 +585,66 @@ export default class ActionHelper {
 		}
 
 		// virtues
-		if (actorData.system.advantages.virtues.mercy.permanent > actorData.system.advantages.virtues[primary].permanent) {
-			actorData.system.advantages.virtues.mercy.permanent = actorData.system.advantages.virtues[primary].permanent;
-		}
+		if (primary != "") {			
+			if (actorData.system.advantages.virtues.mercy.permanent > actorData.system.advantages.virtues[primary].permanent) {
+				actorData.system.advantages.virtues.mercy.permanent = actorData.system.advantages.virtues[primary].permanent;
+			}
 
-		if (actorData.system.advantages.virtues.mercy.spent > actorData.system.advantages.virtues.mercy.permanent) {
-			actorData.system.advantages.virtues.mercy.spent = actorData.system.advantages.virtues.mercy.permanent;
-		}
+			if (actorData.system.advantages.virtues.mercy.spent > actorData.system.advantages.virtues.mercy.permanent) {
+				actorData.system.advantages.virtues.mercy.spent = actorData.system.advantages.virtues.mercy.permanent;
+			}
 
-		if (actorData.system.advantages.virtues.vision.permanent > actorData.system.advantages.virtues[primary].permanent) {
-			actorData.system.advantages.virtues.vision.permanent = actorData.system.advantages.virtues[primary].permanent;
-		}
+			if (actorData.system.advantages.virtues.vision.permanent > actorData.system.advantages.virtues[primary].permanent) {
+				actorData.system.advantages.virtues.vision.permanent = actorData.system.advantages.virtues[primary].permanent;
+			}
 
-		if (actorData.system.advantages.virtues.vision.spent > actorData.system.advantages.virtues.vision.permanent) {
-			actorData.system.advantages.virtues.vision.spent = actorData.system.advantages.virtues.vision.permanent;
-		}
+			if (actorData.system.advantages.virtues.vision.spent > actorData.system.advantages.virtues.vision.permanent) {
+				actorData.system.advantages.virtues.vision.spent = actorData.system.advantages.virtues.vision.permanent;
+			}
 
-		if (actorData.system.advantages.virtues.zeal.permanent > actorData.system.advantages.virtues[primary].permanent) {
-			actorData.system.advantages.virtues.zeal.permanent = actorData.system.advantages.virtues[primary].permanent;
-		}
+			if (actorData.system.advantages.virtues.zeal.permanent > actorData.system.advantages.virtues[primary].permanent) {
+				actorData.system.advantages.virtues.zeal.permanent = actorData.system.advantages.virtues[primary].permanent;
+			}
 
-		if (actorData.system.advantages.virtues.zeal.spent > actorData.system.advantages.virtues.zeal.permanent) {
-			actorData.system.advantages.virtues.zeal.spent = actorData.system.advantages.virtues.zeal.permanent;
+			if (actorData.system.advantages.virtues.zeal.spent > actorData.system.advantages.virtues.zeal.permanent) {
+				actorData.system.advantages.virtues.zeal.spent = actorData.system.advantages.virtues.zeal.permanent;
+			}
+		}
+		else {
+			console.warn("WoD | _handleHunterCalculations - Primary virtue not selected.");
 		}
 		
 		actorData.system.advantages.virtues.mercy.roll = parseInt(actorData.system.advantages.virtues.mercy.permanent);
 		actorData.system.advantages.virtues.vision.roll = parseInt(actorData.system.advantages.virtues.vision.permanent);
 		actorData.system.advantages.virtues.zeal.roll = parseInt(actorData.system.advantages.virtues.zeal.permanent);		
+	}
+
+	static async _handleDemonCalculations(actorData) {
+		console.log("WoD | handleDemonCalculations");	
+
+		// faith
+		if (actorData.system.settings.hasfaith) {
+			if (actorData.system.advantages.faith.permanent > actorData.system.advantages.faith.max) {
+				actorData.system.advantages.faith.permanent = actorData.system.advantages.faith.max;
+			}
+			
+			if (actorData.system.advantages.faith.permanent < actorData.system.advantages.faith.temporary) {
+				actorData.system.advantages.faith.temporary = actorData.system.advantages.faith.permanent;
+			}
+
+			actorData.system.advantages.faith.roll = parseInt(actorData.system.advantages.faith.permanent);	
+		} 
+
+		// torment
+		if (actorData.system.settings.hastorment) {
+			if (actorData.system.advantages.torment.permanent > actorData.system.advantages.torment.max) {
+				actorData.system.advantages.torment.permanent = actorData.system.advantages.torment.max;
+			}
+
+			if (actorData.system.advantages.torment.temporary > actorData.system.advantages.torment.max) {
+				actorData.system.advantages.torment.temporary = actorData.system.advantages.torment.max;
+			}
+		}
 	}
 
 	static async _handleVampireCalculations(actorData) {
@@ -598,13 +685,13 @@ export default class ActionHelper {
 		let advantageRollSetting = true;
 
 		// shift
-		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == "Changing Breed")) {
+		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == CONFIG.wod.sheettype.changingbreed)) {
 			if ((!actorData.system.shapes.homid.isactive) &&
 				(!actorData.system.shapes.glabro.isactive) &&
 				(!actorData.system.shapes.crinos.isactive) &&
 				(!actorData.system.shapes.hispo.isactive) &&
 				(!actorData.system.shapes.lupus.isactive)) {
-				actorData.system.shapes.homid.isactive = true;
+				actorData.system.shapes.homid.isactive = true;				
 			}
 
 			if (actorData.system.shapes.homid.isactive) {
@@ -637,6 +724,8 @@ export default class ActionHelper {
 				actorData.system.shapes.crinos.isactive = false;
 				actorData.system.shapes.hispo.isactive = false;
 			}
+
+			//actorData.system.listdata.movement = CombatHelper.CalculateMovement(actorData);
 		}
 
 		// rage
@@ -645,7 +734,7 @@ export default class ActionHelper {
 		}
 		
 		if (actorData.system.advantages.rage.permanent < actorData.system.advantages.rage.temporary) {
-			ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
+			//ui.notifications.warn(game.i18n.localize("wod.advantages.ragewarning"));
 		}
 		
 		// gnosis
@@ -683,6 +772,34 @@ export default class ActionHelper {
 
 			actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total) - rageDiff;
 			actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total) - rageDiff;
+		}
+
+		for (const item of actorData.items) {
+			if (item.type == "Bonus") {
+				if ((item.system.parentid == "hispo") || (item.system.parentid == "lupus")) {
+					item.system.isactive = false;
+				}
+
+				if ((actorData.system.shapes.hispo.isactive) && (item.system.parentid == "hispo")) {
+					if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
+						item.system.isactive = true;
+					}
+
+					if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
+						item.system.isactive = true;
+					}					
+				}
+
+				if ((actorData.system.shapes.lupus.isactive) && (item.system.parentid == "lupus")) {
+					if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
+						item.system.isactive = true;
+					}
+
+					if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
+						item.system.isactive = true;
+					}
+				}
+			}
 		}
 	}		
 	
@@ -1050,6 +1167,71 @@ export default class ActionHelper {
 		}
 	}
 
+	static _setDemonAbilities(actor) {
+		for (const talent in CONFIG.wod.talents) {
+
+			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
+					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.awareness") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.dodge") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.intuition") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
+					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
+				actor.system.abilities.talent[talent].isvisible = true;
+			}
+			else {
+				actor.system.abilities.talent[talent].isvisible = false;
+			}			
+		}
+
+		for (const skill in CONFIG.wod.skills) {
+			
+			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.demolitions") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.security") ||	
+					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.survival") ||
+					(actor.system.abilities.skill[skill].label == "wod.abilities.technology")) {
+				actor.system.abilities.skill[skill].isvisible = true;
+			}
+			else {
+				actor.system.abilities.skill[skill].isvisible = false;
+			}			
+		}
+
+		for (const knowledge in CONFIG.wod.knowledges) {
+
+			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.finance") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.linguistics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.religion") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.research") ||
+					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
+				actor.system.abilities.knowledge[knowledge].isvisible = true;
+			}
+			else {
+				actor.system.abilities.knowledge[knowledge].isvisible = false;
+			}		
+		}
+	}
+
 	static _setCreatureAbilities(actor) {
 		for (const talent in CONFIG.wod.talents) {
 			actor.system.abilities.talent[talent].isvisible = false;
@@ -1152,11 +1334,23 @@ export default class ActionHelper {
 		actor.system.settings.powers.hasarts = true;
 	}
 
-	static _setHunterfAttributes(actor) {
+	static _setHunterAttributes(actor) {
 		actor.system.settings.hasconviction = true;
 		actor.system.settings.hasvirtue = true;
 
 		actor.system.settings.powers.hasedges = true;
+	}
+
+	static _setDemonAttributes(actor) {
+		actor.system.settings.soak.bashing.isrollable = true;
+		actor.system.settings.soak.lethal.isrollable = true;
+		actor.system.settings.soak.aggravated.isrollable = false;
+
+		actor.system.settings.hasvirtue = true;
+		actor.system.settings.hasfaith = true;
+		actor.system.settings.hastorment = true;
+		
+		actor.system.settings.powers.haslores = true;
 	}
 
 	static _setCreatureAttributes(actor) {
@@ -1210,6 +1404,14 @@ export default class ActionHelper {
 		for (const i in actorData.system.abilities.knowledge) {
 			if (actorData.system.abilities.knowledge[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
 				actorData.system.abilities.knowledge[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+			}
+		}
+
+		for (const item of actorData.items) {
+			if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
+				if (item.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
+					item.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+				}
 			}
 		}
 

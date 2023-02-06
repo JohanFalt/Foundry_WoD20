@@ -13,11 +13,10 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/navigation.html",
 		"systems/worldofdarkness/templates/actor/parts/bio.html",
 		"systems/worldofdarkness/templates/actor/parts/attributes.html",
-		"systems/worldofdarkness/templates/actor/parts/attributes_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
-		"systems/worldofdarkness/templates/actor/parts/abilities_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/conditions.html",
+		"systems/worldofdarkness/templates/actor/parts/movement.html",
 		"systems/worldofdarkness/templates/actor/parts/macro_icons.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_natural.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
@@ -40,7 +39,11 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/stats_virtue.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/hunter/stats_virtue.html",
-		"systems/worldofdarkness/templates/actor/parts/hunter/stats_conviction.html",			
+		"systems/worldofdarkness/templates/actor/parts/hunter/stats_conviction.html",	
+		
+		"systems/worldofdarkness/templates/actor/parts/stats_faith.html",
+		"systems/worldofdarkness/templates/actor/parts/stats_torment.html",
+		"systems/worldofdarkness/templates/actor/parts/demon/forms.html",
 		
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
@@ -70,6 +73,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/changeling/treasure.html",
 
 		"systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html",				
+		"systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html",		
 		
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html",
@@ -100,10 +104,10 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.html",
 		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.html",
 		"systems/worldofdarkness/templates/actor/parts/hunter/edges.html",
+		"systems/worldofdarkness/templates/actor/parts/demon/lores.html",
 		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",		
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
 
-		"systems/worldofdarkness/templates/actor/parts/mage/spheres_spec.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",		
@@ -289,6 +293,28 @@ export const registerHandlebarsHelpers = function () {
 			}
 		}
 
+		// attribute then?
+		let list;
+
+		if (CONFIG.wod.attributeSettings == "5th") {
+			list = CONFIG.wod.attributes;
+		}
+		else if (CONFIG.wod.attributeSettings == "20th") {
+			list = CONFIG.wod.attributes20;
+		}
+		
+		for (const i in list) {
+			if (i == ability) {
+				return list[i];
+			}
+		}
+
+		for (const i in CONFIG.wod.advantages) {
+			if (i == ability) {
+				return CONFIG.wod.advantages[i];
+			}
+		}
+
 		return ability;
 	});
 
@@ -332,10 +358,10 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("showAbility", function (ability, abilityType, sheetType) {
 		if (ability == "research") {
-			if ((sheetType == CONFIG.wod.sheettype.hunter) && (abilityType == "skills")) {
+			if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "skills")) {
 				return false;
 			}
-			else if ((sheetType == CONFIG.wod.sheettype.hunter) && (abilityType == "knowledges")) {
+			else if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "knowledges")) {
 				return true;
 			}
 			else if (abilityType == "skills") {
@@ -346,10 +372,10 @@ export const registerHandlebarsHelpers = function () {
 			}
 		}
 		if (ability == "technology") {
-			if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)) && (abilityType == "skills")) {
+			if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "skills")) {
 				return true;
 			}
-			else if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)) && (abilityType == "knowledges")) {
+			else if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "knowledges")) {
 				return false;
 			}
 			else if (abilityType == "skills") {
@@ -500,26 +526,6 @@ export const registerHandlebarsHelpers = function () {
 		return "";
 	});
 
-	Handlebars.registerHelper("getSpiritAttributes", function (attribute) {
-		const list = CONFIG.wod.advantages;
-
-		for (const i in list) {
-			if (i == attribute) {
-				return list[i];
-			}
-		}
-
-		if (attribute == "strength") {
-			return "wod.advantages.rage";
-		}
-		else if ((attribute == "dexterity") || (attribute == "stamina")) {
-			return "wod.advantages.willpower";
-		}
-		else {
-			return "wod.advantages.gnosis";
-		}
-	});		
-
 	Handlebars.registerHelper("topSpheres", function (sphere) {
 		var list = ["correspondence","life","prime"];
 
@@ -586,6 +592,31 @@ export const registerHandlebarsHelpers = function () {
 		return state;
 	});
 
+	Handlebars.registerHelper("getGiftList", function (gifts, rank) {
+		let list = [];
+
+		if (rank == 1) {
+			list = gifts.powerlist1;
+		}
+		else if (rank == 2) {
+			list = gifts.powerlist2;
+		}
+		else if (rank == 3) {
+			list = gifts.powerlist3;
+		}
+		else if (rank == 4) {
+			list = gifts.powerlist4;
+		}
+		else if (rank == 5) {
+			list = gifts.powerlist5;
+		}
+		else if (rank == 6) {
+			list = gifts.powerlist6;
+		}
+
+		return list;
+	});
+
 	Handlebars.registerHelper("captilizeFirst", function (text) {
 		return text.charAt(0).toUpperCase() + text.slice(1);
 	});
@@ -611,17 +642,17 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.wod.hunteredgeSettings;
 		}
 
-		if (text == "observersSeeFullActor") {
-			if (CONFIG.wod.observersSeeFullActor == "full") {
-				return CONFIG.wod.observersSeeFullActor;
-			}
-
+		if (text == "viewBiotabPermission") {
 			if (game.user.isGM) {
 				return "full";
 			}
 
 			if (this.actor.isOwner) {
 				return "full";
+			}
+
+			if (this.actor.limited) {
+				return CONFIG.wod.limitedSeeFullActor;
 			}
 
 			return CONFIG.wod.observersSeeFullActor;
@@ -632,6 +663,10 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("captilize", function (text) {
 		return text.toUpperCase();
+	});
+
+	Handlebars.registerHelper("lowercase", function (text) {
+		return text.toLowerCase();
 	});
 
 	Handlebars.registerHelper("isempty", function (text) {

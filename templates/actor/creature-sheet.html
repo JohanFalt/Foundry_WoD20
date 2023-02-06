@@ -4,23 +4,18 @@
 	<div class="sheet-character">
 
 		{{!-- Always visible --}}
-		<header class="sheet-header">	
-			
+		<header class="sheet-header">				
 			<div class="clearareaBox">
-				<div class="pullLeft">
-					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+				{{#if (eq actor.limited false)}}
+					<div class="pullLeft">
+						{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+					</div>
+				{{/if}}
+				<div class="navigation">
+					{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}
 				</div>
 			</div>		
-
 		</header>
-
-		{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}
-
-	<!-- 	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-			<a class="item" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-			<a class="item" data-tab="core">{{localize 'wod.tab.core'}}</a>		
-			<a class="item" data-tab="settings"><i class="fa-solid fa-gear"></i></a>
-		</nav> -->
 
 		{{!-- Sheet part --}}
 		<section class="sheet-body">
@@ -42,6 +37,7 @@
 
 							{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
 							{{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+							{{> "systems/worldofdarkness/templates/actor/parts/movement.html"}}
 							
 						</div>
 					</div>

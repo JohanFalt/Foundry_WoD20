@@ -1,7 +1,9 @@
 import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
+
 import ActionHelper from "../scripts/action-helpers.js";
 import CombatHelper from "../scripts/combat-helpers.js";
+import BonusHelper from "../scripts/bonus-helpers.js";
 
 export class Gift {
     constructor(item) {
@@ -219,6 +221,9 @@ export class ArtPower {
         let lowestRank = 99;
         let affinitySelected = false;
         let difficultRealm = false;
+        let realmMod = 0;
+        
+        this.difficulty = 8;
 
         for (const realm of this.selectedRealms) {
             if ((realm.label != "wod.realms.scene") && (realm.label != "wod.realms.time") && (realm.isselected)) {
@@ -231,17 +236,19 @@ export class ArtPower {
             }
             if (((realm.label == "wod.realms.scene") || (realm.label == "wod.realms.time")) && (realm.isselected)) {
                 difficultRealm = true;
+                realmMod += 1;
             }
         }
 
         if ((affinitySelected) || (difficultRealm)) {
-            this.difficulty = 8;
+            //this.difficulty = 8;
 
             if (affinitySelected) {
                 this.difficulty -= 1;
             }
             if (difficultRealm) {
-                this.difficulty += 1;
+                //this.difficulty += 1;
+                this.difficulty += realmMod;
             }
         }
 
@@ -279,6 +286,33 @@ export class EdgePower {
     }
 }
 
+export class LorePower {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";
+
+        this.name = item["name"];
+        this.type = item["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "demonDialog";
+    }
+}
+
 export class DialogPower extends FormApplication {
     constructor(actor, power) {
         super(power, {submitOnChange: true, closeOnSubmit: false});
@@ -286,13 +320,11 @@ export class DialogPower extends FormApplication {
         this.isDialog = true;
 
         if (this.actor.system.settings.powers.hasarts) {
-            // if ((this.actor.system.listdata != undefined) && (this.actor.system.listdata.powers.arts.realms != undefined)) {
             this.object.selectedRealms = this.actor.system.listdata.powers.arts.realms;
 
             for (const realm of this.object.selectedRealms) {
                 realm.isselected = false;
             }
-            // }
         }
         
         this.options.title = `${this.actor.name}`;
@@ -313,7 +345,7 @@ export class DialogPower extends FormApplication {
         });
     }
 
-    getData() {
+    async getData() {
         const data = super.getData();
 
         let attributeSpeciality = "";
@@ -331,7 +363,7 @@ export class DialogPower extends FormApplication {
             if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= 4) {
                 data.object.hasSpeciality = true;
                 attributeSpeciality = this.actor.system.attributes[data.object.dice1].speciality;
-            }
+            }            
         }
         // is dice1 an Advantage
         else if (this.actor.system.advantages[data.object.dice1]?.roll != undefined) { 
@@ -381,8 +413,18 @@ export class DialogPower extends FormApplication {
         }
 
         if (data.object.dice2 != "") {
+            // is dice2 an Attributes
+            if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice2]?.value != undefined)) {
+                data.object.abilityValue = parseInt(this.actor.system.attributes[data.object.dice2].total);
+                data.object.abilityName = game.i18n.localize(this.actor.system.attributes[data.object.dice2].label);
+    
+                if (parseInt(this.actor.system.attributes[data.object.dice2].value) >= 4) {
+                    data.object.hasSpeciality = true;
+                    abilitySpeciality = this.actor.system.attributes[data.object.dice2].speciality;
+                }            
+            }
             // is dice2 a Talent
-            if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
+            else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
                 data.object.abilityValue = parseInt(this.actor.system.abilities.talent[data.object.dice2].value);
                 data.object.abilityName = game.i18n.localize(this.actor.system.abilities.talent[data.object.dice2].label);
 
@@ -450,6 +492,11 @@ export class DialogPower extends FormApplication {
         }
 
         data.object.specialityText = specialityText;
+
+        if (await BonusHelper.CheckAbilityBuff(this.actor, data.object.dice2)) {
+            let bonus = await BonusHelper.GetAbilityBuff(this.actor, data.object.dice2);
+            this.object.abilityValue += parseInt(bonus);
+        }
 
         return data;
     }
@@ -631,6 +678,7 @@ export class DialogPower extends FormApplication {
         }
         
         const powerRoll = new DiceRoll(this.actor);
+        powerRoll.attribute = this.object.dice1;
         powerRoll.handlingOnes = CONFIG.wod.handleOnes;    
         powerRoll.origin = "power";
         powerRoll.numDices = numDices;

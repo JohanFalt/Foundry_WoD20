@@ -90,6 +90,23 @@ input.fancyComboBox + div > div.kOptionHeader {
   color:white;
 }
 
+/* DEMON COLOR BEGINS */
+
+.demon input.fancyComboBox + div {
+  border: var(--main-demon-color);
+}
+
+.demon input.fancyComboBox + div > div.kOptionHeader {
+  background: var(--main-demon-color);
+  color: white;
+}
+
+.demon input.fancyComboBox + div > div:hover,
+.demon input.fancyComboBox + div > div.active {
+  background: var(--main-demon-mid-color);
+  color:white;
+}
+
 /* MAGE COLOR BEGINS */
 
 .mage input.fancyComboBox + div {

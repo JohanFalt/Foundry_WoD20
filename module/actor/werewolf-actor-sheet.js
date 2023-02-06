@@ -18,11 +18,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				initial: "core",
 			},
 			{
-				navSelector: ".sheet-spec-tabs",
-				contentSelector: ".sheet-spec-body",
-				initial: "normal",
-			},
-			{
 				navSelector: ".sheet-setting-tabs",
 				contentSelector: ".sheet-setting-body",
 				initial: "attributes",
@@ -31,11 +26,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	}
   
 	constructor(actor, options) {
-		super(actor, options);
-
-		/* this.isCharacter = true;	
-		this.isGM = game.user.isGM; */
-		
+		super(actor, options);		
 		console.log("WoD | Werewolf Sheet constructor");
 	}
 
@@ -45,12 +36,80 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.werewolf) {
+				const version = game.data.system.version;
+
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
 				ActionHelper._setWerewolfAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setWerewolfAttributes(actorData);				
+				ActionHelper._setWerewolfAttributes(actorData);	
+				
+				console.log(`CREATION: Adds form bonus to ${this.actor.name}`);
+				
+				let itemData = {
+					name: "Perception diff hispo",
+					type: "Bonus",
+					
+					data: {
+						iscreated: true,
+						isactive: false,
+						version: version,
+						parentid: "hispo",
+						settingtype: "perception",
+						type: "attribute_diff",
+						value: -1
+					}
+				};
+				await this.actor.createEmbeddedDocuments("Item", [itemData]);
+
+				itemData = {
+					name: "Perception diff lupus",
+					type: "Bonus",
+					
+					data: {
+						iscreated: true,
+						isactive: false,
+						version: version,
+						parentid: "lupus",
+						settingtype: "perception",
+						type: "attribute_diff",
+						value: -2
+					}
+				};
+				await this.actor.createEmbeddedDocuments("Item", [itemData]);
+
+				itemData = {
+					name: "Wits diff hispo",
+					type: "Bonus",
+					
+					data: {
+						iscreated: true,
+						isactive: false,
+						version: version,
+						parentid: "hispo",
+						settingtype: "wits",
+						type: "attribute_diff",
+						value: -1
+					}
+				};
+				await this.actor.createEmbeddedDocuments("Item", [itemData]);
+
+				itemData = {
+					name: "Wits diff lupus",
+					type: "Bonus",
+					
+					data: {
+						iscreated: true,
+						isactive: false,
+						version: version,
+						parentid: "lupus",
+						settingtype: "wits",
+						type: "attribute_diff",
+						value: -2
+					}
+				};
+				await this.actor.createEmbeddedDocuments("Item", [itemData]);
 
 				this.actor.update(actorData);
 			}	 	

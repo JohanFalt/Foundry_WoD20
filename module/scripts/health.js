@@ -18,8 +18,8 @@ export function calculateHealth(actor, type) {
         aggravated = actor.system.health.damage.chimerical.aggravated;
     }
 
-    if (actor.system.health.bruised.value > 0) {
-        for (let i=0; i < actor.system.health.bruised.value; i++) {
+    if (actor.system.health.bruised.total > 0) {
+        for (let i=0; i < actor.system.health.bruised.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {
@@ -35,8 +35,8 @@ export function calculateHealth(actor, type) {
         }
     }
 
-    if (actor.system.health.hurt.value > 0) {
-        for (let i=0; i < actor.system.health.hurt.value; i++) {
+    if (actor.system.health.hurt.total > 0) {
+        for (let i=0; i < actor.system.health.hurt.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {
@@ -52,8 +52,8 @@ export function calculateHealth(actor, type) {
         }
     }
 
-    if (actor.system.health.injured.value > 0) {
-        for (let i=0; i < actor.system.health.injured.value; i++) {
+    if (actor.system.health.injured.total > 0) {
+        for (let i=0; i < actor.system.health.injured.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {
@@ -69,8 +69,8 @@ export function calculateHealth(actor, type) {
         }
     }
 
-    if (actor.system.health.wounded.value > 0) {
-        for (let i=0; i < actor.system.health.wounded.value; i++) {
+    if (actor.system.health.wounded.total > 0) {
+        for (let i=0; i < actor.system.health.wounded.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {
@@ -86,8 +86,8 @@ export function calculateHealth(actor, type) {
         }
     }
 
-    if (actor.system.health.mauled.value > 0) {
-        for (let i=0; i < actor.system.health.mauled.value; i++) {
+    if (actor.system.health.mauled.total > 0) {
+        for (let i=0; i < actor.system.health.mauled.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {
@@ -103,8 +103,8 @@ export function calculateHealth(actor, type) {
         }
     }
 
-    if (actor.system.health.crippled.value > 0) {
-        for (let i=0; i < actor.system.health.crippled.value; i++) {
+    if (actor.system.health.crippled.total > 0) {
+        for (let i=0; i < actor.system.health.crippled.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {
@@ -120,8 +120,8 @@ export function calculateHealth(actor, type) {
         }
     }
 
-    if (actor.system.health.incapacitated.value > 0) {
-        for (let i=0; i < actor.system.health.incapacitated.value; i++) {
+    if (actor.system.health.incapacitated.total > 0) {
+        for (let i=0; i < actor.system.health.incapacitated.total; i++) {
             let status = calculateStatus();
 
             if (status != "") {

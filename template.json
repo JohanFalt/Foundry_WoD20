@@ -7,6 +7,7 @@
 			"Vampire",
 			"Changeling",
 			"Hunter",
+			"Demon",
 			"Changing Breed",
 			"Creature",
 			"Spirit"
@@ -51,6 +52,10 @@
 				"derangement": "",
 				"notes": "",
 				"gear": "",
+				"money": {
+					"carried": 0,
+					"bank": 0
+				},
 				"conditions": {
 					"isignoringpain": false,
 					"isstunned": false
@@ -64,6 +69,14 @@
 					"base": 0,
 					"bonus": 0,
 					"total": 0
+				},
+				"movement": {
+					"walk": 0,
+					"jog": 0,
+					"run": 0,
+					"fly": 0,
+					"vjump": 0,
+					"hjump": 0
 				}
 			},
 			"ability": {				
@@ -433,6 +446,14 @@
 							"speciality": "",
 							"isvisible": false
 						},
+						"religion": {
+							"value": 0,
+							"max": 5,
+							"label": "wod.abilities.religion",
+							"altlabel": "",
+							"speciality": "",
+							"isvisible": false
+						},
 						"research": {
 							"value": 0,
 							"max": 5,
@@ -480,6 +501,8 @@
 					"hasbanality": false,
 					"hasnightmare": false,
 					"hasconviction": false,
+					"hasfaith": false,
+					"hastorment": false,
 					"hasessence": false,
 					"version": "",
 					"usesplatfont": true,					
@@ -488,6 +511,7 @@
 						"hasgifts": false,
 						"hasarts": false,
 						"hasedges": false,
+						"haslores": false,
 						"hascharms": false,
 						"haspowers": false
 					}
@@ -652,6 +676,12 @@
 						"max": 10,
 						"perturn": 1
 					},
+					"faith": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.faith"
+					},
 					"virtues": {
 						"conscience": {
 							"permanent": 0,
@@ -692,36 +722,43 @@
 					},
 					"bruised": {
 						"value": 1,
+						"total": 1,
 						"penalty": 0,
 						"label": "wod.health.bruised"
 					},
 					"hurt": {
 						"value": 1,
+						"total": 1,
 						"penalty": -1,
 						"label": "wod.health.hurt"
 					},
 					"injured": {
 						"value": 1,
+						"total": 1,
 						"penalty": -1,
 						"label": "wod.health.injured"
 					},
 					"wounded": {
 						"value": 1,
+						"total": 1,
 						"penalty": -2,
 						"label": "wod.health.wounded"
 					},
 					"mauled": {
 						"value": 1,
+						"total": 1,
 						"penalty": -2,
 						"label": "wod.health.mauled"
 					},
 					"crippled": {
 						"value": 1,
+						"total": 1,
 						"penalty": -5,
 						"label": "wod.health.crippled"
 					},
 					"incapacitated": {
 						"value": 1,
+						"total": 1,
 						"penalty": -99,
 						"label": "wod.health.incapacitated"
 					}
@@ -975,6 +1012,19 @@
 					}
 				}
 			},
+			"demon": {
+				"house": "",
+				"faction": "",
+				"visage": "",
+				"advantages": {
+					"torment": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.torment"
+					}
+				}
+			},
 			"creature": {
 				"advantages": {
 					"essence": {
@@ -1087,7 +1137,8 @@
 			"templates": [
 				"base",
 				"ability",
-				"mortal"
+				"mortal",
+				"demon"
 			]
 		},
 		"Mummy": {
@@ -1131,6 +1182,7 @@
 			"Power",
 			"Rote",
 			"Fetish",
+			"Bonus",
 			"Trait",
 			"Experience"
 		],
@@ -1249,7 +1301,8 @@
 				"base",
 				"feature",
 				"power"
-			]
+			],
+			"game": ""
 		},
 		"Item": {
 			"templates": [
@@ -1304,21 +1357,31 @@
 			],
 			"isrollable": false
 		},		
+		"Bonus": {
+			"templates": [
+				"settings",
+				"base",
+				"feature"
+			],
+			"settingtype": "",
+			"isactive": false
+		},
 		"Trait": {
 			"templates": [
 				"settings",
 				"base",
 				"feature"
 			],
+			"isactive": false,
 			"ismeleeweapon": false,
 			"israngedeweapon": false,
+			"isrollable": false,
 			"label": "",
 			"speciality": "",
 			"dice1": "",
 			"dice2": "",
 			"bonus": 0,
-			"difficulty": 6,
-			"isrollable": false
+			"difficulty": 6			
 		},
 		"Experience": {
 			"templates": [

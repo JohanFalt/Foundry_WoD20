@@ -1,76 +1,129 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont">{{localize "wod.power.disciplines"}}</div>
+        <div class="sheet-headline splatFont" data-area="disciplines">{{localize "wod.power.disciplines"}}</div>
 
         {{#each actor.system.listdata.powers.disciplines.disciplinelist as | item id|}}
 
-            <div class="clearareaBox {{#if (eq item.system.type 'wod.types.discipline')}}power-row{{else}}disciplinepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
-                <div class="pullLeft discipline-headline {{#if (eq item.system.type 'wod.types.discipline')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
-                    data-type="{{../config.sheettype.mortal}}"
-                    data-object="Discipline"
-                    data-rollitem="true"
-                    data-itemid="{{item._id}}">{{item.name}}</div>
+            <div class="power-area {{#if (eq item.system.type 'wod.types.discipline')}}mainpower-row{{/if}}">
+                <div class="clearareaBox {{#if (eq item.system.type 'wod.types.discipline')}}power-row{{else}}disciplinepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
+                    {{#if (eq item.system.type "wod.types.disciplinepower")}}
+                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                    {{/if}}
+                    <div class="pullLeft discipline-headline {{#if (eq item.system.type 'wod.types.discipline')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="Discipline"
+                        data-rollitem="true"
+                        data-itemid="{{item._id}}">{{item.name}}</div>
 
-                {{#if (eq item.system.type "wod.types.discipline")}}
-                    <div class="resource-value pullLeft discipline-dotBox" 
-                        data-value="{{item.system.value}}" 
-                        data-itemid="{{item._id}}">
+                    {{#if (eq item.system.type "wod.types.discipline")}}
+                        <div class="resource-value pullLeft power-dotBox" 
+                            data-value="{{item.system.value}}" 
+                            data-itemid="{{item._id}}">
 
-                        {{#numLoop item.system.max}}
-                        
-                            <span class="{{#if (gt item.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
-                        
-                        {{/numLoop}}
-                    </div>
-                {{/if}}
-
-                {{#if item.system.isrollable}}
-                    <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice1 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAttributes item.system.dice1)}}{{/if}}</div>
-                    <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice2 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAbility item.system.dice2)}}{{/if}}</div>
-                    <div class="pullLeft power-valueBox headlineNormal centerText">
-                        {{#iff item.system.difficulty "==" -1}}
-                            {{localize "wod.labels.varies"}}
-                        {{else}}
-                            {{item.system.difficulty}}
-                        {{/iff}}
-                    </div>
-                {{/if}}
-
-                <div class="power-iconbox">
-                    <div class="pullLeft pointer headlineNormal tooltip">
-                        <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">
-                            {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                            <br /><br />
-                            {{/if}}{{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                        </span>
-                    </div>
-                    <div class="pullLeft">
-                        <a class="send-chat" 
-                            title="{{localize 'wod.labels.send'}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}" 
-                            data-headline="<h2>{{item.name}}</h2>" 
-                            data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.system.description}}</span>
-                                            <br />
-                                            <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                            <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
-
-                    {{#if (eq ../locked false)}}
-                        <a class="item-edit" 
-                            title="{{localize "wod.labels.edit.discipline"}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="item-delete" 
-                            title="{{localize "wod.labels.remove.discipline"}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            {{#numLoop item.system.max}}                            
+                                <span class="{{#if (gt item.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>                            
+                            {{/numLoop}}
+                        </div>
                     {{/if}}
 
+                    {{#if item.system.isrollable}}
+                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice1 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAttributes item.system.dice1)}}{{/if}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice2 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAbility item.system.dice2)}}{{/if}}</div>
+                        <div class="pullLeft power-valueBox headlineNormal centerText">
+                            {{#if (eq item.system.difficulty "-1")}}
+                                {{localize "wod.labels.varies"}}
+                            {{else}}
+                                {{item.system.difficulty}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+
+                    <div class="pullLeft power-iconbox">
+                        {{#if (eq item.system.type "wod.types.disciplinepower")}}
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                        <div class="pullLeft pointer headlineNormal tooltip">
+                            <i class="icon fa-solid fa-memo"></i>
+                            <span class="tooltiptext">
+                                {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
+                                <br /><br />
+                                {{/if}}{{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                            </span>
+                        </div>
+                        <div class="pullLeft pointer">
+                            <a class="send-chat" 
+                                title="{{localize 'wod.labels.send'}}" 
+                                data-type="Discipline" 
+                                data-item-id="{{item._id}}" 
+                                data-headline="<h2>{{item.name}}</h2>" 
+                                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                                <span class='chatt-text'>{{item.system.description}}</span>
+                                                <br />
+                                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
+                                                <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        </div>
+
+                        {{#if (eq ../locked false)}}
+                            {{#if (eq item.system.type "wod.types.disciplinepower")}}
+                                <div class="pullLeft pointer">
+                                    <a class="clearPower" 
+                                        title="{{localize 'wod.labels.power.cleardiscipline'}}" 
+                                        data-powertype="power"
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                </div>
+                            {{/if}}
+                            {{#if (eq item.system.type "wod.types.discipline")}}
+                                <div class="pullLeft pointer">
+                                    <a class="clearPower" 
+                                        title="{{localize 'wod.labels.power.removebonus.discipline'}}" 
+                                        data-powertype="main"
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                </div>
+                            {{/if}}
+                            <div class="pullLeft pointer">
+                                <a class="item-edit" 
+                                    title="{{localize 'wod.labels.edit.discipline'}}" 
+                                    data-type="Discipline" 
+                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <div class="pullLeft pointer">
+                                <a class="item-delete" 
+                                    title="{{localize 'wod.labels.remove.discipline'}}" 
+                                    data-type="Discipline" 
+                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            </div>
+                            
+                        {{/if}}
+                        {{#if (gt item.system.bonuses.length 0)}}
+                            <div class="pullLeft pointer">
+                                <i id="collapsibledisciplinebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="discipline{{id}}"></i>
+                            </div>
+                        {{/if}}
                     </div>
-            
+                </div>
+                <div class="hide bonuses discipline{{id}}" data-area="disciplinebonus{{id}}">
+
+                    {{#each item.system.bonuses as |bonus id|}}
+                        <div class="clearareaBox">
+                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                            {{#if (eq ../../locked false)}}
+                                <div class="pullLeft bonus-icons power-iconbox">
+                                    <div class="pullLeft pointer">
+                                        <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                    </div>
+                                    <div class="pullLeft pointer">
+                                        <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+
                 </div>
             </div>
 
@@ -93,14 +146,13 @@
                         data-object="SortDisciplinePower"
                         data-rollitem="true"
                         data-itemid="{{item._id}}">{{item.name}}</div>
-                    <div class="power-iconbox">
-                        {{#if ../locked}}
-                        {{ else }}
-                        <a class="item-delete" title="{{localize "wod.labels.remove.disciplinepower"}}" data-type="Discipline" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                        {{/if}}
-                    </div>
+                    
+                    {{#if (eq ../locked false)}}
+                        <div class="pullLeft power-iconbox">
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.disciplinepower'}}" data-type="Discipline" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        </div>
+                    {{/if}}                    
                 </div>
-
             {{/each}}
         </div>
     </div>
@@ -109,77 +161,129 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont">{{localize "wod.power.paths"}}</div>
+        <div class="sheet-headline splatFont" data-area="paths">{{localize "wod.power.paths"}}</div>
 
         {{#each actor.system.listdata.powers.disciplines.pathlist as | item id|}}
 
-            <div class="clearareaBox {{#if (eq item.system.type 'wod.types.disciplinepath')}}power-row{{else}}disciplinepower-row  {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
-                <div class="pullLeft discipline-headline {{#if (eq item.system.type 'wod.types.disciplinepath')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
-                    data-type="{{../config.sheettype.mortal}}"
-                    data-object="Path"
-                    data-rollitem="true"
-                    data-itemid="{{item._id}}">{{item.name}}</div>
 
-                {{#iff item.system.type "==" "wod.types.disciplinepath"}}
-                    <div class="resource-value pullLeft discipline-dotBox" 
-                        data-value="{{item.system.value}}" 
-                        data-itemid="{{item._id}}">
+            <div class="power-area {{#if (eq item.system.type 'wod.types.disciplinepath')}}mainpower-row{{/if}}">
+                <div class="clearareaBox {{#if (eq item.system.type 'wod.types.disciplinepath')}}power-row{{else}}disciplinepower-row  {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
+                    {{#if (eq item.system.type "wod.types.disciplinepathpower")}}
+                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                    {{/if}}
+                    <div class="pullLeft discipline-headline {{#if (eq item.system.type 'wod.types.disciplinepath')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="Path"
+                        data-rollitem="true"
+                        data-itemid="{{item._id}}">{{item.name}}</div>
 
-                        {{#numLoop item.system.max}}
-                        
-                            <span class="{{#iff item.system.max ">" 5}}supernaturalAttribute{{/iff}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
-                        
-                        {{/numLoop}}
-                    </div>
-                {{/iff}}
+                    {{#if (eq item.system.type "wod.types.disciplinepath")}}
+                        <div class="resource-value pullLeft power-dotBox" 
+                            data-value="{{item.system.value}}" 
+                            data-itemid="{{item._id}}">
 
-                {{#if item.system.isrollable}}
-                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
-                    <div class="pullLeft power-valueBox headlineNormal centerText">
-                        {{#iff item.system.difficulty "==" -1}}
-                            {{localize "wod.labels.varies"}}
-                        {{else}}
-                            {{item.system.difficulty}}
-                        {{/iff}}
-                    </div>
-                {{/if}}
-
-                <div class="power-iconbox">
-                    <div class="pullLeft pointer headlineNormal tooltip">
-                        <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">
-                            {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
-                            <br /><br />
-                            {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                        </span>
-                    </div>
-                    <div class="pullLeft">
-                        <a class="send-chat" 
-                            title="{{localize 'wod.labels.send'}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}" 
-                            data-headline="<h2>{{item.name}}</h2>" 
-                            data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.system.description}}</span>
-                                            <br />
-                                            <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                            <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
-
-                    {{#if ../locked}}
-                    {{else}}
-                        <a class="item-edit" 
-                            title="{{localize "wod.labels.edit.discipline"}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="item-delete" 
-                            title="{{localize "wod.labels.remove.discipline"}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            {{#numLoop item.system.max}}                        
+                                <span class="{{#if (gt item.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>                        
+                            {{/numLoop}}
+                        </div>
                     {{/if}}
 
+                    {{#if item.system.isrollable}}
+                        <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
+                        <div class="pullLeft power-valueBox headlineNormal centerText">
+                            {{#if (eq item.system.difficulty "-1")}}
+                                {{localize "wod.labels.varies"}}
+                            {{else}}
+                                {{item.system.difficulty}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+
+                    <div class="pullLeft power-iconbox">
+                        {{#if (eq item.system.type "wod.types.disciplinepathpower")}}
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                        {{/if}}
+                        <div class="pullLeft pointer headlineNormal tooltip">
+                            <i class="icon fa-solid fa-memo"></i>
+                            <span class="tooltiptext">
+                                {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
+                                <br /><br />
+                                {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                            </span>
+                        </div>
+                        <div class="pullLeft pointer">
+                            <a class="send-chat" 
+                                title="{{localize 'wod.labels.send'}}" 
+                                data-type="Path" 
+                                data-item-id="{{item._id}}" 
+                                data-headline="<h2>{{item.name}}</h2>" 
+                                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                                <span class='chatt-text'>{{item.system.description}}</span>
+                                                <br />
+                                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
+                                                <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        </div>
+
+                        {{#if (eq ../locked false)}}
+                            {{#if (eq item.system.type "wod.types.disciplinepathpower")}}
+                                <div class="pullLeft pointer">
+                                    <a class="clearPower" 
+                                        title="{{localize 'wod.labels.power.clearpath'}}" 
+                                        data-powertype="power"
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                </div>
+                            {{/if}}
+                            {{#if (eq item.system.type "wod.types.disciplinepath")}}
+                                <div class="pullLeft pointer">
+                                    <a class="clearPower" 
+                                        title="{{localize 'wod.labels.power.removebonus.path'}}" 
+                                        data-powertype="main"
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                </div>
+                            {{/if}}
+                            <div class="pullLeft pointer">
+                                <a class="item-edit" 
+                                    title="{{localize 'wod.labels.edit.discipline'}}" 
+                                    data-type="Discipline" 
+                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <div class="pullLeft pointer">
+                                <a class="item-delete" 
+                                    title="{{localize 'wod.labels.remove.discipline'}}" 
+                                    data-type="Discipline" 
+                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            </div>
+                        {{/if}}
+                        {{#if (gt item.system.bonuses.length 0)}}
+                            <div class="pullLeft pointer">
+                                <i id="collapsiblepathbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="path{{id}}"></i>
+                            </div>
+                        {{/if}}
                     </div>
-            
+                </div>
+                <div class="hide bonuses path{{id}}" data-area="pathbonus{{id}}">
+
+                    {{#each item.system.bonuses as |bonus id|}}
+                        <div class="clearareaBox">
+                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                            {{#if (eq ../../locked false)}}
+                                <div class="pullLeft bonus-icons power-iconbox">
+                                    <div class="pullLeft pointer">
+                                        <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                    </div>
+                                    <div class="pullLeft pointer">
+                                        <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+
                 </div>
             </div>
 
@@ -202,14 +306,13 @@
                         data-object="SortPathPower"
                         data-rollitem="true"
                         data-itemid="{{item._id}}">{{item.name}}</div>
-                    <div class="power-iconbox">
-                        {{#if ../locked}}
-                        {{ else }}
-                        <a class="item-delete" title="{{localize "wod.labels.remove.disciplinepower"}}" data-type="Discipline" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                        {{/if}}
-                    </div>
+                    
+                    {{#if (eq ../locked false)}}
+                        <div class="pullLeft power-iconbox">
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.disciplinepower'}}" data-type="Discipline" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        </div>
+                    {{/if}}                    
                 </div>
-
             {{/each}}
         </div>
     </div>
@@ -217,10 +320,9 @@
 
 <div class="sheet-area">
     <div class="clearareaBox">
-    <div class="sheet-headline splatFont">{{localize "wod.power.rituals"}}</div>
+        <div class="sheet-headline splatFont" data-area="rituals">{{localize "wod.power.rituals"}}</div>
 
-    {{#each actor.system.listdata.powers.disciplines.rituallist as | item id|}}
-
+        {{#each actor.system.listdata.powers.disciplines.rituallist as | item id|}}
             <div class="clearareaBox ritual-row row">
                 <div class="pullLeft ritual-headline headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
                     data-type="{{../config.sheettype.mortal}}"
@@ -232,15 +334,15 @@
                     <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
                     <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
                     <div class="pullLeft power-valueBox headlineNormal centerText">
-                        {{#iff item.system.difficulty "==" -1}}
+                        {{#if (eq item.system.difficulty "-1")}}
                             {{localize "wod.labels.varies"}}
                         {{else}}
                             {{item.system.difficulty}}
-                        {{/iff}}
+                        {{/if}}
                     </div>
                 {{/if}}
 
-                <div class="power-iconbox">
+                <div class="pullLeft power-iconbox">
                     <div class="pullLeft pointer headlineNormal tooltip">
                         <i class="icon fa-solid fa-memo"></i>
                         <span class="tooltiptext">
@@ -249,7 +351,7 @@
                             {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
                         </span>
                     </div>
-                    <div class="pullLeft">
+                    <div class="pullLeft pointer">
                         <a class="send-chat" 
                             title="{{localize 'wod.labels.send'}}" 
                             data-type="Discipline" 
@@ -260,24 +362,24 @@
                                             <br />
                                             <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
                                             <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
-
-                    {{#if ../locked}}
-                    {{else}}
-                        <a class="item-edit" 
-                            title="{{localize "wod.labels.edit.ritual"}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="item-delete" 
-                            title="{{localize "wod.labels.remove.ritual"}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                    {{/if}}
-
                     </div>
-            
+
+                    {{#if (eq ../locked false)}}
+                        <div class="pullLeft pointer">
+                            <a class="item-edit" 
+                                title="{{localize "wod.labels.edit.ritual"}}" 
+                                data-type="Discipline" 
+                                data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <div class="pullLeft pointer">
+                            <a class="item-delete" 
+                                title="{{localize "wod.labels.remove.ritual"}}" 
+                                data-type="Discipline" 
+                                data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
-
         {{/each}}
     </div>
 </div>

@@ -125,6 +125,12 @@
 
 	{{/if}}
 
+	{{#if (eq actor.type config.sheettype.demon)}}
+
+		{{> "systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html"}}
+
+	{{/if}}
+
 	{{#if (eq actor.type config.sheettype.werewolf)}}
 
 		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}

@@ -21,8 +21,12 @@
 			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default. After this setting has changed you have to restart Foundry VTT.",
 			"observersactorpermission": "Observers full view permission",
 			"observersactorpermissionhint": "This settings able it to limit how much an observer can see of a sheet, either they can see the full sheet or they can only see the Bio tab",
+			"limitedactorpermission": "Limited users has full view permission",
+			"limitedactorpermissionhint": "This settings able it to limit how much an limited user can see of a sheet, either they can see the full sheet or they can only see the Bio tab",
 			"observersfullsheet": "Observers can see full sheet",
-			"observerspartialsheet": "Observers can see Core tab only",
+			"observerspartialsheet": "Observers can see Bio tab only",
+			"limitedfullsheet": "Limited users can see full sheet",
+			"limitedpartialsheet": "Limited users can see Bio tab only",
 			"changeactorimage": "Change Actor image",
 			"changeactorimagehint": "Everyone are allowed to change an Actor images on an Actor they can edit",
 			"changeitemimage": "Change Item image",
@@ -69,6 +73,8 @@
 			"artpower": "Art Power",
 			"edge": "Edge",
 			"edgepower": "Edge Power",
+			"lore": "Lore",
+			"lorepower": "Lore Power",
 			"ritual": "Ritual",
 			"talen": "Talen",
 			"fetish": "Fetish",
@@ -79,7 +85,8 @@
 			"knowledgesecondability": "Secondary Knowledge Ability",
 			"realm": "Realm",
 			"resonance": "Resonance",
-			"othertraits": "Other Traits"
+			"othertraits": "Other Traits",
+			"apacolypticform": "Apocalyptic Form"
 		},
 		"tab": {
 			"bio": "Bio",
@@ -96,6 +103,7 @@
 			"disciplines": "Disciplines",
 			"dreaming": "Dreaming",
 			"edge": "Edges",
+			"lore": "Lores",
 			"shapechange": "Shapechange",
 			"sheet": "Sheet Settings",
 			"attribute": "Attribute Settings"
@@ -391,6 +399,23 @@
 				"visionary": "Visionary",
 				"wayword": "Wayword",
 				"primaryvirtue": "Primary Virtue"
+			},
+			"demon": {
+				"house": "House",
+				"faction": "Faction",
+				"visage": "Visage",
+				"defiler": "Defiler",
+				"devil": "Devil",
+				"devourer": "Devourer",
+				"fiend": "Fiend",
+				"malefactor": "Malefactor",
+				"scourge": "Scourge",
+				"slayer": "Slayer",
+				"faustian": "Faustian",
+				"cryptic": "Cryptic",
+				"luciferan": "Luciferan",
+				"ravener": "Ravener",
+				"reconciler": "Reconciler"
 			}
 		},
 		"attributes": {
@@ -465,6 +490,7 @@
 			"medicine": "Medicine",
 			"occult": "Occult",
 			"politics": "Politics",
+			"religion": "Religion",
 			"rituals": "Rituals",
 			"seneschal": "Seneschal",
 			"science": "Science",
@@ -613,13 +639,24 @@
 			"glamour": "Glamour",
 			"banality": "Banality",
 			"nightmare": "Nightmare",
-			"conviction": "Conviction"
+			"conviction": "Conviction",
+			"faith": "Faith",
+			"torment": "Torment",
+			"apocalypticforms": "Apocalyptic Forms"
 		},
 		"combat": {
 			"conditions": {
 				"frenzy": "Frenzy",
 				"ignorepain": "Ignore pain",
 				"stunned": "Stunned"
+			},
+			"movement": {
+				"walk": "Walk",
+				"jog": "Jog",
+				"run": "Run",
+				"fly": "Fly",
+				"vjump": "Vertical jump (feet per suc)",
+				"hjump": "Horizant jump (feet per suc)"
 			},
 			"weapon": {
 				"weapon": "Weapon",
@@ -729,8 +766,10 @@
 			"unsortedpaths": "Here is all unsorted path powers which needs to get a selected Path. Click on the headline to sort one.",
 			"unsortedarts": "Here is all unsorted art powers which needs to get a selected Art. Click on the headline to sort one.",
 			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
+			"unsortedlores": "Here is all unsorted lore powers which needs to get a selected Lore. Click on the headline to sort one.",
 			"arts": "Arts",
-			"edges": "Edges"
+			"edges": "Edges",
+			"lores": "Lores"
 		},
 		"spheres": {
 			"spheres": "Spheres",
@@ -763,6 +802,11 @@
 			"scene": "Scene",
 			"time": "Time"
 		},
+		"gear": {
+			"money": "Money",
+			"moneycarried": "Carried",
+			"moneybank": "In bank"
+		},
 		"notes": {
 			"unnamedbackground": "Unnamed background",
 			"unnamedmerit": "Unnamed merit",
@@ -777,7 +821,7 @@
 		},
 		"labels": {
 			"rolling": "Rolling",
-			"bonus": "Bonus",
+			"addedbonus": "Added bonuses",
 			"value": "Value",
 			"penalty": "Penalty",
 			"total": "Total",
@@ -791,6 +835,7 @@
 			"selectattribute": "Select attribute",
 			"specialty": "Use speciality",			
 			"select": "Select",
+			"noneselect": "Nothing selected",
 			"custom": "Secondary ability",
 			"none": "None",
 			"type": "Type",
@@ -831,7 +876,17 @@
 				"cleardiscipline": "Clear discipline connection",
 				"clearpath": "Clear path connection",
 				"clearart": "Clear art connection",
-				"clearedge": "Clear edge connection"
+				"clearedge": "Clear edge connection",
+				"clearlore": "Clear lore connection",
+				"disconnect": "Disconnect power",
+				"disconnectlabel": "Disconnecting power",
+				"removebonus": {
+					"art": "Remove connected bonuses to art",
+					"lore": "Remove connected bonuses to lore",
+					"edge": "Remove connected bonuses to edge",
+					"discipline": "Remove connected bonuses to discipline",
+					"path": "Remove connected bonuses to path"
+				}
 			},
 			"notes": {
 				"backgrounds": "Backgrounds",
@@ -867,6 +922,28 @@
 				"rangedweapon": "Listed ranged weapon",
 				"reference": "Reference"
 			},
+			"bonus": {
+				"headline": "Bonus",
+				"attributebonus": "Attribute bonus",
+				"attributebonushint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value by the selected amount. Can go beyond the max rating of the attribute.",
+				"attributediff": "Attribute difficulty",
+				"attributediffhint": "This bonus changes the difficulty of any use of this attribute when you make a roll.",
+				"attributesucc": "Automatic attribute successes",
+				"attributesucchint": "This bonus adds/subtracts a value to the number of rolled successes with this selected attribute.",
+				"abilitybonus": "Ability bonus",
+				"abilitybonushint": "This bonus adds/subtracts a value to the selected ability itself altering the total value by the selected amount. Can go beyond the max rating of the ability.",
+				"abilitydiff": "Ability difficulty",
+				"abilitydiffhint": "This bonus changes the difficulty of any use of this ability when you make a roll.",
+				"soakbonus": "Soak bonus",
+				"soakbonushint": "This bonus changes the value of the number dices rolled when making any soak rolls.",
+				"healthbuff": "Health level bonus",
+				"healthbuffhint": "This bonus adds the number of bruised health levels the character has.",
+				"initbonus": "Initiative bonus",
+				"initbonushint": "This bonus adds the number to the initiative score.",
+				"movebonus": "Movement bonus",
+				"movebonushint": "This bonus adds bonuses to the character's movement.",
+				"multiplier": "Movement multiplier"
+			},
 			"new": {
 				"armor": "New armor",
 				"naturalweapon": "New natural weapon",
@@ -886,7 +963,8 @@
 				"othertraits": "New other trait",
 				"addexp": "Gained experience",
 				"spentexp": "Spent experience",
-				"treasure": "New treasure"
+				"treasure": "New treasure",
+				"bonus": "New bonus"
 			},
 			"add": {
 				"background": "Add background",
@@ -896,7 +974,10 @@
 				"ability": "Add secondary ability",
 				"resonance": "Add resonance",
 				"othertraits": "Add other trait",
-				"treasure": "Add treasure"
+				"treasure": "Add treasure",
+				"bonus": "Add bonus",
+				"experience": "Add experience",
+				"spentexp": "Add spent experience"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",
@@ -918,10 +999,13 @@
 				"artpower": "Ediy art power",
 				"edge": "Edit edge",
 				"edgepower": "Edit edge power",
+				"lore": "Edit lore",
+				"lorepower": "Edit lore power",
 				"ability": "Edit secondary ability",
 				"resonance": "Edit resonance",
 				"othertraits": "Edit other trait",
-				"treasure": "Edit treasure"
+				"treasure": "Edit treasure",
+				"bonus": "Edit bonus"
 			},
 			"remove": {
 				"item": "Remove item",
@@ -947,10 +1031,23 @@
 				"artpower": "Remove art power",
 				"edge": "Remove edge",
 				"edgepower": "Remove edge power",
+				"lore": "Remove lore",
+				"lorepower": "Remove lore power",
 				"ability": "Remove secondary ability",
 				"resonance": "Remove resonance",
 				"othertraits": "Remove other trait",
-				"treasure": "Remove treasure"
+				"treasure": "Remove treasure",
+				"bonus": "Remove bonus"
+			},
+			"show": {
+				"background": "Show backgrounds",
+				"merit": "Show merits",
+				"flaw": "Show flaws",
+				"bloodbound": "Show bloodbounds",
+				"traits": "Show other traits",
+				"experience": "Show added experience",
+				"spentexp": "Show spent experience",
+				"bonus": "Show added bonus"
 			},
 			"yes": "yes",
 			"no": "no",

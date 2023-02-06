@@ -1,0 +1,34 @@
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.house">{{localize 'wod.bio.demon.house'}}</label>
+        <div class="pullLeft bioInformationArea">
+            {{#if locked}}
+                <input class="sheet-infoValues" name="system.house" type="text" value="{{data.system.house}}" data-name="data.system.house" data-dtype="String" readonly />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.house" type="text" value="{{data.system.house}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.demon.defiler'}}/{{localize 'wod.bio.demon.devil'}}/{{localize 'wod.bio.demon.devourer'}}/{{localize 'wod.bio.demon.fiend'}}/{{localize 'wod.bio.demon.malefactor'}}/{{localize 'wod.bio.demon.scourge'}}/{{localize 'wod.bio.demon.slayer'}}">
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.faction">{{localize 'wod.bio.demon.faction'}}</label>
+        <div class="pullLeft bioInformationArea">
+            {{#if locked}}
+                <input class="sheet-infoValues" name="system.faction" type="text" value="{{data.system.faction}}" data-name="data.system.faction" data-dtype="String" readonly />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.faction" type="text" value="{{data.system.faction}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.demon.faustian'}}/{{localize 'wod.bio.demon.cryptic'}}/{{localize 'wod.bio.demon.luciferan'}}/{{localize 'wod.bio.demon.ravener'}}/{{localize 'wod.bio.demon.reconciler'}}">
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText headlineBio splatFont" for="data.visage">{{localize 'wod.bio.demon.visage'}}</label>
+        <div class="pullLeft bioInformationArea">
+            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.visage" type="text" value="{{data.system.visage}}" data-name="data.system.visage" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        </div>
+    </div>
+</div>

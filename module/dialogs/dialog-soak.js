@@ -202,6 +202,7 @@ export class DialogSoakRoll extends FormApplication {
         templateHTML += `)</strong>`;    
         
         const soakRoll = new DiceRoll(this.actor);
+        soakRoll.attribute = "stamina";
         soakRoll.handlingOnes = CONFIG.wod.handleOnes;
         soakRoll.numDices = parseInt(numDices);
         soakRoll.difficulty = parseInt(this.object.difficulty);
@@ -209,14 +210,6 @@ export class DialogSoakRoll extends FormApplication {
         soakRoll.origin = "soak";
 
         rollDice(soakRoll);
-            
-        // rollDice(
-        //     CONFIG.handleOnes,
-        //     numDices,
-        //     this.actor,
-        //     templateHTML,
-        //     parseInt(this.object.difficulty));   
-
         this.object.close = true;
     }
 

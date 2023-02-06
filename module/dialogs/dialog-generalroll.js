@@ -1,6 +1,7 @@
 import { rollDice } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
+import BonusHelper from "../scripts/bonus-helpers.js";
 
 export class GeneralRoll {
     constructor(key, type) {
@@ -58,7 +59,7 @@ export class DialogGeneralRoll extends FormApplication {
         super(roll, {submitOnChange: true, closeOnSubmit: false});
         this.actor = actor;     
         this.isDialog = true;  
-        this.options.title = `${this.actor.name}`;
+        this.options.title = `${this.actor.name}`;        
     }
 
     /**
@@ -75,7 +76,7 @@ export class DialogGeneralRoll extends FormApplication {
         });
     }
 
-    getData() {
+    async getData() {
         const data = super.getData();
         const attributeKey = data.object.attributeKey;
         const abilityKey = data.object.abilityKey;
@@ -91,6 +92,13 @@ export class DialogGeneralRoll extends FormApplication {
         data.object.specialityText = "";
         data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
         data.object.usepain = !data.object.ignorepain;
+
+        if (this.object.type == "attribute") {
+            if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {
+                let bonus = await BonusHelper.GetAttributeBonus(this.actor, this.object.attributeKey);
+                this.object.difficulty += parseInt(bonus);
+            }
+        }
 
         if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
@@ -173,7 +181,18 @@ export class DialogGeneralRoll extends FormApplication {
 					}
                 }
 
+                if (await BonusHelper.CheckAbilityBonus(this.actor, ability._id)) {
+                    let bonus = await BonusHelper.GetAbilityBonus(this.actor, ability._id);
+                    this.object.difficulty += parseInt(bonus);
+                }              
+                
                 data.object.abilityValue = parseInt(ability.value);
+
+                if (await BonusHelper.CheckAbilityBuff(this.actor, ability._id)) {
+                    let bonus = await BonusHelper.GetAbilityBuff(this.actor, ability._id);
+                    data.object.abilityValue += parseInt(bonus);
+                }
+                
                 data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
 
@@ -292,7 +311,7 @@ export class DialogGeneralRoll extends FormApplication {
         //this.getData();
     }
 
-    _setAttribute(event) {
+    async _setAttribute(event) {
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".dialog-attribute-button");
@@ -304,6 +323,12 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         this.object.attributeKey = element.value;
+        this.object.difficulty = 6;
+
+        if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {            
+            let bonus = await BonusHelper.GetAttributeBonus(this.actor, this.object.attributeKey);
+            this.object.difficulty += parseInt(bonus);
+        }
 
         if (CONFIG.wod.attributeSettings == "20th") {                
             this.object.attributeName = game.i18n.localize(CONFIG.wod.attributes20[key]);
@@ -388,6 +413,7 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         const generalRoll = new DiceRoll(this.actor);
+        generalRoll.attribute = this.object.attributeKey;
         generalRoll.handlingOnes = CONFIG.wod.handleOnes;    
         generalRoll.origin = "general";
         generalRoll.numDices = numDices;

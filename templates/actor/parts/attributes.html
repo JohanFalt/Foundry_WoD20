@@ -24,7 +24,18 @@
 							data-type="{{../config.sheettype.mortal}}"
 							data-key="{{key}}"
 							data-attribute="true">{{localize attribute.label}}</label>
-						<div class="resource-value dotvalueArea pullRight" 
+						
+						{{#if (gte attribute.value 4)}}
+							<div class="speciality-attribute-icon">
+								<i class="fa-solid fa-circle-exclamation {{#if (eq attribute.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{attribute.speciality}}"></i>
+							</div>
+						{{else}}
+							<div class="speciality-attribute-empty-icon">
+								&nbsp;
+							</div>
+						{{/if}}						
+
+						<div class="resource-value pullRight" 
 							data-value="{{attribute.value}}" 
 							data-name="attributes.{{key}}.value">
 
@@ -43,7 +54,20 @@
 							{{/numLoop}}
 							
 						</div>
+
+						
 					</div>
+					{{#if (gte attribute.value 4)}}
+						{{#if (eq ../locked false)}}
+							<div class="speciality-attribute headlineNormal">
+								<input type="text" 
+									class="specialityBox editable"
+									name="system.attributes.{{key}}.speciality" 
+									value="{{attribute.speciality}}" 
+									data-name="data.system.attributes.{{key}}.speciality" />
+							</div>
+						{{/if}}
+					{{/if}}
 				
 				</div>
 			{{/if}}

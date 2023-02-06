@@ -1,7 +1,7 @@
 {{#if (ne actor.type config.sheettype.spirit)}}
 <div class="pullLeft splatFont">
     {{#if (eq actor.type config.sheettype.vampire)}}
-        <div class="condition clearareaBox">
+        <div class="condition clearareaBox" data-area="frenzycheck">
             <div class="pullLeft condition-checkbox">
                 <input name="system.conditions.isfrenzy" type="checkbox" {{#if data.system.conditions.isfrenzy}} checked {{/if}}>
             </div>
@@ -11,7 +11,7 @@
         </div>
     {{/if}}
     {{#if (eq actor.type config.sheettype.werewolf)}}
-        <div class="condition clearareaBox">
+        <div class="condition clearareaBox" data-area="frenzycheck">
             <div class="pullLeft condition-checkbox">
                 <input name="system.conditions.isfrenzy" type="checkbox" {{#if data.system.conditions.isfrenzy}} checked {{/if}}>
             </div>
@@ -22,7 +22,7 @@
     {{/if}}    
     {{#if (eq actor.type config.sheettype.changingbreed)}}
         {{#if (eqAnyNot data.system.changingbreed "Ananasi" "Nuwisha")}}
-            <div class="condition clearareaBox">
+            <div class="condition clearareaBox" data-area="frenzycheck">
                 <div class="pullLeft condition-checkbox">
                     <input name="system.conditions.isfrenzy" type="checkbox" {{#if data.system.conditions.isfrenzy}} checked {{/if}}>
                 </div>
@@ -33,7 +33,7 @@
         {{/if}}    
     {{/if}}
     <div class="condition clearareaBox">
-        <div class="pullLeft condition-checkbox">
+        <div class="pullLeft condition-checkbox" data-area="ignorepaincheck">
             <input name="system.conditions.isignoringpain" type="checkbox" {{#if data.system.conditions.isignoringpain}} checked {{/if}}>
         </div>
         <div class="pullLeft condition-checkbox">
@@ -42,7 +42,3 @@
     </div>
 </div>
 {{/if}}
-
-<!--<div class="pullLeft">
-        <input name="system.conditions.isstunned" type="checkbox" {{#if data.system.conditions.isstunned}} checked {{/if}}>{{localize "wod.combat.conditions.stunned"}}</input>
-    </div>-->

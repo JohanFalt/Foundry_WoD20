@@ -5,25 +5,47 @@
 	<div class="clearareaBox">
 		{{#each data.system.spheres as |sphere key|}}
 
-		{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
+			{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
 
-		<div class="attribute-rowheight" style="clear:left;">
-			<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#if (eq sphere.label ../data.system.affinity)}}highlightedPower{{/if}}" 
-				{{#if (eq sphere.label ../data.system.affinity)}}title="{{localize 'wod.bio.mage.affinitysphere'}}"{{/if}}>{{localize sphere.label}}</label>
-			<div class="resource-value pullLeft" 
-				data-value="{{sphere.value}}"
-				data-name="data.system.spheres.{{key}}.value">
+			<div class="attribute-rowheight" style="clear:left;">
+				<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#if (eq sphere.label ../data.system.affinity)}}highlightedPower{{/if}}" 
+					{{#if (eq sphere.label ../data.system.affinity)}}title="{{localize 'wod.bio.mage.affinitysphere'}}"{{/if}}>{{localize sphere.label}}</label>
 
-				{{#numLoop sphere.max}}
-				
-					<span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}"></span>
-				
-				{{/numLoop}}
-				
-			</div>
-		</div>		
+				{{#if (gte sphere.value 4)}}
+					<div class="speciality-magic-icon">
+						<i class="fa-solid fa-circle-exclamation {{#if (eq sphere.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{sphere.speciality}}"></i>
+					</div>
+				{{else}}
+					<div class="speciality-magic-empty-icon">
+						&nbsp;
+					</div>
+				{{/if}}
 
-		{{#if (bottenSpheres key)}}</div>{{/if}}
+				<div class="resource-value pullRight" 
+					data-value="{{sphere.value}}"
+					data-name="data.system.spheres.{{key}}.value">
+
+					{{#numLoop sphere.max}}
+					
+						<span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}"></span>
+					
+					{{/numLoop}}
+					
+				</div>
+			</div>	
+			{{#if (gte sphere.value 4)}}
+				{{#if (eq ../locked false)}}
+					<div class="speciality-magic headlineNormal">
+						<input type="text" 
+							class="specialityBox editable"
+							name="system.spheres.{{key}}.speciality" 
+							value="{{sphere.speciality}}" 
+							data-name="data.system.spheres.{{key}}.speciality" />
+					</div>
+				{{/if}}
+			{{/if}}	
+
+			{{#if (bottenSpheres key)}}</div>{{/if}}
 		
 		{{/each}}	
 	</div> 

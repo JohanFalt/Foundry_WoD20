@@ -1,0 +1,195 @@
+{
+    "namespace": "worldofdarkness",
+    "id": "werewolf-tour",
+    "title": "Werewolf the Apocalypse sheet",
+    "canBeResumed": true,
+    "display": true,
+    "permission": {
+        "GM":false,
+        "Players":true
+    },
+    "steps": [
+        {
+            "id": "goto-actors",
+            "selector": "[data-tab='actors']",
+            "title": "Werewolf the Apocalypse sheet",
+            "content": "This tour will show off the unique features of the sheet used for Werewolf the Apocalypse.",
+            "action": "addWerewolf"
+        },
+        {
+            "id": "goto-actorsheet-open",
+            "selector": "li[data-document-id='ExampleWerewolf1'] h4.document-name",
+            "title": "Sheet created",
+            "content": "Sheet now created, lets open it.",
+            "action": "click"
+        },
+        {
+            "id": "goto-werewolfsheet",
+            "selector": "div[id='WerewolfActorSheet-Actor-ExampleWerewolf1'] header.window-header",
+            "title": "Werewolf sheet",
+            "content": "This is the Werewolf the Apocalypse sheet."
+        },
+        {
+            "id": "goto-renown",
+            "selector": "div[data-area='renown']",
+            "title": "Renown",
+            "content": "In this area you record your permanent/temporary renown"
+        },
+        {
+            "id": "goto-rank",
+            "selector": "div[data-area='rank']",
+            "title": "Rank",
+            "content": "As you advance in rank you tick the counter up. As you do the benifits of rank is automatically calculated on the sheet, mainly within Frenzy and the rank of gifts you can see."
+        },
+        {
+            "id": "goto-microicon",
+            "selector": "div[data-area='microicons']",
+            "title": "Werewolf micro icons",
+            "content": "Werewolf sheets has a few extra icons than what is normal."
+        },
+        {
+            "id": "goto-frenzicony",
+            "selector": "img[data-rollfrenzy='true']",
+            "title": "Roll frenzy",
+            "content": "This icon is used to roll for Frenzy. The sheet's rank is calculated in the roll."
+        },
+        {
+            "id": "goto-shapechangeicon",
+            "selector": "img[data-rollshapechange='true']",
+            "title": "Roll shift shape",
+            "content": "This icon is used to handle the roll to shape change. The shift itself is always handled manually."
+        },
+        {
+            "id": "goto-remainactiveicon",
+            "selector": "img[data-rollremainactive='true']",
+            "title": "Remain active",
+            "content": "The remain active roll. Possible healing done needs to be done manually."
+        },
+        {
+            "id": "goto-shapechangetab",
+            "selector": "a[data-tab='shapechange']",
+            "target": "a#tabshapechange",
+            "title": "Shapechange",
+            "content": "This page handle shifting shape. Just click on the shape you change to and the sheet handle the rest. The total values of the attributes can be seen beside each attribute.",
+            "action": "click"
+        },
+        {
+            "id": "goto-showshapeicon",
+            "selector": "div[data-area='shapeicon']",
+            "title": "Current shape icon",
+            "content": "This icon shows what form the sheet is in."
+        },
+        {
+            "id": "goto-giftstab",
+            "selector": "a[data-tab='gift']",
+            "target": "a#tabgifts",
+            "title": "Gifts",
+            "content": "This page shows the gifts and rites the character has. What level of gifts you can see depends on your rank value.",
+            "action": "click"
+        },
+        {
+            "id": "goto-unlock",
+            "selector": "div[data-area='unlock']",
+            "target": "i#unlockSheet",
+            "title": "Unlock sheet",
+            "content": "First, we need to unlock the sheet to show it off fully.",
+            "action": "click"
+        },
+        {
+            "id": "goto-gifts",
+            "selector": "div[data-area='giftlist']",
+            "title": "Gift list",
+            "content": "Gifts are listed in rank sections."
+        },
+        {
+            "id": "goto-addgift",
+            "selector": "div[data-area='giftrank1'] i.largeicon",
+            "title": "Add gift",
+            "content": "To add a gift you can either click the add button or drag a pre-created gift from Items in your world."
+        },
+        {
+            "id": "goto-addbonus",
+            "selector": "div[data-area='giftrow1'] i.item-create",
+            "title": "Add bonus to gift",
+            "content": "If a gift has a bonus to the sheet this can be added by click on this add icon."
+        },
+        {
+            "id": "goto-giftbonusunfold",
+            "selector": "i[id='collapsiblegift1bonus1'",
+            "title": "Show bonus",
+            "content": "To show what bonuses a gift has you click this icon.",
+            "action": "click"
+        },
+        {
+            "id": "goto-showgiftbonus",
+            "selector": "div[data-area='gift1bonus1']",
+            "title": "Gift bonuses",
+            "content": "A gift's bonuses is only active if the gift itself is active. As you deactive the gift the bonus is not calculated."
+        },
+        {
+            "id": "goto-giftbonuscollapse",
+            "selector": "i[id='collapsiblegift1bonus1'",
+            "title": "Hide bonus",
+            "content": "To hide the bonuses again you just click the icon again.",
+            "action": "click"
+        },
+        {
+            "id": "goto-rites",
+            "selector": "div[data-area='ritelist']",
+            "title": "Rites",
+            "content": "The added rites to the sheet are listed here."
+        },
+        {
+            "id": "goto-combattab",
+            "selector": "a[id='tabcombat']",
+            "title": "Combat",
+            "content": "The combat tab has a few sections that are specially for werewolf.",
+            "action": "click"
+        },
+        {
+            "id": "goto-frenzycheck",
+            "selector": "div[data-area='frenzycheck']",
+            "title": "Frenzy",
+            "content": "If this is checked the rules for frenzy is active on the sheet as you roll."
+        },
+        {
+            "id": "goto-activegifts",
+            "selector": "div[data-area='activegift']",
+            "title": "Active gifts",
+            "content": "Here you can see the gifts that are set as active."
+        },
+        {
+            "id": "goto-geartab",
+            "selector": "a[data-tab='gear']",
+            "target": "a#tabgear",
+            "title": "Gear",
+            "content": "In gear there are special items werewolves has.",
+            "action": "click"
+        },
+        {
+            "id": "goto-fetish",
+            "selector": "div[data-area='fetishlist']",
+            "title": "Fetish",
+            "content": "Any possible fetish the sheet has is listed here."
+        },
+        {
+            "id": "goto-talen",
+            "selector": "div[data-area='talenlist']",
+            "title": "Talen",
+            "content": "Any possible talen the sheet has is listed here."
+        },
+        {
+            "id": "goto-settingstab",
+            "selector": "a[id='tabsettings']",
+            "title": "Settings",
+            "content": "The settings tab has a section that are specially for werewolf.",
+            "action": "click"
+        },
+        {
+            "id": "goto-frenzycheck",
+            "selector": "div[data-area='frenzysetting']",
+            "title": "Frenzy",
+            "content": "If you have some kind of bonus/penalty die on your frenzy rolls, here is where you can add that. This ends this tour."
+        } 
+    ]
+}

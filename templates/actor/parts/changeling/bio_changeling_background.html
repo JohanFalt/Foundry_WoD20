@@ -82,7 +82,6 @@
 <div class="clearareaBox area-box">
     <div>
         <label class="headlineText headlineBio splatFont" for="data.birthrights">{{localize "wod.bio.changeling.birthright"}}</label>
-        <!-- <textarea class="sheet-infoValues pullLeft {{#if locked}}{{else}}editable{{/if}}" name="system.birthrights" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.birthrights}}</textarea> -->
         <div class="pullLeft bioInformationArea">
             <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.birthright1" type="text" value="{{data.system.birthright1}}" data-name="data.system.birthright1" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
@@ -101,7 +100,6 @@
 <div class="clearareaBox area-box">
     <div>
         <label class="headlineText headlineBio splatFont" for="data.frailty">{{localize "wod.bio.changeling.frailty"}}</label>
-        <!-- <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.frailty" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.frailty}}</textarea> -->
         <div class="pullLeft bioInformationArea">
             <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.frailty" type="text" value="{{data.system.frailty}}" data-name="data.system.frailty" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
@@ -111,7 +109,6 @@
 <div class="clearareaBox area-box">
     <div>
     	<label class="headlineText headlineBio splatFont" for="data.house">{{localize "wod.bio.changeling.house"}}</label>
-		<!-- <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.house" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.house}}</textarea> -->
         <div class="pullLeft bioInformationArea">
             <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.house" type="text" value="{{data.system.house}}" data-name="data.system.house" data-dtype="String" {{#if locked}} readonly {{/if}} />
         </div>
@@ -120,15 +117,24 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
-        <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.legacyseelie" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.legacyseelie}}</textarea>
+        <label class="headlineText headlineBio splatFont" for="data.legacyseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
+        <div class="clearareaBox">
+            {{#if locked}}
+                <div class="clearareaBox headlineNormal textarea">{{{actor.system.legacyseelie}}}</div>
+            {{else}}
+                {{editor data.legacyseelie target="system.legacyseelie" button=false owner=owner editable=true}}
+            {{/if}}				
+        </div>
     </div>
 </div>
 
 <div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
-        <textarea class="sheet-infoValues pullLeft smallbox {{#if locked}}{{else}}editable{{/if}}" name="system.legacyunseelie" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.legacyunseelie}}</textarea>
+    <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
+    <div class="clearareaBox">
+        {{#if locked}}
+            <div class="clearareaBox headlineNormal textarea">{{{actor.system.legacyunseelie}}}</div>
+        {{else}}
+            {{editor data.legacyunseelie target="system.legacyunseelie" button=false owner=owner editable=true}}
+        {{/if}}				
     </div>
 </div>
-

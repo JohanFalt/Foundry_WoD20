@@ -46,7 +46,7 @@ export class Rote {
 
         this.quintessence = 0;      
         
-        this.spelltype = "";
+        this.spelltype = "coincidental";
         this.hasWitnesses = false;
 
         this.areteModifier = 0;
@@ -55,6 +55,7 @@ export class Rote {
         this.difficultyModifier = 0;        // if other modifiers not listed are added
         this.sumSelectedDifficulty = 0;
         this.totalDifficulty = 0;           // all in all difficulty
+        this.shownDifficulty = 0;
 
         this.useSpeciality = false;
 
@@ -89,6 +90,8 @@ export class Rote {
             this.isExtendedCasting = item.system["isextended"];
 
             this.isRote = true;
+
+            this._setDifficulty(this._highestRank());
         }
     }
 
@@ -106,6 +109,37 @@ export class Rote {
         }
 
         return highestRank;
+    }
+
+    _setDifficulty(rank) {
+        let diff = -1;
+
+        if (rank > -1) {
+            if ((this.witnesses) && (this.spelltype == "vulgar")) {
+                diff = parseInt(rank) + 5;
+            }
+            else if ((!this.witnesses) && (this.spelltype == "vulgar")) {
+                diff = parseInt(rank) + 4;
+            }
+            else if (this.spelltype == "coincidental") {
+                diff = parseInt(rank) + 3;
+            }
+        }
+
+        if (diff > -1) {
+            this.baseDifficulty = diff;
+            this.totalDifficulty = parseInt(this.baseDifficulty) + parseInt(this.sumSelectedDifficulty) + parseInt(this.difficultyModifier) + parseInt(this.quintessence);
+            this.shownDifficulty = this.totalDifficulty;
+
+            if (this.totalDifficulty > 10) {
+                this.shownDifficulty = 10;
+            }
+            else if (this.totalDifficulty < 3) {
+                this.shownDifficulty = 3;
+            }
+        }
+
+        return diff;
     }
 
 }
@@ -198,11 +232,24 @@ export class DialogAreteCasting extends FormApplication {
         for (const value in formData) {
             if ((value.startsWith('object.check_')) && (formData[value])) {
                 let elementName = '[name="'+value+'"]';
+                let objectname = value.replace("object.", "");
                 totalDiff += parseInt(document.querySelector(elementName+':checked').value);
+
+                if (formData[value] == null) {
+                    this.object[objectname] = false;
+                }
+                else {
+                    this.object[objectname] = true;
+                }
             }
 
             if (value.startsWith('object.select_')) {
                 totalDiff += parseInt(formData[value]);
+                let objectname = value.replace("object.", "");
+
+                if (this.object[objectname] != formData[value]) {
+                    this.object[objectname] = formData[value];
+                }                
             }
         }
 
@@ -224,24 +271,9 @@ export class DialogAreteCasting extends FormApplication {
         
         this.object.areteModifier = parseInt(formData["object.areteModifier"]);
 
-        this.object.canCast = this._calculateDifficulty(false);        
+        this.object.canCast = this._calculateDifficulty(false);   
+        this.render(false);
     }
-/*   
-    _onDotSphereEmpty(event) {
-        event.preventDefault();
-        const element = event.currentTarget;
-        const dataset = element.dataset;
-        const type = dataset.type;    
-
-        const parent = $(element.parentNode);
-        const sphere = parent[0].dataset.name;
-        const steps = parent.find(".resource-value-step");        
-
-        steps.removeClass("active");
-
-        this.object.selectedSpheres = this._changedSelectedSphere(this.object.selectedSpheres, sphere, 0);   
-        this.object.canCast = this._calculateDifficulty(false);     
-    } */
 
     /* sets what level the clicked sphere is to be using */
     _onDotSphereChange(event) {
@@ -278,6 +310,7 @@ export class DialogAreteCasting extends FormApplication {
 
         this.object.selectedSpheres = this._changedSelectedSphere(this.object.selectedSpheres, sphere, value);
         this.object.canCast = this._calculateDifficulty(false);
+        this.render(false);
     }
 
     /* clicked on cast Spell */
@@ -321,10 +354,10 @@ export class DialogAreteCasting extends FormApplication {
                 templateHTML += game.i18n.localize("wod.dialog.aretecasting.spendquintessence") + ` (${spentPoints})<br />`;
             }
 
-            if (this.object.totalDifficulty > 9) {
-                const extraSuccesses = this.object.totalDifficulty - 9
+            if (this.object.totalDifficulty > 10) {
+                const extraSuccesses = this.object.totalDifficulty - 10;
                 templateHTML += game.i18n.localize("wod.dialog.aretecasting.increaseddifficulty") + ` +${extraSuccesses}<br /><br />`;
-                this.object.totalDifficulty = 9;
+                this.object.totalDifficulty = 10;
             }
             else if (this.object.totalDifficulty < 3) {
                 this.object.totalDifficulty = 3; 
@@ -410,24 +443,30 @@ export class DialogAreteCasting extends FormApplication {
             return false;
         }
 
-        if (rank > -1) {
-            if ((this.object.witnesses) && (this.object.spelltype == "vulgar")) {
-                diff = parseInt(rank) + 5;
-            }
-            else if ((!this.object.witnesses) && (this.object.spelltype == "vulgar")) {
-                diff = parseInt(rank) + 4;
-            }
-            else if (this.object.spelltype == "coincidental") {
-                diff = parseInt(rank) + 3;
-            }
-        }
+        diff = this.object._setDifficulty(rank)
 
         if (diff > -1) {
-            this.object.baseDifficulty = diff;
-            this.object.totalDifficulty = parseInt(this.object.baseDifficulty) + parseInt(this.object.sumSelectedDifficulty) + parseInt(this.object.difficultyModifier) + parseInt(this.object.quintessence);
-
             return true;
         }
+
+        // if (rank > -1) {
+        //     if ((this.object.witnesses) && (this.object.spelltype == "vulgar")) {
+        //         diff = parseInt(rank) + 5;
+        //     }
+        //     else if ((!this.object.witnesses) && (this.object.spelltype == "vulgar")) {
+        //         diff = parseInt(rank) + 4;
+        //     }
+        //     else if (this.object.spelltype == "coincidental") {
+        //         diff = parseInt(rank) + 3;
+        //     }
+        // }
+
+        // if (diff > -1) {
+        //     this.object.baseDifficulty = diff;
+        //     this.object.totalDifficulty = parseInt(this.object.baseDifficulty) + parseInt(this.object.sumSelectedDifficulty) + parseInt(this.object.difficultyModifier) + parseInt(this.object.quintessence);
+
+        //     return true;
+        // }
 
         return false;
     }

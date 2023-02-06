@@ -247,8 +247,8 @@
                     <div style="height: 26px; line-height: 26px; display: flex;">
                         <label for="spelltype" class="headline splatFont" style="width: 250px;">{{localize 'wod.dialog.aretecasting.castingtype'}}</label>
                         <span class="headlineNormal setting-radiospanText">
-                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="coincidental" {{#iff object.spelltype "==" "coincidental"}}checked{{/iff}}>{{localize "wod.spheres.coincidental"}}</input>
-                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="vulgar" {{#iff object.spelltype "==" "vulgar"}}checked{{/iff}}>{{localize "wod.spheres.vulgar"}}</input>
+                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="coincidental" {{#if (eq object.spelltype "coincidental")}}checked{{/if}}>{{localize "wod.spheres.coincidental"}}</input>
+                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="vulgar" {{#if (eq object.spelltype "vulgar")}}checked{{/if}}>{{localize "wod.spheres.vulgar"}}</input>
                         </span>
                         <label for="witnesses" class="headlineNormal" style="margin-left: 10px;">{{localize "wod.dialog.aretecasting.witnesses"}}</label>
                         <input class="headlineNormal" name="object.witnesses" type="checkbox" {{#if object.hasWitnesses}}checked{{/if}} />
@@ -263,6 +263,14 @@
                 </div>
             </div> 
         </div>       
+    </div>
+
+    <div class="dialog-area clearareaBox">
+        <div class="centerText dialog-area">
+            {{#numFromLoop 3 10}}
+                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.shownDifficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+            {{/numFromLoop}}
+        </div>
     </div>
 
     <div class="centerText">

@@ -1,0 +1,1813 @@
+{
+  "_id": "ExampleDemon0001",
+  "name": "Example Demon the Fallen",
+  "type": "Demon",
+  "img": "icons/svg/mystery-man.svg",
+  "items": [
+    {
+      "name": "Increased Size",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p205",
+        "description": "",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Increased Size",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "YqVSlvdoHx5oaoGf",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573004,
+        "modifiedTime": 1674222969539,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Enhanced Senses",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p205",
+        "description": "",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Enhanced Senses",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "OpCDYnFmex5OcjOb",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573033,
+        "modifiedTime": 1674042573033,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Claws/Teeth",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p205",
+        "description": "",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Claws/Teeth",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "zYRyxlOjmr1C7naa",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573042,
+        "modifiedTime": 1674042573042,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Extra Actions",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p206",
+        "description": "",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Extra Actions",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "UWm7pEpTCOEx5tIX",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573049,
+        "modifiedTime": 1674042573049,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Thick Hide",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p206",
+        "description": "<p>Tormant</p>",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Thick Hide",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "ntMRoQNpmKgyPKVP",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573055,
+        "modifiedTime": 1674042573055,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Gaping Maw",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p206",
+        "description": "<p>Torment</p>",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Gaping Maw",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "ADA7hKtJUGbHilLp",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573061,
+        "modifiedTime": 1674042573061,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Extra Limbs",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p206",
+        "description": "<p>Torment</p>",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Extra Limbs",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "xDkDJqJLQhUC5jNH",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573069,
+        "modifiedTime": 1674042573069,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Chameleon Skin",
+      "type": "Trait",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "p206",
+        "description": "",
+        "details": "",
+        "type": "wod.types.apacolypticform",
+        "level": 0,
+        "value": 0,
+        "max": 5,
+        "isactive": false,
+        "ismeleeweapon": false,
+        "israngedeweapon": false,
+        "isrollable": false,
+        "label": "Chameleon Skin",
+        "speciality": "",
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 6
+      },
+      "_id": "csMqRj8T80l5DZbp",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674042573074,
+        "modifiedTime": 1674042573074,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Contact",
+      "type": "Feature",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "DtF p154",
+        "description": "",
+        "details": "",
+        "type": "wod.types.background",
+        "level": "2",
+        "value": 0,
+        "max": 5,
+        "isrollable": false
+      },
+      "_id": "CSFnThihp1Rilomi",
+      "img": "systems/worldofdarkness/assets/img/items/feature.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674238911767,
+        "modifiedTime": 1674238935427,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Eminence",
+      "type": "Feature",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "DtF p154",
+        "description": "",
+        "details": "",
+        "type": "wod.types.background",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "isrollable": false
+      },
+      "_id": "TuC3IczpYaVzrDys",
+      "img": "systems/worldofdarkness/assets/img/items/feature.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674238944759,
+        "modifiedTime": 1674238961084,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Legacy",
+      "type": "Feature",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "DtF p156",
+        "description": "",
+        "details": "",
+        "type": "wod.types.background",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "isrollable": false
+      },
+      "_id": "PcJJDBh5xujdZyvs",
+      "img": "systems/worldofdarkness/assets/img/items/feature.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674238976691,
+        "modifiedTime": 1674238989217,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Pacts",
+      "type": "Feature",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "DtF p156-157",
+        "description": "",
+        "details": "",
+        "type": "wod.types.background",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "isrollable": false
+      },
+      "_id": "W8Llw4C1eVruPKjV",
+      "img": "systems/worldofdarkness/assets/img/items/feature.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239000457,
+        "modifiedTime": 1674239018186,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "+2 Strength",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "YqVSlvdoHx5oaoGf",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_buff",
+        "level": "0",
+        "value": 2,
+        "max": 5,
+        "settingtype": "strength",
+        "isactive": false
+      },
+      "_id": "VfD9uIEGSYlRGlhP",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239137257,
+        "modifiedTime": 1674239321174,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "+2 Dexterity",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "YqVSlvdoHx5oaoGf",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_buff",
+        "level": "0",
+        "value": 2,
+        "max": 5,
+        "settingtype": "dexterity",
+        "isactive": false
+      },
+      "_id": "1GRLG8bNPk5Gx0dE",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239137717,
+        "modifiedTime": 1674239340708,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "+1 Stamina",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "YqVSlvdoHx5oaoGf",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_buff",
+        "level": "0",
+        "value": 1,
+        "max": 5,
+        "settingtype": "stamina",
+        "isactive": false
+      },
+      "_id": "RDFGxUj2VwgNpWMy",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239138142,
+        "modifiedTime": 1674239357595,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Perception rolls -2 diff",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "OpCDYnFmex5OcjOb",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "attribute_diff",
+        "level": "0",
+        "value": -2,
+        "max": 5,
+        "settingtype": "perception",
+        "isactive": false
+      },
+      "_id": "XwB0opZyMRD2ZKtK",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239148665,
+        "modifiedTime": 1674239416491,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Soak +4",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "ntMRoQNpmKgyPKVP",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "soak_buff",
+        "level": "0",
+        "value": 4,
+        "max": 5,
+        "settingtype": "",
+        "isactive": false
+      },
+      "_id": "05zPOkaHrTrBSfyg",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239212718,
+        "modifiedTime": 1674239560443,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Stealth diff -1",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "csMqRj8T80l5DZbp",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "ability_diff",
+        "level": "0",
+        "value": -1,
+        "max": 5,
+        "settingtype": "stealth",
+        "isactive": false
+      },
+      "_id": "7gzkiBL8mlgMK94A",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239297602,
+        "modifiedTime": 1674239597582,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Claws",
+      "type": "Melee Weapon",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 2,
+          "type": "aggravated",
+          "isrollable": true
+        },
+        "difficulty": "6",
+        "conceal": "NA",
+        "istwohanded": false,
+        "isnatural": true
+      },
+      "_id": "go2fiC39zf8MRMc1",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239429601,
+        "modifiedTime": 1674239493036,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Maw",
+      "type": "Melee Weapon",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 4,
+          "type": "aggravated",
+          "isrollable": true
+        },
+        "difficulty": "4",
+        "conceal": "NA",
+        "istwohanded": false,
+        "isnatural": true
+      },
+      "_id": "cabqMadAemZvOY1D",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674239497112,
+        "modifiedTime": 1674239533298,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "Lore",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/mainpower_hunter.svg",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "wod.types.lore",
+        "level": "0",
+        "value": 1,
+        "max": 5,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 0,
+        "isrollable": false,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "demon"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.6Mr1RbFetwZtMkac"
+        }
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674044242085,
+        "modifiedTime": 1674044315453,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      },
+      "_id": "DJF3fBNsmaDvALc2"
+    },
+    {
+      "name": "Lore Power",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_hunter.svg",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "DJF3fBNsmaDvALc2",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "wod.types.lorepower",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "strength",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": "3",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "demon"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.P7iBkc2T4YaRoiBn"
+        }
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674044263444,
+        "modifiedTime": 1674044331381,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      },
+      "_id": "qNnoZvdUbyD0xiyO"
+    },
+    {
+      "name": "Ritual",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/ritual_vampire.svg",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "wod.types.ritual",
+        "level": "1",
+        "value": 0,
+        "max": 5,
+        "dice1": "strength",
+        "dice2": "art",
+        "bonus": 0,
+        "difficulty": "-1",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "demon"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.GrtubUiTJ9lZURnC"
+        }
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674044280787,
+        "modifiedTime": 1674047374356,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      },
+      "_id": "TDN1OhVMRJ83kEYS"
+      },
+    {
+      "name": "New bonus",
+      "type": "Bonus",
+      "system": {
+        "iscreated": false,
+        "version": "",
+        "parentid": "zYRyxlOjmr1C7naa",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "",
+        "level": "0",
+        "value": 0,
+        "max": 5,
+        "settingtype": "",
+        "isactive": false
+      },
+      "_id": "p1hTVKkl6NDiDZ5S",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674223596022,
+        "modifiedTime": 1674223596022,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "name": "New bonus",
+      "type": "Bonus",
+      "system": {
+        "iscreated": false,
+        "version": "",
+        "parentid": "zYRyxlOjmr1C7naa",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "",
+        "level": "0",
+        "value": 0,
+        "max": 5,
+        "settingtype": "",
+        "isactive": false
+      },
+      "_id": "BpEO9WSf7ijvJ1JF",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.0",
+        "coreVersion": "10.291",
+        "createdTime": 1674223598250,
+        "modifiedTime": 1674223598250,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    }
+  ],
+  "system": {
+    "traits": {
+      "health": {
+        "totalhealthlevels": {
+          "value": 7,
+          "max": 7
+        }
+      }
+    },
+    "settings": {
+      "iscreated": true,
+      "soak": {
+        "bashing": {
+          "bonus": 0,
+          "isrollable": true
+        },
+        "lethal": {
+          "bonus": 0,
+          "isrollable": true
+        },
+        "aggravated": {
+          "bonus": 0,
+          "isrollable": false
+        }
+      },
+      "abilities": {
+        "defaultmaxvalue": 5
+      },
+      "hasrage": false,
+      "hasgnosis": false,
+      "haswillpower": true,
+      "haspath": false,
+      "hasbloodpool": false,
+      "hasvirtue": true,
+      "hasglamour": false,
+      "hasbanality": false,
+      "hasnightmare": false,
+      "hasconviction": false,
+      "hasfaith": true,
+      "hastorment": true,
+      "hasessence": false,
+      "version": "2.3.0",
+      "usesplatfont": true,
+      "powers": {
+        "hasdisciplines": false,
+        "hasgifts": false,
+        "hasarts": false,
+        "hasedges": false,
+        "haslores": true,
+        "hascharms": false,
+        "haspowers": false
+      }
+    },
+    "worldanvil": "",
+    "name": "",
+    "nature": "",
+    "demeanor": "",
+    "concept": "",
+    "appearance": "",
+    "background": "",
+    "derangement": "",
+    "notes": "",
+    "gear": "",
+    "conditions": {
+      "isignoringpain": false,
+      "isstunned": false
+    },
+    "soak": {
+      "bashing": 3,
+      "lethal": 3,
+      "aggravated": 0
+    },
+    "initiative": {
+      "base": 6,
+      "bonus": 0,
+      "total": 6
+    },
+    "abilities": {
+      "talent": {
+        "alertness": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.alertness",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "art": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.art",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "athletics": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.athletics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "awareness": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.awareness",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "brawl": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.brawl",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "dodge": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.dodge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "empathy": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.empathy",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "expression": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.expression",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "intimidation": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.intimidation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "intuition": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.intuition",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "kenning": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.kenning",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "leadership": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.leadership",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "primalurge": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.primalurge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "streetwise": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.streetwise",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "subterfuge": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.subterfuge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        }
+      },
+      "skill": {
+        "animalken": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.animalken",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "craft": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.craft",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "demolitions": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.demolitions",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "drive": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.drive",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "etiquette": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.etiquette",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "firearms": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.firearms",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "larceny": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.larceny",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "martialarts": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.martialarts",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "meditation": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.meditation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "melee": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.melee",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "performance": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.performance",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "research": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.research",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "security": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.security",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "stealth": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.stealth",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "survival": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.survival",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "technology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.technology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        }
+      },
+      "knowledge": {
+        "academics": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.academics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "bureaucracy": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.bureaucracy",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "computer": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.computer",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "cosmology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.cosmology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "enigmas": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.enigmas",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "esoterica": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.esoterica",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "finance": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.finance",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "gremayre": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.gremayre",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "investigation": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.investigation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "law": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.law",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "linguistics": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.linguistics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "medicine": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.medicine",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "occult": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.occult",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "politics": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.politics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "religion": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.religion",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "research": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.research",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "rituals": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.rituals",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "science": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.science",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "technology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.technology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        }
+      }
+    },
+    "attributes": {
+      "strength": {
+        "value": 4,
+        "bonus": 0,
+        "total": 4,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.strength",
+        "speciality": "",
+        "isvisible": true
+      },
+      "dexterity": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.dexterity",
+        "speciality": "",
+        "isvisible": true
+      },
+      "stamina": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.stamina",
+        "speciality": "",
+        "isvisible": true
+      },
+      "charisma": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.charisma",
+        "speciality": "",
+        "isvisible": true
+      },
+      "manipulation": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.manipulation",
+        "speciality": "",
+        "isvisible": true
+      },
+      "appearance": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.appearance",
+        "speciality": "",
+        "isvisible": true
+      },
+      "composure": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.composure",
+        "speciality": "",
+        "isvisible": false
+      },
+      "perception": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.perception",
+        "speciality": "",
+        "isvisible": true
+      },
+      "intelligence": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.intelligence",
+        "speciality": "",
+        "isvisible": true
+      },
+      "wits": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.wits",
+        "speciality": "",
+        "isvisible": true
+      },
+      "resolve": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.resolve",
+        "speciality": "",
+        "isvisible": false
+      }
+    },
+    "advantages": {
+      "rage": {
+        "permanent": 0,
+        "temporary": 0,
+        "bonus": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.rage"
+      },
+      "gnosis": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.gnosis"
+      },
+      "willpower": {
+        "permanent": 5,
+        "temporary": 5,
+        "max": 10,
+        "roll": 5,
+        "label": "wod.advantages.willpower"
+      },
+      "glamour": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.glamour"
+      },
+      "nightmare": {
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.nightmare"
+      },
+      "banality": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.banality"
+      },
+      "bloodpool": {
+        "temporary": 0,
+        "max": 10,
+        "perturn": 1
+      },
+      "faith": {
+        "temporary": 3,
+        "max": 10,
+        "roll": 3,
+        "label": "wod.advantages.faith",
+        "permanent": 3
+      },
+      "virtues": {
+        "conscience": {
+          "permanent": 1,
+          "max": 5,
+          "roll": 1,
+          "label": "wod.advantages.virtue.conscience"
+        },
+        "selfcontrol": {
+          "permanent": 2,
+          "max": 5,
+          "roll": 2,
+          "label": "wod.advantages.virtue.selfcontrol"
+        },
+        "courage": {
+          "permanent": 3,
+          "max": 5,
+          "roll": 3,
+          "label": "wod.advantages.virtue.courage"
+        }
+      },
+      "path": {
+        "permanent": 0,
+        "value": 0,
+        "max": 10,
+        "roll": 0,
+        "bearing": 0,
+        "bearingtext": "",
+        "label": "wod.advantages.path.humanity"
+      },
+      "torment": {
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.torment"
+      }
+    },
+    "health": {
+      "damage": {
+        "bashing": 0,
+        "lethal": 0,
+        "aggravated": 0,
+        "woundlevel": "",
+        "woundpenalty": 0
+      },
+      "bruised": {
+        "value": 1,
+        "total": 1,
+        "penalty": 0,
+        "label": "wod.health.bruised"
+      },
+      "hurt": {
+        "value": 1,
+        "total": 1,
+        "penalty": -1,
+        "label": "wod.health.hurt"
+      },
+      "injured": {
+        "value": 1,
+        "total": 1,
+        "penalty": -1,
+        "label": "wod.health.injured"
+      },
+      "wounded": {
+        "value": 1,
+        "total": 1,
+        "penalty": -2,
+        "label": "wod.health.wounded"
+      },
+      "mauled": {
+        "value": 1,
+        "total": 1,
+        "penalty": -2,
+        "label": "wod.health.mauled"
+      },
+      "crippled": {
+        "value": 1,
+        "total": 1,
+        "penalty": -5,
+        "label": "wod.health.crippled"
+      },
+      "incapacitated": {
+        "value": 1,
+        "total": 1,
+        "penalty": -99,
+        "label": "wod.health.incapacitated"
+      }
+    },
+    "house": "Devourer",
+    "faction": "Luciferan",
+    "visage": "Zaltu"
+  },
+  "prototypeToken": { },  
+  "effects": [],
+  "folder": null,
+  "ownership": {
+    "default": 3
+  },
+  "flags": { }
+}

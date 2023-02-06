@@ -1,0 +1,55 @@
+<div class="clearareaBox">
+    <div class="sheet-headline splatFont" data-area="apocalypticforms" style="text-align: center;">{{localize "wod.advantages.apocalypticforms"}}</div>
+
+    <div class="clearareaBox">
+        {{#each actor.system.listdata.forms as |form id|}}
+            <div class="clearareaBox form-apocalyptic" data-area="apocalypticform{{id}}">
+                <div class="pullLeft item-activeBox">
+                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{#if form.isactive}}checked{{/if}}></input>
+                </div>
+                <div class="pullLeft form-apocalyptic-name headlineNormal">{{form.name}}</div>
+                <div class="pullLeft pointer">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{form._id}}"></i>
+                </div>                    
+                <div class="pullLeft headlineNormal tooltip">
+                    <i class="icon fa-solid fa-memo"></i>
+                    <span class="tooltiptext">
+                        {{#if (ne form.description "")}}
+                            <b>{{localize "wod.labels.description"}}:</b> {{{form.description}}}
+                        {{/if}}
+                    </span>
+                </div>
+                <div class="pullLeft pointer">
+                    <a class="send-chat" 
+                        title="{{localize 'wod.labels.send'}}"
+                        data-type="Trait" 
+                        data-headline="<h2>{{form.name}}</h2>" 
+                        data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                        <span class='chatt-text'>{{form.description}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                </div>
+                {{#if (eq ../locked false)}}
+                    <div class="pullLeft pointer">
+                        <a class="item-edit" 
+                            title="{{localize 'wod.labels.edit.apocalypticform'}}" 
+                            data-type="Feature" 
+                            data-item-id="{{form._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                    </div>
+                {{/if}}
+                {{#if (gt form.bonuses.length 0)}}
+                    <div class="pullLeft pointer"><i id="collapsibleapocalypticbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.demon}}" data-type="apocalypticform{{id}}"></i></div>
+                {{/if}}
+            </div>
+            <div class="clearareaBox hide bonuses apocalypticform{{id}}" data-area="apocalypticbonus{{id}}">
+                {{#each form.bonuses as |bonus id|}}
+                    <div class="clearareaBox">
+                        <div class="pullLeft bonus-apocalyptic-name headlineNormal">{{bonus.name}}</div>
+                        {{#if (eq ../../locked false)}}
+                            <div class="pullLeft"><i class="icon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
+                            <div class="pullLeft"><i class="icon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
+                        {{/if}}
+                    </div>
+                {{/each}}
+            </div>
+        {{/each}}
+    </div>		
+</div>		

@@ -1,6 +1,5 @@
 export default class TokenHelper {
     static async formShift(actor, fromForm, toForm) {
-
         if (actor.type != CONFIG.wod.sheettype.werewolf) {
             return;
         }
@@ -15,7 +14,6 @@ export default class TokenHelper {
 		if(token) foundToken = true;
 
 		if (foundToken) {
-
             await this._clearForms(token);
             await token.document.toggleActiveEffect(this._getEffectData(toForm));
 		}			

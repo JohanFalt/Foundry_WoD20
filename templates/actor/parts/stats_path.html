@@ -21,10 +21,12 @@
 		({{data.system.advantages.path.bearing}})
 	</div>
 {{else}}
-	<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:</div>
-	<div class="sheet-boxcontainer">
-		<div class="information-area">  
-			<input class="sheet-infoValues shortNotebox editable" name="system.advantages.path.bearingtext" type="text" value="{{data.system.advantages.path.bearingtext}}" data-name="path.bearingtext" data-dtype="String" />
+	<div data-area="bearingtext">
+		<div class="information-area centerText">{{localize "wod.advantages.bearing"}}:</div>
+		<div class="sheet-boxcontainer">
+			<div class="information-area">  
+				<input class="sheet-infoValues shortNotebox editable" name="system.advantages.path.bearingtext" type="text" value="{{data.system.advantages.path.bearingtext}}" data-name="path.bearingtext" data-dtype="String" />
+			</div>
 		</div>
 	</div>
 {{/if}} 

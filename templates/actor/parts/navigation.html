@@ -1,44 +1,50 @@
-{{#if (eq (checkSystemsetting "observersSeeFullActor") "full")}}
+{{#if (eq (checkSystemsetting "viewBiotabPermission") "full")}}
 	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-		<a class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
-		<a class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
+		<a id="tabbio" class="item itemTabsText" data-tab="bio">{{localize 'wod.tab.bio'}}</a>
+		<a id="tabcore" class="item itemTabsText" data-tab="core">{{localize 'wod.tab.core'}}</a>
 
 		{{#if (eq actor.type config.sheettype.mage)}}
-			<a class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
+			<a id="tabmagic" class="item itemTabsText" data-tab="magic">{{localize 'wod.tab.magic'}}</a>
 		{{/if}}
 
 		{{#if actor.system.settings.powers.hasdisciplines}}
-			<a class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
+			<a id="tabdisciplines" class="item itemTabsText" data-tab="discipline">{{localize 'wod.tab.disciplines'}}</a>
 		{{/if}}
 
 		{{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
-			<a class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
+			<a id="tabshapechange" class="item itemTabsText" data-tab="shapechange">{{localize 'wod.tab.shapechange'}}</a>
 		{{/if}}
 
 		{{#if actor.system.settings.powers.hasgifts}}
-			<a class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
+			<a id="tabgifts" class="item itemTabsText" data-tab="gift">{{localize 'wod.tab.gifts'}}</a>	
 		{{/if}}
 
 		{{#if actor.system.settings.powers.hasarts}}
-			<a class="item itemTabsText" data-tab="dreaming">{{localize 'wod.tab.dreaming'}}</a>
+			<a id="tabdreaming" class="item itemTabsText" data-tab="dreaming">{{localize 'wod.tab.dreaming'}}</a>
 		{{/if}}
 
-		{{#if (eq actor.type config.sheettype.hunter)}}
-			<a class="item itemTabsText" data-tab="edge">{{localize 'wod.tab.edge'}}</a>
+		{{#if actor.system.settings.powers.hasedges}}
+			<a id="tabedges" class="item itemTabsText" data-tab="edge">{{localize 'wod.tab.edge'}}</a>
+		{{/if}}
+
+		{{#if actor.system.settings.powers.haslores}}
+			<a id="tablore" class="item itemTabsText" data-tab="lore">{{localize 'wod.tab.lore'}}</a>
 		{{/if}}
 				
 		{{#if actor.system.settings.powers.haspowers}}
-			<a class="item itemTabsText" data-tab="power">{{localize 'wod.tab.power'}}</a>
+			<a id="tabpowers" class="item itemTabsText" data-tab="power">{{localize 'wod.tab.power'}}</a>
 		{{/if}}
 
 		{{#if (ne actor.type config.sheettype.creature)}}
-			<a class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
-			<a class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>		
+			<a id="tabcombat" class="item itemTabsText" data-tab="combat">{{localize 'wod.tab.combat'}}</a>
+			<a id="tabgear" class="item itemTabsText" data-tab="gear">{{localize 'wod.tab.gear'}}</a>		
 		
-			<a class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
+			<a id="tabnotes" class="item itemTabsText" data-tab="note">{{localize 'wod.tab.notes'}}</a>
 		{{/if}}
-		<a class="item" data-tab="settings"><i class="fa-solid fa-gear"></i></a>
-		<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item itemTabsText" style="color: black;"><i class="fa-solid fa-circle-question"></i></a>
+		{{#if (eq actor.limited false)}}
+			<a class="item" data-tab="settings" style="font-size: 18px;"><i class="icon fa-solid fa-gear"></i></a>
+		{{/if}}
+		<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item itemTabsText" style="color: black; font-size: 18px;"><i class="icon fa-solid fa-circle-question"></i></a>
 	</nav>	
 {{else}}
 	<nav class="sheet-tabs tabs headlineTabs" data-group="primary">

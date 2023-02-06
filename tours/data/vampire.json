@@ -1,0 +1,1516 @@
+{
+  "_id": "ExampleVampire01",
+  "name": "Example Vampire the Masquerade",
+  "type": "Vampire",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "traits": {
+      "health": {
+        "totalhealthlevels": {
+          "value": 7,
+          "max": 7
+        }
+      }
+    },
+    "settings": {
+      "iscreated": true,
+      "soak": {
+        "bashing": {
+          "bonus": 0,
+          "isrollable": true
+        },
+        "lethal": {
+          "bonus": 0,
+          "isrollable": true
+        },
+        "aggravated": {
+          "bonus": 0,
+          "isrollable": false
+        }
+      },
+      "abilities": {
+        "defaultmaxvalue": "5"
+      },
+      "hasrage": false,
+      "hasgnosis": false,
+      "haswillpower": true,
+      "haspath": true,
+      "hasbloodpool": true,
+      "hasvirtue": true,
+      "hasglamour": false,
+      "hasbanality": false,
+      "hasnightmare": false,
+      "hasconviction": false,
+      "hasfaith": false,
+      "hastorment": false,
+      "hasessence": false,
+      "version": "2.2.0",
+      "usesplatfont": true,
+      "powers": {
+        "hasdisciplines": true,
+        "hasgifts": false,
+        "hasarts": false,
+        "hasedges": false,
+        "haslores": false,
+        "hascharms": false,
+        "haspowers": false
+      }
+    },
+    "worldanvil": "",
+    "name": "",
+    "nature": "",
+    "demeanor": "",
+    "concept": "Social lion",
+    "appearance": "",
+    "background": "",
+    "derangement": "",
+    "notes": "",
+    "gear": "",
+    "conditions": {
+      "isignoringpain": false,
+      "isstunned": false,
+      "isfrenzy": false
+    },
+    "soak": {
+      "bashing": 3,
+      "lethal": 3,
+      "aggravated": 1
+    },
+    "initiative": {
+      "base": 5,
+      "bonus": 0,
+      "total": 5
+    },
+    "movement": {
+      "walk": 7,
+      "jog": 14,
+      "run": 26,
+      "fly": 0,
+      "vjump": 2,
+      "hjump": 4
+    },
+    "abilities": {
+      "talent": {
+        "alertness": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.alertness",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "art": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.art",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "athletics": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.athletics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "awareness": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.awareness",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "brawl": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.brawl",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "dodge": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.dodge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "empathy": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.empathy",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "expression": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.expression",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "intimidation": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.intimidation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "intuition": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.intuition",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "kenning": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.kenning",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "leadership": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.leadership",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "primalurge": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.primalurge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "streetwise": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.streetwise",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "subterfuge": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.subterfuge",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        }
+      },
+      "skill": {
+        "animalken": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.animalken",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "craft": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.craft",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "demolitions": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.demolitions",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "drive": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.drive",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "etiquette": {
+          "value": 3,
+          "max": 5,
+          "label": "wod.abilities.etiquette",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "firearms": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.firearms",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "larceny": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.larceny",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "martialarts": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.martialarts",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "meditation": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.meditation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "melee": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.melee",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "performance": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.performance",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "research": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.research",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "security": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.security",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "stealth": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.stealth",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "survival": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.survival",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "technology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.technology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        }
+      },
+      "knowledge": {
+        "academics": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.academics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "bureaucracy": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.bureaucracy",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "computer": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.computer",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "cosmology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.cosmology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "enigmas": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.enigmas",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "esoterica": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.esoterica",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "finance": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.finance",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "gremayre": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.gremayre",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "investigation": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.investigation",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "law": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.law",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "linguistics": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.linguistics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "medicine": {
+          "value": 1,
+          "max": 5,
+          "label": "wod.abilities.medicine",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "occult": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.occult",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "politics": {
+          "value": 2,
+          "max": 5,
+          "label": "wod.abilities.politics",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "religion": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.religion",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "research": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.research",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "rituals": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.rituals",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": false
+        },
+        "science": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.science",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        },
+        "technology": {
+          "value": 0,
+          "max": 5,
+          "label": "wod.abilities.technology",
+          "altlabel": "",
+          "speciality": "",
+          "isvisible": true
+        }
+      }
+    },
+    "attributes": {
+      "strength": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.strength",
+        "speciality": "",
+        "isvisible": true
+      },
+      "dexterity": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.dexterity",
+        "speciality": "",
+        "isvisible": true
+      },
+      "stamina": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "physical",
+        "label": "wod.attributes.stamina",
+        "speciality": "",
+        "isvisible": true
+      },
+      "charisma": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.charisma",
+        "speciality": "",
+        "isvisible": true
+      },
+      "manipulation": {
+        "value": 4,
+        "bonus": 0,
+        "total": 4,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.manipulation",
+        "speciality": "",
+        "isvisible": true
+      },
+      "appearance": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.appearance",
+        "speciality": "",
+        "isvisible": true
+      },
+      "composure": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "social",
+        "label": "wod.attributes.composure",
+        "speciality": "",
+        "isvisible": false
+      },
+      "perception": {
+        "value": 2,
+        "bonus": 0,
+        "total": 2,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.perception",
+        "speciality": "",
+        "isvisible": true
+      },
+      "intelligence": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.intelligence",
+        "speciality": "",
+        "isvisible": true
+      },
+      "wits": {
+        "value": 3,
+        "bonus": 0,
+        "total": 3,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.wits",
+        "speciality": "",
+        "isvisible": true
+      },
+      "resolve": {
+        "value": 1,
+        "bonus": 0,
+        "total": 1,
+        "max": 5,
+        "type": "mental",
+        "label": "wod.attributes.resolve",
+        "speciality": "",
+        "isvisible": false
+      }
+    },
+    "advantages": {
+      "rage": {
+        "permanent": 0,
+        "temporary": 0,
+        "bonus": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.rage"
+      },
+      "gnosis": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.gnosis"
+      },
+      "willpower": {
+        "permanent": 6,
+        "temporary": 6,
+        "max": 10,
+        "roll": 6,
+        "label": "wod.advantages.willpower"
+      },
+      "glamour": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.glamour"
+      },
+      "nightmare": {
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.nightmare"
+      },
+      "banality": {
+        "permanent": 0,
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.banality"
+      },
+      "bloodpool": {
+        "temporary": 10,
+        "max": 10,
+        "perturn": 1
+      },
+      "faith": {
+        "temporary": 0,
+        "max": 10,
+        "roll": 0,
+        "label": "wod.advantages.faith"
+      },
+      "virtues": {
+        "conscience": {
+          "permanent": 3,
+          "max": 5,
+          "roll": 3,
+          "label": "wod.advantages.virtue.conscience"
+        },
+        "selfcontrol": {
+          "permanent": 3,
+          "max": 5,
+          "roll": 3,
+          "label": "wod.advantages.virtue.selfcontrol"
+        },
+        "courage": {
+          "permanent": 4,
+          "max": 5,
+          "roll": 4,
+          "label": "wod.advantages.virtue.courage"
+        }
+      },
+      "path": {
+        "permanent": 7,
+        "value": 0,
+        "max": 10,
+        "roll": 7,
+        "bearing": 0,
+        "bearingtext": "",
+        "label": "wod.advantages.path.humanity"
+      }
+    },
+    "health": {
+      "damage": {
+        "bashing": 0,
+        "lethal": 0,
+        "aggravated": 0,
+        "woundlevel": "",
+        "woundpenalty": 0
+      },
+      "bruised": {
+        "value": 1,
+        "total": 1,
+        "penalty": 0,
+        "label": "wod.health.bruised"
+      },
+      "hurt": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-1",
+        "label": "wod.health.hurt"
+      },
+      "injured": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-1",
+        "label": "wod.health.injured"
+      },
+      "wounded": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-2",
+        "label": "wod.health.wounded"
+      },
+      "mauled": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-2",
+        "label": "wod.health.mauled"
+      },
+      "crippled": {
+        "value": "1",
+        "total": 1,
+        "penalty": "-5",
+        "label": "wod.health.crippled"
+      },
+      "incapacitated": {
+        "value": "1",
+        "total": 1,
+        "penalty": -99,
+        "label": "wod.health.incapacitated"
+      }
+    },
+    "sect": "Camarilla",
+    "clan": "Ventrue",
+    "bloodline": "",
+    "weakness": "",
+    "generation": "13",
+    "generationmod": 0,
+    "sire": "Sir Malcom III",
+    "virtues": {
+      "conscience": {
+        "value": 3,
+        "max": 5,
+        "roll": 3,
+        "label": "wod.advantages.virtue.conscience",
+        "permanent": 3
+      },
+      "selfcontrol": {
+        "permanent": 3,
+        "value": 3,
+        "max": 5,
+        "roll": 3,
+        "label": "wod.advantages.virtue.selfcontrol"
+      },
+      "courage": {
+        "permanent": 4,
+        "value": 4,
+        "max": 5,
+        "roll": 4,
+        "label": "wod.advantages.virtue.courage"
+      }
+    },
+    "rage": {
+      "bonus": 0
+    },
+    "path": {
+      "value": 7,
+      "max": 10,
+      "roll": 7,
+      "bearing": 0,
+      "bearingtext": "",
+      "label": "wod.advantages.path.humanity",
+      "permanent": 7
+    },
+    "isequipped": false
+  },
+  "prototypeToken": { },
+  "items": [
+    {
+      "_id": "k02eyRH1ezcMAEq5",
+      "name": "Fortitude",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/mainpower_vampire.svg",
+      "effects": [],
+      "folder": "umQpDab8NCSW3gEe",
+      "sort": 100000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.dzMg5uic6r5X6fOO"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "A character’s rating in Fortitude adds to his Stamina for the purposes of soaking normal damage (bashing and lethal). A character with this Discipline may also use his dots in Fortitude to soak aggravated damage, though Kindred cannot normally soak things like vampire bites, werewolf claws, magical effects, fire, sunlight, or massive physical trauma. See p. 272, for further details on soaking and damage.",
+        "type": "wod.types.discipline",
+        "level": "0",
+        "value": 1,
+        "max": 5,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": "",
+        "isrollable": false,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "vampire"
+      },
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668968915534,
+        "modifiedTime": 1674724173551,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "hzUFJXj2nJIpKy9V",
+      "name": "Presence",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/mainpower_vampire.svg",
+      "effects": [],
+      "folder": "oVvuNDB7aqWp5jQX",
+      "sort": -100000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.90WbqITxbfwZVDTy"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "Anyone can resist Presence for one scene by spending a Willpower point and succeeding on a Willpower roll (difficulty 8), but the affected individual must keep spending points until he is no longer in the presence of the vampire (or, in the case of Summon, until the effect wears off). Vampires three or more Generations lower than the wielder need only spend a single Willpower to ignore the Presence for an entire night and need not roll Willpower to do so.",
+        "type": "wod.types.discipline",
+        "level": "0",
+        "value": 2,
+        "max": 5,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": "",
+        "isrollable": false,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "vampire"
+      },
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668968922592,
+        "modifiedTime": 1674803646493,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "gouxylinNeY79CpE",
+      "name": "Dominate",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/mainpower_vampire.svg",
+      "effects": [],
+      "folder": "zbskpw94zrEIQsLj",
+      "sort": 100000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.BRzv0g6rtqld1but"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "wod.types.discipline",
+        "level": "0",
+        "value": 0,
+        "max": 5,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": "",
+        "isrollable": false,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "vampire"
+      },
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668968928602,
+        "modifiedTime": 1674724173580,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "w5JALRhXAntIacwG",
+      "name": "• Awe",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_vampire.svg",
+      "effects": [],
+      "folder": "oVvuNDB7aqWp5jQX",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.E8sDacfZtz3NVLUF"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "hzUFJXj2nJIpKy9V",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "The player spends a blood point and rolls Charisma + Performance (difficulty 7). The  number of successes rolled determines how many people are affected, as noted on the chart below. If there are more people present than the character can influence, Awe affects those with lower Willpower ratings first. The power stays in effect for the remainder of the scene or\nuntil the character chooses to drop it.\n\n1 success - One person\n2 successes - Two people\n3 successes - Six people\n4 successes - 20 people\n5 successes - Everyone in the vampire’s immediate vicinity (an entire auditorium, a mob)\n\nThose affected can use Willpower points to overcome the effect, but must continue spending Willpower every scene for as long as they remain in the same area as the vampire. As soon as an individual spends a number of Willpower points equal to the successes rolled, he shakes off the Awe completely and remains unaffected for the rest of the night.",
+        "type": "wod.types.disciplinepower",
+        "level": "1",
+        "value": 0,
+        "max": 0,
+        "dice1": "charisma",
+        "dice2": "performance",
+        "bonus": 0,
+        "difficulty": "7",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "vampire"
+      },
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668968935042,
+        "modifiedTime": 1674724173595,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "tWZ143gKIvDrjfHO",
+      "name": "•• Dread Gaze",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_vampire.svg",
+      "effects": [],
+      "folder": "oVvuNDB7aqWp5jQX",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.YEEfkzpoat1X8Clc"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "hzUFJXj2nJIpKy9V",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "The player rolls Charisma + Intimidation (difficulty equal to the victim’s Wits + Courage). Success indicates the victim is cowed, while failure means the target is startled but not terrified by the sight. Three or more successes means he runs away in abject fear; victims who have nowhere to run claw at the walls, hoping to dig a way out rather than face the vampire. Moreover, each success subtracts one from the target’s action dice pools next turn.\n\nThe character may attempt Dread Gaze once per turn against a single target, though she may also perform it as an extended action, adding her successes in order to subjugate the target completely. Once the target loses enough dice that he cannot perform any action, he’s so shaken and terrified that he curls up on the ground and weeps. Failure during the extended action means the attempt falters. The character loses all her collected successes and can start over next turn, while the victim\nmay act normally again.\n\nA botch at any time indicates the target is not at all impressed — perhaps even finding the vampire’s antics comical — and remains immune to any further uses of Presence by the character for the rest of the story.",
+        "type": "wod.types.disciplinepower",
+        "level": "2",
+        "value": 0,
+        "max": 0,
+        "dice1": "charisma",
+        "dice2": "intimidation",
+        "bonus": 0,
+        "difficulty": "-1",
+        "isrollable": true,
+        "isactive": false,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "vampire"
+      },
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668968936424,
+        "modifiedTime": 1674724173608,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "otmtp951QXvBjviI",
+      "name": "Bite",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 800000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.SHFqWbmcFWCsY0ct"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 1,
+          "type": "aggravated",
+          "isrollable": true
+        },
+        "difficulty": 5,
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668969008092,
+        "modifiedTime": 1674724173693,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "BMwp1rKBOlkJgN4Z",
+      "name": "Grapple",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 300000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.9nTzzNktvFEw3Hbe"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "strength",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 0,
+          "type": "bashing",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668969009721,
+        "modifiedTime": 1674724173703,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "vKBQmtG0vjEmoRo4",
+      "name": "Kick",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 1000000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.XxIJMA0kFpMhHaoc"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 1,
+          "type": "bashing",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668969012993,
+        "modifiedTime": 1674724173715,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "4hO4j5WsN0fGftyB",
+      "name": "Punch",
+      "type": "Melee Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/naturalweapons.svg",
+      "effects": [],
+      "folder": "i6PltrOYamzG6FU6",
+      "sort": 1100000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.G5psTXEgjKE8twnd"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "brawl",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "strength",
+          "bonus": 0,
+          "type": "bashing",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "",
+        "istwohanded": false,
+        "isnatural": true,
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.meleeweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668969015050,
+        "modifiedTime": 1674724173725,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "dgbtFoUwTZLoywwe",
+      "name": "Pistol (lt.)",
+      "type": "Ranged Weapon",
+      "img": "systems/worldofdarkness/assets/img/items/rangedweapons.svg",
+      "effects": [],
+      "folder": "Tl5NwrrruicoxKVe",
+      "sort": 300000,
+      "flags": {
+        "core": {
+          "sourceId": "Item.OyU24tExy4PZVmKS"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "attack": {
+          "attribute": "dexterity",
+          "ability": "firearms",
+          "secondaryabilityid": "",
+          "accuracy": 0,
+          "isrollable": true
+        },
+        "damage": {
+          "attribute": "",
+          "bonus": 4,
+          "type": "lethal",
+          "isrollable": true
+        },
+        "difficulty": 6,
+        "conceal": "P",
+        "istwohanded": false,
+        "range": 20,
+        "rate": 4,
+        "mode": {
+          "hasreload": false,
+          "hasburst": false,
+          "hasfullauto": false,
+          "hasspray": false
+        },
+        "clip": {
+          "value": 0,
+          "max": 17
+        },
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "label": "wod.types.rangedweapon"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668969024947,
+        "modifiedTime": 1674724173737,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "_id": "n4JZACTwhPJgn9dE",
+      "name": "Kevlar Vest",
+      "type": "Armor",
+      "img": "systems/worldofdarkness/assets/img/items/armor.svg",
+      "effects": [],
+      "folder": "7T6COUSjovPntqKN",
+      "sort": 0,
+      "flags": {
+        "core": {
+          "sourceId": "Item.MKOMM865UNdJuTtp"
+        }
+      },
+      "system": {
+        "iscreated": true,
+        "version": "2.1.0",
+        "parentid": "",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "isequipped": false,
+        "ismagical": false,
+        "isweapon": false,
+        "soak": {
+          "bashing": 3,
+          "lethal": 3,
+          "aggravated": 0,
+          "chimerical": {
+            "bashing": 0,
+            "lethal": 0,
+            "aggravated": 0
+          }
+        },
+        "dexpenalty": -1,
+        "forms": {
+          "hashomid": true,
+          "hasglabro": false,
+          "hascrinos": false,
+          "hashispo": false,
+          "haslupus": false
+        },
+        "settings": {
+          "created": false
+        },
+        "image": "",
+        "active": false,
+        "label": "wod.types.armor"
+      },
+      "ownership": {
+        "default": 2,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1668969034309,
+        "modifiedTime": 1674724173748,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    },
+    {
+      "folder": "umQpDab8NCSW3gEe",
+      "name": "Fortitude",
+      "type": "Power",
+      "img": "systems/worldofdarkness/assets/img/items/power_vampire.svg",
+      "system": {
+        "iscreated": true,
+        "version": "2.3.0",
+        "parentid": "k02eyRH1ezcMAEq5",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "wod.types.disciplinepower",
+        "level": "1",
+        "value": 0,
+        "max": 0,
+        "dice1": "",
+        "dice2": "",
+        "bonus": 0,
+        "difficulty": 0,
+        "isrollable": false,
+        "isactive": true,
+        "spendwillpower": false,
+        "spendrage": false,
+        "spendgnosis": false,
+        "spendblood": false,
+        "spendglamour": false,
+        "game": "vampire"
+      },
+      "effects": [],
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.U5RPtMYpA3tvemsR"
+        }
+      },
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1674582795657,
+        "modifiedTime": 1674724173763,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      },
+      "_id": "ZbGEGxhEjw2cDb29"
+    },
+    {
+      "name": "Soak bonus",
+      "type": "Bonus",
+      "system": {
+        "iscreated": true,
+        "version": "1.5.0",
+        "parentid": "ZbGEGxhEjw2cDb29",
+        "worldanvil": "",
+        "reference": "",
+        "description": "",
+        "details": "",
+        "type": "soak_buff",
+        "level": "0",
+        "value": 1,
+        "max": 5,
+        "settingtype": "",
+        "isactive": true
+      },
+      "_id": "Gws8c1s0alma5pfG",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "CJSsCwdnDobaXtrZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "worldofdarkness",
+        "systemVersion": "2.3.1",
+        "coreVersion": "10.291",
+        "createdTime": 1674584024620,
+        "modifiedTime": 1674724173769,
+        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "ownership": {
+    "default": 3
+  },
+  "flags": { }
+}

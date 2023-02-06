@@ -12,6 +12,7 @@ export class SortDisciplinePower {
         this.isPath = false;
         this.isArt = false;
         this.isEdge = false;
+        this.isLore = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -32,6 +33,7 @@ export class SortPathPower {
         this.isPath = true;
         this.isArt = false;
         this.isEdge = false;
+        this.isLore = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -52,6 +54,7 @@ export class SortArtPower {
         this.isPath = false;
         this.isArt = true;
         this.isEdge = false;
+        this.isLore = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "changelingDialog";
@@ -72,9 +75,31 @@ export class SortEdgePower {
         this.isPath = false;
         this.isArt = false;
         this.isEdge = true;
+        this.isLore = false;
         this.canSave = false;
         this.close = false;
         this.sheettype = "hunterDialog";
+    }
+}
+
+export class SortLorePower {
+    constructor(item) {
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.level = item.system["level"];
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+        this.parentid = item.system["parentid"];
+        this.powerlist = [];
+
+        this.isDiscipline = false;
+        this.isPath = false;
+        this.isArt = false;
+        this.isEdge = false;
+        this.isLore = true;
+        this.canSave = false;
+        this.close = false;
+        this.sheettype = "demonDialog";
     }
 }
 
@@ -119,6 +144,10 @@ export class DialogSortPower extends FormApplication {
 
         if (this.object.isEdge) {
             this.object.powerlist = this.actor.system.listdata.powers.edges.listededges;
+        }
+
+        if (this.object.isLore) {
+            this.object.powerlist = this.actor.system.listdata.powers.lores.listedlores;
         }
 
         data.config = CONFIG.wod;    

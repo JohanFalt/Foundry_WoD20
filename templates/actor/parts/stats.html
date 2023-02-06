@@ -32,6 +32,10 @@
 			{{> "systems/worldofdarkness/templates/actor/parts/stats_nightmare.html"}}
 		{{/if}}
 	
+		{{#if data.system.settings.hasfaith}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_faith.html"}}
+		{{/if}}
+
 		{{#if data.system.settings.haswillpower}}
 			{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 		{{/if}}

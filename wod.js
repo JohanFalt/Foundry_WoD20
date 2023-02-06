@@ -4,15 +4,19 @@ import { wod } from "./module/config.js";
 import { systemSettings } from "./module/settings.js";
 import * as templates from "./module/templates.js";
 
+import * as WoDSetup from "./module/scripts/wodsetup.js";
+
 import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
 import { MageActorSheet } from "./module/actor/mage-actor-sheet.js";
 import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
 import { ChangelingActorSheet } from "./module/actor/changeling-actor-sheet.js";
 import { HunterActorSheet } from "./module/actor/hunter-actor-sheet.js";
+import { DemonActorSheet } from "./module/actor/demon-actor-sheet.js";
 import { ChangingBreedActorSheet } from "./module/actor/changingbreed-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
 import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
+import { tourSetup } from './tours/toursetup.js';
 
 import { WoDItemSheet } from "./module/items/item-sheet.js";
 
@@ -37,6 +41,7 @@ Hooks.once("init", async function() {
 	}	
 
 	CONFIG.wod.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
+	CONFIG.wod.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
@@ -77,6 +82,12 @@ Hooks.once("init", async function() {
 		makeDefault: true
 	});
 
+	Actors.registerSheet("WoD", DemonActorSheet, {
+		label: "Demon Sheet",
+		types: ["Demon"],
+		makeDefault: true
+	});
+
 	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
 		label: "Changing Breed Sheet",
 		types: ["Changing Breed"],
@@ -108,6 +119,10 @@ Hooks.once("init", async function() {
 	
 	templates.preloadHandlebarsTemplates();
 	templates.registerHandlebarsHelpers();	
+
+	game.wod = {
+		powers: WoDSetup.getInstalledPowers(game.data.items)
+	};
 	
 	console.log("WoD | Added Handelebars");  
 });
@@ -127,6 +142,8 @@ Hooks.once("ready", function () {
     // Do anything once the system is ready
 	const installedVersion = game.settings.get('worldofdarkness', 'worldVersion');
   	const systemVersion = game.data.system.version;	
+
+	tourSetup();
 
 	if (game.user.isGM) {
 		if ((installedVersion !== systemVersion || installedVersion === null)) {
@@ -194,6 +211,10 @@ Hooks.on("renderItemSheet", (sheet) => {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 });
+
+/* Hooks.on("closeItemSheet", (sheet) => { 
+		
+}); */
 
 Hooks.on("renderFormApplication", (sheet) => { 
 	if (sheet.isDialog) {

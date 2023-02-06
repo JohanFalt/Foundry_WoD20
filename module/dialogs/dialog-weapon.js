@@ -1,5 +1,6 @@
-//import ActionHelper from "../scripts/action-helpers.js";
 import CombatHelper from "../scripts/combat-helpers.js";
+import BonusHelper from "../scripts/bonus-helpers.js";
+
 import { rollDice } from "../scripts/roll-dice.js";
 import { rollDiceMultiple } from "../scripts/roll-dice.js";
 import { DiceRoll } from "../scripts/roll-dice.js";
@@ -165,7 +166,7 @@ export class DialogWeapon extends FormApplication {
         });
     }
 
-    getData() {
+    async getData() {
         const data = super.getData();
 
         let attributeSpeciality = "";
@@ -275,6 +276,11 @@ export class DialogWeapon extends FormApplication {
         }
 
         data.object.specialityText = specialityText;
+
+        if (await BonusHelper.CheckAbilityBuff(actor, data.object.dice2)) {
+            let bonus = await BonusHelper.GetAbilityBuff(actor, data.object.dice2);
+            this.object.abilityValue += parseInt(bonus);
+        }
 
         return data;
     }
@@ -474,6 +480,7 @@ export class DialogWeapon extends FormApplication {
         
         const weaponRoll = new DiceRoll(this.actor);
         weaponRoll.handlingOnes = CONFIG.wod.handleOnes;    
+        weaponRoll.attribute = this.object.dice1;
         
         let numDices = 0;
 

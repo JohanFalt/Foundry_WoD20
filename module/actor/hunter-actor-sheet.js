@@ -14,11 +14,6 @@ export class HunterActorSheet extends MortalActorSheet {
 				initial: "core",
 			},
 			{
-				navSelector: ".sheet-spec-tabs",
-				contentSelector: ".sheet-spec-body",
-				initial: "normal",
-			},
-			{
 				navSelector: ".sheet-setting-tabs",
 				contentSelector: ".sheet-setting-body",
 				initial: "attributes",
@@ -43,7 +38,7 @@ export class HunterActorSheet extends MortalActorSheet {
 
 				ActionHelper._setHunterAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setHunterfAttributes(actorData);				
+				ActionHelper._setHunterAttributes(actorData);				
 
 				this.actor.update(actorData);
 			}	 	
@@ -52,16 +47,6 @@ export class HunterActorSheet extends MortalActorSheet {
 		const data = await super.getData();
 
 		console.log("WoD | Hunter Sheet getData");
-
-		/* const edges = [];
-
-		for (const i of data.items) {
-			if (i.type == "Edge") {
-				edges.push(i);
-			}
-		}
-
-		data.actor.edges = edges.sort((a, b) => a.name.localeCompare(b.name)); */
 
 		if (actorData.type == CONFIG.wod.sheettype.hunter) {
 			console.log(CONFIG.wod.sheettype.hunter);

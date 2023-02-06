@@ -70,6 +70,19 @@ export const systemSettings = function() {
 		}
 	});
 
+    game.settings.register("worldofdarkness", "limitedFullActorViewPermission", {
+		name: game.i18n.localize('wod.settings.limitedactorpermission'),
+		hint: game.i18n.localize('wod.settings.limitedactorpermissionhint'),
+		scope: "world",
+		config: false,
+		default: "limited",
+		type: String,
+		choices: {
+			"full": game.i18n.localize('wod.settings.limitedfullsheet'),
+			"limited": game.i18n.localize('wod.settings.limitedpartialsheet')
+		}
+	});
+
 	game.settings.register("worldofdarkness", "changeActorImagePermission", {
 		name: game.i18n.localize('wod.settings.changeactorimage'),
 		hint: game.i18n.localize('wod.settings.changeactorimagehint'),
@@ -203,21 +216,30 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch230", {
+		name: "patch230",
+		hint: "patch230",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
         hint: game.i18n.localize('wod.settings.rulesettingshint'),
         label: game.i18n.localize('wod.settings.rulesettings'),
-        icon: "fa-solid fa-gear",
+        icon: "icon fa-solid fa-gear",
         type: Rules,
         restricted: true,
     });
 
     game.settings.registerMenu("worldofdarkness", "hunterSettings", {
         name: game.i18n.localize('wod.settings.huntersettings'),
-        hint: game.i18n.localize('wod.settings.huntersettingshints'),
+        hint: game.i18n.localize('wod.settings.huntersettingshint'),
         label: game.i18n.localize('wod.settings.huntersettings'),
-        icon: "fa-solid fa-gear",
+        icon: "icon fa-solid fa-gear",
         type: Hunter,
         restricted: true,
     });
@@ -226,7 +248,7 @@ export const systemSettings = function() {
         name: game.i18n.localize('wod.settings.permissionsettings'),
         hint: game.i18n.localize('wod.settings.permissionsettingshint'),
         label: game.i18n.localize('wod.settings.permissionsettings'),
-        icon: "fa-solid fa-gear",
+        icon: "icon fa-solid fa-gear",
         type: Permissions,
         restricted: true,
     });
@@ -235,7 +257,7 @@ export const systemSettings = function() {
         name: game.i18n.localize('wod.settings.graphicsettings'),
         hint: game.i18n.localize('wod.settings.graphicsettingshint'),
         label: game.i18n.localize('wod.settings.graphicsettings'),
-        icon: "fa-solid fa-gear",
+        icon: "icon fa-solid fa-gear",
         type: Graphics,
         restricted: true,
     });
@@ -470,7 +492,7 @@ export class Permissions extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "changeActorImagePermission") || (s.key == "changeItemImagePermission") || (s.key == "itemAdministratorLevel") || (s.key == "observersFullActorViewPermission")) {
+                if ((s.key == "changeActorImagePermission") || (s.key == "changeItemImagePermission") || (s.key == "itemAdministratorLevel") || (s.key == "observersFullActorViewPermission") || (s.key == "limitedFullActorViewPermission")) {
                     // Update setting data
                     const setting = duplicate(s);
 

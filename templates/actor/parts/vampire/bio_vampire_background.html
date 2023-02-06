@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="clearareaBox area-box">
+<div class="clearareaBox area-box" data-area="generation">
     <div>
         <label class="headlineText headlineBio splatFont" for="data.generation">{{localize "wod.bio.vampire.generation"}}</label>
         <div class="pullLeft bioInformationArea">
@@ -41,8 +41,8 @@
                 <input class="sheet-infoValues" type="text" {{#if (gt data.system.generationmod 0)}}value="{{data.system.generation}} - {{data.system.generationmod}}"{{else}}value="{{data.system.generation}}"{{/if}} data-dtype="Number" readonly />
             {{else}}
                 <input class="sheet-infoValues selectGeneration editable" name="system.generation" type="text" value="{{data.system.generation}}" style="width: 50%;" data-source="setvalue" data-type="{{config.sheettype.vampire}}" data-koptions="--{{localize 'wod.labels.select'}}--/4/5/6/7/8/9/10/11/12/13/14/15">
-                <i class="fa-solid fa-square-minus pointer selectGeneration" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-source="reduce" data-type="{{config.sheettype.vampire}}" aria-hidden="true"></i>
-                <i class="fa-solid fa-eraser pointer selectGeneration" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-source="clear" data-type="{{config.sheettype.vampire}}" aria-hidden="true"></i>
+                <i class="icon fa-solid fa-square-minus pointer selectGeneration" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-source="reduce" data-type="{{config.sheettype.vampire}}" data-area="reducegeneration" aria-hidden="true"></i>
+                <i class="icon fa-solid fa-eraser pointer selectGeneration" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-source="clear" data-type="{{config.sheettype.vampire}}" data-area="cleargeneration" aria-hidden="true"></i>
                 <span class="information-area">{{localize "wod.labels.bio.tempgeneration"}}: -{{data.system.generationmod}}</span>
             {{/if}}            
         </div>

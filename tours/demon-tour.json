@@ -1,0 +1,105 @@
+{
+    "namespace": "worldofdarkness",
+    "id": "demon-tour",
+    "title": "Demon the Fallen sheet",
+    "canBeResumed": true,
+    "display": true,
+    "permission": {
+        "GM":false,
+        "Players":true
+    },
+    "steps": [
+        {
+            "id": "goto-actors",
+            "selector": "[data-tab='actors']",
+            "title": "Demon the Fallen sheet",
+            "content": "This tour will show off the unique features of the sheet used for Demon the Fallen.",
+            "action": "addDemon"
+        },
+        {
+            "id": "goto-actorsheet-open",
+            "selector": "li[data-document-id='ExampleDemon0001'] h4.document-name",
+            "title": "Example demon sheet",
+            "content": "Sheet now created, lets open it.",
+            "action": "click"
+        },
+        {
+            "id": "goto-demonsheet",
+            "selector": "div[id='DemonActorSheet-Actor-ExampleDemon0001'] header.window-header",
+            "title": "Demon sheet",
+            "content": "This is the Demon the Fallen sheet."
+        },
+        {
+            "id": "goto-unlock",
+            "selector": "div[data-area='unlock']",
+            "target": "i#unlockSheet",
+            "title": "Unlock sheet",
+            "content": "First, we need to unlock the sheet to show it off fully.",
+            "action": "click"
+        },
+        {
+            "id": "goto-apocalypticform",
+            "selector": "div[data-area='apocalypticforms']",
+            "title": "Apocalyptic Forms",
+            "content": "As the sheet is created it always have eight apocalyptic forms. These needs to be configurated by both adding which the Demon have."
+        },
+        {
+            "id": "goto-editapocalypticform",
+            "selector": "a[data-item-id='YqVSlvdoHx5oaoGf']",
+            "title": "Edit Apocalyptic Form",
+            "content": "To edit an Apocalyptic Form you click the Edit button of that Apocalyptic Form. In the edit view you can add the name and desciption of the form. Also you can see what bonuses the form has."
+        },
+        {
+            "id": "goto-addbonus",
+            "selector": "i[data-parentid='YqVSlvdoHx5oaoGf']",
+            "title": "Add bonus to Apocalyptic Form",
+            "content": "If a particular form has bonuses connected to them, these can be added here."
+        },
+        {
+            "id": "goto-activateform",
+            "selector": "input[data-item-id='YqVSlvdoHx5oaoGf']",
+            "title": "Activate Apocalyptic Form",
+            "content": "A particular Apocalyptic Form can be activated here. It is not until an Apocalyptic Form is activated the bonuses connected to that form added to the sheet."
+        },
+        {
+            "id": "goto-formbonusunfold",
+            "selector": "i[id='collapsibleapocalypticbonus0'",
+            "title": "Show bonus",
+            "content": "To show the bonus itself you click this icon. If no such icon exist on the row then there are no bonuses connected to this form.",
+            "action": "click"
+        },
+        {
+            "id": "goto-showformbonus",
+            "selector": "div[data-area='apocalypticbonus0']",
+            "title": "Form bonuses",
+            "content": "As the icon is clicked the bonuses unfolds into view so you can see them. If the sheet is unlocked you can edit them and/or remove them entierly."
+        },
+        {
+            "id": "goto-formbonuscollapse",
+            "selector": "i[id='collapsibleapocalypticbonus0'",
+            "title": "Hide bonus",
+            "content": "If you click on the icon again the bonuses folds again, removing them from view.",
+            "action": "click"
+        },
+        {
+            "id": "goto-lores",
+            "selector": "a[data-tab='lore']",
+            "target": "a#tablore",
+            "title": "Demonic powers",
+            "content": "All the Demon sheet's powers are listed Under Lore",
+            "action": "click"
+        },
+        {
+            "id": "goto-demonpowers",
+            "selector": "div[data-area='lores']",
+            "title": "Lores",
+            "content": "Lores works as other powers of the same type. You have the Lore itself which the contains Lore Powers which has a rating 1-5."
+        },
+        {
+            "id": "goto-demonrituals",
+            "selector": "div[data-area='rituals']",
+            "title": "Rituals",
+            "content": "The Rituals that the Demon sheet holds are located here. This ends this tour."
+        }
+    ]
+}

@@ -27,7 +27,7 @@ export class WoDItemSheet extends ItemSheet {
 	}
 
 	/** @override */
-	getData() {
+	async getData() {
 		const itemData = duplicate(this.item);		
 
 		if (!itemData.system.iscreated) {
@@ -36,22 +36,26 @@ export class WoDItemSheet extends ItemSheet {
 			this.item.update(itemData);
 		}
 
-		/* if (itemData.type == "Power") { 
-			if ((itemData.system.type == "wod.types.discipline") || (itemData.system.type == "wod.types.disciplinepath") || (itemData.system.type == "wod.types.art") || (itemData.system.type == "wod.types.edge")) {
-				itemData.system.isrollable = false;
-				this.item.update(itemData);
-			}
-		} */
-
-		const data = super.getData();
+		const data = await super.getData();
 
 		data.config = CONFIG.wod;
+		data.wod = game.wod;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
+		data.canEdit = this.item.isOwner || game.user.isGM;
+
+		if (this.item.actor != null) {
+			data.hasActor = true;
+		}
+		else {
+			data.hasActor = false;
+		}
+
+		data.showClearText = false;
 
 		const imgUrl = getImage(data.item);
 
@@ -69,8 +73,32 @@ export class WoDItemSheet extends ItemSheet {
 			data.item.img = imgUrl;
 		}
 
+		if ((data.item.system.type == "wod.types.apacolypticform") && (data.hasActor)) {
+			const items = [];	
+
+			for (const i of this.actor.items) {
+				if ((i.type == "Bonus") && (i.system.parentid == data.item._id)) {
+					items.push(i);
+				}
+			}
+
+			data.bonus = items;
+		}
+
+		if (data.item.system?.description != undefined) {
+			data.item.system.description = await TextEditor.enrichHTML(data.item.system.description, {async: true});
+		}
+		if (data.item.system?.details != undefined) {
+			data.item.system.details = await TextEditor.enrichHTML(data.item.system.details, {async: true});
+		}
+
 		console.log(data.item.type);
 		console.log(data.item);
+
+		if (data.bonus != undefined) {
+			console.log("Connected bonus traits");
+			console.log(data.value);
+		}
 		
 		return data;
 	}
@@ -78,8 +106,6 @@ export class WoDItemSheet extends ItemSheet {
 	/** @override */
 	activateListeners(html) {
 		console.log("WoD | Item Sheet activateListeners");
-		//const owner = this.actor;
-
 		super.activateListeners(html);
 
 		html
@@ -87,8 +113,96 @@ export class WoDItemSheet extends ItemSheet {
 			.click(this._onDotCounterChange.bind(this));
 
 		html
-			.find(".clearPower")
-			.click(this._clearPower.bind(this));
+            .find('.item-bonusvalue-button')
+            .click(this._setBonus.bind(this));
+
+		html
+            .find('.dialog-attribute-button')
+            .click(this._setAttribute.bind(this));
+
+		// items
+		html
+			.find(".item-delete")
+			.click(this._onItemDelete.bind(this));
+	}
+
+	async _setBonus(event) {
+        event.preventDefault();
+
+        const element = event.currentTarget;
+        const parent = $(element.parentNode);
+        const steps = parent.find(".item-bonusvalue-button");
+        const bonus = element.value;   
+
+        steps.removeClass("active");
+
+        steps.each(function (i) {
+            if (this.value == bonus) {
+                $(this).addClass("active");
+            }
+        });
+
+		const itemData = duplicate(this.item);
+		itemData.system.value = parseInt(bonus);
+		await this.item.update(itemData);
+		this.render(false);
+        //this.render();
+    }
+
+	async _setAttribute(event) {
+        const element = event.currentTarget;
+        const parent = $(element.parentNode);
+        const steps = parent.find(".dialog-attribute-button");
+        const attribute = element.value;
+
+		steps.removeClass("active");
+
+        steps.each(function (i) {
+            if (this.value == attribute) {
+                $(this).addClass("active");
+            }
+        });
+
+		const itemData = duplicate(this.item);
+		itemData.system.settingtype = attribute;
+		await this.item.update(itemData);
+		this.render(false);
+    }
+
+	async _onItemDelete(event) {
+		if (this.locked) {
+			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+			return;
+		}
+
+		event.preventDefault();
+        event.stopPropagation();
+
+		const itemId = $(event.currentTarget).data("item-id");
+		let item = await this.actor.getEmbeddedDocument("Item", itemId);
+
+        if (!item)
+            return;
+
+        const performDelete = await new Promise((resolve) => {
+            Dialog.confirm({
+                title: game.i18n.format(game.i18n.localize("wod.labels.remove.item"), { name: item.name }),
+                yes: () => resolve(true),
+                no: () => resolve(false),
+                content: game.i18n.format(game.i18n.localize("wod.labels.remove.removing") + " " + item.name, {
+                    name: item.name,
+                    actor: this.actor.name,
+                }),
+            });
+        });
+
+        if (!performDelete)
+            return;
+
+		console.log("WoD | Deleting item id: " + itemId);
+
+		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);      
+		this.render();  
 	}
 
 	_onDotCounterChange(event) {
@@ -126,13 +240,6 @@ export class WoDItemSheet extends ItemSheet {
 		});
 
 		this._assignToItemField(fields, index + 1);
-	}
-
-	_clearPower(event) {
-		const itemData = duplicate(this.item);
-		itemData.system.parentid = "";
-		this.item.update(itemData);
-		this.render(false);
 	}
 
 	_assignToItemField(fields, value) {
@@ -191,12 +298,16 @@ export function getImage(item) {
 			return "systems/worldofdarkness/assets/img/items/power_vampire.svg";
 		}
 
-		if (item.system.type == "wod.types.ritual") {
+		if ((item.system.type == "wod.types.ritual") && (item.system.game == "vampire")) {
 			return "systems/worldofdarkness/assets/img/items/ritual_vampire.svg";
 		}
 
 		if (item.system.type == "wod.types.art") {
 			return "systems/worldofdarkness/assets/img/items/mainpower_changeling.svg";
+		}
+
+		if (item.system.type == "wod.types.artpower") {
+			return "systems/worldofdarkness/assets/img/items/power_changeling.svg";
 		}
 
 		if (item.system.type == "wod.types.edge") {
@@ -205,6 +316,18 @@ export function getImage(item) {
 
 		if (item.system.type == "wod.types.edgepower") {
 			return "systems/worldofdarkness/assets/img/items/power_hunter.svg";
+		}
+
+		if (item.system.type == "wod.types.lore") {
+			return "systems/worldofdarkness/assets/img/items/mainpower_demon.svg";
+		}
+
+		if (item.system.type == "wod.types.lorepower") {
+			return "systems/worldofdarkness/assets/img/items/power_demon.svg";
+		}
+
+		if ((item.system.type == "wod.types.ritual") && (item.system.game == "demon")) {
+			return "systems/worldofdarkness/assets/img/items/ritual_demon.svg";
 		}
 
 		if (item.system.type == "wod.types.gift") {

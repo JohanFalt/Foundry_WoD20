@@ -61,6 +61,11 @@
   border: 1px solid var(--main-hunter-color);
 }
 
+.demon .editor,
+.demonDialog .editor {
+  border: 1px solid var(--main-demon-color);
+}
+
 .creature .editor,
 .creatureDialog .editor {
   border: 1px solid var(--main-creature-color);

@@ -1,0 +1,188 @@
+{
+    "namespace": "worldofdarkness",
+    "id": "vampire-tour",
+    "title": "Vampire the Masquerade sheet",
+    "canBeResumed": true,
+    "display": true,
+    "permission": {
+        "GM":false,
+        "Players":true
+    },
+    "steps": [
+        {
+            "id": "goto-actors",
+            "selector": "[data-tab='actors']",
+            "title": "Vampire the Masquerade sheet",
+            "content": "This tour will show off the unique features of the sheet used for Vampire the Masquerade.",
+            "action": "addVampire"
+        },
+        {
+            "id": "goto-actorsheet-open",
+            "selector": "li[data-document-id='ExampleVampire01'] h4.document-name",
+            "title": "Sheet created",
+            "content": "Sheet now created, lets open it.",
+            "action": "click"
+        },
+        {
+            "id": "goto-vampiresheet",
+            "selector": "div[id='VampireActorSheet-Actor-ExampleVampire01'] header.window-header",
+            "title": "Vampire sheet",
+            "content": "This is the Vampire the Masquerade sheet."
+        },
+        {
+            "id": "goto-microicon",
+            "selector": "div[data-area='microicons']",
+            "title": "Vampire micro icons",
+            "content": "Vampire sheets has one extra icons than what is normal."
+        },
+        {
+            "id": "goto-frenzicony",
+            "selector": "img[data-rollfrenzy='true']",
+            "title": "Roll frenzy",
+            "content": "This icon is used to roll for Frenzy."
+        },
+        {
+            "id": "goto-unlock",
+            "selector": "div[data-area='unlock']",
+            "target": "i#unlockSheet",
+            "title": "Unlock sheet",
+            "content": "First, we need to unlock the sheet to show it off fully.",
+            "action": "click"
+        },
+        {
+            "id": "goto-bearing",
+            "selector": "div[data-area='bearingtext']",
+            "title": "Bearing",
+            "content": "To be able to add what bearing the vampire has you unlock the sheet then you will be able to change the text. The bonus is calculated automatically and shown."
+        },
+        {
+            "id": "goto-biotab",
+            "selector": "a[id='tabbio']",
+            "title": "Bio",
+            "content": "The bio tab is organized as the other sheets and is adapted for the game here you fill in your sect, clan and so on.",
+            "action": "click"
+        },
+        {
+            "id": "goto-generation",
+            "selector": "div[data-area='generation']",
+            "title": "Generation",
+            "content": "To set the sheet's generation you just select the value in the box."
+        },        
+        {
+            "id": "goto-reducegeneration",
+            "selector": "i[data-area='reducegeneration']",
+            "title": "Lower generation",
+            "content": "Then if there are need to add temporary generation you just click this icon."
+        },
+        {
+            "id": "goto-cleargeneration",
+            "selector": "i[data-area='cleargeneration']",
+            "title": "Reset generation",
+            "content": "To reset the generation back to normal just click this icon"
+        },
+        {
+            "id": "goto-disciplinetab",
+            "selector": "a[id='tabdisciplines']",
+            "title": "Combat",
+            "content": "This page shows the disciplines and rituals the character has.",
+            "action": "click"
+        },     
+        {
+            "id": "goto-disciplines",
+            "selector": "div[data-area='disciplines']",
+            "title": "Disciplines",
+            "content": "As you add disciplines they end up here."
+        },
+
+        {
+            "id": "goto-addbonus",
+            "selector": "i[data-parentid='ZbGEGxhEjw2cDb29']",
+            "title": "Add bonus to Discipline Power",
+            "content": "If a particular form has bonuses connected to them, these can be added here."
+        },
+        {
+            "id": "goto-activatediscipline",
+            "selector": "input[data-item-id='ZbGEGxhEjw2cDb29']",
+            "title": "Activate Discipline Power",
+            "content": "A particular Apocalyptic Form can be activated here. It is not until an Apocalyptic Form is activated the bonuses connected to that form added to the sheet."
+        },
+        {
+            "id": "goto-bonusunfold",
+            "selector": "i[id='collapsibledisciplinebonus2'",
+            "title": "Show bonus",
+            "content": "To show the bonus itself you click this icon. If no such icon exist on the row then there are no bonuses connected to this form.",
+            "action": "click"
+        },
+        {
+            "id": "goto-showbonus",
+            "selector": "div[data-area='disciplinebonus2']",
+            "title": "Discipline Power bonuses",
+            "content": "As the icon is clicked the bonuses unfolds into view so you can see them. If the sheet is unlocked you can edit them and/or remove them entierly."
+        },
+        {
+            "id": "goto-bonuscollapse",
+            "selector": "i[id='collapsibledisciplinebonus2'",
+            "title": "Hide bonus",
+            "content": "If you click on the icon again the bonuses folds again, removing them from view.",
+            "action": "click"
+        },
+
+        {
+            "id": "goto-paths",
+            "selector": "div[data-area='paths']",
+            "title": "Paths",
+            "content": "Paths are seperated from normal disciplines and end up here."
+        },
+        {
+            "id": "goto-rituals",
+            "selector": "div[data-area='rituals']",
+            "title": "Rituals",
+            "content": "Rituals end up here."
+        },
+        {
+            "id": "goto-combattab",
+            "selector": "a[id='tabcombat']",
+            "title": "Combat",
+            "content": "The combat tab has one section that are special for vampire.",
+            "action": "click"
+        },
+        {
+            "id": "goto-frenzycheck",
+            "selector": "div[data-area='frenzycheck']",
+            "title": "Frenzy",
+            "content": "If this is checked the rules for frenzy is active on the sheet as you roll."
+        },
+        {
+            "id": "goto-notestab",
+            "selector": "a[id='tabnotes']",
+            "title": "Settings",
+            "content": "The notes tab has one section that are special for vampire.",
+            "action": "click"
+        },
+        {
+            "id": "goto-bloodbound",
+            "selector": "div[data-type='bloodbound']",
+            "title": "Bloodbound",
+            "content": "The existing blood bounds that the character has can be listed here."
+        },
+        {
+            "id": "goto-settingstab",
+            "selector": "a[id='tabsettings']",
+            "title": "Settings",
+            "content": "The settings tab has a few sections that are specially for vampire.",
+            "action": "click"
+        },
+        {
+            "id": "goto-pathsettings",
+            "selector": "div[data-area='pathsetting']",
+            "title": "Path",
+            "content": "What path the sheet is to use is set here. The main reason it is set in Settings and not directly on the Core tab is that you change Path extremely rarely."
+        },
+        {
+            "id": "goto-frenzycheck",
+            "selector": "div[data-area='frenzysetting']",
+            "title": "Frenzy",
+            "content": "If you have some kind of bonus/penalty die on your frenzy rolls, here is where you can add that. This ends this tour."
+        }       
+    ]
+}

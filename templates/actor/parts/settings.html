@@ -27,7 +27,7 @@
 					<div class="clearareaBox">
 						<div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
 						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.value'}}</div>
-						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.bonus'}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.bonus.headline'}}</div>
 						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.total'}}</div>
 						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.max'}}</div>
 					</div>
@@ -64,7 +64,7 @@
 
 		{{#if (eq actor.type config.sheettype.vampire)}}
 
-			<div class="sheet-area">
+			<div class="sheet-area" data-area="pathsetting">
 				<div class="clearareaBox area-box">
 					<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.path"}}</div>
 					<label for="data.system.advantages.path.label" class="pullLeft headlineNormal" style="width: 150px;">{{localize "wod.labels.settings.selectpath"}}</label>
@@ -100,7 +100,7 @@
 
 		{{#if (eqAny actor.type config.sheettype.vampire config.sheettype.werewolf)}}
 
-			<div class="sheet-area">
+			<div class="sheet-area" data-area="frenzysetting">
 				<div class="clearareaBox">
 					<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
 					<label for="data.system.advantages.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
@@ -115,7 +115,7 @@
 		{{#if (eq actor.type config.sheettype.changingbreed)}}
 			{{#if data.system.settings.hasrage}}
 				
-				<div class="sheet-area">
+				<div class="sheet-area" data-area="frenzysetting">
 					<div class="clearareaBox">
 						<div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
 						<label for="data.system.advantages.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
@@ -138,9 +138,11 @@
 						<label for="data.system.settings.haspath" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.path.headline'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="haspath" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.haspath}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>
@@ -149,9 +151,11 @@
 						<label for="data.system.settings.hasbloodpool" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.bloodpool'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasbloodpool" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasbloodpool}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>
@@ -160,9 +164,11 @@
 						<label for="data.system.settings.hasvirtue" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.virtue.headline'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasvirtue" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasvirtue}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>
@@ -171,9 +177,11 @@
 						<label for="data.system.settings.hasrage" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.rage'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasrage" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasrage}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>	
@@ -182,9 +190,11 @@
 						<label for="data.system.settings.hasgnosis" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.gnosis'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasgnosis" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasgnosis}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>
@@ -193,9 +203,24 @@
 						<label for="data.system.settings.hasbanality" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.banality'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasbanality" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.hasbanality}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="clearareaBox row">
+						<label for="data.system.settings.hasfaith" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.faith'}}</label>
+						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasfaith" data-type="{{config.sheettype.mortal}}">
+							{{#if data.system.settings.hasfaith}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
+							{{else}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>
@@ -204,9 +229,11 @@
 						<label for="data.system.settings.haswillpower" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.willpower'}}</label>
 						<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="haswillpower" data-type="{{config.sheettype.mortal}}">
 							{{#if data.system.settings.haswillpower}}
-								{{localize "wod.labels.settings.yes"}}
+								<!-- {{localize "wod.labels.settings.yes"}} -->
+								<i class="icon fa-solid fa-eye"></i>
 							{{else}}
-								{{localize "wod.labels.settings.no"}}
+								<!-- {{localize "wod.labels.settings.no"}} -->
+								<i class="icon fa-solid fa-eye-slash"></i>
 							{{/if}}
 						</div>
 					</div>
@@ -217,9 +244,11 @@
 							<label for="data.system.settings.hasessence" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.essence'}}</label>
 							<div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasessence" data-type="{{config.sheettype.mortal}}">
 								{{#if data.system.settings.hasessence}}
-									{{localize "wod.labels.settings.yes"}}
+									<!-- {{localize "wod.labels.settings.yes"}} -->
+									<i class="icon fa-solid fa-eye"></i>
 								{{else}}
-									{{localize "wod.labels.settings.no"}}
+									<!-- {{localize "wod.labels.settings.no"}} -->
+									<i class="icon fa-solid fa-eye-slash"></i>
 								{{/if}}
 							</div>
 						</div>
@@ -257,14 +286,15 @@
 				<div class="sheet-area">
 					<div class="clearareaBox">
 						<div class="secondHeadlineTabs splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
-						<label for="data.system.essence.max" class="pullLeft headlineNormal" style="width: 150px;" 
-							data-label="{{data.system.essence.max}}" 
+						<label for="data.system.advantages.essence.max" class="pullLeft headlineNormal" style="width: 150px;" 
+							data-label="{{data.system.advantages.essence.max}}" 
 								data-ability="true">{{localize "wod.advantages.essence"}}</label>
 						<input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
-							name="system.essence.max" 
+							name="system.advantages.essence.max" 
 							type="text" 
-							value="{{data.system.essence.max}}" 
-							data-name="data.system.essence.max" 
+							value="{{data.system.advantages.essence.max}}" 
+							value="{{data.system.advantages.essence.max}}" 
+							data-name="data.system.advantages.essence.max" 
 							data-dtype="Number" />
 					</div>
 				</div>
@@ -278,12 +308,16 @@
 	{{!-- Abilities Tab --}}
 	<div class="tab abilities" data-group="secondary" data-tab="abilities">
 
-		{{#if (ne actor.type config.sheettype.spirit)}}
+		{{#if (eqAnyNot actor.type config.sheettype.spirit config.sheettype.vampire)}}
 		<div class="sheet-area">
 			<div class="clearareaBox">
 				<div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
 				<div class="pullLeft settings-leftwidth settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
-					<input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.abilities.defaultmaxvalue" value="{{data.system.settings.abilities.defaultmaxvalue}}" {{#if locked}} readonly {{/if}} />
+					{{#if locked}}
+                		<input class="sheet-infoValues" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" readonly />
+            		{{else}}
+                		<input class="sheet-infoValues selectAbilityMaxSetting editable" name="system.settings.abilities.defaultmaxvalue" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" style="width: 50%;" data-source="setvalue" data-type="{{config.sheettype.mortal}}" data-koptions="--{{localize 'wod.labels.select'}}--/1/2/3/4/5/6/7/8/9/10">                		
+            		{{/if}}
 				</div>				
 			</div>
 		</div>
@@ -319,9 +353,11 @@
 
 								<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="talent" data-source="ability" data-type="{{../config.sheettype.mortal}}">
 									{{#if ability.isvisible}}
-										{{localize "wod.labels.settings.added"}}
+										<!-- {{localize "wod.labels.settings.added"}} -->
+										<i class="icon fa-solid fa-eye"></i>
 									{{else}}
-										{{localize "wod.labels.settings.removed"}}
+										<!-- {{localize "wod.labels.settings.removed"}} -->
+										<i class="icon fa-solid fa-eye-slash"></i>
 									{{/if}}
 								</div>
 							</div>	
@@ -353,9 +389,11 @@
 
 									<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="skill" data-source="ability" data-type="{{../config.sheettype.mortal}}">
 										{{#if ability.isvisible}}
-											{{localize "wod.labels.settings.added"}}
+											<!-- {{localize "wod.labels.settings.added"}} -->
+											<i class="icon fa-solid fa-eye"></i>
 										{{else}}
-											{{localize "wod.labels.settings.removed"}}
+											<!-- {{localize "wod.labels.settings.removed"}} -->
+											<i class="icon fa-solid fa-eye-slash"></i>
 										{{/if}}
 									</div>
 								</div>
@@ -388,9 +426,11 @@
 
 									<div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">
 										{{#if ability.isvisible}}									
-											{{localize "wod.labels.settings.added"}}
+											<!-- {{localize "wod.labels.settings.added"}} -->
+											<i class="icon fa-solid fa-eye"></i>
 										{{else}}
-											{{localize "wod.labels.settings.removed"}}
+											<!-- {{localize "wod.labels.settings.removed"}} -->
+											<i class="icon fa-solid fa-eye-slash"></i>
 										{{/if}}
 									</div>
 								</div>
@@ -412,15 +452,15 @@
 				<div class="clearareaBox">
 					<div class="ability-statArea pullLeft headlineGroup splatFont centerText">
 						{{localize "wod.abilities.talents"}} 
-						<i class="fa-solid fa-square-plus pointer item-create pullRight" title="{{localize 'wod.labels.add.ability'}}" aria-hidden="true" data-itemtype="Trait" data-type="talentability"></i>
+						<i class="icon largeicon fa-solid fa-square-plus pointer item-create pullRight" title="{{localize 'wod.labels.add.ability'}}" aria-hidden="true" data-itemtype="Trait" data-type="talentability"></i>
 					</div>
 					<div class="ability-statArea pullLeft headlineGroup splatFont centerText">
 						{{localize "wod.abilities.skills"}} 
-						<i class="fa-solid fa-square-plus pointer item-create pullRight" title="{{localize 'wod.labels.add.ability'}}" aria-hidden="true" data-itemtype="Trait" data-type="skillability"></i>
+						<i class="icon largeicon fa-solid fa-square-plus pointer item-create pullRight" title="{{localize 'wod.labels.add.ability'}}" aria-hidden="true" data-itemtype="Trait" data-type="skillability"></i>
 					</div>
 					<div class="ability-statArea pullLeft headlineGroup splatFont centerText">
 						{{localize "wod.abilities.knowledges"}} 
-						<i class="fa-solid fa-square-plus pointer item-create pullRight" title="{{localize 'wod.labels.add.ability'}}" aria-hidden="true" data-itemtype="Trait" data-type="knowledgeability"></i>
+						<i class="icon largeicon fa-solid fa-square-plus pointer item-create pullRight" title="{{localize 'wod.labels.add.ability'}}" aria-hidden="true" data-itemtype="Trait" data-type="knowledgeability"></i>
 					</div>
 				</div>
 
@@ -543,7 +583,7 @@
 				<div class="clearareaBox">
 					<div class="pullLeft settings-leftwidth">&nbsp;</div>
 					<div class="pullLeft numberBox">&nbsp;</div>
-					<div class="pullLeft numberBox headlineNormal">{{localize "wod.labels.bonus"}}</div>
+					<div class="pullLeft numberBox headlineNormal">{{localize "wod.labels.bonus.headline"}}</div>
 					<div class="pullLeft settings-leftwidth centerText headlineNormal">{{localize "wod.labels.settings.usesoak"}}</div>
 				</div>
 				<div class="clearareaBox">
@@ -602,7 +642,7 @@
 					<div class="clearareaBox">
 						<div class="pullLeft settings-leftwidth">&nbsp;</div>
 						<div class="pullLeft numberBox">&nbsp;</div>
-						<div class="pullLeft numberBox headlineNormal">{{localize "wod.labels.bonus"}}</div>
+						<div class="pullLeft numberBox headlineNormal">{{localize "wod.labels.bonus.headline"}}</div>
 						<div class="pullLeft settings-leftwidth centerText headlineNormal">{{localize "wod.labels.settings.usesoak"}}</div>
 					</div>
 					<div class="clearareaBox">
@@ -660,7 +700,7 @@
 				<div class="secondHeadlineTabs splatFont">{{localize "wod.combat.initiative"}}</div>
 				<div class="clearareaBox">
 					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
-					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus"}}</div>
+					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus.headline"}}</div>
 					<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
 				</div>
 				<div class="clearareaBox">

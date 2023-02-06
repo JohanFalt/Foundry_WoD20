@@ -1,7 +1,8 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
-import { Rote } from "../dialogs/dialog-aretecasting.js";
-import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js";
+/* import { Rote } from "../dialogs/dialog-aretecasting.js";
+import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js"; */
+import BonusHelper from "../scripts/bonus-helpers.js";
 
 export class MageActorSheet extends MortalActorSheet {
 	
@@ -14,11 +15,6 @@ export class MageActorSheet extends MortalActorSheet {
 				navSelector: ".sheet-tabs",
 				contentSelector: ".sheet-body",
 				initial: "core",
-			},
-			{
-				navSelector: ".sheet-spec-tabs",
-				contentSelector: ".sheet-spec-body",
-				initial: "normal",
 			},
 			{
 				navSelector: ".sheet-setting-tabs",
@@ -63,6 +59,7 @@ export class MageActorSheet extends MortalActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Rote") {
+				i.system.bonuses = BonusHelper.getBonuses(data.items, i._id);
 				rotes.push(i);
 			}
 			if (i.type == "Trait") {

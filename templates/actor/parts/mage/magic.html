@@ -10,17 +10,19 @@
 </div>
 
 <div class="sheet-area">
-    <div class="clearareaBox" style="display: flex;">
+    <div class="clearareaBox sheet-container" style="display: flex;">
 
+        <!-- Rotes -->
         <div class="pullLeft" style="width: 50%;">
 
             {{> "systems/worldofdarkness/templates/actor/parts/mage/rotes.html"}}
 
         </div>
 
+        <!-- Resonance -->
         <div class="pullLeft" style="width: 50%;">
 
-            {{~> "systems/worldofdarkness/templates/actor/parts/mage/focus.html"}}                     
+            {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}                     
 
         </div>
         
@@ -28,19 +30,14 @@
 
 </div>
 
-<!-- Resonance -->
-<div class="sheet-area">
-
-    {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}
-    
-</div> 
-
 <div class="sheet-area">
     <div class="clearareaBox" style="display: flex;">
 
         <div class="pullLeft" style="width: 33%;">
             
             {{> "systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html"}}
+
+            {{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}} 
 
         </div>        
 
@@ -54,9 +51,9 @@
             </div>
         </div>
         
-        <div class="pullLeft" style="width: 33%;"">
+        <div class="pullLeft" style="width: 33%;">
             
-            {{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}} 
+            {{~> "systems/worldofdarkness/templates/actor/parts/mage/focus.html"}}
 
         </div>
     

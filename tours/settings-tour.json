@@ -1,0 +1,34 @@
+{
+    "namespace": "worldofdarkness",
+    "id": "settings-tour",
+    "title": "Handling sheets",
+    "canBeResumed": false,
+    "display": true,
+    "permission": {
+        "GM":true,
+        "Players":false
+    },
+    "steps": [
+        {
+            "id": "goto-actors",
+            "selector": "[data-tab='actors']",
+            "title": "Actors",
+            "content": "As normal all sheets regardless of type is created under Actors.",
+            "action": "click"
+        },
+        {
+            "id": "goto-actortabcreate",
+            "selector": "section[data-tab=actors] button.create-document",
+            "title": "Sheet types",
+            "content": "To create a character you click Create Actor then select what type of sheet you wish to create. A character cannot change type once created.",
+            "action": "click"
+        },
+        {
+            "id": "goto-items",
+            "selector": "[data-tab='items']",
+            "title": "Items",
+            "content": "The World of Darkness system rely heavily on items to work. You create items for Background, the different Powers or what have you. Some are created directly on the sheet itself but others needs to be created in the World to then be dragged to the sheet.",
+            "action": "click"
+        }
+    ]
+}

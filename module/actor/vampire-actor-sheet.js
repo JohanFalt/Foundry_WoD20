@@ -14,11 +14,6 @@ export class VampireActorSheet extends MortalActorSheet {
 				initial: "core",
 			},
 			{
-				navSelector: ".sheet-spec-tabs",
-				contentSelector: ".sheet-spec-body",
-				initial: "normal",
-			},
-			{
 				navSelector: ".sheet-setting-tabs",
 				contentSelector: ".sheet-setting-body",
 				initial: "attributes",
@@ -28,9 +23,6 @@ export class VampireActorSheet extends MortalActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);
-
-		/* this.isCharacter = true;	
-		this.isGM = game.user.isGM; */
 		
 		console.log("WoD | Vampire Sheet constructor");
 	}
@@ -52,103 +44,14 @@ export class VampireActorSheet extends MortalActorSheet {
 			}	 	
 		}
 
-		const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.system.generation));
-		await keepDisciplinesCorrect(disciplineMax, this.actor)		
+		if (!this.actor.limited) {
+			const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.system.generation));
+			await keepAbilitiesDisciplinesCorrect(disciplineMax, this.actor);		
+		}
 
 		const data = await super.getData();
 
 		console.log("WoD | Vampire Sheet getData");
-
-		// const disciplinelist = [];
-		// const tempdisclist = [];
-		// const unlisteddisclist = [];
-		// let unlisted = false;
-
-		// const pathlist = [];
-		// const temppathlist = [];
-		// const unlistedpathlist = [];
-		// let unlistedpath = false;
-
-		// const rituallist = [];
-		
-		// const templist = [];	
-		// const temp2list = [];
-
-		// for (const i of data.items) {
-		// 	if (i.type == "Power") {
-		// 		if (i.system.type == "wod.types.discipline") {
-		// 			tempdisclist.push(i);
-		// 		}
-		// 		if (i.system.type == "wod.types.disciplinepower") {
-		// 			if (i.system.parentid != "") {
-		// 				i.system.level = i.system.level.toString();
-		// 				templist.push(i);
-		// 			}
-		// 			else {
-		// 				unlisteddisclist.push(i);
-		// 				unlisted = true;
-		// 			}					
-		// 		}
-		// 		if (i.system.type == "wod.types.disciplinepath") {
-		// 			temppathlist.push(i);
-		// 		}
-		// 		if (i.system.type == "wod.types.disciplinepathpower") {
-		// 			if (i.system.parentid != "") {
-		// 				i.system.level = i.system.level.toString();
-		// 				temp2list.push(i);
-		// 			}
-		// 			else {
-		// 				unlistedpathlist.push(i);
-		// 				unlistedpath = true;
-		// 			}					
-		// 		}
-		// 		if (i.system.type == "wod.types.ritual") {
-		// 			rituallist.push(i);
-		// 		} 
-		// 	}			
-		// }
-
-		// // sort disciplines
-		// tempdisclist.sort((a, b) => a.name.localeCompare(b.name));
-		// templist.sort((a, b) => a.system.level.localeCompare(b.system.level));			
-
-		// for (const discipline of tempdisclist) {
-		// 	disciplinelist.push(discipline);
-
-		// 	for (const power of templist) {
-		// 		if (power.system.parentid == discipline._id) {
-		// 			disciplinelist.push(power);
-		// 		}
-		// 	}
-		// }		
-
-		// data.actor.disciplinelist = disciplinelist;
-		// data.actor.listeddisciplines = tempdisclist;
-		// data.actor.unlisteddisciplines = unlisteddisclist.sort((a, b) => a.name.localeCompare(b.name));	
-		// data.actor.hasunlisteddisciplines = unlisted;
-
-		// // sort paths
-		// temppathlist.sort((a, b) => a.name.localeCompare(b.name));
-		// temp2list.sort((a, b) => a.system.level.localeCompare(b.system.level));	
-		// unlistedpathlist.sort((a, b) => a.name.localeCompare(b.name));	
-
-		// for (const path of temppathlist) {
-		// 	pathlist.push(path);
-
-		// 	for (const power of temp2list) {
-		// 		if (power.system.parentid == path._id) {
-		// 			pathlist.push(power);
-		// 		}
-		// 	}
-		// }
-		
-		// data.actor.pathlist = pathlist;
-		// data.actor.listedpaths = temppathlist;
-		// data.actor.unlistedpaths = unlistedpathlist;
-		// data.actor.hasunlistedpaths = unlistedpath;
-
-		// // sort rituals
-		// data.actor.rituallist = rituallist.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.wod.sheettype.vampire) {
 			console.log(CONFIG.wod.sheettype.vampire);
@@ -206,10 +109,11 @@ export class VampireActorSheet extends MortalActorSheet {
 			.find('.pointer.selectGeneration')
 			.click(this._onSelectGeneration.bind(this));
 
-		Hooks.on("preCreateItem", async function (item, options, id) {
+		/* Hooks.on("preCreateItem", async function (item, options, id) {
 			if ((item.type == "Power") && (item.system.type == "wod.types.discipline")) {
 				const generation = parseInt(item.actor.system.generation) -  parseInt(item.actor.system.generationmod);
 				const maxRating = calculteMaxDiscipline(generation);
+				//await keepDisciplinesCorrect(maxRating, this.actor);
 
 				if (item.system.max < maxRating) {
 					item.updateSource({
@@ -217,7 +121,7 @@ export class VampireActorSheet extends MortalActorSheet {
 					});
 				}
 			}
-		});
+		}); */
 		
 	}	
 
@@ -402,38 +306,10 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		// to recalculate total values
 		await ActionHelper.handleCalculations(actorData);
-		//ActionHelper.handleVampireCalculations(actorData);
 
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
-
-		// secondary abilities
-		for (const i of this.actor.items) {
-			if (i.type == "Trait") {
-				var hasChanged = false;
-				const itemData = duplicate(i);
-
-				if (i.system.type == "wod.types.talentsecondability") {
-					itemData.system.max = traitMax;
-					hasChanged = true;
-				}
-				if (i.system.type == "wod.types.skillsecondability") {
-					itemData.system.max = traitMax;
-					hasChanged = true;
-				}
-				if (i.system.type == "wod.types.knowledgesecondability") {
-					itemData.system.max = traitMax;
-					hasChanged = true;
-				}
-
-				if (hasChanged) {
-                    await i.update(itemData);
-                }
-			}
-		}
-
-		await keepDisciplinesCorrect(disciplineMax, this.actor);
-
+		await keepAbilitiesDisciplinesCorrect(disciplineMax, this.actor);
 		this.render(false);
 	}
 	
@@ -453,37 +329,6 @@ export class VampireActorSheet extends MortalActorSheet {
 		const parent = $(element.parentNode);
 		const steps = parent.find(".resource-value-step");
 
-		// updated item
-		/* if (parent[0].dataset.itemid != undefined) {
-			if (this.locked) {
-				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-				return;
-			}
-
-			const itemid = parent[0].dataset.itemid;
-			const item = this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = duplicate(item);
-			itemData.system.value = parseInt(index) + 1;
-			await item.update(itemData);
-		} */
-		// updated actor
-		/* else {
-			const fieldStrings = parent[0].dataset.name;
-			const fields = fieldStrings.split(".");
-			
-
-			if ((this.locked) && ((fieldStrings != "bloodpool.temporary"))) {
-				ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-				return;
-			}
-			
-			if (index < 0 || index > steps.length) {
-				return;
-			}
-
-			this._assignToVampire(fields, index + 1);
-		} */
-		
 		steps.removeClass("active");
 		steps.each(function (i) {
 			if (i <= index) {
@@ -491,38 +336,6 @@ export class VampireActorSheet extends MortalActorSheet {
 			}
 		});		
 	}
-
-	/* _assignToVampire(fields, value) {
-		console.log("WoD |Vampire Sheet _assignToVampire");
-		
-		const actorData = duplicate(this.actor);
-
-		if (fields[0] === "path") {
-			if (actorData.system.advantages.path.permanent == value) {
-				actorData.system.advantages.path.permanent = parseInt(actorData.system.advantages.path.permanent) - 1;
-			}	
-			else {
-				actorData.system.advantages.path.permanent = value;
-			}
-		}	
-		else if (fields[0] === "virtues")	 {
-			actorData.system.advantages.virtues[fields[1]].permanent = value;
-		}
-		else if (fields[0] === "bloodpool")	 {
-			if (actorData.system.advantages.bloodpool.temporary == value) {
-				actorData.system.advantages.bloodpool.temporary = parseInt(actorData.system.advantages.bloodpool.temporary) - 1;
-			}	
-			else {
-				actorData.system.advantages.bloodpool.temporary = value;
-			}
-		}
-		
-		ActionHelper.handleCalculations(actorData);
-		ActionHelper.handleVampireCalculations(actorData);
-		
-		console.log("WoD | Vampire Sheet updated");
-		this.actor.update(actorData);
-	} */
 }
 
 function calculteMaxBlood(selectedGeneration) {
@@ -607,7 +420,6 @@ function calculteMaxTrait(selectedGeneration) {
 	}
 
 	return traitMax;
-
 }
 
 function calculteMaxDiscipline(selectedGeneration) {
@@ -635,19 +447,46 @@ function calculteMaxDiscipline(selectedGeneration) {
 	return disciplineMax;
 }
 
-async function keepDisciplinesCorrect(disciplineMax, actor) {
-	// discipline
+async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
+	
 	for (const item of actor.items) {
-		if ((item.type == "Power") && ((item.type == "wod.types.discipline") || (item.type == "wod.types.disciplinepath"))) {
+		// secondary abilities
+		if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
 			const itemData = duplicate(item);
-			itemData.system.max = parseInt(disciplineMax);
-			await item.update(itemData);
+
+			if (itemData.system.max != parseInt(disciplineMax)) {
+				itemData.system.max = parseInt(disciplineMax);
+				await item.update(itemData);
+			}
 		}
-		if ((item.type == "Power") && (item.type == "wod.types.disciplinepower") || (item.type == "wod.types.disciplinepathpower")) {
+		// disciplines and paths
+		if ((item.type == "Power") && ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepath"))) {
 			const itemData = duplicate(item);
-			itemData.system.value = 0;
-			itemData.system.max = 0;
-			await item.update(itemData);
+
+			if (itemData.system.max != parseInt(disciplineMax)) {
+				itemData.system.max = parseInt(disciplineMax);
+				await item.update(itemData);
+			}			
+		}		
+		// disipline powers and path powers
+		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower") || (item.system.type == "wod.types.disciplinepathpower")) {
+			const itemData = duplicate(item);
+
+			if (itemData.system.max != 0) {
+				itemData.system.value = 0;
+				itemData.system.max = 0;
+				await item.update(itemData);
+			}
+		}
+		// rituals
+		if ((item.type == "Power") && (item.system.type == "wod.types.ritual")) {
+			const itemData = duplicate(item);
+
+			if (itemData.system.max != 0) {
+				itemData.system.value = 0;
+				itemData.system.max = 0;
+				await item.update(itemData);
+			}
 		}
 	}
 }

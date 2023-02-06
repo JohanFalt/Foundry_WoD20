@@ -1,5 +1,5 @@
 
-<div class="sheet-headline splatFont">{{localize 'wod.advantages.renown'}}</div>
+<div class="sheet-headline splatFont" data-area="renown">{{localize 'wod.advantages.renown'}}</div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">
 	{{#if (eq actor.type config.sheettype.werewolf)}}
@@ -109,7 +109,7 @@
 	</div>
 </div>
 
-<div class="sheet-headline headlineGroup splatFont centerText">{{localize "wod.advantages.rank"}}</div>
+<div class="sheet-headline headlineGroup splatFont centerText" data-area="rank">{{localize "wod.advantages.rank"}}</div>
 <div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="renown.rank">
 
 	{{#if (eq actor.type config.sheettype.werewolf)}}

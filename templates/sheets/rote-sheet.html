@@ -233,10 +233,16 @@
                 </div>                
 
                 <!-- description -->
-                <div class="infobox">
-                    <label class="headlineItem headlineBio" for="data.description">{{localize "wod.labels.description"}}</label>
-                    <textarea class="item editable" name="system.description" data-dtype="String">{{~data.system.description}}</textarea>
-                </div>
+			<div class="infobox">
+				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+				<div class="clearareaBox">
+					{{#if canEdit}}
+						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+					{{else}}
+						<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
+					{{/if}}
+				</div>
+			</div>
 
             </div>
 

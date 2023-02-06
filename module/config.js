@@ -135,6 +135,7 @@ wod.knowledges = {
     medicine: "wod.abilities.medicine",
     occult: "wod.abilities.occult",
     politics: "wod.abilities.politics",
+    religion: "wod.abilities.religion",
     research: "wod.abilities.research",
     rituals: "wod.abilities.rituals",
     science: "wod.abilities.science",

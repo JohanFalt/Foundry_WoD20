@@ -1,9 +1,9 @@
-<div class="profile-img-zone">
+<div class="profile-img-zone" data-area="unlock">
     <button class="lock-btn pointer fullSplatColor">
         {{#if locked}}
-            <i class="lock-icon fa fa-lock"></i>
+            <i id="unlockSheet" class="lock-icon fa fa-lock"></i>
         {{ else }}
-            <i class="lock-icon fa fa-unlock"></i>
+            <i id="unlockSheet" class="lock-icon fa fa-unlock"></i>
         {{/if}}
     </button>    
 </div> 

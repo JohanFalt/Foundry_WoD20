@@ -1,0 +1,132 @@
+{
+    "namespace": "worldofdarkness",
+    "id": "bonus-tour",
+    "title": "What is a bonus?",
+    "canBeResumed": true,
+    "display": true,
+    "permission": {
+        "GM":false,
+        "Players":true
+    },
+    "steps": [
+        {
+            "id": "goto-bonustour",
+            "selector": "[data-tab='actors']",
+            "title": "What is a bonus?",
+            "content": "This tour will demonstrate how bonuses work",
+            "action": "addWerewolf"
+        },
+        {
+            "id": "goto-actorsheet-open",
+            "selector": "li[data-document-id='ExampleWerewolf1'] h4.document-name",
+            "title": "Needs a sheet",
+            "content": "The example sheet needs to be created and during the tour one will be created automatically. This sheet will not be removed as the tour is over.",
+            "action": "click"
+        },
+        {
+            "id": "goto-examplesheet",
+            "selector": "div[id='WerewolfActorSheet-Actor-ExampleWerewolf1'] header.window-header",
+            "title": "Explanation of a bonus",
+            "content": "All bonuses on a sheet is connected to something. It can be powers, traits or other part of the sheet. A bonus is usally only active when what it is connected to is."
+        },    
+        {
+            "id": "goto-unlock",
+            "selector": "div[data-area='unlock']",
+            "target": "i#unlockSheet",
+            "title": "Unlock sheet",
+            "content": "First, we need to unlock the sheet to show it off fully.",
+            "action": "click"
+        },    
+        {
+            "id": "goto-giftstab",
+            "selector": "a[data-tab='gift']",
+            "target": "a#tabgifts",
+            "title": "Example",
+            "content": "This tour will use the example on a Werewolf gift as a demonstration.",
+            "action": "click"
+        },        
+        {
+            "id": "goto-addbonus",
+            "selector": "div[data-area='giftrow1'] i.item-create",
+            "title": "Add bonus",
+            "content": "This icon adds a bonus to the row. Once it has been created you need to go in to the bonus and edit it."
+        },
+        {
+            "id": "goto-giftbonusunfold",
+            "selector": "i[id='collapsiblegift1bonus1'",
+            "title": "Show bonus",
+            "content": "To show what bonuses a gift has you click this icon.",
+            "action": "click"
+        },
+        {
+            "id": "goto-showgiftbonus",
+            "selector": "div[data-area='gift1bonus1']",
+            "title": "Bonus",
+            "content": "This gift has three bonuses added to itself. It gives the character reduced difficulty on charisma, manipulation and appearance rolls."
+        },
+        {
+            "id": "goto-bonusrow",
+            "selector": "div[data-area='giftbonus_1']",
+            "title": "View bonus",
+            "content": ""
+        },
+        {
+            "id": "goto-removebonus",
+            "selector": "i[data-area='removegiftbonus_1']",
+            "title": "Remove bonus",
+            "content": "If you wish to remove a bonus you click on the remove icon."
+        },
+        {
+            "id": "goto-editbonus",
+            "selector": "i[data-area='editgiftbonus_1']",
+            "title": "View bonus",
+            "content": "If you want to view or edit a bonus then you click on the edit icon.",
+            "action": "click"
+        },        
+        {
+            "id": "goto-showbonus",
+            "selector": "div[id='WoDItemSheet-Actor-ExampleWerewolf1-Item-2FVVNMO3txo0Zya3']",
+            "title": "Bonus window",
+            "content": "This is the bonus window."
+        },
+        {
+            "id": "goto-viewname",
+            "selector": "div[data-area='bonusname']",
+            "title": "Bonus name",
+            "content": ""
+        },
+        {
+            "id": "goto-viewtype",
+            "selector": "div[data-area='bonustype']",
+            "title": "Bonus type",
+            "content": ""
+        },
+        {
+            "id": "goto-viewbonus",
+            "selector": "div[data-area='bonusvalue']",
+            "title": "Bonus value",
+            "content": ""
+        },
+        {
+            "id": "goto-closebonus",
+            "selector": "div[id='WoDItemSheet-Actor-ExampleWerewolf1-Item-2FVVNMO3txo0Zya3'] a.close",
+            "title": "Close window",
+            "content": "As you close the window that changes has been saved already.",
+            "action": "click"
+        },
+        {
+            "id": "goto-giftbonuscollapse",
+            "selector": "div[id='WerewolfActorSheet-Actor-ExampleWerewolf1'] i[id='collapsiblegift1bonus1']",
+            "target": "i#collapsiblegift1bonus1",
+            "title": "Hide bonus",
+            "content": "To hide the bonuses again you just click the icon again.",
+            "action": "click"
+        },
+        {
+            "id": "goto-activatebonus",
+            "selector": "input[data-item-id='Y50pP5Ygo88tuvnn']",
+            "title": "Activate bonus",
+            "content": ""
+        }
+    ]
+}

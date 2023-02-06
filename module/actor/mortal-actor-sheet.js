@@ -1,6 +1,7 @@
 import ActionHelper from "../scripts/action-helpers.js";
 import ItemHelper from "../scripts/item-helpers.js";
-import MessageHelper from "../scripts/message-helpers.js"
+import MessageHelper from "../scripts/message-helpers.js";
+import CombatHelper from "../scripts/combat-helpers.js";
 import { calculateHealth } from "../scripts/health.js";
 import * as selectbox from "../scripts/spec-select.js";
 
@@ -17,11 +18,6 @@ export class MortalActorSheet extends ActorSheet {
 				initial: "core",
 			},
 			{
-				navSelector: ".sheet-spec-tabs",
-				contentSelector: ".sheet-spec-body",
-				initial: "normal",
-			},
-			{
 				navSelector: ".sheet-setting-tabs",
 				contentSelector: ".sheet-setting-body",
 				initial: "attributes",
@@ -33,10 +29,11 @@ export class MortalActorSheet extends ActorSheet {
 		super(actor, options);
 
 		console.log("WoD | Mortal Sheet constructor");
-
-		this.locked = true;
-		this.isCharacter = true;	
+			
 		this.isGM = game.user.isGM;	
+		this.isLimited = actor.limited;
+		this.locked = true;
+		this.isCharacter = true;
 	}	
 	
 	/** @override */
@@ -60,6 +57,12 @@ export class MortalActorSheet extends ActorSheet {
 
 				this.actor.update(actorData);
 			}	 	
+		}
+		else {
+			if (!this.actor.limited) {
+				await ActionHelper.handleCalculations(actorData);
+				await this.actor.update(actorData);
+			}
 		}	
 
 		console.log("WoD | Mortal Sheet getData");
@@ -71,23 +74,17 @@ export class MortalActorSheet extends ActorSheet {
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
 
-		/* if (this.locked == undefined) {
-			console.log(`WoD | (locked) getdata was not set`);
-		}
-		else if (this.locked) {
-			console.log(`WoD | (locked) getdata was locked`);
-		}
-		else {
-			console.log(`WoD | (locked) getdata was unlocked`);
-		} */
-
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
 
 		await ItemHelper.sortActorItems(data.actor, data.config);
+		data.actor.system.appearance = await TextEditor.enrichHTML(data.actor.system.appearance, {async: true});
+		data.actor.system.background = await TextEditor.enrichHTML(data.actor.system.background, {async: true});
 
 		data.actor.system.listdata.health = calculateHealth(data.actor, data.config.sheettype.mortal);
+		//data.actor.system.listdata.movement = CombatHelper.CalculateMovement(data.actor);
+
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = false;
 
@@ -122,6 +119,31 @@ export class MortalActorSheet extends ActorSheet {
 			.find('.inputdata')
 			.change(event => this._onsheetChange(event));
 
+		// Click collapsed
+		html
+			.find('.collapsible.button')
+			.click(event => ItemHelper._onTableCollapse(event, this.actor._id));		
+
+		// Receive collapsed state from flags
+		html.find('.collapsible.button').toArray().filter(ele => {
+			if (ele.dataset.sheet == CONFIG.wod.sheettype.mortal){
+				if (this.actor && this.actor.id && game.user.flags.wod && game.user.flags.wod[this.actor.id] && game.user.flags.wod[this.actor.id][ele.dataset.type] && !game.user.flags.wod[this.actor.id][ele.dataset.type].collapsed) {
+					$(ele).removeClass("fa-angles-right");
+					$(ele).addClass("fa-angles-down");
+
+					$(ele).parent().parent().parent().siblings('.'+ele.dataset.type).removeClass("hide");
+					$(ele).parent().parent().parent().siblings('.'+ele.dataset.type).addClass("show");
+				}
+				else {
+					$(ele).removeClass("fa-angles-down");
+					$(ele).addClass("fa-angles-right");
+
+					$(ele).parent().parent().parent().siblings('.'+ele.dataset.type).removeClass("show");
+					$(ele).parent().parent().parent().siblings('.'+ele.dataset.type).addClass("hide");
+				}
+			}
+		});
+
 		// resource dots
 		html
 			.find(".resource-value > .resource-value-step")
@@ -139,6 +161,11 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".health > .resource-counter > .resource-value-step")
 			.on('contextmenu', this._onSquareCounterClear.bind(this));
+
+		// Select ability rating setting
+		/* html
+			.find(".selectAbilityMaxSetting")
+			.change(this._onSelectMaxAbility.bind(this)); */
 
 		// Rollable stuff
 		html
@@ -170,17 +197,22 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".item-delete")
 			.click(this._onItemDelete.bind(this));
 
+		html
+			.find(".clearPower")
+			.click(this._clearPower.bind(this));
+
 		// skicka till chat
 		html
 			.find(".send-chat")
 			.click(this._onSendChat.bind(this));		
+	}
 
-		// setup chat hook for damage roll
-		/* Hooks.on("renderChatMessage", (app, html, messageData) => {
-			html
-				.find(".vrollable")
-				.click(this._onChatRoll.bind(this));
-		}); */
+	async _onDropItemCreate(itemData) {
+		if ((itemData.type == "Power") && (itemData.system.parentid != "")) {
+			itemData.system.parentid = await ItemHelper.GetPowerId(itemData, this.actor);
+		}
+
+		super._onDropItemCreate(itemData);
 	}
 
 	async _onsheetChange(event) {
@@ -291,26 +323,6 @@ export class MortalActorSheet extends ActorSheet {
 	/* Lock / unlock the sheet */
 	async _onToggleLocked(event) {
 		event.preventDefault();
-
-		/* const actorData = duplicate(this.actor);
-
-		await ActionHelper.handleCalculations(actorData);
-		await ActionHelper.handleWoundLevelCalculations(actorData);
-
-		await this.actor.update(actorData); */
-
-		/* if (this.locked == undefined) {
-			console.log(`WoD | (locked) toggle was not set`);
-			this.locked = true;
-		}
-		else if (this.locked) {
-			console.log(`WoD | (locked) toggle was locked`);
-			this.locked = false;
-		}
-		else {
-			console.log(`WoD | (locked) toggle was unlocked`);
-			this.locked = true;
-		}	 */	
 
 		this.locked = !this.locked;
 
@@ -704,7 +716,8 @@ export class MortalActorSheet extends ActorSheet {
 					type: itemtype,
 					system: {
 						label: `${game.i18n.localize("wod.labels.new.ability")}`,
-						type: "wod.types.talentsecondability"
+						type: "wod.types.talentsecondability",
+						max: parseInt(this.actor.system.settings.abilities.defaultmaxvalue)
 					}
 				};
 			}
@@ -714,7 +727,8 @@ export class MortalActorSheet extends ActorSheet {
 					type: itemtype,
 					system: {
 						label: `${game.i18n.localize("wod.labels.new.ability")}`,
-						type: "wod.types.skillsecondability"
+						type: "wod.types.skillsecondability",
+						max: parseInt(this.actor.system.settings.abilities.defaultmaxvalue)
 					}
 				};
 			}
@@ -724,7 +738,8 @@ export class MortalActorSheet extends ActorSheet {
 					type: itemtype,
 					system: {
 						label: `${game.i18n.localize("wod.labels.new.ability")}`,
-						type: "wod.types.knowledgesecondability"
+						type: "wod.types.knowledgesecondability",
+						max: parseInt(this.actor.system.settings.abilities.defaultmaxvalue)
 					}
 				};
 			}
@@ -748,6 +763,17 @@ export class MortalActorSheet extends ActorSheet {
 					}
 				};
 			}
+		}
+		if (itemtype == "Bonus") {
+			const id = header.dataset.parentid;
+
+			itemData = {
+				name: `${game.i18n.localize("wod.labels.new.bonus")}`,
+				type: itemtype,				
+				system: {
+					parentid: id
+				}
+			};
 		}
 		if (itemtype == "Experience") {
 			if (type == "add") {
@@ -868,9 +894,41 @@ export class MortalActorSheet extends ActorSheet {
 
 		console.log("WoD | Deleting item id: " + itemId);
 
-		// If removing a main power the secondary powers needs to be emptied of parentId
+		// If removing a main power the secondary powers needs to be emptied of parentId.
 		await ItemHelper.cleanItemList(this.actor, item);
+		// If removing an item you need to check if there are bonuses to it and remove them as well.
+		await ItemHelper.removeConnectedItems(this.actor, item);
 		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
+	}
+
+	async _clearPower(event) {
+		const itemId = $(event.currentTarget).data("item-id");
+		const powertype = $(event.currentTarget).data("powertype");
+		let item = await this.actor.getEmbeddedDocument("Item", itemId);
+
+		const performDelete = await new Promise((resolve) => {
+            Dialog.confirm({
+                title: game.i18n.format("wod.labels.power.disconnect", { name: item.name }),
+                yes: () => resolve(true),
+                no: () => resolve(false),
+                content: game.i18n.format(game.i18n.localize("wod.labels.power.disconnectlabel") + " " + item.name, {
+                    name: item.name,
+                    actor: this.actor.name,
+                }),
+            });
+        });
+
+		if (!performDelete)
+            return;
+
+		if (powertype == "power") {
+			const itemData = duplicate(item);
+			itemData.system.parentid = "";
+			await item.update(itemData);	
+		}
+		else if (powertype == "main") {
+			await ItemHelper.cleanItemList(this.actor, item);
+		}
 	}
 
 	_onSendChat(event) {
@@ -894,9 +952,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		await item.update(itemData);
-	}
-
-	
+	}	
 	  
 	/**
 	* If any changes are done to the Actor values.

@@ -184,14 +184,6 @@ export class DialogCheckFrenzy extends FormApplication {
             frenzyRoll.templateHTML = templateHTML;        
 
             const successes = await rollDice(frenzyRoll);
-
-            // const successes = await rollDice(
-            //                                 CONFIG.handleOnes,
-            //                                 numDices,
-            //                                 this.actor,
-            //                                 templateHTML,
-            //                                 parseInt(this.object.totalDifficulty));   
-
             this.object.numSuccesses += parseInt(successes);
         }
     }

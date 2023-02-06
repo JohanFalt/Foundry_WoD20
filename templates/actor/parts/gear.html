@@ -3,7 +3,28 @@
 	
 	<div class="clearareaBox area-box">
 		<div>
-			<textarea class="sheet-gearArea pullLeft {{#if (eq locked false)}}editable{{/if}}" name="system.gear" data-dtype="String" {{#if locked}} readonly {{/if}}>{{~data.system.gear}}</textarea>
+			{{#if locked}}
+				<div class="sheet-gearArea headlineNormal textarea">{{{data.system.gear}}}</div>
+			{{else}}
+				{{editor data.gear target="system.gear" button=false owner=owner editable=true}}
+			{{/if}}
+		</div>
+	</div>
+</div>
+
+<div class="sheet-area">
+
+	<div class="sheet-headline splatFont">{{localize "wod.gear.money"}}</div>
+	<div>
+		<label class="headlineText headlineBio splatFont" for="data.system.money.bank">{{localize "wod.gear.moneycarried"}}</label>
+		<div class="pullLeft bioInformationArea">
+			<input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.money.carried" type="text" value="{{data.system.money.carried}}" data-name="data.system.money.carried" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+		</div>
+	</div>
+	<div>
+		<label class="headlineText headlineBio splatFont" for="data.system.money.bank">{{localize "wod.gear.moneybank"}}</label>
+		<div class="pullLeft bioInformationArea">
+			<input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.money.bank" type="text" value="{{data.system.money.bank}}" data-name="data.system.money.bank" data-dtype="Number" {{#if locked}} readonly {{/if}} />
 		</div>
 	</div>
 </div>

@@ -134,6 +134,7 @@ export class DialogShapeChange extends FormApplication {
 
         if (this.object.canRoll) {            
             const shiftRoll = new DiceRoll(this.actor);
+            shiftRoll.attribute = "stamina";
             shiftRoll.handlingOnes = CONFIG.wod.handleOnes;    
             shiftRoll.origin = "shapechange";
             shiftRoll.numDices = numDices;

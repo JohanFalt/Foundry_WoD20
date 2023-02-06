@@ -1,4 +1,25 @@
+import BonusHelper from "./bonus-helpers.js";
+
 export default class ItemHelper {
+	static async GetPowerId(item, actor) {
+		let id = "";
+
+		if ((item.system.type == "wod.types.disciplinepower") || 
+				(item.system.type == "wod.types.disciplinepathpower") ||
+				(item.system.type == "wod.types.artpower") ||
+				(item.system.type == "wod.types.edgepower") ||
+				(item.system.type == "wod.types.lorepower")) {
+			for (const i of actor.items) {
+				if (i.name.toLowerCase() == item.system.parentid.toLowerCase()) {
+					id = i._id;
+					break;
+				}
+			}
+		}
+
+		return id;
+	}
+
     static async sortActorItems(actor, config) {     
 		
 		actor.system.listdata = [];
@@ -18,15 +39,20 @@ export default class ItemHelper {
 
 	// If removing a main power the secondary powers needs to be emptied of parentId
 	static async cleanItemList(actor, removedItem) {
-		if ((removedItem.system.type == "wod.types.discipline") 
-					|| (removedItem.system.type == "wod.types.disciplinepath") 
-					|| (removedItem.system.type == "wod.types.art")) {
-			for (const item of actor.items) {
-				if (item.system.parentid == removedItem._id) {
-					const itemData = duplicate(item);
-                	itemData.system.parentid = "";
-                	await item.update(itemData);
-				}
+		for (const item of actor.items) {
+			if (item.system.parentid == removedItem._id) {
+				const itemData = duplicate(item);
+				itemData.system.parentid = "";
+				await item.update(itemData);
+			}
+		}
+	}
+
+	static async removeConnectedItems(actor, removedItem) {
+		for (const item of actor.items) {
+			if (item.system.parentid == removedItem._id) {
+				console.log("Remove item " + item.name);
+				await actor.deleteEmbeddedDocuments("Item", [item._id]);
 			}
 		}
 	}
@@ -124,6 +150,10 @@ export default class ItemHelper {
 			this._createEdgeStructure(actor);
 		}
 
+		if (actor.system.settings.powers.haslores) {
+			this._createLoreStructure(actor);
+		}
+
 		// If no items then Power structure needs to be created regardless...
 		for (const item of actor.items) {
 			await this._sortCombat(item, actor);
@@ -175,6 +205,10 @@ export default class ItemHelper {
 			await this._organizeEdges(actor);
 		}
 
+		if (actor.system.settings.powers.haslores) {
+			await this._organizeLores(actor);
+		}
+
 		// Experience Points
 		actor.system.listdata.experiences.experience = actor.system.listdata.experiences.totalExp - actor.system.listdata.experiences.spentExp;
 	}
@@ -198,6 +232,8 @@ export default class ItemHelper {
 
 	static async _sortGear(item, actor) {
 		if (item.type == "Fetish") {
+			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+
 			if (item.system.type == "wod.types.fetish") {
 				actor.system.listdata.gear.fetishlist.push(item);
 			}
@@ -206,6 +242,8 @@ export default class ItemHelper {
 			}			
 		}
 		if (item.type == "Item") {
+			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+
 			if (item.system.type == "wod.types.treasure") {
 				actor.system.listdata.gear.treasures.push(item);
 			}
@@ -214,6 +252,8 @@ export default class ItemHelper {
 
 	static async _sortFeatures(item, actor) {
 		if (item.type == "Feature") {
+			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+
 			if (item.system.type == "wod.types.background") {
 				actor.system.listdata.features.backgrounds.push(item);
 			}
@@ -311,6 +351,8 @@ export default class ItemHelper {
 				}
 			}
 			if (item.system.type == "wod.types.othertraits") {
+				item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+
 				actor.system.listdata.traits.othertraits.push(item);
 			}
 		}
@@ -318,6 +360,8 @@ export default class ItemHelper {
 
 	static async _sortPowers(item, actor) {
 		if (item.type == "Power") {
+			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+
 			if (actor.system.settings.powers.hasgifts) {
 				this._sortGifts(item, actor);
 			}
@@ -330,54 +374,38 @@ export default class ItemHelper {
 			if (actor.system.settings.powers.hasedges) {
 				this._sortEdges(item, actor);
 			}
+			if (actor.system.settings.powers.haslores) {
+				this._sortLores(item, actor);
+			}
 		}			
 	}
 
 	static async _sortGifts(item, actor) {
 		if (item.system.type == "wod.types.gift") {
+			item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.gifts.giftlist.push(item);
 
-			if (item.system.level == 1) {						
-				actor.system.listdata.powers.gifts.powerlist1.push(item);
-
-				if (item.system.isactive) {
-					actor.system.listdata.powers.gifts.powercombat.push(item);
-				}
+			if (item.system.isactive) {
+				actor.system.listdata.powers.gifts.powercombat.push(item);
 			}			
-			if (item.system.level == 2) {
-				actor.system.listdata.powers.gifts.powerlist2.push(item);
-
-				if (item.system.isactive) {
-					actor.system.listdata.powers.gifts.powercombat.push(item);
-				}
+						
+			if (item.system.level == 2) {				
+				actor.system.listdata.powers.gifts.powerlist2.push(item);				
 			}
-			if (item.system.level == 3) {
+			else if (item.system.level == 3) {
 				actor.system.listdata.powers.gifts.powerlist3.push(item);
-
-				if (item.system.isactive) {
-					actor.system.listdata.powers.gifts.powercombat.push(item);
-				}
 			}
-			if (item.system.level == 4) {
+			else if (item.system.level == 4) {
 				actor.system.listdata.powers.gifts.powerlist4.push(item);
-
-				if (item.system.isactive) {
-					actor.system.listdata.powers.gifts.powercombat.push(item);
-				}
 			}
-			if (item.system.level == 5) {
+			else if (item.system.level == 5) {
 				actor.system.listdata.powers.gifts.powerlist5.push(item);
-
-				if (item.system.isactive) {
-					actor.system.listdata.powers.gifts.powercombat.push(item);
-				}
 			}
-			if (item.system.level == 6) {
+			else if (item.system.level == 6) {
 				actor.system.listdata.powers.gifts.powerlist6.push(item);
-
-				if (item.system.isactive) {
-					actor.system.listdata.powers.gifts.powercombat.push(item);
-				}
+			}
+			else {	
+				actor.system.listdata.powers.gifts.powerlist1.push(item);
 			}
 		}				
 		if (item.system.type == "wod.types.rite") {
@@ -474,10 +502,12 @@ export default class ItemHelper {
 
 		// add the correct discipline in the right list
 		for (const discipline of actor.system.listdata.powers.disciplines.listeddisciplines) {
+			discipline.bonuses = BonusHelper.getBonuses(actor.items, discipline._id);			
 			actor.system.listdata.powers.disciplines.disciplinelist.push(discipline);
 
 			for (const power of actor.system.listdata.powers.disciplines.listeddisciplinepowers) {
 				if (power.system.parentid == discipline._id) {
+					power.bonuses = BonusHelper.getBonuses(actor.items, power._id);
 					actor.system.listdata.powers.disciplines.disciplinelist.push(power);
 				}
 			}
@@ -588,7 +618,7 @@ export default class ItemHelper {
 		actor.system.listdata.powers.edges.listededges = _createList(actor.system.listdata.powers.edges.listededges);
 		actor.system.listdata.powers.edges.listededgepowers = _createList(actor.system.listdata.powers.edges.listededgepowers);
 		actor.system.listdata.powers.edges.unlistededges = _createList(actor.system.listdata.powers.edges.unlistededges);
-	}
+	}	
 
 	static async _organizeEdges(actor) {
 		actor.system.listdata.powers.edges.listededges.sort((a, b) => a.name.localeCompare(b.name));
@@ -607,6 +637,116 @@ export default class ItemHelper {
 
 		actor.system.listdata.powers.edges.hasunlistededges = actor.system.listdata.powers.edges.unlistededges.length > 0 ? true : false;
 	}
+
+	static _createLoreStructure(actor) {
+		actor.system.listdata.powers.lores = _createList(actor.system.listdata.powers.lores);
+
+		// all Lores listed
+		actor.system.listdata.powers.lores.listedlores = _createList(actor.system.listdata.powers.lores.listedlores);
+
+		// all Lore Powers listed
+		actor.system.listdata.powers.lores.listedlorepowers = _createList(actor.system.listdata.powers.lores.listedlorepowers);
+
+		// all Lore Powers not connected to a Lore
+		actor.system.listdata.powers.lores.unlistedlores = _createList(actor.system.listdata.powers.lores.unlistedlores);
+
+		// all Lores and Lore Powers collected
+		actor.system.listdata.powers.lores.lorelist = _createList(actor.system.listdata.powers.lores.lorelist);
+
+		// Rituals
+		actor.system.listdata.powers.lores.rituallist = _createList(actor.system.listdata.powers.lores.rituallist);
+	}
+
+	static async _sortLores(item, actor) {		
+		if (item.system.type == "wod.types.lore") {
+			actor.system.listdata.powers.lores.listedlores.push(item);
+		}
+		if (item.system.type == "wod.types.lorepower") {			
+
+			if (item.system.parentid != "") {
+				item.system.level = item.system.level.toString();
+				actor.system.listdata.powers.lores.listedlorepowers.push(item);
+			}
+			else {
+				item.system.parentid == "";
+				actor.system.listdata.powers.lores.unlistedlores.push(item);
+			}					
+		}
+		if (item.system.type == "wod.types.ritual") {
+			actor.system.listdata.powers.lores.rituallist.push(item);
+		}
+	}
+
+	static async _organizeLores(actor) {
+		actor.system.listdata.powers.lores.listedlores.sort((a, b) => a.name.localeCompare(b.name));
+		actor.system.listdata.powers.lores.listedlorepowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.lores.rituallist.sort((a, b) => a.name.localeCompare(b.name));
+
+		// add the correct lore in the right list
+		for (const lore of actor.system.listdata.powers.lores.listedlores) {
+			actor.system.listdata.powers.lores.lorelist.push(lore);
+
+			for (const power of actor.system.listdata.powers.lores.listedlorepowers) {
+				if (power.system.parentid == lore._id) {
+					actor.system.listdata.powers.lores.lorelist.push(power);
+				}
+			}
+		}
+
+		actor.system.listdata.powers.lores.hasunlistedlores = actor.system.listdata.powers.lores.unlistedlores.length > 0 ? true : false;		
+	}
+
+	/**
+   * Handle collapsing of item lists, mainly bonus lists.
+   */
+	static _onTableCollapse(event, actorId) {
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		let isApacalypticForm = false;
+
+		if (dataset.type.includes("apocalypticform")) {
+			isApacalypticForm = true;
+		}
+
+		const et = $(event.currentTarget);
+
+		if (et.hasClass('fa-angles-right')) { // collapsed
+			et.removeClass("fa-angles-right");
+			et.addClass("fa-angles-down");
+
+			if (isApacalypticForm) {
+				et.parent().parent().siblings('.'+dataset.type).removeClass("hide");
+				et.parent().parent().siblings('.'+dataset.type).addClass("show");
+			}
+			else {
+				et.parent().parent().parent().siblings('.'+dataset.type).removeClass("hide");
+				et.parent().parent().parent().siblings('.'+dataset.type).addClass("show");
+			}
+		  
+		  	// Update user flags, so that collapsed state is saved
+			let updateData = {'flags':{'wod':{[actorId]:{[dataset.type]:{collapsed: false}}}}};
+			game.user.update(updateData);
+		  
+		} 
+		else { // not collapsed
+		  	et.removeClass("fa-angles-down");
+		  	et.addClass("fa-angles-right");
+
+			if (isApacalypticForm) {
+				et.parent().parent().siblings('.'+dataset.type).removeClass("show");
+				et.parent().parent().siblings('.'+dataset.type).addClass("hide");
+			}
+			else {
+				et.parent().parent().parent().siblings('.'+dataset.type).removeClass("show");
+				et.parent().parent().parent().siblings('.'+dataset.type).addClass("hide");
+			}
+		  
+		  	// Update user flags, so that collapsed state is saved
+			let updateData = {'flags':{'wod':{[actorId]:{[dataset.type]:{collapsed: true}}}}};
+			game.user.update(updateData);
+		}
+	  }
 }
 
 function _createList(list) {

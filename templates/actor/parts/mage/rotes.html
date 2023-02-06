@@ -1,102 +1,134 @@
-<div class="area-box">
+<div class="clearareaBox area-box">
 
-	<div class="sheet-headline splatFont">
-		<div class="clearareaBox">
-			<div class="pullLeft notes-largeBox">{{localize 'wod.spheres.rotes'}}</div>
-			<div class="pullLeft"><i class="fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.types.rote'}}" aria-hidden="true" data-itemtype="Rote"></i></div>
-		</div>
+	<div class="clearareaBox headlineRow splatFont">
+		<div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.types.rote'}}" aria-hidden="true" data-itemtype="Rote"></i></div>
+		<div class="pullLeft">{{localize 'wod.spheres.rotes'}}</div>			
 	</div>
 
 	{{#each actor.rotes as |item id|}}
 
-		<div class="headlineNormal row" style="width: 100%">
-
-			<div class="rote-headline vrollable pullLeft"
-				data-type="{{../config.sheettype.mage}}"
-				data-object="Rote"
-				data-rollitem="true" 
-				data-itemid="{{item._id}}">
-				{{item.name}}
-			</div>
-
-			<div class="pullLeft">
-				<div class="pullLeft headlineNormal pointer tooltip">
-					<i class="icon fa-solid fa-memo"></i>
-					<span class="tooltiptext">                
-						<div><b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}</div>
-						{{#iff item.system.correspondence "!=" 0}}
-							<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
-						{{/iff}}
-						{{#iff item.system.entropy "!=" 0}}
-							<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
-						{{/iff}}
-						{{#iff item.system.forces "!=" 0}}
-							<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
-						{{/iff}}
-						{{#iff item.system.life "!=" 0}}
-							<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
-						{{/iff}}
-						{{#iff item.system.matter "!=" 0}}
-							<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
-						{{/iff}}
-						{{#iff item.system.mind "!=" 0}}
-							<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
-						{{/iff}}
-						{{#iff item.system.prime "!=" 0}}
-							<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
-						{{/iff}}
-						{{#iff item.system.spirit "!=" 0}}
-							<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
-						{{/iff}}
-						{{#iff item.system.time "!=" 0}}
-							<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
-						{{/iff}}         
-					</span>
-				</div>        
-				<div class="pullLeft">
-					<a class="send-chat" 
-						title="{{localize 'wod.labels.send'}}" 
-						data-type="Weapon" 
-						data-item-id="{{item._id}}" 
-						data-headline="<h2>{{item.name}}</h2>" 
-						data-message="{{#iff item.system.correspondence "!=" 0}}
-											<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
-										{{/iff}}
-										{{#iff item.system.entropy "!=" 0}}
-											<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
-										{{/iff}}
-										{{#iff item.system.forces "!=" 0}}
-											<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
-										{{/iff}}
-										{{#iff item.system.life "!=" 0}}
-											<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
-										{{/iff}}
-										{{#iff item.system.matter "!=" 0}}
-											<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
-										{{/iff}}
-										{{#iff item.system.mind "!=" 0}}
-											<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
-										{{/iff}}
-										{{#iff item.system.prime "!=" 0}}
-											<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
-										{{/iff}}
-										{{#iff item.system.spirit "!=" 0}}
-											<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
-										{{/iff}}
-										{{#iff item.system.time "!=" 0}}
-											<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
-										{{/iff}}
-										<div>
-											<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-											<span class='chatt-text'>{{item.system.description}}</span>
-										</div>"><i class="icon fa-solid fa-comment-dots"></i></a>
+		<div class="power-area" data-area="roterow{{id}}">
+			<div class="clearareaBox magic-row">
+				<div class="pullLeft item-activeBox">
+					<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input>
+				</div>			
+				<div class="rote-headline vrollable headlineNormal pullLeft"
+					data-type="{{../config.sheettype.mage}}"
+					data-object="Rote"
+					data-rollitem="true" 
+					data-itemid="{{item._id}}">
+						{{item.name}}
 				</div>
-				{{#if (eq ../locked false)}}
-					<a class="item-edit" title="{{localize "wod.labels.edit.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-					<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="fa-solid fa-trash-can"></i></a>
-				{{/if}}
-			</div>
 
+				<div class="pullLeft power-iconbox" style="width:50%">
+					<div class="pullLeft pointer">
+						<i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+					</div>
+					<div class="pullLeft headlineNormal pointer tooltip">
+						<i class="icon fa-solid fa-memo"></i>
+						<span class="tooltiptext">                
+							<div><b>{{localize "wod.labels.description"}}:</b> {{item.system.description}}</div>
+							{{#iff item.system.correspondence "!=" 0}}
+								<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
+							{{/iff}}
+							{{#iff item.system.entropy "!=" 0}}
+								<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
+							{{/iff}}
+							{{#iff item.system.forces "!=" 0}}
+								<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
+							{{/iff}}
+							{{#iff item.system.life "!=" 0}}
+								<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
+							{{/iff}}
+							{{#iff item.system.matter "!=" 0}}
+								<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
+							{{/iff}}
+							{{#iff item.system.mind "!=" 0}}
+								<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
+							{{/iff}}
+							{{#iff item.system.prime "!=" 0}}
+								<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
+							{{/iff}}
+							{{#iff item.system.spirit "!=" 0}}
+								<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
+							{{/iff}}
+							{{#iff item.system.time "!=" 0}}
+								<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
+							{{/iff}}         
+						</span>
+					</div>  
+					<div class="pullLeft pointer">
+						<a class="send-chat" 
+							title="{{localize 'wod.labels.send'}}" 
+							data-type="Weapon" 
+							data-item-id="{{item._id}}" 
+							data-headline="<h2>{{item.name}}</h2>" 
+							data-message="{{#iff item.system.correspondence "!=" 0}}
+												<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
+											{{/iff}}
+											{{#iff item.system.entropy "!=" 0}}
+												<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
+											{{/iff}}
+											{{#iff item.system.forces "!=" 0}}
+												<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
+											{{/iff}}
+											{{#iff item.system.life "!=" 0}}
+												<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
+											{{/iff}}
+											{{#iff item.system.matter "!=" 0}}
+												<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
+											{{/iff}}
+											{{#iff item.system.mind "!=" 0}}
+												<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
+											{{/iff}}
+											{{#iff item.system.prime "!=" 0}}
+												<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
+											{{/iff}}
+											{{#iff item.system.spirit "!=" 0}}
+												<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
+											{{/iff}}
+											{{#iff item.system.time "!=" 0}}
+												<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
+											{{/iff}}
+											<div>
+												<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+												<span class='chatt-text'>{{item.system.description}}</span>
+											</div>"><i class="icon fa-solid fa-comment-dots"></i></a>
+					</div>
+					{{#if (eq ../locked false)}}
+					<div class="pullLeft pointer">
+						<a class="item-edit" title="{{localize "wod.labels.edit.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+					</div>
+					<div class="pullLeft pointer">
+						<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+					</div>
+					{{/if}}
+					{{#if (gt item.system.bonuses.length 0)}}
+						<div class="pullLeft pointer">
+							<i id="collapsiblerotebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="rote{{id}}"></i>
+						</div>
+					{{/if}}
+				</div>
+			</div>
+			<div class="hide bonuses rote{{id}}" data-area="rotebonus{{id}}">
+
+				{{#each item.system.bonuses as |bonus id|}}
+					<div class="clearareaBox">
+						<div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+						{{#if (eq ../../locked false)}}
+							<div class="pullLeft bonus-icons power-iconbox">
+								<div class="pullLeft pointer">
+									<i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+								</div>
+								<div class="pullLeft pointer">
+									<i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+								</div>
+							</div>
+						{{/if}}
+					</div>
+				{{/each}}
+
+			</div>
 		</div>
 
 	{{/each}}

@@ -27,8 +27,18 @@
 							{{getAbilityLabel ability}}
 						{{/if}}
 				</label>
-				
-				<div class="resource-value dotvalueArea pullRight" 
+
+				{{#if (gte ability.value 4)}}
+					<div class="speciality-ability-icon">
+						<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+					</div>
+				{{else}}
+					<div class="speciality-ability-empty-icon">
+						&nbsp;
+					</div>
+				{{/if}}
+
+				<div class="resource-value pullRight" 
 					data-value="{{ability.value}}" 
 					data-name="abilities.talent.{{ability._id}}.value"
 					data-key="{{ability._id}}"
@@ -40,6 +50,19 @@
 					
 				</div>
 			</div>	
+			{{#if (gte ability.value 4)}}
+				{{#if (eq ../locked false)}}
+					<div class="speciality-ability headlineNormal">
+						<input type="text" 
+							class="specialityBox editable {{#if ability.issecondary}}inputdata{{/if}}"
+							name="system.abilities.talent.{{ability._id}}.speciality" 
+							value="{{ability.speciality}}" 
+							data-name="data.abilities.talent.{{ability._id}}.speciality"
+							data-source="ability"
+							data-abilityid="{{ability._id}}" />
+					</div>
+				{{/if}}
+			{{/if}}
 		{{/each}}
 	
 	</div>
@@ -61,7 +84,17 @@
 						{{/if}}
 				</label>
 
-				<div class="resource-value dotvalueArea pullRight" 
+				{{#if (gte ability.value 4)}}
+					<div class="speciality-ability-icon">
+						<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+					</div>
+				{{else}}
+					<div class="speciality-ability-empty-icon">
+						&nbsp;
+					</div>
+				{{/if}}
+
+				<div class="resource-value pullRight" 
 					data-value="{{ability.value}}" 
 					data-name="abilities.skill.{{ability._id}}.value"
 					data-key="{{ability._id}}"
@@ -73,6 +106,19 @@
 					
 				</div>
 			</div>
+			{{#if (gte ability.value 4)}}
+				{{#if (eq ../locked false)}}
+					<div class="speciality-ability headlineNormal">
+						<input type="text" 
+							class="specialityBox editable {{#if ability.issecondary}}inputdata{{/if}}"
+							name="system.abilities.skill.{{ability._id}}.speciality" 
+							value="{{ability.speciality}}" 
+							data-name="data.abilities.skill.{{ability._id}}.speciality"
+							data-source="ability"
+							data-abilityid="{{ability._id}}" />
+					</div>
+				{{/if}}
+			{{/if}}
 		{{/each}}
 	
 	</div>
@@ -94,7 +140,17 @@
 					{{/if}}
 				</label>
 
-				<div class="resource-value dotvalueArea pullRight" 
+				{{#if (gte ability.value 4)}}
+					<div class="speciality-ability-icon">
+						<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+					</div>
+				{{else}}
+					<div class="speciality-ability-empty-icon">
+						&nbsp;
+					</div>
+				{{/if}}
+
+				<div class="resource-value pullRight" 
 					data-value="{{ability.value}}" 
 					data-name="abilities.knowledge.{{ability._id}}.value"
 					data-key="{{ability._id}}"
@@ -106,6 +162,19 @@
 					
 				</div>
 			</div>
+			{{#if (gte ability.value 4)}}
+				{{#if (eq ../locked false)}}
+					<div class="speciality-ability headlineNormal">
+						<input type="text" 
+							class="specialityBox editable {{#if ability.issecondary}}inputdata{{/if}}"
+							name="system.abilities.knowledge.{{ability._id}}.speciality" 
+							value="{{ability.speciality}}" 
+							data-name="data.abilities.knowledge.{{ability._id}}.speciality"
+							data-source="ability"
+							data-abilityid="{{ability._id}}" />
+					</div>
+				{{/if}}
+			{{/if}}
 		{{/each}}
 	
 	</div>	

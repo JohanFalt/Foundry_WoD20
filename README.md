@@ -1,19 +1,11 @@
-# World of Darkness 20th ed
-This is a non-official (fan-made) system.
+![](https://img.shields.io/badge/Foundry-v10-informational)
 
-- Vampire the Masquerade 20th ed
-- Werewolf the Apocalypse 20th ed
-- Mage the Ascention 20th ed
-- Changeling the Dreaming 20th ed
-- Hunter the Reckoning
+# World of Darkness 20th ed
+This is a non-official (fan-made) system for Foundry VTT.
 
 I would never require it by anyone or even expect someone to do but if you really want to feel free to [buy me a coffee](https://ko-fi.com/johanfk) 
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk) :)
-
-
-# Foundry VTT
-[Foundry page](https://foundryvtt.com/packages/worldofdarkness)
 
 ## Supported sheets
 - [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mortal-v1.6)
@@ -21,10 +13,15 @@ I would never require it by anyone or even expect someone to do but if you reall
 - [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension)
 - [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse)
 - [Changeling the Dreaming (C20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changeling-the-Dreaming)
-- Hunter the Reckoning (HtR)
+- [Hunter the Reckoning (HtR)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Hunter-the-Reckoning)
+- [Demon the Fallen (DtF)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Demon-the-Fallen)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)
 - Spirits
 - Creatures
+
+
+# Foundry VTT
+[Foundry page](https://foundryvtt.com/packages/worldofdarkness)
 
 
 # Dark Pack Agreement

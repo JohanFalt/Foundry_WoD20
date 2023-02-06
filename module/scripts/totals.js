@@ -1,3 +1,5 @@
+import BonusHelper from "./bonus-helpers.js";
+
 export async function calculateTotals(actorData) {
 	let toForm = getForm(actorData);
 
@@ -13,6 +15,12 @@ export async function calculateTotals(actorData) {
 		}
 
 		actorData.system.attributes[i].total = parseInt(actorData.system.attributes[i].value) + parseInt(actorData.system.attributes[i].bonus) + parseInt(shift.value);
+
+		//bonus attribute
+		if (await BonusHelper.CheckAttributeBuff(actorData, i)) {
+			let bonus = await BonusHelper.GetAttributeBuff(actorData, i);
+			actorData.system.attributes[i].total += parseInt(bonus);
+		}
 
 		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == CONFIG.wod.sheettype.changingbreed)) {
 
@@ -86,7 +94,7 @@ export async function calculateTotals(actorData) {
 	}
 	if (actorData.system.settings.soak.aggravated.isrollable) {
 		actorData.system.soak.aggravated = actorData.system.attributes.stamina.total;
-	}
+	}	
 
 	/* If Changeling and Chimerical soak */
 	if (actorData.system.settings.soak.chimerical != undefined) {
@@ -105,6 +113,21 @@ export async function calculateTotals(actorData) {
 		}
 	}	
 
+	//bonus soak
+	if (await BonusHelper.CheckSoakBuff(actorData)) {
+		let bonus = await BonusHelper.GetSoakBuff(actorData);
+		actorData.system.soak.bashing += parseInt(bonus);
+		actorData.system.soak.lethal += parseInt(bonus);
+		actorData.system.soak.aggravated += parseInt(bonus);
+
+		if (actorData.system.settings.soak.chimerical != undefined) {
+			actorData.system.soak.chimerical.bashing += parseInt(bonus);
+			actorData.system.soak.chimerical.lethal += parseInt(bonus);
+			actorData.system.soak.chimerical.aggravated += parseInt(bonus);
+		}
+	}
+
+	// armor
 	for (const i of actorData.items) {
 		if ((i.type == "Armor") && (i.system?.isequipped)) {
 			if (actorData.system.shapes == undefined) {
@@ -156,8 +179,26 @@ export async function calculateTotals(actorData) {
 		}
 	}
 
+	// health levels totals
+	for (const i in CONFIG.wod.woundLevels) {
+		actorData.system.health[i].total = parseInt(actorData.system.health[i].value);		
+	}	
+
+	//bonus healthlevels
+	if (await BonusHelper.CheckHealthlevelsBuff(actorData)) {
+		let bonus = await BonusHelper.GetHealthlevelsBuff(actorData);
+		actorData.system.health.bruised.total += parseInt(bonus);
+	}
+
+	// intitiative totals
 	actorData.system.initiative.base = parseInt(actorData.system.attributes.dexterity.total) + parseInt(actorData.system.attributes.wits.total);
 	actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
+
+	//bonus initiative
+	if (await BonusHelper.CheckInitiativeBuff(actorData)) {
+		let bonus = await BonusHelper.GetInitiativeBuff(actorData);
+		actorData.system.initiative.total += parseInt(bonus);
+	}
 
     return actorData;
 }

@@ -303,20 +303,21 @@ export class DialogItem extends FormApplication {
             woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
         }
         
-        const powerRoll = new DiceRoll(this.actor);
-        powerRoll.handlingOnes = CONFIG.wod.handleOnes;    
-        powerRoll.origin = "item";
-        powerRoll.numDices = numDices;
-        powerRoll.numSpecialDices = numSpecialDices;
-        powerRoll.specialDiceText = specialDiceText;
-        powerRoll.woundpenalty = parseInt(woundPenaltyVal);
-        powerRoll.difficulty = parseInt(this.object.difficulty);          
-        powerRoll.templateHTML = templateHTML;        
-        powerRoll.systemText = this.object.details;
-        powerRoll.speciality = this.object.useSpeciality;
-        powerRoll.specialityText = specialityText;
+        const dialogRoll = new DiceRoll(this.actor);
+        dialogRoll.attribute = this.object.dice1;
+        dialogRoll.handlingOnes = CONFIG.wod.handleOnes;    
+        dialogRoll.origin = "item";
+        dialogRoll.numDices = numDices;
+        dialogRoll.numSpecialDices = numSpecialDices;
+        dialogRoll.specialDiceText = specialDiceText;
+        dialogRoll.woundpenalty = parseInt(woundPenaltyVal);
+        dialogRoll.difficulty = parseInt(this.object.difficulty);          
+        dialogRoll.templateHTML = templateHTML;        
+        dialogRoll.systemText = this.object.details;
+        dialogRoll.speciality = this.object.useSpeciality;
+        dialogRoll.specialityText = specialityText;
 
-        rollDice(powerRoll);
+        rollDice(dialogRoll);
     }
 
     /* clicked to close form */

@@ -812,7 +812,95 @@ export const updates = async () => {
             update = false;
         }        
     }
+
+    if (compareVersion(actor.system.settings.version, "2.3.0")) {        
+        let updateData = duplicate(actor);
+
+        updateData.system.settings.version = "2.3.0";
+        const version = updateData.system.settings.version;
+
+        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+            let itemData = {
+                name: "Perception diff hispo",
+                type: "Bonus",
+                
+                data: {
+                    iscreated: true,
+                    isactive: false,
+                    version: version,
+                    parentid: "hispo",
+                    settingtype: "perception",
+                    type: "attribute_diff",
+                    value: -1
+                }
+            };
+            await actor.createEmbeddedDocuments("Item", [itemData]);
     
+            itemData = {
+                name: "Perception diff lupus",
+                type: "Bonus",
+                
+                data: {
+                    iscreated: true,
+                    isactive: false,
+                    version: version,
+                    parentid: "lupus",
+                    settingtype: "perception",
+                    type: "attribute_diff",
+                    value: -2
+                }
+            };
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+    
+            itemData = {
+                name: "Wits diff hispo",
+                type: "Bonus",
+                
+                data: {
+                    iscreated: true,
+                    isactive: false,
+                    version: version,
+                    parentid: "hispo",
+                    settingtype: "wits",
+                    type: "attribute_diff",
+                    value: -1
+                }
+            };
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+    
+            itemData = {
+                name: "Wits diff lupus",
+                type: "Bonus",
+                
+                data: {
+                    iscreated: true,
+                    isactive: false,
+                    version: version,
+                    parentid: "lupus",
+                    settingtype: "wits",
+                    type: "attribute_diff",
+                    value: -2
+                }
+            };
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            update = true;
+        }
+
+        if (updateData.type == CONFIG.wod.sheettype.spirit) {
+            if (updateData.system.advantages.essence.max == null) {
+                updateData.system.advantages.essence.max = 20
+
+                update = true;
+            }
+        }
+
+        if (update) {
+            await actor.update(updateData);
+            update = false;
+        }
+    }
+
     for (const item of actor.items) {
         await updateItem(item);
     }
@@ -1044,6 +1132,42 @@ export const updates = async () => {
             altered = false;
         }
     }
+
+    if (compareVersion(item.system.version, "2.3.0")) {
+        const itemData = duplicate(item);
+        itemData.system.version = "2.3.0";
+
+        if (item.type == "Power") {
+            if ((item.system.type == "wod.types.art") || (item.system.type == "wod.types.artpower")) {
+                itemData.system.game = "changeling";
+                altered = true;
+            }
+            else if ((item.system.type == "wod.types.edge") || (item.system.type == "wod.types.edgepower")) {
+                itemData.system.game = "hunter";
+                altered = true;
+            }
+            else if ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepower") ||
+                    (item.system.type == "wod.types.disciplinepath") || (item.system.type == "wod.types.disciplinepathpower") ||
+                    (item.system.type == "wod.types.ritual")) {
+                itemData.system.game = "vampire";
+                altered = true;
+            }
+            else if ((item.system.type == "wod.types.gift") || (item.system.type == "wod.types.rite")) {
+                itemData.system.game = "werewolf";
+                altered = true;            
+            }            
+            else {
+                itemData.system.game = "other";
+                altered = true;
+            }
+        }
+
+        if (altered) {
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -1107,6 +1231,7 @@ export const updates = async () => {
     let patch160 = false;
     let patch210 = false;
     let patch220 = false;
+    let patch230 = false;
 
     let newfunctions = "";
 
@@ -1121,6 +1246,7 @@ export const updates = async () => {
         patch160 = game.settings.get('worldofdarkness', 'patch160');
         patch210 = game.settings.get('worldofdarkness', 'patch210');
         patch220 = game.settings.get('worldofdarkness', 'patch220');
+        patch230 = game.settings.get('worldofdarkness', 'patch230');
     } 
     catch (e) {
     }
@@ -1239,16 +1365,27 @@ export const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
+    if (!patch230) {
+        game.settings.set('worldofdarkness', 'patch230', true);
+
+        newfunctions += "<li>Added Demon the Fallen</li>";
+        newfunctions += "<li>Added Tours - see Foundry Tour Management</li>";
+        newfunctions += "<li>Added a bonus system to use with merit/flaws/powers and so on</li>";
+        newfunctions += "<li>Graphical improvements</li>";
+        newfunctions += "<li>Improved how speciallities are edited</li>";
+        newfunctions += "<li>Shows the character's movement under Combat tab</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/423">#423</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/425">#425</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/428">#428</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/431">#431</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/433">#433</a></li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-220">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-230">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 
