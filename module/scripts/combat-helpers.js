@@ -166,10 +166,6 @@ export default class CombatHelper {
 			}
 		}
 
-		/* let walkmulti = parseInt(await BonusHelper.GetMovementBuff(actor, "walk"));
-		let jogmulti = parseInt(await BonusHelper.GetMovementBuff(actor, "jog"));
-		let runmulti = parseInt(await BonusHelper.GetMovementBuff(actor, "run")); */
-
 		if (await BonusHelper.CheckMovementBuff(actor, "walk") == true) {
 			movement.walk = movement.walk * parseInt(await BonusHelper.GetMovementBuff(actor, "walk"));
 		}

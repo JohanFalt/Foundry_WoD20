@@ -1379,6 +1379,8 @@ export const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/504">#504</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/505">#505</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/507">#507</a></li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

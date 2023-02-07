@@ -79,11 +79,25 @@ export class MortalActorSheet extends ActorSheet {
 		data.isGM = this.isGM;
 
 		await ItemHelper.sortActorItems(data.actor, data.config);
+
+
 		data.actor.system.appearance = await TextEditor.enrichHTML(data.actor.system.appearance, {async: true});
 		data.actor.system.background = await TextEditor.enrichHTML(data.actor.system.background, {async: true});
+		data.actor.system.gear = await TextEditor.enrichHTML(data.actor.system.gear, {async: true});
+
+		if (data.actor.type == CONFIG.wod.sheettype.mage) {
+			data.actor.system.focus.paradigm = await TextEditor.enrichHTML(data.actor.system.focus.paradigm, {async: true});
+			data.actor.system.focus.practice = await TextEditor.enrichHTML(data.actor.system.focus.practice, {async: true});
+			data.actor.system.focus.instruments = await TextEditor.enrichHTML(data.actor.system.focus.instruments, {async: true});
+		}
+
+		if (data.actor.type == CONFIG.wod.sheettype.changeling) {
+			data.actor.system.threshold = await TextEditor.enrichHTML(data.actor.system.threshold, {async: true});
+			data.actor.system.legacyseelie = await TextEditor.enrichHTML(data.actor.system.legacyseelie, {async: true});
+			data.actor.system.legacyunseelie = await TextEditor.enrichHTML(data.actor.system.legacyunseelie, {async: true});
+		}
 
 		data.actor.system.listdata.health = calculateHealth(data.actor, data.config.sheettype.mortal);
-		//data.actor.system.listdata.movement = CombatHelper.CalculateMovement(data.actor);
 
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = false;

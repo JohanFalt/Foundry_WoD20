@@ -277,8 +277,8 @@ export class DialogWeapon extends FormApplication {
 
         data.object.specialityText = specialityText;
 
-        if (await BonusHelper.CheckAbilityBuff(actor, data.object.dice2)) {
-            let bonus = await BonusHelper.GetAbilityBuff(actor, data.object.dice2);
+        if (await BonusHelper.CheckAbilityBuff(this.actor, data.object.dice2)) {
+            let bonus = await BonusHelper.GetAbilityBuff(this.actor, data.object.dice2);
             this.object.abilityValue += parseInt(bonus);
         }
 

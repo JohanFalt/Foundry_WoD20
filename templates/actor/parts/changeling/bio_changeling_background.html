@@ -120,7 +120,7 @@
         <label class="headlineText headlineBio splatFont" for="data.legacyseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
         <div class="clearareaBox">
             {{#if locked}}
-                <div class="clearareaBox headlineNormal textarea">{{{actor.system.legacyseelie}}}</div>
+                <div class="clearareaBox headlineNormal textarea">{{{data.system.legacyseelie}}}</div>
             {{else}}
                 {{editor data.legacyseelie target="system.legacyseelie" button=false owner=owner editable=true}}
             {{/if}}				
@@ -132,7 +132,7 @@
     <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
     <div class="clearareaBox">
         {{#if locked}}
-            <div class="clearareaBox headlineNormal textarea">{{{actor.system.legacyunseelie}}}</div>
+            <div class="clearareaBox headlineNormal textarea">{{{data.system.legacyunseelie}}}</div>
         {{else}}
             {{editor data.legacyunseelie target="system.legacyunseelie" button=false owner=owner editable=true}}
         {{/if}}				

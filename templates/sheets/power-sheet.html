@@ -212,17 +212,32 @@
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.ritual")}}
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
-							{{#select data.system.level}}
-								<option value="0">- {{localize "wod.labels.select"}} -</option>
-								{{#numFromLoop 1 5}}
-									<option value="{{this}}">{{this}}</option>
-								{{/numFromLoop}}
-							{{/select}}
-						</select>
-					</div>
+					{{#if (eq data.system.game "vampire")}}
+						<div class="infobox">
+							<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+							<select class="editable" name="system.level">
+								{{#select data.system.level}}
+									<option value="0">- {{localize "wod.labels.select"}} -</option>
+									{{#numFromLoop 1 9}}
+										<option value="{{this}}">{{this}}</option>
+									{{/numFromLoop}}
+								{{/select}}
+							</select>
+						</div>
+					{{/if}}
+					{{#if (eq data.system.game "demon")}}
+						<div class="infobox">
+							<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
+							<select class="editable" name="system.level">
+								{{#select data.system.level}}
+									<option value="0">- {{localize "wod.labels.select"}} -</option>
+									{{#numFromLoop 1 5}}
+										<option value="{{this}}">{{this}}</option>
+									{{/numFromLoop}}
+								{{/select}}
+							</select>
+						</div>
+					{{/if}}
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.gift")}}
@@ -245,7 +260,7 @@
 						<select class="editable" name="system.level">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
-								{{#numFromLoop 1 5}}
+								{{#numFromLoop 1 6}}
 									<option value="{{this}}">{{this}}</option>
 								{{/numFromLoop}}
 							{{/select}}
