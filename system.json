@@ -1,0 +1,68 @@
+{
+  "id": "worldofdarkness",
+  "title": "World of Darkness 20th edition",
+  "description": "To play World of Darkness 20th ed. Support for Werewolf the Apocalypse (W20), Mage the Ascension (M20), Vampire the Masquerade (V20), Changeling the Dreaming (C20), Hunter the Reckoning (HtR). Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.",
+  "version": "2.3.2",
+  "compatibility": {
+    "minimum": "10.291",
+    "verified": "10.291",
+    "maximum": "10"
+  },
+  "authors": [
+    {
+      "name": "Johan Fält",
+      "discord": "johanfk#0054",
+      "flags": {}
+    }
+  ],
+  "relationships": [],
+  "esmodules": [
+    "wod.js"
+  ],
+  "styles": [
+    "css/wod.css",
+    "css/responsive.css",    
+    "lib/koption/koptions.css",
+    "lib/editor/editor.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "de",
+      "name": "German",
+      "path": "lang/de.json",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "name": "Spanish",
+      "path": "lang/es.json",
+      "flags": {}
+    },
+    {
+      "lang": "it",
+      "name": "Italian",
+      "path": "lang/it.json",
+      "flags": {}
+    },
+    {
+      "lang": "fr",
+      "name": "French",
+      "path": "lang/fr.json",
+      "flags": {}
+    }
+  ],
+  "initiative": "1d10 + @initiative.total",
+  "gridDistance": 2,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "traits.health.totalhealthlevels",
+  "url": "https://github.com/JohanFalt/Foundry_WoD20",
+  "manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/main/system.json",
+  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v2.3.2.zip",
+  "license": "LICENSE.txt"
+}
