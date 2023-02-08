@@ -11,7 +11,6 @@ export default class BonusHelper {
         return bonusList;
     }
 
-
     static async CheckAttributeBonus(actor, attribute) {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_diff") && (i.system.settingtype == attribute)) {

@@ -24,6 +24,7 @@
 				},
 				"settings": {
 					"iscreated": false,	
+					"isshapecreated": false,
 					"soak": {
 						"bashing": {
 							"bonus": 0,

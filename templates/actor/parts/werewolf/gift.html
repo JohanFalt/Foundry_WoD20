@@ -24,7 +24,7 @@
                         <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
                             <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                             <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                                data-type="{{../config.sheettype.werewolf}}"
+                                data-type="{{../../config.sheettype.werewolf}}"
                                 data-object="Gift"
                                 data-rollitem="true"
                                 data-itemid="{{item._id}}">{{item.name}}</div>

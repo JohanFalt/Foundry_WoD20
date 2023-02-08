@@ -27,7 +27,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
   
 	constructor(actor, options) {
 		super(actor, options);		
-		console.log("WoD | Werewolf Sheet constructor");
+		console.log("WoD | Werewolf Sheet constructor");		
+		this._createShape(actor);
 	}
 
 	/** @override */
@@ -36,8 +37,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.wod.sheettype.werewolf) {
-				const version = game.data.system.version;
-
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
@@ -46,73 +45,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				ActionHelper._setWerewolfAttributes(actorData);	
 				
 				console.log(`CREATION: Adds form bonus to ${this.actor.name}`);
-				
-				let itemData = {
-					name: "Perception diff hispo",
-					type: "Bonus",
-					
-					data: {
-						iscreated: true,
-						isactive: false,
-						version: version,
-						parentid: "hispo",
-						settingtype: "perception",
-						type: "attribute_diff",
-						value: -1
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "Perception diff lupus",
-					type: "Bonus",
-					
-					data: {
-						iscreated: true,
-						isactive: false,
-						version: version,
-						parentid: "lupus",
-						settingtype: "perception",
-						type: "attribute_diff",
-						value: -2
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "Wits diff hispo",
-					type: "Bonus",
-					
-					data: {
-						iscreated: true,
-						isactive: false,
-						version: version,
-						parentid: "hispo",
-						settingtype: "wits",
-						type: "attribute_diff",
-						value: -1
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "Wits diff lupus",
-					type: "Bonus",
-					
-					data: {
-						iscreated: true,
-						isactive: false,
-						version: version,
-						parentid: "lupus",
-						settingtype: "wits",
-						type: "attribute_diff",
-						value: -2
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
 				this.actor.update(actorData);
-			}	 	
+			}				 	
 		}
 
 		const data = await super.getData();
@@ -186,6 +120,83 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		html
 			.find(".shape-selector")
 			.click(this._onShiftForm.bind(this));
+	}
+
+	_createShape(actor) {
+		if (!actor.system.settings.isshapecreated) {
+			for (const item of actor.items) {
+				if (item.type == "Bonus") {
+					if ((item.system.parentid == "hispo") || (item.system.parentid == "lupus")) {
+						actor.deleteEmbeddedDocuments("Item", [item._id]);                    
+					}
+				}
+			}
+
+			let itemData = {
+				name: "Perception diff hispo",
+				type: "Bonus",			
+				data: {
+					iscreated: true,
+					isactive: false,
+					version: game.data.system.version,
+					parentid: "hispo",
+					settingtype: "perception",
+					type: "attribute_diff",
+					value: -1
+				}
+			};
+			actor.createEmbeddedDocuments("Item", [itemData]);
+
+			itemData = {
+				name: "Perception diff lupus",
+				type: "Bonus",			
+				data: {
+					iscreated: true,
+					isactive: false,
+					version: game.data.system.version,
+					parentid: "lupus",
+					settingtype: "perception",
+					type: "attribute_diff",
+					value: -2
+				}
+			};
+			actor.createEmbeddedDocuments("Item", [itemData]);
+
+			itemData = {
+				name: "Wits diff hispo",
+				type: "Bonus",			
+				data: {
+					iscreated: true,
+					isactive: false,
+					version: game.data.system.version,
+					parentid: "hispo",
+					settingtype: "wits",
+					type: "attribute_diff",
+					value: -1
+				}
+			};
+			actor.createEmbeddedDocuments("Item", [itemData]);
+
+			itemData = {
+				name: "Wits diff lupus",
+				type: "Bonus",			
+				data: {
+					iscreated: true,
+					isactive: false,
+					version: game.data.system.version,
+					parentid: "lupus",
+					settingtype: "wits",
+					type: "attribute_diff",
+					value: -2
+				}
+			};
+			actor.createEmbeddedDocuments("Item", [itemData]);
+
+			const actorData = duplicate(actor);
+			actorData.system.settings.version = game.data.system.version;
+			actorData.system.settings.isshapecreated = true;
+			actor.update(actorData);
+		}
 	}
 
 	_onRollWerewolfDialog(event) {		

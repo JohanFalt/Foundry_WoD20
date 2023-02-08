@@ -29,7 +29,7 @@ export default class ItemHelper {
 	   	}
 
         await this._sortAbilities(actor, config);
-		await this._sortItems(actor);  		
+		await this._sortItems(actor);  	
 
 		// ability lists are effected by both activated abilities and what items you have.
 		actor.system.listdata.ability_talents = actor.system.listdata.ability_talents.sort((a, b) => a.name.localeCompare(b.name));
@@ -134,6 +134,8 @@ export default class ItemHelper {
 		actor.system.listdata.meleeAbilities = [];
 		actor.system.listdata.rangedAbilities = [];
 
+		actor.system.listdata.bonus = [];
+
 		if (actor.system.settings.powers.hasgifts) {
 			this._createGiftStructure(actor);
 		}
@@ -162,6 +164,7 @@ export default class ItemHelper {
 			await this._sortExperiences(item, actor);
 			await this._sortTraits(item, actor);				
 			await this._sortPowers(item, actor);
+			await this._sortBonus(item, actor);
 		}						
 
 		actor.system.listdata.meleeAbilities.sort((a, b) => a.name.localeCompare(b.name));
@@ -282,6 +285,12 @@ export default class ItemHelper {
 					actor.system.listdata.experiences.spentExp += parseInt(item.system.amount);
 				}
 			}
+		}
+	}
+
+	static async _sortBonus(item, actor) {
+		if (item.type == "Bonus") {
+			actor.system.listdata.bonus.push(item); 
 		}
 	}
 

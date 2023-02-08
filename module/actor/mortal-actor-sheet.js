@@ -80,7 +80,6 @@ export class MortalActorSheet extends ActorSheet {
 
 		await ItemHelper.sortActorItems(data.actor, data.config);
 
-
 		data.actor.system.appearance = await TextEditor.enrichHTML(data.actor.system.appearance, {async: true});
 		data.actor.system.background = await TextEditor.enrichHTML(data.actor.system.background, {async: true});
 		data.actor.system.gear = await TextEditor.enrichHTML(data.actor.system.gear, {async: true});

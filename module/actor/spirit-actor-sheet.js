@@ -192,7 +192,7 @@ export class SpiritActorSheet extends ActorSheet {
 
 		console.log("WoD | Deleting item id: " + itemId);
 
-		this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
+		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
 	}
 
 	_onRollSpiritDialog(event) {		

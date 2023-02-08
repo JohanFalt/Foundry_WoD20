@@ -817,76 +817,7 @@ export const updates = async () => {
         let updateData = duplicate(actor);
 
         updateData.system.settings.version = "2.3.0";
-        const version = updateData.system.settings.version;
-
-        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
-            let itemData = {
-                name: "Perception diff hispo",
-                type: "Bonus",
-                
-                data: {
-                    iscreated: true,
-                    isactive: false,
-                    version: version,
-                    parentid: "hispo",
-                    settingtype: "perception",
-                    type: "attribute_diff",
-                    value: -1
-                }
-            };
-            await actor.createEmbeddedDocuments("Item", [itemData]);
-    
-            itemData = {
-                name: "Perception diff lupus",
-                type: "Bonus",
-                
-                data: {
-                    iscreated: true,
-                    isactive: false,
-                    version: version,
-                    parentid: "lupus",
-                    settingtype: "perception",
-                    type: "attribute_diff",
-                    value: -2
-                }
-            };
-            await actor.createEmbeddedDocuments("Item", [itemData]);
-    
-            itemData = {
-                name: "Wits diff hispo",
-                type: "Bonus",
-                
-                data: {
-                    iscreated: true,
-                    isactive: false,
-                    version: version,
-                    parentid: "hispo",
-                    settingtype: "wits",
-                    type: "attribute_diff",
-                    value: -1
-                }
-            };
-            await actor.createEmbeddedDocuments("Item", [itemData]);
-    
-            itemData = {
-                name: "Wits diff lupus",
-                type: "Bonus",
-                
-                data: {
-                    iscreated: true,
-                    isactive: false,
-                    version: version,
-                    parentid: "lupus",
-                    settingtype: "wits",
-                    type: "attribute_diff",
-                    value: -2
-                }
-            };
-            await actor.createEmbeddedDocuments("Item", [itemData]);
-
-            update = true;
-        }
-
+        
         if (updateData.type == CONFIG.wod.sheettype.spirit) {
             if (updateData.system.advantages.essence.max == null) {
                 updateData.system.advantages.essence.max = 20
@@ -1380,7 +1311,7 @@ export const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/504">#504</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/505">#505</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/507">#507</a></li>';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/504">#504</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/505">#505</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/507">#507</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/508">#508</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/509">#509</a></li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
