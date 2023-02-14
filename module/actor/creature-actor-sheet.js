@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
-import ActionHelper from "../scripts/action-helpers.js"
+import ActionHelper from "../scripts/action-helpers.js";
+import BonusHelper from "../scripts/bonus-helpers.js";
 
 export class CreatureActorSheet extends MortalActorSheet {
 	
@@ -41,7 +42,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 				ActionHelper._setCreatureAbilities(actorData);
 				ActionHelper._setMortalAttributes(actorData);
-				//ActionHelper._setWerewolfAttributes(actorData);
 				ActionHelper._setCreatureAttributes(actorData);
 
 				this.actor.update(actorData);
@@ -52,20 +52,18 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Creature Sheet getData");
 
-		const powerlist = [];
+		// const powerlist = [];
 
-		for (const i of actorData.items) {
+		/* for (const i of this.actor.items) {
 			if (i.type == "Power") {
 				if (i.system.type == "wod.types.power") {
+					i.bonuses = BonusHelper.getBonuses(this.actor.items, i._id);
 					powerlist.push(i);
 				}
 			}
-			else if (i.type == "Experience") {
-				// is to use?
-			}
 		}
 
-		data.actor.powerlist = powerlist.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.powerlist = powerlist.sort((a, b) => a.name.localeCompare(b.name)); */
 
 		if (actorData.type == CONFIG.wod.sheettype.creature) {
 			console.log(CONFIG.wod.sheettype.creature);
@@ -174,12 +172,12 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const steps = parent.find(".resource-value-step");
 
 		if ((this.locked) && 
-				((fieldStrings != "data.system.advantages.rage.temporary") && 
-				(fieldStrings != "data.system.advantages.gnosis.temporary") &&
-				(fieldStrings != "data.system.advantages.glamour.temporary") &&
-				(fieldStrings != "data.system.advantages.banality.temporary") &&
-				(fieldStrings != "data.system.advantages.essence.temporary") && 
-				(fieldStrings != "data.system.advantages.bloodpool.temporary"))) {
+				((fieldStrings != "advantages.rage.temporary") && 
+				(fieldStrings != "advantages.gnosis.temporary") &&
+				(fieldStrings != "advantages.glamour.temporary") &&
+				(fieldStrings != "advantages.banality.temporary") &&
+				(fieldStrings != "advantages.essence.temporary") && 
+				(fieldStrings != "advantages.bloodpool.temporary"))) {
 			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 			return;
 		}
@@ -204,12 +202,13 @@ export class CreatureActorSheet extends MortalActorSheet {
 		
 		const actorData = duplicate(this.actor);
 
-		if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "essence") || (fields[2] === "bloodpool") || (fields[2] === "glamour") || (fields[2] === "banality")) {
-			if (actorData.system[fields[2]][fields[3]] == value) {
-				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
+		//if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "essence") || (fields[2] === "bloodpool") || (fields[2] === "glamour") || (fields[2] === "banality")) {
+			if (fields[1] === "essence") {
+			if (actorData.system.advantages[fields[1]][fields[2]] == value) {
+				actorData.system.advantages[fields[1]][fields[2]] = parseInt(actorData.system.advantages[fields[1]][fields[2]]) - 1;
 			}
 			else {
-				actorData.system[fields[2]][fields[3]] = value;
+				actorData.system.advantages[fields[1]][fields[2]] = parseInt(value);
 			}
 		}
 		

@@ -1311,7 +1311,9 @@ export const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/504">#504</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/505">#505</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/507">#507</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/508">#508</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/509">#509</a></li>';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/504">#504</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/505">#505</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/507">#507</a></li>';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/508">#508</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/509">#509</a></li>';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/516">#516</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/515">#515</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/514">#514</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/517">#517</a></li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

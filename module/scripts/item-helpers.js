@@ -136,6 +136,10 @@ export default class ItemHelper {
 
 		actor.system.listdata.bonus = [];
 
+		if (actor.system.settings.powers.haspowers) {
+			this._createSpacialPowersStructure(actor);
+		}
+
 		if (actor.system.settings.powers.hasgifts) {
 			this._createGiftStructure(actor);
 		}
@@ -192,6 +196,10 @@ export default class ItemHelper {
 		actor.system.listdata.traits.othertraits.sort((a, b) => a.name.localeCompare(b.name));		
 
 		// Powers
+		if (actor.system.settings.powers.haspowers) {
+			await this._organizeSpecialPowers(actor);
+		}
+
 		if (actor.system.settings.powers.hasgifts) {
 			await this._organizeGifts(actor);		
 		}
@@ -371,6 +379,9 @@ export default class ItemHelper {
 		if (item.type == "Power") {
 			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
+			if (actor.system.settings.powers.haspowers) {
+				this._sortSpecialPowers(item, actor);
+			}
 			if (actor.system.settings.powers.hasgifts) {
 				this._sortGifts(item, actor);
 			}
@@ -385,7 +396,14 @@ export default class ItemHelper {
 			}
 			if (actor.system.settings.powers.haslores) {
 				this._sortLores(item, actor);
-			}
+			}			
+		}			
+	}
+
+	static async _sortSpecialPowers(item, actor) {
+		if (item.system.type == "wod.types.power") {
+			item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			actor.system.listdata.powers.powerlist.push(item);			
 		}			
 	}
 
@@ -422,6 +440,10 @@ export default class ItemHelper {
 		}			
 	}		
 
+	static _createSpacialPowersStructure(actor) {
+		actor.system.listdata.powers.powerlist = _createList(actor.system.listdata.powers.powerlist);
+	}
+
 	static _createGiftStructure(actor) {
 		actor.system.listdata.powers.gifts = _createList(actor.system.listdata.powers.gifts);
 		// Gifts
@@ -440,6 +462,10 @@ export default class ItemHelper {
 
 		// Activate Gifts
 		actor.system.listdata.powers.gifts.powercombat = _createList(actor.system.listdata.powers.gifts.powercombat);
+	}
+
+	static async _organizeSpecialPowers(actor) {
+		actor.system.listdata.powers.powerlist.sort((a, b) => a.name.localeCompare(b.name));
 	}
 
 	static async _organizeGifts(actor) {

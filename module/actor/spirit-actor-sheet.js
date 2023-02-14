@@ -127,7 +127,10 @@ export class SpiritActorSheet extends ActorSheet {
 			.click(this._onDotCounterChange.bind(this));
 
 		// items
-		// Edit Inventory Item
+		html
+			.find('.item-create')
+			.click(this._onItemCreate.bind(this));
+
 		html
 			.find(".item-edit")
 			.click(this._onItemEdit.bind(this));
@@ -140,6 +143,36 @@ export class SpiritActorSheet extends ActorSheet {
 		html
 			.find(".send-chat")
 			.click(this._onSendChat.bind(this));
+	}
+
+	/**
+   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
+   * @param {Event} event   The originating click event
+   * @private
+   */
+	async _onItemCreate(event) {
+		event.preventDefault();
+
+		const header = event.currentTarget;
+		const type = header.dataset.type;
+		const itemtype = header.dataset.itemtype;
+		let itemData;
+
+		if (itemtype == "Power") {
+			if (type == "gift") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.gift")}`,
+					type: itemtype,
+					system: {
+						game: "werewolf",
+						level: 1,
+						type: "wod.types.gift"
+					}
+				};
+			}
+		}
+
+		return await this.actor.createEmbeddedDocuments("Item", [itemData]);
 	}
 
 	async _onItemEdit(event) {

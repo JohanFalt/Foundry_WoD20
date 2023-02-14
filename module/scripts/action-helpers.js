@@ -10,8 +10,6 @@ import * as PowerHelper from "../dialogs/dialog-power.js";
 import * as SortHelper from "../dialogs/dialog-sortpower.js";
 
 import * as ItemHelper from "../dialogs/dialog-item.js";
-//import { Treasure } from "../dialogs/dialog-item.js";
-//import { DialogItem } from "../dialogs/dialog-item.js";
 
 import { DialogGeneralRoll, GeneralRoll } from "../dialogs/dialog-generalroll.js";
 
@@ -780,23 +778,25 @@ export default class ActionHelper {
 					item.system.isactive = false;
 				}
 
-				if ((actorData.system.shapes.hispo.isactive) && (item.system.parentid == "hispo")) {
-					if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
-						item.system.isactive = true;
+				if (actorData.system.shapes != undefined) {
+					if ((actorData.system.shapes.hispo.isactive) && (item.system.parentid == "hispo")) {
+						if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
+							item.system.isactive = true;
+						}
+
+						if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
+							item.system.isactive = true;
+						}					
 					}
 
-					if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
-						item.system.isactive = true;
-					}					
-				}
+					if ((actorData.system.shapes.lupus.isactive) && (item.system.parentid == "lupus")) {
+						if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
+							item.system.isactive = true;
+						}
 
-				if ((actorData.system.shapes.lupus.isactive) && (item.system.parentid == "lupus")) {
-					if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
-						item.system.isactive = true;
-					}
-
-					if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
-						item.system.isactive = true;
+						if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
+							item.system.isactive = true;
+						}
 					}
 				}
 			}

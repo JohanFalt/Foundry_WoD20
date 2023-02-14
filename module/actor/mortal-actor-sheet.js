@@ -700,6 +700,7 @@ export class MortalActorSheet extends ActorSheet {
 					type: itemtype,
 					system: {
 						level: level,
+						game: "werewolf",
 						type: "wod.types.gift"
 					}
 				};
@@ -709,6 +710,7 @@ export class MortalActorSheet extends ActorSheet {
 					name: `${game.i18n.localize("wod.labels.new.rite")}`,
 					type: itemtype,
 					system: {
+						game: "werewolf",
 						type: "wod.types.rite"
 					}
 				};

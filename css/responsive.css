@@ -315,8 +315,6 @@ textarea.editable {
   border-bottom: 1px solid var(--main-werewolf-color);
 }
 
-
-
 /* WEREWOLF ENDS */
 
 /* CHANGELING START */
@@ -455,6 +453,10 @@ textarea.editable {
 .creature:not(.minimized) {
   min-width: 900px;
   min-height: 850px;
+}
+
+.creature:not(.noSplatFont) .headlineList {
+  font-size: 12px;
 }
 
 .creature .headlineRow {

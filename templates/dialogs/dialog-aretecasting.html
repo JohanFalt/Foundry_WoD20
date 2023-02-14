@@ -205,7 +205,7 @@
                     {{/each}}
                 </div>
                 <div class="dialog-group">
-                    <input name="specialty" type="checkbox">{{localize "wod.labels.specialty"}}</input>
+                    <input name="object.useSpeciality" type="checkbox" {{#if object.useSpeciality}}checked{{/if}}>{{localize "wod.labels.specialty"}}</input>
                 </div>
                 {{#if (gt object.totalSuccesses 0)}}
                 <div class="dialog-group">
@@ -251,7 +251,8 @@
                             <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="vulgar" {{#if (eq object.spelltype "vulgar")}}checked{{/if}}>{{localize "wod.spheres.vulgar"}}</input>
                         </span>
                         <label for="witnesses" class="headlineNormal" style="margin-left: 10px;">{{localize "wod.dialog.aretecasting.witnesses"}}</label>
-                        <input class="headlineNormal" name="object.witnesses" type="checkbox" {{#if object.hasWitnesses}}checked{{/if}} />
+                        {{log object}}
+                        <input class="headlineNormal" name="object.witnesses" type="checkbox" {{#if object.witnesses}}checked{{/if}} />
                     </div>
                 </div>
 

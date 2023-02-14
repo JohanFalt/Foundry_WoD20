@@ -293,9 +293,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			}
 
 			const itemid = parent[0].dataset.itemid;
-
 			let item = this.actor.getEmbeddedDocument("Item", itemid);
-
 			const itemData = duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {
