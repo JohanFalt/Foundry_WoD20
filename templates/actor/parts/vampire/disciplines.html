@@ -1,7 +1,16 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont" data-area="disciplines">{{localize "wod.power.disciplines"}}</div>
+        <div class="sheet-headline splatFont" data-area="disciplines">
+            {{localize "wod.power.disciplines"}}
+
+            {{#if (eq locked false)}}
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.discipline'}}" aria-hidden="true" data-itemtype="Power" data-type="discipline"></i>
+                </div>
+            {{/if}}
+        </div>
+        
 
         {{#each actor.system.listdata.powers.disciplines.disciplinelist as | item id|}}
 
@@ -44,6 +53,12 @@
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
                                     <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepower'}}" aria-hidden="true" data-itemtype="Power" data-type="disciplinepower" data-parentid="{{item._id}}"></i>
                                 </div>
                             {{/if}}
                         {{/if}}
@@ -161,10 +176,17 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont" data-area="paths">{{localize "wod.power.paths"}}</div>
+        <div class="sheet-headline splatFont" data-area="paths">
+            {{localize "wod.power.paths"}}
+
+            {{#if (eq locked false)}}
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepath'}}" aria-hidden="true" data-itemtype="Power" data-type="disciplinepath"></i>
+                </div>
+            {{/if}}        
+        </div>
 
         {{#each actor.system.listdata.powers.disciplines.pathlist as | item id|}}
-
 
             <div class="power-area {{#if (eq item.system.type 'wod.types.disciplinepath')}}mainpower-row{{/if}}">
                 <div class="clearareaBox {{#if (eq item.system.type 'wod.types.disciplinepath')}}power-row{{else}}disciplinepower-row  {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
@@ -205,6 +227,12 @@
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
                                     <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepathpower'}}" aria-hidden="true" data-itemtype="Power" data-type="disciplinepathpower" data-parentid="{{item._id}}"></i>
                                 </div>
                             {{/if}}
                         {{/if}}
@@ -248,13 +276,13 @@
                             {{/if}}
                             <div class="pullLeft pointer">
                                 <a class="item-edit" 
-                                    title="{{localize 'wod.labels.edit.discipline'}}" 
+                                    title="{{localize 'wod.labels.edit.disciplinepath'}}" 
                                     data-type="Discipline" 
                                     data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                             </div>
                             <div class="pullLeft pointer">
                                 <a class="item-delete" 
-                                    title="{{localize 'wod.labels.remove.discipline'}}" 
+                                    title="{{localize 'wod.labels.remove.disciplinepath'}}" 
                                     data-type="Discipline" 
                                     data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                             </div>
@@ -320,7 +348,15 @@
 
 <div class="sheet-area">
     <div class="clearareaBox">
-        <div class="sheet-headline splatFont" data-area="rituals">{{localize "wod.power.rituals"}}</div>
+        <div class="sheet-headline splatFont" data-area="rituals">
+            {{localize "wod.power.rituals"}}
+
+            {{#if (eq locked false)}}
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.ritual'}}" aria-hidden="true" data-itemtype="Power" data-type="ritual"></i>
+                </div>
+            {{/if}}        
+        </div>
 
         {{#each actor.system.listdata.powers.disciplines.rituallist as | item id|}}
             <div class="clearareaBox ritual-row row">

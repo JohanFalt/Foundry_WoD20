@@ -715,6 +715,65 @@ export class MortalActorSheet extends ActorSheet {
 					}
 				};
 			}
+			if (type == "discipline") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.discipline")}`,
+					type: itemtype,
+					system: {
+						game: "vampire",
+						type: "wod.types.discipline"
+					}
+				};
+			}
+			if (type == "disciplinepower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.disciplinepower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "vampire",
+						parentid: id,
+						type: "wod.types.disciplinepower"
+					}
+				};
+			}
+			if (type == "disciplinepath") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.disciplinepath")}`,
+					type: itemtype,
+					system: {
+						game: "vampire",
+						type: "wod.types.disciplinepath"
+					}
+				};
+			}
+			if (type == "disciplinepathpower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.disciplinepathpower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "vampire",
+						parentid: id,
+						type: "wod.types.disciplinepathpower"
+					}
+				};
+			}
+			if (type == "ritual") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.ritual")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "vampire",
+						type: "wod.types.ritual"
+					}
+				};
+			}
 		}
 		if (itemtype == "Rote") {
 			itemData = {
@@ -909,6 +968,8 @@ export class MortalActorSheet extends ActorSheet {
 
 		console.log("WoD | Deleting item id: " + itemId);
 
+		// FIRST remove all bonuses connected to the item
+		await ItemHelper.removeItemBonus(this.actor, item);
 		// If removing a main power the secondary powers needs to be emptied of parentId.
 		await ItemHelper.cleanItemList(this.actor, item);
 		// If removing an item you need to check if there are bonuses to it and remove them as well.

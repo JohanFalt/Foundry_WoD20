@@ -48,6 +48,15 @@ export default class ItemHelper {
 		}
 	}
 
+	static async removeItemBonus(actor, removedItem) {
+		for (const item of actor.items) {
+			if ((item.system.parentid == removedItem._id) && (item.type == "Bonus")) {
+				console.log("Remove bonus " + item.name);
+				await actor.deleteEmbeddedDocuments("Item", [item._id]);
+			}
+		}
+	}
+
 	static async removeConnectedItems(actor, removedItem) {
 		for (const item of actor.items) {
 			if (item.system.parentid == removedItem._id) {

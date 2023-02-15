@@ -964,7 +964,12 @@
 				"addexp": "Gained experience",
 				"spentexp": "Spent experience",
 				"treasure": "New treasure",
-				"bonus": "New bonus"
+				"bonus": "New bonus",
+				"discipline": "New discipline",
+				"disciplinepower": "New discipline power",
+				"disciplinepath": "New discipline path",
+				"disciplinepathpower": "New discipline path power",
+				"ritual": "New ritual"
 			},
 			"add": {
 				"background": "Add background",
@@ -977,7 +982,12 @@
 				"treasure": "Add treasure",
 				"bonus": "Add bonus",
 				"experience": "Add experience",
-				"spentexp": "Add spent experience"
+				"spentexp": "Add spent experience",
+				"discipline": "Add discipline",
+				"disciplinepower": "Add discipline power",
+				"disciplinepath": "Add discipline path",
+				"disciplinepathpower": "Add discipline path power",
+				"ritual": "Add ritual"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",
@@ -991,6 +1001,8 @@
 				"rite": "Edit rite",
 				"discipline": "Edit discipline",
 				"disciplinepower": "Edit discipline power",
+				"disciplinepath": "Edit discipline path",
+				"disciplinepathpower": "Edit discipline path power",
 				"ritual": "Edit ritual",
 				"fetish": "Edit fetish",
 				"talen": "Edit talen",
@@ -1018,6 +1030,8 @@
 				"rite": "Remove rite",
 				"discipline": "Remove discipline",
 				"disciplinepower": "Remove discipline power",
+				"disciplinepath": "Remove discipline path",
+				"disciplinepathpower": "Remove discipline path power",
 				"ritual": "Remove ritual",
 				"charm": "Remove charm",
 				"background": "Remove background",
