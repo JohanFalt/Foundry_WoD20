@@ -926,6 +926,8 @@
 				"headline": "Bonus",
 				"attributebonus": "Attribute bonus",
 				"attributebonushint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value by the selected amount. Can go beyond the max rating of the attribute.",
+				"attributedicebonus": "Attribute dice bonus",
+				"attributebonusdicehint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value of dices used when the attribute is used. Can go beyond the max rating of the attribute.",
 				"attributediff": "Attribute difficulty",
 				"attributediffhint": "This bonus changes the difficulty of any use of this attribute when you make a roll.",
 				"attributesucc": "Automatic attribute successes",

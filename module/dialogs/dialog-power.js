@@ -363,7 +363,12 @@ export class DialogPower extends FormApplication {
             if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= 4) {
                 data.object.hasSpeciality = true;
                 attributeSpeciality = this.actor.system.attributes[data.object.dice1].speciality;
-            }            
+            }     
+            
+            if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice1)) {
+                let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice1);
+                data.object.attributeValue += parseInt(bonus);
+            }
         }
         // is dice1 an Advantage
         else if (this.actor.system.advantages[data.object.dice1]?.roll != undefined) { 
@@ -421,7 +426,12 @@ export class DialogPower extends FormApplication {
                 if (parseInt(this.actor.system.attributes[data.object.dice2].value) >= 4) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = this.actor.system.attributes[data.object.dice2].speciality;
-                }            
+                }   
+                
+                if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice2)) {
+                    let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice2);
+                    data.object.abilityValue += parseInt(bonus);
+                }
             }
             // is dice2 a Talent
             else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {

@@ -1315,6 +1315,7 @@ export const updates = async () => {
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/508">#508</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/509">#509</a></li>';
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/516">#516</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/515">#515</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/514">#514</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/517">#517</a></li>';
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/520">#520</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/521">#521</a></li>';
+        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/512">#512</a> - How the attribute bonus was calculated when used in Celerity was wrong and added to initiative as well. Has added a new type of bonus "Attribute dice bonus" which celerity should use instead.';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
