@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 import { calculateHealth } from "../scripts/health.js";
 
 export class ChangelingActorSheet extends MortalActorSheet {
@@ -25,24 +26,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		/* this.isCharacter = true;	
-		this.isGM = game.user.isGM; */
-		
 		console.log("WoD | Changeling Sheet constructor");
-
-		// let tour = new Tour({
-		// 	"namespace": "changeling",
-		// 	"id": "basic-tour",
-		// 	"title": "Basic Tour",
-		// 	"steps": [
-		// 	  {
-		// 		"selector": "[data-tab=\"chat\"]",
-		// 		"title": "Dreaming Tab",
-		// 		"content": "Displays messages between Users."
-		// 	  }			
-		// 	]
-		//   });
-		//   tour.start();
 	}
 
 	/** @override */
@@ -53,9 +37,9 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.changeling) {
 				const version = game.data.system.version;				
 
-                ActionHelper._setChangelingAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);    
-				ActionHelper._setChangelingAttributes(actorData);
+                await CreateHelper.SetChangelingAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);    
+				await CreateHelper.SetChangelingAttributes(actorData);
 				
 				console.log(`CREATION: Adds Realms to ${this.actor.name}`);
 				
@@ -134,7 +118,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = version;
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
@@ -168,7 +152,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			}
 		}
 
-		data.actor.system.listdata.chimericalhealth = calculateHealth(data.actor, CONFIG.wod.sheettype.changeling);
+		data.actor.system.listdata.chimericalhealth = await calculateHealth(data.actor, CONFIG.wod.sheettype.changeling);
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = true;
 
@@ -192,7 +176,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		console.log("WoD | Changeling Sheet activateListeners");
 
@@ -518,7 +502,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		await ActionHelper.handleCalculations(actorData);
 		
 		console.log("WoD | Changeling Sheet updated");
-		this.actor.update(actorData);
+		await this.actor.update(actorData);
 	}
 }
 

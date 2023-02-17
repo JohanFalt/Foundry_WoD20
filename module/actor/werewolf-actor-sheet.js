@@ -1,9 +1,7 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 import TokenHelper from "../scripts/token-helpers.js";
-
-// import { Frenzy } from "../dialogs/dialog-checkfrenzy.js";
-// import { DialogCheckFrenzy } from "../dialogs/dialog-checkfrenzy.js";
 
 export class WerewolfActorSheet extends MortalActorSheet {
 	
@@ -40,9 +38,9 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setWerewolfAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setWerewolfAttributes(actorData);	
+				await CreateHelper.SetWerewolfAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
+				await CreateHelper.SetWerewolfAttributes(actorData);	
 				
 				console.log(`CREATION: Adds form bonus to ${this.actor.name}`);
 				this.actor.update(actorData);
@@ -94,7 +92,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	activateListeners(html) {
 		super.activateListeners(html);
 
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		console.log("WoD | Werewolf Sheet activateListeners");
 

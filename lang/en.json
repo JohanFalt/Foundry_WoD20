@@ -971,7 +971,11 @@
 				"disciplinepower": "New discipline power",
 				"disciplinepath": "New discipline path",
 				"disciplinepathpower": "New discipline path power",
-				"ritual": "New ritual"
+				"ritual": "New ritual",
+				"edge": "New edge",
+				"edgepower": "New edge power",
+				"art": "New art",
+				"artpower": "New art power"
 			},
 			"add": {
 				"background": "Add background",
@@ -989,7 +993,11 @@
 				"disciplinepower": "Add discipline power",
 				"disciplinepath": "Add discipline path",
 				"disciplinepathpower": "Add discipline path power",
-				"ritual": "Add ritual"
+				"ritual": "Add ritual",
+				"edge": "Add edge",
+				"edgepower": "Add edge power",
+				"art": "Add art",
+				"artpower": "Add art power"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",

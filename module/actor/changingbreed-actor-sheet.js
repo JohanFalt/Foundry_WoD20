@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js"
+import CreateHelper from "../scripts/create-helpers.js";
 
 export class ChangingBreedActorSheet extends MortalActorSheet {
 	
@@ -24,9 +25,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		/* this.isCharacter = true;	
-		this.isGM = game.user.isGM; */
-		
 		console.log("WoD | Changing Breed Sheet constructor");
 	}
 
@@ -39,12 +37,12 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setWerewolfAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
+				await CreateHelper.SetWerewolfAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
 				// since no shifter type has been selected only set as werewolf so far
-				ActionHelper._setWerewolfAttributes(actorData);					
+				await CreateHelper.SetWerewolfAttributes(actorData);					
 				
-				this.actor.update(actorData); 
+				await this.actor.update(actorData); 
 			}	 	
 		}		
 
@@ -94,7 +92,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		console.log("WoD | Changing Breed Sheet activateListeners");
 
@@ -220,24 +218,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		
 		const actorData = duplicate(this.actor);
 
-		/* if ((fields[2] === "rage") || (fields[2] === "gnosis")) {
-			if (actorData.system[fields[2]][fields[3]] == value) {
-				actorData.system[fields[2]][fields[3]] = parseInt(actorData.system[fields[2]][fields[3]]) - 1;
-			}
-			else {
-				actorData.system[fields[2]][fields[3]] = value;
-			}
-		}	 */	
-		//else 
-		/* if (fields[2] === "bloodpool") {
-			if (actorData.system.advantages.bloodpool.temporary == value) {
-				actorData.system.advantages.bloodpool.temporary = parseInt(actorData.system.advantages.bloodpool.temporary) - 1;
-			}	
-			else {
-				actorData.system.advantages.bloodpool.temporary = value;
-			}
-		}	
-		else  */
 		if (fields[0] === "renown") {
 			let renowntype = fields[1];
 

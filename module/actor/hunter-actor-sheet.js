@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 
 export class HunterActorSheet extends MortalActorSheet {
 	
@@ -36,11 +37,11 @@ export class HunterActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setHunterAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setHunterAttributes(actorData);				
+				await CreateHelper.SetHunterAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
+				await CreateHelper.SetHunterAttributes(actorData);				
 
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
@@ -67,7 +68,7 @@ export class HunterActorSheet extends MortalActorSheet {
 	activateListeners(html) {
 		super.activateListeners(html);
 
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		console.log("WoD | Hunter Sheet activateListeners");
 

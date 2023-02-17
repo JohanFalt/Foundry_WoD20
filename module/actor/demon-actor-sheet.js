@@ -1,7 +1,7 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
-import ItemHelper from "../scripts/item-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 
 export class DemonActorSheet extends MortalActorSheet {
 	
@@ -40,9 +40,9 @@ export class DemonActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setDemonAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setDemonAttributes(actorData);	
+				await CreateHelper.SetDemonAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
+				await CreateHelper.SetDemonAttributes(actorData);	
 				
 				console.log(`CREATION: Adds Apocalyptic Forms to ${this.actor.name}`);
 
@@ -143,7 +143,7 @@ export class DemonActorSheet extends MortalActorSheet {
 				};
 				await this.actor.createEmbeddedDocuments("Item", [itemData]);
 
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
@@ -196,7 +196,7 @@ export class DemonActorSheet extends MortalActorSheet {
 	activateListeners(html) {
 		super.activateListeners(html);
 
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		console.log("WoD | Demon Sheet activateListeners");
 

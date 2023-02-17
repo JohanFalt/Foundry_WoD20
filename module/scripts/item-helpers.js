@@ -21,7 +21,8 @@ export default class ItemHelper {
 	}
 
     static async sortActorItems(actor, config) {     
-		
+		console.log("WoD | Sorting Actor items");
+
 		actor.system.listdata = [];
 
 		if (actor.system.listdata.settings == undefined) {
@@ -146,7 +147,7 @@ export default class ItemHelper {
 		actor.system.listdata.bonus = [];
 
 		if (actor.system.settings.powers.haspowers) {
-			this._createSpacialPowersStructure(actor);
+			this._createSpecialPowersStructure(actor);
 		}
 
 		if (actor.system.settings.powers.hasgifts) {
@@ -449,7 +450,7 @@ export default class ItemHelper {
 		}			
 	}		
 
-	static _createSpacialPowersStructure(actor) {
+	static _createSpecialPowersStructure(actor) {
 		actor.system.listdata.powers.powerlist = _createList(actor.system.listdata.powers.powerlist);
 	}
 

@@ -1,4 +1,5 @@
 import ActionHelper from "../scripts/action-helpers.js"
+import CreateHelper from "../scripts/create-helpers.js";
 import MessageHelper from "../scripts/message-helpers.js"
 
 export class SpiritActorSheet extends ActorSheet {
@@ -29,7 +30,6 @@ export class SpiritActorSheet extends ActorSheet {
 
 		this.locked = false;
 		this.isCharacter = false;	
-		// this.isGM = game.user.isGM;	
 	}	
 	
 	/** @override */
@@ -40,7 +40,7 @@ export class SpiritActorSheet extends ActorSheet {
 	}
 	
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
@@ -48,9 +48,8 @@ export class SpiritActorSheet extends ActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setSpiritAttributes(actorData);
-
-				this.actor.update(actorData);
+				await CreateHelper.SetSpiritAttributes(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
@@ -105,7 +104,7 @@ export class SpiritActorSheet extends ActorSheet {
 		console.log("WoD | Spirit Sheet activateListeners");
 	  
 		super.activateListeners(html);
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		// Rollable stuff
 		html

@@ -1,6 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
-import BonusHelper from "../scripts/bonus-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 
 export class CreatureActorSheet extends MortalActorSheet {
 	
@@ -40,30 +40,17 @@ export class CreatureActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setCreatureAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setCreatureAttributes(actorData);
+				await CreateHelper.SetCreatureAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
+				await CreateHelper.SetCreatureAttributes(actorData);
 
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
 		const data = await super.getData();
 
 		console.log("WoD | Creature Sheet getData");
-
-		// const powerlist = [];
-
-		/* for (const i of this.actor.items) {
-			if (i.type == "Power") {
-				if (i.system.type == "wod.types.power") {
-					i.bonuses = BonusHelper.getBonuses(this.actor.items, i._id);
-					powerlist.push(i);
-				}
-			}
-		}
-
-		data.actor.powerlist = powerlist.sort((a, b) => a.name.localeCompare(b.name)); */
 
 		if (actorData.type == CONFIG.wod.sheettype.creature) {
 			console.log(CONFIG.wod.sheettype.creature);
@@ -91,10 +78,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 			.find(".vrollable")
 			.click(this._onRollCreatureDialog.bind(this));
 
-		/* html
-			.find(".switch")
-			.click(this._switchCreatureSetting.bind(this)); */
-
 		// ressource dots
 		html
 			.find(".resource-value > .resource-value-step")
@@ -105,42 +88,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterCreatureChange.bind(this));
 	}
-
-	/* _switchCreatureSetting(event) {
-		event.preventDefault();
-		const element = event.currentTarget;
-		const dataset = element.dataset;
-
-		if (dataset.type != CONFIG.wod.sheettype.creature) {
-			return;
-		}
-
-		if (this.locked) {
-			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-			return;
-		}
-
-		const actorData = duplicate(this.actor);
-		const source = dataset.source;		
-		
-		if (source == "powers") {
-			if (abilityType == "disciplines") {
-				actorData.system.settings.powers.hasdisciplines = !actorData.system.settings.powers.hasdisciplines;
-			}
-			if (abilityType == "gifts") {
-				actorData.system.settings.powers.hasgifts = !actorData.system.settings.powers.hasgifts;
-			}
-			if (abilityType == "charms") {
-				actorData.system.settings.powers.hascharms = !actorData.system.settings.powers.hascharms;
-			}
-			if (abilityType == "arts") {
-				actorData.system.settings.powers.hasarts = !actorData.system.settings.powers.hasarts;
-			}
-			actorData.system.settings.powers.haspowers = true;
-		}
-
-		this.actor.update(actorData);
-	} */
 
 	_onRollCreatureDialog(event) {		
 		event.preventDefault();
