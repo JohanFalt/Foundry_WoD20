@@ -403,6 +403,10 @@ textarea.editable {
   min-height: 900px;
 }
 
+.hunter:not(.minimized).langES {
+  min-width: 1000px;
+}
+
 .hunter:not(.noSplatFont) .headlineTabs {
   font-size: 28px;
   line-height: 28px;
@@ -423,6 +427,10 @@ textarea.editable {
 .demon:not(.minimized) {
   min-width: 900px;
   min-height: 1000px;
+}
+
+.demon:not(.minimized).langES {
+  min-width: 1000px;
 }
 
 .demon:not(.noSplatFont) .headlineTabs {

@@ -4,6 +4,13 @@
 			"world": "World updated!",
 			"sheetlocked": "Can not edit as sheet is locked!"
 		},
+		"games": {
+			"changeling": "Changeling the Dreaming",
+			"demon": "Demon the Fallen",
+			"hunter": "Hunter the Reckoning",
+			"vampire": "Vampire the Masquerade",
+			"werewolf": "Werewolf the Apocalypse"
+		},
 		"settings": {
 			"rulesettings": "Rule Settings",
 			"rulesettingshint": "All gathered settings about rules",
@@ -1027,7 +1034,9 @@
 				"resonance": "Edit resonance",
 				"othertraits": "Edit other trait",
 				"treasure": "Edit treasure",
-				"bonus": "Edit bonus"
+				"bonus": "Edit bonus",
+				"apocalypticform": "Edit apocalyptic form",
+				"armor": "Edit armor"
 			},
 			"remove": {
 				"item": "Remove item",
