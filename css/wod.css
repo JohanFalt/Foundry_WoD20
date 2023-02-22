@@ -169,7 +169,7 @@
 } 
 
 .textarea {
-  overflow-y: auto;
+  overflow-y: auto !important;
   max-height: 200px;
   max-height: 15vh;
   min-height: 50px;
