@@ -1318,6 +1318,7 @@ export const updates = async () => {
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/512">#512</a> - How the attribute bonus was calculated when used in Celerity was wrong and added to initiative as well. Has added a new type of bonus "Attribute dice bonus" which celerity should use instead.';
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/523">#523</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/524">#524</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/525">#525</a>. Found a nasty thing that <i>can</i> happen when you create a new actor, fixed by some redecorating that core of the system.</li>';
         newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/532">#523</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/533">#533</a>. Updated the spanish translation.</li>';
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
