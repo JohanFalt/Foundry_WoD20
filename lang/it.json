@@ -2,7 +2,7 @@
 	"wod": {
 		"system": {
 			"world": "Mondo aggiornato!",
-			"sheetlocked": "Scheda bloccata, non si può editare!"
+			"sheetlocked": "Scheda bloccata, non si può modificare!"
 		},
 		"settings": {
 			"rulesettings": "Impostazioni regole",
@@ -16,36 +16,36 @@
 			"advantagerolls": "Come tirare gli attributi Vantaggio",
 			"advantagerollshint": "Usare i valori permanenti (attivo) o quelli temporanei (disattivo) ad esempio nei tiri di Volontà? Richiede il riavvio di Foundry VTT.",
 			"therollofone": "Come trattare gli 1 nei tiri",
-			"therollofonehint": "Trattamento da regolamento - tutti gli 1 riducono il numero di successi di uno (attivo), oppure gli 1 non hanno normalmente effetto, a meno che non ci siano successi, causando il fallimento critico (disattivo)?",
+			"therollofonehint": "Trattamento da regolamento - tutti gli 1 riducono il numero di successi di uno (attivo), oppure gli 1 non hanno normalmente effetto, a meno che non ci siano 0 successi, causando il fallimento critico (disattivo)?",
 			"attributesettings": "Impostazioni per gli attributi",
 			"attributesettingshint": "Ci sono due opzioni tra cui scegliere. Si può usare la regola di 20° dove si ha Aspetto e Percezione e si calcola Volontà come una statistica, oppure la regola di 5° edizione, dove scambi Aspetto e Percezione con Fermezza e Autocontrollo e la Volontà viene calcolata con la loro somma. La regola di 20° è la predefinita. Dopo aver cambiato questa impostazione bisogna riavviare Foundry VTT.",
 			"observersactorpermission": "Permesso di visione totale degli utenti Osservatori",
 			"observersactorpermissionhint": "Questa impostazione limita quanto un Osservatore possa vedere di una scheda, se completa o solo la finestra Biografia.",
-			"limitedactorpermission": "Limited users has full view permission",
-			"limitedactorpermissionhint": "This settings able it to limit how much an limited user can see of a sheet, either they can see the full sheet or they can only see the Bio tab",
+			"limitedactorpermission": "Gli utenti Limitati possono vedere tutto",
+			"limitedactorpermissionhint": "Questa impostazione determina quanto un utente Limitato può vedere di una scheda, se completa (attivo) o se solo la finestra Biografia.",
 			"observersfullsheet": "Gli Osservatori vedono la scheda intera",
 			"observerspartialsheet": "Gli Osservatori vedono solo la finestra Biografia",
-			"limitedfullsheet": "Limited users can see full sheet",
-			"limitedpartialsheet": "Limited users can see Bio tab only",
+			"limitedfullsheet": "Gli utenti Limitati possono vedere la scheda completa",
+			"limitedpartialsheet": "Gli utenti Limitati possono vedere solo la finestra Biografia",
 			"changeactorimage": "Permesso di cambiare l'immagine degli Attori",
 			"changeactorimagehint": "Tutti hanno il permesso di cambiare le immagini degli Attori di cui hanno il permesso di editing",
 			"changeitemimage": "Permesso di cambiare l'immagine degli Oggetti",
 			"changeitemimagehint": "Tutti hanno il permesso di cambiare le immagini degli Oggetti di cui hanno il permesso di editing",
 			"itemadministrator": "Livello di permesso necessario per essere Amministratore di Oggetti",
 			"itemadministratorhint": "Che livello di permesso è necessario per essere un Amministratore di Oggetti, dando ad esempio l'abilità di decidere il tipo di un oggetto mentre lo si modifica",			
-			"player": "Player",
+			"player": "Giocatore",
 			"trustedplayer": "Giocatore Fidato",
 			"assistantgm": "Assistente DM",
 			"usesplatfont": "Usa i font dei libri",
 			"usesplatfonthint": "Disattiva i font usati per le schede diverse per il mondo",
 			"usesworldanvil": "Usa i link di World Anvil",
 			"usesworldanvilhint": "Aggiungi una sezione nella scheda Biografia dove si può mettere il link di una pagina di World Anvil",
-			"huntersettings": "Hunter Settings",
-			"huntersettingshint": "World settings used in Hunter the Reckoning",
-			"edgesettings": "Gaining Edge setting",
-			"edgesettingshints": "Gaining Edge setting",
-			"choicevirtue": "Spending virtue points",
-			"choiceexperience": "Spending experience points"			
+			"huntersettings": "Impostazioni Cacciatori",
+			"huntersettingshint": "Impostazioni di livello di Mondo usati in Hunter the Reckoning",
+			"edgesettings": "Impostazioni ottenimento Vantaggi",
+			"edgesettingshints": "Impostazioni per l'ottenimento dei Vantaggi",
+			"choicevirtue": "Spendere punti Virtù",
+			"choiceexperience": "Spendere punti Esperienza"			
 		},
 		"types": {
 			"mortal": "Mortale",
@@ -71,10 +71,10 @@
 			"disciplinepathpower": "Via (potere)",
 			"art": "Arte",
 			"artpower": "Arte (potere)",
-			"edge": "Edge",
-			"edgepower": "Edge Power",
+			"edge": "Vantaggio",
+			"edgepower": "Vantaggio (potere)",
 			"lore": "Lore",
-			"lorepower": "Lore Power",
+			"lorepower": "Lore (potere)",
 			"ritual": "Rituale",
 			"talen": "Talen",
 			"fetish": "Feticcio",
@@ -86,7 +86,7 @@
 			"realm": "Reame",
 			"resonance": "Risonanza",
 			"othertraits": "Altri Tratti",
-			"apacolypticform": "Apocalyptic Form"
+			"apacolypticform": "Forma Apocalittica"
 		},
 		"tab": {
 			"bio": "Bio",
@@ -102,8 +102,8 @@
 			"magic": "Magia",
 			"disciplines": "Discipline",
 			"dreaming": "Sogno",
-			"edge": "Edges",
-			"lore": "Lores",
+			"edge": "Vantaggi",
+			"lore": "Lore",
 			"shapechange": "Forme",
 			"sheet": "Impostazioni scheda",
 			"attribute": "Impostazioni attributi"
@@ -113,13 +113,13 @@
 			"technocracy": "Tecnocrazia",
 			"disparate": "Disparati",
 			"fallen": "I Caduti",
-			"mad": "The Mad",				
+			"mad": "I Predoni",				
 
 			"name": "Nome",
 			"appearance": "Aspetto",
 			"background": "Background",
 			"nature": "Natura",
-			"demeanor": "Comportamento",
+			"demeanor": "Carattere",
 			"concept": "Concetto",
 			"derangement": "Alienazione mentale",
 			"worldanvil": "World Anvil",
@@ -325,9 +325,9 @@
 				"tradition": "Tradizioni",
 				"technocracy": "Tecnocrazia",
 				"disparate": "Disparati",
-				"fallen": "I Caduti",
-				"mad": "The Mad",
-				"akashic": "Akashic Brotherhood",
+				"fallen": "Caduti",
+				"mad": "Predoni",
+				"akashic": "Fratellanza Akashica",
 				"chorus": "Coro Celestiale",
 				"ecstasy": "Culto dell'Estasi",
 				"speakers": "Narrasogni",
@@ -340,11 +340,11 @@
 				"nwo": "Nuovo Ordine Mondiale",
 				"progenitors": "Progenitori",
 				"syndicate": "Sindacato",
-				"engineers": "Ingegnieri del Vuoto",
+				"engineers": "Ingegneri del Vuoto",
 				"batin": "Ahl-i-Batin",
 				"bataa": "Bata'a",
 				"children": "Figli della Conoscenza",
-				"hollow": "Hollow Ones",
+				"hollow": "Vacui",
 				"kopa": "Kopa Loei",
 				"ngoma": "Ngoma",
 				"orphans": "Orfani",
@@ -353,7 +353,7 @@
 				"templar": "Cavalieri Templari",
 				"wulung": "Wu Lung",
 				"nephandi": "Nephandi",
-				"marauder": "Marauder"
+				"marauder": "Predoni"
 			},
 			"changeling": {
 				"court": "Corte",
@@ -388,34 +388,34 @@
 				"legacyunseelie": "Eredità Scontenta"
 			},
 			"hunter": {
-				"creed": "Creed",
-				"avenger": "Avenger",
-				"defender": "Defender",
-				"hermit": "Hermit",
-				"innocent": "Innocent",
-				"judge": "Judge",
-				"martyr": "Martyr",
-				"redeemer": "Redeemer",
-				"visionary": "Visionary",
-				"wayword": "Wayword",
-				"primaryvirtue": "Primary Virtue"
+				"creed": "Credo",
+				"avenger": "Giustiziere",
+				"defender": "Difensore",
+				"hermit": "Eremita",
+				"innocent": "Innocente",
+				"judge": "Giudice",
+				"martyr": "Martire",
+				"redeemer": "Redentore",
+				"visionary": "Visionario",
+				"wayword": "Ribelle",
+				"primaryvirtue": "Virtù Primaria"
 			},
 			"demon": {
-				"house": "House",
-				"faction": "Faction",
+				"house": "Casato",
+				"faction": "Fazione",
 				"visage": "Visage",
-				"defiler": "Defiler",
-				"devil": "Devil",
-				"devourer": "Devourer",
-				"fiend": "Fiend",
-				"malefactor": "Malefactor",
-				"scourge": "Scourge",
-				"slayer": "Slayer",
-				"faustian": "Faustian",
-				"cryptic": "Cryptic",
-				"luciferan": "Luciferan",
-				"ravener": "Ravener",
-				"reconciler": "Reconciler"
+				"defiler": "Defilatore",
+				"devil": "Diavolo",
+				"devourer": "Divoratore",
+				"fiend": "Demone",
+				"malefactor": "Malefattore",
+				"scourge": "Flagello",
+				"slayer": "Cacciatore",
+				"faustian": "Faustiano",
+				"cryptic": "Criptico",
+				"luciferan": "Luciferino",
+				"ravener": "Rapace",
+				"reconciler": "Riconciliatore"
 			}
 		},
 		"attributes": {
@@ -442,15 +442,15 @@
 			"knowledges": "Conoscenze",
 
 			"alertness": "Consapevolezza",
-			"art": "Espr. Artistica",
+			"art": "Arte",
 			"athletics": "Atletica",
 			"awareness": "Sesto Senso",
 			"brawl": "Rissa",
-			"dodge": "Dodge",
+			"dodge": "Schivata",
 			"empathy": "Empatia",
 			"expression": "Espressività",
 			"intimidation": "Intimidire",
-			"intuition": "Intuition",
+			"intuition": "Intuito",
 			"kenning": "Perifrasare",
 			"leadership": "Autorità",
 			"legerdemain": "Destrezza di Mano",
@@ -460,7 +460,7 @@
 
 			"animalken": "Affinità Animale",
 			"craft": "Manualità",
-			"demolitions": "Demolition",
+			"demolitions": "Demolizione",
 			"drive": "Guidare",
 			"etiquette": "Galateo",
 			"firearms": "Armi da Fuoco",
@@ -469,8 +469,8 @@
 			"meditation": "Meditazione",
 			"melee": "Armi da Mischia",	
 			"performance": "Espr. Artistica",
-			"research": "Ricerca",
-			"security": "Security",
+			"research": "Cercare",
+			"security": "Sicurezza",
 			"stealth": "Furtività",		
 			"survival": "Sopravvivenza",
 
@@ -486,13 +486,13 @@
 			"herbalism": "Erbalismo",
 			"investigation": "Investigare",
 			"law": "Legge",
-			"linguistics": "Linguistics",
+			"linguistics": "Linguistica",
 			"medicine": "Medicina",
 			"occult": "Occulto",
 			"politics": "Politica",
-			"religion": "Religion",
+			"religion": "Religione",
 			"rituals": "Rituali",
-			"seneschal": "Seneschal",
+			"seneschal": "Gov. Domestico",
 			"science": "Scienze",
 			"technology": "Tecnologia"
 		},		
@@ -545,9 +545,9 @@
 				"selfcontrol": "Autocontrollo",
 				"instinct": "Istinto",
 				"courage": "Coraggio",
-				"mercy": "Mercy",
-				"vision": "Vision",
-				"zeal": "Zeal"
+				"mercy": "Pietà",
+				"vision": "Visione",
+				"zeal": "Zelo"
 			},
 			"bloodpool": "Punti Sangue",	
 			"perturn": "Sangue per Turno",
@@ -557,7 +557,7 @@
 			"honor": "Onore",
 			"wisdom": "Saggezza",
 			"ferocity": "Ferocia",
-			"humor": "Humor",
+			"humor": "Humour",
 			"succor": "Succor",
 			"cunning": "Scaltrezza",
 			"obedience": "Obbedienza",
@@ -639,10 +639,10 @@
 			"glamour": "Glamour",
 			"banality": "Banalità",
 			"nightmare": "Incubo",
-			"conviction": "Conviction",
-			"faith": "Faith",
-			"torment": "Torment",
-			"apocalypticforms": "Apocalyptic Forms"
+			"conviction": "Convinzione",
+			"faith": "Fede",
+			"torment": "Tormento",
+			"apocalypticforms": "Forme Apocalittiche"
 		},
 		"combat": {
 			"conditions": {
@@ -651,12 +651,12 @@
 				"stunned": "Stordito"
 			},
 			"movement": {
-				"walk": "Walk",
-				"jog": "Jog",
-				"run": "Run",
-				"fly": "Fly",
-				"vjump": "Vertical jump (feet per suc)",
-				"hjump": "Horizant jump (feet per suc)"
+				"walk": "Camminata",
+				"jog": "C. Veloce",
+				"run": "Corsa",
+				"fly": "Volo",
+				"vjump": "Salto verticale (piedi / successo)",
+				"hjump": "Salto orizzontale (piedi / successo)"
 			},
 			"weapon": {
 				"weapon": "Arma",
@@ -765,11 +765,11 @@
 			"unsorteddisciplines": "Qui sono tutti i poteri di Discipline che non sono ancora stati divisi per Disciplina. Clicca sul titolo per spartirli.",
 			"unsortedpaths": "Qui sono tutti i poteri di Vie che non sono ancora stati divisi per Via. Clicca sul titolo per spartirli.",
 			"unsortedarts": "Qui ci sono tutti gli Incanti che devono essere assegnati a un'Arte. Clicca sul titolo per selezionarne una.",
-			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
-			"unsortedlores": "Here is all unsorted lore powers which needs to get a selected Lore. Click on the headline to sort one.",
+			"unsortededges": "Qui ci sono tutti i Vantaggi che devono essere assegnati a un Vantaggio. Clicca sul titolo per selezionarne uno.",
+			"unsortedlores": "Qui ci sono tutte le Lore che devono essere assegnate a un'Arte. Clicca sul titolo per selezionarne una.",
 			"arts": "Arti",
-			"edges": "Edges",
-			"lores": "Lores"
+			"edges": "Vantaggi",
+			"lores": "Lore"
 		},
 		"spheres": {
 			"spheres": "Sfere",
@@ -789,7 +789,7 @@
 			"vulgarspell": "Incantesimo volgare senza testimoni",
 			"vulgarspellwitness": "Incantesimo volgare con testimoni",
 			"focus": "Focus",
-			"paradigm": "Paradigma",
+			"paradigm": "Credo",
 			"practice": "Pratica",
 			"instruments": "Strumenti"
 		},
@@ -803,9 +803,9 @@
 			"time": "Tempo"
 		},
 		"gear": {
-			"money": "Money",
-			"moneycarried": "Carried",
-			"moneybank": "In bank"
+			"money": "Soldi",
+			"moneycarried": "Con sè",
+			"moneybank": "In banca"
 		},
 		"notes": {
 			"unnamedbackground": "Background senza nome",
@@ -817,11 +817,11 @@
 		"experience": {
 			"amount": "Quantità",
 			"spent": "Spesa",
-			"experience": "Punti Esperienza"
+			"experience": "Punti esperienza"
 		},
 		"labels": {
 			"rolling": "Tiro",
-			"addedbonus": "Added bonuses",
+			"addedbonus": "Bonus aggiunti",
 			"value": "Valore",
 			"penalty": "Malus",
 			"total": "Totale",
@@ -835,8 +835,8 @@
 			"selectattribute": "Seleziona Attributo",
 			"specialty": "Usa Specializzazione",			
 			"select": "Seleziona",
-			"noneselect": "Nothing selected",
-			"custom": "Secondary ability",
+			"noneselect": "Niente",
+			"custom": "Abilità Secondaria",
 			"none": "Nessuno",
 			"type": "Tipo",
 			"description": "Descrizione",
@@ -876,16 +876,16 @@
 				"cleardiscipline": "Togli connessione con Disciplina",
 				"clearpath": "Togli connessione con Via",
 				"clearart": "Togli connessione con Arte",
-				"clearedge": "Clear edge connection",
-				"clearlore": "Clear lore connection",
-				"disconnect": "Disconnect power",
-				"disconnectlabel": "Disconnecting power",
+				"clearedge": "Togli connessione con Vantaggio",
+				"clearlore": "Togli connessione con Lore",
+				"disconnect": "Disconnetti",
+				"disconnectlabel": "Disconnessione",
 				"removebonus": {
-					"art": "Remove connected bonuses to art",
-					"lore": "Remove connected bonuses to lore",
-					"edge": "Remove connected bonuses to edge",
-					"discipline": "Remove connected bonuses to discipline",
-					"path": "Remove connected bonuses to path"
+					"art": "Rimuovi bonus connessi all'Arte",
+					"lore": "Rimuovi bonus connessi alla Lore",
+					"edge": "Rimuovi bonus connessi al Vantaggio",
+					"discipline": "Rimuovi bonus connessi alla Disciplina",
+					"path": "Rimuovi bonus connessi alla Via"
 				}
 			},
 			"notes": {
@@ -909,13 +909,13 @@
 				"path": "Seleziona Sentiero",
 				"selectpath": "Sentiero Selezionato",
 				"usedadvantages": "Scegli che Vantaggi sta usando la scheda",
-				"usedpowers": "Set what type of powers the sheet are using",
+				"usedpowers": "Scegli che Poteri sta usando la scheda",
 				"essencevalue": "Seleziona il valore di Essenza",
 				"sheetfont": "Usa font speciale di scheda",
 				"secondaryabilities": "Abilità secondarie",
-				"abilitiesmaxrating": "Max rating on Abilities",
-				"hasdisciplines": "Has disciplines and rituals",
-				"hasgifts": "Has gifts and rites"
+				"abilitiesmaxrating": "Punteggio massimo Abilità",
+				"hasdisciplines": "Ha Rituali e Discipline",
+				"hasgifts": "Ha Doni e Riti"
 			},
 			"trait": {
 				"meleeweapon": "Armi da mischia",
@@ -924,25 +924,25 @@
 			},
 			"bonus": {
 				"headline": "Bonus",
-				"attributebonus": "Attribute bonus",
-				"attributebonushint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value by the selected amount. Can go beyond the max rating of the attribute.",
-				"attributediff": "Attribute difficulty",
-				"attributediffhint": "This bonus changes the difficulty of any use of this attribute when you make a roll.",
-				"attributesucc": "Automatic attribute successes",
-				"attributesucchint": "This bonus adds/subtracts a value to the number of rolled successes with this selected attribute.",
-				"abilitybonus": "Ability bonus",
-				"abilitybonushint": "This bonus adds/subtracts a value to the selected ability itself altering the total value by the selected amount. Can go beyond the max rating of the ability.",
-				"abilitydiff": "Ability difficulty",
-				"abilitydiffhint": "This bonus changes the difficulty of any use of this ability when you make a roll.",
-				"soakbonus": "Soak bonus",
-				"soakbonushint": "This bonus changes the value of the number dices rolled when making any soak rolls.",
-				"healthbuff": "Health level bonus",
-				"healthbuffhint": "This bonus adds the number of bruised health levels the character has.",
-				"initbonus": "Initiative bonus",
+				"attributebonus": "Bonus Attributi",
+				"attributebonushint": "Questo bonus aggiunge o sottrae un valore all'Attributo selezionato, alterando il suo valore della quantità selezionata. Può andare oltre il punteggio massimo dell'Attributo.",
+				"attributediff": "Difficoltà Attributo",
+				"attributediffhint": "Questo bonus cambia la difficoltà di ogni uso di questo Attributo quando viene tirato.",
+				"attributesucc": "Successi automatici dell'Attributo",
+				"attributesucchint": "Questo bonus aggiunge o sottrae un valore al numero di successi ottenuti con un tiro con questo Attributo.",
+				"abilitybonus": "Bonus Abilità",
+				"abilitybonushint": "Questo bonus aggiunge o sottrae un valore all'Abilità selezionato, alterando il suo valore della quantità selezionata. Può andare oltre il punteggio massimo dell'Abilità.",
+				"abilitydiff": "Difficoltà Abilità",
+				"abilitydiffhint": "Questo bonus cambia la difficoltà di ogni uso di questa Abilità quando viene tirato.",
+				"soakbonus": "Bonus Assorbimento",
+				"soakbonushint": "Questo bonus cambia il numero di dadi tirati per assorbire.",
+				"healthbuff": "Bonus Livelli di Salute",
+				"healthbuffhint": "Questo bonus aggiunge dei livelli di salute contundenti.",
+				"initbonus": "Bonus Iniziativa",
 				"initbonushint": "This bonus adds the number to the initiative score.",
-				"movebonus": "Movement bonus",
-				"movebonushint": "This bonus adds bonuses to the character's movement.",
-				"multiplier": "Movement multiplier"
+				"movebonus": "Bonus Movimento",
+				"movebonushint": "Bonus riguardante il movimento del personaggio.",
+				"multiplier": "Moltiplicatore di Movimento"
 			},
 			"new": {
 				"armor": "Nuova Armatura",
@@ -964,7 +964,7 @@
 				"addexp": "Esperienza guadagnata",
 				"spentexp": "Esperienza spesa",
 				"treasure": "Nuovo Tesoro",
-				"bonus": "New bonus"
+				"bonus": "Nuovo Bonus"
 			},
 			"add": {
 				"background": "Aggiungi Background",
@@ -975,9 +975,9 @@
 				"resonance": "Aggiungi Risonanza",
 				"othertraits": "Aggiungi altro Tratto",
 				"treasure": "Aggiungi Tesoro",
-				"bonus": "Add bonus",
-				"experience": "Add experience",
-				"spentexp": "Add spent experience"
+				"bonus": "Aggiungi Bonus",
+				"experience": "Aggiungi Esperienza",
+				"spentexp": "Aggiungi Esperienza spesa"
 			},
 			"edit": {
 				"naturalweapon": "Modifica Armi Naturali",
@@ -990,22 +990,22 @@
 				"gift": "Modifica Dono",
 				"rite": "Modifica Rito",
 				"discipline": "Modifica Disciplina",
-				"disciplinepower": "Modifica Potere di Disciplina",
+				"disciplinepower": "Modifica Disciplina (potere)",
 				"ritual": "Modifica Rituale",
 				"fetish": "Modifica Feticcio",
 				"talen": "Modifica Talen",
 				"rote": "Modifica Incantesimo",
-				"art": "Edit art",
-				"artpower": "Ediy art power",
-				"edge": "Edit edge",
-				"edgepower": "Edit edge power",
-				"lore": "Edit lore",
-				"lorepower": "Edit lore power",
+				"art": "Modifica Arte",
+				"artpower": "Modifica Arte (potere)",
+				"edge": "Modifica Vantaggio",
+				"edgepower": "Modifica Vantaggio (potere)",
+				"lore": "Modifica Lore",
+				"lorepower": "Modifica Lore (potere)",
 				"ability": "Modifica Abilità Secondaria",
 				"resonance": "Modifica Risonanza",
-				"othertraits": "Modifical altro Tratto",
+				"othertraits": "Modifica Altro Tratto",
 				"treasure": "Modifica Tesoro",
-				"bonus": "Edit bonus"
+				"bonus": "Modifica Bonus"
 			},
 			"remove": {
 				"item": "Rimuovi Oggetto",
@@ -1027,27 +1027,27 @@
 				"fetish": "Rimuovi Feticcio",
 				"talen": "Rimuovi Talen",
 				"rote": "Rimuovi Incantesimo",
-				"art": "Remnove art",
-				"artpower": "Remove art power",
-				"edge": "Remove edge",
-				"edgepower": "Remove edge power",
-				"lore": "Remove lore",
-				"lorepower": "Remove lore power",
+				"art": "Rimuovi Arte",
+				"artpower": "Rimuovi Arte (potere)",
+				"edge": "Rimuovi Vantaggio",
+				"edgepower": "Rimuovi Vantaggio (potere)",
+				"lore": "Rimuovi Lore",
+				"lorepower": "Rimuovi Lore (potere)",
 				"ability": "Rimuovi Abilità Secondaria",
 				"resonance": "Rimuovi Risonanza",
 				"othertraits": "Rimuovi altro Tratto",
 				"treasure": "Rimuovi Tesoro",
-				"bonus": "Remove bonus"
+				"bonus": "Rimuovi Bonus"
 			},
 			"show": {
-				"background": "Show backgrounds",
-				"merit": "Show merits",
-				"flaw": "Show flaws",
-				"bloodbound": "Show bloodbounds",
-				"traits": "Show other traits",
-				"experience": "Show added experience",
-				"spentexp": "Show spent experience",
-				"bonus": "Show added bonus"
+				"background": "Mostra Background",
+				"merit": "Mostra Pregi",
+				"flaw": "Mostra Difetti",
+				"bloodbound": "Mostra Legami di Sangue",
+				"traits": "Mostra altri Tratti",
+				"experience": "Mostra Esperienza aggiunta",
+				"spentexp": "Mostra Esperienza spesa",
+				"bonus": "Mostra Bonus aggiunti"
 			},
 			"yes": "sì",
 			"no": "no",
@@ -1088,8 +1088,8 @@
 			"initiativealready": "ha già l'iniziativa",
 			"rollinginitiative": "Tiro di iniziativa",
 			"rollingsoak": "Tiro per assorbire",
-			"rollingremainactive": "Roll to remain active",
-			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active."
+			"rollingremainactive": "Tiro per rimanere attivo",
+			"rollingremainactivetext": "Ogni successo guarisce un livello di salute di ogni tipo. Dopo il personaggio entra in uan frenesia berserk. Un Licantropo guadagna una Cicatrice di battaglia ogni volta che riesce a rimanere attivo."
 		},
 		"dialog": {	
 			"save": "Salva",
@@ -1097,10 +1097,10 @@
 			"close": "Chiudi",
 			"missingdifficulty": "Seleziona la difficoltà",
 			"usingspeciality": "Usa specializzazione",
-			"successesrolled": "Successes rolled already",
-			"numbersuccesses": "Prior number of successes",
-			"neededsuccesses": "Number of successes required",
-			"usewoundpenalty": "Use wound penalty",
+			"successesrolled": "Successi già ottenuti",
+			"numbersuccesses": "Successi precedenti",
+			"neededsuccesses": "Successi richiesti",
+			"usewoundpenalty": "Usa malus ferita",
 			"aretecasting": {
 				"castspell": "Lancia incantesimo",
 				"castingspell": "Lancio di incantesimo",	
@@ -1159,9 +1159,9 @@
 				"nomoonphase": "Nessuna fase lunare selezionata"
 			},
 			"shapechange": {
-				"headline": "tiro per trasformazione",
-				"shiftbonus": "Dadi bonis alla trasformazione",
-				"noshape": "Nessuna forma seleionata"
+				"headline": "Tiro per trasformazione",
+				"shiftbonus": "Dadi bonus alla trasformazione",
+				"noshape": "Nessuna forma selezionata"
 			},
 			"weapon": {
 				"attack": "Attacco",
