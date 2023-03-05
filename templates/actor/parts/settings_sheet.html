@@ -1,0 +1,68 @@
+<div class="sheet-area">
+    <div class="secondHeadlineTabs splatFont">LANG: Graphics</div>
+
+    <div class="clearareaBox">
+        <div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.sheetfont"}}</div>
+        <div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText pointer splatFont" data-source="usesplatfont" data-type="{{config.sheettype.mortal}}">
+            {{#if data.system.settings.usesplatfont}}
+                {{localize "wod.labels.settings.yes"}}
+            {{else}}
+                {{localize "wod.labels.settings.no"}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+<!-- 
+{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf)}}
+
+    <div class="sheet-area">
+        <div class="secondHeadlineTabs splatFont">LANG: Era</div>
+
+        {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.vampire)}}
+            <button>LANG: Modern (20th)</button>
+            <button>LANG: Victorian Age (20th)</button>
+            <button class="sheet_darkages">LANG: Dark Ages (20th)</button>
+        {{/if}}
+        {{#if (eqAny actor.type config.sheettype.mage)}}
+            <button>LANG: Modern (20th)</button>
+            <button>LANG: Victorian Age (20th)</button>
+        {{/if}}
+        {{#if (eqAny actor.type config.sheettype.werewolf)}}
+            <button>LANG: Modern (20th)</button>
+            <button>LANG: Dark Ages (20th)</button>
+        {{/if}}
+
+        <div class="clearareaBox information-area">
+            LANG: To change this setting means that the abilities of the sheet is re-configurated to fit the chosen area.<br />
+            LANG: This can cause existing abiltities to be hidden.
+        </div>
+    </div>
+
+{{/if}}
+
+{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
+
+    <div class="sheet-area">
+        <div class="secondHeadlineTabs splatFont">LANG: Set sheet type</div>
+
+        <button>LANG: Autumn people</button>
+
+        {{#if (eq actor.type config.sheettype.creature)}}
+            <button>LANG: Chimera</button>
+        {{/if}}
+
+        <button>LANG: Dreamer</button>
+        <button>LANG: Ghoul</button>
+        <button>LANG: Kinfolk</button>        
+        <button>LANG: True Faith</button>
+
+        <div class="clearareaBox information-area">
+            LANG: Setting this only sets the sheet to activate the advantages the choosen type uses.<br />
+            LANG: Possible system settings are NOT over-ridden.
+        </div>
+    </div>
+
+{{/if}}
+
+
+ -->

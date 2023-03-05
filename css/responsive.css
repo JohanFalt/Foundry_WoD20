@@ -315,8 +315,6 @@ textarea.editable {
   border-bottom: 1px solid var(--main-werewolf-color);
 }
 
-
-
 /* WEREWOLF ENDS */
 
 /* CHANGELING START */
@@ -405,6 +403,10 @@ textarea.editable {
   min-height: 900px;
 }
 
+.hunter:not(.minimized).langES {
+  min-width: 1000px;
+}
+
 .hunter:not(.noSplatFont) .headlineTabs {
   font-size: 28px;
   line-height: 28px;
@@ -425,6 +427,10 @@ textarea.editable {
 .demon:not(.minimized) {
   min-width: 900px;
   min-height: 1000px;
+}
+
+.demon:not(.minimized).langES {
+  min-width: 1000px;
 }
 
 .demon:not(.noSplatFont) .headlineTabs {
@@ -455,6 +461,10 @@ textarea.editable {
 .creature:not(.minimized) {
   min-width: 900px;
   min-height: 850px;
+}
+
+.creature:not(.noSplatFont) .headlineList {
+  font-size: 12px;
 }
 
 .creature .headlineRow {

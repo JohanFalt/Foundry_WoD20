@@ -4,6 +4,13 @@
 			"world": "World updated!",
 			"sheetlocked": "Can not edit as sheet is locked!"
 		},
+		"games": {
+			"changeling": "Changeling the Dreaming",
+			"demon": "Demon the Fallen",
+			"hunter": "Hunter the Reckoning",
+			"vampire": "Vampire the Masquerade",
+			"werewolf": "Werewolf the Apocalypse"
+		},
 		"settings": {
 			"rulesettings": "Rule Settings",
 			"rulesettingshint": "All gathered settings about rules",
@@ -926,6 +933,8 @@
 				"headline": "Bonus",
 				"attributebonus": "Attribute bonus",
 				"attributebonushint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value by the selected amount. Can go beyond the max rating of the attribute.",
+				"attributedicebonus": "Attribute dice bonus",
+				"attributebonusdicehint": "This bonus adds/subtracts a value to the selected attribute itself altering the total value of dices used when the attribute is used. Can go beyond the max rating of the attribute.",
 				"attributediff": "Attribute difficulty",
 				"attributediffhint": "This bonus changes the difficulty of any use of this attribute when you make a roll.",
 				"attributesucc": "Automatic attribute successes",
@@ -964,7 +973,16 @@
 				"addexp": "Gained experience",
 				"spentexp": "Spent experience",
 				"treasure": "New treasure",
-				"bonus": "New bonus"
+				"bonus": "New bonus",
+				"discipline": "New discipline",
+				"disciplinepower": "New discipline power",
+				"disciplinepath": "New discipline path",
+				"disciplinepathpower": "New discipline path power",
+				"ritual": "New ritual",
+				"edge": "New edge",
+				"edgepower": "New edge power",
+				"art": "New art",
+				"artpower": "New art power"
 			},
 			"add": {
 				"background": "Add background",
@@ -977,7 +995,16 @@
 				"treasure": "Add treasure",
 				"bonus": "Add bonus",
 				"experience": "Add experience",
-				"spentexp": "Add spent experience"
+				"spentexp": "Add spent experience",
+				"discipline": "Add discipline",
+				"disciplinepower": "Add discipline power",
+				"disciplinepath": "Add discipline path",
+				"disciplinepathpower": "Add discipline path power",
+				"ritual": "Add ritual",
+				"edge": "Add edge",
+				"edgepower": "Add edge power",
+				"art": "Add art",
+				"artpower": "Add art power"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",
@@ -991,6 +1018,8 @@
 				"rite": "Edit rite",
 				"discipline": "Edit discipline",
 				"disciplinepower": "Edit discipline power",
+				"disciplinepath": "Edit discipline path",
+				"disciplinepathpower": "Edit discipline path power",
 				"ritual": "Edit ritual",
 				"fetish": "Edit fetish",
 				"talen": "Edit talen",
@@ -1005,7 +1034,9 @@
 				"resonance": "Edit resonance",
 				"othertraits": "Edit other trait",
 				"treasure": "Edit treasure",
-				"bonus": "Edit bonus"
+				"bonus": "Edit bonus",
+				"apocalypticform": "Edit apocalyptic form",
+				"armor": "Edit armor"
 			},
 			"remove": {
 				"item": "Remove item",
@@ -1018,6 +1049,8 @@
 				"rite": "Remove rite",
 				"discipline": "Remove discipline",
 				"disciplinepower": "Remove discipline power",
+				"disciplinepath": "Remove discipline path",
+				"disciplinepathpower": "Remove discipline path power",
 				"ritual": "Remove ritual",
 				"charm": "Remove charm",
 				"background": "Remove background",

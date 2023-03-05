@@ -49,6 +49,11 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
 		"systems/worldofdarkness/templates/actor/parts/notes.html",
 		"systems/worldofdarkness/templates/actor/parts/settings.html",
+		"systems/worldofdarkness/templates/actor/parts/settings_attribute.html",
+		"systems/worldofdarkness/templates/actor/parts/settings_abilities.html",
+		"systems/worldofdarkness/templates/actor/parts/settings_combat.html",
+		"systems/worldofdarkness/templates/actor/parts/settings_power.html",
+		"systems/worldofdarkness/templates/actor/parts/settings_sheet.html",
 
 		"systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html",		
 
@@ -670,6 +675,10 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("isempty", function (text) {
+		if (text == undefined) {
+			return;
+		}
+
 		if (text.length == 0) {
 			return "&nbsp;";
 		}

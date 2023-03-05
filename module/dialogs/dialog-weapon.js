@@ -194,7 +194,7 @@ export class DialogWeapon extends FormApplication {
             if (parseInt(data.actorData.attributes[data.object.dice1].value) >= 4) {
                 data.object.hasSpeciality = true;
                 attributeSpeciality = data.actorData.attributes[data.object.dice1].speciality;
-            }
+            }            
         }
         // is dice1 an Advantage
         else if (data.actorData[data.object.dice1]?.roll != undefined) { 
@@ -276,6 +276,11 @@ export class DialogWeapon extends FormApplication {
         }
 
         data.object.specialityText = specialityText;
+
+        if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice1)) {
+            let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice1);
+            data.object.attributeValue += parseInt(bonus);
+        }
 
         if (await BonusHelper.CheckAbilityBuff(this.actor, data.object.dice2)) {
             let bonus = await BonusHelper.GetAbilityBuff(this.actor, data.object.dice2);

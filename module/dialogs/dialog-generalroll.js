@@ -133,12 +133,12 @@ export class DialogGeneralRoll extends FormApplication {
                                 }
     
                                 attributeSpeciality += data.actorData.attributes.resolve.speciality;
-                            }                        
-                        }  
-    
+                            }  
+                        } 
+                        
                         data.object.attributeName = game.i18n.localize(data.actorData.advantages[attributeKey].label);
-                        data.object.attributeValue = parseInt(data.actorData.advantages[attributeKey].roll);                    
-                        data.object.name = data.object.attributeName; 
+                        data.object.attributeValue = parseInt(data.actorData.advantages[attributeKey].roll);
+                        data.object.name = data.object.attributeName;
                     }         
                 }            
                 else {
@@ -147,6 +147,11 @@ export class DialogGeneralRoll extends FormApplication {
                     if (parseInt(data.actorData.attributes[attributeKey].value) >= 4) {
                         data.object.hasSpeciality = true;
                         attributeSpeciality = data.actorData.attributes[attributeKey].speciality;
+                    }
+
+                    if (await BonusHelper.CheckAttributeDiceBuff(this.actor, attributeKey)) {
+                        let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, attributeKey);
+                        data.object.attributeValue += parseInt(bonus);
                     }
                 }
             }

@@ -1,7 +1,8 @@
 import ActionHelper from "../scripts/action-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 import ItemHelper from "../scripts/item-helpers.js";
 import MessageHelper from "../scripts/message-helpers.js";
-import CombatHelper from "../scripts/combat-helpers.js";
+
 import { calculateHealth } from "../scripts/health.js";
 import * as selectbox from "../scripts/spec-select.js";
 
@@ -52,10 +53,10 @@ export class MortalActorSheet extends ActorSheet {
 				actorData.system.settings.iscreated = true;		
 				actorData.system.settings.version = game.data.system.version;
 				
-				ActionHelper._setMortalAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
+				await CreateHelper.SetMortalAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
 
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 		else {
@@ -96,7 +97,7 @@ export class MortalActorSheet extends ActorSheet {
 			data.actor.system.legacyunseelie = await TextEditor.enrichHTML(data.actor.system.legacyunseelie, {async: true});
 		}
 
-		data.actor.system.listdata.health = calculateHealth(data.actor, data.config.sheettype.mortal);
+		data.actor.system.listdata.health = await calculateHealth(data.actor, data.config.sheettype.mortal);
 
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = false;
@@ -118,7 +119,7 @@ export class MortalActorSheet extends ActorSheet {
 		//Custom select text boxes
 		selectbox.registerCustomSelectBoxes(html, this);
 
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		// Everything below here is only needed if the sheet is editable
 		if (!this.options.editable) return;
@@ -175,10 +176,9 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".health > .resource-counter > .resource-value-step")
 			.on('contextmenu', this._onSquareCounterClear.bind(this));
 
-		// Select ability rating setting
-		/* html
-			.find(".selectAbilityMaxSetting")
-			.change(this._onSelectMaxAbility.bind(this)); */
+		html
+			.find(".sheet_darkages")
+			.click(this._setDarkAges.bind(this));	
 
 		// Rollable stuff
 		html
@@ -218,6 +218,12 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".send-chat")
 			.click(this._onSendChat.bind(this));		
+	}
+
+	async _setDarkAges(event) {
+		const actorData = duplicate(this.actor);
+		await CreateHelper.SetVampireDarkagesAbilities(actorData, this.actor);
+		this.actor.update(actorData);
 	}
 
 	async _onDropItemCreate(itemData) {
@@ -700,6 +706,7 @@ export class MortalActorSheet extends ActorSheet {
 					type: itemtype,
 					system: {
 						level: level,
+						game: "werewolf",
 						type: "wod.types.gift"
 					}
 				};
@@ -709,7 +716,141 @@ export class MortalActorSheet extends ActorSheet {
 					name: `${game.i18n.localize("wod.labels.new.rite")}`,
 					type: itemtype,
 					system: {
+						game: "werewolf",
 						type: "wod.types.rite"
+					}
+				};
+			}
+			if (type == "discipline") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.discipline")}`,
+					type: itemtype,
+					system: {
+						game: "vampire",
+						type: "wod.types.discipline"
+					}
+				};
+			}
+			if (type == "disciplinepower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.disciplinepower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "vampire",
+						parentid: id,
+						type: "wod.types.disciplinepower"
+					}
+				};
+			}
+			if (type == "disciplinepath") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.disciplinepath")}`,
+					type: itemtype,
+					system: {
+						game: "vampire",
+						type: "wod.types.disciplinepath"
+					}
+				};
+			}
+			if (type == "disciplinepathpower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.disciplinepathpower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "vampire",
+						parentid: id,
+						type: "wod.types.disciplinepathpower"
+					}
+				};
+			}
+			if (type == "ritual") {
+				const source = header.dataset.game;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.ritual")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: source,
+						type: "wod.types.ritual"
+					}
+				};
+			}
+			if (type == "edge") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.edge")}`,
+					type: itemtype,
+					system: {
+						game: "hunter",
+						type: "wod.types.edge"
+					}
+				};
+			}
+			if (type == "edgepower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.edgepower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "hunter",
+						parentid: id,
+						type: "wod.types.edgepower"
+					}
+				};
+			}
+			if (type == "art") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.art")}`,
+					type: itemtype,
+					system: {
+						game: "changeling",
+						type: "wod.types.art"
+					}
+				};
+			}
+			if (type == "artpower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.artpower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "changeling",
+						parentid: id,
+						type: "wod.types.artpower"
+					}
+				};
+			}
+			if (type == "lore") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.lore")}`,
+					type: itemtype,
+					system: {
+						game: "demon",
+						type: "wod.types.lore"
+					}
+				};
+			}
+			if (type == "lorepower") {
+				const id = header.dataset.parentid;
+
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.lorepower")}`,
+					type: itemtype,
+					system: {
+						level: 1,
+						game: "demon",
+						parentid: id,
+						type: "wod.types.lorepower"
 					}
 				};
 			}
@@ -907,6 +1048,8 @@ export class MortalActorSheet extends ActorSheet {
 
 		console.log("WoD | Deleting item id: " + itemId);
 
+		// FIRST remove all bonuses connected to the item
+		await ItemHelper.removeItemBonus(this.actor, item);
 		// If removing a main power the secondary powers needs to be emptied of parentId.
 		await ItemHelper.cleanItemList(this.actor, item);
 		// If removing an item you need to check if there are bonuses to it and remove them as well.

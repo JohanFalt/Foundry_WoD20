@@ -1,5 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
+import CreateHelper from "../scripts/create-helpers.js";
 
 export class VampireActorSheet extends MortalActorSheet {
 	
@@ -36,16 +37,16 @@ export class VampireActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setVampireAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setVampireAttributes(actorData);				
+				await CreateHelper.SetVampireAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
+				await CreateHelper.SetVampireAttributes(actorData);				
 				
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
 		if (!this.actor.limited) {
-			const disciplineMax = calculteMaxDiscipline(parseInt(this.actor.system.generation));
+			const disciplineMax = await calculteMaxDiscipline(parseInt(this.actor.system.generation));
 			await keepAbilitiesDisciplinesCorrect(disciplineMax, this.actor);		
 		}
 
@@ -71,7 +72,7 @@ export class VampireActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		console.log("WoD | Vampire Sheet activateListeners");
 
@@ -107,22 +108,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		// Temp generation
 		html
 			.find('.pointer.selectGeneration')
-			.click(this._onSelectGeneration.bind(this));
-
-		/* Hooks.on("preCreateItem", async function (item, options, id) {
-			if ((item.type == "Power") && (item.system.type == "wod.types.discipline")) {
-				const generation = parseInt(item.actor.system.generation) -  parseInt(item.actor.system.generationmod);
-				const maxRating = calculteMaxDiscipline(generation);
-				//await keepDisciplinesCorrect(maxRating, this.actor);
-
-				if (item.system.max < maxRating) {
-					item.updateSource({
-						"system.max": maxRating
-					});
-				}
-			}
-		}); */
-		
+			.click(this._onSelectGeneration.bind(this));		
 	}	
 
 	_onRollVampireDialog(event) {		
@@ -422,7 +408,7 @@ function calculteMaxTrait(selectedGeneration) {
 	return traitMax;
 }
 
-function calculteMaxDiscipline(selectedGeneration) {
+async function calculteMaxDiscipline(selectedGeneration) {
 	let disciplineMax = 5;
 
 	if (selectedGeneration == 15) {

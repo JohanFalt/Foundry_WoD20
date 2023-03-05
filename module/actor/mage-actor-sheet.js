@@ -1,7 +1,6 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../scripts/action-helpers.js";
-/* import { Rote } from "../dialogs/dialog-aretecasting.js";
-import { DialogAreteCasting } from "../dialogs/dialog-aretecasting.js"; */
+import CreateHelper from "../scripts/create-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 
 export class MageActorSheet extends MortalActorSheet {
@@ -42,11 +41,11 @@ export class MageActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 				
-				ActionHelper._setMageAbilities(actorData);
-				ActionHelper._setMortalAttributes(actorData);
-				ActionHelper._setMageAttributes(actorData);
+				await CreateHelper.SetMageAbilities(actorData);
+				await CreateHelper.SetMortalAttributes(actorData);
+				await CreateHelper.SetMageAttributes(actorData);
 				
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
@@ -90,7 +89,7 @@ export class MageActorSheet extends MortalActorSheet {
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);		
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		// Rollable stuff
 		html

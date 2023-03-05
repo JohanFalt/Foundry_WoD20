@@ -169,7 +169,7 @@
 } 
 
 .textarea {
-  overflow-y: auto;
+  overflow-y: auto !important;
   max-height: 200px;
   max-height: 15vh;
   min-height: 50px;
@@ -1175,7 +1175,7 @@ div.speciality-magic-empty-icon {
 }
 
 .spirit-row .gift-iconbox {
-  margin-left: 173px;
+  margin-left: 270px;
 }
 
 .top-headline {

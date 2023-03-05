@@ -47,7 +47,7 @@ export class Rote {
         this.quintessence = 0;      
         
         this.spelltype = "coincidental";
-        this.hasWitnesses = false;
+        this.witnesses = false;
 
         this.areteModifier = 0;
 
@@ -230,16 +230,18 @@ export class DialogAreteCasting extends FormApplication {
         let totalDiff = 0;
 
         for (const value in formData) {
-            if ((value.startsWith('object.check_')) && (formData[value])) {
+            //if ((value.startsWith('object.check_')) && (formData[value])) {
+            if (value.startsWith('object.check_')) {
                 let elementName = '[name="'+value+'"]';
-                let objectname = value.replace("object.", "");
-                totalDiff += parseInt(document.querySelector(elementName+':checked').value);
+                let objectname = value.replace("object.", "");                
 
                 if (formData[value] == null) {
                     this.object[objectname] = false;
                 }
                 else {
+                    totalDiff += parseInt(document.querySelector(elementName+':checked').value);
                     this.object[objectname] = true;
+                    //this.object[objectname] = !this.object[objectname];
                 }
             }
 
@@ -267,12 +269,12 @@ export class DialogAreteCasting extends FormApplication {
         this.object.witnesses = formData["object.witnesses"];
         this.object.isExtendedCasting = formData["object.isExtendedCasting"];
 
-        this.object.useSpeciality = formData["specialty"];
+        this.object.useSpeciality = formData["object.useSpeciality"];
         
         this.object.areteModifier = parseInt(formData["object.areteModifier"]);
 
         this.object.canCast = this._calculateDifficulty(false);   
-        this.render(false);
+        this.render();
     }
 
     /* sets what level the clicked sphere is to be using */
