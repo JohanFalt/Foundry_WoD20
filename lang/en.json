@@ -52,7 +52,7 @@
 			"werewolf": "Werewolf",
 			"mage": "Mage",
 			"background": "Background",
-			"bloodbound": "Blood Bound / Vinculum",
+			"bloodbound": "Blood Bond / Vinculum",
 			"merit": "Merit",
 			"flaw": "Flaw",
 			"expspent": "Spent Experience",
@@ -892,7 +892,7 @@
 				"backgrounds": "Backgrounds",
 				"merits": "Merits",
 				"flaws": "Flaws",
-				"bloodbound": "Blood bounds / Vinculums",
+				"bloodbound": "Blood bonds / Vinculums",
 				"othertraits": "Other traits",
 				"expearned": "Earned experience",
 				"expspend": "Spent experience"
@@ -954,7 +954,7 @@
 				"gift": "New gift",
 				"rite": "New rite",
 				"rote": "New rote",
-				"bloodbound": "New blood bound / Vinculum",
+				"bloodbound": "New blood bond / Vinculum",
 				"background": "New background",
 				"merit": "New merit",
 				"flaw": "New flaw",
@@ -970,7 +970,7 @@
 				"background": "Add background",
 				"merit": "Add merit",
 				"flaw": "Add flaw",
-				"bloodbound": "Add blood bound / Vinculum",
+				"bloodbound": "Add blood bond / Vinculum",
 				"ability": "Add secondary ability",
 				"resonance": "Add resonance",
 				"othertraits": "Add other trait",
@@ -1055,7 +1055,7 @@
 			"send": "Send to chat"
 		},
 		"info": {
-			"spendexp": "If you have spend the experience or not",
+			"spendexp": "If you have spent the experience or not",
 			"rollinititative": "Roll for initiative",
 			"rollsoak": "Roll for soak",
 			"rolldice": "Roll a number of dices",
@@ -1185,7 +1185,7 @@
 				"missingdamage": "You need to select a damage type"
 			},
 			"power": {
-				"availrealms": "Availible Realms",
+				"availrealms": "Available Realms",
 				"unleashing": "Unleashing",
 				"nightmaredice": "Nightmare dice",
 				"missingrealm": "You need to select a Realm"
