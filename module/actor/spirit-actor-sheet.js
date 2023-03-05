@@ -1,4 +1,5 @@
 import ActionHelper from "../scripts/action-helpers.js"
+import CreateHelper from "../scripts/create-helpers.js";
 import MessageHelper from "../scripts/message-helpers.js"
 
 export class SpiritActorSheet extends ActorSheet {
@@ -29,7 +30,6 @@ export class SpiritActorSheet extends ActorSheet {
 
 		this.locked = false;
 		this.isCharacter = false;	
-		// this.isGM = game.user.isGM;	
 	}	
 	
 	/** @override */
@@ -40,7 +40,7 @@ export class SpiritActorSheet extends ActorSheet {
 	}
 	
 	/** @override */
-	getData() {
+	async getData() {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
@@ -48,9 +48,8 @@ export class SpiritActorSheet extends ActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				ActionHelper._setSpiritAttributes(actorData);
-
-				this.actor.update(actorData);
+				await CreateHelper.SetSpiritAttributes(actorData);
+				await this.actor.update(actorData);
 			}	 	
 		}
 
@@ -105,7 +104,7 @@ export class SpiritActorSheet extends ActorSheet {
 		console.log("WoD | Spirit Sheet activateListeners");
 	  
 		super.activateListeners(html);
-		ActionHelper._setupDotCounters(html);
+		ActionHelper.SetupDotCounters(html);
 
 		// Rollable stuff
 		html
@@ -127,7 +126,10 @@ export class SpiritActorSheet extends ActorSheet {
 			.click(this._onDotCounterChange.bind(this));
 
 		// items
-		// Edit Inventory Item
+		html
+			.find('.item-create')
+			.click(this._onItemCreate.bind(this));
+
 		html
 			.find(".item-edit")
 			.click(this._onItemEdit.bind(this));
@@ -140,6 +142,36 @@ export class SpiritActorSheet extends ActorSheet {
 		html
 			.find(".send-chat")
 			.click(this._onSendChat.bind(this));
+	}
+
+	/**
+   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
+   * @param {Event} event   The originating click event
+   * @private
+   */
+	async _onItemCreate(event) {
+		event.preventDefault();
+
+		const header = event.currentTarget;
+		const type = header.dataset.type;
+		const itemtype = header.dataset.itemtype;
+		let itemData;
+
+		if (itemtype == "Power") {
+			if (type == "gift") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.gift")}`,
+					type: itemtype,
+					system: {
+						game: "werewolf",
+						level: 1,
+						type: "wod.types.gift"
+					}
+				};
+			}
+		}
+
+		return await this.actor.createEmbeddedDocuments("Item", [itemData]);
 	}
 
 	async _onItemEdit(event) {

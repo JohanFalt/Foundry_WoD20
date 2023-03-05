@@ -146,7 +146,6 @@ export class WoDItemSheet extends ItemSheet {
 		itemData.system.value = parseInt(bonus);
 		await this.item.update(itemData);
 		this.render(false);
-        //this.render();
     }
 
 	async _setAttribute(event) {

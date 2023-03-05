@@ -31,6 +31,16 @@ export default class BonusHelper {
         return false;
     }
 
+    static async CheckAttributeDiceBuff(actor, attribute) {
+        for (const i of actor.items) {
+			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_dice_buff") && (i.system.settingtype == attribute)) {
+				return true;
+			}
+		}
+
+        return false;
+    }
+
     static async CheckAttributeAutoBuff(actor, attribute) {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_auto_buff") && (i.system.settingtype == attribute)) {
@@ -118,6 +128,18 @@ export default class BonusHelper {
 
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_buff") && (i.system.settingtype == attribute)) {
+				bonus += parseInt(i.system.value);
+			}
+		}
+
+        return bonus; 
+    }
+
+    static async GetAttributeDiceBuff(actor, attribute) {
+        let bonus = 0;
+
+        for (const i of actor.items) {
+			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_dice_buff") && (i.system.settingtype == attribute)) {
 				bonus += parseInt(i.system.value);
 			}
 		}

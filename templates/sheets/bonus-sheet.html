@@ -35,6 +35,7 @@
 						{{#select item.system.type}}
 							<option value="">- {{localize "wod.labels.select"}} -</option>
 							<option value="attribute_buff">{{localize "wod.labels.bonus.attributebonus"}}</option>
+							<option value="attribute_dice_buff">{{localize "wod.labels.bonus.attributedicebonus"}}</option>
 							<option value="attribute_diff">{{localize "wod.labels.bonus.attributediff"}}</option>
 							<option value="attribute_auto_buff">{{localize "wod.labels.bonus.attributesucc"}}</option>
 							<option value="ability_buff">{{localize "wod.labels.bonus.abilitybonus"}}</option>
@@ -52,6 +53,9 @@
 				<div class="information-area information-box">
 					{{#if (eq item.system.type "attribute_buff")}}
 						{{localize "wod.labels.bonus.attributebonushint"}}
+					{{/if}}
+					{{#if (eq item.system.type "attribute_dice_buff")}}
+						{{localize "wod.labels.bonus.attributebonusdicehint"}}
 					{{/if}}
 					{{#if (eq item.system.type "attribute_diff")}}
 						{{localize "wod.labels.bonus.attributediffhint"}}
@@ -81,7 +85,7 @@
 			</div>
 
 			<div class="dialog-area">
-				{{#if (eqAny item.system.type "attribute_buff" "attribute_diff" "attribute_auto_buff")}}
+				{{#if (eqAny item.system.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "attribute_auto_buff")}}
 					<div class="centerText">
 						{{#if (eq (checkSystemsetting "attributeSettings") "5th")}}
 							{{#each config.attributeslist as |attribute key|}}
@@ -152,7 +156,7 @@
 
 			{{/if}}
 
-			{{#if (eqAny item.system.type "attribute_buff" "attribute_diff" "ability_buff" "ability_diff")}}
+			{{#if (eqAny item.system.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "ability_buff" "ability_diff")}}
             
 				<div class="centerText dialog-area" data-area="bonusvalue">
 					{{#numFromLoop -5 5}}

@@ -11,93 +11,151 @@
 
     <div class="clearareaBox">
 
-        {{#each actor.system.listdata.powers.gifts.giftlist as |item id|}}
-            <div class="power-area">
-                {{#if (eq actor.type config.sheettype.spirit)}}
-                    <div class="clearareaBox {{#if item.system.isrollable}}spirit-rollablerow{{else}}spirit-row{{/if}}">
-                {{else}}
-                    <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
-                {{/if}}
-                
-                <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
-                    <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                        data-type="{{../actor.type}}"
-                        data-object="Gift"
-                        data-rollitem="true"
-                        data-itemid="{{item._id}}">{{item.name}}</div>
-                    {{#if item.system.isrollable}}
-                        <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                        <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2)}}{{else}}&nbsp;{{/if}}</div>
-                        <div class="pullLeft power-valueBox headlineNormal centerText">
-                            {{#if (eq item.system.difficulty "-1")}}
-                                {{localize "wod.labels.varies"}}
-                            {{else}}
-                                {{item.system.difficulty}}
-                            {{/if}}
-                        </div>
-                    {{else}}
-                        <div class="pullLeft">&nbsp;</div>
-                    {{/if}}
+        {{#if (eq actor.type config.sheettype.spirit)}}
 
-                    <div class="pullLeft gift-iconbox">
-                        {{#if (ne actor.type config.sheettype.spirit)}}
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
-                                </div>
-                            {{/if}}
+            {{#each actor.system.listdata.powers.gifts.giftlist as |item id|}}
+                <div class="power-area">
+                    <div class="clearareaBox {{#if item.system.isrollable}}spirit-rollablerow{{else}}spirit-row{{/if}}">
+                    
+                    <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
+                            data-type="{{../actor.type}}"
+                            data-object="Gift"
+                            data-rollitem="true"
+                            data-itemid="{{item._id}}">{{item.name}}</div>
+                        {{#if item.system.isrollable}}
+                            <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
+                            <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2)}}{{else}}&nbsp;{{/if}}</div>
+                            <div class="pullLeft power-valueBox headlineNormal centerText">
+                                {{#if (eq item.system.difficulty "-1")}}
+                                    {{localize "wod.labels.varies"}}
+                                {{else}}
+                                    {{item.system.difficulty}}
+                                {{/if}}
+                            </div>
+                        {{else}}
+                            <div class="pullLeft">&nbsp;</div>
                         {{/if}}
-                        <div class="pullLeft pointer headlineNormal tooltip">
-                            <i class="icon fa-solid fa-memo"></i>
-                            <span class="tooltiptext">
-                                {{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/iff}}
-                                <br /><br />
-                                {{#iff item.system.details "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/iff}}
-                            </span>
-                        </div>
-                        <div class="pullLeft">
-                            <a class="send-chat" 
-                                title="{{localize 'wod.labels.send'}}" 
-                                data-type="Gift" 
-                                data-item-id="{{item._id}}" 
-                                data-headline="<h2>{{item.name}}</h2>" 
-                                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                <span class='chatt-text'>{{item.system.description}}</span>
-                                                <br />
-                                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
-                        </div>            
-                        {{#if (eq ../../locked false)}}
+
+                        <div class="pullLeft gift-iconbox">
+                            <div class="pullLeft pointer headlineNormal tooltip">
+                                <i class="icon fa-solid fa-memo"></i>
+                                <span class="tooltiptext">
+                                    {{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/iff}}
+                                    <br /><br />
+                                    {{#iff item.system.details "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/iff}}
+                                </span>
+                            </div>
+                            <div class="pullLeft">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}" 
+                                    data-type="Gift" 
+                                    data-item-id="{{item._id}}" 
+                                    data-headline="<h2>{{item.name}}</h2>" 
+                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                                    <span class='chatt-text'>{{item.system.description}}</span>
+                                                    <br />
+                                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
+                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>            
                             <div class="pullLeft pointer">
                                 <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                             </div>
                             <div class="pullLeft pointer">
                                 <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                             </div>
-                        {{/if}}
-
-                        {{#if (gt item.system.bonuses.length 0)}}
-                            <div class="pullLeft pointer">
-                                <i id="collapsiblemortalgiftbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../../config.sheettype.mortal}}" data-type="mortalgift{{id}}"></i>
-                            </div>
-                        {{/if}}                    
+                        </div>
                     </div>
                 </div>
-                <div class="hide bonuses mortalgift{{id}}" data-area="mortalgiftbonus{{id}}">
 
-                    {{#each item.system.bonuses as |bonus id|}}
-                        <div class="clearareaBox">
-                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                            {{#if (eq ../../locked false)}}
-                                <div class="pullLeft pointer"><i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
-                                <div class="pullLeft pointer"><i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
+            {{/each}}
+
+        {{else}}
+
+            {{#each actor.system.listdata.powers.gifts.giftlist as |item id|}}
+                <div class="power-area">
+                    <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
+                    
+                    <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
+                            data-type="{{../actor.type}}"
+                            data-object="Gift"
+                            data-rollitem="true"
+                            data-itemid="{{item._id}}">{{item.name}}</div>
+                        {{#if item.system.isrollable}}
+                            <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
+                            <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2)}}{{else}}&nbsp;{{/if}}</div>
+                            <div class="pullLeft power-valueBox headlineNormal centerText">
+                                {{#if (eq item.system.difficulty "-1")}}
+                                    {{localize "wod.labels.varies"}}
+                                {{else}}
+                                    {{item.system.difficulty}}
+                                {{/if}}
+                            </div>
+                        {{else}}
+                            <div class="pullLeft">&nbsp;</div>
+                        {{/if}}
+
+                        <div class="pullLeft gift-iconbox">
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
                             {{/if}}
+                            <div class="pullLeft pointer headlineNormal tooltip">
+                                <i class="icon fa-solid fa-memo"></i>
+                                <span class="tooltiptext">
+                                    {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
+                                    <br /><br />
+                                    {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                                </span>
+                            </div>
+                            <div class="pullLeft">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}" 
+                                    data-type="Gift" 
+                                    data-item-id="{{item._id}}" 
+                                    data-headline="<h2>{{item.name}}</h2>" 
+                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
+                                                    <span class='chatt-text'>{{item.system.description}}</span>
+                                                    <br />
+                                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
+                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>            
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}
+
+                            {{#if (gt item.system.bonuses.length 0)}}
+                                <div class="pullLeft pointer">
+                                    <i id="collapsiblemortalgiftbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../../config.sheettype.mortal}}" data-type="mortalgift{{id}}"></i>
+                                </div>
+                            {{/if}}                    
                         </div>
-                    {{/each}}
+                    </div>
+                    <div class="hide bonuses mortalgift{{id}}" data-area="mortalgiftbonus{{id}}">
 
+                        {{#each item.system.bonuses as |bonus id|}}
+                            <div class="clearareaBox">
+                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                                {{#if (eq ../../locked false)}}
+                                    <div class="pullLeft pointer"><i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
+                                    <div class="pullLeft pointer"><i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+
+                    </div>
                 </div>
-            </div>
 
-        {{/each}}
+            {{/each}}
+
+        {{/if}}
+        
     </div>
 </div>

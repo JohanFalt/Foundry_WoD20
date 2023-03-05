@@ -1,7 +1,15 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont">{{localize "wod.power.edges"}}</div>
+        <div class="sheet-headline splatFont">
+            {{localize "wod.power.edges"}}
+
+            {{#if (eq locked false)}}
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edge'}}" aria-hidden="true" data-itemtype="Power" data-type="edge"></i>
+                </div>
+            {{/if}}
+        </div>
 
         {{#each actor.system.listdata.powers.edges.edgelist as | item id|}}
 
@@ -44,6 +52,12 @@
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
                                     <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edgepower'}}" aria-hidden="true" data-itemtype="Power" data-type="edgepower" data-parentid="{{item._id}}"></i>
                                 </div>
                             {{/if}}
                         {{/if}}
