@@ -183,6 +183,8 @@ Hooks.on("renderActorSheet", (sheet) => {
 	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
 		sheet.element[0].classList.add("noSplatFont");
 	}
+
+	sheet.element[0].classList.add("wod-sheet");	
 });
 
 Hooks.on("renderItemSheet", (sheet) => { 
@@ -210,6 +212,8 @@ Hooks.on("renderItemSheet", (sheet) => {
 	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
 		sheet.element[0].classList.add("noSplatFont");
 	}
+
+	sheet.element[0].classList.add("wod-item");
 });
 
 /* Hooks.on("closeItemSheet", (sheet) => { 
@@ -242,10 +246,15 @@ Hooks.on("renderFormApplication", (sheet) => {
 		if (!useSplatFonts) {
 			sheet.element[0].classList.add("noSplatFont");
 		}
+
+		sheet.element[0].classList.add("wod-dialog");
 	}
 });
 
 function clearHTML(sheet) {
+	sheet.element[0].classList.remove("wod-sheet");
+	sheet.element[0].classList.remove("wod-item");
+	sheet.element[0].classList.remove("wod-dialog");
 	sheet.element[0].classList.remove("langDE");
 	sheet.element[0].classList.remove("langES");
 	sheet.element[0].classList.remove("langIT");

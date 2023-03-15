@@ -95,7 +95,9 @@
 	border-bottom-color: var(--main-full-color);
 }
 
-.row:nth-of-type(odd) {
+.wod-sheet .row:nth-of-type(odd),
+.wod-item .row:nth-of-type(odd),
+.wod-dialog .row:nth-of-type(odd) {
   background-color: var(--main-dim-color);
 }
 

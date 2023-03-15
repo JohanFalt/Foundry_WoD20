@@ -444,16 +444,22 @@ i.largeicon {
   margin-right: 3px;
 }
 
-.row {
+.wod-sheet .row,
+.wod-item .row,
+.wod-dialog .row {
   height: 23px;
   line-height: 23px;
 }
 
-.row:nth-of-type(even) {
+.wod-sheet .row:nth-of-type(even),
+.wod-item .row:nth-of-type(even),
+.wod-dialog .row:nth-of-type(even) {
   display: flex;
 }
 
-.row:nth-of-type(odd) {
+.wod-sheet .row:nth-of-type(odd),
+.wod-item .row:nth-of-type(odd),
+.wod-dialog .row:nth-of-type(odd) {
   display: flex;
 }
 
