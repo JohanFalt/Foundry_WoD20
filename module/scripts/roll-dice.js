@@ -96,7 +96,7 @@ export async function rollDice(diceRoll) {
 
 	successRoll = success > 0;		
 
-	if ((actor.system.health.damage.woundlevel != "") && (wound < 0)) {
+	if ((actor.system.health != undefined) && (actor.system.health.damage.woundlevel != "") && (wound < 0)) {
 		wound = `<div><strong>${game.i18n.localize(actor.system.health.damage.woundlevel)} (${wound})</strong></div>`;
 	}
 	else {
