@@ -114,6 +114,11 @@ export default class CombatHelper {
 
     static ignoresPain(actor) {
 		let ignoresPain = false;
+	    
+	    if (actor.type == CONFIG.wod.sheettype.spirit)
+		{
+			ignoresPain = true;
+		}
 
 		if (actor.system.conditions?.isignoringpain)
 		{
