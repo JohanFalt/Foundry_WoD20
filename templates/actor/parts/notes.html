@@ -78,7 +78,7 @@
                         {{#each item.system.bonuses as |bonus id|}}
                             <div class="clearareaBox note-row">
                                 <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                {{#if (eq ../../../locked false)}}
+                                {{#if (eq ../../locked false)}}
                                     <div class="pullLeft"><i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
                                     <div class="pullLeft"><i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
                                 {{/if}}
