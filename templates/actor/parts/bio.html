@@ -64,14 +64,16 @@
 	{{/if}}
 
 	{{#if (ne actor.type config.sheettype.changeling)}}
-		<div class="clearareaBox area-box">
-			<div>
-				<label class="headlineText headlineBio splatFont" for="system.nature">{{localize 'wod.bio.nature'}}</label>
-				<div class="pullLeft bioInformationArea">
-					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.nature" type="text" value="{{data.system.nature}}" data-name="data.system.nature" data-dtype="String" {{#if locked}} readonly {{/if}} />
+		{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+			<div class="clearareaBox area-box">
+				<div>
+					<label class="headlineText headlineBio splatFont" for="system.nature">{{localize 'wod.bio.nature'}}</label>
+					<div class="pullLeft bioInformationArea">
+						<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.nature" type="text" value="{{data.system.nature}}" data-name="data.system.nature" data-dtype="String" {{#if locked}} readonly {{/if}} />
+					</div>
 				</div>
 			</div>
-		</div>
+		{{/if}}
 
 		<div class="clearareaBox area-box">
 			<div>
@@ -81,25 +83,30 @@
 				</div>
 			</div>
 		</div>
+		
 	{{/if}}
 
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio splatFont" for="data.concept">{{localize 'wod.bio.concept'}}</label>
-			<div class="pullLeft bioInformationArea">
-				<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.concept" type="text" value="{{data.system.concept}}" data-name="data.system.concept" data-dtype="String" {{#if locked}} readonly {{/if}} />
+	{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+		<div class="clearareaBox area-box">
+			<div>
+				<label class="headlineText headlineBio splatFont" for="data.concept">{{localize 'wod.bio.concept'}}</label>
+				<div class="pullLeft bioInformationArea">
+					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.concept" type="text" value="{{data.system.concept}}" data-name="data.system.concept" data-dtype="String" {{#if locked}} readonly {{/if}} />
+				</div>
 			</div>
 		</div>
-	</div>
+	{{/if}}
 
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio splatFont" for="data.derangement">{{localize 'wod.bio.derangement'}}</label>
-			<div class="pullLeft bioInformationArea">
-				<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.derangement" type="text" value="{{data.system.derangement}}" data-name="data.system.derangement" data-dtype="String" {{#if locked}} readonly {{/if}} />
+	{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+		<div class="clearareaBox area-box">
+			<div>
+				<label class="headlineText headlineBio splatFont" for="data.derangement">{{localize 'wod.bio.derangement'}}</label>
+				<div class="pullLeft bioInformationArea">
+					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.derangement" type="text" value="{{data.system.derangement}}" data-name="data.system.derangement" data-dtype="String" {{#if locked}} readonly {{/if}} />
+				</div>
 			</div>
 		</div>
-	</div>
+	{{/if}}
 
 	{{#if (eq actor.type config.sheettype.vampire)}}
 
@@ -216,14 +223,29 @@
 		</div>
 	</div>
 
-	<div class="clearareaBox area-box">
-		<label class="headlineText headlineBio splatFont" for="data.background">{{localize 'wod.bio.background'}}</label>
-		<div class="clearareaBox">
-			{{#if locked}}
-				<div class="clearareaBox headlineNormal textarea">{{{actor.system.background}}}</div>
-			{{else}}
-				{{editor data.background target="system.background" button=false owner=owner editable=true}}
-			{{/if}}				
+	{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+		<div class="clearareaBox area-box">
+			<label class="headlineText headlineBio splatFont" for="data.background">{{localize 'wod.bio.background'}}</label>
+			<div class="clearareaBox">
+				{{#if locked}}
+					<div class="clearareaBox headlineNormal textarea">{{{actor.system.background}}}</div>
+				{{else}}
+					{{editor data.background target="system.background" button=false owner=owner editable=true}}
+				{{/if}}				
+			</div>
 		</div>
-	</div>
+	{{/if}}
+
+	{{#if isGM}}
+		<div class="clearareaBox area-box">
+			<label class="headlineText headlineBio splatFont" for="data.background">LANG: Roleplay Tips</label>
+			<div class="clearareaBox">
+				{{#if locked}}
+					<div class="clearareaBox headlineNormal textarea">{{{actor.system.roleplaytip}}}</div>
+				{{else}}
+					{{editor data.roleplaytip target="system.roleplaytip" button=false owner=owner editable=true}}
+				{{/if}}				
+			</div>
+		</div>
+	{{/if}}
 </div>

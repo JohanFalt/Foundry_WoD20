@@ -79,7 +79,8 @@ export const systemSettings = function() {
 		type: String,
 		choices: {
 			"full": game.i18n.localize('wod.settings.limitedfullsheet'),
-			"limited": game.i18n.localize('wod.settings.limitedpartialsheet')
+			"limited": game.i18n.localize('wod.settings.limitedpartialsheet'),
+            "mini": game.i18n.localize('wod.settings.minipartialsheet')
 		}
 	});
 

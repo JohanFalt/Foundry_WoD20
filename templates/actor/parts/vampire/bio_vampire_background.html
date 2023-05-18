@@ -1,15 +1,17 @@
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.sect">{{localize "wod.bio.vampire.sect"}}</label>
-        <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.sect}}" data-dtype="String" readonly />
-            {{else}}
-                <input class="sheet-infoValues editable" name="system.sect" type="text" value="{{data.system.sect}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.vampire.camarilla'}}/{{localize 'wod.bio.vampire.sabbat'}}/{{localize 'wod.bio.vampire.anarch'}}/{{localize 'wod.bio.vampire.independent'}}/{{localize 'wod.bio.vampire.blackhand'}}/{{localize 'wod.bio.vampire.inconnu'}}">
-            {{/if}}
+{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+    <div class="clearareaBox area-box">
+        <div>
+            <label class="headlineText headlineBio splatFont" for="data.sect">{{localize "wod.bio.vampire.sect"}}</label>
+            <div class="pullLeft bioInformationArea">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.sect}}" data-dtype="String" readonly />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.sect" type="text" value="{{data.system.sect}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.vampire.camarilla'}}/{{localize 'wod.bio.vampire.sabbat'}}/{{localize 'wod.bio.vampire.anarch'}}/{{localize 'wod.bio.vampire.independent'}}/{{localize 'wod.bio.vampire.blackhand'}}/{{localize 'wod.bio.vampire.inconnu'}}">
+                {{/if}}
+            </div>
         </div>
     </div>
-</div>
+{{/if}}
 
 <div class="clearareaBox area-box">
     <div>
@@ -33,21 +35,23 @@
     </div>
 </div>
 
-<div class="clearareaBox area-box" data-area="generation">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.generation">{{localize "wod.bio.vampire.generation"}}</label>
-        <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-                <input class="sheet-infoValues" type="text" {{#if (gt data.system.generationmod 0)}}value="{{data.system.generation}} - {{data.system.generationmod}}"{{else}}value="{{data.system.generation}}"{{/if}} data-dtype="Number" readonly />
-            {{else}}
-                <input class="sheet-infoValues selectGeneration editable" name="system.generation" type="text" value="{{data.system.generation}}" style="width: 50%;" data-source="setvalue" data-type="{{config.sheettype.vampire}}" data-koptions="--{{localize 'wod.labels.select'}}--/4/5/6/7/8/9/10/11/12/13/14/15">
-                <i class="icon fa-solid fa-square-minus pointer selectGeneration" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-source="reduce" data-type="{{config.sheettype.vampire}}" data-area="reducegeneration" aria-hidden="true"></i>
-                <i class="icon fa-solid fa-eraser pointer selectGeneration" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-source="clear" data-type="{{config.sheettype.vampire}}" data-area="cleargeneration" aria-hidden="true"></i>
-                <span class="information-area">{{localize "wod.labels.bio.tempgeneration"}}: -{{data.system.generationmod}}</span>
-            {{/if}}            
+{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+    <div class="clearareaBox area-box" data-area="generation">
+        <div>
+            <label class="headlineText headlineBio splatFont" for="data.generation">{{localize "wod.bio.vampire.generation"}}</label>
+            <div class="pullLeft bioInformationArea">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" {{#if (gt data.system.generationmod 0)}}value="{{data.system.generation}} - {{data.system.generationmod}}"{{else}}value="{{data.system.generation}}"{{/if}} data-dtype="Number" readonly />
+                {{else}}
+                    <input class="sheet-infoValues selectGeneration editable" name="system.generation" type="text" value="{{data.system.generation}}" style="width: 50%;" data-source="setvalue" data-type="{{config.sheettype.vampire}}" data-koptions="--{{localize 'wod.labels.select'}}--/4/5/6/7/8/9/10/11/12/13/14/15">
+                    <i class="icon fa-solid fa-square-minus pointer selectGeneration" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-source="reduce" data-type="{{config.sheettype.vampire}}" data-area="reducegeneration" aria-hidden="true"></i>
+                    <i class="icon fa-solid fa-eraser pointer selectGeneration" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-source="clear" data-type="{{config.sheettype.vampire}}" data-area="cleargeneration" aria-hidden="true"></i>
+                    <span class="information-area">{{localize "wod.labels.bio.tempgeneration"}}: -{{data.system.generationmod}}</span>
+                {{/if}}            
+            </div>
         </div>
     </div>
-</div>
+{{/if}}
 
 <div class="clearareaBox area-box">
     <div>

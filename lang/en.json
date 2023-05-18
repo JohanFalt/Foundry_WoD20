@@ -34,6 +34,7 @@
 			"observerspartialsheet": "Observers can see Bio tab only",
 			"limitedfullsheet": "Limited users can see full sheet",
 			"limitedpartialsheet": "Limited users can see Bio tab only",
+			"minipartialsheet": "Limited users can only see some of the Bio tab",
 			"changeactorimage": "Change Actor image",
 			"changeactorimagehint": "Everyone are allowed to change an Actor images on an Actor they can edit",
 			"changeitemimage": "Change Item image",
