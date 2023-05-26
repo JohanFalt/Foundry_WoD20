@@ -62,7 +62,7 @@
   "gridUnits": "m",
   "primaryTokenAttribute": "traits.health.totalhealthlevels",
   "url": "https://github.com/JohanFalt/Foundry_WoD20",
-  "manifest": "https://busigafamiljen.se/rpg/foundry/wod20/system.json",
-  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v2.4.10.zip",
+  "manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/v2.4/system.json",
+  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/Final-v2.4.zip",
   "license": "LICENSE.txt"
 }
