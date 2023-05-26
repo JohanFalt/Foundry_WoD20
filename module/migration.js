@@ -1163,6 +1163,7 @@ export const updates = async () => {
     let patch210 = false;
     let patch220 = false;
     let patch230 = false;
+    let patch300 = false;
 
     let newfunctions = "";
 
@@ -1178,6 +1179,7 @@ export const updates = async () => {
         patch210 = game.settings.get('worldofdarkness', 'patch210');
         patch220 = game.settings.get('worldofdarkness', 'patch220');
         patch230 = game.settings.get('worldofdarkness', 'patch230');
+        patch300 = game.settings.get('worldofdarkness', 'patch300');
     } 
     catch (e) {
     }
@@ -1308,24 +1310,21 @@ export const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
+    if (!patch300) {
+        game.settings.set('worldofdarkness', 'patch300', true);
+
+        newfunctions += "<li>Support Foundry v11</li>";
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
-
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/504">#504</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/505">#505</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/507">#507</a></li>';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/508">#508</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/509">#509</a></li>';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/516">#516</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/515">#515</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/514">#514</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/517">#517</a></li>';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/520">#520</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/521">#521</a></li>';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/512">#512</a> - How the attribute bonus was calculated when used in Celerity was wrong and added to initiative as well. Has added a new type of bonus "Attribute dice bonus" which celerity should use instead.';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/523">#523</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/524">#524</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/525">#525</a>. Found a nasty thing that <i>can</i> happen when you create a new actor, fixed by some redecorating that core of the system.</li>';
-        newfunctions += '<li><a href="https://github.com/JohanFalt/Foundry_WoD20/issues/532">#523</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/533">#533</a>. Updated the spanish translation.</li>';
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-230">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-300">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 
