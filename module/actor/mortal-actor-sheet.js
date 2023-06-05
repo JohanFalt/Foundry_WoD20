@@ -269,7 +269,7 @@ export class MortalActorSheet extends ActorSheet {
 			var e = document.getElementById("system.changingbreed");
 			var type = e.value;
 
-			ActionHelper.setShifterAttributes(actorData, type);
+			await CreateHelper.SetShifterAttributes(actorData, type);
 		}
 		else if (source == "frenzy") {
 			let value = 0;

@@ -635,9 +635,8 @@ export const updates = async () => {
 
             if (updateData.system.path != undefined) {
                 updateData.system.advantages.path = updateData.system.path;
-            }
-
-            updateData.system.advantages.path.permanent = updateData.system.advantages.path.value;
+                updateData.system.advantages.path.permanent = updateData.system.advantages.path.value;
+            }            
 
             updateData.system.settings.haspath = true;
             updateData.system.settings.hasbloodpool = true;

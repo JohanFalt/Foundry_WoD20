@@ -957,7 +957,7 @@ export default class CreateHelper {
 	static async SetShifterAttributes(actor, type) {
 		console.log('WoD | Set Shifter Attributes');
 
-		this.SetWerewolfAttributes(actor);
+		await this.SetWerewolfAttributes(actor);
 
 		if ((type == "Ananasi") || (type == "Nuwisha")) {
 			actor.system.settings.hasrage = false;
