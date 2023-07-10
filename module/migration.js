@@ -1317,6 +1317,8 @@ export const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+		newfunctions += '<a href="https://github.com/JohanFalt/Foundry_WoD20/issues/616'">[#616]</a> - Changelings could not roll initiative.';
+		
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
@@ -1333,6 +1335,9 @@ export const updates = async () => {
         message += newfunctions;
         message += '</ul>';
     } 
+	
+	message += '<h1><b>Support my work</b></h1>';
+    message += '<a href="https://ko-fi.com/johanfk"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>';
 
     MessageHelper.printMessage(headline, message);
 }

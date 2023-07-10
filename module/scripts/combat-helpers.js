@@ -72,7 +72,6 @@ export default class CombatHelper {
 		}
 		else if (actor.type == CONFIG.wod.sheettype.changeling) { 
 			diceColor = "lightblue_";
-			specialDiceType = "black_";
 		}
 		else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) { 
 			diceColor = "orange_";
