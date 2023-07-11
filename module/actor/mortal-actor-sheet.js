@@ -270,6 +270,9 @@ export class MortalActorSheet extends ActorSheet {
 			var type = e.value;
 
 			await CreateHelper.SetShifterAttributes(actorData, type);
+			await ActionHelper.handleCalculations(actorData);
+			await this.actor.update(actorData);
+			return;
 		}
 		else if (source == "frenzy") {
 			let value = 0;
@@ -307,7 +310,6 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		await ActionHelper.handleCalculations(actorData);
-
 		await this.actor.update(actorData);
 		this.render();
 	}

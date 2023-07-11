@@ -1317,7 +1317,8 @@ export const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
-		newfunctions += '<a href="https://github.com/JohanFalt/Foundry_WoD20/issues/616">[#616]</a> - Changelings could not roll initiative.';		
+		newfunctions += '<a href="https://github.com/JohanFalt/Foundry_WoD20/issues/616">[#616]</a> - Changelings could not roll initiative.';	
+		newfunctions += 'Shifters could not select type.';			
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
