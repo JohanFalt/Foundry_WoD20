@@ -15,33 +15,33 @@ export default class TokenHelper {
 
 		if (foundToken) {
             await this._clearForms(token);
-            await token.document.toggleActiveEffect(this._getEffectData(toForm));
+            await token.document.toggleActiveEffect(await this._getEffectData(toForm));
 		}			
     }
 
     static async _clearForms(token) {
-        if (token.document.hasStatusEffect("form_homid")) {
-            await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.homid"));
+        if (await token.document.hasStatusEffect("form_homid")) {
+            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.homid"));
         }
 
-        if (token.document.hasStatusEffect("form_glabro")) {
-            await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.glabro"));
+        if (await token.document.hasStatusEffect("form_glabro")) {
+            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.glabro"));
         }
 
-        if (token.document.hasStatusEffect("form_crinos")) {
-            await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.crinos"));
+        if (await token.document.hasStatusEffect("form_crinos")) {
+            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.crinos"));
         }
 
-        if (token.document.hasStatusEffect("form_hispo")) {
-            await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.hispo"));
+        if (await token.document.hasStatusEffect("form_hispo")) {
+            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.hispo"));
         }
 
-        if (token.document.hasStatusEffect("form_lupus")) {
-            await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.lupus"));
+        if (await token.document.hasStatusEffect("form_lupus")) {
+            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.lupus"));
         }
     }
 
-    static _getEffectData(toForm) {
+    static async _getEffectData(toForm) {
         let effectData = "";
 
         if (toForm == "wod.shapes.homid") {
