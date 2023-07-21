@@ -4,145 +4,143 @@
 
 		<header class="sheet-header">
 			<div class="top-area">
-				<div class="top-center top-headline splatFont centerText">
-					{{item.name}}
-				</div>
-			</div>
+				<div class="clearareaBox top-side">
+					<div class="pullLeft" style="display: flex;">
+
+						{{#if userpermissions.changeItemImage}}
+							<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+						{{else}}
+							<img src="{{item.img}}" />
+						{{/if}}
+					</div>
+
+					<div class="pullLeft" style="display: flex; width: 200px;">
+
+						<div class="area-box">
+
+							<div class="bioInformationArea top-sidetext">
+								{{localize item.system.type}}
+							</div>
+
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+							</div>														
+						</div>	
+					</div>
+
+					{{#if (eqAny data.system.type "wod.types.othertraits" "wod.types.apacolypticform")}}
+						<div class="pullRight" style="width: auto;">
+							{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
+						</div>
+					{{/if}}
+				</div>				
+			</div>			
 		</header>
 
 		<section class="item-body">
 
 			<input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" />
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>            
+			<div class="dialog-area">
 
-			<!-- type -->
-			{{#if userpermissions.itemAdministrator}}
-				{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apacolypticform")}}
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.labels.type"}}</label>
-						<select class="sheet-infoValues item editable" name="system.type">
-							{{#select data.system.type}}
-								<option value="">- {{localize "wod.labels.select"}} -</option>
-								<optgroup label="LANG: Secondary ability">
-									<option value="wod.types.talentsecondability">{{localize "wod.types.talentsecondability"}}</option>
-									<option value="wod.types.skillsecondability">{{localize "wod.types.skillsecondability"}}</option>
-									<option value="wod.types.knowledgesecondability">{{localize "wod.types.knowledgesecondability"}}</option>
-								</optgroup>
-								<optgroup label="LANG: Other">
-									<option value="wod.types.resonance">{{localize "wod.types.resonance"}}</option>
-									<option value="wod.types.othertraits">{{localize "wod.types.othertraits"}}</option>
-								</optgroup>
-							{{/select}}
-						</select>
-					</div>
+				<!-- type -->
+				{{#if userpermissions.itemAdministrator}}
+					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apacolypticform")}}
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
+								{{#select data.system.type}}
+									<option value="">- {{localize "wod.labels.select"}} -</option>
+									<optgroup label="{{localize 'wod.labels.custom'}}">
+										<option value="wod.types.talentsecondability">{{localize "wod.types.talentsecondability"}}</option>
+										<option value="wod.types.skillsecondability">{{localize "wod.types.skillsecondability"}}</option>
+										<option value="wod.types.knowledgesecondability">{{localize "wod.types.knowledgesecondability"}}</option>
+									</optgroup>
+									<optgroup label="{{localize 'wod.labels.other'}}">
+										<option value="wod.types.resonance">{{localize "wod.types.resonance"}}</option>
+										<option value="wod.types.othertraits">{{localize "wod.types.othertraits"}}</option>
+									</optgroup>
+								{{/select}}
+							</select>
+							<span class="floating-label">{{localize "wod.labels.type"}}</span>
+						</div>					
+					{{/if}}
 				{{/if}}
-			{{/if}}
 
-			<!-- if weapon -->
-			{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}
-				<div class="infobox comboboxRow">
-					<label class="headlineItem headlineBio splatFont" for="data.ismeleeweapon">{{localize "wod.labels.trait.meleeweapon"}}</label>
-					<input name="system.ismeleeweapon" type="checkbox" {{#if data.system.ismeleeweapon}} checked {{/if}} />
+				<div class="infobox bioInformationArea floating-label-group">
+					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 				</div>
 
-				<div class="infobox comboboxRow">
-					<label class="headlineItem headlineBio splatFont" for="data.israngedeweapon">{{localize "wod.labels.trait.rangedweapon"}}</label>
-					<input name="system.israngedeweapon" type="checkbox" {{#if data.system.israngedeweapon}} checked {{/if}} />
-				</div>
-			{{/if}}			
+				<!-- if weapon -->
+				{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont" for="data.ismeleeweapon">{{localize "wod.labels.trait.meleeweapon"}}</label>
+						<input name="system.ismeleeweapon" type="checkbox" {{#if data.system.ismeleeweapon}} checked {{/if}} />
+					</div>
+
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont" for="data.israngedeweapon">{{localize "wod.labels.trait.rangedweapon"}}</label>
+						<input name="system.israngedeweapon" type="checkbox" {{#if data.system.israngedeweapon}} checked {{/if}} />
+					</div>
+				{{/if}}		
+
+				{{#if (eq data.system.type "wod.types.apacolypticform")}}			
+
+					{{#if hasActor}}
+						<div class="infobox clearareaBox">
+							<div class="clearareaBox">
+								<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.addedbonus"}}</div>
+							</div>	
+						
+							{{#each bonus as |item id|}}
+								<div class="clearareaBox">
+									<div class="pullLeft" style="width: 140px;">{{item.name}}</div>
+									<div class="pullLeft"><i class="icon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{item._id}}"></i></div>
+								</div>
+							{{/each}}
+						</div>
+					{{/if}}
+				{{/if}}
+				
+			</div>
 
 			{{#if (eq data.system.type "wod.types.othertraits")}}
 
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
-					<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
+				<div class="dialog-area">
+
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
+						<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
+					</div>
+
+					{{#if data.system.isrollable}}
+						{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
+					{{/if}}
+
 				</div>
 
-				{{#if data.system.isrollable}}
-					{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
-				{{/if}}
-
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-					<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-				</div>
-
-				<!-- description -->
-				<div class="infobox">
-					<div class="clearareaBox">
-						<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-					</div>
-					<div>
-						{{#if canEdit}}
-							{{editor data.description target="system.description" button=false owner=owner editable=true}}
-						{{else}}
-							<div class="headlineNormal textarea">{{{data.system.description}}}</div>
-						{{/if}}
-					</div>
-				</div>
-
-				<!-- system -->
-				<div class="infobox">
-					<div class="clearareaBox">
-						<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
-					</div>
-					<div class="clearareaBox">
-						{{#if canEdit}}
-							{{editor data.details target="system.details" button=false owner=owner editable=true}}
-						{{else}}
-							<div class="headlineNormal textarea">{{{data.system.details}}}</div>
-						{{/if}}
-					</div>
-				</div>
+				{{> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}				
 
 			{{/if}}			
 
 			{{#if (eq data.system.type "wod.types.apacolypticform")}}			
 
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-					<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-				</div>
-
-				{{#if hasActor}}
-					<div class="infobox clearareaBox">
-						<label class="pullLeft headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.addedbonus"}}</label>
-					
-						{{#each bonus as |item id|}}
-							<div class="clearareaBox">
-								<div class="pullLeft" style="margin-left: 200px;width: 140px;">{{item.name}}</div>
-								<div class="pullLeft"><i class="icon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{item._id}}"></i></div>
-							</div>
-						{{/each}}
-					</div>
-				{{/if}}				
-
 				<!-- description -->
-				<div class="infobox">
+				<div class="dialog-area">			
 					<div class="clearareaBox">
-						<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+						<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.description"}}</div>
+					</div>		
+					<div class="infobox">
+						{{#if locked}}
+							<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
+						{{else}}
+							{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{/if}}
 					</div>
-					{{#if canEdit}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
-					{{else}}
-						<div class="headlineNormal textarea">{{{data.system.description}}}</div>
-					{{/if}}
 				</div>
 				
-			{{/if}}
-
-			{{#if (eqAnyNot data.system.type "wod.types.othertraits" "wod.types.apacolypticform")}}
-
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-					<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-				</div>
-
-			{{/if}}
+			{{/if}}			
 			
 		</section>
 

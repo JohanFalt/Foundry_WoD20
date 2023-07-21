@@ -1667,9 +1667,14 @@
 				"max": 5
 			},
 			"object": {
+				"container": {
+					"value": 0,
+					"max": 0
+				},
 				"isequipped": false,
 				"ismagical": false,
 				"isweapon": false,
+				"iscontainer": false,
 				"era": "wod.era.modern"
 			},
 			"weapon": {
@@ -1687,10 +1692,13 @@
 					"isrollable": true
 				},
 				"difficulty": 6,
+				"minstrength": 0,
+				"piercing": 0,
 				"conceal": "",
 				"istwohanded": false
 			},
-			"power": {				
+			"power": {	
+				"category": "",
 				"dice1": "",
 				"dice2": "",
 				"bonus": 0,
@@ -1778,7 +1786,7 @@
 			"dice2": "",
 			"bonus": 0,
 			"difficulty": 6,
-			"isrollable": true
+			"isrollable": false
 		},
 		"Rote": {
 			"templates": [

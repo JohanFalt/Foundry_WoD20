@@ -16,7 +16,7 @@
                         {{/select}}
                     </select>
                     {{#if (eq actor.system.sect "custom")}}
-                        <a class="pullLeft item-edit" title="LANG: Customize sect" data-type="Bio" data-name="{{localize "wod.bio.vampire.sect"}}" data-item-id="sect" data-custom="{{actor.system.custom.sect}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="pullLeft item-edit" title="{{localize 'wod.labels.customizesect'}}" data-type="Bio" data-name="{{localize "wod.bio.vampire.sect"}}" data-item-id="sect" data-custom="{{actor.system.custom.sect}}"><i class="fa-solid fa-pen-to-square"></i></a>
                     {{/if}}
                 {{/if}}
                 <span class="floating-label">{{localize "wod.bio.vampire.sect"}}</span>
@@ -37,7 +37,7 @@
                     {{/select}}
                 </select>
                 {{#if (eq actor.system.clan "custom")}}
-                    <a class="pullLeft item-edit" title="LANG: Customize clan" data-type="Bio" data-name="{{localize "wod.bio.vampire.clan"}}" data-item-id="clan" data-custom="{{actor.system.custom.clan}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="pullLeft item-edit" title="{{localize 'wod.labels.customizeclan'}}" data-type="Bio" data-name="{{localize "wod.bio.vampire.clan"}}" data-item-id="clan" data-custom="{{actor.system.custom.clan}}"><i class="fa-solid fa-pen-to-square"></i></a>
                 {{/if}}
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.vampire.clan"}}</span>

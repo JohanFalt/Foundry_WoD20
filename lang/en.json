@@ -5,57 +5,83 @@
 			"sheetlocked": "Can not edit as sheet is locked!"
 		},
 		"games": {
+			"headline": "Games",
 			"changeling": "Changeling the Dreaming",
 			"demon": "Demon the Fallen",
 			"hunter": "Hunter the Reckoning",
 			"vampire": "Vampire the Masquerade",
-			"werewolf": "Werewolf the Apocalypse"
+			"werewolf": "Werewolf the Apocalypse",
+			"mage": "Mage the Ascention"
+		},
+		"era": {
+			"modern": "Modern",
+			"victorian": "Victorian Age",
+			"wildwest": "Wild West",
+			"darkages": "Dark Ages"
 		},
 		"settings": {
+			"nonotuse": "Do not use",
+			"alwaysuse": "Always use",
+			"usewithspeciality": "Use with speciality",
 			"rulesettings": "Rule Settings",
-			"rulesettingshint": "All gathered settings about rules",
+			"rulesettingshint": "All gathered settings about rules.",
 			"permissionsettings": "Permission Settings",
-			"permissionsettingshint": "All gathered settings about World permissions and what a user can do",
+			"permissionsettingshint": "All gathered settings about World permissions and what a user can do.",
 			"graphicsettings": "Graphic Settings",
-			"graphicsettingshint": "All gathered settings regarding graphics",
+			"graphicsettingshint": "All gathered settings regarding graphics.",
 			"worldversion": "World Version",
-			"worldversionhint": "Used to know if World patch is needed",
+			"worldversionhint": "Used to know if World patch is needed.",
 			"advantagerolls": "How roll Advantage attributes",
 			"advantagerollshint": "Are you to use the permanent (check) values or temporary (not checked) of e.g. Willpower in rolls. Requires restart of Foundry VTT.",
 			"attributesettings": "Settings for attributes",
 			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default. After this setting has changed you have to restart Foundry VTT.",
 			"observersactorpermission": "Observers full view permission",
-			"observersactorpermissionhint": "This settings able it to limit how much an observer can see of a sheet, either they can see the full sheet or they can only see the Bio tab",
+			"observersactorpermissionhint": "This settings able it to limit how much an observer can see of a sheet, either they can see the full sheet or they can only see the Bio tab.",
 			"limitedactorpermission": "Limited users has full view permission",
-			"limitedactorpermissionhint": "This settings able it to limit how much an limited user can see of a sheet, either they can see the full sheet or they can only see the Bio tab",
+			"limitedactorpermissionhint": "This settings able it to limit how much an limited user can see of a sheet, either they can see the full sheet or they can only see the Bio tab.",
 			"observersfullsheet": "Observers can see full sheet",
-			"observerspartialsheet": "Observers can see Bio tab only",
+			"observerspartialsheet": "Observers can see Bio tab only.",
 			"limitedfullsheet": "Limited users can see full sheet",
-			"limitedpartialsheet": "Limited users can see Bio tab only",
+			"limitedpartialsheet": "Limited users can see Bio tab only.",
 			"minipartialsheet": "Limited users can only see some of the Bio tab",
 			"changeactorimage": "Change Actor image",
-			"changeactorimagehint": "Everyone are allowed to change an Actor images on an Actor they can edit",
+			"changeactorimagehint": "Everyone are allowed to change an Actor images on an Actor they can edit.",
 			"changeitemimage": "Change Item image",
-			"changeitemimagehint": "Everyone are allowed to change an Item images on an Item they can edit",
+			"changeitemimagehint": "Everyone are allowed to change an Item images on an Item they can edit.",
 			"itemadministrator": "Item administrator permission level",
-			"itemadministratorhint": "What user permission is required for be able to be an item administrator, thus be able to set e.g. an item's type on Item then can edit",
+			"itemadministratorhint": "What user permission is required for be able to be an item administrator, thus be able to set e.g. an item's type on Item then can edit.",
 			"player": "Player",
 			"trustedplayer": "Trusted Player",
 			"assistantgm": "Assistant GM",
 			"usesplatfont": "Use Splat Font",
-			"usesplatfonthint": "With this setting you turn off the special font-style used by the different sheet on a world level",
+			"usesplatfonthint": "With this setting you turn off the special font-style used by the different sheet on a world level.",
 			"usesworldanvil": "Use World Anvil links",
-			"usesworldanvilhint": "With this setting you will show a box in Bio where you can store the link to that sheet's World Anvil page",
-			"huntersettings": "Hunter Settings",
-			"huntersettingshint": "World settings used in Hunter the Reckoning",
-			"werewolfsettings": "Werewolf Settings",
-			"werewolfsettingshint": "World settings used in Werewolf the Apocalypse",
+			"usesworldanvilhint": "With this setting you will show a box in Bio where you can store the link to that sheet's World Anvil page.",
+			"huntersettings": "Hunter the Reckoning Settings",
+			"huntersettingshint": "World settings used in Hunter the Reckoning.",
+			"werewolfsettings": "Werewolf the Apocalypse Settings",
+			"werewolfsettingshint": "World settings used in Werewolf the Apocalypse.",
 			"edgesettings": "Gaining Edge setting",
-			"edgesettingshints": "According to the rules of Hunter the Reckoning there are two ways to gain Edges, using Virtues are the default one",
+			"edgesettingshints": "According to the rules of Hunter the Reckoning there are two ways to gain Edges, using Virtues are the default one.",
 			"ragesettings": "Use Rage penalty",
 			"ragesettingshints": "In Werewolf if the Garou has more Rage than Willpower they get a penalty to their social rolls.",
 			"choicevirtue": "Spending virtue points",
-			"choiceexperience": "Spending experience points"
+			"choiceexperience": "Spending experience points",
+			"therollofone": "Use default result 1 handling",
+			"therollofonehint": "Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
+			"lowestdifficulty": "Lowest difficulty allowed",
+			"lowestdifficultyhint": "Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
+			"specialityaddsuccess": "Use default rule for speciality",
+			"specialityaddsuccesshint": "Default use of specialities - adds a number of successes on the roll of 10s.",
+			"specialityreducediff": "Speciality lowers difficulty",
+			"specialityreducediffhint": "If use of speciality the difficulty of the roll is lowered.",
+			"tenaddsuccess": "10s always add successes",
+			"tenaddsuccesshint": "A change of how handling 10s to always adds a number of successes to the roll.",
+			"explodingdice": "10s explode handling",
+			"explodingdicehint": "In revised rules when rolling a 10 you got.",
+			"dicerules": "Rolling dices rules",
+			"diceruleshint": "How the system handles rolling the dices.",
+			"rollsettings": "Roll settings"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -90,6 +116,11 @@
 			"talen": "Talen",
 			"fetish": "Fetish",
 			"treasure": "Treasure",
+			"device": "Device",
+			"talisman": "Talisman",
+			"periapt": "Periapt",
+			"matrix": "Matrix",
+			"trinket": "Trinket",
 			"power": "Power",
 			"talentsecondability": "Secondary Talent Ability",
 			"skillsecondability": "Secondary Skill Ability",
@@ -98,6 +129,7 @@
 			"resonance": "Resonance",
 			"othertraits": "Other Traits",
 			"apacolypticform": "Apocalyptic Form"
+			
 		},
 		"tab": {
 			"bio": "Bio",
@@ -138,6 +170,7 @@
 			"worldanvillink": "World Anvil Page",
 			"noworldanvillink": "No World Anvil link",
 			"changingbreed": "Changing Breed",
+			"noshiftertype": "No shifter type has been selected in Bio tab",
 			"feraname": {
 				"ajaba": "Ajaba",
 				"ananasi": "Ananasi",
@@ -397,7 +430,8 @@
 				"affinity": "Affinity Realm",
 				"threshold": "Ravaging/Musing Threshold",
 				"legacyseelie": "Seelie Legacy",
-				"legacyunseelie": "Unseelie Legacy"
+				"legacyunseelie": "Unseelie Legacy",
+				"revelry": "Revelry"
 			},
 			"hunter": {
 				"creed": "Creed",
@@ -452,6 +486,9 @@
 			"talents": "Talents",
 			"skills": "Skills",
 			"knowledges": "Knowledges",
+			"notalents": "No talents selected",
+			"noskills": "No skills selected",
+			"noknowledges": "No knowledges selected",
 
 			"alertness": "Alertness",
 			"art": "Art",
@@ -684,17 +721,23 @@
 				"rate": "Rate",
 				"clip": "Clip",
 				"conceal": {
-					"conceal": "Conc.",
+					"conceal": "Conceal",
 					"pocket": "Pocket",
 					"jacket": "Jacket",
 					"trenchcoat": "Trenchcoat",
+					"pouch": "Pouch",
+					"loose": "Loose clothing",
+					"cloak": "Long cloak",
+					"notbeconcealed": "May Not Be Concealed",
 					"na": "N/A"
 				},
 				"grip": "Grip",
 				"onehanded": "One-handed",
 				"twohanded": "Two-handed",
 				"natural": "Natural weapon",
-				"initiative": "Initiative"
+				"initiative": "Initiative",
+				"minstrenght": "Minimum strength",
+				"armorpiercing": "Armor piercing"
 			},
 			"armor": {
 				"active": "Active",
@@ -783,7 +826,12 @@
 			"arts": "Arts",
 			"edges": "Edges",
 			"lores": "Lores",
-			"wyld": "Wyld"
+			"wyld": "Wyld",
+			"thaumaturgy": "Thaumaturgy",
+			"abyss": "Abyss Mysticism",
+			"koldunic": "Koldunic Sorcery",
+			"necromancy": "Necromancy",
+			"ritualcategory": "Ritual category"
 		},
 		"spheres": {
 			"spheres": "Spheres",
@@ -826,9 +874,17 @@
 			"time": "Time"
 		},
 		"gear": {
+			"headline": "Gear",
 			"money": "Money",
 			"moneycarried": "Carried",
-			"moneybank": "In bank"
+			"moneybank": "In bank",
+			"otheritems": "Other items",
+			"device": "Device",
+			"talisman": "Talisman",
+			"periapt": "Periapt",
+			"matrix": "Matrix",
+			"trinket": "Trinket",
+			"contains": "Contains"
 		},
 		"notes": {
 			"unnamedbackground": "Unnamed background",
@@ -846,6 +902,7 @@
 			"rolling": "Rolling",
 			"addedbonus": "Added bonuses",
 			"value": "Value",
+			"maxvalue": "Max value",
 			"penalty": "Penalty",
 			"total": "Total",
 			"max": "Max",
@@ -866,6 +923,10 @@
 			"customclan": "Custom clan",
 			"customkith": "Custom kith",
 			"customtradition": "Custom tradition",
+			"customaffiliation": "Customize affiliation",
+			"customizesect": "Customize sect",
+			"customizeclan": "Customize clan",
+			"customizetribe": "Customize tribe",
 			"none": "None",
 			"type": "Type",
 			"description": "Description",
@@ -882,6 +943,7 @@
 			"rating": "Rating",
 			"level": "Level",
 			"rank": "Rank",
+			"other": "Other",
 			"bio": {
 				"wronggeneration": "Not a valid generation",
 				"wrongtempgeneration": "Cannot lower generation past 4",
@@ -894,7 +956,6 @@
 				"ranged": "Ranged weapons",
 				"armor": "Armor"
 			},
-			"gear": "Gear",
 			"power": {
 				"level": "Level",
 				"noattribute": "No attribute",
@@ -943,7 +1004,29 @@
 				"secondaryabilities": "Secondary Abilities",
 				"abilitiesmaxrating": "Max rating on Abilities",
 				"hasdisciplines": "Has disciplines and rituals",
-				"hasgifts": "Has gifts and rites"
+				"hasgifts": "Has gifts and rites",
+				"setdarkages": "Sheet set to Dark Ages era!",
+				"setvictorian": "Sheet set to Victorian era!",
+				"setwildwest": "Sheet set to Wild West era!",
+				"setmodern": "Sheet set to Modern era!",
+				"maxability": "This setting sets the maximum value an ability can have",
+				"customizepath": "Customize path",
+				"soakinfoone": "The total value used in soak with attribute, armor and bonus",
+				"soakinfotwo": "Bonus - extra bonus to soak",
+				"soakinfothree": "Can soak - if soak if this type of damage is normally allowed",
+				"initiativeinfoone": "Value - the base calculated value based on total value of attributes",
+				"initiativeinfotwo": "Bonus - extra bonus to initiative",
+				"initiativeinfothree": "Total - the total value used in combat with all active bonuses",
+				"graphics": "Graphics",
+				"era": {
+					"headline": "Era",
+					"modern": "Modern (20th)",
+					"victorian": "Victorian Age (20th)",
+					"wildwest": "Wild West (20th)",
+					"darkages": "Dark Ages (20th)",
+					"infoone": "To change this setting means that the abilities of the sheet is re-configurated to fit the chosen area.",
+					"infotwo": "This can cause existing abilities to be hidden."
+				}
 			},
 			"trait": {
 				"meleeweapon": "Listed melee weapon",
@@ -981,6 +1064,7 @@
 				"multiplier": "Movement multiplier"
 			},
 			"new": {
+				"notfound": "Item type does not exist",
 				"armor": "New armor",
 				"naturalweapon": "New natural weapon",
 				"meleeweapon": "New melee weapon",
@@ -1014,7 +1098,12 @@
 				"lore": "New lore",
 				"lorepower": "New lore power",
 				"power": "New power",
-				"charm": "New charm"
+				"charm": "New charm",
+				"device": "New device",
+				"talisman": "New talisman",
+				"periapt": "New periapt",
+				"matrix": "New matrix",
+				"trinket": "New trinket"
 			},
 			"add": {
 				"background": "Add background",
@@ -1039,7 +1128,14 @@
 				"art": "Add art",
 				"artpower": "Add art power",
 				"power": "Add power",
-				"charm": "Add charm"
+				"charm": "Add charm",
+				"fetish": "Add fetish",
+				"talen": "Add talen",
+				"device": "Add device",
+				"talisman": "Add talisman",
+				"periapt": "Add periapt",
+				"matrix": "Add matrix",
+				"trinket": "Add trinket"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",
@@ -1066,7 +1162,7 @@
 				"edgepower": "Edit edge power",
 				"lore": "Edit lore",
 				"lorepower": "Edit lore power",
-				"ability": "Edit secondary ability",
+				"abilitysecond": "Edit secondary ability",
 				"resonance": "Edit resonance",
 				"othertraits": "Edit other trait",
 				"treasure": "Edit treasure",
@@ -1074,7 +1170,16 @@
 				"apocalypticform": "Edit apocalyptic form",
 				"armor": "Edit armor",
 				"power": "Edit power",
-				"charm": "Edit charm"
+				"charm": "Edit charm",
+				"ability": "Edit ability",
+				"speciality": "Edit speciality",
+				"device": "Edit device",
+				"talisman": "Edit talisman",
+				"periapt": "Edit periapt",
+				"matrix": "Edit matrix",
+				"trinket": "Edit trinket",
+				"sphere": "Edit sphere",
+				"experience": "Edit experience"
 			},
 			"remove": {
 				"item": "Remove item",
@@ -1110,7 +1215,13 @@
 				"othertraits": "Remove other trait",
 				"treasure": "Remove treasure",
 				"bonus": "Remove bonus",
-				"power": "Remove power"
+				"power": "Remove power",
+				"device": "Remove device",
+				"talisman": "Remove talisman",
+				"periapt": "Remove periapt",
+				"matrix": "Remove matrix",
+				"trinket": "Remove trinket",
+				"experience": "Remove experience"
 			},
 			"show": {
 				"background": "Show backgrounds",
@@ -1163,7 +1274,8 @@
 			"rollinginitiative": "Rolling initiative",
 			"rollingsoak": "Rolling soak",
 			"rollingremainactive": "Roll to remain active",
-			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active."
+			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
+			"addedautosucc": "The roll add {0} automatic successes"			
 		},
 		"dialog": {	
 			"save": "Save",
@@ -1176,6 +1288,7 @@
 			"neededsuccesses": "Number of successes required",
 			"usewoundpenalty": "Use wound penalty",
 			"dicepool": "Dice pool",
+			"nonelisted": "None listed",
 			"aretecasting": {
 				"castspell": "Cast spell",
 				"castingspell": "Casting spell",	
@@ -1219,7 +1332,8 @@
 				"quintessence": "Spending Quintessence",
 				"additionaldifficulty": "Additional difficulty modifier",
 				"castingsettings": "Casting settings",
-				"extendedcasting": "Extended casting"
+				"extendedcasting": "Extended casting",
+				"selectsphere": "Need to select sphere's first"
 			},
 			"checkfrenzy": {
 				"headline": "Roll for frenzy",
@@ -1231,12 +1345,13 @@
 				"half": "Half moon",
 				"gibbous": "Gibbous moon",
 				"full": "Full moon",
-				"nomoonphase": "No moon phase selected"						
+				"nomoonphase": "No moon phase selected"
 			},
 			"shapechange": {
 				"headline": "Roll for shapechange",
 				"shiftbonus": "Bonus dice to shapechange",
-				"noshape": "No shape selected"
+				"noshape": "No shape selected",
+				"selectshape": "Shape to turn into"
 			},
 			"weapon": {
 				"attack": "Attack",
@@ -1257,7 +1372,8 @@
 				"numbertargets": "Number of targets"
 			},
 			"soak": {
-				"missingdamage": "You need to select a damage type"
+				"missingdamage": "You need to select a damage type",
+				"selectdamage": "Select damage type"
 			},
 			"power": {
 				"availrealms": "Available Realms",
@@ -1265,7 +1381,24 @@
 				"nightmaredice": "Nightmare dice",
 				"missingrealm": "You need to select a Realm",
 				"arttype": "Art type",
-				"shiftnightmaredice": "Shift to Nightmare dice"
+				"shiftnightmaredice": "Shift to Nightmare dice",
+				"notset": "Not set",
+				"selectpower": "Select power to connect to"
+			},
+			"attribute": {
+				"speciality": "Speciality",
+				"customname": "Custom name",
+				"abilityname": "Ability name",
+				"altname": "Alternative ability name",
+				"techonocracy": "Use Technocracy version"
+			},
+			"general": {
+				"selectattribute": "Select what attribute to use"
+			},
+			"bonus": {
+				"chosenattribute": "Chosen attribute",
+				"movement": "Type of movement",
+				"bonusvalue": "Bonus value"
 			}
 		}
 	}	

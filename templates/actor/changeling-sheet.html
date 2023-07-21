@@ -69,6 +69,18 @@
 									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}							
 								</div>
 
+								{{#if data.system.settings.haspath}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+								{{/if}}
+
+								{{#if data.system.settings.hasvirtue}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
+								{{/if}}
+
+								{{#if data.system.settings.hasbloodpool}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+								{{/if}}	
+
 							</div>
 							
 							<div class="pullLeft healthBox" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
@@ -109,7 +121,7 @@
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
 
 				<div class="sheet-headline sheet-banner splatFont">
-					<span class="sheet-banner-text">LANG: Other items</span>
+					<span class="sheet-banner-text">{{localize "wod.gear.otheritems"}}</span>
 				</div>
 
 				{{> "systems/worldofdarkness/templates/actor/parts/changeling/treasure.html"}}

@@ -10,7 +10,7 @@
             <div class="infobox">
                 <div class="bioInformationArea floating-label-group">
                     <input id="speciality" name="speciality" class="sheet-infoValues editable" type="text" value="{{object.speciality}}" autocomplete="off" autofocus {{#if (lt object.value 4)}}readonly{{/if}} />
-                    <span class="floating-label">LANG: Speciality</span>
+                    <span class="floating-label">{{localize "wod.dialog.attribute.speciality"}}</span>
                 </div>            
             </div>
         {{/if}}
@@ -19,7 +19,7 @@
             <div class="infobox">
                 <div class="bioInformationArea floating-label-group">
                     <input id="custom" name="custom" class="sheet-infoValues editable" type="text" value="{{object.custom}}" autocomplete="off" autofocus />
-                    <span class="floating-label">LANG: Custom name</span>
+                    <span class="floating-label">{{localize "wod.dialog.attribute.customname"}}</span>
                 </div>            
             </div>
         {{/if}}
@@ -29,12 +29,12 @@
                 {{#if object.issecondary}}
                     <div class="bioInformationArea floating-label-group">
                         <input id="label" name="label" class="sheet-infoValues editable" type="text" value="{{object.label}}" autocomplete="off" autofocus />
-                        <span class="floating-label">LANG: Ability name</span>
+                        <span class="floating-label">{{localize "wod.dialog.attribute.abilityname"}}</span>
                     </div>
                 {{else}}
                     <div class="bioInformationArea floating-label-group">
                         <input id="altlabel" name="altlabel" class="sheet-infoValues editable" type="text" value="{{object.altlabel}}" autocomplete="off" autofocus />
-                        <span class="floating-label">LANG: Alternative ability name</span>
+                        <span class="floating-label">{{localize "wod.dialog.attribute.altname"}}</span>
                     </div>
                 {{/if}}
             </div>
@@ -42,7 +42,7 @@
 
         {{#if (eq object.typeform "sphere")}}
             <div class="infobox">
-                LANG: Use Technocracy version.
+                {{localize "wod.dialog.attribute.techonocracy"}}
                 <input id="technocracy" name="technocracy" type="checkbox" {{#if object.istechnocracy}}checked{{/if}}></input></div>
             </div>
         {{/if}}

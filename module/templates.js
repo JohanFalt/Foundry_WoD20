@@ -99,7 +99,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/fetish.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/magic_item.html",
 
 		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/resonance.html",
@@ -755,16 +755,16 @@ export const registerHandlebarsHelpers = function () {
 
 			if (era == CONFIG.wod.era.darkages) {
 				if (conceal == "P") {
-					conceal = "LANG: Pouch";
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.pouch");
 				}
 				if (conceal == "J") {
-					conceal = "LANG: Loose clothing";
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.loose");
 				}
 				if (conceal == "T") {
-					conceal = "LANG: Long cloak";
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.cloak");
 				}
 				if (conceal == "NA") {
-					conceal = "LANG: May Not Be Concealed";
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.notbeconcealed");
 				}
 			}
 		}

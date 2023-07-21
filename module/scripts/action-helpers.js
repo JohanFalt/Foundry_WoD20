@@ -117,8 +117,8 @@ export default class ActionHelper {
 			}
 
 			// used a Item
-			if (dataset.object == "Treasure") {
-				const treasure = new ItemDialog.Treasure(item);
+			if (dataset.object == "Magicitem") {
+				const treasure = new ItemDialog.Magicitem(item);
 				let treasureUse = new ItemDialog.DialogItem(actor, treasure);
 				treasureUse.render(true);
 
@@ -129,15 +129,25 @@ export default class ActionHelper {
 			if ((dataset.object == "Fetish") || (dataset.object == "Talen")) {
 
 				let template = [];
-				template.push(`${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.advantages.gnosis.roll})`);
+				
 
-				const fetishRoll = new DiceRollContainer(actor);
-				fetishRoll.action = game.i18n.localize("wod.dice.activate");
+				const fetishRoll = new DiceRollContainer(actor);	
+				fetishRoll.action = game.i18n.localize("wod.dice.activate");			
 				fetishRoll.dicetext = template;
 				fetishRoll.origin = "general";
-				fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);
+				if (actor.type == CONFIG.wod.sheettype.mage) {
+					template.push(`${game.i18n.localize("wod.advantages.willpower")} (${actor.system.advantages.willpower.roll})`);
+					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);
+					fetishRoll.difficulty = 7; 
+				}
+				else {
+					template.push(`${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.advantages.gnosis.roll})`);
+					fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);
+					fetishRoll.difficulty = parseInt(item.system.difficulty); 
+				}
+				
 				fetishRoll.woundpenalty = 0;
-				fetishRoll.difficulty = parseInt(item.system.difficulty); 
+				
 				fetishRoll.systemText = item.system.details;
 
         		NewRollDice(fetishRoll);

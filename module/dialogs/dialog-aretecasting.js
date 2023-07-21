@@ -245,7 +245,7 @@ export class DialogAreteCasting extends FormApplication {
         }
 
         if (!found) {
-            ui.notifications.warn("LANG: Need to select sphere's first");
+            ui.notifications.warn(game.i18n.localize("wod.dialog.aretecasting.selectsphere"));
             this.render();
             return;
         }

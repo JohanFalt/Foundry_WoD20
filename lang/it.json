@@ -802,6 +802,7 @@
 			"time": "Tempo"
 		},
 		"gear": {
+			"headline": "Equipaggiamento",
 			"money": "Soldi",
 			"moneycarried": "Con sè",
 			"moneybank": "In banca"
@@ -864,7 +865,6 @@
 				"ranged": "Armi da Fuoco",
 				"armor": "Armatura"
 			},
-			"gear": "Attrezzatura",
 			"power": {
 				"level": "Livello",
 				"noattribute": "Nessun Attributo",
@@ -1000,7 +1000,7 @@
 				"edgepower": "Modifica Vantaggio (potere)",
 				"lore": "Modifica Lore",
 				"lorepower": "Modifica Lore (potere)",
-				"ability": "Modifica Abilità Secondaria",
+				"abilitysecond": "Modifica Abilità Secondaria",
 				"resonance": "Modifica Risonanza",
 				"othertraits": "Modifica Altro Tratto",
 				"treasure": "Modifica Tesoro",

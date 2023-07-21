@@ -802,6 +802,7 @@
 			"time": "Tiempo"
 		},
 		"gear": {
+			"headline": "Equipo",
 			"money": "Dinero",
 			"moneycarried": "Transportado",
 			"moneybank": "Guardado"
@@ -864,7 +865,6 @@
 				"ranged": "Armas a distancia",
 				"armor": "Armaduras"
 			},
-			"gear": "Equipo",
 			"power": {
 				"level": "Nivel",
 				"noattribute": "Sin Atributo",
@@ -1000,7 +1000,7 @@
 				"edgepower": "Editar Poder de Facultad",
 				"lore": "Editar Saber",
 				"lorepower": "Editar Poder de Saber",
-				"ability": "Editar Habilidad secundaria",
+				"abilitysecond": "Editar Habilidad secundaria",
 				"resonance": "Editar Resonancia",
 				"othertraits": "Editar Otro Rasgo",
 				"treasure": "Editar Tesoro",

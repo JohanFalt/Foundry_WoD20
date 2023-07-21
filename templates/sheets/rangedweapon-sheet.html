@@ -1,162 +1,246 @@
 <form class="{{cssClass}} {{sheettype}}" autocomplete="off">
 
 	<div class="sheet-item rangedweapons">
+
 		<header class="sheet-header">
 			<div class="top-area">
-				<div class="top-side">
-					{{#if userpermissions.changeItemImage}}
-						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
-					{{else}}
-						<img src="{{item.img}}" />
-					{{/if}}
-				</div>
-				<div class="top-center top-headline splatFont centerText">
-					{{item.name}}
-				</div>
-				<div class="top-side top-sidetext centerText">
-					{{captilize (localize "wod.types.rangedweapon")}}
+				<div class="clearareaBox top-side">
+					<div class="pullLeft" style="display: flex;">
+
+						{{#if userpermissions.changeItemImage}}
+							<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+						{{else}}
+							<img src="{{item.img}}" />
+						{{/if}}
+					</div>
+
+					<div class="pullLeft" style="display: flex; width: 200px;">
+
+						<div class="area-box">
+
+							<div class="bioInformationArea top-sidetext">
+								{{captilize (localize "wod.types.rangedweapon")}}
+							</div>
+
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+							</div>														
+						</div>	
+					</div>
+
+					<div class="pullRight" style="width: auto;">
+						{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
+					</div>
 				</div>				
-			</div>
+			</div>			
 		</header>
 
 		<section class="item-body">
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>
-
-			{{#if userpermissions.itemAdministrator}}
-			<!-- data.attack -->
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
-				<input name="system.attack.isrollable" type="checkbox" {{#if data.system.attack.isrollable}} checked {{/if}} />
-			</div>
-			{{/if}}
-
-			{{#if data.system.attack.isrollable}}
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.attack.attribute">{{localize "wod.combat.weapon.attribute"}}</label>
-				<select class="item editable" name="system.attack.attribute">
-					{{#select data.system.attack.attribute}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						{{#each config.attackAttributes as | name type|}}
-							<option value="{{type}}">{{localize name}}</option>
-						{{/each}}
-					{{/select}}
-				</select>
-			</div>
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.attack.ability">{{localize "wod.combat.weapon.ability"}}</label>
-				<select class="item editable" name="system.attack.ability">
-					{{#select data.system.attack.ability}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						<option value="custom">- {{localize "wod.labels.custom"}} -</option>
-						{{#each config.attackRangedAbilities as | name type|}}
-							<option value="{{type}}">{{localize name}}</option>
-						{{/each}}
-					{{/select}}
-				</select>
-			</div>
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.attack.accuracy">{{localize "wod.combat.weapon.accuracy"}}</label>
-				<input class="sheet-infoValues miniBox editable" name="system.attack.accuracy" type="text" value="{{data.system.attack.accuracy}}" data-dtype="Number" />
-			</div>
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
-				<select class="editable" name="system.difficulty">
-					{{#select data.system.difficulty}}
-						<option value="-1">- {{localize "wod.labels.varies"}} -</option>
-						{{#numFromLoop config.lowestDifficulty 10}}
-							<option value="{{this}}">{{this}}</option>
-						{{/numFromLoop}}
-					{{/select}}
-				</select>
-			</div>
-			{{/if}}
-
-			{{#if userpermissions.itemAdministrator}}
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
-				<input name="system.damage.isrollable" type="checkbox" {{#if data.system.damage.isrollable}} checked {{/if}} />
-			</div>
-			{{/if}}
-
-			{{#if data.system.damage.isrollable}}
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.damage.attribute">{{localize "wod.combat.weapon.damage"}}</label>
-				<div>
-					<select class="editable" name="system.damage.attribute">
-						{{#select data.system.damage.attribute}}
-						<option value="">- {{localize "wod.labels.none"}} -</option>
-						<option value="strength">{{localize "wod.attributes.strength"}}</option>
+			<div class="dialog-area">
+				<div class="infobox bioInformationArea floating-label-group">
+					<select class="sheet-infoValues editable" name="system.era">
+						{{#select data.system.era}}
+							{{#each config.era as | name type|}}
+								<option value="{{name}}">{{localize name}}</option>
+							{{/each}}						
 						{{/select}}
 					</select>
-					&nbsp;+&nbsp;
-					<input class="sheet-infoValues numberBox editable" name="system.damage.bonus" type="text" value="{{data.system.damage.bonus}}" data-dtype="Number" />
-					<select class="editable" name="system.damage.type">
-						{{#select data.system.damage.type}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						{{#each config.damageTypes as | name type|}}
-						<option value="{{type}}">{{localize name}}</option>
-						{{/each}}
-						{{/select}}
-					</select>
+					<span class="floating-label">{{localize "wod.labels.settings.era.headline"}}</span>
 				</div>
-			</div>
-			{{/if}}
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.range">{{localize "wod.combat.weapon.range"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="system.range" type="text" value="{{data.system.range}}" data-dtype="Number" />
-			</div>
+				<div class="infobox bioInformationArea floating-label-group">
+					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
+				</div>
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.rate">{{localize "wod.combat.weapon.rate"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="system.rate" type="text" value="{{data.system.rate}}" data-dtype="Number" />
-			</div>
+				<div class="infobox bioInformationArea floating-label-group">
+					<select class="sheet-infoValues smallbox editable" name="system.conceal">
+						{{#select data.system.conceal}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>
+							<option value="P">{{translateConceal "P" data.system.era true}}</option>
+							<option value="J">{{translateConceal "J" data.system.era true}}</option>
+							<option value="T">{{translateConceal "T" data.system.era true}}</option>
+							<option value="NA">{{translateConceal "NA" data.system.era true}}</option>					
+						{{/select}}
+					</select>
+					<span class="floating-label">{{localize "wod.combat.weapon.conceal.conceal"}}</span>
+				</div>
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.clip.max">{{localize "wod.combat.weapon.clip"}}</label>
-				<input class="sheet-infoValues numberBox editable" name="system.clip.max" type="text" value="{{data.system.clip.max}}" data-dtype="Number" />
-			</div>
+				<div class="infobox clearareaBox">
+					<div class="pullLeft" style="margin-right: 10px;">
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
-				<div>
-					<input name="system.mode.hasreload" type="checkbox" {{#if data.system.mode.hasreload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
-					<input name="system.mode.hasburst" type="checkbox" {{#if data.system.mode.hasburst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
-					<input name="system.mode.hasfullauto" type="checkbox" {{#if data.system.mode.hasfullauto}} checked {{/if}}>{{localize "wod.combat.mode.fullauto"}}</input>
-					<input name="system.mode.hasspray" type="checkbox" {{#if data.system.mode.hasspray}} checked {{/if}}>{{localize "wod.combat.mode.spray"}}</input>
+						<div class="infobox bioInformationArea floating-label-group">
+							<input class="sheet-infoValues smallbox editable" name="system.range" type="text" value="{{data.system.range}}" data-dtype="Number" autocomplete="off" autofocus required />
+							<span class="floating-label">{{localize "wod.combat.weapon.range"}}</span>
+						</div>
+					</div>
+					<div class="pullLeft" style="margin-right: 10px;">
+
+						<div class="infobox bioInformationArea floating-label-group">
+							<input class="sheet-infoValues smallbox editable" name="system.rate" type="text" value="{{data.system.rate}}" data-dtype="Number" autocomplete="off" autofocus required />
+							<span class="floating-label">{{localize "wod.combat.weapon.rate"}}</span>
+						</div>
+					</div>
+					<div class="pullLeft">
+
+
+						<div class="infobox bioInformationArea floating-label-group">
+							<input class="sheet-infoValues smallbox editable" name="system.clip.max" type="text" value="{{data.system.clip.max}}" data-dtype="Number" autocomplete="off" autofocus required />
+							<span class="floating-label">{{localize "wod.combat.weapon.clip"}}</span>
+						</div>
+					</div>
+				</div>
+
+				{{#if (eq data.system.era "wod.era.darkages")}}
+
+					<div class="infobox">
+						<div class="bioInformationArea floating-label-group">
+							<input class="sheet-infoValues editable" name="system.minstrength" type="text" value="{{data.system.minstrength}}" data-dtype="Number" autocomplete="off" autofocus required />
+							<span class="floating-label">{{localize "wod.combat.weapon.minstrenght"}}</span>
+						</div>
+					</div>
+
+					<div class="infobox">
+						<div class="bioInformationArea floating-label-group">
+							<input class="sheet-infoValues editable" name="system.piercing" type="text" value="{{data.system.piercing}}" data-dtype="Number" autocomplete="off" autofocus required />
+							<span class="floating-label">{{localize "wod.combat.weapon.armorpiercing"}}</span>
+						</div>
+					</div>
+
+				{{/if}}
+
+				<!-- 2-handed true/false -->
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
+					<input name="system.istwohanded" type="checkbox" {{#if data.system.istwohanded}} checked {{/if}}></input>
+				</div>
+
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
+					<div>
+						<input name="system.mode.hasreload" type="checkbox" {{#if data.system.mode.hasreload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
+						<input name="system.mode.hasburst" type="checkbox" {{#if data.system.mode.hasburst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
+						<input name="system.mode.hasfullauto" type="checkbox" {{#if data.system.mode.hasfullauto}} checked {{/if}}>{{localize "wod.combat.mode.fullauto"}}</input>
+						<input name="system.mode.hasspray" type="checkbox" {{#if data.system.mode.hasspray}} checked {{/if}}>{{localize "wod.combat.mode.spray"}}</input>
+					</div>
 				</div>
 			</div>
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.conceal">{{localize "wod.combat.weapon.conceal.conceal"}}</label>
-				<select class="editable" name="system.conceal">
-					{{#select data.system.conceal}}
-					<option value="">- {{localize "wod.labels.select"}} -</option>
-					<option value="P">{{localize "wod.combat.weapon.conceal.pocket"}}</option>
-					<option value="J">{{localize "wod.combat.weapon.conceal.jacket"}}</option>
-					<option value="T">{{localize "wod.combat.weapon.conceal.trenchcoat"}}</option>
-					<option value="NA">{{localize "wod.combat.weapon.conceal.na"}}</option>
-					{{/select}}
-				</select>
+			<div class="dialog-area">
+				{{#if userpermissions.itemAdministrator}}
+				<!-- data.attack -->
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
+					<input name="system.attack.isrollable" type="checkbox" {{#if data.system.attack.isrollable}} checked {{/if}} />
+				</div>
+				{{/if}}
+
+				{{#if data.system.attack.isrollable}}
+					<div class="infobox clearareaBox">
+						<div class="pullLeft" style="margin-right: 10px;">
+							<div class="bioInformationArea floating-label-group">
+								<select class="sheet-infoValues smallbox editable" name="system.attack.attribute">
+									{{#select data.system.attack.attribute}}
+										<option value="">- {{localize "wod.labels.select"}} -</option>
+										{{#each config.attackAttributes as | name type|}}
+											<option value="{{type}}">{{localize name}}</option>
+										{{/each}}
+									{{/select}}
+								</select>
+								<span class="floating-label">{{localize "wod.combat.weapon.attribute"}}</span>
+							</div>	
+						</div>
+
+						<div class="pullLeft">
+							<div class="bioInformationArea floating-label-group">
+								<select class="sheet-infoValues smallbox editable" name="system.attack.ability">
+									{{#select data.system.attack.ability}}
+										<option value="">- {{localize "wod.labels.select"}} -</option>
+										<option value="custom">- {{localize "wod.labels.custom"}} -</option>
+										{{#each config.attackRangedAbilities as | name type|}}
+											<option value="{{type}}">{{localize name}}</option>
+										{{/each}}
+									{{/select}}
+								</select>
+								<span class="floating-label">{{localize "wod.combat.weapon.ability"}}</span>
+							</div>	
+						</div>
+					</div>
+
+					<div class="infobox">
+						<div class="bioInformationArea floating-label-group">
+							<input class="sheet-infoValues smallbox editable" name="system.attack.accuracy" type="text" value="{{data.system.attack.accuracy}}" data-dtype="Number" autocomplete="off" autofocus required />
+							<span class="floating-label">{{localize "wod.combat.weapon.accuracy"}}</span>
+						</div>
+					</div>
+
+					<div class="infobox">
+						<div class="bioInformationArea floating-label-group">
+							<select class="sheet-infoValues smallbox editable" name="system.difficulty">
+								{{#select data.system.difficulty}}
+									<option value="-1">- {{localize "wod.labels.varies"}} -</option>
+									{{#numFromLoop config.lowestDifficulty 10}}
+										<option value="{{this}}">{{this}}</option>
+									{{/numFromLoop}}
+								{{/select}}
+							</select>
+							<span class="floating-label">{{localize "wod.labels.difficulty"}}</span>
+						</div>					
+					</div>
+				{{/if}}
+
+				
 			</div>
 
-			<!-- 2-handed true/false -->
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
-				<input name="system.istwohanded" type="checkbox" {{#if data.system.istwohanded}} checked {{/if}}></input>
-			</div>
+			<div class="dialog-area">
+			{{#if userpermissions.itemAdministrator}}
+				<div class="infobox">
+					<label class="headlineItem headlineBio splatFont" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
+					<input name="system.damage.isrollable" type="checkbox" {{#if data.system.damage.isrollable}} checked {{/if}} />
+				</div>
+				{{/if}}
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-			</div>
+				{{#if data.system.damage.isrollable}}
+
+					<div class="infobox clearareaBox">
+						<div class="pullLeft" style="margin-right: 10px;">
+							<div class="bioInformationArea floating-label-group">
+								<select class="sheet-infoValues smallbox editable" name="system.damage.attribute">
+									{{#select data.system.damage.attribute}}
+										<option value="">- {{localize "wod.labels.none"}} -</option>
+										<option value="strength">{{localize "wod.attributes.strength"}}</option>
+									{{/select}}
+								</select>
+								<span class="floating-label">{{localize "wod.combat.weapon.attribute"}}</span>
+							</div>	
+						</div>				
+					
+						<div class="pullLeft" style="margin-right: 10px;">
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues smallbox editable" name="system.damage.bonus" type="text" value="{{data.system.damage.bonus}}" data-dtype="Number" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize "wod.labels.bonus.headline"}}</span>
+							</div>
+						</div>
+					
+						<div class="pullLeft">
+							<div class="bioInformationArea floating-label-group">
+								<select class="sheet-infoValues smallbox editable" name="system.damage.type">
+									{{#select data.system.damage.type}}
+									<option value="">- {{localize "wod.labels.select"}} -</option>
+										{{#each config.damageTypes as | name type|}}
+											<option value="{{type}}">{{localize name}}</option>
+										{{/each}}
+									{{/select}}
+								</select>
+								<span class="floating-label">{{localize "wod.labels.damagetype"}}</span>
+							</div>	
+						</div>				
+					</div>
+				</div>
+				{{/if}}
+			</div>			
 
 			<!-- description -->
 			<div class="infobox">

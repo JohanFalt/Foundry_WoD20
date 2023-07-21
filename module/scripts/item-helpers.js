@@ -110,6 +110,11 @@ export default class ItemHelper {
 		actor.system.listdata.gear.fetishlist = [];
 		actor.system.listdata.gear.talenlist = [];
 		actor.system.listdata.gear.treasures = [];
+		actor.system.listdata.gear.devices = [];
+		actor.system.listdata.gear.talismans = [];
+		actor.system.listdata.gear.periapts = [];
+		actor.system.listdata.gear.matrixs = [];
+		actor.system.listdata.gear.trinkets = [];
 
 		actor.system.listdata.features = [];
 
@@ -260,6 +265,21 @@ export default class ItemHelper {
 
 			if (item.system.type == "wod.types.treasure") {
 				actor.system.listdata.gear.treasures.push(item);
+			}
+			if (item.system.type == "wod.types.device") {
+				actor.system.listdata.gear.devices.push(item);
+			}
+			if (item.system.type == "wod.types.talisman") {
+				actor.system.listdata.gear.talismans.push(item);
+			}
+			if (item.system.type == "wod.types.periapt") {
+				actor.system.listdata.gear.periapts.push(item);
+			}
+			if (item.system.type == "wod.types.matrix") {
+				actor.system.listdata.gear.matrixs.push(item);
+			}
+			if (item.system.type == "wod.types.trinket") {
+				actor.system.listdata.gear.trinkets.push(item);
 			}
 		}
 	}

@@ -50,10 +50,7 @@
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
-                                    data-type="Fetish" 
-                                    data-headline="{{item.name}}"
-                                    data-description="{{{item.system.description}}}"
-                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft">
@@ -142,17 +139,14 @@
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
-                                    data-type="Fetish" 
-                                    data-headline="{{item.name}}"
-                                    data-description="{{{item.system.description}}}"
-                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.merits'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                    <a class="item-edit" title="{{localize 'wod.labels.edit.merit'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                                 </div>
                                 <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.merits'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.merit'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                                 </div>
                             {{/if}}  
                             {{#if (gt item.system.bonuses.length 0)}}
@@ -231,17 +225,14 @@
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
-                                    data-type="Fetish" 
-                                    data-headline="{{item.name}}"
-                                    data-description="{{{item.system.description}}}"
-                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.remove.flaws'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                    <a class="item-edit" title="{{localize 'wod.labels.edit.flaw'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                                 </div>
                                 <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.flaws'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.flaw'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                                 </div>
                             {{/if}}
                             {{#if (gt item.system.bonuses.length 0)}}
@@ -278,7 +269,7 @@
 
 <div class="sheet-area">
     <div class="clearareaBox area-box">
-        <div class="headlineRow splatFont" data-type="bloodbound">
+        <div class="headlineRow splatFont" data-area="bloodbound">
             <div class="clearareaBox">
                 <div class="pullLeft">
                     <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.bloodbound"}}" aria-hidden="true" data-itemtype="Feature" data-type="bloodbound"></i>
@@ -290,7 +281,7 @@
             </div>
         </div>
 
-        <div class="clearareaBox hide bloodbound" data-area="bloodbound">
+        <div class="clearareaBox hide bloodbound">
             {{#each actor.system.listdata.features.bloodbounds as |item id|}}
                 <div class="item-row-area">
                     <div class="clearareaBox note-row">
@@ -319,9 +310,7 @@
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
-                                    data-type="Fetish" 
-                                    data-headline="{{item.name}}"
-                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
@@ -384,9 +373,7 @@
                                 <div class="pullLeft">
                                     <a class="send-chat" 
                                         title="{{localize 'wod.labels.send'}}"
-                                        data-type="Fetish" 
-                                        data-headline="{{item.name}}"
-                                        data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                                 </div>
                                 {{#if (eq ../locked false)}}
                                     <div class="pullLeft pointer">
@@ -461,10 +448,7 @@
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
-                                    data-type="other" 
-                                    data-headline="{{item.name}}"
-                                    data-description="{{{item.system.description}}}"
-                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">

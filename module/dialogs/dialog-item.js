@@ -2,7 +2,7 @@ import { NewRollDice } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 
-export class Treasure {
+export class Magicitem {
     constructor(item) {
         this.attributeValue = 0;
         this.attributeName = "";
@@ -81,7 +81,7 @@ export class DialogItem extends FormApplication {
             }
         }
         // is dice1 an Advantage
-        else if (this.actor.system?.advantages[data.object.dice1].roll != undefined) { 
+        else if ((this.actor.system?.advantages[data.object.dice1] != undefined) && (this.actor.system.advantages[data.object.dice1]?.roll != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.advantages[data.object.dice1].roll);
             data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
 
@@ -291,7 +291,7 @@ export class DialogItem extends FormApplication {
         dialogRoll.difficulty = parseInt(this.object.difficulty);          
         dialogRoll.speciality = this.object.useSpeciality;
         dialogRoll.specialityText = specialityText;      
-        dialogRoll.systemText = this.object.description;  
+        dialogRoll.systemText = this.object.details;  
         NewRollDice(dialogRoll);
     }
 

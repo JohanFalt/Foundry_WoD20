@@ -1367,6 +1367,11 @@ export const updates = async () => {
                 };
                 altered = true;
             }           
+            if ((item.system.type == "wod.types.ritual") && (item.system.game == "vampire")) {
+                itemData.system.category = "wod.power.thaumaturgy";
+
+                altered = true;
+            }
         }
 
         if (altered) {
@@ -1458,6 +1463,7 @@ export const updates = async () => {
         patch220 = game.settings.get('worldofdarkness', 'patch220');
         patch230 = game.settings.get('worldofdarkness', 'patch230');
         patch300 = game.settings.get('worldofdarkness', 'patch300');
+        patch310 = game.settings.get('worldofdarkness', 'patch310');
     } 
     catch (e) {
     }
@@ -1583,7 +1589,7 @@ export const updates = async () => {
         newfunctions += "<li>Added Tours - see Foundry Tour Management</li>";
         newfunctions += "<li>Added a bonus system to use with merit/flaws/powers and so on</li>";
         newfunctions += "<li>Graphical improvements</li>";
-        newfunctions += "<li>Improved how speciallities are edited</li>";
+        newfunctions += "<li>Improved how specialities are edited</li>";
         newfunctions += "<li>Shows the character's movement under Combat tab</li>";
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
@@ -1595,11 +1601,16 @@ export const updates = async () => {
     }
 
     if (!patch310) {
-        newfunctions += "<li>How do roll outside sheet</li>";
-        newfunctions += "<li>How add speciality</li>";
-        newfunctions += "<li>How to custmize certain values e.g clan/tribe</li>";
-        newfunctions += "<li>How add bearing (VtM)</li>";
-        newfunctions += "<li>How add technocracy names (MtA)</li>";
+        game.settings.set('worldofdarkness', 'patch310', true);
+
+        newfunctions += "<li>Biggest update yet.</li>";
+        newfunctions += "<li>Total new design with a bunch of improvments on all sheets.</li>";
+        newfunctions += "<li>Support for eras in VtM, WtA and MtA</li>";
+        newfunctions += "<li>A number of new World settings to help you run the game you wish</li>";
+        newfunctions += "<li>[CtD] Improved how to roll arts</li>";
+        newfunctions += "<li>[MtA] Added magical items</li>";
+        newfunctions += "<li>[MtA] Improved spellcasting dialog</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
     if (newfunctions == "") {
@@ -1610,7 +1621,7 @@ export const updates = async () => {
 
     const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-300">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-310">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 

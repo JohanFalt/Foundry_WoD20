@@ -32,7 +32,7 @@
                     {{/select}}
                 </select>
                 {{#if (eq actor.system.kith "custom")}}
-                    <a class="pullLeft item-edit" title="LANG: Customize kith" data-type="Bio" data-name="{{localize "wod.bio.changeling.kith"}}" data-item-id="kith" data-custom="{{actor.system.custom.kith}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a class="pullLeft item-edit" title="{{localize "wod.labels.customkith"}}" data-type="Bio" data-name="{{localize "wod.bio.changeling.kith"}}" data-item-id="kith" data-custom="{{actor.system.custom.kith}}"><i class="fa-solid fa-pen-to-square"></i></a>
                 {{/if}}
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.changeling.kith"}}</span>        
@@ -135,7 +135,7 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText splatFont" for="data.revelry">LANG: Revelry</label>
+        <label class="headlineText splatFont" for="data.revelry">{{localize "wod.bio.changeling.revelry"}}</label>
         {{#if locked}}
             <div class="smallbox headlineNormal textarea">{{{data.system.revelry}}}</div>
         {{else}}

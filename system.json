@@ -4,8 +4,8 @@
   "description": "To play World of Darkness 20th ed. Support for Werewolf the Apocalypse (W20), Mage the Ascension (M20), Vampire the Masquerade (V20), Changeling the Dreaming (C20), Hunter the Reckoning (HtR). Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.",
   "version": "3.1.0",
   "compatibility": {
-    "minimum": "10",
-    "verified": "11.301",
+    "minimum": "10.303",
+    "verified": "11",
     "maximum": "11"
   },
   "authors": [
@@ -23,7 +23,7 @@
     "lib/koption/koptions.css",
     "lib/editor/editor.css",
     "css/wod.css",
-    "css/responsive.css",
+    "css/responsive.css",    
     "css/werewolf.css",
     "css/vampire.css",
     "css/mage.css",
@@ -32,7 +32,7 @@
     "css/demon.css",
     "css/mortal.css",
     "css/spirit.css",
-    "css/creature.css",
+    "css/creature.css",    
     "css/chat.css"
   ],
   "languages": [
@@ -73,6 +73,6 @@
   "primaryTokenAttribute": "traits.health.totalhealthlevels",
   "url": "https://github.com/JohanFalt/Foundry_WoD20",
   "manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/main/system.json",
-  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v3.1.zip",
+  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v3.1.0.zip",
   "license": "LICENSE.txt"
 }

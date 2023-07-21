@@ -38,8 +38,8 @@ export const systemSettings = function() {
     // DICE RULES
 
     game.settings.register("worldofdarkness", "theRollofOne", {
-		name: "LANG: Use default result 1 handling",
-		hint: "LANG: Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
+		name: game.i18n.localize('wod.settings.therollofone'),
+		hint: game.i18n.localize('wod.settings.therollofonehint'),
 		scope: "world",
 		config: false,
 		default: true,
@@ -47,8 +47,8 @@ export const systemSettings = function() {
 	});
 
     game.settings.register("worldofdarkness", "lowestDifficulty", {
-		name: "LANG: Lowest difficulty allowed",
-		hint: "LANG: Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
+		name: game.i18n.localize('wod.settings.lowestdifficulty'),
+		hint: game.i18n.localize('wod.settings.lowestdifficultyhint'),
 		scope: "world",
 		config: false,
 		default: 2,
@@ -63,14 +63,14 @@ export const systemSettings = function() {
 	});
 
     game.settings.register("worldofdarkness", "specialityAddSuccess", {
-		name: "LANG: Use default rule for speciality",
-		hint: "LANG: Default use of speciallities - adds a number of successes on the roll of 10s",
+		name: game.i18n.localize('wod.settings.specialityaddsuccess'),
+		hint: game.i18n.localize('wod.settings.specialityaddsuccesshint'),
 		scope: "world",
 		config: false,
 		default: 2,
 		type: Number,
         choices: {
-            "0": "LANG: Do not use",
+            "0": game.i18n.localize('wod.settings.nonotuse'),
             "1": "1",
 			"2": "2",
 			"3": "3"
@@ -78,14 +78,14 @@ export const systemSettings = function() {
 	});
 
     game.settings.register("worldofdarkness", "specialityReduceDiff", {
-		name: "LANG: Speciality lowers difficulty",
-		hint: "LANG: If use of speciality the difficulty of the roll is lowered.",
+		name: game.i18n.localize('wod.settings.specialityreducediff'),
+		hint: game.i18n.localize('wod.settings.specialityreducediffhint'),
 		scope: "world",
 		config: false,
 		default: 0,
 		type: Number,
         choices: {
-            "0": "LANG: Do not use",
+            "0": game.i18n.localize('wod.settings.nonotuse'),
             "1": "-1",
 			"2": "-2",
 			"3": "-3"
@@ -93,14 +93,14 @@ export const systemSettings = function() {
 	});
 
     game.settings.register("worldofdarkness", "tenAddSuccess", {
-		name: "LANG: 10s always add successes",
-		hint: "LANG: A change of how handling 10s to always adds a number of successes to the roll",
+		name: game.i18n.localize('wod.settings.tenaddsuccess'),
+		hint: game.i18n.localize('wod.settings.tenaddsuccesshint'),
 		scope: "world",
 		config: false,
 		default: 0,
 		type: Number,
         choices: {
-            "0": "LANG: Do not use",
+            "0": game.i18n.localize('wod.settings.nonotuse'),
             "1": "1",
 			"2": "2",
 			"3": "3"
@@ -108,16 +108,16 @@ export const systemSettings = function() {
 	});
 
     game.settings.register("worldofdarkness", "explodingDice", {
-		name: "LANG: 10s explode handling",
-		hint: "LANG: In revised rules when rolling a 10 you got.",
+		name: game.i18n.localize('wod.settings.explodingdice'),
+		hint: game.i18n.localize('wod.settings.explodingdicehint'),
 		scope: "world",
 		config: false,
 		default: false,
 		type: String,
         choices: {
-			"never": "LANG: Do not use",
-			"speciality": "LANG: Use with speciality",
-            "always": "LANG: Always use"
+			"never": game.i18n.localize('wod.settings.nonotuse'),
+			"speciality": game.i18n.localize('wod.settings.usewithspeciality'),
+            "always": game.i18n.localize('wod.settings.alwaysuse'),
 		}
 	});
 
@@ -337,6 +337,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch310", {
+		name: "patch310",
+		hint: "patch310",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
@@ -348,9 +357,9 @@ export const systemSettings = function() {
     });
 
     game.settings.registerMenu("worldofdarkness", "diceSettings", {
-        name: "LANG: Rolling dices rules",
-        hint: "LANG: How the system handles rolling the dices",
-        label: "LANG: Rolling dices rules",
+        name: game.i18n.localize('wod.settings.dicerules'),
+        hint: game.i18n.localize('wod.settings.diceruleshint'),
+        label: game.i18n.localize('wod.settings.dicerules'),
         icon: "icon fa-solid fa-gear",
         type: Dices,
         restricted: true,
@@ -481,7 +490,7 @@ export class Dices extends FormApplication {
         return mergeObject(super.defaultOptions, {
             id: "dices",
             classes: ["wod20 wod-dialog rule-dialog"],
-            title: "LANG: Roll settings",
+            title: game.i18n.localize("wod.settings.rollsettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-dice.html",
         });
     }
@@ -563,7 +572,7 @@ export class Hunter extends FormApplication {
         return mergeObject(super.defaultOptions, {
             id: "hunter",
             classes: ["wod20 wod-dialog rule-dialog"],
-            title: "LANG: Hunter the Reckoning settings",
+            title: game.i18n.localize("wod.settings.huntersettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
     }
@@ -645,7 +654,7 @@ export class Werewolf extends FormApplication {
         return mergeObject(super.defaultOptions, {
             id: "werewolf",
             classes: ["wod20 wod-dialog rule-dialog"],
-            title: "LANG: Werewolf the Apocalypse settings",
+            title: game.i18n.localize("wod.settings.werewolfsettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
     }

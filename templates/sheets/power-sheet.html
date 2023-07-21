@@ -3,163 +3,168 @@
 	<div class="sheet-item">
 
 		<header class="sheet-header">
-
 			<div class="top-area">
-				<div class="top-side">
-					{{#if userpermissions.changeItemImage}}
-						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
-					{{else}}
-						<img src="{{item.img}}" />
-					{{/if}}
-				</div>
-				<div class="top-center top-headline splatFont centerText">
-					{{item.name}}
-				</div>
-				<div class="top-side top-sidetext centerText">
-					{{#if (eq data.system.type "wod.types.art")}} 
-						{{captilize (localize "wod.types.art")}}
-					{{/if}}
+				<div class="clearareaBox top-side">
+					<div class="pullLeft" style="display: flex;">
 
-					{{#if (eq data.system.type "wod.types.artpower")}} 
-						{{captilize (localize "wod.types.artpower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-					{{/if}}
+						{{#if userpermissions.changeItemImage}}
+							<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+						{{else}}
+							<img src="{{item.img}}" />
+						{{/if}}
+					</div>
 
-					{{#if (eq data.system.type "wod.types.discipline")}} 
-						{{captilize (localize "wod.types.discipline")}}
-					{{/if}}
+					<div class="pullLeft" style="display: flex; width: 200px;">
 
-					{{#if (eq data.system.type "wod.types.disciplinepower")}} 
-						{{captilize (localize "wod.types.disciplinepower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-					{{/if}}
+						<div class="area-box">
 
-					{{#if (eq data.system.type "wod.types.disciplinepath")}} 
-						{{captilize (localize "wod.types.disciplinepath")}}
-					{{/if}}
+							<div class="bioInformationArea top-sidetext">
+								{{#if (eq data.system.type "wod.types.art")}} 
+									{{captilize (localize "wod.types.art")}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.disciplinepathpower")}} 
-						{{captilize (localize "wod.types.disciplinepathpower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.artpower")}} 
+									{{captilize (localize "wod.types.artpower")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.edge")}} 
-						{{captilize (localize "wod.types.edge")}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.discipline")}} 
+									{{captilize (localize "wod.types.discipline")}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.edgepower")}} 
-						{{captilize (localize "wod.types.edgepower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.disciplinepower")}} 
+									{{captilize (localize "wod.types.disciplinepower")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.lore")}} 
-						{{captilize (localize "wod.types.lore")}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.disciplinepath")}} 
+									{{captilize (localize "wod.types.disciplinepath")}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.lorepower")}} 
-						{{captilize (localize "wod.types.lorepower")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.disciplinepathpower")}} 
+									{{captilize (localize "wod.types.disciplinepathpower")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.ritual")}} 
-						{{captilize (localize "wod.types.ritual")}}<br />
-						{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.edge")}} 
+									{{captilize (localize "wod.types.edge")}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.gift")}} 
-						{{captilize (localize "wod.types.gift")}}<br />
-						{{captilize (localize "wod.labels.rank")}} {{data.system.level}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.edgepower")}} 
+									{{captilize (localize "wod.types.edgepower")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.rite")}} 
-						{{captilize (localize "wod.types.rite")}}<br />
-						{{captilize (localize "wod.labels.rank")}}  {{data.system.level}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.lore")}} 
+									{{captilize (localize "wod.types.lore")}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.charm")}} 
-						{{captilize (localize "wod.types.charm")}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.lorepower")}} 
+									{{captilize (localize "wod.types.lorepower")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
 
-					{{#if (eq data.system.type "wod.types.power")}} 
-						{{captilize (localize "wod.types.power")}}
-					{{/if}}
+								{{#if (eq data.system.type "wod.types.ritual")}} 
+									{{captilize (localize "wod.types.ritual")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
+
+								{{#if (eq data.system.type "wod.types.gift")}} 
+									{{captilize (localize "wod.types.gift")}}<br />
+									{{captilize (localize "wod.labels.rank")}} {{data.system.level}}
+								{{/if}}
+
+								{{#if (eq data.system.type "wod.types.rite")}} 
+									{{captilize (localize "wod.types.rite")}}<br />
+									{{captilize (localize "wod.labels.rank")}}  {{data.system.level}}
+								{{/if}}
+
+								{{#if (eq data.system.type "wod.types.charm")}} 
+									{{captilize (localize "wod.types.charm")}}
+								{{/if}}
+
+								{{#if (eq data.system.type "wod.types.power")}} 
+									{{captilize (localize "wod.types.power")}}
+								{{/if}}
+							</div>
+
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+							</div>													
+						</div>	
+					</div>
+
+					<div class="pullRight" style="width: auto;">
+						{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
+					</div>
 				</div>				
-			</div>
-			
+			</div>			
 		</header>
 		
 		<section class="item-body">
 
-<!-- 			{{#if showClearText}}
-				<div class="infobox">
-					<button class="button fullSplatColor pointer clearPower headlineButton">{{item.clearText}}</button>
-				</div>
-			{{/if}} -->
+			<div class="dialog-area">
 			
-			<div class="infobox">  
-				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>	
-				
-			{{#if userpermissions.itemAdministrator}}
+				{{#if userpermissions.itemAdministrator}}
 
-				<!-- Game -->
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="system.game">Game</label>
-					<select class="editable" name="system.game">
-						{{#select data.system.game}}
-							<option value="">- {{localize "wod.labels.select"}} -</option>
-							<option value="changeling">{{localize "wod.games.changeling"}}</option>
-							<option value="demon">{{localize "wod.games.demon"}}</option>
-							<option value="hunter">{{localize "wod.games.hunter"}}</option>
-							<!-- <option value="mage">Mage the Ascension</option> -->
-							<option value="vampire">{{localize "wod.games.vampire"}}</option>
-							<option value="werewolf">{{localize "wod.games.werewolf"}}</option>
-						{{/select}}
-					</select>
-				</div>
+					<!-- Game -->
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.game" data-dtype="String">
+							{{#select data.system.game}}
+								<option value="">- {{localize "wod.labels.select"}} -</option>
+								<option value="changeling">{{localize "wod.games.changeling"}}</option>
+								<option value="demon">{{localize "wod.games.demon"}}</option>
+								<option value="hunter">{{localize "wod.games.hunter"}}</option>
+								<!-- <option value="mage">Mage the Ascension</option> -->
+								<option value="vampire">{{localize "wod.games.vampire"}}</option>
+								<option value="werewolf">{{localize "wod.games.werewolf"}}</option>
+							{{/select}}
+						</select>
+						<span class="floating-label">{{localize "wod.games.headline"}}</span>
+					</div>
 
-				<!-- type -->
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="system.type">{{localize "wod.labels.type"}}</label>
-					<select class="editable" name="system.type">
-						{{#select data.system.type}}
-							<option value="">- {{localize "wod.labels.select"}} -</option>
-							{{#if (eq data.system.game "changeling")}}
-								<option value="wod.types.art">{{localize "wod.types.art"}}</option>
-								<option value="wod.types.artpower">{{localize "wod.types.artpower"}}</option>
-							{{/if}}
-							{{#if (eq data.system.game "demon")}}
-								<option value="wod.types.lore">{{localize "wod.types.lore"}}</option>
-								<option value="wod.types.lorepower">{{localize "wod.types.lorepower"}}</option>
-								<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>
-							{{/if}}
-							{{#if (eq data.system.game "hunter")}}
-								<option value="wod.types.edge">{{localize "wod.types.edge"}}</option>
-								<option value="wod.types.edgepower">{{localize "wod.types.edgepower"}}</option>
-							{{/if}}
-							{{#if (eq data.system.game "vampire")}}
-								<option value="wod.types.discipline">{{localize "wod.types.discipline"}}</option>
-								<option value="wod.types.disciplinepower">{{localize "wod.types.disciplinepower"}}</option>
-								<option value="wod.types.disciplinepath">{{localize "wod.types.disciplinepath"}}</option>
-								<option value="wod.types.disciplinepathpower">{{localize "wod.types.disciplinepathpower"}}</option>
-								<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>
-							{{/if}}
-							{{#if (eq data.system.game "werewolf")}}
-								<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
-								<option value="wod.types.rite">{{localize "wod.types.rite"}}</option>	
-							{{/if}}					
-							<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
-							<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
-						{{/select}}
-					</select>
-				</div>
-				
+					<!-- type -->
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
+							{{#select data.system.type}}
+								<option value="">- {{localize "wod.labels.select"}} -</option>
+								{{#if (eq data.system.game "changeling")}}
+									<option value="wod.types.art">{{localize "wod.types.art"}}</option>
+									<option value="wod.types.artpower">{{localize "wod.types.artpower"}}</option>
+								{{/if}}
+								{{#if (eq data.system.game "demon")}}
+									<option value="wod.types.lore">{{localize "wod.types.lore"}}</option>
+									<option value="wod.types.lorepower">{{localize "wod.types.lorepower"}}</option>
+									<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>
+								{{/if}}
+								{{#if (eq data.system.game "hunter")}}
+									<option value="wod.types.edge">{{localize "wod.types.edge"}}</option>
+									<option value="wod.types.edgepower">{{localize "wod.types.edgepower"}}</option>
+								{{/if}}
+								{{#if (eq data.system.game "vampire")}}
+									<option value="wod.types.discipline">{{localize "wod.types.discipline"}}</option>
+									<option value="wod.types.disciplinepower">{{localize "wod.types.disciplinepower"}}</option>
+									<option value="wod.types.disciplinepath">{{localize "wod.types.disciplinepath"}}</option>
+									<option value="wod.types.disciplinepathpower">{{localize "wod.types.disciplinepathpower"}}</option>
+									<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>
+								{{/if}}
+								{{#if (eq data.system.game "werewolf")}}
+									<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
+									<option value="wod.types.rite">{{localize "wod.types.rite"}}</option>	
+								{{/if}}					
+								<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
+								<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
+							{{/select}}
+						</select>
+						<span class="floating-label">{{localize "wod.labels.type"}}</span>
+					</div>
+				{{/if}}	
+					
 				{{#if (eq data.system.type "wod.types.disciplinepower")}}
 					{{#if (eq hasActor false)}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.parentid">{{localize "wod.types.discipline"}}</label>
-							<select class="editable" name="system.parentid">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
 									{{#each wod.powers.disciplines as |item id|}}
@@ -167,12 +172,12 @@
 									{{/each}}
 								{{/select}}
 							</select>
+							<span class="floating-label">{{localize "wod.types.discipline"}}</span>
 						</div>
 					{{/if}}
 
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 9}}
@@ -180,14 +185,14 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
-					</div>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+					</div>					
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.disciplinepathpower")}}
 					{{#if (eq hasActor false)}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.parentid">{{localize "wod.types.disciplinepath"}}</label>
-							<select class="editable" name="system.parentid">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
 									{{#each wod.powers.disciplinepaths as |item id|}}
@@ -195,12 +200,12 @@
 									{{/each}}
 								{{/select}}
 							</select>
+							<span class="floating-label">{{localize "wod.types.disciplinepath"}}</span>
 						</div>
 					{{/if}}
 
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 9}}
@@ -208,14 +213,14 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.ritual")}}
 					{{#if (eq data.system.game "vampire")}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-							<select class="editable" name="system.level">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 								{{#select data.system.level}}
 									<option value="0">- {{localize "wod.labels.select"}} -</option>
 									{{#numFromLoop 1 9}}
@@ -223,12 +228,24 @@
 									{{/numFromLoop}}
 								{{/select}}
 							</select>
+							<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+						</div>	
+						
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.category" data-dtype="String">
+								{{#select data.system.category}}
+									<option value="wod.power.abyss">{{localize "wod.power.abyss"}}</option>
+									<option value="wod.power.koldunic">{{localize "wod.power.koldunic"}}</option>
+									<option value="wod.power.necromancy">{{localize "wod.power.necromancy"}}</option>
+									<option value="wod.power.thaumaturgy">{{localize "wod.power.thaumaturgy"}}</option>	
+								{{/select}}							
+							</select>
+							<span class="floating-label">{{localize "wod.power.ritualcategory"}}</span>
 						</div>
 					{{/if}}
 					{{#if (eq data.system.game "demon")}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-							<select class="editable" name="system.level">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 								{{#select data.system.level}}
 									<option value="0">- {{localize "wod.labels.select"}} -</option>
 									{{#numFromLoop 1 5}}
@@ -236,14 +253,14 @@
 									{{/numFromLoop}}
 								{{/select}}
 							</select>
-						</div>
+							<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+						</div>						
 					{{/if}}
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.gift")}}
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 6}}
@@ -251,13 +268,13 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
-					</div>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+					</div>					
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.rite")}}
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 6}}
@@ -265,14 +282,14 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.artpower")}}
 					{{#if (eq hasActor false)}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.parentid">{{localize "wod.types.art"}}</label>
-							<select class="editable" name="system.parentid">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
 									{{#each wod.powers.arts as |item id|}}
@@ -280,12 +297,12 @@
 									{{/each}}
 								{{/select}}
 							</select>
+							<span class="floating-label">{{localize "wod.types.art"}}</span>
 						</div>
 					{{/if}}
 
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 5}}
@@ -293,12 +310,14 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>
 
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont">{{localize "wod.health.chimerical"}}</label>
 						<input class="item-property" type="checkbox" {{#if (checkProperty data.system.property "arttype" "wod.health.chimerical")}}checked{{/if}} data-property="arttype" data-value="wod.health.chimerical" />
 					</div>
+
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont">{{localize "wod.power.wyld"}}</label>
 						<input class="item-property" type="checkbox" {{#if (checkProperty data.system.property "arttype" "wod.power.wyld")}}checked{{/if}} data-property="arttype" data-value="wod.power.wyld" />
@@ -307,9 +326,8 @@
 
 				{{#if (eq data.system.type "wod.types.edgepower")}}
 					{{#if (eq hasActor false)}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.parentid">{{localize "wod.types.edge"}}</label>
-							<select class="editable" name="system.parentid">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
 									{{#each wod.powers.edges as |item id|}}
@@ -317,12 +335,12 @@
 									{{/each}}
 								{{/select}}
 							</select>
+							<span class="floating-label">{{localize "wod.types.edge"}}</span>
 						</div>
 					{{/if}}
 
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 5}}
@@ -330,14 +348,14 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.lorepower")}}
 					{{#if (eq hasActor false)}}
-						<div class="infobox">
-							<label class="headlineItem headlineBio splatFont" for="data.parentid">{{localize "wod.types.lore"}}</label>
-							<select class="editable" name="system.parentid">
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
 									{{#each wod.powers.lores as |item id|}}
@@ -345,12 +363,12 @@
 									{{/each}}
 								{{/select}}
 							</select>
+							<span class="floating-label">{{localize "wod.types.lore"}}</span>
 						</div>
 					{{/if}}
 
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-						<select class="editable" name="system.level">
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
 							{{#select data.system.level}}
 								<option value="0">- {{localize "wod.labels.select"}} -</option>
 								{{#numFromLoop 1 5}}
@@ -358,12 +376,20 @@
 								{{/numFromLoop}}
 							{{/select}}
 						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>
 				{{/if}}
 
-				<!-- dice -->
-				{{#if (ne data.system.type "")}}
-					{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.charm" "wod.types.power")}}
+				<div class="infobox bioInformationArea floating-label-group">
+					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
+				</div>
+			</div>			
+
+			<!-- dice -->
+			{{#if (ne data.system.type "")}}
+				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.charm" "wod.types.power")}}
+					<div class="dialog-area">
 						<div class="infobox">
 							<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
 							<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
@@ -372,14 +398,9 @@
 						{{#if data.system.isrollable}}
 							{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
 						{{/if}}
-					{{/if}}
+					</div>
 				{{/if}}
 			{{/if}}			
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-			</div>			
 
 			{{> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}
 			

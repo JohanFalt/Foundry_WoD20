@@ -278,8 +278,6 @@ Hooks.on("renderActorSheet", (sheet) => {
 	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
 		sheet.element[0].classList.add("noSplatFont");
 	}
-
-	//sheet.element[0].classList.add("wod-sheet");
 });
 
 Hooks.on("renderItemSheet", (sheet) => { 
@@ -308,7 +306,9 @@ Hooks.on("renderItemSheet", (sheet) => {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 
-	//sheet.element[0].classList.add("wod-item");
+	/* let type = sheet.object.type;
+	type = type.toLowerCase().replace(" ", "") + "-item";
+	sheet.element[0].classList.add(type); */
 });
 
 /* Hooks.on("closeItemSheet", (sheet) => { 
@@ -341,8 +341,6 @@ Hooks.on("renderFormApplication", (sheet) => {
 		if (!useSplatFonts) {
 			sheet.element[0].classList.add("noSplatFont");
 		}
-
-		//sheet.element[0].classList.add("wod-dialog");
 	}
 });
 
@@ -353,11 +351,11 @@ Hooks.on("renderDialog", (_dialog, html, _data) => {
 		const select = container.querySelector("select[name=type]");
 		if (select) {
 			select.append(
-				constructOptGroup(select, game.i18n.localize("LANG: Sheet items"), CharacterCreationItemTypes),
-				constructOptGroup(select, game.i18n.localize("LANG: Powers"), PowerCreationItemTypes),
-				constructOptGroup(select, game.i18n.localize("LANG: Equipment"), EquipmentItemTypes),
-				constructOptGroup(select, game.i18n.localize("LANG: Sheets"), SheetTypes),
-				constructOptGroup(select, game.i18n.localize("LANG: NPC"), AdversaryTypes)
+				constructOptGroup(select, "Sheet items", CharacterCreationItemTypes),
+				constructOptGroup(select, "Powers", PowerCreationItemTypes),
+				constructOptGroup(select, "Equipment", EquipmentItemTypes),
+				constructOptGroup(select, "Sheets", SheetTypes),
+				constructOptGroup(select, "NPC", AdversaryTypes)
 			);
 			select.querySelector("option").selected = true;
 		}
@@ -365,9 +363,6 @@ Hooks.on("renderDialog", (_dialog, html, _data) => {
 });
 
 function clearHTML(sheet) {
-	//sheet.element[0].classList.remove("wod-sheet");
-	//sheet.element[0].classList.remove("wod-item");
-	//sheet.element[0].classList.remove("wod-dialog");
 	sheet.element[0].classList.remove("langDE");
 	sheet.element[0].classList.remove("langES");
 	sheet.element[0].classList.remove("langIT");

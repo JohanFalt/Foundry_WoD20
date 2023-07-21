@@ -210,7 +210,7 @@ export class ArtPower {
         this.parentid = item.system["parentid"];
 
         if (item.system.property["arttype"] == undefined) {
-            this.arttype = 'LANG: Not set';
+            this.arttype = game.i18n.localize("wod.dialog.power.notset");
         }
         else {
             this.arttype = item.system.property["arttype"];

@@ -39,10 +39,7 @@
                     <div class="pullLeft">
                         <a class="send-chat" 
                             title="{{localize 'wod.labels.send'}}" 
-                            data-type="Charm" 
-                            data-item-id="{{item._id}}" 
-                            data-headline="{{item.name}}"
-                            data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                         {{#if (eq ../locked false)}}
                             <a class="item-edit" title="{{localize "wod.labels.edit.charm"}}" data-type="Charm" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                             <a class="item-delete" title="{{localize "wod.labels.remove.charm"}}" data-type="Charm" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>

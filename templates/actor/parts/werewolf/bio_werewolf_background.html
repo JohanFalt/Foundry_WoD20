@@ -51,7 +51,7 @@
                         {{/select}}
                     </select>
                     {{#if (eq actor.system.tribe "custom")}}
-                        <a class="pullLeft item-edit" title="LANG: Customize tribe" data-type="Bio" data-name="{{localize "wod.bio.tribe"}}" data-item-id="tribe" data-custom="{{actor.system.custom.tribe}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="pullLeft item-edit" title="{{localize 'wod.labels.customizetribe'}}" data-type="Bio" data-name="{{localize 'wod.bio.tribe'}}" data-item-id="tribe" data-custom="{{actor.system.custom.tribe}}"><i class="fa-solid fa-pen-to-square"></i></a>
                     {{/if}}
                 {{/if}} 
                 <span class="floating-label">{{localize "wod.bio.tribe"}}</span>        

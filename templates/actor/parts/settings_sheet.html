@@ -1,5 +1,5 @@
 <div class="sheet-area">
-    <div class="headlineText splatFont">LANG: Graphics</div>
+    <div class="headlineText splatFont">{{localize "wod.labels.settings.graphics"}}</div>
 
     <div class="clearareaBox">
         <div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.sheetfont"}}</div>
@@ -16,31 +16,31 @@
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf)}}
 
     <div class="sheet-area">
-        <div class="headlineText splatFont">LANG: Era</div>
+        <div class="headlineText splatFont">{{localize "wod.labels.settings.era.headline"}}</div>
 
         {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.vampire)}}
-            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">LANG: Modern (20th)</button>
-            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">LANG: Victorian Age (20th)</button>
-            <button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era config.era.darkages)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">LANG: Dark Ages (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">{{localize "wod.labels.settings.era.modern"}}</button>
+            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">{{localize "wod.labels.settings.era.victorian"}}</button>
+            <button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era config.era.darkages)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">{{localize "wod.labels.settings.era.darkages"}}</button>
         {{/if}}
         {{#if (eqAny actor.type config.sheettype.mage)}}
-            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" >LANG: Modern (20th)</button>
-            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" >LANG: Victorian Age (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.mage}}">{{localize "wod.labels.settings.era.modern"}}</button>
+            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.mage}}">{{localize "wod.labels.settings.era.victorian"}}</button>
         {{/if}}
         {{#if (eqAny actor.type config.sheettype.werewolf)}}
-            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">LANG: Modern (20th)</button>
-            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">LANG: Wild West (20th)</button>
-            <button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era config.era.darkages)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">LANG: Dark Ages (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">{{localize "wod.labels.settings.era.modern"}}</button>
+            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">{{localize "wod.labels.settings.era.wildwest"}}</button>
+            <button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era config.era.darkages)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">{{localize "wod.labels.settings.era.darkages"}}</button>
         {{/if}}
 
         <div class="clearareaBox information-area">
-            LANG: To change this setting means that the abilities of the sheet is re-configurated to fit the chosen area.<br />
-            LANG: This can cause existing abilities to be hidden.
+            {{localize "wod.labels.settings.era.infoone"}}<br />
+            {{localize "wod.labels.settings.era.infotwo"}}
         </div>
     </div>
 
 {{/if}}
-
+<!-- 
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
 
     <div class="sheet-area">
@@ -63,4 +63,4 @@
         </div>
     </div>
 
-{{/if}} 
+{{/if}}  -->

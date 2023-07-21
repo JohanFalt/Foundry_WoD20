@@ -176,7 +176,9 @@
 
 @media all and (max-height : 1024px)
 {
-  .wod-sheet:not(.minimized) {
+  .wod-sheet:not(.minimized),
+  .wod-item:not(.minimized),
+  .wod-dialog:not(.minimized) {
     min-height: 400px;
   }
 }

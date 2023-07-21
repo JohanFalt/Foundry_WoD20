@@ -3,115 +3,116 @@
 	<div class="sheet-item">
 		<header class="sheet-header">
 			<div class="top-area">
-				<div class="top-side">
-					{{#if userpermissions.changeItemImage}}
-						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
-					{{else}}
-						<img src="{{item.img}}" />
-					{{/if}}
-				</div>
-				<div class="top-center top-headline splatFont centerText">
-					{{item.name}}
-				</div>
-				<div class="top-side top-sidetext centerText">
-					{{#if (eq data.system.type "wod.types.fetish")}} 
-						{{captilize (localize "wod.types.fetish")}}
-					{{/if}}
-					{{#if (eq data.system.type "wod.types.talen")}} 
-						{{captilize (localize "wod.types.talen")}}
-					{{/if}}
+				<div class="clearareaBox top-side">
+					<div class="pullLeft" style="display: flex;">
+
+						{{#if userpermissions.changeItemImage}}
+							<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+						{{else}}
+							<img src="{{item.img}}" />
+						{{/if}}
+					</div>
+
+					<div class="pullLeft" style="display: flex; width: 200px;">
+
+						<div class="area-box">
+
+							<div class="bioInformationArea top-sidetext">
+								{{#if (eq data.system.type "wod.types.fetish")}} 
+									{{captilize (localize "wod.types.fetish")}}
+								{{/if}}
+								{{#if (eq data.system.type "wod.types.talen")}} 
+									{{captilize (localize "wod.types.talen")}}
+								{{/if}}
+							</div>
+
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+							</div>													
+						</div>	
+					</div>
+
+					<div class="pullRight" style="width: auto;">
+						{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
+					</div>
 				</div>				
-			</div>
+			</div>			
 		</header>
 		
 		<section class="item-body">
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="name">{{localize "wod.bio.name"}}</label>
-				<input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-			</div>
+			<div class="dialog-area">
+				{{#if userpermissions.itemAdministrator}}
+					<!-- type -->
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
+							{{#select data.system.type}}
+								<option value="">- {{localize "wod.labels.select"}} -</option>
+								<option value="wod.types.fetish">{{localize "wod.types.fetish"}}</option>
+								<option value="wod.types.talen">{{localize "wod.types.talen"}}</option>						
+							{{/select}}
+						</select>
+						<span class="floating-label">{{localize "wod.labels.type"}}</span>
+					</div>	
+				{{/if}}
 
-			<!-- type -->
-			{{#if userpermissions.itemAdministrator}}
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.labels.type"}}</label>
-				<select class="editable" name="system.type">
-					{{#select data.system.type}}
-						<option value="">- {{localize "wod.labels.select"}} -</option>
-						<option value="wod.types.fetish">{{localize "wod.types.fetish"}}</option>
-						<option value="wod.types.talen">{{localize "wod.types.talen"}}</option>						
-					{{/select}}
-				</select>
-			</div>
-			{{/if}}
+				{{#if (eq data.system.type "wod.types.fetish")}}
+					<!-- level -->
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
+							{{#select data.system.level}}
+								<option value="0">- {{localize "wod.labels.select"}} -</option>
+								{{#numFromLoop 1 5}}
+									<option value="{{this}}">{{this}}</option>
+								{{/numFromLoop}}
+							{{/select}}
+						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+					</div>
+				{{else}}
+					<input type="hidden" name="system.level" value="1" />
+				{{/if}}
 
-			{{#if (eq data.system.type "wod.types.fetish")}}
-			<!-- level -->
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-				<select class="editable" name="system.level">
-					{{#select data.system.level}}
-						<option value="0">- {{localize "wod.labels.select"}} -</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					{{/select}}
-				</select>
-			</div>
-			{{else}}
-				<input type="hidden" name="system.level" value="1" />
-			{{/if}}
+				<input type="hidden" name="system.difficulty" value="6" />
 
-			<input type="hidden" name="system.difficulty" value="6" />
+				<div class="infobox bioInformationArea floating-label-group">
+					<input class="sheet-infoValues editable" name="system.gnosis" type="text" value="{{data.system.gnosis}}" data-dtype="Number" autocomplete="off" autofocus required />
+					<span class="floating-label">{{localize "wod.advantages.gnosis"}}</span>
+				</div>
 
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.gnosis">{{localize "wod.advantages.gnosis"}}</label>
-				<input class="sheet-infoValues miniBox editable" name="system.gnosis" type="text" value="{{data.system.gnosis}}" data-dtype="Number" />
-			</div>
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-			</div>
-
-<!-- 			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-				<div class="clearareaBox">
-					{{editor data.description target="system.description" button=false owner=owner editable=true}}
+				<div class="infobox bioInformationArea floating-label-group">
+					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 				</div>
 			</div>
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
-				<div class="clearareaBox">
-					{{editor data.details target="system.details" button=false owner=owner editable=true}}
-				</div>
-			</div> -->
 
 			<!-- description -->
-			<div class="infobox">
+			<div class="dialog-area">
 				<div class="clearareaBox">
-					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+					<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.description"}}</div>
 				</div>
-				{{#if canEdit}}
-					{{editor data.description target="system.description" button=false owner=owner editable=true}}
-				{{else}}
-					<div class="headlineNormal textarea">{{{data.system.description}}}</div>
-				{{/if}}
+				<div class="infobox">
+
+					{{#if locked}}
+						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
+					{{else}}
+						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+					{{/if}}
+				</div>
 			</div>
 
 			<!-- system -->
-			<div class="infobox">
+			<div class="dialog-area">
 				<div class="clearareaBox">
-					<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
+					<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.power.system"}}</div>
 				</div>
-				<div>
-					{{#if canEdit}}
-						{{editor data.details target="system.details" button=false owner=owner editable=true}}
+				<div class="infobox">
+
+					{{#if locked}}
+						<div class="headlineNormal textarea">{{{data.system.details}}}</div>					
 					{{else}}
-						<div class="headlineNormal textarea">{{{data.system.details}}}</div>
+						{{editor data.details target="system.details" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

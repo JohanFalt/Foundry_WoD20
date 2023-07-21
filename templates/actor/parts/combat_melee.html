@@ -1,6 +1,6 @@
 <div class="headlineRow splatFont">
     <div class="clearareaBox">
-        <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.combat.melee'}}" aria-hidden="true" data-itemtype="Weapon" data-type="melee"></i></div>
+        <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.othertraits"}}" aria-hidden="true" data-itemtype="Weapon" data-type="melee"></i></div>
         <div class="pullLeft headlineList combat-headlineLargeBox">{{localize "wod.labels.combat.melee"}}</div>    
         <div class="pullLeft combat-smallBox headlineList">{{localize 'wod.combat.weapon.attr'}}</div>
         <div class="pullLeft combat-abilityBox headlineList">{{localize 'wod.combat.weapon.ability'}}</div>
@@ -84,10 +84,7 @@
                     <div class="pullRight">
                         <a class="send-chat" 
                             title="{{localize 'wod.labels.send'}}" 
-                            data-type="Weapon" 
-                            data-item-id="{{item._id}}" 
-                            data-headline="{{item.name}}"
-                            data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                     </div>
                     <div class="pullRight pointer headlineNormal tooltip">                    
                         <i class="icon fa-solid fa-memo"></i>

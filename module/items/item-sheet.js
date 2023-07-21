@@ -11,7 +11,7 @@ export class WoDItemSheet extends ItemSheet {
 	constructor(item, options) {
 		super(item, options);
 
-		this.locked = true;
+		this.locked = false;
 		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
 		
@@ -42,11 +42,13 @@ export class WoDItemSheet extends ItemSheet {
 		data.wod = game.wod;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
+		//data.itemtype = this.item.type.toLowerCase().replace(" ", "") + "-item";
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
 		data.canEdit = this.item.isOwner || game.user.isGM;
+
 
 		if (this.item.actor != null) {
 			data.hasActor = true;

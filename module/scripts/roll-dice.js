@@ -290,7 +290,7 @@ export async function NewRollDice(diceRoll) {
 		systemtext.push(systemText);
 	}	
 	if (bonusSuccesses > 0) {
-		let text = `LANG: The roll add {0} automatic successes`;
+		let text = game.i18n.localize("wod.dice.addedautosucc");
 		info.push(text.replace("{0}", bonusSuccesses));
 	}
 

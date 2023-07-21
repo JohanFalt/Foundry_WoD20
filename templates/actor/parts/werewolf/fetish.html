@@ -32,10 +32,7 @@
                 <div class="pullRight">
                     <a class="send-chat" 
                         title="{{localize 'wod.labels.send'}}"
-                        data-type="Fetish" 
-                        data-headline="{{item.name}}"
-                        data-description="{{{item.system.description}}}"
-                        data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                     
                 </div>
                 {{#if (eq ../locked false)}}
@@ -85,10 +82,7 @@
                 <div class="pullRight">
                     <a class="send-chat" 
                         title="{{localize 'wod.labels.send'}}"
-                        data-type="Talen" 
-                        data-headline="{{item.name}}"
-                        data-description="{{{item.system.description}}}"
-                        data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                     
                 </div>
                 {{#if (eq ../locked false)}}

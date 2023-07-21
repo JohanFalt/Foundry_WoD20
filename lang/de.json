@@ -802,6 +802,7 @@
 			"time": "Zeit"
 		},
 		"gear": {
+			"headline":	"Ausrüstung",
 			"money": "Money",
 			"moneycarried": "Carried",
 			"moneybank": "In bank"
@@ -864,7 +865,6 @@
 				"ranged": "Fernkampf Waffen",
 				"armor": "Rüstung"
 			},
-			"gear": "Ausrüstung",
 			"power": {
 				"level": "Level",
 				"noattribute": "Kein Attribut",
@@ -1000,7 +1000,7 @@
 				"edgepower": "Edit edge power",
 				"lore": "Edit lore",
 				"lorepower": "Edit lore power",
-				"ability": "Sekundäre Fähigkeit bearbeiten",
+				"abilitysecond": "Sekundäre Fähigkeit bearbeiten",
 				"resonance": "Resonanz bearbeiten",
 				"othertraits": "Andere Eigenschaft bearbeiten",
 				"treasure": "Schatz bearbeiten",

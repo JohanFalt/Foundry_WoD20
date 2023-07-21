@@ -41,9 +41,9 @@
 			<a id="tabnotes" class="item itemTabsText" data-tab="note"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/{{lowercase actor.type}}/notebook.svg" title="{{localize 'wod.tab.notes'}}"></a>
 		
 			{{#if (eq actor.limited false)}}
-				<a class="item itemTabsText" data-tab="settings"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/{{lowercase actor.type}}/cog.svg" title="LANG: Settings"></a>
+				<a id="tabsettings" class="item itemTabsText" data-tab="settings"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/{{lowercase actor.type}}/cog.svg" title="{{localize 'wod.tab.settings'}}"></a>
 			{{/if}}
-			<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item itemTabsText"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/{{lowercase actor.type}}/perspective-dice-six-faces-random.svg" title="LANG: Wiki"></a>
+			<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item itemTabsText"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/{{lowercase actor.type}}/perspective-dice-six-faces-random.svg" title="Wiki"></a>
 		</nav>	
 	{{else}}
 		<nav class="sheet-tabs tabs headlineTabs" data-group="primary">

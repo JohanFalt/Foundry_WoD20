@@ -83,7 +83,7 @@
         {
             "id": "goto-disciplinetab",
             "selector": "a[id='tabdisciplines']",
-            "title": "Combat",
+            "title": "Disciplines",
             "content": "This page shows the disciplines and rituals the character has.",
             "action": "click"
         },     
@@ -161,7 +161,7 @@
         },
         {
             "id": "goto-bloodbound",
-            "selector": "div[data-type='bloodbound']",
+            "selector": "div[data-area='bloodbound']",
             "title": "Bloodbound",
             "content": "The existing blood bounds that the character has can be listed here."
         },

@@ -34,7 +34,7 @@
     {{#if (eq object.type "Werewolf")}}
 
         <div class="dialog-area">
-            <div class="headline splatFont">LANG: Present moon phase</div>
+            <div class="headline splatFont">{{localize "wod.dialog.checkfrenzy.moonphase"}}</div>
             <div class="centerText infobox">
                 <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "new")}}active{{/if}}" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</button>
                 <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "crescent")}}active{{/if}}" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</button>

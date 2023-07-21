@@ -1,9 +1,12 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
     <div class="dialog-area">
-        <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
         <div class="headlineGroup splatFont">
-            {{localize "wod.info.rollsoak"}}: {{object.attributeValue}} {{#if (gt object.attributeBonus 0)}}(+{{object.attributeBonus}}){{/if}}
+            {{localize "wod.info.rollsoak"}}
+        </div>
+        <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
+        <div class="infobox">
+            {{object.attributeValue}} {{#if (gt object.attributeBonus 0)}}(+{{object.attributeBonus}}){{/if}}
         </div>
     </div>
     <div class="headlineGroup splatFont">
@@ -12,9 +15,9 @@
 
     <div class="dialog-area">
         {{#if object.useChimerical}} 
-            <div class="headline splatFont">LANG: Select damage type - {{localize 'wod.health.normal'}}</div>
+            <div class="headline splatFont">{{localize "wod.dialog.soak.selectdamage"}} - {{localize 'wod.health.normal'}}</div>
         {{else}}
-            <div class="headline splatFont">LANG: Select damage type</div>
+            <div class="headline splatFont">{{localize "wod.dialog.soak.selectdamage"}}</div>
         {{/if}}
         <div class="infobox centerText">
             {{#each config.damageTypes as |type key|}}
@@ -25,7 +28,7 @@
 
     {{#if object.useChimerical}}   
         <div class="dialog-area">
-            <div class="headline splatFont">LANG: Select damage type - {{localize 'wod.health.chimerical'}}</div>
+            <div class="headline splatFont">{{localize "wod.dialog.soak.selectdamage"}} - {{localize 'wod.health.chimerical'}}</div>
             <div class="infobox centerText">
                 {{#each config.damageTypes as |type key|}}
                     <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'chimerical')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="chimerical">{{localize type}}</button>

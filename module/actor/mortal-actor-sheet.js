@@ -265,7 +265,7 @@ export class MortalActorSheet extends ActorSheet {
 		if (found) {
 			actorData.system.settings.era = CONFIG.wod.era.darkages;
 			await this.actor.update(actorData);
-			ui.notifications.info(`LANG: Sheet set to Dark Ages era!`, {permanent: false});
+			ui.notifications.info(game.i18n.localize("wod.labels.settings.setdarkages"), {permanent: false});
 		}
 	}
 
@@ -306,7 +306,14 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.system.settings.era = CONFIG.wod.era.victorian;
 
 			await this.actor.update(actorData);
-			ui.notifications.info(`LANG: Sheet set to Victorian era!`, {permanent: false});
+			
+
+			if (dataset.type == CONFIG.wod.sheettype.werewolf) { 
+				ui.notifications.info(game.i18n.localize("wod.labels.settings.setwildwest"), {permanent: false});
+			}
+			else {
+				ui.notifications.info(game.i18n.localize("wod.labels.settings.setvictorian"), {permanent: false});
+			}
 		}
 	}
 
@@ -347,7 +354,7 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.system.settings.era = CONFIG.wod.era.modern;
 
 			await this.actor.update(actorData);
-			ui.notifications.info(`LANG: Sheet set to Modern era!`, {permanent: false});
+			ui.notifications.info(game.i18n.localize("wod.labels.settings.setmodern"), {permanent: false});
 		}
 	}	
 
@@ -708,125 +715,170 @@ export class MortalActorSheet extends ActorSheet {
 		const itemtype = $(event.currentTarget).data("itemtype");
 
 		let itemData;		
+		let found = false;
 
 		if (itemtype == "Armor") {
+			found = true;
 			itemData = {
 				name: `${game.i18n.localize("wod.labels.new.armor")}`,
 				type: itemtype,
 				system: {
+					era: this.actor.system.settings.era
 				}
 			};
 		}
 		if (itemtype == "Weapon") {
 			if (type == "natural") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.naturalweapon")}`,
-					type: "Melee Weapon",
+					type: "Melee Weapon",					
 					system: {
-						isnatural: true
+						isnatural: true,
+						isweapon: true,
+						era: this.actor.system.settings.era
 					}
 				};
 			}
 			if (type == "melee") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.meleeweapon")}`,
 					type: "Melee Weapon",
 					system: {
-						isnatural: false
+						isnatural: false,
+						isweapon: true,
+						era: this.actor.system.settings.era
 					}
 				};
 			}
 			if (type == "ranged") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.rangedweapon")}`,
 					type: "Ranged Weapon",
 					system: {
+						isweapon: true,
+						era: this.actor.system.settings.era
 					}
 				};
 			}			
 		}
 		if (itemtype == "Feature") {
+			let itemkind = "";
+			let name = "";
+
 			if (type == "bloodbound") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.bloodbound")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						type: "wod.types.bloodbound"
-					}
-				};
+				found = true;
+				name = game.i18n.localize("wod.labels.new.bloodbound");
+				itemkind = "wod.types.bloodbound";
 			}
 			if (type == "boon") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.boon")}`,
-					type: itemtype,
-					system: {
-						level: "",
-						type: "wod.types.boon"
-					}
-				};
+				found = true;
+				name = game.i18n.localize("wod.labels.new.boon");
+				itemkind = "wod.types.boon";
 			}
 			if (type == "background") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.background")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						type: "wod.types.background"
-					}
-				};
+				found = true;
+				name = game.i18n.localize("wod.labels.new.background");
+				itemkind = "wod.types.background";
 			}
 			if (type == "merit") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.merit")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						type: "wod.types.merit"
-					}
-				};
+				found = true;
+				name = game.i18n.localize("wod.labels.new.merit");
+				itemkind = "wod.types.merit";
 			}
 			if (type == "flaw") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.flaw")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						type: "wod.types.flaw"
-					}
-				};
+				found = true;
+				name = game.i18n.localize("wod.labels.new.flaw");
+				itemkind = "wod.types.flaw";
 			}
+
+			itemData = {
+				name: name,
+				type: itemtype,
+				system: {
+					level: 1,
+					type: itemkind
+				}
+			};
 		}
 		if (itemtype == "Item") {
+			let itemkind = "";
+			let name = "";
+			let iscontainter = false;
+
 			if (type == "treasure") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.treasure")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						type: "wod.types.treasure"
-					}
-				};
+				found = true;
+				name = game.i18n.localize("wod.labels.new.treasure");
+				itemkind = "wod.types.treasure"
 			}
+			if (type == "device") {
+				found = true;
+				name = game.i18n.localize("wod.labels.new.device");
+				itemkind = "wod.types.device"
+			}
+			if (type == "talisman") {
+				found = true;
+				name = game.i18n.localize("wod.labels.new.talisman");
+				itemkind = "wod.types.talisman"
+			}
+			if (type == "periapt") {
+				found = true;
+				name = game.i18n.localize("wod.labels.new.periapt");
+				itemkind = "wod.types.periapt"
+				iscontainter = true;
+			}
+			if (type == "matrix") {
+				found = true;
+				name = game.i18n.localize("wod.labels.new.matrix");
+				itemkind = "wod.types.matrix"
+				iscontainter = true;
+			}
+			if (type == "trinket") {
+				found = true;
+				name = game.i18n.localize("wod.labels.new.trinket");
+				itemkind = "wod.types.trinket"
+			}
+
+			itemData = {
+				name: name,
+				type: itemtype,
+				system: {
+					level: 1,
+					type: itemkind,
+					ismagical: true,
+					iscontainter: iscontainter,
+					era: this.actor.system.settings.era
+				}
+			};
 		}
 		if (itemtype == "Fetish") {
 			if (type == "fetish") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.fetish")}`,
 					type: itemtype,
 					system: {
 						level: 1,
-						type: "wod.types.fetish"
+						type: "wod.types.fetish",
+						isrollable: true,
+						ismagical: true,
+						era: this.actor.system.settings.era
 					}
 				};
 			}
 			if (type == "talen") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.talen")}`,
 					type: itemtype,
 					system: {
 						level: 1,
-						type: "wod.types.talen"
+						type: "wod.types.talen",
+						isrollable: true,
+						ismagical: true,
+						era: this.actor.system.settings.era
 					}
 				};
 			}
@@ -835,6 +887,7 @@ export class MortalActorSheet extends ActorSheet {
 			const level = $(event.currentTarget).data("level");
 
 			if (type == "gift") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.gift")}`,
 					type: itemtype,
@@ -846,6 +899,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "rite") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.rite")}`,
 					type: itemtype,
@@ -856,6 +910,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "discipline") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.discipline")}`,
 					type: itemtype,
@@ -866,6 +921,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "disciplinepower") {
+				found = true;
 				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
@@ -880,6 +936,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "disciplinepath") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.disciplinepath")}`,
 					type: itemtype,
@@ -891,6 +948,7 @@ export class MortalActorSheet extends ActorSheet {
 			}
 			if (type == "disciplinepathpower") {
 				const id = $(event.currentTarget).data("parentid");
+				found = true;
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.disciplinepathpower")}`,
@@ -905,6 +963,7 @@ export class MortalActorSheet extends ActorSheet {
 			}
 			if (type == "ritual") {
 				const source = $(event.currentTarget).data("game");
+				found = true;
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.ritual")}`,
@@ -917,6 +976,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "edge") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.edge")}`,
 					type: itemtype,
@@ -927,6 +987,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "edgepower") {
+				found = true;
 				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
@@ -941,6 +1002,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "art") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.art")}`,
 					type: itemtype,
@@ -951,6 +1013,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "artpower") {
+				found = true;
 				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
@@ -968,6 +1031,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "lore") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.lore")}`,
 					type: itemtype,
@@ -978,6 +1042,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "lorepower") {
+				found = true;
 				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
@@ -992,6 +1057,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "power") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.power")}`,
 					type: itemtype,
@@ -1002,6 +1068,7 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 		if (itemtype == "Rote") {
+			found = true;
 			itemData = {
 				name: `${game.i18n.localize("wod.labels.new.rote")}`,
 				type: itemtype,
@@ -1011,18 +1078,19 @@ export class MortalActorSheet extends ActorSheet {
 		}
 		if (itemtype == "Trait") {
 			if (type == "talentability") {
-				await AbilityHelper.CreateAbility(this.actor, "wod.types.talentsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				AbilityHelper.CreateAbility(this.actor, "wod.types.talentsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
 				return;
 			}
 			if (type == "skillability") {
-				await AbilityHelper.CreateAbility(this.actor, "wod.types.skillsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				AbilityHelper.CreateAbility(this.actor, "wod.types.skillsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
 				return;
 			}
 			if (type == "knowledgeability") {
-				await AbilityHelper.CreateAbility(this.actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				AbilityHelper.CreateAbility(this.actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
 				return;
 			}
 			if (type == "resonance") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.resonance")}`,
 					type: itemtype,
@@ -1033,6 +1101,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "other") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.othertraits")}`,
 					type: itemtype,
@@ -1044,7 +1113,7 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 		if (itemtype == "Bonus") {
-			//const id = header.dataset.parentid;
+			found = true;
 			const id = $(event.currentTarget).data("parentid");
 
 			itemData = {
@@ -1057,6 +1126,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 		if (itemtype == "Experience") {
 			if (type == "add") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.addexp")}`,
 					type: itemtype,
@@ -1067,6 +1137,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "spent") {
+				found = true;
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.spentexp")}`,
 					type: itemtype,
@@ -1078,7 +1149,14 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 
-		return await this.actor.createEmbeddedDocuments("Item", [itemData]);
+		if (found) {
+			return await this.actor.createEmbeddedDocuments("Item", [itemData]);
+		}
+		else {
+			ui.notifications.warn(game.i18n.localize("wod.labels.new.notfound"));
+			return;
+		}
+		
 	}
 
 	async _onItemEdit(event) {
@@ -1110,8 +1188,7 @@ export class MortalActorSheet extends ActorSheet {
 		if (itemtype == "Sphere") {
 			SphereHelper.EditSphere(event, this.actor);
 			return;
-		}
-		
+		}		
 
 		const item = this.actor.getEmbeddedDocument("Item", itemId);		
 		item.sheetType = this.actor.type;
@@ -1235,11 +1312,11 @@ export class MortalActorSheet extends ActorSheet {
 
 	async _onSendChat(event) {
 		const element = event.currentTarget;
-		const headline = element.dataset.headline || "";
-		const description = element.dataset.description || "";;
-		const system = element.dataset.system || "";;
-
-		//MessageHelper.printMessage(headline, message, this.actor);
+		const itemid = element.dataset.itemid || "";
+		let item = await this.actor.getEmbeddedDocument("Item", itemid);
+		const headline = item.name;
+		const description = item.system.description;
+		const system = item.system.details;
 
 		const templateData = {
 			data: {

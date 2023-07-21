@@ -5,7 +5,7 @@
     </div>
 
     <div class="dialog-area">
-        <div class="headline splatFont">LANG: Select power to connect to</div>
+        <div class="headline splatFont">{{localize "wod.dialog.power.selectpower"}}</div>
         <div class="infobox">
             {{#each object.powerlist as |power key|}}
                 <button id="parentid" class="button fullSplatColor pointer dialog-power-button {{#if (eq ../object.parentid power._id)}}active{{/if}}" value="{{power._id}}">{{power.name}}</button>

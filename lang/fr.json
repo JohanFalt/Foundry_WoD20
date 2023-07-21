@@ -802,6 +802,7 @@
 			"time": "Temps"
 		},
 		"gear": {
+			"headline": "Equipement",
 			"money": "Money",
 			"moneycarried": "Carried",
 			"moneybank": "In bank"
@@ -864,7 +865,6 @@
 				"ranged": "Armes à Distance",
 				"armor": "Armure"
 			},
-			"gear": "Equipement",
 			"power": {
 				"level": "Niveau",
 				"noattribute": "Aucun Attribut",
@@ -1000,7 +1000,7 @@
 				"edgepower": "Edit edge power",
 				"lore": "Edit lore",
 				"lorepower": "Edit lore power",
-				"ability": "Editer une Abilité Secondaire",
+				"abilitysecond": "Editer une Abilité Secondaire",
 				"resonance": "Editer une résonnance",
 				"othertraits": "Editer un autre trait",
 				"treasure": "Editer un trésor",

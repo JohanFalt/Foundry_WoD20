@@ -62,7 +62,7 @@
                 <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
                 <div class="clearareaBox infobox dialog-checkbox">
                     <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
-                    <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}LANG: None listed{{/if}}</div>
+                    <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}{{localize "wod.dialog.nonelisted"}}{{/if}}</div>
                 </div>
             {{/if}}
         </div>
@@ -142,7 +142,7 @@
     {{#if (ne object.system "")}}
         <div class="dialog-area">
             <div class="clearareaBox">
-                <label class="headlineText headlineBio splatFont" for="data.system">{{localize "wod.labels.description"}}</label>
+                <label class="headline splatFont" for="data.system">{{localize "wod.labels.description"}}</label>
             </div>
             <div class="headlineNormal textarea">{{{object.system}}}</div>
         </div>

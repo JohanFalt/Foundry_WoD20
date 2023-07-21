@@ -22,9 +22,7 @@
                 <div class="pullLeft pointer">
                     <a class="send-chat" 
                         title="{{localize 'wod.labels.send'}}"
-                        data-type="Trait" 
-                        data-headline="{{item.name}}"
-                        data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                 </div>
                 {{#if (eq ../locked false)}}
                     <div class="pullLeft pointer">

@@ -67,14 +67,14 @@
                 <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
                 <div class="clearareaBox infobox dialog-checkbox">
                     <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
-                    <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}LANG: None listed{{/if}}</div>
+                    <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}{{localize "wod.dialog.nonelisted"}}{{/if}}</div>
                 </div>
             {{/if}}
         </div>
 
         {{#if (eq object.type "ability")}}
             <div class="dialog-area">
-                <div class="headline splatFont">LANG: Select what attribute to use</div>
+                <div class="headline splatFont">{{localize "wod.dialog.general.selectattribute"}}</div>
                 <div class="centerText infobox">
                     {{#if (eq (checkSystemsetting "attributeSettings") "5th")}}
                         {{#each config.attributeslist as |attribute key|}}

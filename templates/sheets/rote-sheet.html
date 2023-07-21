@@ -2,35 +2,43 @@
 
 	<div class="sheet-item">
 
-		<header class="sheet-header">
-
+        <header class="sheet-header">
 			<div class="top-area">
-				<div class="top-side">
-                    {{#if userpermissions.changeItemImage}}
-						<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
-					{{else}}
-						<img src="{{item.img}}" />
-					{{/if}}
-				</div>
-				<div class="top-center top-headline splatFont centerText">
-					{{item.name}}
-				</div>
-				<div class="top-side top-sidetext centerText">
-					{{captilize (localize "wod.types.rote")}}
+				<div class="clearareaBox top-side">
+					<div class="pullLeft" style="display: flex;">
+
+						{{#if userpermissions.changeItemImage}}
+							<img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+						{{else}}
+							<img src="{{item.img}}" />
+						{{/if}}
+					</div>
+
+					<div class="pullLeft" style="display: flex; width: 200px;">
+
+						<div class="area-box">
+
+							<div class="bioInformationArea top-sidetext">
+								{{captilize (localize "wod.types.rote")}}
+							</div>
+
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+							</div>													
+						</div>	
+					</div>
+
+					<div class="pullRight" style="width: auto;">
+						{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
+					</div>
 				</div>				
-			</div>
-			
+			</div>			
 		</header>
 		
 		<section class="item-body">
 
-            <div class="sheet-area">
-
-                <div class="infobox">
-                    <label class="headlineItem item-label" for="name">{{localize "wod.bio.name"}}</label>
-                    <input class="sheet-infoValues item editable" name="name" type="text" value="{{item.name}}" data-dtype="String" />
-                </div>
-
+            <div class="dialog-area">
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.instrument.ispersonalized">{{localize "wod.dialog.aretecasting.instrumentperson"}}</label>
                     <input name="system.instrument.ispersonalized" type="checkbox" {{#if data.system.instrument.ispersonalized}} checked {{/if}}></input>
@@ -42,38 +50,42 @@
                 </div>
 
                 <div class="infobox">
-                    <label class="headlineItem item-label" for="data.spendingtime">{{localize "wod.dialog.aretecasting.spendingtime"}}</label>
-                    <select class="editable" name="system.spendingtime">
-                        {{#select data.system.spendingtime}}
-                        <option value="0">0</option>
-                        <option value="-1">-1</option>
-                        <option value="-2">-2</option>
-                        <option value="-3">-3</option>
-                        {{/select}}
-                    </select>
-                </div>
-
-                <div class="infobox">
-                    <label class="headlineItem item-label" for="data.spelltype">{{localize "wod.dialog.aretecasting.castingtype"}}</label>
-                    <select class="editable" name="system.spelltype">
-                        {{#select data.system.spelltype}}
-                            <option value="">- {{localize "wod.labels.varies"}} -</option>
-                            <option value="coincidental">{{localize "wod.spheres.coincidental"}}</option>
-                            <option value="vulgar">{{localize "wod.spheres.vulgar"}}</option>
-                        {{/select}}
-                    </select>
-                </div>
-
-                <div class="infobox">
                     <label class="headlineItem item-label" for="data.isextended">{{localize "wod.dialog.aretecasting.extendedcasting"}}</label>
                     <input name="system.isextended" type="checkbox" {{#if data.system.isextended}} checked {{/if}}></input>
                 </div>
 
+                <div class="infobox bioInformationArea floating-label-group">
+					<select class="sheet-infoValues editable" name="system.spendingtime">
+						{{#select data.system.spendingtime}}
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                            <option value="-2">-2</option>
+                            <option value="-3">-3</option>
+                        {{/select}}
+					</select>
+					<span class="floating-label">{{localize "wod.dialog.aretecasting.spendingtime"}}</span>
+				</div>
+
+                <div class="infobox bioInformationArea floating-label-group">
+					<select class="sheet-infoValues editable" name="system.spelltype">
+						{{#select data.system.spelltype}}
+                            <option value="">- {{localize "wod.labels.varies"}} -</option>
+                            <option value="coincidental">{{localize "wod.spheres.coincidental"}}</option>
+                            <option value="vulgar">{{localize "wod.spheres.vulgar"}}</option>
+                        {{/select}}
+					</select>
+					<span class="floating-label">{{localize "wod.dialog.aretecasting.castingtype"}}</span>
+				</div>                
+
+                <div class="infobox bioInformationArea floating-label-group">
+                    <input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+                    <span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
+                </div>
             </div>
 
-            <div class="sheet-area">
+            <div class="dialog-area">
 
-                <div class="item-area">
+                <!-- <div class="item-area"> -->
                     <!-- Spheres -->
                     <div class="infobox">
                         <label for="data.correspondence" class="headlineItem headlineBio">{{localize "wod.spheres.correspondence"}}</label>
@@ -221,30 +233,23 @@
 
                     <div class="information-area">{{localize "wod.info.items.spheres"}}</div>
                     
-                </div>
-
-                
+                <!-- </div>                 -->
             </div>        
             
-            <div class="sheet-area">
-                <div class="infobox">
-                    <label class="headlineItem headlineBio" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-                    <input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
-                </div>                
+            <!-- description -->
+			<div class="dialog-area">
+				<div class="clearareaBox">
+					<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.description"}}</div>
+				</div>
+				<div class="infobox">
 
-                <!-- description -->
-			<div class="infobox">
-                <div class="clearareaBox">
-				    <label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-                </div>
-                {{#if canEdit}}
-                    {{editor data.description target="system.description" button=false owner=owner editable=true}}
-                {{else}}
-                    <div class="headlineNormal textarea">{{{data.system.description}}}</div>
-                {{/if}}
-			</div>
-
-            </div>
+					{{#if locked}}
+						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
+					{{else}}
+						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+					{{/if}}
+				</div>
+			</div>            
 
 		</section>
 

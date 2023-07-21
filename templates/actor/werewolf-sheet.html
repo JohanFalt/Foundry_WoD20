@@ -4,7 +4,8 @@
 	<div class="sheet-character">				
 	
 		{{!-- Always visible --}}
-		<header class="sheet-header">				
+		<header class="sheet-header">	
+					
 		</header>	
 
 		<!-- Sheet part -->
@@ -21,7 +22,7 @@
 				{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}
 			</div>
 
-			<div class="pullRight">
+			<div class="pullRight" data-area="microicons">
 				<div data-area="shapeicon">
 					{{#if data.system.shapes.homid.isactive}}
 						<img class="shapeIcon" src="systems/worldofdarkness/assets/img/werewolf/form/form_homid.svg" />
@@ -88,6 +89,18 @@
 								<div style="margin-top: auto;">
 									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
 								</div>
+
+								{{#if data.system.settings.haspath}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+								{{/if}}
+
+								{{#if data.system.settings.hasvirtue}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
+								{{/if}}
+
+								{{#if data.system.settings.hasbloodpool}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+								{{/if}}								
 						
 							</div>
 							
@@ -122,7 +135,7 @@
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
 
 				<div class="sheet-headline sheet-banner splatFont">
-					<span class="sheet-banner-text">LANG: Other items</span>
+					<span class="sheet-banner-text">{{localize "wod.gear.otheritems"}}</span>
 				</div>
 
 				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html"}}
