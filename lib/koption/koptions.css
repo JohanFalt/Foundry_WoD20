@@ -1,5 +1,5 @@
 :root {
-    --background-input: rgba(234, 233, 227, 1);
+    --background-input: white;
 }
 
 input.fancyComboBox + div {
@@ -39,155 +39,17 @@ input.fancyComboBox + div > div.kOptionHeader {
     z-index: 1000;
 }
 
-/* MORTAL COLOR BEGINS */
-
-.mortal input.fancyComboBox + div {
-  border: var(--main-mortal-color);
+.wod-sheet input.fancyComboBox + div {
+  border: var(--main-full-color);
 }
 
-.mortal input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-mortal-color);
+.wod-sheet input.fancyComboBox + div > div.kOptionHeader {
+  background: var(--main-full-color);
   color: white;
 }
 
-.mortal input.fancyComboBox + div > div:hover,
-.mortal input.fancyComboBox + div > div.active {
+.wod-sheet input.fancyComboBox + div > div:hover,
+.wod-sheet input.fancyComboBox + div > div.active {
   background: var(--main-mortal-mid-color);
-  color:white;
-}
-
-/* CHANGELING COLOR BEGINS */
-
-.changeling input.fancyComboBox + div {
-  border: var(--main-changeling-color);
-}
-
-.changeling input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-changeling-color);
-  color: white;
-}
-
-.changeling input.fancyComboBox + div > div:hover,
-.changeling input.fancyComboBox + div > div.active {
-  background: var(--main-changeling-mid-color);
-  color:white;
-}
-
-/* HUNTER COLOR BEGINS */
-
-.hunter input.fancyComboBox + div {
-  border: var(--main-hunter-color);
-}
-
-.hunter input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-hunter-color);
-  color: white;
-}
-
-.hunter input.fancyComboBox + div > div:hover,
-.hunter input.fancyComboBox + div > div.active {
-  background: var(--main-hunter-mid-color);
-  color:white;
-}
-
-/* DEMON COLOR BEGINS */
-
-.demon input.fancyComboBox + div {
-  border: var(--main-demon-color);
-}
-
-.demon input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-demon-color);
-  color: white;
-}
-
-.demon input.fancyComboBox + div > div:hover,
-.demon input.fancyComboBox + div > div.active {
-  background: var(--main-demon-mid-color);
-  color:white;
-}
-
-/* MAGE COLOR BEGINS */
-
-.mage input.fancyComboBox + div {
-  border: var(--main-mage-color);
-}
-
-.mage input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-mage-color);
-  color: white;
-}
-
-.mage input.fancyComboBox + div > div:hover,
-.mage input.fancyComboBox + div > div.active {
-  background: var(--main-mage-mid-color);
-  color:white;
-}
-
-/* VAMPIRE COLOR BEGINS */
-
-.vampire input.fancyComboBox + div {
-    border: var(--main-vampire-color);
-}
-
-.vampire input.fancyComboBox + div > div.kOptionHeader {
-    background: var(--main-vampire-color);
-    color: white;
-}
-
-.vampire input.fancyComboBox + div > div:hover,
-.vampire input.fancyComboBox + div > div.active {
-    background: var(--main-vampire-mid-color);
-    color:white;
-}
-
-/* WEREWOLF COLOR BEGINS */
-
-.werewolf input.fancyComboBox + div {
-  border: var(--main-werewolf-color);
-}
-
-.werewolf input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-werewolf-color);
-  color: white;
-}
-
-.werewolf input.fancyComboBox + div > div:hover,
-.werewolf input.fancyComboBox + div > div.active {
-  background: var(--main-werewolf-mid-color);
-  color:white;
-}
-
-/* CREATURE COLOR BEGINS */
-
-.creature input.fancyComboBox + div {
-  border: var(--main-creature-color);
-}
-
-.creature input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-creature-color);
-  color: white;
-}
-
-.creature input.fancyComboBox + div > div:hover,
-.creature input.fancyComboBox + div > div.active {
-  background: var(--main-creature-mid-color);
-  color:white;
-}
-
-/* SPIRIT COLOR BEGINS */
-
-.spirit input.fancyComboBox + div {
-  border: var(--main-spirit-color);
-}
-
-.spirit input.fancyComboBox + div > div.kOptionHeader {
-  background: var(--main-spirit-color);
-  color: white;
-}
-
-.spirit input.fancyComboBox + div > div:hover,
-.spirit input.fancyComboBox + div > div.active {
-  background: var(--main-spirit-mid-color);
   color:white;
 }

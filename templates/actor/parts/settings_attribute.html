@@ -2,7 +2,6 @@
 
     <div class="sheet-area">
         <div class="clearareaBox">
-            <div class="secondHeadlineTabs splatFont">{{localize 'wod.tab.attribute'}}</div>
             <div class="clearareaBox">
                 <div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
                 <div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.value'}}</div>
@@ -14,19 +13,19 @@
             {{#each data.system.attributes as |attribute key|}}
         
                 {{#if attribute.isvisible}}
-                <div class="clearareaBox">
-                    <label for="data.system.attributes.{{key}}.value" class="pullLeft headlineNormal settings-leftwidth">{{localize attribute.label}}</label>	
-                    <input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.value}}" readonly />
-                    <input class="pullLeft sheet-infoValues numberBox inputdata {{#if locked}}{{else}}editable{{/if}}" type="text" value="{{attribute.bonus}}" name="system.attributes.{{key}}.bonus" 
-                        data-source="attribute"
-                        data-attribute="{{key}}"
-                        data-dtype="Number" {{#if locked}} readonly {{/if}} />
-                    <input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
-                    <input class="pullLeft sheet-infoValues numberBox {{#if locked}}{{else}}editable{{/if}}" type="text" value="{{attribute.max}}" name="system.attributes.{{key}}.max" 
-                        data-value="{{attribute.max}}" 
-                        data-name="data.system.attributes.{{key}}.max" 
-                        data-dtype="Number" {{#if locked}} readonly {{/if}} />
-                </div>
+                    <div class="clearareaBox">
+                        <label for="data.system.attributes.{{key}}.value" class="pullLeft headlineNormal settings-leftwidth">{{localize attribute.label}}</label>	
+                        <input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.value}}" readonly />
+                        <input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq ../locked false)}}editable{{/if}}" type="text" value="{{attribute.bonus}}" name="system.attributes.{{key}}.bonus" 
+                            data-source="attribute"
+                            data-attribute="{{key}}"
+                            data-dtype="Number" {{#if locked}}readonly{{/if}} />
+                        <input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
+                        <input class="pullLeft sheet-infoValues numberBox {{#if (eq ../locked false)}}editable{{/if}}" type="text" value="{{attribute.max}}" name="system.attributes.{{key}}.max" 
+                            data-value="{{attribute.max}}" 
+                            data-name="data.system.attributes.{{key}}.max" 
+                            data-dtype="Number" {{#if locked}}readonly{{/if}} />
+                    </div>
                 {{/if}}
                 
             {{/each}}
@@ -39,79 +38,126 @@
         </div>
     </div>
 
-    {{/if}}
+{{/if}}
 
-    {{#if (eq actor.type config.sheettype.vampire)}}
+{{#if (eq actor.type config.sheettype.vampire)}}
 
-    <div class="sheet-area" data-area="pathsetting">
-        <div class="clearareaBox area-box">
-            <div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.path"}}</div>
-            <label for="data.system.advantages.path.label" class="pullLeft headlineNormal" style="width: 150px;">{{localize "wod.labels.settings.selectpath"}}</label>
-            <div class="pullLeft">
-
+    <div class="sheet-area">
+        <div class="area-box" data-area="pathsetting">
+            <div class="headlineText splatFont">{{localize "wod.labels.settings.path"}}</div>
+            <div class="bioInformationArea floating-label-group">
                 {{#if locked}}
-                    <input class="sheet-infoValues" type="text" value="{{localize data.system.advantages.path.label}}" data-dtype="String" readonly />
+                    <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.advantages.path.label 'custom')}}{{actor.system.advantages.path.custom}}{{else}}{{localize data.system.advantages.path.label}}{{/if}}" style="width: 40%;" autocomplete="off" autofocus required  />
                 {{else}}
-                    <select class="selectedPath sheet-infoValues editable" data-type="{{config.sheettype.vampire}}" name="system.advantages.path.label" data-name="data.system.advantages.path.label" data-dtype="String">
+                    <select class="sheet-infoValues editable" name="system.advantages.path.label" style="width: 40%;" data-dtype="String">
                         {{#select data.system.advantages.path.label}}
-                            <option value="wod.advantages.path.humanity">{{localize 'wod.advantages.path.humanity'}}</option>
-                            <option value="wod.advantages.path.blood">{{localize 'wod.advantages.path.blood'}}</option>
-                            <option value="wod.advantages.path.bones">{{localize 'wod.advantages.path.bones'}}</option>
-                            <option value="wod.advantages.path.caine">{{localize 'wod.advantages.path.caine'}}</option>
-                            <option value="wod.advantages.path.cathari">{{localize 'wod.advantages.path.cathari'}}</option>
-                            <option value="wod.advantages.path.feralheart">{{localize 'wod.advantages.path.feralheart'}}</option>
-                            <option value="wod.advantages.path.accord">{{localize 'wod.advantages.path.accord'}}</option>
-                            <option value="wod.advantages.path.lilith">{{localize 'wod.advantages.path.lilith'}}</option>
-                            <option value="wod.advantages.path.metamorphosis">{{localize 'wod.advantages.path.metamorphosis'}}</option>
-                            <option value="wod.advantages.path.night">{{localize 'wod.advantages.path.night'}}</option>
-                            <option value="wod.advantages.path.paradox">{{localize 'wod.advantages.path.paradox'}}</option>
-                            <option value="wod.advantages.path.innervoice">{{localize 'wod.advantages.path.innervoice'}}</option>
-                            <option value="wod.advantages.path.typhon">{{localize 'wod.advantages.path.typhon'}}</option>
+                            <option value="">- {{localize 'wod.labels.select'}} -</option>
+                            <option value="custom">{{#if (eq actor.system.advantages.path.custom "")}}- {{localize "wod.labels.custompath"}} -{{else}}{{actor.system.advantages.path.custom}}{{/if}}</option>                            
+                            {{#each game.bio.path as |path id|}}
+                                <option value="{{path}}">{{localize path}}</option>
+                            {{/each}}
                         {{/select}}
                     </select>
+                    {{#if (eq actor.system.advantages.path.label "custom")}}
+                        <a class="item-edit" title="LANG: Customize path" data-type="Bio" data-name="{{localize "wod.labels.settings.selectpath"}}" data-item-id="advantages.path.label" data-custom="{{actor.system.advantages.path.custom}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    {{/if}}
                 {{/if}}
+                <span class="floating-label">{{localize "wod.labels.settings.selectpath"}}</span>
+            </div>
+        </div>
 
+        <div class="clearareaBox area-box">
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.advantages.path.bearingtext}}" style="width: 40%;" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.advantages.path.bearingtext" type="text" value="{{data.system.advantages.path.bearingtext}}" style="width: 40%;" data-name="data.system.advantages.path.bearingtext" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">LANG: Bearing</span>
+            </div>
+        </div>
+        
+        <div class="area-box">
+            <div class="headlineText splatFont">{{localize "wod.advantages.virtue.selected"}}</div>
+            <div class="clearareaBox">
+                <div class="pullLeft half">
+                    {{#if locked}}
+                        <input class="sheet-infoValues" type="text" value="{{localize data.system.advantages.virtues.conscience.label}}" style="width: 80%;" readonly />
+                    {{else}}
+                        <select class="sheet-infoValues editable" name="system.advantages.virtues.conscience.label" style="width: 80%;" data-name="data.system.advantages.virtues.conscience.label" data-type="{{config.sheettype.vampire}}" data-dtype="String">
+                            {{#select data.system.advantages.virtues.conscience.label}}
+                                <option value="wod.advantages.virtue.conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
+                                <option value="wod.advantages.virtue.conviction">{{localize "wod.advantages.virtue.conviction"}}</option>
+                            {{/select}}
+                        </select>
+                    {{/if}}
+                </div>
+                <div class="pullLeft half">
+                    {{#if locked}}
+                        <input class="sheet-infoValues" type="text" value="{{localize data.system.advantages.virtues.selfcontrol.label}}" style="width: 80%;" readonly />
+                    {{else}}
+                        <select class="sheet-infoValues editable" name="system.advantages.virtues.selfcontrol.label" style="width: 80%;" data-name="data.system.advantages.virtues.selfcontrol.label" data-type="{{config.sheettype.vampire}}" data-dtype="String">
+                            {{#select data.system.advantages.virtues.selfcontrol.label}}
+                                <option value="wod.advantages.virtue.selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
+                                <option value="wod.advantages.virtue.instinct">{{localize "wod.advantages.virtue.instinct"}}</option>
+                            {{/select}}
+                        </select>
+                    {{/if}}
+                </div>
+            </div>
+            
+            <div class="clearareaBox">
+                
+            </div>
+        </div>        
+    </div>
+
+    
+{{/if}}
+
+{{#if (eqAny actor.type config.sheettype.vampire config.sheettype.werewolf)}}
+
+    <div class="sheet-area" data-area="frenzysetting">
+        <div class="clearareaBox">
+            <div class="headlineText splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues inputdata" type="text" value="{{data.system.advantages.rage.bonus}}" style="width: 40%;" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues inputdata editable" name="system.advantages.rage.bonus" type="text" value="{{data.system.advantages.rage.bonus}}" style="width: 40%;" data-source="frenzy" data-name="data.system.advantages.rage.bonus" data-dtype="Number" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.labels.settings.frenzybonus"}}</span>
             </div>
         </div>
     </div>
 
-    {{/if}}
+{{/if}}
 
-    {{#if (eqAny actor.type config.sheettype.vampire config.sheettype.werewolf)}}
-
-    <div class="sheet-area" data-area="frenzysetting">
-        <div class="clearareaBox">
-            <div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
-            <label for="data.system.advantages.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
-            <input class="sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.advantages.rage.bonus" type="text" value="{{data.system.advantages.rage.bonus}}"
-                data-source="frenzy"
-                data-dtype="Number" {{#if locked}} readonly {{/if}} />
-        </div>
-    </div>
-
-    {{/if}}
-
-    {{#if (eq actor.type config.sheettype.changingbreed)}}
+{{#if (eq actor.type config.sheettype.changingbreed)}}
     {{#if data.system.settings.hasrage}}
         
         <div class="sheet-area" data-area="frenzysetting">
             <div class="clearareaBox">
-                <div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
-                <label for="data.system.advantages.rage.bonus" class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.frenzybonus"}}</label>
-                <input class="sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.advantages.rage.bonus" type="text" value="{{data.system.advantages.rage.bonus}}"
-                    data-source="frenzy"
-                    data-dtype="Number" {{#if locked}} readonly {{/if}} />
+                <div class="headlineText splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
+                <div class="bioInformationArea floating-label-group">
+                    {{#if locked}}
+                        <input class="sheet-infoValues inputdata" type="text" value="{{data.system.advantages.rage.bonus}}" style="width: 40%;" autocomplete="off" autofocus required />
+                    {{else}}
+                        <input class="sheet-infoValues inputdata editable" name="system.advantages.rage.bonus" type="text" value="{{data.system.advantages.rage.bonus}}" style="width: 40%;" data-source="frenzy" data-name="data.system.advantages.rage.bonus" data-dtype="Number" autocomplete="off" autofocus required />
+                    {{/if}}
+                    <span class="floating-label">{{localize "wod.labels.settings.frenzybonus"}}</span>
+                </div>
             </div>
         </div>
 
     {{/if}}
-    {{/if}}
+{{/if}}
 
-    {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
+{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
 
     <div class="sheet-area">
         <div class="clearareaBox">
-            <div class="secondHeadlineTabs splatFont">{{localize "wod.labels.settings.usedadvantages"}}</div>
+            <div class="">{{localize "wod.labels.settings.usedadvantages"}}</div>
 
             <div class="clearareaBox row">
                 <label for="data.system.settings.haspath" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.path.headline'}}</label>
@@ -234,7 +280,7 @@
 
         <div class="sheet-area">
             <div class="clearareaBox">
-                <div class="secondHeadlineTabs splatFont">{{localize "wod.advantages.bloodpool"}}</div>
+                <div class="">{{localize "wod.advantages.bloodpool"}}</div>
                 <label for="data.system.advantages.bloodpool.perturn" class="pullLeft headlineNormal" style="width: 150px;" 
                     data-label="{{data.system.advantages.bloodpool.perturn}}" 
                         data-ability="true">{{localize "wod.advantages.perturn"}}</label>
@@ -248,16 +294,15 @@
         </div>
         
     {{/if}}
+    
+{{/if}}		
 
-    {{/if}}		
-
-    {{#if (eqAny actor.type config.sheettype.spirit config.sheettype.creature)}}
-
+{{#if (eqAny actor.type config.sheettype.spirit config.sheettype.creature)}}
     {{#if data.system.settings.hasessence}}
 
         <div class="sheet-area">
             <div class="clearareaBox">
-                <div class="secondHeadlineTabs splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
+                <div class="">{{localize 'wod.labels.settings.essencevalue'}}</div>
                 <label for="data.system.advantages.essence.max" class="pullLeft headlineNormal" style="width: 150px;" 
                     data-label="{{data.system.advantages.essence.max}}" 
                         data-ability="true">{{localize "wod.advantages.essence"}}</label>
@@ -272,5 +317,4 @@
         </div>
 
     {{/if}}
-
 {{/if}}

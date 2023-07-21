@@ -1,0 +1,196 @@
+<div>
+    {{#if (eqAny data.type "general" "soak" "power" "magic" "item")}}
+        <div class="tray-title-area">{{data.action}}</div>
+
+        <div class="tray-info-area">
+            <div class="tray-action-area">{{data.title}}</div>
+
+            {{#if (gt data.info.length 0)}}
+                {{#each data.info as |info key|}}
+                    <div class="tray-action-area">{{{info}}}</div>
+                {{/each}}
+            {{/if}}
+
+            {{#if (ne data.actor undefined)}}
+                {{#if (ne data.actor.system.conditions undefined)}}
+                    {{#if data.actor.system.conditions.isignoringpain}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.ignorepain"}}</div>
+                    {{/if}}
+                    {{#if data.actor.system.conditions.isstunned}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.stunned"}}</div>
+                    {{/if}}
+                    {{#if data.actor.system.conditions.isfrenzy}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.frenzy"}}</div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+
+            {{#if (gt data.systemtext.length 0)}}
+                {{#each data.systemtext as |info key|}}
+                    <div class="tray-system-area">{{{info}}}</div>
+                {{/each}}
+            {{/if}}            
+        </div>
+
+        {{#each data.multipleresult as |result key|}}
+            <div class="tray-roll-area">
+                <div class="tray-success-area">
+                    {{#if (eq result.rolledAnySuccesses false)}}                    
+                        <div>
+                            {{#if (eq result.rollResult "fail")}}<span class="danger">{{localize "wod.dice.fail"}}</span>{{/if}}
+                            {{#if (eq result.rollResult "botch")}}<span class="danger">{{localize "wod.dice.botch"}}</span>{{/if}}
+                        </div>
+                    {{/if}}
+                    <div>
+                        {{result.successes}}
+                    </div>
+                </div>
+
+                <div>
+                    {{#each result.dices as |dice key|}}   
+                        <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                    {{/each}}
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+
+    {{#if (eq data.type "initiative")}}
+        <div class="tray-title-area">{{data.action}}</div>
+
+        <div class="tray-info-area">
+            <div class="tray-action-area">{{data.title}}</div>
+            {{#each data.info as |info key|}}
+                <div class="tray-action-area">{{{info}}}</div>
+            {{/each}}
+        </div>
+
+        {{#each data.multipleresult as |result key|}}
+            <div class="tray-roll-area">
+                {{#each result.dices as |dice key|}}   
+                    <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                {{/each}}
+            </div>
+        {{/each}}
+    {{/if}}
+
+    {{#if (eq data.type "attack")}}
+        <div class="tray-title-area">{{data.action}}</div>
+
+        <div class="tray-info-area">
+            <div class="tray-action-area">{{data.title}}</div>
+            {{#each data.info as |info key|}}
+                <div class="tray-action-area">{{info}}</div>
+            {{/each}}
+
+            {{#if (ne data.actor undefined)}}
+                {{#if (ne data.actor.system.conditions undefined)}}
+                    {{#if data.actor.system.conditions.isignoringpain}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.ignorepain"}}</div>
+                    {{/if}}
+                    {{#if data.actor.system.conditions.isstunned}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.stunned"}}</div>
+                    {{/if}}
+                    {{#if data.actor.system.conditions.isfrenzy}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.frenzy"}}</div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+
+            {{#if (gt data.systemtext.length 0)}}
+                {{#each data.systemtext as |info key|}}
+                    <div class="tray-system-area">{{{info}}}</div>
+                {{/each}}
+            {{/if}}
+        </div>
+        
+        {{#each data.multipleresult as |result key|}}
+            <div class="tray-roll-area">
+                <div class="tray-success-area">
+                    {{#if (eq result.rolledAnySuccesses false)}}                    
+                        <div>
+                            {{#if (eq result.rollResult "fail")}}<span class="danger">{{localize "wod.dice.fail"}}</span>{{/if}}
+                            {{#if (eq result.rollResult "botch")}}<span class="danger">{{localize "wod.dice.botch"}}</span>{{/if}}
+                        </div>
+                    {{/if}}
+                    <div>
+                        {{result.successes}}
+                    </div>
+                </div>
+
+                <div>
+                    {{#each result.dices as |dice key|}}   
+                        <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                    {{/each}}
+                </div>
+            </div>            
+        {{/each}}
+    {{/if}}
+
+    {{#if (eq data.type "damage")}}
+        <div class="tray-title-area">{{data.action}}</div>
+
+        <div class="tray-info-area">
+            <div class="tray-action-area">{{data.title}}</div>
+            {{#each data.info as |info key|}}
+                <div class="tray-action-area">{{info}}</div>
+            {{/each}}
+
+            {{#if (ne data.actor undefined)}}
+                {{#if (ne data.actor.system.conditions undefined)}}
+                    {{#if data.actor.system.conditions.isignoringpain}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.ignorepain"}}</div>
+                    {{/if}}
+                    {{#if data.actor.system.conditions.isstunned}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.stunned"}}</div>
+                    {{/if}}
+                    {{#if data.actor.system.conditions.isfrenzy}}
+                        <div class="tray-action-area">{{localize "wod.combat.conditions.frenzy"}}</div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+
+            {{#if (gt data.systemtext.length 0)}}
+                {{#each data.systemtext as |info key|}}
+                    <div class="tray-system-area">{{{info}}}</div>
+                {{/each}}
+            {{/if}}
+        </div>
+
+        {{#each data.multipleresult as |result key|}}
+            <div class="tray-roll-area">
+                <div class="tray-success-area">
+                    {{#if (eq result.rolledAnySuccesses false)}}                    
+                        <div>
+                            {{#if (eq result.rollResult "fail")}}<span class="danger">{{localize "wod.dice.fail"}}</span>{{/if}}
+                            {{#if (eq result.rollResult "botch")}}<span class="danger">{{localize "wod.dice.botch"}}</span>{{/if}}
+                        </div>
+                    {{/if}}
+                    <div>
+                        {{result.successes}}
+                    </div>
+                </div>
+
+                <div>
+                    {{#each result.dices as |dice key|}}   
+                        <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                    {{/each}}
+                </div>
+            </div>            
+        {{/each}}
+    {{/if}}
+
+    {{#if (eq data.type "send")}}
+        <div class="tray-title-area">{{data.action}}</div>
+
+        {{#if (ne data.description "")}}
+            <div class="tray-action-area" style="font-weight: bold;">{{localize "wod.labels.description"}}</div>
+            <div class="tray-system-area">{{{data.description}}}</div>
+        {{/if}}
+
+        {{#if (ne data.system "")}}
+            <div class="tray-action-area" style="font-weight: bold;">{{localize "wod.labels.power.system"}}</div>
+            <div class="tray-system-area">{{{data.system}}}</div>
+        {{/if}}
+    {{/if}}
+</div>

@@ -11,7 +11,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
     let updateWorld = false;
     let isError = false;
 
-    if (compareVersion(installedVersion, migrationVersion)) {
+    if (_compareVersion(installedVersion, migrationVersion)) {
         updateWorld = true;
 
         ui.notifications.warn(`Updating World from version ${installedVersion} to ${migrationVersion} do not close your game or shut down your server. Please wait this can take a while...`, {permanent: true});
@@ -80,7 +80,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         ui.notifications.error(`An error occured during the system migration. Please check the console (F12) for details.`, {permanent: true});
     }
     else if (updateWorld) {
-        getVersionText(installedVersion, migrationVersion);  
+        _getVersionText(installedVersion, migrationVersion);  
     }
 }
 
@@ -243,6 +243,7 @@ export const updates = async () => {
  */
  export const updateActor = async function(actor, migrationVersion) {
     let update = false;
+    let found = false;
 
     if (actor.system.settings.version == "") {
         const updateData = duplicate(actor);
@@ -250,7 +251,7 @@ export const updates = async () => {
         await actor.update(updateData);
     }
 
-    if (compareVersion(actor.system.settings.version, "1.5.0")) {
+    if (_compareVersion(actor.system.settings.version, "1.5.0")) {
         
         const updateData = duplicate(actor);
 
@@ -369,7 +370,7 @@ export const updates = async () => {
         await actor.update(updateData);
     }
 
-    if (compareVersion(actor.system.settings.version, "1.6.0")) {
+    if (_compareVersion(actor.system.settings.version, "1.6.0")) {
         const updateData = duplicate(actor);
         
         updateData.system.settings.version = "1.6.0";
@@ -448,7 +449,7 @@ export const updates = async () => {
         }
     }
 
-    if (compareVersion(actor.system.settings.version, "2.1.0")) {
+    if (_compareVersion(actor.system.settings.version, "2.1.0")) {
         let updateData = duplicate(actor);
 
         if (updateData.type != CONFIG.wod.sheettype.spirit) {
@@ -586,7 +587,7 @@ export const updates = async () => {
         }
     }  
 
-    if (compareVersion(actor.system.settings.version, "2.2.0")) {        
+    if (_compareVersion(actor.system.settings.version, "2.2.0")) {        
         let updateData = duplicate(actor);
 
         updateData.system.settings.version = "2.2.0";
@@ -635,8 +636,9 @@ export const updates = async () => {
 
             if (updateData.system.path != undefined) {
                 updateData.system.advantages.path = updateData.system.path;
-                updateData.system.advantages.path.permanent = updateData.system.advantages.path.value;
-            }            
+            }
+
+            updateData.system.advantages.path.permanent = updateData.system.advantages.path.value;
 
             updateData.system.settings.haspath = true;
             updateData.system.settings.hasbloodpool = true;
@@ -812,7 +814,7 @@ export const updates = async () => {
         }        
     }
 
-    if (compareVersion(actor.system.settings.version, "2.3.0")) {        
+    if (_compareVersion(actor.system.settings.version, "2.3.0")) {        
         let updateData = duplicate(actor);
 
         updateData.system.settings.version = "2.3.0";
@@ -831,10 +833,266 @@ export const updates = async () => {
         }
     }
 
+    if (_compareVersion(actor.system.settings.version, "3.1.0")) {        
+        let updateData = duplicate(actor);
+        update = false;
+        
+        if (actor.type != CONFIG.wod.sheettype.spirit) {
+            update = true;
+
+            // check for custom paths
+            if (updateData.system.advantages.path.label != "custom") {
+                for (const path in game.wod.bio.path) {
+                    if (((actor.system.advantages.path.label == game.wod.bio.path[path])) || (actor.system.advantages.path.label.toLowerCase().replace(" ", "") == path)) {
+                        updateData.system.advantages.path.label = game.wod.bio.path[path];
+                        found = true;
+                        break;
+                    }
+                }     
+    
+                // if found then set the properties correct
+                if (!found) {
+                    updateData.system.advantages.path.custom = actor.system.advantages.path.label;
+                    updateData.system.advantages.path.label = "custom";                
+                }
+    
+                // reset found
+                found = false; 
+            }            
+
+            if (actor.type == CONFIG.wod.sheettype.vampire) {
+                if (updateData.system.clan != "custom") {
+                    // check for custom clans
+                    for (const clan in game.wod.bio.clan) {
+                        if ((actor.system.clan == game.wod.bio.clan[clan]) || (actor.system.clan.toLowerCase().replace(" ", "") == clan)) {
+                            updateData.system.clan = game.wod.bio.clan[clan];
+                            found = true;
+                            break;
+                        }
+                    }     
+        
+                    // if found then set the properties correct
+                    if (!found) {
+                        updateData.system.custom.clan = game.i18n.localize(actor.system.clan);
+                        updateData.system.clan = "custom";                
+                    }
+        
+                    // reset found
+                    found = false;
+                }
+
+                if (updateData.system.sect != "custom") {
+                    // check for custom sects
+                    for (const sect in game.wod.bio.sect) {
+                        if ((actor.system.sect == game.wod.bio.sect[sect]) || (actor.system.sect.toLowerCase().replace(" ", "") == sect)) {
+                            updateData.system.sect = game.wod.bio.sect[sect];
+                            found = true;
+                            break;
+                        }
+                    }     
+        
+                    // if found then set the properties correct
+                    if (!found) {
+                        updateData.system.custom.sect = game.i18n.localize(actor.system.sect);
+                        updateData.system.sect = "custom";                
+                    }
+        
+                    // reset found
+                    found = false;
+                }
+            }
+
+            if (actor.type == CONFIG.wod.sheettype.werewolf) {
+                if (updateData.system.tribe != "custom") {
+                    // check for custom tribes
+                    for (const tribe in game.wod.bio.tribe) {
+                        if ((actor.system.tribe == game.wod.bio.tribe[tribe]) || (actor.system.tribe.toLowerCase().replace(" ", "") == tribe)) {
+                            updateData.system.tribe = game.wod.bio.tribe[tribe];
+                            found = true;
+                            break;
+                        }
+                    }     
+        
+                    // if found then set the properties correct
+                    if (!found) {
+                        updateData.system.custom.tribe = game.i18n.localize(actor.system.tribe);
+                        updateData.system.tribe = "custom";                
+                    }
+        
+                    // reset found
+                    found = false;
+                }
+            }
+
+            if (actor.type == CONFIG.wod.sheettype.mage) {
+                if (updateData.system.affiliation != "custom") {
+                    // check for custom affiliations
+                    for (const affiliation in game.wod.bio.affiliation) {
+                        if ((actor.system.affiliation == game.wod.bio.affiliation[affiliation]) || (actor.system.affiliation.toLowerCase().replace(" ", "") == affiliation)) {
+                            updateData.system.affiliation = game.wod.bio.affiliation[affiliation];
+                            found = true;
+                            break;
+                        }
+                    }     
+        
+                    // if found then set the properties correct
+                    if (!found) {
+                        updateData.system.custom.affiliation = game.i18n.localize(actor.system.affiliation);
+                        updateData.system.affiliation = "custom";                
+                    }
+        
+                    // reset found
+                    found = false;
+                }
+
+                if (updateData.system.sect != "custom") {
+                    // check for custom sects
+                    for (const affiliation in game.wod.bio.affiliation) {
+                        for (const sect in game.wod.bio.magesect[affiliation]) {
+                            if ((actor.system.sect == game.wod.bio.magesect[affiliation][sect]) || (actor.system.sect.toLowerCase().replace(" ", "") == sect)) {
+                                updateData.system.sect = game.wod.bio.magesect[affiliation][sect];
+
+                                if (updateData.system.affiliation == "custom") {
+                                    updateData.system.affiliation = game.wod.bio.affiliation[affiliation];
+                                    updateData.system.custom.affiliation = "";
+                                }
+                                
+                                found = true;
+                                break;
+                            }
+                        }    
+                    } 
+        
+                    // if found then set the properties correct
+                    if (!found) {
+                        updateData.system.custom.sect = game.i18n.localize(actor.system.sect);
+                        updateData.system.sect = "custom";                
+                    }
+        
+                    // reset found
+                    found = false;
+                }
+            }
+
+            if (actor.type == CONFIG.wod.sheettype.changeling) {
+                if (updateData.system.kith != "custom") {
+                    // check for custom kiths
+                    for (const kith in game.wod.bio.kith) {
+                        if ((actor.system.kith == game.wod.bio.kith[kith]) || (actor.system.kith.toLowerCase().replace(" ", "") == kith)) {
+                            updateData.system.kith = game.wod.bio.kith[kith];
+                            found = true;
+                            break;
+                        }
+                    }     
+        
+                    // if found then set the properties correct
+                    if (!found) {
+                        updateData.system.custom.kith = game.i18n.localize(actor.system.kith);
+                        updateData.system.kith = "custom";                
+                    }
+        
+                    // reset found
+                    found = false;
+                }
+            }
+
+            if (actor.type != CONFIG.wod.sheettype.creature) {
+                let actorType = actor.type.toLowerCase();
+
+                if (actor.type == CONFIG.wod.sheettype.changingbreed) {
+                    actorType = "werewolf";
+                }
+
+                // set correct type of ability
+                for (const ability of game.wod.abilities[actorType].modern.talents) {
+                    updateData.system.abilities[ability].type = "talent";
+                }
+
+                for (const ability of game.wod.abilities[actorType].modern.skills) {
+                    updateData.system.abilities[ability].type = "skill";
+                }
+
+                for (const ability of game.wod.abilities[actorType].modern.knowledges) {
+                    updateData.system.abilities[ability].type = "knowledge";
+                }
+            }
+
+            // translate abilities
+            for (const ability in actor.system.abilities.talent) {
+                if (actor.system.abilities.talent[ability].isvisible) {
+                    updateData.system.abilities[ability] = actor.system.abilities.talent[ability];
+                }                
+            }
+            for (const ability in actor.system.abilities.skill) {
+                if (actor.system.abilities.skill[ability].isvisible) {
+                    if (actor.type == CONFIG.wod.sheettype.mage) {
+                        updateData.system.abilities[ability] = actor.system.abilities.skill[ability];
+
+                        if ((ability == "technology") || (ability == "research")) {
+                            updateData.system.abilities[ability].type = "skill";
+                        }
+                    }
+                    else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) {
+                        updateData.system.abilities[ability] = actor.system.abilities.skill[ability];
+
+                        if (ability == "technology") {
+                            updateData.system.abilities[ability].type = "skill";
+                        }
+
+                        if (ability == "research") {
+                            updateData.system.abilities[ability].isvisible = false;
+                        }
+                    }
+                    else {
+                        updateData.system.abilities[ability] = actor.system.abilities.skill[ability];
+
+                        if ((ability == "technology") || (ability == "research")) {
+                            updateData.system.abilities[ability].isvisible = false;
+                        }
+                    }    
+                }                
+            }
+            for (const ability in actor.system.abilities.knowledge) {
+                if (actor.system.abilities.knowledge[ability].isvisible) {
+                    if (actor.type == CONFIG.wod.sheettype.mage) {
+                        updateData.system.abilities[ability] = actor.system.abilities.knowledge[ability];
+
+                        if ((ability == "technology") || (ability == "research")) {
+                            updateData.system.abilities[ability].isvisible = false;
+                        }
+                    }
+                    else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) {
+                        updateData.system.abilities[ability] = actor.system.abilities.knowledge[ability];
+
+                        if (ability == "technology") {
+                            updateData.system.abilities[ability].isvisible = false;
+                        }
+                    }
+                    else {
+                        updateData.system.abilities[ability] = actor.system.abilities.knowledge[ability];
+                    }                              
+                }                                                
+            }
+
+                                   
+
+            updateData['system.abilities.-=talent'] = null;
+            updateData['system.abilities.-=skill'] = null;
+            updateData['system.abilities.-=knowledge'] = null;
+        }
+
+        if (update) {
+            updateData.system.settings.version = "3.1.0";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
+
     for (const item of actor.items) {
         await updateItem(item);
     }
-};
+}
 
 /**
  * patch an item to the latest version
@@ -844,7 +1102,7 @@ export const updates = async () => {
  export const updateItem = async function(item) {
     let altered = false;
 
-    if (compareVersion(item.system.version, "1.5.0")) {
+    if (_compareVersion(item.system.version, "1.5.0")) {
         const itemData = duplicate(item);
 
         if (item.type == "Armor") {
@@ -1003,7 +1261,7 @@ export const updates = async () => {
         }
     }
 
-    if (compareVersion(item.system.version, "2.1.0")) {
+    if (_compareVersion(item.system.version, "2.1.0")) {
         const itemData = duplicate(item);
         itemData.system.version = "2.1.0";
 
@@ -1041,7 +1299,7 @@ export const updates = async () => {
         }
     }
 
-    if (compareVersion(item.system.version, "2.2.0")) {
+    if (_compareVersion(item.system.version, "2.2.0")) {
         const itemData = duplicate(item);
         itemData.system.version = "2.2.0";
 
@@ -1063,9 +1321,8 @@ export const updates = async () => {
         }
     }
 
-    if (compareVersion(item.system.version, "2.3.0")) {
-        const itemData = duplicate(item);
-        itemData.system.version = "2.3.0";
+    if (_compareVersion(item.system.version, "2.3.0")) {
+        const itemData = duplicate(item);        
 
         if (item.type == "Power") {
             if ((item.system.type == "wod.types.art") || (item.system.type == "wod.types.artpower")) {
@@ -1087,12 +1344,33 @@ export const updates = async () => {
                 altered = true;            
             }            
             else {
-                itemData.system.game = "other";
+                itemData.system.game = "";
                 altered = true;
             }
         }
 
         if (altered) {
+            itemData.system.version = "2.3.0";
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
+
+    if (_compareVersion(item.system.version, "3.1.0")) {
+        const itemData = duplicate(item);        
+
+        if (item.type == "Power") {
+            if (item.system.type == "wod.types.artpower") {
+                itemData.system.property = {
+                    arttype: ""
+                };
+                altered = true;
+            }           
+        }
+
+        if (altered) {
+            itemData.system.version = "3.1.0";
             await item.update(itemData);
             
             altered = false;
@@ -1151,7 +1429,7 @@ export const updates = async () => {
  * @param migrationVersion   The version that is being pushed at the world
  * 
  */
- function getVersionText(installedVersion, migrationVersion) {
+ function _getVersionText(installedVersion, migrationVersion) {
     let patch107 = false;
     let patch110 = false;
     let patch120 = false;
@@ -1163,6 +1441,7 @@ export const updates = async () => {
     let patch220 = false;
     let patch230 = false;
     let patch300 = false;
+    let patch310 = false;
 
     let newfunctions = "";
 
@@ -1315,11 +1594,16 @@ export const updates = async () => {
         newfunctions += "<li>Support Foundry v11</li>";
     }
 
+    if (!patch310) {
+        newfunctions += "<li>How do roll outside sheet</li>";
+        newfunctions += "<li>How add speciality</li>";
+        newfunctions += "<li>How to custmize certain values e.g clan/tribe</li>";
+        newfunctions += "<li>How add bearing (VtM)</li>";
+        newfunctions += "<li>How add technocracy names (MtA)</li>";
+    }
+
     if (newfunctions == "") {
-        newfunctions += 'Issues fixed in patch versions:<br />';
-		newfunctions += '<a href="https://github.com/JohanFalt/Foundry_WoD20/issues/616">[#616]</a> - Changelings could not roll initiative.';	
-		newfunctions += '<a href="https://github.com/JohanFalt/Foundry_WoD20/issues/622">[#616]</a> - Problems with Werewolf token shifting images.';
-		newfunctions += 'Shifters could not select shifter type.';			
+        newfunctions += 'Issues fixed in version:<br />';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
@@ -1336,34 +1620,11 @@ export const updates = async () => {
         message += newfunctions;
         message += '</ul>';
     } 
-	
-	message += '<h1><b>Support my work</b></h1>';
+
+    message += '<h1><b>Support my work</b></h1>';
     message += '<a href="https://ko-fi.com/johanfk"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>';
 
     MessageHelper.printMessage(headline, message);
-}
-
-  /**
- * Converts a version number into an integer
- * @param version   Version string that is to be converted
- * 
- */
-function getVersion(version) {
-    if (version == "") {
-        return 0;
-    }
-
-    if (version == undefined) {
-        return 0;
-    }
-
-    try {
-        let number = version.replaceAll(".", "");
-        return parseInt(number);
-    }
-    catch {
-        return 0;
-    }
 }
 
   /**
@@ -1371,37 +1632,66 @@ function getVersion(version) {
  * @param oldVersion   The existing version no: e.g. 1.5.9
  * @param newVersion   The new version no: e.g. 1.5.10
  */
-function compareVersion(oldVersion, newVersion) {
+  function _compareVersion(oldVersion, newVersion) {
     if (newVersion == "") {
         return false;
     }
-
+  
     if (newVersion == undefined) {
         return false;
     }
-
+  
     if (oldVersion == "") {
-        return true;
+      return true;
     }
-
-    let greaterVersion = false;
-
+  
+    if (oldVersion.toLowerCase().includes("alpha")) {
+      oldVersion = oldVersion.toLowerCase().replace("alpha", "");
+      oldVersion = oldVersion.toLowerCase().replace("-", "");
+      oldVersion = oldVersion.toLowerCase().replace(" ", "");
+    }
+  
+    if (newVersion.toLowerCase().includes("alpha")) {
+      newVersion = newVersion.toLowerCase().replace("alpha", "");
+      newVersion = newVersion.toLowerCase().replace("-", "");
+      newVersion = newVersion.toLowerCase().replace(" ", "");
+    }
+  
+    if (oldVersion == "1") {
+      return true;
+    } 
+  
+    if (oldVersion == newVersion) {
+      return false;
+    }
+  
     try {
-        const newfields = newVersion.split(".");
-        const oldfields = oldVersion.split(".");
-
-        for (let i = 0; i <= 2; i++) {
-            if (parseInt(newfields[i]) > parseInt(oldfields[i])) {
-                greaterVersion = true;
-            }
+      const newfields = newVersion.split(".");
+      const oldfields = oldVersion.split(".");
+  
+      for (let i = 0; i <= 2; i++) {
+        let varde1 = 0;
+        let varde2 = 0;
+        
+        if (newfields[i] != undefined) {
+          varde1 = newfields[i];
         }
-
-        return greaterVersion;
+        if (oldfields[i] != undefined) {
+          varde2 = oldfields[i];
+        }
+        if (parseInt(varde1) > parseInt(varde2)) {
+          return true;
+        }
+        else if (parseInt(varde1) < parseInt(varde2)) {
+          return false;
+        }
+      }
     }
     catch {
-        return false;
     }
-}
+  
+    return false
+  }
 
 /**
  * Checks if a certain ability is not part of the main ones.

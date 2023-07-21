@@ -71,37 +71,28 @@ export default class ItemHelper {
 		actor.system.listdata.ability_talents = [];
         actor.system.listdata.ability_skills = [];
         actor.system.listdata.ability_knowledges = [];
+		actor.system.listdata.secondary_talents = [];
+        actor.system.listdata.secondary_skills = [];
+        actor.system.listdata.secondary_knowledges = [];
 
-        for (const i in config.talents) {
-			if (actor.system.abilities.talent[i].isvisible) {
-				let talent = actor.system.abilities.talent[i];
-				talent._id = i;
-				talent.issecondary = false;
-				talent.name = game.i18n.localize(talent.label);
+		for (const name in actor.system.abilities) {
+			if (actor.system.abilities[name].isvisible) {
+				let ability = actor.system.abilities[name];
+				ability._id = name;
+				ability.issecondary = false;
+				ability.name = game.i18n.localize(ability.label);
 
-				actor.system.listdata.ability_talents.push(talent);
-			}
-		}
+				if (actor.system.abilities[name].type == "talent") {
+					actor.system.listdata.ability_talents.push(ability);
+				}
 
-		for (const i in config.skills) {
-			if (actor.system.abilities.skill[i].isvisible) {
-				let skill = actor.system.abilities.skill[i];
-				skill._id = i;
-				skill.issecondary = false;
-				skill.name = game.i18n.localize(skill.label);		
+				if (actor.system.abilities[name].type == "skill") {
+					actor.system.listdata.ability_skills.push(ability);
+				}
 
-				actor.system.listdata.ability_skills.push(skill);
-			}
-		}
-
-		for (const i in config.knowledges) {
-			if (actor.system.abilities.knowledge[i].isvisible) {
-				let knowledge = actor.system.abilities.knowledge[i];
-				knowledge._id = i;
-				knowledge.issecondary = false;
-				knowledge.name = game.i18n.localize(knowledge.label);
-
-				actor.system.listdata.ability_knowledges.push(knowledge);
+				if (actor.system.abilities[name].type == "knowledge") {
+					actor.system.listdata.ability_knowledges.push(ability);
+				}
 			}
 		}
     }
@@ -126,6 +117,7 @@ export default class ItemHelper {
 		actor.system.listdata.features.merits = [];
 		actor.system.listdata.features.flaws = [];
 		actor.system.listdata.features.bloodbounds = [];
+		actor.system.listdata.features.boons = [];
 
 		actor.system.listdata.experiences = [];
 
@@ -202,6 +194,7 @@ export default class ItemHelper {
 		actor.system.listdata.features.merits.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.features.flaws.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.features.bloodbounds.sort((a, b) => a.name.localeCompare(b.name));
+		actor.system.listdata.features.boons.sort((a, b) => a.name.localeCompare(b.name));
 		
 		actor.system.listdata.traits.othertraits.sort((a, b) => a.name.localeCompare(b.name));		
 
@@ -287,6 +280,9 @@ export default class ItemHelper {
 			if (item.system.type == "wod.types.bloodbound") {
 				actor.system.listdata.features.bloodbounds.push(item);
 			}
+			if (item.system.type == "wod.types.boon") {
+				actor.system.listdata.features.boons.push(item);
+			}
 		}
 	}
 
@@ -317,7 +313,6 @@ export default class ItemHelper {
 			if (item.system.type == "wod.types.talentsecondability") {
 				const trait = {
 					issecondary: true,
-					isvisible: true,
 					label: item.system.label,
 					max: item.system.max,
 					name: item.name,
@@ -334,11 +329,12 @@ export default class ItemHelper {
 				if (item.system.israngedeweapon) {
 					actor.system.listdata.rangedAbilities.push(item);
 				}
+
+				actor.system.listdata.secondary_talents.push(trait);
 			}
 			if (item.system.type == "wod.types.skillsecondability") {
 				const trait = {
 					issecondary: true,
-					isvisible: true,
 					label: item.system.label,
 					max: item.system.max,
 					name: item.name,
@@ -348,18 +344,19 @@ export default class ItemHelper {
 				}
 
 				actor.system.listdata.ability_skills.push(trait);
-
+	
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);
 				}
 				if (item.system.israngedeweapon) {
 					actor.system.listdata.rangedAbilities.push(item);
 				}
+
+				actor.system.listdata.secondary_skills.push(trait);
 			}
 			if (item.system.type == "wod.types.knowledgesecondability") {
 				const trait = {
 					issecondary: true,
-					isvisible: true,
 					label: item.system.label,
 					max: item.system.max,
 					name: item.name,
@@ -376,6 +373,8 @@ export default class ItemHelper {
 				if (item.system.israngedeweapon) {
 					actor.system.listdata.rangedAbilities.push(item);
 				}
+
+				actor.system.listdata.secondary_knowledges.push(trait);
 			}
 			if (item.system.type == "wod.types.othertraits") {
 				item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);

@@ -1,103 +1,23 @@
-.mortalDialog,
-.mortal,
-.mortalItem {
-  --main-full-color: var(--main-mortal-color);
-  --main-mid-color: var(--main-mortal-mid-color);
-  --main-dim-color: var(--main-mortal-dim-color);
-  --color-shadow-primary: var(--main-mortal-color);
-}
 
-.vampireDialog,
-.vampire,
-.vampireItem {
-  --main-full-color: var(--main-vampire-color);
-  --main-mid-color: var(--main-vampire-mid-color);
-  --main-dim-color: var(--main-vampire-dim-color);
-  --color-shadow-primary: var(--main-vampire-color);
-}
-
-.mageDialog,
-.mage,
-.mageItem {
-  --main-full-color: var(--main-mage-color);
-  --main-mid-color: var(--main-mage-mid-color);
-  --main-dim-color: var(--main-mage-dim-color);
-  --color-shadow-primary: var(--main-mage-color);
-}  
-
-.werewolfDialog,
-.werewolf,
-.werewolfItem {
-  --main-full-color: var(--main-werewolf-color);
-  --main-mid-color: var(--main-werewolf-mid-color);
-  --main-dim-color: var(--main-werewolf-dim-color);
-  --color-shadow-primary: var(--main-werewolf-color);
-}
-
-.changelingDialog,
-.changeling,
-.changelingItem {
-  --main-full-color: var(--main-changeling-color);
-  --main-mid-color: var(--main-changeling-mid-color);
-  --main-dim-color: var(--main-changeling-dim-color);
-  --color-shadow-primary: var(--main-changeling-color);
-}
-
-.hunterDialog,
-.hunter,
-.hunterItem {
-  --main-full-color: var(--main-hunter-color);
-  --main-mid-color: var(--main-hunter-mid-color);
-  --main-dim-color: var(--main-hunter-dim-color);
-  --color-shadow-primary: var(--main-hunter-color);
-}
-
-.demonDialog,
-.demon,
-.demonItem {
-  --main-full-color: var(--main-demon-color);
-  --main-mid-color: var(--main-demon-mid-color);
-  --main-dim-color: var(--main-demon-dim-color);
-  --color-shadow-primary: var(--main-demon-color);
-}
-
-.spiritDialog,
-.spirit,
-.spiritItem {
-  --main-full-color: var(--main-spirit-color);
-  --main-mid-color: var(--main-spirit-mid-color);
-  --main-dim-color: var(--main-spirit-dim-color);
-  --color-shadow-primary: var(--main-spirit-color);
-}
-
-.creatureDialog,
-.creature,
-.creatureItem {
-  --main-full-color: var(--main-creature-color);
-  --main-mid-color: var(--main-creature-mid-color);
-  --main-dim-color: var(--main-creature-dim-color);
-  --color-shadow-primary: var(--main-creature-color);
-}
 
 /* COLOR BEGINS */
 
-.fullSplatColor {
+.wod20 .fullSplatColor {
   background: var(--main-full-color);
   color: white;
 }
 
-.fullSplatColor.button.active {
+.wod20 .fullSplatColor.button.active {
   background: white;
 	color: var(--main-full-color);
+  border: 1px solid var(--main-full-color);
 }
 
-.headlineTabs {
+.wod20 .headlineTabs {
 	border-bottom-color: var(--main-full-color);
 }
 
-.wod-sheet .row:nth-of-type(odd),
-.wod-item .row:nth-of-type(odd),
-.wod-dialog .row:nth-of-type(odd) {
+.wod20 .row:nth-of-type(odd) {
   background-color: var(--main-dim-color);
 }
 
@@ -106,69 +26,61 @@
   border-color: var(--main-full-color);
 }
 
-.tooltip .tooltiptext,
+.wod20 .tooltip .tooltiptext,
 .resource-value-static .resource-value-static-step.active {
   background-color: var(--main-full-color);
   color: white;
 }
 
-input.editable,
-select.editable,
-textarea.editable {
-  border: 1px solid var(--main-full-color);
-  box-shadow: 2px 2px 5px var(--main-mid-color);
-}
-
-.power-area {
+.item-row-area {
   border-bottom: 1px solid var(--main-full-color);
   padding: 3px;
+  line-height: 23px;
 }
 
-.power-area.mainpower-row {
+.item-row-area.mainpower-row {
   padding: 3px;
   border-bottom: 0px;
 }
 
-.power-row {
+.wod20 .power-row {
   border-bottom: 1px solid var(--main-full-color);
   background-color: var(--main-dim-color);
 }
 
-.art-row {
+.wod20 .art-row {
   border-bottom: 1px solid var(--main-full-color);
   background-color: var(--main-dim-color);
 } 
 
-.item-notice,
-.item-create {
+.wod20 .item-notice,
+.wod20 .item-create {
   color: rgb(5, 99, 5);
 }
 
-.item-warning {
+.wod20 .item-warning {
   color: rgb(183, 121, 5)
 }
 
-.item-delete {
+.wod20 .item-delete {
   color: rgb(167, 2, 2);
 }
 
-
-
-.send-chat:hover,
-.send-chat:focus,
-.item-create:hover,
-.item-create:focus,
-.item-edit:hover,
-.item-edit:focus,
-.item-delete:hover,
-.item-delete:focus,
-.collapsible.button:hover,
-.collapsible.button:focus,
-.vrollable:hover,
-.vrollable:focus,
-.item:hover,
-.item:focus,
-.item.active {
+.wod20 .send-chat:hover,
+.wod20 .send-chat:focus,
+.wod20 .item-create:hover,
+.wod20 .item-create:focus,
+.wod20 .item-edit:hover,
+.wod20 .item-edit:focus,
+.wod20 .item-delete:hover,
+.wod20 .item-delete:focus,
+.wod20 .collapsible.button:hover,
+.wod20 .collapsible.button:focus,
+.wod20 .vrollable:hover,
+.wod20 .vrollable:focus,
+.wod20 .item:hover,
+.wod20 .item:focus,
+.wod20 .item.active {
 	text-shadow: 0 0 10px var(--main-full-color);
 }
 
@@ -177,420 +89,17 @@ textarea.editable {
   background-color: var(--main-dim-color);
 }
 
+.headlineRowBackground {
+  background-color: var(--main-dim-color);
+}
+
 /* COLOR ENDS */
 
-/* MORTAL BEGINS */
-
-.mortal:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.mortal:not(.noSplatFont) .headlineTabs {
-  font-size: 24px;
-}
-
-.mortalDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-mortal-color);
-}
-
-/* MORTAL ENDS */
-
-/* VAMPIRE BEGINS */
-
-.vampire:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.vampire:not(.minimized).langES {
-  min-width: 1000px;
-}
-
-.vampire:not(.noSplatFont) .headlineTabs {
-  line-height: 25px;
-}
-
-.demon:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 18px;
-}
-
-.vampire:not(.noSplatFont) .itemTabsText {
-  font-size: 30px;
-}
-
-.vampire:not(.noSplatFont) .sheet-headline {
-  font-size: 34px;
-}
-
-.vampire:not(.noSplatFont) .headlineGroup {
-  font-size:24px;
-}
-
-.vampireDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-vampire-color);
-}
-
-/* VAMPIRE ENDS */
-
-/* MAGE BEGINS */
-
-.mage:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.mage:not(.minimized).langDE,
-.mage:not(.minimized).langES {
-  min-width: 950px;
-}
-
-.mage .headlineRow:not(.noSplatFont) {
-  font-size: 10px;
-}  
-
-.mage:not(.noSplatFont) .headlineText {
-	font-size: 16px;
-}
-
-.mage:not(.noSplatFont) .sheet-headline {
-  font-size: 22px;
-}
-
-.mage:not(.noSplatFont) .headlineGroup {
-  font-size: 16px;
-}
-
-.mage:not(.noSplatFont) .condition {
-  font-size: 10px;
-}
-
-.mage:not(.noSplatFont) .headlineList {
-  font-size: 10px;
-}
-
-.mageDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-mage-color);
-}
-
-  /* WHEEL START */
-
-  .langDE div.sheet-headlineQuintessence {
-    text-align: start;
-    margin-left: 45px;
-  }
-
-  .langDE div.sheet-headlineParadox {
-    text-align: start;
-    margin-left: 45px;
-  }
-
-  /* WHEEL END */
-
-/* MAGE ENDS */
-
-/* WEREWOLF BEGINS */
-
-.werewolf:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.werewolf:not(.minimized).langDE {
-  min-width: 950px;
-}
-
-.werewolf:not(.minimized).langES {
-  min-width: 1000px;
-}
-
-.werewolf .shape-selector-active {
-  background: var(--main-werewolf-color);
-	color: white;
-}
-
-.werewolf:not(.noSplatFont) .headlineList {
-  font-size: 12px;
-}
-
-.werewolfDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-werewolf-color);
-}
-
-/* WEREWOLF ENDS */
-
-/* CHANGELING START */
-
-.changeling:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.changeling:not(.minimized).langES {
-  min-width: 950px;
-}
-
-.changeling .sheet-character .profile-img-zone button {  
-  background: url('../assets/img/buttons/changeling.png');	
-  color: white;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 35px;
-  height: 35px;
-}
-
-.changeling .lock-icon {
-  margin-left: 4px;
-}
-
-.changeling:not(.noSplatFont) .headlineTabs {
-  font-size: 24px;
-  line-height: 24px;
-}
-
-.changeling:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 16px;
-}
-
-.changeling .pullLeft.healthbox {
-  margin-left: 15px;
-}
-
-.changeling .pullRight.healthbox {
-  margin-right: 15px;  
-}
-
-.changeling .leftwrapper {
-  border: 1px solid var(--main-changeling-color);
-  border-bottom: 0px;
-  border-right: 0px;
-  padding-left: 5px;
-  padding-top: 5px;
-}
-
-.changeling .topwrapper {
-  border: 1px solid var(--main-changeling-color);
-  border-bottom: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  padding-top: 5px;
-}
-
-.changeling .rightwrapper {
-  border: 1px solid var(--main-changeling-color);
-  border-bottom: 0px;
-  border-left: 0px;
-  padding-top: 5px;
-  margin-right: 5px;
-}
-
-.changeling .wrapperboxleft {
-  padding-left: 10px;
-}
-
-.changeling .wrapperboxright {
-  margin-right: 5px;
-}
-
-.changelingDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-changeling-color);
-}
-
-/* CHANGELING ENDS */
-
-/* HUNTER START */
-
-.hunter:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.hunter:not(.minimized).langES {
-  min-width: 1000px;
-}
-
-.hunter:not(.noSplatFont) .headlineTabs {
-  font-size: 28px;
-  line-height: 28px;
-}
-
-.hunter:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 18px;
-}
-
-.hunterDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-hunter-color);
-}
-
-/* HUNTER ENDS */
-
-/* DEMON START */
-
-.demon:not(.minimized) {
-  min-width: 900px;
-  min-height: 1000px;
-}
-
-.demon:not(.minimized).langES {
-  min-width: 1000px;
-}
-
-.demon:not(.noSplatFont) .headlineTabs {
-  font-size: 26px;
-  line-height: 26px;
-}
-
-.demon:not(.noSplatFont) .sheet-headline {
-  font-size: 34px;
-}
-
-.demon:not(.noSplatFont) .headlineGroup {
-  font-size:24px;
-}
-
-.demon:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 18px;
-}
-
-.demonDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-demon-color);
-}
-
-/* DEMON ENDS */
-
-/* CREATURE START */
-
-.creature:not(.minimized) {
-  min-width: 900px;
-  min-height: 850px;
-}
-
-.creature:not(.noSplatFont) .headlineList {
-  font-size: 12px;
-}
-
-.creature .headlineRow {
-  display: flex;
-  height: 23px;
-  line-height: 23px;
-  margin-top: 25px;
-  margin-bottom: 5px;
-}
-
-.creatureDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-creature-color);
-}
-
-/* CREATURE ENDS */
-
-/* SPIRIT START */
-
-.spirit:not(.minimized) {
-  min-width: 800px;
-}
-
-.spirit .headlineRow {
-  display: flex;
-  height: 23px;
-  line-height: 23px;
-  margin-top: 25px;
-  margin-bottom: 5px;
-}
-
-.spiritDialog:not(.noSplatFont) .headlineGroup {
-  border-bottom: 1px solid var(--main-spirit-color);
-}
-
-/* SPIRIT ENDS */
-
-/* ITEM START */
-
-.itemsheet:not(.minimized) {
-  min-height: 500px;
-}
-
-/* ITEM ENDS */
-
 /* START - General */
-
-.mortal:not(.noSplatFont) nav,
-.mortal:not(.noSplatFont) .splatFont,
-.mortalDialog:not(.noSplatFont) .splatFont,
-.mortalItem:not(.noSplatFont) .splatFont {
-	font-family: "mortal", var(--main-font);
-}
-
-.vampire:not(.noSplatFont) nav,
-.vampire:not(.noSplatFont) .splatFont,
-.vampireDialog:not(.noSplatFont) .splatFont,
-.vampireItem:not(.noSplatFont) .splatFont {
-	font-family: "vampire", var(--main-font);
-}
-
-.mage:not(.noSplatFont) nav,
-.mage:not(.noSplatFont) .splatFont,
-.mageDialog:not(.noSplatFont) .splatFont,
-.mageItem:not(.noSplatFont) .splatFont {
-	font-family: "mage", var(--main-font);
-}
-
-.changeling:not(.noSplatFont) nav,
-.changeling:not(.noSplatFont) .splatFont,
-.changelingDialog:not(.noSplatFont) .splatFont,
-.changelingItem:not(.noSplatFont) .splatFont {
-	font-family: "changeling", var(--main-font);
-}
-
-.hunter:not(.noSplatFont) nav,
-.hunter:not(.noSplatFont) .splatFont,
-.hunterDialog:not(.noSplatFont) .splatFont,
-.hunterItem:not(.noSplatFont) .splatFont {
-	font-family: "hunter", var(--main-font);
-}
-
-.demon:not(.noSplatFont) nav,
-.demon:not(.noSplatFont) .splatFont,
-.demonDialog:not(.noSplatFont) .splatFont,
-.demonItem:not(.noSplatFont) .splatFont {
-	font-family: "demon", var(--main-font);
-}
-
-.werewolf:not(.noSplatFont) nav,
-.creature:not(.noSplatFont) nav,
-.spirit:not(.noSplatFont) nav,
-.werewolf:not(.noSplatFont) .splatFont,
-.werewolfDialog:not(.noSplatFont) .splatFont,
-.werewolfItem:not(.noSplatFont) .splatFont,
-.creature:not(.noSplatFont) .splatFont,
-.spirit:not(.noSplatFont) .splatFont {
-	font-family: "werewolf", var(--main-font);
-}
-
-.creature:not(.noSplatFont) .headlineText,
-.werewolf:not(.noSplatFont) .headlineText {
-	font-size: 18px;
-}
-
-.spirit:not(.noSplatFont) .secondHeadlineTabs,
-.creature:not(.noSplatFont) .secondHeadlineTabs,
-.mortal:not(.noSplatFont) .secondHeadlineTabs,
-.werewolf:not(.noSplatFont) .secondHeadlineTabs,
-.mage:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 14px;
-}
 
 /* END - General */
 
 /* START Core */
-
-.creature .attribute-headlineWidth {
-	width: 25%;
-}
-
-.creature.langDE .attribute-headlineWidth,
-.creature.langES .attribute-headlineWidth {
-  width: 35%;
-}
 
 .langFR .attribute-headlineWidth {
   width: 120px;
@@ -619,6 +128,10 @@ textarea.editable {
 
 /* START Setting */
 
+.wod20:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 14px;
+}
+
 .langES .settings-abilitylabel {
   width: 115px;
 }
@@ -639,34 +152,6 @@ textarea.editable {
   width: 350px;
 }
 
-.mortalDialog:not(.noSplatFont) .headlineGroup,
-.changelingDialog:not(.noSplatFont) .headlineGroup,
-.vampireDialog:not(.noSplatFont) .headlineGroup {
-    font-size: 24px;
-    font-size: calc(0.4vw + 0.4vh + 0.7vmin);    
-}
-
-.werewolfDialog:not(.noSplatFont) .headlineGroup,
-.creatureDialog:not(.noSplatFont) .headlineGroup,
-.spiritDialog:not(.noSplatFont) .headlineGroup {
-    font-size: 24px;
-    font-size: calc(0.3vw + 0.3vh + 0.6vmin);
-}
-
-.mortalDialog:not(.noSplatFont) .headline,
-.changelingDialog:not(.noSplatFont) .headline,
-.vampireDialog:not(.noSplatFont) .headline {
-    font-size: 14px;
-    font-size: calc(0.3vw + 0.3vh + 0.6vmin);
-}
-
-.werewolfDialog:not(.noSplatFont) .headline,
-.creatureDialog:not(.noSplatFont) .headline,
-.spiritDialog:not(.noSplatFont) .headline {
-  font-size: 14px;
-  font-size: calc(0.2vw + 0.2vh + 0.5vmin);
-}
-
 .langDE .comboboxRow {
   height: 40px;
 }
@@ -677,77 +162,21 @@ textarea.editable {
 
 @media all and (max-width : 1280px)
 {
-  .werewolf:not(.minimized) {
-    min-width: 400px;
+  .wod-sheet:not(.minimized) {
+    min-width: 600px;
   }
+}
 
-  .vampire:not(.minimized) {
-    min-width: 400px;
-  }  
-
-  .mage:not(.minimized) {
-    min-width: 400px;
-  }
-
-  .changeling:not(.minimized) {
-    min-width: 400px;
-  }
-
-  .hunter:not(.minimized) {
-    min-width: 400px;
-  }
-
-  .demon:not(.minimized) {
-    min-width: 400px;
-  }
-
-  .mortal:not(.minimized) {
-    min-width: 400px;
-  }
-
-  .spirit:not(.minimized) {
-    min-width: 400px;
-  }
-
-  .creature:not(.minimized) {
-    min-width: 400px;
+@media all and (max-height : 1250px)
+{
+  .wod-sheet:not(.minimized) {
+    min-height: 900px;
   }
 }
 
 @media all and (max-height : 1024px)
 {
-  .werewolf:not(.minimized) {
-    min-height: 400px;
-  }
-  .vampire:not(.minimized) {
-    min-height: 400px;
-  }  
-
-  .mage:not(.minimized) {
-    min-height: 400px;
-  }
-
-  .changeling:not(.minimized) {
-    min-height: 400px;
-  }
-
-  .hunter:not(.minimized) {
-    min-height: 400px;
-  }
-
-  .demon:not(.minimized) {
-    min-height: 400px;
-  }
-
-  .mortal:not(.minimized) {
-    min-height: 400px;
-  }
-
-  .spirit:not(.minimized) {
-    min-height: 400px;
-  }
-
-  .creature:not(.minimized) {
+  .wod-sheet:not(.minimized) {
     min-height: 400px;
   }
 }

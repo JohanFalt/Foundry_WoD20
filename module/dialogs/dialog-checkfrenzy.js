@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class WerewolfFrenzy {
     constructor(actor, data) {
@@ -55,7 +55,7 @@ export class DialogCheckFrenzy extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["checkfrenzy-dialog"],
+            classes: ["wod20 wod-dialog checkfrenzy-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-checkfrenzy.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -146,14 +146,13 @@ export class DialogCheckFrenzy extends FormApplication {
                 $(this).addClass("active");
             }
         });
-    }
-    
+    }    
 
     /* clicked on check Frenzy */
     async _checkFrenzy(event) {
-        let templateHTML = `<h2>${game.i18n.localize("wod.dialog.checkfrenzy.headline")}</h2>`;
         let frenzyBonus = 0;
         let numDices = 0;
+        let template = [];
 
         try {
             frenzyBonus = parseInt(this.actor.system.advantages.rage.bonus);
@@ -164,27 +163,27 @@ export class DialogCheckFrenzy extends FormApplication {
 
         if (this.object.type == CONFIG.wod.sheettype.werewolf) {
             this.object.canRoll = this._calculateDifficulty(true);
-            templateHTML += `${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`;
+            template.push(`${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`);
             numDices = parseInt(this.actor.system.advantages.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
             this.object.close = true;
         }
         else if (this.object.type == CONFIG.wod.sheettype.vampire) {
             this.object.canRoll = this.object.totalDifficulty > -1 ? true : false;
-            templateHTML += `${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`;
-            numDices = parseInt(this.actor.system.advantages.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);
+            template.push(`${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`);
+            numDices = parseInt(this.actor.system.advantages.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);            
         }
 
-        if (this.object.canRoll) {
-            
-            const frenzyRoll = new DiceRoll(this.actor);
-            frenzyRoll.handlingOnes = CONFIG.wod.handleOnes;    
-            frenzyRoll.origin = "frenzy";
+        if (this.object.canRoll) {            
+            const frenzyRoll = new DiceRollContainer(this.actor);
+            frenzyRoll.action = game.i18n.localize("wod.dialog.checkfrenzy.headline");
+            frenzyRoll.dicetext = template;
+            frenzyRoll.origin = "general";
             frenzyRoll.numDices = numDices;
-            frenzyRoll.difficulty = parseInt(this.object.totalDifficulty);          
-            frenzyRoll.templateHTML = templateHTML;        
-
-            const successes = await rollDice(frenzyRoll);
-            this.object.numSuccesses += parseInt(successes);
+            frenzyRoll.woundpenalty = 0;
+            frenzyRoll.difficulty = parseInt(this.object.totalDifficulty);       
+            NewRollDice(frenzyRoll);
+            //const successes = NewRollDice(frenzyRoll);
+            //this.object.numSuccesses += parseInt(successes);
         }
     }
 

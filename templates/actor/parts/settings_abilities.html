@@ -1,143 +1,133 @@
+<div class="sheet-area">
+    <div class="clearareaBox">
+
+        <div class="clearareaBox">
+            <div class="ability-statArea pullLeft headlineGroup splatFont centerText sheet-banner-small"><span class="sheet-banner-text">{{localize "wod.abilities.talents"}}</span></div>            
+            <div class="ability-statArea pullLeft headlineGroup splatFont centerText sheet-banner-small"><span class="sheet-banner-text">{{localize "wod.abilities.skills"}}</span></div>            
+            <div class="ability-statArea pullLeft headlineGroup splatFont centerText sheet-banner-small"><span class="sheet-banner-text">{{localize "wod.abilities.knowledges"}}</span></div>            
+        </div>        
+        <div class="ability-statArea pullLeft">
+        
+            {{#each config.talents as |ability key|}}	
+
+                    <div class="clearareaBox row">
+                        <label for="data.system.abilities.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">
+                            {{#if (eq (getAbilityAttribute ../actor key "altlabel") "")}}
+                                {{getAbilityAttribute ../actor key "label"}}
+                            {{else}}
+                                {{getAbilityAttribute ../actor key "altlabel"}}
+                            {{/if}}
+                        </label>
+
+                        <label class="settings-ability-altnamefiller"></label>
+
+                        <div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-source="ability" data-type="{{../config.sheettype.mortal}}">
+                            {{#if (getAbilityAttribute ../actor key "isvisible")}}
+                                <i class="icon fa-solid fa-eye"></i>
+                            {{else}}
+                                <i class="icon fa-solid fa-eye-slash"></i>
+                            {{/if}}
+                        </div>
+                    </div>	
+
+            {{/each}}
+        
+        </div>
+        <div class="ability-statArea pullLeft">
+        
+            {{#each config.skills as |ability key|}}
+
+                {{#if (showAbility key "skills" ../actor.type)}}
+
+                    <div class="clearareaBox row">
+                        <label for="data.system.abilities.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">
+                            {{#if (eq (getAbilityAttribute ../actor key "altlabel") "")}}
+                                {{getAbilityAttribute ../actor key "label"}}
+                            {{else}}
+                                {{getAbilityAttribute ../actor key "altlabel"}}
+                            {{/if}}
+                        </label>
+
+                        <label class="settings-ability-altnamefiller"></label>
+
+                        <div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-source="ability" data-type="{{../config.sheettype.mortal}}">
+                            {{#if (getAbilityAttribute ../actor key "isvisible")}}
+                                <i class="icon fa-solid fa-eye"></i>
+                            {{else}}
+                                <i class="icon fa-solid fa-eye-slash"></i>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                {{/if}}
+
+            {{/each}}
+        
+        </div>
+
+        <div class="ability-statArea pullLeft">
+        
+            {{#each config.knowledges as |ability key|}}
+
+                {{#if (showAbility key "knowledges" ../actor.type)}}
+
+                    <div class="clearareaBox row">
+                        <label for="data.system.abilities.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">
+                            {{#if (eq (getAbilityAttribute ../actor key "altlabel") "")}}
+                                {{getAbilityAttribute ../actor key "label"}}
+                            {{else}}
+                                {{getAbilityAttribute ../actor key "altlabel"}}
+                            {{/if}}
+                        </label>
+
+                        <label class="settings-ability-altnamefiller"></label>
+
+                        <div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-source="ability" data-type="{{../config.sheettype.mortal}}">
+                            {{#if (getAbilityAttribute ../actor key "isvisible")}}
+                                <i class="icon fa-solid fa-eye"></i>
+                            {{else}}
+                                <i class="icon fa-solid fa-eye-slash"></i>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                {{/if}}
+
+            {{/each}}
+        
+        </div>
+        
+    </div>
+</div>
+
 {{#if (eqAnyNot actor.type config.sheettype.spirit config.sheettype.vampire)}}
     <div class="sheet-area">
         <div class="clearareaBox">
-            <div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
+            <div class="pullLeft headlineNormal settings-leftwidth" style="line-height: 26px;">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
             <div class="pullLeft settings-leftwidth settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
                 {{#if locked}}
-                    <input class="sheet-infoValues" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" readonly />
+                    <input class="sheet-infoValues half" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" readonly />
                 {{else}}
-                    <input class="sheet-infoValues selectAbilityMaxSetting editable" name="system.settings.abilities.defaultmaxvalue" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" style="width: 50%;" data-source="setvalue" data-type="{{config.sheettype.mortal}}" data-koptions="--{{localize 'wod.labels.select'}}--/1/2/3/4/5/6/7/8/9/10">                		
+                    <select class="sheet-infoValues selectAbilityMaxSetting editable half" name="system.settings.abilities.defaultmaxvalue" data-source="setvalue" data-type="{{config.sheettype.mortal}}" data-dtype="Number">
+                        {{#select data.system.settings.abilities.defaultmaxvalue}}
+                            <option value="">- {{localize 'wod.labels.select'}} -</option>
+                            {{#numFromLoop 1 10}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/numFromLoop}}
+                        {{/select}}
+                    </select>
                 {{/if}}
             </div>				
         </div>
+
+        <div class="clearareaBox information-area">LANG: This setting sets the maximum value an ability can have</div>
     </div>
 {{/if}}
 
 <div class="sheet-area">
     <div class="clearareaBox">
 
-        <div class="clearareaBox">
-            <div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize "wod.abilities.talents"}}</div>
-            <div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize "wod.abilities.skills"}}</div>
-            <div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize "wod.abilities.knowledges"}}</div>
-        </div>
-        
-        <div class="ability-statArea pullLeft">
-        
-            {{#each data.system.abilities.talent as |ability key|}}	
-
-                {{#if (ne ability.label undefined)}}
-
-                    <div class="clearareaBox row">
-                        <label for="data.system.abilities.talent.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
-
-                        {{#if (eq ../locked false)}}
-                            <input type="text" 
-                                class="specialityBox"
-                                name="system.abilities.talent.{{key}}.altlabel" 
-                                value="{{ability.altlabel}}" 
-                                data-name="data.system.abilities.talent.{{key}}.altlabel" />
-                        {{else}}
-                            <label class="settings-ability-altnamefiller"></label>
-                        {{/if}}
-
-                        <div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="talent" data-source="ability" data-type="{{../config.sheettype.mortal}}">
-                            {{#if ability.isvisible}}
-                                <!-- {{localize "wod.labels.settings.added"}} -->
-                                <i class="icon fa-solid fa-eye"></i>
-                            {{else}}
-                                <!-- {{localize "wod.labels.settings.removed"}} -->
-                                <i class="icon fa-solid fa-eye-slash"></i>
-                            {{/if}}
-                        </div>
-                    </div>	
-
-                {{/if}}
-            
-            {{/each}}
-        
-        </div>
-        <div class="ability-statArea pullLeft">
-        
-            {{#each data.system.abilities.skill as |ability key|}}
-
-                {{#if (ne ability.label undefined)}}
-
-                    {{#if (showAbility key "skills" ../actor.type)}}
-                        <div class="clearareaBox row">
-                            <label for="data.system.abilities.skill.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
-
-                            {{#if (eq ../locked false)}}
-                                <input type="text" 
-                                    class="specialityBox"
-                                    name="system.abilities.skill.{{key}}.altlabel" 
-                                    value="{{ability.altlabel}}" 
-                                    data-name="data.system.abilities.skill.{{key}}.altlabel" />
-                            {{else}}
-                                <label class="settings-ability-altnamefiller"></label>
-                            {{/if}}
-
-                            <div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="skill" data-source="ability" data-type="{{../config.sheettype.mortal}}">
-                                {{#if ability.isvisible}}
-                                    <!-- {{localize "wod.labels.settings.added"}} -->
-                                    <i class="icon fa-solid fa-eye"></i>
-                                {{else}}
-                                    <!-- {{localize "wod.labels.settings.removed"}} -->
-                                    <i class="icon fa-solid fa-eye-slash"></i>
-                                {{/if}}
-                            </div>
-                        </div>
-                    {{/if}}
-
-                {{/if}}
-            
-            {{/each}}
-        
-        </div>
-        <div class="ability-statArea pullLeft">
-
-            {{#each data.system.abilities.knowledge as |ability key|}}
-
-                {{#if (ne ability.label undefined)}}
-
-                    {{#if (showAbility key "knowledges" ../actor.type)}}
-                        <div class="clearareaBox row">
-                            <label for="data.system.abilities.knowledge.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">{{#if (eq ability.altlabel "")}}{{localize ability.label}}{{else}}{{ability.altlabel}}{{/if}}</label>
-
-                            {{#if (eq ../locked false)}}
-                                <input type="text" 
-                                    class="specialityBox"
-                                    name="system.abilities.knowledge.{{key}}.altlabel" 
-                                    value="{{ability.altlabel}}" 
-                                    data-name="data.system.abilities.knowledge.{{key}}.altlabel" />
-                            {{else}}
-                                <label class="settings-ability-altnamefiller"></label>
-                            {{/if}}
-
-                            <div class="switch headlineNormal bold pointer splatFont" data-label="{{key}}" data-switchtype="knowledge" data-source="ability" data-type="{{../config.sheettype.mortal}}">
-                                {{#if ability.isvisible}}									
-                                    <!-- {{localize "wod.labels.settings.added"}} -->
-                                    <i class="icon fa-solid fa-eye"></i>
-                                {{else}}
-                                    <!-- {{localize "wod.labels.settings.removed"}} -->
-                                    <i class="icon fa-solid fa-eye-slash"></i>
-                                {{/if}}
-                            </div>
-                        </div>
-                    {{/if}}
-
-                {{/if}}
-            
-            {{/each}}
-        
-        </div>
-    </div>
-</div>
-
-<div class="sheet-area">
-    <div class="clearareaBox">
-
-        <div class="sheet-headline splatFont">{{localize "wod.labels.settings.secondaryabilities"}}</div>
+        <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.labels.settings.secondaryabilities"}}</span></div>
 
         <div class="clearareaBox">
             <div class="ability-statArea pullLeft headlineGroup splatFont centerText">
@@ -161,56 +151,44 @@
         </div>
 
         <div class="ability-statArea pullLeft">
-            {{#each actor.system.listdata.ability_talents as |ability key|}}
-                {{#if ability.issecondary}}
-
-                    <div class="clearareaBox row">
-                        <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
-                        <div>
-                            {{#if (eq ../locked false)}}
-                                <a class="item-edit" title="{{localize "wod.labels.edit.ability"}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                <a class="item-delete" title="{{localize "wod.labels.remove.ability"}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            {{/if}}
-                        </div>
-                    </div>	
-
-                {{/if}}
+            {{#each actor.system.listdata.secondary_talents as |ability key|}}
+                <div class="clearareaBox row">
+                    <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
+                    <div>
+                        {{#if (eq ../locked false)}}
+                            <a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        {{/if}}
+                    </div>
+                </div>	
             {{/each}}
             &nbsp;
         </div>
         <div class="ability-statArea pullLeft">
-            {{#each actor.system.listdata.ability_skills as |ability key|}}
-                {{#if ability.issecondary}}
-
-                    <div class="clearareaBox row">
-                        <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
-                        <div>
-                            {{#if (eq ../locked false)}}
-                                <a class="item-edit" title="{{localize "wod.labels.edit.ability"}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                <a class="item-delete" title="{{localize "wod.labels.remove.ability"}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            {{/if}}
-                        </div>
-                    </div>	
-
-                {{/if}}
+            {{#each actor.system.listdata.secondary_skills as |ability key|}}
+                <div class="clearareaBox row">
+                    <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
+                    <div>
+                        {{#if (eq ../locked false)}}
+                            <a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        {{/if}}
+                    </div>
+                </div>	
             {{/each}}
             &nbsp;
         </div>
         <div class="ability-statArea pullLeft">
-            {{#each actor.system.listdata.ability_knowledges as |ability key|}}
-                {{#if ability.issecondary}}
-
-                    <div class="clearareaBox row">
-                        <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
-                        <div>
-                            {{#if (eq ../locked false)}}
-                                <a class="item-edit" title="{{localize "wod.labels.edit.ability"}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                <a class="item-delete" title="{{localize "wod.labels.remove.ability"}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            {{/if}}
-                        </div>
-                    </div>	
-
-                {{/if}}
+            {{#each actor.system.listdata.secondary_knowledges as |ability key|}}
+                <div class="clearareaBox row">
+                    <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
+                    <div>
+                        {{#if (eq ../locked false)}}
+                            <a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        {{/if}}
+                    </div>
+                </div>	
             {{/each}}
             &nbsp;
         </div>

@@ -94,14 +94,14 @@
 			</div> -->
 
 			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 				<div class="clearareaBox">
-					{{#if canEdit}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
-					{{else}}
-						<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
-					{{/if}}
+					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 				</div>
+				{{#if canEdit}}
+					{{editor data.description target="system.description" button=false owner=owner editable=true}}
+				{{else}}
+					<div class="headlineNormal textarea">{{{data.system.description}}}</div>
+				{{/if}}
 			</div>
 
 		</section>

@@ -22,8 +22,6 @@
 			"worldversionhint": "Used to know if World patch is needed",
 			"advantagerolls": "How roll Advantage attributes",
 			"advantagerollshint": "Are you to use the permanent (check) values or temporary (not checked) of e.g. Willpower in rolls. Requires restart of Foundry VTT.",
-			"therollofone": "How to handle 1s on Rolls",
-			"therollofonehint": "Normal handling from rules - all one's reduce number of successes by one (check). Ones has no effect normally but if no successes and there one or more ones that is a botch (not checked)",
 			"attributesettings": "Settings for attributes",
 			"attributesettingshint": "There are two options to choose from. Either using the standard from 20th ed where you have Appearance and Perception and calculates Willpower as a stat. Or you use 5th ed, exchanging Appearance and Perception with Composure and Resolve and calculates Willpower with Composure + Resolve. 20th ed are default. After this setting has changed you have to restart Foundry VTT.",
 			"observersactorpermission": "Observers full view permission",
@@ -50,8 +48,12 @@
 			"usesworldanvilhint": "With this setting you will show a box in Bio where you can store the link to that sheet's World Anvil page",
 			"huntersettings": "Hunter Settings",
 			"huntersettingshint": "World settings used in Hunter the Reckoning",
+			"werewolfsettings": "Werewolf Settings",
+			"werewolfsettingshint": "World settings used in Werewolf the Apocalypse",
 			"edgesettings": "Gaining Edge setting",
-			"edgesettingshints": "Gaining Edge setting",
+			"edgesettingshints": "According to the rules of Hunter the Reckoning there are two ways to gain Edges, using Virtues are the default one",
+			"ragesettings": "Use Rage penalty",
+			"ragesettingshints": "In Werewolf if the Garou has more Rage than Willpower they get a penalty to their social rolls.",
 			"choicevirtue": "Spending virtue points",
 			"choiceexperience": "Spending experience points"
 		},
@@ -61,6 +63,7 @@
 			"mage": "Mage",
 			"background": "Background",
 			"bloodbound": "Blood Bond / Vinculum",
+			"boon": "Boon",
 			"merit": "Merit",
 			"flaw": "Flaw",
 			"expspent": "Spent Experience",
@@ -113,6 +116,7 @@
 			"edge": "Edges",
 			"lore": "Lores",
 			"shapechange": "Shapechange",
+			"settings": "Settings",
 			"sheet": "Sheet Settings",
 			"attribute": "Attribute Settings"
 		},
@@ -122,10 +126,10 @@
 			"disparate": "The Disparate",
 			"fallen": "The Fallen",
 			"mad": "The Mad",
-
 			"name": "Name",
 			"appearance": "Appearance",
-			"background": "Background",
+			"background": "Biography",
+			"tips": "Rolplaying Tips",
 			"nature": "Nature",
 			"demeanor": "Demeanor",
 			"concept": "Concept",
@@ -544,10 +548,11 @@
 				"night": "Path of Night",
 				"paradox": "Path of Paradox",
 				"innervoice": "Path of Power and the Inner Voice",
-				"typhon": "Path of Typthon"
+				"typhon": "Path of Typhon"
 			},
 			"virtue": {
 				"headline": "Virtue",
+				"selected": "Selected virtues",
 				"conscience": "Conscience",
 				"conviction": "Conviction",
 				"selfcontrol": "Self-Control",
@@ -664,7 +669,7 @@
 				"run": "Run",
 				"fly": "Fly",
 				"vjump": "Vertical jump (feet per suc)",
-				"hjump": "Horizant jump (feet per suc)"
+				"hjump": "Horizontal jump (feet per suc)"
 			},
 			"weapon": {
 				"weapon": "Weapon",
@@ -777,20 +782,30 @@
 			"unsortedlores": "Here is all unsorted lore powers which needs to get a selected Lore. Click on the headline to sort one.",
 			"arts": "Arts",
 			"edges": "Edges",
-			"lores": "Lores"
+			"lores": "Lores",
+			"wyld": "Wyld"
 		},
 		"spheres": {
 			"spheres": "Spheres",
 			"rotes": "Rotes",
-			"correspondence": "Correspondence",
+			"correspondence": "Correspondence",			
 			"entropy": "Entropy",
 			"forces": "Forces",
 			"life": "Life",
 			"matter": "Matter",
 			"mind": "Mind",
-			"prime": "Prime",
-			"spirit": "Spirit",
+			"prime": "Prime",			
+			"spirit": "Spirit",			
 			"time": "Time",
+
+			"data": "Data",
+			"entropicstate": "Entropic State Control",
+			"material": "Material Sciences",			
+			"psychodynamics": "Psychodynamics",
+			"primal": "Primal Utility",
+			"dimensional": "Dimensional Science",
+			"temporalscience": "Temporal Science",
+
 			"coincidental": "Coincidental",
 			"vulgar": "Vulgar",
 			"coincidentalspell": "Coincidental spell",
@@ -825,7 +840,7 @@
 		"experience": {
 			"amount": "Amount",
 			"spent": "Spent",
-			"experience": "Experience Points"
+			"experience": "Experience"
 		},
 		"labels": {
 			"rolling": "Rolling",
@@ -845,6 +860,12 @@
 			"select": "Select",
 			"noneselect": "Nothing selected",
 			"custom": "Secondary ability",
+			"custompath": "Custom path",
+			"customtribe": "Custom tribe",
+			"customsect": "Custom sect",
+			"customclan": "Custom clan",
+			"customkith": "Custom kith",
+			"customtradition": "Custom tradition",
 			"none": "None",
 			"type": "Type",
 			"description": "Description",
@@ -901,20 +922,19 @@
 				"merits": "Merits",
 				"flaws": "Flaws",
 				"bloodbound": "Blood bonds / Vinculums",
+				"boon": "Boons",
 				"othertraits": "Other traits",
 				"expearned": "Earned experience",
 				"expspend": "Spent experience"
 			},
 			"settings": {
 				"usesoak": "Can soak",
-				"yes": "YES",
-				"no": "NO",
 				"added": "ADDED",
 				"removed": "REMOVED",
 				"frenzyroll": "Set die modifier on frenzy rolls",
 				"frenzybonus": "Frenzy dice bonus",
 				"permparadox": "Permanent paradox",
-				"path": "Select character path",
+				"path": "Character path",
 				"selectpath": "Selected path",
 				"usedadvantages": "Set what type of advantages the sheet are using",
 				"usedpowers": "Set what type of powers the sheet are using",
@@ -929,6 +949,12 @@
 				"meleeweapon": "Listed melee weapon",
 				"rangedweapon": "Listed ranged weapon",
 				"reference": "Reference"
+			},
+			"feature": {
+				"trivial": "Trivial",
+				"minor": "Minor",
+				"major": "Major",
+				"life": "Life"
 			},
 			"bonus": {
 				"headline": "Bonus",
@@ -965,6 +991,7 @@
 				"rite": "New rite",
 				"rote": "New rote",
 				"bloodbound": "New blood bond / Vinculum",
+				"boon": "New boon",
 				"background": "New background",
 				"merit": "New merit",
 				"flaw": "New flaw",
@@ -983,13 +1010,18 @@
 				"edge": "New edge",
 				"edgepower": "New edge power",
 				"art": "New art",
-				"artpower": "New art power"
+				"artpower": "New art power",
+				"lore": "New lore",
+				"lorepower": "New lore power",
+				"power": "New power",
+				"charm": "New charm"
 			},
 			"add": {
 				"background": "Add background",
 				"merit": "Add merit",
 				"flaw": "Add flaw",
 				"bloodbound": "Add blood bond / Vinculum",
+				"boon": "Add boon",
 				"ability": "Add secondary ability",
 				"resonance": "Add resonance",
 				"othertraits": "Add other trait",
@@ -1005,7 +1037,9 @@
 				"edge": "Add edge",
 				"edgepower": "Add edge power",
 				"art": "Add art",
-				"artpower": "Add art power"
+				"artpower": "Add art power",
+				"power": "Add power",
+				"charm": "Add charm"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",
@@ -1015,6 +1049,7 @@
 				"merit": "Edit merit",
 				"flaw": "Edit flaw",
 				"bloodbound": "Edit blood bond / Vinculum",
+				"boon": "Edit boon",
 				"gift": "Edit gift",
 				"rite": "Edit rite",
 				"discipline": "Edit discipline",
@@ -1037,7 +1072,9 @@
 				"treasure": "Edit treasure",
 				"bonus": "Edit bonus",
 				"apocalypticform": "Edit apocalyptic form",
-				"armor": "Edit armor"
+				"armor": "Edit armor",
+				"power": "Edit power",
+				"charm": "Edit charm"
 			},
 			"remove": {
 				"item": "Remove item",
@@ -1058,6 +1095,7 @@
 				"merit": "Remove merit",
 				"flaw": "Remove flaw",
 				"bloodbound": "Remove blood bond / Vinculum",
+				"boon": "Remove boon",
 				"fetish": "Remove fetish",
 				"talen": "Remove talen",
 				"rote": "Remove rote",
@@ -1071,13 +1109,15 @@
 				"resonance": "Remove resonance",
 				"othertraits": "Remove other trait",
 				"treasure": "Remove treasure",
-				"bonus": "Remove bonus"
+				"bonus": "Remove bonus",
+				"power": "Remove power"
 			},
 			"show": {
 				"background": "Show backgrounds",
 				"merit": "Show merits",
 				"flaw": "Show flaws",
-				"bloodbound": "Show Blood Bonds",
+				"bloodbound": "Show blood bonds",
+				"boon": "Show boon",
 				"traits": "Show other traits",
 				"experience": "Show added experience",
 				"spentexp": "Show spent experience",
@@ -1135,6 +1175,7 @@
 			"numbersuccesses": "Prior number of successes",
 			"neededsuccesses": "Number of successes required",
 			"usewoundpenalty": "Use wound penalty",
+			"dicepool": "Dice pool",
 			"aretecasting": {
 				"castspell": "Cast spell",
 				"castingspell": "Casting spell",	
@@ -1157,24 +1198,24 @@
 				"instrumentunfamiliar": "Working with unfamiliar instruments",
 				"instrumentwithout": "Working without usual instruments",
 				"instrumentnotusing": "Using instruments when you don’t need to",
-				"personalitem": "Using personal item from target (sympathetic magick)",
+				"instrumentpersonalitem": "Using personal item from target (sympathetic magick)",
 				"resonance": "Resonance",
 				"resonanceappropriate": "Appropriate Resonance (personal, instrument, ritual, or Tass)",
 				"resonanceopposed": "Opposed Resonance (personal, instrument, ritual, or Tass)",
-				"manipulatingmystic": "Manipulating mythic threads/ hypernarrative",
+				"resonancemysic": "Manipulating mythic threads/ hypernarrative",
 				"time": "Time and effort",
-				"timeextra": "Spending extra time",
-				"fastcasting": "Fast-casting",
+				"spendingtime": "Spending extra time",
+				"timefast": "Fast-casting",
 				"timebackwards": "Turning time backwards",
 				"circumstances": "General Circumstances",
-				"researcheslore": "Researches lore about subject before using magick",
-				"nearnode": "Near a Node",
+				"researchdone": "Researches lore about subject before using magick",
+				"nodepresence": "Near a Node",
 				"distanttarget": "Distant or hidden target or subject",
-				"severaleffects": "Juggling several Effects at once +1 per two Effects",
-				"distracted": "Mage distracted",
-				"conflict": "Mage in conflict with Avatar",
-				"domino": "Domino Effect +1 per two coincidences after first",
-				"godlike": "Outlandish to godlike feat",
+				"effectsseveral": "Juggling several Effects at once +1 per two Effects",
+				"magedistracted": "Mage magedistracted",
+				"mageavatarconflict": "Mage in conflict with Avatar",
+				"dominoeffect": "Domino Effect +1 per two coincidences after first",
+				"deedoutlandish": "Outlandish to deedoutlandish feat",
 				"quintessence": "Spending Quintessence",
 				"additionaldifficulty": "Additional difficulty modifier",
 				"castingsettings": "Casting settings",
@@ -1222,7 +1263,9 @@
 				"availrealms": "Available Realms",
 				"unleashing": "Unleashing",
 				"nightmaredice": "Nightmare dice",
-				"missingrealm": "You need to select a Realm"
+				"missingrealm": "You need to select a Realm",
+				"arttype": "Art type",
+				"shiftnightmaredice": "Shift to Nightmare dice"
 			}
 		}
 	}	

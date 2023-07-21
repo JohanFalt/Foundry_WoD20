@@ -1,7 +1,7 @@
 <div class="clearareaBox area-box">
 
-	<div class="sheet-headline splatFont">
-		{{localize 'wod.attributes.attributes'}}
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize 'wod.attributes.attributes'}}</span>
 	</div>
 
 	<div class="clearareaBox">
@@ -10,32 +10,21 @@
 		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.mental'}}</div>
 	</div>
 
-	<div class="clearareaBox" style="font-size: 13px;">
+	<div class="clearareaBox">
 		{{#each data.system.attributes as |attribute key|}}
 
 			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
 			{{#if attribute.isvisible}}
-				<div>
-
+				<!-- <div> -->
 					<div class="attribute-rowheight attributes" style="clear:left;">
 						<label for="data.system.attributes.{{key}}.value" 
-							class="vrollable pullLeft attribute-headlineWidth headlineNormal" 
+							class="pullLeft vrollable {{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
 							data-type="{{../config.sheettype.mortal}}"
 							data-key="{{key}}"
-							data-attribute="true">{{localize attribute.label}}</label>
-						
-						{{#if (gte attribute.value 4)}}
-							<div class="speciality-attribute-icon">
-								<i class="fa-solid fa-circle-exclamation {{#if (eq attribute.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{attribute.speciality}}"></i>
-							</div>
-						{{else}}
-							<div class="speciality-attribute-empty-icon">
-								&nbsp;
-							</div>
-						{{/if}}						
+							data-attribute="true">{{localize attribute.label}}</label>			
 
-						<div class="resource-value pullRight" 
+						<div class="{{#if (gt attribute.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value" 
 							data-value="{{attribute.value}}" 
 							data-name="attributes.{{key}}.value">
 
@@ -47,29 +36,30 @@
 								<span class="attribute-total">{{attribute.total}}</span>
 							{{/if}}
 
-							{{#numLoop attribute.max}}
-							
-								<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
-							
+							{{#numLoop attribute.max}}							
+								<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>							
 							{{/numLoop}}
-							
-						</div>
 
-						
-					</div>
-					{{#if (gte attribute.value 4)}}
-						{{#if (eq ../locked false)}}
-							<div class="speciality-attribute headlineNormal">
-								<input type="text" 
-									class="specialityBox editable"
-									name="system.attributes.{{key}}.speciality" 
-									value="{{attribute.speciality}}" 
-									data-name="data.system.attributes.{{key}}.speciality" />
-							</div>
-						{{/if}}
-					{{/if}}
-				
-				</div>
+							
+							{{#if (gte attribute.value 4)}}
+								{{#if (eq ../locked false)}}
+									<div class="pullRight speciality-attribute-icon {{#if (and (eq attribute.speciality '') (gte attribute.value 4))}}item-warning{{/if}}">
+										<a class="item-edit" title="LANG: Edit speciality" data-type="Attribute" data-item-id="{{key}}"><i class="fa-solid fa-pen-to-square"></i></a>
+									</div>
+								{{else}}
+									<div class="pullRight speciality-attribute-icon">
+										<i class="fa-solid fa-circle-exclamation {{#if (eq attribute.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{attribute.speciality}}"></i>
+									</div>
+								{{/if}}
+							{{else}}
+								<div class="pullRight speciality-attribute-empty-icon">
+									&nbsp;
+								</div>
+							{{/if}}	
+
+						</div>				
+					</div>				
+				<!-- </div> -->
 			{{/if}}
 
 			{{#if (bottenAttributes key)}}</div>{{/if}}

@@ -7,7 +7,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["creature"],
+			classes: ["wod20 wod-sheet creature"],
 			template: "systems/worldofdarkness/templates/actor/creature-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",

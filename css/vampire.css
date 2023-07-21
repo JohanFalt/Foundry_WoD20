@@ -1,0 +1,83 @@
+.vampireDialog,
+.vampire,
+.vampireItem {
+  --main-full-color: var(--main-vampire-color);
+  --main-mid-color: var(--main-vampire-mid-color);
+  --main-dim-color: var(--main-vampire-dim-color);
+  --color-shadow-primary: var(--main-vampire-color);
+}
+
+.vampire {
+  --sheet-background-color: var(--vampire-page-background);
+}
+
+.vampire .modern {
+  --main-wod-banner: var(--vampire-banner-background);
+  --main-wod-banner-small: var(--vampire-banner-small-background);
+}
+
+.vampire .victorian {
+  --main-wod-banner: var(--vampire-banner-background);
+  --main-wod-banner-small: var(--vampire-banner-small-background);
+}
+
+.vampire .darkages {
+  --main-wod-banner: var(--vampire-banner-background);
+  --main-wod-banner-small: var(--vampire-banner-small-background);
+}
+  
+.vampire:not(.noSplatFont) .headlineTabs {
+    line-height: 25px;
+}
+  
+.vampire:not(.noSplatFont) .itemTabsText {
+    font-size: 30px;
+}
+  
+.vampire:not(.noSplatFont) .sheet-headline {
+    font-size: 34px;
+}
+  
+.vampireDialog:not(.noSplatFont) .headlineGroup {
+  font-size: 28px;
+}
+
+.vampire:not(.noSplatFont) nav,
+.vampire:not(.noSplatFont) .splatFont,
+.vampireDialog:not(.noSplatFont) .splatFont,
+.vampireItem:not(.noSplatFont) .splatFont {
+	font-family: "vampire", var(--main-font);
+}
+
+/* SETTING */
+
+.vampire:not(.noSplatFont) .secondHeadlineTabs {
+    font-size: 26px;
+}
+  
+.vampire .secondHeadlineTabs {
+    width: 25%;
+}
+
+
+/* START - Discipline */
+
+.disciplinepower-nonerollablerow .power-iconbox {
+  margin-left: 290px;
+}
+
+.ritualpower-nonerollablerow {
+  width: 475px;
+}
+
+.disciplinepower-rollablerow .power-iconbox {
+  margin-left: 38px;
+}
+
+/* END - Discipline */
+
+/* DIALOG */
+
+.vampireDialog:not(.noSplatFont) .headline {
+  font-size: 20px;
+}

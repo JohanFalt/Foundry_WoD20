@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 
@@ -22,6 +22,7 @@ export class GeneralRoll {
         this.abilityName = "";
         this.abilityValue = 0;
 
+        this.usedReducedDiff = false;
         this.useSpeciality = false;
         this.hasSpeciality = false;
         this.usepain = true;
@@ -59,7 +60,11 @@ export class DialogGeneralRoll extends FormApplication {
         super(roll, {submitOnChange: true, closeOnSubmit: false});
         this.actor = actor;     
         this.isDialog = true;  
-        this.options.title = `${this.actor.name}`;        
+        this.isFreeRole = actor == undefined;
+
+        if (!this.isFreeRole) {
+            this.options.title = `${this.actor.name}`;        
+        }
     }
 
     /**
@@ -68,7 +73,7 @@ export class DialogGeneralRoll extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["general-dialog"],
+            classes: ["wod20 wod-dialog general-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-generalroll.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -85,27 +90,35 @@ export class DialogGeneralRoll extends FormApplication {
         let abilitySpeciality = "";
         let specialityText = "";
 
-        data.actorData = this.actor.system;   
-        data.actorData.type = this.actor.type;
+        if (!this.isFreeRole) {
+            data.actorData = this.actor.system;   
+            data.actorData.type = this.actor.type;
+            data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
+
+            if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+                data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+            }
+            else {
+                data.object.sheettype = "werewolfDialog";
+            }
+        }
+        else {
+            data.object.ignorepain = true;    
+            
+            data.object.sheettype = "mortalDialog";
+        }
+        
         data.config = CONFIG.wod;
         data.object.hasSpeciality = false; 
-        data.object.specialityText = "";
-        data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
+        data.object.specialityText = "";        
         data.object.usepain = !data.object.ignorepain;
 
         if (this.object.type == "attribute") {
             if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {
                 let bonus = await BonusHelper.GetAttributeBonus(this.actor, this.object.attributeKey);
                 this.object.difficulty += parseInt(bonus);
-            }
-        }
-
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
-            data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
-        }
-        else {
-            data.object.sheettype = "werewolfDialog";
-        }        
+            }            
+        }                
 
         if (data.object.type == "dice") {
             data.object.hasSpeciality = this.object.useSpeciality;
@@ -159,16 +172,8 @@ export class DialogGeneralRoll extends FormApplication {
             if (abilityKey != "") {
                 let ability = undefined;
 
-                if ((data.actorData.abilities.talent[abilityKey] != undefined) && (data.actorData.abilities.talent[abilityKey].isvisible)) {
-                    ability = data.actorData.abilities.talent[abilityKey];
-                    ability.issecondary = false;
-                }
-                else if ((data.actorData.abilities.skill[abilityKey] != undefined) && (data.actorData.abilities.skill[abilityKey].isvisible)) {
-                    ability = data.actorData.abilities.skill[abilityKey];
-                    ability.issecondary = false;
-                }
-                else if ((data.actorData.abilities.knowledge[abilityKey] != undefined) && (data.actorData.abilities.knowledge[abilityKey].isvisible)) {
-                    ability = data.actorData.abilities.knowledge[abilityKey];
+                if ((data.actorData.abilities[abilityKey] != undefined) && (data.actorData.abilities[abilityKey].isvisible)) {
+                    ability = data.actorData.abilities[abilityKey];
                     ability.issecondary = false;
                 }
                 else {
@@ -258,6 +263,16 @@ export class DialogGeneralRoll extends FormApplication {
         event.preventDefault();       
         
         this.object.useSpeciality = formData["specialty"];
+
+        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = true;
+        }
+        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = false;
+        }
+        
         this.object.usepain = formData["usepain"];
 
         try {
@@ -268,6 +283,8 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
+
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -364,8 +381,13 @@ export class DialogGeneralRoll extends FormApplication {
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;     
         let woundPenaltyVal = 0;
-        let templateHTML = "";
+        let template = [];
         let specialityText = "";
+        let rollName = this.object.name;
+
+        if (rollName == "") {
+            rollName = game.i18n.localize("wod.dice.rollingdice");
+        }
 
         const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
 
@@ -376,23 +398,18 @@ export class DialogGeneralRoll extends FormApplication {
 
         if (this.object.type == "dice") {
             woundPenaltyVal = 0;
-
-            templateHTML = `<h2>${game.i18n.localize("wod.dice.rollingdice")}</h2>`;
         }
         else {            
-            templateHTML = `<h2>${this.object.name}</h2>`;
-            templateHTML += `<strong>${this.object.attributeName} (${this.object.attributeValue})`;
+            template.push(`${this.object.attributeName} (${this.object.attributeValue})`);
 
             if (this.object.abilityName != "") {
-                templateHTML += ` + ${this.object.abilityName} (${this.object.abilityValue})`;
+                template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
             }
 
             if (this.object.bonus > 0) {
-                templateHTML += ` + ${this.object.bonus}`;
+                template.push(this.object.bonus);
             }
 
-            templateHTML += `</strong>`;            
-            
             this.object.close = true;
 
             if (!this.object.hasSpeciality) {
@@ -403,7 +420,7 @@ export class DialogGeneralRoll extends FormApplication {
                 specialityText = this.object.specialityText;
             }
 
-            if (CombatHelper.ignoresPain(this.actor)) {
+            if (this.object.ignorepain) {
                 woundPenaltyVal = 0;	
             }				
             else if ((this.object.type == "dice") || (this.object.type == "noability")) {
@@ -417,18 +434,18 @@ export class DialogGeneralRoll extends FormApplication {
             }
         }
 
-        const generalRoll = new DiceRoll(this.actor);
+        const generalRoll = new DiceRollContainer(this.actor);
+        generalRoll.action = rollName;
         generalRoll.attribute = this.object.attributeKey;
-        generalRoll.handlingOnes = CONFIG.wod.handleOnes;    
+        generalRoll.dicetext = template;
         generalRoll.origin = "general";
         generalRoll.numDices = numDices;
         generalRoll.woundpenalty = parseInt(woundPenaltyVal);
         generalRoll.difficulty = parseInt(this.object.difficulty);          
-        generalRoll.templateHTML = templateHTML;        
         generalRoll.speciality = this.object.useSpeciality;
         generalRoll.specialityText = specialityText;
-
-        rollDice(generalRoll);
+        
+        NewRollDice(generalRoll);
 
         this.object.close = true;
     }

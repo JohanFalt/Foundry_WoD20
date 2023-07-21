@@ -1,42 +1,54 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
-    <div class="dialog-area headlineGroup splatFont">
-        {{localize "wod.info.rollsoak"}}: {{object.attributeValue}} {{#iff object.attributeBonus ">" 0}}(+{{object.attributeBonus}}){{/iff}}
+    <div class="dialog-area">
+        <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
+        <div class="headlineGroup splatFont">
+            {{localize "wod.info.rollsoak"}}: {{object.attributeValue}} {{#if (gt object.attributeBonus 0)}}(+{{object.attributeBonus}}){{/if}}
+        </div>
+    </div>
+    <div class="headlineGroup splatFont">
+        
     </div>
 
-    {{#if object.useChimerical}} 
-        <div class="dialog-area headline splatFont">{{localize 'wod.health.normal'}}</div>
-    {{/if}}
-    <div class="centerText dialog-area">
-        {{#each config.damageTypes as |type key|}}
-            <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'normal')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="normal">{{localize type}}</button>
-        {{/each}}
+    <div class="dialog-area">
+        {{#if object.useChimerical}} 
+            <div class="headline splatFont">LANG: Select damage type - {{localize 'wod.health.normal'}}</div>
+        {{else}}
+            <div class="headline splatFont">LANG: Select damage type</div>
+        {{/if}}
+        <div class="infobox centerText">
+            {{#each config.damageTypes as |type key|}}
+                <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'normal')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="normal">{{localize type}}</button>
+            {{/each}}
+        </div>
     </div>
 
     {{#if object.useChimerical}}   
-        <div class="dialog-area headline splatFont">{{localize 'wod.health.chimerical'}}</div>
-        <div class="centerText dialog-area">
-            {{#each config.damageTypes as |type key|}}
-                <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'chimerical')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="chimerical">{{localize type}}</button>
-            {{/each}}
+        <div class="dialog-area">
+            <div class="headline splatFont">LANG: Select damage type - {{localize 'wod.health.chimerical'}}</div>
+            <div class="infobox centerText">
+                {{#each config.damageTypes as |type key|}}
+                    <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.soaktype 'chimerical')}}{{#if (eq ../object.damageKey key)}}active{{/if}}{{/if}}" value="{{key}}" data-type="chimerical">{{localize type}}</button>
+                {{/each}}
+            </div>
         </div>
     {{/if}}
 
     <div class="dialog-area">
         <div class="headline splatFont">{{localize "wod.labels.bonus.headline"}}</div>
         <div class="dialog-valueBox">
-            <input type="text" name="bonus" value="{{object.bonus}}" autofocus />
+            <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
         </div>
     </div>
 
-    <div class="dialog-area headline splatFont">
-        {{localize "wod.labels.difficulty"}}
-    </div>
-
-    <div class="centerText dialog-area">
-        {{#numFromLoop 3 10}}
-            <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#iff ../object.difficulty "==" this}}active{{/iff}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-        {{/numFromLoop}}
+    <div class="dialog-area">
+        <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+        <div class="infobox centerText">
+            
+            {{#numFromLoop config.lowestDifficulty 10}}
+                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+            {{/numFromLoop}}
+        </div>
     </div>
 
     <div class="centerText">

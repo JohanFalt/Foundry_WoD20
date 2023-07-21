@@ -7,7 +7,7 @@ export class VampireActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["vampire"],
+			classes: ["wod20 wod-sheet vampire"],
 			template: "systems/worldofdarkness/templates/actor/vampire-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -37,7 +37,7 @@ export class VampireActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				await CreateHelper.SetVampireAbilities(actorData);
+				await CreateHelper.SetVampireAbilities(actorData, this.actor, "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetVampireAttributes(actorData);				
 				
@@ -46,7 +46,11 @@ export class VampireActorSheet extends MortalActorSheet {
 		}
 
 		if (!this.actor.limited) {
-			const disciplineMax = await calculteMaxDiscipline(parseInt(this.actor.system.generation));
+			await keepSheetValuesCorrect(actorData);
+			await ActionHelper.handleCalculations(actorData);
+			await this.actor.update(actorData);			
+			
+			const disciplineMax = await calculteMaxDiscipline(parseInt(this.actor.system.generation) - parseInt(this.actor.system.generationmod));
 			await keepAbilitiesDisciplinesCorrect(disciplineMax, this.actor);		
 		}
 
@@ -95,11 +99,6 @@ export class VampireActorSheet extends MortalActorSheet {
 			.find(".macroBtn")
 			.click(this._onRollVampireDialog.bind(this));	
 
-		// Select path
-		html
-			.find(".selectedPath")
-			.change(this._onSelectPath.bind(this));
-
 		// Select generation
 		html
 			.find(".selectGeneration")
@@ -121,71 +120,6 @@ export class VampireActorSheet extends MortalActorSheet {
 		}
 
 		ActionHelper.RollDialog(event, this.actor);		
-	}
-
-	/* makes the alternations on the sheet based on path */
-	_onSelectPath(event) {
-		event.preventDefault();
-
-		const element = event.currentTarget;
-		const dataset = element.dataset;				
-
-		if (dataset.type != CONFIG.wod.sheettype.vampire) {
-			return;
-		}
-
-		const selectedPath = element.value;
-		const actorData = duplicate(this.actor);
-
-		actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conscience";
-		actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.selfcontrol";
-		actorData.system.advantages.virtues.courage.label = "wod.advantages.virtue.courage";
-
-		if (selectedPath === "wod.advantages.path.blood") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-		}
-		if (selectedPath === "wod.advantages.path.bones") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-		}
-		if (selectedPath === "wod.advantages.path.caine") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.cathari") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.feralheart") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.accord") {
-		}
-		if (selectedPath === "wod.advantages.path.lilith") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.metamorphosis") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.night") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.paradox") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-		}
-		if (selectedPath === "wod.advantages.path.innervoice") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-			actorData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.instinct";
-		}
-		if (selectedPath === "wod.advantages.path.typhon") {
-			actorData.system.advantages.virtues.conscience.label = "wod.advantages.virtue.conviction";
-		}
-
-		console.log("WoD | Vampire Sheet updated");
-		this.actor.update(actorData);
 	}
 
 	/* makes the alternations on the sheet based on generation */
@@ -235,67 +169,10 @@ export class VampireActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		const bloodpoolMax = calculteMaxBlood(selectedGeneration);
-		const bloodSpending = calculteMaxBloodSpend(selectedGeneration);
-		const traitMax = calculteMaxTrait(selectedGeneration);
-		const disciplineMax = calculteMaxDiscipline(selectedGeneration);		
-
-		// attributes max
-		for (const i in actorData.system.attributes) {
-			actorData.system.attributes[i].max = traitMax;
-
-			if (actorData.system.attributes[i].value > traitMax) {
-				actorData.system.attributes[i].value = traitMax;
-			}
-		}
-
-		// ability max
-		for (const i in actorData.system.abilities.talent) {
-			actorData.system.abilities.talent[i].max = traitMax;
-
-			if (actorData.system.abilities.talent[i].value > traitMax) {
-				actorData.system.abilities.talent[i].value = traitMax;
-			}
-		}
-
-		for (const i in actorData.system.abilities.skill) {
-			actorData.system.abilities.skill[i].max = traitMax;
-
-			if (actorData.system.abilities.skill[i].value > traitMax) {
-				actorData.system.abilities.skill[i].value = traitMax;
-			}
-		}
-
-		for (const i in actorData.system.abilities.knowledge) {
-			actorData.system.abilities.knowledge[i].max = traitMax;
-
-			if (actorData.system.abilities.knowledge[i].value > traitMax) {
-				actorData.system.abilities.knowledge[i].value = traitMax;
-			}
-		}
-
-		// virtues
-		for (const i in actorData.system.advantages.virtues) {
-			actorData.system.advantages.virtues[i].max = 5;
-		}
-
-		// blood pool
-		actorData.system.advantages.bloodpool.max = bloodpoolMax;
-		actorData.system.advantages.bloodpool.perturn = bloodSpending;
-
-		if (actorData.system.advantages.bloodpool.temporary > bloodpoolMax) {
-			actorData.system.advantages.bloodpool.temporary = bloodpoolMax;
-		}
-
-		actorData.system.generation = selectedGeneration + generationModifier;
 		actorData.system.generationmod = generationModifier;
-
-		// to recalculate total values
-		await ActionHelper.handleCalculations(actorData);
 
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
-		await keepAbilitiesDisciplinesCorrect(disciplineMax, this.actor);
 		this.render(false);
 	}
 	
@@ -324,7 +201,7 @@ export class VampireActorSheet extends MortalActorSheet {
 	}
 }
 
-function calculteMaxBlood(selectedGeneration) {
+async function calculteMaxBlood(selectedGeneration) {
 	let bloodpoolMax = 10;
 
 	if (selectedGeneration == 15) {
@@ -364,7 +241,7 @@ function calculteMaxBlood(selectedGeneration) {
 	return bloodpoolMax;
 }
 
-function calculteMaxBloodSpend(selectedGeneration) {
+async function calculteMaxBloodSpend(selectedGeneration) {
 	let bloodSpending = 1;
 
 	if (selectedGeneration == 9) {
@@ -389,7 +266,7 @@ function calculteMaxBloodSpend(selectedGeneration) {
 	return bloodSpending;
 }
 
-function calculteMaxTrait(selectedGeneration) {
+async function calculteMaxTrait(selectedGeneration) {
 	let traitMax = 5;
 
 	if (selectedGeneration == 7) {
@@ -433,8 +310,43 @@ async function calculteMaxDiscipline(selectedGeneration) {
 	return disciplineMax;
 }
 
-async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
-	
+async function keepSheetValuesCorrect(actor) {
+	const bloodpoolMax = await calculteMaxBlood(actor.system.generation - actor.system.generationmod);
+	const bloodSpending = await calculteMaxBloodSpend(actor.system.generation - actor.system.generationmod);
+	const traitMax = await calculteMaxTrait(actor.system.generation - actor.system.generationmod);
+
+	// attributes max
+	for (const i in actor.system.attributes) {
+		actor.system.attributes[i].max = traitMax;
+
+		if (actor.system.attributes[i].value > traitMax) {
+			actor.system.attributes[i].value = traitMax;
+		}
+	}
+
+	for (const i in actor.system.abilities) {
+		actor.system.abilities[i].max = traitMax;
+
+		if (actor.system.abilities[i].value > traitMax) {
+			actor.system.abilities[i].value = traitMax;
+		}
+	}
+
+	// virtues
+	for (const i in actor.system.advantages.virtues) {
+		actor.system.advantages.virtues[i].max = 5;
+	}
+
+	// blood pool
+	actor.system.advantages.bloodpool.max = bloodpoolMax;
+	actor.system.advantages.bloodpool.perturn = bloodSpending;
+
+	if (actor.system.advantages.bloodpool.temporary > bloodpoolMax) {
+		actor.system.advantages.bloodpool.temporary = bloodpoolMax;
+	}	
+}
+
+async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {	
 	for (const item of actor.items) {
 		// secondary abilities
 		if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {

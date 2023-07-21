@@ -4,14 +4,14 @@ export class WoDItemSheet extends ItemSheet {
 	
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["itemsheet"]
+			classes: ["wod20 wod-item"]
 		});
 	}
 
 	constructor(item, options) {
 		super(item, options);
 
-		this.locked = false;
+		this.locked = true;
 		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
 		
@@ -105,8 +105,12 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	activateListeners(html) {
-		console.log("WoD | Item Sheet activateListeners");
 		super.activateListeners(html);
+
+		// lock button
+		html
+			.find(".lock-btn")
+			.click(this._onToggleLocked.bind(this));
 
 		html
 			.find(".resource-value > .resource-value-step")
@@ -120,10 +124,22 @@ export class WoDItemSheet extends ItemSheet {
             .find('.dialog-attribute-button')
             .click(this._setAttribute.bind(this));
 
+		html
+            .find('.item-property')
+            .click(this._setProperty.bind(this));
+
 		// items
 		html
 			.find(".item-delete")
 			.click(this._onItemDelete.bind(this));
+	}
+
+	async _onToggleLocked(event) {
+		event.preventDefault();
+
+		this.locked = !this.locked;
+
+		this._render();
 	}
 
 	async _setBonus(event) {
@@ -167,6 +183,32 @@ export class WoDItemSheet extends ItemSheet {
 		await this.item.update(itemData);
 		this.render(false);
     }
+
+	_setProperty(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const name = dataset.property;
+		const value = dataset.value;
+
+		const itemData = duplicate(this.item);
+
+		if (itemData.system.property[name] != undefined) {
+			itemData.system.property[name] = value;
+		}
+		else {
+			let property = {
+				arttype: value
+			}
+			itemData.system.property.push(property);
+		}
+
+		this.item.update(itemData);
+		this.render();
+
+		return;		
+	}
 
 	async _onItemDelete(event) {
 		if (this.locked) {

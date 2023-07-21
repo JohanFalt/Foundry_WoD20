@@ -1,48 +1,53 @@
-<div class="shape-area">
-    <div class="clearareaBox">
-        <div class="pullLeft shape-selector shape-ratkin thin-border-left {{#if data.system.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
-        <div class="pullLeft shape-selector shape-ratkin thin-border-left {{#if data.system.shapes.crinos.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.crinos"}}</div>
-        <div class="pullLeft shape-selector shape-ratkin thin-border-left thin-border-right {{#if data.system.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.rodens"}}</div>
-    </div>
+<div class="sheet-area">  
+    <div class="shape-area">
+        <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.shapechange"}}</span></div>
+        <div>
+            <div class="pullLeft shape-selector shape-ratkin thin-border-left {{#if data.system.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
+            <div class="pullLeft shape-selector shape-ratkin thin-border-left {{#if data.system.shapes.crinos.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.crinos"}}</div>
+            <div class="pullLeft shape-selector shape-ratkin thin-border-left thin-border-right {{#if data.system.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.rodens"}}</div>
+        </div>
 
-    <div class="pullLeft shape-background shape-ratkin"></div>
-    <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
-            No Change
-        </div>
-        {{#iff data.system.breed "==" "Metis"}}
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
-            Str (+3)<br />
-            Dex (+4)<br />
-            Sta (+1)<br />
-            Man (-2)
-            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
-            <br />App (-1)
-            <br />Per (+1)
-            {{/iff}}
-        </div>
-        {{else}}
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
-            Str (+1)<br />
-            Dex (+4)<br />
-            Sta (+2)<br />
-            Man (-2)
-            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
-            <br />App (-1)
-            <br />Per (+1)
-            {{/iff}}
-        </div>
-        {{/iff}}
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
-            Str (-1)<br />
-            Dex (+2)<br />
-            Sta (+2)<br />
-            {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />Per (+3){{/iff}}
-        </div>
-    </div>
-    <div class="clearareaBox">
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-        <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+        <div>
+            <div class="pullLeft shape-background shape-ratkin"></div>
+            <div>
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                    No Change
+                </div>
+                {{#iff data.system.breed "==" "Metis"}}
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                    Str (+3)<br />
+                    Dex (+4)<br />
+                    Sta (+1)<br />
+                    Man (-2)
+                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
+                    <br />App (-1)
+                    <br />Per (+1)
+                    {{/iff}}
+                </div>
+                {{else}}
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                    Str (+1)<br />
+                    Dex (+4)<br />
+                    Sta (+2)<br />
+                    Man (-2)
+                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
+                    <br />App (-1)
+                    <br />Per (+1)
+                    {{/iff}}
+                </div>
+                {{/iff}}
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                    Str (-1)<br />
+                    Dex (+2)<br />
+                    Sta (+2)<br />
+                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />Per (+3){{/iff}}
+                </div>
+            </div>
+            <div class="clearareaBox">
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+                <div class="pullLeft shape-selectortext shape-ratkin {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+            </div>
+        </div>        
     </div>
 </div>

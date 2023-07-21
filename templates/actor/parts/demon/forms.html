@@ -23,9 +23,8 @@
                     <a class="send-chat" 
                         title="{{localize 'wod.labels.send'}}"
                         data-type="Trait" 
-                        data-headline="<h2>{{form.name}}</h2>" 
-                        data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                        <span class='chatt-text'>{{form.description}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        data-headline="{{item.name}}"
+                        data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                 </div>
                 {{#if (eq ../locked false)}}
                     <div class="pullLeft pointer">

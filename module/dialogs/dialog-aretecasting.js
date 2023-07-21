@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 /**
     * Handles the information needed to use magic.
@@ -34,7 +34,7 @@ export class Rote {
         this.select_instrumentUnfamiliar = 0;
         this.select_instrumentPersonalItem = 0;
 
-        this.select_spendingTime = 0;
+        this.select_spendingtime = 0;
 
         this.select_researchDone = 0;
         this.select_nodePresence = 0;
@@ -65,6 +65,7 @@ export class Rote {
 
         this.isExtendedCasting = false;
         this.totalSuccesses = 0;
+        this.selectedMods = [];
 
         if (item != undefined) {
             this.name = item["name"];
@@ -85,13 +86,23 @@ export class Rote {
 
             this.check_instrumentPerson = item.system.instrument["ispersonalized"];
 		    this.check_instrumentUnique = item.system.instrument["isunique"];
-		    this.select_spendingTime = item.system["spendingtime"];
+		    this.select_spendingtime = item.system["spendingtime"];
 
             this.isExtendedCasting = item.system["isextended"];
 
             this.isRote = true;
 
-            this._setDifficulty(this._highestRank());
+            if (this.check_instrumentPerson) {
+                this.sumSelectedDifficulty -= 1;
+            }
+            if (this.check_instrumentUnique) {
+                this.sumSelectedDifficulty -= 1;
+            }
+            if (this.select_spendingtime < 0) {
+                this.sumSelectedDifficulty -= this.select_spendingtime * -1;
+            }
+
+            this._setDifficulty(this._highestRank());            
         }
     }
 
@@ -134,8 +145,8 @@ export class Rote {
             if (this.totalDifficulty > 10) {
                 this.shownDifficulty = 10;
             }
-            else if (this.totalDifficulty < 3) {
-                this.shownDifficulty = 3;
+            else if (this.totalDifficulty < CONFIG.wod.lowestDifficulty) {
+                this.shownDifficulty = CONFIG.wod.lowestDifficulty;
             }
         }
 
@@ -165,7 +176,7 @@ export class DialogAreteCasting extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["aretecasting-dialog", "mageDialog"],
+            classes: ["wod20 wod-dialog aretecasting-dialog mageDialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-aretecasting.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -225,12 +236,26 @@ export class DialogAreteCasting extends FormApplication {
             return;
         }
 
+        let found = false;
+
+        for (const sphere in CONFIG.wod.allSpheres) {
+            if (this.object.selectedSpheres[sphere] > 0) {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            ui.notifications.warn("LANG: Need to select sphere's first");
+            this.render();
+            return;
+        }
+
         event.preventDefault();    
         
         let totalDiff = 0;
+        this.object.selectedMods = [];
 
         for (const value in formData) {
-            //if ((value.startsWith('object.check_')) && (formData[value])) {
             if (value.startsWith('object.check_')) {
                 let elementName = '[name="'+value+'"]';
                 let objectname = value.replace("object.", "");                
@@ -241,12 +266,22 @@ export class DialogAreteCasting extends FormApplication {
                 else {
                     totalDiff += parseInt(document.querySelector(elementName+':checked').value);
                     this.object[objectname] = true;
-                    //this.object[objectname] = !this.object[objectname];
+
+                    if (parseInt(document.querySelector(elementName+':checked').value) != 0) {
+                        let name = value.toLowerCase().replace("object.check_", "");
+                        this.object.selectedMods.push(game.i18n.localize("wod.dialog.aretecasting." + name));
+                    }
                 }
             }
 
             if (value.startsWith('object.select_')) {
                 totalDiff += parseInt(formData[value]);
+
+                if (parseInt(formData[value]) != 0) {
+                    let name = value.toLowerCase().replace("object.select_", "");
+                    this.object.selectedMods.push(game.i18n.localize("wod.dialog.aretecasting." + name));
+                }
+                
                 let objectname = value.replace("object.", "");
 
                 if (this.object[objectname] != formData[value]) {
@@ -282,7 +317,6 @@ export class DialogAreteCasting extends FormApplication {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
-        //const type = dataset.type;
 
         const parent = $(element.parentNode);
         const index = Number(dataset.index);
@@ -317,52 +351,64 @@ export class DialogAreteCasting extends FormApplication {
 
     /* clicked on cast Spell */
     async _castSpell(event) {
-        let templateHTML = "";
         let specialityRoll = false;
         let specialityText = "";
+        let template = [];
+        let extraInfo = [];
+        let action = "";
 
         this.object.canCast = this._calculateDifficulty(true);
 
         if (this.object.canCast) {
             if (this.object.isRote) {
-                templateHTML = `<h2>${this.object.name}</h2>`;
+                action = this.object.name;
             }
             else {
-                templateHTML = `<h2>${game.i18n.localize("wod.dialog.aretecasting.castingarete")}</h2>`;
-            }
+                action = game.i18n.localize("wod.dialog.aretecasting.castingarete");
+            }           
             
+            template.push(`${game.i18n.localize("wod.advantages.arete")} (${this.actor.system.advantages.arete.roll})`);
 
             if (parseInt(this.object.areteModifier) > 0) {
-                templateHTML += game.i18n.localize("wod.dialog.aretecasting.aretebonus") + ` +${this.object.areteModifier}<br />`;
+                template.push(`${game.i18n.localize("wod.dialog.aretecasting.aretebonus")} +${this.object.areteModifier}`);
             }
             else if (parseInt(this.object.areteModifier) < 0) {
-                templateHTML += game.i18n.localize("wod.dialog.aretecasting.aretepenalty") + ` -${this.object.areteModifier}<br />`;
+                template.push(`${game.i18n.localize("wod.dialog.aretecasting.aretebonus")} -${this.object.areteModifier}`);
+            }      
+            
+            if (this.object.isExtendedCasting) {
+                extraInfo.push(`${game.i18n.localize("wod.dialog.aretecasting.extendedcasting")} - ${this.object.totalSuccesses} ${game.i18n.localize("wod.dice.successes")}`);
             }
 
             if (this.object.spelltype == "coincidental") {
-                templateHTML += game.i18n.localize("wod.spheres.coincidentalspell") + `<br /><br />`;
+                extraInfo.push(game.i18n.localize("wod.spheres.coincidentalspell"));
             }
             else if (this.object.spelltype == "vulgar") {
                 if (this.object.witnesses) {
-                    templateHTML += game.i18n.localize("wod.spheres.vulgarspellwitness") + `<br /><br />`;
+                    extraInfo.push(game.i18n.localize("wod.spheres.vulgarspellwitness"));
                 }
                 else {
-                    templateHTML += game.i18n.localize("wod.spheres.vulgarspell") + `<br /><br />`;
+                    extraInfo.push(game.i18n.localize("wod.spheres.vulgarspell"));
                 }
             }
 
+            // the selected mods
+            for (const property of this.object.selectedMods) {
+                extraInfo.push(property);
+            } 
+
             if (this.object.quintessence < 0) {
                 const spentPoints = this.object.quintessence * -1;
-                templateHTML += game.i18n.localize("wod.dialog.aretecasting.spendquintessence") + ` (${spentPoints})<br />`;
+                extraInfo.push(`${game.i18n.localize("wod.dialog.aretecasting.spendquintessence")} (${spentPoints})`);
             }
 
             if (this.object.totalDifficulty > 10) {
                 const extraSuccesses = this.object.totalDifficulty - 10;
-                templateHTML += game.i18n.localize("wod.dialog.aretecasting.increaseddifficulty") + ` +${extraSuccesses}<br /><br />`;
+                extraInfo.push(`${game.i18n.localize("wod.dialog.aretecasting.increaseddifficulty")} +${extraSuccesses}`);
                 this.object.totalDifficulty = 10;
             }
-            else if (this.object.totalDifficulty < 3) {
-                this.object.totalDifficulty = 3; 
+            else if (this.object.totalDifficulty < CONFIG.wod.lowestDifficulty) {
+                this.object.totalDifficulty = CONFIG.wod.lowestDifficulty; 
             }
 
             for (const sphere in CONFIG.wod.allSpheres) {
@@ -374,32 +420,35 @@ export class DialogAreteCasting extends FormApplication {
                         specialityText = specialityText != "" ? specialityText + ", " + this.actor.system.spheres[sphere].speciality : this.actor.system.spheres[sphere].speciality;
                     }
 
-                    templateHTML += game.i18n.localize(CONFIG.wod.allSpheres[sphere]) + ` (${this.object.selectedSpheres[sphere]})<br />`;
+                    extraInfo.push(`${game.i18n.localize(this.actor.system.spheres[sphere].label)} (${this.object.selectedSpheres[sphere]})`);
                 }
             }
 
             const numDices = parseInt(this.actor.system.advantages.arete.roll) + parseInt(this.object.areteModifier);
 
-            const castingRoll = new DiceRoll(this.actor);
-            castingRoll.handlingOnes = CONFIG.wod.handleOnes;    
-            castingRoll.origin = "magic";
-            castingRoll.numDices = numDices;
-            castingRoll.difficulty = parseInt(this.object.totalDifficulty);          
-            castingRoll.templateHTML = templateHTML;        
-            castingRoll.systemText = this.object.description;
-            castingRoll.speciality = specialityRoll;
-            castingRoll.specialityText = specialityText;
-
-            let successes = await rollDice(castingRoll);
+            const powerRoll = new DiceRollContainer(this.actor);
+            powerRoll.action = action;
+            powerRoll.origin = "magic";
+            powerRoll.numDices = numDices;
+            powerRoll.woundpenalty = 0;
+            powerRoll.difficulty = parseInt(this.object.totalDifficulty);           
+            powerRoll.speciality = specialityRoll;
+            powerRoll.specialityText = specialityText;
+            powerRoll.dicetext = template;
+            powerRoll.extraInfo = extraInfo;
+            powerRoll.systemText = this.object.description;
+            let successes = await NewRollDice(powerRoll);
             
             if (!this.object.isExtendedCasting) {
                 this.object.close = true;
+                this.close();
+                return;
             }
             else {
                 this.object.difficultyModifier = parseInt(this.object.difficultyModifier) + 1;
-                this.object.totalSuccesses = parseInt(this.object.totalSuccesses) + parseInt(successes);
-                this.render(false);
-            }
+                this.object.totalSuccesses = parseInt(this.object.totalSuccesses) + parseInt(successes);    
+                this.render();            
+            }            
         }
     }
 
@@ -450,25 +499,6 @@ export class DialogAreteCasting extends FormApplication {
         if (diff > -1) {
             return true;
         }
-
-        // if (rank > -1) {
-        //     if ((this.object.witnesses) && (this.object.spelltype == "vulgar")) {
-        //         diff = parseInt(rank) + 5;
-        //     }
-        //     else if ((!this.object.witnesses) && (this.object.spelltype == "vulgar")) {
-        //         diff = parseInt(rank) + 4;
-        //     }
-        //     else if (this.object.spelltype == "coincidental") {
-        //         diff = parseInt(rank) + 3;
-        //     }
-        // }
-
-        // if (diff > -1) {
-        //     this.object.baseDifficulty = diff;
-        //     this.object.totalDifficulty = parseInt(this.object.baseDifficulty) + parseInt(this.object.sumSelectedDifficulty) + parseInt(this.object.difficultyModifier) + parseInt(this.object.quintessence);
-
-        //     return true;
-        // }
 
         return false;
     }

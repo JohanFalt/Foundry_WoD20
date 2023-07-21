@@ -7,7 +7,7 @@ export class SpiritActorSheet extends ActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["spirit"],
+			classes: ["wod20 wod-sheet spirit"],
 			template: "systems/worldofdarkness/templates/actor/spirit-sheet.html",
 			height: 790,
 			tabs: [{
@@ -158,6 +158,15 @@ export class SpiritActorSheet extends ActorSheet {
 		let itemData;
 
 		if (itemtype == "Power") {
+			if (type == "charm") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.charm")}`,
+					type: itemtype,
+					system: {
+						type: "wod.types.charm"
+					}
+				};
+			}
 			if (type == "gift") {
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.gift")}`,

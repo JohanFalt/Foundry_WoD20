@@ -8,7 +8,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["werewolf"],
+			classes: ["wod20 wod-sheet werewolf"],
 			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -38,7 +38,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				await CreateHelper.SetWerewolfAbilities(actorData);
+				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetWerewolfAttributes(actorData);	
 				

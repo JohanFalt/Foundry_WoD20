@@ -294,6 +294,15 @@
 							{{/select}}
 						</select>
 					</div>
+
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont">{{localize "wod.health.chimerical"}}</label>
+						<input class="item-property" type="checkbox" {{#if (checkProperty data.system.property "arttype" "wod.health.chimerical")}}checked{{/if}} data-property="arttype" data-value="wod.health.chimerical" />
+					</div>
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont">{{localize "wod.power.wyld"}}</label>
+						<input class="item-property" type="checkbox" {{#if (checkProperty data.system.property "arttype" "wod.power.wyld")}}checked{{/if}} data-property="arttype" data-value="wod.power.wyld" />
+					</div>						
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.edgepower")}}
@@ -354,16 +363,14 @@
 
 				<!-- dice -->
 				{{#if (ne data.system.type "")}}
-					{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.artpower" "wod.types.edgepower" "wod.types.lorepower" "wod.types.charm" "wod.types.power")}}
+					{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.charm" "wod.types.power")}}
 						<div class="infobox">
 							<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
 							<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
 						</div>
 
 						{{#if data.system.isrollable}}
-							{{#if (ne data.system.type "wod.types.artpower")}}
-								{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
-							{{/if}}
+							{{> "systems/worldofdarkness/templates/sheets/parts/power_rollable.html"}}
 						{{/if}}
 					{{/if}}
 				{{/if}}

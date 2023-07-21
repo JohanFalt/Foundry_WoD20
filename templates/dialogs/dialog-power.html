@@ -1,7 +1,11 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
-    <div class="dialog-area headlineGroup splatFont">{{localize "wod.dice.roll"}} {{object.name}}</div>
     <div class="dialog-area">
+        <div class="headlineGroup splatFont">{{localize "wod.dice.roll"}} {{object.name}}</div>
+    </div>
+
+    <div class="dialog-area">
+        <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
         <div class="infobox">
             {{object.attributeName}} ({{object.attributeValue}})
             
@@ -13,48 +17,76 @@
                 + {{object.bonus}}
             {{/if}}
         </div>
+
         {{#if object.hasSpeciality}}
-            <div class="infobox">
-                <input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}}>{{localize "wod.labels.specialty"}}</input>
-                ({{object.specialityText}})
+            <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
+            <div class="clearareaBox infobox dialog-checkbox">
+                <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
+                <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}LANG: None listed{{/if}}</div>
+            </div>
+        {{/if}}
+
+        {{#if (eq object.type "wod.types.artpower")}}
+            <div class="infobox headline splatFont">{{localize "wod.dialog.power.arttype"}}</div>
+                <div class="infobox">{{localize object.arttype}}</div>
             </div>
         {{/if}}
     </div>
 
     {{#if (eq object.type "wod.types.artpower")}}
         {{#if (eq object.isUnleashing false)}}
-            <div class="dialog-area headline splatFont">{{localize "wod.dialog.power.availrealms"}}</div>
-            <div class="centerText dialog-area">
-                {{#each object.selectedRealms as |realm key|}}
-                    <button id="{{realm.label}}" class="button fullSplatColor pointer dialog-realm-button {{#if realm.isselected}}active{{/if}}" value="{{realm._id}}">{{localize realm.label}} ({{realm.value}})</button>                    
-                {{/each}}
+            <div class="dialog-area">
+                <div class="infobox headline splatFont">{{localize "wod.dialog.power.availrealms"}}</div>
+                <div class="infobox centerText">
+                    {{#each object.selectedRealms as |realm key|}}
+                        <button id="{{realm.label}}" class="button fullSplatColor pointer dialog-realm-button {{#if realm.isselected}}active{{/if}}" value="{{realm._id}}">{{localize realm.label}} ({{realm.value}})</button>                    
+                    {{/each}}
+                </div>
             </div>
         {{/if}}
 
-        <div class="dialog-area">
-            <div class="infobox">
-                <input name="isUnleashing" type="checkbox" {{#if object.isUnleashing}}checked{{/if}}>{{localize "wod.dialog.power.unleashing"}}</input>
-            </div>
+        <div class="clearareaBox dialog-area">
+            {{#if (gt object.maxnightmareDice 0)}}
+                <div class="clearareaBox infobox">
+                    <div class="pullLeft headline splatFont">{{localize "wod.dialog.power.shiftnightmaredice"}}</div>
+                    <div class="pullLeft">
+                        {{#numFromLoop 0 object.maxnightmareDice}}
+                            <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="select_nightmaredice" value="{{this}}" {{#if (eq ../object.nightmareReplace this)}}checked{{/if}}>{{this}}</input></span>
+                        {{/numFromLoop}}
+                    </div>
+                </div>
+            {{/if}}
+
+            <div class="clearareaBox infobox dialog-checkbox">
+                <div class="pullLeft headline splatFont">{{localize "wod.dialog.power.unleashing"}}</div>
+                <div class="pullLeft">
+                    <input name="isUnleashing" type="checkbox" {{#if object.isUnleashing}}checked{{/if}} />
+                </div>
+            </div> 
         </div>
     {{/if}}
 
-    <div class="dialog-area headline splatFont">{{localize "wod.labels.difficulty"}}</div>
-    <div class="dialog-area centerText ">
-        {{#numLoop 11}}
-            {{#if (gt this 2)}}
+    <div class="dialog-area">
+        <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+        <div class="infobox centerText">
+            
+            {{#numFromLoop config.lowestDifficulty 10}}
                 <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-            {{/if}}
-        {{/numLoop}}
+            {{/numFromLoop}}
+        </div>
     </div>
 
     <div class="dialog-area">
+        <div class="headline splatFont">{{localize "wod.labels.description"}}</div>
         <div class="infobox">
-            <label class="headline splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-            <div class="clearareaBox textarea">{{{object.description}}}</div>
+            <div class="textarea">{{{object.description}}}</div>
         </div>
+    </div>
+
+    <div class="dialog-area">
+        <div class="headline splatFont">{{localize "wod.labels.power.system"}}</div>
         <div class="infobox">
-            <label class="headline splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
-            <div class="clearareaBox textarea">{{{object.system}}}</div>
+            <div class="textarea">{{{object.system}}}</div>
         </div>            
     </div>
 

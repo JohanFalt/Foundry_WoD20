@@ -17,7 +17,7 @@
 
             {{#each actor.system.listdata.features.backgrounds as |item id|}}
 
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox note-row">
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                         <div class="pullLeft largeBox headlineNormal">
@@ -51,12 +51,9 @@
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
                                     data-type="Fetish" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.description}}</span>
-                                                    <br />
-                                                    <span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-description="{{{item.system.description}}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft">
@@ -112,7 +109,7 @@
 
         <div class="clearareaBox hide merit" data-area="merit">
             {{#each actor.system.listdata.features.merits as |item id|}}
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox note-row">
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                         <div class="pullLeft largeBox headlineNormal">
@@ -146,12 +143,9 @@
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
                                     data-type="Fetish" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.description}}</span>
-                                                    <br />
-                                                    <span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-description="{{{item.system.description}}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
@@ -205,7 +199,7 @@
 
         <div class="clearareaBox hide flaw" data-area="flaw">
             {{#each actor.system.listdata.features.flaws as |item id|}}
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox note-row">
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                         <div class="pullLeft largeBox headlineNormal">
@@ -238,12 +232,9 @@
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
                                     data-type="Fetish" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.description}}</span>
-                                                    <br />
-                                                    <span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-description="{{{item.system.description}}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
@@ -301,7 +292,7 @@
 
         <div class="clearareaBox hide bloodbound" data-area="bloodbound">
             {{#each actor.system.listdata.features.bloodbounds as |item id|}}
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox note-row">
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                         <div class="pullLeft largeBox headlineNormal">
@@ -329,9 +320,8 @@
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
                                     data-type="Fetish" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.details'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">
@@ -350,6 +340,72 @@
     </div>
 </div>
 
+{{#if (eq actor.type config.sheettype.vampire)}}
+    <div class="sheet-area">
+        <div class="clearareaBox area-box">
+            <div class="headlineRow splatFont" data-type="boon">
+                <div class="clearareaBox">
+                    <div class="pullLeft">
+                        <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.boon'}}" aria-hidden="true" data-itemtype="Feature" data-type="boon"></i>
+                    </div>
+                    <div class="pullLeft largeBox">{{localize "wod.labels.notes.boon"}}</div>                
+                    <div class="pullLeft pointer">
+                        <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.boon'}}" data-sheet="{{config.sheettype.mortal}}" data-type="boon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearareaBox hide boon" data-area="boon">
+                {{#each actor.system.listdata.features.boons as |item id|}}
+                    <div class="item-row-area">
+                        <div class="clearareaBox note-row">
+                            <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                            <div class="pullLeft largeBox headlineNormal">
+                                {{#if (ne item.name "")}}
+                                    {{item.name}}
+                                {{else}}
+                                    {{localize "wod.notes.unnamedflaw"}}
+                                {{/if}}</div>
+                            <div class="pullLeft notes-valueBox headlineNormal">{{localize item.system.level}}</div>
+
+                            <div class="pullLeft note-iconbox">
+                                <div class="pullLeft pointer headlineNormal tooltip">
+                                    <i class="icon fa-solid fa-memo"></i>
+                                    <span class="tooltiptext">
+                                        {{#if (ne item.system.description "")}}
+                                            <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
+                                        {{/if}}
+                                        <br /><br />
+                                        {{#if (ne item.system.details "")}}
+                                            <b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}
+                                        {{/if}}
+                                    </span>
+                                </div>
+                                <div class="pullLeft">
+                                    <a class="send-chat" 
+                                        title="{{localize 'wod.labels.send'}}"
+                                        data-type="Fetish" 
+                                        data-headline="{{item.name}}"
+                                        data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                </div>
+                                {{#if (eq ../locked false)}}
+                                    <div class="pullLeft pointer">
+                                        <a class="item-edit" title="{{localize 'wod.labels.edit.boon'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                    </div>
+                                    <div class="pullLeft pointer">
+                                        <a class="item-delete" title="{{localize 'wod.labels.remove.boon'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                    </div>
+                                {{/if}}
+                                
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+{{/if}}
+
 <div class="sheet-area">
     <div class="clearareaBox area-box">
         <div class="headlineRow splatFont">
@@ -366,7 +422,7 @@
 
         <div class="clearareaBox hide traits" data-area="traits">
             {{#each actor.system.listdata.traits.othertraits as |item id|}}
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox note-row">
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                         <div class="pullLeft largeBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
@@ -406,12 +462,9 @@
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}"
                                     data-type="other" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.description}}</span>
-                                                    <br />
-                                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-description="{{{item.system.description}}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">

@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 
 export class Treasure {
@@ -10,6 +10,7 @@ export class Treasure {
         this.abilityValue = 0;
         this.abilityName = "";
 
+        this.usedReducedDiff = false;
         this.hasSpeciality = false;
         this.specialityText = "";
 
@@ -32,7 +33,7 @@ export class DialogItem extends FormApplication {
     
     static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["item-dialog"],
+			classes: ["wod20 wod-dialog item-dialog"],
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -49,10 +50,6 @@ export class DialogItem extends FormApplication {
 
     /** @override */
 	get template() {
-		// let sheet = this.item.system.type;
-		// sheet = sheet.toLowerCase().replace(" ", "");
-
-		// return `systems/worldofdarkness/templates/sheets/${sheet}-sheet.html`;
         return "systems/worldofdarkness/templates/dialogs/dialog-item.html";
 	}    
 
@@ -62,8 +59,8 @@ export class DialogItem extends FormApplication {
         data.actorData = this.actor.system;
         data.config = CONFIG.wod;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
-            data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+        if (this.actor.type != CONFIG.wod.sheettype.changingbreed) {
+            data.object.sheettype = this.actor.type.toLowerCase() + "Dialog";
         }
         else {
             data.object.sheettype = "werewolfDialog";
@@ -134,48 +131,19 @@ export class DialogItem extends FormApplication {
             }
         }
 
-        // is dice2 a Talent
-        if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.abilities.talent[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.talent[data.object.dice2].label);
+        if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
 
-            if (parseInt(this.actor.system.abilities.talent[data.object.dice2].value) >= 4) {
+            if (parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {
                     data.object.specialityText += ", ";
                 }
-                data.object.specialityText += this.actor.system.abilities.talent[data.object.dice2].speciality;
+                data.object.specialityText += this.actor.system.abilities[data.object.dice2].speciality;
             }
-        }
-        // is dice2 a Skill
-        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.skill[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.abilities.skill[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.skill[data.object.dice2].label);
-
-            if (parseInt(this.actor.system.abilities.skill[data.object.dice2].value) >= 4) {
-                data.object.hasSpeciality = true;
-
-                if (data.object.specialityText != "") {
-                    data.object.specialityText += ", ";
-                }
-                data.object.specialityText += this.actor.system.abilities.skill[data.object.dice2].speciality;
-            }
-        }
-        // is dice2 a Knowledge
-        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.knowledge[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(this.actor.system.abilities.knowledge[data.object.dice2].label);
-
-            if (parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value) >= 4) {
-                data.object.hasSpeciality = true;
-
-                if (data.object.specialityText != "") {
-                    data.object.specialityText += ", ";
-                }
-                data.object.specialityText += this.actor.system.abilities.knowledge[data.object.dice2].speciality;
-            }
-        }                
+        }             
         // virtues
         else if ((this.actor.system.advantages.virtues != undefined) && (this.actor.system.advantages.virtues[data.object.dice2]?.roll != undefined)) {
             data.object.abilityValue = parseInt(this.actor.system.advantages.virtues[data.object.dice2].roll);
@@ -230,6 +198,16 @@ export class DialogItem extends FormApplication {
         }
         
         this.object.useSpeciality = formData["specialty"];
+
+        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = true;
+        }
+        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = false;
+        }
+
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
         this.render(false);
@@ -269,24 +247,22 @@ export class DialogItem extends FormApplication {
         let woundPenaltyVal = 0;
         let numSpecialDices = 0;
         let specialDiceText = "";
+        let template = [];
 
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
             return;
         }
 
-        let templateHTML = `<h2>${this.object.name}</h2>`;
-        templateHTML += `<strong>${this.object.attributeName} (${this.object.attributeValue})`;
+        template.push(`${this.object.attributeName} (${this.object.attributeValue})`);
 
         if (this.object.abilityName != "") {
-            templateHTML += ` + ${this.object.abilityName} (${this.object.abilityValue})`;
+            template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
         }
 
         if (this.object.bonus > 0) {
-            templateHTML += ` + ${this.object.bonus}`;
+            template.push(`${this.object.bonus}`);
         }
-
-        templateHTML += `</strong>`;
 
         const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
         let specialityText = "";
@@ -303,21 +279,20 @@ export class DialogItem extends FormApplication {
             woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
         }
         
-        const dialogRoll = new DiceRoll(this.actor);
+        const dialogRoll = new DiceRollContainer(this.actor);
+        dialogRoll.action = this.object.name;
         dialogRoll.attribute = this.object.dice1;
-        dialogRoll.handlingOnes = CONFIG.wod.handleOnes;    
+        dialogRoll.dicetext = template;
         dialogRoll.origin = "item";
         dialogRoll.numDices = numDices;
         dialogRoll.numSpecialDices = numSpecialDices;
         dialogRoll.specialDiceText = specialDiceText;
         dialogRoll.woundpenalty = parseInt(woundPenaltyVal);
         dialogRoll.difficulty = parseInt(this.object.difficulty);          
-        dialogRoll.templateHTML = templateHTML;        
-        dialogRoll.systemText = this.object.details;
         dialogRoll.speciality = this.object.useSpeciality;
-        dialogRoll.specialityText = specialityText;
-
-        rollDice(dialogRoll);
+        dialogRoll.specialityText = specialityText;      
+        dialogRoll.systemText = this.object.description;  
+        NewRollDice(dialogRoll);
     }
 
     /* clicked to close form */

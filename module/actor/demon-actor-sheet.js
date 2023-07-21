@@ -8,7 +8,7 @@ export class DemonActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["demon"],
+			classes: ["wod20 wod-sheet demon"],
 			template: "systems/worldofdarkness/templates/actor/demon-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -40,7 +40,8 @@ export class DemonActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				await CreateHelper.SetDemonAbilities(actorData);
+				//await CreateHelper.SetDemonAbilities(actorData);
+				await CreateHelper.SetAbilities(actorData, "demon", "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetDemonAttributes(actorData);	
 				

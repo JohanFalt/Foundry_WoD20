@@ -14,6 +14,12 @@ wod.sheettype = {
     spirit: "Spirit"
 }
 
+wod.era = {
+    modern: "wod.era.modern",
+    victorian: "wod.era.victorian",
+    darkages: "wod.era.darkages"
+}
+
 wod.sheetsettings = {
     useSplatFonts: true
 }

@@ -1,26 +1,29 @@
-.itemsheet .editor {
+.wod-item .editor {
   border: 1px solid var(--color-border-light-tertiary);
 }
 
 :not(locked) .editor {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 1);
   color: black;
 }
 
 .editor {
   border-radius: 3px; 
   color: black;
-  min-height: 200px;
+  min-height: 150px;
+  box-shadow: 2px 2px 5px var(--main-mid-color);
 }
 
 .editor .editor-content {
   color: black;
-  min-height: 200px;
+  min-height: 150px;
+  box-shadow: 2px 2px 5px var(--main-mid-color);
 }
 
 .editor .tox-editor-container {
   color: black;  
-  min-height: 200px;
+  min-height: 150px;
+  box-shadow: 2px 2px 5px var(--main-mid-color);
 } 
 
 .editor-content {
@@ -31,47 +34,7 @@
   flex: 1; /* NEW, */
 }
 
-.mortal .editor,
-.mortalDialog .editor {
-  border: 1px solid var(--main-mortal-color);
-}
-
-.vampire .editor,
-.vampireDialog .editor {
-  border: 1px solid var(--main-vampire-color);
-}
-
-.mage .editor,
-.mageDialog .editor {
-  border: 1px solid var(--main-mage-color);
-}
-
-.werewolf .editor,
-.werewolfDialog .editor {
-  border: 1px solid var(--main-werewolf-color);
-}
-
-.changeling .editor,
-.changelingDialog .editor {
-  border: 1px solid var(--main-changeling-color);
-}
-
-.hunter .editor,
-.hunterDialog .editor {
-  border: 1px solid var(--main-hunter-color);
-}
-
-.demon .editor,
-.demonDialog .editor {
-  border: 1px solid var(--main-demon-color);
-}
-
-.creature .editor,
-.creatureDialog .editor {
-  border: 1px solid var(--main-creature-color);
-}
-
-.spirit .editor,
-.spiritDialog .editor {
-  border: 1px solid var(--main-spirit-color);
+.wod-sheet .editor,
+.wod-dialog .editor {
+  border: 1px solid var(--main-full-color);
 }

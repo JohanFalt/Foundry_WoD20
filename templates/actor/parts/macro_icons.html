@@ -1,8 +1,8 @@
-<div class="pullLeft" data-area="microicons">
-    <div>
+{{#if (eq (checkSystemsetting "viewBiotabPermission") "full")}}
+    <div data-area="microicons headlineTabs" style="display: flex; flex-direction: column; justify-content: flex-start; flex-wrap: nowrap; flex-direction: column; justify-content: flex-start;">
         {{#if (eq actor.type config.sheettype.werewolf)}}
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/frenzy.svg" data-macroimage="true" data-rollfrenzy="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.dialog.checkfrenzy.headline'}}">
-            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/shapechange.svg" data-macroimage="true" data-rollshapechange="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.tab.shapechange'}}">
+            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/shapechange.svg" data-macroimage="true" data-rollshapechange="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.dialog.shapechange.headline'}}">
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/remainactive.svg" data-macroimage="true" data-rollremainactive="true" data-type="{{config.sheettype.werewolf}}" title="{{localize 'wod.dice.rollingremainactive'}}">
         {{/if}}
 
@@ -17,41 +17,13 @@
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.spirit)}}
-            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-macroimage="true" data-rollinitiative="true" data-type="{{config.sheettype.spirit}}" title="{{localize 'wod.info.rollinititative'}}">
+            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-macroimage="true" data-rollinitiative="true" data-type="{{config.sheettype.spirit}}" title="{{localize 'wod.info.rollinititative'}} ({{#if (gt data.system.initiative.total -1)}}+{{else}}-{{/if}}{{data.system.initiative.total}})">
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/soak.svg" data-macroimage="true" data-rollsoak="true" data-type="{{config.sheettype.spirit}}" title="{{localize 'wod.info.rollsoak'}}">
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/dice/d10.png" data-macroimage="true" data-rolldices="true" data-type="{{config.sheettype.spirit}}" title="{{localize 'wod.info.rolldice'}}">
         {{else}}
-            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-macroimage="true" data-rollinitiative="true" data-type="{{config.sheettype.mortal}}" title="{{localize 'wod.info.rollinititative'}}">
+            <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/initiative.svg" data-macroimage="true" data-rollinitiative="true" data-type="{{config.sheettype.mortal}}" title="{{localize 'wod.info.rollinititative'}} ({{#if (gt data.system.initiative.total -1)}}+{{else}}-{{/if}}{{data.system.initiative.total}})">
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/buttons/soak.svg" data-macroimage="true" data-rollsoak="true" data-type="{{config.sheettype.mortal}}" title="{{localize 'wod.info.rollsoak'}}">
             <img class="macroBtn pointer" src="systems/worldofdarkness/assets/img/dice/d10.png" data-macroimage="true" data-rolldices="true" data-type="{{config.sheettype.mortal}}" title="{{localize 'wod.info.rolldice'}}">
         {{/if}}
     </div>
-    <div>
-        {{#if (eq actor.type config.sheettype.werewolf)}}
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-        {{/if}}
-
-        {{#if (eq actor.type config.sheettype.vampire)}}
-            {{#if (eq actor.system.advantages.virtues.selfcontrol.label "wod.advantages.virtue.selfcontrol")}}
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-            {{/if}}
-        {{/if}}
-
-        {{#if (eq actor.type config.sheettype.mage)}}
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-        {{/if}}
-
-        {{#if (eq actor.type config.sheettype.spirit)}}
-            <div class="pullLeft macroBtnInfo centerText"><span class="information-area">{{#if (gt data.system.initiative.total -1)}}+{{else}}-{{/if}}{{data.system.initiative.total}}</span></div>
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-        {{else}}
-            <div class="pullLeft macroBtnInfo centerText"><span class="information-area">{{#if (gt data.system.initiative.total -1)}}+{{else}}-{{/if}}{{data.system.initiative.total}}</span></div>
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-            <div class="pullLeft macroBtnInfo">&nbsp;</div>
-        {{/if}}
-    </div>
-</div>
-
+{{/if}}

@@ -1,27 +1,36 @@
-<div class="area-box">
+{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
 
-    <div class="sheet-headline splatFont">{{localize 'wod.spheres.focus'}}</div>
+    <div class="clearareaBox sheet-area">
 
-    <div class="area-box headlineText centerText"><label class="" for="data.system.focus.paradigm">{{localize 'wod.spheres.paradigm'}}</label></div>
+        <div class="sheet-headline sheet-banner">&nbsp;</div>
 
-    {{#if locked}}
-        <div class="headlineNormal textarea">{{{data.system.focus.paradigm}}}</div>
-    {{else}}
-        {{editor data.focus.paradigm target="system.focus.paradigm" button=false owner=owner editable=true}}
-    {{/if}}
+        <div class="clearareaBox area-box">
 
-    <div class="area-box headlineText centerText"><label class="headlineText centerText" for="data.system.focus.practice">{{localize 'wod.spheres.practice'}}</label></div>
-    {{#if locked}}
-        <div class="headlineNormal textarea">{{{data.system.focus.practice}}}</div>
-    {{else}}
-        {{editor data.focus.practice target="system.focus.practice" button=false owner=owner editable=true}}
-    {{/if}}
+            <!-- <div class="sheet-headline splatFont">{{localize 'wod.spheres.focus'}}</div> -->
 
-    <div class="area-box headlineText centerText"><label class="headlineText centerText" for="data.system.focus.instruments">{{localize 'wod.spheres.instruments'}}</label></div>
-    {{#if locked}}
-        <div class="headlineNormal textarea">{{{data.system.focus.instruments}}}</div>
-    {{else}}
-        {{editor data.focus.instruments target="system.focus.instruments" button=false owner=owner editable=true}}
-    {{/if}}
+            <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.paradigm">{{localize 'wod.spheres.paradigm'}}</label></div>
 
-</div>
+            {{#if locked}}
+                <div class="headlineNormal textarea">{{{data.system.focus.paradigm}}}</div>
+            {{else}}
+                {{editor data.focus.paradigm target="system.focus.paradigm" button=false owner=owner editable=true}}
+            {{/if}}
+
+            <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.practice">{{localize 'wod.spheres.practice'}}</label></div>
+            {{#if locked}}
+                <div class="headlineNormal textarea">{{{data.system.focus.practice}}}</div>
+            {{else}}
+                {{editor data.focus.practice target="system.focus.practice" button=false owner=owner editable=true}}
+            {{/if}}
+
+            <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.instruments">{{localize 'wod.spheres.instruments'}}</label></div>
+            {{#if locked}}
+                <div class="headlineNormal textarea">{{{data.system.focus.instruments}}}</div>
+            {{else}}
+                {{editor data.focus.instruments target="system.focus.instruments" button=false owner=owner editable=true}}
+            {{/if}}
+
+        </div>
+    </div>
+
+{{/if}}

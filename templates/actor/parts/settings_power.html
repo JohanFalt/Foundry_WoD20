@@ -6,9 +6,9 @@
             <label for="data.system.settings.powers.hasdisciplines" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasdisciplines"}}</label>
             <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasdisciplines" data-type="{{config.sheettype.mortal}}">
                 {{#if data.system.settings.powers.hasdisciplines}}
-                    {{localize "wod.labels.settings.yes"}}
+                    {{localize "wod.labels.yes"}}
                 {{else}}
-                    {{localize "wod.labels.settings.no"}}
+                    {{localize "wod.labels.no"}}
                 {{/if}}
             </div>
         </div>
@@ -17,9 +17,9 @@
             <label for="data.system.settings.powers.hasgifts" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasgifts"}}</label>
             <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasgifts" data-type="{{config.sheettype.mortal}}">
                 {{#if data.system.settings.powers.hasgifts}}
-                    {{localize "wod.labels.settings.yes"}}
+                    {{localize "wod.labels.yes"}}
                 {{else}}
-                    {{localize "wod.labels.settings.no"}}
+                    {{localize "wod.labels.no"}}
                 {{/if}}
             </div>
         </div>
@@ -27,18 +27,14 @@
     {{/if}}
 
     {{#if (eq actor.type config.sheettype.mage)}}
-        <div class="sheet-area">
-            <div class="clearareaBox">
-                <label for="data.system.paradox.permanent" class="secondHeadlineTabs splatFont" style="width: 200px;">{{localize "wod.labels.settings.permparadox"}}</label>
-                <div>
-                    <input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
-                        name="system.paradox.permanent" 
-                        type="text" 
-                        value="{{data.system.paradox.permanent}}"
-                        data-name="data.system.paradox.permanent" 
-                        data-dtype="Number" {{#if locked}} readonly {{/if}} />
-                </div>
-            </div>
+        <div class="headlineText splatFont">{{localize "wod.labels.settings.permparadox"}}</div>
+        <div>
+            <input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
+                name="system.paradox.permanent" 
+                type="text" 
+                value="{{data.system.paradox.permanent}}"
+                data-name="data.system.paradox.permanent" 
+                data-dtype="Number" {{#if locked}}readonly{{/if}} />
         </div>
     {{/if}}		
 

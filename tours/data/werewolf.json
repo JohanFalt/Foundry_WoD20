@@ -700,37 +700,37 @@
         "label": "wod.health.bruised"
       },
       "hurt": {
-        "value": "1",
+        "value": 1,
         "total": 1,
-        "penalty": "-1",
+        "penalty": -1,
         "label": "wod.health.hurt"
       },
       "injured": {
-        "value": "1",
+        "value": 1,
         "total": 1,
-        "penalty": "-1",
+        "penalty": -1,
         "label": "wod.health.injured"
       },
       "wounded": {
-        "value": "1",
+        "value": 1,
         "total": 1,
-        "penalty": "-2",
+        "penalty": -2,
         "label": "wod.health.wounded"
       },
       "mauled": {
-        "value": "1",
+        "value": 1,
         "total": 1,
-        "penalty": "-2",
+        "penalty": -2,
         "label": "wod.health.mauled"
       },
       "crippled": {
-        "value": "1",
+        "value": 1,
         "total": 1,
-        "penalty": "-5",
+        "penalty": -5,
         "label": "wod.health.crippled"
       },
       "incapacitated": {
-        "value": "1",
+        "value": 1,
         "total": 1,
         "penalty": -99,
         "label": "wod.health.incapacitated"

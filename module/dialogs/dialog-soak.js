@@ -1,10 +1,11 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class Soak {
     constructor(actor) {
         this.canRoll = false;
         this.close = false;
+        this.useChimerical = false;
 
         this.difficulty = 6;
         this.bonus = 0;
@@ -14,7 +15,9 @@ export class Soak {
         this.attributeBonus = 0;
 
         this.soaktype = "normal";
-        this.useChimerical = actor.system.listdata.settings.haschimericalhealth;
+        if (actor.system.listdata.settings.haschimericalhealth != undefined) {
+            this.useChimerical = actor.system.listdata.settings.haschimericalhealth;
+        }
 
         this.sheettype = "";
     }
@@ -34,7 +37,7 @@ export class DialogSoakRoll extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["soak-dialog"],
+            classes: ["wod20 wod-dialog soak-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-soak.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -177,39 +180,35 @@ export class DialogSoakRoll extends FormApplication {
             return;
         }
 
+        let template = [];
         let numDices = parseInt(this.object.attributeValue) + parseInt(this.object.bonus) + parseInt(this.object.attributeBonus);        
-
-        let templateHTML = `<h2>${game.i18n.localize("wod.dice.rollingsoak")}</h2>`;
-
-        templateHTML += `<strong>`;
-
-        templateHTML += `${game.i18n.localize(CONFIG.wod.damageTypes[this.object.damageKey])}`;
-
-        if (this.object.soaktype == "chimerical") {
-            templateHTML += ` ${game.i18n.localize('wod.health.chimerical')}`;
-        }
-        
-        templateHTML += ` (${this.object.attributeValue}`;
+        let damage = `${game.i18n.localize(CONFIG.wod.damageTypes[this.object.damageKey])}`;
+        damage += ` (${this.object.attributeValue})`;
 
         if (this.object.attributeBonus > 0) {
-            templateHTML += ` + ${this.object.attributeBonus}`;
+            damage += ` + ${this.object.attributeBonus}`;
         }
 
         if (this.object.bonus > 0) {
-            templateHTML += ` + ${this.object.bonus}`;
+            damage += ` + ${this.object.bonus}`;
         }
 
-        templateHTML += `)</strong>`;    
-        
-        const soakRoll = new DiceRoll(this.actor);
-        soakRoll.attribute = "stamina";
-        soakRoll.handlingOnes = CONFIG.wod.handleOnes;
-        soakRoll.numDices = parseInt(numDices);
-        soakRoll.difficulty = parseInt(this.object.difficulty);
-        soakRoll.templateHTML = templateHTML;
-        soakRoll.origin = "soak";
+        if (this.object.soaktype == "chimerical") {
+            damage += ` ${game.i18n.localize('wod.health.chimerical')}`;
+        }
 
-        rollDice(soakRoll);
+        template.push(damage);
+
+        const soakRoll = new DiceRollContainer(this.actor);
+        soakRoll.action = game.i18n.localize("wod.dice.rollingsoak");
+        soakRoll.attribute = "stamina";
+        soakRoll.dicetext = template;
+        soakRoll.origin = "soak";
+        soakRoll.numDices = numDices;
+        soakRoll.woundpenalty = 0;
+        soakRoll.difficulty = this.object.difficulty;          
+        NewRollDice(soakRoll);
+
         this.object.close = true;
     }
 

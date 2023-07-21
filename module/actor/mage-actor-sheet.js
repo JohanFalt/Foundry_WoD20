@@ -8,7 +8,7 @@ export class MageActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["mage"],
+			classes: ["wod20 wod-sheet mage"],
 			template: "systems/worldofdarkness/templates/actor/mage-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -41,7 +41,7 @@ export class MageActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 				
-				await CreateHelper.SetMageAbilities(actorData);
+				await CreateHelper.SetMageAbilities(actorData, "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetMageAttributes(actorData);
 				

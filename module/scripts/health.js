@@ -23,7 +23,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.bruised.penalty;
+                woundPenalty = parseInt(actor.system.health.bruised.penalty);
             }
 
             const healthLevel = {
@@ -40,7 +40,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.hurt.penalty;
+                woundPenalty = parseInt(actor.system.health.hurt.penalty);
             }
 
             const healthLevel = {
@@ -57,7 +57,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.injured.penalty;
+                woundPenalty = parseInt(actor.system.health.injured.penalty);
             }
 
             const healthLevel = {
@@ -74,7 +74,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.wounded.penalty;
+                woundPenalty = parseInt(actor.system.health.wounded.penalty);
             }
 
             const healthLevel = {
@@ -91,7 +91,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.mauled.penalty;
+                woundPenalty = parseInt(actor.system.health.mauled.penalty);
             }
 
             const healthLevel = {
@@ -108,7 +108,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.crippled.penalty;
+                woundPenalty = parseInt(actor.system.health.crippled.penalty);
             }
 
             const healthLevel = {
@@ -125,7 +125,7 @@ export async function calculateHealth(actor, type) {
             let status = await calculateStatus();
 
             if (status != "") {
-                woundPenalty = actor.system.health.incapacitated.penalty;
+                woundPenalty = parseInt(actor.system.health.incapacitated.penalty);
             }
 
             const healthLevel = {

@@ -1,0 +1,35 @@
+.mortalDialog,
+.mortal,
+.mortalItem {
+  --main-full-color: var(--main-mortal-color);
+  --main-mid-color: var(--main-mortal-mid-color);
+  --main-dim-color: var(--main-mortal-dim-color);
+  --color-shadow-primary: var(--main-mortal-color);
+}
+
+.mortal:not(.noSplatFont) .headlineTabs {
+    font-size: 24px;
+}
+
+.mortal:not(.noSplatFont) nav,
+.mortal:not(.noSplatFont) .splatFont,
+.mortalDialog:not(.noSplatFont) .splatFont,
+.mortalItem:not(.noSplatFont) .splatFont {
+	font-family: "mortal", var(--main-font);
+}
+
+.mortal .secondHeadlineTabs {
+    width: 20%;
+}
+
+.mortal:not(.noSplatFont) .secondHeadlineTabs {
+    font-size: 18px;
+}
+
+.mortalDialog:not(.noSplatFont) .headlineGroup {
+    font-size: 26px;
+}
+
+.mortalDialog:not(.noSplatFont) .headline {
+    font-size: 18px;
+}

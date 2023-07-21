@@ -1,5 +1,7 @@
-<div class="sheet-area">
-	<div class="sheet-headline splatFont">{{localize "wod.labels.gear"}}</div>
+<div class="sheet-area">	
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize "wod.labels.gear"}}</span>
+	</div>
 	
 	<div class="clearareaBox area-box">
 		<div>
@@ -12,19 +14,34 @@
 	</div>
 </div>
 
-<div class="sheet-area">
+<div class="sheet-headline sheet-banner splatFont">
+	<span class="sheet-banner-text">{{localize "wod.gear.money"}}</span>
+</div>
 
-	<div class="sheet-headline splatFont">{{localize "wod.gear.money"}}</div>
-	<div>
-		<label class="headlineText headlineBio splatFont" for="data.system.money.bank">{{localize "wod.gear.moneycarried"}}</label>
-		<div class="pullLeft bioInformationArea">
-			<input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.money.carried" type="text" value="{{data.system.money.carried}}" data-name="data.system.money.carried" data-dtype="Number" {{#if locked}} readonly {{/if}} />
-		</div>
-	</div>
-	<div>
-		<label class="headlineText headlineBio splatFont" for="data.system.money.bank">{{localize "wod.gear.moneybank"}}</label>
-		<div class="pullLeft bioInformationArea">
-			<input class="sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.money.bank" type="text" value="{{data.system.money.bank}}" data-name="data.system.money.bank" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+<div class="sheet-area" style="flex-flow: row nowrap;">	
+	<div class="clearareaBox">
+
+		<div class="pullLeft" style="display: flex;">
+			<div class="area-box">		
+
+				<div class="pullLeft bioInformationArea floating-label-group half">
+					{{#if locked}}
+						<input class="sheet-infoValues" type="text" value="{{data.system.money.carried}}" autocomplete="off" autofocus required />
+					{{else}}
+						<input class="sheet-infoValues editable" name="system.money.carried" type="text" value="{{data.system.money.carried}}" data-name="data.system.money.carried" data-dtype="Number" autocomplete="off" autofocus required />
+					{{/if}}
+					<span class="floating-label">{{localize "wod.gear.moneycarried"}}</span>
+				</div>
+
+				<div class="pullLeft bioInformationArea floating-label-group half">
+					{{#if locked}}
+						<input class="sheet-infoValues" type="text" value="{{data.system.money.carried}}" autocomplete="off" autofocus required />
+					{{else}}
+						<input class="sheet-infoValues editable" name="system.money.bank" type="text" value="{{data.system.money.bank}}" data-name="data.system.money.bank" data-dtype="Number" autocomplete="off" autofocus required />
+					{{/if}}
+					<span class="floating-label">{{localize "wod.gear.moneybank"}}</span>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,16 +1,16 @@
 {
 	"Actor": {
 		"types": [
-			"Mortal",
-			"Werewolf",			
-			"Mage",
-			"Vampire",
 			"Changeling",
-			"Hunter",
-			"Demon",
 			"Changing Breed",
 			"Creature",
-			"Spirit"
+			"Demon",
+			"Hunter",
+			"Mage",
+			"Mortal",
+			"Spirit",
+			"Vampire",
+			"Werewolf"
 		],
 		"templates": {
 			"base": {
@@ -41,7 +41,8 @@
 					},
 					"abilities": {
 						"defaultmaxvalue": 5
-					}
+					},
+					"era": "wod.era.modern"
 				},
 				"worldanvil": "",
 				"name": "",
@@ -488,6 +489,438 @@
 							"speciality": "",
 							"isvisible": false
 						}
+					},
+					"alertness": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.alertness",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"art": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.art",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"athletics": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.athletics",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"awareness": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.awareness",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"brawl": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.brawl",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"dodge": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.dodge",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"empathy": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.empathy",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"expression": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.expression",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"intimidation": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.intimidation",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"intuition": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.intuition",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"kenning": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.kenning",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"leadership": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.leadership",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"primalurge": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.primalurge",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"streetwise": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.streetwise",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"subterfuge": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.subterfuge",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"animalken": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.animalken",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"craft": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.craft",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"demolitions": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.demolitions",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"drive": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.drive",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"etiquette": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.etiquette",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"firearms": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.firearms",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"larceny": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.larceny",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"martialarts": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.martialarts",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"meditation": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.meditation",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"melee": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.melee",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"performance": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.performance",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"security": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.security",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"stealth": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.stealth",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"survival": {
+						"type": "skill",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.survival",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"academics": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.academics",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"bureaucracy": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.bureaucracy",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"computer": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.computer",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"cosmology": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.cosmology",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"enigmas": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.enigmas",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"esoterica": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.esoterica",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},						
+					"finance": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.finance",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"gremayre": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.gremayre",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"investigation": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.investigation",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"law": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.law",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"linguistics": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.linguistics",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"medicine": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.medicine",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"occult": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.occult",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"politics": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.politics",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"religion": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.religion",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"research": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.research",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"rituals": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.rituals",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"science": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.science",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
+					"technology": {
+						"type": "knowledge",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.technology",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
 					}
 				}
 			},
@@ -711,7 +1144,8 @@
 						"roll": 0,
 						"bearing": 0,
 						"bearingtext": "",
-						"label": "wod.advantages.path.humanity"
+						"label": "wod.advantages.path.humanity",
+						"custom": ""
 					}
 				},
 				"health": {
@@ -770,6 +1204,9 @@
 			"werewolf": {
 				"conditions": {
 					"isfrenzy": false
+				},
+				"custom": {
+					"tribe": ""
 				},
 				"changingbreed": "",
 				"breed": "",
@@ -836,6 +1273,10 @@
 					"practice": "",
 					"instruments": ""
 				},
+				"custom": {
+					"affiliation": "",
+					"sect": ""
+				},
 				"advantages": {
 					"arete": {
 						"permanent": 0,
@@ -862,54 +1303,63 @@
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.correspondence",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"entropy": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.entropy",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"forces": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.forces",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"life": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.life",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"matter": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.matter",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"mind": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.mind",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"prime": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.prime",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"spirit": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.spirit",
+						"istechnocracy": false,
 						"speciality": ""
 					},
 					"time": {
 						"value": 0,
 						"max": 5,
 						"label": "wod.spheres.time",
+						"istechnocracy": false,
 						"speciality": ""
 					}
 				}
@@ -917,6 +1367,10 @@
 			"vampire": {
 				"conditions": {
 					"isfrenzy": false
+				},
+				"custom": {
+					"sect": "",
+					"clan": ""
 				},
 				"sect": "",
 				"clan": "",
@@ -945,6 +1399,9 @@
 						}
 					}
 				},
+				"custom": {
+					"kith": ""
+				},
 				"health": {
 					"damage": {
 						"chimerical": {
@@ -965,6 +1422,7 @@
 				"kith": "",
 				"antithesis": "",
 				"threshold": "",
+				"revelry": "",
 				"affinityrealm": "",
 				"advantages": {
 					"willpower": {
@@ -1176,29 +1634,31 @@
 	},
 	"Item": {
 		"types": [
-			"Feature",
-			"Melee Weapon",
-			"Ranged Weapon",
 			"Armor",
-			"Item",
-			"Power",
-			"Rote",
-			"Fetish",
 			"Bonus",
-			"Trait",
-			"Experience"
+			"Experience",
+			"Feature",
+			"Fetish",
+			"Item",
+			"Melee Weapon",
+			"Ranged Weapon",			
+			"Power",
+			"Rote",			
+			"Trait"			
 		],
 		"templates": {
 			"settings": {
 				"iscreated": false,
 				"version": "",
 				"parentid": ""
+				
 			},
 			"base": {
 				"worldanvil": "",
 				"reference": "",
 				"description": "",
-				"details": ""
+				"details": "",
+				"property": []
 			},
 			"feature": {
 				"type": "",
@@ -1209,7 +1669,8 @@
 			"object": {
 				"isequipped": false,
 				"ismagical": false,
-				"isweapon": false
+				"isweapon": false,
+				"era": "wod.era.modern"
 			},
 			"weapon": {
 				"attack": {

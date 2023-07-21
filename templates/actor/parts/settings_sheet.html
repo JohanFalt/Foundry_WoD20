@@ -1,40 +1,41 @@
 <div class="sheet-area">
-    <div class="secondHeadlineTabs splatFont">LANG: Graphics</div>
+    <div class="headlineText splatFont">LANG: Graphics</div>
 
     <div class="clearareaBox">
         <div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.sheetfont"}}</div>
         <div class="pullLeft switch settings-leftwidth settings-verticalcenter bold centerText pointer splatFont" data-source="usesplatfont" data-type="{{config.sheettype.mortal}}">
             {{#if data.system.settings.usesplatfont}}
-                {{localize "wod.labels.settings.yes"}}
+                {{localize "wod.labels.yes"}}
             {{else}}
-                {{localize "wod.labels.settings.no"}}
+                {{localize "wod.labels.no"}}
             {{/if}}
         </div>
     </div>
 </div>
-<!-- 
+
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf)}}
 
     <div class="sheet-area">
-        <div class="secondHeadlineTabs splatFont">LANG: Era</div>
+        <div class="headlineText splatFont">LANG: Era</div>
 
         {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.vampire)}}
-            <button>LANG: Modern (20th)</button>
-            <button>LANG: Victorian Age (20th)</button>
-            <button class="sheet_darkages">LANG: Dark Ages (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">LANG: Modern (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">LANG: Victorian Age (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era config.era.darkages)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">LANG: Dark Ages (20th)</button>
         {{/if}}
         {{#if (eqAny actor.type config.sheettype.mage)}}
-            <button>LANG: Modern (20th)</button>
-            <button>LANG: Victorian Age (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" >LANG: Modern (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" >LANG: Victorian Age (20th)</button>
         {{/if}}
         {{#if (eqAny actor.type config.sheettype.werewolf)}}
-            <button>LANG: Modern (20th)</button>
-            <button>LANG: Dark Ages (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">LANG: Modern (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era config.era.victorian)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">LANG: Wild West (20th)</button>
+            <button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era config.era.darkages)}}active{{/if}}" data-type="{{config.sheettype.werewolf}}">LANG: Dark Ages (20th)</button>
         {{/if}}
 
         <div class="clearareaBox information-area">
             LANG: To change this setting means that the abilities of the sheet is re-configurated to fit the chosen area.<br />
-            LANG: This can cause existing abiltities to be hidden.
+            LANG: This can cause existing abilities to be hidden.
         </div>
     </div>
 
@@ -43,7 +44,7 @@
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
 
     <div class="sheet-area">
-        <div class="secondHeadlineTabs splatFont">LANG: Set sheet type</div>
+        <div class="headlineText splatFont">LANG: Set sheet type</div>
 
         <button>LANG: Autumn people</button>
 
@@ -62,7 +63,4 @@
         </div>
     </div>
 
-{{/if}}
-
-
- -->
+{{/if}} 

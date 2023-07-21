@@ -1,19 +1,21 @@
 <section class="sheet-setting-body">
 
+	<div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.settings"}}</span></div>
+
 	<nav class="sheet-setting-tabs tabs" data-group="secondary">
-		<a class="item secondHeadlineTabs" data-tab="attributes">{{localize "wod.attributes.attributes"}}</a>
+		<a class="secondHeadlineTabs thin-border-left" data-tab="attributes">{{localize "wod.attributes.attributes"}}</a>
 
 		{{#if (ne actor.type config.sheettype.spirit)}}
-			<a class="item secondHeadlineTabs" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>
+			<a class="secondHeadlineTabs thin-border-left" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>
 
 			{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.creature)}}
-				<a class="item secondHeadlineTabs" data-tab="power">{{localize "wod.tab.power"}}</a>				
+				<a class="secondHeadlineTabs thin-border-left" data-tab="power">{{localize "wod.tab.power"}}</a>				
 			{{/if}}
 
-			<a class="item secondHeadlineTabs" data-tab="combat">{{localize 'wod.tab.combat'}}</a>			
+			<a class="secondHeadlineTabs thin-border-left" data-tab="combat">{{localize 'wod.tab.combat'}}</a>			
 		{{/if}}
 
-		<a class="item secondHeadlineTabs" data-tab="sheetsetting">{{localize 'wod.tab.sheet'}}</a>
+		<a class="secondHeadlineTabs thin-border-left thin-border-right" data-tab="sheetsetting">{{localize 'wod.tab.sheet'}}</a>
 	</nav>
 
 	{{!-- Attribute Tab --}}

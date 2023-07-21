@@ -1,9 +1,8 @@
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 
-import { rollDice } from "../scripts/roll-dice.js";
-import { rollDiceMultiple } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class MeleeWeapon {
     constructor(item) {
@@ -18,7 +17,7 @@ export class MeleeWeapon {
 
         this._id = item["_id"];
         this.name = item["name"];
-        this.type = item["type"];
+        this.weaponType = "Melee Weapon";
 
         this.dice1 = item.system.attack["attribute"];
         this.dice2 = item.system.attack["ability"];
@@ -26,6 +25,7 @@ export class MeleeWeapon {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.accuracy = parseInt(item.system.attack["accuracy"]);
 
+        this.usedReducedDiff = false;
         this.hasburst = false;
         this.hasfullauto = false;
         this.hasspray = false;
@@ -60,7 +60,7 @@ export class RangedWeapon {
 
         this._id = item["_id"];
         this.name = item["name"];
-        this.type = item["type"];
+        this.weaponType = "Ranged Weapon";
 
         this.dice1 = item.system.attack["attribute"];
         this.dice2 = item.system.attack["ability"];
@@ -68,6 +68,7 @@ export class RangedWeapon {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.accuracy = parseInt(item.system.attack["accuracy"]);
 
+        this.usedReducedDiff = false;
         this.hasburst = item.system.mode["hasburst"];
         this.hasfullauto = item.system.mode["hasfullauto"];
         this.hasspray = item.system.mode["hasspray"];
@@ -86,7 +87,7 @@ export class RangedWeapon {
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
-        this.sheettype = "";
+        this.sheettype = ""; 
     }
 }
 
@@ -102,7 +103,7 @@ export class Damage {
         this.specialityText = "";
 
         this.name = item["name"];
-        this.type = "Damage";
+        this.weaponType = "Damage";
 
         this.dice1 = item.system.damage["attribute"];
         this.dice2 = "";        
@@ -158,7 +159,7 @@ export class DialogWeapon extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["weapon-dialog"],
+            classes: ["wod20 wod-dialog weapon-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-weapon.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -220,36 +221,15 @@ export class DialogWeapon extends FormApplication {
             }
         }
 
-        // is dice2 a Talent
-        if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities.talent[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(data.actorData.abilities.talent[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(data.actorData.abilities.talent[data.object.dice2].label);
+        if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities[data.object.dice2]?.value != undefined)) {
+            data.object.abilityValue = parseInt(data.actorData.abilities[data.object.dice2].value);
+            data.object.abilityName = game.i18n.localize(data.actorData.abilities[data.object.dice2].label);
 
-            if (parseInt(data.actorData.abilities.talent[data.object.dice2].value) >= 4) {
+            if (parseInt(data.actorData.abilities[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;
-                abilitySpeciality = data.actorData.abilities.talent[data.object.dice2].speciality;
+                abilitySpeciality = data.actorData.abilities[data.object.dice2].speciality;
             }
         }
-        // is dice2 a Skill
-        else if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities.skill[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(data.actorData.abilities.skill[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(data.actorData.abilities.skill[data.object.dice2].label);
-
-            if (parseInt(data.actorData.abilities.skill[data.object.dice2].value) >= 4) {
-                data.object.hasSpeciality = true;
-                abilitySpeciality = data.actorData.abilities.skill[data.object.dice2].speciality;
-            }
-        }
-        // is dice2 a Knowledge
-        else if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities.knowledge[data.object.dice2]?.value != undefined)) {
-            data.object.abilityValue = parseInt(data.actorData.abilities.knowledge[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(data.actorData.abilities.knowledge[data.object.dice2].label);
-
-            if (parseInt(data.actorData.abilities.knowledge[data.object.dice2].value) >= 4) {
-                data.object.hasSpeciality = true;
-                abilitySpeciality = data.actorData.abilities.knowledge[data.object.dice2].speciality;                
-            }
-        } 
         else if (data.object.dice2 == "custom") {
             if (this.object.secondaryabilityid != "") {
                 const item = this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
@@ -328,6 +308,15 @@ export class DialogWeapon extends FormApplication {
         
         this.object.useSpeciality = formData["specialty"];
 
+        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = true;
+        }
+        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = false;
+        }
+
         try {
             this.object.bonus = parseInt(formData["bonus"]);
         }
@@ -336,6 +325,8 @@ export class DialogWeapon extends FormApplication {
         }
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
+
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -476,60 +467,44 @@ export class DialogWeapon extends FormApplication {
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
         let woundPenaltyVal = 0;
-        let templateHTML = "";
 
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
             return;
         }    
-        
-        const weaponRoll = new DiceRoll(this.actor);
-        weaponRoll.handlingOnes = CONFIG.wod.handleOnes;    
-        weaponRoll.attribute = this.object.dice1;
-        
+
+        let template = [];
         let numDices = 0;
 
-        if (this.object.type == "Damage") {
+        const weaponRoll = new DiceRollContainer(this.actor);
+        weaponRoll.attribute = this.object.dice1;
+
+        if (this.object.weaponType == "Damage") {
             let prevtext = false;
 
             weaponRoll.origin = "damage";
-
-            templateHTML = `<h2>${this.object.name} (${game.i18n.localize("wod.dialog.weapon.damage")})</h2>`;
-
-            templateHTML += `<strong>`;
+            weaponRoll.action = `${this.object.name} (${game.i18n.localize("wod.dialog.weapon.damage")})`;
 
             if (this.object.attributeName != "") {
-                templateHTML += `${this.object.attributeName} (${this.object.attributeValue})`;
+                template.push(`${this.object.attributeName} (${this.object.attributeValue})`);
                 prevtext = true;
             }
 
             if (this.object.abilityValue > 0) {
-                if (prevtext) {
-                    templateHTML += ` + `;
-                }
-
-                templateHTML += `${this.object.abilityValue}`;
+                template.push(this.object.abilityValue);
                 prevtext = true;
             }
 
             if (this.object.bonus > 0) {
-                if (prevtext) {
-                    templateHTML += ` + `;
-                }
-
-                templateHTML += `${this.object.bonus}`;
+                template.push(this.object.bonus);
                 prevtext = true;
             }
 
             if (this.object.extraSuccesses > 0) {
-                if (prevtext) {
-                    templateHTML += ` + `;
-                }
-
-                templateHTML += `${this.object.extraSuccesses}`;
+                template.push(this.object.extraSuccesses);
             }
 
-            templateHTML += ` ${this.object.damageCode}</strong>`;            
+            weaponRoll.damageCode = `(${this.object.damageCode})`;
 
             // if several targets number of dices will be different
             if (this.object.numberoftargets == 1) {
@@ -538,33 +513,29 @@ export class DialogWeapon extends FormApplication {
         }
         else {
             weaponRoll.origin = "attack";
-
-            templateHTML = `<h2>${this.object.name} (${game.i18n.localize("wod.dialog.weapon.attack")})</h2>`;
-
-            templateHTML += `<strong>${this.object.attributeName} (${this.object.attributeValue})`;
+            weaponRoll.action = `${this.object.name} (${game.i18n.localize("wod.dialog.weapon.attack")})`;
+            template.push(`${this.object.attributeName} (${this.object.attributeValue})`);
 
             if (this.object.abilityName != "") {
-                templateHTML += ` + ${this.object.abilityName} (${this.object.abilityValue})`;
+                template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
             }
 
             if (this.object.bonus > 0) {
-                templateHTML += ` + ${this.object.bonus}`;
+                template.push(this.object.bonus);
             }
 
             if (this.object.modename != "single") {
                 if (this.object.modename == "burst") {
-                    templateHTML += `<br />${game.i18n.localize("wod.dialog.weapon.usingburst")}`;
+                    weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingburst"));
                 }
                 if (this.object.modename == "fullauto") {
-                    templateHTML += `<br />${game.i18n.localize("wod.dialog.weapon.usingauto")}`;
+                    weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingauto"));
                 }
                 if (this.object.modename == "spray") {
-                    templateHTML += `<br />${game.i18n.localize("wod.dialog.weapon.usingspray")}`;
+                    weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingspray"));
                 }
             }
     
-            templateHTML += `</strong>`;     
-            
             if (CombatHelper.ignoresPain(this.actor)) {
                 woundPenaltyVal = 0;			}				
             else {
@@ -583,7 +554,7 @@ export class DialogWeapon extends FormApplication {
 
         weaponRoll.numDices = numDices;
         weaponRoll.difficulty = parseInt(this.object.difficulty);          
-        weaponRoll.templateHTML = templateHTML;      
+        weaponRoll.dicetext = template;
         
         if (weaponRoll.origin == "attack") {
             weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
@@ -606,7 +577,7 @@ export class DialogWeapon extends FormApplication {
                 await item.update(itemData);
             }
 
-            const numberOfSuccesses = await rollDice(weaponRoll);     
+            const numberOfSuccesses = await NewRollDice(weaponRoll);   
             
             if (numberOfSuccesses > 0) {
                 // add number of successes to Damage roll
@@ -659,17 +630,16 @@ export class DialogWeapon extends FormApplication {
                     }
                 }
 
-                let spraytext = `<br />${game.i18n.localize("wod.dialog.weapon.sprayresult")}`;
+                let spraytext = `${game.i18n.localize("wod.dialog.weapon.sprayresult")}`;
                 spraytext = spraytext.replace("[0]", this.object.numberoftargets);
                 spraytext = spraytext.replace("[1]", numberTargets);
 
-                weaponRoll.templateHTML += spraytext;
+                weaponRoll.extraInfo.push(spraytext);
                 weaponRoll.targetlist = targetlist;
-
-                rollDiceMultiple(weaponRoll);
+                NewRollDice(weaponRoll);
             }
             else {
-                rollDice(weaponRoll);
+                NewRollDice(weaponRoll);
             }
         }
     }

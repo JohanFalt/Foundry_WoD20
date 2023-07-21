@@ -1,46 +1,48 @@
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="system.breed">{{localize "wod.bio.breed"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.breed}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
-                    <option value="Arachnid">{{localize "wod.bio.breedname.arachnid"}}</option>
-                {{/select}}
-            </select>
+<div class="pullLeft" style="display: flex; width: 320px;">
+    <div class="pullLeft area-box">
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
+                    {{#select data.system.breed}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                        <option value="Arachnid">{{localize "wod.bio.breedname.arachnid"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.breed"}}</span>
+        </div>    
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
+                    {{#select data.system.auspice}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Tenere">{{localize "wod.bio.aspectname.tenere"}}</option>
+                        <option value="Hatar">{{localize "wod.bio.aspectname.hatar"}}</option>
+                        <option value="Kumoti">{{localize "wod.bio.aspectname.kumoti"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.aspect"}}</span>
         </div>
-    </div>
-</div>
-
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="system.auspice">{{localize "wod.bio.aspect"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.auspice" data-name="data.system.auspice" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.auspice}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    <option value="Tenere">{{localize "wod.bio.aspectname.tenere"}}</option>
-                    <option value="Hatar">{{localize "wod.bio.aspectname.hatar"}}</option>
-                    <option value="Kumoti">{{localize "wod.bio.aspectname.kumoti"}}</option>
-                {{/select}}
-            </select>
-        </div>
-    </div>
-</div>		
-
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="system.tribe">{{localize "wod.bio.faction"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.tribe" data-name="data.system.tribe" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.tribe}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    <option value="Myrmidon">{{localize "wod.bio.factionname.myrmidon"}}</option>
-                    <option value="Viskir">{{localize "wod.bio.factionname.viskir"}}</option>
-                    <option value="Wyrsta">{{localize "wod.bio.factionname.wyrsta"}}</option>
-                {{/select}}
-            </select>
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.tribe}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.tribe" data-name="data.system.tribe" data-dtype="String">
+                    {{#select data.system.tribe}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Myrmidon">{{localize "wod.bio.factionname.myrmidon"}}</option>
+                        <option value="Viskir">{{localize "wod.bio.factionname.viskir"}}</option>
+                        <option value="Wyrsta">{{localize "wod.bio.factionname.wyrsta"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.faction"}}</span>
         </div>
     </div>
 </div>

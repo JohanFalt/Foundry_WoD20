@@ -1,23 +1,24 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
-    <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.checkfrenzy.headline"}}</div>
+    <div class="dialog-area">
+        <div class="headlineGroup splatFont">{{localize "wod.dialog.checkfrenzy.headline"}}</div>
+    </div>
 
     {{#if (eq object.type "Vampire")}}
 
         <div class="dialog-area">
             <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
-        </div>
-
-        <div class="centerText dialog-area">
-            {{#numFromLoop 3 10}}
-                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.totalDifficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-            {{/numFromLoop}}
+            <div class="infobox centerText">
+                {{#numFromLoop config.lowestDifficulty 10}}
+                    <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                {{/numFromLoop}}
+            </div>
         </div>
 
         <div class="dialog-area">
             <div class="headline splatFont">{{localize "wod.dialog.checkfrenzy.fenzybonus"}}</div>
             <div class="dialog-valueBox">
-                <input type="text" id="rageMod" name="rageMod" value="0" autofocus />
+                <input class="editable" type="text" id="rageMod" name="rageMod" value="0" autofocus />
             </div>
         </div>
 
@@ -32,18 +33,23 @@
 
     {{#if (eq object.type "Werewolf")}}
 
-        <div class="centerText dialog-area">
-            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "new")}}active{{/if}}" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</button>
-            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "crescent")}}active{{/if}}" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</button>
-            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "half")}}active{{/if}}" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</button>
-            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "gibbous")}}active{{/if}}" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</button>
-            <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "full")}}active{{/if}}" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</button>
+        <div class="dialog-area">
+            <div class="headline splatFont">LANG: Present moon phase</div>
+            <div class="centerText infobox">
+                <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "new")}}active{{/if}}" value="new">{{localize "wod.dialog.checkfrenzy.new"}}</button>
+                <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "crescent")}}active{{/if}}" value="crescent">{{localize "wod.dialog.checkfrenzy.crescent"}}</button>
+                <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "half")}}active{{/if}}" value="half">{{localize "wod.dialog.checkfrenzy.half"}}</button>
+                <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "gibbous")}}active{{/if}}" value="gibbous">{{localize "wod.dialog.checkfrenzy.gibbous"}}</button>
+                <button id="moon" class="button fullSplatColor pointer dialog-moon-button {{#if (eq object.selectedMoon "full")}}active{{/if}}" value="full">{{localize "wod.dialog.checkfrenzy.full"}}</button>
+            </div>
         </div>
 
         <div class="dialog-area">
-            <div class="headline splatFont">{{localize "wod.dialog.checkfrenzy.ragebonus"}}</div>
-            <div class="dialog-valueBox">
-                <input type="text" id="rageMod" name="rageMod" value="0" autofocus />
+            <div class="infobox">
+                <div class="headline splatFont">{{localize "wod.dialog.checkfrenzy.ragebonus"}}</div>
+                <div class="dialog-valueBox">
+                    <input class="editable" type="text" id="rageMod" name="rageMod" value="0" autofocus />
+                </div>
             </div>
         </div>
         

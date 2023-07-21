@@ -1,35 +1,38 @@
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.breed}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
-                    <option value="Corvid">{{localize "wod.bio.breedname.corvid"}}</option>
-                {{/select}}
-            </select>
+<div class="pullLeft" style="display: flex; width: 320px;">
+    <div class="pullLeft area-box">
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
+                    {{#select data.system.breed}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                        <option value="Corvid">{{localize "wod.bio.breedname.corvid"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.breed"}}</span>
         </div>
-    </div>
-</div>	
-
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.tribe">{{localize "wod.bio.tribe"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.tribe" data-name="data.system.tribe" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.tribe}}
-                    <option value="">- {{localize "wod.labels.select"}} -</option>
-                    <option value="Chasers">{{localize "wod.bio.tribename.chasers"}}</option>
-                    <option value="Leshy">{{localize "wod.bio.tribename.leshy"}}</option>
-                    <option value="Hermetic Order of Swift Light">{{localize "wod.bio.tribename.swiftlight"}}</option>
-                    <option value="The Gulls of Battle">{{localize "wod.bio.tribename.gulls"}}</option>
-                    <option value="The Morrigan">{{localize "wod.bio.tribename.morrigan"}}</option>
-                    <option value="Murder's Gaughters">{{localize "wod.bio.tribename.gaughters"}}</option>
-                    <option value="The Sun-Lost">{{localize "wod.bio.tribename.sunlost"}}</option>
-                    <option value="Tulugaq">{{localize "wod.bio.tribename.tulugaq"}}</option>                
-                {{/select}}
-            </select>
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.tribe}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.tribe" data-name="data.system.tribe" data-dtype="String">
+                    {{#select data.system.tribe}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Chasers">{{localize "wod.bio.tribename.chasers"}}</option>
+                        <option value="Leshy">{{localize "wod.bio.tribename.leshy"}}</option>
+                        <option value="Hermetic Order of Swift Light">{{localize "wod.bio.tribename.swiftlight"}}</option>
+                        <option value="The Gulls of Battle">{{localize "wod.bio.tribename.gulls"}}</option>
+                        <option value="The Morrigan">{{localize "wod.bio.tribename.morrigan"}}</option>
+                        <option value="Murder's Gaughters">{{localize "wod.bio.tribename.gaughters"}}</option>
+                        <option value="The Sun-Lost">{{localize "wod.bio.tribename.sunlost"}}</option>
+                        <option value="Tulugaq">{{localize "wod.bio.tribename.tulugaq"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.tribe"}}</span>
         </div>
     </div>
 </div>

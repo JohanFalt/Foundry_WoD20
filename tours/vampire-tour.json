@@ -104,7 +104,7 @@
             "id": "goto-activatediscipline",
             "selector": "input[data-item-id='ZbGEGxhEjw2cDb29']",
             "title": "Activate Discipline Power",
-            "content": "A particular Apocalyptic Form can be activated here. It is not until an Apocalyptic Form is activated the bonuses connected to that form added to the sheet."
+            "content": "A particular Discipline Form can be activated here. It is not until an Discipline is activated the bonuses connected to that form added to the sheet."
         },
         {
             "id": "goto-bonusunfold",

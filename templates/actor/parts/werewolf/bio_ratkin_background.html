@@ -1,36 +1,39 @@
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.breed">{{localize "wod.bio.breed"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.breed" data-name="data.system.breed" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.breed}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
-                <option value="Metis">{{localize "wod.bio.breedname.metis"}}</option>
-                <option value="Rodens">{{localize "wod.bio.breedname.rodens"}}</option>
-                {{/select}}
-            </select>
+<div class="pullLeft" style="display: flex; width: 320px;">
+    <div class="pullLeft area-box">
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
+                    {{#select data.system.breed}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
+                    <option value="Metis">{{localize "wod.bio.breedname.metis"}}</option>
+                    <option value="Rodens">{{localize "wod.bio.breedname.rodens"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.breed"}}</span>
         </div>
-    </div>
-</div>
-
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.auspice">{{localize "wod.bio.aspect"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.auspice" data-name="data.system.auspice" data-dtype="String" {{#if locked}}disabled{{/if}}>
-                {{#select data.system.auspice}}
-                <option value="">- {{localize "wod.labels.select"}} -</option>
-                <option value="Tunnel Runner">{{localize "wod.bio.aspectname.tunnelrunner"}}</option>
-                <option value="Shadow Seer">{{localize "wod.bio.aspectname.shadowseer"}}</option>
-                <option value="Knife Skulker">{{localize "wod.bio.aspectname.knifeskulker"}}</option>
-                <option value="Warrior">{{localize "wod.bio.aspectname.warrior"}}</option>
-                <option value="Engineers">{{localize "wod.bio.aspectname.engineers"}}</option>
-                <option value="Plague Lords">{{localize "wod.bio.aspectname.plaguelords"}}</option>
-                <option value="Munchmausen">{{localize "wod.bio.aspectname.munchmausen"}}</option>
-                <option value="Twitchers">{{localize "wod.bio.aspectname.twitchers"}}</option>
-                {{/select}}
-            </select>
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" autocomplete="off" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
+                    {{#select data.system.auspice}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="Tunnel Runner">{{localize "wod.bio.aspectname.tunnelrunner"}}</option>
+                        <option value="Shadow Seer">{{localize "wod.bio.aspectname.shadowseer"}}</option>
+                        <option value="Knife Skulker">{{localize "wod.bio.aspectname.knifeskulker"}}</option>
+                        <option value="Warrior">{{localize "wod.bio.aspectname.warrior"}}</option>
+                        <option value="Engineers">{{localize "wod.bio.aspectname.engineers"}}</option>
+                        <option value="Plague Lords">{{localize "wod.bio.aspectname.plaguelords"}}</option>
+                        <option value="Munchmausen">{{localize "wod.bio.aspectname.munchmausen"}}</option>
+                        <option value="Twitchers">{{localize "wod.bio.aspectname.twitchers"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.aspect"}}</span>
         </div>
     </div>
 </div>

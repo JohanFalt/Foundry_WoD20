@@ -1,10 +1,19 @@
 import MessageHelper from "./message-helpers.js"
 import BonusHelper from "./bonus-helpers.js";
 
+import { InitiativeRoll } from "./roll-dice.js";
+import { DiceRollContainer } from "./roll-dice.js";
+
 export default class CombatHelper {
 
     static async RollInitiative(event, actor) {
 		event.preventDefault();		
+
+		const generalRoll = new DiceRollContainer(actor);
+        generalRoll.origin = "initiative";
+        InitiativeRoll(generalRoll);
+
+		return;
 
 		let foundToken = false;
 		let foundEncounter = true;
@@ -71,17 +80,17 @@ export default class CombatHelper {
 			diceColor = "red_";
 		}
 		else if (actor.type == CONFIG.wod.sheettype.changeling) { 
-			diceColor = "lightblue_";
+			diceColor = "blue_";
 		}
 		else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) { 
 			diceColor = "orange_";
 		}
 		else if (actor.type == CONFIG.wod.sheettype.spirit) { 
 			diceColor = "yellow_";
-		}
+		}		
 		else {
 			diceColor = "black_";
-		}	
+		}
 
 		roll.terms[0].results.forEach((dice) => {
 			label += `<img src="systems/worldofdarkness/assets/img/dice/${diceColor}${dice.result}.png" class="rolldices" />`;
@@ -113,19 +122,16 @@ export default class CombatHelper {
 
     static ignoresPain(actor) {
 		let ignoresPain = false;
-	    
-	    if (actor.type == CONFIG.wod.sheettype.spirit)
-		{
+
+		if (actor.type == CONFIG.wod.sheettype.spirit) {
 			ignoresPain = true;
 		}
 
-		if (actor.system.conditions?.isignoringpain)
-		{
+		if (actor.system.conditions?.isignoringpain) {
 			ignoresPain = true;
 		}
 
-		if (actor.system.conditions?.isfrenzy)
-		{
+		if (actor.system.conditions?.isfrenzy) {
 			ignoresPain = true;
 		}
 

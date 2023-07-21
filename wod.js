@@ -20,6 +20,40 @@ import { tourSetup } from './tours/toursetup.js';
 
 import { WoDItemSheet } from "./module/items/item-sheet.js";
 
+import { DialogGeneralRoll, GeneralRoll } from "./module/dialogs/dialog-generalroll.js";
+
+const SheetTypes = [
+	"Mortal",
+	"Werewolf",			
+	"Mage",
+	"Vampire",
+	"Changeling",
+	"Hunter",
+	"Demon",
+	"Changing Breed"
+];
+const AdversaryTypes = [
+	"Creature",
+	"Spirit"
+];
+const PowerCreationItemTypes = [
+	"Power",
+	"Rote"
+];
+const CharacterCreationItemTypes = [
+	"Bonus",
+	"Experience",
+	"Feature",	
+	"Trait"
+];
+const EquipmentItemTypes = [
+	"Armor",
+	"Melee Weapon",
+	"Ranged Weapon",
+	"Fetish",
+	"Item"
+];
+
 Hooks.once("init", async function() {
 	console.log("WoD | Initialising World of Darkness System");
 
@@ -32,13 +66,58 @@ Hooks.once("init", async function() {
 	CONFIG.wod.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
 	CONFIG.wod.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
 	CONFIG.wod.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
+	CONFIG.wod.wererwolfrageSettings = game.settings.get('worldofdarkness', 'wererwolfrageSettings');
 
+	// Roll settings
 	try {
 		CONFIG.wod.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
 	} 
 	catch (e) {
 		CONFIG.wod.handleOnes = true;
+	}
+
+	try {
+		CONFIG.wod.lowestDifficulty = parseInt(game.settings.get('worldofdarkness', 'lowestDifficulty'));
+	} 
+	catch (e) {
+		CONFIG.wod.lowestDifficulty = 2;
+	}
+
+	try {
+		CONFIG.wod.specialityAddSuccess = parseInt(game.settings.get('worldofdarkness', 'specialityAddSuccess'));
+		CONFIG.wod.usespecialityAddSuccess = parseInt(game.settings.get('worldofdarkness', 'specialityAddSuccess')) > 0;
+	} 
+	catch (e) {
+		CONFIG.wod.specialityAddSuccess = 2;
+		CONFIG.wod.usespecialityAddSuccess = true;
+	}
+
+	try {
+		CONFIG.wod.specialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff'));
+		CONFIG.wod.usespecialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff')) > 0;
+	} 
+	catch (e) {
+		CONFIG.wod.specialityReduceDiff = 0;
+		CONFIG.wod.usespecialityReduceDiff = false;
+	}
+
+	try {
+		CONFIG.wod.tenAddSuccess = parseInt(game.settings.get('worldofdarkness', 'tenAddSuccess'));
+		CONFIG.wod.usetenAddSuccess = parseInt(game.settings.get('worldofdarkness', 'tenAddSuccess')) > 0;
+	} 
+	catch (e) {
+		CONFIG.wod.tenAddSuccess = 0;
+		CONFIG.wod.usetenAddSuccess = false;
 	}	
+
+	try {
+		CONFIG.wod.explodingDice = game.settings.get('worldofdarkness', 'explodingDice');
+		CONFIG.wod.useexplodingDice = game.settings.get('worldofdarkness', 'explodingDice') != "never";
+	} 
+	catch (e) {
+		CONFIG.wod.explodingDice = "never";
+		CONFIG.wod.useexplodingDice = false;
+	}
 
 	CONFIG.wod.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
 	CONFIG.wod.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
@@ -123,7 +202,10 @@ Hooks.once("init", async function() {
 	game.wod = {
 		powers: WoDSetup.getInstalledPowers(game.data.items)
 	};
-	
+
+	game.wod.abilities = await templates.SetupAbilities();
+	game.wod.bio = await templates.SetupBio();
+
 	console.log("WoD | Added Handelebars");  
 });
 
@@ -158,6 +240,19 @@ Hooks.once("ready", function () {
 	CONFIG.language = game.i18n.lang;
 });
 
+//Dice Roller
+$(document).ready(() => {
+	const diceIconSelector = '#chat-controls .chat-control-icon .fa-dice-d20';
+  
+	$(document).on('click', diceIconSelector, ev => {
+	  	ev.preventDefault();
+	    const roll = new GeneralRoll("dice", "dice");
+		let generalRollUse = new DialogGeneralRoll(undefined, roll);
+		generalRollUse.render(true);
+
+	});
+  });
+
 Hooks.on("renderActorSheet", (sheet) => { 
 	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
 
@@ -184,7 +279,7 @@ Hooks.on("renderActorSheet", (sheet) => {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 
-	sheet.element[0].classList.add("wod-sheet");	
+	//sheet.element[0].classList.add("wod-sheet");
 });
 
 Hooks.on("renderItemSheet", (sheet) => { 
@@ -213,7 +308,7 @@ Hooks.on("renderItemSheet", (sheet) => {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 
-	sheet.element[0].classList.add("wod-item");
+	//sheet.element[0].classList.add("wod-item");
 });
 
 /* Hooks.on("closeItemSheet", (sheet) => { 
@@ -247,18 +342,47 @@ Hooks.on("renderFormApplication", (sheet) => {
 			sheet.element[0].classList.add("noSplatFont");
 		}
 
-		sheet.element[0].classList.add("wod-dialog");
+		//sheet.element[0].classList.add("wod-dialog");
 	}
 });
 
+Hooks.on("renderDialog", (_dialog, html, _data) => {
+	const container = html[0];
+
+	if (container.classList.contains("dialog")) {
+		const select = container.querySelector("select[name=type]");
+		if (select) {
+			select.append(
+				constructOptGroup(select, game.i18n.localize("LANG: Sheet items"), CharacterCreationItemTypes),
+				constructOptGroup(select, game.i18n.localize("LANG: Powers"), PowerCreationItemTypes),
+				constructOptGroup(select, game.i18n.localize("LANG: Equipment"), EquipmentItemTypes),
+				constructOptGroup(select, game.i18n.localize("LANG: Sheets"), SheetTypes),
+				constructOptGroup(select, game.i18n.localize("LANG: NPC"), AdversaryTypes)
+			);
+			select.querySelector("option").selected = true;
+		}
+	} 
+});
+
 function clearHTML(sheet) {
-	sheet.element[0].classList.remove("wod-sheet");
-	sheet.element[0].classList.remove("wod-item");
-	sheet.element[0].classList.remove("wod-dialog");
+	//sheet.element[0].classList.remove("wod-sheet");
+	//sheet.element[0].classList.remove("wod-item");
+	//sheet.element[0].classList.remove("wod-dialog");
 	sheet.element[0].classList.remove("langDE");
 	sheet.element[0].classList.remove("langES");
 	sheet.element[0].classList.remove("langIT");
 	sheet.element[0].classList.remove("langFR");
 	sheet.element[0].classList.remove("langEN");
 	sheet.element[0].classList.remove("noSplatFont");
+}
+
+function constructOptGroup(select, groupLabel, optValues) {
+	const options = select.querySelectorAll(":scope > option");
+	const optgroup = document.createElement("optgroup");
+	optgroup.label = groupLabel;
+	optgroup.append(...Array.from(options).filter((option) => !optValues || optValues.includes(option.value)));
+	if (optgroup.children.length == 0) {
+		return "";
+	}
+	return optgroup;
 }

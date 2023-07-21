@@ -1,0 +1,83 @@
+.creatureDialog,
+.creature,
+.creatureItem {
+  --main-full-color: var(--main-creature-color);
+  --main-mid-color: var(--main-creature-mid-color);
+  --main-dim-color: var(--main-creature-dim-color);
+  --color-shadow-primary: var(--main-creature-color);
+}
+
+.creature:not(.noSplatFont) nav,
+.creature:not(.noSplatFont) .splatFont {
+	font-family: "werewolf", var(--main-font);
+}
+
+.creature:not(.noSplatFont) .headlineText {
+	font-size: 18px;
+}
+
+/* .creature:not(.noSplatFont) .headlineList {
+  font-size: 12px;
+} */
+
+.creature .headlineRow {
+  display: flex;
+  height: 23px;
+  line-height: 23px;
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+.creatureDialog:not(.noSplatFont) .headlineGroup {
+}
+
+/* CORE */
+
+.creature .attribute-headlineWidth {
+	width: 25%;
+}
+
+.creature.langDE .attribute-headlineWidth,
+.creature.langES .attribute-headlineWidth {
+  width: 35%;
+}
+
+/* POWER */
+
+.creature-row {
+    display: flex;
+    height: 23px;
+    line-height: 23px;
+    margin-left: 13px;
+  }
+  
+  .creature-rollablerow {
+    display: flex;
+    height: 23px;
+    line-height: 23px;
+    margin-left: 13px;
+  }
+  
+  .creature-row .gift-iconbox {
+    margin-left: 273px;
+  }
+  
+  .creature-rollablerow .gift-iconbox {
+    margin-left: 23px;
+  }
+
+/* SETTING */
+
+.creature:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 14px;
+}
+
+.creature .secondHeadlineTabs {
+  width: 20%;
+}
+
+/* DIALOG */
+
+.creatureDialog:not(.noSplatFont) .headline {
+    font-size: 14px;
+}

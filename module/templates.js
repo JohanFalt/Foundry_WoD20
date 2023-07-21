@@ -128,6 +128,36 @@ export const preloadHandlebarsTemplates = async function () {
 	return loadTemplates(templatePaths); // eslint-disable-line no-undef
 };
 
+export async function SetupAbilities()
+{
+    try {        
+		let importData = {};
+		let fileData = await fetch(`systems/worldofdarkness/assets/data/ability.json`).then((response) => response.json());
+		Object.assign(importData, fileData);
+
+		return importData;		
+    } catch(err) {
+		err.message = `Failed migration for Actor Item ${item.name}: ${err.message}`;
+        console.error(err);
+        return
+    }
+}
+
+export async function SetupBio()
+{
+    try {        
+		let importData = {};
+		let fileData = await fetch(`systems/worldofdarkness/assets/data/bio.json`).then((response) => response.json());
+		Object.assign(importData, fileData);
+
+		return importData;		
+    } catch(err) {
+		err.message = `Failed Setup bio.json: ${err.message}`;
+        console.error(err);
+        return
+    }
+}
+
 export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("setVariable", function(varName, varValue, options) {
@@ -241,6 +271,22 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return result;
+	});
+
+	Handlebars.registerHelper("getEra", function (actor) {
+		let era = actor.system.settings.era;
+
+		if (era ==  CONFIG.wod.era.modern) {
+			return "modern";
+		}
+		else if (era ==  CONFIG.wod.era.victorian) {
+			return "victorian";
+		}
+		else if (era ==  CONFIG.wod.era.darkages) {
+			return "darkages";
+		}
+
+		return "modern";
 	});
 
 	Handlebars.registerHelper("getAttributes", function (attribute) {
@@ -392,6 +438,22 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return true;
+	}); 
+
+	Handlebars.registerHelper("getAbilityAttribute" , function (actor, ability, attribute) {
+		let value = "";
+
+		if (attribute == "label") {
+			value = game.i18n.localize(actor.system.abilities[ability][attribute]);
+		}
+		if (attribute == "altlabel") {
+			value = actor.system.abilities[ability][attribute];
+		}
+		if (attribute == "isvisible") {
+			value = actor.system.abilities[ability][attribute];
+		}		 
+
+		return value;
 	});
 
 	Handlebars.registerHelper("getShifterRenown", function (type, renown) {
@@ -557,6 +619,10 @@ export const registerHandlebarsHelpers = function () {
 		let num = 0;
 		let oldHealthLevel = "";
 
+		if (healthStates == undefined) {
+			return "";
+		}
+
 		for (const i of healthStates) {
 			if (oldHealthLevel != healthLevel) {
 				num = 0;
@@ -622,6 +688,100 @@ export const registerHandlebarsHelpers = function () {
 		return list;
 	});
 
+	Handlebars.registerHelper("checkProperty", function (properties, name, value) {
+		if (properties.length == 0) {
+			return false;
+		}
+
+		if (properties[name] == undefined) {
+			return false;
+		}
+
+		if (properties[name] == value) {
+			return true;
+		}
+
+		return false;
+	});
+
+	Handlebars.registerHelper("getProperty", function (properties, name) {
+		if (properties.length == 0) {
+			return "";
+		}
+
+		if (properties[name] == undefined) {
+			return "";
+		}
+
+		return game.i18n.localize(properties[name]);
+	});
+
+	Handlebars.registerHelper("translateConceal", function (conceal, era, fullname) {
+
+		if (era == undefined) {
+			era = CONFIG.wod.era.modern;
+		}
+		
+		if (fullname) {
+			if (era == CONFIG.wod.era.modern) {
+				if (conceal == "P") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.pocket");
+				}
+				if (conceal == "J") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.jacket");
+				}
+				if (conceal == "T") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.trenchcoat");
+				}
+				if (conceal == "NA") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.na");
+				}
+			}
+
+			if (era == CONFIG.wod.era.victorian) {
+				if (conceal == "P") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.pocket");
+				}
+				if (conceal == "J") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.jacket");
+				}
+				if (conceal == "T") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.trenchcoat");
+				}
+				if (conceal == "NA") {
+					conceal = game.i18n.localize("wod.combat.weapon.conceal.na");
+				}
+			}
+
+			if (era == CONFIG.wod.era.darkages) {
+				if (conceal == "P") {
+					conceal = "LANG: Pouch";
+				}
+				if (conceal == "J") {
+					conceal = "LANG: Loose clothing";
+				}
+				if (conceal == "T") {
+					conceal = "LANG: Long cloak";
+				}
+				if (conceal == "NA") {
+					conceal = "LANG: May Not Be Concealed";
+				}
+			}
+		}
+		else {
+			if (era == CONFIG.wod.era.darkages) {
+				if (conceal == "J") {
+					conceal = "C";
+				}
+				if (conceal == "T") {
+					conceal = "L";
+				}
+			}
+		}		
+
+		return conceal;
+	});
+
 	Handlebars.registerHelper("captilizeFirst", function (text) {
 		return text.charAt(0).toUpperCase() + text.slice(1);
 	});
@@ -643,9 +803,33 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.wod.handleOnes;
 		}
 
-		if (text == "hunteredgeSettings") {
-			return CONFIG.wod.hunteredgeSettings;
+		if (text == "lowestDifficulty") {
+			return CONFIG.wod.lowestDifficulty;
 		}
+
+		if (text == "lowestDifficulty") {
+			return CONFIG.wod.lowestDifficulty;
+		}
+
+		if (text == "specialityAddSuccess") {
+			return CONFIG.wod.specialityAddSuccess;
+		}				
+
+		if (text == "specialityReduceDiff") {
+			return CONFIG.wod.specialityReduceDiff;
+		}
+
+		if (text == "tenAddSuccess") {
+			return CONFIG.wod.tenAddSuccess;
+		}
+
+		if (text == "explodingDice") {
+			return CONFIG.wod.specialityReduceDiff;
+		}
+
+		if (text == "wererwolfrageSettings") {
+			return CONFIG.wod.wererwolfrageSettings;
+		}		
 
 		if (text == "viewBiotabPermission") {
 			if (game.user.isGM) {
@@ -676,14 +860,14 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("isempty", function (text) {
 		if (text == undefined) {
-			return;
+			return true;
 		}
 
 		if (text.length == 0) {
-			return "&nbsp;";
+			return true;
 		}
 		else {
-			return;
+			return false;
 		}
 	});
 

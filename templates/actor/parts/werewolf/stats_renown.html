@@ -1,12 +1,12 @@
 
-<div class="sheet-headline splatFont" data-area="renown">{{localize 'wod.advantages.renown'}}</div>
+<div class="sheet-headline sheet-banner-small splatFont" data-area="renown"><span class="sheet-banner-text">{{localize 'wod.advantages.renown'}}</span></div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">
-	{{#if (eq actor.type config.sheettype.werewolf)}}
-		{{localize 'wod.advantages.glory'}}
-	{{else}}
-		{{localize (getShifterRenown data.system.changingbreed "Glory")}}
-	{{/if}}
+		{{#if (eq actor.type config.sheettype.werewolf)}}
+			{{localize 'wod.advantages.glory'}}
+		{{else}}
+			{{localize (getShifterRenown data.system.changingbreed "Glory")}}
+		{{/if}}
 </div>
 
 <div class="sheet-boxcontainer">
@@ -38,11 +38,11 @@
 </div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">
-	{{#if (eq actor.type config.sheettype.werewolf)}}
-		{{localize 'wod.advantages.honor'}}
-	{{else}}
-		{{localize (getShifterRenown data.system.changingbreed "Honor")}}
-	{{/if}}
+		{{#if (eq actor.type config.sheettype.werewolf)}}
+			{{localize 'wod.advantages.honor'}}
+		{{else}}
+			{{localize (getShifterRenown data.system.changingbreed "Honor")}}
+		{{/if}}
 </div>
 
 <div class="sheet-boxcontainer">
@@ -74,11 +74,11 @@
 </div>
 
 <div class="sheet-headline headlineGroup splatFont centerText">
-	{{#if (eq actor.type config.sheettype.werewolf)}}
-		{{localize 'wod.advantages.wisdom'}}
-	{{else}}
-		{{localize (getShifterRenown data.system.changingbreed "Wisdom")}}
-	{{/if}}
+		{{#if (eq actor.type config.sheettype.werewolf)}}
+			{{localize 'wod.advantages.wisdom'}}
+		{{else}}
+			{{localize (getShifterRenown data.system.changingbreed "Wisdom")}}
+		{{/if}}
 </div>
 
 <div class="sheet-boxcontainer">
@@ -109,37 +109,40 @@
 	</div>
 </div>
 
-<div class="sheet-headline headlineGroup splatFont centerText" data-area="rank">{{localize "wod.advantages.rank"}}</div>
-<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="renown.rank">
+<div class="rank-area">
+	<div class="sheet-headline headlineGroup sheet-banner-small splatFont centerText" data-area="rank" style="margin-top: auto;"><span class="sheet-banner-text">{{localize "wod.advantages.rank"}}</span></div>
 
-	{{#if (eq actor.type config.sheettype.werewolf)}}
-		{{#numLoop 6}}
-		
-			<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
-		
-		{{/numLoop}}
-	{{else}}
-		{{#if (ne data.system.changingbreed "Nagah")}}
-			{{#numLoop 5}}
-			
-			<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-		{{else}}
-			{{#numLoop 6}}
-				
-			<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
-			
-			{{/numLoop}}
-		{{/if}}
-	{{/if}}	
+	<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="renown.rank">
 
-	<span class="splatFont">
 		{{#if (eq actor.type config.sheettype.werewolf)}}
-			{{getShifterRank config.sheettype.werewolf data.system.renown.rank}}
+			{{#numLoop 6}}
+			
+				<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}
 		{{else}}
-			{{getShifterRank data.system.changingbreed data.system.renown.rank}}
-		{{/if}}
-	</span>
-	
+			{{#if (ne data.system.changingbreed "Nagah")}}
+				{{#numLoop 5}}
+				
+				<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+			{{else}}
+				{{#numLoop 6}}
+					
+				<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+				
+				{{/numLoop}}
+			{{/if}}
+		{{/if}}	
+
+		<span class="splatFont">
+			{{#if (eq actor.type config.sheettype.werewolf)}}
+				{{getShifterRank config.sheettype.werewolf data.system.renown.rank}}
+			{{else}}
+				{{getShifterRank data.system.changingbreed data.system.renown.rank}}
+			{{/if}}
+		</span>
+		
+	</div>
 </div>

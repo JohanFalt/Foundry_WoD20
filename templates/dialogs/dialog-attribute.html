@@ -1,0 +1,55 @@
+<form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
+
+    <div class="dialog-area">
+        <div class="headlineGroup splatFont">{{localize object.name}}</div>
+    </div>
+
+    <div class="dialog-area">
+
+        {{#if (ne object.typeform "bio")}}
+            <div class="infobox">
+                <div class="bioInformationArea floating-label-group">
+                    <input id="speciality" name="speciality" class="sheet-infoValues editable" type="text" value="{{object.speciality}}" autocomplete="off" autofocus {{#if (lt object.value 4)}}readonly{{/if}} />
+                    <span class="floating-label">LANG: Speciality</span>
+                </div>            
+            </div>
+        {{/if}}
+
+        {{#if (eq object.typeform "bio")}}
+            <div class="infobox">
+                <div class="bioInformationArea floating-label-group">
+                    <input id="custom" name="custom" class="sheet-infoValues editable" type="text" value="{{object.custom}}" autocomplete="off" autofocus />
+                    <span class="floating-label">LANG: Custom name</span>
+                </div>            
+            </div>
+        {{/if}}
+
+        {{#if (eq object.typeform "ability")}}
+            <div class="infobox">
+                {{#if object.issecondary}}
+                    <div class="bioInformationArea floating-label-group">
+                        <input id="label" name="label" class="sheet-infoValues editable" type="text" value="{{object.label}}" autocomplete="off" autofocus />
+                        <span class="floating-label">LANG: Ability name</span>
+                    </div>
+                {{else}}
+                    <div class="bioInformationArea floating-label-group">
+                        <input id="altlabel" name="altlabel" class="sheet-infoValues editable" type="text" value="{{object.altlabel}}" autocomplete="off" autofocus />
+                        <span class="floating-label">LANG: Alternative ability name</span>
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
+
+        {{#if (eq object.typeform "sphere")}}
+            <div class="infobox">
+                LANG: Use Technocracy version.
+                <input id="technocracy" name="technocracy" type="checkbox" {{#if object.istechnocracy}}checked{{/if}}></input></div>
+            </div>
+        {{/if}}
+
+        <div class="centerText">
+            <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{#if object.close}}{{localize "wod.dialog.close"}}{{else}}{{localize "wod.dialog.save"}}{{/if}}</button>
+        </div>
+    </div>    
+
+</form>

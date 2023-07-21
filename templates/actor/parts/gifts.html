@@ -14,7 +14,7 @@
         {{#if (eq actor.type config.sheettype.spirit)}}
 
             {{#each actor.system.listdata.powers.gifts.giftlist as |item id|}}
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox {{#if item.system.isrollable}}spirit-rollablerow{{else}}spirit-row{{/if}}">
                     
                     <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
@@ -51,12 +51,9 @@
                                     title="{{localize 'wod.labels.send'}}" 
                                     data-type="Gift" 
                                     data-item-id="{{item._id}}" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.description}}</span>
-                                                    <br />
-                                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-description="{{{item.system.description}}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>            
                             <div class="pullLeft pointer">
                                 <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
@@ -73,10 +70,12 @@
         {{else}}
 
             {{#each actor.system.listdata.powers.gifts.giftlist as |item id|}}
-                <div class="power-area">
+                <div class="item-row-area">
                     <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
                     
-                    <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                        <div class="pullLeft item-activeBox">
+                            <input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input>
+                        </div>
                         <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
                             data-type="{{../actor.type}}"
                             data-object="Gift"
@@ -115,12 +114,9 @@
                                     title="{{localize 'wod.labels.send'}}" 
                                     data-type="Gift" 
                                     data-item-id="{{item._id}}" 
-                                    data-headline="<h2>{{item.name}}</h2>" 
-                                    data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.description}}</span>
-                                                    <br />
-                                                    <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                    <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    data-headline="{{item.name}}"
+                                    data-description="{{{item.system.description}}}"
+                                    data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                             </div>            
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft pointer">

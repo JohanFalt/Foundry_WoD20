@@ -1,5 +1,5 @@
 <div class="sheet-area">
-    <div class="sheet-headline splatFont" data-area="giftlist">{{localize "wod.power.gifts"}}</div>
+    <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.power.gifts"}}</span></div>
     
     {{#if (eq data.system.renown.rank 0)}}
         <div class="sheet-headline splatFont">{{localize "wod.power.rank0"}}</div> 
@@ -20,7 +20,7 @@
 
                 {{#each (getGiftList ../actor.system.listdata.powers.gifts this) as |item id|}}
 
-                    <div class="power-area" data-area="giftrow{{id}}">
+                    <div class="item-row-area" data-area="giftrow{{id}}">
                         <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
                             <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
                             <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
@@ -47,29 +47,26 @@
                                     <div class="pullLeft pointer">
                                         <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
                                     </div>
-                                {{/if}}
-                                <div class="pullLeft pointer headlineNormal tooltip">
-                                    <i class="icon fa-solid fa-memo"></i>
-                                    <span class="tooltiptext">
-                                        {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
-                                        <br /><br />
-                                        {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                                    </span>
-                                </div>
-                                <div class="pullLeft">
-                                    <a class="send-chat" 
-                                        title="{{localize 'wod.labels.send'}}" 
-                                        data-type="Gift" 
-                                        data-item-id="{{item._id}}" 
-                                        data-headline="<h2>{{item.name}}</h2>" 
-                                        data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                        <span class='chatt-text'>{{item.system.description}}</span>
-                                                        <br />
-                                                        <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                        <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                    
-                                    
-                                </div>  
+                                {{else}}                                    
+                                    <div class="pullLeft pointer headlineNormal tooltip">
+                                        <i class="icon fa-solid fa-memo"></i>
+                                        <span class="tooltiptext">
+                                            {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}<br /><br />{{/if}}                                            
+                                            {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                                        </span>
+                                    </div>
+                                    <div class="pullLeft">
+                                        <a class="send-chat" 
+                                            title="{{localize 'wod.labels.send'}}" 
+                                            data-type="Gift" 
+                                            data-item-id="{{item._id}}" 
+                                            data-headline="{{item.name}}"
+                                            data-description="{{{item.system.description}}}"
+                                            data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                        
+                                        
+                                    </div>
+                                {{/if}}                            
 
                                 {{#if (eq ../../locked false)}}
                                     <div class="pullLeft pointer">

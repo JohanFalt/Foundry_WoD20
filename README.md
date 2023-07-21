@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Foundry-v10-informational)
+![](https://img.shields.io/badge/Foundry-v11-informational)
 
 # World of Darkness 20th ed
 This is a non-official (fan-made) system for Foundry VTT.

@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="infobox">
-                    <label class="headlineItem item-label" for="data.spendingtime">{{localize "wod.dialog.aretecasting.timeextra"}}</label>
+                    <label class="headlineItem item-label" for="data.spendingtime">{{localize "wod.dialog.aretecasting.spendingtime"}}</label>
                     <select class="editable" name="system.spendingtime">
                         {{#select data.system.spendingtime}}
                         <option value="0">0</option>
@@ -234,14 +234,14 @@
 
                 <!-- description -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-				<div class="clearareaBox">
-					{{#if canEdit}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
-					{{else}}
-						<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
-					{{/if}}
-				</div>
+                <div class="clearareaBox">
+				    <label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+                </div>
+                {{#if canEdit}}
+                    {{editor data.description target="system.description" button=false owner=owner editable=true}}
+                {{else}}
+                    <div class="headlineNormal textarea">{{{data.system.description}}}</div>
+                {{/if}}
 			</div>
 
             </div>

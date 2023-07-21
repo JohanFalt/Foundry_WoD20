@@ -7,7 +7,7 @@ export class HunterActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["hunter"],
+			classes: ["wod20 wod-sheet hunter"],
 			template: "systems/worldofdarkness/templates/actor/hunter-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -37,7 +37,8 @@ export class HunterActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				await CreateHelper.SetHunterAbilities(actorData);
+				//await CreateHelper.SetHunterAbilities(actorData);
+				await CreateHelper.SetAbilities(actorData, "hunter", "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetHunterAttributes(actorData);				
 

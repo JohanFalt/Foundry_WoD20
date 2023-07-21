@@ -34,6 +34,10 @@
 						{{captilize (localize "wod.types.bloodbound")}}<br />
 						{{captilize (localize "wod.labels.rating")}} {{data.system.level}}
 					{{/if}}
+
+					{{#if (eq data.system.type "wod.types.boon")}} 
+						{{captilize (localize "wod.types.boon")}}
+					{{/if}}
 				</div>				
 			</div>
 		</header>
@@ -54,6 +58,7 @@
 						<option value="">- {{localize "wod.labels.select"}} -</option>
 						<option value="wod.types.background">{{localize "wod.types.background"}}</option>
 						<option value="wod.types.bloodbound">{{localize "wod.types.bloodbound"}}</option>
+						<option value="wod.types.boon">{{localize "wod.types.boon"}}</option>
 						<option value="wod.types.merit">{{localize "wod.types.merit"}}</option>
 						<option value="wod.types.flaw">{{localize "wod.types.flaw"}}</option>
 					{{/select}}
@@ -64,40 +69,37 @@
 			<!-- level -->
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.level">{{localize "wod.labels.power.level"}}</label>
-				<input class="sheet-infoValues item editable" name="system.level" type="text" value="{{data.system.level}}" />
+				{{#if (ne data.system.type "wod.types.boon")}}
+					<input class="sheet-infoValues item editable" name="system.level" type="text" value="{{data.system.level}}" data-dtype="String" />
+				{{else}}	
+					<select class="sheet-infoValues item editable" name="system.level" data-dtype="String">
+						{{#select data.system.level}}
+							<option value="">- {{localize "wod.labels.select"}} -</option>							
+							<option value="wod.labels.feature.trivial">{{localize "wod.labels.feature.trivial"}}</option>
+							<option value="wod.labels.feature.minor">{{localize "wod.labels.feature.minor"}}</option>
+							<option value="wod.labels.feature.major">{{localize "wod.labels.feature.major"}}</option>
+							<option value="wod.labels.feature.life">{{localize "wod.labels.feature.life"}}</option>
+						{{/select}}
+					</select>		
+				{{/if}}
 			</div>
 
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.reference">{{localize "wod.labels.trait.reference"}}</label>
-				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" />
+				<input class="sheet-infoValues item editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" />
 			</div>
-
-		 	<!-- description -->
-		<!--	{{#if (ne data.system.type "wod.types.bloodbound")}}
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
-					<div class="clearareaBox">
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
-					</div>
-				</div>
-			{{/if}}			
-
-			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.details">{{localize "wod.labels.details"}}</label>
-				<div class="clearareaBox">
-					{{editor data.details target="system.details" button=false owner=owner editable=true}}
-				</div>
-			</div> -->
 
 			<!-- description -->
 			{{#if (ne data.system.type "wod.types.bloodbound")}}
 				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 					<div class="clearareaBox">
+						<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+					</div>
+					<div>
 						{{#if canEdit}}
 							{{editor data.description target="system.description" button=false owner=owner editable=true}}
 						{{else}}
-							<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
+							<div class="headlineNormal textarea">{{{data.system.description}}}</div>
 						{{/if}}
 					</div>
 				</div>
@@ -105,14 +107,14 @@
 
 			<!-- system -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
 				<div class="clearareaBox">
-					{{#if canEdit}}
-						{{editor data.details target="system.details" button=false owner=owner editable=true}}
-					{{else}}
-						<div class="clearareaBox headlineNormal textarea">{{{data.system.details}}}</div>
-					{{/if}}
+					<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
 				</div>
+				{{#if canEdit}}
+					{{editor data.details target="system.details" button=false owner=owner editable=true}}
+				{{else}}
+					<div class="headlineNormal textarea">{{{data.system.details}}}</div>
+				{{/if}}
 			</div>
 		</section>
 

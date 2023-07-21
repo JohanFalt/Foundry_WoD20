@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class Shape {
     constructor(actor) {
@@ -29,7 +29,7 @@ export class DialogShapeChange extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["shapechange-dialog"],
+            classes: ["wod20 wod-dialog shapechange-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-shapechange.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -122,32 +122,44 @@ export class DialogShapeChange extends FormApplication {
     }
     
 
-    /* clicked on check Frenzy */
+    /* clicked on check shift form */
     async _shiftform(event) {
-        let templateHTML = `<h2>${game.i18n.localize("wod.dialog.shapechange.headline")}</h2>`;
-        let numDices = 0;
+        let template = [];
+        let extraInfo = [];
+        let attribute = game.i18n.localize(this.actor.system.attributes.stamina.label);
+        let ability = (this.actor.system.abilities.primalurge.altlabel == "" ? game.i18n.localize(this.actor.system.abilities.primalurge.label) : this.actor.system.abilities.primalurge.altlabel);
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
-        templateHTML += `${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}<br />`;
-        templateHTML += `${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`;
-        numDices = parseInt(this.actor.system.attributes.stamina.total) + parseInt(this.actor.system.abilities.talent.primalurge.value) + parseInt(this.object.bonus);
+
+        template.push(`${attribute} (${this.actor.system.attributes.stamina.total})`);
+        template.push(`${ability} (${this.actor.system.abilities.primalurge.value})`);
+
+        if (this.object.bonus != 0) {
+            template.push(this.object.bonus);
+        }
+
+        extraInfo.push(`${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`);
+        extraInfo.push(`${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`);        
 
         if (this.object.canRoll) {            
-            const shiftRoll = new DiceRoll(this.actor);
+            const shiftRoll = new DiceRollContainer(this.actor);
+            shiftRoll.action = game.i18n.localize("wod.dialog.shapechange.headline");
             shiftRoll.attribute = "stamina";
-            shiftRoll.handlingOnes = CONFIG.wod.handleOnes;    
-            shiftRoll.origin = "shapechange";
-            shiftRoll.numDices = numDices;
-            shiftRoll.difficulty = parseInt(this.object.difficulty);  
-            shiftRoll.speciality = false;
-            shiftRoll.specialityText = "";
-            shiftRoll.templateHTML = templateHTML;        
-
-            const successes = await rollDice(shiftRoll);
+            shiftRoll.dicetext = template;
+            shiftRoll.extraInfo = extraInfo;
+            shiftRoll.origin = "general";
+            shiftRoll.numDices = parseInt(this.actor.system.attributes.stamina.total) + parseInt(this.actor.system.abilities.primalurge.value) + parseInt(this.object.bonus);
+            shiftRoll.woundpenalty = parseInt(this.actor.system.health.damage.woundpenalty);
+            shiftRoll.difficulty = parseInt(this.object.difficulty);                     
+            
+            const successes = await NewRollDice(shiftRoll);
             this.object.numSuccesses += parseInt(successes);
 
             if (this.object.numSuccesses >= this.object.successesRequired) {
                 this.object.close = true;
+            }
+            else {
+                this.render();
             }
         }
         else {
@@ -226,3 +238,4 @@ export class DialogShapeChange extends FormApplication {
         return mod;
     }
 }
+

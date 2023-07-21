@@ -1,11 +1,7 @@
-<div class="sheet-headline splatFont vrollable" 
+<div class="sheet-headline sheet-banner-small splatFont vrollable" 
 	data-type="{{config.sheettype.mortal}}"
 	data-key="rage"
-	data-noability="true">{{localize 'wod.advantages.rage'}}</div>
-
-{{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
-	<div class="information-area centerText">{{localize "wod.advantages.ragepenalty"}}: {{ragePenalty}}</div>
-{{/if}}
+	data-noability="true"><span class="sheet-banner-text">{{localize 'wod.advantages.rage'}}</span></div>
 		
 <div class="sheet-boxcontainer">
 	<div class="resource-value permValueRow" data-value="{{data.system.advantages.rage.permanent}}" data-name="advantages.rage.permanent">
@@ -34,3 +30,9 @@
 		
 	</div>
 </div>
+
+{{#if (checkSystemsetting "wererwolfrageSettings")}}
+	{{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+		<div class="information-area centerText">{{localize "wod.advantages.ragepenalty"}}: {{ragePenalty}}</div>
+	{{/if}}
+{{/if}}

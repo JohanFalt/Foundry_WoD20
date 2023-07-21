@@ -34,16 +34,22 @@
 					<select class="sheet-infoValues item editable" name="system.type">
 						{{#select item.system.type}}
 							<option value="">- {{localize "wod.labels.select"}} -</option>
-							<option value="attribute_buff">{{localize "wod.labels.bonus.attributebonus"}}</option>
-							<option value="attribute_dice_buff">{{localize "wod.labels.bonus.attributedicebonus"}}</option>
-							<option value="attribute_diff">{{localize "wod.labels.bonus.attributediff"}}</option>
-							<option value="attribute_auto_buff">{{localize "wod.labels.bonus.attributesucc"}}</option>
-							<option value="ability_buff">{{localize "wod.labels.bonus.abilitybonus"}}</option>
-							<option value="ability_diff">{{localize "wod.labels.bonus.abilitydiff"}}</option>
-							<option value="soak_buff">{{localize "wod.labels.bonus.soakbonus"}}</option>						
-							<option value="health_buff">{{localize "wod.labels.bonus.healthbuff"}}</option>
-							<option value="initiative_buff">{{localize "wod.labels.bonus.initbonus"}}</option>
-							<option value="movement_buff">{{localize "wod.labels.bonus.movebonus"}}</option>
+							<optgroup label="LANG: Attributes">
+								<option value="attribute_buff">{{localize "wod.labels.bonus.attributebonus"}}</option>
+								<option value="attribute_dice_buff">{{localize "wod.labels.bonus.attributedicebonus"}}</option>
+								<option value="attribute_diff">{{localize "wod.labels.bonus.attributediff"}}</option>
+								<option value="attribute_auto_buff">{{localize "wod.labels.bonus.attributesucc"}}</option>
+							</optgroup>
+							<optgroup label="LANG: Abilities">
+								<option value="ability_buff">{{localize "wod.labels.bonus.abilitybonus"}}</option>
+								<option value="ability_diff">{{localize "wod.labels.bonus.abilitydiff"}}</option>
+							</optgroup>
+							<optgroup label="LANG: Other">
+								<option value="soak_buff">{{localize "wod.labels.bonus.soakbonus"}}</option>						
+								<option value="health_buff">{{localize "wod.labels.bonus.healthbuff"}}</option>
+								<option value="initiative_buff">{{localize "wod.labels.bonus.initbonus"}}</option>
+								<option value="movement_buff">{{localize "wod.labels.bonus.movebonus"}}</option>
+							</optgroup>
 						{{/select}}
 					</select>
 				</div>				

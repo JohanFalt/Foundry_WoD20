@@ -1,0 +1,176 @@
+.changeling {
+    --sheet-background-color: var(--changeling-page-background);
+}
+  
+.changeling .modern {  
+    --main-wod-banner: var(--changeling-banner-background);
+    --main-wod-banner-small: var(--changeling-banner-small-background);
+}
+
+.changeling:not(.noSplatFont) nav,
+.changeling:not(.noSplatFont) .splatFont,
+.changelingDialog:not(.noSplatFont) .splatFont,
+.changelingItem:not(.noSplatFont) .splatFont {
+	font-family: "changeling", var(--main-font);
+}
+
+.changelingDialog,
+.changeling,
+.changelingItem {
+    --main-full-color: var(--main-changeling-color);
+    --main-mid-color: var(--main-changeling-mid-color);
+    --main-dim-color: var(--main-changeling-dim-color);
+    --color-shadow-primary: var(--main-changeling-color);
+}
+
+.changeling .sheet-character .profile-img-zone button {  
+    background: url('../assets/img/buttons/changeling.png');	
+    color: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+}
+
+.changeling .sheet-banner.sheet-topbanner {
+    background: var(--changeling-topbanner-background);
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.changeling .sheet-banner-small {
+    background: var(--main-wod-banner-small);
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px; 
+} 
+
+.changeling:not(.noSplatFont) .sheet-headline {
+    font-size: 30px;
+}
+
+.changelingDialog:not(.noSplatFont) .headlineGroup {
+    font-size: 32px;
+}
+
+.changelingDialog:not(.noSplatFont) .headline {
+    font-size: 20px;
+}
+  
+.changeling .lock-icon {
+    margin-left: 4px;
+}
+  
+.changeling:not(.noSplatFont) .headlineTabs {
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.changeling .splatFont .headlineList {
+    font-size: 16px;
+}
+  
+.changeling .pullLeft.healthbox {
+    margin-left: 15px;
+}
+  
+.changeling .pullRight.healthbox {
+    margin-right: 15px;  
+}
+  
+.changeling .leftwrapper {
+    border: 1px solid var(--main-changeling-color);
+    border-bottom: 0px;
+    border-right: 0px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+  
+.changeling .topwrapper {
+    border: 1px solid var(--main-changeling-color);
+    border-bottom: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    padding-top: 5px;
+}
+  
+.changeling .rightwrapper {
+    border: 1px solid var(--main-changeling-color);
+    border-bottom: 0px;
+    border-left: 0px;
+    padding-top: 5px;
+    margin-right: 5px;
+}
+  
+.changeling .wrapperboxleft {
+    padding-left: 10px;
+}
+  
+.changeling .wrapperboxright {
+    margin-right: 5px;
+}
+  
+.changeling .imbalance {
+    background-color: red !important;
+}
+
+.changeling .bonus-power-name {
+    width: 200px;
+}
+
+/* START - Combat */
+
+.changeling .armor.headlineRowBackground {
+    margin-bottom: -10px;
+}
+
+/* END - Combat */
+
+/* START - Dreaming */
+
+.changeling .art-row .art-iconbox {
+    margin-left: 13px;
+  }
+  
+  .changeling .art-row .power-dotBox {
+    width: 120px;
+}
+
+.changeling .artpower-row .power-iconbox {
+    margin-left: 187px;
+}
+  
+.changeling .bonuses .art-iconbox {
+    margin-left: 73px;
+}
+  
+.changeling .realms-headlineWidth {
+    width: 60%;
+}
+
+.changeling .highlightedPower {
+    background: var(--changeling-affinity-power);
+    height: 15px;
+    width: 15px;
+    margin-top: 5px;    
+}
+
+.changeling .realm-resource-values {
+    margin-top: 4px;
+}
+  
+/* END - Dreaming */
+
+/* SETTINGS */
+
+.changeling:not(.noSplatFont) .secondHeadlineTabs {
+    font-size: 26px;
+}
+
+.changeling .secondHeadlineTabs {
+    width: 25%;
+}

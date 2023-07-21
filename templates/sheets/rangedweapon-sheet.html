@@ -67,17 +67,12 @@
 
 			<div class="infobox">
 				<label class="headlineItem headlineBio splatFont" for="data.difficulty">{{localize "wod.labels.difficulty"}}</label>
-				<select name="system.difficulty" class="numberBox editable">
+				<select class="editable" name="system.difficulty">
 					{{#select data.system.difficulty}}
 						<option value="-1">- {{localize "wod.labels.varies"}} -</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
+						{{#numFromLoop config.lowestDifficulty 10}}
+							<option value="{{this}}">{{this}}</option>
+						{{/numFromLoop}}
 					{{/select}}
 				</select>
 			</div>
@@ -165,14 +160,14 @@
 
 			<!-- description -->
 			<div class="infobox">
-				<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 				<div class="clearareaBox">
-					{{#if canEdit}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
-					{{else}}
-						<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
-					{{/if}}
+					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 				</div>
+				{{#if canEdit}}
+					{{editor data.description target="system.description" button=false owner=owner editable=true}}
+				{{else}}
+					<div class="headlineNormal textarea">{{{data.system.description}}}</div>
+				{{/if}}
 			</div>
 
 		</section>

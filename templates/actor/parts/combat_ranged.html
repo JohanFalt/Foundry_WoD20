@@ -1,106 +1,109 @@
 <div class="headlineRow splatFont">
     <div class="clearareaBox">
         <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.combat.ranged'}}" aria-hidden="true" data-itemtype="Weapon" data-type="ranged"></i></div>
-        <div class="pullLeft largeBox">{{localize "wod.labels.combat.ranged"}}</div>        
+        <div class="pullLeft combat-headlineLargeBox headlineList">{{localize "wod.labels.combat.ranged"}}</div>     
+        <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.attr"}}</div>
+        <div class="pullLeft combat-abilityBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
+        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.acc"}}</div>
+        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.diff"}}</div>
+        <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.damage"}}</div>
+        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.range"}}</div>
+        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.rate"}}</div>
+        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.clip"}}</div>   
     </div>
 </div>
 
-<div>
-    <!-- <div class="pullLeft combat-namebox headlineList">{{localize "wod.combat.weapon.weapon"}}</div> -->
-    <div class="pullLeft combat-namebox headlineList">&nbsp;</div>
-    <div class="pullLeft combat-smallBox headlineList splatFont">{{localize "wod.combat.weapon.attr"}}</div>
-    <div class="pullLeft combat-abilityBox headlineList splatFont">{{localize "wod.combat.weapon.ability"}}</div>
-    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.acc"}}</div>
-    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.diff"}}</div>
-    <div class="pullLeft combat-smallBox headlineList splatFont">{{localize "wod.combat.weapon.damage"}}</div>
-    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.range"}}</div>
-    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.rate"}}</div>
-    <div class="pullLeft combat-valueBox headlineList splatFont">{{localize "wod.combat.weapon.clip"}}</div>
-    <!--<div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.mode.mode"}}</div>-->
-</div>  
+<div class="clearareaBox">
 
-{{#each actor.system.listdata.combat.rangedWeapons as |item id|}}
+    {{#each actor.system.listdata.combat.rangedWeapons as |item id|}}
 
-<div class="clearareaBox row">
-    {{#if item.system.attack.isrollable}}
-        <div class="weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i><!-- <img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.dice.rollattack"}}"> --></div>
-        <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
-            data-type="{{../config.sheettype.mortal}}"
-            data-object="Ranged"
-            data-rollitem="true" 
-            data-itemid="{{item._id}}">            
-            {{item.name}}
-        </div>
-    {{else}}
-        {{#if item.system.damage.isrollable}}
-            <div class="weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i><!-- <img class="rolldice" src="systems/worldofdarkness/assets/img/dice/d10.svg" title="{{localize "wod.dice.rolldamage"}}"> --></div>
-            <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.damage.isrollable}}vrollable{{/if}}" 
-                data-type="{{../config.sheettype.mortal}}"
-                data-object="Damage"
-                data-rollitem="true" 
-                data-itemid="{{item._id}}">
-                {{item.name}}
-            </div>
-        {{else}}
-            <div class="weapon-rolliconbox">&nbsp;</div>
-            <div class="pullLeft combat-largeBox headlineNormal">{{item.name}}</div>
-        {{/if}}
-    {{/if}}
-    <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.system.attack.attribute)}}</div>
-    <div class="pullLeft combat-abilityBox headlineNormal">
-        {{#if (eq item.system.attack.ability "custom")}}
-            {{shorten (getAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
-        {{else}}
-            {{shorten (localize (getAbility item.system.attack.ability)) 10}}
-        {{/if}}
-    </div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">
-        {{#if (eq item.system.difficulty "-1")}}
-            {{localize "wod.labels.varies"}}
-        {{else}}
-            {{item.system.difficulty}}
-        {{/if}}
-    </div>
-    <div class="pullLeft combat-smallBox headlineNormal">
-        {{#if item.system.damage.isrollable}}
-        {{captilizeFirst (convertDamageCode item.system.damage.attribute item.system.damage.bonus item.system.damage.type)}}
-        {{else}}
-        &nbsp;
-        {{/if}}
-    </div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.range}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.rate}}</div>
-    <div class="pullLeft combat-valueBox headlineNormal">{{item.system.clip.max}}</div>
-    <!--<div class="pullLeft combat-valueBox headlineNormal">
-        {{#if item.system.mode.hasreload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.system.mode.hasburst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.system.mode.hasfullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.system.mode.hasspray}}{{localize "wod.combat.mode.spray"}}{{/if}}
-    </div>-->
-    <div class="gift-iconbox">
-        <div class="pullLeft headlineNormal {{#if (ne item.system.description "")}}pointer tooltip{{/if}}">
-            {{#if (ne item.system.description "")}}
-                <i class="icon fa-solid fa-memo"></i>
-                <span class="tooltiptext">                
-                    <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}                
-                </span>
+        <div class="clearareaBox item-row-area">
+            {{#if item.system.attack.isrollable}}
+                <div class="pullLeft weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i></div>
+                <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
+                    data-type="{{../config.sheettype.mortal}}"
+                    data-object="Ranged"
+                    data-rollitem="true" 
+                    data-itemid="{{item._id}}"
+                    title="{{item.name}}">            
+                    {{shorten item.name 18}}
+                </div>
             {{else}}
-                <i class="icon fa-solid fa-memo"></i>
+                {{#if item.system.damage.isrollable}}
+                    <div class="pullLeft weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i></div>
+                    <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.damage.isrollable}}vrollable{{/if}}" 
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="Damage"
+                        data-rollitem="true" 
+                        data-itemid="{{item._id}}"
+                        title="{{item.name}}">
+                        {{shorten item.name 18}}
+                    </div>
+                {{else}}
+                    <div class="pullLeft  weapon-rolliconbox-empty">&nbsp;</div>
+                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}</div>
+                {{/if}}
             {{/if}}
-        </div>        
-        <div class="pullLeft">
-            <a class="send-chat" 
-                title="{{localize 'wod.labels.send'}}" 
-                data-type="Weapon" 
-                data-item-id="{{item._id}}" 
-                data-headline="<h2>{{item.name}}</h2>" 
-                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                <span class='chatt-text'>{{item.system.description}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+            <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.system.attack.attribute)}}&nbsp;</div>
+            <div class="pullLeft combat-abilityBox headlineNormal">
+                {{#if (eq item.system.attack.ability "custom")}}
+                    {{shorten (getAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
+                {{else}}
+                    {{shorten (localize (getAbility item.system.attack.ability)) 10}}
+                {{/if}}&nbsp;
+            </div>
+            <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>
+            <div class="pullLeft combat-valueBox headlineNormal">
+                {{#if (eq item.system.difficulty "-1")}}
+                    {{localize "wod.labels.varies"}}
+                {{else}}
+                    {{item.system.difficulty}}
+                {{/if}}
+            </div>
+            <div class="pullLeft combat-smallBox headlineNormal">
+                {{#if item.system.damage.isrollable}}
+                {{captilizeFirst (convertDamageCode item.system.damage.attribute item.system.damage.bonus item.system.damage.type)}}
+                {{else}}
+                &nbsp;
+                {{/if}}
+            </div>
+            <div class="pullLeft combat-valueBox headlineNormal">{{item.system.range}}</div>
+            <div class="pullLeft combat-valueBox headlineNormal">{{item.system.rate}}</div>
+            <div class="pullLeft combat-valueBox headlineNormal">{{item.system.clip.max}}</div>
+            <!--<div class="pullLeft combat-valueBox headlineNormal">
+                {{#if item.system.mode.hasreload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.system.mode.hasburst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.system.mode.hasfullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.system.mode.hasspray}}{{localize "wod.combat.mode.spray"}}{{/if}}
+            </div>-->
+            {{#if (eq ../locked false)}}
+            <div class="pullRight">                
+                <a class="item-edit" title="{{localize "wod.labels.edit.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                {{#if (eq ../locked false)}}                                                    
+                    <a class="item-delete" title="{{localize "wod.labels.remove.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                {{/if}}
+            </div>
+            {{else}}
+                {{#if (ne item.system.description "")}}
+                    <div class="pullRight">
+                        <a class="send-chat" 
+                            title="{{localize 'wod.labels.send'}}" 
+                            data-type="Weapon" 
+                            data-item-id="{{item._id}}" 
+                            data-headline="{{item.name}}"
+                            data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                    </div>
+                    <div class="pullRight pointer headlineNormal tooltip">                    
+                        <i class="icon fa-solid fa-memo"></i>
+                        <span class="tooltiptext">
+                            <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
+                        </span>
+                    </div>
+                    
+                {{else}}
+                    <div class="pullLeft"><i class="icon fa-solid fa-memo transparent"></i></div>
+                {{/if}}
+            {{/if}}
 
-            {{#if (eq ../locked false)}}                                
-                <a class="item-edit" title="{{localize "wod.labels.edit.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                <a class="item-delete" title="{{localize "wod.labels.remove.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-            {{/if}}
         </div>
-    </div>
-</div>
 
-{{/each}}
+    {{/each}}
+
+</div>

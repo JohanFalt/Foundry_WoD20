@@ -1,5 +1,9 @@
 import ActionHelper from "../scripts/action-helpers.js";
 import CreateHelper from "../scripts/create-helpers.js";
+import BioHelper from "../scripts/bio-helpers.js";
+import AbilityHelper from "../scripts/ability-helpers.js";
+import AttributeHelper from "../scripts/attribute-helpers.js";
+import SphereHelper from "../scripts/sphere-helpers.js";
 import ItemHelper from "../scripts/item-helpers.js";
 import MessageHelper from "../scripts/message-helpers.js";
 
@@ -11,7 +15,7 @@ export class MortalActorSheet extends ActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["mortal"],
+			classes: ["wod20 wod-sheet mortal"],
 			template: "systems/worldofdarkness/templates/actor/mortal-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -24,7 +28,7 @@ export class MortalActorSheet extends ActorSheet {
 				initial: "attributes",
 			}]
 		});
-	}
+	}	
   
 	constructor(actor, options) {
 		super(actor, options);
@@ -39,8 +43,7 @@ export class MortalActorSheet extends ActorSheet {
 	
 	/** @override */
 	get template() {
-		console.log("WoD | Mortal Sheet get template");
-		
+		console.log("WoD | Mortal Sheet get template");		
 		return "systems/worldofdarkness/templates/actor/mortal-sheet.html";
 	}
 	
@@ -53,25 +56,25 @@ export class MortalActorSheet extends ActorSheet {
 				actorData.system.settings.iscreated = true;		
 				actorData.system.settings.version = game.data.system.version;
 				
-				await CreateHelper.SetMortalAbilities(actorData);
+				CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
-
-				await this.actor.update(actorData);
 			}	 	
 		}
 		else {
 			if (!this.actor.limited) {
-				await ActionHelper.handleCalculations(actorData);
-				await this.actor.update(actorData);
+				await ActionHelper.handleCalculations(actorData);				
 			}
 		}	
+
+		await this.actor.update(actorData);
 
 		console.log("WoD | Mortal Sheet getData");
 		const data = await super.getData();	
 
 		CONFIG.wod.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
 		
-		data.config = CONFIG.wod;				
+		data.config = CONFIG.wod;	
+		data.game = game.wod;			
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
 
@@ -176,9 +179,20 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".health > .resource-counter > .resource-value-step")
 			.on('contextmenu', this._onSquareCounterClear.bind(this));
 
+		// set era Dark Ages
 		html
 			.find(".sheet_darkages")
 			.click(this._setDarkAges.bind(this));	
+
+		// set era Modern
+		html
+			.find(".sheet_modern")
+			.click(this._setModern.bind(this));
+
+		// set era Victorian
+		html
+			.find(".sheet_victorian")
+			.click(this._setVictorian.bind(this));			
 
 		// Rollable stuff
 		html
@@ -221,10 +235,121 @@ export class MortalActorSheet extends ActorSheet {
 	}
 
 	async _setDarkAges(event) {
+		event.preventDefault();
+
+		if (this.actor.system.settings.era == CONFIG.wod.era.darkages) {
+			return;
+		}
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+		let found = false;
+
 		const actorData = duplicate(this.actor);
-		await CreateHelper.SetVampireDarkagesAbilities(actorData, this.actor);
-		this.actor.update(actorData);
+
+		if (dataset.type == CONFIG.wod.sheettype.vampire) {
+			found = true;
+			await CreateHelper.SetVampireAbilities(actorData, this.actor, "darkages");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+			found = true;
+			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "darkages");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.mortal) {
+			found = true;
+			CreateHelper.SetMortalAbilities(actorData, this.actor, "darkages");
+		}
+		
+		if (found) {
+			actorData.system.settings.era = CONFIG.wod.era.darkages;
+			await this.actor.update(actorData);
+			ui.notifications.info(`LANG: Sheet set to Dark Ages era!`, {permanent: false});
+		}
 	}
+
+	async _setVictorian(event) {
+		event.preventDefault();
+
+		if (this.actor.system.settings.era == CONFIG.wod.era.victorian) {
+			return;
+		}
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+		let found = false;
+
+		const actorData = duplicate(this.actor);
+
+		if (dataset.type == CONFIG.wod.sheettype.vampire) {
+			found = true;
+			await CreateHelper.SetVampireAbilities(actorData, this.actor, "victorian");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+			found = true;
+			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "victorian");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.mage) {
+			found = true;
+			await CreateHelper.SetMageAbilities(actorData, "victorian");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.mortal) {
+			found = true;
+			CreateHelper.SetMortalAbilities(actorData, this.actor, "victorian");
+		}
+		
+		if (found) {
+			actorData.system.settings.era = CONFIG.wod.era.victorian;
+
+			await this.actor.update(actorData);
+			ui.notifications.info(`LANG: Sheet set to Victorian era!`, {permanent: false});
+		}
+	}
+
+	async _setModern(event) {
+		event.preventDefault();
+
+		if (this.actor.system.settings.era == CONFIG.wod.era.modern) {
+			return;
+		}
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+		let found = false;
+
+		const actorData = duplicate(this.actor);
+
+		if (dataset.type == CONFIG.wod.sheettype.vampire) {
+			found = true;
+			await CreateHelper.SetVampireAbilities(actorData, this.actor, "modern");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+			found = true;
+			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.mage) {
+			found = true;
+			await CreateHelper.SetMageAbilities(actorData, "modern");
+		}
+
+		if (dataset.type == CONFIG.wod.sheettype.mortal) {
+			found = true;
+			CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
+		}
+		
+		if (found) {
+			actorData.system.settings.era = CONFIG.wod.era.modern;
+
+			await this.actor.update(actorData);
+			ui.notifications.info(`LANG: Sheet set to Modern era!`, {permanent: false});
+		}
+	}	
 
 	async _onDropItemCreate(itemData) {
 		if ((itemData.type == "Power") && (itemData.system.parentid != "")) {
@@ -270,9 +395,6 @@ export class MortalActorSheet extends ActorSheet {
 			var type = e.value;
 
 			await CreateHelper.SetShifterAttributes(actorData, type);
-			await ActionHelper.handleCalculations(actorData);
-			await this.actor.update(actorData);
-			return;
 		}
 		else if (source == "frenzy") {
 			let value = 0;
@@ -310,6 +432,7 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		await ActionHelper.handleCalculations(actorData);
+
 		await this.actor.update(actorData);
 		this.render();
 	}
@@ -371,7 +494,7 @@ export class MortalActorSheet extends ActorSheet {
 		const type = dataset.switchtype;
 
 		if (source == "ability") {
-			actorData.system.abilities[type][ability].isvisible = !actorData.system.abilities[type][ability].isvisible;
+			actorData.system.abilities[ability].isvisible = !actorData.system.abilities[ability].isvisible;
 		}
 		if (source == "advantages") {
 			actorData.system.settings[type] = !actorData.system.settings[type];
@@ -581,11 +704,10 @@ export class MortalActorSheet extends ActorSheet {
    */
 	async _onItemCreate(event) {
 		event.preventDefault();
+		const type = $(event.currentTarget).data("type");
+		const itemtype = $(event.currentTarget).data("itemtype");
 
-		const header = event.currentTarget;
-		const type = header.dataset.type;
-		const itemtype = header.dataset.itemtype;
-		let itemData;
+		let itemData;		
 
 		if (itemtype == "Armor") {
 			itemData = {
@@ -631,6 +753,16 @@ export class MortalActorSheet extends ActorSheet {
 					system: {
 						level: 1,
 						type: "wod.types.bloodbound"
+					}
+				};
+			}
+			if (type == "boon") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.boon")}`,
+					type: itemtype,
+					system: {
+						level: "",
+						type: "wod.types.boon"
 					}
 				};
 			}
@@ -700,7 +832,7 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 		if (itemtype == "Power") {
-			const level = parseInt(header.dataset.level);
+			const level = $(event.currentTarget).data("level");
 
 			if (type == "gift") {
 				itemData = {
@@ -734,7 +866,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "disciplinepower") {
-				const id = header.dataset.parentid;
+				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.disciplinepower")}`,
@@ -758,7 +890,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "disciplinepathpower") {
-				const id = header.dataset.parentid;
+				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.disciplinepathpower")}`,
@@ -772,7 +904,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "ritual") {
-				const source = header.dataset.game;
+				const source = $(event.currentTarget).data("game");
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.ritual")}`,
@@ -795,7 +927,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "edgepower") {
-				const id = header.dataset.parentid;
+				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.edgepower")}`,
@@ -819,7 +951,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "artpower") {
-				const id = header.dataset.parentid;
+				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.artpower")}`,
@@ -828,6 +960,9 @@ export class MortalActorSheet extends ActorSheet {
 						level: 1,
 						game: "changeling",
 						parentid: id,
+						property: {
+							arttype: ""
+						},
 						type: "wod.types.artpower"
 					}
 				};
@@ -843,7 +978,7 @@ export class MortalActorSheet extends ActorSheet {
 				};
 			}
 			if (type == "lorepower") {
-				const id = header.dataset.parentid;
+				const id = $(event.currentTarget).data("parentid");
 
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.lorepower")}`,
@@ -853,6 +988,15 @@ export class MortalActorSheet extends ActorSheet {
 						game: "demon",
 						parentid: id,
 						type: "wod.types.lorepower"
+					}
+				};
+			}
+			if (type == "power") {
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.power")}`,
+					type: itemtype,
+					system: {
+						type: "wod.types.power"
 					}
 				};
 			}
@@ -867,37 +1011,16 @@ export class MortalActorSheet extends ActorSheet {
 		}
 		if (itemtype == "Trait") {
 			if (type == "talentability") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.ability")}`,
-					type: itemtype,
-					system: {
-						label: `${game.i18n.localize("wod.labels.new.ability")}`,
-						type: "wod.types.talentsecondability",
-						max: parseInt(this.actor.system.settings.abilities.defaultmaxvalue)
-					}
-				};
+				await AbilityHelper.CreateAbility(this.actor, "wod.types.talentsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				return;
 			}
 			if (type == "skillability") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.ability")}`,
-					type: itemtype,
-					system: {
-						label: `${game.i18n.localize("wod.labels.new.ability")}`,
-						type: "wod.types.skillsecondability",
-						max: parseInt(this.actor.system.settings.abilities.defaultmaxvalue)
-					}
-				};
+				await AbilityHelper.CreateAbility(this.actor, "wod.types.skillsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				return;
 			}
 			if (type == "knowledgeability") {
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.ability")}`,
-					type: itemtype,
-					system: {
-						label: `${game.i18n.localize("wod.labels.new.ability")}`,
-						type: "wod.types.knowledgesecondability",
-						max: parseInt(this.actor.system.settings.abilities.defaultmaxvalue)
-					}
-				};
+				await AbilityHelper.CreateAbility(this.actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				return;
 			}
 			if (type == "resonance") {
 				itemData = {
@@ -921,7 +1044,8 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 		if (itemtype == "Bonus") {
-			const id = header.dataset.parentid;
+			//const id = header.dataset.parentid;
+			const id = $(event.currentTarget).data("parentid");
 
 			itemData = {
 				name: `${game.i18n.localize("wod.labels.new.bonus")}`,
@@ -968,7 +1092,27 @@ export class MortalActorSheet extends ActorSheet {
 		event.preventDefault();
         event.stopPropagation();
 
+		const itemtype = $(event.currentTarget).data("type");
 		const itemId = $(event.currentTarget).data("item-id");
+
+		if (itemtype == "Bio") {
+			BioHelper.EditBio(event, this.actor);
+			return;
+		}
+		if (itemtype == "Attribute") {
+			AttributeHelper.EditAttribute(event, this.actor);
+			return;
+		}
+		if (itemtype == "Ability") {
+			AbilityHelper.EditAbility(event, this.actor);
+			return;
+		}
+		if (itemtype == "Sphere") {
+			SphereHelper.EditSphere(event, this.actor);
+			return;
+		}
+		
+
 		const item = this.actor.getEmbeddedDocument("Item", itemId);		
 		item.sheetType = this.actor.type;
 
@@ -1089,12 +1233,36 @@ export class MortalActorSheet extends ActorSheet {
 		}
 	}
 
-	_onSendChat(event) {
+	async _onSendChat(event) {
 		const element = event.currentTarget;
-		const message = element.dataset.message || "";
 		const headline = element.dataset.headline || "";
+		const description = element.dataset.description || "";;
+		const system = element.dataset.system || "";;
 
-		MessageHelper.printMessage(headline, message, this.actor);
+		//MessageHelper.printMessage(headline, message, this.actor);
+
+		const templateData = {
+			data: {
+				actor: this.actor,
+				type: "send",
+				action: headline,
+				description: description,
+				system: system
+			}
+		};
+	
+		// Render the chat card template
+		const template = `systems/worldofdarkness/templates/dialogs/roll-template.html`;
+		const html = await renderTemplate(template, templateData);
+	
+		const chatData = {
+			type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+			content: html,
+			speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+			rollMode: game.settings.get("core", "rollMode")        
+		};
+		ChatMessage.applyRollMode(chatData, "roll");
+		ChatMessage.create(chatData);
 	}
 
 	async _updateSecondaryAbility(itemId, value) {
@@ -1169,14 +1337,20 @@ export class MortalActorSheet extends ActorSheet {
 		// attribute or ability
 		else {			
 			if (area == "abilities") {
-				const abilityType = fields[2];
+				const abilityType = fields[1];
 
-				if (actorData.system[area][ability][abilityType].value == value) {
+				/* if (actorData.system[area][ability][abilityType].value == value) {
 					actorData.system[area][ability][abilityType].value = parseInt(actorData.system[area][ability][abilityType].value) - 1;
 				}
 				else {
 					actorData.system[area][ability][abilityType].value = parseInt(value);
-				}				
+				} */		
+				if (actorData.system[area][abilityType].value == value) {
+					actorData.system[area][abilityType].value = parseInt(actorData.system[area][abilityType].value) - 1;
+				}
+				else {
+					actorData.system[area][abilityType].value = parseInt(value);
+				}		
 			}
 			else if (area == "attributes") {
 
@@ -1196,8 +1370,6 @@ export class MortalActorSheet extends ActorSheet {
 		await this.actor.update(actorData);
 	}		
 }
-
-
 
 function parseCounterStates(states) {
 	return states.split(",").reduce((obj, state) => {

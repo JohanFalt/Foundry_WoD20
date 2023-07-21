@@ -1,251 +1,242 @@
-<div class="sheet-area">
-	<div class="clearareaBox area-box">
+<div class="sheet-area">	
 
-		<div class="top-area">
-			<div class="top-side">
-				{{#if locked}}
-					<img class="profile-img" src="{{actor.img}}" />	
+	<div class="clearareaBox">
+
+		<div class="pullLeft" style="display: flex;">
+			{{#if locked}}
+				<img class="profile-img {{#if (eq actor.img 'icons/svg/mystery-man.svg')}}defaultimage{{/if}}" src="{{actor.img}}" />	
+			{{else}}
+				{{#if userpermissions.changeActorImage}}
+					<img class="profile-img {{#if (eq actor.img 'icons/svg/mystery-man.svg')}}defaultimage{{/if}} pointer" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
 				{{else}}
-					{{#if userpermissions.changeActorImage}}
-						<img class="profile-img pointer" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
-					{{else}}
-						<img class="profile-img" src="{{actor.img}}" />	
-					{{/if}}
+					<img class="profile-img {{#if (eq actor.img 'icons/svg/mystery-man.svg')}}defaultimage{{/if}}" src="{{actor.img}}" />	
 				{{/if}}
-			</div>
+			{{/if}}
+		</div>
 
-			<div class="top-center top-headline splatFont centerText">{{actor.name}}</div>
+		<div class="pullLeft" style="display: flex; width: 320px;">
 
-			<div class="top-side top-sidetext centerText">
-				{{#if (eq actor.type config.sheettype.changingbreed)}}
-					{{#if (ne data.system.changingbreed "")}}
-						{{captilize data.system.changingbreed}}
+			<div class="pullLeft area-box">
+				<div class="bioInformationArea floating-label-group">
+					{{#if locked}}
+						<input class="sheet-infoValues" type="text" value="{{actor.name}}" autocomplete="off" autofocus required />
 					{{else}}
-						{{captilize actor.type}}
+						<input class="sheet-infoValues editable" name="name" type="text" value="{{actor.name}}" data-dtype="String" autocomplete="off" autofocus required />
 					{{/if}}
-				{{else}}
-					{{captilize actor.type}}
-				{{/if}}
-			</div>				
-		</div>
-	</div>
-</div>
+					<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+				</div>
 
-<div class="sheet-area">
-
-	{{#if (eq locked false)}}
-		<div class="clearareaBox area-box">
-			<label class="headlineText headlineBio splatFont" for="actor.name">{{localize 'wod.bio.name'}}</label>
-			<div class="pullLeft bioInformationArea">
-				<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="name" type="text" value="{{actor.name}}" data-dtype="String" {{#if locked}}readonly{{/if}} />
-			</div>
-		</div>
-	{{/if}}
-
-	{{#if graphicsettings.useLinkPlatform}}
-		{{#if (ne actor.type config.sheettype.spirit)}}
-			<div class="clearareaBox area-box">
-				<div>
-					<label class="headlineText headlineBio splatFont" for="actor.worldanvil">{{localize 'wod.bio.worldanvil'}}</label>
-					<div class="pullLeft bioInformationArea">
-						{{#if locked}}
-							{{#if (ne data.system.worldanvil "")}}
-								<a href="{{data.system.worldanvil}}" target="_blank">{{localize 'wod.bio.worldanvillink'}}</a>
+				{{#if (ne actor.type config.sheettype.changeling)}}
+					{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+						<div class="bioInformationArea floating-label-group">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{data.system.nature}}" autocomplete="off" autofocus required />
 							{{else}}
-								{{localize 'wod.bio.noworldanvillink'}}
+								<input class="sheet-infoValues editable" name="system.nature" type="text" value="{{data.system.nature}}" data-name="data.system.nature" data-dtype="String" autocomplete="off" autofocus required />
 							{{/if}}
+							<span class="floating-label">{{localize 'wod.bio.nature'}}</span>
+						</div>
+					{{/if}}
+										
+					<div class="bioInformationArea floating-label-group">
+						{{#if locked}}
+							<input class="sheet-infoValues" type="text" value="{{data.system.demeanor}}" autocomplete="off" autofocus required />
 						{{else}}
-							<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.worldanvil" type="text" value="{{data.system.worldanvil}}" data-name="data.system.worldanvil" data-dtype="String" />
+							<input class="sheet-infoValues editable" name="system.demeanor" type="text" value="{{data.system.demeanor}}" data-name="data.system.demeanor" data-dtype="String" autocomplete="off" autofocus required />
 						{{/if}}
+						<span class="floating-label">{{localize 'wod.bio.demeanor'}}</span>
 					</div>
-				</div>
-			</div>
-		{{/if}}
-	{{/if}}
+					
+				{{/if}}
+			</div>		
 
-	{{#if (ne actor.type config.sheettype.changeling)}}
-		{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-			<div class="clearareaBox area-box">
-				<div>
-					<label class="headlineText headlineBio splatFont" for="system.nature">{{localize 'wod.bio.nature'}}</label>
-					<div class="pullLeft bioInformationArea">
-						<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.nature" type="text" value="{{data.system.nature}}" data-name="data.system.nature" data-dtype="String" {{#if locked}} readonly {{/if}} />
+			{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+				<div class="pullLeft area-box">
+					<div class="bioInformationArea floating-label-group">
+						{{#if locked}}
+							<input class="sheet-infoValues" type="text" value="{{data.system.concept}}" autocomplete="off" autofocus required />
+						{{else}}
+							<input class="sheet-infoValues editable" name="system.concept" type="text" value="{{data.system.concept}}" data-name="data.system.concept" data-dtype="String" autocomplete="off" autofocus required />
+						{{/if}}
+						<span class="floating-label">{{localize 'wod.bio.concept'}}</span>
 					</div>
+					
+					<div class="bioInformationArea floating-label-group">
+						{{#if locked}}
+							<input class="sheet-infoValues" type="text" value="{{data.system.derangement}}" autocomplete="off" autofocus required />
+						{{else}}
+							<input class="sheet-infoValues editable" name="system.derangement" type="text" value="{{data.system.derangement}}" data-name="data.system.derangement" data-dtype="String" autocomplete="off" autofocus required />
+						{{/if}}
+						<span class="floating-label">{{localize 'wod.bio.derangement'}}</span>
+					</div>		
+
+					{{#if (eq actor.type config.sheettype.changingbreed)}}
+
+						<div class="bioInformationArea floating-label-group">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{data.system.changingbreed}}" autocomplete="off" autofocus required />
+							{{else}}
+								<select class="sheet-infoValues inputdata editable" name="system.changingbreed" id="system.changingbreed" data-source="shiftertype">
+									{{#select data.system.changingbreed}}
+										<option value="">- {{localize 'wod.labels.select'}} -</option>
+										<option value="Ajaba">{{localize 'wod.bio.feraname.ajaba'}}</option>
+										<option value="Ananasi">{{localize 'wod.bio.feraname.ananasi'}}</option>
+										<option value="Bastet">{{localize 'wod.bio.feraname.bastet'}}</option>
+										<option value="Corax">{{localize 'wod.bio.feraname.corax'}}</option>
+										<option value="Gurahl">{{localize 'wod.bio.feraname.gurahl'}}</option>				
+										<option value="Kitsune">{{localize 'wod.bio.feraname.kitsune'}}</option>	
+										<option value="Mokolé">{{localize 'wod.bio.feraname.mokole'}}</option>
+										<option value="Nagah">{{localize 'wod.bio.feraname.nagah'}}</option>
+										<option value="Nuwisha">{{localize 'wod.bio.feraname.nuwisha'}}</option>
+										<option value="Ratkin">{{localize 'wod.bio.feraname.ratkin'}}</option>
+										<option value="Rokea">{{localize 'wod.bio.feraname.rokea'}}</option>
+									{{/select}}
+								</select>
+							{{/if}}
+							<span class="floating-label">{{localize 'wod.bio.changingbreed'}}</span>
+						</div>
+					
+					{{/if}}
+
 				</div>
-			</div>
-		{{/if}}
+			{{/if}}
 
-		<div class="clearareaBox area-box">
-			<div>
-				<label class="headlineText headlineBio splatFont" for="data.demeanor">{{localize 'wod.bio.demeanor'}}</label>
-					<div class="pullLeft bioInformationArea">
-					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.demeanor" type="text" value="{{data.system.demeanor}}" data-name="data.system.demeanor" data-dtype="String" {{#if locked}} readonly {{/if}} />
-				</div>
-			</div>
-		</div>
-		
-	{{/if}}
-
-	{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-		<div class="clearareaBox area-box">
-			<div>
-				<label class="headlineText headlineBio splatFont" for="data.concept">{{localize 'wod.bio.concept'}}</label>
-				<div class="pullLeft bioInformationArea">
-					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.concept" type="text" value="{{data.system.concept}}" data-name="data.system.concept" data-dtype="String" {{#if locked}} readonly {{/if}} />
-				</div>
-			</div>
-		</div>
-	{{/if}}
-
-	{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-		<div class="clearareaBox area-box">
-			<div>
-				<label class="headlineText headlineBio splatFont" for="data.derangement">{{localize 'wod.bio.derangement'}}</label>
-				<div class="pullLeft bioInformationArea">
-					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.derangement" type="text" value="{{data.system.derangement}}" data-name="data.system.derangement" data-dtype="String" {{#if locked}} readonly {{/if}} />
-				</div>
-			</div>
-		</div>
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.vampire)}}
-
-		{{~> "systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html"}}
-
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.mage)}}
-
-		{{> "systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html"}}
-
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.changeling)}}
-
-		{{~> "systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html"}}
-
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.hunter)}}
-
-		{{~> "systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html"}}
-
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.demon)}}
-
-		{{> "systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html"}}
-
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.werewolf)}}
-
-		{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}
-
-	{{/if}}
-
-	{{#if (eq actor.type config.sheettype.changingbreed)}}
-
-		<div class="clearareaBox area-box">
-			<div>
-				<label class="headlineText headlineBio splatFont" for="system.changingbreed">{{localize 'wod.bio.changingbreed'}}</label>
-				<div class="pullLeft bioInformationArea">
-					<!-- <select class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.changingbreed" data-name="data.system.changingbreed" data-dtype="String" {{#if locked}}disabled{{/if}}> -->
-					<select class="sheet-infoValues inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.changingbreed" id="system.changingbreed" data-source="shiftertype" {{#if locked}}disabled{{/if}}>
-						{{#select data.system.changingbreed}}
-							<option value="">- {{localize 'wod.labels.select'}} -</option>
-							<option value="Ajaba">{{localize 'wod.bio.feraname.ajaba'}}</option>
-							<option value="Ananasi">{{localize 'wod.bio.feraname.ananasi'}}</option>
-							<option value="Bastet">{{localize 'wod.bio.feraname.bastet'}}</option>
-							<option value="Corax">{{localize 'wod.bio.feraname.corax'}}</option>
-							<option value="Gurahl">{{localize 'wod.bio.feraname.gurahl'}}</option>				
-							<option value="Kitsune">{{localize 'wod.bio.feraname.kitsune'}}</option>	
-							<option value="Mokolé">{{localize 'wod.bio.feraname.mokole'}}</option>
-							<option value="Nagah">{{localize 'wod.bio.feraname.nagah'}}</option>
-							<option value="Nuwisha">{{localize 'wod.bio.feraname.nuwisha'}}</option>
-							<option value="Ratkin">{{localize 'wod.bio.feraname.ratkin'}}</option>
-							<option value="Rokea">{{localize 'wod.bio.feraname.rokea'}}</option>
-						{{/select}}
-					</select>
-				</div>
-			</div>
 		</div>
 
-		{{#if (eq data.system.changingbreed "Ajaba")}}
-			{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ajaba_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Ananasi")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ananasi_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Bastet")}}
-			{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_bastet_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Corax")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_corax_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Gurahl")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_gurahl_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Kitsune")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_kitsune_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Mokolé")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_mokole_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Nagah")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_nagah_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Nuwisha")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_nuwisha_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Ratkin")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html"}}
-		{{/if}}
-		{{#if (eq data.system.changingbreed "Rokea")}}
-			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html"}}
+		{{#if graphicsettings.useLinkPlatform}}
+			{{#if (ne actor.type config.sheettype.spirit)}}
+				<!-- <div class="pullLeft area-box">
+					<div>
+						<label class="headlineText headlineBio splatFont" for="actor.worldanvil">{{localize 'wod.bio.worldanvil'}}</label>
+						<div class="pullLeft bioInformationArea">
+							{{#if locked}}
+								{{#if (ne data.system.worldanvil "")}}
+									<a href="{{data.system.worldanvil}}" target="_blank">{{localize 'wod.bio.worldanvillink'}}</a>
+								{{else}}
+									{{localize 'wod.bio.noworldanvillink'}}
+								{{/if}}
+							{{else}}
+								<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.worldanvil" type="text" value="{{data.system.worldanvil}}" data-name="data.system.worldanvil" data-dtype="String" />
+							{{/if}}
+						</div>
+					</div>
+				</div> -->
+			{{/if}}
 		{{/if}}
 
-	{{/if}}	
+		{{#if (eq actor.type config.sheettype.vampire)}}
+
+			{{~> "systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.mage)}}
+
+			{{> "systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html"}}
+
+			{{~> "systems/worldofdarkness/templates/actor/parts/mage/focus.html"}}
+				
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.changeling)}}
+
+			{{~> "systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.hunter)}}
+
+			{{~> "systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.demon)}}
+
+			{{> "systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.werewolf)}}
+
+			{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_werewolf_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.changingbreed)}}		
+
+				{{#if (eq data.system.changingbreed "Ajaba")}}
+					{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ajaba_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Ananasi")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ananasi_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Bastet")}}
+					{{~> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_bastet_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Corax")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_corax_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Gurahl")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_gurahl_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Kitsune")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_kitsune_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Mokolé")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_mokole_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Nagah")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_nagah_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Nuwisha")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_nuwisha_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Ratkin")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html"}}
+				{{/if}}
+				{{#if (eq data.system.changingbreed "Rokea")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html"}}
+				{{/if}}
+
+		{{/if}}	
+
+	</div>
 	
 </div>
 
 <div class="sheet-area">
-	<div class="clearareaBox area-box">
-		<div>
-			<label class="headlineText headlineBio splatFont" for="data.appearance">{{localize 'wod.bio.appearance'}}</label>
-			<div class="clearareaBox">
-				{{#if locked}}
-					<div class="clearareaBox headlineNormal textarea">{{{actor.system.appearance}}}</div>
-				{{else}}
-					{{editor data.appearance target="system.appearance" button=false owner=owner editable=true}}
-				{{/if}}				
-			</div>
-		</div>
+
+	<div class="sheet-headline sheet-banner sheet-topbanner">&nbsp;</div>
+
+	<div class="area-box">
+
+		<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.appearance">{{localize 'wod.bio.appearance'}}</label></div>
+
+		{{#if locked}}
+			<div class="headlineNormal textarea">{{{actor.system.appearance}}}</div>
+		{{else}}
+			{{editor data.appearance target="system.appearance" button=false owner=owner editable=true}}
+		{{/if}}				
+	
+
+		{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+			<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.background">{{localize 'wod.bio.background'}}</label></div>
+
+			{{#if locked}}
+				<div class="headlineNormal textarea">{{{actor.system.background}}}</div>
+			{{else}}
+				{{editor data.background target="system.background" button=false owner=owner editable=true}}
+			{{/if}}				
+			
+		{{/if}}
+
+		{{#if isGM}}
+			<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.roleplaytip">{{localize 'wod.bio.tips'}}</label></div>
+			{{#if locked}}
+				<div class="headlineNormal textarea">{{{actor.system.roleplaytip}}}</div>
+			{{else}}
+				{{editor data.roleplaytip target="system.roleplaytip" button=false owner=owner editable=true}}
+			{{/if}}		
+		{{/if}}
 	</div>
-
-	{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-		<div class="clearareaBox area-box">
-			<label class="headlineText headlineBio splatFont" for="data.background">{{localize 'wod.bio.background'}}</label>
-			<div class="clearareaBox">
-				{{#if locked}}
-					<div class="clearareaBox headlineNormal textarea">{{{actor.system.background}}}</div>
-				{{else}}
-					{{editor data.background target="system.background" button=false owner=owner editable=true}}
-				{{/if}}				
-			</div>
-		</div>
-	{{/if}}
-
-	{{#if isGM}}
-		<div class="clearareaBox area-box">
-			<label class="headlineText headlineBio splatFont" for="data.background">LANG: Roleplay Tips</label>
-			<div class="clearareaBox">
-				{{#if locked}}
-					<div class="clearareaBox headlineNormal textarea">{{{actor.system.roleplaytip}}}</div>
-				{{else}}
-					{{editor data.roleplaytip target="system.roleplaytip" button=false owner=owner editable=true}}
-				{{/if}}				
-			</div>
-		</div>
-	{{/if}}
 </div>

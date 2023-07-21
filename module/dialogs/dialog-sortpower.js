@@ -119,7 +119,7 @@ export class DialogSortPower extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["sortdiscipline-dialog"],
+            classes: ["wod20 wod-dialog sortdiscipline-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-sortpower.html",
             closeOnSubmit: false,
             submitOnChange: true,

@@ -1,12 +1,6 @@
 <div class="sheet-area">    
-    <div class="clearareaBox area-box">
-        {{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
-        {{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}        
-        {{> "systems/worldofdarkness/templates/actor/parts/movement.html"}}
-    </div>
-</div>
+    <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.combat"}}</span></div>
 
-<div class="sheet-area">    
     <div class="clearareaBox area-box">
         {{> "systems/worldofdarkness/templates/actor/parts/combat_natural.html"}}
     </div>
@@ -35,17 +29,23 @@
         <div class="pullLeft combat-bottomarea">
             {{#if actor.system.settings.powers.hasgifts}}
                 {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
-            {{else}}
-                &nbsp;
             {{/if}}
+        </div>
+
+        <div class="pullLeft combat-bottomarea">
+            {{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
         </div>
 
         <div class="pullRight combat-bottomhealth">
             <div class="pullLeft healthBox" style="width: 100%;">
-
                 {{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
-
             </div>
         </div>
+    </div>
+</div>
+
+<div class="sheet-area">    
+    <div class="clearareaBox area-box">                
+        {{> "systems/worldofdarkness/templates/actor/parts/movement.html"}}
     </div>
 </div>

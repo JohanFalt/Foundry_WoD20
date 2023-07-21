@@ -1,72 +1,101 @@
-{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-    <div class="clearareaBox area-box">
-        <div>
-            <label class="headlineText headlineBio splatFont" for="data.sect">{{localize "wod.bio.vampire.sect"}}</label>
-            <div class="pullLeft bioInformationArea">
-                {{#if locked}}
-                    <input class="sheet-infoValues" type="text" value="{{data.system.sect}}" data-dtype="String" readonly />
+<div class="pullLeft" style="display: flex; width: 320px;">
+    <div class="pullLeft area-box">
+
+        {{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}                
+                    <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.sect 'custom')}}{{actor.system.custom.sect}}{{else}}{{localize data.system.sect}}{{/if}}" data-dtype="String" autofocus required />
                 {{else}}
-                    <input class="sheet-infoValues editable" name="system.sect" type="text" value="{{data.system.sect}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.vampire.camarilla'}}/{{localize 'wod.bio.vampire.sabbat'}}/{{localize 'wod.bio.vampire.anarch'}}/{{localize 'wod.bio.vampire.independent'}}/{{localize 'wod.bio.vampire.blackhand'}}/{{localize 'wod.bio.vampire.inconnu'}}">
+                    <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-name="data.system.sect" data-dtype="String">
+                        {{#select data.system.sect}}
+                            <option value="">- {{localize "wod.labels.select"}} -</option>
+                            <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}}{{/if}}</option>                            
+                            {{#each game.bio.sect as |sect id|}}
+                                <option value="{{sect}}">{{localize sect}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    {{#if (eq actor.system.sect "custom")}}
+                        <a class="pullLeft item-edit" title="LANG: Customize sect" data-type="Bio" data-name="{{localize "wod.bio.vampire.sect"}}" data-item-id="sect" data-custom="{{actor.system.custom.sect}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    {{/if}}
                 {{/if}}
+                <span class="floating-label">{{localize "wod.bio.vampire.sect"}}</span>
             </div>
-        </div>
-    </div>
-{{/if}}
+        {{/if}}
 
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.clan">{{localize "wod.bio.vampire.clan"}}</label>
-        <div class="pullLeft bioInformationArea">
+        <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" name="system.clan" type="text" value="{{data.system.clan}}" data-name="data.system.clan" data-dtype="String" readonly />
+                <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.clan 'custom')}}{{actor.system.custom.clan}}{{else}}{{localize data.system.clan}}{{/if}}" data-dtype="String" autofocus required />
             {{else}}
-                <input class="sheet-infoValues editable" name="system.clan" type="text" value="{{data.system.clan}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.vampire.caitiff'}}/{{localize 'wod.bio.vampire.assamite'}}/{{localize 'wod.bio.vampire.brujah'}}/{{localize 'wod.bio.vampire.set'}}/{{localize 'wod.bio.vampire.gangrel'}}/{{localize 'wod.bio.vampire.giovanni'}}/{{localize 'wod.bio.vampire.lasombra'}}/{{localize 'wod.bio.vampire.malkavian'}}/{{localize 'wod.bio.vampire.nosferatu'}}/{{localize 'wod.bio.vampire.ravnos'}}/{{localize 'wod.bio.vampire.toreador'}}/{{localize 'wod.bio.vampire.tremere'}}/{{localize 'wod.bio.vampire.tzimisce'}}/{{localize 'wod.bio.vampire.ventrue'}}">
+                <select class="sheet-infoValues {{#if (eq actor.system.clan 'custom')}}edit-property{{/if}} editable" name="system.clan" data-name="data.system.clan" data-dtype="String">
+                    {{#select data.system.clan}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="custom">{{#if (eq actor.system.custom.clan "")}}- {{localize "wod.labels.customclan"}} -{{else}}{{actor.system.custom.clan}}{{/if}}</option>                            
+                        {{#each game.bio.clan as |clan id|}}
+                            <option value="{{clan}}">{{localize clan}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                {{#if (eq actor.system.clan "custom")}}
+                    <a class="pullLeft item-edit" title="LANG: Customize clan" data-type="Bio" data-name="{{localize "wod.bio.vampire.clan"}}" data-item-id="clan" data-custom="{{actor.system.custom.clan}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                {{/if}}
             {{/if}}
+            <span class="floating-label">{{localize "wod.bio.vampire.clan"}}</span>
+        </div>
+
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.bloodline}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.bloodline" type="text" value="{{data.system.bloodline}}" data-name="data.system.bloodline" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.vampire.bloodline"}}</span>
         </div>
     </div>
-</div>
 
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.bloodline">{{localize "wod.bio.vampire.bloodline"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.bloodline" type="text" value="{{data.system.bloodline}}" data-name="data.system.bloodline" data-dtype="String" {{#if locked}} readonly {{/if}} />
+    <div class="pullLeft area-box">
+
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.weakness}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.weakness" type="text" value="{{data.system.weakness}}" data-name="data.system.weakness" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.vampire.weakness"}}</span>
         </div>
-    </div>
-</div>
 
-{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-    <div class="clearareaBox area-box" data-area="generation">
-        <div>
-            <label class="headlineText headlineBio splatFont" for="data.generation">{{localize "wod.bio.vampire.generation"}}</label>
-            <div class="pullLeft bioInformationArea">
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.sire}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.sire" type="text" value="{{data.system.sire}}" data-name="data.system.sire" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.vampire.sire"}}</span>
+        </div>
+
+        {{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+            <div class="bioInformationArea floating-label-group half" data-area="generation">
                 {{#if locked}}
-                    <input class="sheet-infoValues" type="text" {{#if (gt data.system.generationmod 0)}}value="{{data.system.generation}} - {{data.system.generationmod}}"{{else}}value="{{data.system.generation}}"{{/if}} data-dtype="Number" readonly />
+                    <input class="sheet-infoValues" type="text" value="{{data.system.generation}}" data-dtype="Number" autofocus required />
                 {{else}}
-                    <input class="sheet-infoValues selectGeneration editable" name="system.generation" type="text" value="{{data.system.generation}}" style="width: 50%;" data-source="setvalue" data-type="{{config.sheettype.vampire}}" data-koptions="--{{localize 'wod.labels.select'}}--/4/5/6/7/8/9/10/11/12/13/14/15">
-                    <i class="icon fa-solid fa-square-minus pointer selectGeneration" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-source="reduce" data-type="{{config.sheettype.vampire}}" data-area="reducegeneration" aria-hidden="true"></i>
-                    <i class="icon fa-solid fa-eraser pointer selectGeneration" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-source="clear" data-type="{{config.sheettype.vampire}}" data-area="cleargeneration" aria-hidden="true"></i>
-                    <span class="information-area">{{localize "wod.labels.bio.tempgeneration"}}: -{{data.system.generationmod}}</span>
-                {{/if}}            
-            </div>
-        </div>
-    </div>
-{{/if}}
+                    <select class="sheet-infoValues editable" name="system.generation" data-type="{{config.sheettype.vampire}}" data-name="data.system.generation" data-dtype="Number">
+                        {{#select data.system.generation}}
+                            <option value="">- {{localize "wod.labels.select"}} -</option>
+                            {{#numFromLoop 4 15}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/numFromLoop}}
+                        {{/select}}
+                    </select>
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.vampire.generation"}}</span>                                    
+            </div>  
+            <div style="top: -25px; left: 85px; position: relative;">
+                <i class="fa-solid fa-square-minus pointer selectGeneration" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-source="reduce" data-type="{{config.sheettype.vampire}}" data-area="reducegeneration" aria-hidden="true"></i></span>
+                <i class="fa-solid fa-eraser pointer selectGeneration" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-source="clear" data-type="{{config.sheettype.vampire}}" data-area="cleargeneration" aria-hidden="true"></i></span>
+                <span>-{{data.system.generationmod}}</span>
+            </div>              
+        {{/if}}        
 
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.affinity">{{localize "wod.bio.vampire.sire"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.sire" type="text" value="{{data.system.sire}}" data-name="data.system.sire" data-dtype="String" {{#if locked}} readonly {{/if}} />
-        </div>
     </div>
 </div>
 
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.weakness">{{localize "wod.bio.vampire.weakness"}}</label>
-        <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.weakness" type="text" value="{{data.system.weakness}}" data-name="data.system.weakness" data-dtype="String" {{#if locked}} readonly {{/if}} />
-        </div>
-    </div>
-</div>

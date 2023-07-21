@@ -1,32 +1,35 @@
 <form class="{{cssClass}} werewolfDialog" autocomplete="off">
 
-    <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.shapechange.headline"}}</div>
+    <div class="dialog-area">
+        <div class="headlineGroup splatFont">{{localize "wod.dialog.shapechange.headline"}}</div>
+    </div>
 
-    <div class="centerText dialog-area">
-        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "homid")}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
-        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "glabro")}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
-        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "crinos")}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
-        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "hispo")}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
-        <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "lupus")}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+    <div class="dialog-area">
+        <div class="headline splatFont">LANG: Shape to turn into</div>
+        <div class="infobox centerText">
+            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "homid")}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "glabro")}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
+            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "crinos")}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "hispo")}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
+            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "lupus")}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+        </div>
     </div>
 
     <div class="dialog-area">
         <div class="headline splatFont">{{localize "wod.dialog.shapechange.shiftbonus"}}</div>
         <div class="dialog-valueBox">
-            <input type="text" id="shiftMod" name="shiftMod" value="0" autofocus />
+            <input class="editable" type="text" id="shiftMod" name="shiftMod" value="0" autofocus />
         </div>
     </div>
 
-    <div class="dialog-area headline splatFont">
-        {{localize "wod.labels.difficulty"}}
-    </div>
-
-    <div class="centerText dialog-area">
-        {{#numLoop 11}}
-            {{#if (gt this 2)}}
+    <div class="dialog-area">
+        <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+        <div class="infobox centerText">
+            
+            {{#numFromLoop config.lowestDifficulty 10}}
                 <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-            {{/if}}
-        {{/numLoop}}
+            {{/numFromLoop}}
+        </div>
     </div>
 
     <div class="dialog-area">

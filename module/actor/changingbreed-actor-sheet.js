@@ -7,7 +7,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["werewolf"],
+			classes: ["wod20 wod-sheet werewolf"],
 			template: "systems/worldofdarkness/templates/actor/changingbreed-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -37,7 +37,10 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				await CreateHelper.SetWerewolfAbilities(actorData);
+				//await CreateHelper.SetWerewolfAbilities(actorData);
+				//await CreateHelper.SetWerewolfModernAbilities(actorData, this.actor);		
+				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");		
+				
 				await CreateHelper.SetMortalAttributes(actorData);
 				// since no shifter type has been selected only set as werewolf so far
 				await CreateHelper.SetWerewolfAttributes(actorData);					

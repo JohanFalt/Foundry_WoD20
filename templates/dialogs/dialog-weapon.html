@@ -1,21 +1,17 @@
 <form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
 
-    {{#if (eq object.type "Damage")}}
-
-        <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.weapon.rolldamage"}} {{object.name}}</div>
+    {{#if (eq object.weaponType "Damage")}}
 
         <div class="dialog-area">
+            <div class="headlineGroup splatFont">{{localize "wod.dialog.weapon.rolldamage"}} {{object.name}}</div>
+        </div>
+
+        <div class="dialog-area">
+            <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
             <div class="infobox">
                 {{#if (ne object.attributeName "")}}
                     {{object.attributeName}} ({{object.attributeValue}})
                 {{/if}}
-                
-                <!-- {{#if (gt object.abilityValue 0)}}
-                    {{#if (ne object.attributeName "")}}
-                    + 
-                    {{/if}}
-                    {{object.abilityValue}}
-                {{/if}} -->
                 
                 {{#if (gt object.bonus 0)}} 
                     {{#if (gt object.attributeValue 0)}}
@@ -30,23 +26,26 @@
 
         <div class="dialog-area">
             <div class="headline splatFont">{{localize "wod.labels.modifier"}}</div>
-            <div class="dialog-valueBox">
+            <div class="infobox dialog-valueBox">
                 <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
             </div>
+            <div class="infobox headline splatFont">{{localize "wod.dialog.weapon.extrasuccesses"}}: {{object.extraSuccesses}}</div>
         </div>
 
-        <div class="dialog-area">
-            <div class="headline splatFont">{{localize "wod.dialog.weapon.extrasuccesses"}}: {{object.extraSuccesses}}</div>
-
-            {{#if (eq object.modename 'spray')}}
+        {{#if (eq object.modename 'spray')}}
+            <div class="dialog-area">
                 <div class="headline splatFont">{{localize "wod.dialog.weapon.selectedtargets"}}: {{object.numberoftargets}}</div>
-            {{/if}}
-        </div>
+            </div>
+        {{/if}}
+        
     {{else}}
 
-        <div class="dialog-area headlineGroup splatFont">{{localize "wod.dialog.weapon.rollattack"}} {{object.name}}</div>
+        <div class="dialog-area">
+            <div class="headlineGroup splatFont">{{localize "wod.dialog.weapon.rollattack"}} {{object.name}}</div>
+        </div>
 
         <div class="dialog-area">
+            <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
             <div class="infobox">
                 {{object.attributeName}} ({{object.attributeValue}})
                 
@@ -58,89 +57,94 @@
                     + {{object.bonus}}
                 {{/iff}}
             </div>
+
+            {{#if object.hasSpeciality}}
+                <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
+                <div class="clearareaBox infobox dialog-checkbox">
+                    <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
+                    <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}LANG: None listed{{/if}}</div>
+                </div>
+            {{/if}}
         </div>
 
         {{#if (eq object.dice2 "custom")}}
-            {{#if (eq object.type "Melee Weapon")}}
-                <div class="centerText dialog-area">
-                    {{#each config.meleeAbilities as |ability key|}}
-                        <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.data.name}}</button>
-                    {{/each}}
-                </div>
-            {{/if}}
+            <div class="dialog-area">
+                {{#if (eq object.weaponType "Melee Weapon")}}
+                    <div class="infobox centerText">
+                        {{#each config.meleeAbilities as |ability key|}}
+                            <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.name}}</button>
+                        {{/each}}
+                    </div>
+                {{/if}}
 
-            {{#if (eq object.type "Ranged Weapon")}}
-                <div class="centerText dialog-area">
-                    {{#each config.rangedAbilities as |ability key|}}
-                        <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.data.name}}</button>
-                    {{/each}}
-                </div>
-            {{/if}}
+                {{log config.rangedAbilities}}
+
+                {{#if (eq object.weaponType "Ranged Weapon")}}
+                    <div class="infobox centerText">
+                        {{#each config.rangedAbilities as |ability key|}}
+                            <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.name}}</button>
+                        {{/each}}
+                    </div>
+                {{/if}}
+            </div>
         {{/if}}
 
         <div class="dialog-area">
             <div class="headline splatFont">{{localize "wod.labels.bonus.headline"}}</div>
-            <div class="dialog-valueBox">
+            <div class="infobox dialog-valueBox">
                 <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
             </div>
         </div>
 
-        {{#if object.hasSpeciality}}
-        <div class="dialog-area">
-            <div class="infobox">
-                <input class="editable" name="specialty" type="checkbox">{{localize "wod.labels.specialty"}}</input>
-                ({{object.specialityText}})
-            </div>
-        </div>
-        {{/if}}
+        
 
     {{/if}}
 
     {{#if (eqAny true object.hasburst object.hasfullauto object.hasspray)}}
-        <div class="dialog-area headline splatFont">{{localize "wod.dialog.weapon.firemodes"}}</div>
+        <div class="dialog-area headline splatFont">
+            <div class="headline splatFont">{{localize "wod.dialog.weapon.firemodes"}}</div>
 
-        <div class="centerText dialog-area">
-            <button id="singleshot" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'single')}}active{{/if}}" value="single">{{localize "wod.dialog.weapon.singleshot"}}</button>
-            {{#if object.hasburst}}
-                <button id="burst" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'burst')}}active{{/if}}" value="burst">{{localize "wod.dialog.weapon.burst"}}</button>
-            {{/if}}
-            {{#if object.hasfullauto}}
-                <button id="fullauto" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'fullauto')}}active{{/if}}" value="fullauto">{{localize "wod.dialog.weapon.fullauto"}}</button>
-            {{/if}}
-            {{#if object.hasspray}}
-                <button id="spray" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'spray')}}active{{/if}}" value="spray">{{localize "wod.dialog.weapon.spray"}}</button>
-            {{/if}}
-        </div>
+            <div class="infobox centerText dialog-area">
+                <button id="singleshot" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'single')}}active{{/if}}" value="single">{{localize "wod.dialog.weapon.singleshot"}}</button>
+                {{#if object.hasburst}}
+                    <button id="burst" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'burst')}}active{{/if}}" value="burst">{{localize "wod.dialog.weapon.burst"}}</button>
+                {{/if}}
+                {{#if object.hasfullauto}}
+                    <button id="fullauto" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'fullauto')}}active{{/if}}" value="fullauto">{{localize "wod.dialog.weapon.fullauto"}}</button>
+                {{/if}}
+                {{#if object.hasspray}}
+                    <button id="spray" class="button fullSplatColor pointer dialog-mode-button {{#if (eq object.modename 'spray')}}active{{/if}}" value="spray">{{localize "wod.dialog.weapon.spray"}}</button>
+                {{/if}}
+            </div>
 
-        <div class="dialog-area headline splatFont">{{localize "wod.dialog.weapon.numbertargets"}}</div>
-    
-        <div class="centerText dialog-area">
-            {{#numLoop 11}}
-                {{#iff this ">" 0}}
-                    <button id="numbertargets" class="button fullSplatColor dialog-numbertargets-button {{#if (ne ../object.modename 'spray')}}disabled{{else}}pointer{{/if}} {{#if (eq ../object.numberoftargets this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-                {{/iff}}
-            {{/numLoop}}
+            <div class="dialog-area headline splatFont">{{localize "wod.dialog.weapon.numbertargets"}}</div>
+        
+            <div class="centerText dialog-area">
+                {{#numLoop 11}}
+                    {{#if (gt this 0)}}
+                        <button id="numbertargets" class="button fullSplatColor dialog-numbertargets-button {{#if (ne ../object.modename 'spray')}}disabled{{else}}pointer{{/if}} {{#if (eq ../object.numberoftargets this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                    {{/if}}
+                {{/numLoop}}
+            </div>
         </div>
     {{/if}}
 
-    <div class="dialog-area headline splatFont">
-        {{localize "wod.labels.difficulty"}}
-    </div>
-
-    <div class="centerText dialog-area">
-        {{#numLoop 11}}
-            {{#iff this ">" 2}}
+    <div class="dialog-area">
+        <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+        <div class="infobox centerText">
+            
+            {{#numFromLoop config.lowestDifficulty 10}}
                 <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-            {{/iff}}
-        {{/numLoop}}
+            {{/numFromLoop}}
+        </div>
     </div>
 
     {{#if (ne object.system "")}}
         <div class="dialog-area">
-            <label class="headlineText headlineBio splatFont" for="data.system">{{localize "wod.labels.description"}}</label>
             <div class="clearareaBox">
-                <div class="clearareaBox headlineNormal textarea">{{{object.system}}}</div>
+                <label class="headlineText headlineBio splatFont" for="data.system">{{localize "wod.labels.description"}}</label>
             </div>
+            <div class="headlineNormal textarea">{{{object.system}}}</div>
         </div>
 
     {{/if}}

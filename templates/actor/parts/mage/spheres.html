@@ -1,49 +1,44 @@
 <div class="clearareaBox area-box">
 
-	<div class="sheet-headline splatFont">{{localize 'wod.spheres.spheres'}}</div>
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize 'wod.spheres.spheres'}}</span>
+	</div>
 
 	<div class="clearareaBox">
 		{{#each data.system.spheres as |sphere key|}}
 
 			{{#if (topSpheres key)}}<div class="magic-statArea pullLeft">{{/if}}
 
-			<div class="attribute-rowheight" style="clear:left;">
-				<label for="data.system.spheres.{{key}}.value" class="pullLeft spheres-headlineWidth headlineNormal {{#if (eq sphere.label ../data.system.affinity)}}highlightedPower{{/if}}" 
+			<div class="clearareaBox {{#if (eq sphere.label ../data.system.affinity)}}highlightedPowerRow{{/if}}" style="line-height: 23px;height: 23px;">
+				<label class="pullLeft spheres-headlineWidth headlineNormalSpheres splatFont" for="data.system.spheres.{{key}}.value"  
 					{{#if (eq sphere.label ../data.system.affinity)}}title="{{localize 'wod.bio.mage.affinitysphere'}}"{{/if}}>{{localize sphere.label}}</label>
 
-				{{#if (gte sphere.value 4)}}
-					<div class="speciality-magic-icon">
-						<i class="fa-solid fa-circle-exclamation {{#if (eq sphere.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{sphere.speciality}}"></i>
-					</div>
-				{{else}}
-					<div class="speciality-magic-empty-icon">
-						&nbsp;
-					</div>
-				{{/if}}
-
-				<div class="resource-value pullRight" 
+				<div class="pullLeft resource-value " 
 					data-value="{{sphere.value}}"
 					data-name="data.system.spheres.{{key}}.value">
 
-					{{#numLoop sphere.max}}
-					
-						<span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}"></span>
-					
+					{{#numLoop sphere.max}}					
+						<span class="resource-value-step sphere-resource-values" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}"></span>					
 					{{/numLoop}}
+
+					{{#if (eq ../locked false)}}
+						<div class="pullRight speciality-magic-icon {{#if (and (eq sphere.speciality '') (gte sphere.value 4))}}item-warning{{/if}}{{#if (and (ne sphere.speciality '') (gte sphere.value 4))}}item-notice{{/if}}">
+							<a class="item-edit" title="LANG: Edit sphere" data-type="Sphere" data-item-id="{{key}}"><i class="fa-solid fa-pen-to-square"></i></a>
+						</div>
+					{{else}}
+						{{#if (gte sphere.value 4)}}
+							<div class="pullRight speciality-magic-icon">
+								<i class="fa-solid fa-circle-exclamation {{#if (eq sphere.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{sphere.speciality}}"></i>
+							</div>
+						{{else}}
+							<div class="pullRight speciality-magic-empty-icon">
+								&nbsp;
+							</div>
+						{{/if}}
+					{{/if}}
 					
 				</div>
 			</div>	
-			{{#if (gte sphere.value 4)}}
-				{{#if (eq ../locked false)}}
-					<div class="speciality-magic headlineNormal">
-						<input type="text" 
-							class="specialityBox editable"
-							name="system.spheres.{{key}}.speciality" 
-							value="{{sphere.speciality}}" 
-							data-name="data.system.spheres.{{key}}.speciality" />
-					</div>
-				{{/if}}
-			{{/if}}	
 
 			{{#if (bottenSpheres key)}}</div>{{/if}}
 		

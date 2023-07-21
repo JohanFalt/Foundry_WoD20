@@ -1,0 +1,55 @@
+.hunter {
+    --sheet-background-color: var(--hunter-page-background);
+}
+  
+.hunter .modern {  
+    --main-wod-banner: var(--hunter-banner-background);
+    --main-wod-banner-small: var(--hunter-banner-small-background); 
+}
+
+.hunterDialog,
+.hunter,
+.hunterItem {
+  --main-full-color: var(--main-hunter-color);
+  --main-mid-color: var(--main-hunter-mid-color);
+  --main-dim-color: var(--main-hunter-dim-color);
+  --color-shadow-primary: var(--main-hunter-color);
+}
+
+.hunter:not(.noSplatFont) nav,
+.hunter:not(.noSplatFont) .splatFont,
+.hunterDialog:not(.noSplatFont) .splatFont,
+.hunterItem:not(.noSplatFont) .splatFont {
+	font-family: "hunter", var(--main-font);
+}
+
+.changeling:not(.noSplatFont) .sheet-headline {
+  font-size: 30px;
+}
+
+.hunter:not(.noSplatFont) .headlineTabs {
+  font-size: 28px;
+  line-height: 28px;
+}
+
+.hunterDialog:not(.noSplatFont) .headlineGroup {
+  font-size: 28px;
+}
+
+.hunterDialog:not(.noSplatFont) .headline {
+  font-size: 18px;
+}
+
+.hunter:not(.noSplatFont) .sheet-headline {
+  font-size: 30px;
+}
+
+/* SETTINGS */
+
+.hunter:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 26px;
+}
+
+.hunter .secondHeadlineTabs {
+  width: 25%;
+}

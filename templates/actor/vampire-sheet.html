@@ -1,119 +1,124 @@
-<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}}" autocomplete="off">
+<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}} {{getEra actor}}" autocomplete="off">
 
-	{{!-- Vampire Sheet Header --}}	
+	<!-- Vampire Sheet Header -->
 	<div class="sheet-character">				
 	
 		{{!-- Always visible --}}
-		<header class="sheet-header">	
-
-			<div class="clearareaBox">
-				{{#if (eq actor.limited false)}}
-					<div class="pullLeft">
-						{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
-					</div>
-				{{/if}}
-				<div class="navigation">
-					{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}
-				</div>
-			</div>
+		<header class="sheet-header">				
 		</header>	
 
-		{{!-- Sheet part --}}
+		<!-- Sheet part -->
 		<section class="sheet-body">
 
+			<!-- Menu -->
+			<div class="navigation pullLeft">
+				{{#if (eq actor.limited false)}}
+					<!-- Lock/Unlock -->
+					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
+				{{/if}}
+
+				<!-- Navigation -->
+				{{> "systems/worldofdarkness/templates/actor/parts/navigation.html"}}
+			</div>
+
+			<div class="pullRight">
+				<!-- Macro icons -->
+				{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
+			</div>
+
 			<!-- Bio tab -->
-			<div class="tab bio" data-group="primary" data-tab="bio">
+			<div class="tab bio sheet-inner-area" data-group="primary" data-tab="bio">
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/bio.html"}} 	
 
 			</div>
 		
 			<!-- Core Normal -->
-			<div class="tab core" data-group="primary" data-tab="core">
-				<section class="sheet-spec-body">
-					<div class="sheet-area clearareaBox">
-						{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
-					</div>
+			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
 
-					<!-- Core Attributes -->
-					<div class="sheet-area">
-						{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
-					</div>
+				<!-- Core Attributes -->
+				<div class="sheet-area">
+					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
+				</div>
 
-					<!-- Core Abilities -->
-					<div class="sheet-area">
-						{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
-					</div>
+				<!-- Core Abilities -->
+				<div class="sheet-area">
+					{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
+				</div>
 
-					<!-- Core Stats -->
-					<div class="sheet-area">
-						<div class="clearareaBox" style="display: flex;">
+				<!-- Core Stats -->
+				<div class="sheet-area">
+					<div class="clearareaBox" style="display: flex;">
+						<div class="sheet-boxcontainer">
 
-							<div class="sheet-boxcontainer">
-
-								<div class="pullLeft" style="width: 33%;">
-							
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
-									
-								</div>
-								
-								<div class="pullLeft" style="width: 33%;">
-
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+							<div class="pullLeft" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 						
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
-
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
-							
-								</div>
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
 								
-								<div class="pullLeft healthBox" style="width: 33%;">
-									
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+							</div>
 							
-									<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
-										<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-										<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
+							<div class="pullLeft" style="width: 33%; min-height: 259px; display: flex; flex-direction: column;">
+
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+					
+								<div style="margin-top: auto; margin-bottom: auto;">
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+								</div>
+
+								<div style="margin-top: auto;">
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+								</div>
+						
+							</div>
+							
+							<div class="pullLeft healthBox" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
+								
+								<div style="width: 100%;">
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+								</div>
+						
+								<div class="sheet-headline headlineGroup splatFont">
+									<div>
+										<div class="sheet-banner-small"><span class="sheet-banner-text">{{localize 'wod.experience.experience'}}</span></div>
+										<div class="experienceValue">{{actor.system.listdata.experiences.experience}}</div>
 									</div>
 								</div>
-
 							</div>
-						
-						</div>
+						</div>						
 					</div>
-				</section>
+				</div>
 			</div>
 
 			{{!-- Combat Tab --}}
-			<div class="tab combat" data-group="primary" data-tab="combat">
+			<div class="tab combat sheet-inner-area" data-group="primary" data-tab="combat">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/combat.html"}}
 
 			</div>
 
 			{{!-- Gear Tab --}}
-			<div class="tab gear" data-group="primary" data-tab="gear">
+			<div class="tab gear sheet-inner-area" data-group="primary" data-tab="gear">
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
 
 			</div>
 
 			{{!-- Discipline Tab --}}
-			<div class="tab discipline" data-group="primary" data-tab="discipline">
+			<div class="tab discipline sheet-inner-area" data-group="primary" data-tab="discipline">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
 
 			</div>
 
 			{{!-- Notes Tab --}}
-			<div class="tab note" data-group="primary" data-tab="note">
+			<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
 
 			</div>
 			
 			{{!-- Settings Tab --}}
-			<div class="tab settings" data-group="primary" data-tab="settings">
+			<div class="tab settings sheet-inner-area" data-group="primary" data-tab="settings">
 			
 				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
 				

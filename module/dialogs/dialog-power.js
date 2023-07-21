@@ -1,5 +1,5 @@
-import { rollDice } from "../scripts/roll-dice.js";
-import { DiceRoll } from "../scripts/roll-dice.js";
+import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 import ActionHelper from "../scripts/action-helpers.js";
 import CombatHelper from "../scripts/combat-helpers.js";
@@ -25,6 +25,7 @@ export class Gift {
         this.description = item.system["description"];
         this.system = item.system["details"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "werewolfDialog";
@@ -51,6 +52,7 @@ export class Charm {
         this.description = "";
         this.system = item.system["description"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "spiritDialog";
@@ -77,6 +79,7 @@ export class CharmGift {
         this.description = "";
         this.system = item.system["description"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "spiritDialog";
@@ -103,6 +106,7 @@ export class Power {
         this.description = "";
         this.system = item.system["description"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "creatureDialog";
@@ -129,6 +133,7 @@ export class DisciplinePower {
         this.description = item.system["description"];
         this.system = item.system["details"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -155,6 +160,7 @@ export class PathPower {
         this.description = item.system["description"];
         this.system = item.system["details"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -181,6 +187,7 @@ export class RitualPower {
         this.description = item.system["description"];
         this.system = item.system["details"];
 
+        this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "vampireDialog";
@@ -202,6 +209,13 @@ export class ArtPower {
         this.type = item.system["type"];
         this.parentid = item.system["parentid"];
 
+        if (item.system.property["arttype"] == undefined) {
+            this.arttype = 'LANG: Not set';
+        }
+        else {
+            this.arttype = item.system.property["arttype"];
+        }        
+
         this.dice1 = "art";
         this.dice2 = "realm";
         this.bonus = 0;
@@ -211,7 +225,10 @@ export class ArtPower {
 
         this.selectedRealms = [];
         this.isUnleashing = false;
+        this.nightmareReplace = 0;
+        this.maxnightmareDice = 0;
 
+        this.usedReducedDiff = false;
         this.canRoll = false;
         this.close = false;
         this.sheettype = "changelingDialog";
@@ -241,16 +258,15 @@ export class ArtPower {
         }
 
         if ((affinitySelected) || (difficultRealm)) {
-            //this.difficulty = 8;
-
             if (affinitySelected) {
                 this.difficulty -= 1;
             }
             if (difficultRealm) {
-                //this.difficulty += 1;
                 this.difficulty += realmMod;
             }
         }
+
+        this.difficulty -= this.nightmareReplace;
 
         if (lowestRank == 99) {
             lowestRank = 0;
@@ -337,7 +353,7 @@ export class DialogPower extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["power-dialog"],
+            classes: ["wod20 wod-dialog power-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-power.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -432,37 +448,16 @@ export class DialogPower extends FormApplication {
                     let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice2);
                     data.object.abilityValue += parseInt(bonus);
                 }
-            }
-            // is dice2 a Talent
-            else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.talent[data.object.dice2]?.value != undefined)) {
-                data.object.abilityValue = parseInt(this.actor.system.abilities.talent[data.object.dice2].value);
-                data.object.abilityName = game.i18n.localize(this.actor.system.abilities.talent[data.object.dice2].label);
+            }  
+            else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
+                data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
+                data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
 
-                if (parseInt(this.actor.system.abilities.talent[data.object.dice2].value) >= 4) {
+                if (parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) {
                     data.object.hasSpeciality = true;
-                    abilitySpeciality = this.actor.system.abilities.talent[data.object.dice2].speciality;
+                    abilitySpeciality = this.actor.system.abilities[data.object.dice2].speciality;
                 }
-            }
-            // is dice2 a Skill
-            else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.skill[data.object.dice2]?.value != undefined)) {
-                data.object.abilityValue = parseInt(this.actor.system.abilities.skill[data.object.dice2].value);
-                data.object.abilityName = game.i18n.localize(this.actor.system.abilities.skill[data.object.dice2].label);
-
-                if (parseInt(this.actor.system.abilities.skill[data.object.dice2].value) >= 4) {
-                    data.object.hasSpeciality = true;
-                    abilitySpeciality = this.actor.system.abilities.skill[data.object.dice2].speciality;
-                }
-            }
-            // is dice2 a Knowledge
-            else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities.knowledge[data.object.dice2]?.value != undefined)) {
-                data.object.abilityValue = parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value);
-                data.object.abilityName = game.i18n.localize(this.actor.system.abilities.knowledge[data.object.dice2].label);
-
-                if (parseInt(this.actor.system.abilities.knowledge[data.object.dice2].value) >= 4) {
-                    data.object.hasSpeciality = true;
-                    abilitySpeciality = this.actor.system.abilities.knowledge[data.object.dice2].speciality;
-                }
-            }                
+            }             
             // virtues
             else if ((this.actor.system.advantages.virtues != undefined) && (this.actor.system.advantages.virtues[data.object.dice2]?.roll != undefined)) {
                 data.object.abilityValue = parseInt(this.actor.system.advantages.virtues[data.object.dice2].roll);
@@ -500,6 +495,18 @@ export class DialogPower extends FormApplication {
                 specialityText = abilitySpeciality;
             }
         }
+
+        // set maximum Nightmare dices to use.
+        if (data.object.type == "wod.types.artpower") {
+            this.object.maxnightmareDice = data.object.attributeValue + data.object.abilityValue + data.object.bonus - this.actor.system.advantages.nightmare.temporary;
+
+            if (this.object.maxnightmareDice < 0) {
+                this.object.maxnightmareDice = 0;
+            }
+            if (this.object.maxnightmareDice > 3) {
+                this.object.maxnightmareDice = 3;
+            }
+        }       
 
         data.object.specialityText = specialityText;
 
@@ -542,12 +549,23 @@ export class DialogPower extends FormApplication {
         // add the lowest number of dices from selected Realms
         if (this.object.type == "wod.types.artpower") {
             this.object.isUnleashing = formData["isUnleashing"];
+            this.object.nightmareReplace = parseInt(formData["select_nightmaredice"]);
         }
         
         this.object.useSpeciality = formData["specialty"];
+
+        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = true;
+        }
+        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+            this.object.usedReducedDiff = false;
+        }
+
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
-        this.render(false);
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -587,9 +605,7 @@ export class DialogPower extends FormApplication {
 
         event.preventDefault();
 
-        const isactive = element.classList.contains("active");
         this.object.selectedRealms = this._changedSelectedRealm(this.object.selectedRealms, key);
-
         this.render();
     }
 
@@ -628,21 +644,28 @@ export class DialogPower extends FormApplication {
         let woundPenaltyVal = 0;
         let numSpecialDices = 0;
         let specialDiceText = "";
+        let template = [];
+        let extraInfo = [];
+
+        //template.push(``);
 
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
             return;
         }
 
-        let templateHTML = `<h2>${this.object.name}</h2>`;
-        templateHTML += `<strong>${this.object.attributeName} (${this.object.attributeValue})`;
+        //let templateHTML = `<h2>${this.object.name}</h2>`;
+        //templateHTML += `<strong>${this.object.attributeName} (${this.object.attributeValue})`;
+        template.push(`${this.object.attributeName} (${this.object.attributeValue})`);
 
         if (this.object.abilityName != "") {
-            templateHTML += ` + ${this.object.abilityName} (${this.object.abilityValue})`;
+            //templateHTML += ` + ${this.object.abilityName} (${this.object.abilityValue})`;
+            template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
         }
 
         if (this.object.bonus > 0) {
-            templateHTML += ` + ${this.object.bonus}`;
+            //templateHTML += ` + ${this.object.bonus}`;
+            template.push(`${this.object.bonus}`);
         }
 
         // add selected Realms
@@ -652,7 +675,7 @@ export class DialogPower extends FormApplication {
 
                 for (const realm of this.object.selectedRealms) {
                     if (realm.isselected) {
-                        templateHTML += `<br />${game.i18n.localize(realm.label)} (${realm.value})`;
+                        extraInfo.push(`${game.i18n.localize(realm.label)} (${realm.value})`);
                         this.object.canRoll = true;
                     }
                 }
@@ -662,15 +685,13 @@ export class DialogPower extends FormApplication {
                     return;
                 }
 
-                numSpecialDices = parseInt(this.actor.system.advantages.nightmare.temporary);
+                numSpecialDices = parseInt(this.actor.system.advantages.nightmare.temporary) + this.object.nightmareReplace;
                 specialDiceText = game.i18n.localize('wod.dialog.power.nightmaredice');
             }
             else {
-                templateHTML += `<br />${game.i18n.localize('wod.dialog.power.unleashing')}`;
+                extraInfo.push(`${game.i18n.localize('wod.dialog.power.unleashing')}`);
             }
         }
-
-        templateHTML += `</strong>`;
 
         const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
         let specialityText = "";
@@ -686,22 +707,22 @@ export class DialogPower extends FormApplication {
         else {
             woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
         }
-        
-        const powerRoll = new DiceRoll(this.actor);
-        powerRoll.attribute = this.object.dice1;
-        powerRoll.handlingOnes = CONFIG.wod.handleOnes;    
+
+        const powerRoll = new DiceRollContainer(this.actor);
+        powerRoll.action = this.object.name;
+        powerRoll.attribute = this.object.dice1;        
         powerRoll.origin = "power";
         powerRoll.numDices = numDices;
         powerRoll.numSpecialDices = numSpecialDices;
         powerRoll.specialDiceText = specialDiceText;
         powerRoll.woundpenalty = parseInt(woundPenaltyVal);
         powerRoll.difficulty = parseInt(this.object.difficulty);          
-        powerRoll.templateHTML = templateHTML;        
-        powerRoll.systemText = this.object.system;
         powerRoll.speciality = this.object.useSpeciality;
         powerRoll.specialityText = specialityText;
-
-        rollDice(powerRoll);
+        powerRoll.dicetext = template;
+        powerRoll.extraInfo = extraInfo;
+        powerRoll.systemText = this.object.system;
+        NewRollDice(powerRoll);
     }
 
     /* clicked to close form */

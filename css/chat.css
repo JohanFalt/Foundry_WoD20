@@ -1,0 +1,156 @@
+@font-face {
+    font-family: "default";
+    src: url("../assets/fonts/GOUDOS.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "mortal";
+    src: url("../assets/fonts/EscalidoGothico.ttf") format("truetype");
+  }
+
+:root {
+    --main-chat-font: font-family: "default", Arial, Helvetica, sans-serif;
+  
+    --font-large: 16px;
+    --font-x-large: 24px;
+  
+    --chat-background-color: black;
+    --chat-header-background: rgb(196, 23, 29, 1);
+    --chat-header-text-color: white;
+    --chat-text-background: white;
+    --chat-text-color: black;
+}
+
+/* Chat Controls */
+
+.chat-control-icon .fa-dice-d20 {
+    height: 29px;
+    width: 29px;
+    position: relative;
+    background: var(--background-input-active);
+    border: var(--border-button-macro);
+}
+
+.chat-control-icon .fa-dice-d20:before {
+    content: url(../assets/img/dice/d10.svg) !important;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    border: 1px solid #000;
+    border-radius: 2px;
+}
+
+.chat-control-icon .fas.fa-dice-d20:hover:before {
+    cursor: pointer;  
+    filter: var(--filter-button-macro-hover);
+}
+
+#chat-controls {
+    flex-basis: 36px;
+}
+
+#chat-controls .chat-control-icon {
+    height: 28px;
+}
+
+#chat-controls > * {
+    align-self: center;
+}
+
+#chat-form textarea:focus {
+    outline: 1px solid var(--color-active);
+    box-shadow: 0 0 6px inset var(--color-active);
+}
+
+.dice-roll .dice-result {
+    cursor: pointer;
+}
+
+/* START - Chat window */
+
+
+
+/* END - Chat window */
+
+
+/* dice rolling */
+
+#chat-log {    
+    font-family: "default", "mortal";
+    background: var(--chat-background-color);  
+}
+  
+#chat-log .chat-message {
+    padding: 0;   
+}
+  
+#chat-log .message {
+    border: 0;
+    color: var(--chat-text-color);   
+    background: var(--chat-text-background); 
+}
+  
+#chat-log .message .message-header {    
+    font-size: var(--font-large); 
+    padding: 5px;
+    color: var(--chat-header-text-color);
+    /* border-bottom: 3px ridge #6c4737;    */
+    background: var(--chat-header-background);
+}
+  
+/* the rolls */
+
+#chat-log .rolldices {
+	width: 50px;
+	height: 50px;
+}
+
+#chat-log .tray-title-area {
+    /* font-family: var(--main-chat-font); */
+    font-size: var(--font-x-large);    
+    margin-bottom: 5px;    
+    border-bottom: 1px solid black;
+    padding: 5px;
+    /* text-align: center; */
+}
+  
+#chat-log .tray-action-area {
+    padding-left: 10px;
+}
+
+#chat-log .tray-info-area {
+    /* background: white; */
+    margin: 10px;
+    padding: 5px;
+    /* border: 1px solid black;
+    border-radius: 5px; */
+}
+
+#chat-log .tray-system-area {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+  
+#chat-log .tray-roll-area {
+    padding: 5px;  
+    /* text-align: center; */
+}
+  
+#chat-log .tray-roll-area .tray-dice {
+    margin: 5px;
+    scale:2;
+    margin-left: 8px;
+    margin-top: 8px;  
+    opacity: 0.8;
+}
+  
+#chat-log .tray-result-area {
+    /* font-family: var(--main-chat-font);
+    color: var(--chat-header-text-color); */
+    border-top: 3px ridge #6c4737;    
+    padding: 5px;
+    margin-top: 5px;
+    clear: both;
+    overflow: hidden;
+}

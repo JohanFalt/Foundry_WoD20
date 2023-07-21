@@ -1,19 +1,17 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont">
-            {{localize "wod.power.edges"}}
+        <div class="sheet-headline sheet-banner splatFont" data-area="disciplines">
+            <span class="sheet-banner-text">{{localize "wod.power.edges"}}</span>
 
-            {{#if (eq locked false)}}
-                <div class="pullRight pointer headlineNormal">
-                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edge'}}" aria-hidden="true" data-itemtype="Power" data-type="edge"></i>
-                </div>
-            {{/if}}
+            <div class="pullRight pointer headlineNormal">
+                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edge'}}" aria-hidden="true" data-itemtype="Power" data-type="edge"></i>
+            </div>
         </div>
 
         {{#each actor.system.listdata.powers.edges.edgelist as | item id|}}
 
-            <div class="power-area {{#if (eq item.system.type 'wod.types.edge')}}mainpower-row{{/if}}">
+            <div class="item-row-area {{#if (eq item.system.type 'wod.types.edge')}}mainpower-row{{/if}}">
                 <div class="clearareaBox {{#if (eq item.system.type 'wod.types.edge')}}power-row{{else}}edgepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
                     {{#if (eq item.system.type "wod.types.edgepower")}}
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
@@ -55,11 +53,9 @@
                                 </div>
                             {{/if}}
                         {{else}}
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edgepower'}}" aria-hidden="true" data-itemtype="Power" data-type="edgepower" data-parentid="{{item._id}}"></i>
-                                </div>
-                            {{/if}}
+                            <div class="pullLeft pointer">
+                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edgepower'}}" aria-hidden="true" data-itemtype="Power" data-type="edgepower" data-parentid="{{item._id}}"></i>
+                            </div>
                         {{/if}}
                         <div class="pullLeft pointer headlineNormal tooltip">
                             <i class="icon fa-solid fa-memo"></i>
@@ -74,12 +70,9 @@
                                 title="{{localize 'wod.labels.send'}}" 
                                 data-type="Edge" 
                                 data-item-id="{{item._id}}" 
-                                data-headline="<h2>{{item.name}}</h2>" 
-                                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                <span class='chatt-text'>{{item.system.description}}</span>
-                                                <br />
-                                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                data-headline="{{item.name}}"
+                                data-description="{{{item.system.description}}}"
+                                data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                         </div>
 
                         {{#if (eq ../locked false)}}

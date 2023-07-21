@@ -27,12 +27,15 @@
 						<select class="sheet-infoValues item editable" name="system.type">
 							{{#select data.system.type}}
 								<option value="">- {{localize "wod.labels.select"}} -</option>
-								<option value="wod.types.talentsecondability">{{localize "wod.types.talentsecondability"}}</option>
-								<option value="wod.types.skillsecondability">{{localize "wod.types.skillsecondability"}}</option>
-								<option value="wod.types.knowledgesecondability">{{localize "wod.types.knowledgesecondability"}}</option>
-								<!-- <option value="wod.types.realm">{{localize "wod.types.realm"}}</option> -->
-								<option value="wod.types.resonance">{{localize "wod.types.resonance"}}</option>
-								<option value="wod.types.othertraits">{{localize "wod.types.othertraits"}}</option>
+								<optgroup label="LANG: Secondary ability">
+									<option value="wod.types.talentsecondability">{{localize "wod.types.talentsecondability"}}</option>
+									<option value="wod.types.skillsecondability">{{localize "wod.types.skillsecondability"}}</option>
+									<option value="wod.types.knowledgesecondability">{{localize "wod.types.knowledgesecondability"}}</option>
+								</optgroup>
+								<optgroup label="LANG: Other">
+									<option value="wod.types.resonance">{{localize "wod.types.resonance"}}</option>
+									<option value="wod.types.othertraits">{{localize "wod.types.othertraits"}}</option>
+								</optgroup>
 							{{/select}}
 						</select>
 					</div>
@@ -70,24 +73,28 @@
 
 				<!-- description -->
 				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 					<div class="clearareaBox">
+						<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+					</div>
+					<div>
 						{{#if canEdit}}
 							{{editor data.description target="system.description" button=false owner=owner editable=true}}
 						{{else}}
-							<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
+							<div class="headlineNormal textarea">{{{data.system.description}}}</div>
 						{{/if}}
 					</div>
 				</div>
 
 				<!-- system -->
 				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
+					<div class="clearareaBox">
+						<label class="headlineItem headlineBio splatFont" for="data.system">{{localize "wod.labels.power.system"}}</label>
+					</div>
 					<div class="clearareaBox">
 						{{#if canEdit}}
 							{{editor data.details target="system.details" button=false owner=owner editable=true}}
 						{{else}}
-							<div class="clearareaBox headlineNormal textarea">{{{data.system.details}}}</div>
+							<div class="headlineNormal textarea">{{{data.system.details}}}</div>
 						{{/if}}
 					</div>
 				</div>
@@ -116,14 +123,14 @@
 
 				<!-- description -->
 				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 					<div class="clearareaBox">
-						{{#if canEdit}}
-							{{editor data.description target="system.description" button=false owner=owner editable=true}}
-						{{else}}
-							<div class="clearareaBox headlineNormal textarea">{{{data.system.description}}}</div>
-						{{/if}}
+						<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
 					</div>
+					{{#if canEdit}}
+						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+					{{else}}
+						<div class="headlineNormal textarea">{{{data.system.description}}}</div>
+					{{/if}}
 				</div>
 				
 			{{/if}}

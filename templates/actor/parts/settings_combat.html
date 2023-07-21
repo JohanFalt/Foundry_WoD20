@@ -1,6 +1,6 @@
 <div class="sheet-area">
     <div class="clearareaBox">
-        <div class="secondHeadlineTabs splatFont">{{localize "wod.health.soak"}}</div>
+        <div class="headlineText splatFont">{{localize "wod.health.soak"}}</div>
         <div class="clearareaBox">
             <div class="pullLeft settings-leftwidth">&nbsp;</div>
             <div class="pullLeft numberBox">&nbsp;</div>
@@ -16,9 +16,9 @@
                 data-dtype="Number" {{#if locked}} readonly {{/if}} />
             <div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="bashing" data-source="soak" data-type="{{config.sheettype.mortal}}">
                 {{#if data.system.settings.soak.bashing.isrollable}}
-                    {{localize "wod.labels.settings.yes"}}
+                    {{localize "wod.labels.yes"}}
                 {{else}}
-                    {{localize "wod.labels.settings.no"}}
+                    {{localize "wod.labels.no"}}
                 {{/if}}
             </div>
         </div>
@@ -32,9 +32,9 @@
                 {{#if locked}} readonly {{/if}} />
             <div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="lethal" data-source="soak" data-type="{{config.sheettype.mortal}}">
                 {{#if data.system.settings.soak.lethal.isrollable}}
-                    {{localize "wod.labels.settings.yes"}}
+                    {{localize "wod.labels.yes"}}
                 {{else}}
-                    {{localize "wod.labels.settings.no"}}
+                    {{localize "wod.labels.no"}}
                 {{/if}}
             </div>
         </div>
@@ -47,19 +47,24 @@
                 data-dtype="Number" {{#if locked}} readonly {{/if}} />
             <div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="aggravated" data-source="soak" data-type="{{config.sheettype.mortal}}">
                 {{#if data.system.settings.soak.aggravated.isrollable}}
-                    {{localize "wod.labels.settings.yes"}}
+                    {{localize "wod.labels.yes"}}
                 {{else}}
-                    {{localize "wod.labels.settings.no"}}
+                    {{localize "wod.labels.no"}}
                 {{/if}}
             </div>
         </div>				
+    </div>
+    <div class="clearareaBox information-area">
+        LANG: The total value used in soak with attribute, armor and bonus<br />
+        LANG: Bonus - extra bonus to soak<br />
+        LANG: Can soak - if soak if this type of damage is normally allowed       
     </div>
 </div>
 
 {{#if actor.system.listdata.settings.haschimericalhealth}}
     <div class="sheet-area">
         <div class="clearareaBox">
-            <div class="secondHeadlineTabs splatFont">{{localize 'wod.health.chimerical'}}</div>
+            <div class="headlineText splatFont">{{localize 'wod.health.chimerical'}}</div>
             <div class="clearareaBox">
                 <div class="pullLeft settings-leftwidth">&nbsp;</div>
                 <div class="pullLeft numberBox">&nbsp;</div>
@@ -75,9 +80,9 @@
                     data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="bashing" data-source="soak" data-type="{{config.sheettype.changeling}}">
                     {{#if data.system.settings.soak.chimerical.bashing.isrollable}}
-                        {{localize "wod.labels.settings.yes"}}
+                        {{localize "wod.labels.yes"}}
                     {{else}}
-                        {{localize "wod.labels.settings.no"}}
+                        {{localize "wod.labels.no"}}
                     {{/if}}
                 </div>
             </div>	
@@ -91,9 +96,9 @@
                     {{#if locked}} readonly {{/if}} />
                 <div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="lethal" data-source="soak" data-type="{{config.sheettype.changeling}}">
                     {{#if data.system.settings.soak.chimerical.lethal.isrollable}}
-                        {{localize "wod.labels.settings.yes"}}
+                        {{localize "wod.labels.yes"}}
                     {{else}}
-                        {{localize "wod.labels.settings.no"}}
+                        {{localize "wod.labels.no"}}
                     {{/if}}
                 </div>
             </div>
@@ -106,9 +111,9 @@
                     data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="aggravated" data-source="soak" data-type="{{config.sheettype.changeling}}">
                     {{#if data.system.settings.soak.chimerical.aggravated.isrollable}}
-                        {{localize "wod.labels.settings.yes"}}
+                        {{localize "wod.labels.yes"}}
                     {{else}}
-                        {{localize "wod.labels.settings.no"}}
+                        {{localize "wod.labels.no"}}
                     {{/if}}
                 </div>
             </div>	
@@ -118,7 +123,7 @@
 
 <div class="sheet-area">
     <div class="clearareaBox">
-        <div class="secondHeadlineTabs splatFont">{{localize "wod.combat.initiative"}}</div>
+        <div class="headlineText splatFont">{{localize "wod.combat.initiative"}}</div>
         <div class="clearareaBox">
             <div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
             <div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus.headline"}}</div>
@@ -132,13 +137,18 @@
             <input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.system.initiative.total}}" readonly />
         </div>
     </div>
+    <div class="clearareaBox information-area">
+        LANG: Value - the base calculated value based on total value of attributes<br />
+        LANG: Bonus - extra bonus to initiative<br />
+        LANG: Total - the total value used in combat with all active bonuses
+    </div>
 </div>
 
 {{#if (ne actor.type config.sheettype.spirit)}}
 
     <div class="sheet-area">
         <div class="clearareaBox">
-            <div class="secondHeadlineTabs splatFont">{{localize "wod.health.health"}}</div>
+            <div class="headlineText splatFont">{{localize "wod.health.health"}}</div>
             <div class="clearareaBox">
                 <div class="pullLeft" style="width: 150px;">&nbsp;</div>
                 <div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
@@ -168,9 +178,9 @@
                     data-label="{{data.system.health.hurt.value}}" 
                     data-ability="true" style="width: 150px;">{{localize "wod.health.hurt"}}</label>	
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.hurt.value" type="text" value="{{data.system.health.hurt.value}}" 
-                    data-name="data.system.health.hurt.value" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.hurt.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.hurt.penalty" type="text" value="{{data.system.health.hurt.penalty}}" 
-                    data-name="data.system.health.hurt.penalty" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.hurt.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
             </div>
 
             <div class="clearareaBox">
@@ -178,9 +188,9 @@
                     data-label="{{data.system.health.injured.value}}" 
                     data-ability="true" style="width: 150px;">{{localize "wod.health.injured"}}</label>
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.injured.value" type="text" value="{{data.system.health.injured.value}}" 
-                    data-name="data.system.health.injured.value" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.injured.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.injured.penalty" type="text" value="{{data.system.health.injured.penalty}}" 
-                    data-name="data.system.health.injured.penalty" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.injured.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
             </div>
 
             <div class="clearareaBox">
@@ -188,9 +198,9 @@
                     data-label="{{data.system.health.wounded.value}}" 
                     data-ability="true" style="width: 150px;">{{localize "wod.health.wounded"}}</label>
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.wounded.value" type="text" value="{{data.system.health.wounded.value}}" 
-                    data-name="data.system.health.wounded.value" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.wounded.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.wounded.penalty" type="text" value="{{data.system.health.wounded.penalty}}" 
-                    data-name="data.system.health.wounded.penalty" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.wounded.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
             </div>
 
             <div class="clearareaBox">
@@ -198,9 +208,9 @@
                     data-label="{{data.system.health.mauled.value}}" 
                     data-ability="true" style="width: 150px;">{{localize "wod.health.mauled"}}</label>
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.mauled.value" type="text" value="{{data.system.health.mauled.value}}" 
-                    data-name="data.system.health.mauled.value" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.mauled.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.mauled.penalty" type="text" value="{{data.system.health.mauled.penalty}}" 
-                    data-name="data.system.health.mauled.penalty" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.mauled.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
             </div>
 
             <div class="clearareaBox">
@@ -208,9 +218,9 @@
                     data-label="{{data.system.health.crippled.value}}" 
                     data-ability="true" style="width: 150px;">{{localize "wod.health.crippled"}}</label>
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.crippled.value" type="text" value="{{data.system.health.crippled.value}}" 
-                    data-name="data.system.health.crippled.value" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.crippled.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.crippled.penalty" type="text" value="{{data.system.health.crippled.penalty}}" 
-                    data-name="data.system.health.crippled.penalty" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.crippled.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
             </div>
 
             <div class="clearareaBox">
@@ -218,7 +228,7 @@
                     data-label="{{data.system.health.incapacitated.value}}" 
                     data-ability="true" style="width: 150px;">{{localize "wod.health.incapacitated"}}</label>
                 <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" name="system.health.incapacitated.value" type="text" value="{{data.system.health.incapacitated.value}}" 
-                    data-name="data.system.health.incapacitated.value" {{#if locked}} readonly {{/if}} />
+                    data-name="data.system.health.incapacitated.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
             </div>
         </div>
         <div class="clearareaBox information-area">

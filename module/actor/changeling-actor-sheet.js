@@ -8,7 +8,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["changeling"],
+			classes: ["wod20 wod-sheet changeling"],
 			template: "systems/worldofdarkness/templates/actor/changeling-sheet.html",
 			tabs: [{
 				navSelector: ".sheet-tabs",
@@ -37,7 +37,8 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.changeling) {
 				const version = game.data.system.version;				
 
-                await CreateHelper.SetChangelingAbilities(actorData);
+                //await CreateHelper.SetChangelingAbilities(actorData);
+				await CreateHelper.SetAbilities(actorData, "changeling", "modern");
 				await CreateHelper.SetMortalAttributes(actorData);    
 				await CreateHelper.SetChangelingAttributes(actorData);
 				
@@ -294,6 +295,10 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			const fieldStrings = parent[0].dataset.name;
 			const fields = fieldStrings.split(".");	
 
+			if (fields[2] == "health") {
+				return;
+			}
+
 			if ((this.locked) && 
 				((fieldStrings != "data.system.advantages.glamour.temporary") && 
 				(fieldStrings != "data.system.advantages.nightmare.temporary") && 
@@ -304,11 +309,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 
 			if (index < 0 || index > steps.length) {
 				return;
-			}
-
-			if (fields[2] == "health") {
-				return;
-			}
+			}			
 
 			this._assignToChangeling(fields, index + 1);
 		}

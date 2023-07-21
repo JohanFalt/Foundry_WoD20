@@ -1,13 +1,16 @@
 <div class="clearareaBox area-box">
 
-	<div class="clearareaBox headlineRow splatFont">
-		<div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.types.rote'}}" aria-hidden="true" data-itemtype="Rote"></i></div>
-		<div class="pullLeft">{{localize 'wod.spheres.rotes'}}</div>			
+	<div class="sheet-headline sheet-banner splatFont" data-area="rotes">
+		<span class="sheet-banner-text">{{localize 'wod.spheres.rotes'}}</span>
+
+		<div class="pullRight pointer headlineNormal">
+			<i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.types.rote'}}" aria-hidden="true" data-itemtype="Rote"></i>
+		</div>
 	</div>
 
 	{{#each actor.rotes as |item id|}}
 
-		<div class="power-area" data-area="roterow{{id}}">
+		<div class="pullLeft item-row-area" data-area="roterow{{id}}" style="width:50%">
 			<div class="clearareaBox magic-row">
 				<div class="pullLeft item-activeBox">
 					<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input>
@@ -20,41 +23,43 @@
 						{{item.name}}
 				</div>
 
-				<div class="pullLeft power-iconbox" style="width:50%">
-					<div class="pullLeft pointer">
-						<i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
-					</div>
+				<div class="pullLeft power-iconbox">
+					{{#if (eq ../locked false)}}
+						<div class="pullLeft pointer">
+							<i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+						</div>
+					{{/if}}
 					<div class="pullLeft headlineNormal pointer tooltip">
 						<i class="icon fa-solid fa-memo"></i>
 						<span class="tooltiptext">                
 							<div><b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}</div>
-							{{#iff item.system.correspondence "!=" 0}}
-								<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
-							{{/iff}}
-							{{#iff item.system.entropy "!=" 0}}
-								<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
-							{{/iff}}
-							{{#iff item.system.forces "!=" 0}}
-								<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
-							{{/iff}}
-							{{#iff item.system.life "!=" 0}}
-								<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
-							{{/iff}}
-							{{#iff item.system.matter "!=" 0}}
-								<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
-							{{/iff}}
-							{{#iff item.system.mind "!=" 0}}
-								<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
-							{{/iff}}
-							{{#iff item.system.prime "!=" 0}}
-								<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
-							{{/iff}}
-							{{#iff item.system.spirit "!=" 0}}
-								<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
-							{{/iff}}
-							{{#iff item.system.time "!=" 0}}
-								<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
-							{{/iff}}         
+							{{#if (ne item.system.correspondence 0)}}
+								<div>{{localize ../actor.system.spheres.correspondence.label}} ({{item.system.correspondence}})</div>
+							{{/if}}
+							{{#if (ne item.system.entropy 0)}}
+								<div>{{localize ../actor.system.spheres.entropty.label}} ({{item.system.entropy}})</div>
+							{{/if}}
+							{{#if (ne item.system.forces 0)}}
+								<div>{{localize ../actor.system.spheres.forces.label}} ({{item.system.forces}})</div>
+							{{/if}}
+							{{#if (ne item.system.life 0)}}
+								<div>{{localize ../actor.system.spheres.life.label}} ({{item.system.life}})</div>
+							{{/if}}
+							{{#if (ne item.system.matter 0)}}
+								<div>{{localize ../actor.system.spheres.matter.label}} ({{item.system.matter}})</div>
+							{{/if}}
+							{{#if (ne item.system.mind 0)}}
+								<div>{{localize ../actor.system.spheres.mind.label}} ({{item.system.mind}})</div>
+							{{/if}}
+							{{#if (ne item.system.prime 0)}}
+								<div>{{localize ../actor.system.spheres.prime.label}} ({{item.system.prime}})</div>
+							{{/if}}
+							{{#if (ne item.system.spirit 0)}}
+								<div>{{localize ../actor.system.spheres.spirit.label}} ({{item.system.spirit}})</div>
+							{{/if}}
+							{{#if (ne item.system.time 0)}}
+								<div>{{localize ../actor.system.spheres.time.label}} ({{item.system.time}})</div>
+							{{/if}}         
 						</span>
 					</div>  
 					<div class="pullLeft pointer">
@@ -62,46 +67,43 @@
 							title="{{localize 'wod.labels.send'}}" 
 							data-type="Weapon" 
 							data-item-id="{{item._id}}" 
-							data-headline="<h2>{{item.name}}</h2>" 
-							data-message="{{#iff item.system.correspondence "!=" 0}}
-												<div>{{localize "wod.spheres.correspondence"}} ({{item.system.correspondence}})</div>
-											{{/iff}}
-											{{#iff item.system.entropy "!=" 0}}
-												<div>{{localize "wod.spheres.entropy"}} ({{item.system.entropy}})</div>
-											{{/iff}}
-											{{#iff item.system.forces "!=" 0}}
-												<div>{{localize "wod.spheres.forces"}} ({{item.system.forces}})</div>
-											{{/iff}}
-											{{#iff item.system.life "!=" 0}}
-												<div>{{localize "wod.spheres.life"}} ({{item.system.life}})</div>
-											{{/iff}}
-											{{#iff item.system.matter "!=" 0}}
-												<div>{{localize "wod.spheres.matter"}} ({{item.system.matter}})</div>
-											{{/iff}}
-											{{#iff item.system.mind "!=" 0}}
-												<div>{{localize "wod.spheres.mind"}} ({{item.system.mind}})</div>
-											{{/iff}}
-											{{#iff item.system.prime "!=" 0}}
-												<div>{{localize "wod.spheres.prime"}} ({{item.system.prime}})</div>
-											{{/iff}}
-											{{#iff item.system.spirit "!=" 0}}
-												<div>{{localize "wod.spheres.spirit"}} ({{item.system.spirit}})</div>
-											{{/iff}}
-											{{#iff item.system.time "!=" 0}}
-												<div>{{localize "wod.spheres.time"}} ({{item.system.time}})</div>
-											{{/iff}}
-											<div>
-												<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-												<span class='chatt-text'>{{item.system.description}}</span>
-											</div>"><i class="icon fa-solid fa-comment-dots"></i></a>
+							data-headline="{{item.name}}"
+							data-system="{{#if (ne item.system.correspondence 0)}}
+											<div>{{localize ../actor.system.spheres.correspondence.label}} ({{item.system.correspondence}})</div>
+										{{/if}}
+										{{#if (ne item.system.entropy 0)}}
+											<div>{{localize ../actor.system.spheres.entropty.label}} ({{item.system.entropy}})</div>
+										{{/if}}
+										{{#if (ne item.system.forces 0)}}
+											<div>{{localize ../actor.system.spheres.forces.label}} ({{item.system.forces}})</div>
+										{{/if}}
+										{{#if (ne item.system.life 0)}}
+											<div>{{localize ../actor.system.spheres.life.label}} ({{item.system.life}})</div>
+										{{/if}}
+										{{#if (ne item.system.matter 0)}}
+											<div>{{localize ../actor.system.spheres.matter.label}} ({{item.system.matter}})</div>
+										{{/if}}
+										{{#if (ne item.system.mind 0)}}
+											<div>{{localize ../actor.system.spheres.mind.label}} ({{item.system.mind}})</div>
+										{{/if}}
+										{{#if (ne item.system.prime 0)}}
+											<div>{{localize ../actor.system.spheres.prime.label}} ({{item.system.prime}})</div>
+										{{/if}}
+										{{#if (ne item.system.spirit 0)}}
+											<div>{{localize ../actor.system.spheres.spirit.label}} ({{item.system.spirit}})</div>
+										{{/if}}
+										{{#if (ne item.system.time 0)}}
+											<div>{{localize ../actor.system.spheres.time.label}} ({{item.system.time}})</div>
+										{{/if}}"
+							data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
 					</div>
 					{{#if (eq ../locked false)}}
-					<div class="pullLeft pointer">
-						<a class="item-edit" title="{{localize "wod.labels.edit.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-					</div>
-					<div class="pullLeft pointer">
-						<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-					</div>
+						<div class="pullLeft pointer">
+							<a class="item-edit" title="{{localize "wod.labels.edit.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+						</div>
+						<div class="pullLeft pointer">
+							<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+						</div>
 					{{/if}}
 					{{#if (gt item.system.bonuses.length 0)}}
 						<div class="pullLeft pointer">

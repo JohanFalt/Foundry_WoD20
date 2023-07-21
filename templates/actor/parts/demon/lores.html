@@ -1,19 +1,17 @@
 <div class="sheet-area">
     <div class="clearareaBox area-box">
 
-        <div class="sheet-headline splatFont" data-area="lores">
-            {{localize "wod.power.lores"}}
+        <div class="sheet-headline sheet-banner splatFont" data-area="lores">
+            <span class="sheet-banner-text">{{localize "wod.power.lores"}}</span>
         
-            {{#if (eq locked false)}}
-                <div class="pullRight pointer headlineNormal">
-                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.discipline'}}" aria-hidden="true" data-itemtype="Power" data-type="lore"></i>
-                </div>
-            {{/if}}
+            <div class="pullRight pointer headlineNormal">
+                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.discipline'}}" aria-hidden="true" data-itemtype="Power" data-type="lore"></i>
+            </div>
         </div>
 
         {{#each actor.system.listdata.powers.lores.lorelist as | item id|}}
 
-            <div class="power-area {{#if (eq item.system.type 'wod.types.lore')}}mainpower-row{{/if}}">
+            <div class="item-row-area {{#if (eq item.system.type 'wod.types.lore')}}mainpower-row{{/if}}">
                 <div class="clearareaBox {{#if (eq item.system.type 'wod.types.lore')}}power-row{{else}}disciplinepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
                     {{#if (eq item.system.type "wod.types.lorepower")}}
                         <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
@@ -54,12 +52,10 @@
                                     <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
                                 </div>
                             {{/if}}
-                            {{else}}
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
-                                </div>
-                            {{/if}}
+                        {{else}}
+                            <div class="pullLeft pointer">
+                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
+                            </div>
                         {{/if}}
                         <div class="pullLeft pointer headlineNormal tooltip">
                             <i class="icon fa-solid fa-memo"></i>
@@ -74,12 +70,9 @@
                                 title="{{localize 'wod.labels.send'}}" 
                                 data-type="Lore" 
                                 data-item-id="{{item._id}}" 
-                                data-headline="<h2>{{item.name}}</h2>" 
-                                data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                                <span class='chatt-text'>{{item.system.description}}</span>
-                                                <br />
-                                                <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                                <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                data-headline="{{item.name}}"
+                                data-description="{{{item.system.description}}}"
+                                data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                         </div>
 
                         {{#if (eq ../locked false)}}
@@ -173,14 +166,12 @@
 
 <div class="sheet-area">
     <div class="clearareaBox">
-        <div class="sheet-headline splatFont" data-area="rituals">
-            {{localize "wod.power.rituals"}}
+        <div class="sheet-headline sheet-banner splatFont" data-area="rituals">
+            <span class="sheet-banner-text">{{localize "wod.power.rituals"}}</span>
         
-            {{#if (eq locked false)}}
-                <div class="pullRight pointer headlineNormal">
-                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.ritual'}}" aria-hidden="true" data-itemtype="Power" data-type="ritual" data-game="demon"></i>
-                </div>
-            {{/if}}
+            <div class="pullRight pointer headlineNormal">
+                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.ritual'}}" aria-hidden="true" data-itemtype="Power" data-type="ritual" data-game="demon"></i>
+            </div>
         </div>
 
         {{#each actor.system.listdata.powers.lores.rituallist as | item id|}}
@@ -218,12 +209,9 @@
                             title="{{localize 'wod.labels.send'}}" 
                             data-type="Lore" 
                             data-item-id="{{item._id}}" 
-                            data-headline="<h2>{{item.name}}</h2>" 
-                            data-message="<span class='chatt-headline'>{{localize 'wod.labels.description'}}:</span>
-                                            <span class='chatt-text'>{{item.system.description}}</span>
-                                            <br />
-                                            <span class='chatt-headline'>{{localize 'wod.labels.power.system'}}:</span>
-                                            <span class='chatt-text'>{{item.system.details}}</span>"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            data-headline="{{item.name}}"
+                            data-description="{{{item.system.description}}}"
+                            data-system="{{{item.system.details}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
 
                     {{#if (eq ../locked false)}}
                         <a class="item-edit" 

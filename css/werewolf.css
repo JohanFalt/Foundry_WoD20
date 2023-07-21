@@ -1,0 +1,235 @@
+.werewolfDialog,
+.werewolf,
+.werewolfItem {
+  --main-full-color: var(--main-werewolf-color);
+  --main-mid-color: var(--main-werewolf-mid-color);
+  --main-dim-color: var(--main-werewolf-dim-color);
+  --color-shadow-primary: var(--main-werewolf-color);
+}
+
+.werewolf {
+  --sheet-background-color: var(--werewolf-page-background);
+}
+
+.werewolf .modern {
+  --main-wod-banner: var(--werewolf-banner-background);
+  --main-wod-banner-small: var(--werewolf-banner-small-background);
+}
+.werewolf .victorian {
+  --main-wod-banner: var(--werewolf-banner-background);
+  --main-wod-banner-small: var(--werewolf-banner-small-background);
+}
+.werewolf .darkages {
+  --main-wod-banner: var(--werewolf-banner-background);
+  --main-wod-banner-small: var(--werewolf-banner-small-background);
+}
+
+.werewolf:not(.noSplatFont) nav,
+.werewolf:not(.noSplatFont) .splatFont,
+.werewolfDialog:not(.noSplatFont) .splatFont,
+.werewolfItem:not(.noSplatFont) .splatFont {
+	  font-family: "werewolf", var(--main-font);
+}
+  
+.werewolf .shape-selector-active {
+    background-color: var(--main-full-color);
+    color: white;
+}
+
+.werewolf:not(.noSplatFont) .headlineText {
+	font-size: 18px;
+}
+
+/* DIALOG */
+
+.werewolfDialog:not(.noSplatFont) .headline {
+  font-size: 16px;
+}
+
+/* CORE */
+
+.werewolf .ability-headlineWidth {
+	width: 	110px;
+}
+
+.werewolf span.supernaturalAttribute:nth-of-type(5n) {
+    margin-right: 0;
+}
+.werewolf span.supernaturalAttribute:nth-of-type(5n+1) {
+    margin-right: 10px;
+}
+
+.werewolf:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 18px;
+}
+
+/* SHAPECHANGE */
+
+.werewolf .shape-background {
+  background: url('../assets/img/werewolf/form/five_forms.jpg');
+  width: 86%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: grayscale(100%);
+  opacity: 0.2;
+  position: absolute;
+  margin-top: 30px;
+}
+
+.werewolf .shape-background.shape-ajaba {
+  background: url('../assets/img/werewolf/form/forms_ajaba.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-ananasi {
+  background: url('../assets/img/werewolf/form/forms_ananasi.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-bastet {
+  background: url('../assets/img/werewolf/form/forms_bastet.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-corax {
+  background: url('../assets/img/werewolf/form/forms_corax.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-gurahl {
+  background: url('../assets/img/werewolf/form/forms_gurahl.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-kitsune {
+  background: url('../assets/img/werewolf/form/forms_kitsune.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-mokole {
+  background: url('../assets/img/werewolf/form/forms_mokole.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-nagah {
+  background: url('../assets/img/werewolf/form/forms_nagah.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-nuwisha {
+  background: url('../assets/img/werewolf/form/forms_nuwisha.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-ratkin {
+  background: url('../assets/img/werewolf/form/forms_ratkin.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-background.shape-rokea {
+  background: url('../assets/img/werewolf/form/forms_rokea.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.werewolf .shape-area {
+  width: 100%;
+}
+
+.werewolf .shape-selector {
+  width: 20%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.werewolf .shape-selector:hover {
+	background-color: var(--main-dim-color); 
+  color: black;  
+  cursor: pointer;
+}
+
+.werewolf .shape-selectortext {
+  width: 20%;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.werewolf .shape-selectortext.shape-ananasi,
+.werewolf .shape-selector.shape-ananasi {
+  width: 25%;
+}
+
+.werewolf .shape-selectortext.shape-corax,
+.werewolf .shape-selector.shape-corax,
+.werewolf .shape-selectortext.shape-mokole,
+.werewolf .shape-selector.shape-mokole,
+.werewolf .shape-selectortext.shape-ratkin,
+.werewolf .shape-selector.shape-ratkin {
+  width: 33%;
+}
+
+/* END - Shapechange */
+
+/* START - Gift */
+
+.gift-row {
+  display: flex;
+  height: 23px;
+  line-height: 23px;
+  margin-left: 13px;
+}
+
+.gift-rollablerow {
+  display: flex;
+  height: 23px;
+  line-height: 23px;
+  margin-left: 13px;
+}
+
+.gift-headlineBox {
+  width: 200px;
+}
+
+.rites-headlineBox {
+  width: 230px;
+}
+
+.gift-dicebox {
+  width: 100px;
+}
+
+.power-valueBox {
+  width: 50px;
+}
+
+.gift-row .gift-iconbox {
+  margin-left: 270px;
+}
+
+.gift-rollablerow .gift-iconbox {
+  margin-left: 23px;
+}
+
+/* END - Gift */
+
+/* SETTINGS */
+
+.werewolf .secondHeadlineTabs {
+  width: 25%;
+}

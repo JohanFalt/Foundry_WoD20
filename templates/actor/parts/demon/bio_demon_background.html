@@ -1,34 +1,51 @@
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.house">{{localize 'wod.bio.demon.house'}}</label>
-        <div class="pullLeft bioInformationArea">
-            {{#if locked}}
-                <input class="sheet-infoValues" name="system.house" type="text" value="{{data.system.house}}" data-name="data.system.house" data-dtype="String" readonly />
-            {{else}}
-                <input class="sheet-infoValues editable" name="system.house" type="text" value="{{data.system.house}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.demon.defiler'}}/{{localize 'wod.bio.demon.devil'}}/{{localize 'wod.bio.demon.devourer'}}/{{localize 'wod.bio.demon.fiend'}}/{{localize 'wod.bio.demon.malefactor'}}/{{localize 'wod.bio.demon.scourge'}}/{{localize 'wod.bio.demon.slayer'}}">
-            {{/if}}
-        </div>
-    </div>
-</div>
+<div class="pullLeft" style="display: flex; width: 320px;">
+    <div class="pullLeft area-box">
 
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.faction">{{localize 'wod.bio.demon.faction'}}</label>
-        <div class="pullLeft bioInformationArea">
+        <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" name="system.faction" type="text" value="{{data.system.faction}}" data-name="data.system.faction" data-dtype="String" readonly />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.house}}" data-dtype="String" autofocus required />
             {{else}}
-                <input class="sheet-infoValues editable" name="system.faction" type="text" value="{{data.system.faction}}" data-koptions="--{{localize 'wod.labels.select'}}--/{{localize 'wod.bio.demon.faustian'}}/{{localize 'wod.bio.demon.cryptic'}}/{{localize 'wod.bio.demon.luciferan'}}/{{localize 'wod.bio.demon.ravener'}}/{{localize 'wod.bio.demon.reconciler'}}">
+                <select class="sheet-infoValues editable" name="system.house" data-type="{{config.sheettype.demon}}" data-name="data.system.house" data-dtype="String">
+                    {{#select data.system.house}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="wod.bio.demon.defiler">{{localize "wod.bio.demon.defiler"}}</option>
+                        <option value="wod.bio.demon.devil">{{localize "wod.bio.demon.devil"}}</option>
+                        <option value="wod.bio.demon.devourer">{{localize "wod.bio.demon.devourer"}}</option>
+                        <option value="wod.bio.demon.fiend">{{localize "wod.bio.demon.fiend"}}</option>
+                        <option value="wod.bio.demon.malefactor">{{localize "wod.bio.demon.malefactor"}}</option>
+                        <option value="wod.bio.demon.scourge">{{localize "wod.bio.demon.scourge"}}</option>
+                        <option value="wod.bio.demon.slayer">{{localize "wod.bio.demon.slayer"}}</option>
+                    {{/select}}
+                </select>
             {{/if}}
+            <span class="floating-label">{{localize 'wod.bio.demon.house'}}</span>
         </div>
-    </div>
-</div>
 
-<div class="clearareaBox area-box">
-    <div>
-        <label class="headlineText headlineBio splatFont" for="data.visage">{{localize 'wod.bio.demon.visage'}}</label>
-        <div class="pullLeft bioInformationArea">
-            <input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.visage" type="text" value="{{data.system.visage}}" data-name="data.system.visage" data-dtype="String" {{#if locked}} readonly {{/if}} />
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.faction}}" data-dtype="String" autofocus required />
+            {{else}}
+                <select class="sheet-infoValues editable" name="system.faction" data-type="{{config.sheettype.demon}}" data-name="data.system.faction" data-dtype="String">
+                    {{#select data.system.faction}}
+                        <option value="">- {{localize "wod.labels.select"}} -</option>
+                        <option value="wod.bio.demon.faustian">{{localize "wod.bio.demon.faustian"}}</option>
+                        <option value="wod.bio.demon.cryptic">{{localize "wod.bio.demon.cryptic"}}</option>
+                        <option value="wod.bio.demon.luciferan">{{localize "wod.bio.demon.luciferan"}}</option>
+                        <option value="wod.bio.demon.ravener">{{localize "wod.bio.demon.ravener"}}</option>
+                        <option value="wod.bio.demon.reconciler">{{localize "wod.bio.demon.reconciler"}}</option>
+                    {{/select}}
+                </select>
+            {{/if}}
+            <span class="floating-label">{{localize 'wod.bio.demon.faction'}}</span>
+        </div>
+
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.visage}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.visage" type="text" value="{{data.system.visage}}" data-name="data.system.visage" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize 'wod.bio.demon.visage'}}</span>
         </div>
     </div>
 </div>
