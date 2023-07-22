@@ -70,7 +70,7 @@
 			"therollofone": "Use default result 1 handling",
 			"therollofonehint": "Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
 			"lowestdifficulty": "Lowest difficulty allowed",
-			"lowestdifficultyhint": "Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
+			"lowestdifficultyhint": "Default 20th dice setting - According to the 20th rules the lowest difficulty you can have is two.",
 			"specialityaddsuccess": "Use default rule for speciality",
 			"specialityaddsuccesshint": "Default use of specialities - adds a number of successes on the roll of 10s.",
 			"specialityreducediff": "Speciality lowers difficulty",
@@ -78,7 +78,7 @@
 			"tenaddsuccess": "10s always add successes",
 			"tenaddsuccesshint": "A change of how handling 10s to always adds a number of successes to the roll.",
 			"explodingdice": "10s explode handling",
-			"explodingdicehint": "In revised rules when rolling a 10 you got.",
+			"explodingdicehint": "In revised rules when rolling a 10 you got to add one additional die and add the result.",
 			"dicerules": "Rolling dices rules",
 			"diceruleshint": "How the system handles rolling the dices.",
 			"rollsettings": "Roll settings"

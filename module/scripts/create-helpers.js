@@ -2,7 +2,7 @@ import AbilityHelper from "./ability-helpers.js";
 
 export default class CreateHelper {
     
-    static SetMortalAbilities(actorCopy, actor, era) {
+    static async SetMortalAbilities(actorCopy, actor, era) {
 		console.log(`WoD | Set Mortal Abilities - ${era}`);
 
 		// hide all
@@ -33,17 +33,17 @@ export default class CreateHelper {
 		}
 
 		if (era == "victorian") {
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 
 		if (era == "darkages") {
-			AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "Legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "Legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 	}	
 
@@ -139,7 +139,8 @@ export default class CreateHelper {
 		}
 
 		for (const talent in game.wod.abilities.werewolf[era].talents) {
-			if (actorCopy.system.abilities[game.wod.abilities.werewolf[era].talents[talent]] != undefined) {
+			var ability = game.wod.abilities.werewolf[era].talents[talent];
+			if (actorCopy.system.abilities[ability] != undefined) {
 				actorCopy.system.abilities[game.wod.abilities.werewolf[era].talents[talent]].isvisible = true;
 			}
 		}

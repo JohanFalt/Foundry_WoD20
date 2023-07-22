@@ -15,6 +15,7 @@
 				<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
 					<a id="tabbio" class="item itemTabsText" data-tab="bio"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/spirit/open-book.svg" title="{{localize 'wod.tab.bio'}}"></a>
 					<a id="tabcore" class="item itemTabsText" data-tab="core"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/spirit/skills.svg" title="{{localize 'wod.tab.core'}}"></a>	
+					<a id="tabsettings" class="item itemTabsText" data-tab="settings"><img class="navBtn" src="systems/worldofdarkness/assets/img/icons/spirit/cog.svg" title="{{localize 'wod.tab.settings'}}"></a>
 				</nav>
 			</div>
 
@@ -172,6 +173,12 @@
 
 					{{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
 				</div>
+			</div>
+			{{!-- Settings Tab --}}
+			<div class="tab settings sheet-inner-area" data-group="primary" data-tab="settings">
+			
+				{{> "systems/worldofdarkness/templates/actor/parts/settings.html"}}
+				
 			</div>
 		</section>
 	</div>

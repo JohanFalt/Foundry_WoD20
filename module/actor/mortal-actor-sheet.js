@@ -56,7 +56,7 @@ export class MortalActorSheet extends ActorSheet {
 				actorData.system.settings.iscreated = true;		
 				actorData.system.settings.version = game.data.system.version;
 				
-				CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
+				await CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
 			}	 	
 		}
@@ -259,7 +259,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		if (dataset.type == CONFIG.wod.sheettype.mortal) {
 			found = true;
-			CreateHelper.SetMortalAbilities(actorData, this.actor, "darkages");
+			await CreateHelper.SetMortalAbilities(actorData, this.actor, "darkages");
 		}
 		
 		if (found) {
@@ -299,7 +299,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		if (dataset.type == CONFIG.wod.sheettype.mortal) {
 			found = true;
-			CreateHelper.SetMortalAbilities(actorData, this.actor, "victorian");
+			await CreateHelper.SetMortalAbilities(actorData, this.actor, "victorian");
 		}
 		
 		if (found) {
@@ -347,7 +347,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		if (dataset.type == CONFIG.wod.sheettype.mortal) {
 			found = true;
-			CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
+			await CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
 		}
 		
 		if (found) {
@@ -1078,15 +1078,15 @@ export class MortalActorSheet extends ActorSheet {
 		}
 		if (itemtype == "Trait") {
 			if (type == "talentability") {
-				AbilityHelper.CreateAbility(this.actor, "wod.types.talentsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				await AbilityHelper.CreateAbility(this.actor, "wod.types.talentsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
 				return;
 			}
 			if (type == "skillability") {
-				AbilityHelper.CreateAbility(this.actor, "wod.types.skillsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				await AbilityHelper.CreateAbility(this.actor, "wod.types.skillsecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
 				return;
 			}
 			if (type == "knowledgeability") {
-				AbilityHelper.CreateAbility(this.actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
+				await AbilityHelper.CreateAbility(this.actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.labels.new.ability"), parseInt(this.actor.system.settings.abilities.defaultmaxvalue));
 				return;
 			}
 			if (type == "resonance") {

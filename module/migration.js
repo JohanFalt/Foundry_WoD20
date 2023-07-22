@@ -1072,9 +1072,7 @@ export const updates = async () => {
                         updateData.system.abilities[ability] = actor.system.abilities.knowledge[ability];
                     }                              
                 }                                                
-            }
-
-                                   
+            }                                   
 
             updateData['system.abilities.-=talent'] = null;
             updateData['system.abilities.-=skill'] = null;
@@ -1615,6 +1613,12 @@ export const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        newfunctions += '<li>Fixed missing translation</li>';
+        newfunctions += '<li>Fixed problem with switching to Era where abilities became unrollable</li>';
+        newfunctions += '<li>Fixed listings of abilities in Victorian era</li>';
+        newfunctions += '<li>Spirit sheet missed the Settings tab</li>';
+        newfunctions += '<li>Fixed problems with shifting images on Actors</li>';
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

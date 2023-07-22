@@ -20,7 +20,11 @@
 
 .wod-sheet.spirit:not(.noSplatFont) .secondHeadlineTabs {
     font-size: 14px;
-  }
+}
+
+.wod-sheet.spirit .secondHeadlineTabs {
+width: 100%;
+}
 
 .spirit:not(.noSplatFont) nav,
 .spirit:not(.noSplatFont) .splatFont {

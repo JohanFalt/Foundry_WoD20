@@ -1,7 +1,7 @@
 import * as AbilityDialog from "../dialogs/dialog-edits.js";
 
 export default class AbilityHelper {
-    static CreateAbility(actor, abilitytype, abilitynamn, maxvalue, ismeleeweapon, israngedeweapon) {
+    static async CreateAbility(actor, abilitytype, abilitynamn, maxvalue, ismeleeweapon, israngedeweapon) {
 		const existed = this.CheckAbilityExists(actor, abilitytype, abilitynamn);
 
 		if (existed) {
@@ -19,7 +19,7 @@ export default class AbilityHelper {
 				israngedeweapon: israngedeweapon
 			}
 		};
-		actor.createEmbeddedDocuments("Item", [itemData]);
+		await actor.createEmbeddedDocuments("Item", [itemData]);
 	}
 
 	static CheckAbilityExists(actor, itemtype, itemname) {
