@@ -42,7 +42,10 @@
 }
 
 :root {
-  --main-font: Arial, Helvetica, sans-serif;
+  /* --main-font: Arial, Helvetica, sans-serif; */
+  --main-font: Verdana, Helvetica, sans-serif;
+  --main-large-headline: Georgia, 'Times New Roman', Times, sans-serif;
+
   --main-dialog-background: url('../assets/img/graphics/20Page.jpg');
 
   --main-mortal-color: rgba(24, 78, 119, 1);
@@ -436,6 +439,13 @@ input.sheet-infoWidth {
 	font-weight: bold;
 	text-align: center;
 	width: 100%;	
+}
+
+.wod-sheet.noSplatFont .sheet-headline {  
+  font-family: var(--main-large-headline);
+}
+.wod-sheet.noSplatFont .headlineGroup {
+  font-family: var(--main-large-headline);
 }
 
 .wod20 .headlineNormal {
@@ -871,7 +881,7 @@ input.sheet-infoWidth {
 }
 
 .wod-sheet .ability-headlineWidth {
-	width: 55%;
+	width: 50%;
 }
 .wod-sheet .supernaturalAttribute.ability-headlineWidth {
   width: 40%;

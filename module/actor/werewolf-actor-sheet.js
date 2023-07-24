@@ -3,6 +3,8 @@ import ActionHelper from "../scripts/action-helpers.js";
 import CreateHelper from "../scripts/create-helpers.js";
 import TokenHelper from "../scripts/token-helpers.js";
 
+let shifting = false;
+
 export class WerewolfActorSheet extends MortalActorSheet {
 	
 	/** @override */
@@ -43,7 +45,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 				await CreateHelper.SetWerewolfAttributes(actorData);	
 				
 				console.log(`CREATION: Adds form bonus to ${this.actor.name}`);
-				this.actor.update(actorData);
+				await this.actor.update(actorData);
 			}				 	
 		}
 
@@ -260,8 +262,14 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (actorData.type != CONFIG.wod.sheettype.werewolf) {
-			return
+			return;
 		}
+
+		if (shifting) {
+			return;
+		}
+
+		shifting = true;
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
@@ -269,9 +277,11 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const toForm = dataset.form;
 
 		for (const i in actorData.system.shapes) {
-			if (actorData.system.shapes[i].label == fromForm)  {
+			actorData.system.shapes[i].isactive = false;
+
+			/* if (actorData.system.shapes[i].label == fromForm)  {
 				actorData.system.shapes[i].isactive = false;
-			}
+			} */
 
 			if (actorData.system.shapes[i].label == toForm) {
 				actorData.system.shapes[i].isactive = true;
@@ -279,10 +289,12 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		}		
 
 		await ActionHelper.handleCalculations(actorData);
-		TokenHelper.formShift(actorData, fromForm, toForm);
+		await TokenHelper.formShift(actorData, fromForm, toForm);
 
 		console.log("WoD | Werewolf Sheet updated");
 		this.actor.update(actorData);
+
+		shifting = false;
 	}
 	
 	async _assignToWerewolf(fields, value) {

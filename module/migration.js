@@ -17,8 +17,9 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         ui.notifications.warn(`Updating World from version ${installedVersion} to ${migrationVersion} do not close your game or shut down your server. Please wait this can take a while...`, {permanent: true});
         console.log(`Updating from ${installedVersion} to ${migrationVersion}`);
 
-        MessageHelper.printMessage("<h1><b>Updating World</b></h1>", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
-        MessageHelper.printMessage("<h3>Starting with Actors</h3>", "");
+        MessageHelper.printMessage("Updating World", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
+        MessageHelper.printMessage("Starting with Actors", "");
+
         //World Actors
         for (const actor of game.actors) {
             try {
@@ -29,9 +30,9 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        MessageHelper.printMessage("<h3>Actors done</h3>", "");
+        //MessageHelper.printMessage("Actors done", "");
 
-        MessageHelper.printMessage("<h3>Starting with World Items</h3>", "");
+        MessageHelper.printMessage("Starting with World Items", "");
         //World Items
         for (const item of game.items) {
             try {
@@ -42,9 +43,9 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        MessageHelper.printMessage("<h3>Items done</h3>", "");
+        //MessageHelper.printMessage("Items done", "");
 
-        MessageHelper.printMessage("<h3>Starting with World Compendiums</h3>", "");
+        MessageHelper.printMessage("Starting with World Compendiums", "");
         // World Compendiums
         for ( let pack of game.packs ) {
             try {
@@ -56,15 +57,17 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        MessageHelper.printMessage("<h3>Compendiums done</h3>", "");
+        //MessageHelper.printMessage("Compendiums done", "");
 
-        console.log("Update completed!"); 
-
-        MessageHelper.printMessage("<h3>Checking character settings</h3>", "");
+        //console.log("Update completed!"); 
+        
     }
 
     try {
+        ui.notifications.warn("Checking character settings", {permanent: false});
+        //MessageHelper.printMessage("Checking character settings", "");
         await this.updates();
+        //MessageHelper.printMessage("Checking character settings", "");
     }
     catch (e) {
     }
@@ -77,7 +80,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
     }
 
     if (isError) {
-        ui.notifications.error(`An error occured during the system migration. Please check the console (F12) for details.`, {permanent: true});
+        ui.notifications.error(`An error occured during the system migration. Try restarting Foundry and try again. If this message appear again, please check the console (F12) for details and report the problem.`, {permanent: true});
     }
     else if (updateWorld) {
         _getVersionText(installedVersion, migrationVersion);  
@@ -88,7 +91,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
 /**
  * Function to keep the world up-to-date with possible World settings that you might have altered since last time it opened.
  */
-export const updates = async () => {
+export  const updates = async () => {
     console.log('WoD | Settings starts');
 
     let attributeSettings = "20th";
@@ -1074,9 +1077,9 @@ export const updates = async () => {
                 }                                                
             }                                   
 
-            updateData['system.abilities.-=talent'] = null;
+            /* updateData['system.abilities.-=talent'] = null;
             updateData['system.abilities.-=skill'] = null;
-            updateData['system.abilities.-=knowledge'] = null;
+            updateData['system.abilities.-=knowledge'] = null; */
         }
 
         if (update) {
@@ -1614,6 +1617,18 @@ export const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        newfunctions += '<b>v3.1.3</b>';
+        newfunctions += '<li>Fixed German translation</li>';
+        newfunctions += '<li>Fixed spelling errors</li>';
+        newfunctions += '<li>Fixed visiblity problems with the new font style</li>';
+        newfunctions += '<li>Fixed design for a few missed send-to-chat</li>';
+        newfunctions += '<li>[MtA] - Fixed missed Technocracy spheres</li>';
+        newfunctions += '<li>[MtA] - When edit spheres the box now closes after save</li>';
+        newfunctions += '<li>[VtM] - Fixed lists of abilities for Victorian Vampire</li>';
+        newfunctions += '<li>[VtM] - Fixed bug that did not let you open a Vampire sheet if you had created a boon</li>';
+        newfunctions += '<li>[WtA] - Fixed a problem where you could hold more than one form</li>';
+
+        newfunctions += '<b>v3.1.2</b>';
         newfunctions += '<li>Fixed missing translation</li>';
         newfunctions += '<li>Fixed problem with switching to Era where abilities became unrollable</li>';
         newfunctions += '<li>Fixed listings of abilities in Victorian era</li>';
@@ -1623,20 +1638,20 @@ export const updates = async () => {
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
-    const headline = "<h1><b>Version "+migrationVersion+" installed</b></h1>";
+    const headline = "Version "+migrationVersion+" installed";
 
     let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-310">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 
     if (installedVersion != "1") {
-        message += '<h2>Short Summery of update:</h2>';
+        message += '<h2><b>Short Summery of update:</b></h2>';
         message += '<ul>';
         message += newfunctions;
         message += '</ul>';
     } 
 
-    message += '<h1><b>Support my work</b></h1>';
+    message += '<h2><b>Support my work</b></h2>';
     message += '<a href="https://ko-fi.com/johanfk"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>';
 
     MessageHelper.printMessage(headline, message);

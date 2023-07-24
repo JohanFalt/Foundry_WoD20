@@ -220,7 +220,7 @@ Hooks.once("setup", function () {
 /* ------------------------------------ */
 /* When ready							*/
 /* ------------------------------------ */
-Hooks.once("ready", function () {
+Hooks.once("ready", async function () {
     // Do anything once the system is ready
 	const installedVersion = game.settings.get('worldofdarkness', 'worldVersion');
   	const systemVersion = game.data.system.version;	
@@ -229,29 +229,16 @@ Hooks.once("ready", function () {
 
 	if (game.user.isGM) {
 		if ((installedVersion !== systemVersion || installedVersion === null)) {
-			migration.UpdateWorld(installedVersion, systemVersion);
+			await migration.UpdateWorld(installedVersion, systemVersion);
 		}
 		else {
 			ui.notifications.info("Checking character's settings!");
-			migration.updates();
+			await migration.updates();
 			ui.notifications.info("Done!");
 		}
 	}
 	CONFIG.language = game.i18n.lang;
 });
-
-//Dice Roller
-$(document).ready(() => {
-	const diceIconSelector = '#chat-controls .chat-control-icon .fa-dice-d20';
-  
-	$(document).on('click', diceIconSelector, ev => {
-	  	ev.preventDefault();
-	    const roll = new GeneralRoll("dice", "dice");
-		let generalRollUse = new DialogGeneralRoll(undefined, roll);
-		generalRollUse.render(true);
-
-	});
-  });
 
 Hooks.on("renderActorSheet", (sheet) => { 
 	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
@@ -360,6 +347,27 @@ Hooks.on("renderDialog", (_dialog, html, _data) => {
 			select.querySelector("option").selected = true;
 		}
 	} 
+
+	// INFO: how to remove types if item from the list
+	/* let deprecatedTypes = ["type1", "type2", "type3"]; // 
+	Array.from(html.find("#document-create option")).forEach(i => {
+		if (deprecatedTypes.includes(i.value))
+		{
+			i.remove()
+		}
+	}) */
+});
+
+//Dice Roller
+$(document).ready(() => {
+	const diceIconSelector = '#chat-controls .chat-control-icon .fa-dice-d20';
+  
+	$(document).on('click', diceIconSelector, ev => {
+	  	ev.preventDefault();
+	    const roll = new GeneralRoll("dice", "dice");
+		let generalRollUse = new DialogGeneralRoll(undefined, roll);
+		generalRollUse.render(true);
+	});
 });
 
 function clearHTML(sheet) {

@@ -4,7 +4,25 @@
 			"world": "Spiel aktualisiert!",
 			"sheetlocked": "Kann nicht bearbeitet werden, Charakterbogen ist gesperrt!"
 		},
+		"games": {
+			"headline": "Spiele",
+			"changeling": "Wechselbalg der Traum",
+			"demon": "Dämonen die Gefallenen",
+			"hunter": "Jäger die Vergeltung",
+			"vampire": "Vampire die Maskerade",
+			"werewolf": "Werwolf die Apokalypse",
+			"mage": "Magus die Erleuchtung"
+		},
+		"era": {
+			"modern": "Moderne",
+			"victorian": "Viktorianische Zeit",
+			"wildwest": "Wilder Westen",
+			"darkages": "Alte Zeit"
+		},
 		"settings": {
+			"nonotuse": "Nicht verwenden",
+			"alwaysuse": "Immer verwenden",
+			"usewithspeciality": "Verwendung mit Spezialität",
 			"rulesettings": "Regel Einstellungen",
 			"rulesettingshint": "Alle gesammelten Einstellungen über Regeln",
 			"permissionsettings": "Berechtigungseinstellungen",
@@ -25,6 +43,7 @@
 			"observerspartialsheet": "Beobachter können nur die Registerkarte sehen",
 			"limitedfullsheet": "Eingeschränkte Benutzer können das gesamte Blatt sehen",
 			"limitedpartialsheet": "Eingeschränkte Benutzer können die Registerkarte Bio sehen",
+			"minipartialsheet": "Eingeschränkte Benutzer können nur einen Teil der Registerkarte Bio sehen",
 			"changeactorimage": "Bild des Charakters ändern",
 			"changeactorimagehint": "Jeder darf ein Charakterbild verändern, wenn er einen Charakter bearbeiten kann",
 			"changeitemimage": "Gegenstandsbild ändern",
@@ -38,12 +57,31 @@
 			"usesplatfonthint": "Mit dieser Einstellung schalten Sie den speziellen Schriftstil aus, der von den verschiedenen Bögen verwendet wird",
 			"usesworldanvil": "World Anvil Links verwenden",
 			"usesworldanvilhint": "Mit dieser Einstellung wird ein Feld in der Bio angezeigt, in dem Sie den Link zur World Anvil Seite des Bogens speichern können",
-			"huntersettings": "Hunter Einstellungen",
-			"huntersettingshint": "Verwendete Einstellungen in Hunter the Reckoning",
-			"edgesettings": ""Gaining Edge" Einstellungen",
-			"edgesettingshints": "Gaining Edge Einstellung",
+			"huntersettings": "Jäger Einstellungen",
+			"huntersettingshint": "Verwendete Einstellungen in Jäger die Vergeltung",
+			"werewolfsettings": "Werwolf die Apokalypse Einstellungen",
+			"werewolfsettingshint": "Welten, die in Werwolf der Apokalypse verwendet werden.",
+			"edgesettings": "Gaining Edge Einstellungen",
+			"edgesettingshints": "Gewinn von Edge Einstellung",
+			"ragesettings": "Wutstrafe verwenden",
+			"ragesettingshints": "Wenn der Garou in Werwolf mehr Wut als Willenskraft hat, erhält er einen Malus auf seine sozialen Würfe.",
 			"choicevirtue": "Nutzen von virtue points",
-			"choiceexperience": "Ausgeben von Erfahrungspunkten"
+			"choiceexperience": "Ausgeben von Erfahrungspunkten",
+			"therollofone": "Standardergebnis von 1er verwenden",
+			"therollofonehint": "Standardeinstellung der 20er Würfel - Nach den 20er Regeln reduzieren alle Einsen die Anzahl der Erfolge um eins.",
+			"lowestdifficulty": "Niedrigster zulässiger Schwierigkeitsgrad",
+			"lowestdifficultyhint": "Standardeinstellung der 20er Würfel - Nach den 20er Regeln ist die niedrigste Schwierigkeit, die man erreichen kann, zwei.",
+			"specialityaddsuccess": "Standardregel für Spezialität verwenden",
+			"specialityaddsuccesshint": "Standardverwendung von Spezialitäten - fügt eine Anzahl von Erfolgen bei einem Wurf von 10ern hinzu.",
+			"specialityreducediff": "Spezialität senkt den Schwierigkeitsgrad",
+			"specialityreducediffhint": "Bei Verwendung einer Spezialität wird die Schwierigkeit des Wurfs gesenkt.",
+			"tenaddsuccess": "10er addieren immer Erfolge",
+			"tenaddsuccesshint": "Eine Änderung der Handhabung von 10ern, zu addiert immer eine Anzahl von Erfolgen zu dem Wurf.",
+			"explodingdice": "10er Explosionshandling",
+			"explodingdicehint": "In den überarbeiteten Regeln muss man beim Würfeln einer 10 einen zusätzlichen Würfel werfen und das Ergebnis addieren.",
+			"dicerules": "Regeln für das Würfeln.",
+			"diceruleshint": "Wie das System das Würfeln handhabt.",
+			"rollsettings": "Wurf einstellungen."
 		},
 		"types": {
 			"mortal": "Sterbliche",
@@ -51,6 +89,7 @@
 			"mage": "Magus",
 			"background": "Hintergrund",
 			"bloodbound": "Blutband / Vinculum",
+			"boon": "Segen",
 			"merit": "Vorzug",
 			"flaw": "Schwäche",
 			"expspent": "Gespendete EP",
@@ -61,7 +100,7 @@
 			"armor": "Rüstung",
 			"gift": "Gabe",
 			"rite": "Ritus",
-			"charm": "Charme",
+			"charm": "Zauber",
 			"rote": "Rote",
 			"discipline": "Disziplin",
 			"disciplinepower": "Disziplin Kraft",
@@ -77,6 +116,11 @@
 			"talen": "Talen",
 			"fetish": "Fetisch",
 			"treasure": "Schatz",
+			"device": "Gerät",
+			"talisman": "Talisman",
+			"periapt": "Amulett",
+			"matrix": "Matrix",
+			"trinket": "Trinket",
 			"power": "Kraft",
 			"talentsecondability": "Sekundäre Talent Fähigkeit",
 			"skillsecondability": "Sekundäre Fertigkeit Fähigkeit",
@@ -113,10 +157,10 @@
 			"disparate": "Die Unabhängigen",
 			"fallen": "Gefallen",
 			"mad": "Wahnsinning",
-
 			"name": "Name",
 			"appearance": "Erscheinung",
 			"background": "Hintergrund",
+			"tips": "Rollenspiel Tips.",
 			"nature": "Wesen",
 			"demeanor": "Verhalten",
 			"concept": "Konzept",
@@ -125,6 +169,7 @@
 			"worldanvillink": "World Anvil link",
 			"noworldanvillink": "Kein World Anvil link",
 			"changingbreed": "Fera",
+			"noshiftertype": "Auf der Registerkarte Bio wurde kein Wandlertyp ausgewählt.",
 			"feraname": {
 				"ajaba": "Ajaba",
 				"ananasi": "Ananasi",
@@ -384,7 +429,8 @@
 				"affinity": "Reich der Affinität",
 				"threshold": "Schwelle für Verwüstung / Missbrauch",
 				"legacyseelie": "Seelie Erbe",
-				"legacyunseelie": "Unseelie Erbe"
+				"legacyunseelie": "Unseelie Erbe",
+				"revelry": "Revelry"
 			},
 			"hunter": {
 				"creed": "Credo",
@@ -439,6 +485,9 @@
 			"talents": "Talente",
 			"skills": "Fertigkeiten",
 			"knowledges": "Kenntnisse",
+			"notalents": "Keine Talente ausgewählt",
+			"noskills": "Keine Fähigkeiten ausgewählt",
+			"noknowledges": "Keine Kenntnisse ausgewählt",
 
 			"alertness": "Wachsamkeit",
 			"art": "Kunst",
@@ -539,6 +588,7 @@
 			},
 			"virtue": {
 				"headline": "Tugend",
+				"selected": "Selected virtues",
 				"conscience": "Gewissen",
 				"conviction": "Überzeugung",
 				"selfcontrol": "Selbstbeherrschung",
@@ -674,13 +724,19 @@
 					"pocket": "Tasche",
 					"jacket": "Jacke",
 					"trenchcoat": "Mantel",
+					"pouch": "Beutel",
+					"loose": "Lockere Kleidung",
+					"cloak": "Langer Umhang",
+					"notbeconcealed": "Darf nicht versteckt werden",
 					"na": "N/A"
 				},
 				"grip": "Grip",
 				"onehanded": "1 Hand",
 				"twohanded": "2 Hand",
 				"natural": "Natürlich",
-				"initiative": "Initiative"
+				"initiative": "Initiative",
+				"minstrenght": "Minimum strength",
+				"armorpiercing": "Durchdringung"
 			},
 			"armor": {
 				"active": "Aktiv",
@@ -768,7 +824,13 @@
 			"unsortedlores": "Hier sind alle unsortierten Märchen-Kräfte, die einem ausgewähltes Märchen zugewiesen werden müssen. Klicken Sie auf die Überschrift, um eine zu zuweisen.",
 			"arts": "Künste",
 			"edges": "Edges",
-			"lores": "Märchen"
+			"lores": "Märchen",
+			"wyld": "Wyld",
+			"thaumaturgy": "Thaumaturgie",
+			"abyss": "Abgrundmystik",
+			"koldunic": "Koldunische Hexerei",
+			"necromancy": "Nekromantie",
+			"ritualcategory": "Ritual-kategorie"
 		},
 		"spheres": {
 			"spheres": "Sphären",
@@ -782,6 +844,15 @@
 			"prime": "Usprung",
 			"spirit": "Geist",
 			"time": "Zeit",
+
+			"data": "Daten",
+			"entropicstate": "Kontrolle des entropischen Zustands",
+			"material": "Materialwissenschaften",			
+			"psychodynamics": "Psychodynamik",
+			"primal": "Ursprüngliche Nützlichkeit",
+			"dimensional": "Dimensionale Wissenschaft",
+			"temporalscience": "Temporäre Wissenschaft",
+
 			"coincidental": "Zufällig",
 			"vulgar": "Vulgär",
 			"coincidentalspell": "Zufälliger Zauberspruch",
@@ -805,7 +876,14 @@
 			"headline":	"Ausrüstung",
 			"money": "Geld",
 			"moneycarried": "mitgeführt",
-			"moneybank": "auf der Bank"
+			"moneybank": "auf der Bank",
+			"otheritems": "Andere Gegenstände",
+			"device": "Gerät",
+			"talisman": "Talisman",
+			"periapt": "Amulett",
+			"matrix": "Matrix",
+			"trinket": "Schmuck",
+			"contains": "Enthält"
 		},
 		"notes": {
 			"unnamedbackground": "Unbenannter Hintergrund",
@@ -823,6 +901,7 @@
 			"rolling": "würfel",
 			"addedbonus": "weitere Boni",
 			"value": "Wert",
+			"maxvalue": "Höchstwert",
 			"penalty": "Strafe",
 			"total": "gesamt",
 			"max": "maximal",
@@ -837,6 +916,16 @@
 			"select": "Wähle",
 			"noneselect": "Nichts ausgewählt",
 			"custom": "Sekundäre Fähigkeit",
+			"custompath": "Benutzerdefinierter Pfad",
+			"customtribe": "Benutzerdefinierter Stamm",
+			"customsect": "Benutzerdefinierte Sekte",
+			"customclan": "Benutzerdefinierter Clan",
+			"customkith": "Benutzerdefinierter Kith",
+			"customtradition": "Benutzerdefinierte Tradition",
+			"customaffiliation": "Anpassen der Zugehörigkeit",
+			"customizesect": "Sekte anpassen",
+			"customizeclan": "Clan anpassen",
+			"customizetribe": "Stamm anpassen",
 			"none": "Kein",
 			"type": "Typ",
 			"description": "Beschreibung",
@@ -853,6 +942,7 @@
 			"rating": "Bewertung",
 			"level": "Level",
 			"rank": "Rang",
+			"other": "Andere",
 			"bio": {
 				"wronggeneration": "Keine gültige Generation",
 				"wrongtempgeneration": "Kann Generation nicht über 4 senken",
@@ -892,14 +982,13 @@
 				"merits": "Vorzüge",
 				"flaws": "Schwächen",
 				"bloodbound": "Blutsbande / Vinculums",
+				"boon": "Boons",
 				"othertraits": "Andere merkmale",
 				"expearned": "Gewonnene EP",
 				"expspend": "Genutzte EP"
 			},
 			"settings": {
 				"usesoak": "Absorbierbar",
-				"yes": "JA",
-				"no": "NEIN",
 				"added": "-",
 				"removed": "+",
 				"frenzyroll": "Den Modifikator für Rasereiwürfe festlegen",
@@ -914,17 +1003,47 @@
 				"secondaryabilities": "Sekundäre Fähigkeiten",
 				"abilitiesmaxrating": "Maximale Werte für Fähigkeiten",
 				"hasdisciplines": "verfügt über Disziplinen und Rituale",
-				"hasgifts": "Verfügt über Gaben und Riten"
+				"hasgifts": "Verfügt über Gaben und Riten",
+				"setdarkages": "Bogen eingestellt zur Alten Zeit!",
+				"setvictorian": "Bogen eingestellt zur Viktorianischen Zeit!",
+				"setwildwest": "Bogen eingestellt zu Wilder Westen!",
+				"setmodern": "Bogen eingestellt zur Moderne",
+				"maxability": "Diese Einstellung legt den maximalen Wert fest, den eine Fähigkeit haben kann",
+				"customizepath": "Pfad anpassen",
+				"soakinfoone": "Der Gesamtwert, der beim Einstecken mit Attribut, Rüstung und Bonus verwendet wird",
+				"soakinfotwo": "Bonus - zusätzlicher Bonus zum Einstecken",
+				"soakinfothree": "Kann einstecken - wenn diese Art von Schaden normalerweise erlaubt ist",
+				"initiativeinfoone": "Wert - der berechnete Basiswert basierend auf dem Gesamtwert der Attribute",
+				"initiativeinfotwo": "Bonus - zusätzlicher Bonus für die Initiative",
+				"initiativeinfothree": "Gesamt - der Gesamtwert, der im Kampf mit allen aktiven Boni verwendet wird",
+				"graphics": "Grafik",
+				"era": {
+					"headline": "Zeitalter",
+					"modern": "Moderne (20th)",
+					"victorian": "Viktorianisches Zeitalter (20th)",
+					"wildwest": "Wilder Westen (20th)",
+					"darkages": "Alte Zeit (20th)",
+					"infoone": "Eine Änderung dieser Einstellung bedeutet, dass die Fähigkeiten des Bogens neu konfiguriert werden, um dem gewählten Bereich zu entsprechen.",
+					"infotwo": "Dies kann dazu führen, dass vorhandene Fähigkeiten ausgeblendet werden."
+				}
 			},
 			"trait": {
 				"meleeweapon": "Aufgelistete Nahkampfwaffe",
 				"rangedweapon": "Aufgelistete Fernkampfwaffe",
 				"reference": "Verweis"
 			},
+			"feature": {
+				"trivial": "Trivial",
+				"minor": "Geringfügig",
+				"major": "Wichtig",
+				"life": "Leben"
+			},
 			"bonus": {
 				"headline": "Bonus",
-				"attributebonus": "Attribute bonus",
+				"attributebonus": "Attribut bonus",
 				"attributebonushint": "Dieser Bonus addiert/subtrahiert einen Wert zum ausgewählten Attribut selbst und verändert den Gesamtwert um den ausgewählten Betrag. Er kann über die maximale Stufe des Attributs hinausgehen.",
+				"attributedicebonus": "Attribut Würfel bonus",
+				"attributebonusdicehint": "Dieser Bonus addiert/subtrahiert einen Wert zum ausgewählten Attribut selbst und verändert den Gesamtwert der Würfel, die verwendet werden, wenn das Attribut eingesetzt wird. Er kann über den Maximalwert des Attributs hinausgehen.",
 				"attributediff": "Attribut Schwierigkeit",
 				"attributediffhint": "Dieser Bonus verändert den Schwierigkeitsgrad eines Wurfes, der mit diesem Attribut durchgeführt wird.",
 				"attributesucc": "Automatische Attributerfolge",
@@ -944,6 +1063,7 @@
 				"multiplier": "Bewegungsmultiplikator"
 			},
 			"new": {
+				"notfound": "Gegenstands Typ existiert nicht",
 				"armor": "Neue Rüstung",
 				"naturalweapon": "Neue Natürliche Waffe",
 				"meleeweapon": "Neue Nahkampfwaffe",
@@ -954,6 +1074,7 @@
 				"rite": "Neuer Ritus",
 				"rote": "Neue Routine",
 				"bloodbound": "Neues Blutsband / Vinculum",
+				"boon": "Neuer Segen",
 				"background": "Neuer Hintergrund",
 				"merit": "Neuer Vorzug",
 				"flaw": "Neue Schwäche",
@@ -963,20 +1084,57 @@
 				"addexp": "Gewonnene Erfahrung",
 				"spentexp": "Verwendete Erfahrung",
 				"treasure": "Neuer Schatz",
-				"bonus": "Neuer Bonus"
+				"bonus": "Neuer Bonus",
+				"discipline": "Neue Disziplin",
+				"disciplinepower": "Neue Disziplins Kraft",
+				"disciplinepath": "Neuer Disziplins Pfad",
+				"disciplinepathpower": "Neue Disziplins Pfadkraft",
+				"ritual": "Neues Ritual",
+				"edge": "Neuer Edge",
+				"edgepower": "Neue Edge Kraft",
+				"art": "Neue Kunst",
+				"artpower": "Neue Kunstkraft",
+				"lore": "Neues Märchen",
+				"lorepower": "Neue Märchenmacht",
+				"power": "Neue Kraft",
+				"charm": "Neuer Zauber",
+				"device": "Neues Gerät",
+				"talisman": "Neuer Talisman",
+				"periapt": "Neues Amulett",
+				"matrix": "Neue Matrix",
+				"trinket": "Neuer Schmuck"
 			},
 			"add": {
 				"background": "Hintergrund hinzufügen",
 				"merit": "Vorzug hinzufügen",
 				"flaw": "Schwäche hinzufügen",
 				"bloodbound": "Blutsband hinzufügen / Vinculum",
+				"boon": "Segen hinzufügen",
 				"ability": "Sekundäre Fähigkeit hinzufügen",
 				"resonance": "Resonanz hinzufügen",
 				"othertraits": "Andere Eigenschaft hinzufügen",
 				"treasure": "Schatz hinzufügen",
 				"bonus": "Bonus hinzufügen",
 				"experience": "Erfahrung hinzufügen",
-				"spentexp": "hinzufügen von gespendeter Erfahrung"
+				"spentexp": "hinzufügen von gespendeter Erfahrung",
+				"discipline": "Disziplin hinzufügen",
+				"disciplinepower": "Disziplinskraft hinzufügen",
+				"disciplinepath": "Disziplinspfad hinzufügen",
+				"disciplinepathpower": "Disziplinspfadkraft hinzufügen",
+				"ritual": "Ritual hinzufügen",
+				"edge": "Edge hinzufügen",
+				"edgepower": "Edgekraft hinzufügen",
+				"art": "Kunst hinzufügen",
+				"artpower": "Kunstkraft hinzufügen",
+				"power": "Kraft hinzufügen",
+				"charm": "Zauber hinzufügen",
+				"fetish": "Fetish hinzufügen",
+				"talen": "Talen hinzufügen",
+				"device": "Gerät hinzufügen",
+				"talisman": "Talisman hinzufügen",
+				"periapt": "Amulett hinzufügen",
+				"matrix": "Matrix hinzufügen",
+				"trinket": "Schmuck hinzufügen"
 			},
 			"edit": {
 				"naturalweapon": "Natürliche Waffe bearbeiten",
@@ -986,10 +1144,13 @@
 				"merit": "bearbeite Vorzug",
 				"flaw": "bearbeite Schwäche",
 				"bloodbound": "bearbeite Blutsband / Vinculum",
+				"boon": "Segen bearbeiten",
 				"gift": "Gabe bearbeiten",
 				"rite": "Ritus bearbeiten",
 				"discipline": "Bearbeite Disziplin",
 				"disciplinepower": "Bearbeite Disziplin Kraft",
+				"disciplinepath": "Edit discipline path",
+				"disciplinepathpower": "Edit discipline path power",
 				"ritual": "Bearbeite Ritual",
 				"fetish": "Fetisch bearbeiten ",
 				"talen": "Talen bearbeiten",
@@ -1004,7 +1165,20 @@
 				"resonance": "Resonanz bearbeiten",
 				"othertraits": "Andere Eigenschaft bearbeiten",
 				"treasure": "Schatz bearbeiten",
-				"bonus": "bearbeite Bonus"
+				"bonus": "bearbeite Bonus",
+				"apocalypticform": "Apokalyptische Form bearbeiten",
+				"armor": "Rüstung bearbeiten",
+				"power": "Kraft bearbeiten",
+				"charm": "Zauber bearbeiten",
+				"ability": "Fähigkeit bearbeiten",
+				"speciality": "Spezialität bearbeiten",
+				"device": "Gerät bearbeiten",
+				"talisman": "Talisman bearbeiten",
+				"periapt": "Amulett bearbeiten",
+				"matrix": "Matrix bearbeiten",
+				"trinket": "Schmuck bearbeiten",
+				"sphere": "Sphäre bearbeiten",
+				"experience": "Erfahrung bearbeiten"
 			},
 			"remove": {
 				"item": "Gegenstand entfernen",
@@ -1017,12 +1191,15 @@
 				"rite": "Ritus entfernen",
 				"discipline": "entferne Disziplin",
 				"disciplinepower": "entferne Disziplin Kraft",
+				"disciplinepath": "Disziplinpfad entfernen",
+				"disciplinepathpower": "entferne Disziplinspfad Kraft",
 				"ritual": "entferne Ritual",
-				"charm": "Charm entfernen",
+				"charm": "Zauber entfernen",
 				"background": "Hintergrund entfernen",
 				"merit": "Vorzug entfernen",
 				"flaw": "Schwäche entfernen",
 				"bloodbound": "Blutsband entfernen / Vinculum",
+				"boon": "Remove boon",								
 				"fetish": "Fetish entfernen",
 				"talen": "Talen entfernen",
 				"rote": "Zauberformel entfernen",
@@ -1036,20 +1213,28 @@
 				"resonance": "Resonanz entfernen",
 				"othertraits": "Andere Eigenschaft entfernen",
 				"treasure": "Schatz entfernen",
-				"bonus": "entferne Bonus"
+				"bonus": "entferne Bonus",
+				"power": "Entferne Kraft",
+				"device": "Entferne Gerät",
+				"talisman": "Entferne Talisman",
+				"periapt": "Entferne Amulett",
+				"matrix": "Entferne Matrix",
+				"trinket": "Entferne Schmuck",
+				"experience": "Entferne Erfahrung"
 			},
 			"show": {
 				"background": "zeige Hintergrund",
 				"merit": "zeige Vorzüge",
 				"flaw": "zeige Schwächen",
 				"bloodbound": "zeige Blutsband",
+				"boon": "Show boon",
 				"traits": "zeige andere Merkmale",
 				"experience": "zeige hinzugefügte EP",
 				"spentexp": "zeige genutzte EP",
 				"bonus": "zeige hinzugefügter Bonus"
 			},
-			"yes": "JA",
-			"no": "NEIN",
+			"yes": "ja",
+			"no": "nein",
 			"numdices": "Anzahl der Würfel",
 			"send": "Sende an Chat"
 		},
@@ -1088,7 +1273,8 @@
 			"rollinginitiative": "Würfel Initative",
 			"rollingsoak": "Würfel Absorbation",
 			"rollingremainactive": "Würfel, um aktiv zu bleiben",
-			"rollingremainactivetext": "Jeder Erfolg heilt eine Stufe Lebenspunkte von jeder Art von Schaden. Unabhängig davon, wie viel Schaden geheilt wird, gerät der Charakter in einen Berserkerrausch. Ein Werwolf erhält eine Kampfnarbe, wenn er erfolgreich aktiv bleibt."
+			"rollingremainactivetext": "Jeder Erfolg heilt eine Stufe Lebenspunkte von jeder Art von Schaden. Unabhängig davon, wie viel Schaden geheilt wird, gerät der Charakter in einen Berserkerrausch. Ein Werwolf erhält eine Kampfnarbe, wenn er erfolgreich aktiv bleibt.",
+			"addedautosucc": "Der Wurf addiert {0} automatische Erfolge"	
 		},
 		"dialog": {	
 			"save": "speichern",
@@ -1100,6 +1286,8 @@
 			"numbersuccesses": "Anzahl der bisherigen Erfolge",
 			"neededsuccesses": "Erforderliche Anzahl von Erfolgen",
 			"usewoundpenalty": "Wundabzug verwenden",
+			"dicepool": "Würfelpool",
+			"nonelisted": "Keine aufgeführt",
 			"aretecasting": {
 				"castspell": "Zaubern",
 				"castingspell": "Zauberspruch",	
@@ -1143,7 +1331,8 @@
 				"quintessence": "Nutze Quintessenz",
 				"additionaldifficulty": "Zusätzlicher Schwierigkeitsmodifikator",
 				"castingsettings": "Zauberei optionen",
-				"extendedcasting": "Extended Casting"
+				"extendedcasting": "Extended Casting",
+				"selectsphere": "Need to select sphere's first"
 			},
 			"checkfrenzy": {
 				"headline": "Würfel auf Raserei",
@@ -1160,7 +1349,8 @@
 			"shapechange": {
 				"headline": "Rolle für Gestaltwandel",
 				"shiftbonus": "Bonuswürfel für Gestaltwandel",
-				"noshape": "Keine Form ausgewählt"
+				"noshape": "Keine Form ausgewählt",
+				"selectshape": "Form zum Verwandeln in"
 			},
 			"weapon": {
 				"attack": "Angriff",
@@ -1181,14 +1371,34 @@
 				"numbertargets": "Anzahl der Ziele"
 		},
 			"soak": {
-				"missingdamage": "Sie müssen eine Schadensart auswählen"
+				"missingdamage": "Sie müssen eine Schadensart auswählen",
+				"selectdamage": "wähle Schadensart"
 			},
 			"power": {
 				"availrealms": "verfügbare Königreiche",
 				"unleashing": "Entfesseln",
 				"nightmaredice": "Alptraum Würfel",
-				"missingrealm": "Du musst ein Königreich wählen!"
+				"missingrealm": "Du musst ein Königreich wählen!",
+				"arttype": "Kunsttyp",
+				"shiftnightmaredice": "wechsel zu Alptraumwürfel",
+				"notset": "Nicht festgelegt",
+				"selectpower": "Wähle Kraft mit der verbunden wird"
+			},
+			"attribute": {
+				"speciality": "Spezialgebiet",
+				"customname": "Individueller Name",
+				"abilityname": "Name der Fähigkeit",
+				"altname": "Alternativer Fähigkeitsname",
+				"techonocracy": "Technokratie-Version verwenden"
+			},
+			"general": {
+				"selectattribute": "Wählen das zu verwendende Attribut"
+			},
+			"bonus": {
+				"chosenattribute": "Wähle Attribut",
+				"movement": "Art der Bewegung",
+				"bonusvalue": "Bonuswert"
 			}
 		}
-	}	
+	}
 }

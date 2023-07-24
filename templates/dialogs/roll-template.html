@@ -183,6 +183,10 @@
     {{#if (eq data.type "send")}}
         <div class="tray-title-area">{{data.action}}</div>
 
+        {{#if (ne data.message "")}}
+            <div class="tray-system-area">{{{data.message}}}</div>
+        {{/if}}
+
         {{#if (ne data.description "")}}
             <div class="tray-action-area" style="font-weight: bold;">{{localize "wod.labels.description"}}</div>
             <div class="tray-system-area">{{{data.description}}}</div>

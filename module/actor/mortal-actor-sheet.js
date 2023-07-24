@@ -238,8 +238,18 @@ export class MortalActorSheet extends ActorSheet {
 		event.preventDefault();
 
 		if (this.actor.system.settings.era == CONFIG.wod.era.darkages) {
-			return;
-		}
+			const performDelete = await new Promise((resolve) => {
+				Dialog.confirm({
+					title: "LANG: You sure you wish to change era?",
+					yes: () => resolve(true),
+					no: () => resolve(false),
+					content: "LANG: The sheet is already set to this era you sure you wish to reset it?"
+				});
+			});
+
+			if (!performDelete)
+            	return;
+		}        
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
@@ -273,7 +283,17 @@ export class MortalActorSheet extends ActorSheet {
 		event.preventDefault();
 
 		if (this.actor.system.settings.era == CONFIG.wod.era.victorian) {
-			return;
+			const performDelete = await new Promise((resolve) => {
+				Dialog.confirm({
+					title: "LANG: You sure you wish to change era?",
+					yes: () => resolve(true),
+					no: () => resolve(false),
+					content: "LANG: The sheet is already set to this era you sure you wish to reset it?"
+				});
+			});
+
+			if (!performDelete)
+            	return;
 		}
 
 		const element = event.currentTarget;
@@ -321,7 +341,17 @@ export class MortalActorSheet extends ActorSheet {
 		event.preventDefault();
 
 		if (this.actor.system.settings.era == CONFIG.wod.era.modern) {
-			return;
+			const performDelete = await new Promise((resolve) => {
+				Dialog.confirm({
+					title: "LANG: You sure you wish to change era?",
+					yes: () => resolve(true),
+					no: () => resolve(false),
+					content: "LANG: The sheet is already set to this era you sure you wish to reset it?"
+				});
+			});
+
+			if (!performDelete)
+            	return;
 		}
 
 		const element = event.currentTarget;
@@ -767,6 +797,7 @@ export class MortalActorSheet extends ActorSheet {
 		if (itemtype == "Feature") {
 			let itemkind = "";
 			let name = "";
+			let level = 1;
 
 			if (type == "bloodbound") {
 				found = true;
@@ -777,6 +808,7 @@ export class MortalActorSheet extends ActorSheet {
 				found = true;
 				name = game.i18n.localize("wod.labels.new.boon");
 				itemkind = "wod.types.boon";
+				level = "";
 			}
 			if (type == "background") {
 				found = true;
@@ -798,7 +830,7 @@ export class MortalActorSheet extends ActorSheet {
 				name: name,
 				type: itemtype,
 				system: {
-					level: 1,
+					level: level,
 					type: itemkind
 				}
 			};
@@ -1323,6 +1355,7 @@ export class MortalActorSheet extends ActorSheet {
 				actor: this.actor,
 				type: "send",
 				action: headline,
+				message: "",
 				description: description,
 				system: system
 			}
