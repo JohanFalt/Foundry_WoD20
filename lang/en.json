@@ -492,7 +492,7 @@
 			"noknowledges": "No knowledges selected",
 
 			"alertness": "Alertness",
-			"archery": "Archery",
+			
 			"art": "Art",
 			"athletics": "Athletics",
 			"awareness": "Awareness",
@@ -505,12 +505,12 @@
 			"kenning": "Kenning",			
 			"leadership": "Leadership",
 			"legerdemain": "Legerdemain",
-			"primalurge": "Primal-Urge",
-			"ride": "Ride",
+			"primalurge": "Primal-Urge",			
 			"streetwise": "Streetwise",
 			"subterfuge": "Subterfuge",
 
 			"animalken": "Animal-Ken",
+			"archery": "Archery",
 			"commerce": "Commerce",
 			"craft": "Craft",
 			"demolitions": "Demolition",
@@ -523,6 +523,7 @@
 			"melee": "Melee",	
 			"performance": "Performance",
 			"research": "Research",
+			"ride": "Ride",
 			"security": "Security",
 			"stealth": "Stealth",
 			"survival": "Survival",
