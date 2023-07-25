@@ -120,6 +120,36 @@
 
 /* START - Type of sheet designs */
 
+.wod-sheet:not(.minimized) {
+  min-width: 900px;
+  width: 900px;
+  min-height: 900px;
+}
+
+.wod-item:not(.minimized) {
+  min-width: 600px;
+  width: 600px;
+  min-height: 400px;
+} 
+
+.wod-dialog:not(.minimized) {
+  min-width: 500px;  
+  width: 500px;
+  min-height: 400px;
+}
+
+.wod-dialog.sortdiscipline-dialog:not(.minimized),
+.wod-dialog.checkfrenzy-dialog:not(.minimized),
+.wod-dialog.shapechange-dialog:not(.minimized) {
+  min-width: 700px;
+  width: 700px;
+}
+
+.wod-dialog.aretecasting-dialog:not(.minimized) {
+  min-width: 750px;
+  width: 750px;
+}
+
 .wod20.window-app {
   font-family: var(--main-font);
 }
@@ -141,6 +171,13 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+
+.wod-sheet .sheet-inner-area {
+  padding-left: 45px;
+  width: 830px;
+  min-height: 500px;
 }
 
 .wod20 nav {
@@ -184,40 +221,9 @@
   border: 2px groove var(--color-border-light-highlight) !important;
 }
 
-.wod-sheet:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.wod-item:not(.minimized) {
-  width: 600px !important;
-  min-height: 400px;
-} 
-
-.wod-dialog:not(.minimized) {
-  width: 500px;  
-  min-height: 400px;
-}
-
-.wod-dialog.sortdiscipline-dialog:not(.minimized),
-.wod-dialog.checkfrenzy-dialog:not(.minimized),
-.wod-dialog.shapechange-dialog:not(.minimized) {
-  width: 700px;
-}
-
-.wod-dialog.aretecasting-dialog:not(.minimized) {
-  min-width: 750px;
-}
-
 .wod-dialog .window-content,
 .wod-item .window-content {
   background: var(--main-dialog-background);
-}
-
-.wod-sheet .sheet-inner-area {
-  padding-left: 45px; 
-  width: 830px;
-  min-height: 500px;
 }
 
 .rule-dialog select,
@@ -681,6 +687,7 @@ input.sheet-infoWidth {
 .setting-radiospanText {
   width: 200px; 
   display: inline-block;
+  height: 12px;
 }
 
 .wod-dialog .setting-radiobuttons {
@@ -753,7 +760,7 @@ input.sheet-infoWidth {
   height: 34px;
 }
 
-.dialog-label {
+.aretecasting-dialog .dialog-label {
   width: 480px;
 }
 
@@ -1038,11 +1045,11 @@ div.rank-area {
 }
 
 .combat-headlineLargeBox {
-  width: 150px;
+  width: 165px;
 }
 
 .combat-largeBox {
-  width: 155px;
+  width: 170px;
 }
 
 .armor-largeBox {
@@ -1110,7 +1117,7 @@ div.rank-area {
   width: 200px;
 }
 
-.power-dicebox {
+.wod-sheet .power-dicebox {
   width: 100px;
 }
 

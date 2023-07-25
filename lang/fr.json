@@ -477,6 +477,7 @@
 			"bureaucracy": "Bureaucratie",
 			"computer": "Informatique",
 			"cosmology": "Cosmologie",
+			"culture": "Culture",
 			"enigmas": "Enigmes",
 			"esoterica": "Esoterisme",
 			"finance": "Finance",
@@ -493,7 +494,7 @@
 			"rituals": "Rituels",
 			"seneschal": "Sénéchal",
 			"science": "Sciences",
-			"technology": "Technologies"
+			"technology": "Théologie"
 		},		
 		"health": {
 			"health": "Santé",
@@ -1184,7 +1185,7 @@
 				"missingdamage": "Choisssez un type de dégats"
 			},
 			"power": {
-				"availrealms": "Availible Realms",
+				"availrealms": "Available Realms",
 				"unleashing": "Unleashing",
 				"nightmaredice": "Nightmare dice",
 				"missingrealm": "You need to select a Realm"

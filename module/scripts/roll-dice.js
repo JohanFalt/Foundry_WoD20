@@ -342,7 +342,8 @@ export async function InitiativeRoll(diceRoll) {
 	let init = 0;
 	let initAttribute = "";
 
-	let token = await canvas.tokens.placeables.find(t => t.data.actorId === actor.id);
+	let token = await canvas.tokens.placeables.find(t => t.document.actor._id === actor._id);
+
 	if(token) foundToken = true;
 
 	if (game.combat == null) {

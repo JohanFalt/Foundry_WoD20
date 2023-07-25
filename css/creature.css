@@ -16,19 +16,12 @@
 	font-size: 18px;
 }
 
-/* .creature:not(.noSplatFont) .headlineList {
-  font-size: 12px;
-} */
-
 .creature .headlineRow {
   display: flex;
   height: 23px;
   line-height: 23px;
   margin-top: 25px;
   margin-bottom: 5px;
-}
-
-.creatureDialog:not(.noSplatFont) .headlineGroup {
 }
 
 /* CORE */

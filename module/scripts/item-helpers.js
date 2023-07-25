@@ -338,10 +338,13 @@ export default class ItemHelper {
 					name: item.name,
 					speciality: item.system.speciality,
 					value: item.system.value,
+					isvisible: item.system.isvisible,
 					_id: item._id
 				}
 
-				actor.system.listdata.ability_talents.push(trait);
+				if (item.system.isvisible) {
+					actor.system.listdata.ability_talents.push(trait);
+				}
 
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);
@@ -360,10 +363,13 @@ export default class ItemHelper {
 					name: item.name,
 					speciality: item.system.speciality,
 					value: item.system.value,
+					isvisible: item.system.isvisible,
 					_id: item._id
 				}
 
-				actor.system.listdata.ability_skills.push(trait);
+				if (item.system.isvisible) {
+					actor.system.listdata.ability_skills.push(trait);
+				}
 	
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);
@@ -382,10 +388,13 @@ export default class ItemHelper {
 					name: item.name,
 					speciality: item.system.speciality,
 					value: item.system.value,
+					isvisible: item.system.isvisible,
 					_id: item._id
 				}
 
-				actor.system.listdata.ability_knowledges.push(trait);
+				if (item.system.isvisible) {
+					actor.system.listdata.ability_knowledges.push(trait);
+				}
 
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);

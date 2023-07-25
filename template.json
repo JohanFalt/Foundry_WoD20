@@ -1649,6 +1649,8 @@
 		"templates": {
 			"settings": {
 				"iscreated": false,
+				"isactive": false,
+				"isvisible": true,
 				"version": "",
 				"parentid": ""
 				
@@ -1703,8 +1705,7 @@
 				"dice2": "",
 				"bonus": 0,
 				"difficulty": 0,
-				"isrollable": false,
-				"isactive": false,
+				"isrollable": false,				
 				"spendwillpower": false,
 				"spendrage": false,
 				"spendgnosis": false,
@@ -1834,8 +1835,7 @@
 				"base",
 				"feature"
 			],
-			"settingtype": "",
-			"isactive": false
+			"settingtype": ""
 		},
 		"Trait": {
 			"templates": [
@@ -1843,7 +1843,6 @@
 				"base",
 				"feature"
 			],
-			"isactive": false,
 			"ismeleeweapon": false,
 			"israngedeweapon": false,
 			"isrollable": false,

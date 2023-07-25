@@ -12,7 +12,7 @@ export default class AbilityHelper {
 			name: abilitynamn,
 			type: "Trait",
 			system: {
-				label: abilitynamn,
+				label: game.i18n.localize(abilitynamn),
 				type: abilitytype,
 				max: maxvalue,
 				ismeleeweapon: ismeleeweapon,

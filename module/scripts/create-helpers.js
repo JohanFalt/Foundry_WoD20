@@ -37,13 +37,13 @@ export default class CreateHelper {
 		}
 
 		if (era == "darkages") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "Legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "wod.abilities.legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.hearthwisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 	}	
 
@@ -78,17 +78,17 @@ export default class CreateHelper {
 		}
 
 		if (era == "victorian") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 
 		if (era == "darkages") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "Legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "wod.abilities.legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.hearthwisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 	}
 
@@ -158,14 +158,14 @@ export default class CreateHelper {
 		}
 
 		if (era == "victorian") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", 5);
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Culture", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.ride", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.culture", 5);
 		}
 
 		if (era == "darkages") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", 5);
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", 5);
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.archery", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "wod.abilities.ride", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "wod.abilities.hearthwisdom", 5);
 		}
 	}
 

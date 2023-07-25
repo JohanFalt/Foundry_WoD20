@@ -492,7 +492,7 @@
 			"alertness": "Wachsamkeit",
 			"art": "Kunst",
 			"athletics": "Sportlichkeit",
-			"awareness": "Aufmerksamheit",
+			"awareness": "Bewusstsein",
 			"brawl": "Handgemenge",
 			"dodge": "Ausweichen",
 			"empathy": "Menschenkenntnis",
@@ -507,6 +507,7 @@
 			"subterfuge": "Ausflüchte",
 
 			"animalken": "Tierkunde",
+			"commerce": "Handel",
 			"craft": "Handwerk",
 			"demolitions": "Sprengstoffe",
 			"drive": "Fahren",
@@ -526,6 +527,7 @@
 			"bureaucracy": "Bürokratie",
 			"computer": "Computer",
 			"cosmology": "Kosmologie",
+			"culture": "Verborgene Kultur",
 			"enigmas": "Rätsel",
 			"esoterica": "Esoterik",
 			"finance": "Finanzen",
@@ -542,7 +544,8 @@
 			"rituals": "Rituale",
 			"seneschal": "Seneschal",
 			"science": "Naturwissenschaften",
-			"technology": "Technologie"		
+			"technology": "Technologie",
+			"theology": "Theologie"	
 		},		
 		"health": {
 			"health": "Gesundheit",

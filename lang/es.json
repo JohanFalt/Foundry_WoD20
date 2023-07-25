@@ -458,6 +458,7 @@
 			"subterfuge": "Subterfugio",
 
 			"animalken": "Trato con Animales",
+			"commerce": "Comerciar",
 			"craft": "Artesania",
 			"demolitions": "Demoliciones",
 			"drive": "Conducir",
@@ -477,6 +478,7 @@
 			"bureaucracy": "Burocracia",
 			"computer": "Informática",	
 			"cosmology": "Cosmología",
+			"culture": "Cultura Encubierta",
 			"enigmas": "Enigmas",
 			"esoterica": "Esoterismo",
 			"finance": "Finanzas",
@@ -493,7 +495,8 @@
 			"rituals": "Rituales",
 			"seneschal": "Senescal",
 			"science": "Ciencia",
-			"technology": "Tecnología"			
+			"technology": "Tecnología",
+			"theology": "Tecnología"			
 		},		
 		"health": {
 			"health": "Salud",

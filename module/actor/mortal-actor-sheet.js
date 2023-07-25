@@ -240,10 +240,10 @@ export class MortalActorSheet extends ActorSheet {
 		if (this.actor.system.settings.era == CONFIG.wod.era.darkages) {
 			const performDelete = await new Promise((resolve) => {
 				Dialog.confirm({
-					title: "LANG: You sure you wish to change era?",
+					title: game.i18n.localize("wod.era.changeera"),
 					yes: () => resolve(true),
 					no: () => resolve(false),
-					content: "LANG: The sheet is already set to this era you sure you wish to reset it?"
+					content: game.i18n.localize("wod.era.changeerahint")
 				});
 			});
 
@@ -285,10 +285,10 @@ export class MortalActorSheet extends ActorSheet {
 		if (this.actor.system.settings.era == CONFIG.wod.era.victorian) {
 			const performDelete = await new Promise((resolve) => {
 				Dialog.confirm({
-					title: "LANG: You sure you wish to change era?",
+					title: game.i18n.localize("wod.era.changeera"),
 					yes: () => resolve(true),
 					no: () => resolve(false),
-					content: "LANG: The sheet is already set to this era you sure you wish to reset it?"
+					content: game.i18n.localize("wod.era.changeerahint")
 				});
 			});
 
@@ -343,10 +343,10 @@ export class MortalActorSheet extends ActorSheet {
 		if (this.actor.system.settings.era == CONFIG.wod.era.modern) {
 			const performDelete = await new Promise((resolve) => {
 				Dialog.confirm({
-					title: "LANG: You sure you wish to change era?",
+					title: game.i18n.localize("wod.era.changeera"),
 					yes: () => resolve(true),
 					no: () => resolve(false),
-					content: "LANG: The sheet is already set to this era you sure you wish to reset it?"
+					content: game.i18n.localize("wod.era.changeerahint")
 				});
 			});
 
@@ -532,6 +532,16 @@ export class MortalActorSheet extends ActorSheet {
 
 		if (source == "ability") {
 			actorData.system.abilities[ability].isvisible = !actorData.system.abilities[ability].isvisible;
+		}
+		// updates if a secondary ability is to be visible or not.
+		if (source == "secondaryability") {
+			const itemid = dataset.itemid;
+			const item = this.actor.getEmbeddedDocument("Item", itemid);
+			const itemData = duplicate(item);
+			itemData.system.isvisible = !item.system.isvisible;
+			await item.update(itemData);
+			this.render();
+			return;
 		}
 		if (source == "advantages") {
 			actorData.system.settings[type] = !actorData.system.settings[type];

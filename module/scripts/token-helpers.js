@@ -9,35 +9,48 @@ export default class TokenHelper {
         }
 
 		let foundToken = false;
+        let visible = undefined;
 
-		let token = await canvas.tokens.placeables.find(t => t.data.actorId === actor._id);
+		let token = await canvas.tokens.placeables.find(t => t.document.actorId === actor._id);
 		if(token) foundToken = true;
 
 		if (foundToken) {
             await this._clearForms(token);
-            await token.document.toggleActiveEffect(await this._getEffectData(toForm));
+            if (await token.document.toggleActiveEffect(await this._getEffectData(toForm))) {
+                // effect was applied
+            }
 		}			
     }
 
     static async _clearForms(token) {
         if (await token.document.hasStatusEffect("form_homid")) {
-            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.homid"));
+            if (!await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.homid"))) {
+                // effect was removed
+            }
         }
 
         if (await token.document.hasStatusEffect("form_glabro")) {
-            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.glabro"));
+            if (!await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.glabro"))) {
+                // effect was removed
+            }
         }
 
         if (await token.document.hasStatusEffect("form_crinos")) {
-            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.crinos"));
+            if (!await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.crinos"))) {
+                // effect was removed
+            }
         }
 
         if (await token.document.hasStatusEffect("form_hispo")) {
-            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.hispo"));
+            if (!await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.hispo"))) {
+                // effect was removed
+            }
         }
 
         if (await token.document.hasStatusEffect("form_lupus")) {
-            await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.lupus"));
+            if (!await token.document.toggleActiveEffect(await this._getEffectData("wod.shapes.lupus"))) {
+                // effect was removed
+            }
         }
     }
 

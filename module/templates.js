@@ -456,6 +456,15 @@ export const registerHandlebarsHelpers = function () {
 		return value;
 	});
 
+	Handlebars.registerHelper("shifterHasForm", function (actor, form) {
+		if (actor.system.shapes[form].isactive) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	});
+
 	Handlebars.registerHelper("getShifterRenown", function (type, renown) {
 		let newtext = renown;
 

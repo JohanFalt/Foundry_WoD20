@@ -17,7 +17,9 @@
 			"modern": "Modern",
 			"victorian": "Victorian Age",
 			"wildwest": "Wild West",
-			"darkages": "Dark Ages"
+			"darkages": "Dark Ages",
+			"changeera": "You sure you wish to change era?",
+			"changeerahint": "The sheet is already set to this era you sure you wish to reset it?"
 		},
 		"settings": {
 			"nonotuse": "Do not use",
@@ -490,6 +492,7 @@
 			"noknowledges": "No knowledges selected",
 
 			"alertness": "Alertness",
+			"archery": "Archery",
 			"art": "Art",
 			"athletics": "Athletics",
 			"awareness": "Awareness",
@@ -503,10 +506,12 @@
 			"leadership": "Leadership",
 			"legerdemain": "Legerdemain",
 			"primalurge": "Primal-Urge",
+			"ride": "Ride",
 			"streetwise": "Streetwise",
 			"subterfuge": "Subterfuge",
 
 			"animalken": "Animal-Ken",
+			"commerce": "Commerce",
 			"craft": "Craft",
 			"demolitions": "Demolition",
 			"drive": "Drive",
@@ -526,6 +531,7 @@
 			"bureaucracy": "Bureaucracy",			
 			"computer": "Computer",
 			"cosmology": "Cosmology",
+			"culture": "Culture",
 			"enigmas": "Enigmas",
 			"esoterica": "Esoterica",
 			"finance": "Finance",
@@ -542,7 +548,8 @@
 			"rituals": "Rituals",
 			"seneschal": "Seneschal",
 			"science": "Science",
-			"technology": "Technology"
+			"technology": "Technology",
+			"theology": "Theology"
 		},		
 		"health": {
 			"health": "Health",
@@ -1251,7 +1258,7 @@
 				"attribute1": "Value - the value of that Attribute",
 				"attribute2": "Bonus - number of bonus dice on that Attribute",
 				"attribute3": "Total - the total number of dice of that Attribute",
-				"attribute4": "Max - the highest availible value of that Attribute",
+				"attribute4": "Max - the highest available value of that Attribute",
 				"healthvalue": "Value - number health boxes character has for that level",
 				"healthpenalty": "Penalty - wound penalty character has for that level"
 			},
@@ -1299,8 +1306,8 @@
 				"modifierarete": "Arete modifier",
 				"castingtype": "Spell type",
 				"witnesses": "Witnesses",
-				"availspheres": "Availible Spheres",
-				"nospheres": "No selected Spheres",
+				"availspheres": "Available spheres",
+				"nospheres": "No selected spheres",
 				"nospelltype": "No spell type selected",
 				"increaseddifficulty": "Due to high difficulty, number of successes required to succeed goes up by",
 				"spendquintessence": "Spent Quintessence",

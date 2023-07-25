@@ -292,7 +292,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		await TokenHelper.formShift(actorData, fromForm, toForm);
 
 		console.log("WoD | Werewolf Sheet updated");
-		this.actor.update(actorData);
+		await this.actor.update(actorData);
 
 		shifting = false;
 	}

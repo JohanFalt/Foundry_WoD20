@@ -150,14 +150,19 @@ wod.knowledges = {
 
 wod.attackAttributes = {
     strength: "wod.attributes.strength",
-    dexterity: "wod.attributes.dexterity"
+    dexterity: "wod.attributes.dexterity",
+    manipulation: "wod.attributes.manipulation",
+    wits: "wod.attributes.wits"
 }
 
 wod.attackMeleeAbilities = {
     athletics: "wod.abilities.athletics",
     brawl: "wod.abilities.brawl",
     martialarts: "wod.abilities.martialarts",
-    melee: "wod.abilities.melee"
+    melee: "wod.abilities.melee",
+    expression: "wod.abilities.expression",
+    intimidation: "wod.abilities.intimidation",    
+    subterfuge: "wod.abilities.subterfuge"
 } 
 
 wod.attackRangedAbilities = {

@@ -43,7 +43,7 @@
                 {{/if}}
             {{/if}}
 
-            <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.system.attack.attribute)}}&nbsp;</div>
+            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}&nbsp;</div>
             <div class="pullLeft combat-abilityBox headlineNormal">
                 {{#if (eq item.system.attack.ability "custom")}}
                     {{shorten (getAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}

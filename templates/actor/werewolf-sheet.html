@@ -24,19 +24,19 @@
 
 			<div class="pullRight" data-area="microicons">
 				<div data-area="shapeicon">
-					{{#if data.system.shapes.homid.isactive}}
+					{{#if (shifterHasForm actor 'homid')}}
 						<img class="shapeIcon" src="systems/worldofdarkness/assets/img/werewolf/form/form_homid.svg" />
 					{{/if}}
-					{{#if data.system.shapes.glabro.isactive}}
+					{{#if (shifterHasForm actor 'glabro')}}
 						<img class="shapeIcon" src="systems/worldofdarkness/assets/img/werewolf/form/form_glabro.svg" />
 					{{/if}}
-					{{#if data.system.shapes.crinos.isactive}}
+					{{#if (shifterHasForm actor 'crinos')}}
 						<img class="shapeIcon" src="systems/worldofdarkness/assets/img/werewolf/form/form_crinos.svg" />
 					{{/if}}
-					{{#if data.system.shapes.hispo.isactive}}
+					{{#if (shifterHasForm actor 'hispo')}}
 						<img class="shapeIcon" src="systems/worldofdarkness/assets/img/werewolf/form/form_hispo.svg" />
 					{{/if}}
-					{{#if data.system.shapes.lupus.isactive}}
+					{{#if (shifterHasForm actor 'lupus')}}
 						<img class="shapeIcon" src="systems/worldofdarkness/assets/img/werewolf/form/form_lupus.svg" />
 					{{/if}}
 				</div>
