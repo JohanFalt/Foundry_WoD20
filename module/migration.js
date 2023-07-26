@@ -64,7 +64,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
     }
 
     try {
-        ui.notifications.warn("Checking character settings", {permanent: false});
+        ui.notifications.warn("Checking character settings");
         //MessageHelper.printMessage("Checking character settings", "");
         await this.updates();
         //MessageHelper.printMessage("Checking character settings", "");
@@ -1617,6 +1617,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        newfunctions += '<b>v3.1.5</b>';
+        newfunctions += '<li>Added and adapted graphics if viewed in Spanish</li>';
+        newfunctions += '<li>Fixed some minor graphical problems</li>';
+        newfunctions += '<li>[WtA] - A serious problem with tokens showing the werewolf form was handled by trying to remove all icons that was found. To trigger this, shift the form of the Actor. If the icons remain the icon is most likely not linked to any Actor in its settings.</li>';
+        newfunctions += '<li>[MtA] - Fixed the listings of Rotes</li>';
+
         newfunctions += '<b>v3.1.4</b>';
         newfunctions += '<li>Adapted graphics if viewed in German</li>';
         newfunctions += '<li>Added attributes and abilities as Melee Weapon choises to handle Maneuvers</li>';
@@ -1624,6 +1630,7 @@ export  const updates = async () => {
         newfunctions += '<li>Translations for Secondary Abilities that are era specific</li>';
         newfunctions += '<li>[MtA] - Fixed graphics on the spell casting dialog</li>';
         newfunctions += '<li>[WtA] - Fixed problem where a shifter could show that it had more than one form</li>';
+        
         newfunctions += '<b>v3.1.3</b>';
         newfunctions += '<li>Fixed German translation</li>';
         newfunctions += '<li>Fixed spelling errors</li>';

@@ -243,15 +243,18 @@
 			</div>			
 
 			<!-- description -->
-			<div class="infobox">
+			<div class="dialog-area">
 				<div class="clearareaBox">
-					<label class="headlineItem headlineBio splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+					<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.description"}}</div>
 				</div>
-				{{#if canEdit}}
-					{{editor data.description target="system.description" button=false owner=owner editable=true}}
-				{{else}}
-					<div class="headlineNormal textarea">{{{data.system.description}}}</div>
-				{{/if}}
+				<div class="infobox">
+
+					{{#if locked}}
+						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
+					{{else}}
+						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+					{{/if}}
+				</div>
 			</div>
 
 		</section>

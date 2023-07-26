@@ -1,4 +1,173 @@
 export default class TokenHelper {
+    static async formShift(actor, fromForm, toForm) {        
+
+        if (actor.type != CONFIG.wod.sheettype.werewolf) {
+            return;
+        }
+
+        if (fromForm == toForm) {
+            return;
+        }
+
+        let effect1 = actor.effects.find(i=> i.label === "form_homid");
+
+        if (effect1 == undefined) {
+            effect1 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.homid"));
+        }
+
+        let effect2 = actor.effects.find(i=> i.label === "form_glabro");
+
+        if (effect2 == undefined) {
+            effect2 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.glabro"));
+        }
+
+        let effect3 = actor.effects.find(i=> i.label === "form_crinos");
+
+        if (effect3 == undefined) {
+            effect3 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.crinos"));
+        }
+
+        let effect4 = actor.effects.find(i=> i.label === "form_hispo");
+
+        if (effect4 == undefined) {
+            effect4 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.hispo"));
+        }
+
+        let effect5 = actor.effects.find(i=> i.label === "form_lupus");
+
+        if (effect5 == undefined) {
+            effect5 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.lupus"));
+        }
+
+        if (effect1 != undefined) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect1.id]);
+        }
+        if (effect2 != undefined) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect2.id]);                
+        } 
+        if (effect3 != undefined) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect3.id]);       
+        } 
+        if (effect4 != undefined) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect4.id]);     
+        } 
+        if (effect5 != undefined) {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect5.id]);   
+        } 
+
+        return;
+
+		let foundToken = false;
+
+		let token = await canvas.tokens.placeables.find(t => t.document.actorId === actor._id);
+		if(token) foundToken = true;
+
+		if (foundToken) {
+            
+
+            await this._clearForms(token, actor);
+            //await token.document.toggleActiveEffect(this._getEffectData(toForm));
+            await this._applyEffect(token, toForm, true);
+            await this._applyActorEffect(actor, toForm, true);
+		}			
+    }
+
+    static async _clearForms(token, actor) {
+        if (token.document.hasStatusEffect("form_homid")) {
+            //await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.homid"));
+            await this._applyEffect(token, "wod.shapes.homid", false);
+            await this._applyActorEffect(actor, "wod.shapes.homid", false);
+        }
+
+        if (token.document.hasStatusEffect("form_glabro")) {
+            //await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.glabro"));
+            await this._applyEffect(token, "wod.shapes.glabro", false);
+            await this._applyActorEffect(actor, "wod.shapes.glabro", false);
+        }
+
+        if (token.document.hasStatusEffect("form_crinos")) {
+            //await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.crinos"));
+            await this._applyEffect(token, "wod.shapes.crinos", false);
+            await this._applyActorEffect(actor, "wod.shapes.crinos", false);
+        }
+
+        if (token.document.hasStatusEffect("form_hispo")) {
+            //await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.hispo"));
+            await this._applyEffect(token, "wod.shapes.hispo", false);
+            await this._applyActorEffect(actor, "wod.shapes.hispo", false);
+        }
+
+        if (token.document.hasStatusEffect("form_lupus")) {
+            //await token.document.toggleActiveEffect(this._getEffectData("wod.shapes.lupus"));
+            await this._applyEffect(token, "wod.shapes.lupus", false);
+            await this._applyActorEffect(actor, "wod.shapes.lupus", false);
+        }
+    }
+
+    static _getEffectData(toForm) {
+        let effectData = "";
+
+        if (toForm == "wod.shapes.homid") {
+            effectData = {
+                label: "form_homid",
+                //label: game.i18n.localize("wod.shapes.homid"),
+                icon: "systems/worldofdarkness/assets/img/werewolf/form/form_homid.svg"
+            }
+        }
+        if (toForm == "wod.shapes.glabro") {
+            effectData = {
+                label: "form_glabro",
+                //label: game.i18n.localize("wod.shapes.glabro"),
+                icon: "systems/worldofdarkness/assets/img/werewolf/form/form_glabro.svg"
+            }
+        }
+        if (toForm == "wod.shapes.crinos") {
+            effectData = {
+                label: "form_crinos",
+                //label: game.i18n.localize("wod.shapes.crinos"),
+                icon: "systems/worldofdarkness/assets/img/werewolf/form/form_crinos.svg"
+            }
+        }
+        if (toForm == "wod.shapes.hispo") {
+            effectData = {
+                label: "form_hispo",
+                //label: game.i18n.localize("wod.shapes.hispo"),
+                icon: "systems/worldofdarkness/assets/img/werewolf/form/form_hispo.svg"
+            }
+        }
+        if (toForm == "wod.shapes.lupus") {
+            effectData = {
+                label: "form_lupus",
+                //label: game.i18n.localize("wod.shapes.lupus"),
+                icon: "systems/worldofdarkness/assets/img/werewolf/form/form_lupus.svg"
+            }
+        }
+
+        return effectData;
+    }
+
+    static async _applyEffect(token, form, active) {
+        if (await token.document.toggleActiveEffect(this._getEffectData(form), {active: active})) {
+            console.log("Turning on " + form);
+        }
+        else {
+            console.log("Turning off " + form);
+        }
+    }
+
+    static async _applyActorEffect(actor, form, active) {
+        if (await actor.toggleActiveEffect(this._getEffectData(form), {active: active})) {
+            console.log("Turning on " + form);
+        }
+        else {
+            console.log("Turning off " + form);
+        }
+    }
+}
+
+/* 
+
+export default class TokenHelper {
     static async formShift(actor, fromForm, toForm) {
         if (actor.type != CONFIG.wod.sheettype.werewolf) {
             return;
@@ -95,4 +264,4 @@ export default class TokenHelper {
 
         return effectData;
     }
-}
+} */

@@ -87,7 +87,7 @@
 }
   
 .magic-row {
-  display: flex;
+  /* display: flex; */
   height: 23px;
   line-height: 23px;
   margin-left: 13px;

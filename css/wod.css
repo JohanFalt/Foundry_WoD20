@@ -23,7 +23,7 @@
 
 @font-face {
   font-family: "mage";
-  src: url("../assets/fonts/visit.ttf") format("truetype");
+  src: url("../assets/fonts/visit.TTF") format("truetype");
 }
 
 @font-face {
@@ -291,6 +291,10 @@
   height: 150px;
   border-radius: 3px;
   padding: 5px;
+}
+
+.wod20 .textarea.small {
+  height: 50px;
 }
 
 .wod-sheet .textarea {
@@ -1297,11 +1301,13 @@ div.rank-area {
 .wod-item .infobox {
   margin-bottom: 5px;
   font-family: var(--main-font);
+  min-height: 36px;
 }
 
 .wod-dialog .infobox {
   margin: 5px;
   font-family: var(--main-font);
+  min-height: 36px;
 }
 
 .sheet-header > .top-area > .top-side > img {

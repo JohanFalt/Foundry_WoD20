@@ -4,7 +4,27 @@
 			"world": "¡Mundo actualizado!",
 			"sheetlocked": "No se puede editar esta ficha, ¡está bloqueada!"
 		},
+		"games": {
+			"headline": "Juegos",
+			"changeling": "Changeling: el Ensueño",
+			"demon": "Demonio: la Caída",
+			"hunter": "Cazador: la Venganza",
+			"vampire": "Vampiro: la Mascarada",
+			"werewolf": "Hombre lobo: el Apocalipsis",
+			"mage": "Mago: la Ascensión"
+		},
+		"era": {
+			"modern": "Edad Contemporánea/actual",
+			"victorian": "Edad Victoriana",
+			"wildwest": "Salvaje Oeste ",
+			"darkages": "Edad Oscura",
+			"changeera": "¿Estás seguro de que quieres cambiar de época?",
+			"changeerahint": "La ficha ya está configurada para esta época, ¿estás seguro de que deseas resetearla?"
+		},
 		"settings": {
+			"nonotuse": "No usar",
+			"alwaysuse": "Usar siempre",
+			"usewithspeciality": "Usar sólo en especializadas",
 			"rulesettings": "Configuración de reglas (sistemas de juego)",
 			"rulesettingshint": "Todas las configuraciones de reglas reunidas.",
 			"permissionsettings": "Configuración de permisos",
@@ -12,8 +32,8 @@
 			"graphicsettings": "Configuración gráfica",
 			"graphicsettingshint": "Toda la configuración con respecto a los gráficos.",
 			"worldversion": "Version del Mundo",
-			"worldversionhint": "Para saber si se necesita parche del Mundo.",
-			"advantagerolls": "Como tirar Rasgos de Ventajas",
+			"worldversionhint": "Para saber si se necesita actualizar el Mundo.",
+			"advantagerolls": "Cómo tirar Rasgos de Ventajas",
 			"advantagerollshint": "Usar los valores permanentes (activado) o temporales (desactivado) en tiradas de, p. ej., Fuerza Voluntad. Requiere reiniciar Foundry VTT.",
 			"attributesettings": "Configuracion de los Atributos",
 			"attributesettingshint": "Hay dos opciones: Puedes usar la de edición 20 aniversario, donde tienes Apariencia y Percepción y se calcula Fuerza de Voluntad como estadística (por defecto). O 5ª edicion, cambiando Apariencia y Percepción por Compostura y Resolución y calculando Fuerza de Voluntad con Compostura + Resolución.",
@@ -25,6 +45,7 @@
 			"observerspartialsheet": "Los observadores sólo pueden ver la pestaña de Biografía",
 			"limitedfullsheet": "Los usuarios limitados pueden ver la ficha al completo",
 			"limitedpartialsheet": "Los usuarios limitados sólo pueden ver la pestaña Biografía",
+			"minipartialsheet": "Los usuarios limitados sólo pueden ver partes de la pestaña Biografía",
 			"changeactorimage": "Cambiar imagen de Personaje",
 			"changeactorimagehint": "Todo el mundo puede cambiar la imagen de un Personaje, si pueden editar el mismo.",
 			"changeitemimage": "Cambiar imagen de Objeto",
@@ -39,11 +60,30 @@
 			"usesworldanvil": "Usar links de World Anvil",
 			"usesworldanvilhint": "Muestra una cuadro de entrada en la Biografía del Personaje donde puedes colocar el enlace de World Anvil de esa ficha.",
 			"huntersettings": "Configuración de Cazador",
-			"huntersettingshint": "Configuración del mundo para Cazador: la Venganza",
-			"edgesettings": "Configuración adquirir Facultades",
-			"edgesettingshints": "Cómo conseguir Facultades",
+			"huntersettingshint": "Configuración de Mundo para Cazador: la Venganza.",
+			"werewolfsettings": "Configuración de Hombre Lobo",
+			"werewolfsettingshint": "Configuración de Mundo para Hombre Lobo: el Apocalipsis.",
+			"edgesettings": "Configuración para adquirir Facultades",
+			"edgesettingshints": "Cómo se consiguen las Facultades.",
+			"ragesettings": "Usar penalización por Rabia",
+			"ragesettingshints": "En Hombre Lobo, si el Garou tiene más Rabia que Fuerza de Voluntad, tienen una penalización en sus tiradas Sociales.",
 			"choicevirtue": "Gastando puntos de Virtud",
-			"choiceexperience": "Gastando puntos de Experiencia"
+			"choiceexperience": "Gastando puntos de Experiencia",
+			"therollofone": "Usar el funcionamiento por defecto de los '1'",
+			"therollofonehint": "Sistema por defecto del 20 aniversario: Cada '1' reduce los éxitos en uno. (Si está desactivado, no restarán).",
+			"lowestdifficulty": "Dificultad mínima permitida",
+			"lowestdifficultyhint": "Sistema por defecto del 20 aniversario: La dificultad mínina que puedes tener es dos.",
+			"specialityaddsuccess": "Usar la regla de Especialización por defecto",
+			"specialityaddsuccesshint": "Sistema por defecto: añade un número de éxitos por cada resultado de '10'",
+			"specialityreducediff": "La Especialización reduce la dificultad",
+			"specialityreducediffhint": "Si se usa, la Especialización reduce la dificultad de la tirada.",
+			"tenaddsuccess": "Los '10' siempre añaden éxitos",
+			"tenaddsuccesshint": "Modifica los '10' para que siempre añadan ciertos éxitos a la tirada.",
+			"explodingdice": "Comportamiento de '10' explosivo",
+			"explodingdicehint": "En las reglas revisadas (3ª ed.), se vuelve a tirar cada '10' y se suma al resultado.",
+			"dicerules": "Reglas para tiradas de dados",
+			"diceruleshint": "Cómo manejar los Sistemas de tiradas de dados.",
+			"rollsettings": "Configuración de tiradas"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -51,6 +91,7 @@
 			"mage": "Mago",
 			"background": "Trasfondo",
 			"bloodbound": "Vínculo de Sangre / Vinculi",
+			"boon": "Favor",
 			"merit": "Mérito",
 			"flaw": "Defecto",
 			"expspent": "Experiencia gastada",
@@ -61,7 +102,7 @@
 			"armor": "Armadura",
 			"gift": "Don",
 			"rite": "Rito",
-			"charm": "Amuleto",
+			"charm": "Encantamiento",
 			"rote": "Fórmula",
 			"discipline": "Disciplina",
 			"disciplinepower": "Poder de Disciplina",
@@ -77,6 +118,11 @@
 			"talen": "Talismán",
 			"fetish": "Fetiche",
 			"treasure": "Tesoro",
+			"device": "Dispositivo",
+			"talisman": "Talismán",
+			"periapt": "Periapto",
+			"matrix": "Matriz",
+			"trinket": "Baratija",
 			"power": "Poder",
 			"talentsecondability": "Talento secundario",
 			"skillsecondability": "Técnica secundaria",
@@ -95,7 +141,7 @@
 			"gear": "Equipo",
 			"notes": "Notas",
 			"gifts": "Dones y Ritos",
-			"charms": "Amuletos",
+			"charms": "Encantamientos",
 			"power": "Poder",
 			"magic": "Magia",
 			"disciplines": "Disciplinas",
@@ -113,10 +159,10 @@
 			"disparate": "Disparate",
 			"fallen": "El Caído",
 			"mad": "El Loco",
-
 			"name": "Nombre",
 			"appearance": "Apariencia",
 			"background": "Trasfondo",
+			"tips": "Consejos de Interpretación",
 			"nature": "Naturaleza",
 			"demeanor": "Conducta",
 			"concept": "Concepto",
@@ -125,6 +171,7 @@
 			"worldanvillink": "Página de World Anvil",
 			"noworldanvillink": "No hay enlace de World Anvil",
 			"changingbreed": "Raza Cambiante",
+			"noshiftertype": "No se ha seleccionado una Raza Cambiante en la pestaña Biografía",
 			"feraname": {
 				"ajaba": "Ajaba",
 				"ananasi": "Ananasi",
@@ -384,7 +431,8 @@
 				"affinity": "Reino afín",
 				"threshold": "Umbral de Inspiración/Saqueo",
 				"legacyseelie": "Legado Luminoso",
-				"legacyunseelie": "Legado Oscuro"
+				"legacyunseelie": "Legado Oscuro",
+				"revelry": "Deleite"
 			},
 			"hunter": {
 				"creed": "Credo",
@@ -439,6 +487,9 @@
 			"talents": "Talentos",
 			"skills": "Técnicas",
 			"knowledges": "Conocimientos",
+			"notalents": "No hay Talentos seleccionados",
+			"noskills": "No hay Técnicas seleccionadas",
+			"noknowledges": "No hay Conocimientos seleccionados",
 
 			"alertness": "Alerta",
 			"art": "Arte",
@@ -458,6 +509,7 @@
 			"subterfuge": "Subterfugio",
 
 			"animalken": "Trato con Animales",
+			"archery": "Tiro con Arco",
 			"commerce": "Comerciar",
 			"craft": "Artesania",
 			"demolitions": "Demoliciones",
@@ -470,6 +522,7 @@
 			"melee": "Pelea con Armas",
 			"performance": "Interpretación",
 			"research": "Investigación",
+			"ride": "Equitación",
 			"security": "Seguridad",
 			"stealth": "Sigilo",
 			"survival": "Supervivencia",
@@ -496,7 +549,7 @@
 			"seneschal": "Senescal",
 			"science": "Ciencia",
 			"technology": "Tecnología",
-			"theology": "Tecnología"			
+			"theology": "Teología"		
 		},		
 		"health": {
 			"health": "Salud",
@@ -542,6 +595,7 @@
 			},
 			"virtue": {
 				"headline": "Virtud",
+				"selected": "Vitudes seleccionadas",
 				"conscience": "Conciencia",
 				"conviction": "Convicción",
 				"selfcontrol": "Autocontrol",
@@ -677,13 +731,19 @@
 					"pocket": "Bolsillo",
 					"jacket": "Chaqueta",
 					"trenchcoat": "Gabardina",
+					"pouch": "Bolsillo/cartuchera",
+					"loose": "Ropas amplias",
+					"cloak": "Capa larga",
+					"notbeconcealed": "No se puede ocultar",
 					"na": "N/A"
 				},
 				"grip": "Uso",
 				"onehanded": "Una mano",
 				"twohanded": "Dos manos",
 				"natural": "Arma natural",
-				"initiative": "Iniciativa"
+				"initiative": "Iniciativa",
+				"minstrenght": "Fuerza mínima",
+				"armorpiercing": "Penetración de armadura"
 			},
 			"armor": {
 				"active": "Activa",
@@ -696,7 +756,7 @@
 			},
 			"mode": {
 				"mode": "Modo",
-				"reload": "Recarga",
+				"reload": "Recarga cada turno",
 				"burst": "Ráfaga",
 				"fullauto": "Fuego automático",
 				"spray": "Fuego de supresión"
@@ -771,7 +831,13 @@
 			"unsortedlores": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Saber. Clic en el título para ordenar uno.",
 			"arts": "Artes",
 			"edges": "Facultades",
-			"lores": "Saberes"
+			"lores": "Saberes",
+			"wyld": "Kaos",
+			"thaumaturgy": "Taumaturgia",
+			"abyss": "Misticismo del Abismo",
+			"koldunic": "Hechicería Koldúnica",
+			"necromancy": "Necromancia",
+			"ritualcategory": "Categoría (Escuela de Magia)"
 		},
 		"spheres": {
 			"spheres": "Esferas",
@@ -785,6 +851,17 @@
 			"prime": "Cardinal",
 			"spirit": "Espíritu",
 			"time": "Tiempo",
+
+			"data": "Datos",
+			"entropicstate": "Control del Estado Entrópico",
+			"forcebased": "Parafísica Basada en Fuerzas",
+			"lifescience": "Ciencias de la Vida",
+			"material": "Ciencias de la Materia",	
+			"psychodynamics": "Psicodinámica",
+			"primal": "Teoría de la Utilidad Primordial",
+			"dimensional": "Parafísica de la Ciencia Dimensional",
+			"temporalscience": "Ciencia Temporal",
+
 			"coincidental": "coincidente",
 			"vulgar": "vulgar",
 			"coincidentalspell": "Hechizo coincidente",
@@ -807,13 +884,22 @@
 		"gear": {
 			"headline": "Equipo",
 			"money": "Dinero",
-			"moneycarried": "Transportado",
-			"moneybank": "Guardado"
+			"moneycarried": "En efectivo, encima",
+			"moneybank": "Guardado, en banco",
+			"otheritems": "Otros objetos",
+			"device": "Dispositivo",
+			"talisman": "Talismán",
+			"periapt": "Periapto",
+			"matrix": "Matriz",
+			"trinket": "Baratija",
+			"contains": "Contiene"
 		},
 		"notes": {
 			"unnamedbackground": "Trasfondo sin nombre",
 			"unnamedmerit": "Mérito sin nombre",
 			"unnamedflaw": "Defecto sin nombre",
+			"unnamedbloodbound": "Vínculo sin nombre",
+			"unnamedboon": "Favor sin nombre",
 			"descriptionmissing": "Sin descripción",
 			"unspent": "Sin gastar"
 		},
@@ -826,6 +912,7 @@
 			"rolling": "Tirada",
 			"addedbonus": "Bonus añadidos",
 			"value": "Valor",
+			"maxvalue": "Valor máximo",
 			"penalty": "Penalizador",
 			"total": "Total",
 			"max": "Máx.",
@@ -839,6 +926,17 @@
 			"specialty": "Especialidad",			
 			"select": "Escoger",
 			"noneselect": "Nada seleccionado",
+			"custom": "Habilidad secundaria",
+			"custompath": "Senda personalizada",
+			"customtribe": "Tribu personalizada",
+			"customsect": "Secta personalizada",
+			"customclan": "Clan personalizado",
+			"customkith": "Linaje personalizado",
+			"customtradition": "Tradición personalizado",
+			"customaffiliation": "Afiliación personalizada",
+			"customizesect": "Personalizar Secta",
+			"customizeclan": "Personalizar Clan",
+			"customizetribe": "Personalizar Tribu",
 			"none": "Ninguno",
 			"type": "Tipo",
 			"description": "Descripción",
@@ -849,13 +947,13 @@
 			"numberdamagebashing": "Daño Contundente",
 			"numberdamagelethal": "Daño Letal",
 			"numberdamageaggravated": "Daño Agravado",
-			"numhealthboxes": "Cantidad de casillas de Salud",
 			"numdamagetaken": "Cantidad de tipos de daño recibido",
 			"otheritems": "Otros ítems agregados",
 			"cost": "Coste",
 			"rating": "Puntuación",
 			"level": "Nivel",
 			"rank": "Rango",
+			"other": "Otros",
 			"bio": {
 				"wronggeneration": "Generación no válida",
 				"wrongtempgeneration": "No se puede bajar de Cuarta Generación",
@@ -895,14 +993,13 @@
 				"merits": "Méritos",
 				"flaws": "Defectos",
 				"bloodbound": "Vínculo de Sangre / Vinculi",
+				"boon": "Prestación",
 				"othertraits": "Otros Rasgos",
 				"expearned": "Experiencia ganada",
 				"expspend": "Experiencia gastada"
 			},
 			"settings": {
 				"usesoak": "Puede absorber",
-				"yes": "Sí",
-				"no": "No",
 				"added": "Agregado",
 				"removed": "Eliminado",
 				"frenzyroll": "Determinar modificador de dados en tiradas de Frenesí",
@@ -917,17 +1014,47 @@
 				"secondaryabilities": "Habilidades secundarias",
 				"abilitiesmaxrating": "Puntuación máxima en Habilidades",
 				"hasdisciplines": "Tiene Disciplinas y Rituales",
-				"hasgifts": "Tiene Dones y Ritos"
+				"hasgifts": "Tiene Dones y Ritos",
+				"setdarkages": "¡Ficha configurada para Edad Oscura!",
+				"setvictorian": "¡Ficha configurada para Edad Victoriana!",
+				"setwildwest": "¡Ficha configurada para el Salvaje Oeste!",
+				"setmodern": "¡Ficha configurada para la época actual!",
+				"maxability": "Esta opción establece el valor máximo que una Habilidad puede tener",
+				"customizepath": "Personalizar Senda",
+				"soakinfoone": "Valor total de absorción (Atributo, armaduras y bonus)",
+				"soakinfotwo": "Bonus — bonificadores de absorción",
+				"soakinfothree": "Puede absorber — si este tipo de daño lo puede absorber normalmente",
+				"initiativeinfoone": "Valor — el valor base, calculado mediante el total de Atributos",
+				"initiativeinfotwo": "Bonus — bonificadores a la Iniciativa",
+				"initiativeinfothree": "Total — el valor total que se usa en combate, con todos los bonus activos",
+				"graphics": "Gráficos",
+				"era": {
+					"headline": "Época (ambientación histórica)",
+					"modern": "Actual (20 aniv.)",
+					"victorian": "Edad Victoriana (20 aniv.)",
+					"wildwest": "Salvaje Oeste (20 aniv.)",
+					"darkages": "Edad Oscura (20 aniv.)",
+					"infoone": "Cambiar esto significa que las Habilidades de la ficha se reconfigurarán para encajar en el área.",
+					"infotwo": "Esto podría ocasionar que Habilidades ya en uso queden ocultas."
+				}
 			},
 			"trait": {
 				"meleeweapon": "Usar para arma C. C.",
 				"rangedweapon": "Usar para arma a distancia",
 				"reference": "Referencia"
 			},
+			"feature": {
+				"trivial": "Trivial",
+				"minor": "Menor",
+				"major": "Mayor",
+				"life": "De vida"
+			},
 			"bonus": {
 				"headline": "Bonus",
 				"attributebonus": "Bonus de Atributo",
 				"attributebonushint": "Este modificador añade o sustrae su valor del propio Atributo, alterando el valor total en esa cantidad. Puede sobrepasar el límite máximo del Atributo.",
+				"attributedicebonus": "Bonus de dados de Atributo",
+				"attributebonusdicehint": "Este modificador añade o sustrae su valor del Atributo en sí mismo, alterando el valor total de dados en esa cantidad. Puede sobrepasar el límite máximo del Atributo.",
 				"attributediff": "Dificultad del Atributo",
 				"attributediffhint": "Este modificador cambia la dificultad de cualquier tirada que use el Atributo.",
 				"attributesucc": "Éxitos automáticos de Atributo",
@@ -947,6 +1074,7 @@
 				"multiplier": "Multiplicador de movimiento"
 			},
 			"new": {
+				"notfound": "Este tipo de objeto no existe",
 				"armor": "Nueva Armadura",
 				"naturalweapon": "Nueva arma natural",
 				"meleeweapon": "Nueva arma C. C.",
@@ -957,6 +1085,7 @@
 				"rite": "Nuevo Rito",
 				"rote": "Nueva Receta",
 				"bloodbound": "Nuevo Vínculo / Vinculum",
+				"boon": "Nuevo Favor",
 				"background": "Nuevo Trasfondo",
 				"merit": "Nuevo Mérito",
 				"flaw": "Nuevo Defecto",
@@ -966,20 +1095,57 @@
 				"addexp": "Añadir Experiencia",
 				"spentexp": "Gastar Experiencia",
 				"treasure": "Nuevo Tesoro",
-				"bonus": "Nuevo modificador (bonus/malus)"
+				"bonus": "Nuevo modificador (bonus/malus)",
+				"discipline": "Nueva Disciplina",
+				"disciplinepower": "Nuevo Poder de Disciplina",
+				"disciplinepath": "Nueva Senda de Disciplina",
+				"disciplinepathpower": "Nuevo Poder de Senda de Disciplina",
+				"ritual": "Nuevo ritual",
+				"edge": "Nueva Facultad",
+				"edgepower": "Nuevo Poder de Facultad",
+				"art": "Nueva Arte",
+				"artpower": "Nuevo Poder de Arte",
+				"lore": "Nuevo Saber",
+				"lorepower": "Nuevo Poder de Saber",
+				"power": "Nuevo Poder",
+				"charm": "Nuevo Encantamiento",
+				"device": "Nuevo Dispositivo",
+				"talisman": "Nuevo Talismán",
+				"periapt": "Nuevo Periapto",
+				"matrix": "Nueva Matriz",
+				"trinket": "Nueva Baratija"
 			},
 			"add": {
 				"background": "Añadir Trasfondo",
 				"merit": "Añadir Mérito",
 				"flaw": "Añadir Defecto",
 				"bloodbound": "Añadir Vínculo / Vinculum",
+				"boon": "Añadir Favor",
 				"ability": "Añadir Habilidad secundaria",
 				"resonance": "Añadir Resonancia",
 				"othertraits": "Añadir 'Otro Rasgo'",
 				"treasure": "Añadir Tesoro",
 				"bonus": "Añadir modificador",
 				"experience": "Añadir Experiencia",
-				"spentexp": "Añadir gasto de Experiencia"
+				"spentexp": "Añadir gasto de Experiencia",
+				"discipline": "Añadir Disciplina",
+				"disciplinepower": "Añadir Poder de Disciplina",
+				"disciplinepath": "Añadir Senda de Disciplina",
+				"disciplinepathpower": "Añadir Poder de Senda de Disciplina",
+				"ritual": "Añadir ritual",
+				"edge": "Añadir Facultad",
+				"edgepower": "Añadir Poder de Facultad",
+				"art": "Añadir Arte",
+				"artpower": "Añadir Poder de Arte",
+				"power": "Añadir Poder",
+				"charm": "Añadir Encantamiento",
+				"fetish": "Añadir Fetiche",
+				"talen": "Añadir Amuleto",
+				"device": "Añadir Dispositivo",
+				"talisman": "Añadir Talismán",
+				"periapt": "Añadir Periapto",
+				"matrix": "Añadir Matriz",
+				"trinket": "Añadir Baratija"
 			},
 			"edit": {
 				"naturalweapon": "Editar Arma natural",
@@ -989,13 +1155,16 @@
 				"merit": "Editar Mérito",
 				"flaw": "Editar Defecto",
 				"bloodbound": "Editar Vínculo/Vinculum",
+				"boon": "Editar Favor",
 				"gift": "Editar Don",
 				"rite": "Editar Rito",
 				"discipline": "Editar Disciplina",
 				"disciplinepower": "Editar Poder de Disciplina",
+				"disciplinepath": "Editar Senda de Disciplina",
+				"disciplinepathpower": "Editar Poder de Senda de Disciplina",
 				"ritual": "Editar Ritual",
 				"fetish": "Editar Fetiche",
-				"talen": "Editar Talismán",
+				"talen": "Editar Amuleto",
 				"rote": "Editar Fórmula",
 				"art": "Editar Arte",
 				"artpower": "Editar Poder de Arte",
@@ -1007,7 +1176,20 @@
 				"resonance": "Editar Resonancia",
 				"othertraits": "Editar Otro Rasgo",
 				"treasure": "Editar Tesoro",
-				"bonus": "Editar bonificador"
+				"bonus": "Editar bonificador",
+				"apocalypticform": "Editar Forma Apocalíptica",
+				"armor": "Editar armadura",
+				"power": "Editar Poder",
+				"charm": "Editar Encantamiento",
+				"ability": "Editar Habilidad",
+				"speciality": "Editar Especialización",
+				"device": "Editar Dispositivo",
+				"talisman": "Editar Talismán",
+				"periapt": "Editar Periapto",
+				"matrix": "Editar Matriz",
+				"trinket": "Editar Baratija",
+				"sphere": "Editar Esfera",
+				"experience": "Editar Experiencia"
 			},
 			"remove": {
 				"item": "Quitar Objeto",
@@ -1020,14 +1202,17 @@
 				"rite": "Quitar Rito",
 				"discipline": "Quitar Disciplina",
 				"disciplinepower": "Quitar Poder de Disciplina",
+				"disciplinepath": "Quitar Senda de Disciplina",
+				"disciplinepathpower": "Quitar Poder de Senda de Disciplina",
 				"ritual": "Quitar Ritual",
-				"charm": "Quitar Amuleto ",
+				"charm": "Quitar Encantamiento ",
 				"background": "Quitar Trasfondo",
 				"merit": "Quitar Mérito",
 				"flaw": "Quitar Defecto",
 				"bloodbound": "Quitar Vínculo/Vinculum",
+				"boon": "Quitar Favor",
 				"fetish": "Quitar Fetiche",
-				"talen": "Quitar Talismán",
+				"talen": "Quitar Amuleto",
 				"rote": "Quitar Fórmula",
 				"art": "Quitar Arte",
 				"artpower": "Quitar Poder de Arte",
@@ -1039,13 +1224,21 @@
 				"resonance": "Quitar Resonancia",
 				"othertraits": "Quitar Otro Rasgo",
 				"treasure": "Quitar Tesoro",
-				"bonus": "Quitar bonificador"
+				"bonus": "Quitar bonificador",
+				"power": "Quitar Poder",
+				"device": "Quitar Dispositivo",
+				"talisman": "Quitar Talismán",
+				"periapt": "Quitar Periapto",
+				"matrix": "Quitar Matriz",
+				"trinket": "Quitar Baratija",
+				"experience": "Quitar Experiencia"
 			},
 			"show": {
 				"background": "Mostrar Trasfondos",
 				"merit": "Mostrar Méritos",
 				"flaw": "Mostrar Defectos",
 				"bloodbound": "Mostrar Vínculos/Vinculi",
+				"boon": "Mostrar Favores",
 				"traits": "Mostrar Otros Rasgos",
 				"experience": "Mostrar Experiencia ganada",
 				"spentexp": "Mostrar Experiencia gastada",
@@ -1062,12 +1255,12 @@
 			"rollsoak": "Tirar por absorcion",
 			"rolldice": "Tirar un número de dados",
 			"settings": {
-				"attribute1": "Valor - el valor de ese Atributo",
-				"attribute2": "Bonus - el número de dados adicionales para ese Atributo",
-				"attribute3": "Total - el número total de dados de ese Atributo",
-				"attribute4": "Máx. - el valor disponible más alto para los Atributos",
-				"healthvalue": "Valor - Número de casillas de Salud que el personaje tiene para ese nivel",
-				"healthpenalty": "Penalizador - Penalizador por heridas del personaje para ese nivel"
+				"attribute1": "Valor — el valor base de ese Atributo",
+				"attribute2": "Bonus — el número de dados adicionales para ese Atributo",
+				"attribute3": "Total — el total de dados actual de ese Atributo",
+				"attribute4": "Máx. — el valor máximo disponible para cada Atributo",
+				"healthvalue": "Valor — Número de casillas de Salud que el personaje tiene para ese nivel",
+				"healthpenalty": "Penalizador — Penalizador por heridas del personaje para ese nivel"
 			},
 			"items": {
 				"spheres": "Rellena qué Esferas y qué niveles necesitas para conjurar esta Fórmula"
@@ -1091,7 +1284,8 @@
 			"rollinginitiative": "Tirada de Iniciativa",
 			"rollingsoak": "Tirada de absorción",
 			"rollingremainactive": "Tirada para permanecer activo y consciente",
-			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito."
+			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito.",
+			"addedautosucc": "La tirada añade {0} éxitos automáticos"
 		},
 		"dialog": {	
 			"save": "Guardar",
@@ -1103,6 +1297,8 @@
 			"numbersuccesses": "Anterior cantidad de éxitos",
 			"neededsuccesses": "Cantidad de éxitos requerida",
 			"usewoundpenalty": "Usar penalizador de heridas",
+			"dicepool": "Reserva de dados",
+			"nonelisted": "Ninguno listado",
 			"aretecasting": {
 				"castspell": "Lanzar hechizo",
 				"castingspell": "Lanzando hechizo",	
@@ -1146,7 +1342,8 @@
 				"quintessence": "Gastando Quintaesencia",
 				"additionaldifficulty": "Modificador de dificultad adicional",
 				"castingsettings": "Opciones de Lanzamiento",
-				"extendedcasting": "Lanzamiento extendedido"
+				"extendedcasting": "Lanzamiento extendedido",
+				"selectsphere": "Se necesita primero seleccionar las Esferas"
 			},
 			"checkfrenzy": {
 				"headline": "Tirada de Frenesí",
@@ -1163,7 +1360,8 @@
 			"shapechange": {
 				"headline": "Tirada para Cambio de Forma",
 				"shiftbonus": "Dados adicionales para Cambio de Forma",
-				"noshape": "No se ha seleccionado Forma"
+				"noshape": "No se ha seleccionado Forma",
+				"selectshape": "Forma en la que convertirse"
 			},
 			"weapon": {
 				"attack": "Ataque",
@@ -1184,13 +1382,33 @@
 				"numbertargets": "Número de objetivos"
 			},
 			"soak": {
-				"missingdamage": "Debes seleccionar un tipo de daño"
+				"missingdamage": "Debes seleccionar un tipo de daño",
+				"selectdamage": "Selecciona tipo de daño"
 			},
 			"power": {
 				"availrealms": "Reinos disponibles",
 				"unleashing": "Desatar",
 				"nightmaredice": "Dados de Pesadilla",
-				"missingrealm": "Debes seleccionar un Reino"
+				"missingrealm": "Debes seleccionar un Reino",
+				"arttype": "Tipo de Arte",
+				"shiftnightmaredice": "Cambio de dado de Pesadilla",
+				"notset": "No configurado",
+				"selectpower": "Selecciona Poder al que conectarse"
+			},
+			"attribute": {
+				"speciality": "Especialización",
+				"customname": "Nombre personalizado",
+				"abilityname": "Nombre de la Habilidad",
+				"altname": "Nombre alternativo de la Habilidad",
+				"techonocracy": "Usar versión tecnocrática"
+			},
+			"general": {
+				"selectattribute": "Selecciona el Atributo a usar"
+			},
+			"bonus": {
+				"chosenattribute": "Atributo elegido",
+				"movement": "Tipo de movimiento",
+				"bonusvalue": "Valor del bonus"
 			}
 		}
 	}	

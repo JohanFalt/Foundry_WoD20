@@ -213,7 +213,7 @@
 		<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.appearance">{{localize 'wod.bio.appearance'}}</label></div>
 
 		{{#if locked}}
-			<div class="headlineNormal textarea">{{{actor.system.appearance}}}</div>
+			<div class="headlineNormal textarea {{#if (eq actor.system.appearance '')}}small{{/if}}">{{{actor.system.appearance}}}</div>
 		{{else}}
 			{{editor data.appearance target="system.appearance" button=false owner=owner editable=true}}
 		{{/if}}				
@@ -222,8 +222,8 @@
 		{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
 			<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.background">{{localize 'wod.bio.background'}}</label></div>
 
-			{{#if locked}}
-				<div class="headlineNormal textarea">{{{actor.system.background}}}</div>
+			{{#if locked}}				
+				<div class="headlineNormal textarea {{#if (eq actor.system.background '')}}small{{/if}}">{{{actor.system.background}}}</div>
 			{{else}}
 				{{editor data.background target="system.background" button=false owner=owner editable=true}}
 			{{/if}}				
@@ -233,7 +233,7 @@
 		{{#if isGM}}
 			<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.roleplaytip">{{localize 'wod.bio.tips'}}</label></div>
 			{{#if locked}}
-				<div class="headlineNormal textarea">{{{actor.system.roleplaytip}}}</div>
+				<div class="headlineNormal textarea {{#if (eq actor.system.roleplaytip '')}}small{{/if}}">{{{actor.system.roleplaytip}}}</div>
 			{{else}}
 				{{editor data.roleplaytip target="system.roleplaytip" button=false owner=owner editable=true}}
 			{{/if}}		

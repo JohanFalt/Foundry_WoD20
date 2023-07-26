@@ -275,7 +275,7 @@ export class MortalActorSheet extends ActorSheet {
 		if (found) {
 			actorData.system.settings.era = CONFIG.wod.era.darkages;
 			await this.actor.update(actorData);
-			ui.notifications.info(game.i18n.localize("wod.labels.settings.setdarkages"), {permanent: false});
+			ui.notifications.info(game.i18n.localize("wod.labels.settings.setdarkages"));
 		}
 	}
 
@@ -329,10 +329,10 @@ export class MortalActorSheet extends ActorSheet {
 			
 
 			if (dataset.type == CONFIG.wod.sheettype.werewolf) { 
-				ui.notifications.info(game.i18n.localize("wod.labels.settings.setwildwest"), {permanent: false});
+				ui.notifications.info(game.i18n.localize("wod.labels.settings.setwildwest"));
 			}
 			else {
-				ui.notifications.info(game.i18n.localize("wod.labels.settings.setvictorian"), {permanent: false});
+				ui.notifications.info(game.i18n.localize("wod.labels.settings.setvictorian"));
 			}
 		}
 	}
@@ -384,7 +384,7 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.system.settings.era = CONFIG.wod.era.modern;
 
 			await this.actor.update(actorData);
-			ui.notifications.info(game.i18n.localize("wod.labels.settings.setmodern"), {permanent: false});
+			ui.notifications.info(game.i18n.localize("wod.labels.settings.setmodern"));
 		}
 	}	
 

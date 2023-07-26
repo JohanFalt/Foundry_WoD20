@@ -232,9 +232,9 @@ Hooks.once("ready", async function () {
 			await migration.UpdateWorld(installedVersion, systemVersion);
 		}
 		else {
-			ui.notifications.info("Checking character's settings!");
+			ui.notifications.warn("Checking character's settings!", {permanent: true});
 			await migration.updates();
-			ui.notifications.info("Done!");
+			ui.notifications.info("Done!", {permanent: true});
 		}
 	}
 	CONFIG.language = game.i18n.lang;

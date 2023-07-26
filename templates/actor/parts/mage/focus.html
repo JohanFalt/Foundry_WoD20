@@ -11,21 +11,21 @@
             <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.paradigm">{{localize 'wod.spheres.paradigm'}}</label></div>
 
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.focus.paradigm}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.focus.paradigm '')}}small{{/if}}">{{{actor.system.focus.paradigm}}}</div>
             {{else}}
                 {{editor data.focus.paradigm target="system.focus.paradigm" button=false owner=owner editable=true}}
             {{/if}}
 
             <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.practice">{{localize 'wod.spheres.practice'}}</label></div>
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.focus.practice}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.focus.practice '')}}small{{/if}}">{{{actor.system.focus.practice}}}</div>
             {{else}}
                 {{editor data.focus.practice target="system.focus.practice" button=false owner=owner editable=true}}
             {{/if}}
 
             <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.instruments">{{localize 'wod.spheres.instruments'}}</label></div>
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.focus.instruments}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.focus.instruments '')}}small{{/if}}">{{{actor.system.focus.instruments}}}</div>
             {{else}}
                 {{editor data.focus.instruments target="system.focus.instruments" button=false owner=owner editable=true}}
             {{/if}}

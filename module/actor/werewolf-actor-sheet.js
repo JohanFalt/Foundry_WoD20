@@ -3,8 +3,6 @@ import ActionHelper from "../scripts/action-helpers.js";
 import CreateHelper from "../scripts/create-helpers.js";
 import TokenHelper from "../scripts/token-helpers.js";
 
-let shifting = false;
-
 export class WerewolfActorSheet extends MortalActorSheet {
 	
 	/** @override */
@@ -265,12 +263,6 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		if (shifting) {
-			return;
-		}
-
-		shifting = true;
-
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 		const fromForm = this.actor.presentform;
@@ -289,12 +281,12 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		}		
 
 		await ActionHelper.handleCalculations(actorData);
-		await TokenHelper.formShift(actorData, fromForm, toForm);
+		//await TokenHelper.formShift(actorData, fromForm, toForm);		
 
 		console.log("WoD | Werewolf Sheet updated");
 		await this.actor.update(actorData);
 
-		shifting = false;
+		await TokenHelper.formShift(this.actor, fromForm, toForm);
 	}
 	
 	async _assignToWerewolf(fields, value) {
