@@ -11,7 +11,7 @@
 			"hunter": "Hunter the Reckoning",
 			"vampire": "Vampire the Masquerade",
 			"werewolf": "Werewolf the Apocalypse",
-			"mage": "Mage the Ascention"
+			"mage": "Mage the Ascension"
 		},
 		"era": {
 			"modern": "Modern",
@@ -162,7 +162,7 @@
 			"name": "Name",
 			"appearance": "Appearance",
 			"background": "Biography",
-			"tips": "Rolplaying Tips",
+			"tips": "Roleplaying Tips",
 			"nature": "Nature",
 			"demeanor": "Demeanor",
 			"concept": "Concept",
@@ -981,11 +981,11 @@
 				"disconnect": "Disconnect power",
 				"disconnectlabel": "Disconnecting power",
 				"removebonus": {
-					"art": "Remove connected bonuses to art",
-					"lore": "Remove connected bonuses to lore",
-					"edge": "Remove connected bonuses to edge",
-					"discipline": "Remove connected bonuses to discipline",
-					"path": "Remove connected bonuses to path"
+					"art": "Remove connected powers to art",
+					"lore": "Remove connected powers to lore",
+					"edge": "Remove connected powers to edge",
+					"discipline": "Remove connected powers to discipline",
+					"path": "Remove connected powers to path"
 				}
 			},
 			"notes": {
@@ -1116,6 +1116,10 @@
 				"trinket": "New trinket"
 			},
 			"add": {
+				"naturalweapon": "Add natural weapon",
+				"meleeweapon": "Add melee weapon",
+				"rangedweapon": "Add ranged weapon",
+				"armor": "Add armor",
 				"background": "Add background",
 				"merit": "Add merit",
 				"flaw": "Add flaw",
@@ -1128,6 +1132,7 @@
 				"bonus": "Add bonus",
 				"experience": "Add experience",
 				"spentexp": "Add spent experience",
+				"gift": "Add gift",
 				"discipline": "Add discipline",
 				"disciplinepower": "Add discipline power",
 				"disciplinepath": "Add discipline path",
@@ -1167,7 +1172,7 @@
 				"talen": "Edit talen",
 				"rote": "Edit rote",
 				"art": "Edit art",
-				"artpower": "Ediy art power",
+				"artpower": "Edit art power",
 				"edge": "Edit edge",
 				"edgepower": "Edit edge power",
 				"lore": "Edit lore",
@@ -1214,7 +1219,7 @@
 				"fetish": "Remove fetish",
 				"talen": "Remove talen",
 				"rote": "Remove rote",
-				"art": "Remnove art",
+				"art": "Remove art",
 				"artpower": "Remove art power",
 				"edge": "Remove edge",
 				"edgepower": "Remove edge power",
@@ -1238,10 +1243,10 @@
 				"merit": "Show merits",
 				"flaw": "Show flaws",
 				"bloodbound": "Show blood bonds",
-				"boon": "Show boon",
-				"traits": "Show other traits",
-				"experience": "Show added experience",
-				"spentexp": "Show spent experience",
+				"boon": "Show boons",
+				"trait": "Show other traits",
+				"experience": "Show added experiences",
+				"spentexp": "Show spent experiences",
 				"bonus": "Show added bonus"
 			},
 			"yes": "yes",

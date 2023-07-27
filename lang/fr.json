@@ -881,11 +881,11 @@
 				"disconnect": "Disconnect power",
 				"disconnectlabel": "Disconnecting power",
 				"removebonus": {
-					"art": "Remove connected bonuses to art",
-					"lore": "Remove connected bonuses to lore",
-					"edge": "Remove connected bonuses to edge",
-					"discipline": "Remove connected bonuses to discipline",
-					"path": "Remove connected bonuses to path"
+					"art": "Remove connected powers to art",
+					"lore": "Remove connected powers to lore",
+					"edge": "Remove connected powers to edge",
+					"discipline": "Remove connected powers to discipline",
+					"path": "Remove connected powers to path"
 				}
 			},
 			"notes": {
@@ -996,7 +996,7 @@
 				"talen": "Editer Talen",
 				"rote": "Editer Routine",
 				"art": "Edit art",
-				"artpower": "Ediy art power",
+				"artpower": "Edit art power",
 				"edge": "Edit edge",
 				"edgepower": "Edit edge power",
 				"lore": "Edit lore",
@@ -1027,7 +1027,7 @@
 				"fetish": "Enlever Fétiche",
 				"talen": "Enlever Talen",
 				"rote": "Enlever Routine",
-				"art": "Remnove art",
+				"art": "Remove art",
 				"artpower": "Remove art power",
 				"edge": "Remove edge",
 				"edgepower": "Remove edge power",
@@ -1044,7 +1044,7 @@
 				"merit": "Show merits",
 				"flaw": "Show flaws",
 				"bloodbound": "Show bloodbounds",
-				"traits": "Show other traits",
+				"trait": "Show other traits",
 				"experience": "Show added experience",
 				"spentexp": "Show spent experience",
 				"bonus": "Show added bonus"

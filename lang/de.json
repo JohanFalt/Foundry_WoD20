@@ -975,11 +975,11 @@
 				"disconnect": "trenne Kraft",
 				"disconnectlabel": "trenne Kraft",
 				"removebonus": {
-					"art": "Verbundene Boni für Kunst entfernen",
-					"lore": "Verbundene Boni für Märchen entfernen",
-					"edge": "Verbundene Boni für Edges entfernen",
-					"discipline": "Verbundene Boni für Disziplinen entfernen",
-					"path": "Verbundene Boni für Pfade entfernen"
+					"art": "Remove connected powers to art",
+					"lore": "Remove connected powers to lore",
+					"edge": "Remove connected powers to edge",
+					"discipline": "Remove connected powers to discipline",
+					"path": "Remove connected powers to path"
 				}
 			},
 			"notes": {
@@ -1233,7 +1233,7 @@
 				"flaw": "zeige Schwächen",
 				"bloodbound": "zeige Blutsband",
 				"boon": "Show boon",
-				"traits": "zeige andere Merkmale",
+				"trait": "zeige andere Merkmale",
 				"experience": "zeige hinzugefügte EP",
 				"spentexp": "zeige genutzte EP",
 				"bonus": "zeige hinzugefügter Bonus"

@@ -19,9 +19,7 @@
 					data-type="{{../config.sheettype.mage}}"
 					data-object="Rote"
 					data-rollitem="true" 
-					data-itemid="{{item._id}}">
-						{{item.name}}
-				</div>
+					data-itemid="{{item._id}}">{{shorten item.name 30}}</div>
 
 				<div class="pullRight power-iconbox">
 					{{#if (eq ../locked false)}}

@@ -1109,8 +1109,8 @@ div.rank-area {
   border-top: 1px solid var(--main-full-color);
   border-bottom: 1px solid var(--main-full-color);
   background-color: var(--main-dim-color);
-  line-height: 23px;
-  height: 23px;
+  /* line-height: 23px;
+  height: 23px; */
 }
 
 .bonus-icons.power-iconbox {

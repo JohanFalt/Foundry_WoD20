@@ -981,11 +981,11 @@
 				"disconnect": "Desenlazar Poder",
 				"disconnectlabel": "Desenlazando Poder",
 				"removebonus": {
-					"art": "Eliminar bonus relacionados al Arte",
-					"lore": "Eliminar bonus relacionados al Saber",
-					"edge": "Eliminar bonus relacionados a la Facultad",
-					"discipline": "Eliminar bonus relacionados a la Disciplina",
-					"path": "Eliminar bonus relacionados a la Senda"
+					"art": "Remove connected powers to art",
+					"lore": "Remove connected powers to lore",
+					"edge": "Remove connected powers to edge",
+					"discipline": "Remove connected powers to discipline",
+					"path": "Remove connected powers to path"
 				}
 			},
 			"notes": {
@@ -1239,7 +1239,7 @@
 				"flaw": "Mostrar Defectos",
 				"bloodbound": "Mostrar Vínculos/Vinculi",
 				"boon": "Mostrar Favores",
-				"traits": "Mostrar Otros Rasgos",
+				"trait": "Mostrar Otros Rasgos",
 				"experience": "Mostrar Experiencia ganada",
 				"spentexp": "Mostrar Experiencia gastada",
 				"bonus": "Mostrar otros bonificadores"

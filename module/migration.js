@@ -218,6 +218,17 @@ export  const updates = async () => {
 
         await actor.update(actorData);
     }
+
+    for (const actor of game.actors) {
+        if (actor.type == CONFIG.wod.sheettype.werewolf) {
+            for (const effect of actor.effects) {
+                if (effect.icon.includes("werewolf")) {
+                    const effectid = effect.id;
+                    await actor.deleteEmbeddedDocuments("ActiveEffect", [effectid]);
+                }                
+            }
+        }
+    }
     
     for (const item of game.items) {
         let hasChanged = false;
@@ -1503,7 +1514,7 @@ export  const updates = async () => {
         game.settings.set('worldofdarkness', 'patch140', true);
 
         newfunctions += "<li>Added Spanish</li>";
-        newfunctions += "<li>Added Mage the Ascention</li>";
+        newfunctions += "<li>Added Mage the Ascension</li>";
         newfunctions += "<li>Added Secondary Abilities is added under Settings</li>";
         newfunctions += "<li>[WtA] Added icon to roll frenzy</li>";
         newfunctions += "<li>[WtA] Added new item - Fetish listed in Gear</li>";
@@ -1616,6 +1627,11 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        newfunctions += '<b>v3.1.6</b>';
+        newfunctions += '<li>Fixed a number of localization errors</li>';
+        newfunctions += '<li>[CtD] - Dots not visible on the affinity art</li>';
+        newfunctions += '<li>[WtA] - Due to bugs the icon handling with tokens the function have been removed. If these remains after you have started your world a few times (1-2 should be enough) and you still have problem with effects visible then the effect is on the icon and it needs to be replaced with a new on. My fix only effect Actors and Tokens that are data linked to an Actor.</li>';
 
         newfunctions += '<b>v3.1.5</b>';
         newfunctions += '<li>Added and adapted graphics if viewed in Spanish</li>';

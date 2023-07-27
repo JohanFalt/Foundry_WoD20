@@ -883,11 +883,11 @@
 				"disconnect": "Disconnetti",
 				"disconnectlabel": "Disconnessione",
 				"removebonus": {
-					"art": "Rimuovi bonus connessi all'Arte",
-					"lore": "Rimuovi bonus connessi alla Lore",
-					"edge": "Rimuovi bonus connessi al Vantaggio",
-					"discipline": "Rimuovi bonus connessi alla Disciplina",
-					"path": "Rimuovi bonus connessi alla Via"
+					"art": "Remove connected powers to art",
+					"lore": "Remove connected powers to lore",
+					"edge": "Remove connected powers to edge",
+					"discipline": "Remove connected powers to discipline",
+					"path": "Remove connected powers to path"
 				}
 			},
 			"notes": {
@@ -1046,7 +1046,7 @@
 				"merit": "Mostra Pregi",
 				"flaw": "Mostra Difetti",
 				"bloodbound": "Mostra Legami di Sangue",
-				"traits": "Mostra altri Tratti",
+				"trait": "Mostra altri Tratti",
 				"experience": "Mostra Esperienza aggiunta",
 				"spentexp": "Mostra Esperienza spesa",
 				"bonus": "Mostra Bonus aggiunti"

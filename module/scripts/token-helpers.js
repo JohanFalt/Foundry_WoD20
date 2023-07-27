@@ -9,52 +9,6 @@ export default class TokenHelper {
             return;
         }
 
-        let effect1 = actor.effects.find(i=> i.label === "form_homid");
-
-        if (effect1 == undefined) {
-            effect1 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.homid"));
-        }
-
-        let effect2 = actor.effects.find(i=> i.label === "form_glabro");
-
-        if (effect2 == undefined) {
-            effect2 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.glabro"));
-        }
-
-        let effect3 = actor.effects.find(i=> i.label === "form_crinos");
-
-        if (effect3 == undefined) {
-            effect3 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.crinos"));
-        }
-
-        let effect4 = actor.effects.find(i=> i.label === "form_hispo");
-
-        if (effect4 == undefined) {
-            effect4 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.hispo"));
-        }
-
-        let effect5 = actor.effects.find(i=> i.label === "form_lupus");
-
-        if (effect5 == undefined) {
-            effect5 = actor.effects.find(i=> i.label === game.i18n.localize("wod.shapes.lupus"));
-        }
-
-        if (effect1 != undefined) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect1.id]);
-        }
-        if (effect2 != undefined) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect2.id]);                
-        } 
-        if (effect3 != undefined) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect3.id]);       
-        } 
-        if (effect4 != undefined) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect4.id]);     
-        } 
-        if (effect5 != undefined) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [effect5.id]);   
-        } 
-
         return;
 
 		let foundToken = false;
