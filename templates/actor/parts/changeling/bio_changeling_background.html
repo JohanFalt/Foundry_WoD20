@@ -25,7 +25,7 @@
                 <select class="sheet-infoValues {{#if (eq actor.system.kith 'custom')}}edit-property{{/if}} editable" name="system.kith" data-name="data.system.kith" data-dtype="String">
                     {{#select data.system.kith}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}}{{/if}}</option>                            
+                        <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}} ({{localize "wod.labels.customkith"}}){{/if}}</option>                            
                         {{#each game.bio.kith as |kith id|}}
                             <option value="{{kith}}">{{localize kith}}</option>
                         {{/each}}

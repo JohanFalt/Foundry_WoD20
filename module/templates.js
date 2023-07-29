@@ -132,8 +132,8 @@ export async function SetupAbilities()
 {
     try {        
 		let importData = {};
-		let fileData = await fetch(`systems/worldofdarkness/assets/data/ability.json`).then((response) => response.json());
-		Object.assign(importData, fileData);
+		// let fileData = await fetch(`systems/worldofdarkness/assets/data/ability.json`).then((response) => response.json());
+		// Object.assign(importData, fileData);
 
 		return importData;		
     } catch(err) {

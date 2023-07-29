@@ -44,7 +44,7 @@
                     <select class="sheet-infoValues {{#if (eq actor.system.tribe 'custom')}}edit-property{{/if}} editable" name="system.tribe" data-name="data.system.tribe" data-dtype="String">
                         {{#select data.system.tribe}}
                             <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.tribe "")}}- {{localize "wod.labels.customtribe"}} -{{else}}{{actor.system.custom.tribe}}{{/if}}</option>                            
+                            <option value="custom">{{#if (eq actor.system.custom.tribe "")}}- {{localize "wod.labels.customtribe"}} -{{else}}{{actor.system.custom.tribe}} ({{localize "wod.labels.customtribe"}}){{/if}}</option>                            
                             {{#each game.bio.tribe as |tribe id|}}
                                 <option value="{{tribe}}">{{localize tribe}}</option>
                             {{/each}}

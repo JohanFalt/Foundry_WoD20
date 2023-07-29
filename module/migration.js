@@ -1628,6 +1628,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        newfunctions += '<b>v3.1.7</b>';
+        newfunctions += '<li>With some world setups you could not create Actors due to the user did not have access to the data files which prevented the sheet to be able to open</li>';
+        newfunctions += '<li>Secondary abilities was sometimes unsorted</li>';
+        newfunctions += '<li>Problem with editing Secondary abilities</li>';
+        newfunctions += '<li>[MtA] Tooltip caused problem if you had HTML in descriptions of Rotes</li>';
+
         newfunctions += '<b>v3.1.6</b>';
         newfunctions += '<li>Fixed a number of localization errors</li>';
         newfunctions += '<li>[CtD] - Dots not visible on the affinity art</li>';

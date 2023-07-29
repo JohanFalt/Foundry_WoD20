@@ -203,8 +203,10 @@ Hooks.once("init", async function() {
 		powers: WoDSetup.getInstalledPowers(game.data.items)
 	};
 
-	game.wod.abilities = await templates.SetupAbilities();
-	game.wod.bio = await templates.SetupBio();
+	//game.wod.abilities = await templates.SetupAbilities();
+	game.wod.abilities = wod.ability;
+	//game.wod.bio = await templates.SetupBio();
+	game.wod.bio = wod.bio;
 
 	console.log("WoD | Added Handelebars");  
 });

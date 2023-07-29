@@ -10,7 +10,7 @@
                     <select class="sheet-infoValues {{#if (eq actor.system.affiliation 'custom')}}edit-property{{/if}} editable" name="system.affiliation" data-name="data.system.affiliation" data-dtype="String">
                         {{#select data.system.affiliation}}
                             <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.affiliation "")}}- {{localize "wod.labels.customaffiliation"}} -{{else}}{{actor.system.custom.affiliation}}{{/if}}</option>                            
+                            <option value="custom">{{#if (eq actor.system.custom.affiliation "")}}- {{localize "wod.labels.customaffiliation"}} -{{else}}{{actor.system.custom.affiliation}} ({{localize "wod.labels.customaffiliation"}}){{/if}}</option>                            
                             {{#each game.bio.affiliation as |affiliation id|}}
                                 <option value="{{affiliation}}">{{localize affiliation}}</option>
                             {{/each}}
@@ -30,7 +30,7 @@
                     <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-name="data.system.sect" data-dtype="String">
                         {{#select data.system.sect}}
                             <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}}{{/if}}</option>                            
+                            <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}} ({{localize "wod.labels.customsect"}}){{/if}}</option>                            
                             <optgroup label="{{localize "wod.bio.mage.tradition"}}">
                                 {{#each game.bio.magesect.tradition as |sect id|}}
                                     <option value="{{sect}}">{{localize sect}}</option>
