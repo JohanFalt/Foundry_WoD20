@@ -109,8 +109,6 @@
   width: 990px;
 }
 
-.langES.werewolf
-
 /* END - General */
 
 /* START Core */
@@ -125,18 +123,34 @@
   width: 55%;
 }
 
+.langPT.werewolf .ability-headlineWidth,
 .langFR .attribute-headlineWidth {
   width: 120px;
+}
+
+.langFR .health-headlineWidth {
+  width: 140px;
+}
+.langDE.changeling .health-headlineWidth,
+.langPT.changeling .health-headlineWidth,
+.langES.changeling .health-headlineWidth {
+  width: 	180px;
+}
+
+.langPT.wod-sheet .health-headlineWidth {
+  width: 	150px;
 }
 
 /* END Core */
 
 /* START Combat */
-.langDE .combat-smallBox {
+.langDE .combat-smallBox,
+.langPT .combat-smallBox {
   width: 90px;
 }
 
 .langDE .combat-concealBox,
+.langPT .combat-concealBox,
 .langES .combat-concealBox,
 .langIT .combat-concealBox {
   width: 85px;
@@ -155,15 +169,18 @@
 
 /* START Power*/
 
-.langDE.wod-sheet .power-dicebox {
+.langDE.wod-sheet .power-dicebox,
+.langPT.wod-sheet .power-dicebox {
   width: 130px;
 }
 
-.langDE.wod-sheet .power-row .power-iconbox {
+.langDE.wod-sheet .power-row .power-iconbox,
+.langPT.wod-sheet .power-row .power-iconbox {
   margin-left: 150px;
 }
 
 .langDE.aretecasting-dialog .dialog-label,
+.langPT.aretecasting-dialog .dialog-label,
 .langES.aretecasting-dialog .dialog-label {
   width: 520px;
 }
@@ -193,11 +210,13 @@
 }
 
 .langDE .dialog-casting-type-label,
+.langPT .dialog-casting-type-label,
 .langES .dialog-casting-type-label {
   width: 350px;
 }
 
-.langDE .comboboxRow {
+.langDE .comboboxRow,
+.langPT .comboboxRow {
   height: 40px;
 }
 
@@ -208,6 +227,7 @@
 @media all and (max-width : 1500px)
 {
   .langDE.wod-sheet:not(.minimized),
+  .langPT.wod-sheet:not(.minimized),
   .langES.wod-sheet:not(.minimized) {
     min-width: 900px;
   }     
@@ -224,6 +244,7 @@
   }
 
   .langDE.wod-sheet .sheet-inner-area,
+  .langPT.wod-sheet .sheet-inner-area,
   .langES.wod-sheet .sheet-inner-area {
     padding-right: 45px;
   } 

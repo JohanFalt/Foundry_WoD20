@@ -69,6 +69,7 @@ export class DiceRollContainer {
 		this.actor = actor; 	// rolling actor
 		this.attribute = "";
 		this.dicetext = [];
+		this.bonus = 0;
 		this.extraInfo = [];
 		this.origin = "";
 
@@ -236,6 +237,13 @@ export async function NewRollDice(diceRoll) {
 		}
 		rollInfo += property;
 	} 
+
+	if (diceRoll.bonus > 0) {
+		rollInfo += ` + ${diceRoll.bonus}`;
+	}
+	else if (diceRoll.bonus < 0) {
+		rollInfo += ` ${diceRoll.bonus}`;
+	}
 
 	// if attack then there will be a damage code in the information
 	if (diceRoll.damageCode != undefined) {

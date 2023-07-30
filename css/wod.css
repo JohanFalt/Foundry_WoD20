@@ -878,6 +878,10 @@ input.sheet-infoWidth {
 	width: 	110px;
 }
 
+.wod20 .health-headlineWidth {
+  width: 	110px;
+}
+
 .attribute-total {
   display: inline-block;
   width: 10px;

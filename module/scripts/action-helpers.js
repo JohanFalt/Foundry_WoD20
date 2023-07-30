@@ -128,13 +128,12 @@ export default class ActionHelper {
 			// used a Fetish
 			if ((dataset.object == "Fetish") || (dataset.object == "Talen")) {
 
-				let template = [];
-				
+				let template = [];				
 
 				const fetishRoll = new DiceRollContainer(actor);	
-				fetishRoll.action = game.i18n.localize("wod.dice.activate");			
-				fetishRoll.dicetext = template;
+				fetishRoll.action = game.i18n.localize("wod.dice.activate");	
 				fetishRoll.origin = "general";
+
 				if (actor.type == CONFIG.wod.sheettype.mage) {
 					template.push(`${game.i18n.localize("wod.advantages.willpower")} (${actor.system.advantages.willpower.roll})`);
 					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);
@@ -145,9 +144,10 @@ export default class ActionHelper {
 					fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);
 					fetishRoll.difficulty = parseInt(item.system.difficulty); 
 				}
-				
-				fetishRoll.woundpenalty = 0;
-				
+
+				fetishRoll.dicetext = template;
+				fetishRoll.bonus = 0;				
+				fetishRoll.woundpenalty = 0;				
 				fetishRoll.systemText = item.system.details;
 
         		NewRollDice(fetishRoll);
@@ -395,6 +395,7 @@ export default class ActionHelper {
 				const activeRoll = new DiceRollContainer(actor);
 				activeRoll.action = game.i18n.localize("wod.dice.rollingremainactive");
 				activeRoll.dicetext = template;
+				activeRoll.bonus = 0;
 				activeRoll.origin = "general";
 				activeRoll.numDices = parseInt(actor.system.advantages.rage.permanent);
 				activeRoll.woundpenalty = 0;
@@ -426,6 +427,7 @@ export default class ActionHelper {
 		const paradoxRoll = new DiceRollContainer(actor);
         paradoxRoll.action = game.i18n.localize("wod.advantages.paradox");
         paradoxRoll.dicetext = template;
+		paradoxRoll.bonus = 0;
         paradoxRoll.origin = "general";
         paradoxRoll.numDices = parseInt(actor.system.paradox.roll);
 		paradoxRoll.woundpenalty = 0;

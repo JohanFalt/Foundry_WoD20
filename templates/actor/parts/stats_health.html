@@ -4,7 +4,7 @@
 <div>
     {{#if actor.system.listdata.settings.haschimericalhealth}}
         <div class="clearareaBox">
-            <div class="pullLeft attribute-headlineWidth">&nbsp;</div>
+            <div class="pullLeft health-headlineWidth">&nbsp;</div>
             <div class="pullLeft headlineList splatFont">{{localize 'wod.health.normal'}}</div>
             <div class="pullRight headlineList splatFont">{{localize 'wod.health.chimerical'}}</div>
         </div>
@@ -13,7 +13,7 @@
     {{#if (gt data.system.health.bruised.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.bruised'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.bruised'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.bruised">
                 {{#numLoop data.system.health.bruised.total}}            
                     <span class="resource-value-step" 
@@ -39,7 +39,7 @@
     {{#if (gt data.system.health.hurt.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.hurt'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.hurt'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.hurt">
                 {{#numLoop data.system.health.hurt.total}}            
                     <span class="resource-value-step" 
@@ -65,7 +65,7 @@
     {{#if (gt data.system.health.injured.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.injured'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.injured'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.injured">
                 {{#numLoop data.system.health.injured.total}}            
                     <span class="resource-value-step" 
@@ -91,7 +91,7 @@
     {{#if (gt data.system.health.wounded.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.wounded'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.wounded'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.wounded">
                 {{#numLoop data.system.health.wounded.total}}            
                     <span class="resource-value-step" 
@@ -117,7 +117,7 @@
     {{#if (gt data.system.health.mauled.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.mauled'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.mauled'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.mauled">
                 {{#numLoop data.system.health.mauled.total}}            
                     <span class="resource-value-step" 
@@ -143,7 +143,7 @@
     {{#if (gt data.system.health.crippled.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.crippled'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.crippled'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.crippled">
                 {{#numLoop data.system.health.crippled.total}}            
                     <span class="resource-value-step" 
@@ -169,7 +169,7 @@
     {{#if (gt data.system.health.incapacitated.total 0)}}
 
         <div class="clearareaBox health">
-            <div class="pullLeft attribute-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.incapacitated'}}</div>
+            <div class="pullLeft health-headlineWidth headlineNormal" style="text-align: left;">{{localize 'wod.health.incapacitated'}}</div>
             <div class="resource-counter {{#if actor.system.listdata.settings.haschimericalhealth}}pullLeft{{else}}pullRight{{/if}} healthbox" style="width: 14px;" data-name="data.system.health.incapacitated">
                 {{#numLoop data.system.health.incapacitated.total}}            
                     <span class="resource-value-step" 

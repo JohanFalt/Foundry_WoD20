@@ -203,10 +203,8 @@ Hooks.once("init", async function() {
 		powers: WoDSetup.getInstalledPowers(game.data.items)
 	};
 
-	//game.wod.abilities = await templates.SetupAbilities();
-	game.wod.abilities = wod.ability;
-	//game.wod.bio = await templates.SetupBio();
-	game.wod.bio = wod.bio;
+	game.wod.abilities = templates.SetupAbilities();
+	game.wod.bio = templates.SetupBio();
 
 	console.log("WoD | Added Handelebars");  
 });
@@ -260,6 +258,9 @@ Hooks.on("renderActorSheet", (sheet) => {
 	else if (CONFIG.language == "fr") {
 		sheet.element[0].classList.add("langFR");
     }
+	else if (CONFIG.language == "pt-BR") {
+		sheet.element[0].classList.add("langPT");
+    }
 	else {
 		sheet.element[0].classList.add("langEN");
 	}
@@ -286,6 +287,9 @@ Hooks.on("renderItemSheet", (sheet) => {
     }
 	else if (CONFIG.language == "fr") {
 		sheet.element[0].classList.add("langFR");
+    }
+	else if (CONFIG.language == "pt-BR") {
+		sheet.element[0].classList.add("langPT");
     }
 	else {
 		sheet.element[0].classList.add("langEN");
@@ -320,8 +324,11 @@ Hooks.on("renderFormApplication", (sheet) => {
 		else if (CONFIG.language == "it") {
 			sheet.element[0].classList.add("langIT");
 		}
-		if (CONFIG.language == "fr") {
+		else if (CONFIG.language == "fr") {
 			sheet.element[0].classList.add("langFR");
+		}
+		else if (CONFIG.language == "pt-BR") {
+			sheet.element[0].classList.add("langPT");
 		}
 		else {
 			sheet.element[0].classList.add("langEN");
@@ -377,6 +384,7 @@ function clearHTML(sheet) {
 	sheet.element[0].classList.remove("langES");
 	sheet.element[0].classList.remove("langIT");
 	sheet.element[0].classList.remove("langFR");
+	sheet.element[0].classList.remove("langPT");
 	sheet.element[0].classList.remove("langEN");
 	sheet.element[0].classList.remove("noSplatFont");
 }

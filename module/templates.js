@@ -1,3 +1,6 @@
+import { databio } from "../assets/data/bio.js";
+import { dataability } from "../assets/data/ability.js";
+
 /**
  * Define a set of template paths to pre-load
  * Pre-loaded templates are compiled and cached for fast access when rendering
@@ -128,38 +131,37 @@ export const preloadHandlebarsTemplates = async function () {
 	return loadTemplates(templatePaths); // eslint-disable-line no-undef
 };
 
-export async function SetupAbilities()
+export function SetupAbilities()
 {
     try {        
-		let importData = {};
+		let importData = dataability;
 		// let fileData = await fetch(`systems/worldofdarkness/assets/data/ability.json`).then((response) => response.json());
 		// Object.assign(importData, fileData);
 
 		return importData;		
     } catch(err) {
-		err.message = `Failed migration for Actor Item ${item.name}: ${err.message}`;
+		err.message = `Failed Setup ability: ${err.message}`;
         console.error(err);
         return
     }
 }
 
-export async function SetupBio()
+export function SetupBio()
 {
     try {        
-		let importData = {};
-		let fileData = await fetch(`systems/worldofdarkness/assets/data/bio.json`).then((response) => response.json());
+		let importData = databio;
+		/* let fileData = await fetch(`systems/worldofdarkness/assets/data/bio.json`).then((response) => response.json());
 		Object.assign(importData, fileData);
-
+ */
 		return importData;		
     } catch(err) {
-		err.message = `Failed Setup bio.json: ${err.message}`;
+		err.message = `Failed Setup bio: ${err.message}`;
         console.error(err);
         return
     }
 }
 
 export const registerHandlebarsHelpers = function () {
-
 	Handlebars.registerHelper("setVariable", function(varName, varValue, options) {
 		console.log("WoD | setVariable " + varName + " value " + varValue);
 		

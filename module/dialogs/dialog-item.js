@@ -260,10 +260,6 @@ export class DialogItem extends FormApplication {
             template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
         }
 
-        if (this.object.bonus > 0) {
-            template.push(`${this.object.bonus}`);
-        }
-
         const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
         let specialityText = "";
         this.object.close = true;
@@ -283,6 +279,7 @@ export class DialogItem extends FormApplication {
         dialogRoll.action = this.object.name;
         dialogRoll.attribute = this.object.dice1;
         dialogRoll.dicetext = template;
+        dialogRoll.bonus = parseInt(this.object.bonus);
         dialogRoll.origin = "item";
         dialogRoll.numDices = numDices;
         dialogRoll.numSpecialDices = numSpecialDices;

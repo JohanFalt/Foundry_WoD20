@@ -134,10 +134,6 @@ export class DialogShapeChange extends FormApplication {
         template.push(`${attribute} (${this.actor.system.attributes.stamina.total})`);
         template.push(`${ability} (${this.actor.system.abilities.primalurge.value})`);
 
-        if (this.object.bonus != 0) {
-            template.push(this.object.bonus);
-        }
-
         extraInfo.push(`${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`);
         extraInfo.push(`${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`);        
 
@@ -146,6 +142,7 @@ export class DialogShapeChange extends FormApplication {
             shiftRoll.action = game.i18n.localize("wod.dialog.shapechange.headline");
             shiftRoll.attribute = "stamina";
             shiftRoll.dicetext = template;
+            shiftRoll.bonus = parseInt(this.object.bonus);
             shiftRoll.extraInfo = extraInfo;
             shiftRoll.origin = "general";
             shiftRoll.numDices = parseInt(this.actor.system.attributes.stamina.total) + parseInt(this.actor.system.abilities.primalurge.value) + parseInt(this.object.bonus);

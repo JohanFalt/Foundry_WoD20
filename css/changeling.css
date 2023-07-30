@@ -122,6 +122,12 @@
     width: 200px;
 }
 
+/* START - Core */
+
+.changeling .health-headlineWidth {
+    width: 	140px;
+}
+
 /* START - Combat */
 
 .changeling .armor.headlineRowBackground {

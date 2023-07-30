@@ -287,6 +287,8 @@ export default class CreateHelper {
 		console.log('WoD | Set Shifter Attributes');
 
 		await this.SetWerewolfAttributes(actor);
+
+		actor.system.changingbreed = type;
 		actor.system.settings.hasrage = true;
 		actor.system.settings.hasbloodpool = false;
 

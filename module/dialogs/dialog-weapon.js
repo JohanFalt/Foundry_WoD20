@@ -495,7 +495,7 @@ export class DialogWeapon extends FormApplication {
                 prevtext = true;
             }
 
-            if (this.object.bonus > 0) {
+            if (this.object.bonus != 0) {
                 template.push(this.object.bonus);
                 prevtext = true;
             }
@@ -518,10 +518,6 @@ export class DialogWeapon extends FormApplication {
 
             if (this.object.abilityName != "") {
                 template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
-            }
-
-            if (this.object.bonus > 0) {
-                template.push(this.object.bonus);
             }
 
             if (this.object.modename != "single") {
@@ -555,6 +551,7 @@ export class DialogWeapon extends FormApplication {
         weaponRoll.numDices = numDices;
         weaponRoll.difficulty = parseInt(this.object.difficulty);          
         weaponRoll.dicetext = template;
+        weaponRoll.bonus = parseInt(this.object.bonus);
         
         if (weaponRoll.origin == "attack") {
             weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
