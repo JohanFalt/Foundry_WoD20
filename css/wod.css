@@ -127,8 +127,8 @@
 }
 
 .wod-item:not(.minimized) {
-  min-width: 600px;
-  width: 600px;
+  min-width: 650px;
+  width: 650px;
   min-height: 400px;
 } 
 
@@ -750,6 +750,7 @@ input.sheet-infoWidth {
 .item-bonusvalue-button {
   width: 8%;
   height: 34px;
+  max-width: 40px;
 }
 
 .dialog-difficulty-button {
@@ -760,7 +761,7 @@ input.sheet-infoWidth {
 
 .dialog-moon-button,
 .dialog-shapechange-button {
-  width: 18%;
+  width: 19%;
   height: 34px;
 }
 

@@ -246,12 +246,12 @@ export class ChangelingActorSheet extends MortalActorSheet {
 
 		if (source == "soak") {
 			actorData.system.settings.soak.chimerical[abilityType].isrollable = !actorData.system.settings.soak.chimerical[abilityType].isrollable;
-		}
 
-		await ActionHelper.handleCalculations(actorData);
-		await ActionHelper.handleWoundLevelCalculations(actorData);
+			await ActionHelper.handleCalculations(actorData);
+			await ActionHelper.handleWoundLevelCalculations(actorData);
 
-		await this.actor.update(actorData);
+			await this.actor.update(actorData);
+		}		
 	}
 	
 	async _onDotCounterChangelingChange(event) {
@@ -278,7 +278,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			}
 
 			const itemid = parent[0].dataset.itemid;
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			let item = await this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {

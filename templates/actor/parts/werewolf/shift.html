@@ -19,7 +19,7 @@
                     Str (+2)<br />
                     Sta (+2)<br />
                     Man (-2)
-                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />App (-1){{/if}}
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}App (-1)<br />{{/if}}
                 </div>
                 <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
                     Str (+4)<br />
@@ -32,13 +32,15 @@
                     Str (+3)<br />
                     Dex (+2)<br />
                     Sta (+3)<br />
-                    Man (-3)
+                    Man (-3)<br />
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.perception"}} {{else}}{{localize "wod.attributes.wits"}} {{/if}} {{lowercase (localize "wod.labels.difficulty")}} -1
                 </div>
                 <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
                     Str (+1)<br />
                     Dex (+2)<br />
                     Sta (+2)<br />
-                    Man (-3)
+                    Man (-3)<br />
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.perception"}} {{else}}{{localize "wod.attributes.wits"}} {{/if}} {{lowercase (localize "wod.labels.difficulty")}} -2
                 </div>
             </div>
             <div class="clearareaBox">

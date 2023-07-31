@@ -177,7 +177,7 @@ export class DialogGeneralRoll extends FormApplication {
                     ability.issecondary = false;
                 }
                 else {
-                    const item = this.actor.getEmbeddedDocument("Item", abilityKey);
+                    const item = await this.actor.getEmbeddedDocument("Item", abilityKey);
 
                     ability = {
 						issecondary: true,

@@ -161,7 +161,7 @@ export class MageActorSheet extends MortalActorSheet {
 		if (dataset.itemid != undefined) {
 			const itemid = dataset.itemid;
 
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			let item = await this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {

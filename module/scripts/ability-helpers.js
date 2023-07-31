@@ -32,12 +32,12 @@ export default class AbilityHelper {
         return false;
 	}
 
-	static EditAbility(event, actor) {
+	static async EditAbility(event, actor) {
 		const itemId = $(event.currentTarget).data("item-id");		
 		let item;
 
 		if ((CONFIG.wod.talents[itemId] == undefined) && (CONFIG.wod.skills[itemId] == undefined) && (CONFIG.wod.knowledges[itemId] == undefined)) {
-			item = actor.getEmbeddedDocument("Item", itemId);
+			item = await actor.getEmbeddedDocument("Item", itemId);
 		}
 		else {
 			item = actor.system.abilities[itemId];

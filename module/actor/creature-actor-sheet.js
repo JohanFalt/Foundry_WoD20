@@ -149,20 +149,19 @@ export class CreatureActorSheet extends MortalActorSheet {
 		
 		const actorData = duplicate(this.actor);
 
-		//if ((fields[2] === "rage") || (fields[2] === "gnosis") || (fields[2] === "essence") || (fields[2] === "bloodpool") || (fields[2] === "glamour") || (fields[2] === "banality")) {
-			if (fields[1] === "essence") {
+		if (fields[1] === "essence") {
 			if (actorData.system.advantages[fields[1]][fields[2]] == value) {
 				actorData.system.advantages[fields[1]][fields[2]] = parseInt(actorData.system.advantages[fields[1]][fields[2]]) - 1;
 			}
 			else {
 				actorData.system.advantages[fields[1]][fields[2]] = parseInt(value);
 			}
+
+			await ActionHelper.handleCalculations(actorData);
+			await ActionHelper.handleCreatureCalculations(actorData);
+		
+			console.log("WoD | Creature Sheet updated");
+			this.actor.update(actorData);
 		}
-		
-		await ActionHelper.handleCalculations(actorData);
-		await ActionHelper.handleCreatureCalculations(actorData);
-		
-		console.log("WoD | Creature Sheet updated");
-		this.actor.update(actorData);
 	}
 }

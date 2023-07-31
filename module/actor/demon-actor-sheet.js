@@ -286,7 +286,7 @@ export class DemonActorSheet extends MortalActorSheet {
 				return;
 		   	}
 
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			let item = await this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {

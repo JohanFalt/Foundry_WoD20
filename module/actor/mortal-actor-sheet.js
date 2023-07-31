@@ -192,7 +192,7 @@ export class MortalActorSheet extends ActorSheet {
 		// set era Victorian
 		html
 			.find(".sheet_victorian")
-			.click(this._setVictorian.bind(this));			
+			.click(this._setVictorian.bind(this));
 
 		// Rollable stuff
 		html
@@ -420,7 +420,7 @@ export class MortalActorSheet extends ActorSheet {
 		// if you are altering a secondary ability's speciality
 		else if (source == "ability") {
 			const itemid = dataset.abilityid;
-			const item = this.actor.getEmbeddedDocument("Item", itemid);
+			const item = await this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
 			itemData.system.speciality = element.value;
 			await item.update(itemData);
@@ -536,7 +536,7 @@ export class MortalActorSheet extends ActorSheet {
 		// updates if a secondary ability is to be visible or not.
 		if (source == "secondaryability") {
 			const itemid = dataset.itemid;
-			const item = this.actor.getEmbeddedDocument("Item", itemid);
+			const item = await this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
 			itemData.system.isvisible = !item.system.isvisible;
 			await item.update(itemData);
@@ -598,7 +598,7 @@ export class MortalActorSheet extends ActorSheet {
 				return;
 		   	}
 
-			let item = this.actor.getEmbeddedDocument("Item", itemid);
+			let item = await this.actor.getEmbeddedDocument("Item", itemid);
 			const itemData = duplicate(item);
 			if ((index == 0) && (itemData.system.value == 1)) {
 				itemData.system.value = 0;
@@ -1232,7 +1232,7 @@ export class MortalActorSheet extends ActorSheet {
 			return;
 		}		
 
-		const item = this.actor.getEmbeddedDocument("Item", itemId);		
+		const item = await this.actor.getEmbeddedDocument("Item", itemId);		
 		item.sheetType = this.actor.type;
 
 		if (item instanceof Item) {
@@ -1246,7 +1246,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		const itemId = $(event.currentTarget).data("item-id");
 		const type = $(event.currentTarget).data("type");
-		const item = this.actor.getEmbeddedDocument("Item", itemId);		
+		const item = await this.actor.getEmbeddedDocument("Item", itemId);		
 
 		if (type == "isactive") {
 			let active = false;
@@ -1386,7 +1386,7 @@ export class MortalActorSheet extends ActorSheet {
 	}
 
 	async _updateSecondaryAbility(itemId, value) {
-		const item = this.actor.getEmbeddedDocument("Item", itemId);
+		const item = await this.actor.getEmbeddedDocument("Item", itemId);
 
 		const itemData = duplicate(item);
 
@@ -1459,12 +1459,6 @@ export class MortalActorSheet extends ActorSheet {
 			if (area == "abilities") {
 				const abilityType = fields[1];
 
-				/* if (actorData.system[area][ability][abilityType].value == value) {
-					actorData.system[area][ability][abilityType].value = parseInt(actorData.system[area][ability][abilityType].value) - 1;
-				}
-				else {
-					actorData.system[area][ability][abilityType].value = parseInt(value);
-				} */		
 				if (actorData.system[area][abilityType].value == value) {
 					actorData.system[area][abilityType].value = parseInt(actorData.system[area][abilityType].value) - 1;
 				}

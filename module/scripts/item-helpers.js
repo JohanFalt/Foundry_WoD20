@@ -603,7 +603,7 @@ export default class ItemHelper {
 			}
 
 			if (!found) {
-				const item = actor.getEmbeddedDocument("Item", power._id);
+				const item = await actor.getEmbeddedDocument("Item", power._id);
 				const itemData = duplicate(item);
                 itemData.system.parentid = "";
                 await item.update(itemData);

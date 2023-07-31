@@ -194,7 +194,7 @@ export class SpiritActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		const item = this.actor.getEmbeddedDocument("Item", itemId);		
+		const item = await this.actor.getEmbeddedDocument("Item", itemId);		
 
 		if (item instanceof Item) {
             (_a = item.sheet) === null || _a === void 0 ? void 0 : _a.render(true);
@@ -211,7 +211,7 @@ export class SpiritActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		let item = this.actor.getEmbeddedDocument("Item", itemId);
+		let item = await this.actor.getEmbeddedDocument("Item", itemId);
 
         if (!item)
             return;

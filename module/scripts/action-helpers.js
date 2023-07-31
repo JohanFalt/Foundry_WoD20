@@ -56,7 +56,7 @@ export default class ActionHelper {
 
 		// the new roll system
 		if ((dataset.rollitem == "true") && ((dataset.itemid != undefined) || (dataset.itemid != "undefined"))) {
-			item = actor.getEmbeddedDocument("Item", dataset.itemid);
+			item = await actor.getEmbeddedDocument("Item", dataset.itemid);
 
 			if (item == undefined) {
 				console.log(`WoD | RollDialog - item ${dataset.itemid} not found`);
@@ -845,41 +845,31 @@ export default class ActionHelper {
 			return actorData;
 		}
 
-		if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
-			actorData.system.settings.abilities.defaultmaxvalue = 5;
-		}
-
-		// for (const i in actorData.system.abilities.talent) {
-		// 	if (actorData.system.abilities.talent[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-		// 		actorData.system.abilities.talent[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-		// 	}
-		// }
-	
-		// for (const i in actorData.system.abilities.skill) {
-		// 	if (actorData.system.abilities.skill[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-		// 		actorData.system.abilities.skill[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-		// 	}
-		// }
-	
-		// for (const i in actorData.system.abilities.knowledge) {
-		// 	if (actorData.system.abilities.knowledge[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-		// 		actorData.system.abilities.knowledge[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-		// 	}
-		// }
-
-		for (const i in actorData.system.abilities) {
-			if (actorData.system.abilities[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-				actorData.system.abilities[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+		try {
+			if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+				actorData.system.settings.abilities.defaultmaxvalue = 5;
 			}
-		}
-
-		for (const item of actorData.items) {
-			if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
-				if (item.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
-					item.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+	
+			for (const i in actorData.system.abilities) {
+				if (actorData.system.abilities[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
+					actorData.system.abilities[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+				}
+			}
+	
+			for (const item of actorData.items) {
+				if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
+					if (item.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
+						item.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+					}
 				}
 			}
 		}
+		catch (e) {
+			ui.notifications.error("Cannot set abilities to max rating. Please check console for details.");
+			err.message = `Cannot set abilities to max rating for Actor ${actorData.name}: ${err.message}`;
+            console.error(err);
+			console.log(actorData);
+		}		
 
 		return actorData;
 	}

@@ -1628,18 +1628,24 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        newfunctions += '<b>v3.1.9</b>';
+        newfunctions += '<li>Made correcetions to Brazilian Portuguese</li>';
+        newfunctions += '<li>Fixed problems with damage roll where it added too much bonus in the chat text</li>';
+        newfunctions += '<li>Fixed graphical issues on some dialogs</li>';
+        newfunctions += '<li>[WtA] - Added so on shapeshifting tab you now see the attribute difficult changes</li>';
+
         newfunctions += '<b>v3.1.8</b>';
         newfunctions += '<li>Added Brazilian Portuguese</li>';
         newfunctions += '<li>Added temporary bonuses in rolls was not visible on the dialog</li>';
         newfunctions += '<li>Added negative temporary bonuses in rolls was not visible in chat</li>';
-        newfunctions += '<li>[CtD] Fixed some graphical issues</li>';
-        newfunctions += '<li>[WtA] Changing Breeds could not select type of shifter on Foundry v11</li>';
+        newfunctions += '<li>[CtD] - Fixed some graphical issues</li>';
+        newfunctions += '<li>[WtA] - Changing Breeds could not select type of shifter on Foundry v11</li>';
 
         newfunctions += '<b>v3.1.7</b>';
         newfunctions += '<li>With some world setups you could not create Actors due to the user did not have access to the data files which prevented the sheet to be able to open</li>';
         newfunctions += '<li>Secondary abilities was sometimes unsorted</li>';
         newfunctions += '<li>Problem with editing Secondary abilities</li>';
-        newfunctions += '<li>[MtA] Tooltip caused problem if you had HTML in descriptions of Rotes</li>';
+        newfunctions += '<li>[MtA] - Tooltip caused problem if you had HTML in descriptions of Rotes</li>';
 
         newfunctions += '<b>v3.1.6</b>';
         newfunctions += '<li>Fixed a number of localization errors</li>';

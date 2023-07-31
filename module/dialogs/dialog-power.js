@@ -422,7 +422,7 @@ export class DialogPower extends FormApplication {
         }
         else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
             if (!this.object.isUnleashing) {
-                const art = this.actor.getEmbeddedDocument("Item", data.object.parentid);
+                const art = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
                 data.object.attributeValue = art.system.value;
                 data.object.attributeName = art.name;
             }
