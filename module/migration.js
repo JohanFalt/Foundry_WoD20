@@ -1628,8 +1628,11 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        newfunctions += '<b>v3.1.10</b>';
+        newfunctions += '<li>Able for other traits to use any advantages</li>';
+
         newfunctions += '<b>v3.1.9</b>';
-        newfunctions += '<li>Made correcetions to Brazilian Portuguese</li>';
+        newfunctions += '<li>Made corrections to Brazilian Portuguese</li>';
         newfunctions += '<li>Fixed problems with damage roll where it added too much bonus in the chat text</li>';
         newfunctions += '<li>Fixed graphical issues on some dialogs</li>';
         newfunctions += '<li>[WtA] - Added so on shapeshifting tab you now see the attribute difficult changes</li>';

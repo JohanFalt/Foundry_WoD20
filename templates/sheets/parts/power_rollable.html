@@ -30,6 +30,32 @@
 
                             <option disabled>- {{captilize (localize "wod.advantages.advantages")}} -</option>
 
+                            <option value="willpower">{{localize "wod.advantages.willpower"}}</option>
+
+                            {{#if hasActor}}
+                                {{log actor}}
+                                {{#if (eq data.system.type "wod.types.othertraits")}}
+                                    {{#if actor.system.settings.hasrage}}<option value="rage">{{localize "wod.advantages.rage"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hasgnosis}}<option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hasglamour}}<option value="glamour">{{localize "wod.advantages.glamour"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hasbanality}}<option value="banality">{{localize "wod.advantages.banality"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hasnightmare}}<option value="nightmare">{{localize "wod.advantages.nightmare"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hasfaith}}<option value="faith">{{localize "wod.advantages.faith"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hastorment}}<option value="torment">{{localize "wod.advantages.torment"}}</option>{{/if}}
+                                    {{#if (eq actor.type config.sheettype.mage)}}<option value="arete">{{localize "wod.advantages.arete"}}</option>{{/if}}
+
+                                    {{#if actor.system.settings.haspath}}<option value="path">{{localize "wod.advantages.path.headline"}}</option>{{/if}}
+                                    {{#if actor.system.settings.hasvirtue}}
+                                        <option disabled>- {{captilize (localize "wod.advantages.virtue.headline")}} </option>
+                                        <option value="conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
+                                        <option value="conscience">{{localize "wod.advantages.virtue.conviction"}}</option>
+                                        <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
+                                        <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
+                                        <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
+                                    {{/if}}
+                                {{/if}}
+                            {{/if}}
+
                             {{#if (eqAny data.system.type "wod.types.artpower" "wod.types.power" "wod.types.treasure")}}
                                 <option value="glamour">{{localize "wod.advantages.glamour"}}</option>
                                 <option value="nightmare">{{localize "wod.advantages.nightmare"}}</option>
@@ -43,9 +69,7 @@
                             {{#if (eqAny data.system.type "wod.types.gift" "wod.types.rite" "wod.types.power")}}
                                 <option value="rage">{{localize "wod.advantages.rage"}}</option>
                                 <option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
-                            {{/if}}
-
-                            <option value="willpower">{{localize "wod.advantages.willpower"}}</option>
+                            {{/if}}                            
 
                             {{#if (eqAny data.system.type "wod.types.disciplinepower" "disciplinepathpower" "wod.types.power")}}
                                 <option value="path">{{localize "wod.advantages.path.headline"}}</option>

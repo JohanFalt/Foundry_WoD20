@@ -52,6 +52,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		if (this.item.actor != null) {
 			data.hasActor = true;
+			data.actor = this.item.actor;
 		}
 		else {
 			data.hasActor = false;
