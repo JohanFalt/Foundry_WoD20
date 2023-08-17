@@ -1628,6 +1628,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        newfunctions += '<b>v3.1.11</b>';
+        newfunctions += '<li>Made corrections to Brazilian Portuguese</li>';
+        newfunctions += '<li>Fixed graphical problems with exploding 10s if the first roll was a 10</li>';
+
         newfunctions += '<b>v3.1.10</b>';
         newfunctions += '<li>Able for other traits to use any advantages</li>';
 

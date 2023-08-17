@@ -493,9 +493,9 @@
 
 			"alertness": "Prontidão",			
 			"art": "Arte",
-			"athletics": "Esportes",
+			"athletics": "Esportes/Atlet.",
 			"awareness": "Consciência",
-			"brawl": "Briga",
+			"brawl": "Briga/Brawl",
 			"dodge": "Esquiva",
 			"empathy": "Empatia",
 			"expression": "Expressão",
@@ -506,7 +506,7 @@
 			"legerdemain": "Legerdemain",
 			"primalurge": "Inst. Primitivo",			
 			"streetwise": "Manha/Ruas",
-			"subterfuge": "Lábia/Subterfúgio",
+			"subterfuge": "Lábia/Subterf.",
 
 			"animalken": "Empatia Animal",
 			"archery": "Arco e Flecha",
@@ -516,7 +516,7 @@
 			"drive": "Condução",
 			"etiquette": "Etiqueta",
 			"firearms": "Armas de Fogo",
-			"larceny": "Armas Brancas",
+			"larceny": "Crimes",
 			"martialarts": "Artes Marciais",
 			"meditation": "Meditação",
 			"melee": "Corpo a Corpo",	
@@ -711,8 +711,8 @@
 				"jog": "Corrida Leve",
 				"run": "Disparada",
 				"fly": "Voo",
-				"vjump": "Pulo Vertical (pés por pulo)",
-				"hjump": "Pulo Horizontal (pés por pulo)"
+				"vjump": "Pulo Vertical (pés por suces.)",
+				"hjump": "Pulo Horizontal (pés por suces.)"
 			},
 			"weapon": {
 				"weapon": "Arma",

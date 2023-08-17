@@ -4,8 +4,7 @@ import CombatHelper from "./combat-helpers.js";
 let _diceColor;
 let _specialDiceType = "";
 
-function _GetDiceColors(actor) {
-	
+function _GetDiceColors(actor) {	
 
 	if (actor == undefined) {
 		_diceColor = "black_";
@@ -194,7 +193,7 @@ export async function NewRollDice(diceRoll) {
 					rolledOne = true;
 				}
 
-				if (diceRoll.numSpecialDices >= rolledDices) {
+				if ((diceRoll.numSpecialDices >= rolledDices) && (diceRoll.numSpecialDices > 0)) {
 					chosenDiceColor = _specialDiceType;
 				}
 
