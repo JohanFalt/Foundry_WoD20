@@ -232,7 +232,7 @@ export class DialogWeapon extends FormApplication {
         }
         else if (data.object.dice2 == "custom") {
             if (this.object.secondaryabilityid != "") {
-                const item = this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
+                const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
                 this.object.abilityValue = parseInt(item.system.value);
                 this.object.abilityName = item.system.label;
 
@@ -442,7 +442,7 @@ export class DialogWeapon extends FormApplication {
         }
 
         const abilityId = key;
-        const item = this.actor.getEmbeddedDocument("Item", abilityId);
+        const item = await this.actor.getEmbeddedDocument("Item", abilityId);
 
         this.object.abilityValue = parseInt(item.system.value);
         this.object.abilityName = item.system.label;
@@ -495,10 +495,10 @@ export class DialogWeapon extends FormApplication {
                 prevtext = true;
             }
 
-            if (this.object.bonus > 0) {
+            /* if (this.object.bonus != 0) {
                 template.push(this.object.bonus);
                 prevtext = true;
-            }
+            } */
 
             if (this.object.extraSuccesses > 0) {
                 template.push(this.object.extraSuccesses);
@@ -518,10 +518,6 @@ export class DialogWeapon extends FormApplication {
 
             if (this.object.abilityName != "") {
                 template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
-            }
-
-            if (this.object.bonus > 0) {
-                template.push(this.object.bonus);
             }
 
             if (this.object.modename != "single") {
@@ -569,7 +565,9 @@ export class DialogWeapon extends FormApplication {
         }
 
         if ((weaponRoll.origin == "attack") && (this.object.rollattack)) {
-            let item = this.actor.getEmbeddedDocument("Item", this.object._id);
+            weaponRoll.bonus = parseInt(this.object.bonus);
+
+            let item = await this.actor.getEmbeddedDocument("Item", this.object._id);            
 
             if (this.object.dice2 == "custom") {
                 const itemData = duplicate(item);
@@ -590,6 +588,8 @@ export class DialogWeapon extends FormApplication {
             }
         } 
         else {
+            weaponRoll.bonus = parseInt(this.object.bonus);
+
             // if you have selected multiple targets and thus are to roll several damage rolls with one "session"
             if ((this.object.numberoftargets > 1) && (this.object.modename == "spray")) {
                 let numberTargets = this.object.numberoftargets;

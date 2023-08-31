@@ -189,10 +189,6 @@ export class DialogSoakRoll extends FormApplication {
             damage += ` + ${this.object.attributeBonus}`;
         }
 
-        if (this.object.bonus > 0) {
-            damage += ` + ${this.object.bonus}`;
-        }
-
         if (this.object.soaktype == "chimerical") {
             damage += ` ${game.i18n.localize('wod.health.chimerical')}`;
         }
@@ -203,6 +199,7 @@ export class DialogSoakRoll extends FormApplication {
         soakRoll.action = game.i18n.localize("wod.dice.rollingsoak");
         soakRoll.attribute = "stamina";
         soakRoll.dicetext = template;
+        soakRoll.bonus = parseInt(this.object.bonus);
         soakRoll.origin = "soak";
         soakRoll.numDices = numDices;
         soakRoll.woundpenalty = 0;

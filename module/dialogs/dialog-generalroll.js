@@ -177,7 +177,7 @@ export class DialogGeneralRoll extends FormApplication {
                     ability.issecondary = false;
                 }
                 else {
-                    const item = this.actor.getEmbeddedDocument("Item", abilityKey);
+                    const item = await this.actor.getEmbeddedDocument("Item", abilityKey);
 
                     ability = {
 						issecondary: true,
@@ -406,10 +406,6 @@ export class DialogGeneralRoll extends FormApplication {
                 template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
             }
 
-            if (this.object.bonus > 0) {
-                template.push(this.object.bonus);
-            }
-
             this.object.close = true;
 
             if (!this.object.hasSpeciality) {
@@ -438,6 +434,7 @@ export class DialogGeneralRoll extends FormApplication {
         generalRoll.action = rollName;
         generalRoll.attribute = this.object.attributeKey;
         generalRoll.dicetext = template;
+        generalRoll.bonus = parseInt(this.object.bonus);
         generalRoll.origin = "general";
         generalRoll.numDices = numDices;
         generalRoll.woundpenalty = parseInt(woundPenaltyVal);

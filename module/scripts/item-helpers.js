@@ -35,7 +35,7 @@ export default class ItemHelper {
 		// ability lists are effected by both activated abilities and what items you have.
 		actor.system.listdata.ability_talents = actor.system.listdata.ability_talents.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.ability_skills = actor.system.listdata.ability_skills.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.ability_knowledges = actor.system.listdata.ability_knowledges.sort((a, b) => a.name.localeCompare(b.name));
+		actor.system.listdata.ability_knowledges = actor.system.listdata.ability_knowledges.sort((a, b) => a.name.localeCompare(b.name)); 		
     }
 
 	// If removing a main power the secondary powers needs to be emptied of parentId
@@ -81,6 +81,11 @@ export default class ItemHelper {
 				ability._id = name;
 				ability.issecondary = false;
 				ability.name = game.i18n.localize(ability.label);
+
+
+				ability.label = game.i18n.localize(ability.label);
+
+				
 
 				if (actor.system.abilities[name].type == "talent") {
 					actor.system.listdata.ability_talents.push(ability);
@@ -338,10 +343,13 @@ export default class ItemHelper {
 					name: item.name,
 					speciality: item.system.speciality,
 					value: item.system.value,
+					isvisible: item.system.isvisible,
 					_id: item._id
 				}
 
-				actor.system.listdata.ability_talents.push(trait);
+				if (item.system.isvisible) {
+					actor.system.listdata.ability_talents.push(trait);
+				}
 
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);
@@ -360,10 +368,13 @@ export default class ItemHelper {
 					name: item.name,
 					speciality: item.system.speciality,
 					value: item.system.value,
+					isvisible: item.system.isvisible,
 					_id: item._id
 				}
 
-				actor.system.listdata.ability_skills.push(trait);
+				if (item.system.isvisible) {
+					actor.system.listdata.ability_skills.push(trait);
+				}
 	
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);
@@ -382,10 +393,13 @@ export default class ItemHelper {
 					name: item.name,
 					speciality: item.system.speciality,
 					value: item.system.value,
+					isvisible: item.system.isvisible,
 					_id: item._id
 				}
 
-				actor.system.listdata.ability_knowledges.push(trait);
+				if (item.system.isvisible) {
+					actor.system.listdata.ability_knowledges.push(trait);
+				}
 
 				if (item.system.ismeleeweapon) {
 					actor.system.listdata.meleeAbilities.push(item);
@@ -589,7 +603,7 @@ export default class ItemHelper {
 			}
 
 			if (!found) {
-				const item = actor.getEmbeddedDocument("Item", power._id);
+				const item = await actor.getEmbeddedDocument("Item", power._id);
 				const itemData = duplicate(item);
                 itemData.system.parentid = "";
                 await item.update(itemData);

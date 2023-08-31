@@ -153,13 +153,21 @@
         <div class="ability-statArea pullLeft">
             {{#each actor.system.listdata.secondary_talents as |ability key|}}
                 <div class="clearareaBox row">
-                    <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
-                    <div>
-                        {{#if (eq ../locked false)}}
-                            <a class="item-edit" title="{{localize 'wod.labels.edit.abilitysecond'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                            <a class="item-delete" title="{{localize 'wod.labels.remove.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                    <div class="pullLeft headlineNormal" style="width: 175px;">{{localize ability.label}}</div>
+                    <div class="switch headlineNormal bold pointer splatFont pullRight" data-itemid="{{ability._id}}" data-source="secondaryability" data-type="{{../config.sheettype.mortal}}">
+                        {{#if ability.isvisible}}
+                            <i class="icon fa-solid fa-eye"></i>
+                        {{else}}
+                            <i class="icon fa-solid fa-eye-slash"></i>
                         {{/if}}
                     </div>
+                    
+                    {{#if (eq ../locked false)}}
+                        <div class="pullRight">
+                            <a class="item-edit" title="{{localize 'wod.labels.edit.abilitysecond'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.ability'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        </div>
+                    {{/if}}
                 </div>	
             {{/each}}
             &nbsp;
@@ -167,7 +175,16 @@
         <div class="ability-statArea pullLeft">
             {{#each actor.system.listdata.secondary_skills as |ability key|}}
                 <div class="clearareaBox row">
-                    <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
+                    <label class="pullLeft headlineNormal" style="width: 175px;">{{localize ability.label}}</label>
+
+                    <div class="switch headlineNormal bold pointer splatFont" data-itemid="{{ability._id}}" data-source="secondaryability" data-type="{{../config.sheettype.mortal}}">
+                        {{#if ability.isvisible}}
+                            <i class="icon fa-solid fa-eye"></i>
+                        {{else}}
+                            <i class="icon fa-solid fa-eye-slash"></i>
+                        {{/if}}
+                    </div>
+
                     <div>
                         {{#if (eq ../locked false)}}
                             <a class="item-edit" title="{{localize 'wod.labels.edit.abilitysecond'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
@@ -181,7 +198,16 @@
         <div class="ability-statArea pullLeft">
             {{#each actor.system.listdata.secondary_knowledges as |ability key|}}
                 <div class="clearareaBox row">
-                    <label class="pullLeft headlineNormal" style="width: 200px;">{{localize ability.label}}</label>
+                    <label class="pullLeft headlineNormal" style="width: 175px;">{{localize ability.label}}</label>
+
+                    <div class="switch headlineNormal bold pointer splatFont" data-itemid="{{ability._id}}" data-source="secondaryability" data-type="{{../config.sheettype.mortal}}">
+                        {{#if ability.isvisible}}
+                            <i class="icon fa-solid fa-eye"></i>
+                        {{else}}
+                            <i class="icon fa-solid fa-eye-slash"></i>
+                        {{/if}}
+                    </div>
+
                     <div>
                         {{#if (eq ../locked false)}}
                             <a class="item-edit" title="{{localize 'wod.labels.edit.abilitysecond'}}" data-item-id="{{ability._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>

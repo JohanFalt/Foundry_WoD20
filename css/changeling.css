@@ -122,6 +122,12 @@
     width: 200px;
 }
 
+/* START - Core */
+
+.changeling .health-headlineWidth {
+    width: 	140px;
+}
+
 /* START - Combat */
 
 .changeling .armor.headlineRowBackground {
@@ -133,30 +139,30 @@
 /* START - Dreaming */
 
 .changeling .art-row .art-iconbox {
-    margin-left: 13px;
-  }
+    margin-left: 100px;
+}
   
-  .changeling .art-row .power-dotBox {
+.changeling .art-row .power-dotBox {
     width: 120px;
 }
 
-.changeling .artpower-row .power-iconbox {
-    margin-left: 187px;
+.changeling .artpower-row .art-iconbox {
+    margin-left: 87px;
 }
   
 .changeling .bonuses .art-iconbox {
-    margin-left: 73px;
+    margin-left: 180px;
 }
   
 .changeling .realms-headlineWidth {
-    width: 60%;
+    width: 50%;
 }
 
 .changeling .highlightedPower {
     background: var(--changeling-affinity-power);
     height: 15px;
     width: 15px;
-    margin-top: 5px;    
+    /* margin-top: 5px;     */
 }
 
 .changeling .realm-resource-values {

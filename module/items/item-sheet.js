@@ -11,7 +11,7 @@ export class WoDItemSheet extends ItemSheet {
 	constructor(item, options) {
 		super(item, options);
 
-		this.locked = false;
+		this.locked = true;
 		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
 		
@@ -52,6 +52,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		if (this.item.actor != null) {
 			data.hasActor = true;
+			data.actor = this.item.actor;
 		}
 		else {
 			data.hasActor = false;

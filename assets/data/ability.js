@@ -1,4 +1,4 @@
-{
+export const dataability = {
     "mortal": { 
         "modern": {
             "talents": [
@@ -151,8 +151,8 @@
             "talents": [
                 "alertness",
                 "athletics", 
+                "awareness",
                 "brawl",
-                "dodge",
                 "empathy",
                 "expression",
                 "intimidation",
@@ -165,9 +165,9 @@
                 "craft",
                 "etiquette",
                 "firearms",
+                "larceny",
                 "melee",
                 "performance",
-                "security",
                 "stealth",
                 "survival"
             ],
@@ -175,13 +175,13 @@
                 "academics",
                 "enigmas",
                 "finance",
-                "linguistics",
                 "investigation",
                 "law",
                 "medicine",
                 "occult",
                 "politics",
-                "science"
+                "science",
+                "technology"
             ]
         },
         "darkages": {
@@ -304,9 +304,9 @@
         "modern": {
             "talents": [
                 "alertness",	
-				"athletics",	
+				"athletics",
 				"brawl",
-				"empathy", 
+				"empathy",
 				"expression", 
 				"intimidation", 
 				"leadership",

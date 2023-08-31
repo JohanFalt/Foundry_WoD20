@@ -194,7 +194,7 @@ export class SpiritActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		const item = this.actor.getEmbeddedDocument("Item", itemId);		
+		const item = await this.actor.getEmbeddedDocument("Item", itemId);		
 
 		if (item instanceof Item) {
             (_a = item.sheet) === null || _a === void 0 ? void 0 : _a.render(true);
@@ -211,7 +211,7 @@ export class SpiritActorSheet extends ActorSheet {
         event.stopPropagation();
 
 		const itemId = $(event.currentTarget).data("item-id");
-		let item = this.actor.getEmbeddedDocument("Item", itemId);
+		let item = await this.actor.getEmbeddedDocument("Item", itemId);
 
         if (!item)
             return;
@@ -252,12 +252,37 @@ export class SpiritActorSheet extends ActorSheet {
 		ActionHelper.RollDialog(event, this.actor);
 	}
 
-	_onSendChat(event) {
+	async _onSendChat(event) {
 		const element = event.currentTarget;
-		const message = element.dataset.message || "";
-		const headline = element.dataset.headline || "";
+		const itemid = element.dataset.itemid || "";
+		let item = await this.actor.getEmbeddedDocument("Item", itemid);
+		const headline = item.name;
+		const description = item.system.description;
+		const system = item.system.details;
 
-		MessageHelper.printMessage(headline, message, this.actor);
+		const templateData = {
+			data: {
+				actor: this.actor,
+				type: "send",
+				action: headline,
+				message: "",
+				description: description,
+				system: system
+			}
+		};
+	
+		// Render the chat card template
+		const template = `systems/worldofdarkness/templates/dialogs/roll-template.html`;
+		const html = await renderTemplate(template, templateData);
+	
+		const chatData = {
+			type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+			content: html,
+			speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+			rollMode: game.settings.get("core", "rollMode")        
+		};
+		ChatMessage.applyRollMode(chatData, "roll");
+		ChatMessage.create(chatData);
 	}
 
 	_onDotCounterChange(event) {

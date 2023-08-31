@@ -25,7 +25,7 @@
                 <select class="sheet-infoValues {{#if (eq actor.system.kith 'custom')}}edit-property{{/if}} editable" name="system.kith" data-name="data.system.kith" data-dtype="String">
                     {{#select data.system.kith}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}}{{/if}}</option>                            
+                        <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}} ({{localize "wod.labels.customkith"}}){{/if}}</option>                            
                         {{#each game.bio.kith as |kith id|}}
                             <option value="{{kith}}">{{localize kith}}</option>
                         {{/each}}
@@ -93,7 +93,7 @@
         <label class="headlineText headlineBio splatFont" for="data.birthrights">{{localize "wod.bio.changeling.birthright"}}</label>
         <div class="clearareaBox">
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.birthright1}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.birthright1 '')}}small{{/if}}">{{{actor.system.birthright1}}}</div>
             {{else}}
                 {{editor data.birthright1 target="system.birthright1" button=false owner=owner editable=true}}
             {{/if}}				
@@ -101,7 +101,7 @@
 
         <div class="clearareaBox">
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.birthright2}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.birthright2 '')}}small{{/if}}">{{{actor.system.birthright2}}}</div>
             {{else}}
                 {{editor data.birthright2 target="system.birthright2" button=false owner=owner editable=true}}
             {{/if}}				
@@ -114,7 +114,7 @@
         <label class="headlineText headlineBio splatFont" for="data.frailty">{{localize "wod.bio.changeling.frailty"}}</label>
         <div class="clearareaBox">
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.frailty}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.frailty '')}}small{{/if}}">{{{actor.system.frailty}}}</div>
             {{else}}
                 {{editor data.frailty target="system.frailty" button=false owner=owner editable=true}}
             {{/if}}				
@@ -126,7 +126,7 @@
     <div>
         <label class="headlineText splatFont" for="data.threshold">{{localize "wod.bio.changeling.threshold"}}</label>
         {{#if locked}}
-            <div class="smallbox headlineNormal textarea">{{{data.system.threshold}}}</div>
+            <div class="smallbox headlineNormal textarea {{#if (eq actor.system.threshold '')}}small{{/if}}">{{{actor.system.threshold}}}</div>
         {{else}}
             {{editor data.threshold target="system.threshold" button=false owner=owner editable=true}}
         {{/if}}
@@ -137,7 +137,7 @@
     <div>
         <label class="headlineText splatFont" for="data.revelry">{{localize "wod.bio.changeling.revelry"}}</label>
         {{#if locked}}
-            <div class="smallbox headlineNormal textarea">{{{data.system.revelry}}}</div>
+            <div class="smallbox headlineNormal textarea {{#if (eq actor.system.revelry '')}}small{{/if}}">{{{actor.system.revelry}}}</div>
         {{else}}
             {{editor data.revelry target="system.revelry" button=false owner=owner editable=true}}
         {{/if}}
@@ -148,7 +148,7 @@
     <div>
         <label class="headlineText splatFont" for="data.house">{{localize "wod.bio.changeling.house"}}</label>
         {{#if locked}}
-            <div class="smallbox headlineNormal textarea">{{{data.system.house}}}</div>
+            <div class="smallbox headlineNormal textarea {{#if (eq actor.system.house '')}}small{{/if}}">{{{actor.system.house}}}</div>
         {{else}}
             {{editor data.house target="system.house" button=false owner=owner editable=true}}
         {{/if}}
@@ -160,7 +160,7 @@
         <label class="headlineText headlineBio splatFont" for="data.legacyseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
         <div class="clearareaBox">
             {{#if locked}}
-                <div class="headlineNormal textarea">{{{data.system.legacyseelie}}}</div>
+                <div class="headlineNormal textarea {{#if (eq actor.system.legacyseelie '')}}small{{/if}}">{{{actor.system.legacyseelie}}}</div>
             {{else}}
                 {{editor data.legacyseelie target="system.legacyseelie" button=false owner=owner editable=true}}
             {{/if}}				
@@ -172,7 +172,7 @@
     <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
     <div class="clearareaBox">
         {{#if locked}}
-            <div class="headlineNormal textarea">{{{data.system.legacyunseelie}}}</div>
+            <div class="headlineNormal textarea {{#if (eq actor.system.legacyunseelie '')}}small{{/if}}">{{{actor.system.legacyunseelie}}}</div>
         {{else}}
             {{editor data.legacyunseelie target="system.legacyunseelie" button=false owner=owner editable=true}}
         {{/if}}				

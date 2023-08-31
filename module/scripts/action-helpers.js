@@ -56,7 +56,7 @@ export default class ActionHelper {
 
 		// the new roll system
 		if ((dataset.rollitem == "true") && ((dataset.itemid != undefined) || (dataset.itemid != "undefined"))) {
-			item = actor.getEmbeddedDocument("Item", dataset.itemid);
+			item = await actor.getEmbeddedDocument("Item", dataset.itemid);
 
 			if (item == undefined) {
 				console.log(`WoD | RollDialog - item ${dataset.itemid} not found`);
@@ -128,13 +128,12 @@ export default class ActionHelper {
 			// used a Fetish
 			if ((dataset.object == "Fetish") || (dataset.object == "Talen")) {
 
-				let template = [];
-				
+				let template = [];				
 
 				const fetishRoll = new DiceRollContainer(actor);	
-				fetishRoll.action = game.i18n.localize("wod.dice.activate");			
-				fetishRoll.dicetext = template;
+				fetishRoll.action = game.i18n.localize("wod.dice.activate");	
 				fetishRoll.origin = "general";
+
 				if (actor.type == CONFIG.wod.sheettype.mage) {
 					template.push(`${game.i18n.localize("wod.advantages.willpower")} (${actor.system.advantages.willpower.roll})`);
 					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);
@@ -145,9 +144,10 @@ export default class ActionHelper {
 					fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);
 					fetishRoll.difficulty = parseInt(item.system.difficulty); 
 				}
-				
-				fetishRoll.woundpenalty = 0;
-				
+
+				fetishRoll.dicetext = template;
+				fetishRoll.bonus = 0;				
+				fetishRoll.woundpenalty = 0;				
 				fetishRoll.systemText = item.system.details;
 
         		NewRollDice(fetishRoll);
@@ -395,6 +395,7 @@ export default class ActionHelper {
 				const activeRoll = new DiceRollContainer(actor);
 				activeRoll.action = game.i18n.localize("wod.dice.rollingremainactive");
 				activeRoll.dicetext = template;
+				activeRoll.bonus = 0;
 				activeRoll.origin = "general";
 				activeRoll.numDices = parseInt(actor.system.advantages.rage.permanent);
 				activeRoll.woundpenalty = 0;
@@ -426,6 +427,7 @@ export default class ActionHelper {
 		const paradoxRoll = new DiceRollContainer(actor);
         paradoxRoll.action = game.i18n.localize("wod.advantages.paradox");
         paradoxRoll.dicetext = template;
+		paradoxRoll.bonus = 0;
         paradoxRoll.origin = "general";
         paradoxRoll.numDices = parseInt(actor.system.paradox.roll);
 		paradoxRoll.woundpenalty = 0;
@@ -843,41 +845,31 @@ export default class ActionHelper {
 			return actorData;
 		}
 
-		if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
-			actorData.system.settings.abilities.defaultmaxvalue = 5;
-		}
-
-		// for (const i in actorData.system.abilities.talent) {
-		// 	if (actorData.system.abilities.talent[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-		// 		actorData.system.abilities.talent[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-		// 	}
-		// }
-	
-		// for (const i in actorData.system.abilities.skill) {
-		// 	if (actorData.system.abilities.skill[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-		// 		actorData.system.abilities.skill[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-		// 	}
-		// }
-	
-		// for (const i in actorData.system.abilities.knowledge) {
-		// 	if (actorData.system.abilities.knowledge[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-		// 		actorData.system.abilities.knowledge[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-		// 	}
-		// }
-
-		for (const i in actorData.system.abilities) {
-			if (actorData.system.abilities[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-				actorData.system.abilities[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+		try {
+			if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+				actorData.system.settings.abilities.defaultmaxvalue = 5;
 			}
-		}
-
-		for (const item of actorData.items) {
-			if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
-				if (item.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
-					item.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+	
+			for (const i in actorData.system.abilities) {
+				if (actorData.system.abilities[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
+					actorData.system.abilities[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+				}
+			}
+	
+			for (const item of actorData.items) {
+				if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
+					if (item.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
+						item.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+					}
 				}
 			}
 		}
+		catch (e) {
+			ui.notifications.error("Cannot set abilities to max rating. Please check console for details.");
+			err.message = `Cannot set abilities to max rating for Actor ${actorData.name}: ${err.message}`;
+            console.error(err);
+			console.log(actorData);
+		}		
 
 		return actorData;
 	}

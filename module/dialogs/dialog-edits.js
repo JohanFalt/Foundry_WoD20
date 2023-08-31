@@ -128,6 +128,7 @@ export class DialogBio extends FormApplication {
             actorData.system[area][property].custom = this.object.custom;
         }
         await this.actor.update(actorData);
+        this.close();
     }
 }
 
@@ -190,6 +191,7 @@ export class DialogAttribute extends FormApplication {
         const actorData = duplicate(this.actor);
         actorData.system.attributes[this.object.id].speciality = this.object.speciality;
         await this.actor.update(actorData);
+        this.close();
     }
 }
 
@@ -267,10 +269,10 @@ export class DialogAbility extends FormApplication {
             const actorData = duplicate(this.actor);
             actorData.system.abilities[this.object.id].altlabel = this.object.altlabel;
             actorData.system.abilities[this.object.id].speciality = this.object.speciality;
-            await this.actor.update(actorData);
-
-            
+            await this.actor.update(actorData);            
         }
+
+        this.close();
     }
 }
 
@@ -336,6 +338,8 @@ export class DialogSphere extends FormApplication {
         actorData.system.spheres[this.object.id].istechnocracy = this.object.istechnocracy;
         actorData.system.spheres[this.object.id].label = await this.setSphereName(this.object.id, this.object.istechnocracy);
         await this.actor.update(actorData);
+
+        this.close();
     }
 
     async setSphereName(sphere, istechnocracy) {
@@ -381,12 +385,12 @@ export class DialogSphere extends FormApplication {
                 case "entropy":
                     label = "wod.spheres.entropicstate";
                     break;
-                /* case "forces":
-                    label = "wod.spheres.forces";
+                case "forces":
+                    label = "wod.spheres.forcebased";
                     break;
                 case "life":
-                    label = "wod.spheres.life";
-                    break; */
+                    label = "wod.spheres.lifescience";
+                    break;
                 case "matter":
                     label = "wod.spheres.material";
                     break;

@@ -23,7 +23,7 @@
 
 @font-face {
   font-family: "mage";
-  src: url("../assets/fonts/visit.ttf") format("truetype");
+  src: url("../assets/fonts/visit.TTF") format("truetype");
 }
 
 @font-face {
@@ -42,7 +42,10 @@
 }
 
 :root {
-  --main-font: Arial, Helvetica, sans-serif;
+  /* --main-font: Arial, Helvetica, sans-serif; */
+  --main-font: Verdana, Helvetica, sans-serif;
+  --main-large-headline: Georgia, 'Times New Roman', Times, sans-serif;
+
   --main-dialog-background: url('../assets/img/graphics/20Page.jpg');
 
   --main-mortal-color: rgba(24, 78, 119, 1);
@@ -117,6 +120,36 @@
 
 /* START - Type of sheet designs */
 
+.wod-sheet:not(.minimized) {
+  min-width: 900px;
+  width: 900px;
+  min-height: 900px;
+}
+
+.wod-item:not(.minimized) {
+  min-width: 650px;
+  width: 650px;
+  min-height: 400px;
+} 
+
+.wod-dialog:not(.minimized) {
+  min-width: 500px;  
+  width: 500px;
+  min-height: 400px;
+}
+
+.wod-dialog.sortdiscipline-dialog:not(.minimized),
+.wod-dialog.checkfrenzy-dialog:not(.minimized),
+.wod-dialog.shapechange-dialog:not(.minimized) {
+  min-width: 700px;
+  width: 700px;
+}
+
+.wod-dialog.aretecasting-dialog:not(.minimized) {
+  min-width: 750px;
+  width: 750px;
+}
+
 .wod20.window-app {
   font-family: var(--main-font);
 }
@@ -138,6 +171,13 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+
+.wod-sheet .sheet-inner-area {
+  padding-left: 45px;
+  width: 830px;
+  min-height: 500px;
 }
 
 .wod20 nav {
@@ -181,40 +221,9 @@
   border: 2px groove var(--color-border-light-highlight) !important;
 }
 
-.wod-sheet:not(.minimized) {
-  min-width: 900px;
-  min-height: 900px;
-}
-
-.wod-item:not(.minimized) {
-  width: 600px !important;
-  min-height: 400px;
-} 
-
-.wod-dialog:not(.minimized) {
-  width: 500px;  
-  min-height: 400px;
-}
-
-.wod-dialog.sortdiscipline-dialog:not(.minimized),
-.wod-dialog.checkfrenzy-dialog:not(.minimized),
-.wod-dialog.shapechange-dialog:not(.minimized) {
-  width: 700px;
-}
-
-.wod-dialog.aretecasting-dialog:not(.minimized) {
-  min-width: 750px;
-}
-
 .wod-dialog .window-content,
 .wod-item .window-content {
   background: var(--main-dialog-background);
-}
-
-.wod-sheet .sheet-inner-area {
-  padding-left: 45px; 
-  width: 830px;
-  min-height: 500px;
 }
 
 .rule-dialog select,
@@ -282,6 +291,10 @@
   height: 150px;
   border-radius: 3px;
   padding: 5px;
+}
+
+.wod20 .textarea.small {
+  height: 50px;
 }
 
 .wod-sheet .textarea {
@@ -436,6 +449,13 @@ input.sheet-infoWidth {
 	font-weight: bold;
 	text-align: center;
 	width: 100%;	
+}
+
+.wod-sheet.noSplatFont .sheet-headline {  
+  font-family: var(--main-large-headline);
+}
+.wod-sheet.noSplatFont .headlineGroup {
+  font-family: var(--main-large-headline);
 }
 
 .wod20 .headlineNormal {
@@ -671,6 +691,7 @@ input.sheet-infoWidth {
 .setting-radiospanText {
   width: 200px; 
   display: inline-block;
+  height: 12px;
 }
 
 .wod-dialog .setting-radiobuttons {
@@ -729,6 +750,7 @@ input.sheet-infoWidth {
 .item-bonusvalue-button {
   width: 8%;
   height: 34px;
+  max-width: 40px;
 }
 
 .dialog-difficulty-button {
@@ -739,11 +761,11 @@ input.sheet-infoWidth {
 
 .dialog-moon-button,
 .dialog-shapechange-button {
-  width: 18%;
+  width: 19%;
   height: 34px;
 }
 
-.dialog-label {
+.aretecasting-dialog .dialog-label {
   width: 480px;
 }
 
@@ -857,6 +879,10 @@ input.sheet-infoWidth {
 	width: 	110px;
 }
 
+.wod20 .health-headlineWidth {
+  width: 	110px;
+}
+
 .attribute-total {
   display: inline-block;
   width: 10px;
@@ -871,7 +897,7 @@ input.sheet-infoWidth {
 }
 
 .wod-sheet .ability-headlineWidth {
-	width: 55%;
+	width: 50%;
 }
 .wod-sheet .supernaturalAttribute.ability-headlineWidth {
   width: 40%;
@@ -1028,11 +1054,11 @@ div.rank-area {
 }
 
 .combat-headlineLargeBox {
-  width: 150px;
+  width: 165px;
 }
 
 .combat-largeBox {
-  width: 155px;
+  width: 170px;
 }
 
 .armor-largeBox {
@@ -1088,8 +1114,8 @@ div.rank-area {
   border-top: 1px solid var(--main-full-color);
   border-bottom: 1px solid var(--main-full-color);
   background-color: var(--main-dim-color);
-  line-height: 23px;
-  height: 23px;
+  /* line-height: 23px;
+  height: 23px; */
 }
 
 .bonus-icons.power-iconbox {
@@ -1100,7 +1126,7 @@ div.rank-area {
   width: 200px;
 }
 
-.power-dicebox {
+.wod-sheet .power-dicebox {
   width: 100px;
 }
 
@@ -1280,11 +1306,13 @@ div.rank-area {
 .wod-item .infobox {
   margin-bottom: 5px;
   font-family: var(--main-font);
+  min-height: 36px;
 }
 
 .wod-dialog .infobox {
   margin: 5px;
   font-family: var(--main-font);
+  min-height: 36px;
 }
 
 .sheet-header > .top-area > .top-side > img {

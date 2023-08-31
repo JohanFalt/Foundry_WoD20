@@ -54,14 +54,13 @@
                                             {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}<br /><br />{{/if}}                                            
                                             {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
                                         </span>
-                                    </div>
-                                    <div class="pullLeft">
-                                        <a class="send-chat" 
-                                            title="{{localize 'wod.labels.send'}}" 
-                                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                    </div>
-                                {{/if}}                            
-
+                                    </div>                                    
+                                {{/if}}  
+                                <div class="pullLeft">
+                                    <a class="send-chat" 
+                                        title="{{localize 'wod.labels.send'}}" 
+                                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                </div>
                                 {{#if (eq ../../locked false)}}
                                     <div class="pullLeft pointer">
                                         <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>

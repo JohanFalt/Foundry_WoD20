@@ -422,7 +422,7 @@ export class DialogPower extends FormApplication {
         }
         else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
             if (!this.object.isUnleashing) {
-                const art = this.actor.getEmbeddedDocument("Item", data.object.parentid);
+                const art = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
                 data.object.attributeValue = art.system.value;
                 data.object.attributeName = art.name;
             }
@@ -647,25 +647,15 @@ export class DialogPower extends FormApplication {
         let template = [];
         let extraInfo = [];
 
-        //template.push(``);
-
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
             return;
         }
 
-        //let templateHTML = `<h2>${this.object.name}</h2>`;
-        //templateHTML += `<strong>${this.object.attributeName} (${this.object.attributeValue})`;
         template.push(`${this.object.attributeName} (${this.object.attributeValue})`);
 
         if (this.object.abilityName != "") {
-            //templateHTML += ` + ${this.object.abilityName} (${this.object.abilityValue})`;
             template.push(`${this.object.abilityName} (${this.object.abilityValue})`);
-        }
-
-        if (this.object.bonus > 0) {
-            //templateHTML += ` + ${this.object.bonus}`;
-            template.push(`${this.object.bonus}`);
         }
 
         // add selected Realms
@@ -720,6 +710,7 @@ export class DialogPower extends FormApplication {
         powerRoll.speciality = this.object.useSpeciality;
         powerRoll.specialityText = specialityText;
         powerRoll.dicetext = template;
+        powerRoll.bonus = parseInt(this.object.bonus);
         powerRoll.extraInfo = extraInfo;
         powerRoll.systemText = this.object.system;
         NewRollDice(powerRoll);

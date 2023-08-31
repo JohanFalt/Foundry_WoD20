@@ -1,14 +1,32 @@
 export default class MessageHelper {
     
-    static printMessage(headline, message, actor){
-		message = headline + message;
-		message = message.replaceAll("'", '"');
+    static async printMessage(headline, message, actor = undefined){
+		if (actor == undefined) {
+			actor = this.actor;
+		}
 
-		let chatData = {
-			content : message,
-			speaker : ChatMessage.getSpeaker({ actor: actor })
-		};		
+		const templateData = {
+			data: {
+				actor: actor,
+				type: "send",
+				action: headline,
+				message: message,
+				description: "",
+				system: ""
+			}
+		};
 	
-		ChatMessage.create(chatData,{});    
+		// Render the chat card template
+		const template = `systems/worldofdarkness/templates/dialogs/roll-template.html`;
+		const html = await renderTemplate(template, templateData);
+	
+		const chatData = {
+			type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+			content: html,
+			speaker: ChatMessage.getSpeaker({ actor: actor }),
+			rollMode: game.settings.get("core", "rollMode")        
+		};
+		ChatMessage.applyRollMode(chatData, "roll");
+		ChatMessage.create(chatData);
 	}
 }

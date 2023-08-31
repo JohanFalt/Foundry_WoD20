@@ -1,6 +1,6 @@
 <div class="headlineRow splatFont">
     <div class="clearareaBox">
-        <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" aria-hidden="true" data-itemtype="Weapon" data-type="ranged"></i></div>
+        <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.rangedweapon'}}" aria-hidden="true" data-itemtype="Weapon" data-type="ranged"></i></div>
         <div class="pullLeft combat-headlineLargeBox headlineList">{{localize "wod.labels.combat.ranged"}}</div>     
         <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.attr"}}</div>
         <div class="pullLeft combat-abilityBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
@@ -44,7 +44,7 @@
                     <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}</div>
                 {{/if}}
             {{/if}}
-            <div class="pullLeft combat-smallBox headlineNormal">{{localize (getAttributes item.system.attack.attribute)}}&nbsp;</div>
+            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}</div>
             <div class="pullLeft combat-abilityBox headlineNormal">
                 {{#if (eq item.system.attack.ability "custom")}}
                     {{shorten (getAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}

@@ -51,6 +51,8 @@ French translation - Naurthoron
 
 Spanish translation - Kad (prior Duke and Wharomaru)
 
+Portuguese (Brazil) - Rowaz
+
 Italian translation (still working on) - EldritchTranslator
 
 
@@ -64,7 +66,7 @@ https://game-icons.net/
 1. Open Foundry VTT
 2. Go to the "Game Systems" Tab
 3. Click the "Install System" button
-4. Copy the Following link into the "Manifest URL" section: https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/main/system.json
+4. Search for the system in the "Filter Packages" box
 5. Click Install, after a few seconds the system should be installed.
 
 

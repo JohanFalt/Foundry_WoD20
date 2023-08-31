@@ -177,6 +177,7 @@ export class DialogCheckFrenzy extends FormApplication {
             const frenzyRoll = new DiceRollContainer(this.actor);
             frenzyRoll.action = game.i18n.localize("wod.dialog.checkfrenzy.headline");
             frenzyRoll.dicetext = template;
+            frenzyRoll.bonus = frenzyBonus;
             frenzyRoll.origin = "general";
             frenzyRoll.numDices = numDices;
             frenzyRoll.woundpenalty = 0;

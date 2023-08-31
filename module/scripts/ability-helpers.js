@@ -1,7 +1,7 @@
 import * as AbilityDialog from "../dialogs/dialog-edits.js";
 
 export default class AbilityHelper {
-    static CreateAbility(actor, abilitytype, abilitynamn, maxvalue, ismeleeweapon, israngedeweapon) {
+    static async CreateAbility(actor, abilitytype, abilitynamn, maxvalue, ismeleeweapon, israngedeweapon) {
 		const existed = this.CheckAbilityExists(actor, abilitytype, abilitynamn);
 
 		if (existed) {
@@ -12,14 +12,14 @@ export default class AbilityHelper {
 			name: abilitynamn,
 			type: "Trait",
 			system: {
-				label: abilitynamn,
+				label: game.i18n.localize(abilitynamn),
 				type: abilitytype,
 				max: maxvalue,
 				ismeleeweapon: ismeleeweapon,
 				israngedeweapon: israngedeweapon
 			}
 		};
-		actor.createEmbeddedDocuments("Item", [itemData]);
+		await actor.createEmbeddedDocuments("Item", [itemData]);
 	}
 
 	static CheckAbilityExists(actor, itemtype, itemname) {
@@ -32,12 +32,12 @@ export default class AbilityHelper {
         return false;
 	}
 
-	static EditAbility(event, actor) {
+	static async EditAbility(event, actor) {
 		const itemId = $(event.currentTarget).data("item-id");		
 		let item;
 
 		if ((CONFIG.wod.talents[itemId] == undefined) && (CONFIG.wod.skills[itemId] == undefined) && (CONFIG.wod.knowledges[itemId] == undefined)) {
-			item = actor.getEmbeddedDocument("Item", itemId);
+			item = await actor.getEmbeddedDocument("Item", itemId);
 		}
 		else {
 			item = actor.system.abilities[itemId];

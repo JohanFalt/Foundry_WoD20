@@ -69,21 +69,25 @@
     width: 110px;
   }
 
-.spheres-headlineWidth {
+.wod-sheet .spheres-headlineWidth {
     width: 45%;
-  }
+}
+
+.wod-dialog .spheres-headlineWidth {
+    width: 55%;
+}
   
-  .headlineNormalSpheres {
+.headlineNormalSpheres {
       font-size: 11px;
     font-weight: bold;
-  }
+}
 
 .mage .sphere-resource-values {
     margin-top: 4px;
 }
   
 .magic-row {
-  display: flex;
+  /* display: flex; */
   height: 23px;
   line-height: 23px;
   margin-left: 13px;
@@ -97,10 +101,6 @@
   display: flex;
   height: 23px;
   line-height: 23px;
-}
-
-.rote-headline {
-  width: 40%;
 }
 
 .resonance-headline {
@@ -182,29 +182,9 @@
   margin-top: 5px;
 }
 
-.langDE div.sheet-headlineQuintessence {
-  text-align: start;
-  margin-left: 45px;
-}
-
-.langDE div.sheet-headlineParadox {
-  text-align: start;
-  margin-left: 45px;
-}
-
 /* WHEEL START */
 span.quintessence {
   position: relative;
-}
-
-div.sheet-headlineQuintessence {
-  text-align: start;
-  margin-left: 35px;
-}
-
-div.sheet-headlineParadox {
-  text-align: start;
-  margin-left: 60px;
 }
 
 .wheel-0:not(.noSplatFont) {

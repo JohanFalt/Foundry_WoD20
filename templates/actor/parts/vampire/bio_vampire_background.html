@@ -9,7 +9,7 @@
                     <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-name="data.system.sect" data-dtype="String">
                         {{#select data.system.sect}}
                             <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}}{{/if}}</option>                            
+                            <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}} ({{localize "wod.labels.customsect"}}){{/if}}</option>                            
                             {{#each game.bio.sect as |sect id|}}
                                 <option value="{{sect}}">{{localize sect}}</option>
                             {{/each}}
@@ -30,7 +30,7 @@
                 <select class="sheet-infoValues {{#if (eq actor.system.clan 'custom')}}edit-property{{/if}} editable" name="system.clan" data-name="data.system.clan" data-dtype="String">
                     {{#select data.system.clan}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="custom">{{#if (eq actor.system.custom.clan "")}}- {{localize "wod.labels.customclan"}} -{{else}}{{actor.system.custom.clan}}{{/if}}</option>                            
+                        <option value="custom">{{#if (eq actor.system.custom.clan "")}}- {{localize "wod.labels.customclan"}} -{{else}}{{actor.system.custom.clan}} ({{localize "wod.labels.customclan"}}){{/if}}</option>                            
                         {{#each game.bio.clan as |clan id|}}
                             <option value="{{clan}}">{{localize clan}}</option>
                         {{/each}}

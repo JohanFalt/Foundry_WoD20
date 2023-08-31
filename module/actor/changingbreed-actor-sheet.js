@@ -37,8 +37,6 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
-				//await CreateHelper.SetWerewolfAbilities(actorData);
-				//await CreateHelper.SetWerewolfModernAbilities(actorData, this.actor);		
 				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");		
 				
 				await CreateHelper.SetMortalAttributes(actorData);

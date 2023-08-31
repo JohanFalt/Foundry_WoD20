@@ -36,7 +36,7 @@
                 <div class="dialog-group">
                     <div class="headlineGroup splatFont">{{localize "wod.dialog.aretecasting.castingsettings"}}</div>
                     <div style="height: 26px; line-height: 26px; display: flex;">                        
-                        <label for="quintessence" class="headline splatFont" style="width: 250px;">{{localize "wod.dialog.aretecasting.quintessence"}}</label>
+                        <label for="quintessence" class="headline splatFont" style="width: 265px;">{{localize "wod.dialog.aretecasting.quintessence"}}</label>
                         {{#numDownToLoop 0 -5}}
                             {{#iff this "==" 0}}
                                 <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.quintessence" value="{{this}}" {{#iff ../object.quintessence "==" this}}checked{{/iff}}>{{this}}</input></span>
@@ -62,14 +62,23 @@
                 </div>
 
                 <div class="dialog-group">
-                    <div style="height: 26px; line-height: 26px; display: flex;">
-                        <label for="spelltype" class="headline splatFont" style="width: 250px;">{{localize 'wod.dialog.aretecasting.castingtype'}}</label>
-                        <span class="headlineNormal setting-radiospanText">
+                    <div class="clearareaBox">
+                        <div class="pullLeft headline splatFont" style="width: 250px;">{{localize 'wod.dialog.aretecasting.castingtype'}}</div>
+                        <span class="pullLeft headlineNormal setting-radiospan setting-radiospanText">
                             <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="coincidental" {{#if (eq object.spelltype "coincidental")}}checked{{/if}}>{{localize "wod.spheres.coincidental"}}</input>
+                        </span>
+                    </div>
+                    <div class="clearareaBox">
+                        <div class="pullLeft" style="width: 250px;">&nbsp;</div>
+                        <span class="pullLeft headlineNormal setting-radiospan setting-radiospanText">
                             <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="vulgar" {{#if (eq object.spelltype "vulgar")}}checked{{/if}}>{{localize "wod.spheres.vulgar"}}</input>
                         </span>
-                        <label for="witnesses" class="headlineNormal" style="margin-left: 10px;">{{localize "wod.dialog.aretecasting.witnesses"}}</label>
-                        {{log object}}
+                    </div>
+                </div>
+
+                <div class="dialog-group">
+                        <div style="height: 26px; line-height: 26px; display: flex;">
+                        <label for="spelltype" class="headline splatFont dialog-casting-type-label">{{localize "wod.dialog.aretecasting.witnesses"}}</label>
                         <input class="headlineNormal" name="object.witnesses" type="checkbox" {{#if object.witnesses}}checked{{/if}} />
                     </div>
                 </div>
@@ -96,6 +105,11 @@
                 <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.shownDifficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/numFromLoop}}
         </div>
+    </div>
+
+    <div class="centerText">
+        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dialog.aretecasting.castspell"}}</button>
+        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
     </div>
 
     <div class="headlineGroup splatFont">{{localize "wod.dialog.aretecasting.difficultymod"}}</div>
@@ -282,12 +296,4 @@
             </div>
         </div>
     </div>
-
-    
-
-    <div class="centerText">
-        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dialog.aretecasting.castspell"}}</button>
-        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
-    </div>
-
 </form>

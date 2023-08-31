@@ -1,4 +1,4 @@
-{
+export const databio = {
     "sect": {
         "camarilla": "wod.bio.vampire.camarilla",
         "sabbat": "wod.bio.vampire.sabbat",

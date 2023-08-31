@@ -19,11 +19,9 @@
 					data-type="{{../config.sheettype.mage}}"
 					data-object="Rote"
 					data-rollitem="true" 
-					data-itemid="{{item._id}}">
-						{{item.name}}
-				</div>
+					data-itemid="{{item._id}}">{{shorten item.name 25}}</div>
 
-				<div class="pullLeft power-iconbox">
+				<div class="pullRight power-iconbox">
 					{{#if (eq ../locked false)}}
 						<div class="pullLeft pointer">
 							<i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
@@ -65,37 +63,7 @@
 					<div class="pullLeft pointer">
 						<a class="send-chat" 
 							title="{{localize 'wod.labels.send'}}" 
-							data-type="Weapon" 
-							data-item-id="{{item._id}}" 
-							data-headline="{{item.name}}"
-							data-system="{{#if (ne item.system.correspondence 0)}}
-											<div>{{localize ../actor.system.spheres.correspondence.label}} ({{item.system.correspondence}})</div>
-										{{/if}}
-										{{#if (ne item.system.entropy 0)}}
-											<div>{{localize ../actor.system.spheres.entropty.label}} ({{item.system.entropy}})</div>
-										{{/if}}
-										{{#if (ne item.system.forces 0)}}
-											<div>{{localize ../actor.system.spheres.forces.label}} ({{item.system.forces}})</div>
-										{{/if}}
-										{{#if (ne item.system.life 0)}}
-											<div>{{localize ../actor.system.spheres.life.label}} ({{item.system.life}})</div>
-										{{/if}}
-										{{#if (ne item.system.matter 0)}}
-											<div>{{localize ../actor.system.spheres.matter.label}} ({{item.system.matter}})</div>
-										{{/if}}
-										{{#if (ne item.system.mind 0)}}
-											<div>{{localize ../actor.system.spheres.mind.label}} ({{item.system.mind}})</div>
-										{{/if}}
-										{{#if (ne item.system.prime 0)}}
-											<div>{{localize ../actor.system.spheres.prime.label}} ({{item.system.prime}})</div>
-										{{/if}}
-										{{#if (ne item.system.spirit 0)}}
-											<div>{{localize ../actor.system.spheres.spirit.label}} ({{item.system.spirit}})</div>
-										{{/if}}
-										{{#if (ne item.system.time 0)}}
-											<div>{{localize ../actor.system.spheres.time.label}} ({{item.system.time}})</div>
-										{{/if}}"
-							data-description="{{{item.system.description}}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+							data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
 					</div>
 					{{#if (eq ../locked false)}}
 						<div class="pullLeft pointer">

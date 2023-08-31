@@ -2,39 +2,39 @@
     <div class="shape-area">
         <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.shapechange"}}</span></div>
         <div>
-            <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.homid.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.balaram"}}</div>
-            <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.glabro.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.glabro">{{localize "wod.shapes.silkaram"}}</div>
-            <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.crinos.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.azhidahaka"}}</div>
-            <div class="pullLeft shape-selector thin-border-left {{#if data.system.shapes.hispo.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.hispo">{{localize "wod.shapes.kalidahaka"}}</div>
-            <div class="pullLeft shape-selector thin-border-left thin-border-right {{#if data.system.shapes.lupus.isactive}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.vasuki"}}</div>
+            <div class="pullLeft shape-selector thin-border-left {{#if (shifterHasForm actor 'homid')}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.balaram"}}</div>
+            <div class="pullLeft shape-selector thin-border-left {{#if (shifterHasForm actor 'glabro')}}shape-selector-active{{/if}}" data-form="wod.shapes.glabro">{{localize "wod.shapes.silkaram"}}</div>
+            <div class="pullLeft shape-selector thin-border-left {{#if (shifterHasForm actor 'crinos')}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize "wod.shapes.azhidahaka"}}</div>
+            <div class="pullLeft shape-selector thin-border-left {{#if (shifterHasForm actor 'hispo')}}shape-selector-active{{/if}}" data-form="wod.shapes.hispo">{{localize "wod.shapes.kalidahaka"}}</div>
+            <div class="pullLeft shape-selector thin-border-left thin-border-right {{#if (shifterHasForm actor 'lupus')}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize "wod.shapes.vasuki"}}</div>
         </div>
 
         <div>
             <div class="pullLeft shape-background shape-nagah"></div>
             <div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">
                     No Change
                 </div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
                     Str (+2)<br />
                     Sta (+2)<br />
                     Man (-2)
                     {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-2){{/iff}}
                 </div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
                     Str (+3)<br />
                     Dex (+2)<br />
                     Sta (+3)<br />
                     Man (-3)
                     {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
                 </div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
                     Str (+2)<br />
                     Dex (+2)<br />
                     Sta (+2)<br />
                     Man (-3)
                 </div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
                     Str (-1)<br />
                     Dex (+2)<br />
                     Sta (+1)<br />
@@ -42,11 +42,11 @@
                 </div>
             </div>
             <div class="clearareaBox">
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.homid.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.glabro.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.crinos.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.hispo.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-                <div class="pullLeft shape-selectortext {{#if data.system.shapes.lupus.isactive}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
+                <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
             </div>
         </div>        
     </div>

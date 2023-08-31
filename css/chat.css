@@ -6,7 +6,7 @@
 @font-face {
     font-family: "mortal";
     src: url("../assets/fonts/EscalidoGothico.ttf") format("truetype");
-  }
+}
 
 :root {
     --main-chat-font: font-family: "default", Arial, Helvetica, sans-serif;

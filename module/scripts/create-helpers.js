@@ -2,7 +2,7 @@ import AbilityHelper from "./ability-helpers.js";
 
 export default class CreateHelper {
     
-    static SetMortalAbilities(actorCopy, actor, era) {
+    static async SetMortalAbilities(actorCopy, actor, era) {
 		console.log(`WoD | Set Mortal Abilities - ${era}`);
 
 		// hide all
@@ -33,17 +33,17 @@ export default class CreateHelper {
 		}
 
 		if (era == "victorian") {
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 
 		if (era == "darkages") {
-			AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "Legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", game.i18n.localize("wod.abilities.legerdemain"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.archery"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.commerce"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.ride"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.hearthwisdom"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.seneschal"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.theology"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 	}	
 
@@ -78,17 +78,17 @@ export default class CreateHelper {
 		}
 
 		if (era == "victorian") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.ride"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 
 		if (era == "darkages") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", "Legerdemain", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Commerce", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Seneschal", parseInt(actor.system.settings.abilities.defaultmaxvalue));
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Theology", parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.talentsecondability", game.i18n.localize("wod.abilities.legerdemain"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.archery"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.commerce"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.ride"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.hearthwisdom"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.seneschal"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.theology"), parseInt(actor.system.settings.abilities.defaultmaxvalue));
 		}
 	}
 
@@ -139,7 +139,8 @@ export default class CreateHelper {
 		}
 
 		for (const talent in game.wod.abilities.werewolf[era].talents) {
-			if (actorCopy.system.abilities[game.wod.abilities.werewolf[era].talents[talent]] != undefined) {
+			var ability = game.wod.abilities.werewolf[era].talents[talent];
+			if (actorCopy.system.abilities[ability] != undefined) {
 				actorCopy.system.abilities[game.wod.abilities.werewolf[era].talents[talent]].isvisible = true;
 			}
 		}
@@ -157,21 +158,19 @@ export default class CreateHelper {
 		}
 
 		if (era == "victorian") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", 5);
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Culture", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.ride"), 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.culture"), 5);
 		}
 
 		if (era == "darkages") {
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Archery", 5);
-			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", "Ride", 5);
-			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", "Hearth wisdom", 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.archery"), 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.skillsecondability", game.i18n.localize("wod.abilities.ride"), 5);
+			await AbilityHelper.CreateAbility(actor, "wod.types.knowledgesecondability", game.i18n.localize("wod.abilities.hearthwisdom"), 5);
 		}
 	}
 
-	//static async SetChangelingAbilities(actorCopy, type, era) {
 	static async SetAbilities(actorCopy, type, era) {
 		console.log(`WoD | Set ${type} Abilities - ${era}`);
-		//console.log('WoD | Set Changeling Abilities');
 
 		// hide all
 		for (const ability in actorCopy.system.abilities) {
@@ -206,198 +205,7 @@ export default class CreateHelper {
 		if (type == "demon") {
 			actorCopy.system.abilities.technology.type = "skill";
 		}
-
-		/* for (const talent in CONFIG.wod.talents) {
-
-			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.kenning") ||
-					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.system.abilities.talent[talent].isvisible = true;
-			}
-			else {
-				actor.system.abilities.talent[talent].isvisible = false;
-			}			
-		}
-
-		for (const skill in CONFIG.wod.skills) {
-			
-			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.larceny") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.survival")) {
-				actor.system.abilities.skill[skill].isvisible = true;
-			}
-			else {
-				actor.system.abilities.skill[skill].isvisible = false;
-			}			
-		}
-
-		for (const knowledge in CONFIG.wod.knowledges) {
-
-			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.enigmas") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.gremayre") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.technology")) {
-				actor.system.abilities.knowledge[knowledge].isvisible = true;
-			}
-			else {
-				actor.system.abilities.knowledge[knowledge].isvisible = false;
-			}		
-		} */
 	}
-
-	/* static async SetHunterAbilities(actor) {
-		console.log('WoD | Set Hunter Abilities');
-
-		for (const talent in CONFIG.wod.talents) {
-
-			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.awareness") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.dodge") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.intuition") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.system.abilities.talent[talent].isvisible = true;
-			}
-			else {
-				actor.system.abilities.talent[talent].isvisible = false;
-			}			
-		}
-
-		for (const skill in CONFIG.wod.skills) {
-			
-			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.demolitions") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.security") ||	
-					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.survival") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.technology")) {
-				actor.system.abilities.skill[skill].isvisible = true;
-			}
-			else {
-				actor.system.abilities.skill[skill].isvisible = false;
-			}			
-		}
-
-		for (const knowledge in CONFIG.wod.knowledges) {
-
-			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.bureaucracy") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.finance") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.linguistics") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.research") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
-				actor.system.abilities.knowledge[knowledge].isvisible = true;
-			}
-			else {
-				actor.system.abilities.knowledge[knowledge].isvisible = false;
-			}		
-		}
-	} */
-
-	/* static async SetDemonAbilities(actor) {
-		console.log('WoD | Set Demon Abilities');
-
-		for (const talent in CONFIG.wod.talents) {
-
-			if ((actor.system.abilities.talent[talent].label == "wod.abilities.alertness") ||	
-					(actor.system.abilities.talent[talent].label == "wod.abilities.athletics") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.awareness") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.brawl") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.dodge") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.empathy") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.expression") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.intimidation") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.intuition") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.leadership") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.streetwise") || 
-					(actor.system.abilities.talent[talent].label == "wod.abilities.subterfuge")) {
-				actor.system.abilities.talent[talent].isvisible = true;
-			}
-			else {
-				actor.system.abilities.talent[talent].isvisible = false;
-			}			
-		}
-
-		for (const skill in CONFIG.wod.skills) {
-			
-			if ((actor.system.abilities.skill[skill].label == "wod.abilities.animalken") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.craft") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.demolitions") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.drive") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.etiquette") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.firearms") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.melee") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.performance") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.security") ||	
-					(actor.system.abilities.skill[skill].label == "wod.abilities.stealth") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.survival") ||
-					(actor.system.abilities.skill[skill].label == "wod.abilities.technology")) {
-				actor.system.abilities.skill[skill].isvisible = true;
-			}
-			else {
-				actor.system.abilities.skill[skill].isvisible = false;
-			}			
-		}
-
-		for (const knowledge in CONFIG.wod.knowledges) {
-
-			if ((actor.system.abilities.knowledge[knowledge].label == "wod.abilities.academics") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.computer") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.finance") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.investigation") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.law") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.linguistics") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.medicine") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.occult") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.politics") || 
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.religion") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.research") ||
-					(actor.system.abilities.knowledge[knowledge].label == "wod.abilities.science")) {
-				actor.system.abilities.knowledge[knowledge].isvisible = true;
-			}
-			else {
-				actor.system.abilities.knowledge[knowledge].isvisible = false;
-			}		
-		}
-	} */	
 
 	static async SetCreatureAbilities(actor) {
 		console.log('WoD | Set Creature Abilities');
@@ -409,19 +217,7 @@ export default class CreateHelper {
 					actor.system.abilities[ability].isvisible = false;
 				}
 			}
-		}
-
-		/* for (const talent in CONFIG.wod.talents) {
-			actor.system.abilities.talent[talent].isvisible = false;
-		}
-
-		for (const skill in CONFIG.wod.skills) {
-			actor.system.abilities.skill[skill].isvisible = false;
-		}
-
-		for (const knowledge in CONFIG.wod.knowledges) {
-			actor.system.abilities.knowledge[knowledge].isvisible = false;
-		} */		
+		}	
 	}
 	
 	static async SetMortalAttributes(actor) {
@@ -491,6 +287,8 @@ export default class CreateHelper {
 		console.log('WoD | Set Shifter Attributes');
 
 		await this.SetWerewolfAttributes(actor);
+
+		actor.system.changingbreed = type;
 		actor.system.settings.hasrage = true;
 		actor.system.settings.hasbloodpool = false;
 
