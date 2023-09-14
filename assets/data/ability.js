@@ -287,10 +287,10 @@ export const dataability = {
             ],
             "knowledges": [
                 "academics",
-				"computer",
 				"cosmology", 
 				"enigmas",
 				"esoterica",
+                "finance",
 				"investigation",
 				"law",
 				"medicine",

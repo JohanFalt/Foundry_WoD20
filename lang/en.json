@@ -72,7 +72,7 @@
 			"therollofone": "Use default result 1 handling",
 			"therollofonehint": "Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
 			"lowestdifficulty": "Lowest difficulty allowed",
-			"lowestdifficultyhint": "Default 20th dice setting - According to the 20th rules the lowest difficulty you can have is two.",
+			"lowestdifficultyhint": "Default 20th dice setting - With this setting you can set what is the lowest difficulty you wish to use in your world.",
 			"specialityaddsuccess": "Use default rule for speciality",
 			"specialityaddsuccesshint": "Default use of specialities - adds a number of successes on the roll of 10s.",
 			"specialityreducediff": "Speciality lowers difficulty",

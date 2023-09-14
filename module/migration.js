@@ -1628,7 +1628,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        newfunctions += '<b>v3.1.11</b>';
+        newfunctions += '<b>v3.1.12</b>';
+        newfunctions += '<li>[MtA] Corrected what abilities are availible in Mage the Victorian Era.</li>';
+
+        /* newfunctions += '<b>v3.1.11</b>';
         newfunctions += '<li>Made corrections to Brazilian Portuguese</li>';
         newfunctions += '<li>Fixed graphical problems with exploding 10s if the first roll was a 10</li>';
 
@@ -1689,7 +1692,7 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed problem with switching to Era where abilities became unrollable</li>';
         newfunctions += '<li>Fixed listings of abilities in Victorian era</li>';
         newfunctions += '<li>Spirit sheet missed the Settings tab</li>';
-        newfunctions += '<li>Fixed problems with shifting images on Actors</li>';
+        newfunctions += '<li>Fixed problems with shifting images on Actors</li>'; */
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
