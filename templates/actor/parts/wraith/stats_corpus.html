@@ -1,0 +1,29 @@
+<div class="sheet-headline splatFont sheet-banner-small"><span class="sheet-banner-text">{{localize "wod.advantages.corpus"}}</span></div>
+	
+<div class="sheet-boxcontainer">
+	<div class="resource-value permValueRow" data-value="{{data.system.advantages.corpus.permanent}}" data-name="advantages.corpus.permanent">
+
+		{{#numLoop data.system.advantages.corpus.max}}
+		
+			<span class="resource-value-step" data-type="{{../config.sheettype.wraith}}" data-key="corpus" data-index="{{this}}"></span>
+		
+		{{/numLoop}}
+		
+	</div>
+</div>
+
+<div class="sheet-boxcontainer">
+	<div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.corpus.temporary}}" data-name="advantages.corpus.temporary">
+
+		{{#numLoop data.system.advantages.corpus.max}}
+		
+			{{#le ../data.system.advantages.corpus.temporary this}}
+				<span class="resource-value-step" data-type="{{../config.sheettype.wraith}}" data-key="corpus" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="resource-value-step" data-type="{{../config.sheettype.wraith}}" data-key="corpus" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>

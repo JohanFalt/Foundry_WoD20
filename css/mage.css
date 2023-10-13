@@ -104,7 +104,11 @@
 }
 
 .resonance-headline {
-  width: 45%;
+  width: 110px;
+}
+
+.resonance-row .resource-value {
+  width: 90px;
 }
 
 .mage .bonus-power-name {
@@ -151,7 +155,8 @@
       black 55%,
       white 57%,
       white 100%
-    );
+    ),
+    white;
 }
 
 /* perm paradox */
@@ -174,7 +179,8 @@
       var(--main-vampire-color) 55%,
       white 57%,
       white 100%
-    );
+    ),
+    white;
 }
   
 .flex-group-center:not(.flexrow) .resource-value,

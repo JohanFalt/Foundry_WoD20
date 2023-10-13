@@ -1,4 +1,4 @@
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox area-box">
 
         <div class="sheet-headline sheet-banner splatFont" data-area="disciplines">
@@ -14,7 +14,7 @@
             <div class="item-row-area {{#if (eq item.system.type 'wod.types.discipline')}}mainpower-row{{/if}}">
                 <div class="clearareaBox {{#if (eq item.system.type 'wod.types.discipline')}}power-row{{else}}disciplinepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
                     {{#if (eq item.system.type "wod.types.disciplinepower")}}
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
                     {{/if}}
                     <div class="pullLeft discipline-headline {{#if (eq item.system.type 'wod.types.discipline')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
                         data-type="{{../config.sheettype.mortal}}"
@@ -35,7 +35,7 @@
 
                     {{#if item.system.isrollable}}
                         <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice1 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAttributes item.system.dice1)}}{{/if}}</div>
-                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice2 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAbility item.system.dice2)}}{{/if}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice2 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAbility item.system.dice2  ../actor)}}{{/if}}</div>
                         <div class="pullLeft power-valueBox headlineNormal centerText">
                             {{#if (eq item.system.difficulty "-1")}}
                                 {{localize "wod.labels.varies"}}
@@ -135,7 +135,7 @@
 </div>
 
 {{#if actor.system.listdata.powers.disciplines.hasunlisteddisciplines}}
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="headlineList splatFont">{{localize "wod.power.unsorteddisciplines"}}</div>
         </div>
@@ -161,7 +161,7 @@
     </div>
 {{/if}}
 
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox area-box">
 
         <div class="sheet-headline sheet-banner splatFont" data-area="paths">
@@ -177,7 +177,7 @@
             <div class="item-row-area {{#if (eq item.system.type 'wod.types.disciplinepath')}}mainpower-row{{/if}}">
                 <div class="clearareaBox {{#if (eq item.system.type 'wod.types.disciplinepath')}}power-row{{else}}disciplinepower-row  {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
                     {{#if (eq item.system.type "wod.types.disciplinepathpower")}}
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
                     {{/if}}
                     <div class="pullLeft discipline-headline {{#if (eq item.system.type 'wod.types.disciplinepath')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
                         data-type="{{../config.sheettype.mortal}}"
@@ -198,7 +198,7 @@
 
                     {{#if item.system.isrollable}}
                         <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                        <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2  ../actor)}}</div>
                         <div class="pullLeft power-valueBox headlineNormal centerText">
                             {{#if (eq item.system.difficulty "-1")}}
                                 {{localize "wod.labels.varies"}}
@@ -297,7 +297,7 @@
 </div>
 
 {{#if actor.system.listdata.powers.disciplines.hasunlistedpaths}}
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="headlineList splatFont">{{localize "wod.power.unsortedpaths"}}</div>
         </div>
@@ -323,7 +323,7 @@
     </div>
 {{/if}}
 
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox">
 
         <div class="sheet-headline sheet-banner splatFont" data-area="rituals">
@@ -344,7 +344,7 @@
 
                 {{#if item.system.isrollable}}
                     <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
+                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2  ../actor)}}</div>
                     <div class="pullLeft power-valueBox headlineNormal centerText">
                         {{#if (eq item.system.difficulty "-1")}}
                             {{localize "wod.labels.varies"}}

@@ -1,4 +1,4 @@
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
 
     <div class="sheet-headline sheet-banner splatFont" style="margin-bottom: 20px;"><span class="sheet-banner-text">{{localize 'wod.realms.headline'}}</span></div>	
     
@@ -23,32 +23,154 @@
         <div class="pullLeft" style="width: 33%;">&nbsp;</div>
     </div>
 
-    <div class="clearareaBox area-box">
+    {{#if (ne actor.system.settings.variant config.variant.changeling.inanimae)}}
 
-        <div class="sheet-headline sheet-banner splatFont">
-            <span class="sheet-banner-text">{{localize "wod.power.arts"}}</span>
-            <div class="pullRight pointer headlineNormal">
-                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.art'}}" aria-hidden="true" data-itemtype="Power" data-type="art"></i>
-            </div>
-        </div>             
+        <div class="clearareaBox area-box">
 
-        {{#each actor.system.listdata.powers.arts.artlist as | item id|}}
+            <div class="sheet-headline sheet-banner splatFont">
+                <span class="sheet-banner-text">{{localize "wod.power.arts"}}</span>
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.art'}}" aria-hidden="true" data-itemtype="Power" data-type="art"></i>
+                </div>
+            </div>             
 
-            <div class="clearareaBox item-row-area {{#if (eq item.system.type 'wod.types.art')}}mainpower-row{{/if}}">
-                <div class="clearareaBox {{#if (eq item.system.type 'wod.types.art')}}art-row{{else}}artpower-row{{/if}}">
-                    {{#if (eq item.system.type "wod.types.artpower")}}
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
-                    {{/if}}
-                    <div class="pullLeft art-headline vrollable {{#if (eq item.system.type 'wod.types.art')}}splatFont headlineGroup{{else}}headlineNormal{{/if}}"
-                        data-type="{{../config.sheettype.changeling}}"
-                        data-object="Art"
-                        data-rollitem="true"
-                        data-itemid="{{item._id}}">{{item.name}}</div>
-                    {{#if (eq item.system.type "wod.types.artpower")}}
-                        <div style="width: 90px;">{{getProperty item.system.property "arttype"}}</div>
-                    {{/if}}
-    
-                    {{#if (eq item.system.type "wod.types.art")}}
+            {{#each actor.system.listdata.powers.arts.artlist as | item id|}}
+
+                <div class="clearareaBox item-row-area {{#if (eq item.system.type 'wod.types.art')}}mainpower-row{{/if}}">
+                    <div class="clearareaBox {{#if (eq item.system.type 'wod.types.art')}}art-row{{else}}artpower-row{{/if}}">
+                        {{#if (eq item.system.type "wod.types.artpower")}}
+                            <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
+                        {{/if}}
+                        <div class="pullLeft art-headline vrollable {{#if (eq item.system.type 'wod.types.art')}}splatFont headlineGroup{{else}}headlineNormal{{/if}}"
+                            data-type="{{../config.sheettype.changeling}}"
+                            data-object="Art"
+                            data-rollitem="true"
+                            data-itemid="{{item._id}}">{{item.name}}</div>
+                        {{#if (eq item.system.type "wod.types.artpower")}}
+                            <div style="width: 90px;">{{getProperty item.system.property "arttype"}}</div>
+                        {{/if}}
+        
+                        {{#if (eq item.system.type "wod.types.art")}}
+                            <div class="resource-value pullLeft power-dotBox" 
+                                data-value="{{item.system.value}}" 
+                                data-itemid="{{item._id}}">
+
+                                {{#numLoop item.system.max}}                                
+                                    <span class="{{#if (gt item.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.changeling}}" data-index="{{this}}"></span>                                
+                                {{/numLoop}}
+                            </div>
+                        {{/if}}
+        
+                        <div class="pullLeft art-iconbox">
+                            {{#if (eq item.system.type "wod.types.artpower")}}
+                                {{#if (eq ../locked false)}}
+                                    <div class="pullLeft pointer">
+                                        <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                    </div>
+                                {{/if}}
+                            {{else}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.artpower'}}" aria-hidden="true" data-itemtype="Power" data-type="artpower" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                            <div class="pullLeft pointer headlineNormal tooltip">
+                                <i class="icon fa-solid fa-memo"></i>
+                                <span class="tooltiptext">
+                                    {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
+                                    <br /><br />
+                                    {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                                </span>
+                            </div>
+                            <div class="pullLeft pointer">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}" 
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>
+        
+                            {{#if (eq ../locked false)}}
+                                {{#if (eq item.system.type "wod.types.artpower")}}
+                                    <div class="pullLeft pointer">
+                                        <a class="clearPower" 
+                                            title="{{localize 'wod.labels.power.clearart'}}" 
+                                            data-powertype="power"
+                                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                    </div>
+                                {{/if}}
+                                {{#if (eq item.system.type "wod.types.art")}}
+                                    <div class="pullLeft pointer">
+                                        <a class="clearPower" 
+                                            title="{{localize 'wod.labels.power.removebonus.art'}}" 
+                                            data-powertype="main"
+                                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                    </div>
+                                {{/if}}
+                                <div class="pullLeft pointer">
+                                    <a class="item-edit" 
+                                        title="{{localize 'wod.labels.edit.art'}}" 
+                                        data-type="Art" 
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" 
+                                        title="{{localize 'wod.labels.remove.art'}}" 
+                                        data-type="Art" 
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}       
+                            {{#if (gt item.system.bonuses.length 0)}}
+                                <div class="pullLeft pointer">
+                                    <i id="collapsibleartbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="art{{id}}"></i>
+                                </div>
+                            {{/if}}
+                            
+                    
+                        </div>
+                    </div>
+                    <div class="hide bonuses art{{id}}" data-area="artbonus{{id}}">
+
+                        {{#each item.system.bonuses as |bonus id|}}
+                            <div class="clearareaBox">
+                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                                {{#if (eq ../../locked false)}}
+                                    <div class="pullLeft bonus-icons art-iconbox">
+                                        <div class="pullLeft pointer">
+                                            <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                        </div>
+                                        <div class="pullLeft pointer">
+                                            <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+
+                    </div>
+                </div>
+
+            {{/each}}
+        </div>
+
+    {{else}}
+
+        <div class="clearareaBox area-box">
+
+            <div class="sheet-headline sheet-banner splatFont">
+                <span class="sheet-banner-text">{{localize "wod.power.slivers"}}</span>
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.sliver'}}" aria-hidden="true" data-itemtype="Power" data-type="sliver"></i>
+                </div>
+            </div>                     
+
+            {{#each actor.system.listdata.powers.arts.artlist as | item id|}}
+
+                <div class="clearareaBox item-row-area mainpower-row">
+                    <div class="clearareaBox art-row">
+                        <div class="pullLeft art-headline vrollable splatFont headlineGroup"
+                            data-type="{{../config.sheettype.changeling}}"
+                            data-object="Art"
+                            data-rollitem="true"
+                            data-itemid="{{item._id}}">{{item.name}}</div>
+
                         <div class="resource-value pullLeft power-dotBox" 
                             data-value="{{item.system.value}}" 
                             data-itemid="{{item._id}}">
@@ -57,100 +179,61 @@
                                 <span class="{{#if (gt item.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.changeling}}" data-index="{{this}}"></span>                                
                             {{/numLoop}}
                         </div>
-                    {{/if}}
-    
-                    <div class="pullLeft art-iconbox">
-                        {{#if (eq item.system.type "wod.types.artpower")}}
+
+                        <div class="pullLeft art-iconbox">
+                            <div class="pullLeft pointer headlineNormal tooltip">
+                                <i class="icon fa-solid fa-memo"></i>
+                                <span class="tooltiptext">
+                                    {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
+                                    <br /><br />
+                                    {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                                </span>
+                            </div>
+                            <div class="pullLeft pointer">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}" 
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>
+
                             {{#if (eq ../locked false)}}
+                                    <div class="pullLeft pointer">
+                                        <a class="clearPower" 
+                                            title="{{localize 'wod.labels.power.removebonus.sliver'}}" 
+                                            data-powertype="main"
+                                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                    </div>
                                 <div class="pullLeft pointer">
-                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                    <a class="item-edit" 
+                                        title="{{localize 'wod.labels.edit.sliver'}}" 
+                                        data-type="Sliver" 
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" 
+                                        title="{{localize 'wod.labels.remove.sliver'}}" 
+                                        data-type="Sliver" 
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}       
+                            {{#if (gt item.system.bonuses.length 0)}}
+                                <div class="pullLeft pointer">
+                                    <i id="collapsibleartbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="art{{id}}"></i>
                                 </div>
                             {{/if}}
-                        {{else}}
-                            <div class="pullLeft pointer">
-                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.artpower'}}" aria-hidden="true" data-itemtype="Power" data-type="artpower" data-parentid="{{item._id}}"></i>
-                            </div>
-                        {{/if}}
-                        <div class="pullLeft pointer headlineNormal tooltip">
-                            <i class="icon fa-solid fa-memo"></i>
-                            <span class="tooltiptext">
-                                {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
-                                <br /><br />
-                                {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                            </span>
+                            
+                    
                         </div>
-                        <div class="pullLeft pointer">
-                            <a class="send-chat" 
-                                title="{{localize 'wod.labels.send'}}" 
-                                data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                        </div>
-    
-                        {{#if (eq ../locked false)}}
-                            {{#if (eq item.system.type "wod.types.artpower")}}
-                                <div class="pullLeft pointer">
-                                    <a class="clearPower" 
-                                        title="{{localize 'wod.labels.power.clearart'}}" 
-                                        data-powertype="power"
-                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
-                                </div>
-                            {{/if}}
-                            {{#if (eq item.system.type "wod.types.art")}}
-                                <div class="pullLeft pointer">
-                                    <a class="clearPower" 
-                                        title="{{localize 'wod.labels.power.removebonus.art'}}" 
-                                        data-powertype="main"
-                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
-                                </div>
-                            {{/if}}
-                            <div class="pullLeft pointer">
-                                <a class="item-edit" 
-                                    title="{{localize 'wod.labels.edit.art'}}" 
-                                    data-type="Art" 
-                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                            <div class="pullLeft pointer">
-                                <a class="item-delete" 
-                                    title="{{localize 'wod.labels.remove.art'}}" 
-                                    data-type="Art" 
-                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            </div>
-                        {{/if}}       
-                        {{#if (gt item.system.bonuses.length 0)}}
-                            <div class="pullLeft pointer">
-                                <i id="collapsibleartbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="art{{id}}"></i>
-                            </div>
-                        {{/if}}
-                        
-                
                     </div>
                 </div>
-                <div class="hide bonuses art{{id}}" data-area="artbonus{{id}}">
 
-                    {{#each item.system.bonuses as |bonus id|}}
-                        <div class="clearareaBox">
-                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                            {{#if (eq ../../locked false)}}
-                                <div class="pullLeft bonus-icons art-iconbox">
-                                    <div class="pullLeft pointer">
-                                        <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
-                                    </div>
-                                    <div class="pullLeft pointer">
-                                        <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
-                                    </div>
-                                </div>
-                            {{/if}}
-                        </div>
-                    {{/each}}
+            {{/each}}
+        </div>
 
-                </div>
-            </div>
-
-        {{/each}}
-    </div>
+    {{/if}}
 </div>
 
 {{#if actor.system.listdata.powers.arts.hasunlistedarts}}
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="headlineList splatFont">{{localize "wod.power.unsortedarts"}}</div>
         </div>

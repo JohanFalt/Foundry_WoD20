@@ -19,13 +19,13 @@
         </div>
         {{#if object.hasSpeciality}}
 <!--             <div class="infobox">
-                <input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}}>{{localize "wod.labels.specialty"}}</input>
+                <input name="specialty" type="checkbox" {{isChecked object.useSpeciality}}>{{localize "wod.labels.specialty"}}</input>
                 ({{object.specialityText}})
             </div>
  -->
             <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
             <div class="clearareaBox infobox dialog-checkbox">
-                <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
+                <div class="pullLeft"><input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} /></div>
                 <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}{{localize "wod.dialog.nonelisted"}}{{/if}}</div>
             </div>
         {{/if}}
@@ -45,7 +45,7 @@
         {{#if (ne object.description "")}}
             <div class="infobox">
                 <div class="clearareaBox">
-                    <label class="headline splatFont" for="data.description">{{localize "wod.labels.description"}}</label>
+                    <label class="headline splatFont" for="data.system.description">{{localize "wod.labels.description"}}</label>
                 </div>
                 <div class="textarea">{{{object.description}}}</div>
             </div>

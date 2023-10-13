@@ -41,17 +41,17 @@
             <div class="dialog-area">
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.instrument.ispersonalized">{{localize "wod.dialog.aretecasting.instrumentperson"}}</label>
-                    <input name="system.instrument.ispersonalized" type="checkbox" {{#if data.system.instrument.ispersonalized}} checked {{/if}}></input>
+                    <input name="system.instrument.ispersonalized" type="checkbox" {{isChecked data.system.instrument.ispersonalized}}></input>
                 </div>
 
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.instrument.isunique">{{localize "wod.dialog.aretecasting.instrumentunique"}}</label>
-                    <input name="system.instrument.isunique" type="checkbox" {{#if data.system.instrument.isunique}} checked {{/if}}></input>
+                    <input name="system.instrument.isunique" type="checkbox" {{isChecked data.system.instrument.isunique}}></input>
                 </div>
 
                 <div class="infobox">
                     <label class="headlineItem item-label" for="data.isextended">{{localize "wod.dialog.aretecasting.extendedcasting"}}</label>
-                    <input name="system.isextended" type="checkbox" {{#if data.system.isextended}} checked {{/if}}></input>
+                    <input name="system.isextended" type="checkbox" {{isChecked data.system.isextended}}></input>
                 </div>
 
                 <div class="infobox bioInformationArea floating-label-group">
@@ -246,7 +246,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>            

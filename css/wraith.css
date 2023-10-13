@@ -1,0 +1,75 @@
+.wraith:not(.noSplatFont) nav,
+.wraith:not(.noSplatFont) .splatFont,
+.wraithDialog:not(.noSplatFont) .splatFont,
+.wraithItem:not(.noSplatFont) .splatFont {
+	font-family: "wraith", var(--main-font);
+}
+
+.wraithDialog,
+.wraith,
+.wraithItem {
+  --main-full-color: var(--main-wraith-color);
+  --main-mid-color: var(--main-wraith-mid-color);
+  --main-dim-color: var(--main-wraith-dim-color);
+  --color-shadow-primary: var(--main-wraith-color);
+}
+
+.wraith {
+    --sheet-background-color: var(--wraith-page-background);
+}
+  
+.wraith .modern {  
+    --main-wod-banner: var(--wraith-banner-background);
+    --main-wod-banner-small: var(--wraith-banner-small-background); 
+}
+
+.wraith .sheet-headline:not(.noSplatFont) {
+  font-size: 35px;
+}
+
+.wraith .headlineGroup:not(.noSplatFont) {
+  font-size: 25px;
+}
+
+.wraith .headlineText:not(.noSplatFont) {
+  font-size: 28px;
+}
+
+.wraith .headlineList:not(.noSplatFont) {
+  font-size: 20px;
+}
+
+.wraith .secondHeadlineTabs:not(.noSplatFont) {
+  font-size: 25px;
+}
+
+/* START - Death */
+
+.arcanoipower-nonerollablerow .power-iconbox {
+  margin-left: 305px;
+}
+
+.arcanoipower-rollablerow .power-iconbox {
+  margin-left: 38px;
+}
+
+.wraith .fetter .power-dotBox,
+.wraith .passion .power-dotBox {
+  width: 100px;
+}
+
+/* END - Death */
+
+/* SETTINGS */
+
+.wraith .secondHeadlineTabs {
+    width: 25%;
+}
+
+@media all and (max-height : 1024px)
+{
+  .wod-sheet.wraith:not(.minimized) {
+    min-height: 400px;
+    height: 400px;
+  }
+}

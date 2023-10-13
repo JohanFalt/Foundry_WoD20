@@ -1,4 +1,4 @@
-<div class="sheet-area">	
+<div class="sheet-area flex-columns">	
 	<div class="sheet-headline sheet-banner splatFont">
 		<span class="sheet-banner-text">{{localize "wod.gear.headline"}}</span>
 	</div>
@@ -8,7 +8,7 @@
 			{{#if locked}}
 				<div class="sheet-gearArea headlineNormal textarea">{{{data.system.gear}}}</div>
 			{{else}}
-				{{editor data.gear target="system.gear" button=false owner=owner editable=true}}
+				{{editor actor.system.gear target="system.gear" button=false owner=owner editable=true}}
 			{{/if}}
 		</div>
 	</div>
@@ -18,7 +18,7 @@
 	<span class="sheet-banner-text">{{localize "wod.gear.money"}}</span>
 </div>
 
-<div class="sheet-area" style="flex-flow: row nowrap;">	
+<div class="sheet-area flex-columns" style="flex-flow: row nowrap;">	
 	<div class="clearareaBox">
 
 		<div class="pullLeft" style="display: flex;">

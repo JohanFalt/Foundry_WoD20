@@ -9,27 +9,12 @@ export class MageActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet mage"],
-			template: "systems/worldofdarkness/templates/actor/mage-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/mage-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);
-
-		/* this.isCharacter = true;	
-		this.isGM = game.user.isGM;	 */
-		
-		console.log("WoD | Mage Sheet constructor");
 	}
 
 	/** @override */
@@ -40,8 +25,10 @@ export class MageActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.mage) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
+				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultMageEra];
+				actorData.system.settings.variant = "general";
 				
-				await CreateHelper.SetMageAbilities(actorData, "modern");
+				await CreateHelper.SetMageAbilities(actorData, CONFIG.wod.defaultMageEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetMageAttributes(actorData);
 				

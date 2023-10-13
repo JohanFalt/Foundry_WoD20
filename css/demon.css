@@ -22,6 +22,10 @@
     --main-wod-banner: var(--demon-banner-background);
     --main-wod-banner-small: var(--demon-banner-small-background); 
 }
+
+.wod-sheet.demon:not(.minimized) {
+    min-height: 950px;
+}
   
 .demon:not(.noSplatFont) .headlineTabs {
     font-size: 26px;
@@ -48,4 +52,12 @@
 
 .demon:not(.noSplatFont) .secondHeadlineTabs {
     font-size: 24px;
+}
+
+@media all and (max-height : 1024px)
+{
+  .wod-sheet.demon:not(.minimized) {
+    min-height: 400px;
+    height: 400px;
+  }
 }

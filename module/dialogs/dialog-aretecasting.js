@@ -34,7 +34,7 @@ export class Rote {
         this.select_instrumentUnfamiliar = 0;
         this.select_instrumentPersonalItem = 0;
 
-        this.select_spendingtime = 0;
+        this.select_spendingTime = 0;
 
         this.select_researchDone = 0;
         this.select_nodePresence = 0;
@@ -64,6 +64,7 @@ export class Rote {
         this.close = false;
 
         this.isExtendedCasting = false;
+        this.keepDifficulty = false;
         this.totalSuccesses = 0;
         this.selectedMods = [];
 
@@ -86,7 +87,10 @@ export class Rote {
 
             this.check_instrumentPerson = item.system.instrument["ispersonalized"];
 		    this.check_instrumentUnique = item.system.instrument["isunique"];
-		    this.select_spendingtime = item.system["spendingtime"];
+
+            if (item.system["spendingtime"] < 0) {
+                this.select_spendingTime = parseInt(item.system["spendingtime"]);
+            }		    
 
             this.isExtendedCasting = item.system["isextended"];
 
@@ -98,8 +102,8 @@ export class Rote {
             if (this.check_instrumentUnique) {
                 this.sumSelectedDifficulty -= 1;
             }
-            if (this.select_spendingtime < 0) {
-                this.sumSelectedDifficulty -= this.select_spendingtime * -1;
+            if (this.select_spendingTime < 0) {
+                this.sumSelectedDifficulty -= this.select_spendingTime * -1;
             }
 
             this._setDifficulty(this._highestRank());            
@@ -283,9 +287,10 @@ export class DialogAreteCasting extends FormApplication {
                 }
                 
                 let objectname = value.replace("object.", "");
+                let formValue = formData[value];
 
-                if (this.object[objectname] != formData[value]) {
-                    this.object[objectname] = formData[value];
+                if (parseInt(this.object[objectname]) != parseInt(formValue)) {
+                    this.object[objectname] = parseInt(formValue);
                 }                
             }
         }
@@ -303,6 +308,14 @@ export class DialogAreteCasting extends FormApplication {
         
         this.object.witnesses = formData["object.witnesses"];
         this.object.isExtendedCasting = formData["object.isExtendedCasting"];
+
+        if (!this.object.isExtendedCasting) {
+            this.object.keepDifficulty = false;
+        }
+        else {
+            this.object.keepDifficulty = formData["object.keepDifficulty"];
+        }
+
 
         this.object.useSpeciality = formData["object.useSpeciality"];
         
@@ -378,7 +391,13 @@ export class DialogAreteCasting extends FormApplication {
             
             if (this.object.isExtendedCasting) {
                 extraInfo.push(`${game.i18n.localize("wod.dialog.aretecasting.extendedcasting")} - ${this.object.totalSuccesses} ${game.i18n.localize("wod.dice.successes")}`);
+
+                if (this.object.keepDifficulty) {
+                    extraInfo.push(game.i18n.localize("wod.dialog.aretecasting.keepdifficulty"));
+                }
             }
+
+            
 
             if (this.object.spelltype == "coincidental") {
                 extraInfo.push(game.i18n.localize("wod.spheres.coincidentalspell"));
@@ -445,7 +464,10 @@ export class DialogAreteCasting extends FormApplication {
                 return;
             }
             else {
-                this.object.difficultyModifier = parseInt(this.object.difficultyModifier) + 1;
+                if (!this.object.keepDifficulty) {
+                    this.object.difficultyModifier = parseInt(this.object.difficultyModifier) + 1;
+                }
+                
                 this.object.totalSuccesses = parseInt(this.object.totalSuccesses) + parseInt(successes);    
                 this.render();            
             }            

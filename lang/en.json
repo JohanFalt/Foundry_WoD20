@@ -11,7 +11,8 @@
 			"hunter": "Hunter the Reckoning",
 			"vampire": "Vampire the Masquerade",
 			"werewolf": "Werewolf the Apocalypse",
-			"mage": "Mage the Ascension"
+			"mage": "Mage the Ascension",
+			"wraith": "Wraith the Oblivion"
 		},
 		"era": {
 			"modern": "Modern",
@@ -19,7 +20,11 @@
 			"wildwest": "Wild West",
 			"darkages": "Dark Ages",
 			"changeera": "You sure you wish to change era?",
-			"changeerahint": "The sheet is already set to this era you sure you wish to reset it?"
+			"changeerahint": "The sheet is already set to this era you sure you wish to reset it?",
+			"mortaleratext": "Mortal sheet default era",
+			"mageeratext": "Mage sheet default era",
+			"vampireeratext": "Vampire sheet default era",
+			"werewolferatext": "Werewolf sheet default era"
 		},
 		"settings": {
 			"nonotuse": "Do not use",
@@ -70,9 +75,11 @@
 			"choicevirtue": "Spending virtue points",
 			"choiceexperience": "Spending experience points",
 			"therollofone": "Use default result 1 handling",
-			"therollofonehint": "Default 20th dice setting - According to the 20th rules all ones reduce number of success by one.",
+			"therollofonehint": "Use the default rule of all '1's rolled reduce number of success by one.",
+			"useOnesDamage": "Use rule of '1's in damage rolls",
+			"useOnesSoak": "Use rule of '1's in soak rolls",
 			"lowestdifficulty": "Lowest difficulty allowed",
-			"lowestdifficultyhint": "Default 20th dice setting - With this setting you can set what is the lowest difficulty you wish to use in your world.",
+			"lowestdifficultyhint": "With this setting you can set what is the lowest difficulty you wish to use in your world.",
 			"specialityaddsuccess": "Use default rule for speciality",
 			"specialityaddsuccesshint": "Default use of specialities - adds a number of successes on the roll of 10s.",
 			"specialityreducediff": "Speciality lowers difficulty",
@@ -83,7 +90,9 @@
 			"explodingdicehint": "In revised rules when rolling a 10 you got to add one additional die and add the result.",
 			"dicerules": "Rolling dices rules",
 			"diceruleshint": "How the system handles rolling the dices.",
-			"rollsettings": "Roll settings"
+			"rollsettings": "Roll settings",
+			"erasettings": "Era settings",
+			"erasettingshint": "The world settings regards to eras"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -92,6 +101,7 @@
 			"background": "Background",
 			"bloodbound": "Blood Bond / Vinculum",
 			"boon": "Boon",
+			"oath": "Oath",
 			"merit": "Merit",
 			"flaw": "Flaw",
 			"expspent": "Spent Experience",
@@ -114,6 +124,8 @@
 			"edgepower": "Edge Power",
 			"lore": "Lore",
 			"lorepower": "Lore Power",
+			"arcanoi": "Arcanoi",
+			"arcanoipower": "Arcanoi Power",
 			"ritual": "Ritual",
 			"talen": "Talen",
 			"fetish": "Fetish",
@@ -130,7 +142,9 @@
 			"realm": "Realm",
 			"resonance": "Resonance",
 			"othertraits": "Other Traits",
-			"apacolypticform": "Apocalyptic Form"			
+			"apacolypticform": "Apocalyptic Form",
+			"passion": "Passion",
+			"fetter": "Fetter"
 		},
 		"tab": {
 			"bio": "Bio",
@@ -148,6 +162,7 @@
 			"dreaming": "Dreaming",
 			"edge": "Edges",
 			"lore": "Lores",
+			"death": "Death",
 			"shapechange": "Shapechange",
 			"settings": "Settings",
 			"sheet": "Sheet Settings",
@@ -259,7 +274,7 @@
 				"swiftlight": "Hermetic Order of Swift Light",
 				"gulls": "The Gulls of Battle",
 				"morrigan": "The Morrigan",
-				"gaughters": "Murder's Gaughters",
+				"gaughters": "Murder's Daughters",
 				"sunlost": "The Sun-Lost",
 				"tulugaq": "Tulugaq",
 				"bagheera": "Bagheera",
@@ -413,6 +428,22 @@
 				"wilder": "Wilder",
 				"grump": "Grump",
 				"kith": "Kith",
+				"phyla": "Phyla",
+				"adhene": "Adhene",
+				"brand": "Brand",
+				"raiding": "Raiding",
+				"havesting": "Harvesting",
+				"nightmarelegacy": "Nightmare Legacy",
+				"winterrock": "Winter/Rock Camp",
+				"feast": "Feast",
+				"aria1": "Primary Aria / Legacy",
+				"aria2": "Secondary Aria / Legacy",
+				"aria3": "Tertiary Aria / Legacy",
+				"kithain": "Kithain Legacy",
+				"summer": "Summer/Dogwood Camp",
+				"war": "War",
+				"midseason": "Midseason/Laurel Camp",
+				"anchor": "Anchor",
 				"changelings": "Changelings",
 				"boggans": "Boggans",
 				"clurichaun": "Clurichaun",
@@ -427,12 +458,62 @@
 				"sluagh": "Sluagh",
 				"troll": "Troll",
 				"dauntain": "Dauntain",
+				"thallain": "Thallain",
+				"nunnehi": "Nunnehi",
+				"menehune": "Menehune",
+				"inanimae": "Inanimae",
+				"darkkin": "Dark-kin",
 				"antithesis": "Antithesis",
 				"affinity": "Affinity Realm",
 				"threshold": "Ravaging/Musing Threshold",
 				"legacyseelie": "Seelie Legacy",
 				"legacyunseelie": "Unseelie Legacy",
-				"revelry": "Revelry"
+				"revelry": "Revelry",
+				"aithu": "Aithu",
+				"beasties": "Beasties",
+				"bodachs": "Bodachs",
+				"boggarts": "Boggarts",
+				"bogies": "Bogies",
+				"ghasts": "Ghasts",
+				"goblins": "Goblins",
+				"huakai": "Huaka'i po",
+				"kelpies": "Kelpies",
+				"lurks": "Lurks",
+				"mandragoras": "Mandragoras",
+				"merrow": "Merrow",
+				"nasties": "Nasties",
+				"nighthags": "Night hags",
+				"ogres": "Ogres",
+				"sevartal": "Sevartal",
+				"skinwalkers": "Skinwalkers",
+				"spriggan": "Spriggan",
+				"weepingwights": "Weeping wights",
+				"glomes": "Glomes",
+				"kuberas": "Kuberas",
+				"ondines": "Ondines",
+				"parosemes": "Parosemes",
+				"solimonds": "Solimonds",
+				"mannikins": "Mannikins",
+				"canotili": "Canotili",
+				"inuas": "Inuas",
+				"kachinas": "Kachinas",
+				"maymaygwyashi": "May-may-gwya-shi",
+				"nanehi": "Nanehi",
+				"numuzoho": "Nümüzo'ho",
+				"pugwis": "Pu'gwis",
+				"rockgiants": "Rock Giants",
+				"surems": "Surems",
+				"tunghat": "Tunghat",
+				"waterbabies": "Water Babies",
+				"yunwiAmaiyinehi": "Yunwi Amai'yine'hi",
+				"yunwitsunsdi": "Yunwi Tsunsdi",
+				"acheri": "Acheri",
+				"aonides": "Aonides",
+				"firbholg": "Fir-bholg",
+				"fuath": "Fuath",
+				"keremet": "Keremet",
+				"moire": "Moiræ",
+				"naraka": "Naraka"
 			},
 			"hunter": {
 				"creed": "Creed",
@@ -463,6 +544,34 @@
 				"luciferan": "Luciferan",
 				"ravener": "Ravener",
 				"reconciler": "Reconciler"
+			},
+			"wraith": {
+				"shadow": "Shadow",
+				"life": "Life",
+				"death": "Death",
+				"regret": "Regret",
+				"psyche": "Psyche",
+				"archetype": "Archetype",
+				"player": "Player",
+				"thorns": "Thorns",
+				"darkpassions": "Dark Passions",
+				"psychewillpower": "Psyche Willpower"
+			},
+			"mortal": {
+				"autumnpeople": "Autumn people",
+				"enchanted": "Enchanted",
+				"ghoul": "Ghoul",
+				"kinfolk": "Kinfolk",
+				"truefaith": "True faith"
+			},
+			"creature": {
+				"chimera": "Chimera",
+				"spirit": "Spirit",
+				"warwolves": "War wolves",
+				"anurana": "Anurana",
+				"samsa": "Samsa",
+				"kerasi": "Kerasi",
+				"yeren": "Yeren"
 			}
 		},
 		"attributes": {
@@ -480,7 +589,22 @@
 			"composure": "Composure",
 			"resolve": "Resolve",
 			"perception": "Perception",
-			"appearance": "Appearance"
+			"appearance": "Appearance",
+			"short": {
+				"str": "Str",
+				"dex": "Dex",
+				"sta": "Sta",
+				"man": "Man",
+				"app": "App",
+				"per": "Per"
+			},
+			"bonus": {
+				"strength": "Strength bonus",
+				"dexterity": "Dexterity bonus",
+				"stamina": "Stamina bonus",
+				"manipulation": "Manipulation bonus",
+				"appearance": "Appearance bonus"
+			}
 		},
 		"abilities": {
 			"abilities": "Abilities",
@@ -504,6 +628,7 @@
 			"kenning": "Kenning",			
 			"leadership": "Leadership",
 			"legerdemain": "Legerdemain",
+			"persuasion": "Persuasion",
 			"primalurge": "Primal-Urge",			
 			"streetwise": "Streetwise",
 			"subterfuge": "Subterfuge",
@@ -693,12 +818,16 @@
 			"quintessence": "Quintessence",
 			"paradox": "Paradox",
 			"glamour": "Glamour",
+			"mana": "Mana",
 			"banality": "Banality",
 			"nightmare": "Nightmare",
 			"conviction": "Conviction",
 			"faith": "Faith",
 			"torment": "Torment",
-			"apocalypticforms": "Apocalyptic Forms"
+			"apocalypticforms": "Apocalyptic Forms",
+			"corpus": "Corpus",
+			"pathos": "Pathos",
+			"angst": "Angst"
 		},
 		"combat": {
 			"conditions": {
@@ -803,7 +932,13 @@
 			"glabrus": "Glabrus",
 			"gladius": "Gladius",
 			"chasmus": "Chasmus",
-			"squamus": "Squamus"
+			"squamus": "Squamus",
+			"anuran": "Anuran",
+			"dagon": "Dagon",
+			"ungeziefer": "Ungeziefer",
+			"bandia": "Bandia",
+			"kiforu": "Kiforu",
+			"faru": "Faru"
 		},
 		"power": {
 			"rank0": "You have rank 0 so no Gifts are allowed",
@@ -830,6 +965,7 @@
 			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
 			"unsortedlores": "Here is all unsorted lore powers which needs to get a selected Lore. Click on the headline to sort one.",
 			"arts": "Arts",
+			"slivers": "Slivers",
 			"edges": "Edges",
 			"lores": "Lores",
 			"wyld": "Wyld",
@@ -837,7 +973,10 @@
 			"abyss": "Abyss Mysticism",
 			"koldunic": "Koldunic Sorcery",
 			"necromancy": "Necromancy",
-			"ritualcategory": "Ritual category"
+			"ritualcategory": "Ritual category",
+			"arcanoi": "Arcanoi",
+			"passions": "Passions",
+			"fetters": "Fetters"
 		},
 		"spheres": {
 			"spheres": "Spheres",
@@ -900,6 +1039,7 @@
 			"unnamedflaw": "Unnamed flaw",
 			"unnamedbloodbound": "Unnamed bloodbound",
 			"unnamedboon": "Unnamed boon",
+			"unnamedoath": "Unnamed oath",
 			"descriptionmissing": "Description missing",
 			"unspent": "Unspent"
 		},
@@ -954,6 +1094,7 @@
 			"level": "Level",
 			"rank": "Rank",
 			"other": "Other",
+			"both": "Both",
 			"bio": {
 				"wronggeneration": "Not a valid generation",
 				"wrongtempgeneration": "Cannot lower generation past 4",
@@ -978,14 +1119,17 @@
 				"clearart": "Clear art connection",
 				"clearedge": "Clear edge connection",
 				"clearlore": "Clear lore connection",
+				"cleararcanoi": "Clear arcanoi connection",
 				"disconnect": "Disconnect power",
 				"disconnectlabel": "Disconnecting power",
 				"removebonus": {
 					"art": "Remove connected powers to art",
+					"sliver": "Remove connected powers to sliver",
 					"lore": "Remove connected powers to lore",
 					"edge": "Remove connected powers to edge",
 					"discipline": "Remove connected powers to discipline",
-					"path": "Remove connected powers to path"
+					"path": "Remove connected powers to path",
+					"arcanoi": "Remove connected powers to arcanoi"
 				}
 			},
 			"notes": {
@@ -994,6 +1138,7 @@
 				"flaws": "Flaws",
 				"bloodbound": "Blood bonds / Vinculums",
 				"boon": "Boons",
+				"oath": "Oaths",
 				"othertraits": "Other traits",
 				"expearned": "Earned experience",
 				"expspend": "Spent experience"
@@ -1071,7 +1216,10 @@
 				"initbonushint": "This bonus adds the number to the initiative score.",
 				"movebonus": "Movement bonus",
 				"movebonushint": "This bonus adds bonuses to the character's movement.",
-				"multiplier": "Movement multiplier"
+				"multiplier": "Movement multiplier",
+				"abilities": {
+					"athletics": "Athletics bonus"
+				}
 			},
 			"new": {
 				"notfound": "Item type does not exist",
@@ -1096,6 +1244,16 @@
 				"spentexp": "Spent experience",
 				"treasure": "New treasure",
 				"bonus": "New bonus",
+				"attributebonus": "New attribute bonus",
+				"attributedicebonus": "New attribute dice bonus",
+				"attributediff": "New attribute difficulty bonus",
+				"attributesucc": "New attribute automatic successes bonus",
+				"abilitybonus": "New ability bonus",
+				"abilitydiff": "New ability difficulty bonus",
+				"soakbonus": "New soak bonus",
+				"healthbuff": "New health level bonus",
+				"initbonus": "New initiative bonus",
+				"movebonus": "New movement bonus",
 				"discipline": "New discipline",
 				"disciplinepower": "New discipline power",
 				"disciplinepath": "New discipline path",
@@ -1105,6 +1263,7 @@
 				"edgepower": "New edge power",
 				"art": "New art",
 				"artpower": "New art power",
+				"sliver": "New sliver",
 				"lore": "New lore",
 				"lorepower": "New lore power",
 				"power": "New power",
@@ -1113,7 +1272,12 @@
 				"talisman": "New talisman",
 				"periapt": "New periapt",
 				"matrix": "New matrix",
-				"trinket": "New trinket"
+				"trinket": "New trinket",
+				"oath": "New oath",
+				"arcanoi": "New arcanoi",
+				"arcanoipower": "New arcanoi power",
+				"passion": "New passion",
+				"fetter": "New fetter"
 			},
 			"add": {
 				"naturalweapon": "Add natural weapon",
@@ -1142,6 +1306,7 @@
 				"edgepower": "Add edge power",
 				"art": "Add art",
 				"artpower": "Add art power",
+				"sliver": "Add sliver",
 				"power": "Add power",
 				"charm": "Add charm",
 				"fetish": "Add fetish",
@@ -1150,7 +1315,12 @@
 				"talisman": "Add talisman",
 				"periapt": "Add periapt",
 				"matrix": "Add matrix",
-				"trinket": "Add trinket"
+				"trinket": "Add trinket",
+				"oath": "Add oath",
+				"arcanoi": "Add arcanoi",
+				"arcanoipower": "Add arcanoi power",
+				"passion": "Add passion",
+				"fetter": "Add fetter"
 			},
 			"edit": {
 				"naturalweapon": "Edit natural weapon",
@@ -1173,6 +1343,7 @@
 				"rote": "Edit rote",
 				"art": "Edit art",
 				"artpower": "Edit art power",
+				"sliver": "Edit sliver",
 				"edge": "Edit edge",
 				"edgepower": "Edit edge power",
 				"lore": "Edit lore",
@@ -1194,7 +1365,12 @@
 				"matrix": "Edit matrix",
 				"trinket": "Edit trinket",
 				"sphere": "Edit sphere",
-				"experience": "Edit experience"
+				"experience": "Edit experience",
+				"oath": "Edit oath",
+				"arcanoi": "Edit arcanoi",
+				"arcanoipower": "Edit arcanoi power",
+				"passion": "Edit passion",
+				"fetter": "Edit fetter"
 			},
 			"remove": {
 				"item": "Remove item",
@@ -1221,6 +1397,7 @@
 				"rote": "Remove rote",
 				"art": "Remove art",
 				"artpower": "Remove art power",
+				"sliver": "Remove sliver",
 				"edge": "Remove edge",
 				"edgepower": "Remove edge power",
 				"lore": "Remove lore",
@@ -1236,7 +1413,12 @@
 				"periapt": "Remove periapt",
 				"matrix": "Remove matrix",
 				"trinket": "Remove trinket",
-				"experience": "Remove experience"
+				"experience": "Remove experience",
+				"oath": "Remove oath",
+				"arcanoi": "Remove arcanoi",
+				"arcanoipower": "Remove arcanoi power",
+				"passion": "Remove passion",
+				"fetter": "Remove fetter"
 			},
 			"show": {
 				"background": "Show backgrounds",
@@ -1247,7 +1429,8 @@
 				"trait": "Show other traits",
 				"experience": "Show added experiences",
 				"spentexp": "Show spent experiences",
-				"bonus": "Show added bonus"
+				"bonus": "Show added bonus",
+				"oath": "Show oath"
 			},
 			"yes": "yes",
 			"no": "no",
@@ -1343,12 +1526,16 @@
 				"magedistracted": "Mage distracted",
 				"mageavatarconflict": "Mage in conflict with Avatar",
 				"dominoeffect": "Domino Effect +1 per two coincidences after first",
-				"deedoutlandish": "Outlandish to outlandish feat",
+				"deedoutlandish": "Outlandish to godlike feat",
 				"quintessence": "Spending Quintessence",
 				"additionaldifficulty": "Additional difficulty modifier",
 				"castingsettings": "Casting settings",
 				"extendedcasting": "Extended casting",
-				"selectsphere": "Need to select sphere's first"
+				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each try adds +1 to the difficulty.",
+				"selectsphere": "Need to select sphere's first",
+				"keepdifficulty": "Keeps the difficulty the same",
+				"keepdiff": "Keep difficulty",
+				"keepdiffdesc": "Keep difficulty is When you are to use extended casting but the difficulty are not to be increased for each roll."
 			},
 			"checkfrenzy": {
 				"headline": "Roll for frenzy",
@@ -1396,6 +1583,7 @@
 				"nightmaredice": "Nightmare dice",
 				"missingrealm": "You need to select a Realm",
 				"arttype": "Art type",
+				"noarttype": "Art type not selected",
 				"shiftnightmaredice": "Shift to Nightmare dice",
 				"notset": "Not set",
 				"selectpower": "Select power to connect to"
@@ -1414,6 +1602,17 @@
 				"chosenattribute": "Chosen attribute",
 				"movement": "Type of movement",
 				"bonusvalue": "Bonus value"
+			},
+			"variant": {
+				"sheettype": "Set sheet type",
+				"notype": "No sheet type selected",
+				"general": "General type",
+				"changeling": "General changeling",
+				"mortal": "General mortal",
+				"wraith": "General wraith",
+				"creature": "General creature",
+				"info": "This setting sets what variant of the sheet it is set to use.",
+				"description": "This setting can be changed under the sheet's settings"
 			}
 		}
 	}

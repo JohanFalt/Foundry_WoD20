@@ -1,0 +1,269 @@
+<div class="sheet-area flex-columns">
+    <div class="area-box">
+
+        <div class="sheet-headline sheet-banner splatFont" data-area="arcanoi">
+            <span class="sheet-banner-text">{{localize "wod.power.arcanoi"}}</span>
+
+            <div class="pullRight pointer headlineNormal">
+                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.arcanoi'}}" aria-hidden="true" data-itemtype="Power" data-type="arcanoi"></i>
+            </div>
+        </div>
+
+        {{#each actor.system.listdata.powers.arcanois.arcanoilist as | item id|}}
+
+            <div class="item-row-area {{#if (eq item.system.type 'wod.types.arcanoi')}}mainpower-row{{/if}}">
+                <div class="clearareaBox {{#if (eq item.system.type 'wod.types.arcanoi')}}power-row{{else}}arcanoipower-row {{#if item.system.isrollable}}arcanoipower-rollablerow{{else}}arcanoipower-nonerollablerow{{/if}}{{/if}}">
+                    {{#if (eq item.system.type "wod.types.arcanoipower")}}
+                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
+                    {{/if}}
+                    <div class="pullLeft arcanoi-headline {{#if (eq item.system.type 'wod.types.arcanoi')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="Arcanoi"
+                        data-rollitem="true"
+                        data-itemid="{{item._id}}">{{item.name}}</div>
+
+                    {{#if (eq item.system.type "wod.types.arcanoi")}}
+                        <div class="resource-value pullLeft power-dotBox" 
+                            data-value="{{item.system.value}}" 
+                            data-itemid="{{item._id}}">
+
+                            {{#numLoop item.system.max}}                            
+                                <span class="resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>                            
+                            {{/numLoop}}
+                        </div>
+                    {{/if}}
+
+                    {{#if item.system.isrollable}}
+                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice1 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAttributes item.system.dice1)}}{{/if}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice2 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAbility item.system.dice2  ../actor)}}{{/if}}</div>
+                        <div class="pullLeft power-valueBox headlineNormal centerText">
+                            {{#if (eq item.system.difficulty "-1")}}
+                                {{localize "wod.labels.varies"}}
+                            {{else}}
+                                {{item.system.difficulty}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+
+                    <div class="pullLeft power-iconbox">
+                        {{#if (eq item.system.type "wod.types.arcanoipower")}}
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
+                                </div>
+                            {{/if}}
+                        {{else}}
+                            <div class="pullLeft pointer">
+                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.arcanoipower'}}" aria-hidden="true" data-itemtype="Power" data-type="arcanoipower" data-parentid="{{item._id}}"></i>
+                            </div>
+                        {{/if}}
+                        <div class="pullLeft pointer headlineNormal tooltip">
+                            <i class="icon fa-solid fa-memo"></i>
+                            <span class="tooltiptext">
+                                {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
+                                <br /><br />
+                                {{/if}}{{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
+                            </span>
+                        </div>
+                        <div class="pullLeft pointer">
+                            <a class="send-chat" 
+                                title="{{localize 'wod.labels.send'}}" 
+                                data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        </div>
+
+                        {{#if (eq ../locked false)}}
+                            {{#if (eq item.system.type "wod.types.arcanoipower")}}
+                                <div class="pullLeft pointer">
+                                    <a class="clearPower" 
+                                        title="{{localize 'wod.labels.power.cleararcanoi'}}" 
+                                        data-powertype="power"
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                </div>
+                            {{/if}}
+                            {{#if (eq item.system.type "wod.types.arcanoi")}}
+                                <div class="pullLeft pointer">
+                                    <a class="clearPower" 
+                                        title="{{localize 'wod.labels.power.removebonus.arcanoi'}}" 
+                                        data-powertype="main"
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                </div>
+                            {{/if}}
+                            <div class="pullLeft pointer">
+                                <a class="item-edit" 
+                                    title="{{localize 'wod.labels.edit.arcanoi'}}" 
+                                    data-type="Discipline" 
+                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <div class="pullLeft pointer">
+                                <a class="item-delete" 
+                                    title="{{localize 'wod.labels.remove.arcanoi'}}" 
+                                    data-type="Discipline" 
+                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            </div>
+                            
+                        {{/if}}
+                        {{#if (gt item.system.bonuses.length 0)}}
+                            <div class="pullLeft pointer">
+                                <i id="collapsiblearcanoibonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="arcanoi{{id}}"></i>
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="hide bonuses arcanoi{{id}}" data-area="arcanoibonus{{id}}">
+
+                    {{#each item.system.bonuses as |bonus id|}}
+                        <div class="clearareaBox">
+                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                            {{#if (eq ../../locked false)}}
+                                <div class="pullLeft bonus-icons power-iconbox">
+                                    <div class="pullLeft pointer">
+                                        <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                    </div>
+                                    <div class="pullLeft pointer">
+                                        <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
+                                    </div>
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+
+                </div>
+            </div>
+
+        {{/each}}
+    </div>
+</div>
+
+{{#if actor.system.listdata.powers.arcanois.hasunlistedarcanois}}
+    <div class="sheet-area flex-columns">
+        <div class="headlineList splatFont">{{localize "wod.power.unsortedarcanois"}}</div>
+
+        <div class="area-box">
+            {{#each actor.system.listdata.powers.arcanois.unlistedarcanois as | item id|}}
+
+                <div class="clearareaBox row">
+                    <div class="pullLeft arcanoi-headline headlineNormal vrollable" 
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="SortArcanoiPower"
+                        data-rollitem="true"
+                        data-itemid="{{item._id}}">{{item.name}}</div>
+                    
+                    {{#if (eq ../locked false)}}
+                        <div class="pullLeft power-iconbox">
+                            <a class="item-delete" title="{{localize 'wod.labels.remove.arcanoipower'}}" data-type="Arcanois" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        </div>
+                    {{/if}}                    
+                </div>
+            {{/each}}
+        </div>
+    </div>
+{{/if}}
+
+<div class="sheet-area flex-rows">
+    <div class="two-columns flex-columns">
+        <div class="area-box">
+            <div class="clearareaBox sheet-headline sheet-banner splatFont" data-area="passions">
+                <span class="sheet-banner-text">{{localize "wod.power.passions"}}</span>
+
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.passion'}}" aria-hidden="true" data-itemtype="Trait" data-type="passion"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="passion" data-area="passion">
+            {{#each actor.system.listdata.traits.passions as |item id|}}
+                <div class="item-row-area">
+                    <div class="clearareaBox note-row">
+                        <div class="pullLeft headlineNormal" style="width: 180px;">
+                            {{#if (ne item.name "")}}
+                                {{item.name}}
+                            {{else}}
+                                {{localize "wod.notes.unnamedpassion"}}
+                            {{/if}}
+                        </div>
+
+                        <div class="resource-value pullLeft power-dotBox" 
+                            data-value="{{item.system.value}}" 
+                            data-itemid="{{item._id}}">
+
+                            {{#numLoop item.system.max}}                            
+                                <span class="resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>                            
+                            {{/numLoop}}
+                        </div>
+
+                        <div class="pullLeft">
+                            <div class="pullLeft">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}"
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <a class="item-edit" title="{{localize 'wod.labels.edit.passion'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.passion'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}
+                            
+                        </div>
+                    </div>
+                </div> 
+            {{/each}}
+        </div>
+    </div>
+    <div class="two-columns flex-columns">
+        <div class="area-box">
+            <div class="clearareaBox sheet-headline sheet-banner splatFont" data-area="fetters">
+                <span class="sheet-banner-text">{{localize "wod.power.fetters"}}</span>
+    
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.fetter'}}" aria-hidden="true" data-itemtype="Trait" data-type="fetter"></i>
+                </div>
+            </div>
+        </div>
+    
+        <div class="fetter" data-area="fetter">
+            {{#each actor.system.listdata.traits.fetters as |item id|}}
+                <div class="item-row-area">
+                    <div class="clearareaBox note-row">
+                        <div class="pullLeft headlineNormal" style="width: 180px;">
+                            {{#if (ne item.name "")}}
+                                {{item.name}}
+                            {{else}}
+                                {{localize "wod.notes.unnamedfetter"}}
+                            {{/if}}
+                        </div>
+
+                        <div class="resource-value pullLeft power-dotBox" 
+                            data-value="{{item.system.value}}" 
+                            data-itemid="{{item._id}}">
+
+                            {{#numLoop item.system.max}}                            
+                                <span class="resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>                            
+                            {{/numLoop}}
+                        </div>
+    
+                        <div class="pullLeft">
+                            <div class="pullLeft">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}"
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft pointer">
+                                    <a class="item-edit" title="{{localize 'wod.labels.edit.fetter'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.fetter'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}
+                            
+                        </div>
+                    </div>
+                </div> 
+            {{/each}}
+        </div>
+    </div>
+</div>

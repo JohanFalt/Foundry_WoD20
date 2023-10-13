@@ -223,7 +223,8 @@ export class DialogWeapon extends FormApplication {
 
         if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities[data.object.dice2]?.value != undefined)) {
             data.object.abilityValue = parseInt(data.actorData.abilities[data.object.dice2].value);
-            data.object.abilityName = game.i18n.localize(data.actorData.abilities[data.object.dice2].label);
+
+            data.object.abilityName = (data.actorData.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(data.actorData.abilities[data.object.dice2].label) : data.actorData.abilities[data.object.dice2].altlabel;            
 
             if (parseInt(data.actorData.abilities[data.object.dice2].value) >= 4) {
                 data.object.hasSpeciality = true;

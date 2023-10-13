@@ -47,9 +47,9 @@
             <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}</div>
             <div class="pullLeft combat-abilityBox headlineNormal">
                 {{#if (eq item.system.attack.ability "custom")}}
-                    {{shorten (getAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
+                    {{shorten (getSecondaryAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
                 {{else}}
-                    {{shorten (localize (getAbility item.system.attack.ability)) 10}}
+                    {{shorten (localize (getAbility item.system.attack.ability ../actor)) 10}}
                 {{/if}}&nbsp;
             </div>
             <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>

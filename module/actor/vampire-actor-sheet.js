@@ -8,24 +8,12 @@ export class VampireActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet vampire"],
-			template: "systems/worldofdarkness/templates/actor/vampire-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/vampire-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);
-		
-		console.log("WoD | Vampire Sheet constructor");
 	}
 
 	/** @override */
@@ -36,8 +24,10 @@ export class VampireActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.vampire) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
+				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultVampireEra];
+				actorData.system.settings.variant = "general";
 
-				await CreateHelper.SetVampireAbilities(actorData, this.actor, "modern");
+				await CreateHelper.SetVampireAbilities(actorData, this.actor, CONFIG.wod.defaultVampireEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetVampireAttributes(actorData);				
 				

@@ -9,24 +9,12 @@ export class DemonActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet demon"],
-			template: "systems/worldofdarkness/templates/actor/demon-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/demon-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);
-		
-		console.log("WoD | Demon Sheet constructor");
 	}
 
 	/** @override */
@@ -39,6 +27,7 @@ export class DemonActorSheet extends MortalActorSheet {
 
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
+				actorData.system.settings.variant = "general";
 
 				//await CreateHelper.SetDemonAbilities(actorData);
 				await CreateHelper.SetAbilities(actorData, "demon", "modern");
@@ -257,7 +246,7 @@ export class DemonActorSheet extends MortalActorSheet {
 	}
 	
 	async _onDotCounterDemonChange(event) {
-		console.log("WoD | Demon Sheet _onDotCounterChange");
+		console.log("WoD | Demon Sheet _onDotCounterDemonChange");
 		
 		event.preventDefault();
 

@@ -65,7 +65,7 @@
 						<!-- isspent -->
 						<div class="infobox pullRight">
 							<label class="headlineItem headlineBio splatFont" for="data.isspent">{{localize "wod.experience.spent"}}</label>
-							<input name="system.isspent" type="checkbox" {{#if data.system.isspent}}checked{{/if}} title="{{localize "wod.info.spendexp"}}" />
+							<input name="system.isspent" type="checkbox" {{isChecked data.system.isspent}} title="{{localize "wod.info.spendexp"}}" />
 						</div>
 					{{/if}}
 

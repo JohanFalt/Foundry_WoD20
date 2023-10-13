@@ -8,24 +8,12 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet werewolf"],
-			template: "systems/worldofdarkness/templates/actor/changingbreed-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/changingbreed-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);
-
-		console.log("WoD | Changing Breed Sheet constructor");
 	}
 
 	/** @override */
@@ -78,6 +66,10 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
 			console.log(CONFIG.wod.sheettype.changingbreed);
 			console.log(data.actor);
+		}
+
+		if (data.actor.system.changingbreed == "") {
+			ActionHelper.openVariantDialog(this.actor);
 		}
 
 		return data;

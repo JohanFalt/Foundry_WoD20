@@ -64,6 +64,15 @@
 									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 								{{/if}}
 
+								{{#if (eq data.system.type "wod.types.arcanoi")}} 
+									{{captilize (localize "wod.types.arcanoi")}}
+								{{/if}}
+
+								{{#if (eq data.system.type "wod.types.arcanoipower")}} 
+									{{captilize (localize "wod.types.arcanoipower")}}<br />
+									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
+								{{/if}}
+
 								{{#if (eq data.system.type "wod.types.ritual")}} 
 									{{captilize (localize "wod.types.ritual")}}<br />
 									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
@@ -116,9 +125,9 @@
 								<option value="changeling">{{localize "wod.games.changeling"}}</option>
 								<option value="demon">{{localize "wod.games.demon"}}</option>
 								<option value="hunter">{{localize "wod.games.hunter"}}</option>
-								<!-- <option value="mage">Mage the Ascension</option> -->
 								<option value="vampire">{{localize "wod.games.vampire"}}</option>
 								<option value="werewolf">{{localize "wod.games.werewolf"}}</option>
+								<option value="wraith">{{localize "wod.games.wraith"}}</option>
 							{{/select}}
 						</select>
 						<span class="floating-label">{{localize "wod.games.headline"}}</span>
@@ -153,7 +162,11 @@
 									<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
 									<option value="wod.types.rite">{{localize "wod.types.rite"}}</option>	
 								{{/if}}					
-								<option value="wod.types.charm">{{localize "wod.types.charm"}} (Spirit)</option>
+								{{#if (eq data.system.game "wraith")}}
+									<option value="wod.types.arcanoi">{{localize "wod.types.arcanoi"}}</option>
+									<option value="wod.types.arcanoipower">{{localize "wod.types.arcanoipower"}}</option>
+								{{/if}}
+								<option value="wod.types.charm">{{localize "wod.types.charm"}} (Creature)</option>
 								<option value="wod.types.power">{{localize "wod.types.power"}} (Creature)</option>
 							{{/select}}
 						</select>
@@ -313,15 +326,17 @@
 						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>
 
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont">{{localize "wod.health.chimerical"}}</label>
-						<input class="item-property" type="checkbox" {{#if (checkProperty data.system.property "arttype" "wod.health.chimerical")}}checked{{/if}} data-property="arttype" data-value="wod.health.chimerical" />
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="item-property sheet-infoValues editable" data-property="arttype">
+							{{#select data.system.property.arttype}}
+								<option value="">- {{localize "wod.labels.select"}} -</option>
+								<option value="wod.health.chimerical">{{localize "wod.health.chimerical"}}</option>
+								<option value="wod.power.wyld">{{localize "wod.power.wyld"}}</option>
+								<option value="wod.labels.both">{{localize "wod.labels.both"}}</option>
+							{{/select}}
+						</select>
+						<span class="floating-label">{{localize "wod.dialog.power.arttype"}}</span>
 					</div>
-
-					<div class="infobox">
-						<label class="headlineItem headlineBio splatFont">{{localize "wod.power.wyld"}}</label>
-						<input class="item-property" type="checkbox" {{#if (checkProperty data.system.property "arttype" "wod.power.wyld")}}checked{{/if}} data-property="arttype" data-value="wod.power.wyld" />
-					</div>						
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.edgepower")}}
@@ -380,19 +395,47 @@
 					</div>
 				{{/if}}
 
+				{{#if (eq data.system.type "wod.types.arcanoipower")}}
+					{{#if (eq hasActor false)}}
+						<div class="infobox bioInformationArea floating-label-group">
+							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
+								{{#select data.system.parentid}}
+									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
+									{{#each wod.powers.arcanois as |item id|}}
+										<option value="{{lowercase item.name}}">{{item.name}}</option>
+									{{/each}}
+								{{/select}}
+							</select>
+							<span class="floating-label">{{localize "wod.types.arcanoi"}}</span>
+						</div>
+					{{/if}}
+
+					<div class="infobox bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
+							{{#select data.system.level}}
+								<option value="0">- {{localize "wod.labels.select"}} -</option>
+								{{#numFromLoop 1 5}}
+									<option value="{{this}}">{{this}}</option>
+								{{/numFromLoop}}
+							{{/select}}
+						</select>
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+					</div>
+				{{/if}}
+
 				<div class="infobox bioInformationArea floating-label-group">
 					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
 					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 				</div>
-			</div>			
+			</div>		
 
 			<!-- dice -->
 			{{#if (ne data.system.type "")}}
-				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.charm" "wod.types.power")}}
+				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.charm" "wod.types.power")}}
 					<div class="dialog-area">
 						<div class="infobox">
 							<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
-							<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}} checked {{/if}} />
+							<input name="system.isrollable" type="checkbox" {{isChecked data.system.isrollable}} />
 						</div>
 
 						{{#if data.system.isrollable}}

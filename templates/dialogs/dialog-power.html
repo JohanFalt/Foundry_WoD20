@@ -21,14 +21,21 @@
         {{#if object.hasSpeciality}}
             <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
             <div class="clearareaBox infobox dialog-checkbox">
-                <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
+                <div class="pullLeft"><input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} /></div>
                 <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}{{localize "wod.dialog.nonelisted"}}{{/if}}</div>
             </div>
         {{/if}}
 
         {{#if (eq object.type "wod.types.artpower")}}
             <div class="infobox headline splatFont">{{localize "wod.dialog.power.arttype"}}</div>
-                <div class="infobox">{{localize object.arttype}}</div>
+                {{#if (eq object.arttype 'wod.labels.both')}}
+                    <div class="infobox centerText">
+                        <button class="dialog-two-button button fullSplatColor dialog-arttype-button {{isActive object.selectedarttype 'wod.health.chimerical'}}" data-value="wod.health.chimerical">{{localize 'wod.health.chimerical'}}</button>
+                        <button class="dialog-two-button button fullSplatColor dialog-arttype-button {{isActive object.selectedarttype 'wod.power.wyld'}}" data-value="wod.power.wyld">{{localize 'wod.power.wyld'}}</button>
+                    </div>
+                {{else}}
+                    <div class="infobox">{{localize object.arttype}}</div>
+                {{/if}}
             </div>
         {{/if}}
     </div>
@@ -51,7 +58,7 @@
                     <div class="pullLeft headline splatFont">{{localize "wod.dialog.power.shiftnightmaredice"}}</div>
                     <div class="pullLeft">
                         {{#numFromLoop 0 object.maxnightmareDice}}
-                            <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="select_nightmaredice" value="{{this}}" {{#if (eq ../object.nightmareReplace this)}}checked{{/if}}>{{this}}</input></span>
+                            <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="select_nightmaredice" value="{{this}}" {{isChecked (eq ../object.nightmareReplace this)}}>{{this}}</input></span>
                         {{/numFromLoop}}
                     </div>
                 </div>
@@ -60,7 +67,7 @@
             <div class="clearareaBox infobox dialog-checkbox">
                 <div class="pullLeft headline splatFont">{{localize "wod.dialog.power.unleashing"}}</div>
                 <div class="pullLeft">
-                    <input name="isUnleashing" type="checkbox" {{#if object.isUnleashing}}checked{{/if}} />
+                    <input name="isUnleashing" type="checkbox" {{isChecked object.isUnleashing}} />
                 </div>
             </div> 
         </div>
@@ -71,7 +78,7 @@
         <div class="infobox centerText">
             
             {{#numFromLoop config.lowestDifficulty 10}}
-                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{isActive ../object.difficulty this}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/numFromLoop}}
         </div>
     </div>

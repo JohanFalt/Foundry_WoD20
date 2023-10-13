@@ -101,17 +101,86 @@ export const databio = {
         }
     },    
     "kith": {
-        "boggans": "wod.bio.changeling.boggans",
-        "clurichaun": "wod.bio.changeling.clurichaun",
-        "eshu": "wod.bio.changeling.eshu",
-        "nockers": "wod.bio.changeling.nockers",
-        "piskies": "wod.bio.changeling.piskies",
-        "pooka": "wod.bio.changeling.pooka",
-        "redcap": "wod.bio.changeling.redcap",
-        "satyrs": "wod.bio.changeling.satyrs",
-        "selkies": "wod.bio.changeling.selkies",
-        "sidhe": "wod.bio.changeling.sidhe",
-        "sluagh": "wod.bio.changeling.sluagh",
-        "troll": "wod.bio.changeling.troll"
+        "general": {
+            "boggans": "wod.bio.changeling.boggans",
+            "clurichaun": "wod.bio.changeling.clurichaun",
+            "eshu": "wod.bio.changeling.eshu",
+            "nockers": "wod.bio.changeling.nockers",
+            "piskies": "wod.bio.changeling.piskies",
+            "pooka": "wod.bio.changeling.pooka",
+            "redcap": "wod.bio.changeling.redcap",
+            "satyrs": "wod.bio.changeling.satyrs",
+            "selkies": "wod.bio.changeling.selkies",
+            "sidhe": "wod.bio.changeling.sidhe",
+            "sluagh": "wod.bio.changeling.sluagh",
+            "troll": "wod.bio.changeling.troll"
+        },
+        "dauntain": {
+            "boggans": "wod.bio.changeling.boggans",
+            "clurichaun": "wod.bio.changeling.clurichaun",
+            "eshu": "wod.bio.changeling.eshu",
+            "nockers": "wod.bio.changeling.nockers",
+            "piskies": "wod.bio.changeling.piskies",
+            "pooka": "wod.bio.changeling.pooka",
+            "redcap": "wod.bio.changeling.redcap",
+            "satyrs": "wod.bio.changeling.satyrs",
+            "selkies": "wod.bio.changeling.selkies",
+            "sidhe": "wod.bio.changeling.sidhe",
+            "sluagh": "wod.bio.changeling.sluagh",
+            "troll": "wod.bio.changeling.troll"
+        },
+        "thallain": {
+            "aithu": "wod.bio.changeling.aithu",
+            "beasties": "wod.bio.changeling.beasties",
+            "bodachs": "wod.bio.changeling.bodachs",
+            "boggarts": "wod.bio.changeling.boggarts",
+            "bogies": "wod.bio.changeling.bogies",
+            "ghasts": "wod.bio.changeling.ghasts",
+            "goblins": "wod.bio.changeling.goblins",
+            "huakai": "wod.bio.changeling.huakai",
+            "kelpies": "wod.bio.changeling.kelpies",
+            "lurks": "wod.bio.changeling.lurks",
+            "mandragoras": "wod.bio.changeling.mandragoras",
+            "merrow": "wod.bio.changeling.merrow",
+            "nasties": "wod.bio.changeling.nasties",
+            "nighthags": "wod.bio.changeling.nighthags",
+            "ogres": "wod.bio.changeling.ogres",
+            "sevartal": "wod.bio.changeling.sevartal",
+            "skinwalkers": "wod.bio.changeling.skinwalkers",
+            "spriggan": "wod.bio.changeling.spriggan",
+            "weepingwights": "wod.bio.changeling.weepingwights"
+        },
+        "inanimae": {
+            "glomes": "wod.bio.changeling.glomes",
+            "kuberas": "wod.bio.changeling.kuberas",
+            "ondines": "wod.bio.changeling.ondines",
+            "parosemes": "wod.bio.changeling.parosemes",
+            "solimonds": "wod.bio.changeling.solimonds",
+            "mannikins": "wod.bio.changeling.mannikins"
+        },
+        "nunnehi": {
+            "canotili": "wod.bio.changeling.canotili",
+            "inuas": "wod.bio.changeling.inuas",
+            "kachinas": "wod.bio.changeling.kachinas",
+            "maymaygwyashi": "wod.bio.changeling.maymaygwyashi",
+            "nanehi": "wod.bio.changeling.nanehi",
+            "numuzoho": "wod.bio.changeling.numuzoho",
+            "pugwis": "wod.bio.changeling.pugwis",
+            "rockgiants": "wod.bio.changeling.rockgiants",
+            "surems": "wod.bio.changeling.surems",
+            "tunghat": "wod.bio.changeling.tunghat",
+            "waterbabies": "wod.bio.changeling.waterbabies",
+            "yunwiAmaiyinehi": "wod.bio.changeling.yunwiAmaiyinehi",
+            "yunwitsunsdi": "wod.bio.changeling.yunwitsunsdi"
+        },
+        "darkkin": {
+            "acheri": "wod.bio.changeling.acheri",
+            "aonides": "wod.bio.changeling.aonides",
+            "firbholg": "wod.bio.changeling.firbholg",
+            "fuath": "wod.bio.changeling.fuath",
+            "keremet": "wod.bio.changeling.keremet",
+            "moire": "wod.bio.changeling.moire",
+            "naraka": "wod.bio.changeling.naraka"
+        }
     }
 }

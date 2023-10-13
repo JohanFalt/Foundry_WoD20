@@ -8,6 +8,7 @@ wod.sheettype = {
     changeling: "Changeling",
     hunter: "Hunter",
     demon: "Demon",
+    wraith: "Wraith",
     mummy: "Mummy",
     creature: "Creature",
     changingbreed: "Changing Breed",
@@ -22,6 +23,49 @@ wod.era = {
 
 wod.sheetsettings = {
     useSplatFonts: true
+}
+
+wod.variant = {
+    changeling: {
+        dauntain: "wod.bio.changeling.dauntain",
+        thallain: "wod.bio.changeling.thallain",
+        nunnehi: "wod.bio.changeling.nunnehi",
+        menehune: "wod.bio.changeling.menehune",
+        inanimae: "wod.bio.changeling.inanimae",
+        darkkin: "wod.bio.changeling.darkkin"
+    },
+    wraith: {
+        shadow: "wod.bio.wraith.shadow"
+    },
+    changingbreed: {
+        Ajaba: "wod.bio.feraname.ajaba",
+		Ananasi: "wod.bio.feraname.ananasi",
+		Bastet: "wod.bio.feraname.bastet",
+		Corax: "wod.bio.feraname.corax",
+		Gurahl: "wod.bio.feraname.gurahl",				
+		Kitsune: "wod.bio.feraname.kitsune",	
+		Mokole: "wod.bio.feraname.mokole",
+		Nagah: "wod.bio.feraname.nagah",
+		Nuwisha: "wod.bio.feraname.nuwisha",
+		Ratkin: "wod.bio.feraname.ratkin",
+		Rokea: "wod.bio.feraname.rokea"
+    },
+    mortal: {
+        autumnpeople: "wod.bio.mortal.autumnpeople",
+        enchanted: "wod.bio.mortal.enchanted",
+        ghoul: "wod.bio.mortal.ghoul",
+        kinfolk: "wod.bio.mortal.kinfolk",
+        truefaith: "wod.bio.mortal.truefaith"
+    },
+    creature: {
+        chimera: "wod.bio.creature.chimera",
+        spirit: "wod.bio.creature.spirit",
+        warwolves: "wod.bio.creature.warwolves",
+        anurana: "wod.bio.creature.anurana",
+        samsa: "wod.bio.creature.samsa",
+        kerasi: "wod.bio.creature.kerasi",
+        yeren: "wod.bio.creature.yeren"
+    }
 }
 
 wod.attributes = {

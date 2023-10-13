@@ -247,7 +247,7 @@ function getShiftAttributeBonus(attribute, presentForm, actor) {
 		data = handleKitsuneShiftAttributeData(attribute, presentForm);
 	}
 
-	if (actor.system.changingbreed == "Mokolé") {
+	if (actor.system.changingbreed == "Mokole") {
 		data = handleMokoleShiftAttributeData(actor.system.tribe, attribute, presentForm);
 	}
 

@@ -9,24 +9,12 @@ export class ChangelingActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet changeling"],
-			template: "systems/worldofdarkness/templates/actor/changeling-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/changeling-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);
-
-		console.log("WoD | Changeling Sheet constructor");
 	}
 
 	/** @override */
@@ -37,7 +25,6 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.changeling) {
 				const version = game.data.system.version;				
 
-                //await CreateHelper.SetChangelingAbilities(actorData);
 				await CreateHelper.SetAbilities(actorData, "changeling", "modern");
 				await CreateHelper.SetMortalAttributes(actorData);    
 				await CreateHelper.SetChangelingAttributes(actorData);
@@ -119,7 +106,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = version;
-				await this.actor.update(actorData);
+				await this.actor.update(actorData);					
 			}	 	
 		}
 
@@ -162,6 +149,10 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		if (actorData.type == CONFIG.wod.sheettype.changeling) {
 			console.log(CONFIG.wod.sheettype.changeling);
 			console.log(data.actor);
+		}
+				
+		if (data.actor.system.settings.variant == "") {
+			ActionHelper.openVariantDialog(this.actor);
 		}
 
 		return data;

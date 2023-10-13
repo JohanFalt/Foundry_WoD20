@@ -28,6 +28,9 @@ function _GetDiceColors(actor) {
 	else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) { 
 		_diceColor = "orange_";
 	}
+	else if (actor.type == CONFIG.wod.sheettype.wraith) { 
+		_diceColor = "death_";
+	}
 	else if (actor.type == CONFIG.wod.sheettype.spirit) { 
 		_diceColor = "yellow_";
 	}		
@@ -122,7 +125,11 @@ export async function NewRollDice(diceRoll) {
 		}
 	}
 
-	if ((diceRoll.origin == "soak") || (diceRoll.origin == "damage")) {
+	if ((diceRoll.origin == "soak") && (!CONFIG.wod.useOnesSoak)) {
+		canBotch = false;
+	}
+
+	if ((diceRoll.origin == "damage") && (!CONFIG.wod.useOnesDamage)) {
 		canBotch = false;
 	}
 

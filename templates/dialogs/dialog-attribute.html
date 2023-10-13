@@ -43,7 +43,7 @@
         {{#if (eq object.typeform "sphere")}}
             <div class="infobox">
                 {{localize "wod.dialog.attribute.techonocracy"}}
-                <input id="technocracy" name="technocracy" type="checkbox" {{#if object.istechnocracy}}checked{{/if}}></input></div>
+                <input id="technocracy" name="technocracy" type="checkbox" {{isChecked object.istechnocracy}}></input></div>
             </div>
         {{/if}}
 

@@ -1,4 +1,4 @@
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.combat"}}</span></div>
 
     <div class="clearareaBox area-box">
@@ -6,46 +6,50 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
         {{> "systems/worldofdarkness/templates/actor/parts/combat_melee.html"}}
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
         {{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.html"}}
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
         {{> "systems/worldofdarkness/templates/actor/parts/combat_armor.html"}}
     </div>
 </div>
 
-<div class="sheet-area">
-    <div class="clearareaBox area-box">
-        <div class="pullLeft combat-bottomarea">
-            {{#if actor.system.settings.powers.hasgifts}}
-                {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
-            {{/if}}
-        </div>
+{{#if (ne actor.type config.sheettype.wraith)}}
 
-        <div class="pullLeft combat-bottomarea">
-            {{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
-        </div>
+    <div class="sheet-area flex-columns">
+        <div class="clearareaBox area-box">
+            <div class="pullLeft combat-bottomarea">
+                {{#if actor.system.settings.powers.hasgifts}}
+                    {{> "systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html"}}
+                {{/if}}
+            </div>
 
-        <div class="pullRight combat-bottomhealth">
-            <div class="pullLeft healthBox" style="width: 100%;">
-                {{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+            <div class="pullLeft combat-bottomarea">
+                {{> "systems/worldofdarkness/templates/actor/parts/conditions.html"}}
+            </div>
+
+            <div class="pullRight combat-bottomhealth">
+                <div class="pullLeft healthBox" style="width: 100%;">
+                    {{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="sheet-area">    
-    <div class="clearareaBox area-box">                
-        {{> "systems/worldofdarkness/templates/actor/parts/movement.html"}}
+    <div class="sheet-area flex-columns">    
+        <div class="clearareaBox area-box">                
+            {{> "systems/worldofdarkness/templates/actor/parts/movement.html"}}
+        </div>
     </div>
-</div>
+
+{{/if}}

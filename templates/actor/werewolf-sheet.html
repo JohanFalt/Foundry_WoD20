@@ -5,7 +5,7 @@
 	
 		{{!-- Always visible --}}
 		<header class="sheet-header">	
-					
+				
 		</header>	
 
 		<!-- Sheet part -->
@@ -45,6 +45,10 @@
 				{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
 			</div>
 
+			<div class="centerText sheet-headline splatFont">
+				WEREWOLF THE APOCALYPSE
+			</div>
+
 			<!-- Bio Tab -->
 			<div class="tab bio sheet-inner-area" data-group="primary" data-tab="bio">
 
@@ -56,17 +60,17 @@
 			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
 
 				<!-- Core Attributes -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
 				</div>
 
 				<!-- Core Abilities -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
 				</div>
 
 				<!-- Core Stats -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					<div class="clearareaBox" style="display: flex;">
 						<div class="sheet-boxcontainer">
 

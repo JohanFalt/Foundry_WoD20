@@ -8,7 +8,8 @@ export default class ItemHelper {
 				(item.system.type == "wod.types.disciplinepathpower") ||
 				(item.system.type == "wod.types.artpower") ||
 				(item.system.type == "wod.types.edgepower") ||
-				(item.system.type == "wod.types.lorepower")) {
+				(item.system.type == "wod.types.lorepower") ||
+				(item.system.type == "wod.types.arcanoipower")) {
 			for (const i of actor.items) {
 				if (i.name.toLowerCase() == item.system.parentid.toLowerCase()) {
 					id = i._id;
@@ -128,6 +129,8 @@ export default class ItemHelper {
 		actor.system.listdata.features.flaws = [];
 		actor.system.listdata.features.bloodbounds = [];
 		actor.system.listdata.features.boons = [];
+		actor.system.listdata.features.oaths = [];
+		
 
 		actor.system.listdata.experiences = [];
 
@@ -139,6 +142,8 @@ export default class ItemHelper {
 
 		actor.system.listdata.traits = [];
 
+		actor.system.listdata.traits.passions = [];
+		actor.system.listdata.traits.fetters = [];
 		actor.system.listdata.traits.othertraits = [];
 
 		actor.system.listdata.powers = [];
@@ -156,6 +161,10 @@ export default class ItemHelper {
 			this._createGiftStructure(actor);
 		}
 
+		if (actor.system.settings.powers.hascharms) {
+			this._createCharmStructure(actor);
+		}
+
 		if (actor.system.settings.powers.hasdisciplines) {
 			this._createDisciplineStructure(actor);
 		}
@@ -170,6 +179,10 @@ export default class ItemHelper {
 
 		if (actor.system.settings.powers.haslores) {
 			this._createLoreStructure(actor);
+		}
+
+		if (actor.system.settings.powers.hasarcanois) {
+			this._createArcanoiStructure(actor);
 		}
 
 		// If no items then Power structure needs to be created regardless...
@@ -231,6 +244,10 @@ export default class ItemHelper {
 
 		if (actor.system.settings.powers.haslores) {
 			await this._organizeLores(actor);
+		}
+
+		if (actor.system.settings.powers.hasarcanois) {
+			await this._organizeArcanois(actor);
 		}
 
 		// Experience Points
@@ -307,6 +324,9 @@ export default class ItemHelper {
 			}
 			if (item.system.type == "wod.types.boon") {
 				actor.system.listdata.features.boons.push(item);
+			}
+			if (item.system.type == "wod.types.oath") {
+				actor.system.listdata.features.oaths.push(item);
 			}
 		}
 	}
@@ -415,6 +435,12 @@ export default class ItemHelper {
 
 				actor.system.listdata.traits.othertraits.push(item);
 			}
+			if (item.system.type == "wod.types.passion") {
+				actor.system.listdata.traits.passions.push(item);
+			}
+			if (item.system.type == "wod.types.fetter") {
+				actor.system.listdata.traits.fetters.push(item);
+			}
 		}
 	}
 
@@ -428,6 +454,9 @@ export default class ItemHelper {
 			if (actor.system.settings.powers.hasgifts) {
 				this._sortGifts(item, actor);
 			}
+			if (actor.system.settings.powers.hascharms) {
+				this._sortCharms(item, actor);
+			}
 			if (actor.system.settings.powers.hasdisciplines) {
 				this._sortDisciplines(item, actor);
 			}
@@ -440,6 +469,9 @@ export default class ItemHelper {
 			if (actor.system.settings.powers.haslores) {
 				this._sortLores(item, actor);
 			}			
+			if (actor.system.settings.powers.hasarcanois) {
+				this._sortArcanois(item, actor);
+			}
 		}			
 	}
 
@@ -483,6 +515,13 @@ export default class ItemHelper {
 		}			
 	}		
 
+	static async _sortCharms(item, actor) {
+		if (item.system.type == "wod.types.charm") {
+			item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			actor.system.listdata.powers.charms.charmlist.push(item);
+		}
+	}
+
 	static _createSpecialPowersStructure(actor) {
 		actor.system.listdata.powers.powerlist = _createList(actor.system.listdata.powers.powerlist);
 	}
@@ -505,6 +544,11 @@ export default class ItemHelper {
 
 		// Activate Gifts
 		actor.system.listdata.powers.gifts.powercombat = _createList(actor.system.listdata.powers.gifts.powercombat);
+	}
+
+	static _createCharmStructure(actor) {
+		actor.system.listdata.powers.charms = _createList(actor.system.listdata.powers.charms);
+		actor.system.listdata.powers.charms.charmlist = _createList(actor.system.listdata.powers.charms.charmlist);
 	}
 
 	static async _organizeSpecialPowers(actor) {
@@ -774,6 +818,60 @@ export default class ItemHelper {
 		actor.system.listdata.powers.lores.hasunlistedlores = actor.system.listdata.powers.lores.unlistedlores.length > 0 ? true : false;		
 	}
 
+	static _createArcanoiStructure(actor) {
+		actor.system.listdata.powers.arcanois = _createList(actor.system.listdata.powers.arcanois);
+
+		// all Arcanoi listed
+		actor.system.listdata.powers.arcanois.listedarcanois = _createList(actor.system.listdata.powers.arcanois.listedarcanois);
+
+		// all Arcanoi Powers listed
+		actor.system.listdata.powers.arcanois.listedarcanoipowers = _createList(actor.system.listdata.powers.arcanois.listedarcanoipowers);
+
+		// all Arcanoi Powers not connected to an Arcanoi
+		actor.system.listdata.powers.arcanois.unlistedarcanois = _createList(actor.system.listdata.powers.arcanois.unlistedarcanois);
+
+		// all Arcanois and Arcanoi Powers collected
+		actor.system.listdata.powers.arcanois.arcanoilist = _createList(actor.system.listdata.powers.arcanois.arcanoilist);
+	}
+
+	static async _sortArcanois(item, actor) {		
+		if (item.system.type == "wod.types.arcanoi") {
+			actor.system.listdata.powers.arcanois.listedarcanois.push(item);
+		}
+		if (item.system.type == "wod.types.arcanoipower") {			
+
+			if (item.system.parentid != "") {
+				item.system.level = item.system.level.toString();
+				actor.system.listdata.powers.arcanois.listedarcanoipowers.push(item);
+			}
+			else {
+				item.system.parentid == "";
+				actor.system.listdata.powers.arcanois.unlistedarcanois.push(item);
+			}					
+		}
+		if (item.system.type == "wod.types.ritual") {
+			actor.system.listdata.powers.arcanois.rituallist.push(item);
+		}
+	}
+
+	static async _organizeArcanois(actor) {
+		actor.system.listdata.powers.arcanois.listedarcanois.sort((a, b) => a.name.localeCompare(b.name));
+		actor.system.listdata.powers.arcanois.listedarcanoipowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+
+		// add the correct arcanoi in the right list
+		for (const arcanoi of actor.system.listdata.powers.arcanois.listedarcanois) {
+			actor.system.listdata.powers.arcanois.arcanoilist.push(arcanoi);
+
+			for (const power of actor.system.listdata.powers.arcanois.listedarcanoipowers) {
+				if (power.system.parentid == arcanoi._id) {
+					actor.system.listdata.powers.arcanois.arcanoilist.push(power);
+				}
+			}
+		}
+
+		actor.system.listdata.powers.arcanois.hasunlistedarcanois = actor.system.listdata.powers.arcanois.unlistedarcanois.length > 0 ? true : false;		
+	}
+
 	/**
    * Handle collapsing of item lists, mainly bonus lists.
    */
@@ -824,7 +922,225 @@ export default class ItemHelper {
 			let updateData = {'flags':{'wod':{[actorId]:{[dataset.type]:{collapsed: true}}}}};
 			game.user.update(updateData);
 		}
-	  }
+	}
+
+	static async CreateItemPower(event, type, itemData, itemtype) {
+		if (type == "gift") {
+			const level = $(event.currentTarget).data("level");
+
+			found = true;
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.gift"),
+				type: itemtype,
+				system: {
+					level: level,
+					game: "werewolf",
+					type: "wod.types.gift"
+				}
+			};
+		}
+		if (type == "charm") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.charm"),
+				type: itemtype,
+				system: {
+					game: "werewolf",
+					type: "wod.types.charm"
+				}
+			};
+		}
+		if (type == "rite") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.rite"),
+				type: itemtype,
+				system: {
+					game: "werewolf",
+					type: "wod.types.rite"
+				}
+			};
+		}
+		if (type == "discipline") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.discipline"),
+				type: itemtype,
+				system: {
+					game: "vampire",
+					type: "wod.types.discipline"
+				}
+			};
+		}
+		if (type == "disciplinepower") {
+			const id = $(event.currentTarget).data("parentid");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.disciplinepower"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: "vampire",
+					parentid: id,
+					type: "wod.types.disciplinepower"
+				}
+			};
+		}
+		if (type == "disciplinepath") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.disciplinepath"),
+				type: itemtype,
+				system: {
+					game: "vampire",
+					type: "wod.types.disciplinepath"
+				}
+			};
+		}
+		if (type == "disciplinepathpower") {
+			const id = $(event.currentTarget).data("parentid");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.disciplinepathpower"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: "vampire",
+					parentid: id,
+					type: "wod.types.disciplinepathpower"
+				}
+			};
+		}
+		if (type == "ritual") {
+			const source = $(event.currentTarget).data("game");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.ritual"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: source,
+					type: "wod.types.ritual"
+				}
+			};
+		}
+		if (type == "edge") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.edge"),
+				type: itemtype,
+				system: {
+					game: "hunter",
+					type: "wod.types.edge"
+				}
+			};
+		}
+		if (type == "edgepower") {
+			const id = $(event.currentTarget).data("parentid");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.edgepower"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: "hunter",
+					parentid: id,
+					type: "wod.types.edgepower"
+				}
+			};
+		}
+		if (type == "art") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.art"),
+				type: itemtype,
+				system: {
+					game: "changeling",
+					type: "wod.types.art"
+				}
+			};
+		}
+		if (type == "sliver") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.sliver"),
+				type: itemtype,
+				system: {
+					game: "changeling",
+					type: "wod.types.art"
+				}
+			};
+		}
+		if (type == "artpower") {
+			const id = $(event.currentTarget).data("parentid");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.artpower"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: "changeling",
+					parentid: id,
+					property: {
+						arttype: ""
+					},
+					type: "wod.types.artpower"
+				}
+			};
+		}
+		if (type == "lore") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.lore"),
+				type: itemtype,
+				system: {
+					game: "demon",
+					type: "wod.types.lore"
+				}
+			};
+		}
+		if (type == "lorepower") {
+			const id = $(event.currentTarget).data("parentid");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.lorepower"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: "demon",
+					parentid: id,
+					type: "wod.types.lorepower"
+				}
+			};
+		}
+		if (type == "arcanoi") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.arcanoi"),
+				type: itemtype,
+				system: {
+					game: "wraith",
+					type: "wod.types.arcanoi"
+				}
+			};
+		}
+		if (type == "arcanoipower") {
+			const id = $(event.currentTarget).data("parentid");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.arcanoipower"),
+				type: itemtype,
+				system: {
+					level: 1,
+					game: "wraith",
+					parentid: id,
+					type: "wod.types.arcanoipower"
+				}
+			};
+		}
+		if (type == "power") {
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.power"),
+				type: itemtype,
+				system: {
+					type: "wod.types.power"
+				}
+			};
+		}
+
+		return itemData;
+	}
 }
 
 function _createList(list) {

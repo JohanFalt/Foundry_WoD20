@@ -42,7 +42,10 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/stats_virtue.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/hunter/stats_virtue.html",
-		"systems/worldofdarkness/templates/actor/parts/hunter/stats_conviction.html",	
+		"systems/worldofdarkness/templates/actor/parts/hunter/stats_conviction.html",		
+		
+		"systems/worldofdarkness/templates/actor/parts/wraith/stats_corpus.html",
+		"systems/worldofdarkness/templates/actor/parts/wraith/stats_pathos.html",
 		
 		"systems/worldofdarkness/templates/actor/parts/stats_faith.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_torment.html",
@@ -82,6 +85,8 @@ export const preloadHandlebarsTemplates = async function () {
 
 		"systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html",				
 		"systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html",		
+		"systems/worldofdarkness/templates/actor/parts/wraith/bio_wraith_background.html",
+		"systems/worldofdarkness/templates/actor/parts/wraith/shadow.html",
 		
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html",
@@ -114,11 +119,14 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/hunter/edges.html",
 		"systems/worldofdarkness/templates/actor/parts/demon/lores.html",
 		"systems/worldofdarkness/templates/actor/parts/spirit/charms.html",		
+		"systems/worldofdarkness/templates/actor/parts/creature/charms.html",		
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
 
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",		
+
+		"systems/worldofdarkness/templates/actor/parts/wraith/death.html",
 
 		// Item Sheet Partials
 		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
@@ -246,6 +254,15 @@ export const registerHandlebarsHelpers = function () {
 		return false;
 	});
 
+	Handlebars.registerHelper('neAny', function () {
+		for(let i = 1; i < arguments.length; i++) {
+		  	if(arguments[0] === arguments[i]) {
+				return false;
+		  	}
+		}
+		return true;
+	});
+
 	Handlebars.registerHelper('eqAnyNot', function () {
 		let found = false;
 
@@ -291,6 +308,27 @@ export const registerHandlebarsHelpers = function () {
 		return "modern";
 	});
 
+	Handlebars.registerHelper("getVariant", function (actor) {
+		let variant = actor.system.settings.variant;
+
+		if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.changingbreed) && (actor.type != CONFIG.wod.sheettype.changeling) && (actor.type != CONFIG.wod.sheettype.creature)) {
+			return "variantSelected";
+		}
+		else if (variant == undefined) {
+			return "variantUnselected";
+		}
+		else if (variant == "") {
+			return "variantUnselected";
+		}
+		else {
+			return "variantSelected";
+		}
+	});	
+
+	Handlebars.registerHelper("getVariantName", function (type, variant) {
+		return CONFIG.wod.variant[type][variant];
+	});
+
 	Handlebars.registerHelper("getAttributes", function (attribute) {
 		let list;
 
@@ -316,10 +354,25 @@ export const registerHandlebarsHelpers = function () {
 		return attribute;
 	});
 
-	Handlebars.registerHelper("getAbility", function (ability, actor = undefined, id = "") {
-		if ((ability == "custom") && (id != "")) {
+	Handlebars.registerHelper("getSecondaryAbility", function (ability, actor, id) {
+		if ((ability == "custom") && (id != "") ) {
 			const item = actor.getEmbeddedDocument("Item", id);
 			return item.system.label;	
+		}
+
+		return "";
+	});
+
+	Handlebars.registerHelper("getAbility", function (ability, actor) {	
+		
+		if (ability == "") {
+			return "";
+		}
+
+		if (actor != undefined) {
+			if (actor.system.abilities[ability].altlabel != "") {
+				return actor.system.abilities[ability].altlabel;
+			}
 		}
 
 		for (const i in CONFIG.wod.talents) {
@@ -470,6 +523,16 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("getShifterRenown", function (type, renown) {
 		let newtext = renown;
 
+		if (renown == "Glory") {
+			newtext = "wod.advantages.glory";
+		}
+		if (renown == "Honor") { 
+			newtext = "wod.advantages.honor";
+		}
+		if (renown == "Wisdom") { 
+			newtext = "wod.advantages.wisdom";
+		}
+
 		if ((type == "Ajaba") || (type == "Bastet")) {
 			if (renown == "Glory") { 
 				newtext = "wod.advantages.ferocity";
@@ -577,7 +640,7 @@ export const registerHandlebarsHelpers = function () {
 			if (rank == 4) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank4");
 			if (rank == 5) return game.i18n.localize("wod.advantages.ranknames.kitsune.rank5");
 		}
-		if (type == "Mokolé") {
+		if (type == "Mokole") {
 			if (rank == 1) return game.i18n.localize("wod.advantages.ranknames.mokole.rank1");
 			if (rank == 2) return game.i18n.localize("wod.advantages.ranknames.mokole.rank2");
 			if (rank == 3) return game.i18n.localize("wod.advantages.ranknames.mokole.rank3");
@@ -793,6 +856,33 @@ export const registerHandlebarsHelpers = function () {
 		return conceal;
 	});
 
+	Handlebars.registerHelper("getBioList", function(list, section) {
+		if (list == undefined) {
+			return [];
+		}
+		if (list[section] == undefined) {
+			return [];
+		}
+
+		return list[section];
+	});
+
+	Handlebars.registerHelper("isChecked", function(value) {
+		if (value) {
+			return "checked";
+		}
+
+		return "";
+	});
+
+	Handlebars.registerHelper("isActive", function(stat, value) {
+		if (stat == value) {
+			return "active";
+		}
+
+		return "";
+	});
+
 	Handlebars.registerHelper("captilizeFirst", function (text) {
 		return text.charAt(0).toUpperCase() + text.slice(1);
 	});
@@ -812,6 +902,14 @@ export const registerHandlebarsHelpers = function () {
 
 		if (text == "theRollofOne") {
 			return CONFIG.wod.handleOnes;
+		}
+
+		if (text == "useOnesDamage") {
+			return CONFIG.wod.useOnesDamage;
+		}
+
+		if (text == "useOnesSoak") {
+			return CONFIG.wod.useOnesSoak;
 		}
 
 		if (text == "lowestDifficulty") {
@@ -883,11 +981,15 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {
-		var code;
+		var code = "";
 
-		type = type.charAt(0).toUpperCase();
+		//type = type.charAt(0).toUpperCase();
+		type = game.i18n.localize(CONFIG.wod.damageTypes[type]).charAt(0).toUpperCase();
 
-		code = attribute.substring(0, 3);
+		//code = attribute.substring(0, 3);
+		if (attribute != "") {
+			code = game.i18n.localize(CONFIG.wod.attributes20[attribute]).substring(0, 3);
+		}		
 
 		if (code == "") {
 			code = bonus;

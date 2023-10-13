@@ -9,23 +9,12 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet werewolf"],
-			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);		
-		console.log("WoD | Werewolf Sheet constructor");		
 		this._createShape(actor);
 	}
 
@@ -37,8 +26,10 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.werewolf) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
+				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultWerewolfEra];
+				actorData.system.settings.variant = "general";
 
-				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");
+				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, CONFIG.wod.defaultWerewolfEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetWerewolfAttributes(actorData);	
 				

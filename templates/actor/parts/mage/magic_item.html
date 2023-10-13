@@ -1,4 +1,4 @@
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow">
@@ -27,7 +27,7 @@
                 {{#if item.system.isrollable}}
                     <div class="pullLeft item-poolbox headlineNormal">
                         {{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
-                        {{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2)}}{{/if}}
+                        {{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
                         {{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
                     </div>
                     <div class="pullLeft item-valuebox headlineNormal centerText">
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow">
@@ -100,7 +100,7 @@
                 {{#if item.system.isrollable}}
                     <div class="pullLeft item-poolbox headlineNormal">
                         {{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
-                        {{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2)}}{{/if}}
+                        {{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
                         {{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
                     </div>
                     <div class="pullLeft item-valuebox headlineNormal centerText">
@@ -144,7 +144,7 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow splatFont">
@@ -191,7 +191,7 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow splatFont">
@@ -238,7 +238,7 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow">
@@ -267,7 +267,7 @@
                 {{#if item.system.isrollable}}
                     <div class="pullLeft item-poolbox headlineNormal">
                         {{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
-                        {{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2)}}{{/if}}
+                        {{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
                         {{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
                     </div>
                     <div class="pullLeft item-valuebox headlineNormal centerText">
@@ -311,7 +311,7 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow splatFont">
@@ -362,7 +362,7 @@
     </div>
 </div>
 
-<div class="sheet-area">    
+<div class="sheet-area flex-columns">    
     <div class="clearareaBox area-box">
 
         <div class="headlineRow splatFont">

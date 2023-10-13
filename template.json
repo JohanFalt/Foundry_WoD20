@@ -10,6 +10,7 @@
 			"Mortal",
 			"Spirit",
 			"Vampire",
+			"Wraith",
 			"Werewolf"
 		],
 		"templates": {
@@ -42,10 +43,12 @@
 					"abilities": {
 						"defaultmaxvalue": 5
 					},
-					"era": "wod.era.modern"
+					"era": "wod.era.modern",
+					"variant": ""
 				},
 				"worldanvil": "",
 				"name": "",
+				"player": "",
 				"nature": "",
 				"demeanor": "",
 				"concept": "",
@@ -598,6 +601,15 @@
 						"speciality": "",
 						"isvisible": false
 					},
+					"persuasion": {
+						"type": "talent",
+						"value": 0,
+						"max": 5,
+						"label": "wod.abilities.persuasion",
+						"altlabel": "",
+						"speciality": "",
+						"isvisible": false
+					},
 					"primalurge": {
 						"type": "talent",
 						"value": 0,
@@ -939,6 +951,9 @@
 					"hasfaith": false,
 					"hastorment": false,
 					"hasessence": false,
+					"hascorpus": false,
+					"haspathos": false,
+					"hasangst": false,
 					"version": "",
 					"usesplatfont": true,					
 					"powers": {
@@ -947,6 +962,7 @@
 						"hasarts": false,
 						"hasedges": false,
 						"haslores": false,
+						"hasarcanois": false,
 						"hascharms": false,
 						"haspowers": false
 					}
@@ -1435,6 +1451,11 @@
 						"lethal" : 0,
 						"aggravated": 0
 					}
+				},
+				"variant": {
+					"legacy": "",
+					"brand": "",
+					"anchor": ""
 				}
 			},
 			"hunter": {
@@ -1482,6 +1503,35 @@
 						"max": 10,
 						"roll": 0,
 						"label": "wod.advantages.torment"
+					}
+				}
+			},
+			"wraith": {
+				"shadow": "",
+				"life": "",
+				"death": "",
+				"regret": "",
+				"psyche": "",
+				"archetype": "",
+				"thorns": "",
+				"advantages": {
+					"corpus": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.corpus"
+					},
+					"pathos": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.pathos"
+					},
+					"angst": {
+						"temporary": 0,
+						"max": 10,
+						"roll": 0,
+						"label": "wod.advantages.angst"
 					}
 				}
 			},
@@ -1599,6 +1649,14 @@
 				"ability",
 				"mortal",
 				"demon"
+			]
+		},
+		"Wraith": {
+			"templates": [
+				"base",
+				"ability",
+				"mortal",
+				"wraith"
 			]
 		},
 		"Mummy": {

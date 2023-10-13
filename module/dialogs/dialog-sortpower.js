@@ -9,6 +9,7 @@ export class SortDisciplinePower {
         this.powerlist = [];
 
         this.isDiscipline = true;
+        this.isArcanoi = false;
         this.isPath = false;
         this.isArt = false;
         this.isEdge = false;
@@ -30,6 +31,7 @@ export class SortPathPower {
         this.powerist = [];
 
         this.isDiscipline = false;
+        this.isArcanoi = false;
         this.isPath = true;
         this.isArt = false;
         this.isEdge = false;
@@ -51,6 +53,7 @@ export class SortArtPower {
         this.powerlist = [];
 
         this.isDiscipline = false;
+        this.isArcanoi = false;
         this.isPath = false;
         this.isArt = true;
         this.isEdge = false;
@@ -72,6 +75,7 @@ export class SortEdgePower {
         this.powerlist = [];
 
         this.isDiscipline = false;
+        this.isArcanoi = false;
         this.isPath = false;
         this.isArt = false;
         this.isEdge = true;
@@ -92,6 +96,7 @@ export class SortLorePower {
         this.parentid = item.system["parentid"];
         this.powerlist = [];
 
+        this.isArcanoi = false;
         this.isDiscipline = false;
         this.isPath = false;
         this.isArt = false;
@@ -100,6 +105,28 @@ export class SortLorePower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "demonDialog";
+    }
+}
+
+export class SortArcanoiPower {
+    constructor(item) {
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.level = item.system["level"];
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+        this.parentid = item.system["parentid"];
+        this.powerlist = [];
+
+        this.isArcanoi = true;
+        this.isDiscipline = false;
+        this.isPath = false;
+        this.isArt = false;
+        this.isEdge = false;
+        this.isLore = false;
+        this.canSave = false;
+        this.close = false;
+        this.sheettype = "wraithDialog";
     }
 }
 
@@ -148,6 +175,10 @@ export class DialogSortPower extends FormApplication {
 
         if (this.object.isLore) {
             this.object.powerlist = this.actor.system.listdata.powers.lores.listedlores;
+        }
+
+        if (this.object.isArcanoi) {
+            this.object.powerlist = this.actor.system.listdata.powers.arcanois.listedarcanois;
         }
 
         data.config = CONFIG.wod;    

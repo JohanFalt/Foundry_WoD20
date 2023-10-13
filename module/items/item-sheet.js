@@ -14,8 +14,6 @@ export class WoDItemSheet extends ItemSheet {
 		this.locked = true;
 		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
-		
-		console.log("WoD | Item Sheet constructor");
 	}
 
 	/** @override */
@@ -34,6 +32,48 @@ export class WoDItemSheet extends ItemSheet {
 			itemData.system.version = game.data.system.version;
 			itemData.system.iscreated = true;
 			this.item.update(itemData);
+		}
+
+		if (itemData.type == "Bonus") {
+			if ((itemData.name == game.i18n.localize("wod.labels.new.bonus")) && (itemData.system.type != "")) {
+				let name = "";
+				
+				switch (itemData.system.type) {
+					case "attribute_buff":
+						name = game.i18n.localize("wod.labels.new.attributebonus");
+						break;
+					case "attribute_dice_buff":
+						name = game.i18n.localize("wod.labels.new.attributedicebonus");
+						break;
+					case "attribute_diff":
+						name = game.i18n.localize("wod.labels.new.attributediff");
+						break;
+					case "attribute_auto_buff":
+						name = game.i18n.localize("wod.labels.new.attributesucc");
+						break;
+					case "ability_buff":
+						name = game.i18n.localize("wod.labels.new.abilitybonus");
+						break;
+					case "ability_diff":
+						name = game.i18n.localize("wod.labels.new.abilitydiff");
+						break;
+					case "soak_buff":
+						name = game.i18n.localize("wod.labels.new.soakbonus");
+						break;
+					case "health_buff":
+						name = game.i18n.localize("wod.labels.new.healthbuff");
+						break;
+					case "initiative_buff":
+						name = game.i18n.localize("wod.labels.new.initbonus");
+						break;
+					case "movement_buff":
+						name = game.i18n.localize("wod.labels.new.movebonus");
+						break;
+				}
+
+				itemData.name = name;
+				this.item.update(itemData);
+			}
 		}
 
 		const data = await super.getData();
@@ -88,6 +128,8 @@ export class WoDItemSheet extends ItemSheet {
 			data.bonus = items;
 		}
 
+		
+
 		if (data.item.system?.description != undefined) {
 			data.item.system.description = await TextEditor.enrichHTML(data.item.system.description, {async: true});
 		}
@@ -129,7 +171,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		html
             .find('.item-property')
-            .click(this._setProperty.bind(this));
+            .change(this._setProperty.bind(this));
 
 		// items
 		html
@@ -193,7 +235,15 @@ export class WoDItemSheet extends ItemSheet {
 		const dataset = element.dataset;
 
 		const name = dataset.property;
-		const value = dataset.value;
+
+		let value = "";
+		
+		if (dataset.value != undefined) {
+			value = dataset.value;
+		}
+		else if (element.value != undefined) {
+			value = element.value;
+		}
 
 		const itemData = duplicate(this.item);
 

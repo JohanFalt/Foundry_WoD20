@@ -26,10 +26,9 @@ export class SpiritActorSheet extends ActorSheet {
 	constructor(actor, options) {
 		super(actor, options);
 
-		console.log("WoD | Spirit Sheet constructor");
-
 		this.locked = false;
 		this.isCharacter = false;	
+		ui.notifications.warn("The spirit sheet is deprecated, use Creature instead!", {permanent: false});
 	}	
 	
 	/** @override */

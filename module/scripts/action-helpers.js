@@ -9,6 +9,7 @@ import BonusHelper from "./bonus-helpers.js";
 import * as WeaponDialog from "../dialogs/dialog-weapon.js";
 import * as PowerDialog from "../dialogs/dialog-power.js";
 import * as SortDialog from "../dialogs/dialog-sortpower.js";
+import * as VariantDialog from "../dialogs/dialog-variant.js";
 
 import * as ItemDialog from "../dialogs/dialog-item.js";
 
@@ -261,6 +262,15 @@ export default class ActionHelper {
 				return;
 			}
 
+			// used an Arcanoi
+			if (dataset.object == "Arcanoi") {
+				const arcanoi = new PowerDialog.ArcanoiPower(item);
+				let powerUse = new PowerDialog.DialogPower(actor, arcanoi);
+				powerUse.render(true);
+
+				return;
+			}
+
 			// placing Disicpline Power in correct discipline
 			if (dataset.object == "SortDisciplinePower") {
 				const discipline = new SortDialog.SortDisciplinePower(item);
@@ -302,19 +312,27 @@ export default class ActionHelper {
 				return;
 			}
 
+			if (dataset.object == "SortArcanoiPower") {
+				const arcanoi = new SortDialog.SortArcanoiPower(item);
+				let powerUse = new SortDialog.DialogSortPower(actor, arcanoi);
+				powerUse.render(true);
+
+				return;
+			}
+
 			ui.notifications.error("Item Roll missing function - " + dataset.object);
 
 			return;
 		}
 		else if (dataset.attribute == "true") {
-			const roll = new GeneralRoll(dataset.key, "attribute");
+			const roll = new GeneralRoll(dataset.key, "attribute", actor);
 			let generalRollUse = new DialogGeneralRoll(actor, roll);
 			generalRollUse.render(true);
 
 			return;
 		}
 		else if (dataset.ability == "true") {
-			const roll = new GeneralRoll(dataset.key, "ability");
+			const roll = new GeneralRoll(dataset.key, "ability", actor);
 			let generalRollUse = new DialogGeneralRoll(actor, roll);
 			generalRollUse.render(true);
 
@@ -327,7 +345,7 @@ export default class ActionHelper {
 				return;
 			}
 
-			const roll = new GeneralRoll(dataset.key, "noability");
+			const roll = new GeneralRoll(dataset.key, "noability", actor);
 			let generalRollUse = new DialogGeneralRoll(actor, roll);
 			generalRollUse.render(true);
 
@@ -417,6 +435,12 @@ export default class ActionHelper {
 
 		return;
     }	
+
+	static openVariantDialog(actor) {
+		const variant = new VariantDialog.Variant(actor);
+		let dialog = new VariantDialog.DialogVariant(actor, variant);
+		dialog.render(true);
+	}
 
 	static RollParadox(event, actor) {
 		event.preventDefault();

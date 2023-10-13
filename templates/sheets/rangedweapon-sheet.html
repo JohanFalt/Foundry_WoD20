@@ -114,16 +114,16 @@
 				<!-- 2-handed true/false -->
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
-					<input name="system.istwohanded" type="checkbox" {{#if data.system.istwohanded}} checked {{/if}}></input>
+					<input name="system.istwohanded" type="checkbox" {{isChecked data.system.istwohanded}}></input>
 				</div>
 
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
 					<div>
-						<input name="system.mode.hasreload" type="checkbox" {{#if data.system.mode.hasreload}} checked {{/if}}>{{localize "wod.combat.mode.reload"}}</input>
-						<input name="system.mode.hasburst" type="checkbox" {{#if data.system.mode.hasburst}} checked {{/if}}>{{localize "wod.combat.mode.burst"}}</input>
-						<input name="system.mode.hasfullauto" type="checkbox" {{#if data.system.mode.hasfullauto}} checked {{/if}}>{{localize "wod.combat.mode.fullauto"}}</input>
-						<input name="system.mode.hasspray" type="checkbox" {{#if data.system.mode.hasspray}} checked {{/if}}>{{localize "wod.combat.mode.spray"}}</input>
+						<input name="system.mode.hasreload" type="checkbox" {{isChecked data.system.mode.hasreload}}>{{localize "wod.combat.mode.reload"}}</input>
+						<input name="system.mode.hasburst" type="checkbox" {{isChecked data.system.mode.hasburst}}>{{localize "wod.combat.mode.burst"}}</input>
+						<input name="system.mode.hasfullauto" type="checkbox" {{isChecked data.system.mode.hasfullauto}}>{{localize "wod.combat.mode.fullauto"}}</input>
+						<input name="system.mode.hasspray" type="checkbox" {{isChecked data.system.mode.hasspray}}>{{localize "wod.combat.mode.spray"}}</input>
 					</div>
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 				<!-- data.attack -->
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
-					<input name="system.attack.isrollable" type="checkbox" {{#if data.system.attack.isrollable}} checked {{/if}} />
+					<input name="system.attack.isrollable" type="checkbox" {{isChecked data.system.attack.isrollable}} />
 				</div>
 				{{/if}}
 
@@ -198,7 +198,7 @@
 			{{#if userpermissions.itemAdministrator}}
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
-					<input name="system.damage.isrollable" type="checkbox" {{#if data.system.damage.isrollable}} checked {{/if}} />
+					<input name="system.damage.isrollable" type="checkbox" {{isChecked data.system.damage.isrollable}} />
 				</div>
 				{{/if}}
 
@@ -252,7 +252,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

@@ -7,7 +7,7 @@
             {{#if (eq actor.type config.sheettype.vampire)}}
                 <div class="condition clearareaBox" data-area="frenzycheck">
                     <div class="pullLeft condition-checkbox">
-                        <input name="system.conditions.isfrenzy" type="checkbox" {{#if data.system.conditions.isfrenzy}} checked {{/if}}>
+                        <input name="system.conditions.isfrenzy" type="checkbox" {{isChecked data.system.conditions.isfrenzy}} />
                     </div>
                     <div class="pullLeft condition-checkbox">
                         {{localize "wod.combat.conditions.frenzy"}}
@@ -17,7 +17,7 @@
             {{#if (eq actor.type config.sheettype.werewolf)}}
                 <div class="condition clearareaBox" data-area="frenzycheck">
                     <div class="pullLeft condition-checkbox">
-                        <input name="system.conditions.isfrenzy" type="checkbox" {{#if data.system.conditions.isfrenzy}} checked {{/if}}>
+                        <input name="system.conditions.isfrenzy" type="checkbox" {{isChecked data.system.conditions.isfrenzy}} />
                     </div>
                     <div class="pullLeft condition-checkbox">
                         {{localize "wod.combat.conditions.frenzy"}}
@@ -28,7 +28,7 @@
                 {{#if (eqAnyNot data.system.changingbreed "Ananasi" "Nuwisha")}}
                     <div class="condition clearareaBox" data-area="frenzycheck">
                         <div class="pullLeft condition-checkbox">
-                            <input name="system.conditions.isfrenzy" type="checkbox" {{#if data.system.conditions.isfrenzy}} checked {{/if}}>
+                            <input name="system.conditions.isfrenzy" type="checkbox" {{isChecked data.system.conditions.isfrenzy}} />
                         </div>
                         <div class="pullLeft condition-checkbox">
                             {{localize "wod.combat.conditions.frenzy"}}
@@ -38,7 +38,7 @@
             {{/if}}
             <div class="condition clearareaBox">
                 <div class="pullLeft condition-checkbox" data-area="ignorepaincheck">
-                    <input name="system.conditions.isignoringpain" type="checkbox" {{#if data.system.conditions.isignoringpain}} checked {{/if}}>
+                    <input name="system.conditions.isignoringpain" type="checkbox" {{isChecked data.system.conditions.isfrenzy}} />
                 </div>
                 <div class="pullLeft condition-checkbox">
                     {{localize "wod.combat.conditions.ignorepain"}}

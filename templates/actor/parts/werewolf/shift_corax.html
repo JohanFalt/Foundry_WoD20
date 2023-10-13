@@ -1,4 +1,4 @@
-<div class="sheet-area">  
+<div class="sheet-area flex-columns">  
     <div class="shape-area">
         <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.shapechange"}}</span></div>
         <div>
@@ -14,28 +14,28 @@
                     No Change
                 </div>
                 <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                    Str (+1)<br />
-                    Dex (+1)<br />
-                    Sta (+1)<br />
-                    Man (-2)
+                    {{localize "wod.attributes.short.str"}} (+1)<br />
+                    {{localize "wod.attributes.short.dex"}} (+1)<br />
+                    {{localize "wod.attributes.short.sta"}} (+1)<br />
+                    {{localize "wod.attributes.short.man"}} (-2)
                     {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
-                    <br />App (0)
-                    <br />Per (+3)
+                    <br />{{localize "wod.attributes.short.app"}} (0)
+                    <br />{{localize "wod.attributes.short.per"}} (+3)
                     {{/iff}}
                 </div>
                 <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                    Str (-1)<br />
-                    Dex (+1)<br />
-                    Man (-3)
+                    {{localize "wod.attributes.short.str"}} (-1)<br />
+                    {{localize "wod.attributes.short.dex"}} (+1)<br />
+                    {{localize "wod.attributes.short.man"}} (-3)
                     {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
-                    <br />Per (+4)
+                    <br />{{localize "wod.attributes.short.per"}} (+4)
                     {{/iff}}
                 </div>
             </div>
             <div class="clearareaBox">
-                <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-                <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-                <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+                <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+                <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+                <div class="pullLeft shape-selectortext shape-corax {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-<div class="sheet-area">  
+<div class="sheet-area flex-columns">  
     <div class="shape-area">
         <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.shapechange"}}</span></div>
         <div>
@@ -18,31 +18,31 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+1)<br />
-                        Sta (+2)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+1)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-3)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+3)<br />
-                        Sta (+3)<br />
-                        Man (-3)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-2){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-2){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+3)<br />
-                        Sta (+2)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                 </div>
             {{/if}}
@@ -53,30 +53,30 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+1)<br />
-                        Sta (+2)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+1)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-4)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-4)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-4)
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-4)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+2)<br />
-                        Sta (+2)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                 </div>
             {{/if}}  
@@ -87,28 +87,28 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Dex (+1)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.dex"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+3)<br />
-                        Sta (+1)<br />
-                        Man (-3)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+3)<br />
-                        Sta (+1)<br />
-                        Man (-2)
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (-1)<br />
-                        Dex (+4)<br />
-                        Sta (+1)<br />
-                        Man (-2)
+                        {{localize "wod.attributes.short.str"}} (-1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
                     </div>
                 </div>
             {{/if}} 
@@ -119,27 +119,27 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Dex (+2)<br />
-                        Sta (+1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+3)<br />
-                        Sta (+1)<br />
-                        Man (-2)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Dex (+4)<br />
-                        Sta (+1)<br />
-                        Man (-2)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-2){{/iff}}
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-2){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (-1)<br />
-                        Dex (+4)<br />
-                        Man (-2)
+                        {{localize "wod.attributes.short.str"}} (-1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
                     </div>
                 </div>
             {{/if}} 
@@ -150,30 +150,30 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+1)<br />
-                        Sta (+2)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+1)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-3)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+4)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+4)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+2)<br />
-                        Sta (+2)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                 </div>
             {{/if}}
@@ -184,30 +184,30 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+2)<br />
-                        Sta (+1)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+3)<br />
-                        Sta (+3)<br />
-                        Man (-3)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+3)<br />
-                        Sta (+2)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+2)<br />
-                        Sta (+2)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                 </div>
             {{/if}}
@@ -218,26 +218,26 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Dex (+2)<br />
-                        Sta (+1)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+2)<br />
-                        Sta (+2)<br />
-                        Man (-2)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+3)<br />
-                        Sta (+2)<br />
-                        Man (-2)
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Dex (+3)
+                        {{localize "wod.attributes.short.dex"}} (+3)
                     </div>
                 </div>
             {{/if}}
@@ -248,30 +248,30 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+1)<br />
-                        Sta (+2)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+1)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+3)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-2)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+4)<br />
-                        Dex (+2)<br />
-                        Sta (+3)<br />
-                        Man (-2)
+                        {{localize "wod.attributes.short.str"}} (+4)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+3)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+3)<br />
-                        Sta (+2)<br />
-                        Man (-1)
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
                     </div>
                 </div>
             {{/if}}
@@ -282,40 +282,40 @@
                         No Change
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+2)<br />
-                        Sta (+1)<br />
-                        Man (-1)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (-1){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+2)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-1)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (-1){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+3)<br />
-                        Sta (+2)<br />
-                        Man (-3)
-                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />App (0){{/iff}}
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+3)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
+                        {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+2)<br />
-                        Dex (+4)<br />
-                        Sta (+2)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+2)<br />
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                     <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
-                        Str (+1)<br />
-                        Dex (+4)<br />
-                        Sta (+1)<br />
-                        Man (-3)
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-3)
                     </div>
                 </div>
             {{/if}}
         </div>
         <div class="clearareaBox">
-            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
-            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 7</div>
-            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">Diff: 6</div>
+            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 7</div>
+            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 7</div>
+            <div class="pullLeft shape-selectortext {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
         </div>
     </div>
 </div>

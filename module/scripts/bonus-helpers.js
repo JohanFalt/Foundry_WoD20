@@ -11,6 +11,59 @@ export default class BonusHelper {
         return bonusList;
     }
 
+    static async CreateAttributeBuff(id, name, attribute, value, isactive) {
+        let itemData;
+
+        itemData = {
+            name: name,
+            type: "Bonus",				
+            system: {
+                parentid: id,
+                settingtype: attribute,
+                type: "attribute_buff",
+                value: value,
+                isactive: isactive
+            }
+        };
+
+        return itemData;
+    }
+
+    static async CreateSoakBuff(id, name, value, isactive) {
+        let itemData;
+
+        itemData = {
+            name: name,
+            type: "Bonus",				
+            system: {
+                parentid: id,
+                type: "soak_buff",
+                value: value,
+                isactive: isactive
+            }
+        };
+
+        return itemData;
+    }
+
+    static async CreateAbilityBuff(id, name, ability, value, isactive) {
+        let itemData;
+
+        itemData = {
+            name: name,
+            type: "Bonus",				
+            system: {
+                parentid: id,
+                settingtype: ability,
+                type: "ability_buff",
+                value: value,
+                isactive: isactive
+            }
+        };
+
+        return itemData;
+    }
+
     static async CheckAttributeBonus(actor, attribute) {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_diff") && (i.system.settingtype == attribute)) {

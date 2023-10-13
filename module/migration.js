@@ -92,7 +92,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
  * Function to keep the world up-to-date with possible World settings that you might have altered since last time it opened.
  */
 export  const updates = async () => {
-    console.log('WoD | Settings starts');
+    console.log('WoD | Start verifying settings');
 
     let attributeSettings = "20th";
     let rollSettings = true;
@@ -1087,14 +1087,47 @@ export  const updates = async () => {
                     }                              
                 }                                                
             }                                   
-
-            /* updateData['system.abilities.-=talent'] = null;
-            updateData['system.abilities.-=skill'] = null;
-            updateData['system.abilities.-=knowledge'] = null; */
         }
 
         if (update) {
             updateData.system.settings.version = "3.1.0";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
+
+    if (_compareVersion(actor.system.settings.version, "3.2.0")) {        
+        let updateData = duplicate(actor);
+        update = false;
+
+        if (actor.type == CONFIG.wod.sheettype.mortal) {
+            updateData.system.settings.variant = "general";
+            update = true;
+        }
+
+        if (actor.type == CONFIG.wod.sheettype.creature) {
+            updateData.system.settings.variant = "general";
+            update = true;
+        }
+
+        if (actor.type == CONFIG.wod.sheettype.changingbreed) {
+            updateData.system.settings.variant = "general";
+
+            if (updateData.system.changingbreed == "Mokolé") {
+                updateData.system.changingbreed = "Mokole";
+            }
+            
+            update = true;
+        }
+
+        if (actor.type == CONFIG.wod.sheettype.changeling) {
+            updateData.system.settings.variant = "general";
+            update = true;
+        }
+
+        if (update) {
+            updateData.system.settings.version = "3.2.0";
 
             await actor.update(updateData);
             update = false;
@@ -1459,6 +1492,7 @@ export  const updates = async () => {
     let patch230 = false;
     let patch300 = false;
     let patch310 = false;
+    let patch320 = false;
 
     let newfunctions = "";
 
@@ -1476,6 +1510,7 @@ export  const updates = async () => {
         patch230 = game.settings.get('worldofdarkness', 'patch230');
         patch300 = game.settings.get('worldofdarkness', 'patch300');
         patch310 = game.settings.get('worldofdarkness', 'patch310');
+        patch320 = game.settings.get('worldofdarkness', 'patch320');
     } 
     catch (e) {
     }
@@ -1625,13 +1660,17 @@ export  const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
+    if (!patch320) {
+        //game.settings.set('worldofdarkness', 'patch320', true);
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        newfunctions += '<b>v3.1.12</b>';
+        /* newfunctions += '<b>v3.1.12</b>';
         newfunctions += '<li>[MtA] Corrected what abilities are availible in Mage the Victorian Era.</li>';
 
-        /* newfunctions += '<b>v3.1.11</b>';
+        newfunctions += '<b>v3.1.11</b>';
         newfunctions += '<li>Made corrections to Brazilian Portuguese</li>';
         newfunctions += '<li>Fixed graphical problems with exploding 10s if the first roll was a 10</li>';
 

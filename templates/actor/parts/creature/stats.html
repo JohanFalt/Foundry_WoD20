@@ -54,7 +54,15 @@
 
 		<div class="pullright" style="width: 100%;">
 
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+			{{#if (ne actor.system.settings.variant config.variant.creature.spirit)}}
+
+				{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+
+			{{else}}
+
+				&nbsp;
+
+			{{/if}}
 
 		</div>
 

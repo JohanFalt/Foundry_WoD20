@@ -1,6 +1,6 @@
 {{#if (ne actor.type config.sheettype.spirit)}}
 
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="clearareaBox">
                 <div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
@@ -42,7 +42,7 @@
 
 {{#if (eq actor.type config.sheettype.vampire)}}
 
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="area-box" data-area="pathsetting">
             <div class="headlineText splatFont">{{localize "wod.labels.settings.path"}}</div>
             <div class="bioInformationArea floating-label-group">
@@ -117,7 +117,7 @@
 
 {{#if (eqAny actor.type config.sheettype.vampire config.sheettype.werewolf)}}
 
-    <div class="sheet-area" data-area="frenzysetting">
+    <div class="sheet-area flex-columns" data-area="frenzysetting">
         <div class="clearareaBox">
             <div class="headlineText splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
             <div class="bioInformationArea floating-label-group">
@@ -136,7 +136,7 @@
 {{#if (eq actor.type config.sheettype.changingbreed)}}
     {{#if data.system.settings.hasrage}}
         
-        <div class="sheet-area" data-area="frenzysetting">
+        <div class="sheet-area flex-columns" data-area="frenzysetting">
             <div class="clearareaBox">
                 <div class="headlineText splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
                 <div class="bioInformationArea floating-label-group">
@@ -155,7 +155,7 @@
 
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature config.sheettype.werewolf config.sheettype.mage config.sheettype.changeling)}}
 
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="headlineText splatFont">{{localize "wod.labels.settings.usedadvantages"}}</div>
 
@@ -282,7 +282,7 @@
 
     {{#if data.system.settings.hasbloodpool}}
 
-        <div class="sheet-area">
+        <div class="sheet-area flex-columns">
             <div class="clearareaBox">
                 <div class="headlineText splatFont">{{localize "wod.advantages.bloodpool"}}</div>
 
@@ -321,21 +321,13 @@
 {{#if (eqAny actor.type config.sheettype.spirit config.sheettype.creature)}}
     {{#if data.system.settings.hasessence}}
 
-        <div class="sheet-area">
-            <div class="clearareaBox">
-                <div class="">{{localize 'wod.labels.settings.essencevalue'}}</div>
-                <label for="data.system.advantages.essence.max" class="pullLeft headlineNormal" style="width: 150px;" 
-                    data-label="{{data.system.advantages.essence.max}}" 
-                        data-ability="true">{{localize "wod.advantages.essence"}}</label>
-                <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
-                    name="system.advantages.essence.max" 
-                    type="text" 
-                    value="{{data.system.advantages.essence.max}}" 
-                    value="{{data.system.advantages.essence.max}}" 
-                    data-name="data.system.advantages.essence.max" 
-                    data-dtype="Number" />
+        <div class="sheet-area flex-columns">
+            <div class="headlineText splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
+            <div class="infobox bioInformationArea floating-label-group">
+                <input class="sheet-infoValues numberBox editable" name="system.advantages.essence.max" type="text" value="{{data.system.advantages.essence.max}}" data-name="data.system.advantages.essence.max" data-dtype="Number" autocomplete="off" autofocus required />
+                <span class="floating-label">{{localize "wod.advantages.essence"}}</span>
             </div>
-        </div>
+        </div>       
 
     {{/if}}
 {{/if}}

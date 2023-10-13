@@ -46,6 +46,22 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "useOnesDamage", {
+		name: game.i18n.localize('wod.settings.useOnesDamage'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
+    game.settings.register("worldofdarkness", "useOnesSoak", {
+		name: game.i18n.localize('wod.settings.useOnesSoak'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     game.settings.register("worldofdarkness", "lowestDifficulty", {
 		name: game.i18n.localize('wod.settings.lowestdifficulty'),
 		hint: game.i18n.localize('wod.settings.lowestdifficultyhint'),
@@ -122,6 +138,61 @@ export const systemSettings = function() {
 	});
 
     // END DICE RULES
+
+    // ERA SETTINGS
+
+    game.settings.register("worldofdarkness", "eraMortal", {
+		name: game.i18n.localize('wod.era.mortaleratext'),
+		scope: "world",
+		config: false,
+		default: "modern",
+		type: String,
+        choices: {
+			"modern": game.i18n.localize('wod.era.modern'),
+			"victorian": game.i18n.localize('wod.era.victorian'),
+            "darkages": game.i18n.localize('wod.era.darkages')
+		}
+	});
+
+    game.settings.register("worldofdarkness", "eraMage", {
+		name: game.i18n.localize('wod.era.mageeratext'),
+		scope: "world",
+		config: false,
+		default: "modern",
+		type: String,
+        choices: {
+			"modern": game.i18n.localize('wod.era.modern'),
+			"victorian": game.i18n.localize('wod.era.victorian')
+		}
+	});
+
+    game.settings.register("worldofdarkness", "eraVampire", {
+		name: game.i18n.localize('wod.era.vampireeratext'),
+		scope: "world",
+		config: false,
+		default: "modern",
+		type: String,
+        choices: {
+			"modern": game.i18n.localize('wod.era.modern'),
+			"victorian": game.i18n.localize('wod.era.victorian'),
+            "darkages": game.i18n.localize('wod.era.darkages'),
+		}
+	});
+
+    game.settings.register("worldofdarkness", "eraWerewolf", {
+		name: game.i18n.localize('wod.era.werewolferatext'),
+		scope: "world",
+		config: false,
+		default: "modern",
+		type: String,
+        choices: {
+			"modern": game.i18n.localize('wod.era.modern'),
+			"victorian": game.i18n.localize('wod.era.wildwest'),
+            "darkages": game.i18n.localize('wod.era.darkages'),
+		}
+	});
+
+    // END ERA SETTINGS
 
     // HUNTER SETTINGS
 
@@ -346,6 +417,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch320", {
+		name: "patch320",
+		hint: "patch320",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
@@ -364,6 +444,15 @@ export const systemSettings = function() {
         type: Dices,
         restricted: true,
     });
+
+    game.settings.registerMenu("worldofdarkness", "eraSettings", {
+        name: game.i18n.localize('wod.settings.erasettings'),
+        hint: game.i18n.localize('wod.settings.erasettingshint'),
+        label: game.i18n.localize('wod.settings.erasettings'),
+        icon: "icon fa-solid fa-gear",
+        type: Era,
+        restricted: true,
+    });    
 
     game.settings.registerMenu("worldofdarkness", "hunterSettings", {
         name: game.i18n.localize('wod.settings.huntersettings'),
@@ -509,7 +598,89 @@ export class Dices extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "theRollofOne") || (s.key == "lowestDifficulty") || (s.key == "specialityAddSuccess") || (s.key == "specialityReduceDiff") || (s.key == "tenAddSuccess") || (s.key == "explodingDice"))  {
+                if ((s.key == "theRollofOne") || (s.key == "useOnesDamage") || (s.key == "useOnesSoak") || (s.key == "lowestDifficulty") || (s.key == "specialityAddSuccess") || (s.key == "specialityReduceDiff") || (s.key == "tenAddSuccess") || (s.key == "explodingDice"))  {
+                    // Update setting data
+                    const setting = duplicate(s);
+
+                    setting.name = game.i18n.localize(setting.name);
+                    setting.hint = game.i18n.localize(setting.hint);
+                    setting.value = game.settings.get("worldofdarkness", setting.key);
+                    setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
+                    setting.isBoolean = s.type === Boolean;
+                    setting.isSelect = s.choices !== undefined;
+
+                    data.system.settings.push(setting);
+                } 
+            }
+        }
+  
+        // Return data
+        return {
+            user: game.user,
+            canConfigure: hasPermission,
+            systemTitle: game.system.title,
+            data: data
+        };
+    }
+  
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".submenu button").click(this._onClickSubmenu.bind(this));
+    }
+  
+    /**
+     * Handle activating the button to configure User Role permissions
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onClickSubmenu(event) {
+        event.preventDefault();
+        const menu = game.settings.menus.get(event.currentTarget.dataset.key);
+        if (!menu) return ui.notifications.error("No submenu found for the provided key");
+        const app = new menu.type();
+        return app.render(true);
+    }
+  
+    /** @override */
+    async _updateObject(event, formData) {
+        for (let [k, v] of Object.entries(flattenObject(formData))) {
+            let s = game.settings.settings.get(k);
+            let current = game.settings.get("worldofdarkness", s.key);
+
+            if (v !== current) {
+                await game.settings.set("worldofdarkness", s.key, v);
+            }
+        }
+    }
+}
+
+export class Era extends FormApplication {
+    /** @override */
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            id: "dices",
+            classes: ["wod20 wod-dialog rule-dialog"],
+            title: game.i18n.localize("wod.settings.erasettings"),
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-era.html",
+        });
+    }
+  
+    getData(options) {
+        const hasPermission = game.user.can("SETTINGS_MODIFY");  
+        const data = {
+            system: { 
+                title: game.system.title, 
+                menus: [], 
+                settings: [] 
+            }
+        };
+
+        // Classify all settings
+        if (hasPermission) {
+            for (let s of game.settings.settings.values()) {
+                // Exclude settings the user cannot change
+                if ((s.key == "eraMortal") || (s.key == "eraMage") || (s.key == "eraVampire") || (s.key == "eraWerewolf"))  {
                     // Update setting data
                     const setting = duplicate(s);
 

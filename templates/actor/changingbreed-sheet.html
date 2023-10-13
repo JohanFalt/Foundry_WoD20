@@ -4,7 +4,8 @@
 	<div class="sheet-character">				
 	
 		{{!-- Always visible --}}
-		<header class="sheet-header">				
+		<header class="sheet-header">	
+							
 		</header>	
 
 		<!-- Sheet part -->
@@ -44,6 +45,10 @@
 				{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}					
 			</div>
 
+			<div class="centerText sheet-headline splatFont">
+				CHANGING BREED {{#if (ne data.system.changingbreed '')}}({{localize (getVariantName "changingbreed" data.system.changingbreed)}}){{/if}}
+			</div>
+
 			<!-- Bio Tab -->
 			<div class="tab bio sheet-inner-area" data-group="primary" data-tab="bio">
 
@@ -54,21 +59,21 @@
 			<!-- Core Tab -->
 			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
 				<!-- Core Attributes -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 
 					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
 
 				</div>
 
 				<!-- Core Abilities -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 
 					{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
 
 				</div>
 
 				<!-- Core Stats -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					<div class="clearareaBox" style="display: flex;">
 						<div class="sheet-boxcontainer">
 
@@ -163,7 +168,7 @@
                 {{#if (eq data.system.changingbreed "Kitsune")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_kitsune.html"}}
                 {{/if}}
-                {{#if (eq data.system.changingbreed "Mokolé")}}
+                {{#if (eq data.system.changingbreed "Mokole")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_mokole.html"}}
                 {{/if}}
                 {{#if (eq data.system.changingbreed "Nagah")}}

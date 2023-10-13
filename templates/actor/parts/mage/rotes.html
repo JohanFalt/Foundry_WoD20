@@ -13,7 +13,7 @@
 		<div class="pullLeft item-row-area" data-area="roterow{{id}}" style="width:50%">
 			<div class="clearareaBox magic-row">
 				<div class="pullLeft item-activeBox">
-					<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input>
+					<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input>
 				</div>			
 				<div class="rote-headline vrollable headlineNormal pullLeft"
 					data-type="{{../config.sheettype.mage}}"

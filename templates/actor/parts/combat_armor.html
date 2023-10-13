@@ -41,7 +41,7 @@
     {{#each actor.system.listdata.combat.armors as |item id|}}
 
         <div class="clearareaBox item-row-area">
-            <div class="pullLeft combat-activeBox"><input class="item-active pointer" name="system.isequipped" type="checkbox" data-item-id="{{item._id}}" data-type="isequipped" {{#if item.system.isequipped}}checked{{/if}}></input></div>
+            <div class="pullLeft combat-activeBox"><input class="item-active pointer" name="system.isequipped" type="checkbox" data-item-id="{{item._id}}" data-type="isequipped" {{isChecked item.system.isequipped}}></input></div>
             <div class="pullLeft armor-largeBox headlineNormal">{{shorten item.name 18}}</div>
             <div class="pullLeft combat-valueBoxArmor centerText headlineNormal {{#if ../actor.system.listdata.settings.haschimericalhealth}}wrapperboxleft{{/if}}">{{item.system.soak.bashing}}</div>
             <div class="pullLeft combat-valueBoxArmor centerText headlineNormal">{{item.system.soak.lethal}}</div>

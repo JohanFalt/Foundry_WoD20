@@ -25,8 +25,10 @@
                 <select class="sheet-infoValues {{#if (eq actor.system.kith 'custom')}}edit-property{{/if}} editable" name="system.kith" data-name="data.system.kith" data-dtype="String">
                     {{#select data.system.kith}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}} ({{localize "wod.labels.customkith"}}){{/if}}</option>                            
-                        {{#each game.bio.kith as |kith id|}}
+                        {{#if (neAny actor.system.settings.variant config.variant.changeling.inanimae config.variant.changeling.darkkin)}}
+                            <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}} ({{localize "wod.labels.customkith"}}){{/if}}</option>                            
+                        {{/if}}
+                        {{#each (getBioList game.bio.kith actor.system.settings.variant) as |kith id|}}
                             <option value="{{kith}}">{{localize kith}}</option>
                         {{/each}}
                     {{/select}}
@@ -35,7 +37,16 @@
                     <a class="pullLeft item-edit" title="{{localize "wod.labels.customkith"}}" data-type="Bio" data-name="{{localize "wod.bio.changeling.kith"}}" data-item-id="kith" data-custom="{{actor.system.custom.kith}}"><i class="fa-solid fa-pen-to-square"></i></a>
                 {{/if}}
             {{/if}}
-            <span class="floating-label">{{localize "wod.bio.changeling.kith"}}</span>        
+            {{#if (eqAny actor.system.settings.variant config.variant.changeling.inanimae config.variant.changeling.darkkin)}}
+                {{#if (eq actor.system.settings.variant config.variant.changeling.inanimae)}}
+                    <span class="floating-label">{{localize "wod.bio.changeling.phyla"}}</span>
+                {{/if}}
+                {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+                    <span class="floating-label">{{localize "wod.bio.changeling.adhene"}}</span>
+                {{/if}}
+            {{else}}
+                <span class="floating-label">{{localize "wod.bio.changeling.kith"}}</span>        
+            {{/if}}
         </div>
 
         <div class="bioInformationArea floating-label-group">
@@ -46,10 +57,6 @@
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.changeling.antithesis"}}</span>
         </div>
-
-    </div>
-
-    <div class="pullLeft area-box">
 
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
@@ -81,6 +88,17 @@
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.changeling.affinity"}}</span>
         </div>
+
+        {{#if (eq actor.system.settings.variant config.variant.changeling.dauntain)}}
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.variant.brand}}" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.variant.brand" type="text" value="{{data.system.variant.brand}}" data-name="data.system.variant.brand" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.changeling.brand"}}</span>
+            </div>
+        {{/if}}
         
     </div>
 
@@ -90,12 +108,12 @@
 
     <div class="sheet-headline sheet-banner sheet-topbanner">&nbsp;</div>
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.birthrights">{{localize "wod.bio.changeling.birthright"}}</label>
+        <label class="headlineText splatFont" for="data.system.birthrights">{{localize "wod.bio.changeling.birthright"}}</label>
         <div class="clearareaBox">
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.birthright1 '')}}small{{/if}}">{{{actor.system.birthright1}}}</div>
             {{else}}
-                {{editor data.birthright1 target="system.birthright1" button=false owner=owner editable=true}}
+                {{editor actor.system.birthright1 target="system.birthright1" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
 
@@ -103,7 +121,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.birthright2 '')}}small{{/if}}">{{{actor.system.birthright2}}}</div>
             {{else}}
-                {{editor data.birthright2 target="system.birthright2" button=false owner=owner editable=true}}
+                {{editor actor.system.birthright2 target="system.birthright2" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
@@ -111,12 +129,12 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.frailty">{{localize "wod.bio.changeling.frailty"}}</label>
+        <label class="headlineText splatFont" for="data.system.frailty">{{localize "wod.bio.changeling.frailty"}}</label>
         <div class="clearareaBox">
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.frailty '')}}small{{/if}}">{{{actor.system.frailty}}}</div>
             {{else}}
-                {{editor data.frailty target="system.frailty" button=false owner=owner editable=true}}
+                {{editor actor.system.frailty target="system.frailty" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
@@ -124,57 +142,126 @@
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText splatFont" for="data.threshold">{{localize "wod.bio.changeling.threshold"}}</label>
+        {{#if (eqAny actor.system.settings.variant config.variant.changeling.menehune)}}
+            <label class="headlineText splatFont" for="data.system.threshold">{{localize "wod.bio.changeling.raiding"}}</label>
+        {{else}}
+            <label class="headlineText splatFont" for="data.system.threshold">{{localize "wod.bio.changeling.threshold"}}</label>
+        {{/if}}
         {{#if locked}}
             <div class="smallbox headlineNormal textarea {{#if (eq actor.system.threshold '')}}small{{/if}}">{{{actor.system.threshold}}}</div>
         {{else}}
-            {{editor data.threshold target="system.threshold" button=false owner=owner editable=true}}
+            {{editor actor.system.threshold target="system.threshold" button=false owner=owner editable=true}}
         {{/if}}
     </div>
 </div>	
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText splatFont" for="data.revelry">{{localize "wod.bio.changeling.revelry"}}</label>
+        {{#if (eqAny actor.system.settings.variant config.variant.changeling.menehune)}}
+            <label class="headlineText splatFont" for="data.system.revelry">{{localize "wod.bio.changeling.havesting"}}</label>
+        {{else}}
+            <label class="headlineText splatFont" for="data.system.revelry">{{localize "wod.bio.changeling.revelry"}}</label>
+        {{/if}}
         {{#if locked}}
             <div class="smallbox headlineNormal textarea {{#if (eq actor.system.revelry '')}}small{{/if}}">{{{actor.system.revelry}}}</div>
         {{else}}
-            {{editor data.revelry target="system.revelry" button=false owner=owner editable=true}}
+            {{editor actor.system.revelry target="system.revelry" button=false owner=owner editable=true}}
         {{/if}}
     </div>
 </div>
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText splatFont" for="data.house">{{localize "wod.bio.changeling.house"}}</label>
+        <label class="headlineText splatFont" for="data.system.house">{{localize "wod.bio.changeling.house"}}</label>
         {{#if locked}}
             <div class="smallbox headlineNormal textarea {{#if (eq actor.system.house '')}}small{{/if}}">{{{actor.system.house}}}</div>
         {{else}}
-            {{editor data.house target="system.house" button=false owner=owner editable=true}}
+            {{editor actor.system.house target="system.house" button=false owner=owner editable=true}}
         {{/if}}
     </div>
 </div>
 
 <div class="clearareaBox area-box">
     <div>
-        <label class="headlineText headlineBio splatFont" for="data.legacyseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
+        {{#if (eqAny actor.system.settings.variant config.variant.changeling.thallain config.variant.changeling.nunnehi config.variant.changeling.menehune config.variant.changeling.darkkin)}}
+            {{#if (eq actor.system.settings.variant config.variant.changeling.thallain)}}
+                <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.nightmarelegacy"}}</label>
+            {{/if}}
+            {{#if (eq actor.system.settings.variant config.variant.changeling.nunnehi)}}
+                <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.winterrock"}}</label>
+            {{/if}}
+            {{#if (eq actor.system.settings.variant config.variant.changeling.menehune)}}
+                <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.feast"}}</label>
+            {{/if}}
+            {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+                <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.aria1"}}</label>
+            {{/if}}
+        {{else}}
+            <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.legacyseelie"}}</label>
+        {{/if}}
         <div class="clearareaBox">
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.legacyseelie '')}}small{{/if}}">{{{actor.system.legacyseelie}}}</div>
             {{else}}
-                {{editor data.legacyseelie target="system.legacyseelie" button=false owner=owner editable=true}}
+                {{editor actor.system.legacyseelie target="system.legacyseelie" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
 </div>
 
 <div class="clearareaBox area-box">
-    <label class="headlineText headlineBio splatFont" for="data.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
+    {{#if (eqAny actor.system.settings.variant config.variant.changeling.thallain config.variant.changeling.nunnehi config.variant.changeling.menehune config.variant.changeling.darkkin)}}
+        {{#if (eq actor.system.settings.variant config.variant.changeling.thallain)}}
+            <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.kithain"}}</label>
+        {{/if}}
+        {{#if (eq actor.system.settings.variant config.variant.changeling.nunnehi)}}
+            <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.summer"}}</label>
+        {{/if}}        
+        {{#if (eq actor.system.settings.variant config.variant.changeling.menehune)}}
+            <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.war"}}</label>
+        {{/if}}        
+        {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+            <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.aria2"}}</label>
+        {{/if}}
+    {{else}}
+        <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.legacyunseelie"}}</label>
+    {{/if}}
     <div class="clearareaBox">
         {{#if locked}}
             <div class="headlineNormal textarea {{#if (eq actor.system.legacyunseelie '')}}small{{/if}}">{{{actor.system.legacyunseelie}}}</div>
         {{else}}
-            {{editor data.legacyunseelie target="system.legacyunseelie" button=false owner=owner editable=true}}
+            {{editor actor.system.legacyunseelie target="system.legacyunseelie" button=false owner=owner editable=true}}
         {{/if}}				
     </div>
 </div>
+
+{{#if (eqAny actor.system.settings.variant config.variant.changeling.nunnehi config.variant.changeling.darkkin)}}
+    <div class="clearareaBox area-box">
+        {{#if (eq actor.system.settings.variant config.variant.changeling.nunnehi)}}
+            <label class="headlineText splatFont" for="data.system.variant.legacy">{{localize "wod.bio.changeling.midseason"}}</label>
+        {{/if}}
+        {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+            <label class="headlineText splatFont" for="data.system.variant.legacy">{{localize "wod.bio.changeling.aria3"}}</label>
+        {{/if}}
+        <div class="clearareaBox">
+            {{#if locked}}
+                <div class="headlineNormal textarea {{#if (eq actor.system.variant.legacy '')}}small{{/if}}">{{{actor.system.variant.legacy}}}</div>
+            {{else}}
+                {{editor actor.system.variant.legacy target="system.variant.legacy" button=false owner=owner editable=true}}
+            {{/if}}				
+        </div>
+    </div>
+{{/if}}
+
+{{#if (eq actor.system.settings.variant config.variant.changeling.inanimae)}}
+    <div class="clearareaBox area-box">
+        <label class="headlineText splatFont" for="data.system.variant.anchor">{{localize "wod.bio.changeling.anchor"}}</label>
+        <div class="clearareaBox">
+            {{#if locked}}
+                <div class="headlineNormal textarea {{#if (eq actor.system.variant.anchor '')}}small{{/if}}">{{{actor.system.variant.anchor}}}</div>
+            {{else}}
+                {{editor actor.system.variant.anchor target="system.variant.anchor" button=false owner=owner editable=true}}
+            {{/if}}				
+        </div>
+    </div>
+{{/if}}

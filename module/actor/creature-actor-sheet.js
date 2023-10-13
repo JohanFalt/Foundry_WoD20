@@ -8,27 +8,14 @@ export class CreatureActorSheet extends MortalActorSheet {
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet creature"],
-			template: "systems/worldofdarkness/templates/actor/creature-sheet.html",
-			tabs: [{
-				navSelector: ".sheet-tabs",
-				contentSelector: ".sheet-body",
-				initial: "core",
-			},
-			{
-				navSelector: ".sheet-setting-tabs",
-				contentSelector: ".sheet-setting-body",
-				initial: "attributes",
-			}]
+			template: "systems/worldofdarkness/templates/actor/creature-sheet.html"
 		});
 	}
   
 	constructor(actor, options) {
 		super(actor, options);
 
-		this.isCharacter = false;	
-		// this.isGM = game.user.isGM;
-		
-		console.log("WoD | Creature Sheet constructor");
+		this.isCharacter = false;
 	}
 
 	/** @override */
@@ -56,6 +43,10 @@ export class CreatureActorSheet extends MortalActorSheet {
 			console.log(CONFIG.wod.sheettype.creature);
 			console.log(data.actor);
 		}
+
+		/* if (data.actor.system.settings.variant == "") {
+			ActionHelper.openVariantDialog(this.actor);
+		} */
 
 		return data;
 	}

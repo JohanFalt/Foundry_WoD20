@@ -214,6 +214,11 @@ export class ArtPower {
         }
         else {
             this.arttype = item.system.property["arttype"];
+            this.selectedarttype = "";
+
+            if (this.arttype != "wod.labels.both") {
+                this.selectedarttype = this.arttype;
+            }
         }        
 
         this.dice1 = "art";
@@ -328,6 +333,38 @@ export class LorePower {
         this.sheettype = "demonDialog";
     }
 }
+
+export class ArcanoiPower {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";        
+
+        this.name = item["name"];
+        //this.type = item["type"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+
+        this.parentid = item.system["parentid"];
+
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "wraithDialog";
+    }
+}
+
+ArcanoiPower
 
 export class DialogPower extends FormApplication {
     constructor(actor, power) {
@@ -451,7 +488,8 @@ export class DialogPower extends FormApplication {
             }  
             else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
                 data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
-                data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
+                //data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
+                data.object.abilityName = (this.actor.system.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice2].label) : this.actor.system.abilities[data.object.dice2].altlabel;        
 
                 if (parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) {
                     data.object.hasSpeciality = true;
@@ -482,6 +520,11 @@ export class DialogPower extends FormApplication {
                     }
                 }
             }
+        }
+        else if (data.object.type == "wod.types.arcanoipower") {
+            const arcanoi = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
+            data.object.abilityValue = parseInt(arcanoi.system.value);
+            data.object.abilityName = arcanoi.name;
         }
 
         if (data.object.hasSpeciality) {
@@ -531,7 +574,11 @@ export class DialogPower extends FormApplication {
 
         html
             .find('.dialog-realm-button')
-            .click(this._selectRealm.bind(this));            
+            .click(this._selectRealm.bind(this));     
+
+        html
+            .find('.dialog-arttype-button')
+            .click(this._selectArttype.bind(this));
 
         html
             .find('.closebutton')
@@ -609,6 +656,16 @@ export class DialogPower extends FormApplication {
         this.render();
     }
 
+    _selectArttype(event) {
+        event.preventDefault();
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+        this.object.selectedarttype = dataset.value;
+        this.render();
+    }
+
     _changedSelectedRealm(selected, realmid) {
         for (const i of selected) {
             if (i._id == realmid) {
@@ -660,6 +717,11 @@ export class DialogPower extends FormApplication {
 
         // add selected Realms
         if (this.object.type == "wod.types.artpower") {
+            if (this.object.selectedarttype == "") {
+                ui.notifications.warn(game.i18n.localize("wod.dialog.power.noarttype"));
+                return;
+            }
+
             if (!this.object.isUnleashing) {
                 this.object.canRoll = false;
 
@@ -681,6 +743,8 @@ export class DialogPower extends FormApplication {
             else {
                 extraInfo.push(`${game.i18n.localize('wod.dialog.power.unleashing')}`);
             }
+
+            extraInfo.push(`${game.i18n.localize(this.object.selectedarttype)}`);
         }
 
         const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);

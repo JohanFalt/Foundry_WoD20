@@ -1,4 +1,4 @@
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox area-box">
 
         <div class="sheet-headline sheet-banner splatFont" data-area="lores">
@@ -14,7 +14,7 @@
             <div class="item-row-area {{#if (eq item.system.type 'wod.types.lore')}}mainpower-row{{/if}}">
                 <div class="clearareaBox {{#if (eq item.system.type 'wod.types.lore')}}power-row{{else}}disciplinepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
                     {{#if (eq item.system.type "wod.types.lorepower")}}
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{#if item.system.isactive}}checked{{/if}}></input></div>
+                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
                     {{/if}}
                     <div class="pullLeft lore-headline {{#if (eq item.system.type 'wod.types.lore')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
                         data-type="{{../config.sheettype.demon}}"
@@ -35,7 +35,7 @@
 
                     {{#if item.system.isrollable}}
                         <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                        <div class="pullLeft power-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2)}}{{else}}&nbsp;{{/if}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2  ../actor)}}{{else}}&nbsp;{{/if}}</div>
                         <div class="pullLeft power-valueBox headlineNormal centerText">
                             {{#if (eq item.system.difficulty "-1")}}
                                 {{localize "wod.labels.varies"}}
@@ -134,7 +134,7 @@
 </div>
 
 {{#if actor.system.listdata.powers.lores.hasunlistedlores}}
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="headlineList splatFont">{{localize "wod.power.unsortedlores"}}</div>
         </div>
@@ -160,7 +160,7 @@
     </div>
 {{/if}}
 
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox">
         <div class="sheet-headline sheet-banner splatFont" data-area="rituals">
             <span class="sheet-banner-text">{{localize "wod.power.rituals"}}</span>
@@ -181,7 +181,7 @@
 
                 {{#if item.system.isrollable}}
                     <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2)}}</div>
+                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2  ../actor)}}</div>
                     <div class="pullLeft power-valueBox headlineNormal centerText">
                         {{#if (eq item.system.difficulty "-1")}}
                             {{localize "wod.labels.varies"}}

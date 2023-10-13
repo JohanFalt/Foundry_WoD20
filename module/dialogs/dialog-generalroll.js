@@ -4,7 +4,7 @@ import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 
 export class GeneralRoll {
-    constructor(key, type) {
+    constructor(key, type, actor) {
         this.canRoll = false;
         this.close = false;
 
@@ -25,7 +25,18 @@ export class GeneralRoll {
         this.usedReducedDiff = false;
         this.useSpeciality = false;
         this.hasSpeciality = false;
-        this.usepain = true;
+
+        //data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
+
+        if (actor != undefined) {
+            this.ignorepain = CombatHelper.ignoresPain(actor);
+        }
+        else {
+            this.ignorepain = false;
+        }
+        
+        this.usepain = true;        
+
         this.specialityText = "";
 
         this.sheettype = "";
@@ -92,8 +103,7 @@ export class DialogGeneralRoll extends FormApplication {
 
         if (!this.isFreeRole) {
             data.actorData = this.actor.system;   
-            data.actorData.type = this.actor.type;
-            data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
+            data.actorData.type = this.actor.type;            
 
             if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
                 data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
@@ -104,6 +114,7 @@ export class DialogGeneralRoll extends FormApplication {
         }
         else {
             data.object.ignorepain = true;    
+            data.object.usepain = false;    
             
             data.object.sheettype = "mortalDialog";
         }
@@ -111,7 +122,6 @@ export class DialogGeneralRoll extends FormApplication {
         data.config = CONFIG.wod;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";        
-        data.object.usepain = !data.object.ignorepain;
 
         if (this.object.type == "attribute") {
             if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {
@@ -202,10 +212,12 @@ export class DialogGeneralRoll extends FormApplication {
                     let bonus = await BonusHelper.GetAbilityBuff(this.actor, ability._id);
                     data.object.abilityValue += parseInt(bonus);
                 }
+
+                ability.label = (data.actorData.abilities[abilityKey].altlabel == "") ? ability.label : data.actorData.abilities[abilityKey].altlabel;
                 
                 data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
-
+                
                 if (parseInt(ability.value) >= 4) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = ability.speciality;

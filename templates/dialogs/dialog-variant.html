@@ -1,0 +1,71 @@
+<form class="{{cssClass}} {{sheettype}}" autocomplete="off">
+
+    <div class="dialog-area">
+        <div class="headlineGroup splatFont">{{localize "wod.dialog.variant.sheettype"}}</div>
+        <div class="infobox headline splatFont">{{localize "wod.dialog.variant.description"}}</div>
+
+        {{#if (eq object.type config.sheettype.changeling)}}
+            <div class="infobox centerText">
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant 'general'}}" data-value="general">{{localize "wod.dialog.variant.changeling"}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.changeling.dauntain}}" data-value="{{config.variant.changeling.dauntain}}">{{localize config.variant.changeling.dauntain}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.changeling.darkkin}}" data-value="{{config.variant.changeling.darkkin}}">{{localize config.variant.changeling.darkkin}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.changeling.inanimae}}" data-value="{{config.variant.changeling.inanimae}}">{{localize config.variant.changeling.inanimae}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.changeling.nunnehi}}" data-value="{{config.variant.changeling.nunnehi}}">{{localize config.variant.changeling.nunnehi}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.changeling.menehune}}" data-value="{{config.variant.changeling.menehune}}">{{localize config.variant.changeling.menehune}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.changeling.thallain}}" data-value="{{config.variant.changeling.thallain}}">{{localize config.variant.changeling.thallain}}</button>
+            </div>        
+        {{/if}}
+
+        {{#if (eq object.type config.sheettype.wraith)}}
+            <div class="infobox centerText">
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant 'general'}}" data-value="general">{{localize "wod.dialog.variant.wraith"}}</button>
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant config.variant.wraith.shadow}}" data-value="{{config.variant.wraith.shadow}}">{{localize config.variant.wraith.shadow}}</button>
+            </div>
+        {{/if}}
+
+        {{#if (eq object.type config.sheettype.changingbreed)}}
+            <div class="infobox centerText">
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Ajaba'}}" data-value="Ajaba">{{localize 'wod.bio.feraname.ajaba'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Ananasi'}}" data-value="Ananasi">{{localize 'wod.bio.feraname.ananasi'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Bastet'}}" data-value="Bastet">{{localize 'wod.bio.feraname.bastet'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Corax'}}" data-value="Corax">{{localize 'wod.bio.feraname.corax'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Gurahl'}}" data-value="Gurahl">{{localize 'wod.bio.feraname.gurahl'}}</button>				
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Kitsune'}}" data-value="Kitsune">{{localize 'wod.bio.feraname.kitsune'}}</button>	
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Mokole'}}" data-value="Mokole">{{localize 'wod.bio.feraname.mokole'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Nagah'}}" data-value="Nagah">{{localize 'wod.bio.feraname.nagah'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Nuwisha'}}" data-value="Nuwisha">{{localize 'wod.bio.feraname.nuwisha'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Ratkin'}}" data-value="Ratkin">{{localize 'wod.bio.feraname.ratkin'}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant 'Rokea'}}" data-value="Rokea">{{localize 'wod.bio.feraname.rokea'}}</button>
+            </div>
+        {{/if}}
+
+        {{#if (eq object.type config.sheettype.mortal)}}
+            <div class="infobox centerText">
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant 'general'}}" data-value="general">{{localize "wod.dialog.variant.mortal"}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.mortal.autumnpeople}}" data-value="{{config.variant.mortal.autumnpeople}}">{{localize config.variant.mortal.autumnpeople}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.mortal.enchanted}}" data-value="{{config.variant.mortal.enchanted}}">{{localize config.variant.mortal.enchanted}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.mortal.ghoul}}" data-value="{{config.variant.mortal.ghoul}}">{{localize config.variant.mortal.ghoul}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.mortal.kinfolk}}" data-value="{{config.variant.mortal.kinfolk}}">{{localize config.variant.mortal.kinfolk}}</button>        
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.mortal.truefaith}}" data-value="{{config.variant.mortal.truefaith}}">{{localize config.variant.mortal.truefaith}}</button>
+            </div>
+        {{/if}}
+
+        {{#if (eq object.type config.sheettype.creature)}}
+            <div class="infobox centerText">
+                <button class="actionbutton dialog-three-button fullSplatColor button {{isActive object.variant 'general'}}" data-value="general">{{localize "wod.dialog.variant.creature"}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.chimera}}" data-value="{{config.variant.creature.chimera}}">{{localize config.variant.creature.chimera}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.spirit}}" data-value="{{config.variant.creature.spirit}}">{{localize config.variant.creature.spirit}}</button>  
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.warwolves}}" data-value="{{config.variant.creature.warwolves}}">{{localize config.variant.creature.warwolves}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.anurana}}" data-value="{{config.variant.creature.anurana}}">{{localize config.variant.creature.anurana}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.samsa}}" data-value="{{config.variant.creature.samsa}}">{{localize config.variant.creature.samsa}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.kerasi}}" data-value="{{config.variant.creature.kerasi}}">{{localize config.variant.creature.kerasi}}</button>
+                <button class="dialog-three-button fullSplatColor button actionbutton {{isActive object.variant config.variant.creature.yeren}}" data-value="{{config.variant.creature.yeren}}">{{localize config.variant.creature.yeren}}</button>
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="centerText">
+        <button id="actionButton" class="button fullSplatColor savebutton dialog-two-button">{{localize "wod.dialog.save"}}</button>
+    </div>
+
+</form>

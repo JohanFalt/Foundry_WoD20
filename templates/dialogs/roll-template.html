@@ -187,9 +187,9 @@
             <div class="tray-system-area">{{{data.message}}}</div>
         {{/if}}
 
-        {{#if (ne data.description "")}}
+        {{#if (ne data.system.description "")}}
             <div class="tray-action-area" style="font-weight: bold;">{{localize "wod.labels.description"}}</div>
-            <div class="tray-system-area">{{{data.description}}}</div>
+            <div class="tray-system-area">{{{data.system.description}}}</div>
         {{/if}}
 
         {{#if (ne data.system "")}}

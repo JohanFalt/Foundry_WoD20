@@ -109,11 +109,11 @@
 				<!-- Shapes -->
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.shapes" style="width:100%">{{localize "wod.shapes.shapes"}}</label>
-					<input name="system.forms.hashomid" type="checkbox" {{#if data.system.forms.hashomid}} checked {{/if}}>{{localize "wod.shapes.homid"}}</input>
-					<input name="system.forms.hasglabro" type="checkbox" {{#if data.system.forms.hasglabro}} checked {{/if}}>{{localize "wod.shapes.glabro"}}</input>
-					<input name="system.forms.hascrinos" type="checkbox" {{#if data.system.forms.hascrinos}} checked {{/if}}>{{localize "wod.shapes.crinos"}}</input>
-					<input name="system.forms.hashispo" type="checkbox" {{#if data.system.forms.hashispo}} checked {{/if}}>{{localize "wod.shapes.hispo"}}</input>
-					<input name="system.forms.haslupus" type="checkbox" {{#if data.system.forms.haslupus}} checked {{/if}}>{{localize "wod.shapes.lupus"}}</input>
+					<input name="system.forms.hashomid" type="checkbox" {{isChecked data.system.forms.hashomid}}>{{localize "wod.shapes.homid"}}</input>
+					<input name="system.forms.hasglabro" type="checkbox" {{isChecked data.system.forms.hasglabro}}>{{localize "wod.shapes.glabro"}}</input>
+					<input name="system.forms.hascrinos" type="checkbox" {{isChecked data.system.forms.hascrinos}}>{{localize "wod.shapes.crinos"}}</input>
+					<input name="system.forms.hashispo" type="checkbox" {{isChecked data.system.forms.hashispo}}>{{localize "wod.shapes.hispo"}}</input>
+					<input name="system.forms.haslupus" type="checkbox" {{isChecked data.system.forms.haslupus}}>{{localize "wod.shapes.lupus"}}</input>
 				</div>				
 			</div>
 
@@ -127,7 +127,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

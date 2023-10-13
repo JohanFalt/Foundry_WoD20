@@ -263,6 +263,7 @@
   .wod-item:not(.minimized),
   .wod-dialog:not(.minimized) {
     min-height: 400px;
+    height: 400px;
   }
 }
 

@@ -19,11 +19,6 @@
                     </div>
                     {{/each}}
                 </div>
-          <!--       <div class="dialog-group">
-                    <input name="object.useSpeciality" type="checkbox" {{#if object.useSpeciality}}checked{{/if}}>{{localize "wod.labels.specialty"}}</input>
-                </div> -->
-
-                    
 
                 {{#if (gt object.totalSuccesses 0)}}
                 <div class="dialog-group">
@@ -38,11 +33,11 @@
                     <div style="height: 26px; line-height: 26px; display: flex;">                        
                         <label for="quintessence" class="headline splatFont" style="width: 265px;">{{localize "wod.dialog.aretecasting.quintessence"}}</label>
                         {{#numDownToLoop 0 -5}}
-                            {{#iff this "==" 0}}
-                                <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.quintessence" value="{{this}}" {{#iff ../object.quintessence "==" this}}checked{{/iff}}>{{this}}</input></span>
+                            {{#if (eq this 0)}}
+                                <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.quintessence" value="{{this}}" {{isChecked (eq ../object.quintessence this)}}>{{this}}</input></span>
                             {{else}}
-                                <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.quintessence" value="{{this}}" {{#iff ../object.quintessence "==" this}}checked{{/iff}}>{{this}}</input></span>
-                            {{/iff}}
+                                <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.quintessence" value="{{this}}" {{isChecked (eq ../object.quintessence this)}}>{{this}}</input></span>
+                            {{/if}}
                         {{/numDownToLoop}}
                     </div>
                 </div>
@@ -65,13 +60,13 @@
                     <div class="clearareaBox">
                         <div class="pullLeft headline splatFont" style="width: 250px;">{{localize 'wod.dialog.aretecasting.castingtype'}}</div>
                         <span class="pullLeft headlineNormal setting-radiospan setting-radiospanText">
-                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="coincidental" {{#if (eq object.spelltype "coincidental")}}checked{{/if}}>{{localize "wod.spheres.coincidental"}}</input>
+                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="coincidental" {{isChecked (eq object.spelltype "coincidental")}}>{{localize "wod.spheres.coincidental"}}</input>
                         </span>
                     </div>
                     <div class="clearareaBox">
                         <div class="pullLeft" style="width: 250px;">&nbsp;</div>
                         <span class="pullLeft headlineNormal setting-radiospan setting-radiospanText">
-                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="vulgar" {{#if (eq object.spelltype "vulgar")}}checked{{/if}}>{{localize "wod.spheres.vulgar"}}</input>
+                            <input type="radio" class="setting-radiobuttons" name="object.spelltype" value="vulgar" {{isChecked (eq object.spelltype "vulgar")}}>{{localize "wod.spheres.vulgar"}}</input>
                         </span>
                     </div>
                 </div>
@@ -79,18 +74,28 @@
                 <div class="dialog-group">
                         <div style="height: 26px; line-height: 26px; display: flex;">
                         <label for="spelltype" class="headline splatFont dialog-casting-type-label">{{localize "wod.dialog.aretecasting.witnesses"}}</label>
-                        <input class="headlineNormal" name="object.witnesses" type="checkbox" {{#if object.witnesses}}checked{{/if}} />
+                        <input class="headlineNormal" name="object.witnesses" type="checkbox" {{isChecked object.witnesses}} />
                     </div>
                 </div>
 
                 <div class="dialog-group">
                     <div style="height: 26px; line-height: 26px; display: flex;">
                         <label for="areteModifier" class="headline splatFont dialog-casting-type-label">{{localize "wod.dialog.aretecasting.extendedcasting"}}</label>
-                        <input class="headlineNormal" name="object.isExtendedCasting" type="checkbox" {{#if object.isExtendedCasting}}checked{{/if}} />
+                        <input class="headlineNormal" name="object.isExtendedCasting" type="checkbox" {{isChecked object.isExtendedCasting}} />
+                    </div>
+                    <div class="information-area">
+                        {{localize "wod.dialog.aretecasting.extendedcastingdesc"}}
+                    </div>
+                    <div style="height: 26px; line-height: 26px; display: flex;">
+                        <label for="areteModifier" class="headline splatFont dialog-casting-type-label">{{localize "wod.dialog.aretecasting.keepdiff"}}</label>
+                        <input class="headlineNormal" name="object.keepDifficulty" type="checkbox" {{isChecked object.keepDifficulty}} />
+                    </div>
+                    <div class="information-area">
+                        {{localize "wod.dialog.aretecasting.keepdiffdesc"}}
                     </div>
                     <div style="height: 26px; line-height: 26px; display: flex;">
                         <label for="useSpeciality" class="headline splatFont dialog-casting-type-label">{{localize "wod.labels.specialty"}}</label>
-                        <input class="headlineNormal" name="object.useSpeciality" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} />
+                        <input class="headlineNormal" name="object.useSpeciality" type="checkbox" {{isChecked object.useSpeciality}} />
                     </div>
                 </div>
             </div> 
@@ -120,42 +125,42 @@
             <div>
                 <div class="row">
                     <label for="instrument_personal" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.instrumentperson"}} (-1)</label>
-                    <input class="value_instrument_personal" name="object.check_instrumentPerson" type="checkbox" value="-1" {{#if object.check_instrumentPerson}}checked{{/if}} />
+                    <input class="value_instrument_personal" name="object.check_instrumentPerson" type="checkbox" value="-1" {{isChecked object.check_instrumentPerson}} />
                 </div>
 
                 <div class="row">
                     <label for="instrument_unique" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.instrumentunique"}} (-1)</label>
-                    <input class="value_instrument_unique" name="object.check_instrumentUnique" type="checkbox" value="-1" {{#if object.check_instrumentUnique}}checked{{/if}} />
+                    <input class="value_instrument_unique" name="object.check_instrumentUnique" type="checkbox" value="-1" {{isChecked object.check_instrumentUnique}} />
                 </div>
 
                 <div class="row">
                     <label for="instrument_unfamiliar" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.instrumentunfamiliar"}}</label>
                     {{#numFromLoop 0 2}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentUnfamiliar" value="{{this}}" {{#iff ../object.select_instrumentUnfamiliar "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentUnfamiliar" value="{{this}}" {{isChecked (eq ../object.select_instrumentUnfamiliar this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentUnfamiliar" value="{{this}}" {{#iff ../object.select_instrumentUnfamiliar "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentUnfamiliar" value="{{this}}" {{isChecked (eq ../object.select_instrumentUnfamiliar this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numFromLoop}}
                 </div>
 
                 <div class="row">
                     <label for="instruments_without" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.instrumentwithout"}} (+3)</label>
-                    <input class="value_instruments_without" name="object.check_instrumentWithout" type="checkbox" value="3" {{#if object.check_instrumentWithout}}checked{{/if}} />
+                    <input class="value_instruments_without" name="object.check_instrumentWithout" type="checkbox" value="3" {{isChecked object.check_instrumentWithout}} />
                 </div>
 
                 <div class="row">
                     <label for="instruments_unnecessary" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.instrumentnotusing"}} (-1)</label>
-                    <input class="value_instruments_unnecessary" name="object.check_instrumentUnnecessary" type="checkbox" value="-1" {{#if object.check_instrumentUnnecessary}}checked{{/if}} />
+                    <input class="value_instruments_unnecessary" name="object.check_instrumentUnnecessary" type="checkbox" value="-1" {{isChecked object.check_instrumentUnnecessary}} />
                 </div>
 
                 <div class="row">
                     <label for="target_personal_item" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.instrumentpersonalitem"}}</label>
                     {{#numDownToLoop 0 -3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentPersonalItem" value="{{this}}" {{#iff ../object.select_instrumentPersonalItem "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentPersonalItem" value="{{this}}" {{isChecked (eq ../object.select_instrumentPersonalItem this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentPersonalItem" value="{{this}}" {{#iff ../object.select_instrumentPersonalItem "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_instrumentPersonalItem" value="{{this}}" {{isChecked (eq ../object.select_instrumentPersonalItem this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numDownToLoop}}
                 </div>
@@ -167,17 +172,17 @@
             <div>
                 <div class="row">
                     <label for="resonance_appropriate" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.resonanceappropriate"}} (-1)</label>
-                    <input class="value_resonance_appropriate" name="object.check_resonanceAppropriate" type="checkbox" value="-1" {{#if object.check_resonanceAppropriate}}checked{{/if}} />
+                    <input class="value_resonance_appropriate" name="object.check_resonanceAppropriate" type="checkbox" value="-1" {{isChecked object.check_resonanceAppropriate}} />
                 </div>
 
                 <div class="row">
                     <label for="resonance_opposed" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.resonanceopposed"}} (+1)</label>
-                    <input class="value_resonance_opposed" name="object.check_resonanceOpposed" type="checkbox" value="1" {{#if object.check_resonanceOpposed}}checked{{/if}} />
+                    <input class="value_resonance_opposed" name="object.check_resonanceOpposed" type="checkbox" value="1" {{isChecked object.check_resonanceOpposed}} />
                 </div>
 
                 <div class="row">
                     <label for="mysic_threads" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.resonancemysic"}} (-1)</label>
-                    <input class="value_mysic_threads" name="object.check_resonanceMysic" type="checkbox" value="-1" {{#if object.check_resonanceMysic}}checked{{/if}} />
+                    <input class="value_mysic_threads" name="object.check_resonanceMysic" type="checkbox" value="-1" {{isChecked object.check_resonanceMysic}} />
                 </div>
             </div>
         </div>
@@ -189,22 +194,18 @@
                 <div class="row">
                     <label for="time_extra" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.spendingtime"}}</label>
                     {{#numDownToLoop 0 -3}}
-                        {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_spendingTime" value="{{this}}" {{#iff ../object.select_spendingtime "==" this}}checked{{/iff}}>{{this}}</input></span>
-                        {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_spendingTime" value="{{this}}" {{#iff ../object.select_spendingtime "==" this}}checked{{/iff}}>{{this}}</input></span>
-                        {{/iff}}
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_spendingTime" value="{{this}}" {{isChecked (eq ../object.select_spendingTime this)}}>{{this}}</input></span>
                     {{/numDownToLoop}}
                 </div>
 
                 <div class="row">
                     <label for="time_fast" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.timefast"}} (+1)</label>
-                    <input class="value_time_fast" name="object.check_timeFast" type="checkbox" value="1" {{#if object.check_timeFast}}checked{{/if}} />
+                    <input class="value_time_fast" name="object.check_timeFast" type="checkbox" value="1" {{isChecked object.check_timeFast}} />
                 </div>
 
                 <div class="row">
                     <label for="time_backwards" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.timebackwards"}} (+3)</label>
-                    <input class="value_time_backwards" name="object.check_timeBackwards" type="checkbox" value="3" {{#if object.check_timeBackwards}}checked{{/if}} />
+                    <input class="value_time_backwards" name="object.check_timeBackwards" type="checkbox" value="3" {{isChecked object.check_timeBackwards}} />
                 </div>
             </div>
         </div>
@@ -216,9 +217,9 @@
                     <label for="research_done" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.researchdone"}}</label>
                     {{#numDownToLoop 0 -3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_researchDone" value="{{this}}" {{#iff ../object.select_researchDone "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_researchDone" value="{{this}}" {{isChecked (eq ../object.select_researchDone this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_researchDone" value="{{this}}" {{#iff ../object.select_researchDone "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_researchDone" value="{{this}}" {{isChecked (eq ../object.select_researchDone this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numDownToLoop}}
                 </div>
@@ -227,25 +228,25 @@
                     <label for="node_presence" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.nodepresence"}}</label>
                     {{#numDownToLoop 0 -3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_nodePresence" value="{{this}}" {{#iff ../object.select_nodePresence "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_nodePresence" value="{{this}}" {{isChecked (eq ../object.select_nodePresence this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_nodePresence" value="{{this}}" {{#iff ../object.select_nodePresence "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_nodePresence" value="{{this}}" {{isChecked (eq ../object.select_nodePresence this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numDownToLoop}}
                 </div>
 
                 <div class="row">
                     <label for="target_distant" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.distanttarget"}} (+1)</label>
-                    <input id="target_distant" name="object.check_targetDistant" type="checkbox" value="1" {{#if object.check_targetDistant}}checked{{/if}} />
+                    <input id="target_distant" name="object.check_targetDistant" type="checkbox" value="1" {{isChecked object.check_targetDistant}} />
                 </div>
 
                 <div class="row">
                     <label for="effects_several" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.effectsseveral"}}</label>
                     {{#numFromLoop 0 3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_effectsSeveral" value="{{this}}" {{#iff ../object.select_effectsSeveral "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_effectsSeveral" value="{{this}}" {{isChecked (eq ../object.select_effectsSeveral this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_effectsSeveral" value="{{this}}" {{#iff ../object.select_effectsSeveral "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_effectsSeveral" value="{{this}}" {{isChecked (eq ../object.select_effectsSeveral this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numFromLoop}}
                 </div>
@@ -254,9 +255,9 @@
                     <label for="mage_magedistracted" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.magedistracted"}}</label>
                     {{#numFromLoop 0 3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageDistracted" value="{{this}}" {{#iff ../object.select_mageDistracted "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageDistracted" value="{{this}}" {{isChecked (eq ../object.select_mageDistracted this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageDistracted" value="{{this}}" {{#iff ../object.select_mageDistracted "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageDistracted" value="{{this}}" {{isChecked (eq ../object.select_mageDistracted this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numFromLoop}}
                 </div>
@@ -265,9 +266,9 @@
                     <label for="mage_avatar_mageavatarconflict" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.mageavatarconflict"}}</label>
                     {{#numFromLoop 0 3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageAvatarConflict" value="{{this}}" {{#iff ../object.select_mageAvatarConflict "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageAvatarConflict" value="{{this}}" {{isChecked (eq ../object.select_mageAvatarConflict this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageAvatarConflict" value="{{this}}" {{#iff ../object.select_mageAvatarConflict "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_mageAvatarConflict" value="{{this}}" {{isChecked (eq ../object.select_mageAvatarConflict this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numFromLoop}}
                 </div>
@@ -276,9 +277,9 @@
                     <label for="domino_effect" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.dominoeffect"}}</label>
                     {{#numFromLoop 0 3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_dominoEffect" value="{{this}}" {{#iff ../object.select_dominoEffect "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_dominoEffect" value="{{this}}" {{isChecked (eq ../object.select_dominoEffect this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_dominoEffect" value="{{this}}" {{#iff ../object.select_dominoEffect "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_dominoEffect" value="{{this}}" {{isChecked (eq ../object.select_dominoEffect this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numFromLoop}}
                 </div>
@@ -287,9 +288,9 @@
                     <label for="deed_outlandish" class="headlineNormal dialog-label">{{localize "wod.dialog.aretecasting.deedoutlandish"}}</label>
                     {{#numFromLoop 0 3}}
                         {{#iff this "==" 0}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_deedOutlandish" value="{{this}}" {{#iff ../object.select_deedOutlandish "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_deedOutlandish" value="{{this}}" {{isChecked (eq ../object.select_deedOutlandish this)}}>{{this}}</input></span>
                         {{else}}
-                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_deedOutlandish" value="{{this}}" {{#iff ../object.select_deedOutlandish "==" this}}checked{{/iff}}>{{this}}</input></span>
+                        <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="object.select_deedOutlandish" value="{{this}}" {{isChecked (eq ../object.select_deedOutlandish this)}}>{{this}}</input></span>
                         {{/iff}}
                     {{/numFromLoop}}
                 </div>

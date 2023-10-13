@@ -1,10 +1,11 @@
-<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}} {{getEra actor}}" autocomplete="off">
+<form class="{{cssClass}} flexcol {{#if locked}}locked{{/if}} {{getEra actor}} {{getVariant actor}}" autocomplete="off">
 
 	{{!-- Mortal Sheet Header --}}	
 	<div class="sheet-character">	
 		
 		{{!-- Always visible --}}
-		<header class="sheet-header">				
+		<header class="sheet-header">		
+				
 		</header>	
 
 		<!-- Sheet part -->
@@ -24,7 +25,11 @@
 			<div class="pullRight">
 				<!-- Macro icons -->
 				{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.html"}}
-			</div>
+			</div>			
+
+			<div class="centerText sheet-headline splatFont">
+				MORTAL {{#if (ne actor.system.settings.variant 'general')}}({{localize actor.system.settings.variant}}){{/if}}
+			</div>	
 
 			<!-- Bio tab -->
 			<div class="tab bio sheet-inner-area" data-group="primary" data-tab="bio">
@@ -37,17 +42,17 @@
 			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
 				
 				<!-- Core Attributes -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
 				</div>
 
 				<!-- Core Abilities -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/abilities.html"}}
 				</div>
 
 				<!-- Core Stats -->
-				<div class="sheet-area">
+				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/stats.html"}}
 				</div>
 			</div>

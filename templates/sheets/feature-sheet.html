@@ -68,6 +68,7 @@
 								<option value="wod.types.background">{{localize "wod.types.background"}}</option>
 								<option value="wod.types.bloodbound">{{localize "wod.types.bloodbound"}}</option>
 								<option value="wod.types.boon">{{localize "wod.types.boon"}}</option>
+								<option value="wod.types.oath">{{localize "wod.types.oath"}}</option>
 								<option value="wod.types.merit">{{localize "wod.types.merit"}}</option>
 								<option value="wod.types.flaw">{{localize "wod.types.flaw"}}</option>
 							{{/select}}
@@ -77,22 +78,24 @@
 				{{/if}}
 
 				<!-- level -->
-				<div class="infobox bioInformationArea floating-label-group">
-					{{#if (ne data.system.type "wod.types.boon")}}
-						<input class="sheet-infoValues editable" name="system.level" type="text" value="{{data.system.level}}" data-dtype="Number" autocomplete="off" autofocus required />
-					{{else}}
-						<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
-							{{#select data.system.level}}
-								<option value="">- {{localize "wod.labels.select"}} -</option>							
-								<option value="wod.labels.feature.trivial">{{localize "wod.labels.feature.trivial"}}</option>
-								<option value="wod.labels.feature.minor">{{localize "wod.labels.feature.minor"}}</option>
-								<option value="wod.labels.feature.major">{{localize "wod.labels.feature.major"}}</option>
-								<option value="wod.labels.feature.life">{{localize "wod.labels.feature.life"}}</option>
-							{{/select}}
-						</select>
-					{{/if}}
-					<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
-				</div>
+				{{#if (ne data.system.type "wod.types.oath")}}
+					<div class="infobox bioInformationArea floating-label-group">
+						{{#if (eqAny data.system.type "wod.types.boon")}}
+							<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
+								{{#select data.system.level}}
+									<option value="">- {{localize "wod.labels.select"}} -</option>							
+									<option value="wod.labels.feature.trivial">{{localize "wod.labels.feature.trivial"}}</option>
+									<option value="wod.labels.feature.minor">{{localize "wod.labels.feature.minor"}}</option>
+									<option value="wod.labels.feature.major">{{localize "wod.labels.feature.major"}}</option>
+									<option value="wod.labels.feature.life">{{localize "wod.labels.feature.life"}}</option>
+								{{/select}}
+							</select>
+						{{else}}
+							<input class="sheet-infoValues editable" name="system.level" type="text" value="{{data.system.level}}" data-dtype="Number" autocomplete="off" autofocus required />						
+						{{/if}}
+						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+					</div>
+				{{/if}}
 				
 				<div class="infobox bioInformationArea floating-label-group">
 					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
@@ -110,7 +113,7 @@
 						{{#if locked}}
 							<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 						{{else}}
-							{{editor data.description target="system.description" button=false owner=owner editable=true}}
+							{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 						{{/if}}
 					</div>
 				</div>
@@ -125,7 +128,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.details}}}</div>					
 					{{else}}
-						{{editor data.details target="system.details" button=false owner=owner editable=true}}
+						{{editor actor.system.details target="system.details" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

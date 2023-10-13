@@ -1,0 +1,41 @@
+{{#*inline "settingPart"}}
+<div class="form-group setting-area">
+    <div class="pullLeft">
+        <label>{{this.name}}</label>
+    </div>
+    <div class="pullLeft form-fields">
+        {{#if this.isBoolean}}
+            <input type="checkbox" name="{{this.scope}}.{{this.key}}" data-dtype="Boolean" {{checked this.value}} />
+        {{else if this.isSelect}}
+            <select name="{{this.scope}}.{{this.key}}">
+            {{#select this.value}} 
+                {{#each this.choices as |name k|}}
+                    <option value="{{k}}">{{localize name}}</option>
+                {{/each}} 
+            {{/select}}
+            </select>
+        {{else}}
+            <input type="text" name="{{this.scope}}.{{this.key}}" value="{{this.value}}" data-dtype="{{this.type}}" />
+        {{/if}}
+    </div>
+
+    <p class="notes">{{this.hint}}</p>
+</div>
+{{/inline}}
+
+<form class="flexcol setting-dialog" autocomplete="off">
+    <section id="config-tabs" class="content">
+        <div class="settings-list">
+            <h2 class="module-header">{{ localize data.system.title }}</h2>
+            {{#each data.system.settings}} 
+                {{> settingPart}} 
+            {{else}}
+                <p>None</p>
+            {{/each}}
+        </div>
+    </section>
+
+    <footer class="sheet-footer flexrow">
+        <button type="submit" name="submit"><i class="far fa-save"></i>{{localize "wod.dialog.save"}}</button>
+    </footer>
+</form>

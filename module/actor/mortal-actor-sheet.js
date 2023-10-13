@@ -28,13 +28,11 @@ export class MortalActorSheet extends ActorSheet {
 				initial: "attributes",
 			}]
 		});
-	}	
+	}
   
 	constructor(actor, options) {
 		super(actor, options);
 
-		console.log("WoD | Mortal Sheet constructor");
-			
 		this.isGM = game.user.isGM;	
 		this.isLimited = actor.limited;
 		this.locked = true;
@@ -55,8 +53,9 @@ export class MortalActorSheet extends ActorSheet {
 			if (actorData.type == CONFIG.wod.sheettype.mortal) {
 				actorData.system.settings.iscreated = true;		
 				actorData.system.settings.version = game.data.system.version;
+				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultMortalEra];
 				
-				await CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
+				await CreateHelper.SetMortalAbilities(actorData, this.actor, CONFIG.wod.defaultMortalEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 			}	 	
 		}
@@ -69,7 +68,7 @@ export class MortalActorSheet extends ActorSheet {
 		await this.actor.update(actorData);
 
 		console.log("WoD | Mortal Sheet getData");
-		const data = await super.getData();	
+		const data = await super.getData();
 
 		CONFIG.wod.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
 		
@@ -105,10 +104,18 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = false;
 
-		if (actorData.type == CONFIG.wod.sheettype.mortal) {
+		if (data.actor.type == CONFIG.wod.sheettype.mortal) {
 			console.log(CONFIG.wod.sheettype.mortal);
 			console.log(data.actor);
-		}			
+		}	
+
+		if ((data.actor.system.settings.variant == "") && ((this.actor.type == CONFIG.wod.sheettype.creature)||
+											(this.actor.type == CONFIG.wod.sheettype.changingbreed)||
+											(this.actor.type == CONFIG.wod.sheettype.wraith)||
+											(this.actor.type == CONFIG.wod.sheettype.changeling)||
+											(this.actor.type == CONFIG.wod.sheettype.mortal))) {
+			ActionHelper.openVariantDialog(this.actor);
+		}
 
 		return data;
 	}	
@@ -193,6 +200,11 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".sheet_victorian")
 			.click(this._setVictorian.bind(this));
+
+		// set variant
+		html
+			.find(".variantbutton")
+			.click(this._setVariant.bind(this));
 
 		// Rollable stuff
 		html
@@ -388,6 +400,34 @@ export class MortalActorSheet extends ActorSheet {
 		}
 	}	
 
+	async _setVariant(event) {
+		event.preventDefault();
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const actorData = duplicate(this.actor);
+
+		if (this.actor.type == CONFIG.wod.sheettype.changeling) {
+			await CreateHelper.SetChangingVariant(actorData, dataset.value);
+		}
+		if (this.actor.type == CONFIG.wod.sheettype.wraith) {
+			actorData.system.settings.variant = dataset.value;
+		}
+		if (this.actor.type == CONFIG.wod.sheettype.changingbreed) {
+			await CreateHelper.SetShifterAttributes(actorData, dataset.value);
+		}
+		if (this.actor.type == CONFIG.wod.sheettype.mortal) {
+			await CreateHelper.SetMortalVariant(actorData, dataset.value);
+		}
+		if (this.actor.type == CONFIG.wod.sheettype.creature) {
+			await CreateHelper.SetCreatureVariant(this.actor, actorData, dataset.value);			
+		}
+		
+        await this.actor.update(actorData);
+		await CreateHelper.SetVariantItems(this.actor, dataset.value);
+	}
+
 	async _onDropItemCreate(itemData) {
 		if ((itemData.type == "Power") && (itemData.system.parentid != "")) {
 			itemData.system.parentid = await ItemHelper.GetPowerId(itemData, this.actor);
@@ -427,12 +467,12 @@ export class MortalActorSheet extends ActorSheet {
 			return;
 		}
 		// has shifted from what chapeshifter type to another an then you need to check what that does with the permissions
-		else if (source == "shiftertype") {
+		/* else if (source == "shiftertype") {
 			var e = document.getElementById("system.changingbreed");
 			var type = e.value;
 
 			await CreateHelper.SetShifterAttributes(actorData, type);
-		}
+		} */
 		else if (source == "frenzy") {
 			let value = 0;
 
@@ -553,8 +593,7 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.system.settings.usesplatfont = !actorData.system.settings.usesplatfont;
 		}
 		if (source == "powers") {
-			actorData.system.settings.powers[type] = !actorData.system.settings.powers[type];
-		
+			actorData.system.settings.powers[type] = !actorData.system.settings.powers[type];		
 		}		
 
 		await ActionHelper.handleCalculations(actorData);
@@ -640,7 +679,6 @@ export class MortalActorSheet extends ActorSheet {
 				await this._assignToActorField(fields, index + 1);
 			}
 		}	
-		
 
 		steps.removeClass("active");
 		steps.each(function (i) {
@@ -754,7 +792,7 @@ export class MortalActorSheet extends ActorSheet {
 		const type = $(event.currentTarget).data("type");
 		const itemtype = $(event.currentTarget).data("itemtype");
 
-		let itemData;		
+		let itemData = undefined;		
 		let found = false;
 
 		if (itemtype == "Armor") {
@@ -819,6 +857,11 @@ export class MortalActorSheet extends ActorSheet {
 				name = game.i18n.localize("wod.labels.new.boon");
 				itemkind = "wod.types.boon";
 				level = "";
+			}
+			if (type == "oath") {
+				found = true;
+				name = game.i18n.localize("wod.labels.new.oath");
+				itemkind = "wod.types.oath";
 			}
 			if (type == "background") {
 				found = true;
@@ -926,188 +969,9 @@ export class MortalActorSheet extends ActorSheet {
 			}
 		}
 		if (itemtype == "Power") {
-			const level = $(event.currentTarget).data("level");
+			itemData = await ItemHelper.CreateItemPower(event, type, itemData, itemtype);			
 
-			if (type == "gift") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.gift")}`,
-					type: itemtype,
-					system: {
-						level: level,
-						game: "werewolf",
-						type: "wod.types.gift"
-					}
-				};
-			}
-			if (type == "rite") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.rite")}`,
-					type: itemtype,
-					system: {
-						game: "werewolf",
-						type: "wod.types.rite"
-					}
-				};
-			}
-			if (type == "discipline") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.discipline")}`,
-					type: itemtype,
-					system: {
-						game: "vampire",
-						type: "wod.types.discipline"
-					}
-				};
-			}
-			if (type == "disciplinepower") {
-				found = true;
-				const id = $(event.currentTarget).data("parentid");
-
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.disciplinepower")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						game: "vampire",
-						parentid: id,
-						type: "wod.types.disciplinepower"
-					}
-				};
-			}
-			if (type == "disciplinepath") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.disciplinepath")}`,
-					type: itemtype,
-					system: {
-						game: "vampire",
-						type: "wod.types.disciplinepath"
-					}
-				};
-			}
-			if (type == "disciplinepathpower") {
-				const id = $(event.currentTarget).data("parentid");
-				found = true;
-
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.disciplinepathpower")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						game: "vampire",
-						parentid: id,
-						type: "wod.types.disciplinepathpower"
-					}
-				};
-			}
-			if (type == "ritual") {
-				const source = $(event.currentTarget).data("game");
-				found = true;
-
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.ritual")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						game: source,
-						type: "wod.types.ritual"
-					}
-				};
-			}
-			if (type == "edge") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.edge")}`,
-					type: itemtype,
-					system: {
-						game: "hunter",
-						type: "wod.types.edge"
-					}
-				};
-			}
-			if (type == "edgepower") {
-				found = true;
-				const id = $(event.currentTarget).data("parentid");
-
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.edgepower")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						game: "hunter",
-						parentid: id,
-						type: "wod.types.edgepower"
-					}
-				};
-			}
-			if (type == "art") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.art")}`,
-					type: itemtype,
-					system: {
-						game: "changeling",
-						type: "wod.types.art"
-					}
-				};
-			}
-			if (type == "artpower") {
-				found = true;
-				const id = $(event.currentTarget).data("parentid");
-
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.artpower")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						game: "changeling",
-						parentid: id,
-						property: {
-							arttype: ""
-						},
-						type: "wod.types.artpower"
-					}
-				};
-			}
-			if (type == "lore") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.lore")}`,
-					type: itemtype,
-					system: {
-						game: "demon",
-						type: "wod.types.lore"
-					}
-				};
-			}
-			if (type == "lorepower") {
-				found = true;
-				const id = $(event.currentTarget).data("parentid");
-
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.lorepower")}`,
-					type: itemtype,
-					system: {
-						level: 1,
-						game: "demon",
-						parentid: id,
-						type: "wod.types.lorepower"
-					}
-				};
-			}
-			if (type == "power") {
-				found = true;
-				itemData = {
-					name: `${game.i18n.localize("wod.labels.new.power")}`,
-					type: itemtype,
-					system: {
-						type: "wod.types.power"
-					}
-				};
-			}
+			found = itemData != undefined;
 		}
 		if (itemtype == "Rote") {
 			found = true;
@@ -1139,6 +1003,28 @@ export class MortalActorSheet extends ActorSheet {
 					system: {
 						label: `${game.i18n.localize("wod.labels.new.resonance")}`,
 						type: "wod.types.resonance"
+					}
+				};
+			}
+			if (type == "passion") {
+				found = true;
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.passion")}`,
+					type: itemtype,
+					system: {
+						label: `${game.i18n.localize("wod.labels.new.passion")}`,
+						type: "wod.types.passion"
+					}
+				};
+			}
+			if (type == "fetter") {
+				found = true;
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.fetter")}`,
+					type: itemtype,
+					system: {
+						label: `${game.i18n.localize("wod.labels.new.fetter")}`,
+						type: "wod.types.fetter"
 					}
 				};
 			}

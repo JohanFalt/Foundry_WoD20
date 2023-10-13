@@ -111,7 +111,7 @@
 
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>
-						<input name="system.isrollable" type="checkbox" {{#if data.system.isrollable}}checked{{/if}} />
+						<input name="system.isrollable" type="checkbox" {{isChecked data.system.isrollable}} />
 					</div>
 
 					{{#if data.system.isrollable}}
@@ -130,7 +130,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>
@@ -145,7 +145,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.details}}}</div>					
 					{{else}}
-						{{editor data.details target="system.details" button=false owner=owner editable=true}}
+						{{editor actor.system.details target="system.details" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

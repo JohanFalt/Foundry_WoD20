@@ -16,7 +16,7 @@
         <div class="dialog-area">
             <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
             <div class="clearareaBox infobox dialog-checkbox">
-                <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
+                <div class="pullLeft"><input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} /></div>
             </div>
         </div>
 
@@ -66,7 +66,7 @@
             {{#if object.hasSpeciality}}
                 <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
                 <div class="clearareaBox infobox dialog-checkbox">
-                    <div class="pullLeft"><input name="specialty" type="checkbox" {{#if object.useSpeciality}}checked{{/if}} /></div>
+                    <div class="pullLeft"><input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} /></div>
                     <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}{{localize "wod.dialog.nonelisted"}}{{/if}}</div>
                 </div>
             {{/if}}
@@ -101,7 +101,7 @@
             {{#if (eq object.ignorepain false)}}
                 <div class="dialog-area">
                     <div class="infobox headline splatFont">
-                        <input name="usepain" type="checkbox" {{#if object.usepain}}checked{{/if}}>{{localize 'wod.dialog.usewoundpenalty'}} ({{actorData.health.damage.woundpenalty}})</input>
+                        <input name="usepain" type="checkbox" {{isChecked object.usepain}}>{{localize 'wod.dialog.usewoundpenalty'}} ({{actorData.health.damage.woundpenalty}})</input>
                     </div>
                 </div>
             {{/if}}

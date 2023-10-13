@@ -97,7 +97,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>
@@ -112,7 +112,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.details}}}</div>					
 					{{else}}
-						{{editor data.details target="system.details" button=false owner=owner editable=true}}
+						{{editor actor.system.details target="system.details" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

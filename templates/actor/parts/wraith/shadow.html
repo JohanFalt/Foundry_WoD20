@@ -1,0 +1,156 @@
+<div class="sheet-area flex-rows">    
+    
+    <div class="bioInformationArea floating-label-group">
+        {{#if locked}}
+            <input class="sheet-infoValues" type="text" value="{{data.system.psyche}}" autocomplete="off" autofocus required />
+        {{else}}
+            <input class="sheet-infoValues editable" name="system.psyche" type="text" value="{{data.system.psyche}}" data-name="data.system.psyche" data-dtype="String" autocomplete="off" autofocus required />
+        {{/if}}
+        <span class="floating-label">{{localize "wod.bio.wraith.psyche"}}</span>
+    </div>
+
+    <div class="bioInformationArea floating-label-group">
+        {{#if locked}}
+            <input class="sheet-infoValues" type="text" value="{{data.system.archetype}}" autocomplete="off" autofocus required />
+        {{else}}
+            <input class="sheet-infoValues editable" name="system.archetype" type="text" value="{{data.system.archetype}}" data-name="data.system.archetype" data-dtype="String" autocomplete="off" autofocus required />
+        {{/if}}
+        <span class="floating-label">{{localize "wod.bio.wraith.archetype"}}</span>
+    </div>
+
+    <div class="bioInformationArea floating-label-group">
+        {{#if locked}}
+            <input class="sheet-infoValues" type="text" value="{{data.system.player}}" autocomplete="off" autofocus required />
+        {{else}}
+            <input class="sheet-infoValues editable" name="system.player" type="text" value="{{data.system.player}}" data-name="data.system.player" data-dtype="String" autocomplete="off" autofocus required />
+        {{/if}}
+        <span class="floating-label">{{localize "wod.bio.wraith.player"}}</span>
+    </div>
+
+</div>
+
+<div class="sheet-area flex-columns">
+	<div class="sheet-headline sheet-banner sheet-topbanner">&nbsp;</div>
+	<div class="area-box">
+		<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.thorns">{{localize "wod.bio.wraith.thorns"}}</label></div>
+
+		{{#if locked}}
+			<div class="headlineNormal textarea {{#if (eq data.system.thorns '')}}small{{/if}}">{{{data.system.thorns}}}</div>
+		{{else}}
+			{{editor actor.system.thorns target="system.thorns" button=false owner=owner editable=true}}
+		{{/if}}	
+    </div>
+</div>
+
+<div class="sheet-area flex-columns" style="min-height: 150px;">
+    <div class="area-box">
+        <div class="clearareaBox sheet-headline sheet-banner splatFont" data-area="passions">
+            <span class="sheet-banner-text">{{localize "wod.bio.wraith.darkpassions"}}</span>
+
+            <div class="pullRight pointer headlineNormal">
+                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.passion'}}" aria-hidden="true" data-itemtype="Trait" data-type="passion"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="passion" data-area="passion">
+        {{#each actor.system.listdata.traits.passions as |item id|}}
+            <div class="item-row-area">
+                <div class="clearareaBox note-row">
+                    <div class="pullLeft headlineNormal" style="width: 180px;">
+                        {{#if (ne item.name "")}}
+                            {{item.name}}
+                        {{else}}
+                            {{localize "wod.notes.unnamedpassion"}}
+                        {{/if}}
+                    </div>
+
+                    <div class="resource-value pullLeft power-dotBox" 
+                        data-value="{{item.system.value}}" 
+                        data-itemid="{{item._id}}">
+
+                        {{#numLoop item.system.max}}                            
+                            <span class="resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>                            
+                        {{/numLoop}}
+                    </div>
+
+                    <div class="pullLeft">
+                        <div class="pullLeft">
+                            <a class="send-chat" 
+                                title="{{localize 'wod.labels.send'}}"
+                                data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        </div>
+                        {{#if (eq ../locked false)}}
+                            <div class="pullLeft pointer">
+                                <a class="item-edit" title="{{localize 'wod.labels.edit.passion'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <div class="pullLeft pointer">
+                                <a class="item-delete" title="{{localize 'wod.labels.remove.passion'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            </div>
+                        {{/if}}
+                        
+                    </div>
+                </div>
+            </div> 
+        {{/each}}
+    </div>
+</div>
+
+<div class="sheet-area flex-rows">
+    <div class="two-columns flex-columns">
+
+        <div class="sheet-headline splatFont sheet-banner"><span class="sheet-banner-text">{{localize "wod.advantages.angst"}}</span></div>
+	
+        <div class="sheet-boxcontainer">
+            <div class="resource-value permValueRow" data-value="{{data.system.advantages.angst.permanent}}" data-name="advantages.angst.permanent">
+
+                {{#numLoop data.system.advantages.angst.max}}
+                
+                    <span class="resource-value-step" data-type="{{../config.sheettype.wraith}}" data-key="angst" data-index="{{this}}"></span>
+                
+                {{/numLoop}}
+                
+            </div>
+        </div>
+
+        <div class="sheet-boxcontainer">
+            <div class="resource-counter tempSquareRow" data-value="{{data.system.advantages.angst.temporary}}" data-name="advantages.angst.temporary">
+
+                {{#numLoop data.system.advantages.angst.max}}
+                
+                    {{#le ../data.system.advantages.angst.temporary this}}
+                        <span class="resource-value-step" data-type="{{../config.sheettype.wraith}}" data-key="angst" data-index="{{this}}" data-state=""></span>
+                    {{else}}
+                        <span class="resource-value-step" data-type="{{../config.sheettype.wraith}}" data-key="angst" data-index="{{this}}" data-state="x"></span>
+                    {{/le}}
+                
+                {{/numLoop}}
+                
+            </div>	
+        </div>
+
+    </div>
+
+    <div class="two-columns flex-columns">
+
+        <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.bio.wraith.psychewillpower"}}</span></div>
+
+        <div class="sheet-boxcontainer">
+            <div class="pathos resource-counter" data-value="{{data.system.advantages.pathos.temporary}}" data-name="advantages.pathos.temporary">
+        
+                {{#numLoop data.system.advantages.pathos.max}}
+                
+                    {{#le ../data.system.advantages.pathos.temporary this}}
+                        <span class="pathos resource-value-step" data-type="{{../config.sheettype.wraith}}" data-index="{{this}}" data-state=""></span>
+                    {{else}}
+                        <span class="pathos resource-value-step" data-type="{{../config.sheettype.wraith}}" data-index="{{this}}" data-state="x"></span>
+                    {{/le}}
+                
+                {{/numLoop}}
+                
+            </div>	
+        </div>
+
+    </div>
+
+</div>

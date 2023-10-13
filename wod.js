@@ -13,6 +13,7 @@ import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
 import { ChangelingActorSheet } from "./module/actor/changeling-actor-sheet.js";
 import { HunterActorSheet } from "./module/actor/hunter-actor-sheet.js";
 import { DemonActorSheet } from "./module/actor/demon-actor-sheet.js";
+import { WraithActorSheet } from "./module/actor/wraith-actor-sheet.js";
 import { ChangingBreedActorSheet } from "./module/actor/changingbreed-actor-sheet.js";
 import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
 import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
@@ -30,6 +31,7 @@ const SheetTypes = [
 	"Changeling",
 	"Hunter",
 	"Demon",
+	"Wraith",
 	"Changing Breed"
 ];
 const AdversaryTypes = [
@@ -77,6 +79,20 @@ Hooks.once("init", async function() {
 	}
 
 	try {
+		CONFIG.wod.useOnesDamage = game.settings.get('worldofdarkness', 'useOnesDamage');
+	} 
+	catch (e) {
+		CONFIG.wod.useOnesDamage = false;
+	}
+
+	try {
+		CONFIG.wod.useOnesSoak = game.settings.get('worldofdarkness', 'useOnesSoak');
+	} 
+	catch (e) {
+		CONFIG.wod.useOnesSoak = false;
+	}
+
+	try {
 		CONFIG.wod.lowestDifficulty = parseInt(game.settings.get('worldofdarkness', 'lowestDifficulty'));
 	} 
 	catch (e) {
@@ -117,6 +133,20 @@ Hooks.once("init", async function() {
 	catch (e) {
 		CONFIG.wod.explodingDice = "never";
 		CONFIG.wod.useexplodingDice = false;
+	}
+
+	// Era settings
+	try {
+		CONFIG.wod.defaultMortalEra = game.settings.get('worldofdarkness', 'eraMortal');
+		CONFIG.wod.defaultMageEra = game.settings.get('worldofdarkness', 'eraMage');
+		CONFIG.wod.defaultVampireEra = game.settings.get('worldofdarkness', 'eraVampire');
+		CONFIG.wod.defaultWerewolfEra = game.settings.get('worldofdarkness', 'eraWerewolf');
+	} 
+	catch (e) {
+		CONFIG.wod.defaultMortalEra = "modern";
+		CONFIG.wod.defaultMageEra = "modern";
+		CONFIG.wod.defaultVampireEra = "modern";
+		CONFIG.wod.defaultWerewolfEra = "modern";
 	}
 
 	CONFIG.wod.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
@@ -164,6 +194,12 @@ Hooks.once("init", async function() {
 	Actors.registerSheet("WoD", DemonActorSheet, {
 		label: "Demon Sheet",
 		types: ["Demon"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", WraithActorSheet, {
+		label: "Wraith Sheet",
+		types: ["Wraith"],
 		makeDefault: true
 	});
 
@@ -215,6 +251,54 @@ Hooks.once("init", async function() {
 Hooks.once("setup", function () {
     // Do anything after initialization but before
     // ready
+	/* CONFIG.fontDefinitions["Mortal"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/times.ttf"]
+		}]
+	};
+	CONFIG.fontDefinitions["Changeling"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/Umb000.ttf"]
+		}]
+	};
+	CONFIG.fontDefinitions["Vampire"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/percexp.ttf"]
+		}]
+	};
+	CONFIG.fontDefinitions["Mage"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/visit.TTF"]
+		}]
+	};
+	CONFIG.fontDefinitions["Werewolf"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/werewolf.ttf"]
+		}]
+	};
+	CONFIG.fontDefinitions["Hunter"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/hunter.ttf"]
+		}]
+	};
+	CONFIG.fontDefinitions["Demon"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/demon.ttf"]
+		}]
+	};
+	CONFIG.fontDefinitions["Wraith"] = {
+		editor: true,
+		fonts: [{
+			urls: ["systems/worldofdarkness/assets/fonts/Mat_____.ttf"]
+		}]
+	}; */
 });
 
 /* ------------------------------------ */
@@ -237,7 +321,7 @@ Hooks.once("ready", async function () {
 			ui.notifications.info("Done!", {permanent: true});
 		}
 	}
-	CONFIG.language = game.i18n.lang;
+	CONFIG.language = game.i18n.lang;	
 });
 
 Hooks.on("renderActorSheet", (sheet) => { 

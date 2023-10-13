@@ -96,14 +96,14 @@
 				<!-- 2-handed true/false -->
 				<div class="infobox">
 					<label class="headlineItem headlineBio splatFont" for="data.istwohanded">{{localize "wod.combat.weapon.twohanded"}}</label>
-					<input name="system.istwohanded" type="checkbox" {{#if data.system.istwohanded}} checked {{/if}}></input>
+					<input name="system.istwohanded" type="checkbox" {{isChecked data.system.istwohanded}}></input>
 				</div>
 
 				{{#if userpermissions.itemAdministrator}}
 					<!-- natural true/false -->
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont" for="data.isnatural">{{localize "wod.combat.weapon.natural"}}</label>
-						<input name="system.isnatural" type="checkbox" {{#if data.system.isnatural}} checked {{/if}}></input>
+						<input name="system.isnatural" type="checkbox" {{isChecked data.system.isnatural}}></input>
 					</div>
 				{{/if}}
 
@@ -114,7 +114,7 @@
 				{{#if userpermissions.itemAdministrator}}
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont" for="data.attack.isrollable">{{localize "wod.dice.rollattack"}}</label>
-						<input name="system.attack.isrollable" type="checkbox" {{#if data.system.attack.isrollable}} checked {{/if}} />
+						<input name="system.attack.isrollable" type="checkbox" {{isChecked data.system.attack.isrollable}} />
 					</div>
 				{{/if}}
 
@@ -179,7 +179,7 @@
 				{{#if userpermissions.itemAdministrator}}
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont" for="data.damage.isrollable">{{localize "wod.dice.rolldamage"}}</label>
-						<input name="system.damage.isrollable" type="checkbox" {{#if data.system.damage.isrollable}} checked {{/if}} />
+						<input name="system.damage.isrollable" type="checkbox" {{isChecked data.system.damage.isrollable}} />
 					</div>
 				{{/if}}
 
@@ -232,7 +232,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor data.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox">
 
         <div class="clearareaBox">
@@ -101,7 +101,7 @@
 </div>
 
 {{#if (eqAnyNot actor.type config.sheettype.spirit config.sheettype.vampire)}}
-    <div class="sheet-area">
+    <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="pullLeft headlineNormal settings-leftwidth" style="line-height: 26px;">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
             <div class="pullLeft settings-leftwidth settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
@@ -124,7 +124,7 @@
     </div>
 {{/if}}
 
-<div class="sheet-area">
+<div class="sheet-area flex-columns">
     <div class="clearareaBox">
 
         <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.labels.settings.secondaryabilities"}}</span></div>
