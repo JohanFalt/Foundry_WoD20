@@ -1661,7 +1661,15 @@ export  const updates = async () => {
     }
 
     if (!patch320) {
-        //game.settings.set('worldofdarkness', 'patch320', true);
+        game.settings.set('worldofdarkness', 'patch320', true);
+
+        newfunctions += "<li>Added Wraith the Oblivion.</li>";
+        newfunctions += "<li>Spirit sheet is no longer supported use Crerature sheet instead.</li>";
+        newfunctions += "<li>Added variant sheet support.</li>";
+        newfunctions += "<li>[CtD] Added support for changeling variants.</li>";
+        newfunctions += "<li>[WtO] Added support for shadow variant.</li>";
+        newfunctions += "<li>[Mortal] Added support for mortal variants.</li>";
+        newfunctions += "<li>[Creature] Added support for creature variants.</li>";
     }
 
     if (newfunctions == "") {
