@@ -78,7 +78,7 @@
   "gridUnits": "m",
   "primaryTokenAttribute": "traits.health.totalhealthlevels",
   "url": "https://github.com/JohanFalt/Foundry_WoD20",
-  "manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/main/system.json",
-  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v3.1.12.zip",
+  "manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/v3.1/system.json",
+  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/Final-v3.1.zip",
   "license": "LICENSE.txt"
 }
