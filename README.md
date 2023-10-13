@@ -8,15 +8,15 @@ I would never require it by anyone or even expect someone to do but if you reall
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk)
 
 ## Supported sheets
-- [Mortals](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mortal-v1.6)
+- Mortals
 - [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade)
 - [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension)
 - [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse)
 - [Changeling the Dreaming (C20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changeling-the-Dreaming)
 - [Hunter the Reckoning (HtR)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Hunter-the-Reckoning)
 - [Demon the Fallen (DtF)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Demon-the-Fallen)
+- Wraith the Oblivion
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)
-- Spirits
 - Creatures
 
 
