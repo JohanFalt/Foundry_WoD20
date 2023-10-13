@@ -370,9 +370,11 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		if (actor != undefined) {
-			if (actor.system.abilities[ability].altlabel != "") {
-				return actor.system.abilities[ability].altlabel;
-			}
+			if (actor.system.abilities[ability] != undefined) {
+				if (actor.system.abilities[ability].altlabel != "") {
+					return actor.system.abilities[ability].altlabel;
+				}
+			}			
 		}
 
 		for (const i in CONFIG.wod.talents) {
