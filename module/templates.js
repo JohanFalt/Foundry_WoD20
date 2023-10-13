@@ -983,13 +983,18 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {
-		var code = "";
+		let code = "";
 
 		//type = type.charAt(0).toUpperCase();
-		type = game.i18n.localize(CONFIG.wod.damageTypes[type]).charAt(0).toUpperCase();
 
-		//code = attribute.substring(0, 3);
-		if (attribute != "") {
+		if ((type != undefined) && (type != "")) {
+			type = game.i18n.localize(CONFIG.wod.damageTypes[type]).charAt(0).toUpperCase();
+		}
+		else {
+			type = "";
+		}		
+
+		if ((attribute != undefined) && (attribute != "")) {
 			code = game.i18n.localize(CONFIG.wod.attributes20[attribute]).substring(0, 3);
 		}		
 

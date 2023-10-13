@@ -1675,71 +1675,7 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        /* newfunctions += '<b>v3.1.12</b>';
-        newfunctions += '<li>[MtA] Corrected what abilities are availible in Mage the Victorian Era.</li>';
-
-        newfunctions += '<b>v3.1.11</b>';
-        newfunctions += '<li>Made corrections to Brazilian Portuguese</li>';
-        newfunctions += '<li>Fixed graphical problems with exploding 10s if the first roll was a 10</li>';
-
-        newfunctions += '<b>v3.1.10</b>';
-        newfunctions += '<li>Able for other traits to use any advantages</li>';
-
-        newfunctions += '<b>v3.1.9</b>';
-        newfunctions += '<li>Made corrections to Brazilian Portuguese</li>';
-        newfunctions += '<li>Fixed problems with damage roll where it added too much bonus in the chat text</li>';
-        newfunctions += '<li>Fixed graphical issues on some dialogs</li>';
-        newfunctions += '<li>[WtA] - Added so on shapeshifting tab you now see the attribute difficult changes</li>';
-
-        newfunctions += '<b>v3.1.8</b>';
-        newfunctions += '<li>Added Brazilian Portuguese</li>';
-        newfunctions += '<li>Added temporary bonuses in rolls was not visible on the dialog</li>';
-        newfunctions += '<li>Added negative temporary bonuses in rolls was not visible in chat</li>';
-        newfunctions += '<li>[CtD] - Fixed some graphical issues</li>';
-        newfunctions += '<li>[WtA] - Changing Breeds could not select type of shifter on Foundry v11</li>';
-
-        newfunctions += '<b>v3.1.7</b>';
-        newfunctions += '<li>With some world setups you could not create Actors due to the user did not have access to the data files which prevented the sheet to be able to open</li>';
-        newfunctions += '<li>Secondary abilities was sometimes unsorted</li>';
-        newfunctions += '<li>Problem with editing Secondary abilities</li>';
-        newfunctions += '<li>[MtA] - Tooltip caused problem if you had HTML in descriptions of Rotes</li>';
-
-        newfunctions += '<b>v3.1.6</b>';
-        newfunctions += '<li>Fixed a number of localization errors</li>';
-        newfunctions += '<li>[CtD] - Dots not visible on the affinity art</li>';
-        newfunctions += '<li>[WtA] - Due to bugs the icon handling with tokens the function have been removed. If these remains after you have started your world a few times (1-2 should be enough) and you still have problem with effects visible then the effect is on the icon and it needs to be replaced with a new on. My fix only effect Actors and Tokens that are data linked to an Actor.</li>';
-
-        newfunctions += '<b>v3.1.5</b>';
-        newfunctions += '<li>Added and adapted graphics if viewed in Spanish</li>';
-        newfunctions += '<li>Fixed some minor graphical problems</li>';
-        newfunctions += '<li>[WtA] - A serious problem with tokens showing the werewolf form was handled by trying to remove all icons that was found. To trigger this, shift the form of the Actor. If the icons remain the icon is most likely not linked to any Actor in its settings.</li>';
-        newfunctions += '<li>[MtA] - Fixed the listings of Rotes</li>';
-
-        newfunctions += '<b>v3.1.4</b>';
-        newfunctions += '<li>Adapted graphics if viewed in German</li>';
-        newfunctions += '<li>Added attributes and abilities as Melee Weapon choises to handle Maneuvers</li>';
-        newfunctions += '<li>Secondary Abilities can now be hidden in Settings -> Abilities</li>';
-        newfunctions += '<li>Translations for Secondary Abilities that are era specific</li>';
-        newfunctions += '<li>[MtA] - Fixed graphics on the spell casting dialog</li>';
-        newfunctions += '<li>[WtA] - Fixed problem where a shifter could show that it had more than one form</li>';
-        
-        newfunctions += '<b>v3.1.3</b>';
-        newfunctions += '<li>Fixed German translation</li>';
-        newfunctions += '<li>Fixed spelling errors</li>';
-        newfunctions += '<li>Fixed visiblity problems with the new font style</li>';
-        newfunctions += '<li>Fixed design for a few missed send-to-chat</li>';
-        newfunctions += '<li>[MtA] - Fixed missed Technocracy spheres</li>';
-        newfunctions += '<li>[MtA] - When edit spheres the box now closes after save</li>';
-        newfunctions += '<li>[VtM] - Fixed lists of abilities for Victorian Vampire</li>';
-        newfunctions += '<li>[VtM] - Fixed bug that did not let you open a Vampire sheet if you had created a boon</li>';
-        newfunctions += '<li>[WtA] - Fixed a problem where you could hold more than one form</li>';
-
-        newfunctions += '<b>v3.1.2</b>';
-        newfunctions += '<li>Fixed missing translation</li>';
-        newfunctions += '<li>Fixed problem with switching to Era where abilities became unrollable</li>';
-        newfunctions += '<li>Fixed listings of abilities in Victorian era</li>';
-        newfunctions += '<li>Spirit sheet missed the Settings tab</li>';
-        newfunctions += '<li>Fixed problems with shifting images on Actors</li>'; */
+        newfunctions += "<li>Fixing problems with new translation functions.</li>";
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
