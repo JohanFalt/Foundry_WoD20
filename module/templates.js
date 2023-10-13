@@ -985,8 +985,6 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("convertDamageCode", function (attribute, bonus, type) {
 		let code = "";
 
-		//type = type.charAt(0).toUpperCase();
-
 		if ((type != undefined) && (type != "")) {
 			type = game.i18n.localize(CONFIG.wod.damageTypes[type]).charAt(0).toUpperCase();
 		}

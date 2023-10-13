@@ -928,7 +928,6 @@ export default class ItemHelper {
 		if (type == "gift") {
 			const level = $(event.currentTarget).data("level");
 
-			found = true;
 			itemData = {
 				name: game.i18n.localize("wod.labels.new.gift"),
 				type: itemtype,
