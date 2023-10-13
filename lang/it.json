@@ -11,13 +11,20 @@
 			"hunter": "Cacciatori il Giudizio",
 			"vampire": "Vampiri la Masquerade",
 			"werewolf": "Licantropi l'Apocalisse",
-			"mage": "Maghi l'Ascensione"
+			"mage": "Maghi l'Ascensione",
+			"wraith": "Wraith the Oblivion"
 		},
 		"era": {
 			"modern": "Età Moderna",
 			"victorian": "Epoca Vittoriana",
 			"wildwest": "Selvaggio West",
-			"darkages": "Dark Ages"
+			"darkages": "Dark Ages",
+			"changeera": "You sure you wish to change era?",
+			"changeerahint": "The sheet is already set to this era you sure you wish to reset it?",
+			"mortaleratext": "Mortal sheet default era",
+			"mageeratext": "Mage sheet default era",
+			"vampireeratext": "Vampire sheet default era",
+			"werewolferatext": "Werewolf sheet default era"
 		},		
 		"settings": {
 			"nonotuse": "Non usare",
@@ -69,6 +76,8 @@
 			"choiceexperience": "Spendere punti Esperienza",	
 			"therollofone": "Usa l'effetto base degli 1",
 			"therollofonehint": "Effetto standard di 20° - Tutti gli 1 riducono di uno i successi ottenuti.",
+			"useOnesDamage": "Use rule of '1's in damage rolls",
+			"useOnesSoak": "Use rule of '1's in soak rolls",
 			"lowestdifficulty": "Difficoltà minima consentita",
 			"lowestdifficultyhint": "With this setting you can set what is the lowest difficulty you wish to use in your world.",
 			"specialityaddsuccess": "Usa regola standard per le specializzazioni",
@@ -81,7 +90,9 @@
 			"explodingdicehint": "Secondo le regole di Revised i 10 invece di aggiungere successi fissi esplodono.",
 			"dicerules": "Regole dadi",
 			"diceruleshint": "Come il sistema gestisce il tiro dei dadi.",
-			"rollsettings": "Impostazioni tiro"
+			"rollsettings": "Impostazioni tiro",
+			"erasettings": "Era settings",
+			"erasettingshint": "The world settings regards to eras"
 		},
 		"types": {
 			"mortal": "Mortale",
@@ -90,6 +101,7 @@
 			"background": "Background",
 			"bloodbound": "Legame di sangue",
 			"boon": "Favore",
+			"oath": "Oath",
 			"merit": "Pregio",
 			"flaw": "Difetto",
 			"expspent": "Esperienza spesa",
@@ -112,6 +124,8 @@
 			"edgepower": "Privilegio (potere)",
 			"lore": "Lore",
 			"lorepower": "Lore (potere)",
+			"arcanoi": "Arcanoi",
+			"arcanoipower": "Arcanoi Power",
 			"ritual": "Rituale",
 			"talen": "Talen",
 			"fetish": "Feticcio",
@@ -128,8 +142,9 @@
 			"realm": "Reame",
 			"resonance": "Risonanza",
 			"othertraits": "Altri Tratti",
-			"apacolypticform": "Forma Apocalittica"
-
+			"apacolypticform": "Forma Apocalittica",
+			"passion": "Passion",
+			"fetter": "Fetter"
 		},
 		"tab": {
 			"bio": "Bio",
@@ -147,6 +162,7 @@
 			"dreaming": "Sogno",
 			"edge": "Vantaggi",
 			"lore": "Lore",
+			"death": "Death",
 			"shapechange": "Forme",
 			"settings": "Impostazioni",
 			"sheet": "Impostazioni scheda",
@@ -412,6 +428,22 @@
 				"wilder": "Selvaggio",
 				"grump": "Brontolone",
 				"kith": "Congiunti",
+				"phyla": "Phyla",
+				"adhene": "Adhene",
+				"brand": "Brand",
+				"raiding": "Raiding",
+				"havesting": "Harvesting",
+				"nightmarelegacy": "Nightmare Legacy",
+				"winterrock": "Winter/Rock Camp",
+				"feast": "Feast",
+				"aria1": "Primary Aria / Legacy",
+				"aria2": "Secondary Aria / Legacy",
+				"aria3": "Tertiary Aria / Legacy",
+				"kithain": "Kithain Legacy",
+				"summer": "Summer/Dogwood Camp",
+				"war": "War",
+				"midseason": "Midseason/Laurel Camp",
+				"anchor": "Anchor",
 				"changelings": "Changeling",
 				"boggans": "Boggan",
 				"clurichaun": "Clurichaun",
@@ -426,12 +458,62 @@
 				"sluagh": "Sluagh",
 				"troll": "Troll",
 				"dauntain": "Dauntain",
+				"thallain": "Thallain",
+				"nunnehi": "Nunnehi",
+				"menehune": "Menehune",
+				"inanimae": "Inanimae",
+				"darkkin": "Dark-kin",
 				"antithesis": "Antitesi",
 				"affinity": "Reame Vicino",
 				"threshold": "Soglia Rovina/Ispirazione",
 				"legacyseelie": "Eredità Contenta",
 				"legacyunseelie": "Eredità Scontenta",
-				"revelry": "Bagordi"
+				"revelry": "Bagordi",
+				"aithu": "Aithu",
+				"beasties": "Beasties",
+				"bodachs": "Bodachs",
+				"boggarts": "Boggarts",
+				"bogies": "Bogies",
+				"ghasts": "Ghasts",
+				"goblins": "Goblins",
+				"huakai": "Huaka'i po",
+				"kelpies": "Kelpies",
+				"lurks": "Lurks",
+				"mandragoras": "Mandragoras",
+				"merrow": "Merrow",
+				"nasties": "Nasties",
+				"nighthags": "Night hags",
+				"ogres": "Ogres",
+				"sevartal": "Sevartal",
+				"skinwalkers": "Skinwalkers",
+				"spriggan": "Spriggan",
+				"weepingwights": "Weeping wights",
+				"glomes": "Glomes",
+				"kuberas": "Kuberas",
+				"ondines": "Ondines",
+				"parosemes": "Parosemes",
+				"solimonds": "Solimonds",
+				"mannikins": "Mannikins",
+				"canotili": "Canotili",
+				"inuas": "Inuas",
+				"kachinas": "Kachinas",
+				"maymaygwyashi": "May-may-gwya-shi",
+				"nanehi": "Nanehi",
+				"numuzoho": "Nümüzo'ho",
+				"pugwis": "Pu'gwis",
+				"rockgiants": "Rock Giants",
+				"surems": "Surems",
+				"tunghat": "Tunghat",
+				"waterbabies": "Water Babies",
+				"yunwiAmaiyinehi": "Yunwi Amai'yine'hi",
+				"yunwitsunsdi": "Yunwi Tsunsdi",
+				"acheri": "Acheri",
+				"aonides": "Aonides",
+				"firbholg": "Fir-bholg",
+				"fuath": "Fuath",
+				"keremet": "Keremet",
+				"moire": "Moiræ",
+				"naraka": "Naraka"
 			},
 			"hunter": {
 				"creed": "Credo",
@@ -462,6 +544,34 @@
 				"luciferan": "Luciferino",
 				"ravener": "Rapace",
 				"reconciler": "Riconciliatore"
+			},
+			"wraith": {
+				"shadow": "Shadow",
+				"life": "Life",
+				"death": "Death",
+				"regret": "Regret",
+				"psyche": "Psyche",
+				"archetype": "Archetype",
+				"player": "Player",
+				"thorns": "Thorns",
+				"darkpassions": "Dark Passions",
+				"psychewillpower": "Psyche Willpower"
+			},
+			"mortal": {
+				"autumnpeople": "Autumn people",
+				"enchanted": "Enchanted",
+				"ghoul": "Ghoul",
+				"kinfolk": "Kinfolk",
+				"truefaith": "True faith"
+			},
+			"creature": {
+				"chimera": "Chimera",
+				"spirit": "Spirit",
+				"warwolves": "War wolves",
+				"anurana": "Anurana",
+				"samsa": "Samsa",
+				"kerasi": "Kerasi",
+				"yeren": "Yeren"
 			}
 		},
 		"attributes": {
@@ -479,7 +589,22 @@
 			"composure": "Autocontrollo",
 			"resolve": "Fermezza",
 			"perception": "Percezione",
-			"appearance": "Aspetto"
+			"appearance": "Aspetto",
+			"short": {
+				"str": "For",
+				"dex": "Des",
+				"sta": "Cos",
+				"man": "Pers",
+				"app": "Asp",
+				"per": "Perc"
+			},
+			"bonus": {
+				"strength": "Strength bonus",
+				"dexterity": "Dexterity bonus",
+				"stamina": "Stamina bonus",
+				"manipulation": "Manipulation bonus",
+				"appearance": "Appearance bonus"
+			}
 		},
 		"abilities": {
 			"abilities": "Abilità",
@@ -503,11 +628,13 @@
 			"kenning": "Perifrasare",
 			"leadership": "Autorità",
 			"legerdemain": "Destrezza di Mano",
+			"persuasion": "Persuasion",
 			"primalurge": "Istinto Primordiale",
 			"streetwise": "Bassifondi",
 			"subterfuge": "Sotterfugio",
 
 			"animalken": "Affinità Animale",
+			"archery": "Archery",
 			"commerce": "Commercio",
 			"craft": "Manualità",
 			"demolitions": "Demolizione",
@@ -520,6 +647,7 @@
 			"melee": "Armi da Mischia",	
 			"performance": "Espr. Artistica",
 			"research": "Ricerca",
+			"ride": "Ride",
 			"security": "Sicurezza",
 			"stealth": "Furtività",		
 			"survival": "Sopravvivenza",
@@ -690,12 +818,16 @@
 			"quintessence": "Quintessenza",
 			"paradox": "Paradosso",
 			"glamour": "Glamour",
+			"mana": "Mana",
 			"banality": "Banalità",
 			"nightmare": "Incubo",
 			"conviction": "Convinzione",
 			"faith": "Fede",
 			"torment": "Tormento",
-			"apocalypticforms": "Forme Apocalittiche"
+			"apocalypticforms": "Forme Apocalittiche",
+			"corpus": "Corpus",
+			"pathos": "Pathos",
+			"angst": "Angst"
 		},
 		"combat": {
 			"conditions": {
@@ -800,7 +932,13 @@
 			"glabrus": "Glabrus",
 			"gladius": "Gladius",
 			"chasmus": "Chasmus",
-			"squamus": "Squamus"
+			"squamus": "Squamus",
+			"anuran": "Anuran",
+			"dagon": "Dagon",
+			"ungeziefer": "Ungeziefer",
+			"bandia": "Bandia",
+			"kiforu": "Kiforu",
+			"faru": "Faru"
 		},
 		"power": {
 			"rank0": "Sei Rango 0, non puoi avere Doni",
@@ -827,6 +965,7 @@
 			"unsortededges": "Qui ci sono tutti i Vantaggi che devono essere assegnati a un Privilegio. Clicca sul titolo per selezionarne uno.",
 			"unsortedlores": "Qui ci sono tutte le Lore che devono essere assegnate a un'Arte. Clicca sul titolo per selezionarne una.",
 			"arts": "Arti",
+			"slivers": "Slivers",
 			"edges": "Privilegi",
 			"lores": "Lore",
 			"wyld": "Viride",
@@ -834,7 +973,10 @@
 			"abyss": "Misticismo Abissale",
 			"koldunic": "Stregoneria Koldunica",
 			"necromancy": "Negromanzia",
-			"ritualcategory": "Categoria Rituale"
+			"ritualcategory": "Categoria Rituale",
+			"arcanoi": "Arcanoi",
+			"passions": "Passions",
+			"fetters": "Fetters"
 		},
 		"spheres": {
 			"spheres": "Sfere",
@@ -851,6 +993,8 @@
 			
 			"data": "Dati",
 			"entropicstate": "Controllo di stato entropico",
+			"forcebased": "Force-Based Paraphysics",
+			"lifescience": "Life Sciences",
 			"material": "Scienza materiale",			
 			"psychodynamics": "Psicodinamica",
 			"primal": "Utilità primaria",
@@ -893,6 +1037,9 @@
 			"unnamedbackground": "Background senza nome",
 			"unnamedmerit": "Pregio senza nome",
 			"unnamedflaw": "Difetto senza nome",
+			"unnamedbloodbound": "Unnamed bloodbound",
+			"unnamedboon": "Unnamed boon",
+			"unnamedoath": "Unnamed oath",
 			"descriptionmissing": "Descrizione vuota",
 			"unspent": "Non speso"
 		},
@@ -947,6 +1094,7 @@
 			"level": "Livello",
 			"rank": "Rango",
 			"other": "Altro",
+			"both": "Both",
 			"bio": {
 				"wronggeneration": "Generazione invalida",
 				"wrongtempgeneration": "Non si può abbassare la generazione oltre a 4",
@@ -971,14 +1119,17 @@
 				"clearart": "Togli connessione con Arte",
 				"clearedge": "Togli connessione con Privilegio",
 				"clearlore": "Togli connessione con Lore",
+				"cleararcanoi": "Clear arcanoi connection",
 				"disconnect": "Disconnetti",
 				"disconnectlabel": "Disconnessione",
 				"removebonus": {
 					"art": "Rimuovi bonus connessi all'Arte",
+					"sliver": "Remove connected powers to sliver",
 					"lore": "Rimuovi bonus connessi alla Lore",
 					"edge": "Rimuovi bonus connessi al Privilegio",
 					"discipline": "Rimuovi bonus connessi alla Disciplina",
-					"path": "Rimuovi bonus connessi alla Via"
+					"path": "Rimuovi bonus connessi alla Via",
+					"arcanoi": "Remove connected powers to arcanoi"
 				}
 			},
 			"notes": {
@@ -987,6 +1138,7 @@
 				"flaws": "Difetti",
 				"bloodbound": "Legami di Sangue",
 				"boon": "Favori",
+				"oath": "Oaths",
 				"othertraits": "Altri Tratti",
 				"expearned": "Esperienza Guadagnata",
 				"expspend": "Esperienza Spesa"
@@ -1064,7 +1216,10 @@
 				"initbonushint": "This bonus adds the number to the initiative score.",
 				"movebonus": "Bonus Movimento",
 				"movebonushint": "Bonus riguardante il movimento del personaggio.",
-				"multiplier": "Moltiplicatore di Movimento"
+				"multiplier": "Moltiplicatore di Movimento",
+				"abilities": {
+					"athletics": "Athletics bonus"
+				}
 			},
 			"new": {
 				"notfound": "Item type does not exist",
@@ -1089,6 +1244,16 @@
 				"spentexp": "Esperienza spesa",
 				"treasure": "Nuovo Tesoro",
 				"bonus": "Nuovo Bonus",
+				"attributebonus": "New attribute bonus",
+				"attributedicebonus": "New attribute dice bonus",
+				"attributediff": "New attribute difficulty bonus",
+				"attributesucc": "New attribute automatic successes bonus",
+				"abilitybonus": "New ability bonus",
+				"abilitydiff": "New ability difficulty bonus",
+				"soakbonus": "New soak bonus",
+				"healthbuff": "New health level bonus",
+				"initbonus": "New initiative bonus",
+				"movebonus": "New movement bonus",
 				"discipline": "Nuova Disciplina",
 				"disciplinepower": "Nuova Disciplina (potere)",
 				"disciplinepath": "Nuova Via",
@@ -1098,6 +1263,7 @@
 				"edgepower": "Nuovo privilegio (potere)",
 				"art": "Nuova Arte",
 				"artpower": "Nuova Arte (potere)",
+				"sliver": "New sliver",
 				"lore": "Nuovo Lore",
 				"lorepower": "Nuovo Lore (potere)",
 				"power": "Nuovo Potere",
@@ -1106,9 +1272,18 @@
 				"talisman": "Nuovo Talismano",
 				"periapt": "Nuovo Amuleto",
 				"matrix": "Nuova Matrice",
-				"trinket": "Nuovo Gingillo"
+				"trinket": "Nuovo Gingillo",
+				"oath": "New oath",
+				"arcanoi": "New arcanoi",
+				"arcanoipower": "New arcanoi power",
+				"passion": "New passion",
+				"fetter": "New fetter"
 			},
 			"add": {
+				"naturalweapon": "Add natural weapon",
+				"meleeweapon": "Add melee weapon",
+				"rangedweapon": "Add ranged weapon",
+				"armor": "Add armor",
 				"background": "Aggiungi Background",
 				"merit": "Aggiungi Pregio",
 				"flaw": "Aggiungi Difetto",
@@ -1121,6 +1296,7 @@
 				"bonus": "Aggiungi Bonus",
 				"experience": "Aggiungi Esperienza",
 				"spentexp": "Aggiungi Esperienza spesa",
+				"gift": "Add gift",
 				"discipline": "Aggiungi Disciplina",
 				"disciplinepower": "Aggiungi Disciplina (potere)",
 				"disciplinepath": "Aggiungi Via",
@@ -1130,6 +1306,7 @@
 				"edgepower": "Aggiungi Privilegio (potere)",
 				"art": "Aggiungi Arte",
 				"artpower": "Aggiungi Arte (potere)",
+				"sliver": "Add sliver",
 				"power": "Aggiungi Potere",
 				"charm": "Aggiungi Malia",
 				"fetish": "Aggiungi Feticcio",
@@ -1138,7 +1315,12 @@
 				"talisman": "Aggiungi Talismano",
 				"periapt": "Aggiungi Amulteto",
 				"matrix": "Aggiungi Matrice",
-				"trinket": "Aggiungi Gingillo"
+				"trinket": "Aggiungi Gingillo",
+				"oath": "Add oath",
+				"arcanoi": "Add arcanoi",
+				"arcanoipower": "Add arcanoi power",
+				"passion": "Add passion",
+				"fetter": "Add fetter"
 			},
 			"edit": {
 				"naturalweapon": "Modifica Armi Naturali",
@@ -1161,6 +1343,7 @@
 				"rote": "Modifica Incantesimo",
 				"art": "Modifica Arte",
 				"artpower": "Modifica Arte (potere)",
+				"sliver": "Edit sliver",
 				"edge": "Modifica Privilegio",
 				"edgepower": "Modifica Privilegio (potere)",
 				"lore": "Modifica Lore",
@@ -1182,7 +1365,12 @@
 				"matrix": "Modifica Matrice",
 				"trinket": "Modifica Gingillo",
 				"sphere": "Modifica Sfera",
-				"experience": "Modifica Esperienza"
+				"experience": "Modifica Esperienza",
+				"oath": "Edit oath",
+				"arcanoi": "Edit arcanoi",
+				"arcanoipower": "Edit arcanoi power",
+				"passion": "Edit passion",
+				"fetter": "Edit fetter"
 			},
 			"remove": {
 				"item": "Rimuovi Oggetto",
@@ -1203,12 +1391,13 @@
 				"merit": "Rimuovi Pregio",
 				"flaw": "Rimuovi Difetto",
 				"bloodbound": "Rimuovi Legame di Sangue",
-				"fetish": "Rimuovi Feticcio",
 				"boon": "Rimuovi Favore",
+				"fetish": "Rimuovi Feticcio",
 				"talen": "Rimuovi Talen",
 				"rote": "Rimuovi Incantesimo",
 				"art": "Rimuovi Arte",
 				"artpower": "Rimuovi Arte (potere)",
+				"sliver": "Remove sliver",
 				"edge": "Rimuovi Privilegio",
 				"edgepower": "Rimuovi Privilegio (potere)",
 				"lore": "Rimuovi Lore",
@@ -1224,7 +1413,12 @@
 				"periapt": "Rimuovi Amuleto",
 				"matrix": "Rimuovi Matrice",
 				"trinket": "Rimuovi Gingillo",
-				"experience": "Rimuovi Esperienza"
+				"experience": "Rimuovi Esperienza",
+				"oath": "Remove oath",
+				"arcanoi": "Remove arcanoi",
+				"arcanoipower": "Remove arcanoi power",
+				"passion": "Remove passion",
+				"fetter": "Remove fetter"
 			},
 			"show": {
 				"background": "Mostra Background",
@@ -1235,7 +1429,8 @@
 				"traits": "Mostra altri Tratti",
 				"experience": "Mostra Esperienza aggiunta",
 				"spentexp": "Mostra Esperienza spesa",
-				"bonus": "Mostra Bonus aggiunti"
+				"bonus": "Mostra Bonus aggiunti",
+				"oath": "Show oath"
 			},
 			"yes": "sì",
 			"no": "no",
@@ -1336,7 +1531,11 @@
 				"additionaldifficulty": "Modificatori Extra",
 				"castingsettings": "Impostazioni dei lanci",
 				"extendedcasting": "Lancio prolungato",
-				"selectsphere": "Seleziona prima una Sfera!"
+				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each try adds +1 to the difficulty.",
+				"selectsphere": "Seleziona prima una Sfera!",
+				"keepdifficulty": "Keeps the difficulty the same",
+				"keepdiff": "Keep difficulty",
+				"keepdiffdesc": "Keep difficulty is When you are to use extended casting but the difficulty are not to be increased for each roll."
 			},
 			"checkfrenzy": {
 				"headline": "Tiro per Frenesia",
@@ -1384,6 +1583,7 @@
 				"nightmaredice": "Dadi Incubo",
 				"missingrealm": "Devi selezionare un Reame",
 				"arttype": "Tipo di Arte",
+				"noarttype": "Art type not selected",
 				"shiftnightmaredice": "Scambia con dadi Incubo",
 				"notset": "Non selezionato",
 				"selectpower": "Seleziona un potere a cui collegarla."
@@ -1402,6 +1602,17 @@
 				"chosenattribute": "Attributo scelto",
 				"movement": "Tipo di movimento",
 				"bonusvalue": "Valore Bonus"
+			},
+			"variant": {
+				"sheettype": "Set sheet type",
+				"notype": "No sheet type selected",
+				"general": "General type",
+				"changeling": "General changeling",
+				"mortal": "General mortal",
+				"wraith": "General wraith",
+				"creature": "General creature",
+				"info": "This setting sets what variant of the sheet it is set to use.",
+				"description": "This setting can be changed under the sheet's settings"
 			}
 		}
 	}	

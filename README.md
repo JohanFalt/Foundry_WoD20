@@ -15,7 +15,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 - [Changeling the Dreaming (C20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changeling-the-Dreaming)
 - [Hunter the Reckoning (HtR)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Hunter-the-Reckoning)
 - [Demon the Fallen (DtF)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Demon-the-Fallen)
-- Wraith the Oblivion
+- Wraith the Oblivion (Wr20)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed)
 - Creatures
 
