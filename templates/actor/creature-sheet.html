@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="centerText sheet-headline splatFont">
-				CREATURE {{#if (ne actor.system.settings.variant 'general')}}({{localize actor.system.settings.variant}}){{/if}}
+				CREATURE {{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}{{#if (ne actor.system.settings.variant 'general')}}({{localize (getProperty config.variant.creature actor.system.settings.variant)}}){{/if}}{{/if}}
 			</div>
 
 			<!-- Bio tab -->

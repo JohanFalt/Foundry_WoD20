@@ -7,12 +7,12 @@ export async function calculateHealth(actor, type) {
     const healthLevels = [];
     let woundPenalty = 0;
     
-    if (type == CONFIG.wod.sheettype.mortal) {
+    if (type == CONFIG.worldofdarkness.sheettype.mortal) {
         bashing = actor.system.health.damage.bashing;
         lethal = actor.system.health.damage.lethal;
         aggravated = actor.system.health.damage.aggravated;
     }
-    if (type == CONFIG.wod.sheettype.changeling) {
+    if (type == CONFIG.worldofdarkness.sheettype.changeling) {
         bashing = actor.system.health.damage.chimerical.bashing;
         lethal = actor.system.health.damage.chimerical.lethal;
         aggravated = actor.system.health.damage.chimerical.aggravated;

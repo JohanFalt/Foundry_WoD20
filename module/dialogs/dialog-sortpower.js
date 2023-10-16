@@ -181,7 +181,7 @@ export class DialogSortPower extends FormApplication {
             this.object.powerlist = this.actor.system.listdata.powers.arcanois.listedarcanois;
         }
 
-        data.config = CONFIG.wod;    
+        data.config = CONFIG.worldofdarkness;    
 
         return data;
     }

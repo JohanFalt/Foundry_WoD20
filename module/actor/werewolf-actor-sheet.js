@@ -23,13 +23,13 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.werewolf) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
-				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultWerewolfEra];
+				actorData.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultWerewolfEra];
 				actorData.system.settings.variant = "general";
 
-				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, CONFIG.wod.defaultWerewolfEra);
+				await CreateHelper.SetWerewolfAbilities(actorData, this.actor, CONFIG.worldofdarkness.defaultWerewolfEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetWerewolfAttributes(actorData);	
 				
@@ -64,8 +64,8 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		data.actor.presentform = presentform;
 
-		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
-			console.log(CONFIG.wod.sheettype.werewolf);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
+			console.log(CONFIG.worldofdarkness.sheettype.werewolf);
 			console.log(data.actor);
 		}
 
@@ -193,7 +193,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.werewolf) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.werewolf) {
 			return;
 		}
 
@@ -208,7 +208,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.werewolf) {
+		if (type != CONFIG.worldofdarkness.sheettype.werewolf) {
 			return;
 		}
 
@@ -250,7 +250,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if (actorData.type != CONFIG.wod.sheettype.werewolf) {
+		if (actorData.type != CONFIG.worldofdarkness.sheettype.werewolf) {
 			return;
 		}
 

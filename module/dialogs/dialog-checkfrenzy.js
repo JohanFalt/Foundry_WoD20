@@ -66,7 +66,7 @@ export class DialogCheckFrenzy extends FormApplication {
     getData() {
         const data = super.getData();       
         
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
         data.actorData = this.actor.system;
 
         return data;
@@ -102,10 +102,10 @@ export class DialogCheckFrenzy extends FormApplication {
 
         this.object.rageBonus = parseInt(formData["rageMod"]);
 
-        if (this.object.type == CONFIG.wod.sheettype.werewolf) {
+        if (this.object.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             this.object.canRoll = this._calculateDifficulty(false);
         }
-        else if (this.object.type == CONFIG.wod.sheettype.vampire) {
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.vampire) {
             this.object.canRoll = false;
         }
 
@@ -161,13 +161,13 @@ export class DialogCheckFrenzy extends FormApplication {
             frenzyBonus = 0
         }
 
-        if (this.object.type == CONFIG.wod.sheettype.werewolf) {
+        if (this.object.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             this.object.canRoll = this._calculateDifficulty(true);
             template.push(`${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`);
             numDices = parseInt(this.actor.system.advantages.rage.roll) + frenzyBonus + parseInt(this.object.rageBonus);
             this.object.close = true;
         }
-        else if (this.object.type == CONFIG.wod.sheettype.vampire) {
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.vampire) {
             this.object.canRoll = this.object.totalDifficulty > -1 ? true : false;
             template.push(`${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`);
             numDices = parseInt(this.actor.system.advantages.virtues.selfcontrol.roll) + frenzyBonus + parseInt(this.object.rageBonus);            

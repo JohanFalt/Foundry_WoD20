@@ -7,10 +7,10 @@ export async function calculateTotals(actorData) {
 	for (const i in actorData.system.attributes) {
 		let shift = {"type": i, "value": 0};
 
-		if (actorData.type == CONFIG.wod.sheettype.werewolf) {
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			shift = handleWerewolfShiftAttributeData(actorData.system.attributes[i].label, toForm);
 		}
-		if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 			shift = getShiftAttributeBonus(actorData.system.attributes[i].label, toForm, actorData);
 		}
 
@@ -22,10 +22,10 @@ export async function calculateTotals(actorData) {
 			actorData.system.attributes[i].total += parseInt(bonus);
 		}
 
-		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == CONFIG.wod.sheettype.changingbreed)) {
+		if ((actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
 
 			if (actorData.system.attributes[i].label == "wod.attributes.strength") {
-				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
@@ -35,7 +35,7 @@ export async function calculateTotals(actorData) {
 			}
 
 			if (actorData.system.attributes[i].label == "wod.attributes.stamina") {
-				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 					if (actorData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
@@ -45,7 +45,7 @@ export async function calculateTotals(actorData) {
 			}
 
 			if (actorData.system.attributes[i].label == "wod.attributes.manipulation") {
-				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 					if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nagah")) {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
@@ -59,7 +59,7 @@ export async function calculateTotals(actorData) {
 					actorData.system.attributes[i].total = 0;
 				}
 
-				if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 					if ((actorData.system.changingbreed == "Ajaba") && (toForm == "wod.shapes.hispo")) {
 						actorData.system.attributes[i].total = 0;
 					}
@@ -180,7 +180,7 @@ export async function calculateTotals(actorData) {
 	}
 
 	// health levels totals
-	for (const i in CONFIG.wod.woundLevels) {
+	for (const i in CONFIG.worldofdarkness.woundLevels) {
 		actorData.system.health[i].total = parseInt(actorData.system.health[i].value);		
 	}	
 

@@ -1832,7 +1832,8 @@
 				"feature",
 				"power"
 			],
-			"game": ""
+			"game": "",
+			"arttype": ""
 		},
 		"Item": {
 			"templates": [

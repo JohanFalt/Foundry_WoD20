@@ -8,21 +8,21 @@
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.creature)}}
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.chimera}}" data-value="{{config.variant.creature.chimera}}">{{localize config.variant.creature.chimera}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.spirit}}" data-value="{{config.variant.creature.spirit}}">{{localize config.variant.creature.spirit}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.warwolves}}" data-value="{{config.variant.creature.warwolves}}">{{localize config.variant.creature.warwolves}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.anurana}}" data-value="{{config.variant.creature.anurana}}">{{localize config.variant.creature.anurana}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.samsa}}" data-value="{{config.variant.creature.samsa}}">{{localize config.variant.creature.samsa}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.kerasi}}" data-value="{{config.variant.creature.kerasi}}">{{localize config.variant.creature.kerasi}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.creature.yeren}}" data-value="{{config.variant.creature.yeren}}">{{localize config.variant.creature.yeren}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'chimera'}}" data-value="chimera">{{localize config.variant.creature.chimera}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'spirit'}}" data-value="spirit">{{localize config.variant.creature.spirit}}</button>  
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'warwolves'}}" data-value="warwolves">{{localize config.variant.creature.warwolves}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'anurana'}}" data-value="anurana">{{localize config.variant.creature.anurana}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'samsa'}}" data-value="samsa">{{localize config.variant.creature.samsa}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'kerasi'}}" data-value="kerasi">{{localize config.variant.creature.kerasi}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'yeren'}}" data-value="yeren">{{localize config.variant.creature.yeren}}</button>
         {{/if}}
 
         {{#if (eqAny actor.type config.sheettype.mortal)}}
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.mortal.autumnpeople}}" data-value="{{config.variant.mortal.autumnpeople}}">{{localize config.variant.mortal.autumnpeople}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.mortal.enchanted}}" data-value="{{config.variant.mortal.enchanted}}">{{localize config.variant.mortal.enchanted}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.mortal.ghoul}}" data-value="{{config.variant.mortal.ghoul}}">{{localize config.variant.mortal.ghoul}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.mortal.kinfolk}}" data-value="{{config.variant.mortal.kinfolk}}">{{localize config.variant.mortal.kinfolk}}</button>        
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.mortal.truefaith}}" data-value="{{config.variant.mortal.truefaith}}">{{localize config.variant.mortal.truefaith}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'autumnpeople'}}" data-value="autumnpeople">{{localize config.variant.mortal.autumnpeople}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'enchanted'}}" data-value="enchanted">{{localize config.variant.mortal.enchanted}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'ghoul'}}" data-value="ghoul">{{localize config.variant.mortal.ghoul}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'kinfolk'}}" data-value="kinfolk">{{localize config.variant.mortal.kinfolk}}</button>        
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'truefaith'}}" data-value="truefaith">{{localize config.variant.mortal.truefaith}}</button>
         {{/if}}     
         
         {{#if (eq actor.type config.sheettype.changingbreed)}}
@@ -40,16 +40,16 @@
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.changeling)}}
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.changeling.dauntain}}" data-value="{{config.variant.changeling.dauntain}}">{{localize config.variant.changeling.dauntain}}</button>
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.changeling.thallain}}" data-value="{{config.variant.changeling.thallain}}">{{localize config.variant.changeling.thallain}}</button>
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.changeling.nunnehi}}" data-value="{{config.variant.changeling.nunnehi}}">{{localize config.variant.changeling.nunnehi}}</button>
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.changeling.menehune}}" data-value="{{config.variant.changeling.menehune}}">{{localize config.variant.changeling.menehune}}</button>
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.changeling.inanimae}}" data-value="{{config.variant.changeling.inanimae}}">{{localize config.variant.changeling.inanimae}}</button>
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.changeling.darkkin}}" data-value="{{config.variant.changeling.darkkin}}">{{localize config.variant.changeling.darkkin}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'dauntain'}}" data-value="dauntain">{{localize config.variant.changeling.dauntain}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'thallain'}}" data-value="thallain">{{localize config.variant.changeling.thallain}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'nunnehi'}}" data-value="nunnehi">{{localize config.variant.changeling.nunnehi}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'menehune'}}" data-value="menehune">{{localize config.variant.changeling.menehune}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'inanimae'}}" data-value="inanimae">{{localize config.variant.changeling.inanimae}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'darkkin'}}" data-value="darkkin">{{localize config.variant.changeling.darkkin}}</button>
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.wraith)}}
-            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant config.variant.wraith.shadow}}" data-value="{{config.variant.wraith.shadow}}">{{localize config.variant.wraith.shadow}}</button>
+            <button class="actionbutton dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'shadow'}}" data-value="shadow">{{localize config.variant.wraith.shadow}}</button>
         {{/if}}
 
         <div class="clearareaBox information-area">

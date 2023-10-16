@@ -1,7 +1,7 @@
 export default class TokenHelper {
     static async formShift(actor, fromForm, toForm) {        
 
-        if (actor.type != CONFIG.wod.sheettype.werewolf) {
+        if (actor.type != CONFIG.worldofdarkness.sheettype.werewolf) {
             return;
         }
 
@@ -123,7 +123,7 @@ export default class TokenHelper {
 
 export default class TokenHelper {
     static async formShift(actor, fromForm, toForm) {
-        if (actor.type != CONFIG.wod.sheettype.werewolf) {
+        if (actor.type != CONFIG.worldofdarkness.sheettype.werewolf) {
             return;
         }
 

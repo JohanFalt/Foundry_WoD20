@@ -23,7 +23,7 @@
         <div class="pullLeft" style="width: 33%;">&nbsp;</div>
     </div>
 
-    {{#if (ne actor.system.settings.variant config.variant.changeling.inanimae)}}
+    {{#if (ne actor.system.settings.variant 'inanimae')}}
 
         <div class="clearareaBox area-box">
 
@@ -47,7 +47,7 @@
                             data-rollitem="true"
                             data-itemid="{{item._id}}">{{item.name}}</div>
                         {{#if (eq item.system.type "wod.types.artpower")}}
-                            <div style="width: 90px;">{{getProperty item.system.property "arttype"}}</div>
+                            <div style="width: 90px;">{{localize item.system.arttype}}</div>
                         {{/if}}
         
                         {{#if (eq item.system.type "wod.types.art")}}

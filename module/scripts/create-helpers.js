@@ -15,21 +15,21 @@ export default class CreateHelper {
 			}
 		}
 
-		for (const talent in game.wod.abilities.mortal[era].talents) {
-			if (actorCopy.system.abilities[game.wod.abilities.mortal[era].talents[talent]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.mortal[era].talents[talent]].isvisible = true;
+		for (const talent in game.worldofdarkness.abilities.mortal[era].talents) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.mortal[era].talents[talent]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.mortal[era].talents[talent]].isvisible = true;
 			}
 		}
 
-		for (const skill in game.wod.abilities.mortal[era].skills) {
-			if (actorCopy.system.abilities[game.wod.abilities.mortal[era].skills[skill]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.mortal[era].skills[skill]].isvisible = true;
+		for (const skill in game.worldofdarkness.abilities.mortal[era].skills) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.mortal[era].skills[skill]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.mortal[era].skills[skill]].isvisible = true;
 			}
 		}
 
-		for (const knowledge in game.wod.abilities.mortal[era].knowledges) {
-			if (actorCopy.system.abilities[game.wod.abilities.mortal[era].knowledges[knowledge]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.mortal[era].knowledges[knowledge]].isvisible = true;
+		for (const knowledge in game.worldofdarkness.abilities.mortal[era].knowledges) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.mortal[era].knowledges[knowledge]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.mortal[era].knowledges[knowledge]].isvisible = true;
 			}
 		}
 
@@ -60,21 +60,21 @@ export default class CreateHelper {
 			}
 		}
 
-		for (const talent in game.wod.abilities.vampire[era].talents) {
-			if (actorCopy.system.abilities[game.wod.abilities.vampire[era].talents[talent]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.vampire[era].talents[talent]].isvisible = true;
+		for (const talent in game.worldofdarkness.abilities.vampire[era].talents) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.vampire[era].talents[talent]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.vampire[era].talents[talent]].isvisible = true;
 			}
 		}
 
-		for (const skill in game.wod.abilities.vampire[era].skills) {
-			if (actorCopy.system.abilities[game.wod.abilities.vampire[era].skills[skill]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.vampire[era].skills[skill]].isvisible = true;
+		for (const skill in game.worldofdarkness.abilities.vampire[era].skills) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.vampire[era].skills[skill]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.vampire[era].skills[skill]].isvisible = true;
 			}
 		}
 
-		for (const knowledge in game.wod.abilities.vampire[era].knowledges) {
-			if (actorCopy.system.abilities[game.wod.abilities.vampire[era].knowledges[knowledge]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.vampire[era].knowledges[knowledge]].isvisible = true;
+		for (const knowledge in game.worldofdarkness.abilities.vampire[era].knowledges) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.vampire[era].knowledges[knowledge]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.vampire[era].knowledges[knowledge]].isvisible = true;
 			}
 		}
 
@@ -105,21 +105,21 @@ export default class CreateHelper {
 			}
 		}
 
-		for (const talent in game.wod.abilities.mage[era].talents) {
-			if (actorCopy.system.abilities[game.wod.abilities.mage[era].talents[talent]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.mage[era].talents[talent]].isvisible = true;
+		for (const talent in game.worldofdarkness.abilities.mage[era].talents) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.mage[era].talents[talent]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.mage[era].talents[talent]].isvisible = true;
 			}
 		}
 
-		for (const skill in game.wod.abilities.mage[era].skills) {
-			if (actorCopy.system.abilities[game.wod.abilities.mage[era].skills[skill]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.mage[era].skills[skill]].isvisible = true;
+		for (const skill in game.worldofdarkness.abilities.mage[era].skills) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.mage[era].skills[skill]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.mage[era].skills[skill]].isvisible = true;
 			}
 		}
 
-		for (const knowledge in game.wod.abilities.mage[era].knowledges) {
-			if (actorCopy.system.abilities[game.wod.abilities.mage[era].knowledges[knowledge]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.mage[era].knowledges[knowledge]].isvisible = true;
+		for (const knowledge in game.worldofdarkness.abilities.mage[era].knowledges) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.mage[era].knowledges[knowledge]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.mage[era].knowledges[knowledge]].isvisible = true;
 			}
 		}
 
@@ -139,22 +139,22 @@ export default class CreateHelper {
 			}
 		}
 
-		for (const talent in game.wod.abilities.werewolf[era].talents) {
-			var ability = game.wod.abilities.werewolf[era].talents[talent];
+		for (const talent in game.worldofdarkness.abilities.werewolf[era].talents) {
+			var ability = game.worldofdarkness.abilities.werewolf[era].talents[talent];
 			if (actorCopy.system.abilities[ability] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.werewolf[era].talents[talent]].isvisible = true;
+				actorCopy.system.abilities[game.worldofdarkness.abilities.werewolf[era].talents[talent]].isvisible = true;
 			}
 		}
 
-		for (const skill in game.wod.abilities.werewolf[era].skills) {
-			if (actorCopy.system.abilities[game.wod.abilities.werewolf[era].skills[skill]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.werewolf[era].skills[skill]].isvisible = true;
+		for (const skill in game.worldofdarkness.abilities.werewolf[era].skills) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.werewolf[era].skills[skill]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.werewolf[era].skills[skill]].isvisible = true;
 			}
 		}
 
-		for (const knowledge in game.wod.abilities.werewolf[era].knowledges) {
-			if (actorCopy.system.abilities[game.wod.abilities.werewolf[era].knowledges[knowledge]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities.werewolf[era].knowledges[knowledge]].isvisible = true;
+		for (const knowledge in game.worldofdarkness.abilities.werewolf[era].knowledges) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities.werewolf[era].knowledges[knowledge]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities.werewolf[era].knowledges[knowledge]].isvisible = true;
 			}
 		}
 
@@ -182,21 +182,21 @@ export default class CreateHelper {
 			}
 		}
 
-		for (const talent in game.wod.abilities[type][era].talents) {
-			if (actorCopy.system.abilities[game.wod.abilities[type][era].talents[talent]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities[type][era].talents[talent]].isvisible = true;
+		for (const talent in game.worldofdarkness.abilities[type][era].talents) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities[type][era].talents[talent]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities[type][era].talents[talent]].isvisible = true;
 			}
 		}
 
-		for (const skill in game.wod.abilities[type][era].skills) {
-			if (actorCopy.system.abilities[game.wod.abilities[type][era].skills[skill]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities[type][era].skills[skill]].isvisible = true;
+		for (const skill in game.worldofdarkness.abilities[type][era].skills) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities[type][era].skills[skill]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities[type][era].skills[skill]].isvisible = true;
 			}
 		}
 
-		for (const knowledge in game.wod.abilities[type][era].knowledges) {
-			if (actorCopy.system.abilities[game.wod.abilities[type][era].knowledges[knowledge]] != undefined) {
-				actorCopy.system.abilities[game.wod.abilities[type][era].knowledges[knowledge]].isvisible = true;
+		for (const knowledge in game.worldofdarkness.abilities[type][era].knowledges) {
+			if (actorCopy.system.abilities[game.worldofdarkness.abilities[type][era].knowledges[knowledge]] != undefined) {
+				actorCopy.system.abilities[game.worldofdarkness.abilities[type][era].knowledges[knowledge]].isvisible = true;
 			}
 		}
 
@@ -233,18 +233,18 @@ export default class CreateHelper {
 			actor.system.attributes[attribute].isvisible = true;
 		}
 
-		if (CONFIG.wod.attributeSettings == "20th") {
+		if (CONFIG.worldofdarkness.attributeSettings == "20th") {
 			actor.system.attributes.composure.isvisible = false;
 			actor.system.attributes.resolve.isvisible = false;
 			actor.system.advantages.willpower.permanent = 0;
 		}
-		else if (CONFIG.wod.attributeSettings == "5th") {
+		else if (CONFIG.worldofdarkness.attributeSettings == "5th") {
 			actor.system.attributes.appearance.isvisible = false;
 			actor.system.attributes.perception.isvisible = false;
 			actor.system.advantages.willpower.permanent = 2;
 		}
 	
-		if (CONFIG.wod.rollSettings) {
+		if (CONFIG.worldofdarkness.rollSettings) {
 			willpower = actor.system.advantages.willpower.permanent; 
 		}
 		else {
@@ -381,8 +381,8 @@ export default class CreateHelper {
 	static async SetChangingVariant(actorData, variant) {
 		actorData.system.settings.variant = variant;
 
-		if (actorData.type == CONFIG.wod.sheettype.changeling) {
-			if ((actorData.system.settings.variant == CONFIG.wod.variant.changeling.nunnehi) || (actorData.system.settings.variant == CONFIG.wod.variant.changeling.menehune)) {
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.changeling) {
+			if ((actorData.system.settings.variant == CONFIG.worldofdarkness.variant.changeling.nunnehi) || (actorData.system.settings.variant == CONFIG.worldofdarkness.variant.changeling.menehune)) {
 				actorData.system.advantages.glamour.label = 'wod.advantages.mana';
 			}
 			else {
@@ -417,27 +417,27 @@ export default class CreateHelper {
 		actorData.system.settings.powers.hascharms = false;
 		actorData.system.settings.powers.haspowers = false;
 
-		if (actorData.type == CONFIG.wod.sheettype.mortal) {
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			if (variant == 'general') {
 			}
-			if (variant == CONFIG.wod.variant.mortal.autumnpeople) {
+			if (variant == CONFIG.worldofdarkness.variant.mortal.autumnpeople) {
 				actorData.system.settings.hasbanality = true;
 			}
-			if (variant == CONFIG.wod.variant.mortal.enchanted) {
+			if (variant == CONFIG.worldofdarkness.variant.mortal.enchanted) {
 				actorData.system.settings.hasglamour = true;
 				actorData.system.settings.hasbanality = true;
 			}
-			if (variant == CONFIG.wod.variant.mortal.ghoul) {
+			if (variant == CONFIG.worldofdarkness.variant.mortal.ghoul) {
 				actorData.system.settings.haspath = true;
 				actorData.system.settings.hasbloodpool = true;
 				actorData.system.settings.hasvirtue = true;
 				actorData.system.settings.powers.hasdisciplines = true;
 			}
-			if (variant == CONFIG.wod.variant.mortal.kinfolk) {
+			if (variant == CONFIG.worldofdarkness.variant.mortal.kinfolk) {
 				actorData.system.settings.hasgnosis = true;
 				actorData.system.settings.powers.hasgifts = true;
 			}
-			if (variant == CONFIG.wod.variant.mortal.truefaith) {
+			if (variant == CONFIG.worldofdarkness.variant.mortal.truefaith) {
 				actorData.system.settings.hasfaith = true;	
 				actorData.system.settings.powers.haspowers = true;			
 			}
@@ -471,17 +471,17 @@ export default class CreateHelper {
 		actorData.system.settings.powers.hascharms = false;
 		actorData.system.settings.powers.haspowers = false;		
 
-		if (actorData.type == CONFIG.wod.sheettype.creature) {
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.creature) {
 			if (variant == 'general') {
 				actorData.system.settings.powers.haspowers = true;
 				
 			}
-			if (variant == CONFIG.wod.variant.creature.chimera) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.chimera) {
 				actorData.system.settings.hasglamour = true;
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.powers.hasarts = true;
 			}
-			if (variant == CONFIG.wod.variant.creature.spirit) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.spirit) {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.hasessence = true;
@@ -490,20 +490,20 @@ export default class CreateHelper {
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.wod.variant.creature.warwolves) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.warwolves) {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.wod.variant.creature.anurana) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.anurana) {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.wod.variant.creature.samsa) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.samsa) {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.hasgifts = true;
@@ -511,14 +511,14 @@ export default class CreateHelper {
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.wod.variant.creature.kerasi) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.kerasi) {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.wod.variant.creature.yeren) {
+			if (variant == CONFIG.worldofdarkness.variant.creature.yeren) {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.hasgifts = true;
@@ -533,7 +533,7 @@ export default class CreateHelper {
 		let itemData;
 		let item;
 
-		if (variant == CONFIG.wod.variant.creature.warwolves) {
+		if (variant == CONFIG.worldofdarkness.variant.creature.warwolves) {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.crinos"),
 				type: "Power",
@@ -559,7 +559,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.wod.variant.creature.anurana) {
+		if (variant == CONFIG.worldofdarkness.variant.creature.anurana) {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.anuran"),
 				type: "Power",
@@ -607,7 +607,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.wod.variant.creature.samsa) {
+		if (variant == CONFIG.worldofdarkness.variant.creature.samsa) {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.ungeziefer"),
 				type: "Power",
@@ -630,7 +630,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.wod.variant.creature.kerasi) {
+		if (variant == CONFIG.worldofdarkness.variant.creature.kerasi) {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.bandia"),
 				type: "Power",
@@ -706,7 +706,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 4, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.wod.variant.creature.yeren) {
+		if (variant == CONFIG.worldofdarkness.variant.creature.yeren) {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.crinos"),
 				type: "Power",

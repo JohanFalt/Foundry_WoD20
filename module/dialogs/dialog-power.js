@@ -209,11 +209,11 @@ export class ArtPower {
         this.type = item.system["type"];
         this.parentid = item.system["parentid"];
 
-        if (item.system.property["arttype"] == undefined) {
+        if (item.system["arttype"] == "") {
             this.arttype = game.i18n.localize("wod.dialog.power.notset");
         }
         else {
-            this.arttype = item.system.property["arttype"];
+            this.arttype = item.system["arttype"];
             this.selectedarttype = "";
 
             if (this.arttype != "wod.labels.both") {
@@ -406,7 +406,7 @@ export class DialogPower extends FormApplication {
         let specialityText = "";
 
         data.actorData = this.actor.system;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
         // is dice1 an Attributes
         if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
@@ -429,7 +429,7 @@ export class DialogPower extends FormApplication {
             data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+            if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
                 if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
@@ -601,12 +601,12 @@ export class DialogPower extends FormApplication {
         
         this.object.useSpeciality = formData["specialty"];
 
-        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+        if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = true;
         }
-        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+        else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = false;
         }
 

@@ -22,7 +22,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.changeling) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.changeling) {
 				const version = game.data.system.version;				
 
 				await CreateHelper.SetAbilities(actorData, "changeling", "modern");
@@ -140,19 +140,15 @@ export class ChangelingActorSheet extends MortalActorSheet {
 			}
 		}
 
-		data.actor.system.listdata.chimericalhealth = await calculateHealth(data.actor, CONFIG.wod.sheettype.changeling);
+		data.actor.system.listdata.chimericalhealth = await calculateHealth(data.actor, CONFIG.worldofdarkness.sheettype.changeling);
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = true;
 
 		data.actor.system.listdata.powers.arts.realms = realms.sort((a, b) => a.label.localeCompare(b.label));
 
-		if (actorData.type == CONFIG.wod.sheettype.changeling) {
-			console.log(CONFIG.wod.sheettype.changeling);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.changeling) {
+			console.log(CONFIG.worldofdarkness.sheettype.changeling);
 			console.log(data.actor);
-		}
-				
-		if (data.actor.system.settings.variant == "") {
-			ActionHelper.openVariantDialog(this.actor);
 		}
 
 		return data;
@@ -209,7 +205,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.changeling) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.changeling) {
 			return;
 		}
 
@@ -222,7 +218,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.changeling) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.changeling) {
 			return;
 		}
 
@@ -253,7 +249,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.changeling) {
+		if (type != CONFIG.worldofdarkness.sheettype.changeling) {
 			return;
 		}
 
@@ -327,7 +323,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const allStates = ["", ...Object.keys(states)];
 		const currentState = allStates.indexOf(oldState);
 
-		if (type != CONFIG.wod.sheettype.changeling) {
+		if (type != CONFIG.worldofdarkness.sheettype.changeling) {
 			return;
 		}
 		
@@ -380,7 +376,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.changeling) {
+		if (type != CONFIG.worldofdarkness.sheettype.changeling) {
 			return;
 		}
 
@@ -415,7 +411,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 		const type = dataset.type;
 		let index = parseInt(dataset.index);
 
-		if ((type == CONFIG.wod.sheettype.mortal) && (dataset.key != "willpower")) {
+		if ((type == CONFIG.worldofdarkness.sheettype.mortal) && (dataset.key != "willpower")) {
 		  	return;
 		}
 

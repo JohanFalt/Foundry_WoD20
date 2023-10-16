@@ -19,7 +19,7 @@ export default class CombatHelper {
     static ignoresPain(actor) {
 		let ignoresPain = false;
 
-		if (actor.type == CONFIG.wod.sheettype.spirit) {
+		if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) {
 			ignoresPain = true;
 		}
 
@@ -44,7 +44,7 @@ export default class CombatHelper {
 		movement.hjump = 4;
 		movement.fly = 0;
 
-		if ((actor.type == CONFIG.wod.sheettype.werewolf) || (actor.type == CONFIG.wod.sheettype.changingbreed)) {
+		if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
 			if (actor.system.shapes.glabro.isactive) {
 				movement.vjump = 3;
 				movement.hjump = 4;

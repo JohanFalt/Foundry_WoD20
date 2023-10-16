@@ -36,7 +36,7 @@ export default class AbilityHelper {
 		const itemId = $(event.currentTarget).data("item-id");		
 		let item;
 
-		if ((CONFIG.wod.talents[itemId] == undefined) && (CONFIG.wod.skills[itemId] == undefined) && (CONFIG.wod.knowledges[itemId] == undefined)) {
+		if ((CONFIG.worldofdarkness.talents[itemId] == undefined) && (CONFIG.worldofdarkness.skills[itemId] == undefined) && (CONFIG.worldofdarkness.knowledges[itemId] == undefined)) {
 			item = await actor.getEmbeddedDocument("Item", itemId);
 		}
 		else {

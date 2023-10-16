@@ -57,9 +57,9 @@ export class DialogItem extends FormApplication {
         const data = super.getData();
 
         data.actorData = this.actor.system;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
-        if (this.actor.type != CONFIG.wod.sheettype.changingbreed) {
+        if (this.actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = this.actor.type.toLowerCase() + "Dialog";
         }
         else {
@@ -86,7 +86,7 @@ export class DialogItem extends FormApplication {
             data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+            if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
                 if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
 
@@ -199,12 +199,12 @@ export class DialogItem extends FormApplication {
         
         this.object.useSpeciality = formData["specialty"];
 
-        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+        if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = true;
         }
-        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+        else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = false;
         }
 

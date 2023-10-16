@@ -21,7 +21,7 @@ export class WraithActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.wraith) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.wraith) {
 				const version = game.data.system.version;				
 
 				await CreateHelper.SetAbilities(actorData, "wraith", "modern");
@@ -39,8 +39,8 @@ export class WraithActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Wraith Sheet getData");
 
-		if (actorData.type == CONFIG.wod.sheettype.wraith) {
-			console.log(CONFIG.wod.sheettype.wraith);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.wraith) {
+			console.log(CONFIG.worldofdarkness.sheettype.wraith);
 			console.log(data.actor);
 		}
 
@@ -82,7 +82,7 @@ export class WraithActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.wraith) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.wraith) {
 			return;
 		}
 
@@ -98,7 +98,7 @@ export class WraithActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.wraith) {
+		if (type != CONFIG.worldofdarkness.sheettype.wraith) {
 			return;
 		}
 

@@ -50,12 +50,12 @@ export class MortalActorSheet extends ActorSheet {
 		const actorData = duplicate(this.actor);		
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.mortal) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.mortal) {
 				actorData.system.settings.iscreated = true;		
 				actorData.system.settings.version = game.data.system.version;
-				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultMortalEra];
+				actorData.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultMortalEra];
 				
-				await CreateHelper.SetMortalAbilities(actorData, this.actor, CONFIG.wod.defaultMortalEra);
+				await CreateHelper.SetMortalAbilities(actorData, this.actor, CONFIG.worldofdarkness.defaultMortalEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 			}	 	
 		}
@@ -70,10 +70,11 @@ export class MortalActorSheet extends ActorSheet {
 		console.log("WoD | Mortal Sheet getData");
 		const data = await super.getData();
 
-		CONFIG.wod.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
+		CONFIG.worldofdarkness.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
 		
-		data.config = CONFIG.wod;	
-		data.game = game.wod;			
+		data.config = CONFIG.worldofdarkness;	
+		//data.game = game.worldofdarkness;			
+		data.worldofdarkness = game.worldofdarkness;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
 
@@ -87,13 +88,13 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.system.background = await TextEditor.enrichHTML(data.actor.system.background, {async: true});
 		data.actor.system.gear = await TextEditor.enrichHTML(data.actor.system.gear, {async: true});
 
-		if (data.actor.type == CONFIG.wod.sheettype.mage) {
+		if (data.actor.type == CONFIG.worldofdarkness.sheettype.mage) {
 			data.actor.system.focus.paradigm = await TextEditor.enrichHTML(data.actor.system.focus.paradigm, {async: true});
 			data.actor.system.focus.practice = await TextEditor.enrichHTML(data.actor.system.focus.practice, {async: true});
 			data.actor.system.focus.instruments = await TextEditor.enrichHTML(data.actor.system.focus.instruments, {async: true});
 		}
 
-		if (data.actor.type == CONFIG.wod.sheettype.changeling) {
+		if (data.actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
 			data.actor.system.threshold = await TextEditor.enrichHTML(data.actor.system.threshold, {async: true});
 			data.actor.system.legacyseelie = await TextEditor.enrichHTML(data.actor.system.legacyseelie, {async: true});
 			data.actor.system.legacyunseelie = await TextEditor.enrichHTML(data.actor.system.legacyunseelie, {async: true});
@@ -104,16 +105,16 @@ export class MortalActorSheet extends ActorSheet {
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = false;
 
-		if (data.actor.type == CONFIG.wod.sheettype.mortal) {
-			console.log(CONFIG.wod.sheettype.mortal);
+		if (data.actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
+			console.log(CONFIG.worldofdarkness.sheettype.mortal);
 			console.log(data.actor);
 		}	
 
-		if ((data.actor.system.settings.variant == "") && ((this.actor.type == CONFIG.wod.sheettype.creature)||
-											(this.actor.type == CONFIG.wod.sheettype.changingbreed)||
-											(this.actor.type == CONFIG.wod.sheettype.wraith)||
-											(this.actor.type == CONFIG.wod.sheettype.changeling)||
-											(this.actor.type == CONFIG.wod.sheettype.mortal))) {
+		if ((data.actor.system.settings.variant == "") && ((this.actor.type == CONFIG.worldofdarkness.sheettype.creature)||
+											(this.actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)||
+											(this.actor.type == CONFIG.worldofdarkness.sheettype.wraith)||
+											(this.actor.type == CONFIG.worldofdarkness.sheettype.changeling)||
+											(this.actor.type == CONFIG.worldofdarkness.sheettype.mortal))) {
 			ActionHelper.openVariantDialog(this.actor);
 		}
 
@@ -150,7 +151,7 @@ export class MortalActorSheet extends ActorSheet {
 
 		// Receive collapsed state from flags
 		html.find('.collapsible.button').toArray().filter(ele => {
-			if (ele.dataset.sheet == CONFIG.wod.sheettype.mortal){
+			if (ele.dataset.sheet == CONFIG.worldofdarkness.sheettype.mortal){
 				if (this.actor && this.actor.id && game.user.flags.wod && game.user.flags.wod[this.actor.id] && game.user.flags.wod[this.actor.id][ele.dataset.type] && !game.user.flags.wod[this.actor.id][ele.dataset.type].collapsed) {
 					$(ele).removeClass("fa-angles-right");
 					$(ele).addClass("fa-angles-down");
@@ -249,7 +250,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _setDarkAges(event) {
 		event.preventDefault();
 
-		if (this.actor.system.settings.era == CONFIG.wod.era.darkages) {
+		if (this.actor.system.settings.era == CONFIG.worldofdarkness.era.darkages) {
 			const performDelete = await new Promise((resolve) => {
 				Dialog.confirm({
 					title: game.i18n.localize("wod.era.changeera"),
@@ -269,23 +270,23 @@ export class MortalActorSheet extends ActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if (dataset.type == CONFIG.wod.sheettype.vampire) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.vampire) {
 			found = true;
 			await CreateHelper.SetVampireAbilities(actorData, this.actor, "darkages");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			found = true;
 			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "darkages");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.mortal) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			found = true;
 			await CreateHelper.SetMortalAbilities(actorData, this.actor, "darkages");
 		}
 		
 		if (found) {
-			actorData.system.settings.era = CONFIG.wod.era.darkages;
+			actorData.system.settings.era = CONFIG.worldofdarkness.era.darkages;
 			await this.actor.update(actorData);
 			ui.notifications.info(game.i18n.localize("wod.labels.settings.setdarkages"));
 		}
@@ -294,7 +295,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _setVictorian(event) {
 		event.preventDefault();
 
-		if (this.actor.system.settings.era == CONFIG.wod.era.victorian) {
+		if (this.actor.system.settings.era == CONFIG.worldofdarkness.era.victorian) {
 			const performDelete = await new Promise((resolve) => {
 				Dialog.confirm({
 					title: game.i18n.localize("wod.era.changeera"),
@@ -314,33 +315,33 @@ export class MortalActorSheet extends ActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if (dataset.type == CONFIG.wod.sheettype.vampire) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.vampire) {
 			found = true;
 			await CreateHelper.SetVampireAbilities(actorData, this.actor, "victorian");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			found = true;
 			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "victorian");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.mage) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mage) {
 			found = true;
 			await CreateHelper.SetMageAbilities(actorData, "victorian");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.mortal) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			found = true;
 			await CreateHelper.SetMortalAbilities(actorData, this.actor, "victorian");
 		}
 		
 		if (found) {
-			actorData.system.settings.era = CONFIG.wod.era.victorian;
+			actorData.system.settings.era = CONFIG.worldofdarkness.era.victorian;
 
 			await this.actor.update(actorData);
 			
 
-			if (dataset.type == CONFIG.wod.sheettype.werewolf) { 
+			if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) { 
 				ui.notifications.info(game.i18n.localize("wod.labels.settings.setwildwest"));
 			}
 			else {
@@ -352,7 +353,7 @@ export class MortalActorSheet extends ActorSheet {
 	async _setModern(event) {
 		event.preventDefault();
 
-		if (this.actor.system.settings.era == CONFIG.wod.era.modern) {
+		if (this.actor.system.settings.era == CONFIG.worldofdarkness.era.modern) {
 			const performDelete = await new Promise((resolve) => {
 				Dialog.confirm({
 					title: game.i18n.localize("wod.era.changeera"),
@@ -372,28 +373,28 @@ export class MortalActorSheet extends ActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if (dataset.type == CONFIG.wod.sheettype.vampire) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.vampire) {
 			found = true;
 			await CreateHelper.SetVampireAbilities(actorData, this.actor, "modern");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			found = true;
 			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.mage) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mage) {
 			found = true;
 			await CreateHelper.SetMageAbilities(actorData, "modern");
 		}
 
-		if (dataset.type == CONFIG.wod.sheettype.mortal) {
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			found = true;
 			await CreateHelper.SetMortalAbilities(actorData, this.actor, "modern");
 		}
 		
 		if (found) {
-			actorData.system.settings.era = CONFIG.wod.era.modern;
+			actorData.system.settings.era = CONFIG.worldofdarkness.era.modern;
 
 			await this.actor.update(actorData);
 			ui.notifications.info(game.i18n.localize("wod.labels.settings.setmodern"));
@@ -408,19 +409,19 @@ export class MortalActorSheet extends ActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if (this.actor.type == CONFIG.wod.sheettype.changeling) {
+		if (this.actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
 			await CreateHelper.SetChangingVariant(actorData, dataset.value);
 		}
-		if (this.actor.type == CONFIG.wod.sheettype.wraith) {
+		if (this.actor.type == CONFIG.worldofdarkness.sheettype.wraith) {
 			actorData.system.settings.variant = dataset.value;
 		}
-		if (this.actor.type == CONFIG.wod.sheettype.changingbreed) {
+		if (this.actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 			await CreateHelper.SetShifterAttributes(actorData, dataset.value);
 		}
-		if (this.actor.type == CONFIG.wod.sheettype.mortal) {
+		if (this.actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			await CreateHelper.SetMortalVariant(actorData, dataset.value);
 		}
-		if (this.actor.type == CONFIG.wod.sheettype.creature) {
+		if (this.actor.type == CONFIG.worldofdarkness.sheettype.creature) {
 			await CreateHelper.SetCreatureVariant(this.actor, actorData, dataset.value);			
 		}
 		
@@ -520,7 +521,7 @@ export class MortalActorSheet extends ActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.mortal) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.mortal) {
 			return;
 		}
 
@@ -556,7 +557,7 @@ export class MortalActorSheet extends ActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.mortal) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.mortal) {
 			return;
 		}
 
@@ -612,7 +613,7 @@ export class MortalActorSheet extends ActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.mortal) {
+		if (type != CONFIG.worldofdarkness.sheettype.mortal) {
 			return;
 		}
 
@@ -667,7 +668,7 @@ export class MortalActorSheet extends ActorSheet {
 				 ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				 return;
 			}
-			if ((fieldStrings == "advantages.willpower.permanent") && (CONFIG.wod.attributeSettings == "5th")) {
+			if ((fieldStrings == "advantages.willpower.permanent") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
 				ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 				return;
 			}			
@@ -703,7 +704,7 @@ export class MortalActorSheet extends ActorSheet {
 		const allStates = ["", ...Object.keys(states)];
 		const currentState = allStates.indexOf(oldState);
 
-		if (type != CONFIG.wod.sheettype.mortal) {
+		if (type != CONFIG.worldofdarkness.sheettype.mortal) {
 			return;
 		}
 		
@@ -757,7 +758,7 @@ export class MortalActorSheet extends ActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.mortal) {
+		if (type != CONFIG.worldofdarkness.sheettype.mortal) {
 			return;
 		}
 
@@ -1308,7 +1309,7 @@ export class MortalActorSheet extends ActorSheet {
 						actorData.system.advantages.willpower.temporary = parseInt(value);
 					}
 				}
-				else if (CONFIG.wod.attributeSettings == "20th") {
+				else if (CONFIG.worldofdarkness.attributeSettings == "20th") {
 					if (abilityType === "permanent") {
 						if (actorData.system.advantages.willpower.permanent == value) {
 							actorData.system.advantages.willpower.permanent = parseInt(actorData.system.advantages.willpower.permanent) - 1;

@@ -40,7 +40,7 @@ export class DialogShapeChange extends FormApplication {
     getData() {
         const data = super.getData();       
         
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
         data.actorData = this.actor.system;
 
         return data;

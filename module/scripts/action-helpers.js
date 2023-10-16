@@ -135,7 +135,7 @@ export default class ActionHelper {
 				fetishRoll.action = game.i18n.localize("wod.dice.activate");	
 				fetishRoll.origin = "general";
 
-				if (actor.type == CONFIG.wod.sheettype.mage) {
+				if (actor.type == CONFIG.worldofdarkness.sheettype.mage) {
 					template.push(`${game.i18n.localize("wod.advantages.willpower")} (${actor.system.advantages.willpower.roll})`);
 					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);
 					fetishRoll.difficulty = 7; 
@@ -157,7 +157,7 @@ export default class ActionHelper {
 			}	
 			
 			// used a Gift
-			if ((dataset.object == "Gift") && (dataset.type == CONFIG.wod.sheettype.spirit)) {
+			if ((dataset.object == "Gift") && (dataset.type == CONFIG.worldofdarkness.sheettype.spirit)) {
 				const gift = new PowerDialog.CharmGift(item);
 				let giftUse = new PowerDialog.DialogPower(actor, gift);
 				giftUse.render(true);
@@ -385,10 +385,10 @@ export default class ActionHelper {
 			if (dataset.rollfrenzy == "true") {
 				let frenzy = undefined;
 
-				if (dataset.type == CONFIG.wod.sheettype.vampire) {
+				if (dataset.type == CONFIG.worldofdarkness.sheettype.vampire) {
 					frenzy = new VampireFrenzy(dataset);
 				}
-				if (dataset.type == CONFIG.wod.sheettype.werewolf) {
+				if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 					frenzy = new WerewolfFrenzy(actor, dataset);
 				}
 
@@ -463,7 +463,7 @@ export default class ActionHelper {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = CONFIG.wod.rollSettings;
+			advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
@@ -476,7 +476,7 @@ export default class ActionHelper {
 		actorData = await this._setAbilityMaxValue(actorData);
 
 		// willpower
-		if (CONFIG.wod.attributeSettings == "5th") {
+		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
 			actorData.system.advantages.willpower.permanent = parseInt(actorData.system.attributes.composure.value) + parseInt(actorData.system.attributes.resolve.value);
 		}
 		
@@ -538,7 +538,7 @@ export default class ActionHelper {
 		// calculate total amount of health levels
 		actorData.system.traits.health.totalhealthlevels.max = 0;
 
-		for (const i in CONFIG.wod.woundLevels) {
+		for (const i in CONFIG.worldofdarkness.woundLevels) {
 			actorData.system.traits.health.totalhealthlevels.max += parseInt(actorData.system.health[i].total);
 		}
 
@@ -552,7 +552,7 @@ export default class ActionHelper {
 		}		
 
 		// check wound level and wound penalty
-		for (const i in CONFIG.wod.woundLevels) {
+		for (const i in CONFIG.worldofdarkness.woundLevels) {
 			totalWoundLevels = totalWoundLevels - parseInt(actorData.system.health[i].total);
 
 			if (totalWoundLevels <= 0) {
@@ -589,7 +589,7 @@ export default class ActionHelper {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = CONFIG.wod.rollSettings;
+			advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
@@ -724,21 +724,21 @@ export default class ActionHelper {
 		let wererwolfrageSettings = true;
 
 		try {
-			advantageRollSetting = CONFIG.wod.rollSettings;
+			advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;
 		}
 
 		try {
-			wererwolfrageSettings = CONFIG.wod.wererwolfrageSettings;
+			wererwolfrageSettings = CONFIG.worldofdarkness.wererwolfrageSettings;
 		} 
 		catch (e) {
 			wererwolfrageSettings = true;
 		}
 
 		// shift
-		if ((actorData.type == CONFIG.wod.sheettype.werewolf) || (actorData.type == CONFIG.wod.sheettype.changingbreed)) {
+		if ((actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
 			if ((!actorData.system.shapes.homid.isactive) &&
 				(!actorData.system.shapes.glabro.isactive) &&
 				(!actorData.system.shapes.crinos.isactive) &&
@@ -824,21 +824,21 @@ export default class ActionHelper {
 
 				if (actorData.system.shapes != undefined) {
 					if ((actorData.system.shapes.hispo.isactive) && (item.system.parentid == "hispo")) {
-						if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
+						if ((item.system.settingtype == "perception") && (CONFIG.worldofdarkness.attributeSettings == "20th")) {
 							item.system.isactive = true;
 						}
 
-						if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
+						if ((item.system.settingtype == "wits") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
 							item.system.isactive = true;
 						}					
 					}
 
 					if ((actorData.system.shapes.lupus.isactive) && (item.system.parentid == "lupus")) {
-						if ((item.system.settingtype == "perception") && (CONFIG.wod.attributeSettings == "20th")) {
+						if ((item.system.settingtype == "perception") && (CONFIG.worldofdarkness.attributeSettings == "20th")) {
 							item.system.isactive = true;
 						}
 
-						if ((item.system.settingtype == "wits") && (CONFIG.wod.attributeSettings == "5th")) {
+						if ((item.system.settingtype == "wits") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
 							item.system.isactive = true;
 						}
 					}
@@ -865,7 +865,7 @@ export default class ActionHelper {
 	}
 
 	static async _setAbilityMaxValue(actorData) {
-		if (actorData.type == CONFIG.wod.sheettype.vampire) {
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.vampire) {
 			return actorData;
 		}
 
@@ -963,7 +963,7 @@ export default class ActionHelper {
 	 * 
 	 */
 	static _transformToSpiritAttributes(attribute) {
-		const list = CONFIG.wod.advantages;
+		const list = CONFIG.worldofdarkness.advantages;
 
 		for (const i in list) {
 			if (i == attribute) {

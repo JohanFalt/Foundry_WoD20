@@ -78,17 +78,15 @@ export class WoDItemSheet extends ItemSheet {
 
 		const data = await super.getData();
 
-		data.config = CONFIG.wod;
-		data.wod = game.wod;
+		data.config = CONFIG.worldofdarkness;
+		data.worldofdarkness = game.worldofdarkness;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
-		//data.itemtype = this.item.type.toLowerCase().replace(" ", "") + "-item";
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
 		data.canEdit = this.item.isOwner || game.user.isGM;
-
 
 		if (this.item.actor != null) {
 			data.hasActor = true;
@@ -105,7 +103,7 @@ export class WoDItemSheet extends ItemSheet {
 		if (this.item.sheetType == undefined) {
 			data.sheettype = "";
 		}
-		else if (this.item.sheetType != CONFIG.wod.sheettype.changingbreed) {
+		else if (this.item.sheetType != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.sheettype = this.item.sheetType.toLowerCase() + "Item";
         }
         else {

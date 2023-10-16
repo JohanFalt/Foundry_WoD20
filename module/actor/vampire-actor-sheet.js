@@ -21,13 +21,13 @@ export class VampireActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.vampire) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.vampire) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
-				actorData.system.settings.era = CONFIG.wod.era[CONFIG.wod.defaultVampireEra];
+				actorData.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultVampireEra];
 				actorData.system.settings.variant = "general";
 
-				await CreateHelper.SetVampireAbilities(actorData, this.actor, CONFIG.wod.defaultVampireEra);
+				await CreateHelper.SetVampireAbilities(actorData, this.actor, CONFIG.worldofdarkness.defaultVampireEra);
 				await CreateHelper.SetMortalAttributes(actorData);
 				await CreateHelper.SetVampireAttributes(actorData);				
 				
@@ -48,8 +48,8 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Vampire Sheet getData");
 
-		if (actorData.type == CONFIG.wod.sheettype.vampire) {
-			console.log(CONFIG.wod.sheettype.vampire);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.vampire) {
+			console.log(CONFIG.worldofdarkness.sheettype.vampire);
 			console.log(data.actor);
 		}
 
@@ -105,7 +105,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.vampire) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.vampire) {
 			return;
 		}
 
@@ -119,7 +119,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;		
 
-		if (dataset.type != CONFIG.wod.sheettype.vampire) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.vampire) {
 			return;
 		}
 
@@ -174,7 +174,7 @@ export class VampireActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.vampire) {
+		if (type != CONFIG.worldofdarkness.sheettype.vampire) {
 			return;
 		}
 

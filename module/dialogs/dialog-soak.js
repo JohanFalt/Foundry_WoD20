@@ -49,9 +49,9 @@ export class DialogSoakRoll extends FormApplication {
         const data = super.getData();
         data.actorData = this.actor.system;  
         data.actorData.type = this.actor.type; 
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -182,7 +182,7 @@ export class DialogSoakRoll extends FormApplication {
 
         let template = [];
         let numDices = parseInt(this.object.attributeValue) + parseInt(this.object.bonus) + parseInt(this.object.attributeBonus);        
-        let damage = `${game.i18n.localize(CONFIG.wod.damageTypes[this.object.damageKey])}`;
+        let damage = `${game.i18n.localize(CONFIG.worldofdarkness.damageTypes[this.object.damageKey])}`;
         damage += ` (${this.object.attributeValue})`;
 
         if (this.object.attributeBonus > 0) {

@@ -28,10 +28,10 @@
 			</div>	
 
 			<div class="centerText sheet-headline splatFont">
-				{{localize 'wod.games.wraith'}} {{#if (ne actor.system.settings.variant 'general')}}({{localize actor.system.settings.variant}}){{/if}}
+				{{localize 'wod.games.wraith'}} {{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}{{#if (ne actor.system.settings.variant 'general')}}({{localize (getProperty config.variant.wraith actor.system.settings.variant)}}){{/if}}{{/if}}
 			</div>
 
-			{{#if (ne actor.system.settings.variant config.variant.wraith.shadow)}}				
+			{{#if (ne actor.system.settings.variant 'shadow')}}				
 
 				<!-- Bio tab -->
 				<div class="tab bio sheet-inner-area" data-group="primary" data-tab="bio">

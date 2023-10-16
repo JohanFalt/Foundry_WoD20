@@ -295,13 +295,13 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("getEra", function (actor) {
 		let era = actor.system.settings.era;
 
-		if (era ==  CONFIG.wod.era.modern) {
+		if (era ==  CONFIG.worldofdarkness.era.modern) {
 			return "modern";
 		}
-		else if (era ==  CONFIG.wod.era.victorian) {
+		else if (era ==  CONFIG.worldofdarkness.era.victorian) {
 			return "victorian";
 		}
-		else if (era ==  CONFIG.wod.era.darkages) {
+		else if (era ==  CONFIG.worldofdarkness.era.darkages) {
 			return "darkages";
 		}
 
@@ -311,7 +311,7 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("getVariant", function (actor) {
 		let variant = actor.system.settings.variant;
 
-		if ((actor.type != CONFIG.wod.sheettype.mortal) && (actor.type != CONFIG.wod.sheettype.changingbreed) && (actor.type != CONFIG.wod.sheettype.changeling) && (actor.type != CONFIG.wod.sheettype.creature)) {
+		if ((actor.type != CONFIG.worldofdarkness.sheettype.mortal) && (actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) && (actor.type != CONFIG.worldofdarkness.sheettype.changeling) && (actor.type != CONFIG.worldofdarkness.sheettype.creature)) {
 			return "variantSelected";
 		}
 		else if (variant == undefined) {
@@ -326,17 +326,17 @@ export const registerHandlebarsHelpers = function () {
 	});	
 
 	Handlebars.registerHelper("getVariantName", function (type, variant) {
-		return CONFIG.wod.variant[type][variant];
+		return CONFIG.worldofdarkness.variant[type][variant];
 	});
 
 	Handlebars.registerHelper("getAttributes", function (attribute) {
 		let list;
 
-		if (CONFIG.wod.attributeSettings == "5th") {
-			list = CONFIG.wod.attributes;
+		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+			list = CONFIG.worldofdarkness.attributes;
 		}
-		else if (CONFIG.wod.attributeSettings == "20th") {
-			list = CONFIG.wod.attributes20;
+		else if (CONFIG.worldofdarkness.attributeSettings == "20th") {
+			list = CONFIG.worldofdarkness.attributes20;
 		}
 		
 		for (const i in list) {
@@ -345,9 +345,9 @@ export const registerHandlebarsHelpers = function () {
 			}
 		}
 
-		for (const i in CONFIG.wod.advantages) {
+		for (const i in CONFIG.worldofdarkness.advantages) {
 			if (i == attribute) {
-				return CONFIG.wod.advantages[i];
+				return CONFIG.worldofdarkness.advantages[i];
 			}
 		}
 
@@ -377,38 +377,38 @@ export const registerHandlebarsHelpers = function () {
 			}			
 		}
 
-		for (const i in CONFIG.wod.talents) {
+		for (const i in CONFIG.worldofdarkness.talents) {
 			if (i == ability) {
-				return CONFIG.wod.talents[i];
+				return CONFIG.worldofdarkness.talents[i];
 			}
 		}
 
-		for (const i in CONFIG.wod.skills) {
+		for (const i in CONFIG.worldofdarkness.skills) {
 			if (i == ability) {
-				return CONFIG.wod.skills[i];
+				return CONFIG.worldofdarkness.skills[i];
 			}
 		}
 
-		for (const i in CONFIG.wod.knowledges) {
+		for (const i in CONFIG.worldofdarkness.knowledges) {
 			if (i == ability) {
-				return CONFIG.wod.knowledges[i];
+				return CONFIG.worldofdarkness.knowledges[i];
 			}
 		}	
 
-		for (const i in CONFIG.wod.advantages) {
+		for (const i in CONFIG.worldofdarkness.advantages) {
 			if (i == ability) {
-				return CONFIG.wod.advantages[i];
+				return CONFIG.worldofdarkness.advantages[i];
 			}
 		}
 
 		// attribute then?
 		let list;
 
-		if (CONFIG.wod.attributeSettings == "5th") {
-			list = CONFIG.wod.attributes;
+		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+			list = CONFIG.worldofdarkness.attributes;
 		}
-		else if (CONFIG.wod.attributeSettings == "20th") {
-			list = CONFIG.wod.attributes20;
+		else if (CONFIG.worldofdarkness.attributeSettings == "20th") {
+			list = CONFIG.worldofdarkness.attributes20;
 		}
 		
 		for (const i in list) {
@@ -417,9 +417,9 @@ export const registerHandlebarsHelpers = function () {
 			}
 		}
 
-		for (const i in CONFIG.wod.advantages) {
+		for (const i in CONFIG.worldofdarkness.advantages) {
 			if (i == ability) {
-				return CONFIG.wod.advantages[i];
+				return CONFIG.worldofdarkness.advantages[i];
 			}
 		}
 
@@ -437,7 +437,7 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("topAttributes", function (attribute) {
 		var list = ["strength","charisma","perception"];
 
-		if (CONFIG.wod.attributeSettings == "5th") {
+		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
 			list = ["strength","charisma","intelligence"];
 		}
 		
@@ -452,7 +452,7 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("bottenAttributes", function (attribute) {
 		var list = ["stamina","appearance","wits"];
 
-		if (CONFIG.wod.attributeSettings == "5th") {
+		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
 			list = ["stamina","composure","resolve"];
 		}
 		
@@ -466,10 +466,10 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("showAbility", function (ability, abilityType, sheetType) {
 		if (ability == "research") {
-			if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "skills")) {
+			if (((sheetType == CONFIG.worldofdarkness.sheettype.hunter)||(sheetType == CONFIG.worldofdarkness.sheettype.demon)) && (abilityType == "skills")) {
 				return false;
 			}
-			else if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "knowledges")) {
+			else if (((sheetType == CONFIG.worldofdarkness.sheettype.hunter)||(sheetType == CONFIG.worldofdarkness.sheettype.demon)) && (abilityType == "knowledges")) {
 				return true;
 			}
 			else if (abilityType == "skills") {
@@ -480,10 +480,10 @@ export const registerHandlebarsHelpers = function () {
 			}
 		}
 		if (ability == "technology") {
-			if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "skills")) {
+			if (((sheetType == CONFIG.worldofdarkness.sheettype.hunter)||(sheetType == CONFIG.worldofdarkness.sheettype.mage)||(sheetType == CONFIG.worldofdarkness.sheettype.demon)) && (abilityType == "skills")) {
 				return true;
 			}
-			else if (((sheetType == CONFIG.wod.sheettype.hunter)||(sheetType == CONFIG.wod.sheettype.mage)||(sheetType == CONFIG.wod.sheettype.demon)) && (abilityType == "knowledges")) {
+			else if (((sheetType == CONFIG.worldofdarkness.sheettype.hunter)||(sheetType == CONFIG.worldofdarkness.sheettype.mage)||(sheetType == CONFIG.worldofdarkness.sheettype.demon)) && (abilityType == "knowledges")) {
 				return false;
 			}
 			else if (abilityType == "skills") {
@@ -795,11 +795,11 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("translateConceal", function (conceal, era, fullname) {
 
 		if (era == undefined) {
-			era = CONFIG.wod.era.modern;
+			era = CONFIG.worldofdarkness.era.modern;
 		}
 		
 		if (fullname) {
-			if (era == CONFIG.wod.era.modern) {
+			if (era == CONFIG.worldofdarkness.era.modern) {
 				if (conceal == "P") {
 					conceal = game.i18n.localize("wod.combat.weapon.conceal.pocket");
 				}
@@ -814,7 +814,7 @@ export const registerHandlebarsHelpers = function () {
 				}
 			}
 
-			if (era == CONFIG.wod.era.victorian) {
+			if (era == CONFIG.worldofdarkness.era.victorian) {
 				if (conceal == "P") {
 					conceal = game.i18n.localize("wod.combat.weapon.conceal.pocket");
 				}
@@ -829,7 +829,7 @@ export const registerHandlebarsHelpers = function () {
 				}
 			}
 
-			if (era == CONFIG.wod.era.darkages) {
+			if (era == CONFIG.worldofdarkness.era.darkages) {
 				if (conceal == "P") {
 					conceal = game.i18n.localize("wod.combat.weapon.conceal.pouch");
 				}
@@ -845,7 +845,7 @@ export const registerHandlebarsHelpers = function () {
 			}
 		}
 		else {
-			if (era == CONFIG.wod.era.darkages) {
+			if (era == CONFIG.worldofdarkness.era.darkages) {
 				if (conceal == "J") {
 					conceal = "C";
 				}
@@ -895,51 +895,51 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("checkSystemsetting", function (text) {
 		if (text == "attributeSettings") {
-			return CONFIG.wod.attributeSettings;
+			return CONFIG.worldofdarkness.attributeSettings;
 		}
 
 		if (text == "rollSettings") {
-			return CONFIG.wod.rollSettings;
+			return CONFIG.worldofdarkness.rollSettings;
 		}
 
 		if (text == "theRollofOne") {
-			return CONFIG.wod.handleOnes;
+			return CONFIG.worldofdarkness.handleOnes;
 		}
 
 		if (text == "useOnesDamage") {
-			return CONFIG.wod.useOnesDamage;
+			return CONFIG.worldofdarkness.useOnesDamage;
 		}
 
 		if (text == "useOnesSoak") {
-			return CONFIG.wod.useOnesSoak;
+			return CONFIG.worldofdarkness.useOnesSoak;
 		}
 
 		if (text == "lowestDifficulty") {
-			return CONFIG.wod.lowestDifficulty;
+			return CONFIG.worldofdarkness.lowestDifficulty;
 		}
 
 		if (text == "lowestDifficulty") {
-			return CONFIG.wod.lowestDifficulty;
+			return CONFIG.worldofdarkness.lowestDifficulty;
 		}
 
 		if (text == "specialityAddSuccess") {
-			return CONFIG.wod.specialityAddSuccess;
+			return CONFIG.worldofdarkness.specialityAddSuccess;
 		}				
 
 		if (text == "specialityReduceDiff") {
-			return CONFIG.wod.specialityReduceDiff;
+			return CONFIG.worldofdarkness.specialityReduceDiff;
 		}
 
 		if (text == "tenAddSuccess") {
-			return CONFIG.wod.tenAddSuccess;
+			return CONFIG.worldofdarkness.tenAddSuccess;
 		}
 
 		if (text == "explodingDice") {
-			return CONFIG.wod.specialityReduceDiff;
+			return CONFIG.worldofdarkness.specialityReduceDiff;
 		}
 
 		if (text == "wererwolfrageSettings") {
-			return CONFIG.wod.wererwolfrageSettings;
+			return CONFIG.worldofdarkness.wererwolfrageSettings;
 		}		
 
 		if (text == "viewBiotabPermission") {
@@ -952,10 +952,10 @@ export const registerHandlebarsHelpers = function () {
 			}
 
 			if (this.actor.limited) {
-				return CONFIG.wod.limitedSeeFullActor;
+				return CONFIG.worldofdarkness.limitedSeeFullActor;
 			}
 
-			return CONFIG.wod.observersSeeFullActor;
+			return CONFIG.worldofdarkness.observersSeeFullActor;
 		}
 
 		return false;
@@ -986,14 +986,14 @@ export const registerHandlebarsHelpers = function () {
 		let code = "";
 
 		if ((type != undefined) && (type != "")) {
-			type = game.i18n.localize(CONFIG.wod.damageTypes[type]).charAt(0).toUpperCase();
+			type = game.i18n.localize(CONFIG.worldofdarkness.damageTypes[type]).charAt(0).toUpperCase();
 		}
 		else {
 			type = "";
 		}		
 
 		if ((attribute != undefined) && (attribute != "")) {
-			code = game.i18n.localize(CONFIG.wod.attributes20[attribute]).substring(0, 3);
+			code = game.i18n.localize(CONFIG.worldofdarkness.attributes20[attribute]).substring(0, 3);
 		}		
 
 		if (code == "") {

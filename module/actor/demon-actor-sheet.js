@@ -22,7 +22,7 @@ export class DemonActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.demon) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.demon) {
 				const version = game.data.system.version;
 
 				actorData.system.settings.iscreated = true;
@@ -167,8 +167,8 @@ export class DemonActorSheet extends MortalActorSheet {
 
 		data.actor.system.listdata.forms = forms;
 
-		if (actorData.type == CONFIG.wod.sheettype.demon) {
-			console.log(CONFIG.wod.sheettype.demon);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.demon) {
+			console.log(CONFIG.worldofdarkness.sheettype.demon);
 			console.log(data.actor);
 		}
 
@@ -238,7 +238,7 @@ export class DemonActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.demon) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.demon) {
 			return;
 		}
 
@@ -254,7 +254,7 @@ export class DemonActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.wod.sheettype.demon) {
+		if (type != CONFIG.worldofdarkness.sheettype.demon) {
 			return;
 		}
 

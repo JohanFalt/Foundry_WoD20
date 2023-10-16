@@ -11,7 +11,7 @@
                         {{#select data.system.affiliation}}
                             <option value="">- {{localize "wod.labels.select"}} -</option>
                             <option value="custom">{{#if (eq actor.system.custom.affiliation "")}}- {{localize "wod.labels.customaffiliation"}} -{{else}}{{actor.system.custom.affiliation}} ({{localize "wod.labels.customaffiliation"}}){{/if}}</option>                            
-                            {{#each game.bio.affiliation as |affiliation id|}}
+                            {{#each worldofdarkness.bio.affiliation as |affiliation id|}}
                                 <option value="{{affiliation}}">{{localize affiliation}}</option>
                             {{/each}}
                         {{/select}}
@@ -32,27 +32,27 @@
                             <option value="">- {{localize "wod.labels.select"}} -</option>
                             <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}} ({{localize "wod.labels.customsect"}}){{/if}}</option>                            
                             <optgroup label="{{localize "wod.bio.mage.tradition"}}">
-                                {{#each game.bio.magesect.tradition as |sect id|}}
+                                {{#each worldofdarkness.bio.magesect.tradition as |sect id|}}
                                     <option value="{{sect}}">{{localize sect}}</option>
                                 {{/each}}
                             </optgroup>
                             <optgroup label="{{localize "wod.bio.mage.technocracy"}}">
-                                {{#each game.bio.magesect.technocracy as |sect id|}}
+                                {{#each worldofdarkness.bio.magesect.technocracy as |sect id|}}
                                     <option value="{{sect}}">{{localize sect}}</option>
                                 {{/each}}
                             </optgroup>
                             <optgroup label="{{localize "wod.bio.mage.disparate"}}">
-                                {{#each game.bio.magesect.disparate as |sect id|}}
+                                {{#each worldofdarkness.bio.magesect.disparate as |sect id|}}
                                     <option value="{{sect}}">{{localize sect}}</option>
                                 {{/each}}
                             </optgroup>
                             <optgroup label="{{localize "wod.bio.mage.fallen"}}">
-                                {{#each game.bio.magesect.fallen as |sect id|}}
+                                {{#each worldofdarkness.bio.magesect.fallen as |sect id|}}
                                     <option value="{{sect}}">{{localize sect}}</option>
                                 {{/each}}
                             </optgroup>
                             <optgroup label="{{localize "wod.bio.mage.mad"}}">
-                                {{#each game.bio.magesect.mad as |sect id|}}
+                                {{#each worldofdarkness.bio.magesect.mad as |sect id|}}
                                     <option value="{{sect}}">{{localize sect}}</option>
                                 {{/each}}
                             </optgroup>

@@ -71,7 +71,7 @@ export class Rote {
         if (item != undefined) {
             this.name = item["name"];
 
-            for (const sphere in CONFIG.wod.allSpheres) {
+            for (const sphere in CONFIG.worldofdarkness.allSpheres) {
                 if (item.system[sphere] > 0) {
                     this.selectedSpheres[sphere] = item.system[sphere];
                 }
@@ -149,8 +149,8 @@ export class Rote {
             if (this.totalDifficulty > 10) {
                 this.shownDifficulty = 10;
             }
-            else if (this.totalDifficulty < CONFIG.wod.lowestDifficulty) {
-                this.shownDifficulty = CONFIG.wod.lowestDifficulty;
+            else if (this.totalDifficulty < CONFIG.worldofdarkness.lowestDifficulty) {
+                this.shownDifficulty = CONFIG.worldofdarkness.lowestDifficulty;
             }
         }
 
@@ -191,7 +191,7 @@ export class DialogAreteCasting extends FormApplication {
     getData() {
         const data = super.getData();
 
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
         data.actorData = this.actor.system;          // used in the dialog html
 
         return data;
@@ -242,7 +242,7 @@ export class DialogAreteCasting extends FormApplication {
 
         let found = false;
 
-        for (const sphere in CONFIG.wod.allSpheres) {
+        for (const sphere in CONFIG.worldofdarkness.allSpheres) {
             if (this.object.selectedSpheres[sphere] > 0) {
                 found = true;
             }
@@ -426,11 +426,11 @@ export class DialogAreteCasting extends FormApplication {
                 extraInfo.push(`${game.i18n.localize("wod.dialog.aretecasting.increaseddifficulty")} +${extraSuccesses}`);
                 this.object.totalDifficulty = 10;
             }
-            else if (this.object.totalDifficulty < CONFIG.wod.lowestDifficulty) {
-                this.object.totalDifficulty = CONFIG.wod.lowestDifficulty; 
+            else if (this.object.totalDifficulty < CONFIG.worldofdarkness.lowestDifficulty) {
+                this.object.totalDifficulty = CONFIG.worldofdarkness.lowestDifficulty; 
             }
 
-            for (const sphere in CONFIG.wod.allSpheres) {
+            for (const sphere in CONFIG.worldofdarkness.allSpheres) {
                 let exists = (this.object.selectedSpheres[sphere] === undefined) ? false : true;
 
                 if (exists) {

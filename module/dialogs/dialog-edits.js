@@ -86,9 +86,9 @@ export class DialogBio extends FormApplication {
 
         data.actorData = this.actor.system;
         data.actorData.type = this.actor.type;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -161,9 +161,9 @@ export class DialogAttribute extends FormApplication {
 
         data.actorData = this.actor.system;
         data.actorData.type = this.actor.type;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -224,9 +224,9 @@ export class DialogAbility extends FormApplication {
 
         data.actorData = this.actor.system;
         data.actorData.type = this.actor.type;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -305,9 +305,9 @@ export class DialogSphere extends FormApplication {
 
         data.actorData = this.actor.system;
         data.actorData.type = this.actor.type;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {

@@ -63,13 +63,9 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		data.actor.presentform = presentform;
 
-		if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
-			console.log(CONFIG.wod.sheettype.changingbreed);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+			console.log(CONFIG.worldofdarkness.sheettype.changingbreed);
 			console.log(data.actor);
-		}
-
-		if (data.actor.system.changingbreed == "") {
-			ActionHelper.openVariantDialog(this.actor);
 		}
 
 		return data;
@@ -119,7 +115,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if ((type != CONFIG.wod.sheettype.werewolf) && (type != CONFIG.wod.sheettype.changingbreed)) {
+		if ((type != CONFIG.worldofdarkness.sheettype.werewolf) && (type != CONFIG.worldofdarkness.sheettype.changingbreed)) {
 			return;
 		}
 
@@ -134,7 +130,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if ((type != CONFIG.wod.sheettype.werewolf) && (type != CONFIG.wod.sheettype.changingbreed)) {
+		if ((type != CONFIG.worldofdarkness.sheettype.werewolf) && (type != CONFIG.worldofdarkness.sheettype.changingbreed)) {
 			return;
 		}
 

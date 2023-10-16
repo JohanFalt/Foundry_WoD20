@@ -9,29 +9,29 @@ function _GetDiceColors(actor) {
 	if (actor == undefined) {
 		_diceColor = "black_";
 	}		
-	else if (actor.type == CONFIG.wod.sheettype.mortal) {
+	else if (actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
 		_diceColor = "blue_";
 	} 
-	else if ((actor.type == CONFIG.wod.sheettype.werewolf) || (actor.type == "Changing Breed")) {
+	else if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == "Changing Breed")) {
 		_diceColor = "brown_";
 	}
-	else if (actor.type == CONFIG.wod.sheettype.mage) { 
+	else if (actor.type == CONFIG.worldofdarkness.sheettype.mage) { 
 		_diceColor = "purple_";
 	}
-	else if (actor.type == CONFIG.wod.sheettype.vampire) { 
+	else if (actor.type == CONFIG.worldofdarkness.sheettype.vampire) { 
 		_diceColor = "red_";
 	}
-	else if (actor.type == CONFIG.wod.sheettype.changeling) { 
+	else if (actor.type == CONFIG.worldofdarkness.sheettype.changeling) { 
 		_diceColor = "blue_";
 		_specialDiceType = "black_";
 	}
-	else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) { 
+	else if ((actor.type == CONFIG.worldofdarkness.sheettype.hunter) || (actor.type == CONFIG.worldofdarkness.sheettype.demon)) { 
 		_diceColor = "orange_";
 	}
-	else if (actor.type == CONFIG.wod.sheettype.wraith) { 
+	else if (actor.type == CONFIG.worldofdarkness.sheettype.wraith) { 
 		_diceColor = "death_";
 	}
-	else if (actor.type == CONFIG.wod.sheettype.spirit) { 
+	else if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) { 
 		_diceColor = "yellow_";
 	}		
 	else {
@@ -117,7 +117,7 @@ export async function NewRollDice(diceRoll) {
 	let systemtext = [];
 	
 
-	difficulty = difficulty < CONFIG.wod.lowestDifficulty ? CONFIG.wod.lowestDifficulty : difficulty;
+	difficulty = difficulty < CONFIG.worldofdarkness.lowestDifficulty ? CONFIG.worldofdarkness.lowestDifficulty : difficulty;
 
 	if (actor != undefined) {
 		if (await BonusHelper.CheckAttributeAutoBuff(actor, diceRoll.attribute)) {
@@ -125,11 +125,11 @@ export async function NewRollDice(diceRoll) {
 		}
 	}
 
-	if ((diceRoll.origin == "soak") && (!CONFIG.wod.useOnesSoak)) {
+	if ((diceRoll.origin == "soak") && (!CONFIG.worldofdarkness.useOnesSoak)) {
 		canBotch = false;
 	}
 
-	if ((diceRoll.origin == "damage") && (!CONFIG.wod.useOnesDamage)) {
+	if ((diceRoll.origin == "damage") && (!CONFIG.worldofdarkness.useOnesDamage)) {
 		canBotch = false;
 	}
 
@@ -168,20 +168,20 @@ export async function NewRollDice(diceRoll) {
 				rolledDices += 1;
 
 				if (dice.result == 10) {				
-					if ((CONFIG.wod.usespecialityAddSuccess) && (diceRoll.speciality)) {
-						success += CONFIG.wod.specialityAddSuccess;
+					if ((CONFIG.worldofdarkness.usespecialityAddSuccess) && (diceRoll.speciality)) {
+						success += CONFIG.worldofdarkness.specialityAddSuccess;
 					}
-					else if (CONFIG.wod.usetenAddSuccess) {
-						success += CONFIG.wod.tenAddSuccess;
+					else if (CONFIG.worldofdarkness.usetenAddSuccess) {
+						success += CONFIG.worldofdarkness.tenAddSuccess;
 					}             
 					else {
 						success += 1;
 					}   
-					if (CONFIG.wod.useexplodingDice) {
-						if ((CONFIG.wod.explodingDice == "speciality") && (diceRoll.speciality)) {
+					if (CONFIG.worldofdarkness.useexplodingDice) {
+						if ((CONFIG.worldofdarkness.explodingDice == "speciality") && (diceRoll.speciality)) {
 							rolledDices -= 1;
 						}
-						if (CONFIG.wod.explodingDice == "always") {
+						if (CONFIG.worldofdarkness.explodingDice == "always") {
 							rolledDices -= 1;
 						}
 					}
@@ -193,7 +193,7 @@ export async function NewRollDice(diceRoll) {
 					success += 1;
 				}
 				else if (dice.result == 1) {
-					if ((CONFIG.wod.handleOnes) && (canBotch)) {
+					if ((CONFIG.worldofdarkness.handleOnes) && (canBotch)) {
 						success--;
 					}
 		
@@ -220,10 +220,10 @@ export async function NewRollDice(diceRoll) {
 		if (success > 0) {
 			rollResult = "success";
 		}
-		else if ((CONFIG.wod.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
+		else if ((CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
 			rollResult = "botch";
 		}
-		else if ((!CONFIG.wod.handleOnes) && (rolledOne) && (canBotch)) {
+		else if ((!CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (canBotch)) {
 			rollResult = "botch";
 		}
 		else {
@@ -279,10 +279,10 @@ export async function NewRollDice(diceRoll) {
 		if (success > 0) {
 			rollResult = "success";
 		}
-		else if ((CONFIG.wod.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
+		else if ((CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
 			rollResult = "botch";
 		}
-		else if ((!CONFIG.wod.handleOnes) && (rolledOne) && (canBotch)) {
+		else if ((!CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (canBotch)) {
 			rollResult = "botch";
 		}
 		else {
@@ -397,7 +397,7 @@ export async function InitiativeRoll(diceRoll) {
 		}
 	}	
 
-	if (actor.type != CONFIG.wod.sheettype.spirit) {
+	if (actor.type != CONFIG.worldofdarkness.sheettype.spirit) {
 		if (parseInt(actor.system.attributes.dexterity.total) >= parseInt(actor.system.attributes.wits.total)) {
 			initAttribute = game.i18n.localize(actor.system.attributes.dexterity.label) + " " + actor.system.attributes.dexterity.total;
 		}

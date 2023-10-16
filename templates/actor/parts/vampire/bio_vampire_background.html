@@ -10,7 +10,7 @@
                         {{#select data.system.sect}}
                             <option value="">- {{localize "wod.labels.select"}} -</option>
                             <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}} ({{localize "wod.labels.customsect"}}){{/if}}</option>                            
-                            {{#each game.bio.sect as |sect id|}}
+                            {{#each worldofdarkness.bio.sect as |sect id|}}
                                 <option value="{{sect}}">{{localize sect}}</option>
                             {{/each}}
                         {{/select}}
@@ -31,7 +31,7 @@
                     {{#select data.system.clan}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
                         <option value="custom">{{#if (eq actor.system.custom.clan "")}}- {{localize "wod.labels.customclan"}} -{{else}}{{actor.system.custom.clan}} ({{localize "wod.labels.customclan"}}){{/if}}</option>                            
-                        {{#each game.bio.clan as |clan id|}}
+                        {{#each worldofdarkness.bio.clan as |clan id|}}
                             <option value="{{clan}}">{{localize clan}}</option>
                         {{/each}}
                     {{/select}}

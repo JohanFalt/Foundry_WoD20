@@ -111,7 +111,7 @@ export class Damage {
         this.accuracy = parseInt(item.system.damage["bonus"]);
         this.difficulty = 6;
         this.damageType = item.system.damage["type"];
-        this.damageCode = game.i18n.localize(CONFIG.wod.damageTypes[this.damageType]);
+        this.damageCode = game.i18n.localize(CONFIG.worldofdarkness.damageTypes[this.damageType]);
 
         this.hasburst = false;
         this.hasfullauto = false;
@@ -176,11 +176,11 @@ export class DialogWeapon extends FormApplication {
 
         data.actorData = this.actor.system;
         data.actorData.type = this.actor.type;
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
         data.config.meleeAbilities = this.actor.system.listdata.meleeAbilities;
         data.config.rangedAbilities = this.actor.system.listdata.rangedAbilities;
 
-        if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
         }
         else {
@@ -203,7 +203,7 @@ export class DialogWeapon extends FormApplication {
             data.object.attributeName = game.i18n.localize(data.actorData[data.object.dice1].label);
 
             // om willpower
-            if ((this.actor.system[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+            if ((this.actor.system[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
                 if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
                     data.object.hasSpeciality = true;
                     attributeSpeciality = data.actorData.attributes.composure.speciality;
@@ -309,12 +309,12 @@ export class DialogWeapon extends FormApplication {
         
         this.object.useSpeciality = formData["specialty"];
 
-        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+        if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = true;
         }
-        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+        else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = false;
         }
 

@@ -23,7 +23,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.creature) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.creature) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
@@ -39,8 +39,8 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Creature Sheet getData");
 
-		if (actorData.type == CONFIG.wod.sheettype.creature) {
-			console.log(CONFIG.wod.sheettype.creature);
+		if (actorData.type == CONFIG.worldofdarkness.sheettype.creature) {
+			console.log(CONFIG.worldofdarkness.sheettype.creature);
 			console.log(data.actor);
 		}
 
@@ -85,7 +85,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.creature) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.creature) {
 			return;
 		}
 
@@ -99,7 +99,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		if (dataset.type != CONFIG.wod.sheettype.creature) {
+		if (dataset.type != CONFIG.worldofdarkness.sheettype.creature) {
 			return;
 		}
 

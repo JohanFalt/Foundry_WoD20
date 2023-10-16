@@ -44,11 +44,11 @@ export class GeneralRoll {
         if (type == "attribute") {
             this.attributeKey = key;
 
-            if (CONFIG.wod.attributeSettings == "20th") {                
-                this.attributeName = game.i18n.localize(CONFIG.wod.attributes20[key]);
+            if (CONFIG.worldofdarkness.attributeSettings == "20th") {                
+                this.attributeName = game.i18n.localize(CONFIG.worldofdarkness.attributes20[key]);
             }
-            else if (CONFIG.wod.attributeSettings == "5th") {
-                this.attributeName = game.i18n.localize(CONFIG.wod.attributes[key]);
+            else if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+                this.attributeName = game.i18n.localize(CONFIG.worldofdarkness.attributes[key]);
             }
 
             this.name = this.attributeName;
@@ -105,7 +105,7 @@ export class DialogGeneralRoll extends FormApplication {
             data.actorData = this.actor.system;   
             data.actorData.type = this.actor.type;            
 
-            if (data.actorData.type != CONFIG.wod.sheettype.changingbreed) {
+            if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
                 data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
             }
             else {
@@ -119,7 +119,7 @@ export class DialogGeneralRoll extends FormApplication {
             data.object.sheettype = "mortalDialog";
         }
         
-        data.config = CONFIG.wod;
+        data.config = CONFIG.worldofdarkness;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";        
 
@@ -142,7 +142,7 @@ export class DialogGeneralRoll extends FormApplication {
                         data.object.name = data.object.attributeName; 
                     }
                     else {
-                        if ((attributeKey == "willpower") && (CONFIG.wod.attributeSettings == "5th")) {
+                        if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
                             if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
                                 data.object.hasSpeciality = true;
                                 attributeSpeciality = data.actorData.attributes.composure.speciality;
@@ -276,12 +276,12 @@ export class DialogGeneralRoll extends FormApplication {
         
         this.object.useSpeciality = formData["specialty"];
 
-        if (this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.wod.specialityReduceDiff;
+        if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = true;
         }
-        else if (!this.object.useSpeciality && CONFIG.wod.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.wod.specialityReduceDiff;
+        else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
+            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
             this.object.usedReducedDiff = false;
         }
         
@@ -364,11 +364,11 @@ export class DialogGeneralRoll extends FormApplication {
             this.object.difficulty += parseInt(bonus);
         }
 
-        if (CONFIG.wod.attributeSettings == "20th") {                
-            this.object.attributeName = game.i18n.localize(CONFIG.wod.attributes20[key]);
+        if (CONFIG.worldofdarkness.attributeSettings == "20th") {                
+            this.object.attributeName = game.i18n.localize(CONFIG.worldofdarkness.attributes20[key]);
         }
-        else if (CONFIG.wod.attributeSettings == "5th") {
-            this.object.attributeName = game.i18n.localize(CONFIG.wod.attributes[key]);
+        else if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+            this.object.attributeName = game.i18n.localize(CONFIG.worldofdarkness.attributes[key]);
         }
 
         this.object.attributeValue = this.actor.system.attributes[key].total;

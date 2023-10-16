@@ -111,9 +111,9 @@ export  const updates = async () => {
 
         const actorData = duplicate(actor);
 
-        if (actor.type != CONFIG.wod.sheettype.spirit) {
+        if (actor.type != CONFIG.worldofdarkness.sheettype.spirit) {
             if (attributeSettings == "20th") {
-                for (const attribute in CONFIG.wod.attributes20) {
+                for (const attribute in CONFIG.worldofdarkness.attributes20) {
                     actorData.system.attributes[attribute].isvisible = true;
                 }
 
@@ -121,7 +121,7 @@ export  const updates = async () => {
                 actorData.system.attributes.resolve.isvisible = false;
             }
             else if (attributeSettings == "5th") {
-                for (const attribute in CONFIG.wod.attributes) {
+                for (const attribute in CONFIG.worldofdarkness.attributes) {
                     actorData.system.attributes[attribute].isvisible = true;
                 }
 
@@ -156,13 +156,13 @@ export  const updates = async () => {
 
             actorData.system.settings.haswillpower = true;
 
-            if (actorData.type == CONFIG.wod.sheettype.werewolf) {
+            if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
                 actorData.system.settings.hasrage = true;
                 actorData.system.settings.hasgnosis = true;
                 actorData.system.settings.powers.hasgifts = true;
             }
 
-            if (actorData.type == CONFIG.wod.sheettype.changingbreed) {
+            if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
                 actorData.system.settings.hasrage = true;
                 actorData.system.settings.hasgnosis = true;
                 actorData.system.settings.powers.hasgifts = true;
@@ -175,24 +175,24 @@ export  const updates = async () => {
                 }
             }
 
-            if (actorData.type == CONFIG.wod.sheettype.vampire) {
+            if (actorData.type == CONFIG.worldofdarkness.sheettype.vampire) {
                 actorData.system.settings.haspath = true;
                 actorData.system.settings.hasbloodpool = true;
                 actorData.system.settings.hasvirtue = true;
                 actorData.system.settings.powers.hasdisciplines = true;
             }
 
-            if (actorData.type == CONFIG.wod.sheettype.mage) {
+            if (actorData.type == CONFIG.worldofdarkness.sheettype.mage) {
             }
 
-            if (actorData.type == CONFIG.wod.sheettype.changeling) {
+            if (actorData.type == CONFIG.worldofdarkness.sheettype.changeling) {
                 actorData.system.settings.hasglamour = true;
                 actorData.system.settings.hasbanality = true;
                 actorData.system.settings.hasnightmare = true;
                 actorData.system.settings.powers.hasarts = true;
             }
 
-            if (actorData.type == CONFIG.wod.sheettype.creatures) {
+            if (actorData.type == CONFIG.worldofdarkness.sheettype.creatures) {
                 actorData.system.settings.powers.haspowers = true;
             }
 
@@ -220,7 +220,7 @@ export  const updates = async () => {
     }
 
     for (const actor of game.actors) {
-        if (actor.type == CONFIG.wod.sheettype.werewolf) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             for (const effect of actor.effects) {
                 if (effect.icon.includes("werewolf")) {
                     const effectid = effect.id;
@@ -295,7 +295,7 @@ export  const updates = async () => {
         }
         
 
-        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+        if (updateData.type != CONFIG.worldofdarkness.sheettype.spirit) {
             for (const attribute in updateData.system.attributes) {
                 if(updateData.system.attributes[attribute].visible != undefined) {
                     updateData.system.attributes[attribute].isvisible = updateData.system.attributes[attribute].visible;   
@@ -321,7 +321,7 @@ export  const updates = async () => {
             }
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             if(updateData.system.conditions.frenzy != undefined) {
                 updateData.system.conditions.isfrenzy = updateData.system.conditions.frenzy;
             }
@@ -353,7 +353,7 @@ export  const updates = async () => {
         updateData.system.conditions['-=ignorepain'] = null;
         updateData.system.conditions['-=stunned'] = null;
 
-        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+        if (updateData.type != CONFIG.worldofdarkness.sheettype.spirit) {
             for (const attribute in updateData.system.attributes) {
                 updateData.system.attributes[attribute]['-=visible'] = null;
             }
@@ -371,7 +371,7 @@ export  const updates = async () => {
             }
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             updateData.system.conditions['-=frenzy'] = null;
 
             updateData.system.shapes.homid['-=active'] = null;
@@ -389,7 +389,7 @@ export  const updates = async () => {
         
         updateData.system.settings.version = "1.6.0";
 
-        if (updateData.type == CONFIG.wod.sheettype.creature) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.creature) {
             update = true;            
 
             updateData.system.settings.hasrage = true;
@@ -398,7 +398,7 @@ export  const updates = async () => {
             updateData.system.settings.hasessence = false;
             updateData.system.settings.hasbloodpool = false;                    
         }   
-        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             update = true;  
 
             if (updateData.system.tribe == "Black Furies") {
@@ -466,10 +466,10 @@ export  const updates = async () => {
     if (_compareVersion(actor.system.settings.version, "2.1.0")) {
         let updateData = duplicate(actor);
 
-        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+        if (updateData.type != CONFIG.worldofdarkness.sheettype.spirit) {
             updateData.system.settings.version = "2.1.0";            
 
-            if (updateData.type == CONFIG.wod.sheettype.mage) {
+            if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
                 update = true;
 
                 updateData.system.affiliation = game.i18n.localize(updateData.system.affiliation);
@@ -491,18 +491,18 @@ export  const updates = async () => {
                 updateData.system.abilities.knowledge.technology.altlabel = "";
                 updateData.system.abilities.knowledge.technology.isvisible = false;                                
             }
-            else if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+            else if (updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
                 update = true;
 
                 updateData.system.tribe = game.i18n.localize(updateData.system.tribe);
             }
-            else if (updateData.type == CONFIG.wod.sheettype.vampire) {
+            else if (updateData.type == CONFIG.worldofdarkness.sheettype.vampire) {
                 update = true;
 
                 updateData.system.sect = game.i18n.localize(updateData.system.sect);
                 updateData.system.clan = game.i18n.localize(updateData.system.clan);
             }
-            else if (updateData.type == CONFIG.wod.sheettype.creature) {
+            else if (updateData.type == CONFIG.worldofdarkness.sheettype.creature) {
                 update = true;
 
                 updateData.system.settings.powers.haspowers = true;                            
@@ -607,7 +607,7 @@ export  const updates = async () => {
         updateData.system.settings.version = "2.2.0";
 
         // move of advantages to mortals
-        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+        if (updateData.type != CONFIG.worldofdarkness.sheettype.spirit) {
             if (updateData.system.willpower != undefined) {
                 updateData.system.advantages.willpower = updateData.system.willpower;
             }
@@ -620,7 +620,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             if (updateData.system.rage != undefined) {
                 updateData.system.advantages.rage = updateData.system.rage;
             }
@@ -636,7 +636,7 @@ export  const updates = async () => {
             update = true;
         }        
 
-        if (updateData.type == CONFIG.wod.sheettype.vampire) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.vampire) {
             if (updateData.system.rage?.bonus != undefined) {
                 updateData.system.advantages.rage.bonus = updateData.system.rage.bonus; 
             }      
@@ -662,7 +662,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.mage) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
             if (updateData.system.arete != undefined) {
                 updateData.system.advantages.arete = updateData.system.arete;
             }
@@ -670,7 +670,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.changeling) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.changeling) {
             if (updateData.system.glamour != undefined) {
                 updateData.system.advantages.glamour = updateData.system.glamour;
             }
@@ -689,7 +689,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.changingbreed) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
             if (updateData.system.rage != undefined) {
                 updateData.system.advantages.rage = updateData.system.rage;
             }
@@ -704,7 +704,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.creature) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.creature) {
             if (updateData.system.rage != undefined) {
                 updateData.system.advantages.rage = updateData.system.rage;
             }
@@ -731,7 +731,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.spirit) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.spirit) {
             if (updateData.system.rage != undefined) {
                 updateData.system.advantages.rage = updateData.system.rage;
             }
@@ -765,12 +765,12 @@ export  const updates = async () => {
         }        
 
         // old errors
-        if (updateData.type != CONFIG.wod.sheettype.mage) {
+        if (updateData.type != CONFIG.worldofdarkness.sheettype.mage) {
             updateData['system.-=paradox'] = null;
         }
 
         // remove of the old advantages
-        if (updateData.type != CONFIG.wod.sheettype.spirit) {
+        if (updateData.type != CONFIG.worldofdarkness.sheettype.spirit) {
             updateData['system.-=willpower'] = null;
             updateData['system.-=bloodpool'] = null;
             updateData['system.health.-=totalhealthlevels'] = null;
@@ -778,13 +778,13 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.werewolf) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             updateData['system.-=rage'] = null;
             updateData['system.-=gnosis'] = null;
             update = true;
         }      
         
-        if (updateData.type == CONFIG.wod.sheettype.vampire) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.vampire) {
             updateData['system.advantages.path.-=value'] = null;
             updateData['system.advantages.virtues.conscience.-=value'] = null;
             updateData['system.advantages.virtues.selfcontrol.-=value'] = null;
@@ -792,19 +792,19 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.mage) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
             updateData['system.-=arete'] = null;
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.changeling) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.changeling) {
             updateData['system.-=glamour'] = null;
             updateData['system.-=banality'] = null;
             updateData['system.-=nightmare'] = null;
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.creature) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.creature) {
             updateData['system.-=rage'] = null;
             updateData['system.-=gnosis'] = null;
             updateData['system.-=glamour'] = null;
@@ -814,7 +814,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (updateData.type == CONFIG.wod.sheettype.spirit) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.spirit) {
             updateData['system.-=rage'] = null;
             updateData['system.-=gnosis'] = null;
             updateData['system.-=willpower'] = null;
@@ -833,7 +833,7 @@ export  const updates = async () => {
 
         updateData.system.settings.version = "2.3.0";
         
-        if (updateData.type == CONFIG.wod.sheettype.spirit) {
+        if (updateData.type == CONFIG.worldofdarkness.sheettype.spirit) {
             if (updateData.system.advantages.essence.max == null) {
                 updateData.system.advantages.essence.max = 20
 
@@ -851,14 +851,14 @@ export  const updates = async () => {
         let updateData = duplicate(actor);
         update = false;
         
-        if (actor.type != CONFIG.wod.sheettype.spirit) {
+        if (actor.type != CONFIG.worldofdarkness.sheettype.spirit) {
             update = true;
 
             // check for custom paths
             if (updateData.system.advantages.path.label != "custom") {
-                for (const path in game.wod.bio.path) {
-                    if (((actor.system.advantages.path.label == game.wod.bio.path[path])) || (actor.system.advantages.path.label.toLowerCase().replace(" ", "") == path)) {
-                        updateData.system.advantages.path.label = game.wod.bio.path[path];
+                for (const path in game.worldofdarkness.bio.path) {
+                    if (((actor.system.advantages.path.label == game.worldofdarkness.bio.path[path])) || (actor.system.advantages.path.label.toLowerCase().replace(" ", "") == path)) {
+                        updateData.system.advantages.path.label = game.worldofdarkness.bio.path[path];
                         found = true;
                         break;
                     }
@@ -874,12 +874,12 @@ export  const updates = async () => {
                 found = false; 
             }            
 
-            if (actor.type == CONFIG.wod.sheettype.vampire) {
+            if (actor.type == CONFIG.worldofdarkness.sheettype.vampire) {
                 if (updateData.system.clan != "custom") {
                     // check for custom clans
-                    for (const clan in game.wod.bio.clan) {
-                        if ((actor.system.clan == game.wod.bio.clan[clan]) || (actor.system.clan.toLowerCase().replace(" ", "") == clan)) {
-                            updateData.system.clan = game.wod.bio.clan[clan];
+                    for (const clan in game.worldofdarkness.bio.clan) {
+                        if ((actor.system.clan == game.worldofdarkness.bio.clan[clan]) || (actor.system.clan.toLowerCase().replace(" ", "") == clan)) {
+                            updateData.system.clan = game.worldofdarkness.bio.clan[clan];
                             found = true;
                             break;
                         }
@@ -897,9 +897,9 @@ export  const updates = async () => {
 
                 if (updateData.system.sect != "custom") {
                     // check for custom sects
-                    for (const sect in game.wod.bio.sect) {
-                        if ((actor.system.sect == game.wod.bio.sect[sect]) || (actor.system.sect.toLowerCase().replace(" ", "") == sect)) {
-                            updateData.system.sect = game.wod.bio.sect[sect];
+                    for (const sect in game.worldofdarkness.bio.sect) {
+                        if ((actor.system.sect == game.worldofdarkness.bio.sect[sect]) || (actor.system.sect.toLowerCase().replace(" ", "") == sect)) {
+                            updateData.system.sect = game.worldofdarkness.bio.sect[sect];
                             found = true;
                             break;
                         }
@@ -916,12 +916,12 @@ export  const updates = async () => {
                 }
             }
 
-            if (actor.type == CONFIG.wod.sheettype.werewolf) {
+            if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
                 if (updateData.system.tribe != "custom") {
                     // check for custom tribes
-                    for (const tribe in game.wod.bio.tribe) {
-                        if ((actor.system.tribe == game.wod.bio.tribe[tribe]) || (actor.system.tribe.toLowerCase().replace(" ", "") == tribe)) {
-                            updateData.system.tribe = game.wod.bio.tribe[tribe];
+                    for (const tribe in game.worldofdarkness.bio.tribe) {
+                        if ((actor.system.tribe == game.worldofdarkness.bio.tribe[tribe]) || (actor.system.tribe.toLowerCase().replace(" ", "") == tribe)) {
+                            updateData.system.tribe = game.worldofdarkness.bio.tribe[tribe];
                             found = true;
                             break;
                         }
@@ -938,12 +938,12 @@ export  const updates = async () => {
                 }
             }
 
-            if (actor.type == CONFIG.wod.sheettype.mage) {
+            if (actor.type == CONFIG.worldofdarkness.sheettype.mage) {
                 if (updateData.system.affiliation != "custom") {
                     // check for custom affiliations
-                    for (const affiliation in game.wod.bio.affiliation) {
-                        if ((actor.system.affiliation == game.wod.bio.affiliation[affiliation]) || (actor.system.affiliation.toLowerCase().replace(" ", "") == affiliation)) {
-                            updateData.system.affiliation = game.wod.bio.affiliation[affiliation];
+                    for (const affiliation in game.worldofdarkness.bio.affiliation) {
+                        if ((actor.system.affiliation == game.worldofdarkness.bio.affiliation[affiliation]) || (actor.system.affiliation.toLowerCase().replace(" ", "") == affiliation)) {
+                            updateData.system.affiliation = game.worldofdarkness.bio.affiliation[affiliation];
                             found = true;
                             break;
                         }
@@ -961,13 +961,13 @@ export  const updates = async () => {
 
                 if (updateData.system.sect != "custom") {
                     // check for custom sects
-                    for (const affiliation in game.wod.bio.affiliation) {
-                        for (const sect in game.wod.bio.magesect[affiliation]) {
-                            if ((actor.system.sect == game.wod.bio.magesect[affiliation][sect]) || (actor.system.sect.toLowerCase().replace(" ", "") == sect)) {
-                                updateData.system.sect = game.wod.bio.magesect[affiliation][sect];
+                    for (const affiliation in game.worldofdarkness.bio.affiliation) {
+                        for (const sect in game.worldofdarkness.bio.magesect[affiliation]) {
+                            if ((actor.system.sect == game.worldofdarkness.bio.magesect[affiliation][sect]) || (actor.system.sect.toLowerCase().replace(" ", "") == sect)) {
+                                updateData.system.sect = game.worldofdarkness.bio.magesect[affiliation][sect];
 
                                 if (updateData.system.affiliation == "custom") {
-                                    updateData.system.affiliation = game.wod.bio.affiliation[affiliation];
+                                    updateData.system.affiliation = game.worldofdarkness.bio.affiliation[affiliation];
                                     updateData.system.custom.affiliation = "";
                                 }
                                 
@@ -988,12 +988,12 @@ export  const updates = async () => {
                 }
             }
 
-            if (actor.type == CONFIG.wod.sheettype.changeling) {
+            if (actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
                 if (updateData.system.kith != "custom") {
                     // check for custom kiths
-                    for (const kith in game.wod.bio.kith) {
-                        if ((actor.system.kith == game.wod.bio.kith[kith]) || (actor.system.kith.toLowerCase().replace(" ", "") == kith)) {
-                            updateData.system.kith = game.wod.bio.kith[kith];
+                    for (const kith in game.worldofdarkness.bio.kith) {
+                        if ((actor.system.kith == game.worldofdarkness.bio.kith[kith]) || (actor.system.kith.toLowerCase().replace(" ", "") == kith)) {
+                            updateData.system.kith = game.worldofdarkness.bio.kith[kith];
                             found = true;
                             break;
                         }
@@ -1010,23 +1010,23 @@ export  const updates = async () => {
                 }
             }
 
-            if (actor.type != CONFIG.wod.sheettype.creature) {
+            if (actor.type != CONFIG.worldofdarkness.sheettype.creature) {
                 let actorType = actor.type.toLowerCase();
 
-                if (actor.type == CONFIG.wod.sheettype.changingbreed) {
+                if (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
                     actorType = "werewolf";
                 }
 
                 // set correct type of ability
-                for (const ability of game.wod.abilities[actorType].modern.talents) {
+                for (const ability of game.worldofdarkness.abilities[actorType].modern.talents) {
                     updateData.system.abilities[ability].type = "talent";
                 }
 
-                for (const ability of game.wod.abilities[actorType].modern.skills) {
+                for (const ability of game.worldofdarkness.abilities[actorType].modern.skills) {
                     updateData.system.abilities[ability].type = "skill";
                 }
 
-                for (const ability of game.wod.abilities[actorType].modern.knowledges) {
+                for (const ability of game.worldofdarkness.abilities[actorType].modern.knowledges) {
                     updateData.system.abilities[ability].type = "knowledge";
                 }
             }
@@ -1039,14 +1039,14 @@ export  const updates = async () => {
             }
             for (const ability in actor.system.abilities.skill) {
                 if (actor.system.abilities.skill[ability].isvisible) {
-                    if (actor.type == CONFIG.wod.sheettype.mage) {
+                    if (actor.type == CONFIG.worldofdarkness.sheettype.mage) {
                         updateData.system.abilities[ability] = actor.system.abilities.skill[ability];
 
                         if ((ability == "technology") || (ability == "research")) {
                             updateData.system.abilities[ability].type = "skill";
                         }
                     }
-                    else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) {
+                    else if ((actor.type == CONFIG.worldofdarkness.sheettype.hunter) || (actor.type == CONFIG.worldofdarkness.sheettype.demon)) {
                         updateData.system.abilities[ability] = actor.system.abilities.skill[ability];
 
                         if (ability == "technology") {
@@ -1068,14 +1068,14 @@ export  const updates = async () => {
             }
             for (const ability in actor.system.abilities.knowledge) {
                 if (actor.system.abilities.knowledge[ability].isvisible) {
-                    if (actor.type == CONFIG.wod.sheettype.mage) {
+                    if (actor.type == CONFIG.worldofdarkness.sheettype.mage) {
                         updateData.system.abilities[ability] = actor.system.abilities.knowledge[ability];
 
                         if ((ability == "technology") || (ability == "research")) {
                             updateData.system.abilities[ability].isvisible = false;
                         }
                     }
-                    else if ((actor.type == CONFIG.wod.sheettype.hunter) || (actor.type == CONFIG.wod.sheettype.demon)) {
+                    else if ((actor.type == CONFIG.worldofdarkness.sheettype.hunter) || (actor.type == CONFIG.worldofdarkness.sheettype.demon)) {
                         updateData.system.abilities[ability] = actor.system.abilities.knowledge[ability];
 
                         if (ability == "technology") {
@@ -1101,17 +1101,17 @@ export  const updates = async () => {
         let updateData = duplicate(actor);
         update = false;
 
-        if (actor.type == CONFIG.wod.sheettype.mortal) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
             updateData.system.settings.variant = "general";
             update = true;
         }
 
-        if (actor.type == CONFIG.wod.sheettype.creature) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.creature) {
             updateData.system.settings.variant = "general";
             update = true;
         }
 
-        if (actor.type == CONFIG.wod.sheettype.changingbreed) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
             updateData.system.settings.variant = "general";
 
             if (updateData.system.changingbreed == "Mokolé") {
@@ -1121,7 +1121,7 @@ export  const updates = async () => {
             update = true;
         }
 
-        if (actor.type == CONFIG.wod.sheettype.changeling) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
             updateData.system.settings.variant = "general";
             update = true;
         }
@@ -1132,10 +1132,6 @@ export  const updates = async () => {
             await actor.update(updateData);
             update = false;
         }
-    }
-
-    for (const item of actor.items) {
-        await updateItem(item);
     }
 }
 
@@ -1426,6 +1422,27 @@ export  const updates = async () => {
             altered = false;
         }
     }
+
+    if (_compareVersion(item.system.version, "3.2.0")) {
+        const itemData = duplicate(item);
+
+        if (item.type == "Power") {
+            if (item.system.type == "wod.types.artpower") {
+                let property = itemData.system.property;
+                let arttype = property['arttype'];
+
+                itemData.system.arttype = arttype;
+                altered = true;
+            } 
+        }
+
+        if (altered) {
+            itemData.system.version = "3.2.0";
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -1675,7 +1692,16 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        newfunctions += "<li>Fixing problems with new translation functions.</li>";
+        newfunctions += "<li>Handles when some modules stores their information in such way that the system loose its main settings. E.g Wheel of Destiny.</li>";
+        newfunctions += "<li>When selecting a sheet's variant didn't save the selection in some cases.</li>";
+        newfunctions += "<li>If an observer of a sheet had low permission they could still see what variant a sheet had.</li>";
+        newfunctions += "<li>[CtD] What type of art an Art power had wasn't saved correctly</li>";
+        newfunctions += "<li>[MtA] Fixed when sending rote description to chat</li>";
+
+        /* newfunctions += "<li>Fixed so people with limited view could not see set sheet variant.</li>";
+        newfunctions += "<li>Fixed problems causing duplicate variant windows to open on Changelings and Changing Breed sheets.</li>";
+        newfunctions += "<li>Fixed problems with creating items to existing sheets.</li>";
+        newfunctions += "<li>Fixed problems with new translation functions.</li>"; */
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
@@ -1770,13 +1796,13 @@ export  const updates = async () => {
  * @param ability   
  */
 function issecondability(ability) {
-    if (CONFIG.wod.talents[ability] != undefined) {
+    if (CONFIG.worldofdarkness.talents[ability] != undefined) {
         return false;
     }
-    if (CONFIG.wod.skills[ability] != undefined) {
+    if (CONFIG.worldofdarkness.skills[ability] != undefined) {
         return false;
     }
-    if (CONFIG.wod.knowledges[ability] != undefined) {
+    if (CONFIG.worldofdarkness.knowledges[ability] != undefined) {
         return false;
     }
 

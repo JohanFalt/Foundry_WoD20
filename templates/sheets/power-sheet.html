@@ -173,6 +173,8 @@
 						<span class="floating-label">{{localize "wod.labels.type"}}</span>
 					</div>
 				{{/if}}	
+
+
 					
 				{{#if (eq data.system.type "wod.types.disciplinepower")}}
 					{{#if (eq hasActor false)}}
@@ -180,7 +182,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each wod.powers.disciplines as |item id|}}
+									{{#each game.worldofdarkness.powers.disciplines as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}
@@ -208,7 +210,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each wod.powers.disciplinepaths as |item id|}}
+									{{#each game.worldofdarkness.powers.disciplinepaths as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}
@@ -305,7 +307,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each wod.powers.arts as |item id|}}
+									{{#each game.worldofdarkness.powers.arts as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}
@@ -327,8 +329,8 @@
 					</div>
 
 					<div class="infobox bioInformationArea floating-label-group">
-						<select class="item-property sheet-infoValues editable" data-property="arttype">
-							{{#select data.system.property.arttype}}
+						<select class="sheet-infoValues editable" name="system.arttype" data-dtype="String">
+							{{#select data.system.arttype}}
 								<option value="">- {{localize "wod.labels.select"}} -</option>
 								<option value="wod.health.chimerical">{{localize "wod.health.chimerical"}}</option>
 								<option value="wod.power.wyld">{{localize "wod.power.wyld"}}</option>
@@ -345,7 +347,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each wod.powers.edges as |item id|}}
+									{{#each game.worldofdarkness.powers.edges as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}
@@ -373,7 +375,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each wod.powers.lores as |item id|}}
+									{{#each game.worldofdarkness.powers.lores as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}
@@ -401,7 +403,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each wod.powers.arcanois as |item id|}}
+									{{#each game.worldofdarkness.powers.arcanois as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}

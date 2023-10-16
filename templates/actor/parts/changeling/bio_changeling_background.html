@@ -18,36 +18,38 @@
             <span class="floating-label">{{localize "wod.bio.changeling.seeming"}}</span>
         </div>
 
-        <div class="bioInformationArea floating-label-group">
-            {{#if locked}}            
-                <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.kith 'custom')}}{{actor.system.custom.kith}}{{else}}{{localize data.system.kith}}{{/if}}" data-dtype="String" autofocus required />
-            {{else}}
-                <select class="sheet-infoValues {{#if (eq actor.system.kith 'custom')}}edit-property{{/if}} editable" name="system.kith" data-name="data.system.kith" data-dtype="String">
-                    {{#select data.system.kith}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        {{#if (neAny actor.system.settings.variant config.variant.changeling.inanimae config.variant.changeling.darkkin)}}
-                            <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}} ({{localize "wod.labels.customkith"}}){{/if}}</option>                            
-                        {{/if}}
-                        {{#each (getBioList game.bio.kith actor.system.settings.variant) as |kith id|}}
-                            <option value="{{kith}}">{{localize kith}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-                {{#if (eq actor.system.kith "custom")}}
-                    <a class="pullLeft item-edit" title="{{localize "wod.labels.customkith"}}" data-type="Bio" data-name="{{localize "wod.bio.changeling.kith"}}" data-item-id="kith" data-custom="{{actor.system.custom.kith}}"><i class="fa-solid fa-pen-to-square"></i></a>
+        {{#if (ne actor.system.settings.variant 'menehune')}}
+            <div class="bioInformationArea floating-label-group">            
+                {{#if locked}}            
+                    <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.kith 'custom')}}{{actor.system.custom.kith}}{{else}}{{localize data.system.kith}}{{/if}}" data-dtype="String" autofocus required />
+                {{else}}
+                    <select class="sheet-infoValues {{#if (eq actor.system.kith 'custom')}}edit-property{{/if}} editable" name="system.kith" data-name="data.system.kith" data-dtype="String">
+                        {{#select data.system.kith}}
+                            <option value="">- {{localize "wod.labels.select"}} -</option>
+                            {{#if (neAny actor.system.settings.variant 'inanimae' 'darkkin')}}
+                                <option value="custom">{{#if (eq actor.system.custom.kith "")}}- {{localize "wod.labels.customkith"}} -{{else}}{{actor.system.custom.kith}} ({{localize "wod.labels.customkith"}}){{/if}}</option>                            
+                            {{/if}}
+                            {{#each (getBioList worldofdarkness.bio.kith actor.system.settings.variant) as |kith id|}}
+                                <option value="{{kith}}">{{localize kith}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    {{#if (eq actor.system.kith "custom")}}
+                        <a class="pullLeft item-edit" title="{{localize "wod.labels.customkith"}}" data-type="Bio" data-name="{{localize "wod.bio.changeling.kith"}}" data-item-id="kith" data-custom="{{actor.system.custom.kith}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                    {{/if}}
                 {{/if}}
-            {{/if}}
-            {{#if (eqAny actor.system.settings.variant config.variant.changeling.inanimae config.variant.changeling.darkkin)}}
-                {{#if (eq actor.system.settings.variant config.variant.changeling.inanimae)}}
-                    <span class="floating-label">{{localize "wod.bio.changeling.phyla"}}</span>
+                {{#if (eqAny actor.system.settings.variant 'inanimae' 'darkkin')}}
+                    {{#if (eq actor.system.settings.variant 'inanimae')}}
+                        <span class="floating-label">{{localize "wod.bio.changeling.phyla"}}</span>
+                    {{/if}}
+                    {{#if (eq actor.system.settings.variant 'darkkin')}}
+                        <span class="floating-label">{{localize "wod.bio.changeling.adhene"}}</span>
+                    {{/if}}
+                {{else}}
+                    <span class="floating-label">{{localize "wod.bio.changeling.kith"}}</span>        
                 {{/if}}
-                {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
-                    <span class="floating-label">{{localize "wod.bio.changeling.adhene"}}</span>
-                {{/if}}
-            {{else}}
-                <span class="floating-label">{{localize "wod.bio.changeling.kith"}}</span>        
-            {{/if}}
-        </div>
+            </div>
+        {{/if}}
 
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
@@ -89,7 +91,7 @@
             <span class="floating-label">{{localize "wod.bio.changeling.affinity"}}</span>
         </div>
 
-        {{#if (eq actor.system.settings.variant config.variant.changeling.dauntain)}}
+        {{#if (eq actor.system.settings.variant 'dauntain')}}
             <div class="bioInformationArea floating-label-group">
                 {{#if locked}}
                     <input class="sheet-infoValues" type="text" value="{{data.system.variant.brand}}" autocomplete="off" autofocus required />
@@ -142,7 +144,7 @@
 
 <div class="clearareaBox area-box">
     <div>
-        {{#if (eqAny actor.system.settings.variant config.variant.changeling.menehune)}}
+        {{#if (eqAny actor.system.settings.variant 'menehune')}}
             <label class="headlineText splatFont" for="data.system.threshold">{{localize "wod.bio.changeling.raiding"}}</label>
         {{else}}
             <label class="headlineText splatFont" for="data.system.threshold">{{localize "wod.bio.changeling.threshold"}}</label>
@@ -157,7 +159,7 @@
 
 <div class="clearareaBox area-box">
     <div>
-        {{#if (eqAny actor.system.settings.variant config.variant.changeling.menehune)}}
+        {{#if (eqAny actor.system.settings.variant 'menehune')}}
             <label class="headlineText splatFont" for="data.system.revelry">{{localize "wod.bio.changeling.havesting"}}</label>
         {{else}}
             <label class="headlineText splatFont" for="data.system.revelry">{{localize "wod.bio.changeling.revelry"}}</label>
@@ -183,17 +185,17 @@
 
 <div class="clearareaBox area-box">
     <div>
-        {{#if (eqAny actor.system.settings.variant config.variant.changeling.thallain config.variant.changeling.nunnehi config.variant.changeling.menehune config.variant.changeling.darkkin)}}
-            {{#if (eq actor.system.settings.variant config.variant.changeling.thallain)}}
+        {{#if (eqAny actor.system.settings.variant 'thallain' 'nunnehi' 'menehune' 'darkkin')}}
+            {{#if (eq actor.system.settings.variant 'thallain')}}
                 <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.nightmarelegacy"}}</label>
             {{/if}}
-            {{#if (eq actor.system.settings.variant config.variant.changeling.nunnehi)}}
+            {{#if (eq actor.system.settings.variant 'nunnehi')}}
                 <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.winterrock"}}</label>
             {{/if}}
-            {{#if (eq actor.system.settings.variant config.variant.changeling.menehune)}}
+            {{#if (eq actor.system.settings.variant 'menehune')}}
                 <label class="headlineText splatFont" for="data.system.legacyseelie">{{localize "wod.bio.changeling.feast"}}</label>
             {{/if}}
-            {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+            {{#if (eq actor.system.settings.variant 'darkkin')}}
                 <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.aria1"}}</label>
             {{/if}}
         {{else}}
@@ -210,17 +212,17 @@
 </div>
 
 <div class="clearareaBox area-box">
-    {{#if (eqAny actor.system.settings.variant config.variant.changeling.thallain config.variant.changeling.nunnehi config.variant.changeling.menehune config.variant.changeling.darkkin)}}
-        {{#if (eq actor.system.settings.variant config.variant.changeling.thallain)}}
+    {{#if (eqAny actor.system.settings.variant 'thallain' 'nunnehi' 'menehune' 'darkkin')}}
+        {{#if (eq actor.system.settings.variant 'thallain')}}
             <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.kithain"}}</label>
         {{/if}}
-        {{#if (eq actor.system.settings.variant config.variant.changeling.nunnehi)}}
+        {{#if (eq actor.system.settings.variant 'nunnehi')}}
             <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.summer"}}</label>
         {{/if}}        
-        {{#if (eq actor.system.settings.variant config.variant.changeling.menehune)}}
+        {{#if (eq actor.system.settings.variant 'menehune')}}
             <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.war"}}</label>
         {{/if}}        
-        {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+        {{#if (eq actor.system.settings.variant 'darkkin')}}
             <label class="headlineText splatFont" for="data.system.legacyunseelie">{{localize "wod.bio.changeling.aria2"}}</label>
         {{/if}}
     {{else}}
@@ -235,12 +237,12 @@
     </div>
 </div>
 
-{{#if (eqAny actor.system.settings.variant config.variant.changeling.nunnehi config.variant.changeling.darkkin)}}
+{{#if (eqAny actor.system.settings.variant 'nunnehi' 'darkkin')}}
     <div class="clearareaBox area-box">
-        {{#if (eq actor.system.settings.variant config.variant.changeling.nunnehi)}}
+        {{#if (eq actor.system.settings.variant 'nunnehi')}}
             <label class="headlineText splatFont" for="data.system.variant.legacy">{{localize "wod.bio.changeling.midseason"}}</label>
         {{/if}}
-        {{#if (eq actor.system.settings.variant config.variant.changeling.darkkin)}}
+        {{#if (eq actor.system.settings.variant 'darkkin')}}
             <label class="headlineText splatFont" for="data.system.variant.legacy">{{localize "wod.bio.changeling.aria3"}}</label>
         {{/if}}
         <div class="clearareaBox">
@@ -253,7 +255,7 @@
     </div>
 {{/if}}
 
-{{#if (eq actor.system.settings.variant config.variant.changeling.inanimae)}}
+{{#if (eq actor.system.settings.variant 'inanimae')}}
     <div class="clearareaBox area-box">
         <label class="headlineText splatFont" for="data.system.variant.anchor">{{localize "wod.bio.changeling.anchor"}}</label>
         <div class="clearareaBox">

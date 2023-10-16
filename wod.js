@@ -64,93 +64,93 @@ Hooks.once("init", async function() {
 
 	console.log("WoD | Settings registered");
 	
-	CONFIG.wod = wod;
-	CONFIG.wod.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
-	CONFIG.wod.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
-	CONFIG.wod.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
-	CONFIG.wod.wererwolfrageSettings = game.settings.get('worldofdarkness', 'wererwolfrageSettings');
+	CONFIG.worldofdarkness = wod;
+	CONFIG.worldofdarkness.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
+	CONFIG.worldofdarkness.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+	CONFIG.worldofdarkness.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
+	CONFIG.worldofdarkness.wererwolfrageSettings = game.settings.get('worldofdarkness', 'wererwolfrageSettings');
 
 	// Roll settings
 	try {
-		CONFIG.wod.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
+		CONFIG.worldofdarkness.handleOnes = game.settings.get('worldofdarkness', 'theRollofOne');
 	} 
 	catch (e) {
-		CONFIG.wod.handleOnes = true;
+		CONFIG.worldofdarkness.handleOnes = true;
 	}
 
 	try {
-		CONFIG.wod.useOnesDamage = game.settings.get('worldofdarkness', 'useOnesDamage');
+		CONFIG.worldofdarkness.useOnesDamage = game.settings.get('worldofdarkness', 'useOnesDamage');
 	} 
 	catch (e) {
-		CONFIG.wod.useOnesDamage = false;
+		CONFIG.worldofdarkness.useOnesDamage = false;
 	}
 
 	try {
-		CONFIG.wod.useOnesSoak = game.settings.get('worldofdarkness', 'useOnesSoak');
+		CONFIG.worldofdarkness.useOnesSoak = game.settings.get('worldofdarkness', 'useOnesSoak');
 	} 
 	catch (e) {
-		CONFIG.wod.useOnesSoak = false;
+		CONFIG.worldofdarkness.useOnesSoak = false;
 	}
 
 	try {
-		CONFIG.wod.lowestDifficulty = parseInt(game.settings.get('worldofdarkness', 'lowestDifficulty'));
+		CONFIG.worldofdarkness.lowestDifficulty = parseInt(game.settings.get('worldofdarkness', 'lowestDifficulty'));
 	} 
 	catch (e) {
-		CONFIG.wod.lowestDifficulty = 2;
+		CONFIG.worldofdarkness.lowestDifficulty = 2;
 	}
 
 	try {
-		CONFIG.wod.specialityAddSuccess = parseInt(game.settings.get('worldofdarkness', 'specialityAddSuccess'));
-		CONFIG.wod.usespecialityAddSuccess = parseInt(game.settings.get('worldofdarkness', 'specialityAddSuccess')) > 0;
+		CONFIG.worldofdarkness.specialityAddSuccess = parseInt(game.settings.get('worldofdarkness', 'specialityAddSuccess'));
+		CONFIG.worldofdarkness.usespecialityAddSuccess = parseInt(game.settings.get('worldofdarkness', 'specialityAddSuccess')) > 0;
 	} 
 	catch (e) {
-		CONFIG.wod.specialityAddSuccess = 2;
-		CONFIG.wod.usespecialityAddSuccess = true;
+		CONFIG.worldofdarkness.specialityAddSuccess = 2;
+		CONFIG.worldofdarkness.usespecialityAddSuccess = true;
 	}
 
 	try {
-		CONFIG.wod.specialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff'));
-		CONFIG.wod.usespecialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff')) > 0;
+		CONFIG.worldofdarkness.specialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff'));
+		CONFIG.worldofdarkness.usespecialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff')) > 0;
 	} 
 	catch (e) {
-		CONFIG.wod.specialityReduceDiff = 0;
-		CONFIG.wod.usespecialityReduceDiff = false;
+		CONFIG.worldofdarkness.specialityReduceDiff = 0;
+		CONFIG.worldofdarkness.usespecialityReduceDiff = false;
 	}
 
 	try {
-		CONFIG.wod.tenAddSuccess = parseInt(game.settings.get('worldofdarkness', 'tenAddSuccess'));
-		CONFIG.wod.usetenAddSuccess = parseInt(game.settings.get('worldofdarkness', 'tenAddSuccess')) > 0;
+		CONFIG.worldofdarkness.tenAddSuccess = parseInt(game.settings.get('worldofdarkness', 'tenAddSuccess'));
+		CONFIG.worldofdarkness.usetenAddSuccess = parseInt(game.settings.get('worldofdarkness', 'tenAddSuccess')) > 0;
 	} 
 	catch (e) {
-		CONFIG.wod.tenAddSuccess = 0;
-		CONFIG.wod.usetenAddSuccess = false;
+		CONFIG.worldofdarkness.tenAddSuccess = 0;
+		CONFIG.worldofdarkness.usetenAddSuccess = false;
 	}	
 
 	try {
-		CONFIG.wod.explodingDice = game.settings.get('worldofdarkness', 'explodingDice');
-		CONFIG.wod.useexplodingDice = game.settings.get('worldofdarkness', 'explodingDice') != "never";
+		CONFIG.worldofdarkness.explodingDice = game.settings.get('worldofdarkness', 'explodingDice');
+		CONFIG.worldofdarkness.useexplodingDice = game.settings.get('worldofdarkness', 'explodingDice') != "never";
 	} 
 	catch (e) {
-		CONFIG.wod.explodingDice = "never";
-		CONFIG.wod.useexplodingDice = false;
+		CONFIG.worldofdarkness.explodingDice = "never";
+		CONFIG.worldofdarkness.useexplodingDice = false;
 	}
 
 	// Era settings
 	try {
-		CONFIG.wod.defaultMortalEra = game.settings.get('worldofdarkness', 'eraMortal');
-		CONFIG.wod.defaultMageEra = game.settings.get('worldofdarkness', 'eraMage');
-		CONFIG.wod.defaultVampireEra = game.settings.get('worldofdarkness', 'eraVampire');
-		CONFIG.wod.defaultWerewolfEra = game.settings.get('worldofdarkness', 'eraWerewolf');
+		CONFIG.worldofdarkness.defaultMortalEra = game.settings.get('worldofdarkness', 'eraMortal');
+		CONFIG.worldofdarkness.defaultMageEra = game.settings.get('worldofdarkness', 'eraMage');
+		CONFIG.worldofdarkness.defaultVampireEra = game.settings.get('worldofdarkness', 'eraVampire');
+		CONFIG.worldofdarkness.defaultWerewolfEra = game.settings.get('worldofdarkness', 'eraWerewolf');
 	} 
 	catch (e) {
-		CONFIG.wod.defaultMortalEra = "modern";
-		CONFIG.wod.defaultMageEra = "modern";
-		CONFIG.wod.defaultVampireEra = "modern";
-		CONFIG.wod.defaultWerewolfEra = "modern";
+		CONFIG.worldofdarkness.defaultMortalEra = "modern";
+		CONFIG.worldofdarkness.defaultMageEra = "modern";
+		CONFIG.worldofdarkness.defaultVampireEra = "modern";
+		CONFIG.worldofdarkness.defaultWerewolfEra = "modern";
 	}
 
-	CONFIG.wod.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
-	CONFIG.wod.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
+	CONFIG.worldofdarkness.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
+	CONFIG.worldofdarkness.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
 
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
@@ -235,12 +235,12 @@ Hooks.once("init", async function() {
 	templates.preloadHandlebarsTemplates();
 	templates.registerHandlebarsHelpers();	
 
-	game.wod = {
+	game.worldofdarkness = {
 		powers: WoDSetup.getInstalledPowers(game.data.items)
 	};
 
-	game.wod.abilities = templates.SetupAbilities();
-	game.wod.bio = templates.SetupBio();
+	game.worldofdarkness.abilities = templates.SetupAbilities();
+	game.worldofdarkness.bio = templates.SetupBio();
 
 	console.log("WoD | Added Handelebars");  
 });
@@ -322,6 +322,10 @@ Hooks.once("ready", async function () {
 		}
 	}
 	CONFIG.language = game.i18n.lang;	
+
+	if (game.worldofdarkness.abilities == undefined) {
+		ui.notifications.error("World of Darkness settings couldn't load! Check your modules!", {permanent: true});
+	}
 });
 
 Hooks.on("renderActorSheet", (sheet) => { 
@@ -349,7 +353,7 @@ Hooks.on("renderActorSheet", (sheet) => {
 		sheet.element[0].classList.add("langEN");
 	}
 
-	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
+	if ((!CONFIG.worldofdarkness.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 });
@@ -379,7 +383,7 @@ Hooks.on("renderItemSheet", (sheet) => {
 		sheet.element[0].classList.add("langEN");
 	}
 
-	if ((!CONFIG.wod.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
+	if ((!CONFIG.worldofdarkness.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 

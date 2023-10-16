@@ -43,7 +43,7 @@ export class SpiritActorSheet extends ActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
-			if (actorData.type == CONFIG.wod.sheettype.spirit) {
+			if (actorData.type == CONFIG.worldofdarkness.sheettype.spirit) {
 				actorData.system.settings.iscreated = true;
 				actorData.system.settings.version = game.data.system.version;
 
@@ -54,7 +54,7 @@ export class SpiritActorSheet extends ActorSheet {
 
 		const data = super.getData();
 
-		data.config = CONFIG.wod;		
+		data.config = CONFIG.worldofdarkness;		
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
 
@@ -90,8 +90,8 @@ export class SpiritActorSheet extends ActorSheet {
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = false;
 
-		if (data.actor.type == CONFIG.wod.sheettype.spirit) {
-			console.log(CONFIG.wod.sheettype.spirit);
+		if (data.actor.type == CONFIG.worldofdarkness.sheettype.spirit) {
+			console.log(CONFIG.worldofdarkness.sheettype.spirit);
 			console.log(data.actor);
 		}	
 		
@@ -244,7 +244,7 @@ export class SpiritActorSheet extends ActorSheet {
 			// todo
 			// helt ok!
 		}
-		else if (dataset.type != CONFIG.wod.sheettype.spirit) {
+		else if (dataset.type != CONFIG.worldofdarkness.sheettype.spirit) {
 			return;
 		}
 
@@ -296,7 +296,7 @@ export class SpiritActorSheet extends ActorSheet {
 			// todo
 			// helt ok!
 		}
-		else if (dataset.type != CONFIG.wod.sheettype.spirit) {
+		else if (dataset.type != CONFIG.worldofdarkness.sheettype.spirit) {
 			return;
 		}
 
@@ -389,7 +389,7 @@ export class SpiritActorSheet extends ActorSheet {
 		let advantageRollSetting = true;
 
 		try {
-			advantageRollSetting = CONFIG.wod.rollSettings;
+			advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
 		} 
 		catch (e) {
 			advantageRollSetting = true;

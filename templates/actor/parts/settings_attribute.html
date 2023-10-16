@@ -53,7 +53,7 @@
                         {{#select data.system.advantages.path.label}}
                             <option value="">- {{localize 'wod.labels.select'}} -</option>
                             <option value="custom">{{#if (eq actor.system.advantages.path.custom "")}}- {{localize "wod.labels.custompath"}} -{{else}}{{actor.system.advantages.path.custom}}{{/if}}</option>                            
-                            {{#each game.bio.path as |path id|}}
+                            {{#each worldofdarkness.bio.path as |path id|}}
                                 <option value="{{path}}">{{localize path}}</option>
                             {{/each}}
                         {{/select}}

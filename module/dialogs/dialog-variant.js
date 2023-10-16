@@ -5,10 +5,10 @@ export class Variant {
         this.canRoll = false;
         this.close = false;
 
-        if (actor.type == CONFIG.wod.sheettype.changeling) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
             this.variant = actor.system.settings.variant;
         }
-        if (actor.type == CONFIG.wod.sheettype.changingbreed) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
             this.variant = actor.system.changingbreed;
         }
         
@@ -31,7 +31,7 @@ export class DialogVariant extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["wod20 wod-dialog dialog-top"],
+            classes: ["wod20 worldofdarkness-dialog dialog-top"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-variant.html",
             closeOnSubmit: false,
             submitOnChange: true,
@@ -43,9 +43,9 @@ export class DialogVariant extends FormApplication {
         const data = super.getData();
 
         data.actorData = this.actor.system;
-        data.config = CONFIG.wod;    
+        data.config = CONFIG.worldofdarkness;    
 
-        if (this.actor.type != CONFIG.wod.sheettype.changingbreed) {
+        if (this.actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.sheettype = this.actor.type.toLowerCase() + "Dialog";
         }
         else {
@@ -93,19 +93,19 @@ export class DialogVariant extends FormApplication {
 
         const actorData = duplicate(this.actor);
 
-        if (this.object.type == CONFIG.wod.sheettype.changeling) {
+        if (this.object.type == CONFIG.worldofdarkness.sheettype.changeling) {
             await CreateHelper.SetChangingVariant(actorData, this.object.variant);
         }
-        else if (this.object.type == CONFIG.wod.sheettype.wraith) {
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.wraith) {
             actorData.system.settings.variant = this.object.variant;
         }
-        else if (this.object.type == CONFIG.wod.sheettype.changingbreed) {
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
             await CreateHelper.SetShifterAttributes(actorData, this.object.variant);
         }
-        else if (this.object.type == CONFIG.wod.sheettype.mortal) {
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			await CreateHelper.SetMortalVariant(actorData, this.object.variant);
 		}
-        else if (this.object.type == CONFIG.wod.sheettype.creature) {
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.creature) {
 			await CreateHelper.SetCreatureVariant(this.actor, actorData, this.object.variant);
 		}
         else {
