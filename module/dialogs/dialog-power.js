@@ -488,8 +488,13 @@ export class DialogPower extends FormApplication {
             }  
             else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
                 data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
-                //data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
-                data.object.abilityName = (this.actor.system.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice2].label) : this.actor.system.abilities[data.object.dice2].altlabel;        
+
+                if (this.actor.system.abilities[data.object.dice2] == undefined) {
+                    data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
+                }
+                else {
+                    data.object.abilityName = (this.actor.system.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice2].label) : this.actor.system.abilities[data.object.dice2].altlabel;        
+                }                
 
                 if (parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) {
                     data.object.hasSpeciality = true;

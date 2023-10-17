@@ -382,7 +382,7 @@ export default class CreateHelper {
 		actorData.system.settings.variant = variant;
 
 		if (actorData.type == CONFIG.worldofdarkness.sheettype.changeling) {
-			if ((actorData.system.settings.variant == CONFIG.worldofdarkness.variant.changeling.nunnehi) || (actorData.system.settings.variant == CONFIG.worldofdarkness.variant.changeling.menehune)) {
+			if ((actorData.system.settings.variant == 'nunnehi') || (actorData.system.settings.variant == 'menehune')) {
 				actorData.system.advantages.glamour.label = 'wod.advantages.mana';
 			}
 			else {
@@ -420,24 +420,24 @@ export default class CreateHelper {
 		if (actorData.type == CONFIG.worldofdarkness.sheettype.mortal) {
 			if (variant == 'general') {
 			}
-			if (variant == CONFIG.worldofdarkness.variant.mortal.autumnpeople) {
+			if (variant == 'autumnpeople') {
 				actorData.system.settings.hasbanality = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.mortal.enchanted) {
+			if (variant == 'enchanted') {
 				actorData.system.settings.hasglamour = true;
 				actorData.system.settings.hasbanality = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.mortal.ghoul) {
+			if (variant == 'ghoul') {
 				actorData.system.settings.haspath = true;
 				actorData.system.settings.hasbloodpool = true;
 				actorData.system.settings.hasvirtue = true;
 				actorData.system.settings.powers.hasdisciplines = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.mortal.kinfolk) {
+			if (variant == 'kinfolk') {
 				actorData.system.settings.hasgnosis = true;
 				actorData.system.settings.powers.hasgifts = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.mortal.truefaith) {
+			if (variant == 'truefaith') {
 				actorData.system.settings.hasfaith = true;	
 				actorData.system.settings.powers.haspowers = true;			
 			}
@@ -476,12 +476,12 @@ export default class CreateHelper {
 				actorData.system.settings.powers.haspowers = true;
 				
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.chimera) {
+			if (variant == 'chimera') {
 				actorData.system.settings.hasglamour = true;
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.powers.hasarts = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.spirit) {
+			if (variant == 'spirit') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.hasessence = true;
@@ -490,20 +490,20 @@ export default class CreateHelper {
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.warwolves) {
+			if (variant == 'warwolves') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.anurana) {
+			if (variant == 'anurana') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.samsa) {
+			if (variant == 'samsa') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.hasgifts = true;
@@ -511,14 +511,14 @@ export default class CreateHelper {
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.kerasi) {
+			if (variant == 'kerasi') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
-			if (variant == CONFIG.worldofdarkness.variant.creature.yeren) {
+			if (variant == 'yeren') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.hasgifts = true;
@@ -533,7 +533,7 @@ export default class CreateHelper {
 		let itemData;
 		let item;
 
-		if (variant == CONFIG.worldofdarkness.variant.creature.warwolves) {
+		if (variant == 'warwolves') {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.crinos"),
 				type: "Power",
@@ -559,7 +559,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.worldofdarkness.variant.creature.anurana) {
+		if (variant == 'anurana') {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.anuran"),
 				type: "Power",
@@ -607,7 +607,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.worldofdarkness.variant.creature.samsa) {
+		if (variant == 'samsa') {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.ungeziefer"),
 				type: "Power",
@@ -630,7 +630,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.worldofdarkness.variant.creature.kerasi) {
+		if (variant == 'kerasi') {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.bandia"),
 				type: "Power",
@@ -706,7 +706,7 @@ export default class CreateHelper {
 			itemData = await BonusHelper.CreateAttributeBuff(id, game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 4, true);
 			await actor.createEmbeddedDocuments("Item", [itemData]);
 		}
-		if (variant == CONFIG.worldofdarkness.variant.creature.yeren) {
+		if (variant == 'yeren') {
 			itemData = {
 				name: game.i18n.localize("wod.tab.shapechange") + " - " + game.i18n.localize("wod.shapes.crinos"),
 				type: "Power",

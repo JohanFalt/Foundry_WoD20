@@ -1493,6 +1493,7 @@ export  const updates = async () => {
 
   /**
  * Fetches the update information text as an updated is being made.
+ * @param installedVersion   The version that is being pushed at the world
  * @param migrationVersion   The version that is being pushed at the world
  * 
  */
@@ -1692,16 +1693,26 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        newfunctions += "<li>Handles when some modules stores their information in such way that the system loose its main settings. E.g Wheel of Destiny.</li>";
-        newfunctions += "<li>When selecting a sheet's variant didn't save the selection in some cases.</li>";
-        newfunctions += "<li>If an observer of a sheet had low permission they could still see what variant a sheet had.</li>";
-        newfunctions += "<li>[CtD] What type of art an Art power had wasn't saved correctly</li>";
-        newfunctions += "<li>[MtA] Fixed when sending rote description to chat</li>";
+        if (_compareVersion(installedVersion, '3.2.5')) {
+            newfunctions += '<li>The variant selector hid under the main sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/748">[#748]</a></li>';
+            newfunctions += '<li>Selecting a variant did not activate the correct functions to set the sheet correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/747">[#747]</a></li></li>';
+            newfunctions += '<li>Could not roll Secondary Abilities. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/749">[#749]</a></li></li>';
+        }
 
-        /* newfunctions += "<li>Fixed so people with limited view could not see set sheet variant.</li>";
-        newfunctions += "<li>Fixed problems causing duplicate variant windows to open on Changelings and Changing Breed sheets.</li>";
-        newfunctions += "<li>Fixed problems with creating items to existing sheets.</li>";
-        newfunctions += "<li>Fixed problems with new translation functions.</li>"; */
+        if (_compareVersion(installedVersion, '3.2.4')) {
+            newfunctions += "<li>Handles when some modules stores their information in such way that the system loose its main settings. E.g Wheel of Destiny.</li>";
+            newfunctions += "<li>When selecting a sheet's variant didn't save the selection in some cases.</li>";
+            newfunctions += "<li>If an observer of a sheet had low permission they could still see what variant a sheet had.</li>";
+            newfunctions += "<li>[CtD] What type of art an Art power had wasn't saved correctly</li>";
+            newfunctions += "<li>[MtA] Fixed when sending rote description to chat</li>";
+        }
+
+        if (_compareVersion(installedVersion, '3.2.3')) {
+            newfunctions += "<li>Fixed so people with limited view could not see set sheet variant.</li>";
+            newfunctions += "<li>Fixed problems causing duplicate variant windows to open on Changelings and Changing Breed sheets.</li>";
+            newfunctions += "<li>Fixed problems with creating items to existing sheets.</li>";
+            newfunctions += "<li>Fixed problems with new translation functions.</li>";
+        }        
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

@@ -31,7 +31,7 @@ export class DialogVariant extends FormApplication {
     */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["wod20 worldofdarkness-dialog dialog-top"],
+            classes: ["wod20 wod-dialog dialog-top"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-variant.html",
             closeOnSubmit: false,
             submitOnChange: true,

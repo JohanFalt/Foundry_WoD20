@@ -213,7 +213,9 @@ export class DialogGeneralRoll extends FormApplication {
                     data.object.abilityValue += parseInt(bonus);
                 }
 
-                ability.label = (data.actorData.abilities[abilityKey].altlabel == "") ? ability.label : data.actorData.abilities[abilityKey].altlabel;
+                if (!ability.issecondary) {
+                    ability.label = (data.actorData.abilities[abilityKey].altlabel == "") ? ability.label : data.actorData.abilities[abilityKey].altlabel;
+                }                
                 
                 data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
