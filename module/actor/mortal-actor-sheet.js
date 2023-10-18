@@ -422,7 +422,7 @@ export class MortalActorSheet extends ActorSheet {
 			await CreateHelper.SetMortalVariant(actorData, dataset.value);
 		}
 		if (this.actor.type == CONFIG.worldofdarkness.sheettype.creature) {
-			await CreateHelper.SetCreatureVariant(this.actor, actorData, dataset.value);			
+			await CreateHelper.SetCreatureVariant(actorData, dataset.value);			
 		}
 		
         await this.actor.update(actorData);

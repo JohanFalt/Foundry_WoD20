@@ -869,13 +869,17 @@ export const registerHandlebarsHelpers = function () {
 		return list[section];
 	});
 
-	Handlebars.registerHelper("isChecked", function(value) {
+ 	Handlebars.registerHelper("isChecked", function(value) {
+		if (value == undefined) {
+			return "";
+		}
+
 		if (value) {
 			return "checked";
 		}
 
 		return "";
-	});
+	}); 
 
 	Handlebars.registerHelper("isActive", function(stat, value) {
 		if (stat == value) {
@@ -969,7 +973,7 @@ export const registerHandlebarsHelpers = function () {
 		return text.toLowerCase();
 	});
 
-	Handlebars.registerHelper("isempty", function (text) {
+	Handlebars.registerHelper("isEmpty", function (text) {
 		if (text == undefined) {
 			return true;
 		}

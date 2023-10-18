@@ -1693,6 +1693,11 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.2.6')) {
+            newfunctions += '<li>Convert tool to create a Creature sheet on Spirit sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/742">[#742]</a></li>';
+            newfunctions += '<li>Existing powers did not listed correctly in their sub powers, e.g Discipline/Discipline Power. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/750">[#750]</a></li></li>';
+        }
+
         if (_compareVersion(installedVersion, '3.2.5')) {
             newfunctions += '<li>The variant selector hid under the main sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/748">[#748]</a></li>';
             newfunctions += '<li>Selecting a variant did not activate the correct functions to set the sheet correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/747">[#747]</a></li></li>';

@@ -235,6 +235,8 @@ Hooks.once("init", async function() {
 	templates.preloadHandlebarsTemplates();
 	templates.registerHandlebarsHelpers();	
 
+	console.log("WoD | Added Handelebars");
+
 	game.worldofdarkness = {
 		powers: WoDSetup.getInstalledPowers(game.data.items)
 	};
@@ -242,7 +244,7 @@ Hooks.once("init", async function() {
 	game.worldofdarkness.abilities = templates.SetupAbilities();
 	game.worldofdarkness.bio = templates.SetupBio();
 
-	console.log("WoD | Added Handelebars");  
+	console.log("WoD | Added Settings");  
 });
 
 /* ------------------------------------ */

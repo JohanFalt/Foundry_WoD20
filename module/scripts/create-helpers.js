@@ -444,7 +444,7 @@ export default class CreateHelper {
 		}
 	}	
 
-	static async SetCreatureVariant(actor, actorData, variant) {
+	static async SetCreatureVariant(actorData, variant) {
 		actorData.system.settings.variant = variant;
 
 		actorData.system.settings.haswillpower = true;

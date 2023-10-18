@@ -106,7 +106,7 @@ export class DialogVariant extends FormApplication {
 			await CreateHelper.SetMortalVariant(actorData, this.object.variant);
 		}
         else if (this.object.type == CONFIG.worldofdarkness.sheettype.creature) {
-			await CreateHelper.SetCreatureVariant(this.actor, actorData, this.object.variant);
+			await CreateHelper.SetCreatureVariant(actorData, this.object.variant);
 		}
         else {
             actorData.system.settings.variant = this.object.variant;

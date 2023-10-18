@@ -12,7 +12,7 @@
 	
 	<div class="ability-statArea pullLeft">
 
-		{{#if (isempty actor.system.listdata.ability_talents)}}
+		{{#if (isEmpty actor.system.listdata.ability_talents)}}
 			<div class="centerText headlineNormal">{{localize 'wod.abilities.notalents'}}</div>
 		{{/if}}
 	
@@ -63,7 +63,7 @@
 	</div>
 	<div class="ability-statArea pullLeft">
 
-		{{#if (isempty actor.system.listdata.ability_skills)}}
+		{{#if (isEmpty actor.system.listdata.ability_skills)}}
 			<div class="centerText headlineNormal">{{localize 'wod.abilities.noskills'}}</div>
 		{{/if}}
 	
@@ -114,7 +114,7 @@
 	</div>
 	<div class="ability-statArea pullLeft">
 
-		{{#if (isempty actor.system.listdata.ability_knowledges)}}
+		{{#if (isEmpty actor.system.listdata.ability_knowledges)}}
 			<div class="centerText headlineNormal">{{localize 'wod.abilities.noknowledges'}}</div>
 		{{/if}}
 	
