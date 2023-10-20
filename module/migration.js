@@ -1112,6 +1112,8 @@ export  const updates = async () => {
         }
 
         if (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+            updateData.system.settings.variant = "general";
+
             if (updateData.system.changingbreed == "Mokolé") {
                 updateData.system.changingbreed = "Mokole";
             }
@@ -1689,7 +1691,7 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        if (_compareVersion(installedVersion, '3.2.6')) {
+        if (_compareVersion(installedVersion, '3.2.7')) {
             newfunctions += '<li>Updated Spanish.</li>';
             newfunctions += '<li>[Changing breed] Bug may force reselection of the type of shifter under Settings -> Sheet tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/754">[#754]</a></li>';
             newfunctions += '<li>[WtO] If added Arcanoi was created in world the startup crashed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/755">[#755]</a></li>';
