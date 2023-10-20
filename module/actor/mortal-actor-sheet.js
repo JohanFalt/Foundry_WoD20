@@ -111,10 +111,12 @@ export class MortalActorSheet extends ActorSheet {
 		}	
 
 		if ((data.actor.system.settings.variant == "") && ((this.actor.type == CONFIG.worldofdarkness.sheettype.creature)||
-											(this.actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)||
 											(this.actor.type == CONFIG.worldofdarkness.sheettype.wraith)||
 											(this.actor.type == CONFIG.worldofdarkness.sheettype.changeling)||
 											(this.actor.type == CONFIG.worldofdarkness.sheettype.mortal))) {
+			ActionHelper.openVariantDialog(this.actor);
+		}
+		else if (((data.actor.system?.changingbreed == "") || (data.actor.system?.changingbreed == "general")) && (this.actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
 			ActionHelper.openVariantDialog(this.actor);
 		}
 

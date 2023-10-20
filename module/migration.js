@@ -1112,8 +1112,6 @@ export  const updates = async () => {
         }
 
         if (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-            updateData.system.settings.variant = "general";
-
             if (updateData.system.changingbreed == "Mokolé") {
                 updateData.system.changingbreed = "Mokole";
             }
@@ -1498,7 +1496,6 @@ export  const updates = async () => {
  * 
  */
  function _getVersionText(installedVersion, migrationVersion) {
-    let patch107 = false;
     let patch110 = false;
     let patch120 = false;
     let patch130 = false;
@@ -1516,7 +1513,6 @@ export  const updates = async () => {
 
     try {
         // add the new setting in settings.js
-        patch107 = game.settings.get('worldofdarkness', 'patch107');
         patch110 = game.settings.get('worldofdarkness', 'patch110');
         patch120 = game.settings.get('worldofdarkness', 'patch120');
         patch130 = game.settings.get('worldofdarkness', 'patch130');
@@ -1536,50 +1532,50 @@ export  const updates = async () => {
     if (!patch110) {
         game.settings.set('worldofdarkness', 'patch110', true);
 
-        newfunctions += "<li>Creature sheet released</li>";
+        /* newfunctions += "<li>Creature sheet released</li>";
         newfunctions += "<li>Added new System Setting where you can switch to use 5th ed Attributes and 5th ed Willpower.</li>";
         newfunctions += "<li>Added new alternatives in sheet Settings</li>";
-        newfunctions += "<li>And a bunch of bug fixes</li>";
+        newfunctions += "<li>And a bunch of bug fixes</li>"; */
     }
 
     if (!patch120) {
         game.settings.set('worldofdarkness', 'patch120', true);
 
-        newfunctions += "<li>Added buttons to handle Initiative, Soak and general dice rolling</li>";
+        /* newfunctions += "<li>Added buttons to handle Initiative, Soak and general dice rolling</li>";
         newfunctions += "<li>Added German Translation</li>";
         newfunctions += "<li>Fixed the System can use Foundry rolling of Initiative</li>";
-        newfunctions += "<li>Worked on design on the different sheets";
+        newfunctions += "<li>Worked on design on the different sheets"; */
     }
 
     if (!patch130) {
         game.settings.set('worldofdarkness', 'patch130', true);
 
-        newfunctions += "<li>Added Changing Breed sheets. Supports Ajaba, Ananasi, Bastet, Corax, Gurahl, Kitsune, Mokole, Nagah, Nuwisha, Ratkin and Rokea</li>";
+        /* newfunctions += "<li>Added Changing Breed sheets. Supports Ajaba, Ananasi, Bastet, Corax, Gurahl, Kitsune, Mokole, Nagah, Nuwisha, Ratkin and Rokea</li>";
         newfunctions += "<li>Worked on design on the sheets of the macro buttons</li>";
         newfunctions += "<li>Changed font</li>";
         newfunctions += "<li>Worked on design on the combat section of the sheets</li>";
         newfunctions += "<li>Fixed graphical problems if using German Translation</li>";
         newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1">#1</a> a problem where the Attribute Setting in Power Items did not read the setting if you where using the 20th or 5th System setting</li>';
-        newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/2">#2</a> so you can clear permanent Renown</li>';
+        newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/2">#2</a> so you can clear permanent Renown</li>'; */
     }
 
     if (!patch140) {
         game.settings.set('worldofdarkness', 'patch140', true);
 
-        newfunctions += "<li>Added Spanish</li>";
+        /* newfunctions += "<li>Added Spanish</li>";
         newfunctions += "<li>Added Mage the Ascension</li>";
         newfunctions += "<li>Added Secondary Abilities is added under Settings</li>";
         newfunctions += "<li>[WtA] Added icon to roll frenzy</li>";
         newfunctions += "<li>[WtA] Added new item - Fetish listed in Gear</li>";
         newfunctions += "<li>[MtA] Added icon to roll cast spell</li>";
         newfunctions += "<li>[MtA] Added support to create and cast Rote spells</li>";
-        newfunctions += "<li>Fixed graphical problems if using Spanish Translation</li>";        
+        newfunctions += "<li>Fixed graphical problems if using Spanish Translation</li>";     */    
     }
 
     if (!patch150) {
         game.settings.set('worldofdarkness', 'patch150', true);
 
-        newfunctions += "<li>Added Vampire the Masquerade</li>";
+        /* newfunctions += "<li>Added Vampire the Masquerade</li>";
         newfunctions += "<li>Added full support for update existing World and Compendiums</li>";
         newfunctions += "<li>Remade all roll functions and redesigned them</li>";
         newfunctions += "<li>Unified the structure of all Actors and Items</li>";
@@ -1599,13 +1595,13 @@ export  const updates = async () => {
         newfunctions += '<li>[VtM] Fixed so you can clear Blood Pool <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/148">#148</a></li>';
         newfunctions += '<li>Added Bone Craft as a selective Skill <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/162">#162</a></li>';    
         newfunctions += '<li>Fixed problems with permissions to alter Actor and Item images <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
-        newfunctions += '<li>Fixed that spirits could not roll macro buttons <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/163">#163</a></li>';
+        newfunctions += '<li>Fixed that spirits could not roll macro buttons <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/163">#163</a></li>'; */
     } 
 
     if (!patch160) {
         game.settings.set('worldofdarkness', 'patch160', true);
 
-        newfunctions += "<li>Major update of the graphics way too much to list here</li>";
+        /* newfunctions += "<li>Major update of the graphics way too much to list here</li>";
         newfunctions += "<li>Can turn off the special sheet fonts</li>";
         newfunctions += "<li>German and Spanish updated</li>";
         newfunctions += "<li>Added an Add-button to add backgrounds, mertis, flaws and blood bounds to the sheet</li>";
@@ -1614,13 +1610,13 @@ export  const updates = async () => {
         newfunctions += "<li>[MtA] Added Paradigm, Practice and Instruments</li>";
         newfunctions += "<li>[MtA] Supports Constructs and Familiars</li>";
         newfunctions += "<li>[VtM] Added Blood Bounded people under Info</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and stuff of irritation</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and stuff of irritation</li>"; */
     }
 
     if (!patch210) {
         game.settings.set('worldofdarkness', 'patch210', true);
 
-        newfunctions += "<li>Added Changeling the Dreaming</li>";
+        /* newfunctions += "<li>Added Changeling the Dreaming</li>";
         newfunctions += "<li>Added support automatic fire</li>";
         newfunctions += "<li>Added a Secondary Ability system</li>";
         newfunctions += "<li>Added editors to textfields</li>";
@@ -1630,13 +1626,13 @@ export  const updates = async () => {
         newfunctions += "<li>[WtA] Added Shapeshift button</li>";
         newfunctions += "<li>[VtM] Added support temporary generation</li>";
         newfunctions += "<li>[MtA] Added resonance and fetish support</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";        
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";  */       
     }
 
     if (!patch220) {
         game.settings.set('worldofdarkness', 'patch220', true);
 
-        newfunctions += "<li>Added Hunter the Reckoning</li>";
+        /* newfunctions += "<li>Added Hunter the Reckoning</li>";
         newfunctions += "<li>Removed the 'clear' icon</li>";
         newfunctions += "<li>Added functions to handle Ghouls and Kinfolk</li>";
         newfunctions += "<li>Added more functionality to Other Traits</li>";
@@ -1644,19 +1640,19 @@ export  const updates = async () => {
         newfunctions += "<li>Added to be able to set max trait of abilities to above 5</li>";
         newfunctions += "<li>[WtA] Added remain active icon</li>";
         newfunctions += "<li>[WtA] Added shapeshift image on token</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>"; */
     }
 
     if (!patch230) {
         game.settings.set('worldofdarkness', 'patch230', true);
 
-        newfunctions += "<li>Added Demon the Fallen</li>";
+        /* newfunctions += "<li>Added Demon the Fallen</li>";
         newfunctions += "<li>Added Tours - see Foundry Tour Management</li>";
         newfunctions += "<li>Added a bonus system to use with merit/flaws/powers and so on</li>";
         newfunctions += "<li>Graphical improvements</li>";
         newfunctions += "<li>Improved how specialities are edited</li>";
         newfunctions += "<li>Shows the character's movement under Combat tab</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>"; */
     }
 
     if (!patch300) {
@@ -1692,6 +1688,13 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '3.2.6')) {
+            newfunctions += '<li>Updated Spanish.</li>';
+            newfunctions += '<li>[Changing breed] Bug may force reselection of the type of shifter under Settings -> Sheet tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/754">[#754]</a></li>';
+            newfunctions += '<li>[WtO] If added Arcanoi was created in world the startup crashed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/755">[#755]</a></li>';
+            newfunctions += '<li>[WtO] The Arcanoi icons did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/753">[#753]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '3.2.6')) {
             newfunctions += '<li>Convert tool to create a Creature sheet on Spirit sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/742">[#742]</a></li>';

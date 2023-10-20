@@ -5,7 +5,7 @@ export function getInstalledPowers(items) {
     let arts = [];
     let edges = [];
     let lores = [];
-    let arcanoi = [];
+    let arcanois = [];
 
     for (const item of items) {
         if ((item.type == "Power") && (item.system.type == "wod.types.discipline")) {
@@ -26,8 +26,6 @@ export function getInstalledPowers(items) {
         if ((item.type == "Power") && (item.system.type == "wod.types.arcanoi")) {
             arcanois.push(item);
         }
-
-        arcanoi
     }
 
     powers.disciplines = disciplines;
@@ -35,7 +33,7 @@ export function getInstalledPowers(items) {
     powers.arts = arts;
     powers.edges = edges;
     powers.lores = lores;
-    powers.arcanoi = arcanoi;
+    powers.arcanoi = arcanois;
 
     return powers;
 }

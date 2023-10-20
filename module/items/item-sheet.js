@@ -124,9 +124,7 @@ export class WoDItemSheet extends ItemSheet {
 			}
 
 			data.bonus = items;
-		}
-
-		
+		}		
 
 		if (data.item.system?.description != undefined) {
 			data.item.system.description = await TextEditor.enrichHTML(data.item.system.description, {async: true});
@@ -416,6 +414,14 @@ export function getImage(item) {
 
 		if (item.system.type == "wod.types.lorepower") {
 			return "systems/worldofdarkness/assets/img/items/power_demon.svg";
+		}
+
+		if (item.system.type == "wod.types.arcanoi") {
+			return "systems/worldofdarkness/assets/img/items/mainpower_wraith.svg";
+		}
+
+		if (item.system.type == "wod.types.arcanoipower") {
+			return "systems/worldofdarkness/assets/img/items/power_wraith.svg";
 		}
 
 		if ((item.system.type == "wod.types.ritual") && (item.system.game == "demon")) {

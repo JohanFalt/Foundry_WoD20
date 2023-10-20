@@ -44,10 +44,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 			console.log(data.actor);
 		}
 
-		/* if (data.actor.system.settings.variant == "") {
-			ActionHelper.openVariantDialog(this.actor);
-		} */
-
 		return data;
 	}
 

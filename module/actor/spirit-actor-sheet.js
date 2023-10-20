@@ -439,27 +439,27 @@ export class SpiritActorSheet extends ActorSheet {
 			const newActorData = duplicate(newActor);
 			await CreateHelper.SetCreatureVariant(newActorData, 'spirit');
 
-			newActorData.system.advantages.rage.permanent = parseInt(this.actor.system.advantages.rage.permanent);
-			newActorData.system.advantages.rage.temporary = parseInt(this.actor.system.advantages.rage.temporary);
-			newActorData.system.advantages.rage.max = parseInt(this.actor.system.advantages.rage.max);
-			newActorData.system.advantages.rage.roll = parseInt(this.actor.system.advantages.rage.roll);
+			newActorData.system.advantages.rage.permanent = parseInt(actorData.system.advantages.rage.permanent);
+			newActorData.system.advantages.rage.temporary = parseInt(actorData.system.advantages.rage.temporary);
+			newActorData.system.advantages.rage.max = parseInt(actorData.system.advantages.rage.max);
+			newActorData.system.advantages.rage.roll = parseInt(actorData.system.advantages.rage.roll);
 
-			newActorData.system.advantages.gnosis.permanent = parseInt(this.actor.system.advantages.gnosis.permanent);
-			newActorData.system.advantages.gnosis.temporary = parseInt(this.actor.system.advantages.gnosis.temporary);
-			newActorData.system.advantages.gnosis.max = parseInt(this.actor.system.advantages.gnosis.max);
-			newActorData.system.advantages.gnosis.roll = parseInt(this.actor.system.advantages.gnosis.roll);
+			newActorData.system.advantages.gnosis.permanent = parseInt(actorData.system.advantages.gnosis.permanent);
+			newActorData.system.advantages.gnosis.temporary = parseInt(actorData.system.advantages.gnosis.temporary);
+			newActorData.system.advantages.gnosis.max = parseInt(actorData.system.advantages.gnosis.max);
+			newActorData.system.advantages.gnosis.roll = parseInt(actorData.system.advantages.gnosis.roll);
 
-			newActorData.system.advantages.willpower.permanent = parseInt(this.actor.system.advantages.willpower.permanent);
-			newActorData.system.advantages.willpower.temporary = parseInt(this.actor.system.advantages.willpower.temporary);
-			newActorData.system.advantages.willpower.max = parseInt(this.actor.system.advantages.willpower.max);
-			newActorData.system.advantages.willpower.roll = parseInt(this.actor.system.advantages.willpower.roll);
+			newActorData.system.advantages.willpower.permanent = parseInt(actorData.system.advantages.willpower.permanent);
+			newActorData.system.advantages.willpower.temporary = parseInt(actorData.system.advantages.willpower.temporary);
+			newActorData.system.advantages.willpower.max = parseInt(actorData.system.advantages.willpower.max);
+			newActorData.system.advantages.willpower.roll = parseInt(actorData.system.advantages.willpower.roll);
 
-			newActorData.system.advantages.essence.temporary = parseInt(this.actor.system.advantages.essence.temporary);
-			newActorData.system.advantages.essence.max = parseInt(this.actor.system.advantages.essence.max);
+			newActorData.system.advantages.essence.temporary = parseInt(actorData.system.advantages.essence.temporary);
+			newActorData.system.advantages.essence.max = parseInt(actorData.system.advantages.essence.max);
 
 			await newActor.update(newActorData);	
 			
-			for (const item of this.actor.items) {
+			for (const item of actorData.items) {
 				if (item.type == "Power") {
 					let itemData = duplicate(item);
 					await newActor.createEmbeddedDocuments("Item", [itemData]);
@@ -470,7 +470,7 @@ export class SpiritActorSheet extends ActorSheet {
 			await this.actor.update(actorData);		  
 		} 
 		catch (error) {
-			console.error('Error fetching data:', error);
+			console.error('Error converting spirit:', error);
 		}
 	}
 }
