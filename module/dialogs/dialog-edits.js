@@ -61,7 +61,7 @@ export class DialogBio extends FormApplication {
     
     static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["wod20 wod-dialog general-dialog"],
+			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
             resizable: true
@@ -136,7 +136,7 @@ export class DialogAttribute extends FormApplication {
     
     static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["wod20 wod-dialog general-dialog"],
+			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
             resizable: true
@@ -199,7 +199,7 @@ export class DialogAbility extends FormApplication {
     
     static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["wod20 wod-dialog general-dialog"],
+			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
             resizable: true
@@ -280,7 +280,7 @@ export class DialogSphere extends FormApplication {
     
     static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["wod20 wod-dialog general-dialog"],
+			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
             resizable: true

@@ -1691,6 +1691,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.2.8')) {
+            newfunctions += '<li>Fixed height problems on some dialogs. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/757>[#757]</a></li>';
+            newfunctions += '<li>[Mortal] Could not set the sheet to have powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/756">[#756]</a></li>';
+            newfunctions += '<li>[Creature] Could not set the sheet to have powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/756">[#756]</a></li>';            
+        }
+
         if (_compareVersion(installedVersion, '3.2.7')) {
             newfunctions += '<li>Updated Spanish.</li>';
             newfunctions += '<li>[Changing breed] Bug may force reselection of the type of shifter under Settings -> Sheet tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/754">[#754]</a></li>';

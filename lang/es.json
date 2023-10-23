@@ -12,7 +12,7 @@
 			"vampire": "Vampiro: la Mascarada",
 			"werewolf": "Hombre lobo: el Apocalipsis",
 			"mage": "Mago: la Ascensión",
-			"wraith": "Wraith el Olvido"
+			"wraith": "Wraith: el Olvido"
 		},
 		"era": {
 			"modern": "Edad Contemporánea/actual",
@@ -646,7 +646,7 @@
 			"meditation": "Meditación",
 			"melee": "Pelea con Armas",
 			"performance": "Interpretación",
-			"research": "Investigación",
+			"research": "Documentación",
 			"ride": "Equitación",
 			"security": "Seguridad",
 			"stealth": "Sigilo",

@@ -4,7 +4,7 @@ export class WoDItemSheet extends ItemSheet {
 	
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
-			classes: ["wod20 wod-item"]
+			classes: [`wod20 wod-item`]
 		});
 	}
 

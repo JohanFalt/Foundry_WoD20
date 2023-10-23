@@ -449,6 +449,7 @@ export default class CreateHelper {
 
 		actorData.system.settings.haswillpower = true;
 		actorData.system.settings.soak.bashing.isrollable = true;
+		actorData.system.settings.powers.haspowers = true;	
 		
 		actorData.system.settings.hasrage = false;
 		actorData.system.settings.hasgnosis = false;						
@@ -469,16 +470,15 @@ export default class CreateHelper {
 		actorData.system.settings.powers.hasedges = false;
 		actorData.system.settings.powers.haslores = false;
 		actorData.system.settings.powers.hascharms = false;
-		actorData.system.settings.powers.haspowers = false;		
+			
 
 		if (actorData.type == CONFIG.worldofdarkness.sheettype.creature) {
+
 			if (variant == 'general') {
-				actorData.system.settings.powers.haspowers = true;
 				
 			}
 			if (variant == 'chimera') {
 				actorData.system.settings.hasglamour = true;
-				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.powers.hasarts = true;
 			}
 			if (variant == 'spirit') {
@@ -492,14 +492,12 @@ export default class CreateHelper {
 			}
 			if (variant == 'warwolves') {
 				actorData.system.settings.hasrage = true;
-				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
 			if (variant == 'anurana') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
-				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
@@ -507,14 +505,12 @@ export default class CreateHelper {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.hasgifts = true;
-				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
 			if (variant == 'kerasi') {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
-				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}
@@ -522,7 +518,6 @@ export default class CreateHelper {
 				actorData.system.settings.hasrage = true;
 				actorData.system.settings.hasgnosis = true;	
 				actorData.system.settings.powers.hasgifts = true;
-				actorData.system.settings.powers.haspowers = true;
 				actorData.system.settings.soak.lethal.isrollable = true;
 				actorData.system.settings.soak.aggravated.isrollable = true;
 			}

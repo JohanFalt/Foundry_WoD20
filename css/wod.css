@@ -155,6 +155,16 @@
   z-index: 999 !important;
 }
 
+.wod-dialog.weapon-dialog:not(.minimized) {
+  min-width: 600px;
+  width: 600px;
+  height: 800px;
+}
+
+.wod-dialog.general-dialog:not(.minimized) {
+  height: 750px;
+}
+
 .wod-dialog.sortdiscipline-dialog:not(.minimized),
 .wod-dialog.checkfrenzy-dialog:not(.minimized),
 .wod-dialog.shapechange-dialog:not(.minimized) {

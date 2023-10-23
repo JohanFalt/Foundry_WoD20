@@ -24,7 +24,18 @@
             </div>
         </div>
 
-    {{/if}}
+        <div class="clearareaBox row">
+            <label for="data.system.settings.powers.hasgifts" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.haspowers"}}</label>
+            <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="haspowers" data-type="{{config.sheettype.mortal}}">
+                {{#if data.system.settings.powers.haspowers}}
+                    {{localize "wod.labels.yes"}}
+                {{else}}
+                    {{localize "wod.labels.no"}}
+                {{/if}}
+            </div>
+        </div>
+
+    {{/if}}    
 
     {{#if (eq actor.type config.sheettype.mage)}}
         <div class="headlineText splatFont">{{localize "wod.labels.settings.permparadox"}}</div>
