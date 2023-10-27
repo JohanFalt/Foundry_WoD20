@@ -103,8 +103,8 @@
 {{#if (eqAnyNot actor.type config.sheettype.spirit config.sheettype.vampire)}}
     <div class="sheet-area flex-columns">
         <div class="clearareaBox">
-            <div class="pullLeft headlineNormal settings-leftwidth" style="line-height: 26px;">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
-            <div class="pullLeft settings-leftwidth settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
+            <div class="pullLeft headlineNormal" style="line-height: 26px;">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
+            <div class="pullLeft settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
                 {{#if locked}}
                     <input class="sheet-infoValues half" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" readonly />
                 {{else}}

@@ -35,7 +35,21 @@
 }
   
 .vampire:not(.noSplatFont) .sheet-headline {
-    font-size: 34px;
+    font-size: 30px;
+}
+
+.vampire:not(.noSplatFont) .sheet-banner {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.vampire:not(.noSplatFont) .sheet-banner-small {
+  margin-bottom: 0px;
+}
+
+.vampire:not(.noSplatFont) .experienceValue {
+  position: relative;
+  top: -30px;
 }
   
 .vampireDialog:not(.noSplatFont) .headlineGroup {

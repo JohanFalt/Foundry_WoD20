@@ -44,7 +44,7 @@
 
     <div class="sheet-area flex-columns">
         <div class="area-box" data-area="pathsetting">
-            <div class="headlineText splatFont">{{localize "wod.labels.settings.path"}}</div>
+            <div class="headlineGroup splatFont">{{localize "wod.labels.settings.path"}}</div>
             <div class="bioInformationArea floating-label-group">
                 {{#if locked}}
                     <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.advantages.path.label 'custom')}}{{actor.system.advantages.path.custom}}{{else}}{{localize data.system.advantages.path.label}}{{/if}}" style="width: 40%;" autocomplete="off" autofocus required  />
@@ -78,7 +78,7 @@
         </div>
         
         <div class="area-box">
-            <div class="headlineText splatFont">{{localize "wod.advantages.virtue.selected"}}</div>
+            <div class="headlineGroup splatFont">{{localize "wod.advantages.virtue.selected"}}</div>
             <div class="clearareaBox">
                 <div class="pullLeft half">
                     {{#if locked}}
@@ -119,7 +119,7 @@
 
     <div class="sheet-area flex-columns" data-area="frenzysetting">
         <div class="clearareaBox">
-            <div class="headlineText splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
+            <div class="headlineGroup splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
             <div class="bioInformationArea floating-label-group">
                 {{#if locked}}
                     <input class="sheet-infoValues inputdata" type="text" value="{{data.system.advantages.rage.bonus}}" style="width: 40%;" autocomplete="off" autofocus required />
@@ -137,8 +137,8 @@
     {{#if data.system.settings.hasrage}}
         
         <div class="sheet-area flex-columns" data-area="frenzysetting">
-            <div class="clearareaBox">
-                <div class="headlineText splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
+            <div class="clearareaBox" style="height: 80px;">
+                <div class="headlineGroup splatFont">{{localize "wod.labels.settings.frenzyroll"}}</div>
                 <div class="bioInformationArea floating-label-group">
                     {{#if locked}}
                         <input class="sheet-infoValues inputdata" type="text" value="{{data.system.advantages.rage.bonus}}" style="width: 40%;" autocomplete="off" autofocus required />
@@ -157,7 +157,7 @@
 
     <div class="sheet-area flex-columns">
         <div class="clearareaBox">
-            <div class="headlineText splatFont">{{localize "wod.labels.settings.usedadvantages"}}</div>
+            <div class="headlineGroup splatFont">{{localize "wod.labels.settings.usedadvantages"}}</div>
 
             <div class="clearareaBox row">
                 <label for="data.system.settings.haspath" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.path.headline'}}</label>
@@ -284,7 +284,7 @@
 
         <div class="sheet-area flex-columns">
             <div class="clearareaBox">
-                <div class="headlineText splatFont">{{localize "wod.advantages.bloodpool"}}</div>
+                <div class="headlineGroup splatFont">{{localize "wod.advantages.bloodpool"}}</div>
 
                 {{#if (ne actor.type config.sheettype.vampire)}}   
                     <div class="clearareaBox">
@@ -322,7 +322,7 @@
     {{#if data.system.settings.hasessence}}
 
         <div class="sheet-area flex-columns">
-            <div class="headlineText splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
+            <div class="headlineGroup splatFont">{{localize 'wod.labels.settings.essencevalue'}}</div>
             <div class="infobox bioInformationArea floating-label-group">
                 <input class="sheet-infoValues numberBox editable" name="system.advantages.essence.max" type="text" value="{{data.system.advantages.essence.max}}" data-name="data.system.advantages.essence.max" data-dtype="Number" autocomplete="off" autofocus required />
                 <span class="floating-label">{{localize "wod.advantages.essence"}}</span>

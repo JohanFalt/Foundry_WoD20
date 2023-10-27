@@ -5,7 +5,7 @@
             <span class="sheet-banner-text">{{localize "wod.power.lores"}}</span>
         
             <div class="pullRight pointer headlineNormal">
-                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.discipline'}}" aria-hidden="true" data-itemtype="Power" data-type="lore"></i>
+                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.lore'}}" aria-hidden="true" data-itemtype="Power" data-type="lore"></i>
             </div>
         </div>
 
@@ -54,12 +54,13 @@
                             {{/if}}
                         {{else}}
                             <div class="pullLeft pointer">
-                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
+                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.lorepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
                             </div>
                         {{/if}}
                         <div class="pullLeft pointer headlineNormal tooltip">
                             <i class="icon fa-solid fa-memo"></i>
                             <span class="tooltiptext">
+                                <b>{{item.name}}</b><br />
                                 {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
                                 <br /><br />
                                 {{/if}}{{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}

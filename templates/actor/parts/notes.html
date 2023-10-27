@@ -267,69 +267,71 @@
 </div>
 
 {{#if (ne actor.type config.sheettype.wraith)}}
+    {{#if (ne actor.type config.sheettype.demon)}}
 
-    <div class="sheet-area flex-columns">
-        <div class="clearareaBox area-box">
-            <div class="headlineRow splatFont" data-area="bloodbound">
-                <div class="clearareaBox">
-                    <div class="pullLeft">
-                        <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.bloodbound"}}" aria-hidden="true" data-itemtype="Feature" data-type="bloodbound"></i>
-                    </div>
-                    <div class="pullLeft largeBox">{{localize "wod.labels.notes.bloodbound"}}</div>                
-                    <div class="pullLeft pointer">
-                        <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bloodbound'}}" data-sheet="{{config.sheettype.mortal}}" data-type="bloodbound"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="clearareaBox hide bloodbound">
-                {{#each actor.system.listdata.features.bloodbounds as |item id|}}
-                    <div class="item-row-area">
-                        <div class="clearareaBox note-row">
-                            <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                            <div class="pullLeft largeBox headlineNormal">
-                                {{#if (ne item.name "")}}
-                                    {{item.name}}
-                                {{else}}
-                                    {{localize "wod.notes.unnamedbloodbound"}}
-                                {{/if}}</div>
-                            <div class="pullLeft notes-valueBox headlineNormal">{{item.system.level}}</div>
-
-                            <div class="pullLeft note-iconbox">
-                                <div class="pullLeft pointer headlineNormal tooltip">
-                                    <i class="icon fa-solid fa-memo"></i>
-                                    <span class="tooltiptext">
-                                        {{#if (ne item.system.description "")}}
-                                            <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                                        {{/if}}
-                                        <br /><br />
-                                        {{#if (ne item.system.details "")}}
-                                            <b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}
-                                        {{/if}}
-                                    </span>
-                                </div>
-                                <div class="pullLeft">
-                                    <a class="send-chat" 
-                                        title="{{localize 'wod.labels.send'}}"
-                                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                </div>
-                                {{#if (eq ../locked false)}}
-                                    <div class="pullLeft pointer">
-                                        <a class="item-edit" title="{{localize 'wod.labels.edit.bloodbound'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                    </div>
-                                    <div class="pullLeft pointer">
-                                        <a class="item-delete" title="{{localize 'wod.labels.remove.bloodbound'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                    </div>
-                                {{/if}}
-                                
-                            </div>
+        <div class="sheet-area flex-columns">
+            <div class="clearareaBox area-box">
+                <div class="headlineRow splatFont" data-area="bloodbound">
+                    <div class="clearareaBox">
+                        <div class="pullLeft">
+                            <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.bloodbound"}}" aria-hidden="true" data-itemtype="Feature" data-type="bloodbound"></i>
+                        </div>
+                        <div class="pullLeft largeBox">{{localize "wod.labels.notes.bloodbound"}}</div>                
+                        <div class="pullLeft pointer">
+                            <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bloodbound'}}" data-sheet="{{config.sheettype.mortal}}" data-type="bloodbound"></i>
                         </div>
                     </div>
-                {{/each}}
+                </div>
+
+                <div class="clearareaBox hide bloodbound">
+                    {{#each actor.system.listdata.features.bloodbounds as |item id|}}
+                        <div class="item-row-area">
+                            <div class="clearareaBox note-row">
+                                <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
+                                <div class="pullLeft largeBox headlineNormal">
+                                    {{#if (ne item.name "")}}
+                                        {{item.name}}
+                                    {{else}}
+                                        {{localize "wod.notes.unnamedbloodbound"}}
+                                    {{/if}}</div>
+                                <div class="pullLeft notes-valueBox headlineNormal">{{item.system.level}}</div>
+
+                                <div class="pullLeft note-iconbox">
+                                    <div class="pullLeft pointer headlineNormal tooltip">
+                                        <i class="icon fa-solid fa-memo"></i>
+                                        <span class="tooltiptext">
+                                            {{#if (ne item.system.description "")}}
+                                                <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
+                                            {{/if}}
+                                            <br /><br />
+                                            {{#if (ne item.system.details "")}}
+                                                <b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}
+                                            {{/if}}
+                                        </span>
+                                    </div>
+                                    <div class="pullLeft">
+                                        <a class="send-chat" 
+                                            title="{{localize 'wod.labels.send'}}"
+                                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                                    </div>
+                                    {{#if (eq ../locked false)}}
+                                        <div class="pullLeft pointer">
+                                            <a class="item-edit" title="{{localize 'wod.labels.edit.bloodbound'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                        </div>
+                                        <div class="pullLeft pointer">
+                                            <a class="item-delete" title="{{localize 'wod.labels.remove.bloodbound'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                        </div>
+                                    {{/if}}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
             </div>
         </div>
-    </div>
 
+    {{/if}}
 {{/if}}
 
 {{#if (eq actor.type config.sheettype.changeling)}}

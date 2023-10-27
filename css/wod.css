@@ -13,22 +13,41 @@
 
 @font-face {
   font-family: "changeling";
-  src: url("../assets/fonts/Umb000.ttf") format("truetype");
+  /* src: url("../assets/fonts/Umb000.ttf") format("truetype"); */
+  src: url("../assets/fonts/C20_Kells_2.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "vampire";
-  src: url("../assets/fonts/percexp.ttf") format("truetype");
+  /* src: url("../assets/fonts/percexp.ttf") format("truetype"); */
+  src: url("../assets/fonts/V20_delavan.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "vampireVictorianTitle";
+  src: url("../assets/fonts/V20Victorian_ChiseledOpenRegular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "vampireVictorianSubtitle";
+  src: url("../assets/fonts/V20Victorian_university_roman.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "vampireDA";
+  src: url("../assets/fonts/V20DA_deroos.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "mage";
-  src: url("../assets/fonts/visit.TTF") format("truetype");
+  /* src: url("../assets/fonts/visit.TTF") format("truetype"); */
+  src: url("../assets/fonts/M20_abbess_regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "werewolf";
-  src: url("../assets/fonts/werewolf.ttf") format("truetype");
+  /* src: url("../assets/fonts/werewolf.ttf") format("truetype"); */
+  src: url("../assets/fonts/W20_balthazar.ttf") format("truetype");
 }
 
 @font-face {
@@ -38,12 +57,13 @@
 
 @font-face {
   font-family: "demon";
-  src: url("../assets/fonts/demon.ttf") format("truetype");
+  /* src: url("../assets/fonts/demon.ttf") format("truetype"); */
+  src: url("../assets/fonts/Demon_LushUs_v2.otf") format("truetype");
 }
 
 @font-face {
   font-family: "wraith";
-  src: url("../assets/fonts/Mat_____.ttf") format("truetype");
+  src: url("../assets/fonts/Wr20_MatrixTall.ttf") format("truetype");
 }
 
 :root {

@@ -130,6 +130,10 @@
 
 /* START - Combat */
 
+.changeling .combat-concealBox {
+    width: 75px;
+}
+
 .changeling .armor.headlineRowBackground {
     margin-bottom: -10px;
 }

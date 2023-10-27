@@ -36,6 +36,10 @@
     color: white;
 }
 
+.werewolf:not(.noSplatFont) .sheet-headline {
+  font-size: 30px;
+}
+
 .werewolf:not(.noSplatFont) .headlineText {
 	font-size: 18px;
 }

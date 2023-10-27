@@ -1,7 +1,7 @@
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature config.sheettype.changingbreed config.sheettype.changeling config.sheettype.wraith)}}
 
     <div class="sheet-area flex-columns">
-        <div class="headlineText splatFont">{{localize "wod.dialog.variant.sheettype"}}</div>
+        <div class="headlineGroup splatFont">{{localize "wod.dialog.variant.sheettype"}}</div>
 
         {{#if (ne actor.type config.sheettype.changingbreed)}}
             <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'general'}}" data-value="general">{{localize "wod.dialog.variant.general"}}</button>
@@ -62,7 +62,7 @@
 {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf)}}
 
     <div class="sheet-area flex-columns">
-        <div class="headlineText splatFont">{{localize "wod.labels.settings.era.headline"}}</div>
+        <div class="headlineGroup splatFont">{{localize "wod.labels.settings.era.headline"}}</div>
 
         {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.vampire)}}
             <button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era config.era.modern)}}active{{/if}}" data-type="{{config.sheettype.vampire}}">{{localize "wod.labels.settings.era.modern"}}</button>
@@ -88,7 +88,7 @@
 {{/if}}
 
 <div class="sheet-area flex-columns">
-    <div class="headlineText splatFont">{{localize "wod.labels.settings.graphics"}}</div>
+    <div class="headlineGroup splatFont">{{localize "wod.labels.settings.graphics"}}</div>
 
     <div class="clearareaBox">
         <div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.sheetfont"}}</div>

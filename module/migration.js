@@ -1133,6 +1133,23 @@ export  const updates = async () => {
             update = false;
         }
     }
+
+    if (_compareVersion(actor.system.settings.version, "3.2.9")) {
+        let updateData = duplicate(actor);
+        update = false;
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.demon) {
+            updateData.system.advantages.virtues.selfcontrol.label = "wod.advantages.virtue.conviction";
+            update = true;
+        }
+
+        if (update) {
+            updateData.system.settings.version = "3.2.9";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }    
 }
 
 /**
@@ -1690,6 +1707,12 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '3.2.9')) {
+            newfunctions += '<li>Fixed fonts for CtD, VtM, WtA, MtA, DtF and WtO. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/764>[#764]</a></li>';
+            newfunctions += '<li>[Dark Ages] Creating Archery automatically did not set the ability as a ranged weapon ability. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/761">[#761]</a></li>';
+            newfunctions += '<li>[DtF] Demons uses Conviction not Self-Control. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/763">[#763]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '3.2.8')) {
             newfunctions += '<li>Fixed height problems on some dialogs. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/757>[#757]</a></li>';

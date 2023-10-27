@@ -26,22 +26,54 @@
 .wod-sheet.demon:not(.minimized) {
     min-height: 950px;
 }
-  
+
+.demon:not(.noSplatFont) .sheet-headline {
+    font-size: 26px;
+}
+
+.demon.demon:not(.noSplatFont) .sheet-banner {
+    height: 40px;
+}
+
 .demon:not(.noSplatFont) .headlineTabs {
     font-size: 26px;
     line-height: 26px;
 }
-  
-.demon:not(.noSplatFont) .sheet-headline {
-    font-size: 34px;
+
+.demon:not(.noSplatFont) .headlineText {
+    font-size: 16px;
 }
-  
+
+.demon:not(.noSplatFont) .headlineGroup {
+    font-size: 16px;
+}
+
+.demon:not(.noSplatFont) .sheet-banner .sheet-banner-text {
+    font-size: 20px;
+    position: relative;
+    top: 16px;
+}
+
+.demon.demon:not(.noSplatFont) .sheet-banner-small .sheet-banner-text {
+    font-size: 16px;
+}
+
 .demonDialog:not(.noSplatFont) .headlineGroup {
     font-size: 26px;
 }
 
 .demonDialog:not(.noSplatFont) .headline {
     font-size: 20px;
+}
+
+.demon:not(.noSplatFont) .experienceValue {
+    font-family: var(--main-font);
+}
+
+/* COMBAT */
+
+.demon .combat-concealBox {
+    width: 75px;
 }
 
 /* SETTINGS */
@@ -51,7 +83,7 @@
 }
 
 .demon:not(.noSplatFont) .secondHeadlineTabs {
-    font-size: 24px;
+    font-size: 16px;
 }
 
 @media all and (max-height : 1024px)
