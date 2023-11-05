@@ -201,7 +201,7 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			if (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) < 20) {
+			if ((parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent)) < 20) {
 				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) + 1;
 			}			
 		}
@@ -239,7 +239,7 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			if (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1 > 20) {
+			if ((parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1) > 20) {
 				oldState = "Ψ";
 			}
 		}		
@@ -258,7 +258,7 @@ export class MageActorSheet extends MortalActorSheet {
 			return;
 		}
 		else if ((oldState == "Ψ") && (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1 > 20)) { 
-			if (parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent < 20)) {
+			if ((parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) < 20)) {
 				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;	
 				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;		
 			}
