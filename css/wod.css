@@ -12,9 +12,15 @@
 }
 
 @font-face {
-  font-family: "changeling";
+  font-family: "changelingES";
   /* src: url("../assets/fonts/Umb000.ttf") format("truetype"); */
   src: url("../assets/fonts/C20_Kells_2.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "changeling";
+  /* src: url("../assets/fonts/Umb000.ttf") format("truetype"); */
+  src: url("../assets/fonts/C20_MeathFLF.ttf") format("truetype");
 }
 
 @font-face {

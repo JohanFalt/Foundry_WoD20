@@ -14,6 +14,13 @@
 	font-family: "changeling", var(--main-font);
 }
 
+.changeling.langES:not(.noSplatFont) nav,
+.changeling.langES:not(.noSplatFont) .splatFont,
+.changelingDialog.langES:not(.noSplatFont) .splatFont,
+.changelingItem.langES:not(.noSplatFont) .splatFont {
+	font-family: "changeling", var(--main-font);
+}
+
 .changelingDialog,
 .changeling,
 .changelingItem {

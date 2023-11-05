@@ -96,8 +96,14 @@ export class MageActorSheet extends MortalActorSheet {
 			.find(".quintessence > .resource-counter > .resource-value-step")
 			.click(this._onQuintessenceChange.bind(this));
 		html
+			.find(".quintessenceBtn")
+			.click(this._onQuintessenceChange.bind(this));
+		html
 			.find(".quintessence > .resource-counter > .resource-value-step")
 			.on('contextmenu', this._onParadoxChange.bind(this));
+		html
+			.find(".paradoxBtn")
+			.click(this._onParadoxChange.bind(this));
 
 		console.log("WoD | Mage Sheet activateListeners");
 	}
@@ -195,13 +201,14 @@ export class MageActorSheet extends MortalActorSheet {
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) + 1;
+			if (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) < 20) {
+				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) + 1;
+			}			
 		}
-		// else if (oldState == "x") {
-		// 	actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) - 1;
-		// }
 		else if (oldState == "Ψ") { 
-			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;			
+			if (parseInt(actorData.system.quintessence.temporary) > 0) {
+				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;			
+			}			
 		}
 		else {
 			return;
@@ -219,7 +226,7 @@ export class MageActorSheet extends MortalActorSheet {
 		event.preventDefault();
 
 		const element = event.currentTarget;
-		const oldState = element.dataset.state || "";
+		let oldState = element.dataset.state || "";
 		const states = parseCounterStates("Ψ:quintessence,x:paradox,*:permanent_paradox");
 
 		const allStates = ["", ...Object.keys(states)];
@@ -228,21 +235,33 @@ export class MageActorSheet extends MortalActorSheet {
 		if (currentState < 0) {
 			return;
 		}
-		
+
 		const actorData = duplicate(this.actor);
 
 		if (oldState == "") {
-			actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;
+			if (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1 > 20) {
+				oldState = "Ψ";
+			}
+		}		
+
+		if (oldState == "") {
+			if (parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.temporary) < 20) {
+				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;	
+			}			
 		}
 		else if (oldState == "x") {
-			actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) - 1;
+			if (parseInt(actorData.system.paradox.temporary) > 0) {
+				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) - 1;
+			}			
 		}
 		else if (oldState == "*") {
 			return;
 		}
 		else if ((oldState == "Ψ") && (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1 > 20)) { 
-			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;	
-			actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;		
+			if (parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent < 20)) {
+				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;	
+				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;		
+			}
 		}
 		else if (oldState == "Ψ") {
 			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;
