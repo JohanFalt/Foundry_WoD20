@@ -1708,9 +1708,13 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.2.12')) {
+            newfunctions += '<li>[MtA] Fixing bugs with the nex increasing/descreasing Quintessence or Paradox.</li>';
+        }
+
         if (_compareVersion(installedVersion, '3.2.10')) {
             newfunctions += '<li>[CtD] New font caused problems. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/766">[#766]</a></li>';
-            newfunctions += '<li>[MtA] Added function to simplify increasin/descreasing Quintessence or Paradox. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/767">[#767]</a></li>';
+            newfunctions += '<li>[MtA] Added function to simplify increasing/descreasing Quintessence or Paradox. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/767">[#767]</a></li>';
         }
 
         if (_compareVersion(installedVersion, '3.2.9')) {

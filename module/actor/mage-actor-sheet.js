@@ -245,7 +245,7 @@ export class MageActorSheet extends MortalActorSheet {
 		}		
 
 		if (oldState == "") {
-			if (parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.temporary) < 20) {
+			if (parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) < 20) {
 				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;	
 			}			
 		}
