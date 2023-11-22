@@ -1708,6 +1708,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.2.13')) {
+            newfunctions += '<li>Updated German translation.</li>';
+            newfunctions += '<li>Fixed bug that caused money in the bank was not shown correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/774">[#774]</a></li>';
+            newfunctions += '<li>Headline of Item type was not displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/772">[#772]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '3.2.12')) {
             newfunctions += '<li>[MtA] Fixing bugs with the nex increasing/descreasing Quintessence or Paradox.</li>';
         }
@@ -1730,7 +1736,7 @@ export  const updates = async () => {
         }
 
         if (_compareVersion(installedVersion, '3.2.7')) {
-            newfunctions += '<li>Updated Spanish.</li>';
+            newfunctions += '<li>Updated Spanish translation.</li>';
             newfunctions += '<li>[Changing breed] Bug may force reselection of the type of shifter under Settings -> Sheet tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/754">[#754]</a></li>';
             newfunctions += '<li>[WtO] If added Arcanoi was created in world the startup crashed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/755">[#755]</a></li>';
             newfunctions += '<li>[WtO] The Arcanoi icons did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/753">[#753]</a></li>';
