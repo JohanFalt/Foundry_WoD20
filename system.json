@@ -2,7 +2,7 @@
   "id": "worldofdarkness",
   "title": "World of Darkness 20th edition",
   "description": "To play World of Darkness 20th ed. Support for Werewolf the Apocalypse (W20), Mage the Ascension (M20), Vampire the Masquerade (V20), Changeling the Dreaming (C20), Wraith the Oblivion (Wr20), Hunter the Reckoning (HtR) and Demon the Fallen (DtF). Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.",
-  "version": "3.2.13",
+  "version": "3.2.14",
   "compatibility": {
     "minimum": "11.315",
     "verified": "11",
@@ -81,6 +81,6 @@
   "url": "https://github.com/JohanFalt/Foundry_WoD20",
   "background": "systems/worldofdarkness/assets/img/graphics/wod.png",
   "manifest": "https://raw.githubusercontent.com/JohanFalt/Foundry_WoD20/main/system.json",
-  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v3.2.13.zip",
+  "download": "https://github.com/JohanFalt/Foundry_WoD20/archive/refs/tags/v3.2.14.zip",
   "license": "LICENSE.txt"
 }

@@ -1708,7 +1708,7 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        if (_compareVersion(installedVersion, '3.2.13')) {
+        if (_compareVersion(installedVersion, '3.2.14')) {
             newfunctions += '<li>Updated German translation.</li>';
             newfunctions += '<li>Fixed bug that caused money in the bank was not shown correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/774">[#774]</a></li>';
             newfunctions += '<li>Headline of Item type was not displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/772">[#772]</a></li>';
