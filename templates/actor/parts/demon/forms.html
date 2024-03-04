@@ -5,7 +5,7 @@
         {{#each actor.system.listdata.forms as |form id|}}
             <div class="clearareaBox form-apocalyptic" data-area="apocalypticform{{id}}">
                 <div class="pullLeft item-activeBox">
-                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input>
+                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked form.isactive}}></input>
                 </div>
                 <div class="pullLeft form-apocalyptic-name headlineNormal">{{form.name}}</div>
                 <div class="pullLeft pointer">
