@@ -1708,6 +1708,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 		
+		if (_compareVersion(installedVersion, '3.2.16')) {
+            newfunctions += '<li>Improvement in French translation.</li>';
+        }
+		
 		if (_compareVersion(installedVersion, '3.2.15')) {
             newfunctions += '<li>Fixed problem on Demon sheet where activating a apocalyptic form did not show on the sheet.</li>';
         }
