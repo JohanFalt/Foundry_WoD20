@@ -126,7 +126,7 @@
 			"lorepower": "Lore Power",
 			"arcanoi": "Arcanoi",
 			"arcanoipower": "Arcanoi Power",
-			"ritual": "Rituel",			
+			"ritual": "Rituel",
 			"talen": "Talen",
 			"fetish": "Fétiche",
 			"treasure": "Trésor",
@@ -142,7 +142,7 @@
 			"realm": "Royaume",
 			"resonance": "Résonnance",
 			"othertraits": "Autres Traits",
-			"apacolypticform": "Apocalyptic Form",
+			"apocalypticform": "Apocalyptic Form",
 			"passion": "Passion",
 			"fetter": "Fetter"
 		},
@@ -221,7 +221,7 @@
 				"latrani": "Latrani",
 				"rodens": "Rodens",
 				"squamus": "Squamus"
-			},			
+			},
 			"clan": "Clan",
 			"auspice": "Auspice",
 			"auspicename": {
@@ -250,7 +250,7 @@
 				"dimwater": "Eaux-Troubles",
 				"darkwater": "Eaux-Sombres"
 			},
-			"aspect": "Aspect",		
+			"aspect": "Aspect",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -266,7 +266,7 @@
 				"plaguelords": "Seigneurs de la peste",
 				"munchmausen": "Munchmausen",
 				"twitchers": "Convulsifs"
-			},	
+			},
 			"tribe": "Tribu",
 			"tribename": {
 				"chasers": "Les Poursuivants",
@@ -290,7 +290,7 @@
 				"icestalkers": "Arpenteurs des Glaces",
 				"mountainguardians": "Gardiens des Montagnes",
 				"riverkeepers": "Gardiens des Rivières"
-			},			
+			},
 			"faction": "Faction",
 			"factionname": {
 				"myrmidon": "Myrmidon",
@@ -327,7 +327,7 @@
 				"unktehi": "Unktehi"
 			},
 			"jamak": "Jamak",
-			"yava": "Yava",	
+			"yava": "Yava",
 			"werewolf": {
 				"blackfuries": "Black Furies",
 				"bonegnawer": "Bone Gnawers",
@@ -347,7 +347,7 @@
 				"bunyip": "Bunyip",
 				"croatan": "Croatan",
 				"whitehowler": "White Howlers"
-			},						
+			},
 			"vampire": {
 				"sect": "Secte",
 				"camarilla": "Camarilla",
@@ -379,7 +379,7 @@
 				"cleargeneration": "Clear temporary generation"
 			},
 			"mage": {
-				"affiliation": "Affiliation",			
+				"affiliation": "Affiliation",
 				"essence": "Essence",
 				"sect": "Secte",
 				"affinitysphere": "Sphère d'Affinité'",
@@ -644,12 +644,12 @@
 			"larceny": "Larcin",
 			"martialarts": "Arts Martiaux",
 			"meditation": "Méditation",
-			"melee": "Mêlée",	
+			"melee": "Mêlée",
 			"performance": "Représentation",
 			"research": "Recherches",
 			"ride": "Ride",
 			"security": "Securité",
-			"stealth": "Furtivité",			
+			"stealth": "Furtivité",
 			"survival": "Survie",
 
 			"academics": "Erudition",
@@ -675,7 +675,7 @@
 			"science": "Sciences",
 			"technology": "Théologie",
 			"theology": "Theology"
-		},		
+		},
 		"health": {
 			"health": "Santé",
 			"bruised": "Contusion",
@@ -730,7 +730,7 @@
 				"vision": "Vision",
 				"zeal": "Zeal"
 			},
-			"bloodpool": "Réserve de sang",	
+			"bloodpool": "Réserve de sang",
 			"perturn": "Points de sang par tour",
 			"bearing": "Bearing",
 			"renown": "Renom",
@@ -995,7 +995,7 @@
 			"entropicstate": "Entropic State Control",
 			"forcebased": "Force-Based Paraphysics",
 			"lifescience": "Life Sciences",
-			"material": "Material Sciences",	
+			"material": "Material Sciences",
 			"psychodynamics": "Psychodynamics",
 			"primal": "Primal Utility Theory",
 			"dimensional": "Dimensional Science",
@@ -1063,7 +1063,7 @@
 			"woundlevel": "Niveau de Blessure",
 			"selectability": "Select Ability",
 			"selectattribute": "Select Attribute",
-			"specialty": "Utiliser une Spécialité",			
+			"specialty": "Utiliser une Spécialité",
 			"select": "Sélectionner",
 			"noneselect": "Nothing selected",
 			"custom": "Abilité Secondaire",
@@ -1101,7 +1101,7 @@
 				"tempgeneration": "Génération Temporaire"
 			},
 			"combat": {
-				"conditions": "Conditions",				
+				"conditions": "Conditions",
 				"natural": "Armes Naturelles",
 				"melee": "Armes de corps-à-Corps",
 				"ranged": "Armes à Distance",
@@ -1456,7 +1456,7 @@
 			}
 		},
 		"dice": {
-			"activate": "Roll to activate",			
+			"activate": "Roll to activate",
 			"rollattack": "Jeter les dés d'Attaque",
 			"rolldamage": "Jeter les dés de Dégats",
 			"roll": "Roll",
@@ -1474,9 +1474,9 @@
 			"rollingsoak": "Jeter les dés d'absrobption",
 			"rollingremainactive": "Roll to remain active",
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
-			"addedautosucc": "The roll add {0} automatic successes"			
+			"addedautosucc": "The roll add {0} automatic successes"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Sauver",
 			"reset": "Remettre à zéro",
 			"close": "Fermer",
@@ -1490,7 +1490,7 @@
 			"nonelisted": "None listed",
 			"aretecasting": {
 				"castspell": "Lancer un Sort",
-				"castingspell": "Sort Lancé",	
+				"castingspell": "Sort Lancé",
 				"casting": "CLancé",
 				"modifierarete": "Modificateur d'Arete",
 				"castingtype": "Type de Sort",
@@ -1615,5 +1615,5 @@
 				"description": "This setting can be changed under the sheet's settings"
 			}
 		}
-	}	
+	}
 }
