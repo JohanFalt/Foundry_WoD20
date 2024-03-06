@@ -25,7 +25,7 @@
 			"mageeratext": "Mage sheet default era",
 			"vampireeratext": "Vampire sheet default era",
 			"werewolferatext": "Werewolf sheet default era"
-		},		
+		},
 		"settings": {
 			"nonotuse": "Non usare",
 			"alwaysuse": "Usare sempre",
@@ -56,14 +56,14 @@
 			"changeitemimage": "Permesso di cambiare l'immagine degli Oggetti",
 			"changeitemimagehint": "Tutti hanno il permesso di cambiare le immagini degli Oggetti di cui hanno il permesso di editing",
 			"itemadministrator": "Livello di permesso necessario per essere Amministratore di Oggetti",
-			"itemadministratorhint": "Che livello di permesso è necessario per essere un Amministratore di Oggetti, dando ad esempio l'abilità di decidere il tipo di un oggetto mentre lo si modifica",			
+			"itemadministratorhint": "Che livello di permesso è necessario per essere un Amministratore di Oggetti, dando ad esempio l'abilità di decidere il tipo di un oggetto mentre lo si modifica",
 			"player": "Giocatore",
 			"trustedplayer": "Giocatore Fidato",
 			"assistantgm": "Assistente DM",
 			"usesplatfont": "Usa i font dei libri",
 			"usesplatfonthint": "Disattiva i font usati per le schede diverse per il mondo",
 			"usesworldanvil": "Usa i link di World Anvil",
-			"usesworldanvilhint": "Aggiungi una sezione nella scheda Biografia dove si può mettere il link di una pagina di World Anvil", 
+			"usesworldanvilhint": "Aggiungi una sezione nella scheda Biografia dove si può mettere il link di una pagina di World Anvil",
 			"huntersettings": "Impostazioni Cacciatori",
 			"huntersettingshint": "Impostazioni a livello di Mondo usati in Cacciatori il Giudizio",
 			"werewolfsettings": "Impostazioni Licantropi l'Apocalisse",
@@ -73,7 +73,7 @@
 			"ragesettings": "Usa malus Furia",
 			"ragesettingshints": "In Licantropi se il Garou ha più Furia che Volontà subiscono una penalità a tutti i loro tiri sociali.",
 			"choicevirtue": "Spendere punti Virtù",
-			"choiceexperience": "Spendere punti Esperienza",	
+			"choiceexperience": "Spendere punti Esperienza",
 			"therollofone": "Usa l'effetto base degli 1",
 			"therollofonehint": "Effetto standard di 20° - Tutti gli 1 riducono di uno i successi ottenuti.",
 			"useOnesDamage": "Use rule of '1's in damage rolls",
@@ -142,7 +142,7 @@
 			"realm": "Reame",
 			"resonance": "Risonanza",
 			"othertraits": "Altri Tratti",
-			"apacolypticform": "Forma Apocalittica",
+			"apocalypticform": "Forma Apocalittica",
 			"passion": "Passion",
 			"fetter": "Fetter"
 		},
@@ -173,7 +173,7 @@
 			"technocracy": "Tecnocrazia",
 			"disparate": "Disparati",
 			"fallen": "I Caduti",
-			"mad": "I Predoni",				
+			"mad": "I Predoni",
 			"name": "Nome",
 			"appearance": "Aspetto",
 			"background": "Background",
@@ -221,7 +221,7 @@
 				"latrani": "Latrani",
 				"rodens": "Rodens",
 				"squamus": "Squamus"
-			},	
+			},
 			"clan": "Clan",
 			"auspice": "Auspicio",
 			"auspicename": {
@@ -250,7 +250,7 @@
 				"dimwater": "Acquagrigia",
 				"darkwater": "Acquascura"
 			},
-			"aspect": "Orientamento",	
+			"aspect": "Orientamento",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -266,7 +266,7 @@
 				"plaguelords": "Signori delle Piaghe",
 				"munchmausen": "Roditopi",
 				"twitchers": "Spasmodici"
-			},			
+			},
 			"tribe": "Tribù",
 			"tribename": {
 				"chasers": "Chasers",
@@ -327,7 +327,7 @@
 				"unktehi": "Unktehi"
 			},
 			"jamak": "Jamak",
-			"yava": "Yava",					
+			"yava": "Yava",
 			"werewolf": {
 				"blackfuries": "Furie Nere",
 				"bonegnawer": "Rodi Ossa",
@@ -347,7 +347,7 @@
 				"bunyip": "Bunyip",
 				"croatan": "Croatan",
 				"whitehowler": "Ululati Bianchi"
-			},	
+			},
 			"vampire": {
 				"sect": "Setta",
 				"camarilla": "Camarilla",
@@ -379,7 +379,7 @@
 				"cleargeneration": "Togli Generazione temporanea"
 			},
 			"mage": {
-				"affiliation": "Affiliazione",			
+				"affiliation": "Affiliazione",
 				"essence": "Essenza",
 				"sect": "Setta",
 				"affinitysphere": "Sfera affine",
@@ -644,19 +644,19 @@
 			"larceny": "Criminalità",
 			"martialarts": "Arti Marziali",
 			"meditation": "Meditazione",
-			"melee": "Armi da Mischia",	
+			"melee": "Armi da Mischia",
 			"performance": "Espr. Artistica",
 			"research": "Ricerca",
 			"ride": "Ride",
 			"security": "Sicurezza",
-			"stealth": "Furtività",		
+			"stealth": "Furtività",
 			"survival": "Sopravvivenza",
 
 			"academics": "Accademiche",
 			"bureaucracy": "Burocrazia",
 			"computer": "Informatica",
-			"cosmology": "Cosmologia",	
-			"culture": "Cultura Nascosta",	
+			"cosmology": "Cosmologia",
+			"culture": "Cultura Nascosta",
 			"enigmas": "Enigmi",
 			"esoterica": "Esoterismo",
 			"finance": "Finanza",
@@ -674,8 +674,8 @@
 			"seneschal": "Gov. Domestico",
 			"science": "Scienze",
 			"technology": "Tecnologia",
-			"theology": "Teologia"	
-		},		
+			"theology": "Teologia"
+		},
 		"health": {
 			"health": "Salute",
 			"bruised": "Contuso",
@@ -720,7 +720,7 @@
 			},
 			"virtue": {
 				"headline": "Virtù",
-				"selected": "Virtù selezionate", 			
+				"selected": "Virtù selezionate",
 				"conscience": "Coscienza",
 				"conviction": "Convinzione",
 				"selfcontrol": "Autocontrollo",
@@ -730,7 +730,7 @@
 				"vision": "Visione",
 				"zeal": "Zelo"
 			},
-			"bloodpool": "Punti Sangue",	
+			"bloodpool": "Punti Sangue",
 			"perturn": "Sangue per Turno",
 			"bearing": "Aura",
 			"renown": "Rinomanza",
@@ -990,12 +990,12 @@
 			"prime": "Primordio",
 			"spirit": "Spirito",
 			"time": "Tempo",
-			
+
 			"data": "Dati",
 			"entropicstate": "Controllo di stato entropico",
 			"forcebased": "Force-Based Paraphysics",
 			"lifescience": "Life Sciences",
-			"material": "Scienza materiale",			
+			"material": "Scienza materiale",
 			"psychodynamics": "Psicodinamica",
 			"primal": "Utilità primaria",
 			"dimensional": "Scienza dimensionale",
@@ -1063,9 +1063,9 @@
 			"woundlevel": "Livello ferita",
 			"selectability": "Seleziona Abilità",
 			"selectattribute": "Seleziona Attributo",
-			"specialty": "Usa Specializzazione",			
+			"specialty": "Usa Specializzazione",
 			"select": "Seleziona",
-			"noneselect": "Nulla di selezionato", 
+			"noneselect": "Nulla di selezionato",
 			"custom": "Abilità Secondaria",
 			"custompath": "Via personalizzata",
 			"customtribe": "Tribù personalizzata",
@@ -1101,7 +1101,7 @@
 				"tempgeneration": "Generazione temporanea"
 			},
 			"combat": {
-				"conditions": "Condizioni",				
+				"conditions": "Condizioni",
 				"natural": "Armi naturali",
 				"melee": "Armi da Mischia",
 				"ranged": "Armi da Fuoco",
@@ -1179,7 +1179,7 @@
 					"modern": "Moderna (20°)",
 					"victorian": "Età Vittoriana (20°)",
 					"wildwest": "Selvaggio West (20°)",
-					"darkages": "Secoli Bui (20°)", 
+					"darkages": "Secoli Bui (20°)",
 					"infoone": "Cambiare questo setting riconfigura tutte le abilità all'età scelta.",
 					"infotwo": "Questo può nascondere abilità esistenti."
 				}
@@ -1456,7 +1456,7 @@
 			}
 		},
 		"dice": {
-			"activate": "Tiro di attivazione",			
+			"activate": "Tiro di attivazione",
 			"rollattack": "Tira attacco",
 			"rolldamage": "Tira danni",
 			"roll": "Tiro",
@@ -1476,7 +1476,7 @@
 			"rollingremainactivetext": "Ogni successo guarisce un livello di salute di ogni tipo. Dopo il personaggio entra in uan frenesia berserk. Un Licantropo guadagna una Cicatrice di battaglia ogni volta che riesce a rimanere attivo.",
 			"addedautosucc": "Il tiro aggiunge {0} successi automatici"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Salva",
 			"reset": "Resetta",
 			"close": "Chiudi",
@@ -1490,7 +1490,7 @@
 			"nonelisted": "Nessuna",
 			"aretecasting": {
 				"castspell": "Lancia incantesimo",
-				"castingspell": "Lancio di incantesimo",	
+				"castingspell": "Lancio di incantesimo",
 				"casting": "Lancio",
 				"modifierarete": "Modificatore di Aretè",
 				"castingtype": "Tipologia di incantesimo",
@@ -1616,5 +1616,5 @@
 				"description": "This setting can be changed under the sheet's settings"
 			}
 		}
-	}	
+	}
 }

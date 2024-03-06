@@ -1,7 +1,7 @@
 import ActionHelper from "../scripts/action-helpers.js";
 
 export class WoDItemSheet extends ItemSheet {
-	
+
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: [`wod20 wod-item`]
@@ -12,8 +12,8 @@ export class WoDItemSheet extends ItemSheet {
 		super(item, options);
 
 		this.locked = true;
-		this.isCharacter = false;	
-		this.isGM = game.user.isGM;	
+		this.isCharacter = false;
+		this.isGM = game.user.isGM;
 	}
 
 	/** @override */
@@ -26,7 +26,7 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	async getData() {
-		const itemData = duplicate(this.item);		
+		const itemData = duplicate(this.item);
 
 		if (!itemData.system.iscreated) {
 			itemData.system.version = game.data.system.version;
@@ -37,7 +37,7 @@ export class WoDItemSheet extends ItemSheet {
 		if (itemData.type == "Bonus") {
 			if ((itemData.name == game.i18n.localize("wod.labels.new.bonus")) && (itemData.system.type != "")) {
 				let name = "";
-				
+
 				switch (itemData.system.type) {
 					case "attribute_buff":
 						name = game.i18n.localize("wod.labels.new.attributebonus");
@@ -85,7 +85,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
-		data.isGM = game.user.isGM;	
+		data.isGM = game.user.isGM;
 		data.canEdit = this.item.isOwner || game.user.isGM;
 
 		if (this.item.actor != null) {
@@ -114,8 +114,8 @@ export class WoDItemSheet extends ItemSheet {
 			data.item.img = imgUrl;
 		}
 
-		if ((data.item.system.type == "wod.types.apacolypticform") && (data.hasActor)) {
-			const items = [];	
+		if ((data.item.system.type == "wod.types.apocalypticform") && (data.hasActor)) {
+			const items = [];
 
 			for (const i of this.actor.items) {
 				if ((i.type == "Bonus") && (i.system.parentid == data.item._id)) {
@@ -124,7 +124,7 @@ export class WoDItemSheet extends ItemSheet {
 			}
 
 			data.bonus = items;
-		}		
+		}
 
 		if (data.item.system?.description != undefined) {
 			data.item.system.description = await TextEditor.enrichHTML(data.item.system.description, {async: true});
@@ -140,7 +140,7 @@ export class WoDItemSheet extends ItemSheet {
 			console.log("Connected bonus traits");
 			console.log(data.value);
 		}
-		
+
 		return data;
 	}
 
@@ -189,7 +189,7 @@ export class WoDItemSheet extends ItemSheet {
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".item-bonusvalue-button");
-        const bonus = element.value;   
+        const bonus = element.value;
 
         steps.removeClass("active");
 
@@ -233,7 +233,7 @@ export class WoDItemSheet extends ItemSheet {
 		const name = dataset.property;
 
 		let value = "";
-		
+
 		if (dataset.value != undefined) {
 			value = dataset.value;
 		}
@@ -256,7 +256,7 @@ export class WoDItemSheet extends ItemSheet {
 		this.item.update(itemData);
 		this.render();
 
-		return;		
+		return;
 	}
 
 	async _onItemDelete(event) {
@@ -291,8 +291,8 @@ export class WoDItemSheet extends ItemSheet {
 
 		console.log("WoD | Deleting item id: " + itemId);
 
-		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);      
-		this.render();  
+		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);
+		this.render();
 	}
 
 	_onDotCounterChange(event) {
@@ -300,7 +300,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
-				
+
 		const index = Number(dataset.index);
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
@@ -315,14 +315,14 @@ export class WoDItemSheet extends ItemSheet {
 
 		if (fields[1] === "spheres") {
 			const itemData = duplicate(this.item);
-			
+
 			if ((itemData.system[fields[2]] == 1) && (index == 0)) {
 				this._assignToItemField(fields, 0);
 
 				return;
 			}
 		}
-		
+
 		steps.each(function (i) {
 			if (i <= index) {
 				$(this).addClass("active");
@@ -333,13 +333,13 @@ export class WoDItemSheet extends ItemSheet {
 	}
 
 	_assignToItemField(fields, value) {
-		const itemData = duplicate(this.item);		
+		const itemData = duplicate(this.item);
 
 		if (fields[1] === "spheres") {
 			itemData.system[fields[2]] = value;
 			this.item.update(itemData);
-		}		
-	}	
+		}
+	}
 }
 
 export function getImage(item) {
@@ -356,7 +356,7 @@ export function getImage(item) {
 	}
 
 	if (item.type == "Item") {
-		
+
 	}
 
 	if ((item.type == "Melee Weapon") && (item.system.isnatural)) {
