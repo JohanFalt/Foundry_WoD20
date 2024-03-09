@@ -142,9 +142,9 @@
 			"realm": "Reino",
 			"resonance": "Ressonância",
 			"othertraits": "Outros Traços",
-			"apacolypticform": "Apocalyptic Form",
+			"apocalypticform": "Apocalyptic Form",
 			"passion": "Passion",
-			"fetter": "Fetter"			
+			"fetter": "Fetter"
 		},
 		"tab": {
 			"bio": "Biografia",
@@ -221,7 +221,7 @@
 				"latrani": "Latrani",
 				"rodens": "Rodens",
 				"squamus": "Squamus"
-			},			
+			},
 			"clan": "Clã",
 			"auspice": "Augúrio",
 			"auspicename": {
@@ -250,7 +250,7 @@
 				"dimwater": "Dimwater",
 				"darkwater": "Darkwater"
 			},
-			"aspect": "Aspect",	
+			"aspect": "Aspect",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -327,7 +327,7 @@
 				"unktehi": "Unktehi"
 			},
 			"jamak": "Jamak",
-			"yava": "Yava",	
+			"yava": "Yava",
 			"werewolf": {
 				"blackfuries": "Fúrias Negras",
 				"bonegnawer": "Roedores de Ossos",
@@ -379,7 +379,7 @@
 				"cleargeneration": "Clear temporary generation"
 			},
 			"mage": {
-				"affiliation": "Affiliation",			
+				"affiliation": "Affiliation",
 				"essence": "Essence",
 				"sect": "Sect",
 				"affinitysphere": "Affinity Sphere",
@@ -615,7 +615,7 @@
 			"noskills": "No skills selected",
 			"noknowledges": "No knowledges selected",
 
-			"alertness": "Prontidão",			
+			"alertness": "Prontidão",
 			"art": "Arte",
 			"athletics": "Esportes/Atlet.",
 			"awareness": "Consciência",
@@ -625,11 +625,11 @@
 			"expression": "Expressão",
 			"intimidation": "Intimidação",
 			"intuition": "Intuição",
-			"kenning": "Kenning",			
+			"kenning": "Kenning",
 			"leadership": "Liderança",
 			"legerdemain": "Legerdemain",
 			"persuasion": "Persuasion",
-			"primalurge": "Inst. Primitivo",			
+			"primalurge": "Inst. Primitivo",
 			"streetwise": "Manha/Ruas",
 			"subterfuge": "Lábia/Subterf.",
 
@@ -644,7 +644,7 @@
 			"larceny": "Crimes",
 			"martialarts": "Artes Marciais",
 			"meditation": "Meditação",
-			"melee": "Corpo a Corpo",	
+			"melee": "Corpo a Corpo",
 			"performance": "Performance",
 			"research": "Pesquisa",
 			"ride": "Montaria",
@@ -653,7 +653,7 @@
 			"survival": "Sobrevivência",
 
 			"academics": "Acadêmicos",
-			"bureaucracy": "Burocracia",			
+			"bureaucracy": "Burocracia",
 			"computer": "Computador",
 			"cosmology": "Cosmologia",
 			"culture": "Cultura",
@@ -675,7 +675,7 @@
 			"science": "Ciência",
 			"technology": "Tecnologia",
 			"theology": "Teologia"
-		},		
+		},
 		"health": {
 			"health": "Saúde",
 			"bruised": "Escoriado",
@@ -730,8 +730,8 @@
 				"vision": "Vision",
 				"zeal": "Zeal"
 			},
-			"bloodpool": "Blood Pool",	
-			"perturn": "Blood per turn",			
+			"bloodpool": "Blood Pool",
+			"perturn": "Blood per turn",
 			"bearing": "Bearing",
 			"renown": "Renome",
 			"glory": "Glória",
@@ -981,21 +981,21 @@
 		"spheres": {
 			"spheres": "Spheres",
 			"rotes": "Rotes",
-			"correspondence": "Correspondence",			
+			"correspondence": "Correspondence",
 			"entropy": "Entropy",
 			"forces": "Forces",
 			"life": "Life",
 			"matter": "Matter",
 			"mind": "Mind",
-			"prime": "Prime",			
-			"spirit": "Spirit",			
+			"prime": "Prime",
+			"spirit": "Spirit",
 			"time": "Time",
 
 			"data": "Data",
 			"entropicstate": "Entropic State Control",
 			"forcebased": "Force-Based Paraphysics",
 			"lifescience": "Life Sciences",
-			"material": "Material Sciences",	
+			"material": "Material Sciences",
 			"psychodynamics": "Psychodynamics",
 			"primal": "Primal Utility Theory",
 			"dimensional": "Dimensional Science",
@@ -1063,7 +1063,7 @@
 			"woundlevel": "Nível da ferida",
 			"selectability": "Selecionar habilidade",
 			"selectattribute": "Selecionar atributo",
-			"specialty": "Usar Especialidade",			
+			"specialty": "Usar Especialidade",
 			"select": "Selecionar",
 			"noneselect": "Nada selecionado",
 			"custom": "Habilidade secundária",
@@ -1101,7 +1101,7 @@
 				"tempgeneration": "Temporary generation"
 			},
 			"combat": {
-				"conditions": "Condições",				
+				"conditions": "Condições",
 				"natural": "Armas Naturais",
 				"melee": "Armas Corpo a Corpo",
 				"ranged": "Armas à Distância",
@@ -1456,7 +1456,7 @@
 			}
 		},
 		"dice": {
-			"activate": "Rolar para ativar",			
+			"activate": "Rolar para ativar",
 			"rollattack": "Rolar ataque",
 			"rolldamage": "Rolar dano",
 			"roll": "Rolagem",
@@ -1474,9 +1474,9 @@
 			"rollingsoak": "Rolling soak",
 			"rollingremainactive": "Rolar para se manter ativo",
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
-			"addedautosucc": "The roll add {0} automatic successes"			
+			"addedautosucc": "The roll add {0} automatic successes"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Salvar",
 			"reset": "Redefinir",
 			"close": "Fechar",
@@ -1490,7 +1490,7 @@
 			"nonelisted": "None listed",
 			"aretecasting": {
 				"castspell": "Cast spell",
-				"castingspell": "Casting spell",	
+				"castingspell": "Casting spell",
 				"casting": "Casting",
 				"modifierarete": "Arete modifier",
 				"castingtype": "Spell type",

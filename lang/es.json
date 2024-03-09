@@ -142,7 +142,7 @@
 			"realm": "Reino",
 			"resonance": "Resonancia",
 			"othertraits": "Otros Rasgos",
-			"apacolypticform": "Forma Apocalíptica",
+			"apocalypticform": "Forma Apocalíptica",
 			"passion": "Pasión",
 			"fetter": "Grillete"
 		},
@@ -221,7 +221,7 @@
 				"latrani": "Latrani",
 				"rodens": "Rodens",
 				"squamus": "Squamus"
-			},	
+			},
 			"clan": "Clan",
 			"auspice": "Auspicio",
 			"auspicename": {
@@ -250,7 +250,7 @@
 				"dimwater": "Aguas Turbias",
 				"darkwater": "Aguas Oscuras"
 			},
-			"aspect": "Aspecto",	
+			"aspect": "Aspecto",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -266,7 +266,7 @@
 				"plaguelords": "Señores de la Plaga",
 				"munchmausen": "Munchmausen",
 				"twitchers": "Espasmódicos"
-			},		
+			},
 			"tribe": "Tribu",
 			"tribename": {
 				"chasers": "Cazadores",
@@ -379,7 +379,7 @@
 				"cleargeneration": "Borrar Generación temporal"
 			},
 			"mage": {
-				"affiliation": "Afiliación",			
+				"affiliation": "Afiliación",
 				"essence": "Esencia",
 				"sect": "Secta",
 				"affinitysphere": "Esfera Afín",
@@ -654,7 +654,7 @@
 
 			"academics": "Academicismo",
 			"bureaucracy": "Burocracia",
-			"computer": "Informática",	
+			"computer": "Informática",
 			"cosmology": "Cosmología",
 			"culture": "Cultura Encubierta",
 			"enigmas": "Enigmas",
@@ -674,8 +674,8 @@
 			"seneschal": "Senescal",
 			"science": "Ciencia",
 			"technology": "Tecnología",
-			"theology": "Teología"		
-		},		
+			"theology": "Teología"
+		},
 		"health": {
 			"health": "Salud",
 			"bruised": "Magullado",
@@ -995,7 +995,7 @@
 			"entropicstate": "Control del Estado Entrópico",
 			"forcebased": "Parafísica Basada en Fuerzas",
 			"lifescience": "Ciencias de la Vida",
-			"material": "Ciencias de la Materia",	
+			"material": "Ciencias de la Materia",
 			"psychodynamics": "Psicodinámica",
 			"primal": "Teoría de la Utilidad Primordial",
 			"dimensional": "Parafísica de la Ciencia Dimensional",
@@ -1063,7 +1063,7 @@
 			"woundlevel": "Nivel de heridas",
 			"selectability": "Selecciona Habilidad",
 			"selectattribute": "Selecciona Atributo",
-			"specialty": "Especialidad",			
+			"specialty": "Especialidad",
 			"select": "Escoger",
 			"noneselect": "Nada seleccionado",
 			"custom": "Habilidad secundaria",
@@ -1101,7 +1101,7 @@
 				"tempgeneration": "Generación temporal"
 			},
 			"combat": {
-				"conditions": "Condiciones",				
+				"conditions": "Condiciones",
 				"natural": "Armas naturales",
 				"melee": "Armas cuerpo a cuerpo",
 				"ranged": "Armas a distancia",
@@ -1475,7 +1475,7 @@
 			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito.",
 			"addedautosucc": "La tirada añade {0} éxitos automáticos"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Guardar",
 			"reset": "Reiniciar",
 			"close": "Cerrar",
@@ -1489,7 +1489,7 @@
 			"nonelisted": "Ninguno listado",
 			"aretecasting": {
 				"castspell": "Lanzar hechizo",
-				"castingspell": "Lanzando hechizo",	
+				"castingspell": "Lanzando hechizo",
 				"casting": "Lanzando",
 				"modifierarete": "Modificador de Areté",
 				"castingtype": "Tipo de hechizo",
@@ -1615,5 +1615,5 @@
 				"description": "Estas opciones pueden editarse en la configuración de ficha"
 			}
 		}
-	}	
+	}
 }

@@ -25,17 +25,17 @@
 							<div class="bioInformationArea floating-label-group">
 								<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
 								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
-							</div>														
-						</div>	
+							</div>
+						</div>
 					</div>
 
-					{{#if (eqAny data.system.type "wod.types.othertraits" "wod.types.apacolypticform")}}
+					{{#if (eqAny data.system.type "wod.types.othertraits" "wod.types.apocalypticform")}}
 						<div class="pullRight" style="width: auto;">
-							{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
+							{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}
 						</div>
 					{{/if}}
-				</div>				
-			</div>			
+				</div>
+			</div>
 		</header>
 
 		<section class="item-body">
@@ -46,7 +46,7 @@
 
 				<!-- type -->
 				{{#if userpermissions.itemAdministrator}}
-					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apacolypticform")}}
+					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apocalypticform")}}
 						<div class="infobox bioInformationArea floating-label-group">
 							<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
 								{{#select data.system.type}}
@@ -65,7 +65,7 @@
 								{{/select}}
 							</select>
 							<span class="floating-label">{{localize "wod.labels.type"}}</span>
-						</div>					
+						</div>
 					{{/if}}
 				{{/if}}
 
@@ -85,16 +85,16 @@
 						<label class="headlineItem headlineBio splatFont" for="data.israngedeweapon">{{localize "wod.labels.trait.rangedweapon"}}</label>
 						<input name="system.israngedeweapon" type="checkbox" {{isChecked data.system.israngedeweapon}} />
 					</div>
-				{{/if}}		
+				{{/if}}
 
-				{{#if (eq data.system.type "wod.types.apacolypticform")}}			
+				{{#if (eq data.system.type "wod.types.apocalypticform")}}
 
 					{{#if hasActor}}
 						<div class="infobox clearareaBox">
 							<div class="clearareaBox">
 								<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.addedbonus"}}</div>
-							</div>	
-						
+							</div>
+
 							{{#each bonus as |item id|}}
 								<div class="clearareaBox">
 									<div class="pullLeft" style="width: 140px;">{{item.name}}</div>
@@ -104,7 +104,7 @@
 						</div>
 					{{/if}}
 				{{/if}}
-				
+
 			</div>
 
 			{{#if (eq data.system.type "wod.types.othertraits")}}
@@ -122,28 +122,28 @@
 
 				</div>
 
-				{{> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}				
+				{{> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}
 
-			{{/if}}			
+			{{/if}}
 
-			{{#if (eqAny data.system.type "wod.types.apacolypticform" "wod.types.passion" "wod.types.fetter")}}			
+			{{#if (eqAny data.system.type "wod.types.apocalypticform" "wod.types.passion" "wod.types.fetter")}}
 
 				<!-- description -->
-				<div class="dialog-area">			
+				<div class="dialog-area">
 					<div class="clearareaBox">
 						<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.description"}}</div>
-					</div>		
+					</div>
 					<div class="infobox">
 						{{#if locked}}
-							<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
+							<div class="headlineNormal textarea">{{{data.system.description}}}</div>
 						{{else}}
 							{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
 						{{/if}}
 					</div>
 				</div>
-				
-			{{/if}}			
-			
+
+			{{/if}}
+
 		</section>
 
 	</div>

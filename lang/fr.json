@@ -142,7 +142,7 @@
 			"realm": "Royaume",
 			"resonance": "Résonance",
 			"othertraits": "Autres Traits",
-			"apacolypticform": "Forme Apocalyptique",
+			"apocalypticform": "Forme Apocalyptique",
 			"passion": "Passion",
 			"fetter": "Fetter"
 		},
@@ -1207,7 +1207,7 @@
 				"soakbonus": "Bonus d'absorption",
 				"soakbonushint": "Ce bonus modifie la valeur du nombre de dés obtenus lors des jets d'absorption.",
 				"healthbuff": "Bonus points de vie",
-				"healthbuffhint": "Ce bonus s'ajoute aux points de vie perdus du personnage.",
+        "healthbuffhint": "Ce bonus s'ajoute aux points de vie perdus du personnage.",
 				"initbonus": "Bonus d'initiative",
 				"initbonushint": "Ce bonus ajoute le nombre au score d'initiative.",
 				"movebonus": "Bonus de mouvement",

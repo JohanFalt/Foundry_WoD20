@@ -142,7 +142,7 @@
 			"realm": "Realm",
 			"resonance": "Resonance",
 			"othertraits": "Other Traits",
-			"apacolypticform": "Apocalyptic Form",
+			"apocalypticform": "Apocalyptic Form",
 			"passion": "Passion",
 			"fetter": "Fetter"
 		},
@@ -221,7 +221,7 @@
 				"latrani": "Latrani",
 				"rodens": "Rodens",
 				"squamus": "Squamus"
-			},			
+			},
 			"clan": "Clan",
 			"auspice": "Auspice",
 			"auspicename": {
@@ -250,7 +250,7 @@
 				"dimwater": "Dimwater",
 				"darkwater": "Darkwater"
 			},
-			"aspect": "Aspect",	
+			"aspect": "Aspect",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -327,7 +327,7 @@
 				"unktehi": "Unktehi"
 			},
 			"jamak": "Jamak",
-			"yava": "Yava",	
+			"yava": "Yava",
 			"werewolf": {
 				"blackfuries": "Black Furies",
 				"bonegnawer": "Bone Gnawers",
@@ -379,7 +379,7 @@
 				"cleargeneration": "Clear temporary generation"
 			},
 			"mage": {
-				"affiliation": "Affiliation",			
+				"affiliation": "Affiliation",
 				"essence": "Essence",
 				"sect": "Sect",
 				"affinitysphere": "Affinity Sphere",
@@ -615,7 +615,7 @@
 			"noskills": "No skills selected",
 			"noknowledges": "No knowledges selected",
 
-			"alertness": "Alertness",			
+			"alertness": "Alertness",
 			"art": "Art",
 			"athletics": "Athletics",
 			"awareness": "Awareness",
@@ -625,11 +625,11 @@
 			"expression": "Expression",
 			"intimidation": "Intimidation",
 			"intuition": "Intuition",
-			"kenning": "Kenning",			
+			"kenning": "Kenning",
 			"leadership": "Leadership",
 			"legerdemain": "Legerdemain",
 			"persuasion": "Persuasion",
-			"primalurge": "Primal-Urge",			
+			"primalurge": "Primal-Urge",
 			"streetwise": "Streetwise",
 			"subterfuge": "Subterfuge",
 
@@ -644,7 +644,7 @@
 			"larceny": "Larceny",
 			"martialarts": "Martial Arts",
 			"meditation": "Meditation",
-			"melee": "Melee",	
+			"melee": "Melee",
 			"performance": "Performance",
 			"research": "Research",
 			"ride": "Ride",
@@ -653,7 +653,7 @@
 			"survival": "Survival",
 
 			"academics": "Academics",
-			"bureaucracy": "Bureaucracy",			
+			"bureaucracy": "Bureaucracy",
 			"computer": "Computer",
 			"cosmology": "Cosmology",
 			"culture": "Culture",
@@ -675,7 +675,7 @@
 			"science": "Science",
 			"technology": "Technology",
 			"theology": "Theology"
-		},		
+		},
 		"health": {
 			"health": "Health",
 			"bruised": "Bruised",
@@ -730,8 +730,8 @@
 				"vision": "Vision",
 				"zeal": "Zeal"
 			},
-			"bloodpool": "Blood Pool",	
-			"perturn": "Blood per turn",			
+			"bloodpool": "Blood Pool",
+			"perturn": "Blood per turn",
 			"bearing": "Bearing",
 			"renown": "Renown",
 			"glory": "Glory",
@@ -981,21 +981,21 @@
 		"spheres": {
 			"spheres": "Spheres",
 			"rotes": "Rotes",
-			"correspondence": "Correspondence",			
+			"correspondence": "Correspondence",
 			"entropy": "Entropy",
 			"forces": "Forces",
 			"life": "Life",
 			"matter": "Matter",
 			"mind": "Mind",
-			"prime": "Prime",			
-			"spirit": "Spirit",			
+			"prime": "Prime",
+			"spirit": "Spirit",
 			"time": "Time",
 
 			"data": "Data",
 			"entropicstate": "Entropic State Control",
 			"forcebased": "Force-Based Paraphysics",
 			"lifescience": "Life Sciences",
-			"material": "Material Sciences",	
+			"material": "Material Sciences",
 			"psychodynamics": "Psychodynamics",
 			"primal": "Primal Utility Theory",
 			"dimensional": "Dimensional Science",
@@ -1063,7 +1063,7 @@
 			"woundlevel": "Wound level",
 			"selectability": "Select ability",
 			"selectattribute": "Select attribute",
-			"specialty": "Use speciality",			
+			"specialty": "Use speciality",
 			"select": "Select",
 			"noneselect": "Nothing selected",
 			"custom": "Secondary ability",
@@ -1101,7 +1101,7 @@
 				"tempgeneration": "Temporary generation"
 			},
 			"combat": {
-				"conditions": "Conditions",				
+				"conditions": "Conditions",
 				"natural": "Natural weapons",
 				"melee": "Melee weapons",
 				"ranged": "Ranged weapons",
@@ -1458,7 +1458,7 @@
 			}
 		},
 		"dice": {
-			"activate": "Roll to activate",			
+			"activate": "Roll to activate",
 			"rollattack": "Roll attack",
 			"rolldamage": "Roll damage",
 			"roll": "Roll",
@@ -1476,9 +1476,9 @@
 			"rollingsoak": "Rolling soak",
 			"rollingremainactive": "Roll to remain active",
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
-			"addedautosucc": "The roll add {0} automatic successes"			
+			"addedautosucc": "The roll add {0} automatic successes"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Save",
 			"reset": "Reset",
 			"close": "Close",
@@ -1492,7 +1492,7 @@
 			"nonelisted": "None listed",
 			"aretecasting": {
 				"castspell": "Cast spell",
-				"castingspell": "Casting spell",	
+				"castingspell": "Casting spell",
 				"casting": "Casting",
 				"modifierarete": "Arete modifier",
 				"castingtype": "Spell type",
