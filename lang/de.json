@@ -1,4 +1,26 @@
 {
+    "TYPES.Actor.Changeling": "Changeling the Dreaming",
+	"TYPES.Actor.Changing Breed": "Changing Breed",
+	"TYPES.Actor.Demon": "Demon the Fallen",
+	"TYPES.Actor.Hunter": "Hunter the Reckoning",
+	"TYPES.Actor.Mage": "Mage the Ascention",
+	"TYPES.Actor.Mortal": "Mortal sheet",
+	"TYPES.Actor.Vampire": "Vampire the Masquerade",
+	"TYPES.Actor.Wraith": "Wraith the Oblivion",
+	"TYPES.Actor.Werewolf": "Werewolf the Apocalypse",
+	"TYPES.Actor.Creature": "Creature sheet",
+    "TYPES.Actor.Spirit": "Spirit (deprecated",
+    "TYPES.Item.Bonus": "Bonus",
+	"TYPES.Item.Experience": "Experience Points",
+	"TYPES.Item.Feature": "Feature",
+	"TYPES.Item.Trait": "Trait",
+	"TYPES.Item.Power": "Power",
+	"TYPES.Item.Rote": "Rote",
+	"TYPES.Item.Armor": "Armor",
+	"TYPES.Item.Fetish": "Fetish",
+	"TYPES.Item.Item": "Item",
+	"TYPES.Item.Melee Weapon": "Natural/Melee Weapon",
+	"TYPES.Item.Ranged Weapon": "Ranged Weapon",
     "wod": {
         "system": {
             "world": "Spiel aktualisiert!",
@@ -12,8 +34,29 @@
             "vampire": "Vampire die Maskerade",
             "werewolf": "Werwolf die Apokalypse",
             "mage": "Magus die Erleuchtung",
-            "wraith": "Wraith das Vergessen"
+            "wraith": "Wraith das Vergessen",
+            "breed": "Changing Breed",
+			"creature": "Creature",
+			"mortal": "Mortal"
         },
+        "sheets": {
+			"mortal": "Mortal sheet",
+			"werewolf": "Werewolf sheet",
+			"mage": "Mage sheet",
+			"vampire": "Vampire sheet",
+			"changeling": "Changeling sheet",
+			"hunter": "Hunter sheet",
+			"demon": "Demon sheet",
+			"wraith": "Wraith sheet",
+			"breed": "Changing breed sheet",
+			"creature": "Creature sheet",
+			"spirit": "Spirit sheet (deprecated)",
+			"items": "Item sheet",
+			"powers": "Powers",
+			"equipment": "Equipment",
+			"sheets": "Sheets",
+			"npc": "NPC"
+		},
         "era": {
             "modern": "Moderne",
             "victorian": "Viktorianische Zeit",
@@ -64,6 +107,12 @@
             "usesplatfonthint": "Mit dieser Einstellung schaltest Du den speziellen Schriftstil aus, der von den verschiedenen Bögen verwendet wird",
             "usesworldanvil": "World Anvil Links verwenden",
             "usesworldanvilhint": "Mit dieser Einstellung wird ein Feld in der Bio angezeigt, in dem Du den Link zur World Anvil Seite des Bogens speichern kannst",
+            "demonsettings": "Demon the Fallen Settings",
+			"demonsettingshint": "World settings used in Demon the Fallen.",
+			"demoncreateforms": "Create apocalyptic forms automatically",
+			"demoncreateformshint": "When creating a demon sheet create the apocalyptic forms automatically on the actor.",
+			"demonsystemsettings": "Ability list setting",
+			"demonsystemsettingshint": "According to what setting are the list of abilities taken from",
             "huntersettings": "Jäger Einstellungen",
             "huntersettingshint": "Verwendete Einstellungen in Jäger die Vergeltung",
             "werewolfsettings": "Werwolf die Apokalypse Einstellungen",
@@ -92,7 +141,9 @@
             "diceruleshint": "Wie das System das Würfeln handhabt.",
             "rollsettings": "Wurf einstellungen.",
             "erasettings": "Ära Einstellungen",
-            "erasettingshint": "Die Einstellungen der Welt in Bezug auf das Zeitalter"
+            "erasettingshint": "Die Einstellungen der Welt in Bezug auf das Zeitalter",
+            "darkmodesetting": "Darkmode",
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
         },
         "types": {
             "mortal": "Sterbliche",
@@ -118,6 +169,7 @@
             "disciplinepower": "Disziplin Kraft",
             "disciplinepath": "Disziplin Pfad",
             "disciplinepathpower": "Disziplin Pfad Kraft",
+            "combination": "Combination Discipline",
             "art": "Künste",
             "artpower": "Kunstkraft",
             "edge": "Edge",
@@ -144,13 +196,12 @@
             "othertraits": "Sonstige Eigenschaften",
             "apocalypticform": "Apokalyptische Form",
             "passion": "Leidenschaft",
-            "fetter": "Fessel"
+            "fetter": "Fessel",
+            "wyrd": "Wyrd"
         },
         "tab": {
             "bio": "Biografie",
             "core": "Kern",
-            "normal": "Normal",
-            "specialities": "Spezialitäten",
             "combat": "Kampf",
             "gear": "Ausrüstung",
             "notes": "Informationen",
@@ -198,7 +249,10 @@
                 "nagah": "Nagah",
                 "nuwisha": "Nuwisha",
                 "ratkin": "Ratkin",
-                "rokea": "Rokea"
+                "rokea": "Rokea",
+				"apis": "Apis",
+				"camazotz": "Camazotz",
+				"grondr": "Grondr"
             },
             "breed": "Brut",
             "breedname": {
@@ -220,7 +274,9 @@
                 "vasuki": "Vasuki",
                 "latrani": "Latrani",
                 "rodens": "Rodens",
-                "squamus": "Squamus"
+                "squamus": "Squamus",
+                "bos": "Bos",
+				"scrofa": "Scrofa"
             },
             "clan": "Clan",
             "auspice": "Vorzeichen",
@@ -248,7 +304,10 @@
                 "kali": "Kali (Winter)",
                 "brightwaters": "Klarwasser",
                 "dimwater": "Trübwasser",
-                "darkwater": "Dunkelwasser"
+                "darkwater": "Dunkelwasser",
+                "twilight": "Twilight",
+				"solar": "Solar",
+				"lunar": "Lunar"
             },
             "aspect": "Aspekt",
             "aspectname": {
@@ -566,6 +625,8 @@
             },
             "creature": {
                 "chimera": "Chimäre",
+                "familiar": "Familiar",
+				"construct": "Construct",
                 "spirit": "Geist",
                 "warwolves": "Kriegswolf",
                 "anurana": "Anurana",
@@ -614,6 +675,7 @@
             "notalents": "Keine Talente ausgewählt",
             "noskills": "Keine Fähigkeiten ausgewählt",
             "noknowledges": "Keine Kenntnisse ausgewählt",
+
             "alertness": "Wahrnehmung",
             "art": "Kunst",
             "athletics": "Sportlichkeit",
@@ -631,6 +693,7 @@
             "primalurge": "Instinkt",
             "streetwise": "Szenekenntnis",
             "subterfuge": "Ausflüchte",
+
             "animalken": "Tierkunde",
             "archery": "Bogenschießen",
             "commerce": "Handel",
@@ -649,6 +712,7 @@
             "security": "Sicherheit",
             "stealth": "Heimlichkeit",
             "survival": "Überleben",
+
             "academics": "Geisteswissenschaften",
             "bureaucracy": "Bürokratie",
             "computer": "Computer",
@@ -935,7 +999,13 @@
             "ungeziefer": "Ungeziefer",
             "bandia": "Bandia",
             "kiforu": "Kiforu",
-            "faru": "Faru"
+            "faru": "Faru",
+            "minotaur": "Minotaur",
+			"aurochs": "Aurochs",
+			"apterous": "Apterous",
+			"megachiroptera": "Megachiroptera",
+			"aperius": "Aperius",
+			"daeodon": "Daeodon"
         },
         "power": {
             "rank0": "Du hast Rang 0, also sind keine Gaben erlaubt",
@@ -954,6 +1024,7 @@
             "activegift": "Aktive Gabe",
             "activerote": "Aktive Zauberformel",
             "disciplines": "Disziplinen",
+            "combinations": "Combination disciplines",
             "paths": "Pfade",
             "rituals": "Rituale",
             "unsorteddisciplines": "Hier sind alle unsortierten Disziplinen, die eine ausgewählte Disziplin erhalten müssen. Klicken Sie auf die Überschrift, um sie zu zuweisen.",
@@ -987,6 +1058,7 @@
             "prime": "Usprung",
             "spirit": "Geist",
             "time": "Zeit",
+
             "data": "Daten",
             "entropicstate": "Kontrolle des entropischen Zustands",
             "forcebased": "Kräftebasierte Paraphysik",
@@ -996,6 +1068,7 @@
             "primal": "Ursprüngliche Nützlichkeit",
             "dimensional": "Dimensionale Wissenschaft",
             "temporalscience": "Temporäre Wissenschaft",
+
             "coincidental": "Zufällig",
             "vulgar": "Vulgär",
             "coincidentalspell": "Zufälliger Zauberspruch",
@@ -1090,6 +1163,7 @@
             "rank": "Rang",
             "other": "Andere",
             "both": "Beide",
+            "nochange": "No Change",
             "bio": {
                 "wronggeneration": "Keine gültige Generation",
                 "wrongtempgeneration": "Kann Generation nicht über 4 senken",
@@ -1215,7 +1289,9 @@
                 "multiplier": "Bewegungsmultiplikator",
                 "abilities": {
                     "athletics": "Athletik Bonus"
-                }
+                },
+                "savesuccess": "Bonus changes saved",
+				"savefail": "Failed so save the bonus"
             },
             "new": {
                 "notfound": "Gegenstands Typ existiert nicht",
@@ -1241,6 +1317,7 @@
                 "treasure": "Neuer Schatz",
                 "bonus": "Neuer Bonus",
                 "attributebonus": "Neuer Attributsbonus",
+                "apocalypticform": "New apocalyptic form",
                 "attributedicebonus": "Neuer Attributwürfelbonus",
                 "attributediff": "Neuer Schwierigkeitsbonus für Attribute",
                 "attributesucc": "Neues Attribut automatischer Erfolgsbonus",
@@ -1254,6 +1331,7 @@
                 "disciplinepower": "Neue Disziplins Kraft",
                 "disciplinepath": "Neuer Disziplins Pfad",
                 "disciplinepathpower": "Neue Disziplins Pfadkraft",
+                "combination": "New combination discipline",
                 "ritual": "Neues Ritual",
                 "edge": "Neuer Edge",
                 "edgepower": "Neue Edge Kraft",
@@ -1290,6 +1368,7 @@
                 "othertraits": "Andere Eigenschaft hinzufügen",
                 "treasure": "Schatz hinzufügen",
                 "bonus": "Bonus hinzufügen",
+                "apocalypticform": "Add apocalyptic form",
                 "experience": "Erfahrung hinzufügen",
                 "spentexp": "hinzufügen von gespendeter Erfahrung",
                 "gift": "Gabe hinzufügen",
@@ -1297,9 +1376,12 @@
                 "disciplinepower": "Disziplinskraft hinzufügen",
                 "disciplinepath": "Disziplinspfad hinzufügen",
                 "disciplinepathpower": "Disziplinspfadkraft hinzufügen",
+                "combination": "Add combination discipline",
                 "ritual": "Ritual hinzufügen",
                 "edge": "Edge hinzufügen",
                 "edgepower": "Edgekraft hinzufügen",
+                "lore": "Add lore",
+				"lorepower": "Add lore power",
                 "art": "Kunst hinzufügen",
                 "artpower": "Kunstkraft hinzufügen",
                 "sliver": "Band hinzufügen",
@@ -1403,6 +1485,7 @@
                 "othertraits": "Andere Eigenschaft entfernen",
                 "treasure": "Schatz entfernen",
                 "bonus": "entferne Bonus",
+                "apocalypticform": "Remove apocalyptic form",
                 "power": "Entferne Kraft",
                 "device": "Entferne Gerät",
                 "talisman": "Entferne Talisman",
@@ -1531,7 +1614,8 @@
                 "selectsphere": "Zuerst müssen die Sphären ausgewählt werden",
                 "keepdifficulty": "Beibehaltung des Schwierigkeitsgrads",
                 "keepdiff": "Schwierigkeit beibehalten",
-                "keepdiffdesc": "Die Schwierigkeit wird beibehalten, wenn Sie den erweiterten Wurf anwenden, aber die Schwierigkeit wird nicht für jeden Wurf erhöht."
+                "keepdiffdesc": "Die Schwierigkeit wird beibehalten, wenn Sie den erweiterten Wurf anwenden, aber die Schwierigkeit wird nicht für jeden Wurf erhöht.",
+                "difficultylimit": "Difficulty can never be higher or lower than the base difficulty +3/-3."
             },
             "checkfrenzy": {
                 "headline": "Würfel auf Raserei",
@@ -1567,7 +1651,9 @@
                 "sprayresult": "Zielt auf [0] Ziele und trifft [1]",
                 "selectedtargets": "Anzahl der ausgewählten Ziele",
                 "firemodes": "Automatische Feuermodi",
-                "numbertargets": "Anzahl der Ziele"
+                "numbertargets": "Anzahl der Ziele",
+                "nomeleeweapon": "No melee weapon secondary abilities listed on sheet",
+				"norangedweapon": "No ranged weapon secondary abilities listed on sheet"
             },
             "soak": {
                 "missingdamage": "Sie müssen eine Schadensart auswählen",
@@ -1582,7 +1668,10 @@
                 "noarttype": "Kunsttyp nicht gewählt",
                 "shiftnightmaredice": "wechsel zu Alptraumwürfel",
                 "notset": "Nicht festgelegt",
-                "selectpower": "Wähle Kraft mit der verbunden wird"
+                "selectpower": "Wähle Kraft mit der verbunden wird",
+                "disciplineneeded": "Disciplines needed",
+				"savecombination": "Save combination discipline",
+				"removecombination": "Remove combination discipline"
             },
             "attribute": {
                 "speciality": "Spezialgebiet",
@@ -1592,12 +1681,16 @@
                 "techonocracy": "Technokratie-Version verwenden"
             },
             "general": {
-                "selectattribute": "Wählen das zu verwendende Attribut"
+                "selectattribute": "Wählen das zu verwendende Attribut",
+                "numberdiceshint": "To be able to roll more than 10 dices as once, fill in the number in the box above."
             },
             "bonus": {
                 "chosenattribute": "Wähle Attribut",
                 "movement": "Art der Bewegung",
-                "bonusvalue": "Bonuswert"
+                "name": "Name",
+				"type": "Type",
+                "bonusvalue": "Bonuswert",
+                "bonuses": "Bonuses"
             },
             "variant": {
                 "sheettype": "Wähle Bogen Typ",
@@ -1608,7 +1701,8 @@
                 "wraith": "Allgemeiner Wraith",
                 "creature": "Allgemeines Lebewesen",
                 "info": "Mit dieser Einstellung wird festgelegt, welche Variante des Bogens verwenden werden soll.",
-                "description": "Diese Einstellung kann in den Einstellungen des Bogens geändert werden"
+                "description": "Diese Einstellung kann in den Einstellungen des Bogens geändert werden",
+                "lostbreeds": "Lost breeds"
             }
         }
     }

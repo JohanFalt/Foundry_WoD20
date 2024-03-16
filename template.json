@@ -8,9 +8,9 @@
 			"Hunter",
 			"Mage",
 			"Mortal",
-			"Spirit",
 			"Vampire",
 			"Wraith",
+			"Spirit",
 			"Werewolf"
 		],
 		"templates": {
@@ -1543,58 +1543,7 @@
 						"label": "wod.advantages.essence"
 					}				
 				}
-			},
-			"spirit": {
-				"settings": {
-					"hasrage": true,
-					"hasgnosis": true,
-					"haswillpower": true,					
-					"haspath": false,
-					"hasbloodpool": false,
-					"hasvirtue": false,
-					"hasglamour": false,
-					"hasbanality": false,
-					"hasnightmare": false,
-					"hasessence": true,
-					"version": "",
-					"usesplatfont": true,					
-					"powers": {
-						"hasdisciplines": false,
-						"hasgifts": true,
-						"hasarts": false,
-						"hascharms": true,
-						"haspowers": false
-					}
-				},
-				"advantages": {
-					"rage": {
-						"permanent": 0,
-						"temporary": 0,
-						"max": 10,
-						"roll": 0,
-						"label": "wod.advantages.rage"
-					},
-					"gnosis": {
-						"permanent": 0,
-						"temporary": 0,
-						"max": 10,
-						"roll": 0,
-						"label": "wod.advantages.gnosis"
-					},
-					"willpower": {
-						"permanent": 0,
-						"temporary": 0,
-						"max": 10,
-						"roll": 0,
-						"label": "wod.advantages.willpower"
-					},
-					"essence": {
-						"temporary": 10,
-						"max": 10,
-						"label": "wod.advantages.essence"
-					}
-				}
-			}
+			}		
 		},
 		"Mortal": {
 			"templates": [
@@ -1682,12 +1631,6 @@
 				"mortal",
 				"creature"
 			]
-		},
-		"Spirit": {
-			"templates": [
-				"base",
-				"spirit"
-			]
 		}
 	},
 	"Item": {
@@ -1718,7 +1661,8 @@
 				"reference": "",
 				"description": "",
 				"details": "",
-				"property": []
+				"property": [],
+				"bonuslist": []
 			},
 			"feature": {
 				"type": "",

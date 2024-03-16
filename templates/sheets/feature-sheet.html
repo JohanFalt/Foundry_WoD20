@@ -102,6 +102,10 @@
 					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 				</div>			
 			</div>
+
+			{{#if (eqAnyNot data.system.type "wod.types.bloodbound" "wod.types.boon")}}
+				{{> "systems/worldofdarkness/templates/sheets/parts/item_bonus.html"}}
+			{{/if}}
 			
 			{{#if (ne data.system.type "wod.types.bloodbound")}}
 				<!-- description -->
@@ -117,7 +121,7 @@
 						{{/if}}
 					</div>
 				</div>
-			{{/if}}	
+			{{/if}}				
 
 			<!-- system -->
 			<div class="dialog-area">			

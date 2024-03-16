@@ -1,4 +1,4 @@
-{{#if (ne actor.type config.sheettype.spirit)}}
+{{#if (ne actor.system.settings.variant  (lowercase config.sheettype.spirit))}}
     <div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize 'wod.labels.combat.conditions'}}</span></div>
 
     <div class="info-container">

@@ -144,6 +144,16 @@ export class Rote {
         if (diff > -1) {
             this.baseDifficulty = diff;
             this.totalDifficulty = parseInt(this.baseDifficulty) + parseInt(this.sumSelectedDifficulty) + parseInt(this.difficultyModifier) + parseInt(this.quintessence);
+
+            if (this.totalDifficulty > this.baseDifficulty + 3)
+            {
+                this.totalDifficulty = this.baseDifficulty + 3;
+            }
+            if (this.totalDifficulty < this.baseDifficulty - 3)
+            {
+                this.totalDifficulty = this.baseDifficulty - 3;
+            }
+
             this.shownDifficulty = this.totalDifficulty;
 
             if (this.totalDifficulty > 10) {

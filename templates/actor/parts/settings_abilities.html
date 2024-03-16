@@ -100,7 +100,7 @@
     </div>
 </div>
 
-{{#if (eqAnyNot actor.type config.sheettype.spirit config.sheettype.vampire)}}
+{{#if (ne actor.type config.sheettype.vampire)}}
     <div class="sheet-area flex-columns">
         <div class="clearareaBox">
             <div class="pullLeft headlineNormal" style="line-height: 26px;">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>

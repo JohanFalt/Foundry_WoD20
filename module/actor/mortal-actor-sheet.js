@@ -240,6 +240,10 @@ export class MortalActorSheet extends ActorSheet {
 			.click(this._onItemDelete.bind(this));
 
 		html
+            .find('.item-property')
+            .click(this._onProperty.bind(this));
+
+		html
 			.find(".clearPower")
 			.click(this._clearPower.bind(this));
 
@@ -829,6 +833,7 @@ export class MortalActorSheet extends ActorSheet {
 					system: {
 						isnatural: false,
 						isweapon: true,
+						conceal: "NA",
 						era: this.actor.system.settings.era
 					}
 				};
@@ -840,6 +845,7 @@ export class MortalActorSheet extends ActorSheet {
 					type: "Ranged Weapon",
 					system: {
 						isweapon: true,
+						conceal: "NA",
 						era: this.actor.system.settings.era
 					}
 				};
@@ -881,6 +887,8 @@ export class MortalActorSheet extends ActorSheet {
 				name = game.i18n.localize("wod.labels.new.flaw");
 				itemkind = "wod.types.flaw";
 			}
+			
+			
 
 			itemData = {
 				name: name,
@@ -1028,6 +1036,18 @@ export class MortalActorSheet extends ActorSheet {
 					system: {
 						label: `${game.i18n.localize("wod.labels.new.fetter")}`,
 						type: "wod.types.fetter"
+					}
+				};
+			}
+			if (type == "apocalypticform") {
+				found = true;
+				itemData = {
+					name: `${game.i18n.localize("wod.labels.new.apocalypticform")}`,
+					type: itemtype,
+					data: {
+						iscreated: true,
+						level: 0,
+						type: "wod.types.apocalypticform"
 					}
 				};
 			}
@@ -1209,6 +1229,35 @@ export class MortalActorSheet extends ActorSheet {
 		// If removing an item you need to check if there are bonuses to it and remove them as well.
 		await ItemHelper.removeConnectedItems(this.actor, item);
 		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);        
+	}
+
+	async _onProperty(event) {
+		event.preventDefault();
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const type = dataset.type;
+		const itemId = dataset.itemid;
+		
+		if (type == "bonus") {
+			let item = await this.actor.getEmbeddedDocument("Item", itemId);
+			const itemData = duplicate(item);
+
+			let bonus = {
+				name: game.i18n.localize("wod.labels.new.bonus"),
+				settingtype: "",
+				type: "",
+				value: 0,
+				isactive: item.system.isactive
+			}
+
+			itemData.system.bonuslist.push(bonus);
+			await item.update(itemData);
+
+			return;
+		}	
+
+		return;		
 	}
 
 	async _clearPower(event) {

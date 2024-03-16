@@ -31,9 +31,9 @@ function _GetDiceColors(actor) {
 	else if (actor.type == CONFIG.worldofdarkness.sheettype.wraith) { 
 		_diceColor = "death_";
 	}
-	else if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) { 
-		_diceColor = "yellow_";
-	}		
+	// else if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) { 
+	// 	_diceColor = "yellow_";
+	// }		
 	else {
 		_diceColor = "black_";
 	}

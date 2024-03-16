@@ -53,9 +53,9 @@
                     + {{object.abilityName}} ({{object.abilityValue}})
                 {{/if}}
                 
-                {{#iff object.bonus ">" 0}} 
+                {{#if (gt object.bonus 0)}} 
                     + {{object.bonus}}
-                {{/iff}}
+                {{/if}}
             </div>
 
             {{#if object.hasSpeciality}}
@@ -72,7 +72,7 @@
                 {{#if (eq object.weaponType "Melee Weapon")}}
                     <div class="infobox centerText">
                         {{#if (eq config.meleeAbilities.length 0)}}
-                            LANG: No melee weapon secondary abilities listed on sheet
+                            {{localize "wod.dialog.weapon.nomeleeweapon"}}
                         {{/if}}
                         {{#each config.meleeAbilities as |ability key|}}
                             <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.name}}</button>
@@ -83,7 +83,7 @@
                 {{#if (eq object.weaponType "Ranged Weapon")}}
                     <div class="infobox centerText">
                         {{#if (eq config.rangedAbilities.length 0)}}
-                            LANG: No ranged weapon secondary abilities listed on sheet
+                            {{localize "wod.dialog.weapon.norangedweapon"}}
                         {{/if}}
                         {{#each config.rangedAbilities as |ability key|}}
                             <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.name}}</button>

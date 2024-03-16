@@ -1,4 +1,26 @@
 {
+	"TYPES.Actor.Changeling": "Changeling the Dreaming",
+	"TYPES.Actor.Changing Breed": "Changing breed",
+	"TYPES.Actor.Demon": "Demon the Fallen",
+	"TYPES.Actor.Hunter": "Hunter the Reckoning",
+	"TYPES.Actor.Mage": "Mage the Ascention",
+	"TYPES.Actor.Mortal": "Mortal sheet",
+	"TYPES.Actor.Vampire": "Vampire the Masquerade",
+	"TYPES.Actor.Wraith": "Wraith the Oblivion",
+	"TYPES.Actor.Werewolf": "Werewolf the Apocalypse",
+	"TYPES.Actor.Creature": "Creature sheet",
+	"TYPES.Actor.Spirit": "Spirit (deprecated)",
+	"TYPES.Item.Bonus": "Bonus",
+	"TYPES.Item.Experience": "Experience Points",
+	"TYPES.Item.Feature": "Feature",
+	"TYPES.Item.Trait": "Trait",
+	"TYPES.Item.Power": "Power",
+	"TYPES.Item.Rote": "Rote",
+	"TYPES.Item.Armor": "Armor",
+	"TYPES.Item.Fetish": "Fetish",
+	"TYPES.Item.Item": "Item",
+	"TYPES.Item.Melee Weapon": "Natural/Melee Weapon",
+	"TYPES.Item.Ranged Weapon": "Ranged Weapon",
 	"wod": {
 		"system": {
 			"world": "Mundo atualizado!",
@@ -12,7 +34,28 @@
 			"vampire": "Vampire the Masquerade",
 			"werewolf": "Werewolf the Apocalypse",
 			"mage": "Mage the Ascension",
-			"wraith": "Wraith the Oblivion"
+			"wraith": "Wraith the Oblivion",
+			"breed": "Changing Breed",
+			"creature": "Creature",
+			"mortal": "Mortal"
+		},
+		"sheets": {
+			"mortal": "Mortal sheet",
+			"werewolf": "Werewolf sheet",
+			"mage": "Mage sheet",
+			"vampire": "Vampire sheet",
+			"changeling": "Changeling sheet",
+			"hunter": "Hunter sheet",
+			"demon": "Demon sheet",
+			"wraith": "Wraith sheet",
+			"breed": "Changing breed sheet",
+			"creature": "Creature sheet",
+			"spirit": "Spirit sheet (deprecated)",
+			"items": "Item sheet",
+			"powers": "Powers",
+			"equipment": "Equipment",
+			"sheets": "Sheets",
+			"npc": "NPC"
 		},
 		"era": {
 			"modern": "Moderna",
@@ -64,6 +107,12 @@
 			"usesplatfonthint": "With this setting you turn off the special font-style used by the different sheet on a world level.",
 			"usesworldanvil": "Use World Anvil links",
 			"usesworldanvilhint": "With this setting you will show a box in Bio where you can store the link to that sheet's World Anvil page.",
+			"demonsettings": "Demon the Fallen Settings",
+			"demonsettingshint": "World settings used in Demon the Fallen.",
+			"demoncreateforms": "Create apocalyptic forms automatically",
+			"demoncreateformshint": "When creating a demon sheet create the apocalyptic forms automatically on the actor.",
+			"demonsystemsettings": "Ability list setting",
+			"demonsystemsettingshint": "According to what setting are the list of abilities taken from",
 			"huntersettings": "Hunter the Reckoning Settings",
 			"huntersettingshint": "World settings used in Hunter the Reckoning.",
 			"werewolfsettings": "Werewolf the Apocalypse Settings",
@@ -92,7 +141,9 @@
 			"diceruleshint": "How the system handles rolling the dices.",
 			"rollsettings": "Roll settings",
 			"erasettings": "Era settings",
-			"erasettingshint": "The world settings regards to eras"
+			"erasettingshint": "The world settings regards to eras",
+			"darkmodesetting": "Darkmode",
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -118,6 +169,7 @@
 			"disciplinepower": "Poder da Disciplina",
 			"disciplinepath": "Caminho da Disciplina",
 			"disciplinepathpower": "Caminho do Poder da Disciplina",
+			"combination": "Combination Discipline",
 			"art": "Arte",
 			"artpower": "Poder da Arte",
 			"edge": "Edge",
@@ -144,13 +196,12 @@
 			"othertraits": "Outros Traços",
 			"apocalypticform": "Apocalyptic Form",
 			"passion": "Passion",
-			"fetter": "Fetter"
+			"fetter": "Fetter",
+			"wyrd": "Wyrd"
 		},
 		"tab": {
 			"bio": "Biografia",
 			"core": "Principal",
-			"normal": "View as Normal",
-			"specialities": "View Specialities",
 			"combat": "Combate",
 			"gear": "Equipamento",
 			"notes": "Notas",
@@ -185,7 +236,7 @@
 			"worldanvil": "World Anvil",
 			"worldanvillink": "World Anvil Page",
 			"noworldanvillink": "No World Anvil link",
-			"changingbreed": "Changing Breed",
+			"changingbreed": "Changing breed",
 			"noshiftertype": "No shifter type has been selected in Settings tab",
 			"feraname": {
 				"ajaba": "Ajaba",
@@ -198,7 +249,10 @@
 				"nagah": "Nagah",
 				"nuwisha": "Nuwisha",
 				"ratkin": "Ratkin",
-				"rokea": "Rokea"
+				"rokea": "Rokea",
+				"apis": "Apis",
+				"camazotz": "Camazotz",
+				"grondr": "Grondr"
 			},
 			"breed": "Raça",
 			"breedname": {
@@ -220,8 +274,10 @@
 				"vasuki": "Vasuki",
 				"latrani": "Latrani",
 				"rodens": "Rodens",
-				"squamus": "Squamus"
-			},
+				"squamus": "Squamus",
+				"bos": "Bos",
+				"scrofa": "Scrofa"
+			},			
 			"clan": "Clã",
 			"auspice": "Augúrio",
 			"auspicename": {
@@ -248,9 +304,12 @@
 				"kali": "Kali",
 				"brightwaters": "Brightwaters",
 				"dimwater": "Dimwater",
-				"darkwater": "Darkwater"
+				"darkwater": "Darkwater",
+				"twilight": "Twilight",
+				"solar": "Solar",
+				"lunar": "Lunar"
 			},
-			"aspect": "Aspect",
+			"aspect": "Aspect",	
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -327,7 +386,7 @@
 				"unktehi": "Unktehi"
 			},
 			"jamak": "Jamak",
-			"yava": "Yava",
+			"yava": "Yava",	
 			"werewolf": {
 				"blackfuries": "Fúrias Negras",
 				"bonegnawer": "Roedores de Ossos",
@@ -379,7 +438,7 @@
 				"cleargeneration": "Clear temporary generation"
 			},
 			"mage": {
-				"affiliation": "Affiliation",
+				"affiliation": "Affiliation",			
 				"essence": "Essence",
 				"sect": "Sect",
 				"affinitysphere": "Affinity Sphere",
@@ -566,6 +625,8 @@
 			},
 			"creature": {
 				"chimera": "Chimera",
+				"familiar": "Familiar",
+				"construct": "Construct",
 				"spirit": "Spirit",
 				"warwolves": "War wolves",
 				"anurana": "Anurana",
@@ -615,7 +676,7 @@
 			"noskills": "No skills selected",
 			"noknowledges": "No knowledges selected",
 
-			"alertness": "Prontidão",
+			"alertness": "Prontidão",			
 			"art": "Arte",
 			"athletics": "Esportes/Atlet.",
 			"awareness": "Consciência",
@@ -625,11 +686,11 @@
 			"expression": "Expressão",
 			"intimidation": "Intimidação",
 			"intuition": "Intuição",
-			"kenning": "Kenning",
+			"kenning": "Kenning",			
 			"leadership": "Liderança",
 			"legerdemain": "Legerdemain",
 			"persuasion": "Persuasion",
-			"primalurge": "Inst. Primitivo",
+			"primalurge": "Inst. Primitivo",			
 			"streetwise": "Manha/Ruas",
 			"subterfuge": "Lábia/Subterf.",
 
@@ -644,7 +705,7 @@
 			"larceny": "Crimes",
 			"martialarts": "Artes Marciais",
 			"meditation": "Meditação",
-			"melee": "Corpo a Corpo",
+			"melee": "Corpo a Corpo",	
 			"performance": "Performance",
 			"research": "Pesquisa",
 			"ride": "Montaria",
@@ -653,7 +714,7 @@
 			"survival": "Sobrevivência",
 
 			"academics": "Acadêmicos",
-			"bureaucracy": "Burocracia",
+			"bureaucracy": "Burocracia",			
 			"computer": "Computador",
 			"cosmology": "Cosmologia",
 			"culture": "Cultura",
@@ -675,7 +736,7 @@
 			"science": "Ciência",
 			"technology": "Tecnologia",
 			"theology": "Teologia"
-		},
+		},		
 		"health": {
 			"health": "Saúde",
 			"bruised": "Escoriado",
@@ -730,8 +791,8 @@
 				"vision": "Vision",
 				"zeal": "Zeal"
 			},
-			"bloodpool": "Blood Pool",
-			"perturn": "Blood per turn",
+			"bloodpool": "Blood Pool",	
+			"perturn": "Blood per turn",			
 			"bearing": "Bearing",
 			"renown": "Renome",
 			"glory": "Glória",
@@ -938,7 +999,13 @@
 			"ungeziefer": "Ungeziefer",
 			"bandia": "Bandia",
 			"kiforu": "Kiforu",
-			"faru": "Faru"
+			"faru": "Faru",
+			"minotaur": "Minotaur",
+			"aurochs": "Aurochs",
+			"apterous": "Apterous",
+			"megachiroptera": "Megachiroptera",
+			"aperius": "Aperius",
+			"daeodon": "Daeodon"
 		},
 		"power": {
 			"rank0": "Você é um filhote, então ainda não pode ter dons",
@@ -957,6 +1024,7 @@
 			"activegift": "Dom ativo",
 			"activerote": "Active rote",
 			"disciplines": "Disciplinas",
+			"combinations": "Combination disciplines",
 			"paths": "Paths",
 			"rituals": "Rituais",
 			"unsorteddisciplines": "Here is all unsorted discipline powers which needs to get a selected Discipline. Click on the headline to sort one.",
@@ -981,21 +1049,21 @@
 		"spheres": {
 			"spheres": "Spheres",
 			"rotes": "Rotes",
-			"correspondence": "Correspondence",
+			"correspondence": "Correspondence",			
 			"entropy": "Entropy",
 			"forces": "Forces",
 			"life": "Life",
 			"matter": "Matter",
 			"mind": "Mind",
-			"prime": "Prime",
-			"spirit": "Spirit",
+			"prime": "Prime",			
+			"spirit": "Spirit",			
 			"time": "Time",
 
 			"data": "Data",
 			"entropicstate": "Entropic State Control",
 			"forcebased": "Force-Based Paraphysics",
 			"lifescience": "Life Sciences",
-			"material": "Material Sciences",
+			"material": "Material Sciences",	
 			"psychodynamics": "Psychodynamics",
 			"primal": "Primal Utility Theory",
 			"dimensional": "Dimensional Science",
@@ -1063,7 +1131,7 @@
 			"woundlevel": "Nível da ferida",
 			"selectability": "Selecionar habilidade",
 			"selectattribute": "Selecionar atributo",
-			"specialty": "Usar Especialidade",
+			"specialty": "Usar Especialidade",			
 			"select": "Selecionar",
 			"noneselect": "Nada selecionado",
 			"custom": "Habilidade secundária",
@@ -1095,13 +1163,14 @@
 			"rank": "Rank",
 			"other": "Outro",
 			"both": "Both",
+			"nochange": "No Change",
 			"bio": {
 				"wronggeneration": "Not a valid generation",
 				"wrongtempgeneration": "Cannot lower generation past 4",
 				"tempgeneration": "Temporary generation"
 			},
 			"combat": {
-				"conditions": "Condições",
+				"conditions": "Condições",				
 				"natural": "Armas Naturais",
 				"melee": "Armas Corpo a Corpo",
 				"ranged": "Armas à Distância",
@@ -1220,7 +1289,9 @@
 				"multiplier": "Movement multiplier",
 				"abilities": {
 					"athletics": "Athletics bonus"
-				}
+				},
+				"savesuccess": "Bonus changes saved",
+				"savefail": "Failed so save the bonus"
 			},
 			"new": {
 				"notfound": "Item type does not exist",
@@ -1246,6 +1317,7 @@
 				"treasure": "New treasure",
 				"bonus": "New bonus",
 				"attributebonus": "New attribute bonus",
+				"apocalypticform": "New apocalyptic form",
 				"attributedicebonus": "New attribute dice bonus",
 				"attributediff": "New attribute difficulty bonus",
 				"attributesucc": "New attribute automatic successes bonus",
@@ -1259,6 +1331,7 @@
 				"disciplinepower": "New discipline power",
 				"disciplinepath": "New discipline path",
 				"disciplinepathpower": "New discipline path power",
+				"combination": "New combination discipline",
 				"ritual": "New ritual",
 				"edge": "New edge",
 				"edgepower": "New edge power",
@@ -1295,6 +1368,7 @@
 				"othertraits": "Add other trait",
 				"treasure": "Add treasure",
 				"bonus": "Add bonus",
+				"apocalypticform": "Add apocalyptic form",
 				"experience": "Add experience",
 				"spentexp": "Add spent experience",
 				"gift": "Add gift",
@@ -1302,9 +1376,12 @@
 				"disciplinepower": "Add discipline power",
 				"disciplinepath": "Add discipline path",
 				"disciplinepathpower": "Add discipline path power",
+				"combination": "Add combination discipline",
 				"ritual": "Add ritual",
 				"edge": "Add edge",
 				"edgepower": "Add edge power",
+				"lore": "Add lore",
+				"lorepower": "Add lore power",
 				"art": "Add art",
 				"artpower": "Add art power",
 				"sliver": "Add sliver",
@@ -1408,6 +1485,7 @@
 				"othertraits": "Remove other trait",
 				"treasure": "Remove treasure",
 				"bonus": "Remove bonus",
+				"apocalypticform": "Remove apocalyptic form",
 				"power": "Remove power",
 				"device": "Remove device",
 				"talisman": "Remove talisman",
@@ -1456,7 +1534,7 @@
 			}
 		},
 		"dice": {
-			"activate": "Rolar para ativar",
+			"activate": "Rolar para ativar",			
 			"rollattack": "Rolar ataque",
 			"rolldamage": "Rolar dano",
 			"roll": "Rolagem",
@@ -1474,9 +1552,9 @@
 			"rollingsoak": "Rolling soak",
 			"rollingremainactive": "Rolar para se manter ativo",
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
-			"addedautosucc": "The roll add {0} automatic successes"
+			"addedautosucc": "The roll add {0} automatic successes"			
 		},
-		"dialog": {
+		"dialog": {	
 			"save": "Salvar",
 			"reset": "Redefinir",
 			"close": "Fechar",
@@ -1490,7 +1568,7 @@
 			"nonelisted": "None listed",
 			"aretecasting": {
 				"castspell": "Cast spell",
-				"castingspell": "Casting spell",
+				"castingspell": "Casting spell",	
 				"casting": "Casting",
 				"modifierarete": "Arete modifier",
 				"castingtype": "Spell type",
@@ -1536,7 +1614,8 @@
 				"selectsphere": "Need to select sphere's first",
 				"keepdifficulty": "Keeps the difficulty the same",
 				"keepdiff": "Keep difficulty",
-				"keepdiffdesc": "Keep difficulty is When you are to use extended casting but the difficulty are not to be increased for each roll."
+				"keepdiffdesc": "Keep difficulty is When you are to use extended casting but the difficulty are not to be increased for each roll.",
+				"difficultylimit": "Difficulty can never be higher or lower than the base difficulty +3/-3."
 			},
 			"checkfrenzy": {
 				"headline": "Rolar para Frenesi",
@@ -1572,7 +1651,9 @@
 				"sprayresult": "Mira em [0] alvos e acerta [1]",
 				"selectedtargets": "Número de alvos selecionados",
 				"firemodes": "Modos de disparo automático",
-				"numbertargets": "Número de alvos"
+				"numbertargets": "Número de alvos",
+				"nomeleeweapon": "No melee weapon secondary abilities listed on sheet",
+				"norangedweapon": "No ranged weapon secondary abilities listed on sheet"
 			},
 			"soak": {
 				"missingdamage": "Você precisa selecionar o tipo de dano",
@@ -1587,7 +1668,10 @@
 				"noarttype": "Art type not selected",
 				"shiftnightmaredice": "Shift to Nightmare dice",
 				"notset": "Not set",
-				"selectpower": "Select power to connect to"
+				"selectpower": "Select power to connect to",
+				"disciplineneeded": "Disciplines needed",
+				"savecombination": "Save combination discipline",
+				"removecombination": "Remove combination discipline"
 			},
 			"attribute": {
 				"speciality": "Especialidade",
@@ -1597,12 +1681,16 @@
 				"techonocracy": "Use Technocracy version"
 			},
 			"general": {
-				"selectattribute": "Selecione qual atributo usar"
+				"selectattribute": "Selecione qual atributo usar",
+				"numberdiceshint": "To be able to roll more than 10 dices as once, fill in the number in the box above."
 			},
 			"bonus": {
 				"chosenattribute": "Chosen attribute",
 				"movement": "Type of movement",
-				"bonusvalue": "Bonus value"
+				"name": "Name",
+				"type": "Type",
+				"bonusvalue": "Bonus value",
+				"bonuses": "Bonuses"
 			},
 			"variant": {
 				"sheettype": "Set sheet type",
@@ -1613,7 +1701,8 @@
 				"wraith": "General wraith",
 				"creature": "General creature",
 				"info": "This setting sets what variant of the sheet it is set to use.",
-				"description": "This setting can be changed under the sheet's settings"
+				"description": "This setting can be changed under the sheet's settings",
+				"lostbreeds": "Lost breeds"
 			}
 		}
 	}

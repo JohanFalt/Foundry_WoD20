@@ -7,10 +7,22 @@
   --color-shadow-primary: var(--main-creature-color);
 }
 
+/* .creature .chimera {
+  --main-full-color: var(--main-changeling-color);
+  --main-mid-color: var(--main-changeling-mid-color);
+  --main-dim-color: var(--main-changeling-dim-color);
+  --color-shadow-primary: var(--main-changeling-color);
+} */
+
 .creature:not(.noSplatFont) nav,
 .creature:not(.noSplatFont) .splatFont {
 	font-family: "werewolf", var(--main-font);
 }
+
+/* .creature:not(.noSplatFont) .chimera nav,
+.creature:not(.noSplatFont) .chimera .splatFont {
+	font-family: "changeling", var(--main-font);
+} */
 
 .creature:not(.noSplatFont) .headlineText {
 	font-size: 18px;
@@ -32,7 +44,8 @@
 
 .creature.langDE .attribute-headlineWidth,
 .creature.langPT .attribute-headlineWidth,
-.creature.langES .attribute-headlineWidth {
+.creature.langES .attribute-headlineWidth,
+.creature.langIT .attribute-headlineWidth {
   width: 35%;
 }
 

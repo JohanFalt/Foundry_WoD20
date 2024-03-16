@@ -80,6 +80,10 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html",
 
+		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_apis_background.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_camazotz_background.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_grondr_background.html",
+
 		"systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html",				
 		"systems/worldofdarkness/templates/actor/parts/changeling/treasure.html",
 
@@ -106,6 +110,10 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_rokea.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",		
 
+		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_apis.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_camazotz.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_grondr.html",	
+
 		"systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/magic_item.html",
 
@@ -130,7 +138,8 @@ export const preloadHandlebarsTemplates = async function () {
 
 		// Item Sheet Partials
 		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
-		"systems/worldofdarkness/templates/sheets/parts/power_description.html"		
+		"systems/worldofdarkness/templates/sheets/parts/power_description.html",
+		"systems/worldofdarkness/templates/sheets/parts/item_bonus.html"		
 	];
 
 	/* Load the template parts
@@ -329,6 +338,12 @@ export const registerHandlebarsHelpers = function () {
 		return CONFIG.worldofdarkness.variant[type][variant];
 	});
 
+	Handlebars.registerHelper("getBonusName", function (type) {
+		return game.i18n.localize(CONFIG.worldofdarkness.bonus[type]);
+	});
+
+	
+
 	Handlebars.registerHelper("getAttributes", function (attribute) {
 		let list;
 
@@ -500,6 +515,10 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("getAbilityAttribute" , function (actor, ability, attribute) {
 		let value = "";
 
+		if (actor.system.abilities == undefined) {
+			return value;
+		}
+
 		if (attribute == "label") {
 			value = game.i18n.localize(actor.system.abilities[ability][attribute]);
 		}
@@ -511,6 +530,45 @@ export const registerHandlebarsHelpers = function () {
 		}		 
 
 		return value;
+	});
+
+	Handlebars.registerHelper("hasSpeciality" , function (ability) {
+		// opens in dialog to edit speciality
+		if (ability.typeform == "attribute") {
+			return true;
+		}
+
+		let hasSpeciality = false;
+		let id = ability._id;
+
+		if (ability.id != undefined) {
+			id = ability.id;
+		}
+
+		if (ability.value >= 4) {
+			hasSpeciality = true;
+		}
+		else {
+			hasSpeciality = CONFIG.worldofdarkness.alwaysspeciality.includes(id); 			
+		}		
+
+		return hasSpeciality;
+	});
+
+	Handlebars.registerHelper("getDescriptionTooltip" , function (description, system) {
+		let tooltip = "";
+
+		if ((description != "") && (system != "")) {
+			tooltip = `<h2>${game.i18n.localize("wod.labels.description")}:</h2>${description}<br /><br /><h2>${game.i18n.localize("wod.labels.details")}:</h2>${system}`;
+		}
+		else if (description != "") {
+			tooltip = `<h2>${game.i18n.localize("wod.labels.description")}:</h2>${description}`;
+		}
+		else if (system != "") {
+			tooltip = `<h2>${game.i18n.localize("wod.labels.details")}:<h2>${system}`;
+		}
+
+		return tooltip;
 	});
 
 	Handlebars.registerHelper("shifterHasForm", function (actor, form) {

@@ -1,0 +1,192 @@
+:root {
+    --main-mortal-mid-color: rgba(24, 78, 119, 0.4);
+    --main-mortal-dim-color: rgba(24, 78, 119, 0.2);
+
+    --main-werewolf-mid-color: rgba(88, 49, 1, 0.4);
+    --main-werewolf-dim-color: rgba(88, 49, 1, 0.2);
+
+    --main-mage-mid-color: rgba(83, 33, 89, 0.4);
+    --main-mage-dim-color: rgba(83, 33, 89, 0.2);
+
+    --main-vampire-mid-color: rgb(121, 8, 19, 0.4);
+    --main-vampire-dim-color: rgb(121, 8, 19, 0.2);
+
+    --main-changeling-mid-color: rgba(42, 92, 165, 0.4);
+    --main-changeling-dim-color: rgba(42, 92, 165, 0.2);
+
+    --main-hunter-mid-color: rgba(191, 67, 18, 0.4);
+    --main-hunter-dim-color: rgba(191, 67, 18, 0.2);
+
+    --main-demon-mid-color: rgba(226, 88, 34, 0.4);
+    --main-demon-dim-color: rgba(226, 88, 34, 0.2);
+
+    --main-wraith-mid-color: rgba(133, 238, 199, 0.4);
+    --main-wraith-dim-color: rgba(195, 241, 224, 0.2);
+
+    --main-creature-mid-color: rgba(72, 71, 71, 0.4);
+    --main-creature-dim-color: rgba(72, 71, 71, 0.2);
+
+    --darkmode-black: rgb(30, 30, 30);
+    --darkmode-white: rgb(255,255,255);
+
+    --darkmode-background-light: rgb(225, 225, 225);
+    --darkmode-background-dark: rgb(90, 90, 90);
+
+    --darkmode-area10-background: rgb(50, 50, 50);
+
+    --darkmode-textcolor-light: rgb(90, 90, 90);
+    --darkmode-textcolor-dark: rgb(225, 225, 225);
+}
+
+.dark-theme.wod20 .window-content {
+    background: var(--darkmode-black);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.dark-theme.wod20 .sheet-area,
+.dark-theme.wod20 .dialog-area {
+    background: var(--darkmode-area10-background);
+    border-radius: 10px;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding-left: 2px;
+    padding-bottom: 1px;
+}
+
+.dark-theme.wod20 input {
+    color: var(--darkmode-textcolor-dark);
+    background: var(--darkmode-background-dark); 
+}
+
+.dark-theme.wod20 .locked input,
+.dark-theme.wod20 .locked select,
+.dark-theme.wod20 select option,
+.dark-theme.wod20 select.editable,
+.dark-theme.wod20 input.editable {
+    background: var(--darkmode-background-dark); 
+    color: var(--darkmode-textcolor-dark);
+}
+
+.dark-theme.wod20 optgroup {
+    background: var(--darkmode-background-light); 
+    color: var(--darkmode-textcolor-light);
+}
+
+.dark-theme.wod20 select option[value=""],
+.dark-theme.wod20 .editor .tox-editor-container,
+.dark-theme.wod20 .textarea {
+    background: var(--darkmode-background-light); 
+    color: var(--darkmode-textcolor-light);
+} 
+
+.dark-theme.wod20 .vrollable:hover,
+.dark-theme.wod20.vrollable:focus {
+    color: var(--darkmode-textcolor-light);  
+}
+
+.dark-theme.wod-dialog button .eon-roller__flag {
+    color: var(--darkmode-textcolor-light);
+}
+
+.dark-theme.wod-dialog button .eon-roller__flag:hover, 
+.dark-theme.wod-dialog button .eon-roller__flag:focus {
+    color: var(--darkmode-textcolor-light);
+}
+
+.dark-theme.wod20 .secondHeadlineTabs:hover {
+    color: var(--darkmode-textcolor-light); 
+}
+
+.dark-theme #chat-log {
+    background: var(--darkmode-background-light);  
+}
+
+.dark-theme #chat-log .message .message-header {    
+    color: var(--darkmode-textcolor-light);
+    background: var(--darkmode-background-light);
+}
+
+.dark-theme #chat-log .message {
+    color: var(--darkmode-textcolor-light);
+    background: var(--darkmode-background-light);
+}
+
+.dark-theme.wod-sheet .sheet-headline,
+.dark-theme.wod-item .sheet-headline {
+    font-weight: normal;
+}
+
+.dark-theme.wod20 .headlineText {
+    font-weight: normal;
+}
+
+.dark-theme.wod20 .headlineGroup {
+    font-weight: normal;
+}
+
+.wod20 .headlineList {	
+    font-weight: normal;
+}
+
+.dark-theme.wod-sheet .sheet-banner .sheet-banner-text {
+    width: 25%;
+    display: inline-block;
+}
+
+.dark-theme.wod-sheet .sheet-banner-text {
+    background: var(--darkmode-background-dark);         
+    border-radius: 10px;
+}
+
+.dark-theme.wod-sheet.mortal .sheet-banner-text {
+    opacity: 1;
+}
+
+.dark-theme.wod-sheet.vampire .sheet-banner-text {
+    display: initial;
+}
+
+.dark-theme.wod-sheet.mage .sheet-banner,
+.dark-theme.wod-sheet.vampire .sheet-banner {
+    background: transparent;
+}
+
+.dark-theme.wod-sheet .sheet-banner-small {
+    background: var(--darkmode-background-dark); 
+    width: 95%;
+    display: inline-block;
+    border-radius: 10px;
+    max-width: 250px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.dark-theme.wod-sheet.mage .sheet-banner-small,
+.dark-theme.wod-sheet.vampire .sheet-banner-small {
+    background: transparent;
+}
+
+.wod20.dark-theme .item-notice,
+.wod20.dark-theme .item-create {
+  color: rgb(9, 142, 9);
+}
+
+.wod20.dark-theme .item-warning {
+  color: rgb(223, 147, 6);
+}
+
+.wod20.dark-theme .item-delete {
+  color: rgb(166, 0, 0);
+}
+
+.dark-theme.wod-dialog .dialog-area {
+    /* background: var(--darkmode-background-dark); */
+}
+
+.wod20.dark-theme .item-row-area {
+    border-bottom: 0px solid var(--main-full-color);
+}
+
+.wod20.dark-theme .condition-checkbox {
+    font-weight: normal;
+  }

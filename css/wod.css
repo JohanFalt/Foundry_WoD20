@@ -168,13 +168,18 @@
 .wod-item:not(.minimized) {
   min-width: 650px;
   width: 650px;
-  min-height: 400px;
+  min-height: 650px;
 } 
 
+.wod20rule-dialog:not(.minimized) {
+  min-width: 400px;
+  max-width: 650px;
+}
+
 .wod-dialog:not(.minimized) {
-  min-width: 500px;  
-  width: 500px;
-  min-height: 400px;
+  min-width: 650px;  
+  width: 650px;
+  min-height: 650px;
 }
 
 .wod-dialog.dialog-top {
@@ -279,8 +284,8 @@
   background: var(--main-dialog-background);
 }
 
-.rule-dialog select,
-.rule-dialog input {
+.wod20 .rule-dialog select,
+.wod20 .rule-dialog input {
   max-width: 150px;
 }
 
@@ -905,39 +910,12 @@ input.sheet-infoWidth {
   -khtml-box-shadow: 5px 5px 5px var(--main-mid-color);
 }
 
-.secondHeadlineTabs {
+.wod20 .secondHeadlineTabs {
   font-size: 20px;
   height: 30px;
   line-height: 30px;
   text-align: center;
   font-weight: bold;
-}
-
-.onSide {
-  position: relative;
-  top: 300px;
-  
-  transform: rotate(+90deg);
-
-  /* Safari */
-  -webkit-transform: rotate(+90deg);
-
-  /* Firefox */
-  -moz-transform: rotate(+90deg);
-
-  /* IE */
-  -ms-transform: rotate(+90deg);
-
-  /* Opera */
-  -o-transform: rotate(+90deg);
-}
-
-.mortal .onSide {
-  right: -45px;
-}
-
-.changeling .onSide {
-  right: -90px;
 }
 
 /* END - Navigation */
@@ -959,6 +937,7 @@ input.sheet-infoWidth {
 
 .wod-item .bioInformationArea {
   padding-right: 0;
+  height: 32px;
 }
 
 .smallbox {
@@ -1063,7 +1042,7 @@ div.essence-counters {
 
 .bonus-power-name {
   margin-left: 60px;
-  width: 455px;
+  width: 200px;
   height: 23px;
   line-height: 23px;
 }
@@ -1107,79 +1086,83 @@ div.rank-area {
 
 /* START - Combat */
 
-.condition {
+.wod20 .condition {
   width: 150px;  
 }
 
-.condition-checkbox {
+.wod20 .condition-checkbox {
   height: 25px;
   line-height: 30px;
   font-weight: bold;
 }
 
-.rowicons {
+.wod20 .rowicons {
   width: 23px;
   height: 23px;
 }
 
-.weapon-rolliconbox {
+.wod20 .weapon-rolliconbox {
   margin-right: 2px;
   width: 15px;
 }
 
-.weapon-rolliconbox-empty {
+.wod20 .weapon-rolliconbox-empty {
   width: 17px;
 } 
 
-.combat-activeBox {
+.wod20 .combat-activeBox {
   width: 30px;
 }
 
-.combat-bottomarea {
+.wod20 .combat-bottomarea {
   width: 33%;
 }
 
-.combat-bottomhealth {
+.wod20 .combat-bottomhealth {
   width: 33%
 }
 
-.combat-valueBox {
+.wod20 .combat-valueBox {
   width: 50px;
 }
 
-.combat-smallBox {
+.wod20 .combat-smallBox {
   width: 75px;
 }
 
-.combat-mediumBox {
+.wod20 .combat-mediumBox {
   width: 100px;
 }
 
-.combat-headlineLargeBox {
+.wod20 .combat-headlineLargeBox {
   width: 165px;
 }
 
-.combat-largeBox {
+.wod20 .combat-largeBox {
   width: 170px;
 }
 
-.armor-largeBox {
+.wod20 .armor-placebox {
+  width: 170px;
+}
+
+.wod20 .armor-largeBox {
   width: 150px;
 }
 
-.combat-abilityBox {
+.wod20 .combat-abilityBox {
   width: 110px;
 }
 
-.combat-concealBox {
+.wod20 .combat-concealBox {
   width: 50px;
 }
 
-.combat-valueBoxArmor {
+.wod20 .combat-valueBoxArmor {
   width: 70px;
 }
 
-.item-row-area .armor-largeBox {
+.wod20 .item-row-area .armor-largeBox {
   width: 135px;
 }
 
@@ -1334,7 +1317,7 @@ div.rank-area {
   background-color: var(--main-full-color);
   color: white;  
   cursor: pointer;
-  font-weight: normaL;
+  font-weight: normal;
 }
 
 .wod20 .secondHeadlineTabs:hover {
@@ -1362,6 +1345,10 @@ div.rank-area {
 /* END - Settings */
 
 /* START - Dialogs */
+
+.dialog-casting-type-label {
+  width: 250px;
+}
 
 .wod-dialog .dialog-checkbox {
   height: 25px;

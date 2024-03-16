@@ -8,6 +8,7 @@ import BonusHelper from "./bonus-helpers.js";
 
 import * as WeaponDialog from "../dialogs/dialog-weapon.js";
 import * as PowerDialog from "../dialogs/dialog-power.js";
+import * as TraitDialog from "../dialogs/dialog-trait.js";
 import * as SortDialog from "../dialogs/dialog-sortpower.js";
 import * as VariantDialog from "../dialogs/dialog-variant.js";
 
@@ -79,6 +80,7 @@ export default class ActionHelper {
                     item.difficulty += parseInt(bonus);
                 }
 			}
+
 			if ((item.type == "Melee Weapon") || (item.type == "Ranged Weapon")) {
 				if (await BonusHelper.CheckAttributeBonus(actor, item.system.attack.attribute)) {
 					let bonus = await BonusHelper.GetAttributeBonus(actor, item.system.attack.attribute);
@@ -89,6 +91,16 @@ export default class ActionHelper {
                     let bonus = await BonusHelper.GetAbilityBonus(actor, item.system.attack.ability);
                     item.system.difficulty += parseInt(bonus);
                 }
+			}
+
+			if (item.type == "Trait") {
+				if (dataset.object == "Resonance") {
+					const resonance = new TraitDialog.Resonance(item);
+					let generalRollUse = new TraitDialog.DialogRoll(actor, resonance);
+					generalRollUse.render(true);
+				}
+
+				return;
 			}
 
 			// used a Weapon
@@ -157,14 +169,7 @@ export default class ActionHelper {
 			}	
 			
 			// used a Gift
-			if ((dataset.object == "Gift") && (dataset.type == CONFIG.worldofdarkness.sheettype.spirit)) {
-				const gift = new PowerDialog.CharmGift(item);
-				let giftUse = new PowerDialog.DialogPower(actor, gift);
-				giftUse.render(true);
-
-				return;
-			}
-			else if (dataset.object == "Gift") {
+			if (dataset.object == "Gift") {
 				const gift = new PowerDialog.Gift(item);
 				let giftUse = new PowerDialog.DialogPower(actor, gift);
 				giftUse.render(true);
@@ -504,6 +509,12 @@ export default class ActionHelper {
 					bonus.system.isactive = item.system.isactive;
 				}
 			}
+
+			if (item.system.bonuslist.length > 0) {
+				for (let i = 0; i <= item.system.bonuslist.length - 1; i++) {
+					item.system.bonuslist[i].isactive = item.system.isactive;
+				}
+			}			
 		}
 
 		if ((actorData.system.settings.hasrage) || (actorData.system.settings.hasgnosis)) {
@@ -846,10 +857,6 @@ export default class ActionHelper {
 			}
 		}
 	}		
-	
-	static async handleCreatureCalculations(actorData) {
-		console.log("WoD | handleCreatureCalculations");		
-	}	
 
 	static SetupDotCounters(html) {
 		html.find(".resource-value").each(function () {

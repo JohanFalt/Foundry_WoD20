@@ -8,7 +8,7 @@
 		</div>
 	</div>
 
-	{{#each actor.rotes as |item id|}}
+	{{#each actor.system.listdata.rotes as |item id|}}
 
 		<div class="pullLeft item-row-area" data-area="roterow{{id}}" style="width:50%">
 			<div class="clearareaBox magic-row">
@@ -19,14 +19,9 @@
 					data-type="{{../config.sheettype.mage}}"
 					data-object="Rote"
 					data-rollitem="true" 
-					data-itemid="{{item._id}}">{{shorten item.name 25}}</div>
+					data-itemid="{{item._id}}" title="{{item.name}}">{{shorten item.name 25}}</div>
 
 				<div class="pullRight power-iconbox">
-					{{#if (eq ../locked false)}}
-						<div class="pullLeft pointer">
-							<i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
-						</div>
-					{{/if}}
 					<div class="pullLeft headlineNormal pointer tooltip">
 						<i class="icon fa-solid fa-memo"></i>
 						<span class="tooltiptext">                
@@ -73,28 +68,22 @@
 							<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
 						</div>
 					{{/if}}
-					{{#if (gt item.system.bonuses.length 0)}}
+					{{#if (gt item.system.bonuslist.length 0)}}
 						<div class="pullLeft pointer">
 							<i id="collapsiblerotebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="rote{{id}}"></i>
 						</div>
+					{{else}}
+                        <div class="pullLeft" style="width: 24px;">&nbsp;</div>
 					{{/if}}
 				</div>
 			</div>
 			<div class="hide bonuses rote{{id}}" data-area="rotebonus{{id}}">
 
-				{{#each item.system.bonuses as |bonus id|}}
-					<div class="clearareaBox">
+				{{#each item.system.bonuslist as |bonus id|}}
+					<div class="clearareaBox note-row">
 						<div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-						{{#if (eq ../../locked false)}}
-							<div class="pullLeft bonus-icons power-iconbox">
-								<div class="pullLeft pointer">
-									<i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
-								</div>
-								<div class="pullLeft pointer">
-									<i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i>
-								</div>
-							</div>
-						{{/if}}
+						<div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
+						<div class="pullLeft headlineNormal">{{bonus.value}}</div>
 					</div>
 				{{/each}}
 

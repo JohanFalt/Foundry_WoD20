@@ -41,11 +41,11 @@
 					{{/numLoop}}
 
 					{{#if (eq ../locked false)}}
-						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (gte ability.value 4))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (gte ability.value 4))}}item-notice{{/if}}">
+						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
 							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 						</div>
 					{{else}}
-						{{#if (gte ability.value 4)}}
+						{{#if (hasSpeciality ability)}}
 							<div class="pullRight speciality-ability-icon">
 								<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
 							</div>
@@ -92,11 +92,11 @@
 					{{/numLoop}}
 
 					{{#if (eq ../locked false)}}
-						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (gte ability.value 4))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (gte ability.value 4))}}item-notice{{/if}}">
+						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
 							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 						</div>
 					{{else}}
-						{{#if (gte ability.value 4)}}
+						{{#if (hasSpeciality ability)}}
 							<div class="pullRight speciality-ability-icon">
 								<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
 							</div>
@@ -143,11 +143,11 @@
 					{{/numLoop}}
 
 					{{#if (eq ../locked false)}}
-						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (gte ability.value 4))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (gte ability.value 4))}}item-notice{{/if}}">
+						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
 							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 						</div>
 					{{else}}
-						{{#if (gte ability.value 4)}}
+						{{#if (hasSpeciality ability)}}
 							<div class="pullRight speciality-ability-icon">
 								<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
 							</div>

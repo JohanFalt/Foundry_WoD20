@@ -540,6 +540,44 @@ export const dataability = {
 				"research",
 				"science"
             ]
+        },
+        "modern20": {
+            "talents": [
+                "alertness",	
+				"athletics", 
+				"awareness", 
+				"brawl", 
+				"empathy", 
+				"expression", 
+				"intimidation", 
+				"leadership", 
+				"streetwise", 
+				"subterfuge"
+            ],
+            "skills": [
+                "animalken",
+				"craft",
+				"drive",
+				"etiquette",
+				"firearms",
+                "larceny",
+				"melee",
+				"performance",
+				"stealth",
+				"survival"
+            ],
+            "knowledges": [
+                "academics",
+				"computer", 
+				"finance",
+				"investigation", 
+				"law", 
+				"medicine", 
+				"occult", 
+				"politics", 
+				"science",
+                "technology"
+            ]
         }
     },
     "wraith": {

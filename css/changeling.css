@@ -14,13 +14,6 @@
 	font-family: "changeling", var(--main-font);
 }
 
-.changeling.langES:not(.noSplatFont) nav,
-.changeling.langES:not(.noSplatFont) .splatFont,
-.changelingDialog.langES:not(.noSplatFont) .splatFont,
-.changelingItem.langES:not(.noSplatFont) .splatFont {
-	font-family: "changeling", var(--main-font);
-}
-
 .changelingDialog,
 .changeling,
 .changelingItem {
@@ -136,6 +129,10 @@
 }
 
 /* START - Combat */
+
+.changeling .armor-type-width {
+    width: 210px;
+}
 
 .changeling .combat-concealBox {
     width: 75px;

@@ -23,6 +23,8 @@ import { WoDItemSheet } from "./module/items/item-sheet.js";
 
 import { DialogGeneralRoll, GeneralRoll } from "./module/dialogs/dialog-generalroll.js";
 
+import IconHelper from "./module/scripts/icons.js";
+
 const SheetTypes = [
 	"Mortal",
 	"Werewolf",			
@@ -36,7 +38,7 @@ const SheetTypes = [
 ];
 const AdversaryTypes = [
 	"Creature",
-	"Spirit"
+	"Spirit"	
 ];
 const PowerCreationItemTypes = [
 	"Power",
@@ -67,8 +69,10 @@ Hooks.once("init", async function() {
 	CONFIG.worldofdarkness = wod;
 	CONFIG.worldofdarkness.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
 	CONFIG.worldofdarkness.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+	CONFIG.worldofdarkness.demonSystemSettings = game.settings.get('worldofdarkness', 'demonSystemSettings');
 	CONFIG.worldofdarkness.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
 	CONFIG.worldofdarkness.wererwolfrageSettings = game.settings.get('worldofdarkness', 'wererwolfrageSettings');
+	CONFIG.worldofdarkness.darkmode = game.settings.get('worldofdarkness', 'darkMode');
 
 	// Roll settings
 	try {
@@ -156,70 +160,70 @@ Hooks.once("init", async function() {
 	Actors.unregisterSheet("core", ActorSheet);
 	
 	Actors.registerSheet("WoD", MortalActorSheet, {
-		label: "Mortal Sheet",
+		label: game.i18n.localize("wod.sheet.mortal"),
 		types: ["Mortal"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", WerewolfActorSheet, {
-		label: "Werewolf Sheet",
+		label: game.i18n.localize("wod.sheet.werewolf"),
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
 
 	Actors.registerSheet("WoD", MageActorSheet, {
-		label: "Mage Sheet",
+		label: game.i18n.localize("wod.sheet.mage"),
 		types: ["Mage"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", VampireActorSheet, {
-		label: "Vampire Sheet",
+		label: game.i18n.localize("wod.sheet.vampire"),
 		types: ["Vampire"],
 		makeDefault: true
 	});
 	
 	Actors.registerSheet("WoD", ChangelingActorSheet, {
-		label: "Changeling Sheet",
+		label: game.i18n.localize("wod.sheet.changeling"),
 		types: ["Changeling"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", HunterActorSheet, {
-		label: "Hunter Sheet",
+		label: game.i18n.localize("wod.sheet.hunter"),
 		types: ["Hunter"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", DemonActorSheet, {
-		label: "Demon Sheet",
+		label: game.i18n.localize("wod.sheet.demon"),
 		types: ["Demon"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", WraithActorSheet, {
-		label: "Wraith Sheet",
+		label: game.i18n.localize("wod.sheet.wraith"),
 		types: ["Wraith"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
-		label: "Changing Breed Sheet",
+		label: game.i18n.localize("wod.sheet.breed"),
 		types: ["Changing Breed"],
 		makeDefault: true
 	});
 
 	Actors.registerSheet("WoD", CreatureActorSheet, {
-		label: "Creature Sheet",
+		label: game.i18n.localize("wod.sheet.creature"),
 		types: ["Creature"],
 		makeDefault: true
 	});	
 
 	Actors.registerSheet("WoD", SpiritActorSheet, {
-		label: "Spirit Sheet",
+		label: game.i18n.localize("wod.sheet.spirit"),
 		types: ["Spirit"],
 		makeDefault: true
-	});
+	});		
 	
 	console.log("WoD | Sheets Registered");
 	
@@ -245,6 +249,49 @@ Hooks.once("init", async function() {
 	game.worldofdarkness.bio = templates.SetupBio();
 
 	console.log("WoD | Added Settings");  
+
+	game.worldofdarkness.icons = {};
+
+	for (const race in CONFIG.worldofdarkness.sheettype) {
+		game.worldofdarkness.icons[race] = {};
+
+		let iconlist = {
+			bio: IconHelper.GetIcon("bio", race),
+			stats: IconHelper.GetIcon("stats", race),
+			magic: IconHelper.GetIcon("magic", race),
+			discipline: IconHelper.GetIcon("discipline", race),
+			shapechange: IconHelper.GetIcon("shapechange", race),
+			death: IconHelper.GetIcon("death", race),
+			charms: IconHelper.GetIcon("charms", race),
+			gift: IconHelper.GetIcon("gift", race),
+			dreaming: IconHelper.GetIcon("dreaming", race),
+			edge: IconHelper.GetIcon("edge", race),
+			lore: IconHelper.GetIcon("lore", race),
+			power: IconHelper.GetIcon("power", race),
+			combat: IconHelper.GetIcon("combat", race),
+			gear: IconHelper.GetIcon("gear", race),
+			note: IconHelper.GetIcon("note", race),
+			settings: IconHelper.GetIcon("settings", race),
+			dice: IconHelper.GetIcon("dice", race)
+		}
+
+		Object.assign(game.worldofdarkness.icons[race], iconlist);
+	}	
+
+	Handlebars.registerHelper('dtSvgDie', (icon, sheettype, options) => {
+		const context = sheettype.toLowerCase().replace(" ", "") + "_" + icon.toLowerCase();
+
+		return `${context}Svg`;
+	});
+	
+	// Register dice partials.
+	for (let [race, iconlist] of Object.entries(game.worldofdarkness.icons)) {
+		for (let icon of Object.entries(iconlist)) {
+			Handlebars.registerPartial(`${race}_${icon[0]}Svg`, icon[1]);
+		}
+	}
+
+	console.log("WoD | Icons added"); 
 });
 
 /* ------------------------------------ */
@@ -318,11 +365,12 @@ Hooks.once("ready", async function () {
 			await migration.UpdateWorld(installedVersion, systemVersion);
 		}
 		else {
-			ui.notifications.warn("Checking character's settings!", {permanent: true});
+			//ui.notifications.warn("Checking character's settings!", {permanent: true});
 			await migration.updates();
-			ui.notifications.info("Done!", {permanent: true});
+			//ui.notifications.info("Done!", {permanent: true});
 		}
 	}
+	
 	CONFIG.language = game.i18n.lang;	
 
 	if (game.worldofdarkness.abilities == undefined) {
@@ -351,13 +399,43 @@ Hooks.on("renderActorSheet", (sheet) => {
 	else if (CONFIG.language == "pt-BR") {
 		sheet.element[0].classList.add("langPT");
     }
+	else if (CONFIG.language == "sv") {
+		sheet.element[0].classList.add("langSV");
+	}
 	else {
 		sheet.element[0].classList.add("langEN");
+	}
+
+	if (sheet.object.type.toLowerCase() == "creature") {
+		sheet.element[0].classList.remove("mage");
+		sheet.element[0].classList.remove("werewolf");
+		sheet.element[0].classList.remove("changeling");
+
+		if (sheet.object.system.settings.variant.toLowerCase() == "chimera") {			
+			sheet.element[0].classList.remove("creature");
+			sheet.element[0].classList.add("changeling");
+		}
+		else if (sheet.object.system.settings.variant.toLowerCase() == "familiar") {
+			sheet.element[0].classList.remove("creature");
+			sheet.element[0].classList.add("mage");
+		}
+		else if (sheet.object.system.settings.variant.toLowerCase() == "construct") {
+			sheet.element[0].classList.remove("creature");
+			sheet.element[0].classList.add("mage");
+		}
+		else if (sheet.object.system.settings.variant.toLowerCase() != "general") {
+			sheet.element[0].classList.remove("creature");
+			sheet.element[0].classList.add("werewolf");
+		}
 	}
 
 	if ((!CONFIG.worldofdarkness.sheetsettings.useSplatFonts) || (!useSplatFonts)) {
 		sheet.element[0].classList.add("noSplatFont");
 	}
+
+	if (CONFIG.worldofdarkness.darkmode) {
+		sheet.element[0].classList.add("dark-theme");
+	}	
 });
 
 Hooks.on("renderItemSheet", (sheet) => { 
@@ -381,6 +459,9 @@ Hooks.on("renderItemSheet", (sheet) => {
 	else if (CONFIG.language == "pt-BR") {
 		sheet.element[0].classList.add("langPT");
     }
+	else if (CONFIG.language == "sv") {
+		sheet.element[0].classList.add("langSV");
+	}
 	else {
 		sheet.element[0].classList.add("langEN");
 	}
@@ -389,9 +470,9 @@ Hooks.on("renderItemSheet", (sheet) => {
 		sheet.element[0].classList.add("noSplatFont");
 	}
 
-	/* let type = sheet.object.type;
-	type = type.toLowerCase().replace(" ", "") + "-item";
-	sheet.element[0].classList.add(type); */
+	if (CONFIG.worldofdarkness.darkmode) {
+		sheet.element[0].classList.add("dark-theme");
+	}
 });
 
 /* Hooks.on("closeItemSheet", (sheet) => { 
@@ -420,12 +501,19 @@ Hooks.on("renderFormApplication", (sheet) => {
 		else if (CONFIG.language == "pt-BR") {
 			sheet.element[0].classList.add("langPT");
 		}
+		else if (CONFIG.language == "sv") {
+			sheet.element[0].classList.add("langSV");
+		}
 		else {
 			sheet.element[0].classList.add("langEN");
 		}
 
 		if (!useSplatFonts) {
 			sheet.element[0].classList.add("noSplatFont");
+		}
+
+		if (CONFIG.worldofdarkness.darkmode) {
+			sheet.element[0].classList.add("dark-theme");
 		}
 	}
 });
@@ -437,24 +525,43 @@ Hooks.on("renderDialog", (_dialog, html, _data) => {
 		const select = container.querySelector("select[name=type]");
 		if (select) {
 			select.append(
-				constructOptGroup(select, "Sheet items", CharacterCreationItemTypes),
-				constructOptGroup(select, "Powers", PowerCreationItemTypes),
-				constructOptGroup(select, "Equipment", EquipmentItemTypes),
-				constructOptGroup(select, "Sheets", SheetTypes),
-				constructOptGroup(select, "NPC", AdversaryTypes)
+				constructOptGroup(select, game.i18n.localize("wod.sheet.items"), CharacterCreationItemTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheet.powers"), PowerCreationItemTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheet.equipment"), EquipmentItemTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheet.sheets"), SheetTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheet.npc"), AdversaryTypes)
 			);
 			select.querySelector("option").selected = true;
 		}
 	} 
+});
 
-	// INFO: how to remove types if item from the list
-	/* let deprecatedTypes = ["type1", "type2", "type3"]; // 
-	Array.from(html.find("#document-create option")).forEach(i => {
-		if (deprecatedTypes.includes(i.value))
-		{
-			i.remove()
-		}
-	}) */
+Hooks.once("dragRuler.ready", (SpeedProvider) => {
+    class GndWoD20thSpeedProvider extends SpeedProvider {
+        get colors() {
+            return [
+                {id: "walk", default: 0x00FF00, name: "worldofdarkness.speeds.walk"},
+                {id: "jog", default: 0xFFFF00, name: "worldofdarkness.speeds.jog"},
+                {id: "run", default: 0xFF8000, name: "worldofdarkness.speeds.run"}
+            ]
+        }
+        getRanges(token) {
+		    const walkSpeed = token.actor.system.movement.walk;
+            const jogSpeed = token.actor.system.movement.jog;
+            const runSpeed = token.actor.system.movement.run;           
+
+           //no need for multipliers in wod20 feet to meters 1feet = 0.3048m
+            const ranges = [
+				{range: walkSpeed, color: "walk"},
+				{range: jogSpeed, color: "jog"},
+            	{range: runSpeed, color: "run"}
+			]            
+
+            return ranges
+        }
+    }
+
+	dragRuler.registerSystem("worldofdarkness", GndWoD20thSpeedProvider)
 });
 
 //Dice Roller
@@ -475,8 +582,10 @@ function clearHTML(sheet) {
 	sheet.element[0].classList.remove("langIT");
 	sheet.element[0].classList.remove("langFR");
 	sheet.element[0].classList.remove("langPT");
+	sheet.element[0].classList.remove("langSV");
 	sheet.element[0].classList.remove("langEN");
 	sheet.element[0].classList.remove("noSplatFont");
+	sheet.element[0].classList.remove("dark-theme");
 }
 
 function constructOptGroup(select, groupLabel, optValues) {

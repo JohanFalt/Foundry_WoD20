@@ -146,8 +146,6 @@
 }
   
 #chat-log .tray-result-area {
-    /* font-family: var(--main-chat-font);
-    color: var(--chat-header-text-color); */
     border-top: 3px ridge #6c4737;    
     padding: 5px;
     margin-top: 5px;

@@ -46,7 +46,7 @@ export async function calculateTotals(actorData) {
 
 			if (actorData.system.attributes[i].label == "wod.attributes.manipulation") {
 				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-					if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nagah")) {
+					if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nagah") || (actorData.system.changingbreed == "Camazotz")) {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
 						}
@@ -60,7 +60,7 @@ export async function calculateTotals(actorData) {
 				}
 
 				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-					if ((actorData.system.changingbreed == "Ajaba") && (toForm == "wod.shapes.hispo")) {
+					if (((actorData.system.changingbreed == "Ajaba") || (actorData.system?.changingbreed == "Grondr")) && (toForm == "wod.shapes.hispo")) {
 						actorData.system.attributes[i].total = 0;
 					}
 
@@ -73,6 +73,12 @@ export async function calculateTotals(actorData) {
 							actorData.system.attributes[i].total = 0;
 						}
 
+						if (toForm == "wod.shapes.lupus") {
+							actorData.system.attributes[i].total = 0;
+						}
+					}
+
+					if (actorData.system.changingbreed == "Camazotz") {
 						if (toForm == "wod.shapes.lupus") {
 							actorData.system.attributes[i].total = 0;
 						}
@@ -143,7 +149,7 @@ export async function calculateTotals(actorData) {
 					actorData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
 				}
 			}
-			/* If Werewolf or Changing Breed */
+			/* If Werewolf or Changing breed */
 			else {
 				for (const form in actorData.system.shapes) {
 					if (actorData.system.shapes[form].isactive) {
@@ -190,15 +196,25 @@ export async function calculateTotals(actorData) {
 		actorData.system.health.bruised.total += parseInt(bonus);
 	}
 
-	// intitiative totals
-	actorData.system.initiative.base = parseInt(actorData.system.attributes.dexterity.total) + parseInt(actorData.system.attributes.wits.total);
-	actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
+	if (actorData.system.settings.variant != "spirit") {
+		// intitiative totals
+		actorData.system.initiative.base = parseInt(actorData.system.attributes.dexterity.total) + parseInt(actorData.system.attributes.wits.total);
+		actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
 
-	//bonus initiative
-	if (await BonusHelper.CheckInitiativeBuff(actorData)) {
-		let bonus = await BonusHelper.GetInitiativeBuff(actorData);
-		actorData.system.initiative.total += parseInt(bonus);
+		//bonus initiative
+		if (await BonusHelper.CheckInitiativeBuff(actorData)) {
+			let bonus = await BonusHelper.GetInitiativeBuff(actorData);
+			actorData.system.initiative.total += parseInt(bonus);
+		}
 	}
+	else {
+		actorData.system.initiative.base = parseInt(actorData.system.advantages.willpower.permanent);
+		actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
+
+		actorData.system.soak.bashing = parseInt(actorData.system.advantages.willpower.permanent);
+		actorData.system.soak.lethal = parseInt(actorData.system.advantages.willpower.permanent);
+		actorData.system.soak.aggravated = parseInt(actorData.system.advantages.willpower.permanent);
+	}	
 
     return actorData;
 }
@@ -264,8 +280,20 @@ function getShiftAttributeBonus(attribute, presentForm, actor) {
 	}
 
 	if (actor.system.changingbreed == "Rokea") {
-		// glöm inte vatten för dex etc...
 		data = handleRokeaShiftAttributeData(attribute, presentForm);
+	}
+
+	//TODO
+	if (actor.system.changingbreed == "Apis") {
+		data = handleApisShiftAttributeData(attribute, presentForm);
+	}
+
+	if (actor.system.changingbreed == "Camazotz") {
+		data = handleCamazotzShiftAttributeData(attribute, presentForm);
+	}
+
+	if (actor.system.changingbreed == "Grondr") {
+		data = handleGrondrShiftAttributeData(attribute, presentForm);
 	}
 
 	return {"type": attribute, "value": data};
@@ -1589,6 +1617,165 @@ function handleRokeaShiftAttributeData(attribute, presentForm) {
 		}
 		if (attribute == "wod.attributes.manipulation") {
 			data = -4;
+		}
+	}
+	
+	return data;
+}
+
+function handleApisShiftAttributeData(attribute, presentForm) {
+	let data = 0;
+
+	if (presentForm == "wod.shapes.crinos")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 5;
+		}
+		if (attribute == "wod.attributes.dexterity") {
+			data = 1;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 3;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -3;
+		}
+	}
+	if (presentForm == "wod.shapes.lupus")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.dexterity") {
+			data = 1;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 4;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -3;
+		}
+	}
+	
+	return data;
+}
+
+function handleCamazotzShiftAttributeData(attribute, presentForm) {
+	let data = 0;
+
+	if (presentForm == "wod.shapes.glabro")
+	{
+		if (attribute == "wod.attributes.dexterity") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -1;
+		}
+		if (attribute == "wod.attributes.appearance") {
+			data = -1;
+		}
+		if (attribute == "wod.attributes.perception") {
+			data = 2;
+		}
+	}	
+	if (presentForm == "wod.shapes.crinos")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 1;
+		}
+		if (attribute == "wod.attributes.dexterity") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 1;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -3;
+		}
+		if (attribute == "wod.attributes.perception") {
+			data = 3;
+		}
+	}
+	if (presentForm == "wod.shapes.lupus")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = -1;
+		}
+		if (attribute == "wod.attributes.dexterity") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.perception") {
+			data = 3;
+		}
+	}
+	
+	return data;
+}
+
+function handleGrondrShiftAttributeData(attribute, presentForm) {
+	let data = 0;
+
+	if (presentForm == "wod.shapes.glabro")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -2;
+		}
+		if (attribute == "wod.attributes.appearance") {
+			data = -2;
+		}
+	}	
+	if (presentForm == "wod.shapes.crinos")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 3;
+		}
+		if (attribute == "wod.attributes.dexterity") {
+			data = 1;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 4;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -4;
+		}
+	}
+	if (presentForm == "wod.shapes.hispo")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 3;
+		}
+		if (attribute == "wod.attributes.dexterity") {
+			data = 1;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 3;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -3;
+		}
+	}
+	if (presentForm == "wod.shapes.lupus")
+	{
+		if (attribute == "wod.attributes.strength") {
+			data = 2;
+		}
+		if (attribute == "wod.attributes.stamina") {
+			data = 3;
+		}
+		if (attribute == "wod.attributes.manipulation") {
+			data = -3;
+		}
+		if (attribute == "wod.attributes.perception") {
+			data = 1;
 		}
 	}
 	

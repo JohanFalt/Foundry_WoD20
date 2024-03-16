@@ -26,7 +26,7 @@
                     data-rollitem="true" 
                     data-itemid="{{item._id}}"
                     title="{{item.name}}">            
-                    {{shorten item.name 18}}
+                    {{shorten item.name 18}}&nbsp;
                 </div>
             {{else}}
                 {{#if item.system.damage.isrollable}}
@@ -37,14 +37,14 @@
                         data-rollitem="true" 
                         data-itemid="{{item._id}}"
                         title="{{item.name}}">
-                        {{shorten item.name 18}}
+                        {{shorten item.name 18}}&nbsp;
                     </div>
                 {{else}}
                     <div class="pullLeft  weapon-rolliconbox-empty">&nbsp;</div>
-                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}</div>
+                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}&nbsp;</div>
                 {{/if}}
             {{/if}}
-            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}</div>
+            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}&nbsp;</div>
             <div class="pullLeft combat-abilityBox headlineNormal">
                 {{#if (eq item.system.attack.ability "custom")}}
                     {{shorten (getSecondaryAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
@@ -74,12 +74,12 @@
                 {{#if item.system.mode.hasreload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.system.mode.hasburst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.system.mode.hasfullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.system.mode.hasspray}}{{localize "wod.combat.mode.spray"}}{{/if}}
             </div>-->
             {{#if (eq ../locked false)}}
-            <div class="pullRight">                
-                <a class="item-edit" title="{{localize "wod.labels.edit.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                {{#if (eq ../locked false)}}                                                    
-                    <a class="item-delete" title="{{localize "wod.labels.remove.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                {{/if}}
-            </div>
+                <div class="pullRight">                
+                    <a class="item-edit" title="{{localize "wod.labels.edit.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                    {{#if (eq ../locked false)}}                                                    
+                        <a class="item-delete" title="{{localize "wod.labels.remove.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                    {{/if}}
+                </div>
             {{else}}
                 {{#if (ne item.system.description "")}}
                     <div class="pullRight">
@@ -89,11 +89,8 @@
                     </div>
                     <div class="pullRight pointer headlineNormal tooltip">                    
                         <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">
-                            <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                        </span>
-                    </div>
-                    
+                        <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
+                    </div>                    
                 {{else}}
                     <div class="pullLeft"><i class="icon fa-solid fa-memo transparent"></i></div>
                 {{/if}}

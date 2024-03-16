@@ -121,9 +121,9 @@ export class DialogGeneralRoll extends FormApplication {
         
         data.config = CONFIG.worldofdarkness;
         data.object.hasSpeciality = false; 
-        data.object.specialityText = "";        
+        data.object.specialityText = "";      
 
-        if (this.object.type == "attribute") {
+        if ((this.object.type == "attribute") && (data.object.difficulty == 6)) {
             if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {
                 let bonus = await BonusHelper.GetAttributeBonus(this.actor, this.object.attributeKey);
                 this.object.difficulty += parseInt(bonus);
@@ -220,7 +220,7 @@ export class DialogGeneralRoll extends FormApplication {
                 data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
                 
-                if (parseInt(ability.value) >= 4) {
+                if ((parseInt(ability.value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(ability._id))) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = ability.speciality;
                 }
@@ -288,6 +288,15 @@ export class DialogGeneralRoll extends FormApplication {
         }
         
         this.object.usepain = formData["usepain"];
+
+        try {
+            if (formData["manualDiceValue"] != undefined) {
+                this.object.attributeValue = parseInt(formData["manualDiceValue"]);
+            }            
+        }
+        catch {
+            this.object.attributeValue = 3;
+        }
 
         try {
             this.object.bonus = parseInt(formData["bonus"]);

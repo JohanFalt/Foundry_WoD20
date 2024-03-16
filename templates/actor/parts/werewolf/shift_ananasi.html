@@ -12,28 +12,28 @@
             <div class="pullLeft shape-background shape-background shape-ananasi"></div>
             <div>
                 <div class="pullLeft shape-selectortext shape-ananasi {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">
-                    No Change
+                    {{localize "wod.labels.nochange"}}
                 </div>
                 <div class="pullLeft shape-selectortext shape-ananasi {{#if (shifterHasForm actor 'glabro')}}text-focus{{else}}text-unfocus{{/if}}">
                     {{localize "wod.attributes.short.str"}} (+2)<br />
                     {{localize "wod.attributes.short.dex"}} (+3)<br />
                     {{localize "wod.attributes.short.sta"}} (+2)<br />
                     {{localize "wod.attributes.short.man"}} (-1)
-                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.short.app"}} (0){{/if}}
                 </div>
                 <div class="pullLeft shape-selectortext shape-ananasi {{#if (shifterHasForm actor 'hispo')}}text-focus{{else}}text-unfocus{{/if}}">
                     {{localize "wod.attributes.short.str"}} (+4)<br />
                     {{localize "wod.attributes.short.dex"}} (+1)<br />
                     {{localize "wod.attributes.short.sta"}} (+3)<br />
                     {{localize "wod.attributes.short.man"}} (-3)
-                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.short.app"}} (0){{/if}}
                 </div>
                 <div class="pullLeft shape-selectortext shape-ananasi {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
                     {{localize "wod.attributes.short.str"}} (0)<br />
                     {{localize "wod.attributes.short.dex"}} (+5)<br />
                     {{localize "wod.attributes.short.sta"}} (0)<br />
                     {{localize "wod.attributes.short.man"}} (0)
-                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.app"}} (0){{/iff}}
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.short.app"}} (0){{/if}}
                 </div>
             </div>
             <div class="clearareaBox">

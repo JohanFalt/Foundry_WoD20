@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="centerText sheet-headline splatFont">
-				CHANGELING {{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}{{#if (ne actor.system.settings.variant 'general')}}({{localize (getProperty config.variant.changeling actor.system.settings.variant)}}){{/if}}{{/if}}
+				{{captilize (localize "wod.games.changeling")}} {{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}{{#if (ne actor.system.settings.variant 'general')}}({{localize (getProperty config.variant.changeling actor.system.settings.variant)}}){{/if}}{{/if}}
 			</div>
 
 			<!-- Bio tab -->

@@ -5,7 +5,8 @@
         <input type="hidden" name="bonus" value="0" />
 
         <div class="dialog-area">
-            <div class="headlineGroup splatFont">{{localize "wod.labels.numdices"}}</div>
+            <div class="headlineGroup splatFont">{{localize "wod.labels.numdices"}} <input name="manualDiceValue" class="sheet-infoValues editable" type="text" value="{{object.attributeValue}}" /></div>
+            <div class="information-area">{{localize "wod.dialog.general.numberdiceshint"}}</div>
             <div class="infobox centerText">
                 {{#numFromLoop 1 10}}
                     <button id="numdices" class="button fullSplatColor pointer dialog-numdices-button {{#if (eq ../object.attributeValue this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>

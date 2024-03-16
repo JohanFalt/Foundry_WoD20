@@ -151,6 +151,18 @@
 					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html"}}
 				{{/if}}
 
+				{{#if (eq data.system.changingbreed "Apis")}}
+				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_apis_background.html"}}
+				{{/if}}
+			
+				{{#if (eq data.system.changingbreed "Camazotz")}}
+				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_camazotz_background.html"}}
+				{{/if}}
+			
+				{{#if (eq data.system.changingbreed "Grondr")}}
+				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/bio_grondr_background.html"}}
+				{{/if}}
+
 		{{/if}}	
 
 	</div>
@@ -158,8 +170,6 @@
 </div>
 
 <div class="sheet-area flex-columns">
-
-	<div class="sheet-headline sheet-banner sheet-topbanner">&nbsp;</div>
 
 	<div class="area-box">
 

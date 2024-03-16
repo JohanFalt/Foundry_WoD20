@@ -30,7 +30,6 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        //MessageHelper.printMessage("Actors done", "");
 
         MessageHelper.printMessage("Starting with World Items", "");
         //World Items
@@ -43,7 +42,6 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 isError = true;
             }
         }
-        //MessageHelper.printMessage("Items done", "");
 
         MessageHelper.printMessage("Starting with World Compendiums", "");
         // World Compendiums
@@ -196,30 +194,28 @@ export  const updates = async () => {
                 actorData.system.settings.powers.haspowers = true;
             }
 
-            for (const item of actor.items) {
+            // for (const item of actor.items) {
 
-                let hasChanged = false;
-                const itemData = duplicate(item);
-                const imgUrl = getImage(item);
+            //     let hasChanged = false;
+            //     const itemData = duplicate(item);
+            //     const imgUrl = getImage(item);
 
-                if (imgUrl != "") {                    
-                    hasChanged = itemData.img == imgUrl ? false : true;
-                    itemData.img = imgUrl;
-                }
+            //     if (imgUrl != "") {                    
+            //         hasChanged = itemData.img == imgUrl ? false : true;
+            //         itemData.img = imgUrl;
+            //     }
 
-                if (hasChanged) {
-                    await item.update(itemData);
-                }
-            }
+            //     if (hasChanged) {
+            //         await item.update(itemData);
+            //     }
+            // }
         }
 
         totalinit = parseInt(actor.system.initiative.base) + parseInt(actor.system.initiative.bonus);
         actorData.system.initiative.total = parseInt(totalinit);
 
         await actor.update(actorData);
-    }
 
-    for (const actor of game.actors) {
         if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             for (const effect of actor.effects) {
                 if (effect.icon.includes("werewolf")) {
@@ -229,8 +225,19 @@ export  const updates = async () => {
             }
         }
     }
+
+    /* for (const actor of game.actors) {
+        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
+            for (const effect of actor.effects) {
+                if (effect.icon.includes("werewolf")) {
+                    const effectid = effect.id;
+                    await actor.deleteEmbeddedDocuments("ActiveEffect", [effectid]);
+                }                
+            }
+        }
+    } */
     
-    for (const item of game.items) {
+    /* for (const item of game.items) {
         let hasChanged = false;
         const itemData = duplicate(item);
         const imgUrl = getImage(item);
@@ -243,7 +250,7 @@ export  const updates = async () => {
         if (hasChanged) {
             await item.update(itemData);
         }
-    }
+    } */
 }
 
 /* -------------------------------------------- */
@@ -1149,7 +1156,23 @@ export  const updates = async () => {
             await actor.update(updateData);
             update = false;
         }
-    }    
+    }  
+    
+    if (_compareVersion(actor.system.settings.version, "3.3.0")) {
+        update = true;        
+
+        for (const item of actor.items) {
+            await updateItem(item)            ;
+        }
+
+        if (update) {
+            let updateData = duplicate(actor);
+            updateData.system.settings.version = "3.3.0";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
 }
 
 /**
@@ -1460,6 +1483,51 @@ export  const updates = async () => {
             altered = false;
         }
     }
+
+    if (_compareVersion(item.system.version, "3.3.0")) {
+        let itemData = duplicate(item);
+
+        if ((item.type == "Bonus") && ((item.system.parentid != "") && (item.system.parentid != "hispo") && (item.system.parentid != "lupus") && item.actor != null)) {
+            console.log(`Bonus found on ${item.actor.name} type ${item.system.type}`);
+
+            let bonus = item.actor.getEmbeddedDocument("Item", item.system.parentid);
+            itemData = duplicate(bonus);
+
+            let bonusData = {
+                name: item.name,
+                settingtype: item.system.settingtype,
+                type: item.system.type,
+                value: parseInt(item.system.value),
+                isactive: item.system.isactive
+            }
+
+            itemData.system.bonuslist[bonus.system.bonuslist.length] = bonusData;
+            itemData.system.version = "3.3.0";
+
+            await bonus.update(itemData);   
+            console.log(`Adding bonus to ${item.actor.name} bonusname ${item.name}`);
+
+            await item.actor.deleteEmbeddedDocuments("Item", [item._id]);
+            console.log(`Removing bonus id ${item._id} bonusname ${item.name}`);
+        }
+        if (item.type == "Power") {
+            if (item.system.type == "wod.types.artpower")  {
+                console.log(`Artpower bonusname ${item.name} vas type: ${item.system.arttype}`);
+
+                if (item.system.arttype == "wod.power.wyld") {
+                    itemData.system.arttype == "wod.types.wyrd";
+                    altered = true;
+                }
+            } 
+        }
+
+        if (altered) {
+            itemData.system.version = "3.3.0";
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -1527,6 +1595,7 @@ export  const updates = async () => {
     let patch300 = false;
     let patch310 = false;
     let patch320 = false;
+    let patch330 = false;
 
     let newfunctions = "";
 
@@ -1544,6 +1613,7 @@ export  const updates = async () => {
         patch300 = game.settings.get('worldofdarkness', 'patch300');
         patch310 = game.settings.get('worldofdarkness', 'patch310');
         patch320 = game.settings.get('worldofdarkness', 'patch320');
+        patch330 = game.settings.get('worldofdarkness', 'patch330');
     } 
     catch (e) {
     }
@@ -1677,46 +1747,52 @@ export  const updates = async () => {
     if (!patch300) {
         game.settings.set('worldofdarkness', 'patch300', true);
 
-        newfunctions += "<li>Support Foundry v11</li>";
+        //newfunctions += "<li>Support Foundry v11</li>";
     }
 
     if (!patch310) {
         game.settings.set('worldofdarkness', 'patch310', true);
 
-        newfunctions += "<li>Biggest update yet.</li>";
+        /* newfunctions += "<li>Biggest update yet.</li>";
         newfunctions += "<li>Total new design with a bunch of improvments on all sheets.</li>";
         newfunctions += "<li>Support for eras in VtM, WtA and MtA</li>";
         newfunctions += "<li>A number of new World settings to help you run the game you wish</li>";
         newfunctions += "<li>[CtD] Improved how to roll arts</li>";
         newfunctions += "<li>[MtA] Added magical items</li>";
         newfunctions += "<li>[MtA] Improved spellcasting dialog</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>"; */
     }
 
     if (!patch320) {
         game.settings.set('worldofdarkness', 'patch320', true);
 
-        newfunctions += "<li>Added Wraith the Oblivion.</li>";
+        /* newfunctions += "<li>Added Wraith the Oblivion.</li>";
         newfunctions += "<li>Spirit sheet is no longer supported use Crerature sheet instead.</li>";
         newfunctions += "<li>Added variant sheet support.</li>";
         newfunctions += "<li>[CtD] Added support for changeling variants.</li>";
         newfunctions += "<li>[WtO] Added support for shadow variant.</li>";
         newfunctions += "<li>[Mortal] Added support for mortal variants.</li>";
-        newfunctions += "<li>[Creature] Added support for creature variants.</li>";
+        newfunctions += "<li>[Creature] Added support for creature variants.</li>"; */
     }
+
+    if (!patch330) {
+        game.settings.set('worldofdarkness', 'patch330', true);
+
+        newfunctions += "<li>Dark mode setting</li>";
+        newfunctions += '<li>Added support for <a href="https://foundryvtt.com/packages/drag-ruler/">Drag Rules module</a></li>';
+        newfunctions += "<li>Bonus system is reworked to support adding bonus to items not connected to Actor</li>";
+        newfunctions += "<li>[MtA] Added creature variants Familiar and Construct</li>";
+        newfunctions += "<li>[VtM] Combination disciplines</li>";
+        newfunctions += "<li>[WtA] Added lost breeds Apis, Camazotz and Grondr</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+    }
+
+    // Support Drag Ruler module (notify stabchenfisch about it)
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
-		
-		if (_compareVersion(installedVersion, '3.2.16')) {
-            newfunctions += '<li>Improvement in French translation.</li>';
-        }
-		
-		if (_compareVersion(installedVersion, '3.2.15')) {
-            newfunctions += '<li>Fixed problem on Demon sheet where activating a apocalyptic form did not show on the sheet.</li>';
-        }
 
-        if (_compareVersion(installedVersion, '3.2.14')) {
+        /* if (_compareVersion(installedVersion, '3.2.14')) {
             newfunctions += '<li>Updated German translation.</li>';
             newfunctions += '<li>Fixed bug that caused money in the bank was not shown correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/774">[#774]</a></li>';
             newfunctions += '<li>Headline of Item type was not displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/772">[#772]</a></li>';
@@ -1771,17 +1847,17 @@ export  const updates = async () => {
 
         if (_compareVersion(installedVersion, '3.2.3')) {
             newfunctions += "<li>Fixed so people with limited view could not see set sheet variant.</li>";
-            newfunctions += "<li>Fixed problems causing duplicate variant windows to open on Changelings and Changing Breed sheets.</li>";
+            newfunctions += "<li>Fixed problems causing duplicate variant windows to open on Changelings and Changing breed sheets.</li>";
             newfunctions += "<li>Fixed problems with creating items to existing sheets.</li>";
             newfunctions += "<li>Fixed problems with new translation functions.</li>";
-        }        
+        }     */    
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "Version "+migrationVersion+" installed";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-310">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-330">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 

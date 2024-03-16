@@ -11,36 +11,36 @@
             <div class="pullLeft shape-background shape-ratkin"></div>
             <div>
                 <div class="pullLeft shape-selectortext shape-ratkin {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">
-                    No Change
+                    {{localize "wod.labels.nochange"}}
                 </div>
-                {{#iff data.system.breed "==" "Metis"}}
-                <div class="pullLeft shape-selectortext shape-ratkin {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                    {{localize "wod.attributes.short.str"}} (+3)<br />
-                    {{localize "wod.attributes.short.dex"}} (+4)<br />
-                    {{localize "wod.attributes.short.sta"}} (+1)<br />
-                    {{localize "wod.attributes.short.man"}} (-2)
-                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
-                    <br />{{localize "wod.attributes.short.app"}} (-1)
-                    <br />{{localize "wod.attributes.short.per"}} (+1)
-                    {{/iff}}
-                </div>
+                {{#if (eq data.system.breed "Metis")}}
+                    <div class="pullLeft shape-selectortext shape-ratkin {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
+                        {{localize "wod.attributes.short.str"}} (+3)<br />
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.sta"}} (+1)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
+                        {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}
+                            <br />{{localize "wod.attributes.short.app"}} (-1)
+                            <br />{{localize "wod.attributes.short.per"}} (+1)
+                        {{/if}}
+                    </div>
                 {{else}}
-                <div class="pullLeft shape-selectortext shape-ratkin {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
-                    {{localize "wod.attributes.short.str"}} (+1)<br />
-                    {{localize "wod.attributes.short.dex"}} (+4)<br />
-                    {{localize "wod.attributes.short.sta"}} (+2)<br />
-                    {{localize "wod.attributes.short.man"}} (-2)
-                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}
-                    <br />{{localize "wod.attributes.short.app"}} (-1)
-                    <br />{{localize "wod.attributes.short.per"}} (+1)
-                    {{/iff}}
-                </div>
-                {{/iff}}
+                    <div class="pullLeft shape-selectortext shape-ratkin {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
+                        {{localize "wod.attributes.short.str"}} (+1)<br />
+                        {{localize "wod.attributes.short.dex"}} (+4)<br />
+                        {{localize "wod.attributes.short.sta"}} (+2)<br />
+                        {{localize "wod.attributes.short.man"}} (-2)
+                        {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}
+                            <br />{{localize "wod.attributes.short.app"}} (-1)
+                            <br />{{localize "wod.attributes.short.per"}} (+1)
+                        {{/if}}
+                    </div>
+                {{/if}}
                 <div class="pullLeft shape-selectortext shape-ratkin {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
                     {{localize "wod.attributes.short.str"}} (-1)<br />
                     {{localize "wod.attributes.short.dex"}} (+2)<br />
                     {{localize "wod.attributes.short.sta"}} (+2)<br />
-                    {{#iff (checkSystemsetting "attributeSettings") "==" "20th"}}<br />{{localize "wod.attributes.short.per"}} (+3){{/iff}}
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.short.per"}} (+3){{/if}}
                 </div>
             </div>
             <div class="clearareaBox">

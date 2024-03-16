@@ -81,6 +81,14 @@
   margin-top: 30px;
 }
 
+.werewolf .shape-background.shape-apis,
+.werewolf .shape-background.shape-camazotz,
+.werewolf .shape-background.shape-grondr {
+  background: url('');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .werewolf .shape-background.shape-ajaba {
   background: url('../assets/img/werewolf/form/forms_ajaba.webp');
   background-size: contain;
@@ -149,6 +157,7 @@
 
 .werewolf .shape-area {
   width: 100%;
+  height: 800px;
 }
 
 .werewolf .shape-selector {
@@ -175,7 +184,9 @@
 }
 
 .werewolf .shape-selectortext.shape-ananasi,
-.werewolf .shape-selector.shape-ananasi {
+.werewolf .shape-selector.shape-ananasi,
+.werewolf .shape-selectortext.shape-camazotz,
+.werewolf .shape-selector.shape-camazotz {
   width: 25%;
 }
 
@@ -184,7 +195,9 @@
 .werewolf .shape-selectortext.shape-mokole,
 .werewolf .shape-selector.shape-mokole,
 .werewolf .shape-selectortext.shape-ratkin,
-.werewolf .shape-selector.shape-ratkin {
+.werewolf .shape-selector.shape-ratkin,
+.werewolf .shape-selectortext.shape-apis ,
+.werewolf .shape-selector.shape-apis {
   width: 33%;
 }
 

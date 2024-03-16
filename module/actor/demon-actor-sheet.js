@@ -4,7 +4,7 @@ import BonusHelper from "../scripts/bonus-helpers.js";
 import CreateHelper from "../scripts/create-helpers.js";
 
 export class DemonActorSheet extends MortalActorSheet {
-
+	
 	/** @override */
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
@@ -12,7 +12,7 @@ export class DemonActorSheet extends MortalActorSheet {
 			template: "systems/worldofdarkness/templates/actor/demon-sheet.html"
 		});
 	}
-
+  
 	constructor(actor, options) {
 		super(actor, options);
 	}
@@ -29,112 +29,113 @@ export class DemonActorSheet extends MortalActorSheet {
 				actorData.system.settings.version = game.data.system.version;
 				actorData.system.settings.variant = "general";
 
-				//await CreateHelper.SetDemonAbilities(actorData);
 				await CreateHelper.SetAbilities(actorData, "demon", "modern");
 				await CreateHelper.SetMortalAttributes(actorData);
-				await CreateHelper.SetDemonAttributes(actorData);
+				await CreateHelper.SetDemonAttributes(actorData);	
+				
+				if (game.settings.get('worldofdarkness', 'demonCreateForms')) {
+					console.log(`CREATION: Adds Apocalyptic Forms to ${this.actor.name}`);
 
-				console.log(`CREATION: Adds Apocalyptic Forms to ${this.actor.name}`);
-
-				let itemData = {
-					name: "form1",
-					type: "Trait",
-
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form2",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form3",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form4",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form5",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form6",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form7",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
-
-				itemData = {
-					name: "form8",
-					type: "Trait",
-					data: {
-						iscreated: true,
-						version: version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await this.actor.createEmbeddedDocuments("Item", [itemData]);
+					let itemData = {
+						name: "form1",
+						type: "Trait",
+						
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form2",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form3",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form4",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form5",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form6",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form7",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+	
+					itemData = {
+						name: "form8",
+						type: "Trait",
+						data: {
+							iscreated: true,
+							version: version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await this.actor.createEmbeddedDocuments("Item", [itemData]);
+				}				
 
 				await this.actor.update(actorData);
-			}
+			}	 	
 		}
 
 		const data = await super.getData();
@@ -144,13 +145,13 @@ export class DemonActorSheet extends MortalActorSheet {
 		const forms = [];
 
 		/*
-			Måste ändra om hur vi sorterar bonusarna på Apocalyptic Forms. Istället för att lista dessa på själva formen när man editerar den behöver de listas på
+			Måste ändra om hur vi sorterar bonusarna på Apocalyptic Forms. Istället för att lista dessa på själva formen när man editerar den behöver de listas på 
 			rollformuläret direkt
 		*/
 		for (const i of data.items) {
 			if (i.type == "Trait") {
 				if (i.system.type == "wod.types.apocalypticform") {
-					const form = {
+					/* const form = {
 						isactive: i.system.isactive,
 						name: i.name,
 						level: i.system.level,
@@ -158,9 +159,10 @@ export class DemonActorSheet extends MortalActorSheet {
 						description: i.system.description,
 						_id: i._id,
 						bonuses: BonusHelper.getBonuses(data.items, i._id)
-					}
+					} */
 
-					forms.push(form);
+					//forms.push(form);
+					forms.push(i);
 				}
 			}
 		}
@@ -178,10 +180,10 @@ export class DemonActorSheet extends MortalActorSheet {
 	/** @override */
 	get template() {
 		console.log("WoD | Demon Sheet get template");
-
+		
 		return "systems/worldofdarkness/templates/actor/demon-sheet.html";
 	}
-
+	
 	/** @override */
 	activateListeners(html) {
 		super.activateListeners(html);
@@ -220,20 +222,20 @@ export class DemonActorSheet extends MortalActorSheet {
 
 		html
 			.find(".macroBtn")
-			.click(this._onRollDemonDialog.bind(this));
-
+			.click(this._onRollDemonDialog.bind(this));		
+			
 		// resource dots
 		html
 			.find(".resource-value > .resource-value-step")
 			.click(this._onDotCounterDemonChange.bind(this));
-
+		
 		// temporary squares
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterDemonChange.bind(this));
 	}
 
-	_onRollDemonDialog(event) {
+	_onRollDemonDialog(event) {		
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
@@ -244,10 +246,10 @@ export class DemonActorSheet extends MortalActorSheet {
 
 		ActionHelper.RollDialog(event, this.actor);
 	}
-
+	
 	async _onDotCounterDemonChange(event) {
 		console.log("WoD | Demon Sheet _onDotCounterDemonChange");
-
+		
 		event.preventDefault();
 
 		const element = event.currentTarget;
@@ -258,9 +260,9 @@ export class DemonActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		const parent = $(element.parentNode);
-		const steps = parent.find(".resource-value-step");
-		const index = Number(dataset.index);
+		const parent = $(element.parentNode);	
+		const steps = parent.find(".resource-value-step");	
+		const index = Number(dataset.index);		
 
 		let itemid = undefined;
 
@@ -292,24 +294,24 @@ export class DemonActorSheet extends MortalActorSheet {
 		else {
 			const fieldStrings = parent[0].dataset.name;
 			const fields = fieldStrings.split(".");
-
+	
 			if (index < 0 || index > steps.length) {
 				return;
 			}
-
+			
 			await this._assignToActorField(fields, index + 1);
-		}
+		}			
 	}
 
 	async _assignToDemon(fields, value) {
 		console.log("WoD | Demon Sheet _assignToDemon");
-
+		
 		const actorData = duplicate(this.actor);
 
-		let area = fields[0];
-		const ability = fields[1];
+		let area = fields[0];	
+		const ability = fields[1];	
 
-		if (area === "advantages") {
+		if (area === "advantages") {			
 			const abilityType = fields[2];
 
 			if (fields.length == 3) {
@@ -335,9 +337,9 @@ export class DemonActorSheet extends MortalActorSheet {
 		}
 
 		await ActionHelper.handleCalculations(actorData);
-
+		
 		console.log("WoD | Demon Sheet updated");
 		this.actor.update(actorData);
 		this.render(false);
-	}
+	}	
 }

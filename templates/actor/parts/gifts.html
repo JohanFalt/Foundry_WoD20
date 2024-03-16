@@ -11,7 +11,7 @@
 
     <div class="clearareaBox">
 
-        {{#if (eq actor.type config.sheettype.spirit)}}
+        {{#if (eq actor.system.settings.variant  (lowercase config.sheettype.spirit))}}
 
             {{#each actor.system.listdata.powers.gifts.giftlist as |item id|}}
                 <div class="item-row-area">
@@ -40,24 +40,38 @@
                         <div class="pullLeft gift-iconbox">
                             <div class="pullLeft pointer headlineNormal tooltip">
                                 <i class="icon fa-solid fa-memo"></i>
-                                <span class="tooltiptext">
-                                    {{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/iff}}
-                                    <br /><br />
-                                    {{#iff item.system.details "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/iff}}
-                                </span>
+                                <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
                             </div>
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}" 
                                     data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>            
-                            <div class="pullLeft pointer">
-                                <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                            <div class="pullLeft pointer">
-                                <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            </div>
+                            </div>           
+                            {{#if (eq ../locked false)}} 
+                                <div class="pullLeft pointer">
+                                    <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}
+                            {{#if (gt item.system.bonuslist.length 0)}}
+                                <div class="pullLeft pointer">
+                                    <i id="collapsiblemortalgiftbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../../config.sheettype.mortal}}" data-type="mortalgift{{id}}"></i>
+                                </div>
+                            {{/if}}
                         </div>
+                    </div>
+                    <div class="hide bonuses mortalgift{{id}}" data-area="mortalgiftbonus{{id}}">
+
+                        {{#each item.system.bonuslist as |bonus id|}}
+                            <div class="clearareaBox">
+                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
+                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
+                            </div>
+                        {{/each}}
+
                     </div>
                 </div>
 
@@ -92,18 +106,9 @@
                         {{/if}}
 
                         <div class="pullLeft gift-iconbox">
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{item._id}}"></i>
-                                </div>
-                            {{/if}}
                             <div class="pullLeft pointer headlineNormal tooltip">
                                 <i class="icon fa-solid fa-memo"></i>
-                                <span class="tooltiptext">
-                                    {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
-                                    <br /><br />
-                                    {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                                </span>
+                                <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
                             </div>
                             <div class="pullLeft">
                                 <a class="send-chat" 
@@ -119,7 +124,7 @@
                                 </div>
                             {{/if}}
 
-                            {{#if (gt item.system.bonuses.length 0)}}
+                            {{#if (gt item.system.bonuslist.length 0)}}
                                 <div class="pullLeft pointer">
                                     <i id="collapsiblemortalgiftbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../../config.sheettype.mortal}}" data-type="mortalgift{{id}}"></i>
                                 </div>
@@ -128,13 +133,11 @@
                     </div>
                     <div class="hide bonuses mortalgift{{id}}" data-area="mortalgiftbonus{{id}}">
 
-                        {{#each item.system.bonuses as |bonus id|}}
+                        {{#each item.system.bonuslist as |bonus id|}}
                             <div class="clearareaBox">
                                 <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                {{#if (eq ../../locked false)}}
-                                    <div class="pullLeft pointer"><i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
-                                    <div class="pullLeft pointer"><i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
-                                {{/if}}
+                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
+                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
                             </div>
                         {{/each}}
 

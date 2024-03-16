@@ -24,7 +24,7 @@ export class DialogShapeChange extends FormApplication {
     }
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options
         * @returns {Object}
     */
     static get defaultOptions() {
@@ -42,6 +42,7 @@ export class DialogShapeChange extends FormApplication {
         
         data.config = CONFIG.worldofdarkness;
         data.actorData = this.actor.system;
+        data.actorType = this.actor.type;
 
         return data;
     }

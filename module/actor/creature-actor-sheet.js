@@ -145,7 +145,6 @@ export class CreatureActorSheet extends MortalActorSheet {
 			}
 
 			await ActionHelper.handleCalculations(actorData);
-			await ActionHelper.handleCreatureCalculations(actorData);
 		
 			console.log("WoD | Creature Sheet updated");
 			this.actor.update(actorData);

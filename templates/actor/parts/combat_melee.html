@@ -17,6 +17,7 @@
     {{#each actor.system.listdata.combat.meleeWeapons as |item id|}}
 
         <div class="clearareaBox item-row-area">
+
             {{#if item.system.attack.isrollable}}
                 <div class="pullLeft weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i></div>
                 <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
@@ -25,7 +26,7 @@
                     data-rollitem="true" 
                     data-itemid="{{item._id}}"
                     title="{{item.name}}">            
-                    {{shorten item.name 18}}
+                    {{shorten item.name 18}}&nbsp;
                 </div>
             {{else}}
                 {{#if item.system.damage.isrollable}}
@@ -36,14 +37,14 @@
                         data-rollitem="true" 
                         data-itemid="{{item._id}}"
                         title="{{item.name}}">
-                        {{shorten item.name 18}}
+                        {{shorten item.name 18}}&nbsp;
                     </div>
                 {{else}}
                     <div class="pullLeft weapon-rolliconbox-empty">&nbsp;</div>
-                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}</div>
+                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}&nbsp;</div>
                 {{/if}}
             {{/if}}
-            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}</div>
+            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}&nbsp;</div>
             <div class="pullLeft combat-abilityBox headlineNormal">
                 {{#if (eq item.system.attack.ability "custom")}}
                     {{shorten (getSecondaryAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
@@ -88,11 +89,8 @@
                     </div>
                     <div class="pullRight pointer headlineNormal tooltip">                    
                         <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">
-                            <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                        </span>
-                    </div>
-                    
+                        <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
+                    </div>                    
                 {{else}}
                     <div class="pullLeft"><i class="icon fa-solid fa-memo transparent"></i></div>
                 {{/if}}

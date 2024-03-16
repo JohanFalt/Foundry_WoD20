@@ -1,4 +1,26 @@
 {
+	"TYPES.Actor.Changeling": "Changeling the Dreaming",
+	"TYPES.Actor.Changing Breed": "Changing Breed",
+	"TYPES.Actor.Demon": "Demon the Fallen",
+	"TYPES.Actor.Hunter": "Hunter the Reckoning",
+	"TYPES.Actor.Mage": "Mage the Ascention",
+	"TYPES.Actor.Mortal": "Mortal sheet",
+	"TYPES.Actor.Vampire": "Vampire the Masquerade",
+	"TYPES.Actor.Wraith": "Wraith the Oblivion",
+	"TYPES.Actor.Werewolf": "Werewolf the Apocalypse",
+	"TYPES.Actor.Creature": "Creature sheet",
+	"TYPES.Actor.Spirit": "Spirit (deprecated)",
+	"TYPES.Item.Bonus": "Bonus",
+	"TYPES.Item.Experience": "Experience Points",
+	"TYPES.Item.Feature": "Feature",
+	"TYPES.Item.Trait": "Trait",
+	"TYPES.Item.Power": "Power",
+	"TYPES.Item.Rote": "Rote",
+	"TYPES.Item.Armor": "Armor",
+	"TYPES.Item.Fetish": "Fetish",
+	"TYPES.Item.Item": "Item",
+	"TYPES.Item.Melee Weapon": "Natural/Melee Weapon",
+	"TYPES.Item.Ranged Weapon": "Ranged Weapon",
 	"wod": {
 		"system": {
 			"world": "¡Mundo actualizado!",
@@ -12,7 +34,28 @@
 			"vampire": "Vampiro: la Mascarada",
 			"werewolf": "Hombre lobo: el Apocalipsis",
 			"mage": "Mago: la Ascensión",
-			"wraith": "Wraith: el Olvido"
+			"wraith": "Wraith: el Olvido",
+			"breed": "Changing Breed",
+			"creature": "Creature",
+			"mortal": "Mortal"
+		},
+		"sheets": {
+			"mortal": "Mortal sheet",
+			"werewolf": "Werewolf sheet",
+			"mage": "Mage sheet",
+			"vampire": "Vampire sheet",
+			"changeling": "Changeling sheet",
+			"hunter": "Hunter sheet",
+			"demon": "Demon sheet",
+			"wraith": "Wraith sheet",
+			"breed": "Changing breed sheet",
+			"creature": "Creature sheet",
+			"spirit": "Spirit sheet (deprecated)",
+			"items": "Item sheet",
+			"powers": "Powers",
+			"equipment": "Equipment",
+			"sheets": "Sheets",
+			"npc": "NPC"
 		},
 		"era": {
 			"modern": "Edad Contemporánea/actual",
@@ -64,6 +107,12 @@
 			"usesplatfonthint": "Con esta opción desactivas a nivel global la fuente especial usada por las diferentes fichas.",
 			"usesworldanvil": "Usar links de World Anvil",
 			"usesworldanvilhint": "Muestra un cuadro de entrada en la Biografía del Personaje donde puedes colocar el enlace de World Anvil de esa ficha.",
+			"demonsettings": "Demon the Fallen Settings",
+			"demonsettingshint": "World settings used in Demon the Fallen.",
+			"demoncreateforms": "Create apocalyptic forms automatically",
+			"demoncreateformshint": "When creating a demon sheet create the apocalyptic forms automatically on the actor.",
+			"demonsystemsettings": "Ability list setting",
+			"demonsystemsettingshint": "According to what setting are the list of abilities taken from",
 			"huntersettings": "Configuración de Cazador",
 			"huntersettingshint": "Configuración de Mundo para Cazador: la Venganza.",
 			"werewolfsettings": "Configuración de Hombre Lobo",
@@ -92,7 +141,9 @@
 			"diceruleshint": "Cómo manejar los Sistemas de tiradas de dados.",
 			"rollsettings": "Configuración de tiradas",
 			"erasettings": "Configuración de época",
-			"erasettingshint": "Opciones de mundo relativas a ambientaciones de época"
+			"erasettingshint": "Opciones de mundo relativas a ambientaciones de época",
+			"darkmodesetting": "Darkmode",
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -118,6 +169,7 @@
 			"disciplinepower": "Poder de Disciplina",
 			"disciplinepath": "Senda de Magia de Sangre",
 			"disciplinepathpower": "Poder de Senda de Magia de Sangre",
+			"combination": "Combination Discipline",
 			"art": "Arte",
 			"artpower": "Poder de Arte",
 			"edge": "Facultad",
@@ -144,13 +196,12 @@
 			"othertraits": "Otros Rasgos",
 			"apocalypticform": "Forma Apocalíptica",
 			"passion": "Pasión",
-			"fetter": "Grillete"
+			"fetter": "Grillete",
+			"wyrd": "Wyrd"
 		},
 		"tab": {
 			"bio": "Biografía",
 			"core": "Principal",
-			"normal": "Vista normal",
-			"specialities": "Ver especializaciones",
 			"combat": "Combate",
 			"gear": "Equipo",
 			"notes": "Notas",
@@ -198,7 +249,10 @@
 				"nagah": "Nagah",
 				"nuwisha": "Nuwisha",
 				"ratkin": "Ratkin",
-				"rokea": "Rokea"
+				"rokea": "Rokea",
+				"apis": "Apis",
+				"camazotz": "Camazotz",
+				"grondr": "Grondr"
 			},
 			"breed": "Raza",
 			"breedname": {
@@ -220,8 +274,10 @@
 				"vasuki": "Vasuki",
 				"latrani": "Latrani",
 				"rodens": "Rodens",
-				"squamus": "Squamus"
-			},
+				"squamus": "Squamus",
+				"bos": "Bos",
+				"scrofa": "Scrofa"
+			},	
 			"clan": "Clan",
 			"auspice": "Auspicio",
 			"auspicename": {
@@ -248,9 +304,12 @@
 				"kali": "Kali",
 				"brightwaters": "Aguas Claras",
 				"dimwater": "Aguas Turbias",
-				"darkwater": "Aguas Oscuras"
+				"darkwater": "Aguas Oscuras",
+				"twilight": "Twilight",
+				"solar": "Solar",
+				"lunar": "Lunar"
 			},
-			"aspect": "Aspecto",
+			"aspect": "Aspecto",	
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -266,7 +325,7 @@
 				"plaguelords": "Señores de la Plaga",
 				"munchmausen": "Munchmausen",
 				"twitchers": "Espasmódicos"
-			},
+			},		
 			"tribe": "Tribu",
 			"tribename": {
 				"chasers": "Cazadores",
@@ -379,7 +438,7 @@
 				"cleargeneration": "Borrar Generación temporal"
 			},
 			"mage": {
-				"affiliation": "Afiliación",
+				"affiliation": "Afiliación",			
 				"essence": "Esencia",
 				"sect": "Secta",
 				"affinitysphere": "Esfera Afín",
@@ -566,6 +625,8 @@
 			},
 			"creature": {
 				"chimera": "Quimera",
+				"familiar": "Familiar",
+				"construct": "Construct",
 				"spirit": "Espíritu",
 				"warwolves": "Lobos de Guerra",
 				"anurana": "Anurana",
@@ -654,7 +715,7 @@
 
 			"academics": "Academicismo",
 			"bureaucracy": "Burocracia",
-			"computer": "Informática",
+			"computer": "Informática",	
 			"cosmology": "Cosmología",
 			"culture": "Cultura Encubierta",
 			"enigmas": "Enigmas",
@@ -674,8 +735,8 @@
 			"seneschal": "Senescal",
 			"science": "Ciencia",
 			"technology": "Tecnología",
-			"theology": "Teología"
-		},
+			"theology": "Teología"		
+		},		
 		"health": {
 			"health": "Salud",
 			"bruised": "Magullado",
@@ -938,7 +999,13 @@
 			"ungeziefer": "Ungeziefer",
 			"bandia": "Bandia",
 			"kiforu": "Kiforu",
-			"faru": "Faru"
+			"faru": "Faru",
+			"minotaur": "Minotaur",
+			"aurochs": "Aurochs",
+			"apterous": "Apterous",
+			"megachiroptera": "Megachiroptera",
+			"aperius": "Aperius",
+			"daeodon": "Daeodon"
 		},
 		"power": {
 			"rank0": "Eres de Rango 0, no se permiten Dones",
@@ -995,7 +1062,7 @@
 			"entropicstate": "Control del Estado Entrópico",
 			"forcebased": "Parafísica Basada en Fuerzas",
 			"lifescience": "Ciencias de la Vida",
-			"material": "Ciencias de la Materia",
+			"material": "Ciencias de la Materia",	
 			"psychodynamics": "Psicodinámica",
 			"primal": "Teoría de la Utilidad Primordial",
 			"dimensional": "Parafísica de la Ciencia Dimensional",
@@ -1063,7 +1130,7 @@
 			"woundlevel": "Nivel de heridas",
 			"selectability": "Selecciona Habilidad",
 			"selectattribute": "Selecciona Atributo",
-			"specialty": "Especialidad",
+			"specialty": "Especialidad",			
 			"select": "Escoger",
 			"noneselect": "Nada seleccionado",
 			"custom": "Habilidad secundaria",
@@ -1095,13 +1162,14 @@
 			"rank": "Rango",
 			"other": "Otros",
 			"both": "Ambos",
+			"nochange": "No Change",
 			"bio": {
 				"wronggeneration": "Generación no válida",
 				"wrongtempgeneration": "No se puede bajar de Cuarta Generación",
 				"tempgeneration": "Generación temporal"
 			},
 			"combat": {
-				"conditions": "Condiciones",
+				"conditions": "Condiciones",				
 				"natural": "Armas naturales",
 				"melee": "Armas cuerpo a cuerpo",
 				"ranged": "Armas a distancia",
@@ -1160,6 +1228,7 @@
 				"abilitiesmaxrating": "Puntuación máxima en Habilidades",
 				"hasdisciplines": "Tiene Disciplinas y Rituales",
 				"hasgifts": "Tiene Dones y Ritos",
+				"haspowers": "Has special powers",
 				"setdarkages": "¡Ficha configurada para Edad Oscura!",
 				"setvictorian": "¡Ficha configurada para Edad Victoriana!",
 				"setwildwest": "¡Ficha configurada para el Salvaje Oeste!",
@@ -1219,7 +1288,9 @@
 				"multiplier": "Multiplicador de movimiento",
 				"abilities": {
 					"athletics": "Modificadores de Atletismo"
-				}
+				},
+				"savesuccess": "Bonus changes saved",
+				"savefail": "Failed so save the bonus"
 			},
 			"new": {
 				"notfound": "Este tipo de objeto no existe",
@@ -1245,6 +1316,7 @@
 				"treasure": "Nuevo Tesoro",
 				"bonus": "Nuevo modificador (bonus/malus)",
 				"attributebonus": "Nuevo modificador de Atributo",
+				"apocalypticform": "New apocalyptic form",
 				"attributedicebonus": "Nuevo modificador de la reserva de Atributos",
 				"attributediff": "Nuevo modificador a la dificultad de Atributo",
 				"attributesucc": "Nuevo modificador al éxito automático de Atributo",
@@ -1258,6 +1330,7 @@
 				"disciplinepower": "Nuevo Poder de Disciplina",
 				"disciplinepath": "Nueva Senda de Disciplina",
 				"disciplinepathpower": "Nuevo Poder de Senda de Disciplina",
+				"combination": "New combination discipline",
 				"ritual": "Nuevo ritual",
 				"edge": "Nueva Facultad",
 				"edgepower": "Nuevo Poder de Facultad",
@@ -1294,6 +1367,7 @@
 				"othertraits": "Añadir 'Otro Rasgo'",
 				"treasure": "Añadir Tesoro",
 				"bonus": "Añadir modificador",
+				"apocalypticform": "Add apocalyptic form",
 				"experience": "Añadir Experiencia",
 				"spentexp": "Añadir gasto de Experiencia",
 				"gift": "Añadir Don",
@@ -1301,9 +1375,12 @@
 				"disciplinepower": "Añadir Poder de Disciplina",
 				"disciplinepath": "Añadir Senda de Disciplina",
 				"disciplinepathpower": "Añadir Poder de Senda de Disciplina",
+				"combination": "Add combination discipline",
 				"ritual": "Añadir ritual",
 				"edge": "Añadir Facultad",
 				"edgepower": "Añadir Poder de Facultad",
+				"lore": "Add lore",
+				"lorepower": "Add lore power",
 				"art": "Añadir Arte",
 				"artpower": "Añadir Poder de Arte",
 				"sliver": "Añadir Espina",
@@ -1407,6 +1484,7 @@
 				"othertraits": "Quitar Otro Rasgo",
 				"treasure": "Quitar Tesoro",
 				"bonus": "Quitar bonificador",
+				"apocalypticform": "Remove apocalyptic form",
 				"power": "Quitar Poder",
 				"device": "Quitar Dispositivo",
 				"talisman": "Quitar Talismán",
@@ -1475,7 +1553,7 @@
 			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito.",
 			"addedautosucc": "La tirada añade {0} éxitos automáticos"
 		},
-		"dialog": {
+		"dialog": {	
 			"save": "Guardar",
 			"reset": "Reiniciar",
 			"close": "Cerrar",
@@ -1489,7 +1567,7 @@
 			"nonelisted": "Ninguno listado",
 			"aretecasting": {
 				"castspell": "Lanzar hechizo",
-				"castingspell": "Lanzando hechizo",
+				"castingspell": "Lanzando hechizo",	
 				"casting": "Lanzando",
 				"modifierarete": "Modificador de Areté",
 				"castingtype": "Tipo de hechizo",
@@ -1571,7 +1649,9 @@
 				"sprayresult": "Apunta a [0] objetivos e impacta a [1]",
 				"selectedtargets": "Número de objetivos seleccionados",
 				"firemodes": "Modos de fuego automático",
-				"numbertargets": "Número de objetivos"
+				"numbertargets": "Número de objetivos",
+				"nomeleeweapon": "No melee weapon secondary abilities listed on sheet",
+				"norangedweapon": "No ranged weapon secondary abilities listed on sheet"
 			},
 			"soak": {
 				"missingdamage": "Debes seleccionar un tipo de daño",
@@ -1586,7 +1666,10 @@
 				"noarttype": "Tipo de Arte no seleccionado",
 				"shiftnightmaredice": "Cambio de dado de Pesadilla",
 				"notset": "No configurado",
-				"selectpower": "Selecciona Poder al que conectarse"
+				"selectpower": "Selecciona Poder al que conectarse",
+				"disciplineneeded": "Disciplines needed",
+				"savecombination": "Save combination discipline",
+				"removecombination": "Remove combination discipline"
 			},
 			"attribute": {
 				"speciality": "Especialización",
@@ -1596,12 +1679,16 @@
 				"techonocracy": "Usar versión tecnocrática"
 			},
 			"general": {
-				"selectattribute": "Selecciona el Atributo a usar"
+				"selectattribute": "Selecciona el Atributo a usar",
+				"numberdiceshint": "To be able to roll more than 10 dices as once, fill in the number in the box above."
 			},
 			"bonus": {
 				"chosenattribute": "Atributo elegido",
 				"movement": "Tipo de movimiento",
-				"bonusvalue": "Valor del bonus"
+				"name": "Name",
+				"type": "Type",
+				"bonusvalue": "Valor del bonus",
+				"bonuses": "Bonuses"
 			},
 			"variant": {
 				"sheettype": "Selecciona el modelo de ficha",
@@ -1612,8 +1699,9 @@
 				"wraith": "Wraith normal",
 				"creature": "Criatura genérica",
 				"info": "Esta opción establece qué variante de hoja de personaje se usa.",
-				"description": "Estas opciones pueden editarse en la configuración de ficha"
+				"description": "Estas opciones pueden editarse en la configuración de ficha",
+				"lostbreeds": "Lost breeds"
 			}
 		}
-	}
+	}	
 }

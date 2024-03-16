@@ -48,7 +48,10 @@ wod.variant = {
 		Nagah: "wod.bio.feraname.nagah",
 		Nuwisha: "wod.bio.feraname.nuwisha",
 		Ratkin: "wod.bio.feraname.ratkin",
-		Rokea: "wod.bio.feraname.rokea"
+		Rokea: "wod.bio.feraname.rokea",
+        Apis: "wod.bio.feraname.apis",
+		Camazotz: "wod.bio.feraname.camazotz",
+		Grondr: "wod.bio.feraname.grondr"
     },
     mortal: {
         autumnpeople: "wod.bio.mortal.autumnpeople",
@@ -59,6 +62,8 @@ wod.variant = {
     },
     creature: {
         chimera: "wod.bio.creature.chimera",
+        familiar: "wod.bio.creature.familiar",
+        construct: "wod.bio.creature.construct",
         spirit: "wod.bio.creature.spirit",
         warwolves: "wod.bio.creature.warwolves",
         anurana: "wod.bio.creature.anurana",
@@ -192,6 +197,16 @@ wod.knowledges = {
     technology: "wod.abilities.technology"
 }
 
+wod.alwaysspeciality = [
+    "expression", 
+    "craft", 
+    "performance", 
+    "academics", 
+    "law", 
+    "science", 
+    "technology"
+]
+
 wod.attackAttributes = {
     strength: "wod.attributes.strength",
     dexterity: "wod.attributes.dexterity",
@@ -211,7 +226,9 @@ wod.attackMeleeAbilities = {
 
 wod.attackRangedAbilities = {
     athletics: "wod.abilities.athletics",
-    firearms: "wod.abilities.firearms"
+    firearms: "wod.abilities.firearms",
+    brawl: "wod.abilities.brawl",
+    martialarts: "wod.abilities.martialarts"
 } 
 
 wod.damageTypes = {
@@ -240,4 +257,17 @@ wod.allSpheres = {
 	prime: "wod.spheres.prime",
 	spirit: "wod.spheres.spirit",
 	time: "wod.spheres.time"
+}
+
+wod.bonus = {
+    attribute_buff: "wod.labels.bonus.attributebonus",
+    attribute_dice_buff: "wod.labels.bonus.attributedicebonus",
+    attribute_diff: "wod.labels.bonus.attributediff",
+    attribute_auto_buff: "wod.labels.bonus.attributesucc",
+    ability_buff: "wod.labels.bonus.abilitybonus",
+    ability_diff: "wod.labels.bonus.abilitydiff",
+    soak_buff: "wod.labels.bonus.soakbonus",
+    health_buff: "wod.labels.bonus.healthbuff",
+    initiative_buff: "wod.labels.bonus.initbonus",
+    movement_buff: "wod.labels.bonus.movebonus"
 }

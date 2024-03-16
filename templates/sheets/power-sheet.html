@@ -46,6 +46,10 @@
 									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 								{{/if}}
 
+								{{#if (eq data.system.type "wod.types.combination")}} 
+									{{captilize (localize "wod.labels.combination")}}
+								{{/if}}
+
 								{{#if (eq data.system.type "wod.types.edge")}} 
 									{{captilize (localize "wod.types.edge")}}
 								{{/if}}
@@ -145,7 +149,7 @@
 								{{#if (eq data.system.game "demon")}}
 									<option value="wod.types.lore">{{localize "wod.types.lore"}}</option>
 									<option value="wod.types.lorepower">{{localize "wod.types.lorepower"}}</option>
-									<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>
+									<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>									
 								{{/if}}
 								{{#if (eq data.system.game "hunter")}}
 									<option value="wod.types.edge">{{localize "wod.types.edge"}}</option>
@@ -157,6 +161,7 @@
 									<option value="wod.types.disciplinepath">{{localize "wod.types.disciplinepath"}}</option>
 									<option value="wod.types.disciplinepathpower">{{localize "wod.types.disciplinepathpower"}}</option>
 									<option value="wod.types.ritual">{{localize "wod.types.ritual"}}</option>
+									<option value="wod.types.combination">{{localize "wod.types.combination"}}</option>
 								{{/if}}
 								{{#if (eq data.system.game "werewolf")}}
 									<option value="wod.types.gift">{{localize "wod.types.gift"}}</option>
@@ -173,8 +178,6 @@
 						<span class="floating-label">{{localize "wod.labels.type"}}</span>
 					</div>
 				{{/if}}	
-
-
 					
 				{{#if (eq data.system.type "wod.types.disciplinepower")}}
 					{{#if (eq hasActor false)}}
@@ -333,7 +336,7 @@
 							{{#select data.system.arttype}}
 								<option value="">- {{localize "wod.labels.select"}} -</option>
 								<option value="wod.health.chimerical">{{localize "wod.health.chimerical"}}</option>
-								<option value="wod.power.wyld">{{localize "wod.power.wyld"}}</option>
+								<option value="wod.types.wyrd">{{localize "wod.types.wyrd"}}</option>
 								<option value="wod.labels.both">{{localize "wod.labels.both"}}</option>
 							{{/select}}
 						</select>
@@ -429,11 +432,56 @@
 					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
 					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 				</div>
-			</div>		
+			</div>	
+			
+			{{#if (eq data.system.type "wod.types.combination")}}
+
+				<div class="dialog-area">
+					<div class="clearareaBox">
+						<div class="pullLeft"><i class="icon fa-solid fa-square-plus item-create pointer" title="{{localize "wod.labels.add.combination"}}" aria-hidden="true" data-type="combination" data-game="vampire"></i></div>
+						<div class="pullLeft sheet-banner-text">{{localize "wod.dialog.power.disciplineneeded"}}</div>								
+					</div>
+					
+					{{#each data.system.property as | item id|}}
+						<div class="clearareaBox bioInformationArea" style="margin-bottom: 10px;">
+							<div class="pullLeft infobox floating-label-group">
+								<input id="combination_name_{{id}}" class="sheet-infoValues {{#if (ne ../locked true)}}editable{{/if}}" type="text" value="{{item.discipline}}" />		
+								<span class="floating-label">{{localize "wod.types.discipline"}}</span>						
+							</div>
+							<div class="pullLeft infobox floating-label-group">
+								<select id="combination_rating_{{id}}" class="sheet-infoValues {{#if (ne ../locked true)}}editable{{/if}}" data-dtype="String">
+									{{#select item.value}}
+										<option value="0">- {{localize "wod.labels.select"}} -</option>
+										{{#numFromLoop 1 9}}
+											<option value="{{this}}">{{this}}</option>
+										{{/numFromLoop}}
+									{{/select}}
+								</select>
+								<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
+							</div>
+							{{#if (ne ../locked true)}}
+								<div class="pullLeft pointer">
+									<a class="item-property" 
+										title="{{localize 'wod.dialog.power.savecombination'}}" 
+										data-type="combination" data-game="vampire" data-typeid="{{id}}"><i class="icon fa-solid fa-floppy-o"></i></a>
+								</div>							
+								<div class="pullLeft pointer">
+									<a class="item-delete" 
+										title="{{localize 'wod.dialog.power.removecombination'}}" 
+										data-type="combination" data-item-id="{{id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+								</div>
+							{{/if}}
+						</div>
+					{{/each}}
+				</div>
+					
+			{{/if}}
+
+			{{> "systems/worldofdarkness/templates/sheets/parts/item_bonus.html"}}
 
 			<!-- dice -->
 			{{#if (ne data.system.type "")}}
-				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.charm" "wod.types.power")}}
+				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.combination" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.charm" "wod.types.power")}}
 					<div class="dialog-area">
 						<div class="infobox">
 							<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>

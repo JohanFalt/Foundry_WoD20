@@ -1,5 +1,12 @@
 export const systemSettings = function() {
 
+    // type: Number,
+    //     range: {
+    //         min: 1,
+    //         max: 2,
+    //         step: 1
+    //     }
+
     // "core" is core settings
 	// "worldofdarkness" as system setting
 	// "wod" or other then is module settings
@@ -194,6 +201,32 @@ export const systemSettings = function() {
 
     // END ERA SETTINGS
 
+    // DEMON SETTINGS
+
+    game.settings.register("worldofdarkness", "demonCreateForms", {
+		name: game.i18n.localize('wod.settings.demoncreateforms'),
+        hint: game.i18n.localize('wod.settings.demoncreateformshint'),
+		scope: "world",
+		config: false,
+		default: true,
+		type: Boolean,
+	});
+
+    game.settings.register("worldofdarkness", "demonSystemSettings", {
+		name: game.i18n.localize('wod.settings.demonsystemsettings'),
+		hint: game.i18n.localize('wod.settings.demonsystemsettingshint'),
+		scope: "world",
+		config: false,
+		default: "revised",
+		type: String,
+		choices: {
+			"revised": "According to book",
+			"20th": "According to 20th ed WoD"
+		}
+	});
+
+    // END DEMON SETTINGS
+
     // HUNTER SETTINGS
 
     game.settings.register("worldofdarkness", "hunteredgeSettings", {
@@ -308,7 +341,19 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
-	/* patch settings */
+    /**
+    * dark mode. Css adjustements are located in the dark-theme.less file.
+    */
+    game.settings.register( "worldofdarkness", "darkMode", {
+        name: game.i18n.localize('wod.settings.darkmodesetting'),
+        hint: game.i18n.localize('wod.settings.darkmodesettinghint'),
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean,        
+    });
+
+    // PATCH SETTINGS
 	game.settings.register("worldofdarkness", "patch107", {
 		name: "patch107",
 		hint: "patch107",
@@ -426,6 +471,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch330", {
+		name: "patch330",
+		hint: "patch330",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
@@ -453,6 +507,15 @@ export const systemSettings = function() {
         type: Era,
         restricted: true,
     });    
+
+    game.settings.registerMenu("worldofdarkness", "demonSettings", {
+        name: game.i18n.localize('wod.settings.demonsettings'),
+        hint: game.i18n.localize('wod.settings.demonsettingshint'),
+        label: game.i18n.localize('wod.settings.demonsettings'),
+        icon: "icon fa-solid fa-gear",
+        type: Demon,
+        restricted: true,
+    });
 
     game.settings.registerMenu("worldofdarkness", "hunterSettings", {
         name: game.i18n.localize('wod.settings.huntersettings'),
@@ -496,7 +559,7 @@ export class Rules extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "rules",
-            classes: ["wod20 wod-dialog rule-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize('wod.settings.rulesettings'),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
@@ -578,7 +641,7 @@ export class Dices extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "dices",
-            classes: ["wod20 wod-dialog rule-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.rollsettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-dice.html",
         });
@@ -660,7 +723,7 @@ export class Era extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "dices",
-            classes: ["wod20 wod-dialog rule-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.erasettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-era.html",
         });
@@ -737,12 +800,95 @@ export class Era extends FormApplication {
     }
 }
 
+export class Demon extends FormApplication {
+    /** @override */
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            id: "demon",
+            classes: ["wod20rule-dialog"],
+            title: game.i18n.localize("wod.settings.demonsettings"),
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
+        });
+    }
+  
+    getData(options) {
+        const hasPermission = game.user.can("SETTINGS_MODIFY");  
+        const data = {
+            system: { 
+                title: game.system.title, 
+                menus: [], 
+                settings: [] 
+            }
+        };
+
+        // Classify all settings
+        if (hasPermission) {
+            for (let s of game.settings.settings.values()) {
+                // Exclude settings the user cannot change
+                if ((s.key == "demonSystemSettings") || (s.key == "demonCreateForms")) {
+                    // Update setting data
+                    const setting = duplicate(s);
+
+                    setting.name = game.i18n.localize(setting.name);
+                    setting.hint = game.i18n.localize(setting.hint);
+                    setting.value = game.settings.get("worldofdarkness", setting.key);
+                    setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
+                    setting.isBoolean = s.type === Boolean;
+                    setting.isSelect = s.choices !== undefined;
+
+                    data.system.settings.push(setting);
+                } 
+            }
+        }
+  
+        // Return data
+        return {
+            user: game.user,
+            canConfigure: hasPermission,
+            systemTitle: game.system.title,
+            data: data
+        };
+    }
+  
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".submenu button").click(this._onClickSubmenu.bind(this));
+    }
+  
+    /**
+     * Handle activating the button to configure User Role permissions
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onClickSubmenu(event) {
+        event.preventDefault();
+        const menu = game.settings.menus.get(event.currentTarget.dataset.key);
+        if (!menu) return ui.notifications.error("No submenu found for the provided key");
+        const app = new menu.type();
+        return app.render(true);
+    }
+  
+    /** @override */
+    async _updateObject(event, formData) {
+        for (let [k, v] of Object.entries(flattenObject(formData))) {
+            let s = game.settings.settings.get(k);
+            let current = game.settings.get("worldofdarkness", s.key);
+
+            if (v !== current) {
+                await game.settings.set("worldofdarkness", s.key, v);
+            }
+        }
+    }
+}
+
+
 export class Hunter extends FormApplication {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "hunter",
-            classes: ["wod20 wod-dialog rule-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.huntersettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
@@ -824,7 +970,7 @@ export class Werewolf extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "werewolf",
-            classes: ["wod20 wod-dialog rule-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.werewolfsettings"),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
@@ -906,7 +1052,7 @@ export class Permissions extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "permission",
-            classes: ["wod20 wod-dialog permission-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize('wod.settings.permissionsettings'),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });
@@ -988,7 +1134,7 @@ export class Graphics extends FormApplication {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: "graphics",
-            classes: ["wod20 wod-dialog graphics-dialog"],
+            classes: ["wod20rule-dialog"],
             title: game.i18n.localize('wod.settings.graphicsettings'),
             template: "systems/worldofdarkness/templates/dialogs/dialog-settings-rule.html",
         });

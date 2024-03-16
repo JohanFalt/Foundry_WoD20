@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="centerText sheet-headline splatFont">
-				CHANGING BREED {{#if (ne data.system.changingbreed '')}}({{localize (getVariantName "changingbreed" data.system.changingbreed)}}){{/if}}
+				{{captilize (localize "wod.games.breed")}} {{#if (ne data.system.changingbreed '')}}({{localize (getVariantName "changingbreed" data.system.changingbreed)}}){{/if}}
 			</div>
 
 			<!-- Bio Tab -->
@@ -183,6 +183,18 @@
                 {{#if (eq data.system.changingbreed "Rokea")}}
                     {{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_rokea.html"}}
                 {{/if}}
+
+				{{#if (eq data.system.changingbreed "Apis")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_apis.html"}}
+				{{/if}}
+			
+				{{#if (eq data.system.changingbreed "Camazotz")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_camazotz.html"}}
+				{{/if}}
+			
+				{{#if (eq data.system.changingbreed "Grondr")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/shift_grondr.html"}}
+				{{/if}}
 
 			</div>
 			

@@ -6,12 +6,108 @@
 
     <div class="dialog-area">
         <div class="headline splatFont">{{localize "wod.dialog.shapechange.selectshape"}}</div>
+
         <div class="infobox centerText">
-            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "homid")}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
-            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "glabro")}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
-            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "crinos")}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
-            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "hispo")}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
-            <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape "lupus")}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+            {{#if (eq actorType config.sheettype.werewolf)}}
+                <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
+                <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
+                <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+            {{else}}
+                {{#if (eq actorData.changingbreed "Ajaba")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.anthros"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.crocas"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.hyaenid"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Ananasi")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.lilian"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.pithus"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.crawlerling"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Bastet")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.sokto"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.chatro"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.feline"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Corax")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.corvid"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Gurahl")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.arthren"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.bjornen"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.ursus"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Kitsune")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.hitogata"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.sambuhenge"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.koto"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.juko"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.kyubi"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Mokole")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.archid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.suchid"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Nagah")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.balaram"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.silkaram"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.azhidahaka"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.kalidahaka"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.vasuki"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Nuwisha")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.tsitsu"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.manabozho"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.sendeh"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.latrani"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Ratkin")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.rodens"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Rokea")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabrus"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.gladius"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.chasmus"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.squamus"}}</button>
+                {{/if}}    
+                
+                {{#if (eq actorData.changingbreed "Apis")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Camazotz")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+                {{/if}}
+                {{#if (eq actorData.changingbreed "Grondr")}}
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.hispo.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'hispo')}}active{{/if}}" value="hispo" >{{localize "wod.shapes.hispo"}}</button>
+                    <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.lupus.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'lupus')}}active{{/if}}" value="lupus" >{{localize "wod.shapes.lupus"}}</button>
+                {{/if}}
+                <!-- <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'Khara'}}">Khara</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'Okuma'}}">Okuma</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'Ao'}}">Ao</button> -->
+            {{/if}}
         </div>
     </div>
 

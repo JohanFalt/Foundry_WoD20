@@ -98,15 +98,27 @@
 /* START - General */
 
 .langDE.wod-sheet:not(.minimized),
-.langES.wod-sheet:not(.minimized) {
+.langES.wod-sheet:not(.minimized),
+.langIT.wod-sheet:not(.minimized) {
   min-width: 1100px;
   width: 1100px;
   min-height: 900px;
 }
 
+.langFR.wod-sheet:not(.minimized) {
+  min-width: 1000px;
+  width: 1000px;
+  min-height: 900px;
+}
+
 .langDE.wod-sheet .sheet-inner-area,
-.langES.wod-sheet .sheet-inner-area {
+.langES.wod-sheet .sheet-inner-area,
+.langIT.wod-sheet .sheet-inner-area {
   width: 990px;
+}
+
+.langFR.wod-sheet .sheet-inner-area {
+  width: 950px;
 }
 
 /* END - General */
@@ -124,7 +136,8 @@
 }
 
 .langPT.werewolf .ability-headlineWidth,
-.langFR .attribute-headlineWidth {
+.langFR .attribute-headlineWidth,
+.langIT .attribute-headlineWidth {
   width: 120px;
 }
 
@@ -133,7 +146,8 @@
 }
 .langDE.changeling .health-headlineWidth,
 .langPT.changeling .health-headlineWidth,
-.langES.changeling .health-headlineWidth {
+.langES.changeling .health-headlineWidth,
+.langIT.changeling .health-headlineWidth {
   width: 	180px;
 }
 
@@ -156,13 +170,24 @@
   width: 85px;
 }
 
-.langES .combat-valueBox {
+.langES .combat-valueBox,
+.langIT .combat-valueBox {
   width: 65px;
 }
 
+.langES.changeling .armor-type-width,
+.langFR.changeling .armor-type-width,
+.langIT.changeling .armor-type-width {
+  width: 270px;
+}
+
 .langES .combat-valueBoxArmor,
-.langFR .combat-valueBoxArmor {
+.langIT .combat-valueBoxArmor {
   width: 85px;
+}
+
+.langFR .combat-valueBoxArmor {
+  width: 95px;
 }
 
 /* END Combat */
@@ -181,7 +206,8 @@
 
 .langDE.aretecasting-dialog .dialog-label,
 .langPT.aretecasting-dialog .dialog-label,
-.langES.aretecasting-dialog .dialog-label {
+.langES.aretecasting-dialog .dialog-label,
+.langIT.aretecasting-dialog .dialog-label {
   width: 520px;
 }
 
@@ -193,11 +219,13 @@
   font-size: 14px;
 }
 
-.langES .settings-abilitylabel {
+.langES .settings-abilitylabel,
+.langIT .settings-abilitylabel {
   width: 115px;
 }
 
-.langES .settings-ability-altnamefiller {
+.langES .settings-ability-altnamefiller,
+.langIT .settings-ability-altnamefiller {
   width: 110px;
 }
 
@@ -205,13 +233,10 @@
 
 /* START Dialog */
 
-.langEN .dialog-casting-type-label {
-  width: 250px;
-}
-
 .langDE .dialog-casting-type-label,
 .langPT .dialog-casting-type-label,
-.langES .dialog-casting-type-label {
+.langES .dialog-casting-type-label,
+.langIT .dialog-casting-type-label {
   width: 350px;
 }
 
@@ -228,7 +253,8 @@
 {
   .langDE.wod-sheet:not(.minimized),
   .langPT.wod-sheet:not(.minimized),
-  .langES.wod-sheet:not(.minimized) {
+  .langES.wod-sheet:not(.minimized),
+  .langIT.wod-sheet:not(.minimized) {
     min-width: 900px;
   }     
 }
@@ -245,7 +271,8 @@
 
   .langDE.wod-sheet .sheet-inner-area,
   .langPT.wod-sheet .sheet-inner-area,
-  .langES.wod-sheet .sheet-inner-area {
+  .langES.wod-sheet .sheet-inner-area,
+  .langIT.wod-sheet .sheet-inner-area {
     padding-right: 45px;
   } 
 }

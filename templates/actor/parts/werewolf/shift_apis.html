@@ -1,0 +1,37 @@
+<div class="sheet-area flex-columns">  
+    <div class="shape-area">
+        <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.shapechange"}}</span></div>
+        <div>
+            <div class="pullLeft shape-selector shape-apis thin-border-left {{#if (shifterHasForm actor 'homid')}}shape-selector-active{{/if}}" data-form="wod.shapes.homid">{{localize "wod.shapes.homid"}}</div>
+            <div class="pullLeft shape-selector shape-apis thin-border-left {{#if (shifterHasForm actor 'crinos')}}shape-selector-active{{/if}}" data-form="wod.shapes.crinos">{{localize 'wod.shapes.minotaur'}}</div>
+            <div class="pullLeft shape-selector shape-apis thin-border-left thin-border-right {{#if (shifterHasForm actor 'lupus')}}shape-selector-active{{/if}}" data-form="wod.shapes.lupus">{{localize 'wod.shapes.aurochs'}}</div>
+        </div>
+
+        <div>
+            <div class="pullLeft shape-background shape-apis"></div>
+            <div>
+                <div class="pullLeft shape-selectortext shape-apis {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">
+                    {{localize "wod.labels.nochange"}}
+                </div>
+                <div class="pullLeft shape-selectortext shape-apis {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">
+                    {{localize "wod.attributes.short.str"}} (+5)<br />
+                    {{localize "wod.attributes.short.dex"}} (+1)<br />
+                    {{localize "wod.attributes.short.sta"}} (+3)<br />
+                    {{localize "wod.attributes.short.man"}} (-3)
+                    {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}<br />{{localize "wod.attributes.short.app"}} (0){{/if}}
+                </div>
+                <div class="pullLeft shape-selectortext shape-apis {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">
+                    {{localize "wod.attributes.short.str"}} (+2)<br />
+                    {{localize "wod.attributes.short.dex"}} (+1)<br />
+                    {{localize "wod.attributes.short.sta"}} (+4)<br />
+                    {{localize "wod.attributes.short.man"}} (-3)
+                </div>
+            </div>
+            <div class="clearareaBox">
+                <div class="pullLeft shape-selectortext shape-apis {{#if (shifterHasForm actor 'homid')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+                <div class="pullLeft shape-selectortext shape-apis {{#if (shifterHasForm actor 'crinos')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+                <div class="pullLeft shape-selectortext shape-apis {{#if (shifterHasForm actor 'lupus')}}text-focus{{else}}text-unfocus{{/if}}">{{localize "wod.power.diff"}}: 6</div>
+            </div>
+        </div>
+    </div>
+</div>

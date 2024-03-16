@@ -33,3 +33,7 @@
 .mortalDialog:not(.noSplatFont) .headline {
     font-size: 18px;
 }
+
+.mortal .headlineList:not(.noSplatFont) {
+    font-size: 16px;
+}

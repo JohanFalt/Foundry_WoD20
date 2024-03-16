@@ -1,3 +1,5 @@
+import * as BonusDialog from "../dialogs/dialog-bonus.js";
+
 export default class BonusHelper {
     static getBonuses(itemList, id) {
         let bonusList = [];
@@ -69,6 +71,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_diff") && (i.system.settingtype == attribute)) {
 				return true;
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_diff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        return true;
+                    }
+				}
+			}
 		}
 
         return false;
@@ -78,6 +88,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_buff") && (i.system.settingtype == attribute)) {
 				return true;
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        return true;
+                    }
+				}
 			}
 		}
 
@@ -89,6 +107,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_dice_buff") && (i.system.settingtype == attribute)) {
 				return true;
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_dice_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        return true;
+                    }
+				}
+			}
 		}
 
         return false;
@@ -98,6 +124,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_auto_buff") && (i.system.settingtype == attribute)) {
 				return true;
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_auto_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        return true;
+                    }
+				}
 			}
 		}
 
@@ -109,6 +143,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_diff") && (i.system.settingtype == ability)) {
 				return true;
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "ability_diff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                        return true;
+                    }
+				}
+			}
 		}
 
         return false;
@@ -118,6 +160,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_buff") && (i.system.settingtype == ability)) {
 				return true;
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "ability_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                        return true;
+                    }
+				}
 			}
 		}
 
@@ -129,6 +179,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "initiative_buff")) {
 				return true;
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "initiative_buff") && (i.system.bonuslist[x].isactive)) {
+                        return true;
+                    }
+				}
+			}
 		}
 
         return false;
@@ -138,6 +196,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_buff")) {
 				return true;
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "soak_buff") && (i.system.bonuslist[x].isactive)) {
+                        return true;
+                    }
+				}
 			}
 		}
 
@@ -149,6 +215,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "health_buff")) {
 				return true;
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "health_buff") && (i.system.bonuslist[x].isactive)) {
+                        return true;
+                    }
+				}
+			}
 		}
 
         return false;
@@ -158,6 +232,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "movement_buff") && (i.system.settingtype == movementtype)) {
 				return true;
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "movement_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == movementtype)) {
+                        return true;
+                    }
+				}
 			}
 		}
 
@@ -170,6 +252,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_diff") && (i.system.settingtype == attribute)) {
 				bonus += parseInt(i.system.value);
+			}   
+            
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_diff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
 			}
 		}
 
@@ -183,6 +273,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_buff") && (i.system.settingtype == attribute)) {
 				bonus += parseInt(i.system.value);
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
+			}
 		}
 
         return bonus; 
@@ -194,6 +292,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_dice_buff") && (i.system.settingtype == attribute)) {
 				bonus += parseInt(i.system.value);
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_dice_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
 			}
 		}
 
@@ -207,6 +313,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_auto_buff") && (i.system.settingtype == attribute)) {
 				bonus += parseInt(i.system.value);
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "attribute_auto_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == attribute)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
+			}
 		}
 
         return bonus; 
@@ -218,6 +332,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_diff") && (i.system.settingtype == ability)) {
 				bonus += parseInt(i.system.value);
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "ability_diff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
 			}
 		}
 
@@ -231,6 +353,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_buff") && (i.system.settingtype == ability)) {
 				bonus += parseInt(i.system.value);
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "ability_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
+			}
 		}
 
         return bonus; 
@@ -242,6 +372,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "initiative_buff")) {
 				bonus += parseInt(i.system.value);
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "initiative_buff") && (i.system.bonuslist[x].isactive)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
 			}
 		}
 
@@ -255,6 +393,14 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_buff")) {
 				bonus += parseInt(i.system.value);
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "soak_buff") && (i.system.bonuslist[x].isactive)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
+			}
 		}
 
         return bonus; 
@@ -266,6 +412,14 @@ export default class BonusHelper {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "health_buff")) {
 				bonus += parseInt(i.system.value);
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "health_buff") && (i.system.bonuslist[x].isactive)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
 			}
 		}
 
@@ -279,8 +433,24 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "movement_buff") && (i.system.settingtype == movementtype)) {
 				bonus += parseInt(i.system.value);
 			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "movement_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == movementtype)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
+			}
 		}
 
         return bonus; 
+    }
+
+    static async EditBonus(actor, item, id) {
+		const bonus = new BonusDialog.Bonus(actor, item, id);
+		let bonusUse = new BonusDialog.DialogBonus(actor, bonus);
+		bonusUse.render(true);
+
+        return;
     }
 }

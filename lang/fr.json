@@ -1,4 +1,26 @@
 {
+	"TYPES.Actor.Changeling": "Changeling the Dreaming",
+	"TYPES.Actor.Changing Breed": "Changing Breed",
+	"TYPES.Actor.Demon": "Demon the Fallen",
+	"TYPES.Actor.Hunter": "Hunter the Reckoning",
+	"TYPES.Actor.Mage": "Mage the Ascention",
+	"TYPES.Actor.Mortal": "Mortal sheet",
+	"TYPES.Actor.Vampire": "Vampire the Masquerade",
+	"TYPES.Actor.Wraith": "Wraith the Oblivion",
+	"TYPES.Actor.Werewolf": "Werewolf the Apocalypse",
+	"TYPES.Actor.Creature": "Creature sheet",
+	"TYPES.Actor.Spirit": "Spirit (deprecated)",
+	"TYPES.Item.Bonus": "Bonus",
+	"TYPES.Item.Experience": "Experience Points",
+	"TYPES.Item.Feature": "Feature",
+	"TYPES.Item.Trait": "Trait",
+	"TYPES.Item.Power": "Power",
+	"TYPES.Item.Rote": "Rote",
+	"TYPES.Item.Armor": "Armor",
+	"TYPES.Item.Fetish": "Fetish",
+	"TYPES.Item.Item": "Item",
+	"TYPES.Item.Melee Weapon": "Natural/Melee Weapon",
+	"TYPES.Item.Ranged Weapon": "Ranged Weapon",
 	"wod": {
 		"system": {
 			"world": "Monde mis à jour!",
@@ -12,7 +34,28 @@
 			"vampire": "Vampire the Masquerade",
 			"werewolf": "Werewolf the Apocalypse",
 			"mage": "Mage the Ascension",
-			"wraith": "Wraith the Oblivion"
+			"wraith": "Wraith the Oblivion",
+			"breed": "Changing Breed",
+			"creature": "Creature",
+			"mortal": "Mortal"
+		},
+		"sheets": {
+			"mortal": "Mortal sheet",
+			"werewolf": "Werewolf sheet",
+			"mage": "Mage sheet",
+			"vampire": "Vampire sheet",
+			"changeling": "Changeling sheet",
+			"hunter": "Hunter sheet",
+			"demon": "Demon sheet",
+			"wraith": "Wraith sheet",
+			"breed": "Changing breed sheet",
+			"creature": "Creature sheet",
+			"spirit": "Spirit sheet (deprecated)",
+			"items": "Item sheet",
+			"powers": "Powers",
+			"equipment": "Equipment",
+			"sheets": "Sheets",
+			"npc": "NPC"
 		},
 		"era": {
 			"modern": "Moderne",
@@ -64,6 +107,12 @@
 			"usesplatfonthint": "Avec ce paramètre vous pouvez désactiver le type de police de caractères utilisée par les différentes feuilles au niveau Monde",
 			"usesworldanvil": "Utiliser les liens World Anvil",
 			"usesworldanvilhint": "Avec ce paramètre vous pourrez indiquer dans l'onglet Bio de la feuille un lien vers la page dans World Anvil",
+			"demonsettings": "Demon the Fallen Settings",
+			"demonsettingshint": "World settings used in Demon the Fallen.",
+			"demoncreateforms": "Create apocalyptic forms automatically",
+			"demoncreateformshint": "When creating a demon sheet create the apocalyptic forms automatically on the actor.",
+			"demonsystemsettings": "Ability list setting",
+			"demonsystemsettingshint": "According to what setting are the list of abilities taken from",
 			"huntersettings": "Paramètres Hunter",
 			"huntersettingshint": "Paramètres du Monde utilisé pour Hunter the Reckoning",
 			"werewolfsettings": "Paramètres Werewolf the Apocalypse",
@@ -92,7 +141,9 @@
 			"diceruleshint": "Comment le système gère les lancers de dés",
 			"rollsettings": "Paramètres des jets",
 			"erasettings": "Paramètres Époque",
-			"erasettingshint": "Les paramètres sur Monde concernant l'époque"
+			"erasettingshint": "Les paramètres sur Monde concernant l'époque",
+			"darkmodesetting": "Darkmode",
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
 		},
 		"types": {
 			"mortal": "Mortel",
@@ -118,6 +169,7 @@
 			"disciplinepower": "Pouvoir de Discipline",
 			"disciplinepath": "Voie",
 			"disciplinepathpower": "Pouvoir de Voie",
+			"combination": "Combination Discipline",
 			"art": "Art",
 			"artpower": "Pouvoir de l'Art",
 			"edge": "Ascendant",
@@ -144,13 +196,12 @@
 			"othertraits": "Autres Traits",
 			"apocalypticform": "Forme Apocalyptique",
 			"passion": "Passion",
-			"fetter": "Fetter"
+			"fetter": "Fetter",
+			"wyrd": "Wyrd"
 		},
 		"tab": {
 			"bio": "Bio",
 			"core": "Base",
-			"normal": "Vue Normale",
-			"specialities": "Voir les Spécialités",
 			"combat": "Combat",
 			"gear": "Équipement",
 			"notes": "Notes",
@@ -198,7 +249,10 @@
 				"nagah": "Nâga",
 				"nuwisha": "Nuwisha",
 				"ratkin": "Hommes-rats",
-				"rokea": "Rokea"
+				"rokea": "Rokea",
+				"apis": "Apis",
+				"camazotz": "Camazotz",
+				"grondr": "Grondr"
 			},
 			"breed": "Race",
 			"breedname": {
@@ -220,7 +274,9 @@
 				"vasuki": "Vasuki",
 				"latrani": "Latrani",
 				"rodens": "Rodens",
-				"squamus": "Squamus"
+				"squamus": "Squamus",
+				"bos": "Bos",
+				"scrofa": "Scrofa"
 			},
 			"clan": "Clan",
 			"auspice": "Auspice",
@@ -248,7 +304,10 @@
 				"kali": "Kali",
 				"brightwaters": "Eaux-Claires",
 				"dimwater": "Eaux-Troubles",
-				"darkwater": "Eaux-Sombres"
+				"darkwater": "Eaux-Sombres",
+				"twilight": "Twilight",
+				"solar": "Solar",
+				"lunar": "Lunar"
 			},
 			"aspect": "Aspect",
 			"aspectname": {
@@ -566,6 +625,8 @@
 			},
 			"creature": {
 				"chimera": "Chimère",
+				"familiar": "Familiar",
+				"construct": "Construct",
 				"spirit": "Esprit",
 				"warwolves": "Loups de Guerre",
 				"anurana": "Anurana",
@@ -614,6 +675,7 @@
 			"notalents": "Pas de Talents sélectionné",
 			"noskills": "Pas de Compétence sélectionnée",
 			"noknowledges": "Pas de Connaissance sélectionnée",
+
 			"alertness": "Vigilance",
 			"art": "Art",
 			"athletics": "Athlétisme",
@@ -631,6 +693,7 @@
 			"primalurge": "Intuition primitive",
 			"streetwise": "Expérience de la rue",
 			"subterfuge": "Subterfuge",
+
 			"animalken": "Animaux",
 			"archery": "Archerie",
 			"commerce": "Commerce",
@@ -649,6 +712,7 @@
 			"security": "Sécurité",
 			"stealth": "Furtivité",
 			"survival": "Survie",
+
 			"academics": "Érudition",
 			"bureaucracy": "Bureaucratie",
 			"computer": "Informatique",
@@ -935,7 +999,13 @@
 			"ungeziefer": "Ungeziefer",
 			"bandia": "Bandia",
 			"kiforu": "Kiforu",
-			"faru": "Faru"
+			"faru": "Faru",
+			"minotaur": "Minotaur",
+			"aurochs": "Aurochs",
+			"apterous": "Apterous",
+			"megachiroptera": "Megachiroptera",
+			"aperius": "Aperius",
+			"daeodon": "Daeodon"
 		},
 		"power": {
 			"rank0": "Vous êtes Rang 0, aucun don n'est autorisé",
@@ -954,6 +1024,7 @@
 			"activegift": "Don Actif",
 			"activerote": "Routine Active",
 			"disciplines": "Disciplines",
+			"combinations": "Combination disciplines",
 			"paths": "Voies",
 			"rituals": "Rituels",
 			"unsorteddisciplines": "Liste des pouvoirs non-associés à une Discipline. Cliquez sur le titre pour en choisir un.",
@@ -987,6 +1058,7 @@
 			"prime": "Prime",
 			"spirit": "Esprit",
 			"time": "Temps",
+
 			"data": "Data",
 			"entropicstate": "Contrôle de l'état entropique",
 			"forcebased": "Paraphysique fondée sur les forces",
@@ -996,6 +1068,7 @@
 			"primal": "Théorie de l'utilité Primaire",
 			"dimensional": "Science Dimensionnelle",
 			"temporalscience": "Science Temporelle",
+
 			"coincidental": "Coïncidental",
 			"vulgar": "Vulgaire",
 			"coincidentalspell": "Sort Coïncidental",
@@ -1090,6 +1163,7 @@
 			"rank": "Rang",
 			"other": "Autres",
 			"both": "Les deux",
+			"nochange": "No Change",
 			"bio": {
 				"wronggeneration": "Génération incorrecte",
 				"wrongtempgeneration": "Impossible de descendre la génération en dessous de 4",
@@ -1215,7 +1289,9 @@
 				"multiplier": "Multiplicateur de mouvement",
 				"abilities": {
 					"athletics": "Bonus d'Athlétisme"
-				}
+				},
+				"savesuccess": "Bonus changes saved",
+				"savefail": "Failed so save the bonus"
 			},
 			"new": {
 				"notfound": "Ce type d'objet n'existe pas",
@@ -1241,7 +1317,8 @@
 				"treasure": "Nouveau trésor",
 				"bonus": "Nouveau bonus",
 				"attributebonus": "Nouvel Attribut bonus",
-				"attributedicebonus": "Nouveau dé bonus",
+				"apocalypticform": "New apocalyptic form",
+				"attributedicebonus": "Nouveau dé bonus",				
 				"attributediff": "Nouvel Attribut bonus de difficulté",
 				"attributesucc": "Nouvel Attribut bonus de réussite automatique",
 				"abilitybonus": "Nouvelle Compétence bonus",
@@ -1254,6 +1331,7 @@
 				"disciplinepower": "Nouveau pouvoir de discipline",
 				"disciplinepath": "Nouvelle voie de discipline",
 				"disciplinepathpower": "Nouveau pouvoir de la voie de discipline",
+				"combination": "New combination discipline",
 				"ritual": "Nouveau rituel",
 				"edge": "Nouvel Ascendant",
 				"edgepower": "Nouveau pouvoir d'Ascendant",
@@ -1290,6 +1368,7 @@
 				"othertraits": "Ajouter un autre trait",
 				"treasure": "Ajouter un trésor",
 				"bonus": "Ajouter un bonus",
+				"apocalypticform": "Add apocalyptic form",
 				"experience": "Ajouter de l'expérience",
 				"spentexp": "Ajouter de l'expérience dépensée",
 				"gift": "Ajouter un cadeau",
@@ -1297,9 +1376,12 @@
 				"disciplinepower": "Ajouter un pouvoir de discipline",
 				"disciplinepath": "Ajouter une voie de discipline",
 				"disciplinepathpower": "Ajouter un pouvoir de voie de discipline",
+				"combination": "Add combination discipline",
 				"ritual": "Ajouter un rituel",
 				"edge": "Ajouter un Ascendant",
 				"edgepower": "Ajouter un pouvoir d'Ascendant",
+				"lore": "Add lore",
+				"lorepower": "Add lore power",
 				"art": "Ajouter un art",
 				"artpower": "Ajouter un pouvoir d'art",
 				"sliver": "Ajouter une écharde",
@@ -1403,6 +1485,7 @@
 				"othertraits": "Enlever un autre trait",
 				"treasure": "Enlever un trésor",
 				"bonus": "Retirer bonus",
+				"apocalypticform": "Remove apocalyptic form",
 				"power": "Retirer pouvoir",
 				"device": "Retirer appareil",
 				"talisman": "Retirer talisman",
@@ -1531,7 +1614,8 @@
 				"selectsphere": "Sélectionnez la Sphère en premier",
 				"keepdifficulty": "Conserve la difficulté",
 				"keepdiff": "Conserve la difficulté",
-				"keepdiffdesc": "Gardez la difficulté lorsque vous utilisez le lancer étendu, mais la difficulté ne doit pas être augmentée pour chaque jet."
+				"keepdiffdesc": "Gardez la difficulté lorsque vous utilisez le lancer étendu, mais la difficulté ne doit pas être augmentée pour chaque jet.",
+				"difficultylimit": "Difficulty can never be higher or lower than the base difficulty +3/-3."
 			},
 			"checkfrenzy": {
 				"headline": "Jetez pour la frénésie",
@@ -1548,7 +1632,8 @@
 			"shapechange": {
 				"headline": "Jetez pour le changement de forme",
 				"shiftbonus": "Dé bonus pour le changement de forme",
-				"noshape": "Pas de forme sélectionnée"
+				"noshape": "Pas de forme sélectionnée",
+				"selectshape": "Shape to turn into"
 			},
 			"weapon": {
 				"attack": "Attaque",
@@ -1566,7 +1651,9 @@
 				"sprayresult": "Vise [0] cibles et touche [1]",
 				"selectedtargets": "Nombre de cibles sélectionnées",
 				"firemodes": "Modes de tir automatique",
-				"numbertargets": "Nombre de cibles"
+				"numbertargets": "Nombre de cibles",
+				"nomeleeweapon": "No melee weapon secondary abilities listed on sheet",
+				"norangedweapon": "No ranged weapon secondary abilities listed on sheet"
 			},
 			"soak": {
 				"missingdamage": "Choisissez un type de dégâts",
@@ -1581,7 +1668,10 @@
 				"noarttype": "Type d'Art non sélectionné",
 				"shiftnightmaredice": "Passage aux dés de cauchemar",
 				"notset": "Non défini",
-				"selectpower": "Sélectionner le pouvoir auquel se connecter"
+				"selectpower": "Sélectionner le pouvoir auquel se connecter",
+				"disciplineneeded": "Disciplines needed",
+				"savecombination": "Save combination discipline",
+				"removecombination": "Remove combination discipline"
 			},
 			"attribute": {
 				"speciality": "Spécialité",
@@ -1591,12 +1681,16 @@
 				"techonocracy": "Utiliser la version de la Technocratie"
 			},
 			"general": {
-				"selectattribute": "Choisir l'Attribut à utiliser"
+				"selectattribute": "Choisir l'Attribut à utiliser",
+				"numberdiceshint": "To be able to roll more than 10 dices as once, fill in the number in the box above."
 			},
 			"bonus": {
 				"chosenattribute": "Attribut choisi",
 				"movement": "Type de mouvement",
-				"bonusvalue": "Valeur de bonus"
+				"name": "Name",
+				"type": "Type",
+				"bonusvalue": "Valeur de bonus",
+				"bonuses": "Bonuses"
 			},
 			"variant": {
 				"sheettype": "Sélectionner le type de feuille",
@@ -1607,7 +1701,8 @@
 				"wraith": "Wraith Général",
 				"creature": "Créature Général",
 				"info": "Ce paramètre définit la variante de la feuille à utiliser.",
-				"description": "Ce paramètre peut être modifié dans les paramètres de la feuille."
+				"description": "Ce paramètre peut être modifié dans les paramètres de la feuille.",
+				"lostbreeds": "Lost breeds"
 			}
 		}
 	}

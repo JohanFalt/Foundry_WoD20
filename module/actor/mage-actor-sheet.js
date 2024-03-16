@@ -45,8 +45,8 @@ export class MageActorSheet extends MortalActorSheet {
 
 		for (const i of data.items) {
 			if (i.type == "Rote") {
-				i.system.bonuses = BonusHelper.getBonuses(data.items, i._id);
-				rotes.push(i);
+			// 	i.system.bonuses = BonusHelper.getBonuses(data.items, i._id);
+			 	rotes.push(i);
 			}
 			if (i.type == "Trait") {
 				if (i.system.type == "wod.types.resonance") {
@@ -55,8 +55,8 @@ export class MageActorSheet extends MortalActorSheet {
 			}
 		}
 
-		data.actor.rotes = rotes.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.resonance = resonance.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.system.listdata.rotes = rotes.sort((a, b) => a.name.localeCompare(b.name));
+		data.actor.system.listdata.resonance = resonance.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (actorData.type == CONFIG.worldofdarkness.sheettype.mage) {
 			console.log(CONFIG.worldofdarkness.sheettype.mage);
@@ -116,12 +116,6 @@ export class MageActorSheet extends MortalActorSheet {
 		if (dataset.type != CONFIG.worldofdarkness.sheettype.mage) {
 			return;
 		}			
-
-		// if (dataset.rollparadox == "true") {
-		// 	ActionHelper.RollParadox(event, this.actor);
-
-		// 	return;
-		// }	
 		
 		ActionHelper.RollDialog(event, this.actor);
 	}

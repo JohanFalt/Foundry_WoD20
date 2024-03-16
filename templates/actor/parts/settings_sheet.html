@@ -9,6 +9,8 @@
 
         {{#if (eq actor.type config.sheettype.creature)}}
             <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'chimera'}}" data-value="chimera">{{localize config.variant.creature.chimera}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'familiar'}}" data-value="familiar">{{localize config.variant.creature.familiar}}</button>
+            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'construct'}}" data-value="construct">{{localize config.variant.creature.construct}}</button>
             <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'spirit'}}" data-value="spirit">{{localize config.variant.creature.spirit}}</button>  
             <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'warwolves'}}" data-value="warwolves">{{localize config.variant.creature.warwolves}}</button>
             <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'anurana'}}" data-value="anurana">{{localize config.variant.creature.anurana}}</button>
@@ -26,17 +28,28 @@
         {{/if}}     
         
         {{#if (eq actor.type config.sheettype.changingbreed)}}
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Ajaba'}}" data-value="Ajaba">{{localize 'wod.bio.feraname.ajaba'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Ananasi'}}" data-value="Ananasi">{{localize 'wod.bio.feraname.ananasi'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Bastet'}}" data-value="Bastet">{{localize 'wod.bio.feraname.bastet'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Corax'}}" data-value="Corax">{{localize 'wod.bio.feraname.corax'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Gurahl'}}" data-value="Gurahl">{{localize 'wod.bio.feraname.gurahl'}}</button>				
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Kitsune'}}" data-value="Kitsune">{{localize 'wod.bio.feraname.kitsune'}}</button>	
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Mokole'}}" data-value="Mokole">{{localize 'wod.bio.feraname.mokole'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Nagah'}}" data-value="Nagah">{{localize 'wod.bio.feraname.nagah'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Nuwisha'}}" data-value="Nuwisha">{{localize 'wod.bio.feraname.nuwisha'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Ratkin'}}" data-value="Ratkin">{{localize 'wod.bio.feraname.ratkin'}}</button>
-            <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Rokea'}}" data-value="Rokea">{{localize 'wod.bio.feraname.rokea'}}</button>
+            <div>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Ajaba'}}" data-value="Ajaba">{{localize 'wod.bio.feraname.ajaba'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Ananasi'}}" data-value="Ananasi">{{localize 'wod.bio.feraname.ananasi'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Bastet'}}" data-value="Bastet">{{localize 'wod.bio.feraname.bastet'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Corax'}}" data-value="Corax">{{localize 'wod.bio.feraname.corax'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Gurahl'}}" data-value="Gurahl">{{localize 'wod.bio.feraname.gurahl'}}</button>				
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Kitsune'}}" data-value="Kitsune">{{localize 'wod.bio.feraname.kitsune'}}</button>	
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Mokole'}}" data-value="Mokole">{{localize 'wod.bio.feraname.mokole'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Nagah'}}" data-value="Nagah">{{localize 'wod.bio.feraname.nagah'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Nuwisha'}}" data-value="Nuwisha">{{localize 'wod.bio.feraname.nuwisha'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Ratkin'}}" data-value="Ratkin">{{localize 'wod.bio.feraname.ratkin'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Rokea'}}" data-value="Rokea">{{localize 'wod.bio.feraname.rokea'}}</button>
+            </div>
+            <div class="headlineGroup splatFont">{{localize 'wod.dialog.variant.lostbreeds'}}</div>
+            <div>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Apis'}}" data-value="Apis">{{localize 'wod.bio.feraname.apis'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Camazotz'}}" data-value="Camazotz">{{localize 'wod.bio.feraname.camazotz'}}</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.changingbreed 'Grondr'}}" data-value="Grondr">{{localize 'wod.bio.feraname.grondr'}}</button>
+                <!-- <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'Khara'}}">Khara</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'Okuma'}}">Okuma</button>
+                <button class="dialog-three-button fullSplatColor button variantbutton {{isActive actor.system.settings.variant 'Ao'}}">Ao</button> -->
+            </div>
         {{/if}}
 
         {{#if (eq actor.type config.sheettype.changeling)}}

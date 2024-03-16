@@ -273,7 +273,7 @@ export default class ItemHelper {
 
 	static async _sortGear(item, actor) {
 		if (item.type == "Fetish") {
-			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
 			if (item.system.type == "wod.types.fetish") {
 				actor.system.listdata.gear.fetishlist.push(item);
@@ -283,7 +283,7 @@ export default class ItemHelper {
 			}			
 		}
 		if (item.type == "Item") {
-			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
 			if (item.system.type == "wod.types.treasure") {
 				actor.system.listdata.gear.treasures.push(item);
@@ -308,7 +308,7 @@ export default class ItemHelper {
 
 	static async _sortFeatures(item, actor) {
 		if (item.type == "Feature") {
-			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
 			if (item.system.type == "wod.types.background") {
 				actor.system.listdata.features.backgrounds.push(item);
@@ -431,7 +431,7 @@ export default class ItemHelper {
 				actor.system.listdata.secondary_knowledges.push(trait);
 			}
 			if (item.system.type == "wod.types.othertraits") {
-				item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+				// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
 				actor.system.listdata.traits.othertraits.push(item);
 			}
@@ -446,7 +446,7 @@ export default class ItemHelper {
 
 	static async _sortPowers(item, actor) {
 		if (item.type == "Power") {
-			item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
 			if (actor.system.settings.powers.haspowers) {
 				this._sortSpecialPowers(item, actor);
@@ -477,14 +477,14 @@ export default class ItemHelper {
 
 	static async _sortSpecialPowers(item, actor) {
 		if (item.system.type == "wod.types.power") {
-			item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.powerlist.push(item);			
 		}			
 	}
 
 	static async _sortGifts(item, actor) {
 		if (item.system.type == "wod.types.gift") {
-			item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.gifts.giftlist.push(item);
 
 			if (item.system.isactive) {
@@ -517,7 +517,7 @@ export default class ItemHelper {
 
 	static async _sortCharms(item, actor) {
 		if (item.system.type == "wod.types.charm") {
-			item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+			// item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.charms.charmlist.push(item);
 		}
 	}
@@ -581,6 +581,9 @@ export default class ItemHelper {
 				actor.system.listdata.powers.disciplines.unlisteddisciplines.push(item);
 			}					
 		}
+		if (item.system.type == "wod.types.combination") {
+			actor.system.listdata.powers.disciplines.combinationlist.push(item);
+		}
 
 		if (item.system.type == "wod.types.disciplinepath") {
 			actor.system.listdata.powers.disciplines.listedpaths.push(item);
@@ -606,7 +609,8 @@ export default class ItemHelper {
 		actor.system.listdata.powers.disciplines.disciplinelist = _createList(actor.system.listdata.powers.disciplines.disciplinelist);
 		actor.system.listdata.powers.disciplines.listeddisciplines = _createList(actor.system.listdata.powers.disciplines.listeddisciplines);
 		actor.system.listdata.powers.disciplines.listeddisciplinepowers = _createList(actor.system.listdata.powers.disciplines.listeddisciplinepowers);
-		actor.system.listdata.powers.disciplines.unlisteddisciplines = _createList(actor.system.listdata.powers.disciplines.unlisteddisciplines);			
+		actor.system.listdata.powers.disciplines.unlisteddisciplines = _createList(actor.system.listdata.powers.disciplines.unlisteddisciplines);	
+		actor.system.listdata.powers.disciplines.combinationlist = _createList(actor.system.listdata.powers.disciplines.combinationlist);	
 
 		// Paths
 		actor.system.listdata.powers.disciplines.pathlist = _createList(actor.system.listdata.powers.disciplines.pathlist);
@@ -624,12 +628,12 @@ export default class ItemHelper {
 
 		// add the correct discipline in the right list
 		for (const discipline of actor.system.listdata.powers.disciplines.listeddisciplines) {
-			discipline.bonuses = BonusHelper.getBonuses(actor.items, discipline._id);			
+			// discipline.bonuses = BonusHelper.getBonuses(actor.items, discipline._id);			
 			actor.system.listdata.powers.disciplines.disciplinelist.push(discipline);
 
 			for (const power of actor.system.listdata.powers.disciplines.listeddisciplinepowers) {
 				if (power.system.parentid == discipline._id) {
-					power.bonuses = BonusHelper.getBonuses(actor.items, power._id);
+					// power.bonuses = BonusHelper.getBonuses(actor.items, power._id);
 					actor.system.listdata.powers.disciplines.disciplinelist.push(power);
 				}
 			}
@@ -656,6 +660,7 @@ export default class ItemHelper {
 
 		actor.system.listdata.powers.disciplines.listedpaths.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.powers.disciplines.listedpathpowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.disciplines.combinationlist.sort((a, b) => a.name.localeCompare(b.name));
 
 		// add the correct path in the right list
 		for (const path of actor.system.listdata.powers.disciplines.listedpaths) {
@@ -1016,6 +1021,18 @@ export default class ItemHelper {
 					level: 1,
 					game: source,
 					type: "wod.types.ritual"
+				}
+			};
+		}
+		if (type == "combination") {
+			const source = $(event.currentTarget).data("game");
+
+			itemData = {
+				name: game.i18n.localize("wod.labels.new.combination"),
+				type: itemtype,
+				system: {
+					game: source,
+					type: "wod.types.combination"
 				}
 			};
 		}

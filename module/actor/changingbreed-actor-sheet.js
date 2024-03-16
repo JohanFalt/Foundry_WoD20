@@ -37,11 +37,11 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		const data = await super.getData();
 
-		console.log("WoD | Changing Breed Sheet getData");
+		console.log("WoD | Changing breed Sheet getData");
 
 		let presentform = "";
 
-		console.log("WoD | Changing Breed Sheet handling shift data");
+		console.log("WoD | Changing breed Sheet handling shift data");
 
 		if (data.actor.system.shapes.glabro.isactive) {
 			presentform = data.actor.system.shapes.glabro.label;
@@ -59,9 +59,9 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 			presentform = data.actor.system.shapes.homid.label;
 		}
 
-		console.log("WoD | Changing Breed Sheet handling gift lists");
+		console.log("WoD | Changing breed Sheet handling gift lists");
 
-		data.actor.presentform = presentform;
+		data.actor.system.settings.presentform = presentform;
 
 		if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
 			console.log(CONFIG.worldofdarkness.sheettype.changingbreed);
@@ -73,7 +73,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 	/** @override */
 	get template() {
-		console.log("WoD | Changing Breed Sheet get template");
+		console.log("WoD | Changing breed Sheet get template");
 		
 		return "systems/worldofdarkness/templates/actor/changingbreed-sheet.html";
 	}
@@ -83,7 +83,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		super.activateListeners(html);
 		ActionHelper.SetupDotCounters(html);
 
-		console.log("WoD | Changing Breed Sheet activateListeners");
+		console.log("WoD | Changing breed Sheet activateListeners");
 
 		// Rollable stuff
 		html
@@ -115,7 +115,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if ((type != CONFIG.worldofdarkness.sheettype.werewolf) && (type != CONFIG.worldofdarkness.sheettype.changingbreed)) {
+		if (type != CONFIG.worldofdarkness.sheettype.changingbreed) {
 			return;
 		}
 
@@ -123,7 +123,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	}
 	
 	_onDotCounterWerewolfChange(event) {
-		console.log("WoD | Changing Breed Sheet _onDotCounterWerewolfChange");
+		console.log("WoD | Changing breed Sheet _onDotCounterWerewolfChange");
 		
 		event.preventDefault();
 		const element = event.currentTarget;
@@ -170,20 +170,20 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	}
 
 	async _onShiftForm(event) {
-		console.log("WoD | Changing Breed onShiftForm");
+		console.log("WoD | Changing breed onShiftForm");
 
 		event.preventDefault();
 
 		const actorData = duplicate(this.actor);
 
 		if (actorData.type != "Changing Breed") {
-			ui.notifications.error('Not Changing Breed aborts!');
+			ui.notifications.error('Not Changing breed aborts!');
 			return
 		}
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
-		const fromForm = this.actor.presentform;
+		const fromForm = this.actor.system.settings.presentform;
 		const toForm = dataset.form;
 
 		for (const i in actorData.system.shapes) {
@@ -198,12 +198,12 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		await ActionHelper.handleCalculations(actorData);
 
-		console.log("WoD | Changing Breed Sheet updated");
+		console.log("WoD | Changing breed Sheet updated");
 		this.actor.update(actorData);
 	}
 
 	async _assignToWerewolf(fields, value) {
-		console.log("WoD | Changing Breed Sheet _assignToWerewolf");
+		console.log("WoD | Changing breed Sheet _assignToWerewolf");
 		
 		const actorData = duplicate(this.actor);
 

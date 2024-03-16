@@ -204,7 +204,36 @@ export default class CreateHelper {
 			actorCopy.system.abilities.technology.type = "skill";
 		}
 		if (type == "demon") {
-			actorCopy.system.abilities.technology.type = "skill";
+			if (game.settings.get('worldofdarkness', 'demonSystemSettings') == "20th") {
+				for (const ability in actorCopy.system.abilities) {
+					if (actorCopy.system.abilities[ability] != undefined) {
+						if (actorCopy.system.abilities[ability].value == 0) {
+							actorCopy.system.abilities[ability].isvisible = false;
+						}
+					}
+				}
+
+				for (const talent in game.worldofdarkness.abilities[type]["modern20"].talents) {
+					if (actorCopy.system.abilities[game.worldofdarkness.abilities[type]["modern20"].talents[talent]] != undefined) {
+						actorCopy.system.abilities[game.worldofdarkness.abilities[type]["modern20"].talents[talent]].isvisible = true;
+					}
+				}
+		
+				for (const skill in game.worldofdarkness.abilities[type]["modern20"].skills) {
+					if (actorCopy.system.abilities[game.worldofdarkness.abilities[type]["modern20"].skills[skill]] != undefined) {
+						actorCopy.system.abilities[game.worldofdarkness.abilities[type]["modern20"].skills[skill]].isvisible = true;
+					}
+				}
+		
+				for (const knowledge in game.worldofdarkness.abilities[type]["modern20"].knowledges) {
+					if (actorCopy.system.abilities[game.worldofdarkness.abilities[type]["modern20"].knowledges[knowledge]] != undefined) {
+						actorCopy.system.abilities[game.worldofdarkness.abilities[type]["modern20"].knowledges[knowledge]].isvisible = true;
+					}
+				}
+			}
+			else {
+				actorCopy.system.abilities.technology.type = "skill";
+			}
 		}
 		if (type == "wraith") {
 			actorCopy.system.abilities.leadership.type = "skill";
@@ -481,7 +510,17 @@ export default class CreateHelper {
 			}
 			if (variant == 'chimera') {
 				actorData.system.settings.hasglamour = true;
-				actorData.system.settings.powers.hasarts = true;
+				//actorData.system.settings.powers.hasarts = true;
+			}
+			if (variant == 'familiar') {
+				actorData.system.settings.hasrage = true;
+				actorData.system.settings.hasgnosis = true;
+				actorData.system.settings.hasessence = true;
+				actorData.system.settings.powers.hascharms = true;
+				actorData.system.settings.soak.lethal.isrollable = true;
+			}
+			if (variant == 'construct') {
+				actorData.system.settings.soak.lethal.isrollable = true;
 			}
 			if (variant == 'spirit') {
 				actorData.system.settings.hasrage = true;

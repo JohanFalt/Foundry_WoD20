@@ -24,7 +24,7 @@
                     data-rollitem="true" 
                     data-itemid="{{item._id}}"
                     title="{{item.name}}">            
-                    {{shorten item.name 18}}
+                    {{shorten item.name 18}}&nbsp;
                 </div>
             {{else}}
                 {{#if item.system.damage.isrollable}}
@@ -35,11 +35,11 @@
                         data-rollitem="true" 
                         data-itemid="{{item._id}}"
                         title="{{item.name}}">
-                        {{shorten item.name 18}}
+                        {{shorten item.name 18}}&nbsp;
                     </div>
                 {{else}}
                     <div class="pullLeft weapon-rolliconbox-empty">&nbsp;</div>
-                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}</div>
+                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}&nbsp;</div>
                 {{/if}}
             {{/if}}
 
@@ -80,9 +80,7 @@
                     </div>
                     <div class="pullRight pointer headlineNormal tooltip">
                         <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">
-                            <b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                        </span>
+                        <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
                     </div>
                     
                 {{else}}

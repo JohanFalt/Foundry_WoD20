@@ -144,7 +144,7 @@
     </div>
 </div>
 
-{{#if (ne actor.type config.sheettype.spirit)}}
+{{#if (ne actor.system.settings.variant (lowercase config.sheettype.spirit))}}
 
     <div class="sheet-area flex-columns">
         <div class="clearareaBox">

@@ -135,7 +135,7 @@ export class DialogItem extends FormApplication {
             data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
             data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
 
-            if (parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) {
+            if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice2]._id))) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {

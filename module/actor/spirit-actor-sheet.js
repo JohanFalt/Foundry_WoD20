@@ -1,6 +1,5 @@
 import ActionHelper from "../scripts/action-helpers.js"
 import CreateHelper from "../scripts/create-helpers.js";
-import MessageHelper from "../scripts/message-helpers.js"
 
 export class SpiritActorSheet extends ActorSheet {
 	

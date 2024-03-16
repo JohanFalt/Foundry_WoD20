@@ -1,21 +1,22 @@
 <div class="clearareaBox" style="margin-top: 10px;">
-    <div class="headlineGroup splatFont" data-area="apocalypticforms" style="text-align: center;">{{localize "wod.advantages.apocalypticforms"}}</div>
+    <div class="headlineGroup splatFont" data-area="apocalypticforms" style="text-align: center;">
+        {{localize "wod.advantages.apocalypticforms"}}
+        <i class="headlineNormal pullRight pointer icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.apocalypticform'}}" aria-hidden="true" data-itemtype="Trait" data-type="apocalypticform"></i>
+    </div>
+        
 
     <div class="clearareaBox">
         {{#each actor.system.listdata.forms as |form id|}}
             <div class="clearareaBox form-apocalyptic" data-area="apocalypticform{{id}}">
                 <div class="pullLeft item-activeBox">
-                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked form.isactive}}></input>
+                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked form.system.isactive}}></input>
                 </div>
                 <div class="pullLeft form-apocalyptic-name headlineNormal">{{form.name}}</div>
-                <div class="pullLeft pointer">
-                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-parentid="{{form._id}}"></i>
-                </div>                    
                 <div class="pullLeft headlineNormal tooltip">
                     <i class="icon fa-solid fa-memo"></i>
                     <span class="tooltiptext">
-                        {{#if (ne form.description "")}}
-                            <b>{{localize "wod.labels.description"}}:</b> {{{form.description}}}
+                        {{#if (ne form.system.description "")}}
+                            <b>{{localize "wod.labels.description"}}:</b> {{{form.system.description}}}
                         {{/if}}
                     </span>
                 </div>
@@ -31,20 +32,20 @@
                             data-type="Feature" 
                             data-item-id="{{form._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                     </div>
+                    <div class="pullLeft pointer">
+                        <a class="item-delete" 
+                            title="{{localize 'wod.labels.remove.apocalypticform'}}" 
+                            data-type="Feature" 
+                            data-item-id="{{form._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                    </div>
                 {{/if}}
-                {{#if (gt form.bonuses.length 0)}}
+                {{#if (gt form.system.bonuslist.length 0)}}
                     <div class="pullLeft pointer"><i id="collapsibleapocalypticbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.demon}}" data-type="apocalypticform{{id}}"></i></div>
                 {{/if}}
             </div>
             <div class="clearareaBox hide bonuses apocalypticform{{id}}" data-area="apocalypticbonus{{id}}">
-                {{#each form.bonuses as |bonus id|}}
-                    <div class="clearareaBox">
-                        <div class="pullLeft bonus-apocalyptic-name headlineNormal">{{bonus.name}}</div>
-                        {{#if (eq ../../locked false)}}
-                            <div class="pullLeft"><i class="icon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
-                            <div class="pullLeft"><i class="icon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-itemtype="Bonus" data-type="bonus" data-item-id="{{bonus._id}}"></i></div>
-                        {{/if}}
-                    </div>
+                {{#each form.system.bonuslist as |bonus id|}}
+                    <div class="bonus-apocalyptic-name headlineNormal">{{bonus.name}}</div>
                 {{/each}}
             </div>
         {{/each}}

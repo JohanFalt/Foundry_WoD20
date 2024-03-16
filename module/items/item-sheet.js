@@ -1,7 +1,8 @@
 import ActionHelper from "../scripts/action-helpers.js";
+import BonusHelper from "../scripts/bonus-helpers.js"
 
 export class WoDItemSheet extends ItemSheet {
-
+	
 	static get defaultOptions() {
 		return mergeObject(super.defaultOptions, {
 			classes: [`wod20 wod-item`]
@@ -12,8 +13,9 @@ export class WoDItemSheet extends ItemSheet {
 		super(item, options);
 
 		this.locked = true;
-		this.isCharacter = false;
-		this.isGM = game.user.isGM;
+		this.isCharacter = false;	
+		this.isGM = game.user.isGM;	
+		this.game = game;
 	}
 
 	/** @override */
@@ -26,7 +28,7 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	async getData() {
-		const itemData = duplicate(this.item);
+		const itemData = duplicate(this.item);		
 
 		if (!itemData.system.iscreated) {
 			itemData.system.version = game.data.system.version;
@@ -36,43 +38,8 @@ export class WoDItemSheet extends ItemSheet {
 
 		if (itemData.type == "Bonus") {
 			if ((itemData.name == game.i18n.localize("wod.labels.new.bonus")) && (itemData.system.type != "")) {
-				let name = "";
-
-				switch (itemData.system.type) {
-					case "attribute_buff":
-						name = game.i18n.localize("wod.labels.new.attributebonus");
-						break;
-					case "attribute_dice_buff":
-						name = game.i18n.localize("wod.labels.new.attributedicebonus");
-						break;
-					case "attribute_diff":
-						name = game.i18n.localize("wod.labels.new.attributediff");
-						break;
-					case "attribute_auto_buff":
-						name = game.i18n.localize("wod.labels.new.attributesucc");
-						break;
-					case "ability_buff":
-						name = game.i18n.localize("wod.labels.new.abilitybonus");
-						break;
-					case "ability_diff":
-						name = game.i18n.localize("wod.labels.new.abilitydiff");
-						break;
-					case "soak_buff":
-						name = game.i18n.localize("wod.labels.new.soakbonus");
-						break;
-					case "health_buff":
-						name = game.i18n.localize("wod.labels.new.healthbuff");
-						break;
-					case "initiative_buff":
-						name = game.i18n.localize("wod.labels.new.initbonus");
-						break;
-					case "movement_buff":
-						name = game.i18n.localize("wod.labels.new.movebonus");
-						break;
-				}
-
-				itemData.name = name;
-				this.item.update(itemData);
+				itemData.name = game.i18n.localize(CONFIG.worldofdarkness.bonus[itemData.system.type]);
+				await this.item.update(itemData);
 			}
 		}
 
@@ -85,7 +52,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
-		data.isGM = game.user.isGM;
+		data.isGM = game.user.isGM;	
 		data.canEdit = this.item.isOwner || game.user.isGM;
 
 		if (this.item.actor != null) {
@@ -115,7 +82,7 @@ export class WoDItemSheet extends ItemSheet {
 		}
 
 		if ((data.item.system.type == "wod.types.apocalypticform") && (data.hasActor)) {
-			const items = [];
+			const items = [];	
 
 			for (const i of this.actor.items) {
 				if ((i.type == "Bonus") && (i.system.parentid == data.item._id)) {
@@ -124,7 +91,7 @@ export class WoDItemSheet extends ItemSheet {
 			}
 
 			data.bonus = items;
-		}
+		}		
 
 		if (data.item.system?.description != undefined) {
 			data.item.system.description = await TextEditor.enrichHTML(data.item.system.description, {async: true});
@@ -140,7 +107,7 @@ export class WoDItemSheet extends ItemSheet {
 			console.log("Connected bonus traits");
 			console.log(data.value);
 		}
-
+		
 		return data;
 	}
 
@@ -167,9 +134,17 @@ export class WoDItemSheet extends ItemSheet {
 
 		html
             .find('.item-property')
-            .change(this._setProperty.bind(this));
+            .click(this._setProperty.bind(this));
 
 		// items
+		html
+			.find(".item-create")
+			.click(this._onItemCreate.bind(this));
+
+		html
+			.find(".item-edit")
+			.click(this._onItemEdit.bind(this));
+
 		html
 			.find(".item-delete")
 			.click(this._onItemDelete.bind(this));
@@ -189,7 +164,7 @@ export class WoDItemSheet extends ItemSheet {
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".item-bonusvalue-button");
-        const bonus = element.value;
+        const bonus = element.value;   
 
         steps.removeClass("active");
 
@@ -225,74 +200,110 @@ export class WoDItemSheet extends ItemSheet {
 		this.render(false);
     }
 
-	_setProperty(event) {
+	async _setProperty(event) {
 		event.preventDefault();
 		const element = event.currentTarget;
 		const dataset = element.dataset;
 
-		const name = dataset.property;
-
-		let value = "";
-
-		if (dataset.value != undefined) {
-			value = dataset.value;
-		}
-		else if (element.value != undefined) {
-			value = element.value;
-		}
-
+		const type = dataset.type;
+		const game = dataset.game;
+		const id = dataset.typeid;
 		const itemData = duplicate(this.item);
+		
+		if (type == "combination") {
+			if (itemData.system.property[id] != undefined) {
+				var e = document.getElementById("combination_name_"+id);
+				const discipline = e.value;
 
-		if (itemData.system.property[name] != undefined) {
-			itemData.system.property[name] = value;
-		}
-		else {
-			let property = {
-				arttype: value
+				e = document.getElementById("combination_rating_"+id);
+				const rating = e.value;
+
+				let property = {
+					discipline: discipline,
+					value: parseInt(rating)
+				}
+
+				itemData.system.property[id] = property;
+				await this.item.update(itemData);
+				this.render();
+				return;
 			}
-			itemData.system.property.push(property);
-		}
+			/* else {
+				ui.notifications.error(`Property row on item do not exist, rowId: ${id}`);
+			} */
+		}	
 
-		this.item.update(itemData);
-		this.render();
-
-		return;
+		return;		
 	}
 
-	async _onItemDelete(event) {
-		if (this.locked) {
-			ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-			return;
+	async _onItemCreate(event) {
+		event.preventDefault();
+
+		const type = $(event.currentTarget).data("type");
+		const game = $(event.currentTarget).data("game");
+		const itemData = duplicate(this.item);
+
+		if ((type == "combination") && (game == "vampire")) {
+			let property = {
+				discipline: "",
+				value: 0
+			}
+			itemData.system.property.push(property);
+		}	
+		if (type == "bonus") {
+			let bonus = {
+				name: "",
+				settingtype: "",
+				type: "",
+				value: 0,
+				isactive: this.item.system.isactive
+			}
+
+			itemData.system.bonuslist.push(bonus);			
 		}
 
+		await this.item.update(itemData);
+
+		this.render();
+	}
+
+	async _onItemEdit(event) {
 		event.preventDefault();
         event.stopPropagation();
 
-		const itemId = $(event.currentTarget).data("item-id");
-		let item = await this.actor.getEmbeddedDocument("Item", itemId);
+		const type = $(event.currentTarget).data("type");
+		const id = $(event.currentTarget).data("id");	
+		
+		if (type == "bonus") {
+			await BonusHelper.EditBonus(this.actor, this.item, id);
+		}
 
-        if (!item)
-            return;
-
-        const performDelete = await new Promise((resolve) => {
-            Dialog.confirm({
-                title: game.i18n.format(game.i18n.localize("wod.labels.remove.item"), { name: item.name }),
-                yes: () => resolve(true),
-                no: () => resolve(false),
-                content: game.i18n.format(game.i18n.localize("wod.labels.remove.removing") + " " + item.name, {
-                    name: item.name,
-                    actor: this.actor.name,
-                }),
-            });
-        });
-
-        if (!performDelete)
-            return;
-
-		console.log("WoD | Deleting item id: " + itemId);
-
-		await this.actor.deleteEmbeddedDocuments("Item", [itemId]);
 		this.render();
+	}
+
+	async _onItemDelete(event) {
+		event.preventDefault();
+
+		if (this.locked) {
+			ui.notifications.warn(this.game.i18n.localize("wod.system.sheetlocked"));
+			return;
+		}
+
+		const itemId = $(event.currentTarget).data("item-id");
+		const type = $(event.currentTarget).data("type");
+
+		if (type == "bonus") {
+			const itemData = duplicate(this.item);
+			itemData.system.bonuslist.splice(itemId, 1);
+			await this.item.update(itemData);
+		}
+		else if (type == "combination") {
+			const itemData = duplicate(this.item);
+			itemData.system.property.splice(itemId, 1);
+			await this.item.update(itemData);
+		}
+		
+		this.render();  
 	}
 
 	_onDotCounterChange(event) {
@@ -300,7 +311,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
-
+				
 		const index = Number(dataset.index);
 		const parent = $(element.parentNode);
 		const fieldStrings = parent[0].dataset.name;
@@ -315,14 +326,14 @@ export class WoDItemSheet extends ItemSheet {
 
 		if (fields[1] === "spheres") {
 			const itemData = duplicate(this.item);
-
+			
 			if ((itemData.system[fields[2]] == 1) && (index == 0)) {
 				this._assignToItemField(fields, 0);
 
 				return;
 			}
 		}
-
+		
 		steps.each(function (i) {
 			if (i <= index) {
 				$(this).addClass("active");
@@ -333,13 +344,13 @@ export class WoDItemSheet extends ItemSheet {
 	}
 
 	_assignToItemField(fields, value) {
-		const itemData = duplicate(this.item);
+		const itemData = duplicate(this.item);		
 
 		if (fields[1] === "spheres") {
 			itemData.system[fields[2]] = value;
 			this.item.update(itemData);
-		}
-	}
+		}		
+	}	
 }
 
 export function getImage(item) {
@@ -356,7 +367,7 @@ export function getImage(item) {
 	}
 
 	if (item.type == "Item") {
-
+		
 	}
 
 	if ((item.type == "Melee Weapon") && (item.system.isnatural)) {

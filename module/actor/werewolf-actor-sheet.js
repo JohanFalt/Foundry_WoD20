@@ -62,7 +62,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			presentform = data.actor.system.shapes.homid.label;
 		}
 
-		data.actor.presentform = presentform;
+		data.actor.system.settings.presentform = presentform;
 
 		if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			console.log(CONFIG.worldofdarkness.sheettype.werewolf);
@@ -256,7 +256,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		const element = event.currentTarget;
 		const dataset = element.dataset;
-		const fromForm = this.actor.presentform;
+		const fromForm = this.actor.system.settings.presentform;
 		const toForm = dataset.form;
 
 		for (const i in actorData.system.shapes) {

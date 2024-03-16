@@ -1,0 +1,78 @@
+{{#if (eq data.type "Power")}}
+
+    {{#if (eqAny data.system.type "wod.types.artpower" "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.combination" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.gift" "wod.types.charm" "wod.types.power")}}
+
+        <div class="dialog-area">
+            <div class="clearareaBox">
+                <div class="pullLeft"><i class="icon fa-solid fa-square-plus item-create pointer" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-type="bonus"></i></div>
+                <div class="pullLeft sheet-banner-text">{{localize "wod.dialog.bonus.bonuses"}}</div>		
+                
+                {{#each data.system.bonuslist as | bonus id|}}
+                    <div class="clearareaBox bioInformationArea" style="margin-bottom: 10px;">
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues" type="text" value="{{bonus.name}}" />		
+                            <span class="floating-label">{{localize "wod.dialog.bonus.name"}}</span>						
+                        </div>
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues" type="text" value="{{getBonusName bonus.type}}" />		
+                            <span class="floating-label">{{localize "wod.dialog.bonus.type"}}</span>						
+                        </div>
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues smallbox" type="text" value="{{bonus.value}}" />		
+                            <span class="floating-label">{{localize 'wod.dialog.bonus.bonusvalue'}}</span>						
+                        </div>
+                        <div class="pullLeft pointer">
+                            <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-type="bonus" data-id="{{id}}"></i>
+                        </div>
+                        {{#if (ne ../locked true)}}
+                            <div class="pullLeft pointer">
+                                <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-type="bonus" data-item-id="{{id}}"></i>
+                            </div>
+                        {{/if}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+    {{/if}}
+
+{{/if}}
+{{#if (eqAny data.type "Rote" "Fetish" "Item" "Trait" "Feature")}}
+
+    {{#if (ne data.system.type "wod.types.talen")}}
+
+        <div class="dialog-area">
+            <div class="clearareaBox">
+                <div class="pullLeft"><i class="icon fa-solid fa-square-plus item-create pointer" title="{{localize 'wod.labels.add.bonus'}}" aria-hidden="true" data-type="bonus"></i></div>
+                <div class="pullLeft sheet-banner-text">{{localize "wod.dialog.bonus.bonuses"}}</div>		
+                
+                {{#each data.system.bonuslist as | bonus id|}}
+                    <div class="clearareaBox bioInformationArea" style="margin-bottom: 10px;">
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues" type="text" value="{{bonus.name}}" />		
+                            <span class="floating-label">{{localize "wod.dialog.bonus.name"}}</span>						
+                        </div>
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues" type="text" value="{{getBonusName bonus.type}}" />		
+                            <span class="floating-label">{{localize "wod.dialog.bonus.type"}}</span>						
+                        </div>
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues smallbox" type="text" value="{{bonus.value}}" />		
+                            <span class="floating-label">{{localize 'wod.dialog.bonus.bonusvalue'}}</span>						
+                        </div>
+                        <div class="pullLeft pointer">
+                            <i class="icon smallicon fa-solid fa-pen-to-square pointer item-edit" title="{{localize 'wod.labels.edit.bonus'}}" aria-hidden="true" data-type="bonus" data-id="{{id}}"></i>
+                        </div>
+                        {{#if (ne ../locked true)}}
+                            <div class="pullLeft pointer">
+                                <i class="icon smallicon fa-solid fa-trash-can pointer item-delete" title="{{localize 'wod.labels.remove.bonus'}}" aria-hidden="true" data-type="bonus" data-item-id="{{id}}"></i>
+                            </div>                    
+                        {{/if}}
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+    {{/if}}
+
+{{/if}}

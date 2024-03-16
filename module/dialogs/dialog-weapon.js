@@ -231,7 +231,7 @@ export class DialogWeapon extends FormApplication {
                 data.object.abilityName = (data.actorData.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(data.actorData.abilities[data.object.dice2].label) : data.actorData.abilities[data.object.dice2].altlabel;            
             }
 
-            if (parseInt(data.actorData.abilities[data.object.dice2].value) >= 4) {
+            if ((parseInt(data.actorData.abilities[data.object.dice2].value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(data.actorData.abilities[data.object.dice2]._id))) {
                 data.object.hasSpeciality = true;
                 abilitySpeciality = data.actorData.abilities[data.object.dice2].speciality;
             }

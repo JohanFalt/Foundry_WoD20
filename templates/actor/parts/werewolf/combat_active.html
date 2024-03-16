@@ -13,9 +13,9 @@
             <div class="pullLeft pointer headlineNormal tooltip">
                 <i class="icon fa-solid fa-memo"></i>
                 <span class="tooltiptext">
-                    {{#iff item.system.description "!=" ""}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/iff}}
+                    {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
                     <br /><br />
-                    {{#iff item.system.details "!=" ""}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/iff}}
+                    {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
                 </span>
             </div>
             <div class="pullLeft">
