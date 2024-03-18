@@ -40,6 +40,11 @@
   font-size: 18px;
 }
 
+.hunter:not(.noSplatFont) .headlineList {
+  font-size: 18px;
+  font-weight: normal;
+}
+
 .hunter:not(.noSplatFont) .sheet-headline {
   font-size: 30px;
 }

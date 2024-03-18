@@ -525,11 +525,11 @@ Hooks.on("renderDialog", (_dialog, html, _data) => {
 		const select = container.querySelector("select[name=type]");
 		if (select) {
 			select.append(
-				constructOptGroup(select, game.i18n.localize("wod.sheet.items"), CharacterCreationItemTypes),
-				constructOptGroup(select, game.i18n.localize("wod.sheet.powers"), PowerCreationItemTypes),
-				constructOptGroup(select, game.i18n.localize("wod.sheet.equipment"), EquipmentItemTypes),
-				constructOptGroup(select, game.i18n.localize("wod.sheet.sheets"), SheetTypes),
-				constructOptGroup(select, game.i18n.localize("wod.sheet.npc"), AdversaryTypes)
+				constructOptGroup(select, game.i18n.localize("wod.sheets.items"), CharacterCreationItemTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheets.powers"), PowerCreationItemTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheets.equipment"), EquipmentItemTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheets.sheets"), SheetTypes),
+				constructOptGroup(select, game.i18n.localize("wod.sheets.npc"), AdversaryTypes)
 			);
 			select.querySelector("option").selected = true;
 		}

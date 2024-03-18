@@ -67,7 +67,7 @@
 						<span class="floating-label">{{localize 'wod.bio.derangement'}}</span>
 					</div>	
 				{{/if}}
-			</div>	
+			</div>				
 
 		</div>
 
@@ -171,7 +171,24 @@
 
 <div class="sheet-area flex-columns">
 
+	
+
 	<div class="area-box">
+
+		{{#if graphicsettings.useLinkPlatform}}
+			<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.worldanvil">{{localize 'wod.bio.worldanvil'}}</label></div>
+			<div class="bioInformationArea">
+				{{#if locked}}
+					{{#if (ne data.system.worldanvil "")}}
+						<a href="{{data.system.worldanvil}}" target="_blank">{{localize 'wod.bio.worldanvillink'}}</a>
+					{{else}}
+						{{localize 'wod.bio.noworldanvillink'}}
+					{{/if}}
+				{{else}}
+					<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.worldanvil" type="text" value="{{data.system.worldanvil}}" data-name="data.system.worldanvil" data-dtype="String" />
+				{{/if}}
+			</div>
+		{{/if}}
 
 		<div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.appearance">{{localize 'wod.bio.appearance'}}</label></div>
 
@@ -189,7 +206,7 @@
 				<div class="headlineNormal textarea {{#if (eq data.system.background '')}}small{{/if}}">{{{data.system.background}}}</div>
 			{{else}}
 				{{editor actor.system.background target="system.background" button=false owner=owner editable=true}}
-			{{/if}}				
+			{{/if}}			
 			
 		{{/if}}
 

@@ -40,6 +40,10 @@
   font-size: 30px;
 }
 
+.werewolf:not(.noSplatFont) .headlineList {
+	font-size: 16px;
+}
+
 .werewolf:not(.noSplatFont) .headlineText {
 	font-size: 18px;
 }

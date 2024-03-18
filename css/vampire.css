@@ -25,7 +25,7 @@
   --main-wod-banner: var(--vampire-banner-background);
   --main-wod-banner-small: var(--vampire-banner-small-background);
 }
-  
+
 .vampire:not(.noSplatFont) .headlineTabs {
     line-height: 25px;
 }
@@ -39,13 +39,29 @@
   margin-top: 0px;
 }
 
-.vampire:not(.noSplatFont) .sheet-banner-small {
-  margin-bottom: 0px;
+.vampire:not(.noSplatFont) .headlineGroup {
+  font-weight: normal;
 }
 
-.vampire:not(.noSplatFont) .experienceValue {
-  position: relative;
-  top: -30px;
+.vampire:not(.noSplatFont) .headlineText {
+  font-weight: normal;
+}
+
+.vampire:not(.noSplatFont) .headlineRow {
+  font-weight: normal;
+}
+
+.vampire:not(.noSplatFont) .headlineList {
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.vampire:not(.noSplatFont) .combat-concealBox {
+  width: 60px;
+}
+
+.vampire:not(.noSplatFont) .sheet-banner-small {
+  margin-bottom: 0px;
 }
   
 .vampireDialog:not(.noSplatFont) .headlineGroup {
@@ -68,7 +84,6 @@
 .vampire .secondHeadlineTabs {
     width: 25%;
 }
-
 
 /* START - Discipline */
 

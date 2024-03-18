@@ -54,6 +54,7 @@ export class Sphere {
         this.speciality = item.speciality;
         this.istechnocracy = item.istechnocracy;
         this.id = item.id;
+        this.value = parseInt(item.value);
     }
 }
 

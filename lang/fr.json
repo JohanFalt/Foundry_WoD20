@@ -113,6 +113,8 @@
 			"demoncreateformshint": "When creating a demon sheet create the apocalyptic forms automatically on the actor.",
 			"demonsystemsettings": "Ability list setting",
 			"demonsystemsettingshint": "According to what setting are the list of abilities taken from",
+			"demonsettingasbook": "According to book",
+			"demonsettingas20th": "According to 20th ed WoD",
 			"huntersettings": "Paramètres Hunter",
 			"huntersettingshint": "Paramètres du Monde utilisé pour Hunter the Reckoning",
 			"werewolfsettings": "Paramètres Werewolf the Apocalypse",

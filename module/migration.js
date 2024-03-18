@@ -1792,6 +1792,15 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.3.1')) {
+            newfunctions += '<li>Fixed bug that hid the World Anvil information.</li>';
+            newfunctions += '<li>Fixed graphical problems with HtR, DtF, VtM and MtA.</li>';
+            newfunctions += '<li>[MtA] Fixed so you can edit sphere specializations.</li>';
+            newfunctions += '<li>[VtM] Fixed so totals of experience points was displayed.</li>';
+            newfunctions += '<li>[WtA] Fixed so you can select any of the lost breeds at sheet creation.</li>';
+            newfunctions += '<li>Fixed localizatation problems.</li>';
+        }
+
         /* if (_compareVersion(installedVersion, '3.2.14')) {
             newfunctions += '<li>Updated German translation.</li>';
             newfunctions += '<li>Fixed bug that caused money in the bank was not shown correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/774">[#774]</a></li>';

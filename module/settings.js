@@ -220,8 +220,8 @@ export const systemSettings = function() {
 		default: "revised",
 		type: String,
 		choices: {
-			"revised": "According to book",
-			"20th": "According to 20th ed WoD"
+			"revised": game.i18n.localize('wod.settings.demonsettingasbook'),
+			"20th": game.i18n.localize('wod.settings.demonsettingas20th')
 		}
 	});
 

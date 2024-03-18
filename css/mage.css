@@ -34,7 +34,7 @@
   }
   
   .mage .headlineRow:not(.noSplatFont) {
-    font-size: 10px;
+    font-size: 12px;
   }  
   
   .mage:not(.noSplatFont) .headlineText {
@@ -46,11 +46,11 @@
   }
   
   .mage:not(.noSplatFont) .condition {
-    font-size: 10px;
+    font-size: 12px;
   }
   
   .mage:not(.noSplatFont) .headlineList {
-    font-size: 10px;
+    font-size: 12px;
   }
   
   .mageDialog:not(.noSplatFont) .headlineGroup {
@@ -78,7 +78,7 @@
 }
   
 .headlineNormalSpheres {
-      font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
 }
 
