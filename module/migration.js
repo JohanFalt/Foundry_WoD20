@@ -1792,6 +1792,11 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.3.2')) {
+            newfunctions += '<li>[WtA] Fixed problem for shifters could not roll gifts.</li>';
+            newfunctions += '<li>[WtA] Fixed so you can pick variant Apis.</li>';
+        }
+
         if (_compareVersion(installedVersion, '3.3.1')) {
             newfunctions += '<li>Fixed bug that hid the World Anvil information.</li>';
             newfunctions += '<li>Fixed graphical problems with HtR, DtF, VtM and MtA.</li>';

@@ -115,7 +115,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		const dataset = element.dataset;
 		const type = dataset.type;
 
-		if (type != CONFIG.worldofdarkness.sheettype.changingbreed) {
+		if ((type != CONFIG.worldofdarkness.sheettype.changingbreed) && (type != CONFIG.worldofdarkness.sheettype.werewolf)) {
 			return;
 		}
 
@@ -176,7 +176,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		const actorData = duplicate(this.actor);
 
-		if (actorData.type != "Changing Breed") {
+		if (actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
 			ui.notifications.error('Not Changing breed aborts!');
 			return
 		}
@@ -230,7 +230,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 		
 		await ActionHelper.handleCalculations(actorData);
 		
-		console.log("WoD | Werewolf Sheet updated");
+		console.log("WoD | Changing Breed Sheet updated");
 		this.actor.update(actorData);
 	}
 }

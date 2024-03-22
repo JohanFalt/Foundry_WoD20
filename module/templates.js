@@ -548,7 +548,7 @@ export const registerHandlebarsHelpers = function () {
 		if (ability.value >= 4) {
 			hasSpeciality = true;
 		}
-		else {
+		else if (ability.value >= 1) {
 			hasSpeciality = CONFIG.worldofdarkness.alwaysspeciality.includes(id); 			
 		}		
 
