@@ -291,6 +291,8 @@ Hooks.once("init", async function() {
 		}
 	}
 
+	
+
 	console.log("WoD | Icons added"); 
 });
 
@@ -298,8 +300,10 @@ Hooks.once("init", async function() {
 /* Setup system							*/
 /* ------------------------------------ */
 Hooks.once("setup", function () {
-    // Do anything after initialization but before
-    // ready
+    // Do anything after initialization but before ready
+
+	
+
 	/* CONFIG.fontDefinitions["Mortal"] = {
 		editor: true,
 		fonts: [{
@@ -372,6 +376,11 @@ Hooks.once("ready", async function () {
 	}
 	
 	CONFIG.language = game.i18n.lang;	
+	
+	if (CONFIG.worldofdarkness.darkmode) {
+		let chat = document.getElementById("chat");
+		chat.classList.add("dark-theme");
+	}
 
 	if (game.worldofdarkness.abilities == undefined) {
 		ui.notifications.error("World of Darkness settings couldn't load! Check your modules!", {permanent: true});

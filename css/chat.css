@@ -94,7 +94,6 @@
     font-size: var(--font-large); 
     padding: 5px;
     color: var(--chat-header-text-color);
-    /* border-bottom: 3px ridge #6c4737;    */
     background: var(--chat-header-background);
 }
   
@@ -111,7 +110,6 @@
     margin-bottom: 5px;    
     border-bottom: 1px solid black;
     padding: 5px;
-    /* text-align: center; */
 }
   
 #chat-log .tray-action-area {
@@ -119,11 +117,8 @@
 }
 
 #chat-log .tray-info-area {
-    /* background: white; */
     margin: 10px;
     padding: 5px;
-    /* border: 1px solid black;
-    border-radius: 5px; */
 }
 
 #chat-log .tray-system-area {
@@ -152,3 +147,40 @@
     clear: both;
     overflow: hidden;
 }
+
+
+
+
+/* Chatt window */
+.dark-theme #chat-log .message .message-header {
+    font-size: var(--font-large);
+    padding: 5px;
+    color: var(--chat-header-text-color);
+    border-bottom: 3px ridge #6c4737;
+    background: rgb(23,23,23,255);
+}
+.dark-theme #chat-log .message {
+    border: 0;
+    color: white;
+    background: black;
+}
+.dark-theme .chat-message {
+    margin: 3px;
+    padding: 5px;
+    font-size: var(--font-size-14);
+    color: var(--color-text-dark-primary);
+    border: 2px solid #6f6c66;
+    border-radius: 5px;
+}
+
+/*
+:root {
+    --main-chat-font: font-family: "default", Arial, Helvetica, sans-serif;
+    --font-large: 16px;
+    --font-x-large: 24px;
+    --chat-background-color: #171717;
+    --chat-header-background: rgb(196, 23, 29, 1);
+    --chat-header-text-color: white;
+    --chat-text-background: white;
+    --chat-text-color: black;
+} */

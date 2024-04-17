@@ -97,7 +97,7 @@
     color: var(--darkmode-textcolor-light); 
 }
 
-.dark-theme #chat-log {
+/* .dark-theme #chat-log {
     background: var(--darkmode-background-light);  
 }
 
@@ -109,7 +109,7 @@
 .dark-theme #chat-log .message {
     color: var(--darkmode-textcolor-light);
     background: var(--darkmode-background-light);
-}
+} */
 
 .dark-theme.wod-sheet .sheet-headline,
 .dark-theme.wod-item .sheet-headline {
@@ -179,14 +179,10 @@
   color: rgb(166, 0, 0);
 }
 
-.dark-theme.wod-dialog .dialog-area {
-    /* background: var(--darkmode-background-dark); */
-}
-
 .wod20.dark-theme .item-row-area {
     border-bottom: 0px solid var(--main-full-color);
 }
 
 .wod20.dark-theme .condition-checkbox {
     font-weight: normal;
-  }
+}
