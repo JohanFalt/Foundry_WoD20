@@ -354,6 +354,7 @@ export class DialogGeneralRoll extends FormApplication {
         });
 
         //this.getData();
+        this.render(false);
     }
 
     async _setAttribute(event) {

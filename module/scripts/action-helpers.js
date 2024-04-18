@@ -467,6 +467,12 @@ export default class ActionHelper {
     static async handleCalculations(actorData) {	
 		let advantageRollSetting = true;
 
+		let isSpirit = false;
+
+		if ((actorData.type == CONFIG.worldofdarkness.sheettype.creature) && (actorData.system.settings.variant == "spirit")) {
+			isSpirit = true;
+		}
+
 		try {
 			advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
 		} 
@@ -481,7 +487,7 @@ export default class ActionHelper {
 		actorData = await this._setAbilityMaxValue(actorData);
 
 		// willpower
-		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+		if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (!isSpirit)) {
 			actorData.system.advantages.willpower.permanent = parseInt(actorData.system.attributes.composure.value) + parseInt(actorData.system.attributes.resolve.value);
 		}
 		

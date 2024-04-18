@@ -1792,6 +1792,11 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '3.3.4')) {
+            newfunctions += '<li>Fixed bug where you could not press the dice roll buttons on Roll General Dices. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/839">[#839]</a></li>';
+            newfunctions += '<li>Fixed bug that caused Spirit Willpower not to work properly if you used the 5th ed rule setting. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/840">[#840]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '3.3.3')) {
             newfunctions += '<li>Fixed language problems.</li>';
             newfunctions += '<li>Fixed Dark Mode in chat window</li>';

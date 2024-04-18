@@ -661,6 +661,12 @@ export class MortalActorSheet extends ActorSheet {
 			const abilityType = parent[0].dataset.ability;				
 			const fieldStrings = parent[0].dataset.name;
 			const fields = fieldStrings.split(".");
+
+			let isSpirit = false;
+
+			if ((this.actor.type == CONFIG.worldofdarkness.sheettype.creature) && (this.actor.system.settings.variant == "spirit")) {
+				isSpirit = true;
+			}
 	
 			if (index < 0 || index > steps.length) {
 				return;
@@ -674,7 +680,7 @@ export class MortalActorSheet extends ActorSheet {
 				 ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				 return;
 			}
-			if ((fieldStrings == "advantages.willpower.permanent") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
+			if (((fieldStrings == "advantages.willpower.permanent") && (CONFIG.worldofdarkness.attributeSettings == "5th")) && (!isSpirit)) {
 				ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 				return;
 			}			
@@ -1352,6 +1358,12 @@ export class MortalActorSheet extends ActorSheet {
 			const abilityType = fields[2];
 
 			if (ability === "willpower") {
+				let isSpirit = false;
+
+				if ((this.actor.type == CONFIG.worldofdarkness.sheettype.creature) && (this.actor.system.settings.variant == "spirit")) {
+					isSpirit = true;
+				}
+
 				if (abilityType === "temporary") {
 					if (actorData.system.advantages.willpower.temporary == value) {
 						actorData.system.advantages.willpower.temporary = parseInt(actorData.system.advantages.willpower.temporary) - 1;
@@ -1360,7 +1372,7 @@ export class MortalActorSheet extends ActorSheet {
 						actorData.system.advantages.willpower.temporary = parseInt(value);
 					}
 				}
-				else if (CONFIG.worldofdarkness.attributeSettings == "20th") {
+				else if ((CONFIG.worldofdarkness.attributeSettings == "20th") || (isSpirit)) {
 					if (abilityType === "permanent") {
 						if (actorData.system.advantages.willpower.permanent == value) {
 							actorData.system.advantages.willpower.permanent = parseInt(actorData.system.advantages.willpower.permanent) - 1;
