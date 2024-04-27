@@ -266,7 +266,12 @@ export  const updates = async () => {
     let update = false;
     let found = false;
 
-    if (actor.system.settings.version == "") {
+    // deprecated sheet
+    if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) {
+        return;
+    }
+
+    if ((actor.system.settings.version == "") || (actor.system.settings.version == undefined)) {
         const updateData = duplicate(actor);
         updateData.system.settings.version = "2.2.0";
         await actor.update(updateData);
@@ -1791,6 +1796,11 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '3.3.5')) {
+            newfunctions += '<li>Update German translation. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/830">[#830]</li>';
+            newfunctions += '<li>Old spirit sheet causing problem. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/842">[#842]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '3.3.4')) {
             newfunctions += '<li>Fixed bug where you could not press the dice roll buttons on Roll General Dices. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/839">[#839]</a></li>';
