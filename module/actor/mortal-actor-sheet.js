@@ -1320,7 +1320,6 @@ export class MortalActorSheet extends ActorSheet {
 		const html = await renderTemplate(template, templateData);
 	
 		const chatData = {
-			type: CONST.CHAT_MESSAGE_TYPES.ROLL,
 			content: html,
 			speaker: ChatMessage.getSpeaker({ actor: this.actor }),
 			rollMode: game.settings.get("core", "rollMode")        
