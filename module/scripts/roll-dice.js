@@ -388,7 +388,7 @@ export async function InitiativeRoll(diceRoll) {
 
 	if ((foundToken) && (foundEncounter)) {
 		if (!CombatHelper._inTurn(token)) {
-			await token.toggleCombat();
+			await token.document.toggleCombatant();
 
 			if (token.combatant.system.initiative == undefined) {      
 				await token.combatant.update({initiative: init});
