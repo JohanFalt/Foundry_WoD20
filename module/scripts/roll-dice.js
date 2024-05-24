@@ -97,14 +97,14 @@ export async function NewRollDice(diceRoll) {
 	const systemText = diceRoll.systemText;
 	let targetlist = diceRoll.targetlist;	
 
-    let diceResult;
+	let diceResult;
 
 	// multi damage dices
 	const allDiceResult = [];
-    let rollInfo = "";	
+	let rollInfo = "";	
 	
 	// dices to Dice So Nice :)
-    const allDices = [];
+	const allDices = [];
 	
 	let rolledDices;
 	let success;
@@ -319,9 +319,9 @@ export async function NewRollDice(diceRoll) {
             type: diceRoll.origin,
             action: diceRoll.action,
             title: rollInfo,
-			info: info,		
-			systemtext: systemtext,	
-			multipleresult: allDiceResult
+						info: info,		
+						systemtext: systemtext,	
+						multipleresult: allDiceResult
         }
     };
 
@@ -330,10 +330,9 @@ export async function NewRollDice(diceRoll) {
     const html = await renderTemplate(template, templateData);
 
     const chatData = {
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: allDices,
         content: html,
-		speaker: ChatMessage.getSpeaker({ actor: actor }),
+				speaker: ChatMessage.getSpeaker({ actor: actor }),
         rollMode: game.settings.get("core", "rollMode")        
     };
     ChatMessage.applyRollMode(chatData, "roll");
@@ -438,8 +437,8 @@ export async function InitiativeRoll(diceRoll) {
             type: diceRoll.origin,
             action: game.i18n.localize("wod.dice.rollinginitiative"),
             title: rollInfo,
-			info: info,			
-			multipleresult: allDiceResult
+						info: info,			
+						multipleresult: allDiceResult
         }
     };
 
@@ -450,7 +449,7 @@ export async function InitiativeRoll(diceRoll) {
     const chatData = {
         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         content: html,
-		speaker: ChatMessage.getSpeaker({ actor: actor }),
+				speaker: ChatMessage.getSpeaker({ actor: actor }),
         rollMode: game.settings.get("core", "rollMode")        
     };
     ChatMessage.applyRollMode(chatData, "roll");
