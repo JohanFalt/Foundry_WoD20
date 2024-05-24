@@ -76,8 +76,10 @@
     }
   ],
   "initiative": "1d10 + @initiative.total",
-  "gridDistance": 2,
-  "gridUnits": "m",
+  "grid": {
+    "distance": 2,
+    "units": "m"
+  },
   "primaryTokenAttribute": "traits.health.totalhealthlevels",
   "url": "https://github.com/JohanFalt/Foundry_WoD20",
   "background": "systems/worldofdarkness/assets/img/graphics/wod.png",
