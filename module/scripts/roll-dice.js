@@ -161,11 +161,14 @@ export async function NewRollDice(diceRoll) {
 		while (numberDices > rolledDices) {
 			let chosenDiceColor = _diceColor;
 			let roll = await new Roll("1d10");
-			roll.evaluate({async:true});	
+			await roll.evaluate();	
 			allDices.push(roll);
+
+			// Increment the number of dices that've been rolled
+			rolledDices += 1;
 			
+			// Evaluate each roll term
 			roll.terms[0].results.forEach((dice) => {
-				rolledDices += 1;
 
 				if (dice.result == 10) {				
 					if ((CONFIG.worldofdarkness.usespecialityAddSuccess) && (diceRoll.speciality)) {
