@@ -370,7 +370,7 @@ export async function InitiativeRoll(diceRoll) {
 	_GetDiceColors(actor);
 
 	let roll = new Roll("1d10");	
-	roll.evaluate({async:true});
+	await roll.evaluate();
 	roll.terms[0].results.forEach((dice) => {
 		init += parseInt(dice.result) + parseInt(actor.system.initiative.total);
 
@@ -390,7 +390,7 @@ export async function InitiativeRoll(diceRoll) {
 		if (!CombatHelper._inTurn(token)) {
 			await token.toggleCombat();
 
-			if (token.combatant.data.initiative == undefined) {      
+			if (token.combatant.system.initiative == undefined) {      
 				await token.combatant.update({initiative: init});
 				rolledInitiative = true;
 			}
