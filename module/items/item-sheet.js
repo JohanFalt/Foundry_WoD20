@@ -4,7 +4,7 @@ import BonusHelper from "../scripts/bonus-helpers.js"
 export class WoDItemSheet extends ItemSheet {
 	
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: [`wod20 wod-item`]
 		});
 	}

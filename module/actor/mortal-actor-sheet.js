@@ -14,7 +14,7 @@ export class MortalActorSheet extends ActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet mortal"],
 			template: "systems/worldofdarkness/templates/actor/mortal-sheet.html",
 			tabs: [{

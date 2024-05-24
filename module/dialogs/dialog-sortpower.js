@@ -145,7 +145,7 @@ export class DialogSortPower extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog sortdiscipline-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-sortpower.html",
             closeOnSubmit: false,

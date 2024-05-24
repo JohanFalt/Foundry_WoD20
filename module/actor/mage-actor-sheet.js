@@ -7,7 +7,7 @@ export class MageActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet mage"],
 			template: "systems/worldofdarkness/templates/actor/mage-sheet.html"
 		});

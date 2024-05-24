@@ -557,7 +557,7 @@ export const systemSettings = function() {
 export class Rules extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "rules",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize('wod.settings.rulesettings'),
@@ -639,7 +639,7 @@ export class Rules extends FormApplication {
 export class Dices extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "dices",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.rollsettings"),
@@ -721,7 +721,7 @@ export class Dices extends FormApplication {
 export class Era extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "dices",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.erasettings"),
@@ -803,7 +803,7 @@ export class Era extends FormApplication {
 export class Demon extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "demon",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.demonsettings"),
@@ -886,7 +886,7 @@ export class Demon extends FormApplication {
 export class Hunter extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "hunter",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.huntersettings"),
@@ -968,7 +968,7 @@ export class Hunter extends FormApplication {
 export class Werewolf extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "werewolf",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize("wod.settings.werewolfsettings"),
@@ -1050,7 +1050,7 @@ export class Werewolf extends FormApplication {
 export class Permissions extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "permission",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize('wod.settings.permissionsettings'),
@@ -1132,7 +1132,7 @@ export class Permissions extends FormApplication {
 export class Graphics extends FormApplication {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             id: "graphics",
             classes: ["wod20rule-dialog"],
             title: game.i18n.localize('wod.settings.graphicsettings'),

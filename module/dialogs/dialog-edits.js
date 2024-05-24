@@ -61,7 +61,7 @@ export class Sphere {
 export class DialogBio extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -136,7 +136,7 @@ export class DialogBio extends FormApplication {
 export class DialogAttribute extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -199,7 +199,7 @@ export class DialogAttribute extends FormApplication {
 export class DialogAbility extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -280,7 +280,7 @@ export class DialogAbility extends FormApplication {
 export class DialogSphere extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,

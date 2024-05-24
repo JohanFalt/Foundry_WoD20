@@ -6,7 +6,7 @@ export class VampireActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet vampire"],
 			template: "systems/worldofdarkness/templates/actor/vampire-sheet.html"
 		});

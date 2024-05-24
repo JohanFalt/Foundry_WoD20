@@ -6,7 +6,7 @@ export class HunterActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet hunter"],
 			template: "systems/worldofdarkness/templates/actor/hunter-sheet.html"
 		});

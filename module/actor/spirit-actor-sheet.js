@@ -5,7 +5,7 @@ export class SpiritActorSheet extends ActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet spirit"],
 			template: "systems/worldofdarkness/templates/actor/spirit-sheet.html",
 			height: 790,

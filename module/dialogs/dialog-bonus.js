@@ -11,7 +11,7 @@ export class Bonus {
 export class DialogBonus extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog item-dialog"],
             closeOnSubmit: false,
             submitOnChange: true,

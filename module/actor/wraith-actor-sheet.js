@@ -6,7 +6,7 @@ export class WraithActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet wraith"],
 			template: "systems/worldofdarkness/templates/actor/wraith-sheet.html"
 		});

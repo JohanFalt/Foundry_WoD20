@@ -158,7 +158,7 @@ export class DialogWeapon extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog weapon-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-weapon.html",
             closeOnSubmit: false,

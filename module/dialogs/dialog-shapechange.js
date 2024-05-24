@@ -28,7 +28,7 @@ export class DialogShapeChange extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog shapechange-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-shapechange.html",
             closeOnSubmit: false,

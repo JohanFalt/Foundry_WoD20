@@ -83,7 +83,7 @@ export class DialogGeneralRoll extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog general-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-generalroll.html",
             closeOnSubmit: false,
