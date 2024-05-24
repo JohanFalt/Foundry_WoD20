@@ -43,7 +43,7 @@ export default class ItemHelper {
 	static async cleanItemList(actor, removedItem) {
 		for (const item of actor.items) {
 			if (item.system.parentid == removedItem._id) {
-				const itemData = duplicate(item);
+				const itemData = foundry.utils.duplicate(item);
 				itemData.system.parentid = "";
 				await item.update(itemData);
 			}
@@ -652,7 +652,7 @@ export default class ItemHelper {
 
 			if (!found) {
 				const item = await actor.getEmbeddedDocument("Item", power._id);
-				const itemData = duplicate(item);
+				const itemData = foundry.utils.duplicate(item);
                 itemData.system.parentid = "";
                 await item.update(itemData);
 			}

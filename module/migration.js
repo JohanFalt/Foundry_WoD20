@@ -107,7 +107,7 @@ export  const updates = async () => {
         // handle Game settings  
         let totalinit = -1;
 
-        const actorData = duplicate(actor);
+        const actorData = foundry.utils.duplicate(actor);
 
         if (actor.type != CONFIG.worldofdarkness.sheettype.spirit) {
             if (attributeSettings == "20th") {
@@ -197,7 +197,7 @@ export  const updates = async () => {
             // for (const item of actor.items) {
 
             //     let hasChanged = false;
-            //     const itemData = duplicate(item);
+            //     const itemData = foundry.utils.duplicate(item);
             //     const imgUrl = getImage(item);
 
             //     if (imgUrl != "") {                    
@@ -239,7 +239,7 @@ export  const updates = async () => {
     
     /* for (const item of game.items) {
         let hasChanged = false;
-        const itemData = duplicate(item);
+        const itemData = foundry.utils.duplicate(item);
         const imgUrl = getImage(item);
 
         if (imgUrl != "") {                    
@@ -272,14 +272,14 @@ export  const updates = async () => {
     }
 
     if ((actor.system.settings.version == "") || (actor.system.settings.version == undefined)) {
-        const updateData = duplicate(actor);
+        const updateData = foundry.utils.duplicate(actor);
         updateData.system.settings.version = "2.2.0";
         await actor.update(updateData);
     }
 
     if (_compareVersion(actor.system.settings.version, "1.5.0")) {
         
-        const updateData = duplicate(actor);
+        const updateData = foundry.utils.duplicate(actor);
 
         updateData.system.settings.version = "1.5.0";
 
@@ -397,7 +397,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(actor.system.settings.version, "1.6.0")) {
-        const updateData = duplicate(actor);
+        const updateData = foundry.utils.duplicate(actor);
         
         updateData.system.settings.version = "1.6.0";
 
@@ -476,7 +476,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(actor.system.settings.version, "2.1.0")) {
-        let updateData = duplicate(actor);
+        let updateData = foundry.utils.duplicate(actor);
 
         if (updateData.type != CONFIG.worldofdarkness.sheettype.spirit) {
             updateData.system.settings.version = "2.1.0";            
@@ -614,7 +614,7 @@ export  const updates = async () => {
     }  
 
     if (_compareVersion(actor.system.settings.version, "2.2.0")) {        
-        let updateData = duplicate(actor);
+        let updateData = foundry.utils.duplicate(actor);
 
         updateData.system.settings.version = "2.2.0";
 
@@ -841,7 +841,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(actor.system.settings.version, "2.3.0")) {        
-        let updateData = duplicate(actor);
+        let updateData = foundry.utils.duplicate(actor);
 
         updateData.system.settings.version = "2.3.0";
         
@@ -860,7 +860,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(actor.system.settings.version, "3.1.0")) {        
-        let updateData = duplicate(actor);
+        let updateData = foundry.utils.duplicate(actor);
         update = false;
         
         if (actor.type != CONFIG.worldofdarkness.sheettype.spirit) {
@@ -1110,7 +1110,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(actor.system.settings.version, "3.2.0")) {        
-        let updateData = duplicate(actor);
+        let updateData = foundry.utils.duplicate(actor);
         update = false;
 
         if (actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
@@ -1147,7 +1147,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(actor.system.settings.version, "3.2.9")) {
-        let updateData = duplicate(actor);
+        let updateData = foundry.utils.duplicate(actor);
         update = false;
 
         if (actor.type == CONFIG.worldofdarkness.sheettype.demon) {
@@ -1171,7 +1171,7 @@ export  const updates = async () => {
         }
 
         if (update) {
-            let updateData = duplicate(actor);
+            let updateData = foundry.utils.duplicate(actor);
             updateData.system.settings.version = "3.3.0";
 
             await actor.update(updateData);
@@ -1189,7 +1189,7 @@ export  const updates = async () => {
     let altered = false;
 
     if (_compareVersion(item.system.version, "1.5.0")) {
-        const itemData = duplicate(item);
+        const itemData = foundry.utils.duplicate(item);
 
         if (item.type == "Armor") {
             itemData.system.forms.hashomid = itemData.system.forms.homid;
@@ -1348,7 +1348,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(item.system.version, "2.1.0")) {
-        const itemData = duplicate(item);
+        const itemData = foundry.utils.duplicate(item);
         itemData.system.version = "2.1.0";
 
         if (item.type == "Melee Weapon") {
@@ -1386,7 +1386,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(item.system.version, "2.2.0")) {
-        const itemData = duplicate(item);
+        const itemData = foundry.utils.duplicate(item);
         itemData.system.version = "2.2.0";
 
         if (item.type == "Power") {
@@ -1408,7 +1408,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(item.system.version, "2.3.0")) {
-        const itemData = duplicate(item);        
+        const itemData = foundry.utils.duplicate(item);        
 
         if (item.type == "Power") {
             if ((item.system.type == "wod.types.art") || (item.system.type == "wod.types.artpower")) {
@@ -1444,7 +1444,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(item.system.version, "3.1.0")) {
-        const itemData = duplicate(item);        
+        const itemData = foundry.utils.duplicate(item);        
 
         if (item.type == "Power") {
             if (item.system.type == "wod.types.artpower") {
@@ -1469,7 +1469,7 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(item.system.version, "3.2.0")) {
-        const itemData = duplicate(item);
+        const itemData = foundry.utils.duplicate(item);
 
         if (item.type == "Power") {
             if (item.system.type == "wod.types.artpower") {
@@ -1490,13 +1490,13 @@ export  const updates = async () => {
     }
 
     if (_compareVersion(item.system.version, "3.3.0")) {
-        let itemData = duplicate(item);
+        let itemData = foundry.utils.duplicate(item);
 
         if ((item.type == "Bonus") && ((item.system.parentid != "") && (item.system.parentid != "hispo") && (item.system.parentid != "lupus") && item.actor != null)) {
             console.log(`Bonus found on ${item.actor.name} type ${item.system.type}`);
 
             let bonus = item.actor.getEmbeddedDocument("Item", item.system.parentid);
-            itemData = duplicate(bonus);
+            itemData = foundry.utils.duplicate(bonus);
 
             let bonusData = {
                 name: item.name,

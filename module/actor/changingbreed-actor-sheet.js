@@ -18,7 +18,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == "Changing Breed") {
@@ -174,7 +174,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 
 		event.preventDefault();
 
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
 			ui.notifications.error('Not Changing breed aborts!');
@@ -205,7 +205,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	async _assignToWerewolf(fields, value) {
 		console.log("WoD | Changing breed Sheet _assignToWerewolf");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (fields[0] === "renown") {
 			let renowntype = fields[1];

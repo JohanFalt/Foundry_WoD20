@@ -19,7 +19,7 @@ export class MageActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.mage) {
@@ -149,7 +149,7 @@ export class MageActorSheet extends MortalActorSheet {
 			const itemid = dataset.itemid;
 
 			let item = await this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {
 				itemData.system.value = 0;
@@ -192,7 +192,7 @@ export class MageActorSheet extends MortalActorSheet {
 			return;
 		}
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (oldState == "") {
 			if ((parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent)) < 20) {
@@ -230,7 +230,7 @@ export class MageActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (oldState == "") {
 			if ((parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1) > 20) {
@@ -273,7 +273,7 @@ export class MageActorSheet extends MortalActorSheet {
 	async _assignToMage(fields, value) {
 		console.log("WoD | Mage Sheet _assignToMage");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (fields[1] === "arete") {
 			if (actorData.system.advantages.arete.permanent == value) {

@@ -581,7 +581,7 @@ export class Rules extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "advantageRolls") || (s.key == "attributeSettings")) {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -663,7 +663,7 @@ export class Dices extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "theRollofOne") || (s.key == "useOnesDamage") || (s.key == "useOnesSoak") || (s.key == "lowestDifficulty") || (s.key == "specialityAddSuccess") || (s.key == "specialityReduceDiff") || (s.key == "tenAddSuccess") || (s.key == "explodingDice"))  {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -745,7 +745,7 @@ export class Era extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "eraMortal") || (s.key == "eraMage") || (s.key == "eraVampire") || (s.key == "eraWerewolf"))  {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -827,7 +827,7 @@ export class Demon extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "demonSystemSettings") || (s.key == "demonCreateForms")) {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -910,7 +910,7 @@ export class Hunter extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "hunteredgeSettings")) {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -992,7 +992,7 @@ export class Werewolf extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "wererwolfrageSettings")) {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -1074,7 +1074,7 @@ export class Permissions extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "changeActorImagePermission") || (s.key == "changeItemImagePermission") || (s.key == "itemAdministratorLevel") || (s.key == "observersFullActorViewPermission") || (s.key == "limitedFullActorViewPermission")) {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);
@@ -1156,7 +1156,7 @@ export class Graphics extends FormApplication {
                 // Exclude settings the user cannot change
                 if ((s.key == "useSplatFonts") || (s.key == "useLinkPlatform")) {
                     // Update setting data
-                    const setting = duplicate(s);
+                    const setting = foundry.utils.duplicate(s);
 
                     setting.name = game.i18n.localize(setting.name);
                     setting.hint = game.i18n.localize(setting.hint);

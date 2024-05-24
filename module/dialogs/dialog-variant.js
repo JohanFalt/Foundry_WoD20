@@ -91,7 +91,7 @@ export class DialogVariant extends FormApplication {
             return;
         }
 
-        const actorData = duplicate(this.actor);
+        const actorData = foundry.utils.duplicate(this.actor);
 
         if (this.object.type == CONFIG.worldofdarkness.sheettype.changeling) {
             await CreateHelper.SetChangingVariant(actorData, this.object.variant);

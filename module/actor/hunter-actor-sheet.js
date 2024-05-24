@@ -18,7 +18,7 @@ export class HunterActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.hunter) {
@@ -125,7 +125,7 @@ export class HunterActorSheet extends MortalActorSheet {
 		   	}
 
 			let item = await this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {
 				itemData.system.value = 0;
@@ -160,7 +160,7 @@ export class HunterActorSheet extends MortalActorSheet {
 	async _assignToHunter(fields, value) {
 		console.log("WoD | Hunter Sheet _assignToHunter");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		let area = fields[0];	
 		const ability = fields[1];	

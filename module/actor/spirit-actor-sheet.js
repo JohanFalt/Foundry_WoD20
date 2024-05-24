@@ -39,7 +39,7 @@ export class SpiritActorSheet extends ActorSheet {
 	
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.spirit) {
@@ -330,7 +330,7 @@ export class SpiritActorSheet extends ActorSheet {
 	_assignToActorField(fields, value) {
 		console.log("WoD | Spirit Sheet _assignToActorField");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		// update actor owned items
 		if (fields.length === 2 && fields[0] === "items") {
@@ -421,7 +421,7 @@ export class SpiritActorSheet extends ActorSheet {
 	}	
 	
 	async ConvertSpiritToCreature(event) {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		try {
 			let x = await Actor.create({
@@ -435,7 +435,7 @@ export class SpiritActorSheet extends ActorSheet {
 			});	  
 
 			let newActor = game.actors.get(x._id);
-			const newActorData = duplicate(newActor);
+			const newActorData = foundry.utils.duplicate(newActor);
 			await CreateHelper.SetCreatureVariant(newActorData, 'spirit');
 
 			newActorData.system.advantages.rage.permanent = parseInt(actorData.system.advantages.rage.permanent);
@@ -460,7 +460,7 @@ export class SpiritActorSheet extends ActorSheet {
 			
 			for (const item of actorData.items) {
 				if (item.type == "Power") {
-					let itemData = duplicate(item);
+					let itemData = foundry.utils.duplicate(item);
 					await newActor.createEmbeddedDocuments("Item", [itemData]);
 				}
 			}

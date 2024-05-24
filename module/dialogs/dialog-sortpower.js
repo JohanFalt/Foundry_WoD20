@@ -237,7 +237,7 @@ export class DialogSortPower extends FormApplication {
     
         for (const item of this.actor.items) {
             if (item._id == this.object._id) {
-                const itemData = duplicate(item);
+                const itemData = foundry.utils.duplicate(item);
 
                 itemData.system.parentid = this.object.parentid;
                 await item.update(itemData);

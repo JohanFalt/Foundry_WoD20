@@ -18,7 +18,7 @@ export class VampireActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.vampire) {
@@ -123,7 +123,7 @@ export class VampireActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 		let selectedGeneration = actorData.system.generation;
 		let generationModifier = 0;
 		let error = false;				
@@ -340,7 +340,7 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 	for (const item of actor.items) {
 		// secondary abilities
 		if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if (itemData.system.max != parseInt(disciplineMax)) {
 				itemData.system.max = parseInt(disciplineMax);
@@ -349,7 +349,7 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 		}
 		// disciplines and paths
 		if ((item.type == "Power") && ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepath"))) {
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if (itemData.system.max != parseInt(disciplineMax)) {
 				itemData.system.max = parseInt(disciplineMax);
@@ -358,7 +358,7 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 		}		
 		// disipline powers and path powers
 		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower") || (item.system.type == "wod.types.disciplinepathpower")) {
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if (itemData.system.max != 0) {
 				itemData.system.value = 0;
@@ -368,7 +368,7 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 		}
 		// rituals
 		if ((item.type == "Power") && (item.system.type == "wod.types.ritual")) {
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if (itemData.system.max != 0) {
 				itemData.system.value = 0;

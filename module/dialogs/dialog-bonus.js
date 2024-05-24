@@ -199,7 +199,7 @@ export class DialogBonus extends FormApplication {
             }
         }		
 
-        const itemData = duplicate(item);
+        const itemData = foundry.utils.duplicate(item);
 
         let bonus = {
             name: this.object.bonus.name,
