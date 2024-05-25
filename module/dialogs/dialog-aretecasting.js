@@ -189,7 +189,7 @@ export class DialogAreteCasting extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog aretecasting-dialog mageDialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-aretecasting.html",
             closeOnSubmit: false,

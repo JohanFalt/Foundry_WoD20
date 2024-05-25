@@ -6,7 +6,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet creature"],
 			template: "systems/worldofdarkness/templates/actor/creature-sheet.html"
 		});
@@ -20,7 +20,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.creature) {
@@ -134,7 +134,7 @@ export class CreatureActorSheet extends MortalActorSheet {
 	async _assignToCreature(fields, value) {
 		console.log("WoD | Creature Sheet _assignToCreature");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (fields[1] === "essence") {
 			if (actorData.system.advantages[fields[1]][fields[2]] == value) {

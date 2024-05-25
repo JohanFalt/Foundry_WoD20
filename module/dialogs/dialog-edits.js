@@ -61,7 +61,7 @@ export class Sphere {
 export class DialogBio extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -113,7 +113,7 @@ export class DialogBio extends FormApplication {
 
     async _save(event) {  
         this.object.custom = document.getElementById("custom").value;
-        const actorData = duplicate(this.actor);
+        const actorData = foundry.utils.duplicate(this.actor);
 
         //tribe
         if (this.object.id.length == 1) {
@@ -136,7 +136,7 @@ export class DialogBio extends FormApplication {
 export class DialogAttribute extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -189,7 +189,7 @@ export class DialogAttribute extends FormApplication {
     async _save(event) {  
         this.object.speciality = document.getElementById("speciality").value;
 
-        const actorData = duplicate(this.actor);
+        const actorData = foundry.utils.duplicate(this.actor);
         actorData.system.attributes[this.object.id].speciality = this.object.speciality;
         await this.actor.update(actorData);
         this.close();
@@ -199,7 +199,7 @@ export class DialogAttribute extends FormApplication {
 export class DialogAbility extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -261,13 +261,13 @@ export class DialogAbility extends FormApplication {
 
         if (this.object.issecondary) {
             let item = await this.actor.getEmbeddedDocument("Item", this.object.id);
-            const itemData = duplicate(item);
+            const itemData = foundry.utils.duplicate(item);
 		    itemData.system.label = this.object.label;
             itemData.system.speciality = this.object.speciality;
 		    await item.update(itemData);
         }
         else {
-            const actorData = duplicate(this.actor);
+            const actorData = foundry.utils.duplicate(this.actor);
             actorData.system.abilities[this.object.id].altlabel = this.object.altlabel;
             actorData.system.abilities[this.object.id].speciality = this.object.speciality;
             await this.actor.update(actorData);            
@@ -280,7 +280,7 @@ export class DialogAbility extends FormApplication {
 export class DialogSphere extends FormApplication {
     
     static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-dialog"],
             closeOnSubmit: false,
             submitOnChange: false,
@@ -334,7 +334,7 @@ export class DialogSphere extends FormApplication {
         this.object.speciality = document.getElementById("speciality").value;
         this.object.istechnocracy = document.getElementById("technocracy").checked;
 
-        const actorData = duplicate(this.actor);
+        const actorData = foundry.utils.duplicate(this.actor);
         actorData.system.spheres[this.object.id].speciality = this.object.speciality;
         actorData.system.spheres[this.object.id].istechnocracy = this.object.istechnocracy;
         actorData.system.spheres[this.object.id].label = await this.setSphereName(this.object.id, this.object.istechnocracy);

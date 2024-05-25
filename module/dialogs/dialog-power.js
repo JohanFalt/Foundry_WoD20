@@ -389,7 +389,7 @@ export class DialogPower extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog power-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-power.html",
             closeOnSubmit: false,

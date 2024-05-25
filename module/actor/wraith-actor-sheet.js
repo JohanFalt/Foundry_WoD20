@@ -6,7 +6,7 @@ export class WraithActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet wraith"],
 			template: "systems/worldofdarkness/templates/actor/wraith-sheet.html"
 		});
@@ -18,7 +18,7 @@ export class WraithActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.wraith) {
@@ -120,7 +120,7 @@ export class WraithActorSheet extends MortalActorSheet {
 		   	}
 
 			let item = await this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {
 				itemData.system.value = 0;
@@ -148,7 +148,7 @@ export class WraithActorSheet extends MortalActorSheet {
 	async _assignToWraith(fields, value) {
 		console.log("WoD | Wraith Sheet _assignToWraith");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		let area = fields[0];	
 		const ability = fields[1];	

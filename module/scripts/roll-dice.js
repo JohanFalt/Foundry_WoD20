@@ -97,14 +97,14 @@ export async function NewRollDice(diceRoll) {
 	const systemText = diceRoll.systemText;
 	let targetlist = diceRoll.targetlist;	
 
-    let diceResult;
+	let diceResult;
 
 	// multi damage dices
 	const allDiceResult = [];
-    let rollInfo = "";	
+	let rollInfo = "";	
 	
 	// dices to Dice So Nice :)
-    const allDices = [];
+	const allDices = [];
 	
 	let rolledDices;
 	let success;
@@ -161,11 +161,14 @@ export async function NewRollDice(diceRoll) {
 		while (numberDices > rolledDices) {
 			let chosenDiceColor = _diceColor;
 			let roll = await new Roll("1d10");
-			roll.evaluate({async:true});	
+			await roll.evaluate();	
 			allDices.push(roll);
+
+			// Increment the number of dices that've been rolled
+			rolledDices += 1;
 			
+			// Evaluate each roll term
 			roll.terms[0].results.forEach((dice) => {
-				rolledDices += 1;
 
 				if (dice.result == 10) {				
 					if ((CONFIG.worldofdarkness.usespecialityAddSuccess) && (diceRoll.speciality)) {
@@ -316,9 +319,9 @@ export async function NewRollDice(diceRoll) {
             type: diceRoll.origin,
             action: diceRoll.action,
             title: rollInfo,
-			info: info,		
-			systemtext: systemtext,	
-			multipleresult: allDiceResult
+						info: info,		
+						systemtext: systemtext,	
+						multipleresult: allDiceResult
         }
     };
 
@@ -327,10 +330,9 @@ export async function NewRollDice(diceRoll) {
     const html = await renderTemplate(template, templateData);
 
     const chatData = {
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         rolls: allDices,
         content: html,
-		speaker: ChatMessage.getSpeaker({ actor: actor }),
+				speaker: ChatMessage.getSpeaker({ actor: actor }),
         rollMode: game.settings.get("core", "rollMode")        
     };
     ChatMessage.applyRollMode(chatData, "roll");
@@ -368,7 +370,7 @@ export async function InitiativeRoll(diceRoll) {
 	_GetDiceColors(actor);
 
 	let roll = new Roll("1d10");	
-	roll.evaluate({async:true});
+	await roll.evaluate();
 	roll.terms[0].results.forEach((dice) => {
 		init += parseInt(dice.result) + parseInt(actor.system.initiative.total);
 
@@ -386,9 +388,9 @@ export async function InitiativeRoll(diceRoll) {
 
 	if ((foundToken) && (foundEncounter)) {
 		if (!CombatHelper._inTurn(token)) {
-			await token.toggleCombat();
+			await token.document.toggleCombatant();
 
-			if (token.combatant.data.initiative == undefined) {      
+			if (token.combatant.system.initiative == undefined) {      
 				await token.combatant.update({initiative: init});
 				rolledInitiative = true;
 			}
@@ -435,8 +437,8 @@ export async function InitiativeRoll(diceRoll) {
             type: diceRoll.origin,
             action: game.i18n.localize("wod.dice.rollinginitiative"),
             title: rollInfo,
-			info: info,			
-			multipleresult: allDiceResult
+						info: info,			
+						multipleresult: allDiceResult
         }
     };
 
@@ -445,9 +447,8 @@ export async function InitiativeRoll(diceRoll) {
     const html = await renderTemplate(template, templateData);
 
     const chatData = {
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
         content: html,
-		speaker: ChatMessage.getSpeaker({ actor: actor }),
+				speaker: ChatMessage.getSpeaker({ actor: actor }),
         rollMode: game.settings.get("core", "rollMode")        
     };
     ChatMessage.applyRollMode(chatData, "roll");

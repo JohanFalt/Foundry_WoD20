@@ -158,7 +158,7 @@ export class DialogWeapon extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog weapon-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-weapon.html",
             closeOnSubmit: false,
@@ -576,7 +576,7 @@ export class DialogWeapon extends FormApplication {
             let item = await this.actor.getEmbeddedDocument("Item", this.object._id);            
 
             if (this.object.dice2 == "custom") {
-                const itemData = duplicate(item);
+                const itemData = foundry.utils.duplicate(item);
                 itemData.system.attack.secondaryabilityid = this.object.secondaryabilityid;
                 await item.update(itemData);
             }

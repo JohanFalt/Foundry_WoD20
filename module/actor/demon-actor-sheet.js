@@ -7,7 +7,7 @@ export class DemonActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet demon"],
 			template: "systems/worldofdarkness/templates/actor/demon-sheet.html"
 		});
@@ -19,7 +19,7 @@ export class DemonActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.demon) {
@@ -278,7 +278,7 @@ export class DemonActorSheet extends MortalActorSheet {
 		   	}
 
 			let item = await this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = duplicate(item);
+			const itemData = foundry.utils.duplicate(item);
 
 			if ((index == 0) && (itemData.system.value == 1)) {
 				itemData.system.value = 0;
@@ -306,7 +306,7 @@ export class DemonActorSheet extends MortalActorSheet {
 	async _assignToDemon(fields, value) {
 		console.log("WoD | Demon Sheet _assignToDemon");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		let area = fields[0];	
 		const ability = fields[1];	

@@ -30,7 +30,7 @@ export class DialogVariant extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog dialog-top"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-variant.html",
             closeOnSubmit: false,
@@ -91,7 +91,7 @@ export class DialogVariant extends FormApplication {
             return;
         }
 
-        const actorData = duplicate(this.actor);
+        const actorData = foundry.utils.duplicate(this.actor);
 
         if (this.object.type == CONFIG.worldofdarkness.sheettype.changeling) {
             await CreateHelper.SetChangingVariant(actorData, this.object.variant);

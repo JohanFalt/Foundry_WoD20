@@ -7,7 +7,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ["wod20 wod-sheet werewolf"],
 			template: "systems/worldofdarkness/templates/actor/werewolf-sheet.html"
 		});
@@ -20,7 +20,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 	/** @override */
 	async getData() {
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (!actorData.system.settings.iscreated) {
 			if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
@@ -181,7 +181,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			};
 			actor.createEmbeddedDocuments("Item", [itemData]);
 
-			const actorData = duplicate(actor);
+			const actorData = foundry.utils.duplicate(actor);
 			actorData.system.settings.version = game.data.system.version;
 			actorData.system.settings.isshapecreated = true;
 			actor.update(actorData);
@@ -248,7 +248,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 
 		event.preventDefault();
 
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (actorData.type != CONFIG.worldofdarkness.sheettype.werewolf) {
 			return;
@@ -283,7 +283,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	async _assignToWerewolf(fields, value) {
 		console.log("WoD | Werewolf Sheet _assignToWerewolf");
 		
-		const actorData = duplicate(this.actor);
+		const actorData = foundry.utils.duplicate(this.actor);
 
 		if (fields[0] === "renown") {
 			let renowntype = fields[1];

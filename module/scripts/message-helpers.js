@@ -21,7 +21,6 @@ export default class MessageHelper {
 		const html = await renderTemplate(template, templateData);
 	
 		const chatData = {
-			type: CONST.CHAT_MESSAGE_TYPES.ROLL,
 			content: html,
 			speaker: ChatMessage.getSpeaker({ actor: actor }),
 			rollMode: game.settings.get("core", "rollMode")        

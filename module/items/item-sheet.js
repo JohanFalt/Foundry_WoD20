@@ -4,7 +4,7 @@ import BonusHelper from "../scripts/bonus-helpers.js"
 export class WoDItemSheet extends ItemSheet {
 	
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: [`wod20 wod-item`]
 		});
 	}
@@ -28,7 +28,7 @@ export class WoDItemSheet extends ItemSheet {
 
 	/** @override */
 	async getData() {
-		const itemData = duplicate(this.item);		
+		const itemData = foundry.utils.duplicate(this.item);		
 
 		if (!itemData.system.iscreated) {
 			itemData.system.version = game.data.system.version;
@@ -174,7 +174,7 @@ export class WoDItemSheet extends ItemSheet {
             }
         });
 
-		const itemData = duplicate(this.item);
+		const itemData = foundry.utils.duplicate(this.item);
 		itemData.system.value = parseInt(bonus);
 		await this.item.update(itemData);
 		this.render(false);
@@ -194,7 +194,7 @@ export class WoDItemSheet extends ItemSheet {
             }
         });
 
-		const itemData = duplicate(this.item);
+		const itemData = foundry.utils.duplicate(this.item);
 		itemData.system.settingtype = attribute;
 		await this.item.update(itemData);
 		this.render(false);
@@ -208,7 +208,7 @@ export class WoDItemSheet extends ItemSheet {
 		const type = dataset.type;
 		const game = dataset.game;
 		const id = dataset.typeid;
-		const itemData = duplicate(this.item);
+		const itemData = foundry.utils.duplicate(this.item);
 		
 		if (type == "combination") {
 			if (itemData.system.property[id] != undefined) {
@@ -241,7 +241,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		const type = $(event.currentTarget).data("type");
 		const game = $(event.currentTarget).data("game");
-		const itemData = duplicate(this.item);
+		const itemData = foundry.utils.duplicate(this.item);
 
 		if ((type == "combination") && (game == "vampire")) {
 			let property = {
@@ -293,12 +293,12 @@ export class WoDItemSheet extends ItemSheet {
 		const type = $(event.currentTarget).data("type");
 
 		if (type == "bonus") {
-			const itemData = duplicate(this.item);
+			const itemData = foundry.utils.duplicate(this.item);
 			itemData.system.bonuslist.splice(itemId, 1);
 			await this.item.update(itemData);
 		}
 		else if (type == "combination") {
-			const itemData = duplicate(this.item);
+			const itemData = foundry.utils.duplicate(this.item);
 			itemData.system.property.splice(itemId, 1);
 			await this.item.update(itemData);
 		}
@@ -325,7 +325,7 @@ export class WoDItemSheet extends ItemSheet {
 		steps.removeClass("active");
 
 		if (fields[1] === "spheres") {
-			const itemData = duplicate(this.item);
+			const itemData = foundry.utils.duplicate(this.item);
 			
 			if ((itemData.system[fields[2]] == 1) && (index == 0)) {
 				this._assignToItemField(fields, 0);
@@ -344,7 +344,7 @@ export class WoDItemSheet extends ItemSheet {
 	}
 
 	_assignToItemField(fields, value) {
-		const itemData = duplicate(this.item);		
+		const itemData = foundry.utils.duplicate(this.item);		
 
 		if (fields[1] === "spheres") {
 			itemData.system[fields[2]] = value;

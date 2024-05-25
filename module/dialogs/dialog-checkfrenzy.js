@@ -54,7 +54,7 @@ export class DialogCheckFrenzy extends FormApplication {
         * @returns {Object}
     */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog checkfrenzy-dialog"],
             template: "systems/worldofdarkness/templates/dialogs/dialog-checkfrenzy.html",
             closeOnSubmit: false,
