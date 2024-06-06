@@ -1601,6 +1601,7 @@ export  const updates = async () => {
     let patch310 = false;
     let patch320 = false;
     let patch330 = false;
+    let patch400 = false;
 
     let newfunctions = "";
 
@@ -1619,6 +1620,7 @@ export  const updates = async () => {
         patch310 = game.settings.get('worldofdarkness', 'patch310');
         patch320 = game.settings.get('worldofdarkness', 'patch320');
         patch330 = game.settings.get('worldofdarkness', 'patch330');
+        patch400 = game.settings.get('worldofdarkness', 'patch400');
     } 
     catch (e) {
     }
@@ -1792,12 +1794,19 @@ export  const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
+    if (!patch400) {
+        game.settings.set('worldofdarkness', 'patch400', true);
+
+        newfunctions += "<li>Foundry version 12</li>";
+        newfunctions += '<li>Added Ukrainian support</li>';        
+    }
+
     // Support Drag Ruler module (notify stabchenfisch about it)
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        if (_compareVersion(installedVersion, '3.3.5')) {
+        /*if (_compareVersion(installedVersion, '3.3.5')) {
             newfunctions += '<li>Update German translation. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/830">[#830]</li>';
             newfunctions += '<li>Old spirit sheet causing problem. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/842">[#842]</a></li>';
         }
@@ -1825,7 +1834,7 @@ export  const updates = async () => {
             newfunctions += '<li>[VtM] Fixed so totals of experience points was displayed.</li>';
             newfunctions += '<li>[WtA] Fixed so you can select any of the lost breeds at sheet creation.</li>';
             newfunctions += '<li>Fixed localizatation problems.</li>';
-        }
+        }*/
 
         /* if (_compareVersion(installedVersion, '3.2.14')) {
             newfunctions += '<li>Updated German translation.</li>';
