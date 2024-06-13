@@ -124,7 +124,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			let itemData = {
 				name: "Perception diff hispo",
 				type: "Bonus",			
-				data: {
+				system: {
 					iscreated: true,
 					isactive: false,
 					version: game.data.system.version,
@@ -139,7 +139,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			itemData = {
 				name: "Perception diff lupus",
 				type: "Bonus",			
-				data: {
+				system: {
 					iscreated: true,
 					isactive: false,
 					version: game.data.system.version,
@@ -154,7 +154,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			itemData = {
 				name: "Wits diff hispo",
 				type: "Bonus",			
-				data: {
+				system: {
 					iscreated: true,
 					isactive: false,
 					version: game.data.system.version,
@@ -169,7 +169,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 			itemData = {
 				name: "Wits diff lupus",
 				type: "Bonus",			
-				data: {
+				system: {
 					iscreated: true,
 					isactive: false,
 					version: game.data.system.version,

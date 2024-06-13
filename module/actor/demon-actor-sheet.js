@@ -38,9 +38,8 @@ export class DemonActorSheet extends MortalActorSheet {
 
 					let itemData = {
 						name: "form1",
-						type: "Trait",
-						
-						data: {
+						type: "Trait",						
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -52,7 +51,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form2",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -64,7 +63,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form3",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -76,7 +75,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form4",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -88,7 +87,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form5",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -100,7 +99,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form6",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -112,7 +111,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form7",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,
@@ -124,7 +123,7 @@ export class DemonActorSheet extends MortalActorSheet {
 					itemData = {
 						name: "form8",
 						type: "Trait",
-						data: {
+						system: {
 							iscreated: true,
 							version: version,
 							level: 0,

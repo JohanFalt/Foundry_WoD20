@@ -33,9 +33,8 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				
 				let itemData = {
 					name: "actor",
-					type: "Trait",
-					
-					data: {
+					type: "Trait",					
+					system: {
 						iscreated: true,
 						version: version,
 						label: "wod.realms.actor",
@@ -47,7 +46,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				itemData = {
 					name: "fae",
 					type: "Trait",
-					data: {
+					system: {
 						iscreated: true,
 						version: version,
 						label: "wod.realms.fae",
@@ -59,7 +58,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				itemData = {
 					name: "nature",
 					type: "Trait",
-					data: {
+					system: {
 						iscreated: true,
 						version: version,
 						label: "wod.realms.nature",
@@ -71,7 +70,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				itemData = {
 					name: "prop",
 					type: "Trait",
-					data: {
+					system: {
 						iscreated: true,
 						version: version,
 						label: "wod.realms.prop",
@@ -83,7 +82,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				itemData = {
 					name: "scene",
 					type: "Trait",
-					data: {
+					system: {
 						iscreated: true,
 						version: version,
 						label: "wod.realms.scene",
@@ -95,7 +94,7 @@ export class ChangelingActorSheet extends MortalActorSheet {
 				itemData = {
 					name: "time",
 					type: "Trait",
-					data: {
+					system: {
 						iscreated: true,
 						version: version,
 						label: "wod.realms.time",

@@ -1050,7 +1050,7 @@ export class MortalActorSheet extends ActorSheet {
 				itemData = {
 					name: `${game.i18n.localize("wod.labels.new.apocalypticform")}`,
 					type: itemtype,
-					data: {
+					system: {
 						iscreated: true,
 						level: 0,
 						type: "wod.types.apocalypticform"
@@ -1173,7 +1173,7 @@ export class MortalActorSheet extends ActorSheet {
 				active = true;
 			}
 
-			await item.update({"data.isactive" : active});
+			await item.update({"system.isactive" : active});
 		}
 		if (type == "isequipped") {
 			let equipped = false;
@@ -1185,7 +1185,7 @@ export class MortalActorSheet extends ActorSheet {
 				equipped = true;
 			}
 
-			await item.update({"data.isequipped" : equipped});			
+			await item.update({"system.isequipped" : equipped});			
 		}
 
 		const actorData = foundry.utils.duplicate(this.actor);
@@ -1305,7 +1305,7 @@ export class MortalActorSheet extends ActorSheet {
 		const system = item.system.details;
 
 		const templateData = {
-			data: {
+			system: {
 				actor: this.actor,
 				type: "send",
 				action: headline,

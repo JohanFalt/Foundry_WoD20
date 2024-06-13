@@ -1785,13 +1785,13 @@ export  const updates = async () => {
     if (!patch330) {
         game.settings.set('worldofdarkness', 'patch330', true);
 
-        newfunctions += "<li>Dark mode setting</li>";
+        /*newfunctions += "<li>Dark mode setting</li>";
         newfunctions += '<li>Added support for <a href="https://foundryvtt.com/packages/drag-ruler/">Drag Rules module</a></li>';
         newfunctions += "<li>Bonus system is reworked to support adding bonus to items not connected to Actor</li>";
         newfunctions += "<li>[MtA] Added creature variants Familiar and Construct</li>";
         newfunctions += "<li>[VtM] Combination disciplines</li>";
         newfunctions += "<li>[WtA] Added lost breeds Apis, Camazotz and Grondr</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";*/
     }
 
     if (!patch400) {
@@ -1805,6 +1805,11 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '4.0.1')) {
+            newfunctions += '<li>New Werewolves, Demons or Changelings was created in a wrong way which is now fixed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/859">[#859], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/860">[#860], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/861">[#861]</li>';
+            newfunctions += '<li>Setting an item to Active or Equipped now works. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/858">[#858]</a></li>';
+        }
 
         /*if (_compareVersion(installedVersion, '3.3.5')) {
             newfunctions += '<li>Update German translation. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/830">[#830]</li>';
