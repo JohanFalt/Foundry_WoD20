@@ -1305,7 +1305,7 @@ export class MortalActorSheet extends ActorSheet {
 		const system = item.system.details;
 
 		const templateData = {
-			system: {
+			data: {
 				actor: this.actor,
 				type: "send",
 				action: headline,
