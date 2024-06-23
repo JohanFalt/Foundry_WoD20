@@ -332,7 +332,7 @@ export async function NewRollDice(diceRoll) {
     const chatData = {
         rolls: allDices,
         content: html,
-				speaker: ChatMessage.getSpeaker({ actor: actor }),
+		speaker: ChatMessage.getSpeaker({ actor: actor }),
         rollMode: game.settings.get("core", "rollMode")        
     };
     ChatMessage.applyRollMode(chatData, "roll");
@@ -448,7 +448,7 @@ export async function InitiativeRoll(diceRoll) {
 
     const chatData = {
         content: html,
-				speaker: ChatMessage.getSpeaker({ actor: actor }),
+		speaker: ChatMessage.getSpeaker({ actor: actor }),
         rollMode: game.settings.get("core", "rollMode")        
     };
     ChatMessage.applyRollMode(chatData, "roll");
