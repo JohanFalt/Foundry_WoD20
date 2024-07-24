@@ -406,7 +406,7 @@
 							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
 								{{#select data.system.parentid}}
 									<option value="0">- {{localize "wod.labels.noneselect"}} -</option>
-									{{#each worldofdarkness.powers.arcanois as |item id|}}
+									{{#each worldofdarkness.powers.arcanoi as |item id|}}
 										<option value="{{lowercase item.name}}">{{item.name}}</option>
 									{{/each}}
 								{{/select}}
