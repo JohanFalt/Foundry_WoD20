@@ -1026,7 +1026,7 @@
 						"type": "social",
 						"label": "wod.attributes.appearance",
 						"speciality": "",
-						"isvisible": true
+						"isvisible": false
 					},
 					"composure": {
 						"value": 1,
@@ -1036,7 +1036,7 @@
 						"type": "social",
 						"label": "wod.attributes.composure",
 						"speciality": "",
-						"isvisible": false
+						"isvisible": true
 					},
 					"perception": {
 						"value": 1,
@@ -1046,7 +1046,7 @@
 						"type": "mental",
 						"label": "wod.attributes.perception",
 						"speciality": "",
-						"isvisible": true
+						"isvisible": false
 					},
 					"intelligence": {
 						"value": 1,
@@ -1076,7 +1076,7 @@
 						"type": "mental",
 						"label": "wod.attributes.resolve",
 						"speciality": "",
-						"isvisible": false
+						"isvisible": true
 					}
 				},
 				"advantages": {
