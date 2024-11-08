@@ -1806,6 +1806,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.0.4')) {
+            newfunctions += '<li>Fixed problems with saving alternative names to abilities.</li>';
+        }
+
         if (_compareVersion(installedVersion, '4.0.2')) {
             newfunctions += '<li>Fixed problems to send message to chat.</li>';
         }

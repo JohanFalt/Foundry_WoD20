@@ -256,7 +256,10 @@ export class DialogAbility extends FormApplication {
         }
         else {
             this.object.altlabel = document.getElementById("altlabel").value;
-            this.object.speciality = document.getElementById("speciality").value;
+            
+            if (document.getElementById("speciality")?.value != undefined) {
+                this.object.speciality = document.getElementById("speciality").value;
+            }
         }
 
         if (this.object.issecondary) {
