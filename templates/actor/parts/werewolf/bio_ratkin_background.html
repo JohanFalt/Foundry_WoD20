@@ -2,14 +2,14 @@
     <div class="pullLeft area-box">
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.breed}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
                     {{#select data.system.breed}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
-                    <option value="Metis">{{localize "wod.bio.breedname.metis"}}</option>
-                    <option value="Rodens">{{localize "wod.bio.breedname.rodens"}}</option>
+                        <option value="wod.bio.breedname.homid">{{localize "wod.bio.breedname.homid"}}</option>
+                        <option value="wod.bio.breedname.metis">{{localize "wod.bio.breedname.metis"}}</option>
+                        <option value="wod.bio.breedname.rodens">{{localize "wod.bio.breedname.rodens"}}</option>
                     {{/select}}
                 </select>
             {{/if}}
@@ -17,19 +17,19 @@
         </div>
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.auspice}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
                     {{#select data.system.auspice}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Tunnel Runner">{{localize "wod.bio.aspectname.tunnelrunner"}}</option>
-                        <option value="Shadow Seer">{{localize "wod.bio.aspectname.shadowseer"}}</option>
-                        <option value="Knife Skulker">{{localize "wod.bio.aspectname.knifeskulker"}}</option>
-                        <option value="Warrior">{{localize "wod.bio.aspectname.warrior"}}</option>
-                        <option value="Engineers">{{localize "wod.bio.aspectname.engineers"}}</option>
-                        <option value="Plague Lords">{{localize "wod.bio.aspectname.plaguelords"}}</option>
-                        <option value="Munchmausen">{{localize "wod.bio.aspectname.munchmausen"}}</option>
-                        <option value="Twitchers">{{localize "wod.bio.aspectname.twitchers"}}</option>
+                        <option value="wod.bio.aspectname.tunnelrunner">{{localize "wod.bio.aspectname.tunnelrunner"}}</option>
+                        <option value="wod.bio.aspectname.shadowseer">{{localize "wod.bio.aspectname.shadowseer"}}</option>
+                        <option value="wod.bio.aspectname.knifeskulker">{{localize "wod.bio.aspectname.knifeskulker"}}</option>
+                        <option value="wod.bio.aspectname.warrior">{{localize "wod.bio.aspectname.warrior"}}</option>
+                        <option value="wod.bio.aspectname.engineers">{{localize "wod.bio.aspectname.engineers"}}</option>
+                        <option value="wod.bio.aspectname.plaguelords">{{localize "wod.bio.aspectname.plaguelords"}}</option>
+                        <option value="wod.bio.aspectname.munchmausen">{{localize "wod.bio.aspectname.munchmausen"}}</option>
+                        <option value="wod.bio.aspectname.twitchers">{{localize "wod.bio.aspectname.twitchers"}}</option>
                     {{/select}}
                 </select>
             {{/if}}

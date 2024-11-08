@@ -262,15 +262,21 @@ export default class CreateHelper {
 			actor.system.attributes[attribute].isvisible = true;
 		}
 
-		if (CONFIG.worldofdarkness.attributeSettings == "20th") {
+		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+			actor.system.attributes.appearance.isvisible = false;
+			actor.system.attributes.perception.isvisible = false;
+
+			if (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "20th") {
+				actor.system.advantages.willpower.permanent = 0;
+			}
+			else {
+				actor.system.advantages.willpower.permanent = 2;
+			}			
+		}
+		else {
 			actor.system.attributes.composure.isvisible = false;
 			actor.system.attributes.resolve.isvisible = false;
 			actor.system.advantages.willpower.permanent = 0;
-		}
-		else if (CONFIG.worldofdarkness.attributeSettings == "5th") {
-			actor.system.attributes.appearance.isvisible = false;
-			actor.system.attributes.perception.isvisible = false;
-			actor.system.advantages.willpower.permanent = 2;
 		}
 	
 		if (CONFIG.worldofdarkness.rollSettings) {
@@ -510,7 +516,6 @@ export default class CreateHelper {
 			}
 			if (variant == 'chimera') {
 				actorData.system.settings.hasglamour = true;
-				//actorData.system.settings.powers.hasarts = true;
 			}
 			if (variant == 'familiar') {
 				actorData.system.settings.hasrage = true;

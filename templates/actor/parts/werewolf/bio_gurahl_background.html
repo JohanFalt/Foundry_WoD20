@@ -2,13 +2,13 @@
     <div class="pullLeft area-box">
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.breed}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
                     {{#select data.system.breed}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
-                        <option value="Ursine">{{localize "wod.bio.breedname.ursine"}}</option>
+                        <option value="wod.bio.breedname.homid">{{localize "wod.bio.breedname.homid"}}</option>
+                        <option value="wod.bio.breedname.ursine">{{localize "wod.bio.breedname.ursine"}}</option>
                     {{/select}}
                 </select>
             {{/if}}
@@ -17,16 +17,16 @@
 
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.auspice}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
                     {{#select data.system.auspice}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Arcas">{{localize "wod.bio.auspicename.arcas"}}</option>
-                        <option value="Uzmati">{{localize "wod.bio.auspicename.uzmati"}}</option>
-                        <option value="Kojubat">{{localize "wod.bio.auspicename.kojubat"}}</option>
-                        <option value="Kieh">{{localize "wod.bio.auspicename.kieh"}}</option>
-                        <option value="Rishi">{{localize "wod.bio.auspicename.rishi"}}</option>
+                        <option value="wod.bio.auspicename.arcas">{{localize "wod.bio.auspicename.arcas"}}</option>
+                        <option value="wod.bio.auspicename.uzmati">{{localize "wod.bio.auspicename.uzmati"}}</option>
+                        <option value="wod.bio.auspicename.kojubat">{{localize "wod.bio.auspicename.kojubat"}}</option>
+                        <option value="wod.bio.auspicename.kieh">{{localize "wod.bio.auspicename.kieh"}}</option>
+                        <option value="wod.bio.auspicename.rishi">{{localize "wod.bio.auspicename.rishi"}}</option>
                     {{/select}}
                 </select>
             {{/if}}
@@ -35,15 +35,15 @@
 
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.tribe}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.tribe}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.tribe" data-name="data.system.tribe" data-dtype="String">
                     {{#select data.system.tribe}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Forest Walkers">{{localize "wod.bio.tribename.forestwalkers"}}</option>
-                        <option value="Ice Stalkers">{{localize "wod.bio.tribename.icestalkers"}}</option>
-                        <option value="Mountain Guardians">{{localize "wod.bio.tribename.mountainguardians"}}</option>
-                        <option value="River Keepers">{{localize "wod.bio.tribename.riverkeepers"}}</option>
+                        <option value="wod.bio.tribename.forestwalkers">{{localize "wod.bio.tribename.forestwalkers"}}</option>
+                        <option value="wod.bio.tribename.icestalkers">{{localize "wod.bio.tribename.icestalkers"}}</option>
+                        <option value="wod.bio.tribename.mountainguardians">{{localize "wod.bio.tribename.mountainguardians"}}</option>
+                        <option value="wod.bio.tribename.riverkeepers">{{localize "wod.bio.tribename.riverkeepers"}}</option>
                     {{/select}}
                 </select>
             {{/if}}

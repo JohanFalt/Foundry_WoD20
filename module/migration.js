@@ -63,9 +63,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
 
     try {
         ui.notifications.warn("Checking character settings");
-        //MessageHelper.printMessage("Checking character settings", "");
         await this.updates();
-        //MessageHelper.printMessage("Checking character settings", "");
     }
     catch (e) {
     }
@@ -1178,6 +1176,585 @@ export  const updates = async () => {
             update = false;
         }
     }
+
+    if (_compareVersion(actor.system.settings.version, "4.1.0")) {
+        update = false;       
+        
+        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
+            let updateData = foundry.utils.duplicate(actor);
+            update = true;  
+
+            if (actor.system.breed == "Homid") {
+                updateData.system.breed = "wod.bio.breedname.homid";
+            }
+            else if (actor.system.breed == "Metis") {
+                updateData.system.breed = "wod.bio.breedname.metis";
+            }
+            else if (actor.system.breed == "Lupus") {
+                updateData.system.breed = "wod.bio.breedname.lupus";
+            }
+            else {
+                updateData.system.breed = "";
+            }
+
+            if (actor.system.auspice == "Ragabash") {
+                updateData.system.auspice = "wod.bio.auspicename.ragabash";
+            }
+            else if (actor.system.auspice == "Theurge") {
+                updateData.system.auspice = "wod.bio.auspicename.theurge";
+            }
+            else if (actor.system.auspice == "Philodox") {
+                updateData.system.auspice = "wod.bio.auspicename.philodox";
+            }
+            else if (actor.system.auspice == "Galliard") {
+                updateData.system.auspice = "wod.bio.auspicename.galliard";
+            }
+            else if (actor.system.auspice == "Ahroun") {
+                updateData.system.auspice = "wod.bio.auspicename.ahroun";
+            }
+            else {
+                updateData.system.auspice = "";
+            }            
+        }
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.hunter) {
+            let updateData = foundry.utils.duplicate(actor);
+            update = true;
+
+            if (actor.system.creed == game.i18n.localize("wod.bio.hunter.avenger")) {
+                updateData.system.creed = "wod.bio.hunter.avenger";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.defender")) {
+                updateData.system.creed = "wod.bio.hunter.defender";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.hermit")) {
+                updateData.system.creed = "wod.bio.hunter.hermit";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.innocent")) {
+                updateData.system.creed = "wod.bio.hunter.innocent";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.judge")) {
+                updateData.system.creed = "wod.bio.hunter.judge";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.martyr")) {
+                updateData.system.creed = "wod.bio.hunter.martyr";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.redeemer")) {
+                updateData.system.creed = "wod.bio.hunter.redeemer";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.visionary")) {
+                updateData.system.creed = "wod.bio.hunter.visionary";
+            }
+            else if (actor.system.creed == game.i18n.localize("wod.bio.hunter.wayword")) {
+                updateData.system.creed = "wod.bio.hunter.wayword";
+            }
+            else {
+                updateData.system.creed = "";
+            }
+        }
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+            if (actor.system.changingbreed == "Ajaba") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;  
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Metis") {
+                    updateData.system.breed = "wod.bio.breedname.metis";
+                }
+                else if (actor.system.breed == "Hyaenid") {
+                    updateData.system.breed = "wod.bio.breedname.hyaenid";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+    
+                if (actor.system.auspice == "Dawn") {
+                    updateData.system.auspice = "wod.bio.aspectname.dawn";
+                }
+                else if (actor.system.auspice == "Midnight") {
+                    updateData.system.auspice = "wod.bio.aspectname.midnight";
+                }
+                else if (actor.system.auspice == "Dusk") {
+                    updateData.system.auspice = "wod.bio.aspectname.dusk";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            }  
+            if (actor.system.changingbreed == "Ananasi") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;  
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Arachnid") {
+                    updateData.system.breed = "wod.bio.breedname.arachnid";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+    
+                if (actor.system.auspice == "Tenere") {
+                    updateData.system.auspice = "wod.bio.aspectname.tenere";
+                }
+                else if (actor.system.auspice == "Hatar") {
+                    updateData.system.auspice = "wod.bio.aspectname.hatar";
+                }
+                else if (actor.system.auspice == "Kumoti") {
+                    updateData.system.auspice = "wod.bio.aspectname.kumoti";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+
+                if (actor.system.tribe == "Myrmidon") {
+                    updateData.system.tribe = "wod.bio.factionname.myrmidon";
+                }
+                else if (actor.system.tribe == "Viskir") {
+                    updateData.system.tribe = "wod.bio.factionname.viskir";
+                }
+                else if (actor.system.tribe == "Wyrsta") {
+                    updateData.system.tribe = "wod.bio.factionname.wyrsta";
+                }
+                else {
+                    updateData.system.tribe = "";
+                }
+            } 
+            if (actor.system.changingbreed == "Apis") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;  
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Bos") {
+                    updateData.system.breed = "wod.bio.breedname.bos";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+    
+                if (actor.system.auspice == "Twilight") {
+                    updateData.system.auspice = "wod.bio.auspicename.twilight";
+                }
+                else if (actor.system.auspice == "Solar") {
+                    updateData.system.auspice = "wod.bio.auspicename.solar";
+                }
+                else if (actor.system.auspice == "Lunar") {
+                    updateData.system.auspice = "wod.bio.auspicename.lunar";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            }   
+            if (actor.system.changingbreed == "Bastet") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;  
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Metis") {
+                    updateData.system.breed = "wod.bio.breedname.metis";
+                }
+                else if (actor.system.breed == "Feline") {
+                    updateData.system.breed = "wod.bio.breedname.feline";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+    
+                if (actor.system.auspice == "Daylight") {
+                    updateData.system.auspice = "wod.bio.pryioname.daylight";
+                }
+                else if (actor.system.auspice == "Twilight") {
+                    updateData.system.auspice = "wod.bio.pryioname.twilight";
+                }
+                else if (actor.system.auspice == "Night") {
+                    updateData.system.auspice = "wod.bio.pryioname.night";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+
+                if (actor.system.tribe == "Bagheera") {
+                    updateData.system.tribe = "wod.bio.tribename.bagheera";
+                }
+                else if (actor.system.tribe == "Balam") {
+                    updateData.system.tribe = "wod.bio.tribename.balam";
+                }
+                else if (actor.system.tribe == "Bubasti") {
+                    updateData.system.tribe = "wod.bio.tribename.bubasti";
+                }
+                else if (actor.system.tribe == "Ceilican") {
+                    updateData.system.tribe = "wod.bio.tribename.ceilican";
+                }
+                else if (actor.system.tribe == "Khan") {
+                    updateData.system.tribe = "wod.bio.tribename.khan";
+                }
+                else if (actor.system.tribe == "Pumonca") {
+                    updateData.system.tribe = "wod.bio.tribename.pumonca";
+                }
+                else if (actor.system.tribe == "Qualmi") {
+                    updateData.system.tribe = "wod.bio.tribename.qualmi";
+                }
+                else if (actor.system.tribe == "Simba") {
+                    updateData.system.tribe = "wod.bio.tribename.simba";
+                }
+                else if (actor.system.tribe == "Swara") {
+                    updateData.system.tribe = "wod.bio.tribename.swara";
+                }
+                else {
+                    updateData.system.tribe = "";
+                }
+            }      
+            if (actor.system.changingbreed == "Corax") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;  
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Corvid") {
+                    updateData.system.breed = "wod.bio.breedname.corvid";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+    
+                if (actor.system.auspice == "Chasers") {
+                    updateData.system.auspice = "wod.bio.tribename.chasers";
+                }
+                else if (actor.system.auspice == "Leshy") {
+                    updateData.system.auspice = "wod.bio.tribename.leshy";
+                }
+                else if (actor.system.auspice == "Hermetic Order of Swift Light") {
+                    updateData.system.auspice = "wod.bio.tribename.swiftlight";
+                }
+                else if (actor.system.auspice == "The Gulls of Battle") {
+                    updateData.system.auspice = "wod.bio.tribename.gulls";
+                }
+                else if (actor.system.auspice == "The Morrigan") {
+                    updateData.system.auspice = "wod.bio.tribename.morrigan";
+                }
+                else if (actor.system.auspice == "Murder's Gaughters") {
+                    updateData.system.auspice = "wod.bio.tribename.gaughters";
+                }
+                else if (actor.system.auspice == "The Sun-Lost") {
+                    updateData.system.auspice = "wod.bio.tribename.sunlost";
+                }
+                else if (actor.system.auspice == "Tulugaq") {
+                    updateData.system.auspice = "wod.bio.tribename.tulugaq";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            } 
+            if (actor.system.changingbreed == "Grondr") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;  
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Metis") {
+                    updateData.system.breed = "wod.bio.breedname.metis";
+                }
+                else if (actor.system.breed == "Scrofa") {
+                    updateData.system.breed = "wod.bio.breedname.scrofa";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+            }  
+            if (actor.system.changingbreed == "Gurahl") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Ursine") {
+                    updateData.system.breed = "wod.bio.breedname.ursine";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+
+                if (actor.system.auspice == "Arcas") {
+                    updateData.system.auspice = "wod.bio.auspicename.arcas";
+                }
+                else if (actor.system.auspice == "Uzmati") {
+                    updateData.system.auspice = "wod.bio.auspicename.uzmati";
+                }
+                else if (actor.system.auspice == "Kojubat") {
+                    updateData.system.auspice = "wod.bio.auspicename.kojubat";
+                }
+                else if (actor.system.auspice == "Kieh") {
+                    updateData.system.auspice = "wod.bio.auspicename.kieh";
+                }
+                else if (actor.system.auspice == "Rishi") {
+                    updateData.system.auspice = "wod.bio.auspicename.rishi";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+
+                if (actor.system.tribe == "Forest Walkers") {
+                    updateData.system.tribe = "wod.bio.tribename.forestwalkers";
+                }
+                else if (actor.system.tribe == "Ice Stalkers") {
+                    updateData.system.tribe = "wod.bio.tribename.icestalkers";
+                }
+                else if (actor.system.tribe == "Mountain Guardians") {
+                    updateData.system.tribe = "wod.bio.tribename.mountainguardians";
+                }
+                else if (actor.system.tribe == "River Keepers") {
+                    updateData.system.tribe = "wod.bio.tribename.riverkeepers";
+                }
+                else {
+                    updateData.system.tribe = "";
+                }
+            } 
+            if (actor.system.changingbreed == "Kitsune") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Kojin") {
+                    updateData.system.breed = "wod.bio.breedname.kojin";
+                }
+                else if (actor.system.breed == "Shinju") {
+                    updateData.system.breed = "wod.bio.breedname.shinju";
+                }
+                else if (actor.system.breed == "Roko") {
+                    updateData.system.breed = "wod.bio.breedname.roko";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+
+                if (actor.system.auspice == "Kataribe") {
+                    updateData.system.auspice = "wod.bio.pathname.kataribe";
+                }
+                else if (actor.system.auspice == "Gukutsushi") {
+                    updateData.system.auspice = "wod.bio.pathname.gukutsushi";
+                }
+                else if (actor.system.auspice == "Doshi") {
+                    updateData.system.auspice = "wod.bio.pathname.doshi";
+                }
+                else if (actor.system.auspice == "Eji") {
+                    updateData.system.auspice = "wod.bio.pathname.eji";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            }
+            if (actor.system.changingbreed == "Mokole") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Archid") {
+                    updateData.system.breed = "wod.bio.breedname.archid";
+                }
+                else if (actor.system.breed == "Suchid") {
+                    updateData.system.breed = "wod.bio.breedname.suchid";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+
+                if (actor.system.auspice == "Rising Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.risingsun";
+                }
+                else if (actor.system.auspice == "Noonday Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.noondaysun";
+                }
+                else if (actor.system.auspice == "Setting Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.settingsun";
+                }
+                else if (actor.system.auspice == "Shrouded Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.shroudedsun";
+                }
+                else if (actor.system.auspice == "Midnight Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.midnightsun";
+                }
+                else if (actor.system.auspice == "Decorated Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.decoratedsun";
+                }
+                else if (actor.system.auspice == "Eclipsed Sun") {
+                    updateData.system.auspice = "wod.bio.auspicename.eclipsedsun";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+
+                if (actor.system.tribe == "Champsa") {
+                    updateData.system.tribe = "wod.bio.varnaname.champsa";
+                }
+                else if (actor.system.tribe == "Gharial") {
+                    updateData.system.tribe = "wod.bio.varnaname.gharial";
+                }
+                else if (actor.system.tribe == "Halpatee") {
+                    updateData.system.tribe = "wod.bio.varnaname.halpatee";
+                }
+                else if (actor.system.tribe == "Karna") {
+                    updateData.system.tribe = "wod.bio.varnaname.karna";
+                }
+                else if (actor.system.tribe == "Makara") {
+                    updateData.system.tribe = "wod.bio.varnaname.makara";
+                }
+                else if (actor.system.tribe == "Ora") {
+                    updateData.system.tribe = "wod.bio.varnaname.ora";
+                }
+                else if (actor.system.tribe == "Paisa") {
+                    updateData.system.tribe = "wod.bio.varnaname.paisa";
+                }
+                else if (actor.system.tribe == "Syrta") {
+                    updateData.system.tribe = "wod.bio.varnaname.syrta";
+                }
+                else if (actor.system.tribe == "Unktehi") {
+                    updateData.system.tribe = "wod.bio.varnaname.unktehi";
+                }
+                else {
+                    updateData.system.tribe = "";
+                }
+            }
+            if (actor.system.changingbreed == "Nagah") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Balaram") {
+                    updateData.system.breed = "wod.bio.breedname.balaram";
+                }
+                else if (actor.system.breed == "Ahi") {
+                    updateData.system.breed = "wod.bio.breedname.ahi";
+                }
+                else if (actor.system.breed == "Vasuki") {
+                    updateData.system.breed = "wod.bio.breedname.vasuki";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+
+                if (actor.system.auspice == "Kamakshi") {
+                    updateData.system.auspice = "wod.bio.auspicename.kamakshi";
+                }
+                else if (actor.system.auspice == "Kartikeya") {
+                    updateData.system.auspice = "wod.bio.auspicename.kartikeya";
+                }
+                else if (actor.system.auspice == "Kamsa") {
+                    updateData.system.auspice = "wod.bio.auspicename.kamsa";
+                }
+                else if (actor.system.auspice == "Kali") {
+                    updateData.system.auspice = "wod.bio.auspicename.kali";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            }
+            if (actor.system.changingbreed == "Nuwisha") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Latrani") {
+                    updateData.system.breed = "wod.bio.breedname.latrani";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+            }
+            if (actor.system.changingbreed == "Ratkin") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Metis") {
+                    updateData.system.breed = "wod.bio.breedname.metis";
+                }
+                else if (actor.system.breed == "Rodens") {
+                    updateData.system.breed = "wod.bio.breedname.rodens";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+
+                if (actor.system.auspice == "Tunnel Runner") {
+                    updateData.system.auspice = "wod.bio.aspectname.tunnelrunner";
+                }
+                else if (actor.system.auspice == "Shadow Seer") {
+                    updateData.system.auspice = "wod.bio.aspectname.shadowseer";
+                }
+                else if (actor.system.auspice == "Knife Skulker") {
+                    updateData.system.auspice = "wod.bio.aspectname.knifeskulker";
+                }
+                else if (actor.system.auspice == "Warrior") {
+                    updateData.system.auspice = "wod.bio.aspectname.warrior";
+                }
+                else if (actor.system.auspice == "Engineers") {
+                    updateData.system.auspice = "wod.bio.aspectname.engineers";
+                }
+                else if (actor.system.auspice == "Plague Lords") {
+                    updateData.system.auspice = "wod.bio.aspectname.plaguelords";
+                }
+                else if (actor.system.auspice == "Munchmausen") {
+                    updateData.system.auspice = "wod.bio.aspectname.munchmausen";
+                }
+                else if (actor.system.auspice == "Twitchers") {
+                    updateData.system.auspice = "wod.bio.aspectname.twitchers";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            }
+            if (actor.system.changingbreed == "Rokea") {
+                let updateData = foundry.utils.duplicate(actor);
+                update = true;
+
+                if (actor.system.breed == "Homid") {
+                    updateData.system.breed = "wod.bio.breedname.homid";
+                }
+                else if (actor.system.breed == "Rodens") {
+                    updateData.system.breed = "wod.bio.breedname.squamus";
+                }
+                else {
+                    updateData.system.breed = "";
+                }
+
+                if (actor.system.auspice == "Brightwaters") {
+                    updateData.system.auspice = "wod.bio.auspicename.brightwaters";
+                }
+                else if (actor.system.auspice == "Dimwater") {
+                    updateData.system.auspice = "wod.bio.auspicename.dimwater";
+                }
+                else if (actor.system.auspice == "Darkwater") {
+                    updateData.system.auspice = "wod.bio.auspicename.darkwater";
+                }
+                else {
+                    updateData.system.auspice = "";
+                }
+            }
+        }
+
+        if (update) {
+            let updateData = foundry.utils.duplicate(actor);
+            updateData.system.settings.version = "4.1.0";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
 }
 
 /**
@@ -1517,12 +2094,12 @@ export  const updates = async () => {
         }
         if (item.type == "Power") {
             if (item.system.type == "wod.types.artpower")  {
-                console.log(`Artpower bonusname ${item.name} vas type: ${item.system.arttype}`);
-
                 if (item.system.arttype == "wod.power.wyld") {
-                    itemData.system.arttype == "wod.types.wyrd";
-                    altered = true;
+                    console.log(`Artpower bonusname ${item.name} was type: ${item.system.arttype}`);
+                    itemData.system.arttype == "wod.types.wyrd";                    
                 }
+
+                altered = true;
             } 
         }
 
@@ -1805,10 +2382,6 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
-
-        if (_compareVersion(installedVersion, '4.0.4')) {
-            newfunctions += '<li>Fixed problems with saving alternative names to abilities.</li>';
-        }
 
         if (_compareVersion(installedVersion, '4.0.2')) {
             newfunctions += '<li>Fixed problems to send message to chat.</li>';

@@ -1,5 +1,31 @@
 <div class="sheet-area flex-columns">
 
+    {{#if (eq actor.type config.sheettype.creature)}}
+
+        <div class="area-box flex-columns">
+            <div class="clearareaBox" style="min-height: 75px;">
+                <div class="pullLeft headlineNormal" style="line-height: 26px;">LANG: Max rating on Powers</div>
+                <div class="pullLeft settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
+                    {{#if locked}}
+                        <input class="sheet-infoValues half" type="text" value="{{data.system.settings.powers.defaultmaxvalue}}" data-dtype="Number" readonly />
+                    {{else}}
+                        <select class="sheet-infoValues selectPowerMaxSetting editable" name="system.settings.powers.defaultmaxvalue" data-source="setpowermaxsetting" data-type="{{config.sheettype.mortal}}" data-dtype="Number">
+                            {{#select data.system.settings.powers.defaultmaxvalue}}
+                                <option value="">- {{localize 'wod.labels.select'}} -</option>
+                                {{#numFromLoop 1 10}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/numFromLoop}}
+                            {{/select}}
+                        </select>
+                    {{/if}}
+                </div>				
+            </div>
+
+            <div class="clearareaBox information-area">LANG: This settings set the maximum rating a power can have.</div>
+        </div>
+
+    {{/if}}
+
     {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
 
         <div class="clearareaBox row">

@@ -99,6 +99,11 @@ export default class ActionHelper {
 					let generalRollUse = new TraitDialog.DialogRoll(actor, resonance);
 					generalRollUse.render(true);
 				}
+				else {
+					const other = new TraitDialog.OtherTrait(item);
+					let generalRollUse = new TraitDialog.DialogRoll(actor, other);
+					generalRollUse.render(true);
+				}
 
 				return;
 			}
@@ -162,6 +167,7 @@ export default class ActionHelper {
 				fetishRoll.bonus = 0;				
 				fetishRoll.woundpenalty = 0;				
 				fetishRoll.systemText = item.system.details;
+				fetishRoll.usewillpower = false;
 
         		NewRollDice(fetishRoll);
 
@@ -422,7 +428,8 @@ export default class ActionHelper {
 				activeRoll.origin = "general";
 				activeRoll.numDices = parseInt(actor.system.advantages.rage.permanent);
 				activeRoll.woundpenalty = 0;
-				activeRoll.difficulty = 8;          				
+				activeRoll.difficulty = 8;    
+				activeRoll.usewillpower = false;      				
 				
 				NewRollDice(activeRoll);
 
@@ -460,7 +467,9 @@ export default class ActionHelper {
         paradoxRoll.origin = "general";
         paradoxRoll.numDices = parseInt(actor.system.paradox.roll);
 		paradoxRoll.woundpenalty = 0;
-        paradoxRoll.difficulty = 6;          
+        paradoxRoll.difficulty = 6;      
+		paradoxRoll.usewillpower = false; 		// can't use willpower on Paradox
+		
         NewRollDice(paradoxRoll);
 	}
 
@@ -487,7 +496,7 @@ export default class ActionHelper {
 		actorData = await this._setAbilityMaxValue(actorData);
 
 		// willpower
-		if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (!isSpirit)) {
+		if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
 			actorData.system.advantages.willpower.permanent = parseInt(actorData.system.attributes.composure.value) + parseInt(actorData.system.attributes.resolve.value);
 		}
 		

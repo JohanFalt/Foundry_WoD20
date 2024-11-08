@@ -185,6 +185,7 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".health > .resource-counter > .resource-value-step")
 			.click(this._onSquareCounterChange.bind(this));
+			
 		html
 			.find(".health > .resource-counter > .resource-value-step")
 			.on('contextmenu', this._onSquareCounterClear.bind(this));
@@ -680,7 +681,10 @@ export class MortalActorSheet extends ActorSheet {
 				 ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				 return;
 			}
-			if (((fieldStrings == "advantages.willpower.permanent") && (CONFIG.worldofdarkness.attributeSettings == "5th")) && (!isSpirit)) {
+			if (((fieldStrings == "advantages.willpower.permanent") && 
+						(CONFIG.worldofdarkness.attributeSettings == "5th") && 
+						(CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th") &&
+						(!isSpirit))) {
 				ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 				return;
 			}			
@@ -1371,7 +1375,9 @@ export class MortalActorSheet extends ActorSheet {
 						actorData.system.advantages.willpower.temporary = parseInt(value);
 					}
 				}
-				else if ((CONFIG.worldofdarkness.attributeSettings == "20th") || (isSpirit)) {
+				else if ((CONFIG.worldofdarkness.attributeSettings == "20th") || 
+							((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "20th")) ||
+							(isSpirit)) {				
 					if (abilityType === "permanent") {
 						if (actorData.system.advantages.willpower.permanent == value) {
 							actorData.system.advantages.willpower.permanent = parseInt(actorData.system.advantages.willpower.permanent) - 1;

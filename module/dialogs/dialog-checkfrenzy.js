@@ -109,7 +109,7 @@ export class DialogCheckFrenzy extends FormApplication {
             this.object.canRoll = false;
         }
 
-        this.render(false);
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -181,10 +181,10 @@ export class DialogCheckFrenzy extends FormApplication {
             frenzyRoll.origin = "general";
             frenzyRoll.numDices = numDices;
             frenzyRoll.woundpenalty = 0;
+            frenzyRoll.usewillpower = false;
             frenzyRoll.difficulty = parseInt(this.object.totalDifficulty);       
-            NewRollDice(frenzyRoll);
-            //const successes = NewRollDice(frenzyRoll);
-            //this.object.numSuccesses += parseInt(successes);
+
+            NewRollDice(frenzyRoll);            
         }
     }
 

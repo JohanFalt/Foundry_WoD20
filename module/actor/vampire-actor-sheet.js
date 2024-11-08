@@ -163,7 +163,7 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
-		this.render(false);
+		this.render();
 	}
 	
 	async _onDotCounterVampireChange(event) {

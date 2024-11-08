@@ -11,7 +11,9 @@ export class Magicitem {
         this.abilityName = "";
 
         this.usedReducedDiff = false;
+        this.useSpeciality = false;
         this.hasSpeciality = false;
+        this.useWillpower = false;
         this.specialityText = "";
 
         this.name = item["name"];
@@ -198,6 +200,7 @@ export class DialogItem extends FormApplication {
         }
         
         this.object.useSpeciality = formData["specialty"];
+        this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
             this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
@@ -210,7 +213,7 @@ export class DialogItem extends FormApplication {
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
-        this.render(false);
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -289,6 +292,8 @@ export class DialogItem extends FormApplication {
         dialogRoll.speciality = this.object.useSpeciality;
         dialogRoll.specialityText = specialityText;      
         dialogRoll.systemText = this.object.details;  
+        dialogRoll.usewillpower = this.object.useWillpower;
+        
         NewRollDice(dialogRoll);
     }
 

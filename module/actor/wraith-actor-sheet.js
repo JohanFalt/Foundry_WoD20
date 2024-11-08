@@ -182,7 +182,7 @@ export class WraithActorSheet extends MortalActorSheet {
 		
 		console.log("WoD | Wraith Sheet updated");
 		this.actor.update(actorData);
-		this.render(false);
+		this.render();
 	}
 }
 

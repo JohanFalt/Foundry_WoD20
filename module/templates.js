@@ -960,6 +960,10 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.worldofdarkness.attributeSettings;
 		}
 
+		if (text == "fifthEditionWillpowerSetting") {
+			return CONFIG.worldofdarkness.fifthEditionWillpowerSetting;
+		}
+
 		if (text == "rollSettings") {
 			return CONFIG.worldofdarkness.rollSettings;
 		}
@@ -971,6 +975,10 @@ export const registerHandlebarsHelpers = function () {
 		if (text == "useOnesDamage") {
 			return CONFIG.worldofdarkness.useOnesDamage;
 		}
+
+		if (text == "usePenaltyDamage") {
+			return CONFIG.worldofdarkness.usePenaltyDamage;
+		}		
 
 		if (text == "useOnesSoak") {
 			return CONFIG.worldofdarkness.useOnesSoak;

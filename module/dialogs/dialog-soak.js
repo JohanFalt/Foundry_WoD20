@@ -10,7 +10,7 @@ export class Soak {
         this.difficulty = 6;
         this.bonus = 0;
 
-        this.damageKey = "";
+        this.damageKey = "bashing";
         this.attributeValue = 0;
         this.attributeBonus = 0;
 
@@ -73,7 +73,7 @@ export class DialogSoakRoll extends FormApplication {
             data.object.attributeBonus = 0;
         }
 
-        this.render(false);
+        this.render();
 
         return data;
     }
@@ -114,6 +114,7 @@ export class DialogSoakRoll extends FormApplication {
         }
 
         this.object.canRoll = this.object.damageKey != "" ? true : false;  
+        this.object.useWillpower = formData["useWillpower"];
 
         this.getData();
     }
@@ -203,7 +204,9 @@ export class DialogSoakRoll extends FormApplication {
         soakRoll.origin = "soak";
         soakRoll.numDices = numDices;
         soakRoll.woundpenalty = 0;
-        soakRoll.difficulty = this.object.difficulty;          
+        soakRoll.difficulty = this.object.difficulty;     
+        soakRoll.usewillpower = this.object.useWillpower;
+        
         NewRollDice(soakRoll);
 
         this.object.close = true;

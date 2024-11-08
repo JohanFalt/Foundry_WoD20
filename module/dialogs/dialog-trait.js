@@ -28,6 +28,33 @@ export class Resonance {
     }
 }
 
+export class OtherTrait {
+    constructor(item) {
+        this.attributeValue = parseInt(item.system["value"]);
+        this.attributeName = item["name"];
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.usedReducedDiff = false;
+        this.hasSpeciality = false;
+        this.specialityText = "";
+
+        this.name = item["name"];
+        this.type = item["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.details = item.system["details"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "";
+    }
+}
+
 export class DialogRoll extends FormApplication {
     
     static get defaultOptions() {
@@ -197,6 +224,7 @@ export class DialogRoll extends FormApplication {
         }
         
         this.object.useSpeciality = formData["specialty"];
+        this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
             this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
@@ -209,7 +237,7 @@ export class DialogRoll extends FormApplication {
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
-        this.render(false);
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -282,6 +310,8 @@ export class DialogRoll extends FormApplication {
         dialogRoll.speciality = this.object.useSpeciality;
         dialogRoll.specialityText = specialityText;      
         dialogRoll.systemText = this.object.details;  
+        dialogRoll.usewillpower = this.object.useWillpower;
+        
         NewRollDice(dialogRoll);
     }
 
