@@ -157,7 +157,7 @@
             "oath": "Eid",
             "merit": "Vorzug",
             "flaw": "Schwäche",
-            "expspent": "Gespendete EP",
+            "expspent": "Ausgegebene EP",
             "expgained": "Genutzte EP",
             "naturalweapon": "Natürliche Waffe",
             "meleeweapon": "Nahkampf Waffe",
@@ -228,16 +228,16 @@
             "fallen": "Gefallene",
             "mad": "Wahnsinnige",
             "name": "Name",
-            "appearance": "Erscheinung",
+            "appearance": "Erscheinungsbild",
             "background": "Hintergrund",
-            "tips": "Rollenspiel Tips.",
+            "tips": "Rollenspiel-Tipps",
             "nature": "Wesen",
             "demeanor": "Verhalten",
             "concept": "Konzept",
             "derangement": "Geistesstörung",
             "worldanvil": "World Anvil",
-            "worldanvillink": "World Anvil link",
-            "noworldanvillink": "Kein World Anvil link",
+            "worldanvillink": "World Anvil Link",
+            "noworldanvillink": "Kein World Anvil Link",
             "changingbreed": "Gestaltenwandler",
             "noshiftertype": "Auf der Registerkarte 'Einstellungen' wurde kein Gestaltwandler ausgewählt",
             "feraname": {
@@ -371,8 +371,8 @@
                 "doshi": "Doshi",
                 "eji": "Eji"
             },
-            "packname": "Rudel Name",
-            "packtotem": "Rudel Totem",
+            "packname": "Rudel-Name",
+            "packtotem": "Rudel-Totem",
             "totem": "Totem",
             "pride": "Stolz",
             "varna": "Varna",
@@ -648,7 +648,7 @@
             "dexterity": "Geschick",
             "manipulation": "Manipulation",
             "wits": "Geistesschärfe",
-            "stamina": "Kondition",
+            "stamina": "Widerstandsfähigkeit",
             "composure": "Fassung",
             "resolve": "Entschlossenheit",
             "perception": "Wahrnehmung",
@@ -656,17 +656,17 @@
             "short": {
                 "str": "Str",
                 "dex": "Ges",
-                "sta": "Kon",
+                "sta": "Wid",
                 "man": "Man",
                 "app": "Ers",
                 "per": "Wah"
             },
             "bonus": {
-                "strength": "Stärke Bonus",
-                "dexterity": "Geschicklichkeits Bonus",
-                "stamina": "Konditions Bonus",
-                "manipulation": "Manipulations Bonus",
-                "appearance": "Erscheinungs Bonus"
+                "strength": "Stärke-Bonus",
+                "dexterity": "Geschicklichkeits-Bonus",
+                "stamina": "Widerstandsfähigkeits-Bonus",
+                "manipulation": "Manipulations-Bonus",
+                "appearance": "Erscheinungsbild-Bonus"
             }
         },
         "abilities": {
@@ -751,7 +751,7 @@
             "bashing": "Schlagschaden",
             "lethal": "Tödlicher Schaden",
             "aggravated": "Schwer heilbarer Schaden",
-            "soak": "absorbieren",
+            "soak": "Absorbieren",
             "penalty": "Strafe für Verwundung",
             "chimerical": "Chimärisch",
             "normal": "Normal"
@@ -759,7 +759,7 @@
         "advantages": {
             "advantages": "Vorteile",
             "rage": "Zorn",
-            "ragepenalty": "Zorn Malus",
+            "ragepenalty": "Zorn-Malus",
             "ragewarning": "Deine temporäre Wut ist größer als deine permanente Wut",
             "gnosis": "Gnosis",
             "willpower": "Willenskraft",
@@ -903,8 +903,8 @@
                 "jog": "Joggen",
                 "run": "Rennen",
                 "fly": "Fliegen",
-                "vjump": "Vertikaler Sprung (feet per suc)",
-                "hjump": "Horizontaler Sprung (feet per suc)"
+                "vjump": "Vertikaler Sprung (Fuß/Erfolg)",
+                "hjump": "Horizontaler Sprung (Fuß/Erfolg)"
             },
             "weapon": {
                 "weapon": "Waffe",
@@ -912,8 +912,8 @@
                 "attr": "Attr.",
                 "ability": "Fähigkeit",
                 "accuracy": "Genauigkeit",
-                "acc": "Acc",
-                "diff": "Diff",
+                "acc": "Gen.",
+                "diff": "Schw.",
                 "damage": "Schaden",
                 "range": "Bereich",
                 "rate": "Rate",
@@ -929,27 +929,27 @@
                     "notbeconcealed": "Darf nicht versteckt werden",
                     "na": "N/A"
                 },
-                "grip": "Grip",
+                "grip": "Griff",
                 "onehanded": "1 Hand",
                 "twohanded": "2 Hand",
                 "natural": "Natürlich",
                 "initiative": "Initiative",
-                "minstrenght": "Minimum strength",
+                "minstrenght": "Min. Körperkraft",
                 "armorpiercing": "Durchdringung"
             },
             "armor": {
                 "active": "Aktiv",
                 "armor": "Rüstung",
                 "dexpen": "Ges Abz.",
-                "soakbashing": "Absorb Schlag",
-                "soaklethal": "Absorb Tödlich",
-                "soakaggravated": "Absorb Schwer",
-                "penalty": "Geschick Abzug"
+                "soakbashing": "S",
+                "soaklethal": "T",
+                "soakaggravated": "SH",
+                "penalty": "Geschick-Malus"
             },
             "mode": {
                 "mode": "Modus",
                 "reload": "Nachladen",
-                "burst": "Burst",
+                "burst": "Salve",
                 "fullauto": "Full Auto",
                 "spray": "Spray"
             },
@@ -1325,7 +1325,7 @@
                 "attributesucc": "Neues Attribut automatischer Erfolgsbonus",
                 "abilitybonus": "Neuer Fähigkeitsbonus",
                 "abilitydiff": "Neuer Schwierigkeitsbonus für Fähigkeiten",
-                "soakbonus": "Neuer absorbier Bonus",
+                "soakbonus": "Neuer Absorptions-Bonus",
                 "healthbuff": "Neuer Bonus für die Gesundheitsstufe",
                 "initbonus": "Neuer Initiativbonus",
                 "movebonus": "Neuer Bewegungsbonus",
