@@ -593,12 +593,23 @@ export const registerHandlebarsHelpers = function () {
 			newtext = "wod.advantages.wisdom";
 		}
 
-		if ((type == "Ajaba") || (type == "Bastet")) {
+		if (type == "Bastet") {
 			if (renown == "Glory") { 
 				newtext = "wod.advantages.ferocity";
 			}
 			if (renown == "Wisdom") { 
 				newtext = "wod.advantages.cunning";
+			}
+		}
+		if (type == "Ajaba") {
+			if (renown == "Glory") { 
+				newtext = "wod.advantages.ferocity";
+			}
+			if (renown == "Wisdom") { 
+				newtext = "wod.advantages.cunning";
+			}
+			if (renown == "Honor") { 
+				newtext = "wod.advantages.obligation";
 			}
 		}
 		if (type == "Ananasi") {
@@ -647,6 +658,7 @@ export const registerHandlebarsHelpers = function () {
 				newtext = "wod.advantages.cunning";
 			}
 		}
+		
 		if (type == "Rokea") {
 			if (renown == "Glory") { 
 				newtext = "wod.advantages.valor";
@@ -960,6 +972,10 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.worldofdarkness.attributeSettings;
 		}
 
+		if (text == "fifthEditionWillpowerSetting") {
+			return CONFIG.worldofdarkness.fifthEditionWillpowerSetting;
+		}
+
 		if (text == "rollSettings") {
 			return CONFIG.worldofdarkness.rollSettings;
 		}
@@ -971,6 +987,10 @@ export const registerHandlebarsHelpers = function () {
 		if (text == "useOnesDamage") {
 			return CONFIG.worldofdarkness.useOnesDamage;
 		}
+
+		if (text == "usePenaltyDamage") {
+			return CONFIG.worldofdarkness.usePenaltyDamage;
+		}		
 
 		if (text == "useOnesSoak") {
 			return CONFIG.worldofdarkness.useOnesSoak;
@@ -1102,5 +1122,18 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return rageDiff * -1;
+	});
+
+	Handlebars.registerHelper("calculateHight", function (area, list) {
+		if (area == "rotes") {
+			if (list.length < 26) {
+				return "350px";
+			}
+			else {
+				const height = Math.ceil(350 / 25 *list.length);
+
+				return height + "px";
+			}
+		}
 	});
 }

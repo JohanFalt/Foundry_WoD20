@@ -145,7 +145,10 @@
 			"erasettings": "Era settings",
 			"erasettingshint": "The world settings regards to eras",
 			"darkmodesetting": "Darkmode",
-			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)",
+			"fifthedwillpowersetting": "Willpower (5th edition only)",
+			"fifthedwillpowersettinghint": "This is an expansion of the attribute settings that sets how the permanent Willpower is calculated. In 5th edition Willpower is calculated by adding Composure and Resolve. In 20th edition Willpower is a normal stat value.",
+			"usepenaltydamage": "Use health penalties in damage rolls"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -1166,6 +1169,7 @@
 			"other": "Other",
 			"both": "Both",
 			"nochange": "No Change",
+			"usewillpower": "Use Willpower",
 			"bio": {
 				"wronggeneration": "Not a valid generation",
 				"wrongtempgeneration": "Cannot lower generation past 4",
@@ -1253,6 +1257,10 @@
 					"darkages": "Dark Ages (20th)",
 					"infoone": "To change this setting means that the abilities of the sheet is re-configurated to fit the chosen area.",
 					"infotwo": "This can cause existing abilities to be hidden."
+				},
+				"power": {
+					"maxrating": "Max rating on Powers",
+					"maxratinghint": "This settings set the maximum rating a power can have."
 				}
 			},
 			"trait": {
@@ -1554,7 +1562,8 @@
 			"rollingsoak": "Rolling soak",
 			"rollingremainactive": "Roll to remain active",
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
-			"addedautosucc": "The roll add {0} automatic successes"			
+			"addedautosucc": "The roll add {0} automatic successes",
+			"usingwillpower": "Using Willpower"
 		},
 		"dialog": {	
 			"save": "Save",
@@ -1616,7 +1625,7 @@
 				"selectsphere": "Need to select sphere's first",
 				"keepdifficulty": "Keeps the difficulty the same",
 				"keepdiff": "Keep difficulty",
-				"keepdiffdesc": "Keep difficulty is When you are to use extended casting but the difficulty are not to be increased for each roll.",
+				"keepdiffdesc": "Keep difficulty is when you are to use extended casting but the difficulty are not to be increased for each roll.",
 				"difficultylimit": "Difficulty can never be higher or lower than the base difficulty +3/-3."
 			},
 			"checkfrenzy": {

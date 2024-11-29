@@ -68,6 +68,7 @@ Hooks.once("init", async function() {
 	
 	CONFIG.worldofdarkness = wod;
 	CONFIG.worldofdarkness.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
+	CONFIG.worldofdarkness.fifthEditionWillpowerSetting = game.settings.get("worldofdarkness", "fifthEditionWillpowerSetting");
 	CONFIG.worldofdarkness.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
 	CONFIG.worldofdarkness.demonSystemSettings = game.settings.get('worldofdarkness', 'demonSystemSettings');
 	CONFIG.worldofdarkness.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
@@ -87,6 +88,13 @@ Hooks.once("init", async function() {
 	} 
 	catch (e) {
 		CONFIG.worldofdarkness.useOnesDamage = false;
+	}
+
+	try {
+		CONFIG.worldofdarkness.usePenaltyDamage = game.settings.get('worldofdarkness', 'usePenaltyDamage');
+	} 
+	catch (e) {
+		CONFIG.worldofdarkness.usePenaltyDamage = false;
 	}
 
 	try {

@@ -277,6 +277,17 @@
   } 
 }
 
+@media all and (max-width : 1024px)
+{
+  .wod-sheet:not(.minimized),
+  .wod-item:not(.minimized),
+  .wod-dialog:not(.minimized) {
+    min-width: 400px;
+    width: 400px;    
+    overflow: scroll;
+  }
+}
+
 @media all and (max-height : 1250px)
 {
   .wod-sheet:not(.minimized) {
@@ -290,7 +301,7 @@
   .wod-item:not(.minimized),
   .wod-dialog:not(.minimized) {
     min-height: 400px;
-    height: 400px;
+    height: 400px;    
   }
 }
 

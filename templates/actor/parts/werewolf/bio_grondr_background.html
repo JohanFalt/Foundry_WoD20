@@ -2,14 +2,14 @@
     <div class="pullLeft area-box">
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.breed}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
                     {{#select data.system.breed}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Homid">{{localize "wod.bio.breedname.homid"}}</option>
-                        <option value="Metis">{{localize "wod.bio.breedname.metis"}}</option>
-                        <option value="Scrofa">{{localize "wod.bio.breedname.scrofa"}}</option>
+                        <option value="wod.bio.breedname.homid">{{localize "wod.bio.breedname.homid"}}</option>
+                        <option value="wod.bio.breedname.metis">{{localize "wod.bio.breedname.metis"}}</option>
+                        <option value="wod.bio.breedname.scrofa">{{localize "wod.bio.breedname.scrofa"}}</option>
                     {{/select}}
                 </select>
             {{/if}}

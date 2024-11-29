@@ -33,7 +33,6 @@
                             <option value="willpower">{{localize "wod.advantages.willpower"}}</option>
 
                             {{#if hasActor}}
-                                {{log actor}}
                                 {{#if (eq data.system.type "wod.types.othertraits")}}
                                     {{#if actor.system.settings.hasrage}}<option value="rage">{{localize "wod.advantages.rage"}}</option>{{/if}}
                                     {{#if actor.system.settings.hasgnosis}}<option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>{{/if}}
@@ -171,12 +170,7 @@
     <div class="infobox">
         <div class="bioInformationArea floating-label-group">
             <select class="sheet-infoValues smallbox editable" name="system.difficulty">
-                {{#select data.system.difficulty}}
-                    <option value="-1">- {{localize "wod.labels.varies"}} -</option>
-                    {{#numFromLoop config.lowestDifficulty 10}}
-                        <option value="{{this}}">{{this}}</option>
-                    {{/numFromLoop}}
-                {{/select}}
+                {{selectOptions listData.DifficultyList selected=data.system.difficulty localize=false}}
             </select>
             <span class="floating-label">{{localize "wod.labels.difficulty"}}</span>
         </div>					

@@ -1,5 +1,26 @@
 <div class="sheet-area flex-columns">
 
+    {{#if (eq actor.type config.sheettype.creature)}}
+
+        <div class="area-box flex-columns">
+            <div class="clearareaBox" style="min-height: 75px;">
+                <div class="pullLeft headlineNormal" style="line-height: 26px;">{{localize "wod.labels.settings.power.maxrating"}}</div>
+                <div class="pullLeft settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}" style="width: 150px;">
+                    {{#if locked}}
+                        <input class="sheet-infoValues half" type="text" value="{{data.system.settings.powers.defaultmaxvalue}}" data-dtype="Number" readonly />
+                    {{else}}
+                        <select class="sheet-infoValues editable" name="system.settings.powers.defaultmaxvalue" data-source="setpowermaxsetting" data-type="{{config.sheettype.creature}}" data-dtype="Number">
+                            {{selectOptions listData.Level9Value selected=data.system.powers.defaultmaxvalue localize=false}}
+                        </select>
+                    {{/if}}
+                </div>				
+            </div>
+
+            <div class="clearareaBox information-area">{{localize "wod.labels.settings.power.maxratinghint"}}</div>
+        </div>
+
+    {{/if}}
+
     {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature)}}
 
         <div class="clearareaBox row">

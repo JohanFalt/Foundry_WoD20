@@ -40,30 +40,30 @@ function _GetDiceColors(actor) {
 }
 
 /* global ChatMessage, Roll, game */
-export class DiceRoll {
-    constructor(actor) {
-		this.actor = actor;  			// rolling actor
-		this.origin = "";    			// where did the roll come from
-		this.attribute = "";
+// export class DiceRoll {
+//     constructor(actor) {
+// 		this.actor = actor;  			// rolling actor
+// 		this.origin = "";    			// where did the roll come from
+// 		this.attribute = "";
 
-		this.handlingOnes = false;		// how should Ones handle?
-		this.numDices = 0;				// number dice called for
-		this.targetlist = [];			// number of targets in a lists or results
-		this.difficulty = 6;			// difficulty of the roll
-		this.woundpenalty = 0;  				// wound penalty of the roll
+// 		this.handlingOnes = false;		// how should Ones handle?
+// 		this.numDices = 0;				// number dice called for
+// 		this.targetlist = [];			// number of targets in a lists or results
+// 		this.difficulty = 6;			// difficulty of the roll
+// 		this.woundpenalty = 0;  				// wound penalty of the roll
 
-		this.numSpecialDices = 0;		// how many of the numDices are to show a special type
-		this.specialDiceText = "";		// what text should the dice have
+// 		this.numSpecialDices = 0;		// how many of the numDices are to show a special type
+// 		this.specialDiceText = "";		// what text should the dice have
 
-		this.speciality = false;			// speciality roll?
-		this.specialityText = "";
+// 		this.speciality = false;			// speciality roll?
+// 		this.specialityText = "";
 
-		this.templateHTML = "";				// this shown chat text
-		this.systemText = "";			// if there are a system text to be shown		
+// 		this.templateHTML = "";				// this shown chat text
+// 		this.systemText = "";			// if there are a system text to be shown		
 
-		this.rollDamage = "";
-    }
-}
+// 		this.rollDamage = "";
+//     }
+// }
 
 /* klassen som man använder för att skicka in information in i RollDice */
 export class DiceRollContainer {
@@ -83,6 +83,7 @@ export class DiceRollContainer {
 		this.targetlist = [];
 
 		this.speciality = false;
+		this.usewillpower = false;
 		this.specialityText = "";		
 		this.systemText = "";
     }
@@ -96,6 +97,7 @@ export async function NewRollDice(diceRoll) {
 	let specialityText = diceRoll.specialityText;
 	const systemText = diceRoll.systemText;
 	let targetlist = diceRoll.targetlist;	
+	let usewillpower = diceRoll.usewillpower;
 
 	let diceResult;
 
@@ -123,6 +125,11 @@ export async function NewRollDice(diceRoll) {
 		if (await BonusHelper.CheckAttributeAutoBuff(actor, diceRoll.attribute)) {
 			bonusSuccesses = await BonusHelper.GetAttributeAutoBuff(actor, diceRoll.attribute);			
 		}
+	}
+
+	if (usewillpower) {
+		canBotch = false;
+		bonusSuccesses += 1;
 	}
 
 	if ((diceRoll.origin == "soak") && (!CONFIG.worldofdarkness.useOnesSoak)) {
@@ -278,20 +285,20 @@ export async function NewRollDice(diceRoll) {
 
 	difficulty = `${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}`;
 
-	if (diceRoll.origin != "damage") {
-		if (success > 0) {
-			rollResult = "success";
-		}
-		else if ((CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
-			rollResult = "botch";
-		}
-		else if ((!CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (canBotch)) {
-			rollResult = "botch";
-		}
-		else {
-			rollResult = "fail";
-		}	
-	}
+	// if (diceRoll.origin != "damage") {
+	// 	if (success > 0) {
+	// 		rollResult = "success";
+	// 	}
+	// 	else if ((CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
+	// 		rollResult = "botch";
+	// 	}
+	// 	else if ((!CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (canBotch)) {
+	// 		rollResult = "botch";
+	// 	}
+	// 	else {
+	// 		rollResult = "fail";
+	// 	}	
+	// }
 
 	for (const property of diceRoll.extraInfo) {
 		info.push(property);
@@ -302,6 +309,9 @@ export async function NewRollDice(diceRoll) {
 	}
 	if (specialityText != "") {
 		info.push(specialityText);
+	}
+	if (usewillpower) {
+		info.push(game.i18n.localize("wod.dice.usingwillpower"));
 	}
 	if (systemText != "") {
 		systemtext.push(systemText);

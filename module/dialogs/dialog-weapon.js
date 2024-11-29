@@ -313,6 +313,7 @@ export class DialogWeapon extends FormApplication {
         event.preventDefault();       
         
         this.object.useSpeciality = formData["specialty"];
+        this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
             this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
@@ -512,6 +513,14 @@ export class DialogWeapon extends FormApplication {
 
             weaponRoll.damageCode = `(${this.object.damageCode})`;
 
+            if (CONFIG.worldofdarkness.usePenaltyDamage) {
+                if (CombatHelper.ignoresPain(this.actor)) {
+                    woundPenaltyVal = 0;			}				
+                else {
+                    woundPenaltyVal = parseInt(this.actor.system.health.damage.woundpenalty);
+                }
+            }
+
             // if several targets number of dices will be different
             if (this.object.numberoftargets == 1) {
                 numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus) + parseInt(this.object.extraSuccesses);
@@ -557,6 +566,7 @@ export class DialogWeapon extends FormApplication {
         weaponRoll.numDices = numDices;
         weaponRoll.difficulty = parseInt(this.object.difficulty);          
         weaponRoll.dicetext = template;
+        weaponRoll.usewillpower = this.object.useWillpower;
         
         if (weaponRoll.origin == "attack") {
             weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
@@ -583,7 +593,7 @@ export class DialogWeapon extends FormApplication {
 
             const numberOfSuccesses = await NewRollDice(weaponRoll);   
             
-            if (numberOfSuccesses > 0) {
+            if ((numberOfSuccesses > 0) && (this.object.rolldamage)) {
                 // add number of successes to Damage roll
                 item.system.extraSuccesses = parseInt(numberOfSuccesses) - 1;
                 item.system.numberoftargets = this.object.numberoftargets;

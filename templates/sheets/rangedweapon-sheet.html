@@ -179,12 +179,7 @@
 					<div class="infobox">
 						<div class="bioInformationArea floating-label-group">
 							<select class="sheet-infoValues smallbox editable" name="system.difficulty">
-								{{#select data.system.difficulty}}
-									<option value="-1">- {{localize "wod.labels.varies"}} -</option>
-									{{#numFromLoop config.lowestDifficulty 10}}
-										<option value="{{this}}">{{this}}</option>
-									{{/numFromLoop}}
-								{{/select}}
+								{{selectOptions listData.DifficultyList selected=data.system.difficulty localize=false}}
 							</select>
 							<span class="floating-label">{{localize "wod.labels.difficulty"}}</span>
 						</div>					

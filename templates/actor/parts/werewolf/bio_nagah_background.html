@@ -2,14 +2,14 @@
     <div class="pullLeft area-box">
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.breed}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.breed}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
                     {{#select data.system.breed}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Balaram">{{localize "wod.bio.breedname.balaram"}}</option>
-                        <option value="Ahi">{{localize "wod.bio.breedname.ahi"}}</option>
-                        <option value="Vasuki">{{localize "wod.bio.breedname.vasuki"}}</option>
+                        <option value="wod.bio.breedname.balaram">{{localize "wod.bio.breedname.balaram"}}</option>
+                        <option value="wod.bio.breedname.ahi">{{localize "wod.bio.breedname.ahi"}}</option>
+                        <option value="wod.bio.breedname.vasuki">{{localize "wod.bio.breedname.vasuki"}}</option>
                     {{/select}}
                 </select>
             {{/if}}
@@ -17,15 +17,15 @@
         </div>
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.auspice}}" autocomplete="off" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.auspice}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
                     {{#select data.system.auspice}}
                         <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="Kamakshi">{{localize "wod.bio.auspicename.kamakshi"}}</option>
-                        <option value="Kartikeya">{{localize "wod.bio.auspicename.kartikeya"}}</option>
-                        <option value="Kamsa">{{localize "wod.bio.auspicename.kamsa"}}</option>
-                        <option value="Kali">{{localize "wod.bio.auspicename.kali"}}</option>
+                        <option value="wod.bio.auspicename.kamakshi">{{localize "wod.bio.auspicename.kamakshi"}}</option>
+                        <option value="wod.bio.auspicename.kartikeya">{{localize "wod.bio.auspicename.kartikeya"}}</option>
+                        <option value="wod.bio.auspicename.kamsa">{{localize "wod.bio.auspicename.kamsa"}}</option>
+                        <option value="wod.bio.auspicename.kali">{{localize "wod.bio.auspicename.kali"}}</option>
                     {{/select}}
                 </select>
             {{/if}}

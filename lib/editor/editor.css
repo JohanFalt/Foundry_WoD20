@@ -30,8 +30,11 @@
   flex: 1; /* NEW, */
 }
 
+.tox { height: 100% !important; }
+
 .wod-sheet .editor,
 .wod-dialog .editor,
 .wod-item .editor {
   border: 1px solid var(--main-full-color);
+  resize: vertical;
 }

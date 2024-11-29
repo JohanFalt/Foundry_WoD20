@@ -1616,7 +1616,7 @@
 				"selectsphere": "Seleziona prima una Sfera!",
 				"keepdifficulty": "Keeps the difficulty the same",
 				"keepdiff": "Keep difficulty",
-				"keepdiffdesc": "Keep difficulty is When you are to use extended casting but the difficulty are not to be increased for each roll.",
+				"keepdiffdesc": "Keep difficulty is when you are to use extended casting but the difficulty are not to be increased for each roll.",
 				"difficultylimit": "Difficulty can never be higher or lower than the base difficulty +3/-3."
 			},
 			"checkfrenzy": {

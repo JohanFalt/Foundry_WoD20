@@ -346,7 +346,9 @@
 
 .wod20 .textarea {
   overflow-y: auto !important;
-  height: 150px;
+  /* height: 150px; */
+  min-height: 150px;
+  height: auto !important;
   border-radius: 3px;
   padding: 5px;
 }
@@ -378,6 +380,18 @@
 
 .wod20 .pullRight {
 	float: right !important;
+}
+
+.wod20 .item-row {
+  display: flex; flex-wrap: wrap; flex-direction: row;
+}
+
+.wod20 .item-column {
+  display: flex; flex-wrap: wrap; flex-direction: column;
+}
+
+.wod20 .item-right {
+  margin-left: auto;
 }
 
 .wod20 .hide {

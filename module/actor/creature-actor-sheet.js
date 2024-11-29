@@ -74,6 +74,10 @@ export class CreatureActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterCreatureChange.bind(this));
+
+		html
+			.find(".selectPowerMaxSetting")
+			.change(event => this._onsheetChange(event));
 	}
 
 	_onRollCreatureDialog(event) {		
@@ -129,6 +133,34 @@ export class CreatureActorSheet extends MortalActorSheet {
 		});
 
 		this._assignToCreature(fields, index + 1);
+	}
+
+	async _onsheetChange(event) {
+		event.preventDefault();
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+
+		const source = dataset.source;
+		const actorData = foundry.utils.duplicate(this.actor);
+
+		if (source == "setpowermaxsetting") {
+			let attribute = dataset.attribute;
+			let value = 0;
+
+			try {
+				value = parseInt(element.value);	
+			} catch (error) {
+				value = 0;
+			}		
+
+			//actorData.system.attributes[attribute].bonus = value;
+		}
+
+		await ActionHelper.handleCalculations(actorData);
+
+		await this.actor.update(actorData);
+		this.render();
 	}
 
 	async _assignToCreature(fields, value) {

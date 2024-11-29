@@ -163,23 +163,10 @@ export class DialogBonus extends FormApplication {
         }
 
         event.preventDefault();
-        let item = undefined;        
-
-        if (this.actor != undefined) {
-            item = this.actor.getEmbeddedDocument("Item", this.object.item._id);
-        }
-        else {
-            for (const i of game.items) {
-                if (i._id == this.object.item._id) {
-                    item = i;
-                    break;
-                }
-            }
-        }      
         
-        if (item == undefined) {
-            ui.notifications.warn(game.i18n.localize("wod.labels.bonus.savefail"));
-            return;
+        if (this.object.item == undefined) {
+             ui.notifications.warn(game.i18n.localize("wod.labels.bonus.savefail"));
+             return;
         }
 
         let nameInput = document.getElementById("bonus_name");
@@ -199,7 +186,8 @@ export class DialogBonus extends FormApplication {
             }
         }		
 
-        const itemData = foundry.utils.duplicate(item);
+        //const itemData = foundry.utils.duplicate(item);
+        const itemData = foundry.utils.duplicate(this.object.item);
 
         let bonus = {
             name: this.object.bonus.name,
@@ -210,7 +198,7 @@ export class DialogBonus extends FormApplication {
         }
 
         itemData.system.bonuslist[this.object.bonusId] = bonus
-        await item.update(itemData);
+        await this.object.item.update(itemData);
 
         ui.notifications.info(game.i18n.localize("wod.labels.bonus.savesuccess"));
 

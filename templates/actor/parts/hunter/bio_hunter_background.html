@@ -3,20 +3,20 @@
 
         <div class="bioInformationArea floating-label-group">
             {{#if locked}}
-                <input class="sheet-infoValues" type="text" value="{{data.system.creed}}" data-dtype="String" autofocus required />
+                <input class="sheet-infoValues" type="text" value="{{localize data.system.creed}}" data-dtype="String" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.creed" data-type="{{config.sheettype.hunter}}" data-name="data.system.creed" data-dtype="String">
                     {{#select data.system.creed}}
                         <option value="">- {{localize 'wod.labels.select'}} -</option>
-                        <option value="{{localize 'wod.bio.hunter.avenger'}}">{{localize 'wod.bio.hunter.avenger'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.defender'}}">{{localize 'wod.bio.hunter.defender'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.hermit'}}">{{localize 'wod.bio.hunter.hermit'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.innocent'}}">{{localize 'wod.bio.hunter.innocent'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.judge'}}">{{localize 'wod.bio.hunter.judge'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.martyr'}}">{{localize 'wod.bio.hunter.martyr'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.redeemer'}}">{{localize 'wod.bio.hunter.redeemer'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.visionary'}}">{{localize 'wod.bio.hunter.visionary'}}</option>
-                        <option value="{{localize 'wod.bio.hunter.wayword'}}">{{localize 'wod.bio.hunter.wayword'}}</option>
+                        <option value="wod.bio.hunter.avenger">{{localize 'wod.bio.hunter.avenger'}}</option>
+                        <option value="wod.bio.hunter.defender">{{localize 'wod.bio.hunter.defender'}}</option>
+                        <option value="wod.bio.hunter.hermit">{{localize 'wod.bio.hunter.hermit'}}</option>
+                        <option value="wod.bio.hunter.innocent">{{localize 'wod.bio.hunter.innocent'}}</option>
+                        <option value="wod.bio.hunter.judge">{{localize 'wod.bio.hunter.judge'}}</option>
+                        <option value="wod.bio.hunter.martyr">{{localize 'wod.bio.hunter.martyr'}}</option>
+                        <option value="wod.bio.hunter.redeemer">{{localize 'wod.bio.hunter.redeemer'}}</option>
+                        <option value="wod.bio.hunter.visionary">{{localize 'wod.bio.hunter.visionary'}}</option>
+                        <option value="wod.bio.hunter.wayword">{{localize 'wod.bio.hunter.wayword'}}</option>
                     {{/select}}
                 </select>
     			

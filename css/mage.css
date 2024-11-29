@@ -70,7 +70,7 @@
   }
 
 .wod-sheet .spheres-headlineWidth {
-    width: 45%;
+    width: 50%;
 }
 
 .wod-dialog .spheres-headlineWidth {
@@ -112,7 +112,8 @@
 }
 
 .mage .bonus-power-name {
-  width: 200px;
+  width: 150px;
+  margin-left: 40px;
 }
 
 .mage .item-largebox {

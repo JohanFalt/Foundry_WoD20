@@ -78,7 +78,7 @@ export class DialogShapeChange extends FormApplication {
         this.object.bonus = parseInt(formData["shiftMod"]);
         this.object.canRoll = await this._calculateDifficulty();
 
-        this.render(false);
+        this.render();
     }
 
     _setDifficulty(event) {
@@ -148,9 +148,11 @@ export class DialogShapeChange extends FormApplication {
             shiftRoll.origin = "general";
             shiftRoll.numDices = parseInt(this.actor.system.attributes.stamina.total) + parseInt(this.actor.system.abilities.primalurge.value) + parseInt(this.object.bonus);
             shiftRoll.woundpenalty = parseInt(this.actor.system.health.damage.woundpenalty);
-            shiftRoll.difficulty = parseInt(this.object.difficulty);                     
+            shiftRoll.difficulty = parseInt(this.object.difficulty);  
+            shiftRoll.usewillpower = false;                   
             
             const successes = await NewRollDice(shiftRoll);
+            
             this.object.numSuccesses += parseInt(successes);
 
             if (this.object.numSuccesses >= this.object.successesRequired) {
@@ -171,25 +173,45 @@ export class DialogShapeChange extends FormApplication {
     }    
 
     async _calculateDifficulty() {
-        if (this.object.selectedShape == "homid") {
+        // if (this.object.selectedShape == "homid") {
+        //     this.object.difficulty = 6;
+        // }
+        // else if (this.object.selectedShape == "glabro") {
+        //     this.object.difficulty = 7;
+        // }
+        // else if (this.object.selectedShape == "crinos") {
+        //     this.object.difficulty = 6;
+        // }
+        // else if (this.object.selectedShape == "hispo") {
+        //     this.object.difficulty = 7;
+        // }
+        // else if (this.object.selectedShape == "lupus") {
+        //     this.object.difficulty = 6;
+        // }
+        // else {
+        //     this.object.difficulty = 0;            
+        //     return false;
+        // }	
+
+        if (this.actor.system.shapes.homid.isactive) {
             this.object.difficulty = 6;
         }
-        else if (this.object.selectedShape == "glabro") {
+        else if (this.actor.system.shapes.glabro.isactive) {
             this.object.difficulty = 7;
         }
-        else if (this.object.selectedShape == "crinos") {
+        else if (this.actor.system.shapes.crinos.isactive) {
             this.object.difficulty = 6;
         }
-        else if (this.object.selectedShape == "hispo") {
+        else if (this.actor.system.shapes.hispo.isactive) {
             this.object.difficulty = 7;
         }
-        else if (this.object.selectedShape == "lupus") {
+        else if (this.actor.system.shapes.lupus.isactive) {
             this.object.difficulty = 6;
         }
         else {
             this.object.difficulty = 0;            
             return false;
-        }	
+        }
 
         return true;
     }

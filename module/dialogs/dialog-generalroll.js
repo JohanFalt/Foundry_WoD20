@@ -24,6 +24,7 @@ export class GeneralRoll {
 
         this.usedReducedDiff = false;
         this.useSpeciality = false;
+        this.useWillpower = false;
         this.hasSpeciality = false;
 
         //data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
@@ -277,6 +278,7 @@ export class DialogGeneralRoll extends FormApplication {
         event.preventDefault();       
         
         this.object.useSpeciality = formData["specialty"];
+        this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
             this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
@@ -354,7 +356,7 @@ export class DialogGeneralRoll extends FormApplication {
         });
 
         //this.getData();
-        this.render(false);
+        this.render();
     }
 
     async _setAttribute(event) {
@@ -393,7 +395,7 @@ export class DialogGeneralRoll extends FormApplication {
             }
         });
 
-        this.render(false);
+        this.render();
     }
 
     /* clicked to roll */
@@ -464,6 +466,7 @@ export class DialogGeneralRoll extends FormApplication {
         generalRoll.woundpenalty = parseInt(woundPenaltyVal);
         generalRoll.difficulty = parseInt(this.object.difficulty);          
         generalRoll.speciality = this.object.useSpeciality;
+        generalRoll.usewillpower = this.object.useWillpower;
         generalRoll.specialityText = specialityText;
         
         NewRollDice(generalRoll);

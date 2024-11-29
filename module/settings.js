@@ -42,6 +42,19 @@ export const systemSettings = function() {
 		}
 	});
 
+    game.settings.register("worldofdarkness", "fifthEditionWillpowerSetting", {
+		name: game.i18n.localize('wod.settings.fifthedwillpowersetting'),
+		hint: game.i18n.localize('wod.settings.fifthedwillpowersettinghint'),
+		scope: "world",
+		config: false,
+		default: "5th",
+		type: String,
+        choices: {
+			"5th": "5th edition",
+			"20th": "20th edition"
+		}
+	});
+
     // DICE RULES
 
     game.settings.register("worldofdarkness", "theRollofOne", {
@@ -55,6 +68,14 @@ export const systemSettings = function() {
 
     game.settings.register("worldofdarkness", "useOnesDamage", {
 		name: game.i18n.localize('wod.settings.useOnesDamage'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
+    game.settings.register("worldofdarkness", "usePenaltyDamage", {
+		name: game.i18n.localize('wod.settings.usepenaltydamage'),
 		scope: "world",
 		config: false,
 		default: false,
@@ -489,6 +510,15 @@ export const systemSettings = function() {
 		type: Boolean,
 	});
 
+    game.settings.register("worldofdarkness", "patch410", {
+		name: "patch410",
+		hint: "patch410",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
     /* Groups of settings */
     game.settings.registerMenu("worldofdarkness", "ruleSettings", {
         name: game.i18n.localize('wod.settings.rulesettings'),
@@ -588,7 +618,7 @@ export class Rules extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "advantageRolls") || (s.key == "attributeSettings")) {
+                if ((s.key == "advantageRolls") || (s.key == "attributeSettings") || (s.key == "fifthEditionWillpowerSetting")) {
                     // Update setting data
                     const setting = foundry.utils.duplicate(s);
 
@@ -670,7 +700,7 @@ export class Dices extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "theRollofOne") || (s.key == "useOnesDamage") || (s.key == "useOnesSoak") || (s.key == "lowestDifficulty") || (s.key == "specialityAddSuccess") || (s.key == "specialityReduceDiff") || (s.key == "tenAddSuccess") || (s.key == "explodingDice"))  {
+                if ((s.key == "theRollofOne") || (s.key == "useOnesDamage") || (s.key == "usePenaltyDamage") || (s.key == "useOnesSoak") || (s.key == "lowestDifficulty") || (s.key == "specialityAddSuccess") || (s.key == "specialityReduceDiff") || (s.key == "tenAddSuccess") || (s.key == "explodingDice"))  {
                     // Update setting data
                     const setting = foundry.utils.duplicate(s);
 

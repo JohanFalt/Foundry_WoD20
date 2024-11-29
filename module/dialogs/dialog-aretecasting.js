@@ -58,6 +58,7 @@ export class Rote {
         this.shownDifficulty = 0;
 
         this.useSpeciality = false;
+        this.useWillpower = false;
 
         this.isRote = false;
         this.canCast = false;
@@ -328,6 +329,7 @@ export class DialogAreteCasting extends FormApplication {
 
 
         this.object.useSpeciality = formData["object.useSpeciality"];
+        this.object.useWillpower = formData["object.useWillpower"];
         
         this.object.areteModifier = parseInt(formData["object.areteModifier"]);
 
@@ -369,7 +371,7 @@ export class DialogAreteCasting extends FormApplication {
 
         this.object.selectedSpheres = this._changedSelectedSphere(this.object.selectedSpheres, sphere, value);
         this.object.canCast = this._calculateDifficulty(false);
-        this.render(false);
+        this.render();
     }
 
     /* clicked on cast Spell */
@@ -406,8 +408,6 @@ export class DialogAreteCasting extends FormApplication {
                     extraInfo.push(game.i18n.localize("wod.dialog.aretecasting.keepdifficulty"));
                 }
             }
-
-            
 
             if (this.object.spelltype == "coincidental") {
                 extraInfo.push(game.i18n.localize("wod.spheres.coincidentalspell"));
@@ -462,10 +462,12 @@ export class DialogAreteCasting extends FormApplication {
             powerRoll.woundpenalty = 0;
             powerRoll.difficulty = parseInt(this.object.totalDifficulty);           
             powerRoll.speciality = specialityRoll;
+            powerRoll.usewillpower = this.object.useWillpower;
             powerRoll.specialityText = specialityText;
             powerRoll.dicetext = template;
             powerRoll.extraInfo = extraInfo;
             powerRoll.systemText = this.object.description;
+            
             let successes = await NewRollDice(powerRoll);
             
             if (!this.object.isExtendedCasting) {

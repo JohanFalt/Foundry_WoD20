@@ -194,6 +194,6 @@ export class HunterActorSheet extends MortalActorSheet {
 		
 		console.log("WoD | Hunter Sheet updated");
 		this.actor.update(actorData);
-		this.render(false);
+		this.render();
 	}	
 }

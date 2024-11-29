@@ -163,7 +163,7 @@ export class VampireActorSheet extends MortalActorSheet {
 
 		console.log("WoD | Vampire Sheet updated");
 		await this.actor.update(actorData);
-		this.render(false);
+		this.render();
 	}
 	
 	async _onDotCounterVampireChange(event) {
@@ -348,14 +348,14 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 			}
 		}
 		// disciplines and paths
-		if ((item.type == "Power") && ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepath"))) {
-			const itemData = foundry.utils.duplicate(item);
+		// if ((item.type == "Power") && ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepath"))) {
+		// 	const itemData = foundry.utils.duplicate(item);
 
-			if (itemData.system.max != parseInt(disciplineMax)) {
-				itemData.system.max = parseInt(disciplineMax);
-				await item.update(itemData);
-			}			
-		}		
+		// 	if (itemData.system.max != parseInt(disciplineMax)) {
+		// 		itemData.system.max = parseInt(disciplineMax);
+		// 		await item.update(itemData);
+		// 	}			
+		// }		
 		// disipline powers and path powers
 		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower") || (item.system.type == "wod.types.disciplinepathpower")) {
 			const itemData = foundry.utils.duplicate(item);

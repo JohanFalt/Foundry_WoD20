@@ -1,95 +1,100 @@
-<div class="clearareaBox area-box">
 
-	<div class="sheet-headline sheet-banner splatFont" data-area="rotes">
-		<span class="sheet-banner-text">{{localize 'wod.spheres.rotes'}}</span>
 
+<div class="area-box">	
+
+	<div class="clearareaBox sheet-headline sheet-banner splatFont" data-area="rotes">
+		<span class="sheet-banner-text">{{localize 'wod.spheres.rotes'}}</span>	
 		<div class="pullRight pointer headlineNormal">
 			<i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.types.rote'}}" aria-hidden="true" data-itemtype="Rote"></i>
 		</div>
 	</div>
 
-	{{#each actor.system.listdata.rotes as |item id|}}
+	<div class="item-column" style="max-height: {{calculateHight "rotes" actor.system.listdata.rotes}}">
 
-		<div class="pullLeft item-row-area" data-area="roterow{{id}}" style="width:50%">
-			<div class="clearareaBox magic-row">
-				<div class="pullLeft item-activeBox">
-					<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input>
-				</div>			
-				<div class="rote-headline vrollable headlineNormal pullLeft"
-					data-type="{{../config.sheettype.mage}}"
-					data-object="Rote"
-					data-rollitem="true" 
-					data-itemid="{{item._id}}" title="{{item.name}}">{{shorten item.name 25}}</div>
+		{{#each actor.system.listdata.rotes as |item id|}}
 
-				<div class="pullRight power-iconbox">
-					<div class="pullLeft headlineNormal pointer tooltip">
-						<i class="icon fa-solid fa-memo"></i>
-						<span class="tooltiptext">                
-							<div><b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}</div>
-							{{#if (ne item.system.correspondence 0)}}
-								<div>{{localize ../actor.system.spheres.correspondence.label}} ({{item.system.correspondence}})</div>
-							{{/if}}
-							{{#if (ne item.system.entropy 0)}}
-								<div>{{localize ../actor.system.spheres.entropty.label}} ({{item.system.entropy}})</div>
-							{{/if}}
-							{{#if (ne item.system.forces 0)}}
-								<div>{{localize ../actor.system.spheres.forces.label}} ({{item.system.forces}})</div>
-							{{/if}}
-							{{#if (ne item.system.life 0)}}
-								<div>{{localize ../actor.system.spheres.life.label}} ({{item.system.life}})</div>
-							{{/if}}
-							{{#if (ne item.system.matter 0)}}
-								<div>{{localize ../actor.system.spheres.matter.label}} ({{item.system.matter}})</div>
-							{{/if}}
-							{{#if (ne item.system.mind 0)}}
-								<div>{{localize ../actor.system.spheres.mind.label}} ({{item.system.mind}})</div>
-							{{/if}}
-							{{#if (ne item.system.prime 0)}}
-								<div>{{localize ../actor.system.spheres.prime.label}} ({{item.system.prime}})</div>
-							{{/if}}
-							{{#if (ne item.system.spirit 0)}}
-								<div>{{localize ../actor.system.spheres.spirit.label}} ({{item.system.spirit}})</div>
-							{{/if}}
-							{{#if (ne item.system.time 0)}}
-								<div>{{localize ../actor.system.spheres.time.label}} ({{item.system.time}})</div>
-							{{/if}}         
-						</span>
-					</div>  
-					<div class="pullLeft pointer">
-						<a class="send-chat" 
-							title="{{localize 'wod.labels.send'}}" 
-							data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+			<div class="item-row-area" data-area="roterow{{id}}" style="width:50%">
+				<div class="magic-row item-row">
+					<div class="item-activeBox">
+						<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input>
+					</div>			
+					<div class="rote-headline vrollable headlineNormal"
+						data-type="{{../config.sheettype.mage}}"
+						data-object="Rote"
+						data-rollitem="true" 
+						data-itemid="{{item._id}}" title="{{item.name}}">{{shorten item.name 25}}</div>
+
+					<div class="item-right item-row power-iconbox">
+						<div class="headlineNormal pointer tooltip">
+							<i class="icon fa-solid fa-memo"></i>
+							<span class="tooltiptext">                
+								<div><b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}</div>
+								{{#if (ne item.system.correspondence 0)}}
+									<div>{{localize ../actor.system.spheres.correspondence.label}} ({{item.system.correspondence}})</div>
+								{{/if}}
+								{{#if (ne item.system.entropy 0)}}
+									<div>{{localize ../actor.system.spheres.entropty.label}} ({{item.system.entropy}})</div>
+								{{/if}}
+								{{#if (ne item.system.forces 0)}}
+									<div>{{localize ../actor.system.spheres.forces.label}} ({{item.system.forces}})</div>
+								{{/if}}
+								{{#if (ne item.system.life 0)}}
+									<div>{{localize ../actor.system.spheres.life.label}} ({{item.system.life}})</div>
+								{{/if}}
+								{{#if (ne item.system.matter 0)}}
+									<div>{{localize ../actor.system.spheres.matter.label}} ({{item.system.matter}})</div>
+								{{/if}}
+								{{#if (ne item.system.mind 0)}}
+									<div>{{localize ../actor.system.spheres.mind.label}} ({{item.system.mind}})</div>
+								{{/if}}
+								{{#if (ne item.system.prime 0)}}
+									<div>{{localize ../actor.system.spheres.prime.label}} ({{item.system.prime}})</div>
+								{{/if}}
+								{{#if (ne item.system.spirit 0)}}
+									<div>{{localize ../actor.system.spheres.spirit.label}} ({{item.system.spirit}})</div>
+								{{/if}}
+								{{#if (ne item.system.time 0)}}
+									<div>{{localize ../actor.system.spheres.time.label}} ({{item.system.time}})</div>
+								{{/if}}         
+							</span>
+						</div>  
+						<div class="pointer">
+							<a class="send-chat" 
+								title="{{localize 'wod.labels.send'}}" 
+								data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+						</div>
+						{{#if (eq ../locked false)}}
+							<div class="pointer">
+								<a class="item-edit" title="{{localize "wod.labels.edit.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+							</div>
+							<div class="pointer">
+								<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+							</div>
+						{{/if}}
+						{{#if (gt item.system.bonuslist.length 0)}}
+							<div class="pointer">
+								<i id="collapsiblerotebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="rote{{id}}"></i>
+							</div>
+						{{else}}
+							<div class="" style="width: 24px;">&nbsp;</div>
+						{{/if}}
 					</div>
-					{{#if (eq ../locked false)}}
-						<div class="pullLeft pointer">
-							<a class="item-edit" title="{{localize "wod.labels.edit.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+				</div>
+				<div class="hide bonuses rote{{id}}" data-area="rotebonus{{id}}">
+
+					{{#each item.system.bonuslist as |bonus id|}}
+						<div class="item-row note-row">
+							<div class="bonus-power-name headlineNormal">{{bonus.name}}</div>
+							<div class="headlineNormal">{{getBonusName bonus.type}}</div>
+							<div class="headlineNormal" style="margin-left: 15px;">{{bonus.value}}</div>
 						</div>
-						<div class="pullLeft pointer">
-							<a class="item-delete" title="{{localize "wod.labels.remove.rote"}}" data-type="Rote" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-						</div>
-					{{/if}}
-					{{#if (gt item.system.bonuslist.length 0)}}
-						<div class="pullLeft pointer">
-							<i id="collapsiblerotebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="rote{{id}}"></i>
-						</div>
-					{{else}}
-                        <div class="pullLeft" style="width: 24px;">&nbsp;</div>
-					{{/if}}
+					{{/each}}
+
 				</div>
 			</div>
-			<div class="hide bonuses rote{{id}}" data-area="rotebonus{{id}}">
 
-				{{#each item.system.bonuslist as |bonus id|}}
-					<div class="clearareaBox note-row">
-						<div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-						<div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-						<div class="pullLeft headlineNormal">{{bonus.value}}</div>
-					</div>
-				{{/each}}
+		{{/each}}
 
-			</div>
-		</div>
-
-	{{/each}}
+	</div>
 
 </div>	

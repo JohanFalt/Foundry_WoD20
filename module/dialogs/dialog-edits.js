@@ -256,10 +256,10 @@ export class DialogAbility extends FormApplication {
         }
         else {
             this.object.altlabel = document.getElementById("altlabel").value;
-            
+
             if (document.getElementById("speciality")?.value != undefined) {
                 this.object.speciality = document.getElementById("speciality").value;
-            }
+            }            
         }
 
         if (this.object.issecondary) {
@@ -334,7 +334,13 @@ export class DialogSphere extends FormApplication {
     }
 
     async _save(event) {  
-        this.object.speciality = document.getElementById("speciality").value;
+        if (parseInt(this.object.value) >= 4) {
+            this.object.speciality = document.getElementById("speciality").value;
+        }
+        else {
+            this.object.speciality = "";
+        }
+        
         this.object.istechnocracy = document.getElementById("technocracy").checked;
 
         const actorData = foundry.utils.duplicate(this.actor);

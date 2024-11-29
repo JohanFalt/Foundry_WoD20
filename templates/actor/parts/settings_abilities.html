@@ -108,18 +108,12 @@
                 {{#if locked}}
                     <input class="sheet-infoValues half" type="text" value="{{data.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" readonly />
                 {{else}}
-                    <select class="sheet-infoValues selectAbilityMaxSetting editable half" name="system.settings.abilities.defaultmaxvalue" data-source="setvalue" data-type="{{config.sheettype.mortal}}" data-dtype="Number">
-                        {{#select data.system.settings.abilities.defaultmaxvalue}}
-                            <option value="">- {{localize 'wod.labels.select'}} -</option>
-                            {{#numFromLoop 1 10}}
-                                <option value="{{this}}">{{this}}</option>
-                            {{/numFromLoop}}
-                        {{/select}}
+                    <select class="sheet-infoValues selectAbilityMaxSetting editable" name="system.settings.abilities.defaultmaxvalue" data-source="setvalue" data-type="{{config.sheettype.mortal}}" data-dtype="Number">
+                        {{selectOptions listData.Level9Value selected=data.system.settings.abilities.defaultmaxvalue localize=false}}
                     </select>
                 {{/if}}
             </div>				
         </div>
-
         <div class="clearareaBox information-area">{{localize "wod.labels.settings.maxability"}}</div>
     </div>
 {{/if}}

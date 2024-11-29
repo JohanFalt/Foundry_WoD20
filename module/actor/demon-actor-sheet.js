@@ -339,6 +339,6 @@ export class DemonActorSheet extends MortalActorSheet {
 		
 		console.log("WoD | Demon Sheet updated");
 		this.actor.update(actorData);
-		this.render(false);
+		this.render();
 	}	
 }

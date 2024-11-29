@@ -8,6 +8,12 @@
         <div class="infobox">
             {{object.attributeValue}} {{#if (gt object.attributeBonus 0)}}(+{{object.attributeBonus}}){{/if}}
         </div>
+
+        <div class="clearareaBox infobox dialog-checkbox">
+            <div class="pullLeft"><input name="useWillpower" type="checkbox" {{isChecked object.useWillpower}} /></div>
+            <div class="pullLeft"><label for="useWillpower" class="dialog-casting-type-label">{{localize "wod.labels.usewillpower"}}</label></div>
+        </div>
+        
     </div>
     <div class="headlineGroup splatFont">
         

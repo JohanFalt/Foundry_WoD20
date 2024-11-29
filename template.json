@@ -43,6 +43,9 @@
 					"abilities": {
 						"defaultmaxvalue": 5
 					},
+					"powers": {
+						"defaultmaxvalue": 5
+					},
 					"era": "wod.era.modern",
 					"variant": ""
 				},

@@ -1,5 +1,6 @@
 import ActionHelper from "../scripts/action-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js"
+import SelectHelper from "../scripts/select-helpers.js"
 
 export class WoDItemSheet extends ItemSheet {
 	
@@ -49,11 +50,12 @@ export class WoDItemSheet extends ItemSheet {
 		data.worldofdarkness = game.worldofdarkness;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
+		data.listData = SelectHelper.SetupItem(this.item);
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
-		data.canEdit = this.item.isOwner || game.user.isGM;
+		data.canEdit = this.item.isOwner || game.user.isGM;		
 
 		if (this.item.actor != null) {
 			data.hasActor = true;
@@ -79,7 +81,7 @@ export class WoDItemSheet extends ItemSheet {
 
 		if (imgUrl != "") {
 			data.item.img = imgUrl;
-		}
+		}		
 
 		if ((data.item.system.type == "wod.types.apocalypticform") && (data.hasActor)) {
 			const items = [];	
@@ -177,7 +179,7 @@ export class WoDItemSheet extends ItemSheet {
 		const itemData = foundry.utils.duplicate(this.item);
 		itemData.system.value = parseInt(bonus);
 		await this.item.update(itemData);
-		this.render(false);
+		this.render();
     }
 
 	async _setAttribute(event) {
@@ -197,7 +199,7 @@ export class WoDItemSheet extends ItemSheet {
 		const itemData = foundry.utils.duplicate(this.item);
 		itemData.system.settingtype = attribute;
 		await this.item.update(itemData);
-		this.render(false);
+		this.render();
     }
 
 	async _setProperty(event) {
@@ -263,7 +265,6 @@ export class WoDItemSheet extends ItemSheet {
 		}
 
 		await this.item.update(itemData);
-
 		this.render();
 	}
 

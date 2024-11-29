@@ -408,6 +408,8 @@ export class DialogPower extends FormApplication {
         data.actorData = this.actor.system;
         data.config = CONFIG.worldofdarkness;
 
+        
+
         // is dice1 an Attributes
         if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
@@ -605,6 +607,7 @@ export class DialogPower extends FormApplication {
         }
         
         this.object.useSpeciality = formData["specialty"];
+        this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
             this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
@@ -782,6 +785,8 @@ export class DialogPower extends FormApplication {
         powerRoll.bonus = parseInt(this.object.bonus);
         powerRoll.extraInfo = extraInfo;
         powerRoll.systemText = this.object.system;
+        powerRoll.usewillpower = this.object.useWillpower;
+        
         NewRollDice(powerRoll);
     }
 

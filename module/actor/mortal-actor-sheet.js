@@ -5,6 +5,8 @@ import AbilityHelper from "../scripts/ability-helpers.js";
 import AttributeHelper from "../scripts/attribute-helpers.js";
 import SphereHelper from "../scripts/sphere-helpers.js";
 import ItemHelper from "../scripts/item-helpers.js";
+import SelectHelper from "../scripts/select-helpers.js"
+
 import MessageHelper from "../scripts/message-helpers.js";
 
 import { calculateHealth } from "../scripts/health.js";
@@ -77,6 +79,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.worldofdarkness = game.worldofdarkness;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
+		data.listData = SelectHelper.SetupItem(this.actor);
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
@@ -185,6 +188,7 @@ export class MortalActorSheet extends ActorSheet {
 		html
 			.find(".health > .resource-counter > .resource-value-step")
 			.click(this._onSquareCounterChange.bind(this));
+			
 		html
 			.find(".health > .resource-counter > .resource-value-step")
 			.on('contextmenu', this._onSquareCounterClear.bind(this));
@@ -680,7 +684,10 @@ export class MortalActorSheet extends ActorSheet {
 				 ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
 				 return;
 			}
-			if (((fieldStrings == "advantages.willpower.permanent") && (CONFIG.worldofdarkness.attributeSettings == "5th")) && (!isSpirit)) {
+			if (((fieldStrings == "advantages.willpower.permanent") && 
+						(CONFIG.worldofdarkness.attributeSettings == "5th") && 
+						(CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th") &&
+						(!isSpirit))) {
 				ui.notifications.error(game.i18n.localize("wod.advantages.willpowerchange"));	
 				return;
 			}			
@@ -1107,7 +1114,20 @@ export class MortalActorSheet extends ActorSheet {
 		}
 
 		if (found) {
-			return await this.actor.createEmbeddedDocuments("Item", [itemData]);
+			const createdItem = await this.actor.createEmbeddedDocuments("Item", [itemData]);
+			const item = await this.actor.getEmbeddedDocument("Item", createdItem[0]._id);
+            var _a;
+
+            if (item instanceof Item) {
+                _a = item.sheet;
+
+                if ((_a === null) || (_a === void 0)) {
+                    void 0;
+                }                
+                else {
+                    _a.render(true);  
+                }
+            }
 		}
 		else {
 			ui.notifications.warn(game.i18n.localize("wod.labels.new.notfound"));
@@ -1371,7 +1391,9 @@ export class MortalActorSheet extends ActorSheet {
 						actorData.system.advantages.willpower.temporary = parseInt(value);
 					}
 				}
-				else if ((CONFIG.worldofdarkness.attributeSettings == "20th") || (isSpirit)) {
+				else if ((CONFIG.worldofdarkness.attributeSettings == "20th") || 
+							((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "20th")) ||
+							(isSpirit)) {				
 					if (abilityType === "permanent") {
 						if (actorData.system.advantages.willpower.permanent == value) {
 							actorData.system.advantages.willpower.permanent = parseInt(actorData.system.advantages.willpower.permanent) - 1;
