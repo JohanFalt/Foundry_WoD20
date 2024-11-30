@@ -102,6 +102,8 @@
 #chat-log .rolldices {
 	width: 50px;
 	height: 50px;
+	clip-path: polygon(52% 12%, 92% 40%, 91% 61%, 57% 85%, 44% 84%, 10% 61%, 10% 40%);
+	margin-bottom: -8px;
 }
 
 #chat-log .tray-title-area {
