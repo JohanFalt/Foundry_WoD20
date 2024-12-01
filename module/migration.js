@@ -2385,6 +2385,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.1.1')) {
+            newfunctions += '<li>The new setting of using health penalties in damage rolls did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/900">[#900]</a></li>';
+            newfunctions += '<li>[VtM] Changes to Combined Disciplines broke the form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/903">[#903]</a></li>';
+            newfunctions += '<li>[MtA] Mages with Arete higher than 5 did not got their increase in Sphere max level. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/898">[#898]</a></li>';
+        }
+
         /* if (_compareVersion(installedVersion, '4.0.2')) {
             newfunctions += '<li>Fixed problems to send message to chat.</li>';
         }

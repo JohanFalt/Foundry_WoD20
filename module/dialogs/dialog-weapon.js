@@ -567,15 +567,17 @@ export class DialogWeapon extends FormApplication {
         weaponRoll.difficulty = parseInt(this.object.difficulty);          
         weaponRoll.dicetext = template;
         weaponRoll.usewillpower = this.object.useWillpower;
+        weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
         
-        if (weaponRoll.origin == "attack") {
-            weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
+        if (weaponRoll.origin == "attack") {            
             weaponRoll.systemText = this.object.system;
             weaponRoll.speciality = this.object.useSpeciality;
             weaponRoll.specialityText = specialityText;
         }        
         else {
-            weaponRoll.woundpenalty = 0;
+            if (!CONFIG.worldofdarkness.usePenaltyDamage) {
+                weaponRoll.woundpenalty = 0;
+            }
             weaponRoll.speciality = false;
             weaponRoll.systemText = "";
         }
