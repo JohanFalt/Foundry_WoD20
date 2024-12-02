@@ -329,7 +329,7 @@
 							</div>
 							<div class="pullLeft infobox floating-label-group">
 								<select id="combination_rating_{{id}}" class="sheet-infoValues {{#if (ne ../locked true)}}editable{{/if}}" data-dtype="String">
-									{{selectOptions listData.Level9Value selected=item.value localize=false}}
+									{{selectOptions ../listData.Level9Value selected=item.value localize=false}}
 								</select>
 								<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 							</div>

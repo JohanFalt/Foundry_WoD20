@@ -770,6 +770,16 @@ export default class ActionHelper {
 
 		actorData.system.advantages.arete.roll = parseInt(actorData.system.advantages.arete.permanent);
 		actorData.system.paradox.roll = parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent);
+
+		let areteMax = parseInt(actorData.system.advantages.arete.permanent);
+
+		if (areteMax < 5) {
+			areteMax = 5;
+		}
+
+		for (const sphere in actorData.system.spheres) {
+			actorData.system.spheres[sphere].max = areteMax;
+		}
 	}
 
 	static async _handleWerewolfCalculations(actorData) {
