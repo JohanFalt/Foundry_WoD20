@@ -46,19 +46,7 @@
 					<!-- type -->
 					<div class="infobox bioInformationArea floating-label-group">
 						<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
-							{{#select data.system.type}}
-								<option value="">- {{localize "wod.labels.select"}} -</option>
-								<optgroup label="Changeling">
-									<option value="wod.types.treasure">{{localize "wod.types.treasure"}} (Changeling)</option>
-								</optgroup>
-								<optgroup label="Mage">
-									<option value="wod.types.device">{{localize 'wod.gear.device'}} (Mage)</option>
-									<option value="wod.types.talisman">{{localize 'wod.gear.talisman'}} (Mage)</option>
-									<option value="wod.types.periapt">{{localize 'wod.gear.periapt'}} (Mage)</option>
-									<option value="wod.types.matrix">{{localize 'wod.gear.matrix'}} (Mage)</option>
-									<option value="wod.types.trinket">{{localize 'wod.gear.trinket'}} (Mage)</option>
-								</optgroup>
-							{{/select}}
+							{{selectOptions listData.TypeList selected=data.system.type localize=false}}
 						</select>
 						<span class="floating-label">{{localize "wod.labels.type"}}</span>
 					</div>	
@@ -67,12 +55,7 @@
 				<!-- level -->
 				<div class="infobox bioInformationArea floating-label-group">
 					<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
-						{{#select data.system.level}}
-							<option value="0">- {{localize "wod.labels.select"}} -</option>
-							{{#numFromLoop 1 5}}
-								<option value="{{this}}">{{this}}</option>
-							{{/numFromLoop}}
-						{{/select}}
+						{{selectOptions listData.Level5Value selected=data.system.level localize=false}}
 					</select>
 					<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 				</div>	

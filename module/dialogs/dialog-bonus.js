@@ -1,3 +1,5 @@
+import SelectHelper from "../scripts/select-helpers.js"
+
 export class Bonus {
     constructor(actor, item, id) {
         this.actor = actor;
@@ -44,6 +46,8 @@ export class DialogBonus extends FormApplication {
         else if (this.actor?.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
             data.object.sheettype = "werewolfDialog";
         }
+
+        data.listData = SelectHelper.SetupItem(this.actor);
 
         return data;
     }

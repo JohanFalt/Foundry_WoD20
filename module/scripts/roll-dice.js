@@ -128,7 +128,7 @@ export async function NewRollDice(diceRoll) {
 	}
 
 	if (usewillpower) {
-		canBotch = false;
+		rolledAnySuccesses = true;
 		bonusSuccesses += 1;
 	}
 

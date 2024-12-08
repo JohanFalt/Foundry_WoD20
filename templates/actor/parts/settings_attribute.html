@@ -50,13 +50,7 @@
                     <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.advantages.path.label 'custom')}}{{actor.system.advantages.path.custom}}{{else}}{{localize data.system.advantages.path.label}}{{/if}}" style="width: 40%;" autocomplete="off" autofocus required  />
                 {{else}}
                     <select class="sheet-infoValues editable" name="system.advantages.path.label" style="width: 40%;" data-dtype="String">
-                        {{#select data.system.advantages.path.label}}
-                            <option value="">- {{localize 'wod.labels.select'}} -</option>
-                            <option value="custom">{{#if (eq actor.system.advantages.path.custom "")}}- {{localize "wod.labels.custompath"}} -{{else}}{{actor.system.advantages.path.custom}}{{/if}}</option>                            
-                            {{#each worldofdarkness.bio.path as |path id|}}
-                                <option value="{{path}}">{{localize path}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions listData.PathList selected=data.system.advantages.path.label localize=false}}
                     </select>
                     {{#if (eq actor.system.advantages.path.label "custom")}}
                         <a class="item-edit" title="{{localize 'wod.labels.settings.customizepath'}}" data-type="Bio" data-name="{{localize "wod.labels.settings.selectpath"}}" data-item-id="advantages.path.label" data-custom="{{actor.system.advantages.path.custom}}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -85,10 +79,7 @@
                         <input class="sheet-infoValues" type="text" value="{{localize data.system.advantages.virtues.conscience.label}}" style="width: 80%;" readonly />
                     {{else}}
                         <select class="sheet-infoValues editable" name="system.advantages.virtues.conscience.label" style="width: 80%;" data-name="data.system.advantages.virtues.conscience.label" data-type="{{config.sheettype.vampire}}" data-dtype="String">
-                            {{#select data.system.advantages.virtues.conscience.label}}
-                                <option value="wod.advantages.virtue.conscience">{{localize "wod.advantages.virtue.conscience"}}</option>
-                                <option value="wod.advantages.virtue.conviction">{{localize "wod.advantages.virtue.conviction"}}</option>
-                            {{/select}}
+                            {{selectOptions listData.Conscience selected=data.system.advantages.virtues.conscience.label localize=false}}
                         </select>
                     {{/if}}
                 </div>
@@ -97,10 +88,7 @@
                         <input class="sheet-infoValues" type="text" value="{{localize data.system.advantages.virtues.selfcontrol.label}}" style="width: 80%;" readonly />
                     {{else}}
                         <select class="sheet-infoValues editable" name="system.advantages.virtues.selfcontrol.label" style="width: 80%;" data-name="data.system.advantages.virtues.selfcontrol.label" data-type="{{config.sheettype.vampire}}" data-dtype="String">
-                            {{#select data.system.advantages.virtues.selfcontrol.label}}
-                                <option value="wod.advantages.virtue.selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
-                                <option value="wod.advantages.virtue.instinct">{{localize "wod.advantages.virtue.instinct"}}</option>
-                            {{/select}}
+                            {{selectOptions listData.Selfcontrol selected=data.system.advantages.virtues.selfcontrol.label localize=false}}
                         </select>
                     {{/if}}
                 </div>

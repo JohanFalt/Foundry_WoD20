@@ -49,25 +49,19 @@
 					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apocalypticform" "wod.types.fetter" "wod.types.passion")}}
 						<div class="infobox bioInformationArea floating-label-group">
 							<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
-								{{#select data.system.type}}
-									<option value="">- {{localize "wod.labels.select"}} -</option>
-									<optgroup label="{{localize 'wod.labels.custom'}}">
-										<option value="wod.types.talentsecondability">{{localize "wod.types.talentsecondability"}}</option>
-										<option value="wod.types.skillsecondability">{{localize "wod.types.skillsecondability"}}</option>
-										<option value="wod.types.knowledgesecondability">{{localize "wod.types.knowledgesecondability"}}</option>
-									</optgroup>
-									<optgroup label="{{localize 'wod.labels.other'}}">
-										<option value="wod.types.resonance">{{localize "wod.types.resonance"}}</option>
-										<option value="wod.types.passion">{{localize "wod.types.passion"}}</option>
-										<option value="wod.types.fetter">{{localize "wod.types.fetter"}}</option>
-										<option value="wod.types.othertraits">{{localize "wod.types.othertraits"}}</option>
-									</optgroup>
-								{{/select}}
+								{{selectOptions listData.TypeList selected=data.system.type localize=false}}
 							</select>
 							<span class="floating-label">{{localize "wod.labels.type"}}</span>
 						</div>					
 					{{/if}}
 				{{/if}}
+
+				<div class="bioInformationArea floating-label-group">
+					<select class="sheet-infoValues editable" name="system.max" data-dtype="String">
+						{{selectOptions listData.Level9Value selected=data.system.max localize=false}}
+					</select>
+					<span class="floating-label">{{localize "wod.labels.settings.power.maxrating"}}</span>
+				</div>
 
 				<div class="infobox bioInformationArea floating-label-group">
 					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />

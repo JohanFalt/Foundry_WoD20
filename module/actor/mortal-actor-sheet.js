@@ -79,7 +79,7 @@ export class MortalActorSheet extends ActorSheet {
 		data.worldofdarkness = game.worldofdarkness;
 		data.userpermissions = ActionHelper._getUserPermissions(game.user);
 		data.graphicsettings = ActionHelper._getGraphicSettings();
-		data.listData = SelectHelper.SetupItem(this.actor);
+		data.listData = SelectHelper.SetupItem(this.actor, true);
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;

@@ -2385,6 +2385,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.1.2')) {
+            newfunctions += '<li>Added Realms in the type list as you create/edit Traits (Item).</li>';
+            newfunctions += '<li>Added so you can set max value of Traits (Item).</li>';
+            newfunctions += '<li>Using Willpower broke the Use-Result-One-Rule. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/909">[#909]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.1.1')) {
             newfunctions += '<li>The new setting of using health penalties in damage rolls did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/900">[#900]</a></li>';
             newfunctions += '<li>[VtM] Changes to Combined Disciplines broke the form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/903">[#903]</a></li>';
@@ -2398,97 +2404,7 @@ export  const updates = async () => {
         if (_compareVersion(installedVersion, '4.0.1')) {
             newfunctions += '<li>New Werewolves, Demons or Changelings was created in a wrong way which is now fixed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/859">[#859], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/860">[#860], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/861">[#861]</li>';
             newfunctions += '<li>Setting an item to Active or Equipped now works. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/858">[#858]</a></li>';
-        } */
-
-        /*if (_compareVersion(installedVersion, '3.3.5')) {
-            newfunctions += '<li>Update German translation. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/830">[#830]</li>';
-            newfunctions += '<li>Old spirit sheet causing problem. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/842">[#842]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.3.4')) {
-            newfunctions += '<li>Fixed bug where you could not press the dice roll buttons on Roll General Dices. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/839">[#839]</a></li>';
-            newfunctions += '<li>Fixed bug that caused Spirit Willpower not to work properly if you used the 5th ed rule setting. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/840">[#840]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.3.3')) {
-            newfunctions += '<li>Fixed language problems.</li>';
-            newfunctions += '<li>Fixed Dark Mode in chat window</li>';
-            newfunctions += '<li>Spanish translation update</li>';            
-        }
-
-        if (_compareVersion(installedVersion, '3.3.2')) {
-            newfunctions += '<li>[WtA] Fixed problem for shifters could not roll gifts.</li>';
-            newfunctions += '<li>[WtA] Fixed so you can pick variant Apis.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.3.1')) {
-            newfunctions += '<li>Fixed bug that hid the World Anvil information.</li>';
-            newfunctions += '<li>Fixed graphical problems with HtR, DtF, VtM and MtA.</li>';
-            newfunctions += '<li>[MtA] Fixed so you can edit sphere specializations.</li>';
-            newfunctions += '<li>[VtM] Fixed so totals of experience points was displayed.</li>';
-            newfunctions += '<li>[WtA] Fixed so you can select any of the lost breeds at sheet creation.</li>';
-            newfunctions += '<li>Fixed localizatation problems.</li>';
-        }*/
-
-        /* if (_compareVersion(installedVersion, '3.2.14')) {
-            newfunctions += '<li>Updated German translation.</li>';
-            newfunctions += '<li>Fixed bug that caused money in the bank was not shown correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/774">[#774]</a></li>';
-            newfunctions += '<li>Headline of Item type was not displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/772">[#772]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.12')) {
-            newfunctions += '<li>[MtA] Fixing bugs with the nex increasing/descreasing Quintessence or Paradox.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.10')) {
-            newfunctions += '<li>[CtD] New font caused problems. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/766">[#766]</a></li>';
-            newfunctions += '<li>[MtA] Added function to simplify increasing/descreasing Quintessence or Paradox. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/767">[#767]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.9')) {
-            newfunctions += '<li>Fixed fonts for CtD, VtM, WtA, MtA, DtF and WtO. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/764">[#764]</a></li>';
-            newfunctions += '<li>[Dark Ages] Creating Archery automatically did not set the ability as a ranged weapon ability. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/761">[#761]</a></li>';
-            newfunctions += '<li>[DtF] Demons uses Conviction not Self-Control. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/763">[#763]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.8')) {
-            newfunctions += '<li>Fixed height problems on some dialogs. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/757">[#757]</a></li>';
-            newfunctions += '<li>[Mortal] Could not set the sheet to have powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/756">[#756]</a></li>';
-            newfunctions += '<li>[Creature] Could not set the sheet to have powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/756">[#756]</a></li>';            
-        }
-
-        if (_compareVersion(installedVersion, '3.2.7')) {
-            newfunctions += '<li>Updated Spanish translation.</li>';
-            newfunctions += '<li>[Changing breed] Bug may force reselection of the type of shifter under Settings -> Sheet tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/754">[#754]</a></li>';
-            newfunctions += '<li>[WtO] If added Arcanoi was created in world the startup crashed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/755">[#755]</a></li>';
-            newfunctions += '<li>[WtO] The Arcanoi icons did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/753">[#753]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.6')) {
-            newfunctions += '<li>Convert tool to create a Creature sheet on Spirit sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/742">[#742]</a></li>';
-            newfunctions += '<li>Existing powers did not listed correctly in their sub powers, e.g Discipline/Discipline Power. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/750">[#750]</a></li></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.5')) {
-            newfunctions += '<li>The variant selector hid under the main sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/748">[#748]</a></li>';
-            newfunctions += '<li>Selecting a variant did not activate the correct functions to set the sheet correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/747">[#747]</a></li></li>';
-            newfunctions += '<li>Could not roll Secondary Abilities. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/749">[#749]</a></li></li>';
-        }
-
-        if (_compareVersion(installedVersion, '3.2.4')) {
-            newfunctions += "<li>Handles when some modules stores their information in such way that the system loose its main settings. E.g Wheel of Destiny.</li>";
-            newfunctions += "<li>When selecting a sheet's variant didn't save the selection in some cases.</li>";
-            newfunctions += "<li>If an observer of a sheet had low permission they could still see what variant a sheet had.</li>";
-            newfunctions += "<li>[CtD] What type of art an Art power had wasn't saved correctly</li>";
-            newfunctions += "<li>[MtA] Fixed when sending rote description to chat</li>";
-        }
-
-        if (_compareVersion(installedVersion, '3.2.3')) {
-            newfunctions += "<li>Fixed so people with limited view could not see set sheet variant.</li>";
-            newfunctions += "<li>Fixed problems causing duplicate variant windows to open on Changelings and Changing breed sheets.</li>";
-            newfunctions += "<li>Fixed problems with creating items to existing sheets.</li>";
-            newfunctions += "<li>Fixed problems with new translation functions.</li>";
-        }     */    
+        } */           
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
