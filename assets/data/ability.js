@@ -106,6 +106,64 @@ export const dataability = {
                 "occult",
                 "politics"
             ]
+        },
+        "classical": {
+            "talents": [
+                "alertness",
+                "athletics", 
+                "awareness",
+                "brawl",
+                "empathy",
+                "expression",
+                "intimidation",
+                "leadership",
+                "streetwise",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "etiquette",
+                "melee",
+                "performance",
+                "stealth",
+                "survival"
+            ],
+            "knowledges": [
+                "academics",
+                "investigation",
+                "law",
+                "medicine",
+                "occult",
+                "politics"
+            ]
+        },
+        "livinggods": {
+            "talents": [
+                "alertness",
+                "athletics", 
+                "awareness",
+                "brawl",
+                "empathy",
+                "expression",
+                "intimidation",
+                "leadership",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "etiquette",
+                "melee",
+                "performance",
+                "stealth",
+                "survival"
+            ],
+            "knowledges": [
+                "investigation",
+                "occult",
+                "politics"
+            ]
         }
     },
     "vampire": {
@@ -211,6 +269,64 @@ export const dataability = {
                 "investigation",
                 "law",
                 "medicine",
+                "occult",
+                "politics"
+            ]
+        },
+        "classical": {
+            "talents": [
+                "alertness",
+                "athletics", 
+                "awareness",
+                "brawl",
+                "empathy",
+                "expression",
+                "intimidation",
+                "leadership",
+                "streetwise",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "etiquette",
+                "melee",
+                "performance",
+                "stealth",
+                "survival"
+            ],
+            "knowledges": [
+                "academics",
+                "investigation",
+                "law",
+                "medicine",
+                "occult",
+                "politics"
+            ]
+        },
+        "livinggods": {
+            "talents": [
+                "alertness",
+                "athletics", 
+                "awareness",
+                "brawl",
+                "empathy",
+                "expression",
+                "intimidation",
+                "leadership",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "etiquette",
+                "melee",
+                "performance",
+                "stealth",
+                "survival"
+            ],
+            "knowledges": [
+                "investigation",
                 "occult",
                 "politics"
             ]

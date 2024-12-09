@@ -178,7 +178,9 @@ export const systemSettings = function() {
         choices: {
 			"modern": game.i18n.localize('wod.era.modern'),
 			"victorian": game.i18n.localize('wod.era.victorian'),
-            "darkages": game.i18n.localize('wod.era.darkages')
+            "darkages": game.i18n.localize('wod.era.darkages'),
+            "classical": game.i18n.localize('wod.era.classical'),
+            "livinggods": game.i18n.localize('wod.era.livinggods')
 		}
 	});
 
@@ -204,6 +206,8 @@ export const systemSettings = function() {
 			"modern": game.i18n.localize('wod.era.modern'),
 			"victorian": game.i18n.localize('wod.era.victorian'),
             "darkages": game.i18n.localize('wod.era.darkages'),
+            "classical": game.i18n.localize('wod.era.classical'),
+            "livinggods": game.i18n.localize('wod.era.livinggods')
 		}
 	});
 
