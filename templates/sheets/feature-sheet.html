@@ -63,15 +63,7 @@
 				{{#if userpermissions.itemAdministrator}}
 					<div class="infobox bioInformationArea floating-label-group">
 						<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
-							{{#select data.system.type}}
-								<option value="">- {{localize "wod.labels.select"}} -</option>
-								<option value="wod.types.background">{{localize "wod.types.background"}}</option>
-								<option value="wod.types.bloodbound">{{localize "wod.types.bloodbound"}}</option>
-								<option value="wod.types.boon">{{localize "wod.types.boon"}}</option>
-								<option value="wod.types.oath">{{localize "wod.types.oath"}}</option>
-								<option value="wod.types.merit">{{localize "wod.types.merit"}}</option>
-								<option value="wod.types.flaw">{{localize "wod.types.flaw"}}</option>
-							{{/select}}
+							{{selectOptions listData.TypeList selected=data.system.type localize=false}}
 						</select>
 						<span class="floating-label">{{localize "wod.labels.type"}}</span>
 					</div>

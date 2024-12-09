@@ -41,11 +41,7 @@
 				{{#if userpermissions.itemAdministrator}}
 					<div class="infobox bioInformationArea floating-label-group">
 						<select class="sheet-infoValues editable" name="system.type">
-							{{#select data.system.type}}
-								<option value="">- {{localize "wod.labels.select"}} -</option>
-								<option value="wod.types.expspent">{{localize "wod.types.expspent"}}</option>
-								<option value="wod.types.expgained">{{localize "wod.types.expgained"}}</option>
-							{{/select}}
+							{{selectOptions listData.Experience selected=data.system.type localize=false}}
 						</select>
 						<span class="floating-label">{{localize "wod.labels.type"}}</span>
 					</div>

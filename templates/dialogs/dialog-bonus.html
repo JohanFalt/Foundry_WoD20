@@ -29,25 +29,7 @@
 
 				<div class="infobox bioInformationArea floating-label-group" data-area="bonustype">
 					<select id="type" class="sheet-infoValues editable selectdata" data-source="type" data-formid="type">
-						{{#select object.bonus.type}}
-							<option value="">- {{localize "wod.labels.select"}} -</option>
-							<optgroup label="{{localize 'wod.attributes.attributes'}}">
-								<option value="attribute_buff">{{localize "wod.labels.bonus.attributebonus"}}</option>
-								<option value="attribute_dice_buff">{{localize "wod.labels.bonus.attributedicebonus"}}</option>
-								<option value="attribute_diff">{{localize "wod.labels.bonus.attributediff"}}</option>
-								<option value="attribute_auto_buff">{{localize "wod.labels.bonus.attributesucc"}}</option>
-							</optgroup>
-							<optgroup label="{{localize 'wod.abilities.abilities'}}">
-								<option value="ability_buff">{{localize "wod.labels.bonus.abilitybonus"}}</option>
-								<option value="ability_diff">{{localize "wod.labels.bonus.abilitydiff"}}</option>
-							</optgroup>
-							<optgroup label="{{localize 'wod.labels.other'}}">
-								<option value="soak_buff">{{localize "wod.labels.bonus.soakbonus"}}</option>						
-								<option value="health_buff">{{localize "wod.labels.bonus.healthbuff"}}</option>
-								<option value="initiative_buff">{{localize "wod.labels.bonus.initbonus"}}</option>
-								<option value="movement_buff">{{localize "wod.labels.bonus.movebonus"}}</option>
-							</optgroup>
-						{{/select}}
+						{{selectOptions listData.BonusLista selected=object.bonus.type localize=false}}
 					</select>
 					<span class="floating-label">{{localize "wod.labels.type"}}</span>
 				</div>	
@@ -118,21 +100,7 @@
 
 						<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.abilities.abilities"}}</label>
 						<select id="bonus_settingtype" class="sheet-infoValues item editable selectdata" data-formid="bonus_settingtype" data-source="settingtype" data-dtype="String">
-							{{#select object.bonus.settingtype}}
-								{{#each config.talents as | name type|}}
-									<option value="{{type}}">{{localize name}}</option>
-								{{/each}}
-								{{#each config.skills as | name type|}}
-									{{#if (ne type "technology")}}
-										<option value="{{type}}">{{localize name}}</option>
-									{{/if}}
-								{{/each}}
-								{{#each config.knowledges as | name type|}}
-									{{#if (ne type "research")}}
-										<option value="{{type}}">{{localize name}}</option>
-									{{/if}}
-								{{/each}}
-							{{/select}}
+							{{selectOptions listData.AbilityList selected=object.bonus.settingtype localize=false}}
 						</select>
 					{{/if}}
 				</div>

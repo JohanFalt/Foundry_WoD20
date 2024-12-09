@@ -1,8 +1,146 @@
 export default class SelectHelper {
-    static SetupItem(data) {
+    static SetupItem(data, isCharacter = false) {
         let listData = [];
 
+        // Items
+        if (data.type == "Feature") {
+            listData.TypeList = [
+            {
+                value: "", 
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            },
+            {
+                value: "wod.types.background", 
+                label: game.i18n.localize("wod.types.background"), 
+                group: game.i18n.localize("wod.labels.other")
+            },
+            {
+                value: "wod.types.merit", 
+                label: game.i18n.localize("wod.types.merit"), 
+                group: game.i18n.localize("wod.labels.other")
+            },
+            {
+                value: "wod.types.flaw", 
+                label: game.i18n.localize("wod.types.flaw"), 
+                group: game.i18n.localize("wod.labels.other")
+            },
+            {
+                value: "wod.types.bloodbound", 
+                label: game.i18n.localize("wod.types.bloodbound"), 
+                group: game.i18n.localize("wod.games.vampire")
+            },
+            {
+                value: "wod.types.boon", 
+                label: game.i18n.localize("wod.types.boon"), 
+                group: game.i18n.localize("wod.games.vampire")
+            },
+            {
+                value: "wod.types.oath", 
+                label: game.i18n.localize("wod.types.oath"), 
+                group: game.i18n.localize("wod.games.changeling")
+            }];
+        }
+
+        if (data.type == "Fetish") {
+            listData.TypeList = [{
+                value: "wod.types.fetish", 
+                label: game.i18n.localize("wod.types.fetish")
+            },
+            {
+                value: "wod.types.talen", 
+                label: game.i18n.localize("wod.types.talen")
+            }];
+        }    
+        
+        if (data.type == "Item") {
+            listData.TypeList = [
+            {
+                value: "", 
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            },
+            {
+                value: "wod.types.treasure", 
+                label: game.i18n.localize("wod.types.treasure"), 
+                group: game.i18n.localize("wod.games.changeling")
+            },
+            {
+                value: "wod.types.device", 
+                label: game.i18n.localize("wod.gear.device"), 
+                group: game.i18n.localize("wod.games.mage")
+            },
+            {
+                value: "wod.types.talisman", 
+                label: game.i18n.localize("wod.gear.talisman"), 
+                group: game.i18n.localize("wod.games.mage")
+            },
+            {
+                value: "wod.types.periapt", 
+                label: game.i18n.localize("wod.gear.periapt"), 
+                group: game.i18n.localize("wod.games.mage")
+            },
+            {
+                value: "wod.types.matrix", 
+                label: game.i18n.localize("wod.gear.matrix"), 
+                group: game.i18n.localize("wod.games.mage")
+            },
+            {
+                value: "wod.types.trinket", 
+                label: game.i18n.localize("wod.gear.trinket"), 
+                group: game.i18n.localize("wod.games.mage")
+            }];
+        }
+
+        if (data.type == "Trait") {
+            listData.TypeList = [
+            {
+                value: "", 
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            },
+            {
+                value: "wod.types.realms", 
+                label: game.i18n.localize("wod.realms.headline"), 
+                group: game.i18n.localize("wod.games.changeling")
+            },
+            {
+                value: "wod.types.resonance", 
+                label: game.i18n.localize("wod.types.resonance"), 
+                group: game.i18n.localize("wod.games.mage")
+            },
+            {
+                value: "wod.types.passion", 
+                label: game.i18n.localize("wod.types.passion"), 
+                group: game.i18n.localize("wod.games.wraith")
+            },
+            {
+                value: "wod.types.fetter", 
+                label: game.i18n.localize("wod.types.fetter"), 
+                group: game.i18n.localize("wod.games.wraith")
+            },
+            {
+                value: "wod.types.talentsecondability", 
+                label: game.i18n.localize("wod.types.talentsecondability"), 
+                group: game.i18n.localize("wod.labels.custom")
+            },
+            {
+                value: "wod.types.skillsecondability", 
+                label: game.i18n.localize("wod.types.skillsecondability"), 
+                group: game.i18n.localize("wod.labels.custom")
+            },
+            {
+                value: "wod.types.knowledgesecondability", 
+                label: game.i18n.localize("wod.types.knowledgesecondability"), 
+                group: game.i18n.localize("wod.labels.custom")
+            },
+            {
+                value: "wod.types.othertraits", 
+                label: game.i18n.localize("wod.types.othertraits"), 
+                group: game.i18n.localize("wod.labels.other")
+            }];
+        }
+
         if (data.type == "Power") {
+            let type = {};
+
             listData.Games = {
                 "": "- " + game.i18n.localize("wod.labels.select") + " -",
                 "changeling": game.i18n.localize("wod.games.changeling"),
@@ -13,8 +151,6 @@ export default class SelectHelper {
                 "wraith": game.i18n.localize("wod.games.wraith")
             }
             
-            let type = {}
-    
             if (data.system.game == "changeling") {
                 type = {
                     "wod.types.art": game.i18n.localize("wod.types.art"),
@@ -160,8 +296,202 @@ export default class SelectHelper {
             }
     
             listData.Arcanoi = arcanoilist;            
-        }    
+        }
 
+        if (data.type == "Experience") {
+            listData.Experience = {
+                "": "- " + game.i18n.localize("wod.labels.select") + " -",
+                "wod.types.expspent": game.i18n.localize("wod.types.expspent"),
+                "wod.types.expgained": game.i18n.localize("wod.types.expgained")
+            }
+        }
+        
+        // Actors
+        if (isCharacter) {
+            if ((data.type == CONFIG.worldofdarkness.sheettype.werewolf) || (data.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
+                let breedlist = {};
+                let auspicelist = {};
+                let tribelist = {};
+            }
+
+            if (data.type == CONFIG.worldofdarkness.sheettype.mage) {
+                let affiliationlist = {};
+                let sectlist = {};
+                let affinitylist = {};
+            }
+
+            if (data.type == CONFIG.worldofdarkness.sheettype.vampire) {
+                let sectlist = {};
+                let clanlist = {};
+                let generationlist = {};
+
+                // ******** PATHS 
+                let pathlist = {
+                    "": "- " + game.i18n.localize("wod.labels.select") + " -"
+                }
+
+                if (data.system.advantages.path.custom == "") {
+                    let id = "custom";
+                    let name = game.i18n.localize("wod.labels.custompath");
+        
+                    pathlist = Object.assign(pathlist, {[id]: name});
+                }
+                else {
+                    let id = "custom";
+                    let name = data.system.advantages.path.custom;
+        
+                    pathlist = Object.assign(pathlist, {[id]: name});
+                }
+
+                for (const path in game.worldofdarkness.bio.path) {
+                    let id = game.worldofdarkness.bio.path[path];
+                    let name = game.i18n.localize(game.worldofdarkness.bio.path[path]);
+        
+                    pathlist = Object.assign(pathlist, {[id]: name});
+                }
+
+                listData.PathList = pathlist;            
+
+                listData.Conscience = {
+                    "wod.advantages.virtue.conscience": game.i18n.localize("wod.advantages.virtue.conscience"),
+                    "wod.advantages.virtue.conviction": game.i18n.localize("wod.advantages.virtue.conviction")
+                }
+
+                listData.Selfcontrol = {
+                    "wod.advantages.virtue.selfcontrol": game.i18n.localize("wod.advantages.virtue.selfcontrol"),
+                    "wod.advantages.virtue.instinct": game.i18n.localize("wod.advantages.virtue.instinct")
+                }
+            }
+
+            if (data.type == CONFIG.worldofdarkness.sheettype.changeling) {
+                let seeminglist = {};
+                let kithlist = {};
+                let courtlist = {};
+                let affinityrealm = {};
+            }
+
+            if (data.type == CONFIG.worldofdarkness.sheettype.hunter) {
+                let creedlist = {};
+                let primaryvirtue = {};
+            }
+
+            if (data.type == CONFIG.worldofdarkness.sheettype.demon) {
+                let houselist = {};
+                let factionlist = {};
+            }
+        }   
+        // Dialogs and Items
+        else {
+            let abilitylist = [{}];
+
+            for (const ability in CONFIG.worldofdarkness.talents) {
+                let id = CONFIG.worldofdarkness.talents[ability];
+                let name = game.i18n.localize(CONFIG.worldofdarkness.talents[ability]);
+                let group = game.i18n.localize('wod.abilities.talents');
+    
+                const data = {
+                    value: id,
+                    label: name,
+                    group: group
+                };
+    
+                abilitylist.push(data);
+            }
+            for (const ability in CONFIG.worldofdarkness.skills) {
+                if (ability == "technology") continue;
+    
+                let id = CONFIG.worldofdarkness.skills[ability];
+                let name = game.i18n.localize(CONFIG.worldofdarkness.skills[ability]);
+                let group = game.i18n.localize('wod.abilities.skills');
+    
+                const data = {
+                    value: id,
+                    label: name,
+                    group: group
+                };
+    
+                abilitylist.push(data);
+            }
+            for (const ability in CONFIG.worldofdarkness.knowledges) {
+                if (ability == "research") continue;
+    
+                let id = CONFIG.worldofdarkness.knowledges[ability];
+                let name = game.i18n.localize(CONFIG.worldofdarkness.knowledges[ability]);
+                let group = game.i18n.localize('wod.abilities.knowledges');
+    
+                const data = {
+                    value: id,
+                    label: name,
+                    group: group
+                };
+    
+                abilitylist.push(data);
+            }
+    
+            listData.AbilityList = abilitylist;
+    
+            // ******** BONUS
+            listData.BonusLista = [
+                {
+                    value: "", 
+                    label: "- " + game.i18n.localize("wod.labels.select") + " -"
+                },
+                {
+                    value: "attribute_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.attributebonus"), 
+                    //selected: true, 
+                    group: game.i18n.localize("wod.attributes.attributes")
+                },
+                {
+                    value: "attribute_dice_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.attributedicebonus"),
+                    //disabled: true, 
+                    group: game.i18n.localize("wod.attributes.attributes")
+                },
+                {
+                    value: "attribute_diff", 
+                    label: game.i18n.localize("wod.labels.bonus.attributediff"),
+                    group: game.i18n.localize("wod.attributes.attributes")
+                },
+                {
+                    value: "attribute_auto_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.attributesucc"),
+                    group: game.i18n.localize("wod.attributes.attributes")
+                },
+                {
+                    value: "ability_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.abilitybonus"),
+                    group: game.i18n.localize("wod.abilities.abilities")
+                },
+                {
+                    value: "ability_diff", 
+                    label: game.i18n.localize("wod.labels.bonus.abilitydiff"),
+                    group: game.i18n.localize("wod.abilities.abilities")
+                },
+                {
+                    value: "soak_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.soakbonus"),
+                    group: game.i18n.localize("wod.labels.other")
+                },
+                {
+                    value: "health_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.healthbuff"),
+                    group: game.i18n.localize("wod.labels.other")
+                },
+                {
+                    value: "initiative_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.initbonus"),
+                    group: game.i18n.localize("wod.labels.other")
+                },
+                {
+                    value: "movement_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.movebonus"),
+                    group: game.i18n.localize("wod.labels.other")
+                }
+            ];
+        }             
+
+        // ******** VALUES 1-5, 1-9, and so on
         let values = [{
             value: "",
             label: "- " + game.i18n.localize("wod.labels.select") + " -"
@@ -180,15 +510,6 @@ export default class SelectHelper {
         }
 
         listData.Level5Value = values;
-        
-        // listData.Level5Value = {
-        //     "": "- " + game.i18n.localize("wod.labels.select") + " -",
-        //     "1": "1",
-        //     "2": "2",
-        //     "3": "3",
-        //     "4": "4",
-        //     "5": "5"
-        // }
 
         values = [{
             value: "",
@@ -209,16 +530,6 @@ export default class SelectHelper {
 
         listData.Level6Value = values;
 
-        // listData.Level6Value = {
-        //     "": "- " + game.i18n.localize("wod.labels.select") + " -",
-        //     "1": "1",
-        //     "2": "2",
-        //     "3": "3",
-        //     "4": "4",
-        //     "5": "5",
-        //     "6": "6"
-        // }
-
         values = [{
             value: "",
             label: "- " + game.i18n.localize("wod.labels.select") + " -"
@@ -238,19 +549,6 @@ export default class SelectHelper {
 
         listData.Level9Value = values;
 
-        // listData.Level9Value = {
-        //     "": "- " + game.i18n.localize("wod.labels.select") + " -",
-        //     "1": "1",
-        //     "2": "2",
-        //     "3": "3",
-        //     "4": "4",
-        //     "5": "5",
-        //     "6": "6",
-        //     "7": "7",
-        //     "8": "8",
-        //     "9": "9"
-        // }
-
         values = [{
             value: "",
             label: "- " + game.i18n.localize("wod.labels.select") + " -"
@@ -269,20 +567,7 @@ export default class SelectHelper {
         }
 
         listData.Level10Value = values;
-
-        // listData.Level10Value = {
-        //     "": "- " + game.i18n.localize("wod.labels.select") + " -",
-        //     "1": "1",
-        //     "2": "2",
-        //     "3": "3",
-        //     "4": "4",
-        //     "5": "5",
-        //     "6": "6",
-        //     "7": "7",
-        //     "8": "8",
-        //     "9": "9",
-        //     "10": "10"
-        // }       
+     
 
         let difficulty = [{
             value: -1,
