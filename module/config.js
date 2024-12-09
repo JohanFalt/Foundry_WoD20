@@ -18,7 +18,9 @@ wod.sheettype = {
 wod.era = {
     modern: "wod.era.modern",
     victorian: "wod.era.victorian",
-    darkages: "wod.era.darkages"
+    darkages: "wod.era.darkages",
+    classical: "wod.era.classical",
+    livinggods: "wod.era.livinggods"
 }
 
 wod.sheetsettings = {

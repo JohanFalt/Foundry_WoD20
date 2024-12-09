@@ -2385,6 +2385,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.1.3')) {
+            newfunctions += '<li>Adding support for Vampire Classical Era and Age of Living Gods (mortal and vampire sheets). <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/912">[#912]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.1.2')) {
             newfunctions += '<li>Added Realms in the type list as you create/edit Traits (Item).</li>';
             newfunctions += '<li>Added so you can set max value of Traits (Item).</li>';
@@ -3310,6 +3314,40 @@ function translateSecondaryAbility(label) {
     }
 
     /* Knowledges */
+    if (label == "wod.abilities.ancientmedicine") {
+        if (CONFIG.language == "de") {
+            return "Antike Medizin";
+        }
+        if (CONFIG.language == "fr") {
+            return "Médecine Ancienne";
+        }
+        if (CONFIG.language == "it") {
+            return "Medicina Antica";
+        }
+        if (CONFIG.language == "es") {
+            return "Medicina Antigua";
+        }
+        else {
+            return "Ancient Medicine";
+        }
+    }
+    if (label == "wod.abilities.astrology") {
+        if (CONFIG.language == "de") {
+            return "Astrologie";
+        }
+        if (CONFIG.language == "fr") {
+            return "Astrologie";
+        }
+        if (CONFIG.language == "it") {
+            return "Astrologia";
+        }
+        if (CONFIG.language == "es") {
+            return "Astrología";
+        }
+        else {
+            return "Astrology";
+        }
+    }
     if (label == "wod.abilities.bureaucracy") {
         if (CONFIG.language == "de") {
             return "Bürokratie";
@@ -3429,6 +3467,23 @@ function translateSecondaryAbility(label) {
             return "Culture";
         }
     }
+    if (label == "wod.abilities.customs") {
+        if (CONFIG.language == "de") {
+            return "Bräuche";
+        }
+        else if (CONFIG.language == "es") {
+            return "Costumbres";
+        }
+        else if (CONFIG.language == "fr") {
+            return "Coutumes";
+        }
+        else if (CONFIG.language == "it") {
+            return "Usanze";
+        }
+        else {
+            return "Customs";
+        }
+    }
     if (label == "wod.abilities.hearthwisdom") {
         if (CONFIG.language == "de") {
             return "Herzensweisheit";
@@ -3528,6 +3583,57 @@ function translateSecondaryAbility(label) {
             return "Media";
         }
     }
+    if (label == "wod.abilities.mythology") {
+        if (CONFIG.language == "de") {
+            return "Mythologie";
+        }
+        if (CONFIG.language == "fr") {
+            return "Mythologie";
+        }
+        if (CONFIG.language == "it") {
+            return "Mitologia";
+        }
+        if (CONFIG.language == "es") {
+            return "Mitología";
+        }
+        else {
+            return "Mythology";
+        }
+    }
+    if (label == "wod.abilities.philosophy") {
+        if (CONFIG.language == "de") {
+            return "Philosophie";
+        }
+        if (CONFIG.language == "fr") {
+            return "Philosophie";
+        }
+        if (CONFIG.language == "it") {
+            return "Filosofia";
+        }
+        if (CONFIG.language == "es") {
+            return "Filosofía";
+        }
+        else {
+            return "Philosophy";
+        }
+    }
+    if (label == "wod.abilities.ritualistics") {
+        if (CONFIG.language == "de") {
+            return "Ritualistik";
+        }
+        if (CONFIG.language == "fr") {
+            return "Ritualistique";
+        }
+        if (CONFIG.language == "it") {
+            return "Ritualistica";
+        }
+        if (CONFIG.language == "es") {
+            return "Ritualística";
+        }
+        else {
+            return "Ritualistics";
+        }
+    }
     if (label == "wod.abilities.powerbrokering") {
         if (CONFIG.language == "es") {
             return "Juegos de Poder";
@@ -3612,6 +3718,23 @@ function translateSecondaryAbility(label) {
         }
         else {
             return "Vice";
+        }
+    }
+    if (label == "wod.abilities.writing") {
+        if (CONFIG.language == "de") {
+            return "Schreiben";
+        }
+        if (CONFIG.language == "fr") {
+            return "Écriture";
+        }
+        if (CONFIG.language == "it") {
+            return "Scrittura";
+        }
+        if (CONFIG.language == "es") {
+            return "Escritura";
+        }
+        else {
+            return "Writing";
         }
     }
 

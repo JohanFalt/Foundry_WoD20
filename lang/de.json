@@ -62,6 +62,8 @@
             "victorian": "Viktorianische Zeit",
             "wildwest": "Wilder Westen",
             "darkages": "Alte Zeit",
+            "classical": "Klassische Ära",
+			"livinggods": "Zeitalter der Lebenden Götter",
             "changeera": "Sind Sie sicher, dass Sie das Zeitalter wechseln wollen?",
             "changeerahint": "Das Dokument ist bereits auf diese Zeit eingestellt. Sind Sie sicher, dass Sie es zurücksetzen möchten?",
             "mortaleratext": "Sterbliche Standard-Ära",
@@ -145,7 +147,10 @@
             "erasettings": "Ära Einstellungen",
             "erasettingshint": "Die Einstellungen der Welt in Bezug auf das Zeitalter",
             "darkmodesetting": "Darkmode",
-			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)",
+            "fifthedwillpowersetting": "Willpower (5th edition only)",
+			"fifthedwillpowersettinghint": "This is an expansion of the attribute settings that sets how the permanent Willpower is calculated. In 5th edition Willpower is calculated by adding Composure and Resolve. In 20th edition Willpower is a normal stat value.",
+			"usepenaltydamage": "Use health penalties in damage rolls"
         },
         "types": {
             "mortal": "Sterbliche",
@@ -716,10 +721,13 @@
             "survival": "Überleben",
 
             "academics": "Akademisches Wissen",
+            "ancientmedicine": "Antike Medizin",
+            "astrology": "Astrologie",
             "bureaucracy": "Bürokratie",
             "computer": "Computer",
             "cosmology": "Kosmologie",
             "culture": "Kultur",
+            "customs": "Bräuche",
             "enigmas": "Rätsel",
             "esoterica": "Esoterik",
             "finance": "Finanzen",
@@ -730,14 +738,18 @@
             "law": "Gesetzeskenntnis",
             "linguistics": "Sprachen",
             "medicine": "Medizin",
+            "mythology": "Mythologie",
             "occult": "Okkultismus",
+            "philosophy": "Philosophie",
             "politics": "Politik",
             "religion": "Religion",
+            "ritualistics": "Ritualistik",
             "rituals": "Rituale",
             "seneschal": "Seneschal",
             "science": "Naturwissenschaften",
             "technology": "Technologie",
-            "theology": "Theologie"
+            "theology": "Theologie",
+            "writing": "Schreiben"
         },
         "health": {
             "health": "Gesundheit",
@@ -1166,6 +1178,7 @@
             "other": "Andere",
             "both": "Beide",
             "nochange": "No Change",
+            "usewillpower": "Use Willpower",
             "bio": {
                 "wronggeneration": "Keine gültige Generation",
                 "wrongtempgeneration": "Kann Generation nicht über 4 senken",
@@ -1233,6 +1246,8 @@
                 "hasgifts": "Verfügt über Gaben und Riten",
                 "haspowers": "Has special powers",
                 "setdarkages": "Bogen eingestellt zur Alten Zeit!",
+                "setclassical": "Bettwäsche auf das Zeitalter der klassischen Antike einstellen!",
+				"setlivinggods": "Bettwäsche gesetzt auf das Zeitalter der Lebenden Götter!",
                 "setvictorian": "Bogen eingestellt zur Viktorianischen Zeit!",
                 "setwildwest": "Bogen eingestellt zu Wilder Westen!",
                 "setmodern": "Bogen eingestellt zur Moderne",
@@ -1249,11 +1264,17 @@
                     "headline": "Zeitalter",
                     "modern": "Moderne (20th)",
                     "victorian": "Viktorianisches Zeitalter (20th)",
+                    "classical": "Klassisches Zeitalter (20th)",
+					"livinggods": "Zeitalter der Lebenden Götter (20th)",
                     "wildwest": "Wilder Westen (20th)",
                     "darkages": "Alte Zeit (20th)",
                     "infoone": "Eine Änderung dieser Einstellung bedeutet, dass die Fähigkeiten des Bogens neu konfiguriert werden, um dem gewählten Bereich zu entsprechen.",
                     "infotwo": "Dies kann dazu führen, dass vorhandene Fähigkeiten ausgeblendet werden."
-                }
+                },
+				"power": {
+					"maxrating": "Max rating on Powers",
+					"maxratinghint": "This settings set the maximum rating a power can have."
+				}
             },
             "trait": {
                 "meleeweapon": "Aufgelistete Nahkampfwaffe",
@@ -1554,7 +1575,8 @@
             "rollingsoak": "Würfel Absorbation",
             "rollingremainactive": "Würfel, um aktiv zu bleiben",
             "rollingremainactivetext": "Jeder Erfolg heilt eine Stufe Lebenspunkte von jeder Art von Schaden. Unabhängig davon, wie viel Schaden geheilt wird, gerät der Charakter in einen Berserkerrausch. Ein Werwolf erhält eine Kampfnarbe, wenn er erfolgreich aktiv bleibt.",
-            "addedautosucc": "Der Wurf addiert {0} automatische Erfolge"
+            "addedautosucc": "Der Wurf addiert {0} automatische Erfolge",
+            "usingwillpower": "Using Willpower"
         },
         "dialog": {
             "save": "speichern",
