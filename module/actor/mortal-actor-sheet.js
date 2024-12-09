@@ -198,6 +198,16 @@ export class MortalActorSheet extends ActorSheet {
 			.find(".sheet_darkages")
 			.click(this._setDarkAges.bind(this));	
 
+		// set era Classical Ages
+		html
+			.find(".sheet_classical")
+			.click(this._setClassical.bind(this));
+
+		// set era Age of Living Gods
+		html
+			.find(".sheet_livinggods")
+			.click(this._setLivingGods.bind(this));
+
 		// set era Modern
 		html
 			.find(".sheet_modern")
@@ -299,6 +309,86 @@ export class MortalActorSheet extends ActorSheet {
 			actorData.system.settings.era = CONFIG.worldofdarkness.era.darkages;
 			await this.actor.update(actorData);
 			ui.notifications.info(game.i18n.localize("wod.labels.settings.setdarkages"));
+		}
+	}
+
+	async _setLivingGods(event) {
+		event.preventDefault();
+
+		if (this.actor.system.settings.era == CONFIG.worldofdarkness.era.livinggods) {
+			const performDelete = await new Promise((resolve) => {
+				Dialog.confirm({
+					title: game.i18n.localize("wod.era.changeera"),
+					yes: () => resolve(true),
+					no: () => resolve(false),
+					content: game.i18n.localize("wod.era.changeerahint")
+				});
+			});
+
+			if (!performDelete)
+            	return;
+		}        
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+		let found = false;
+
+		const actorData = foundry.utils.duplicate(this.actor);
+
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.vampire) {
+			found = true;
+			await CreateHelper.SetVampireAbilities(actorData, this.actor, "livinggods");
+		}
+
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
+			found = true;
+			await CreateHelper.SetMortalAbilities(actorData, this.actor, "livinggods");
+		}
+		
+		if (found) {
+			actorData.system.settings.era = CONFIG.worldofdarkness.era.livinggods;
+			await this.actor.update(actorData);
+			ui.notifications.info(game.i18n.localize("wod.labels.settings.setlivinggods"));
+		}
+	}
+	
+	async _setClassical(event) {
+		event.preventDefault();
+
+		if (this.actor.system.settings.era == CONFIG.worldofdarkness.era.classical) {
+			const performDelete = await new Promise((resolve) => {
+				Dialog.confirm({
+					title: game.i18n.localize("wod.era.changeera"),
+					yes: () => resolve(true),
+					no: () => resolve(false),
+					content: game.i18n.localize("wod.era.changeerahint")
+				});
+			});
+
+			if (!performDelete)
+            	return;
+		}        
+
+		const element = event.currentTarget;
+		const dataset = element.dataset;
+		let found = false;
+
+		const actorData = foundry.utils.duplicate(this.actor);
+
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.vampire) {
+			found = true;
+			await CreateHelper.SetVampireAbilities(actorData, this.actor, "classical");
+		}
+
+		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
+			found = true;
+			await CreateHelper.SetMortalAbilities(actorData, this.actor, "classical");
+		}
+		
+		if (found) {
+			actorData.system.settings.era = CONFIG.worldofdarkness.era.classical;
+			await this.actor.update(actorData);
+			ui.notifications.info(game.i18n.localize("wod.labels.settings.setclassical"));
 		}
 	}
 
