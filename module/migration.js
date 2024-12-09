@@ -2385,6 +2385,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.1.3')) {
+            newfunctions += '<li>Adding support for Vampire Classical Era and Age of Living Gods (mortal and vampire sheets). <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/912">[#912]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.1.2')) {
             newfunctions += '<li>Added Realms in the type list as you create/edit Traits (Item).</li>';
             newfunctions += '<li>Added so you can set max value of Traits (Item).</li>';
