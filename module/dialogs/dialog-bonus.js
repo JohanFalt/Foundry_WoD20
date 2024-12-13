@@ -47,7 +47,7 @@ export class DialogBonus extends FormApplication {
             data.object.sheettype = "werewolfDialog";
         }
 
-        data.listData = SelectHelper.SetupItem(this.actor);
+        data.listData = SelectHelper.SetupItem(this.object.item);
 
         return data;
     }

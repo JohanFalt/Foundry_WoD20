@@ -2384,6 +2384,10 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+		
+		if (_compareVersion(installedVersion, '4.1.4')) {
+            newfunctions += '<li>Fixed bug that caused problem creating bonus to item not connected to actor. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/917">[#917]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '4.1.3')) {
             newfunctions += '<li>Adding support for Vampire Classical Era and Age of Living Gods (mortal and vampire sheets). <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/912">[#912]</a></li>';
