@@ -13,39 +13,49 @@
 	<div class="pullLeft" style="width: 33%;">
 
 		{{#if data.system.settings.haspath}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+			{{{getGetStatArea actor actor.system.advantages.path "path" true true false}}}
 		{{/if}}
 
 		{{#if data.system.settings.hasrage}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+			{{{getGetStatArea actor actor.system.advantages.rage "rage" true true true}}}
 		{{/if}}
 
 		{{#if data.system.settings.hasgnosis}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+			{{{getGetStatArea actor actor.system.advantages.gnosis "gnosis" true true true}}}
 		{{/if}}
 
 		{{#if data.system.settings.hasglamour}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_glamour.html"}}
+			{{{getGetStatArea actor actor.system.advantages.glamour "glamour" true true true}}}
 		{{/if}}
 
 		{{#if data.system.settings.hasnightmare}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_nightmare.html"}}
+			{{{getGetStatArea actor actor.system.advantages.nightmare "nightmare" false false true}}}
 		{{/if}}
 	
 		{{#if data.system.settings.haswillpower}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+			{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 		{{/if}}
 
-		{{#if data.system.settings.hasbloodpool}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+		{{#if data.system.settings.hasfaith}}
+			{{{getGetStatArea actor actor.system.advantages.faith "faith" true true true}}}
+		{{/if}}
+
+		{{#if (and data.system.settings.hasbloodpool (ne data.system.settings.variant "earthbound"))}}
+			{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}
+		{{else}}
+			{{{getGetStatArea actor actor.system.advantages.bloodpool "faithpool" false false true}}}
+		{{/if}}
+
+		{{#if data.system.settings.hastorment}}
+			{{{getGetStatArea actor actor.system.advantages.torment "torment" false true true}}}
 		{{/if}}
 
 		{{#if data.system.settings.hasbanality}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_banality.html"}}
+			{{{getGetStatArea actor actor.system.advantages.banality "banality" true true true}}}
 		{{/if}}
 
         {{#if actor.system.settings.hasessence}}
-            {{> "systems/worldofdarkness/templates/actor/parts/stats_essence.html"}}
+			{{{getGetStatArea actor actor.system.advantages.essence "essence" false false true}}}
 		{{/if}}
 
 	</div>

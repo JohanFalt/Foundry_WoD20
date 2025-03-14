@@ -72,6 +72,10 @@
                                 <option value="gnosis">{{localize "wod.advantages.gnosis"}}</option>
                             {{/if}}                            
 
+                            {{#if (eqAny data.system.type "wod.types.shapeform")}}
+                                <option value="essence">{{localize "wod.advantages.essence"}}</option>
+                            {{/if}}
+
                             {{#if (eqAny data.system.type "wod.types.disciplinepower" "disciplinepathpower" "wod.types.power")}}
                                 <option value="path">{{localize "wod.advantages.path.headline"}}</option>
                                 <option disabled>- {{captilize (localize "wod.advantages.virtue.headline")}} </option>
@@ -88,7 +92,8 @@
             </div>	
         </div>		
         
-        {{#if (ne data.system.type "wod.types.arcanoipower")}}
+        <!-- Not using dice2 in their powers -->
+        {{#if (and (ne data.system.type "wod.types.arcanoipower") (ne data.system.type "wod.types.hekaupower") (ne data.system.type "wod.types.numinapower"))}}
 
             <div class="pullLeft" style="margin-right: 10px;">
                 <div class="bioInformationArea floating-label-group">

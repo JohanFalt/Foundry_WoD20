@@ -154,13 +154,13 @@ export class DialogWeapon extends FormApplication {
 
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog weapon-dialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-weapon.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-weapon.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -316,11 +316,11 @@ export class DialogWeapon extends FormApplication {
         this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty -= parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = true;
         }
         else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty += parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = false;
         }
 
@@ -334,6 +334,11 @@ export class DialogWeapon extends FormApplication {
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
         this.render();
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setDifficulty(event) {
@@ -485,6 +490,7 @@ export class DialogWeapon extends FormApplication {
 
         const weaponRoll = new DiceRollContainer(this.actor);
         weaponRoll.attribute = this.object.dice1;
+        weaponRoll.ability = this.object.dice2;
 
         if (this.object.weaponType == "Damage") {
             let prevtext = false;

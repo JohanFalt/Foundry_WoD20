@@ -1,6 +1,6 @@
 <div class="clearareaBox" style="margin-top: 10px;">
-    <div class="headlineGroup splatFont" data-area="apocalypticforms" style="text-align: center;">
-        {{localize "wod.advantages.apocalypticforms"}}
+    <div class="sheet-headline sheet-banner-small splatFont" data-area="apocalypticforms" style="text-align: center;">
+        <span class="sheet-banner-text">{{localize "wod.advantages.apocalypticforms"}}</span>
         <i class="headlineNormal pullRight pointer icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.apocalypticform'}}" aria-hidden="true" data-itemtype="Trait" data-type="apocalypticform"></i>
     </div>
         
@@ -9,21 +9,14 @@
         {{#each actor.system.listdata.forms as |form id|}}
             <div class="clearareaBox form-apocalyptic" data-area="apocalypticform{{id}}">
                 <div class="pullLeft item-activeBox">
-                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked form.system.isactive}}></input>
+                    <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked form.isactive}}></input>
                 </div>
                 <div class="pullLeft form-apocalyptic-name headlineNormal">{{form.name}}</div>
-                <div class="pullLeft headlineNormal tooltip">
-                    <i class="icon fa-solid fa-memo"></i>
-                    <span class="tooltiptext">
-                        {{#if (ne form.system.description "")}}
-                            <b>{{localize "wod.labels.description"}}:</b> {{{form.system.description}}}
-                        {{/if}}
-                    </span>
-                </div>
+                {{{getToolTip form.description form.details form.bonuses actor}}}
                 <div class="pullLeft pointer">
                     <a class="send-chat" 
                         title="{{localize 'wod.labels.send'}}"
-                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                        data-itemid="{{form._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                 </div>
                 {{#if (eq ../locked false)}}
                     <div class="pullLeft pointer">

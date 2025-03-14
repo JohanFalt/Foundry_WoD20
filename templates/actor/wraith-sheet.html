@@ -13,7 +13,7 @@
 
 			<!-- Menu -->
 			<div class="navigation pullLeft">
-				{{#if (eq actor.limited false)}}
+				{{#if (not actor.limited)}}
 					<!-- Lock/Unlock -->
 					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
 				{{/if}}
@@ -42,6 +42,8 @@
 
 				<!-- Core Normal -->
 				<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
+
+					<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
 					
 					<!-- Core Attributes -->
 					<div class="sheet-area flex-columns">
@@ -59,19 +61,19 @@
 
 							<div class="pullLeft" style="width: 33%;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/wraith/stats_pathos.html"}}
+								{{{getGetStatArea actor actor.system.advantages.pathos "pathos" false false true}}}
 						
 							</div>
 
 							<div class="pullLeft" style="width: 33%;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+								{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 
 							</div>
 							
 							<div class="pullLeft" style="width: 33%;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/wraith/stats_corpus.html"}}
+								{{{getGetStatArea actor actor.system.advantages.corpus "corpus" false true true}}}
 								
 								<div class="sheet-headline headlineGroup splatFont" style="margin-top: auto;">
 									<div>
@@ -86,6 +88,8 @@
 
 				<!-- Death Tab -->
 				<div class="tab death sheet-inner-area" data-group="primary" data-tab="death">
+
+					<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
 					{{> "systems/worldofdarkness/templates/actor/parts/wraith/death.html"}}
 
@@ -116,6 +120,13 @@
 				<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">
 
 					{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
+
+				</div>
+
+				<!-- Effect Tab -->
+				<div class="tab effect sheet-inner-area" data-group="primary" data-tab="effect">
+
+					{{> "systems/worldofdarkness/templates/actor/parts/effect.html"}} 	
 
 				</div>
 				

@@ -10,6 +10,7 @@ wod.sheettype = {
     demon: "Demon",
     wraith: "Wraith",
     mummy: "Mummy",
+    exalted: "Exalted",
     creature: "Creature",
     changingbreed: "Changing Breed",
     spirit: "Spirit"
@@ -28,6 +29,9 @@ wod.sheetsettings = {
 }
 
 wod.variant = {
+    vampire: {
+        kindredeast: "wod.bio.vampire.kindredeast"
+    },
     changeling: {
         dauntain: "wod.bio.changeling.dauntain",
         thallain: "wod.bio.changeling.thallain",
@@ -38,6 +42,16 @@ wod.variant = {
     },
     wraith: {
         shadow: "wod.bio.wraith.shadow"
+    },
+    exalted: {
+        solar: "wod.bio.exalted.solar",
+        lunar: "wod.bio.exalted.lunar",
+        dragon: "wod.bio.exalted.dragon",
+        sidereal: "wod.bio.exalted.sidereal",
+        abyssal: "wod.bio.exalted.abyssal",
+        infernal: "wod.bio.exalted.infernal",
+        alchemical: "wod.bio.exalted.alchemical",
+        liminal: "wod.bio.exalted.liminal",
     },
     changingbreed: {
         Ajaba: "wod.bio.feraname.ajaba",
@@ -56,6 +70,8 @@ wod.variant = {
 		Grondr: "wod.bio.feraname.grondr"
     },
     mortal: {
+        orpheus: "wod.bio.mortal.orpheus",
+        sorcerer: "wod.bio.mortal.sorcerer",
         autumnpeople: "wod.bio.mortal.autumnpeople",
         enchanted: "wod.bio.mortal.enchanted",
         ghoul: "wod.bio.mortal.ghoul",
@@ -71,7 +87,8 @@ wod.variant = {
         anurana: "wod.bio.creature.anurana",
         samsa: "wod.bio.creature.samsa",
         kerasi: "wod.bio.creature.kerasi",
-        yeren: "wod.bio.creature.yeren"
+        yeren: "wod.bio.creature.yeren",
+        earthbound: "wod.bio.creature.earthbound"
     }
 }
 
@@ -269,6 +286,7 @@ wod.bonus = {
     ability_buff: "wod.labels.bonus.abilitybonus",
     ability_diff: "wod.labels.bonus.abilitydiff",
     soak_buff: "wod.labels.bonus.soakbonus",
+    soak_diff: "wod.labels.bonus.soakdiffbonus",
     health_buff: "wod.labels.bonus.healthbuff",
     initiative_buff: "wod.labels.bonus.initbonus",
     movement_buff: "wod.labels.bonus.movebonus"

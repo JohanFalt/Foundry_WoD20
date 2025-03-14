@@ -30,7 +30,7 @@ export class DialogShapeChange extends FormApplication {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog shapechange-dialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-shapechange.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-shapechange.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -79,6 +79,11 @@ export class DialogShapeChange extends FormApplication {
         this.object.canRoll = await this._calculateDifficulty();
 
         this.render();
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setDifficulty(event) {
@@ -173,26 +178,6 @@ export class DialogShapeChange extends FormApplication {
     }    
 
     async _calculateDifficulty() {
-        // if (this.object.selectedShape == "homid") {
-        //     this.object.difficulty = 6;
-        // }
-        // else if (this.object.selectedShape == "glabro") {
-        //     this.object.difficulty = 7;
-        // }
-        // else if (this.object.selectedShape == "crinos") {
-        //     this.object.difficulty = 6;
-        // }
-        // else if (this.object.selectedShape == "hispo") {
-        //     this.object.difficulty = 7;
-        // }
-        // else if (this.object.selectedShape == "lupus") {
-        //     this.object.difficulty = 6;
-        // }
-        // else {
-        //     this.object.difficulty = 0;            
-        //     return false;
-        // }	
-
         if (this.actor.system.shapes.homid.isactive) {
             this.object.difficulty = 6;
         }

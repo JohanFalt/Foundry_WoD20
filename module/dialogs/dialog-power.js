@@ -346,7 +346,6 @@ export class ArcanoiPower {
         this.specialityText = "";        
 
         this.name = item["name"];
-        //this.type = item["type"];
         this.type = item.system["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
@@ -364,7 +363,92 @@ export class ArcanoiPower {
     }
 }
 
-ArcanoiPower
+export class HekauPower {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";        
+
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+
+        this.parentid = item.system["parentid"];
+
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "mummyDialog";
+    }
+}
+
+export class NuminaPower {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";        
+
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+
+        this.parentid = item.system["parentid"];
+
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "mageDialog";
+    }
+}
+
+export class ExaltedPower {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";        
+
+        this.name = item["name"];
+        this.type = item.system["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+
+        this.parentid = item.system["parentid"];
+
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "exaltedDialog";
+    }
+}
 
 export class DialogPower extends FormApplication {
     constructor(actor, power) {
@@ -385,13 +469,13 @@ export class DialogPower extends FormApplication {
 
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog power-dialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-power.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-power.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -406,9 +490,7 @@ export class DialogPower extends FormApplication {
         let specialityText = "";
 
         data.actorData = this.actor.system;
-        data.config = CONFIG.worldofdarkness;
-
-        
+        data.config = CONFIG.worldofdarkness;        
 
         // is dice1 an Attributes
         if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
@@ -528,10 +610,10 @@ export class DialogPower extends FormApplication {
                 }
             }
         }
-        else if (data.object.type == "wod.types.arcanoipower") {
-            const arcanoi = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
-            data.object.abilityValue = parseInt(arcanoi.system.value);
-            data.object.abilityName = arcanoi.name;
+        else if ((data.object.type == "wod.types.arcanoipower") || (data.object.type == "wod.types.hekaupower") || (data.object.type == "wod.types.numinapower")) {
+            const power = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
+            data.object.abilityValue = parseInt(power.system.value);
+            data.object.abilityName = power.name;
         }
 
         if (data.object.hasSpeciality) {
@@ -606,21 +688,26 @@ export class DialogPower extends FormApplication {
             this.object.nightmareReplace = parseInt(formData["select_nightmaredice"]);
         }
         
-        this.object.useSpeciality = formData["specialty"];
+        this.object.useSpeciality = formData["specialty"];          // om ändrad???
         this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty -= parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = true;
         }
         else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty += parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = false;
         }
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
         this.render();
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setDifficulty(event) {
@@ -712,6 +799,8 @@ export class DialogPower extends FormApplication {
         let template = [];
         let extraInfo = [];
 
+        let selectedRealms = [];
+
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
             return;
@@ -752,7 +841,9 @@ export class DialogPower extends FormApplication {
                 extraInfo.push(`${game.i18n.localize('wod.dialog.power.unleashing')}`);
             }
 
-            extraInfo.push(`${game.i18n.localize(this.object.selectedarttype)}`);
+            if (this.object.selectedarttype != undefined) {
+                extraInfo.push(`${game.i18n.localize(this.object.selectedarttype)}`);
+            }            
         }
 
         const numDices = parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus);
@@ -772,7 +863,8 @@ export class DialogPower extends FormApplication {
 
         const powerRoll = new DiceRollContainer(this.actor);
         powerRoll.action = this.object.name;
-        powerRoll.attribute = this.object.dice1;        
+        powerRoll.attribute = this.object.dice1;     
+        powerRoll.ability = this.object.abilityKey;   
         powerRoll.origin = "power";
         powerRoll.numDices = numDices;
         powerRoll.numSpecialDices = numSpecialDices;

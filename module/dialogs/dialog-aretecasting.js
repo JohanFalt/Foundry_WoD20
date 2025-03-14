@@ -186,13 +186,13 @@ export class DialogAreteCasting extends FormApplication {
 
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog aretecasting-dialog mageDialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-aretecasting.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-aretecasting.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -223,6 +223,11 @@ export class DialogAreteCasting extends FormApplication {
         html
             .find('.closebutton')
             .click(this._closeForm.bind(this));
+    }
+    
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setupDotCounters(html) {

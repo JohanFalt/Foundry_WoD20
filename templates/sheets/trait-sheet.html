@@ -14,7 +14,7 @@
 						{{/if}}
 					</div>
 
-					<div class="pullLeft" style="display: flex; width: 200px;">
+					<div class="pullLeft" style="display: flex; width: 300px;">
 
 						<div class="area-box">
 
@@ -29,7 +29,7 @@
 						</div>	
 					</div>
 
-					{{#if (eqAny data.system.type "wod.types.othertraits" "wod.types.apocalypticform" "wod.types.fetter" "wod.types.passion" "wod.types.resonance")}}
+					{{#if (eqAny data.system.type "wod.types.othertraits" "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "wod.types.fetter" "wod.types.passion" "wod.types.resonance")}}
 						<div class="pullRight" style="width: auto;">
 							{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}		
 						</div>
@@ -46,7 +46,7 @@
 
 				<!-- type -->
 				{{#if userpermissions.itemAdministrator}}
-					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apocalypticform" "wod.types.fetter" "wod.types.passion")}}
+					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "wod.types.fetter" "wod.types.passion")}}
 						<div class="infobox bioInformationArea floating-label-group">
 							<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
 								{{selectOptions listData.TypeList selected=data.system.type localize=false}}
@@ -56,17 +56,21 @@
 					{{/if}}
 				{{/if}}
 
-				<div class="bioInformationArea floating-label-group">
-					<select class="sheet-infoValues editable" name="system.max" data-dtype="String">
-						{{selectOptions listData.Level9Value selected=data.system.max localize=false}}
-					</select>
-					<span class="floating-label">{{localize "wod.labels.settings.power.maxrating"}}</span>
-				</div>
+				{{#if (eqAnyNot data.system.type "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "")}}
+					<div class="bioInformationArea floating-label-group">
+						<select class="sheet-infoValues editable" name="system.max" data-dtype="String">
+							{{selectOptions listData.Level9Value selected=data.system.max localize=false}}
+						</select>
+						<span class="floating-label">{{localize "wod.labels.settings.power.maxrating"}}</span>
+					</div>					
+				{{/if}}
 
-				<div class="infobox bioInformationArea floating-label-group">
-					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
-					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
-				</div>
+				{{#if (eqAnyNot data.system.type "")}}
+					<div class="infobox bioInformationArea floating-label-group">
+						<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+						<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
+					</div>
+				{{/if}}
 
 				<!-- if weapon -->
 				{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}
@@ -87,7 +91,7 @@
 				{{> "systems/worldofdarkness/templates/sheets/parts/item_bonus.html"}}
 			{{/if}}
 
-			{{#if (eq data.system.type "wod.types.othertraits")}}
+			{{#if (eqAny data.system.type "wod.types.othertraits" "wod.types.shapeform" "wod.types.aspect")}}
 
 				{{> "systems/worldofdarkness/templates/sheets/parts/item_bonus.html"}}
 

@@ -54,7 +54,8 @@
 } 
 
 .wod20 .item-notice,
-.wod20 .item-create {
+.wod20 .item-create,
+.wod20 .fa-toggle-on {
   color: rgb(5, 99, 5);
 }
 
@@ -62,7 +63,8 @@
   color: rgb(183, 121, 5)
 }
 
-.wod20 .item-delete {
+.wod20 .item-delete,
+.wod20 .fa-toggle-off {
   color: rgb(167, 2, 2);
 }
 
@@ -284,7 +286,10 @@
   .wod-dialog:not(.minimized) {
     min-width: 400px;
     width: 400px;    
-    overflow: scroll;
+  }
+
+  .wod20 .window-content {
+    overflow: auto;
   }
 }
 
@@ -302,6 +307,10 @@
   .wod-dialog:not(.minimized) {
     min-height: 400px;
     height: 400px;    
+  }
+
+  .wod20 .window-content {
+    overflow: auto;
   }
 }
 

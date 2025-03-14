@@ -1,0 +1,86 @@
+{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+
+    <div class="pullLeft" style="display: flex; width: 320px;">
+        <div class="pullLeft area-box">
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.caste}}" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.caste" type="text" value="{{data.system.caste}}" data-name="data.system.caste" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                {{#if (eq actor.system.settings.variant "infernal")}}
+                    <span class="floating-label">{{localize "wod.bio.exalted.urge"}}</span>
+                {{else}}
+                    <span class="floating-label">{{localize "wod.bio.exalted.caste"}}</span>
+                {{/if}}
+            </div>
+
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.anima}}" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.anima" type="text" value="{{data.system.anima}}" data-name="data.system.anima" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.exalted.anima"}}</span>
+            </div>
+
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.circle}}" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.circle" type="text" value="{{data.system.circle}}" data-name="data.system.circle" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.exalted.circle"}}</span>
+            </div>
+
+            {{#if (eqAnyNot actor.system.settings.variant "alchemical")}}
+
+                <div class="bioInformationArea floating-label-group">
+                    {{#if locked}}
+                        <input class="sheet-infoValues" type="text" value="{{data.system.favoredcharm}}" autocomplete="off" autofocus required />
+                    {{else}}
+                        <input class="sheet-infoValues editable" name="system.favoredcharm" type="text" value="{{data.system.favoredcharm}}" data-name="data.system.favoredcharm" data-dtype="String" autocomplete="off" autofocus required />
+                    {{/if}}
+                    <span class="floating-label">{{localize "wod.bio.exalted.favored"}}</span>
+                </div>
+
+            {{/if}}
+        </div>
+    </div>
+
+
+    
+
+    <div class="clearareaBox area-box">
+
+        <div>
+            <label class="headlineText splatFont" for="data.system.intimacy">{{localize "wod.bio.exalted.intimacy"}}</label>
+            <div class="clearareaBox">
+                {{#if locked}}
+                    <div class="headlineNormal textarea {{#if (eq actor.system.intimacy '')}}small{{/if}}">{{{actor.system.intimacy}}}</div>
+                {{else}}
+                    {{editor actor.system.intimacy target="system.intimacy" button=false owner=owner editable=true}}
+                {{/if}}				
+            </div>
+        </div>
+    </div>
+
+    <div class="clearareaBox area-box">
+        <div>
+            {{#if (eq actor.system.settings.variant "infernal")}}
+                <label class="headlineText splatFont" for="data.system.animapowers">{{localize "wod.bio.exalted.crown"}}</label>
+            {{else}}
+                <label class="headlineText splatFont" for="data.system.animapowers">{{localize "wod.bio.exalted.animapowers"}}</label>
+            {{/if}}
+            
+            <div class="clearareaBox">
+                {{#if locked}}
+                    <div class="headlineNormal textarea {{#if (eq actor.system.animapowers '')}}small{{/if}}">{{{actor.system.animapowers}}}</div>
+                {{else}}
+                    {{editor actor.system.animapowers target="system.animapowers" button=false owner=owner editable=true}}
+                {{/if}}				
+            </div>
+        </div>
+    </div>
+
+{{/if}}

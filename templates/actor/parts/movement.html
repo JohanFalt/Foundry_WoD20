@@ -1,12 +1,12 @@
 <div class="pullLeft">
     <div class="pullLeft">
-        <div class="clearareaBox">
+        <div class="clearareaBox movementBox">
             <div class="pullLeft headlineList splatFont" style="width: 100px;">{{localize "wod.combat.movement.walk"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.walk}}</div>
         </div>
-        <div class="clearareaBox">
+        <div class="clearareaBox movementBox">
             <div class="pullLeft headlineList splatFont" style="width: 100px;">{{localize "wod.combat.movement.jog"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.jog}}</div>
         </div>
-        <div class="clearareaBox">
+        <div class="clearareaBox movementBox">
             <div class="pullLeft headlineList splatFont" style="width: 100px;">{{localize "wod.combat.movement.run"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.run}}</div>
         </div>
         {{#if (gt actor.system.movement.fly 0)}}
@@ -16,10 +16,10 @@
         {{/if}}
     </div>
     <div class="pullLeft">
-        <div class="clearareaBox">
+        <div class="clearareaBox movementBox">
             <div class="pullLeft headlineList splatFont" style="width: 250px;">{{localize "wod.combat.movement.vjump"}}</div><div class="pullLeft headlineNormal">{{actor.system.movement.vjump}}</div>
         </div>
-        <div class="clearareaBox">
+        <div class="clearareaBox movementBox">
             <div class="pullLeft headlineList splatFont" style="width: 250px;">{{localize "wod.combat.movement.hjump"}}</div><div class="pullLeft headlineNormal">{{actor.system.movement.hjump}}</div>
         </div>
     </div>

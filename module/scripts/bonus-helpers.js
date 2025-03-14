@@ -13,7 +13,26 @@ export default class BonusHelper {
         return bonusList;
     }
 
-    static async CreateAttributeBuff(id, name, attribute, value, isactive) {
+    static async CreateAttributeDiff(id, name, attribute, value, isactive, version) {
+        let itemData;
+
+        itemData = {
+            name: name,
+            type: "Bonus",				
+            system: {
+                parentid: id,
+                settingtype: attribute,
+                type: "attribute_diff",
+                value: value,
+                isactive: isactive,
+                version: version
+            }
+        };
+
+        return itemData;
+    }
+
+    static async CreateAttributeBuff(id, name, attribute, value, isactive, version) {
         let itemData;
 
         itemData = {
@@ -24,14 +43,15 @@ export default class BonusHelper {
                 settingtype: attribute,
                 type: "attribute_buff",
                 value: value,
-                isactive: isactive
+                isactive: isactive,
+                version: version
             }
         };
 
         return itemData;
     }
 
-    static async CreateSoakBuff(id, name, value, isactive) {
+    static async CreateSoakBuff(id, name, value, isactive, version) {
         let itemData;
 
         itemData = {
@@ -41,14 +61,33 @@ export default class BonusHelper {
                 parentid: id,
                 type: "soak_buff",
                 value: value,
-                isactive: isactive
+                isactive: isactive,
+                version: version
             }
         };
 
         return itemData;
     }
 
-    static async CreateAbilityBuff(id, name, ability, value, isactive) {
+    static async CreateSoakDiff(id, name, value, isactive, version) {
+        let itemData;
+
+        itemData = {
+            name: name,
+            type: "Bonus",				
+            system: {
+                parentid: id,
+                type: "soak_diff",
+                value: value,
+                isactive: isactive,
+                version: version
+            }
+        };
+
+        return itemData;
+    }
+
+    static async CreateAbilityBuff(id, name, ability, value, isactive, version) {
         let itemData;
 
         itemData = {
@@ -59,7 +98,8 @@ export default class BonusHelper {
                 settingtype: ability,
                 type: "ability_buff",
                 value: value,
-                isactive: isactive
+                isactive: isactive,
+                version: version
             }
         };
 
@@ -138,7 +178,7 @@ export default class BonusHelper {
         return false;
     }    
 
-    static async CheckAbilityBonus(actor, ability) {
+    static async CheckAbilityDiff(actor, ability) {
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_diff") && (i.system.settingtype == ability)) {
 				return true;
@@ -146,7 +186,19 @@ export default class BonusHelper {
 
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
-                    if ((i.system.bonuslist[x].type == "ability_diff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                    if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == ability)) {
+                        return true;
+                    }
+
+                    if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.talents[ability])) {
+                        return true;
+                    }
+
+                    if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.skills[ability])) {
+                        return true;
+                    }
+
+                    if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.knowledges[ability])) {
                         return true;
                     }
 				}
@@ -165,6 +217,18 @@ export default class BonusHelper {
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
                     if ((i.system.bonuslist[x].type == "ability_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                        return true;
+                    }
+
+                    if ((i.system.bonuslist[x]?.type == "ability_buff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.talents[ability])) {
+                        return true;
+                    }
+
+                    if ((i.system.bonuslist[x]?.type == "ability_buff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.skills[ability])) {
+                        return true;
+                    }
+
+                    if ((i.system.bonuslist[x]?.type == "ability_buff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.knowledges[ability])) {
                         return true;
                     }
 				}
@@ -201,6 +265,24 @@ export default class BonusHelper {
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
                     if ((i.system.bonuslist[x].type == "soak_buff") && (i.system.bonuslist[x].isactive)) {
+                        return true;
+                    }
+				}
+			}
+		}
+
+        return false;
+    }
+
+    static async CheckSoakDiff(actor) {
+        for (const i of actor.items) {
+			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_diff")) {
+				return true;
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "soak_diff") && (i.system.bonuslist[x].isactive)) {
                         return true;
                     }
 				}
@@ -326,17 +408,25 @@ export default class BonusHelper {
         return bonus; 
     }
 
-    static async GetAbilityBonus(actor, ability) {
+    static async GetAbilityDiff(actor, ability) {
         let bonus = 0;
 
         for (const i of actor.items) {
-			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_diff") && (i.system.settingtype == ability)) {
+			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_diff") && (i.system?.settingtype == ability)) {
 				bonus += parseInt(i.system.value);
 			}
-
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
-                    if ((i.system.bonuslist[x].type == "ability_diff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                    if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == ability)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+                    else if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.talents[ability])) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+                    else if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.skills[ability])) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+                    else if ((i.system.bonuslist[x]?.type == "ability_diff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.knowledges[ability])) {
                         bonus += parseInt(i.system.bonuslist[x].value);
                     }
 				}
@@ -353,10 +443,18 @@ export default class BonusHelper {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_buff") && (i.system.settingtype == ability)) {
 				bonus += parseInt(i.system.value);
 			}
-
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
                     if ((i.system.bonuslist[x].type == "ability_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == ability)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+                    else if ((i.system.bonuslist[x]?.type == "ability_buff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.talents[ability])) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+                    else if ((i.system.bonuslist[x]?.type == "ability_buff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.skills[ability])) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+                    else if ((i.system.bonuslist[x]?.type == "ability_buff") && (i.system.bonuslist[x]?.isactive) && (i.system.bonuslist[x]?.settingtype == CONFIG.worldofdarkness.knowledges[ability])) {
                         bonus += parseInt(i.system.bonuslist[x].value);
                     }
 				}
@@ -406,17 +504,37 @@ export default class BonusHelper {
         return bonus; 
     }
 
-    static async GetHealthlevelsBuff(actor) {
+    static async GetSoakDiff(actor) {
         let bonus = 0;
 
         for (const i of actor.items) {
-			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "health_buff")) {
+			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_diff")) {
 				bonus += parseInt(i.system.value);
 			}
 
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
-                    if ((i.system.bonuslist[x].type == "health_buff") && (i.system.bonuslist[x].isactive)) {
+                    if ((i.system.bonuslist[x].type == "soak_diff") && (i.system.bonuslist[x].isactive)) {
+                        bonus += parseInt(i.system.bonuslist[x].value);
+                    }
+				}
+			}
+		}
+
+        return bonus; 
+    }
+
+    static async GetHealthlevelsBuff(actor, healthlevel) {
+        let bonus = 0;
+
+        for (const i of actor.items) {
+			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "health_buff") && (i.system.settingtype == healthlevel)) {
+				bonus += parseInt(i.system.value);
+			}
+
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == "health_buff") && (i.system.bonuslist[x].settingtype == healthlevel) && (i.system.bonuslist[x].isactive)) {
                         bonus += parseInt(i.system.bonuslist[x].value);
                     }
 				}
@@ -444,6 +562,43 @@ export default class BonusHelper {
 		}
 
         return bonus; 
+    }
+
+    static GetAllAttributeBonus(actor, bonuslist, type) {
+        for (const i of actor.items) {
+			if ((i.type == "Bonus") && (i.system.type == type)) {
+                i.origin = "";
+				bonuslist.push(i);
+			}   
+            
+            if (i.system.bonuslist.length > 0) {
+				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
+                    if ((i.system.bonuslist[x].type == type)) {
+                        let itemData = {
+                            name: i.system.bonuslist[x].name,
+                            type: "Bonus",	
+                            _id: i._id,
+                            system: {
+                                isremovable: false,
+                                iscreated: true,
+                                isactive: i.system.bonuslist[x].isactive,
+                                version: i.system.version,
+                                parentid: i._id,
+                                settingtype: i.system.bonuslist[x].settingtype,
+                                type: type,
+                                value: parseInt(i.system.bonuslist[x].value)
+                            }
+                        };
+    
+                        let item = new Item(itemData);
+                        item.origin = i.name;
+                        bonuslist.push(item);
+                    }
+				}
+			}
+		}
+
+        return bonuslist; 
     }
 
     static async EditBonus(actor, item, id) {

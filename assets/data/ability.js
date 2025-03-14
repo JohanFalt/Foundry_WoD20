@@ -735,5 +735,179 @@ export const dataability = {
                 "technology"
             ]
         }
+    },
+    "orpheus": { 
+        "modern": {
+            "talents": [
+                "alertness",
+                "athletics",
+                "awareness",
+                "brawl", 
+                "empathy",
+                "expression",
+                "intimidation",
+                "intuition", 
+                "leadership",
+                "streetwise",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "drive",
+                "etiquette",
+                "firearms",
+                "meditation",
+                "melee",
+                "performance",
+                "security",	
+                "stealth",
+                "survival",
+                "technology"
+            ],
+            "knowledges": [
+                "academics",
+                "bureaucracy",
+                "computer",
+                "enigmas",
+                "finance",
+                "investigation",
+                "law",
+                "linguistics", 
+                "medicine",
+                "occult",
+                "politics",
+                "science"                
+            ]
+        }
+    },
+    "sorcerer": { 
+        "modern": {
+            "talents": [
+                "alertness",
+				"art",
+				"athletics",
+				"awareness",
+				"brawl",
+				"empathy",
+				"expression",
+				"intimidation",
+				"leadership",
+				"streetwise",
+				"subterfuge"
+            ],
+            "skills": [
+                "craft",
+				"drive",
+				"etiquette",
+				"firearms",
+				"martialarts",
+				"meditation",
+				"melee",
+				"research",
+				"stealth",
+				"survival",
+				"technology"
+            ],
+            "knowledges": [
+                "academics",
+				"computer",
+				"cosmology", 
+				"enigmas",
+				"esoterica",
+				"investigation",
+				"law",
+				"medicine",
+				"occult",
+				"politics",
+				"science"
+            ]
+        }
+    },
+    "mummy": {
+        "modern": {
+            "talents": [
+                "alertness",
+                "athletics",
+                "awareness",
+                "brawl", 
+                "dodge",
+                "empathy",
+                "expression",
+                "intimidation",
+                "intuition", 
+                "leadership",
+                "streetwise",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "drive",
+                "etiquette",
+                "firearms",
+                "meditation",
+                "melee",
+                "performance",
+                "security",	
+                "stealth",
+                "survival",
+                "technology"
+            ],
+            "knowledges": [
+                "academics",
+                "bureaucracy",
+                "computer",
+                "cosmology",
+                "enigmas",
+                "investigation",
+                "law",
+                "linguistics", 
+                "medicine",
+                "occult",
+                "research",
+                "science"   
+            ]
+        }     
+    },
+    "exalted": {
+        "modern": {
+            "talents": [
+                "alertness",
+                "athletics",
+                "awareness",
+                "brawl", 
+                "empathy",
+                "expression",
+                "intimidation",
+                "leadership",
+                "streetwise",
+                "subterfuge"
+            ],
+            "skills": [
+                "animalken",
+                "craft",
+                "drive",
+                "etiquette",
+                "firearms",
+                "larceny",
+                "melee",
+                "performance",
+                "stealth",
+                "survival"
+            ],
+            "knowledges": [
+                "academics",
+                "computer",
+                "finance",
+                "investigation",
+                "law",
+                "medicine",
+                "occult",
+                "politics",
+                "science",
+                "technology"
+            ]
+        }     
     }
 }

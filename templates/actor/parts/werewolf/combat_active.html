@@ -10,14 +10,7 @@
                 data-itemid="{{item._id}}">{{item.name}}</div>
 
         <div class="gift-iconbox">
-            <div class="pullLeft pointer headlineNormal tooltip">
-                <i class="icon fa-solid fa-memo"></i>
-                <span class="tooltiptext">
-                    {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
-                    <br /><br />
-                    {{#if (ne item.system.details "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                </span>
-            </div>
+            {{{getToolTip item.system.description item.system.details}}}
             <div class="pullLeft">
                 <a class="send-chat" 
                     title="{{localize 'wod.labels.send'}}" 

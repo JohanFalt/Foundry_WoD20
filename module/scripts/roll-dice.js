@@ -4,72 +4,71 @@ import CombatHelper from "./combat-helpers.js";
 let _diceColor;
 let _specialDiceType = "";
 
-function _GetDiceColors(actor) {	
+function _GetDiceColors(actor) {
+
+	let diceType = actor?.type.toLowerCase();	
+
+	if (actor?.system?.settings?.dicesetting != "") {
+		diceType = actor?.system.settings.dicesetting;
+	}
+
+	_diceColor = "black_";
 
 	if (actor == undefined) {
 		_diceColor = "black_";
 	}		
-	else if (actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
+	if ((actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.changeling) && (actor.system.settings.dicesetting == "")) { 
 		_diceColor = "blue_";
-	} 
-	else if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == "Changing Breed")) {
+	}
+	if ((actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.werewolf) && (actor.system.settings.dicesetting == "")) {
 		_diceColor = "brown_";
 	}
-	else if (actor.type == CONFIG.worldofdarkness.sheettype.mage) { 
+	if ((actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.mage) && (actor.system.settings.dicesetting == "")) { 
 		_diceColor = "purple_";
 	}
-	else if (actor.type == CONFIG.worldofdarkness.sheettype.vampire) { 
+	if ((actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.vampire) && (actor.system.settings.dicesetting == "")) { 
 		_diceColor = "red_";
 	}
-	else if (actor.type == CONFIG.worldofdarkness.sheettype.changeling) { 
-		_diceColor = "blue_";
-		_specialDiceType = "black_";
-	}
-	else if ((actor.type == CONFIG.worldofdarkness.sheettype.hunter) || (actor.type == CONFIG.worldofdarkness.sheettype.demon)) { 
-		_diceColor = "orange_";
-	}
-	else if (actor.type == CONFIG.worldofdarkness.sheettype.wraith) { 
+	if ((actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.wraith) && (actor.system.settings.dicesetting == "")) { 
 		_diceColor = "death_";
 	}
-	// else if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) { 
-	// 	_diceColor = "yellow_";
-	// }		
-	else {
+
+	if (diceType == CONFIG.worldofdarkness.sheettype.mortal.toLowerCase()) {
+		_diceColor = "blue_";
+	} 
+	if ((diceType == CONFIG.worldofdarkness.sheettype.werewolf.toLowerCase()) || (diceType == "changing breed")) {
+		_diceColor = "brown_";
+	}
+	if (diceType == CONFIG.worldofdarkness.sheettype.mage.toLowerCase()) { 
+		_diceColor = "purple_";
+	}
+	if (diceType == CONFIG.worldofdarkness.sheettype.vampire.toLowerCase()) { 
+		_diceColor = "red_";
+	}
+	if (diceType == CONFIG.worldofdarkness.sheettype.changeling.toLowerCase()) { 
+		_diceColor = "blue_";
+		_specialDiceType = "black_";
+	}	
+	if ((diceType == CONFIG.worldofdarkness.sheettype.hunter.toLowerCase()) || (diceType == CONFIG.worldofdarkness.sheettype.demon.toLowerCase())) { 
+		_diceColor = "orange_";
+	}
+	if ((diceType == CONFIG.worldofdarkness.sheettype.wraith.toLowerCase()) || (actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.wraith)) { 
+		_diceColor = "death_";
+	}
+	if (diceType == CONFIG.worldofdarkness.sheettype.mummy.toLowerCase()) { 
+		_diceColor = "yellow_";
+	}
+	if (diceType == "none") {
 		_diceColor = "black_";
 	}
 }
-
-/* global ChatMessage, Roll, game */
-// export class DiceRoll {
-//     constructor(actor) {
-// 		this.actor = actor;  			// rolling actor
-// 		this.origin = "";    			// where did the roll come from
-// 		this.attribute = "";
-
-// 		this.handlingOnes = false;		// how should Ones handle?
-// 		this.numDices = 0;				// number dice called for
-// 		this.targetlist = [];			// number of targets in a lists or results
-// 		this.difficulty = 6;			// difficulty of the roll
-// 		this.woundpenalty = 0;  				// wound penalty of the roll
-
-// 		this.numSpecialDices = 0;		// how many of the numDices are to show a special type
-// 		this.specialDiceText = "";		// what text should the dice have
-
-// 		this.speciality = false;			// speciality roll?
-// 		this.specialityText = "";
-
-// 		this.templateHTML = "";				// this shown chat text
-// 		this.systemText = "";			// if there are a system text to be shown		
-
-// 		this.rollDamage = "";
-//     }
-// }
 
 /* klassen som man använder för att skicka in information in i RollDice */
 export class DiceRollContainer {
     constructor(actor) {
 		this.actor = actor; 	// rolling actor
-		this.attribute = "";
+		this.attribute = "noselected";
+		this.ability = "noselected";
 		this.dicetext = [];
 		this.bonus = 0;
 		this.extraInfo = [];
@@ -113,6 +112,7 @@ export async function NewRollDice(diceRoll) {
 	let bonusSuccesses = 0;
 	let rolledOne = false;
 	let rolledAnySuccesses = false;
+	let isfavorited = false;
 	let canBotch = true;
 	let rollResult = "";
 	let info = [];
@@ -203,8 +203,15 @@ export async function NewRollDice(diceRoll) {
 					success += 1;
 				}
 				else if (dice.result == 1) {
-					if ((CONFIG.worldofdarkness.handleOnes) && (canBotch)) {
+					if ((CONFIG.worldofdarkness.handleOnes) && (canBotch) && 
+							(!actor.system.attributes[diceRoll.attribute]?.isfavorited) && (!actor.system.attributes[diceRoll.ability]?.isfavorited) && 
+							(!actor.system.abilities[diceRoll.attribute]?.isfavorited) && (!actor.system.abilities[diceRoll.ability]?.isfavorited)) {
 						success--;
+					}
+					// special rules regardingh Exalted
+					else if ((actor.system.attributes[diceRoll.attribute]?.isfavorited) || (actor.system.attributes[diceRoll.ability]?.isfavorited) && 
+							(actor.system.abilities[diceRoll.attribute]?.isfavorited) || (actor.system.abilities[diceRoll.ability]?.isfavorited)) {
+						isfavorited = true;
 					}
 		
 					rolledOne = true;
@@ -223,7 +230,10 @@ export async function NewRollDice(diceRoll) {
 			});
 		}
 
-		if (success < 0) {
+		if ((usewillpower) && (success < 1)) {
+			success = 1;
+		}
+		else if (success < 0) {
 			success = 0;
 		}
 
@@ -285,21 +295,6 @@ export async function NewRollDice(diceRoll) {
 
 	difficulty = `${game.i18n.localize("wod.labels.difficulty")}: ${difficulty}`;
 
-	// if (diceRoll.origin != "damage") {
-	// 	if (success > 0) {
-	// 		rollResult = "success";
-	// 	}
-	// 	else if ((CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
-	// 		rollResult = "botch";
-	// 	}
-	// 	else if ((!CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (canBotch)) {
-	// 		rollResult = "botch";
-	// 	}
-	// 	else {
-	// 		rollResult = "fail";
-	// 	}	
-	// }
-
 	for (const property of diceRoll.extraInfo) {
 		info.push(property);
 	}
@@ -320,6 +315,9 @@ export async function NewRollDice(diceRoll) {
 		let text = game.i18n.localize("wod.dice.addedautosucc");
 		info.push(text.replace("{0}", bonusSuccesses));
 	}
+	if (isfavorited) {
+		info.push(game.i18n.localize("wod.dice.favored"));
+	}
 
 	/* needs dividing - dice info , extra info and system texts */
 
@@ -336,7 +334,7 @@ export async function NewRollDice(diceRoll) {
     };
 
     // Render the chat card template
-    const template = `systems/worldofdarkness/templates/dialogs/roll-template.html`;
+    const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
     const html = await renderTemplate(template, templateData);
 
     const chatData = {
@@ -453,7 +451,7 @@ export async function InitiativeRoll(diceRoll) {
     };
 
     // Render the chat card template
-    const template = `systems/worldofdarkness/templates/dialogs/roll-template.html`;
+    const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
     const html = await renderTemplate(template, templateData);
 
     const chatData = {

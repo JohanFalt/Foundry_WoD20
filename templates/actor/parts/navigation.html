@@ -1,71 +1,88 @@
 <div>
 	{{#if (eq actor.system.settings.variant 'shadow')}}
 		<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-			<a id="tabcore" class="item" data-tab="core" title="{{localize 'wod.tab.core'}}">{{> (dtSvgDie 'stats' actor.type)}}</a>
+			<a id="tabcore" class="item" data-tab="core" title="{{localize 'wod.tab.core'}}">{{> (dtSvgDie 'stats' actor.type actor.system.settings.variantsheet)}}</a>
 
-			{{#if (eq actor.limited false)}}
-				<a id="tabsettings" class="item" data-tab="settings" title="{{localize 'wod.tab.settings'}}"></a>
+			{{#if (not actor.limited)}}
+				<a id="tabsettings" class="item" data-tab="settings" data-tab-area="trait" title="{{localize 'wod.tab.settings'}}">{{> (dtSvgDie 'settings' actor.type actor.system.settings.variantsheet)}}</a>
 			{{/if}}
-			<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item" title="Wiki">{{> (dtSvgDie 'dice' actor.type)}}</a>
+			<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item" title="Wiki">{{> (dtSvgDie 'dice' actor.type actor.system.settings.variantsheet)}}</a>
 		</nav>
 	{{else}}
 		{{#if (eq (checkSystemsetting "viewBiotabPermission") "full")}}
 			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-				<a id="tabbio" class="item" data-tab="bio" title="{{localize 'wod.tab.bio'}}">{{> (dtSvgDie 'bio' actor.type)}}</a>
-				<a id="tabcore" class="item" data-tab="core" title="{{localize 'wod.tab.core'}}">{{> (dtSvgDie 'stats' actor.type)}}</a>
+				<a id="tabbio" class="item" data-tab="bio" data-tab-area="general" title="{{localize 'wod.tab.bio'}}">{{> (dtSvgDie 'bio' actor.type actor.system.settings.variantsheet)}}</a>
+				<a id="tabcore" class="item" data-tab="core" data-tab-area="general" title="{{localize 'wod.tab.core'}}">{{> (dtSvgDie 'stats' actor.type actor.system.settings.variantsheet)}}</a>
 
 				{{#if (eq actor.type config.sheettype.mage)}}
-					<a id="tabmagic" class="item" data-tab="magic" title="{{localize 'wod.tab.magic'}}">{{> (dtSvgDie 'magic' actor.type)}}</a>
+					<a id="tabmagic" class="item" data-tab="magic" data-tab-area="rote" title="{{localize 'wod.tab.magic'}}">{{> (dtSvgDie 'magic' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if actor.system.settings.powers.hasdisciplines}}
-					<a id="tabdisciplines" class="item" data-tab="discipline" title="{{localize 'wod.tab.disciplines'}}">{{> (dtSvgDie 'discipline' actor.type)}}</a>
+					<a id="tabdisciplines" class="item" data-tab="discipline" data-tab-area="power" title="{{localize 'wod.tab.disciplines'}}">{{> (dtSvgDie 'discipline' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
-					<a id="tabshapechange" class="item" data-tab="shapechange" title="{{localize 'wod.tab.shapechange'}}">{{> (dtSvgDie 'shapechange' actor.type)}}</a>
+					<a id="tabshapechange" class="item" data-tab="shapechange" data-tab-area="general" title="{{localize 'wod.tab.shapechange'}}">{{> (dtSvgDie 'shapechange' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if (eqAny actor.type config.sheettype.wraith)}}
-					<a id="tabdeath" class="item" data-tab="death" title="{{localize 'wod.tab.death'}}">{{> (dtSvgDie 'death' actor.type)}}</a>
+					<a id="tabdeath" class="item" data-tab="death" data-tab-area="power" title="{{localize 'wod.tab.death'}}">{{> (dtSvgDie 'death' actor.type actor.system.settings.variantsheet)}}</a>
+				{{/if}}
+
+				{{#if (eqAny actor.system.settings.variant "orpheus")}}
+					<a id="tabdeath" class="item" data-tab="death" data-tab-area="power" title="{{localize 'wod.tab.death'}}">{{> (dtSvgDie 'death' actor.type actor.system.settings.variantsheet)}}</a>
+				{{/if}}
+
+				{{#if actor.system.settings.powers.hashekau}}
+					<a id="tabscarab" class="item" data-tab="scarab" data-tab-area="power" title="{{localize 'wod.tab.hekau'}}">{{> (dtSvgDie 'scarab' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if actor.system.settings.powers.hascharms}}
-					<a id="tabcharms" class="item" data-tab="charms" title="{{localize 'wod.tab.charms'}}">{{> (dtSvgDie 'power' actor.type)}}</a>	
+					<a id="tabcharms" class="item" data-tab="charms" data-tab-area="power" title="{{localize 'wod.tab.charms'}}">{{> (dtSvgDie 'power' actor.type actor.system.settings.variantsheet)}}</a>	
 				{{/if}}
 
 				{{#if actor.system.settings.powers.hasgifts}}
-					<a id="tabgifts" class="item" data-tab="gift" title="{{localize 'wod.tab.gifts'}}">{{> (dtSvgDie 'gift' actor.type)}}</a>	
+					<a id="tabgifts" class="item" data-tab="gift" data-tab-area="power" title="{{localize 'wod.tab.gifts'}}">{{> (dtSvgDie 'gift' actor.type actor.system.settings.variantsheet)}}</a>	
 				{{/if}}
 
 				{{#if actor.system.settings.powers.hasarts}}
-					<a id="tabdreaming" class="item" data-tab="dreaming" title="{{localize 'wod.tab.dreaming'}}">{{> (dtSvgDie 'dreaming' actor.type)}}</a>
+					<a id="tabdreaming" class="item" data-tab="dreaming" data-tab-area="power" title="{{localize 'wod.tab.dreaming'}}">{{> (dtSvgDie 'dreaming' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if actor.system.settings.powers.hasedges}}
-					<a id="tabedges" class="item" data-tab="edge" title="{{localize 'wod.tab.edge'}}">{{> (dtSvgDie 'edge' actor.type)}}</a>
+					<a id="tabedges" class="item" data-tab="edge" data-tab-area="power" title="{{localize 'wod.tab.edge'}}">{{> (dtSvgDie 'edge' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if actor.system.settings.powers.haslores}}
-					<a id="tablore" class="item" data-tab="lore" title="{{localize 'wod.tab.lore'}}">{{> (dtSvgDie 'lore' actor.type)}}</a>
+					<a id="tablore" class="item" data-tab="lore" data-tab-area="power" title="{{localize 'wod.tab.lore'}}">{{> (dtSvgDie 'lore' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 						
 				{{#if actor.system.settings.powers.haspowers}}
-					<a id="tabpowers" class="item" data-tab="power" title="{{localize 'wod.tab.power'}}">{{> (dtSvgDie 'power' actor.type)}}</a>
+					<a id="tabpowers" class="item" data-tab="power" data-tab-area="power" title="{{localize 'wod.tab.power'}}">{{> (dtSvgDie 'power' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
-				<a id="tabcombat" class="item" data-tab="combat" title="{{localize 'wod.tab.combat'}}">{{> (dtSvgDie 'combat' actor.type)}}</a>
-				<a id="tabgear" class="item" data-tab="gear" title="{{localize 'wod.tab.gear'}}">{{> (dtSvgDie 'gear' actor.type)}}</a>		
-				<a id="tabnotes" class="item" data-tab="note" title="{{localize 'wod.tab.notes'}}">{{> (dtSvgDie 'note' actor.type)}}</a>
-			
-				{{#if (eq actor.limited false)}}
-					<a id="tabsettings" class="item" data-tab="settings" title="{{localize 'wod.tab.settings'}}">{{> (dtSvgDie 'settings' actor.type)}}</a>
+				{{#if actor.system.settings.powers.hasnumina}}
+					<a id="tabnumina" class="item" data-tab="numina" data-tab-area="power" title="{{localize 'wod.tab.numina'}}">{{> (dtSvgDie 'magic' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
-				<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item" title="Wiki">{{> (dtSvgDie 'dice' actor.type)}}</a>
+
+				{{#if (eq actor.type config.sheettype.exalted)}}
+					<a id="tabexaltedcharm" class="item" data-tab="exaltedcharm" data-tab-area="power" title="{{localize 'wod.tab.exaltedcharm'}}">{{> (dtSvgDie 'exaltedcharm' actor.type actor.system.settings.variantsheet)}}</a>
+				{{/if}}
+
+				<a id="tabcombat" class="item" data-tab="combat" data-tab-area="item" title="{{localize 'wod.tab.combat'}}">{{> (dtSvgDie 'combat' actor.type actor.system.settings.variantsheet)}}</a>
+				<a id="tabgear" class="item" data-tab="gear" data-tab-area="item" title="{{localize 'wod.tab.gear'}}">{{> (dtSvgDie 'gear' actor.type actor.system.settings.variantsheet)}}</a>		
+				<a id="tabnotes" class="item" data-tab="note" data-tab-area="feature" title="{{localize 'wod.tab.notes'}}">{{> (dtSvgDie 'note' actor.type actor.system.settings.variantsheet)}}</a>
+				<a id="tabeffects" class="item" data-tab="effect" data-tab-area="bonus" title="{{localize 'wod.tab.effect'}}">{{> (dtSvgDie 'effect' actor.type actor.system.settings.variantsheet)}}</a>
+			
+				{{#if (not actor.limited)}}
+					<a id="tabsettings" class="item" data-tab="settings" data-tab-area="trait" title="{{localize 'wod.tab.settings'}}">{{> (dtSvgDie 'settings' actor.type actor.system.settings.variantsheet)}}</a>
+				{{/if}}
+				<a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item" title="Wiki">{{> (dtSvgDie 'dice' actor.type actor.system.settings.variantsheet)}}</a>
 			</nav>	
 		{{else}}
 			<nav class="sheet-tabs tabs headlineTabs" data-group="primary">
-				<a id="tabbio" class="item" data-tab="bio" title="{{localize 'wod.tab.bio'}}">{{> (dtSvgDie 'bio' actor.type)}}</a>
+				<a id="tabbio" class="item" data-tab="bio" title="{{localize 'wod.tab.bio'}}">{{> (dtSvgDie 'bio' actor.type actor.system.settings.variantsheet)}}</a>
 			</nav>
 		{{/if}}
 	{{/if}}

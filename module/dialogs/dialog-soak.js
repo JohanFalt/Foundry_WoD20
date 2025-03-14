@@ -2,14 +2,13 @@ import { NewRollDice } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class Soak {
-    constructor(actor) {
+    constructor(actor, difficulty) {
         this.canRoll = false;
         this.close = false;
         this.useChimerical = false;
 
-        this.difficulty = 6;
+        this.difficulty = difficulty;
         this.bonus = 0;
-
         this.damageKey = "bashing";
         this.attributeValue = 0;
         this.attributeBonus = 0;
@@ -32,13 +31,13 @@ export class DialogSoakRoll extends FormApplication {
     }
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog soak-dialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-soak.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-soak.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -117,6 +116,11 @@ export class DialogSoakRoll extends FormApplication {
         this.object.useWillpower = formData["useWillpower"];
 
         this.getData();
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setDifficulty(event) {

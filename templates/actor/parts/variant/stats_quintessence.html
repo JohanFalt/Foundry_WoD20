@@ -1,0 +1,17 @@
+<div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize 'wod.advantages.quintessence'}}</span></div>
+
+<div class="sheet-boxcontainer">
+	<div class="quintessence resource-counter" data-value="{{data.system.advantages.quintessence.temporary}}" data-name="advantages.quintessence.temporary">
+
+		{{#numLoop data.system.advantages.quintessence.max}}
+		
+			{{#le ../data.system.advantages.quintessence.temporary this}}
+				<span class="quintessence resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state=""></span>
+			{{else}}
+				<span class="quintessence resource-value-step" data-type="{{../config.sheettype.mortal}}" data-index="{{this}}" data-state="x"></span>
+			{{/le}}
+		
+		{{/numLoop}}
+		
+	</div>	
+</div>

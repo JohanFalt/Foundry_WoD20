@@ -1,0 +1,177 @@
+<form class="{{cssClass}} {{sheettype}}" autocomplete="off">
+
+	<div class="sheet-item">
+
+		<header class="sheet-header">
+			<div class="top-area">
+				<div class="clearareaBox top-side">
+					<div class="pullLeft" style="display: flex; width: 300px;">
+
+						<div class="area-box">
+
+							<div class="top-sidetext">
+								{{captilize (localize "wod.labels.bonus.headline")}}
+							</div>
+
+							<div class="bioInformationArea floating-label-group" data-area="bonusname">
+								<input id="bonus_name" class="sheet-infoValues editable inputdata" type="text" value="{{object.bonus.name}}" autocomplete="off" autofocus required data-source="name" data-formid="bonus_name" />
+								<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+							</div>														
+						</div>	
+					</div>
+				</div>				
+			</div>			
+		</header>
+
+		<section class="item-body">
+
+			<div class="dialog-area">
+
+				<div class="infobox bioInformationArea floating-label-group" data-area="bonustype">
+					<select id="type" class="sheet-infoValues editable selectdata" data-source="type" data-formid="type">
+						{{selectOptions listData.BonusLista selected=object.bonus.type localize=false}}
+					</select>
+					<span class="floating-label">{{localize "wod.labels.type"}}</span>
+				</div>	
+
+				<div class="information-area information-box">
+					{{#if (eq object.bonus.type "attribute_buff")}}
+						{{localize "wod.labels.bonus.attributebonushint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "attribute_dice_buff")}}
+						{{localize "wod.labels.bonus.attributebonusdicehint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "attribute_diff")}}
+						{{localize "wod.labels.bonus.attributediffhint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "attribute_auto_buff")}}
+						{{localize "wod.labels.bonus.attributesucchint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "ability_buff")}}
+						{{localize "wod.labels.bonus.abilitybonushint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "ability_diff")}}
+						{{localize "wod.labels.bonus.abilitydiffhint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "soak_buff")}}
+						{{localize "wod.labels.bonus.soakbonushint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "soak_diff")}}
+						{{localize "wod.labels.bonus.soakdiffbonushint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "health_buff")}}
+						{{localize "wod.labels.bonus.soakbonushint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "initiative_buff")}}
+						{{localize "wod.labels.bonus.initbonushint"}}
+					{{/if}}
+					{{#if (eq object.bonus.type "movement_buff")}}
+						{{localize "wod.labels.bonus.movebonushint"}}
+					{{/if}}
+				</div>
+
+				{{#if (eq object.bonus.type "initiative_buff")}}
+
+					<div class="infobox bioInformationArea floating-label-group">
+						<input id="bonus_value" class="sheet-infoValues smallbox editable inputdata" type="text" value="{{object.bonus.value}}" autocomplete="off" autofocus required data-source="value" data-formid="bonus_value" data-dtype="Number" />
+						<span class="floating-label">{{localize "wod.labels.bonus.headline"}}</span>
+					</div>
+
+				{{/if}}
+			</div>
+
+			{{#if (eqAny object.bonus.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "attribute_auto_buff" "ability_buff" "ability_diff")}}
+
+				<div class="dialog-area">
+					{{#if (eqAny object.bonus.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "attribute_auto_buff")}}
+						<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.chosenattribute'}}</div>
+						<div class="centerText">
+							{{#if (eq (checkSystemsetting "attributeSettings") "5th")}}
+								{{#each config.attributeslist as |attribute key|}}
+									<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq ../object.bonus.settingtype key)}}active{{/if}}" data-source="settingtype" data-value="{{key}}">{{localize attribute}}</button>
+								{{/each}}
+							{{/if}}
+							{{#if (eq (checkSystemsetting "attributeSettings") "20th")}}
+								{{#each config.attributes20list as |attribute key|}}
+									<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq ../object.bonus.settingtype key)}}active{{/if}}" data-source="settingtype" data-value="{{key}}">{{localize attribute}}</button>
+								{{/each}}
+							{{/if}}
+						</div>
+					{{/if}}
+
+					{{#if (eqAny object.bonus.type "ability_buff" "ability_diff")}}
+
+						<label class="headlineItem headlineBio splatFont" for="data.type">{{localize "wod.abilities.abilities"}}</label>
+						<select id="bonus_settingtype" class="sheet-infoValues item editable selectdata" data-formid="bonus_settingtype" data-source="settingtype" data-dtype="String">
+							{{selectOptions listData.AbilityList selected=object.bonus.settingtype localize=false}}
+						</select>
+					{{/if}}
+				</div>
+
+			{{/if}}
+
+			<!-- modifier -->
+			
+
+			{{#if (eqAny object.bonus.type "soak_buff" "health_buff" "attribute_auto_buff" "movement_buff")}}
+				<div class="dialog-area">
+					{{#if (eq object.bonus.type "movement_buff")}}
+						<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.movement'}}</div>
+						<div class="infobox">
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'walk')}}active{{/if}}" data-source="settingtype" data-value="walk">{{localize "wod.combat.movement.walk"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'jog')}}active{{/if}}" data-source="settingtype" data-value="jog">{{localize "wod.combat.movement.jog"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'run')}}active{{/if}}" data-source="settingtype" data-value="run">{{localize "wod.combat.movement.run"}}</button>
+							<!-- <button class="button fullSplatColor pointer {{#if (eq ../object.bonus.settingtype 'fly')}}active{{/if}}" value="fly">{{localize "wod.combat.movement.fly"}}</button> -->
+						</div>
+					{{else if (eq object.bonus.type "health_buff")}}
+						<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.healthleveltype'}}</div>
+						<div class="infobox  centerText">
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'bruised')}}active{{/if}}" data-source="settingtype" data-value="bruised">{{localize "wod.health.bruised"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'hurt')}}active{{/if}}" data-source="settingtype" data-value="hurt">{{localize "wod.health.hurt"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'injured')}}active{{/if}}" data-source="settingtype" data-value="injured">{{localize "wod.health.injured"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'wounded')}}active{{/if}}" data-source="settingtype" data-value="wounded">{{localize "wod.health.wounded"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'mauled')}}active{{/if}}" data-source="settingtype" data-value="mauled">{{localize "wod.health.mauled"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'crippled')}}active{{/if}}" data-source="settingtype" data-value="crippled">{{localize "wod.health.crippled"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button actionbutton {{#if (eq object.bonus.settingtype 'incapacitated')}}active{{/if}}" data-source="settingtype" data-value="incapacitated">{{localize "wod.health.incapacitated"}}</button>
+						</div>
+					{{/if}}
+
+					{{#if (eqAny object.bonus.type "soak_buff" "health_buff" "attribute_auto_buff" "movement_buff")}}
+
+						{{#if (eq object.bonus.type "movement_buff")}}
+							<div class="infobox headline splatFont">{{localize "wod.labels.bonus.multiplier"}}</div>
+						{{else}}
+							<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.bonusvalue'}}</div>
+						{{/if}}
+
+						
+						<div class="infobox centerText">
+							{{#numFromLoop 0 10}}
+								<button class="button fullSplatColor pointer item-bonusvalue-button actionbutton {{#if (eq ../object.bonus.value this)}}active{{/if}}" data-source="value" data-value="{{this}}" data-dtype="Number">{{this}}</button>
+							{{/numFromLoop}}
+						</div>
+
+					{{/if}}
+				</div>
+			{{/if}}
+
+			{{#if (eqAny object.bonus.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "ability_buff" "ability_diff" "soak_diff")}}
+				<div class="dialog-area" style="width: 520px;">
+					<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.bonusvalue'}}</div>
+					<div class="centerText" data-area="bonusvalue">
+						{{#numFromLoop -10 10}}
+							<button class="button fullSplatColor pointer item-bonusvalue-button actionbutton {{#if (eq ../object.bonus.value this)}}active{{/if}} {{#if (eq this 0)}}dialog-ten-button{{else}}dialog-one-button{{/if}}" data-source="value" data-value="{{this}}" data-dtype="Number">{{this}}</button>
+						{{/numFromLoop}}
+					</div>
+				</div>
+
+			{{/if}}		
+			
+			<div class="centerText">
+				<button class="button fullSplatColor pointer dialog-two-button {{#if (ne object.cansave true)}}disabled{{else}}savebutton{{/if}}" {{#if (ne object.cansave true)}}disabled{{/if}}>{{localize "wod.dialog.save"}}</button>
+			</div>
+			
+		</section>
+
+	</div>
+</form>

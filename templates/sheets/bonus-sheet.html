@@ -14,7 +14,7 @@
 						{{/if}}
 					</div>
 
-					<div class="pullLeft" style="display: flex; width: 200px;">
+					<div class="pullLeft" style="display: flex; width: 300px;">
 
 						<div class="area-box">
 
@@ -64,6 +64,9 @@
 					{{/if}}
 					{{#if (eq item.system.type "soak_buff")}}
 						{{localize "wod.labels.bonus.soakbonushint"}}
+					{{/if}}
+					{{#if (eq item.system.type "soak_diff")}}
+						{{localize "wod.labels.bonus.soakdiffbonushint"}}
 					{{/if}}
 					{{#if (eq item.system.type "health_buff")}}
 						{{localize "wod.labels.bonus.soakbonushint"}}
@@ -116,18 +119,28 @@
 
 			{{/if}}
 
-			<!-- modifier -->
-			
+			<!-- modifier -->			
 
 			{{#if (eqAny item.system.type "soak_buff" "health_buff" "attribute_auto_buff" "movement_buff")}}
 				<div class="dialog-area">
 					{{#if (eq item.system.type "movement_buff")}}
 						<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.movement'}}</div>
-						<div class="infobox">
+						<div class="infobox centerText">
 							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'walk')}}active{{/if}}" value="walk">{{localize "wod.combat.movement.walk"}}</button>
 							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'jog')}}active{{/if}}" value="jog">{{localize "wod.combat.movement.jog"}}</button>
 							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'run')}}active{{/if}}" value="run">{{localize "wod.combat.movement.run"}}</button>
 							<!-- <button class="button fullSplatColor pointer {{#if (eq ../item.system.settingtype 'fly')}}active{{/if}}" value="fly">{{localize "wod.combat.movement.fly"}}</button> -->
+						</div>
+					{{else if (eq item.system.type "health_buff")}}
+						<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.healthleveltype'}}</div>
+						<div class="infobox  centerText">
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'bruised')}}active{{/if}}" value="bruised">{{localize "wod.health.bruised"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'hurt')}}active{{/if}}" value="hurt">{{localize "wod.health.hurt"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'injured')}}active{{/if}}" value="injured">{{localize "wod.health.injured"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'wounded')}}active{{/if}}" value="wounded">{{localize "wod.health.wounded"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'mauled')}}active{{/if}}" value="mauled">{{localize "wod.health.mauled"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'crippled')}}active{{/if}}" value="crippled">{{localize "wod.health.crippled"}}</button>
+							<button class="button fullSplatColor pointer dialog-attribute-button {{#if (eq item.system.settingtype 'incapacitated')}}active{{/if}}" value="incapacitated">{{localize "wod.health.incapacitated"}}</button>
 						</div>
 					{{/if}}
 
@@ -150,16 +163,15 @@
 				</div>
 			{{/if}}
 
-			{{#if (eqAny item.system.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "ability_buff" "ability_diff")}}
-				<div class="dialog-area">
+			{{#if (eqAny item.system.type "attribute_buff" "attribute_dice_buff" "attribute_diff" "ability_buff" "ability_diff" "soak_diff")}}
+				<div class="dialog-area" style="width: 520px;">
 					<div class="infobox headline splatFont">{{localize 'wod.dialog.bonus.bonusvalue'}}</div>
 					<div class="centerText" data-area="bonusvalue">
-						{{#numFromLoop -5 5}}
-							<button id="value" class="button fullSplatColor pointer item-bonusvalue-button {{#if (eq ../item.system.value this)}}active{{/if}}" value="{{this}}">{{this}}</button>
+						{{#numFromLoop -10 10}}
+							<button id="value" class="button fullSplatColor pointer item-bonusvalue-button {{#if (eq ../item.system.value this)}}active{{/if}} {{#if (eq this 0)}}dialog-ten-button{{else}}dialog-one-button{{/if}}" value="{{this}}">{{this}}</button>
 						{{/numFromLoop}}
 					</div>
 				</div>
-
 			{{/if}}			
 			
 		</section>

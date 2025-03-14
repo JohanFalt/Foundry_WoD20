@@ -116,17 +116,13 @@
   margin-left: 40px;
 }
 
-.mage .item-largebox {
-  width: 200px
-}
-
-.mage .item-poolbox {
-  width: 200px;
-}
-
-.mage .item-valuebox {
-  width: 50px;
-}
+.mage .sheet-banner-small {
+  background: var(--main-wod-banner-small);
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 10px; 
+} 
   
 /* quintessence */
 .quintessence .resource-counter .resource-value-step[data-state="Ψ"] {

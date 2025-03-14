@@ -17,7 +17,7 @@ export default class MessageHelper {
 		};
 	
 		// Render the chat card template
-		const template = `systems/worldofdarkness/templates/dialogs/roll-template.html`;
+		const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
 		const html = await renderTemplate(template, templateData);
 	
 		const chatData = {

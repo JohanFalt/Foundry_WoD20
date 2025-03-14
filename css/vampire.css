@@ -75,6 +75,15 @@
 	font-family: "vampire", var(--main-font);
 }
 
+.vampire:not(.noSplatFont) .experienceValue {
+  font-size: 18px;
+}
+
+.ghoul:not(.noSplatFont) .experienceValue {
+  font-size: 26px;
+  margin-top: 15px;
+}
+
 /* SETTING */
 
 .vampire:not(.noSplatFont) .secondHeadlineTabs {
@@ -83,6 +92,14 @@
   
 .vampire .secondHeadlineTabs {
     width: 25%;
+}
+
+.ghoul:not(.noSplatFont) .secondHeadlineTabs {
+  font-size: 20px !important;
+}
+
+.ghoul .secondHeadlineTabs {
+  width: 20% !important;
 }
 
 /* START - Discipline */

@@ -1,6 +1,6 @@
 {{#if (eq data.type "Power")}}
 
-    {{#if (eqAny data.system.type "wod.types.artpower" "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.combination" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.gift" "wod.types.charm" "wod.types.power")}}
+    {{#if (eqAny data.system.type "wod.types.artpower" "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.combination" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.hekaupower" "wod.types.numinapower" "wod.types.gift" "wod.types.charm" "wod.types.exaltedcharm" "wod.types.power")}}
 
         <div class="dialog-area">
             <div class="clearareaBox">
@@ -10,12 +10,16 @@
                 {{#each data.system.bonuslist as | bonus id|}}
                     <div class="clearareaBox bioInformationArea" style="margin-bottom: 10px;">
                         <div class="pullLeft infobox floating-label-group">
-                            <input class="sheet-infoValues" type="text" value="{{bonus.name}}" />		
+                            <input class="sheet-infoValues smallbox" type="text" value="{{bonus.name}}" />		
                             <span class="floating-label">{{localize "wod.dialog.bonus.name"}}</span>						
                         </div>
                         <div class="pullLeft infobox floating-label-group">
                             <input class="sheet-infoValues" type="text" value="{{getBonusName bonus.type}}" />		
-                            <span class="floating-label">{{localize "wod.dialog.bonus.type"}}</span>						
+                            <span class="floating-label">{{localize "wod.labels.type"}}</span>						
+                        </div>
+                        <div class="pullLeft infobox floating-label-group">
+                            <input class="sheet-infoValues smallbox" type="text" value="{{bonus.settingtype}}" />		
+                            <span class="floating-label">{{localize "wod.dialog.bonus.section"}}</span>						
                         </div>
                         <div class="pullLeft infobox floating-label-group">
                             <input class="sheet-infoValues smallbox" type="text" value="{{bonus.value}}" />		
@@ -37,6 +41,7 @@
     {{/if}}
 
 {{/if}}
+
 {{#if (eqAny data.type "Rote" "Fetish" "Item" "Trait" "Feature")}}
 
     {{#if (ne data.system.type "wod.types.talen")}}
@@ -54,7 +59,7 @@
                         </div>
                         <div class="pullLeft infobox floating-label-group">
                             <input class="sheet-infoValues" type="text" value="{{getBonusName bonus.type}}" />		
-                            <span class="floating-label">{{localize "wod.dialog.bonus.type"}}</span>						
+                            <span class="floating-label">{{localize "wod.labels.type"}}</span>						
                         </div>
                         <div class="pullLeft infobox floating-label-group">
                             <input class="sheet-infoValues smallbox" type="text" value="{{bonus.value}}" />		

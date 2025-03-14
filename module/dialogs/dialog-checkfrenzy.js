@@ -50,13 +50,13 @@ export class DialogCheckFrenzy extends FormApplication {
     }
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog checkfrenzy-dialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-checkfrenzy.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-checkfrenzy.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -112,18 +112,22 @@ export class DialogCheckFrenzy extends FormApplication {
         this.render();
     }
 
+    close() {
+        // do something for 'on close here'
+        super.close()
+    }
+
     _setDifficulty(event) {
         const element = event.currentTarget;
         const parent = $(element.parentNode);
         const steps = parent.find(".dialog-difficulty-button");
         const index = element.value;   
 
-        this.object.totalDifficulty = index;                
-
+        this.object.totalDifficulty = parseInt(index);     
         steps.removeClass("active");
 
         steps.each(function (i) {
-            if (this.value == index) {
+            if (parseInt(this.value) == index) {
                 $(this).addClass("active");
             }
         });
@@ -184,7 +188,7 @@ export class DialogCheckFrenzy extends FormApplication {
             frenzyRoll.usewillpower = false;
             frenzyRoll.difficulty = parseInt(this.object.totalDifficulty);       
 
-            NewRollDice(frenzyRoll);            
+            this.object.numSuccesses += await NewRollDice(frenzyRoll);            
         }
     }
 

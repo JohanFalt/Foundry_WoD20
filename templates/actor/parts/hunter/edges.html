@@ -51,14 +51,7 @@
                                 <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.edgepower'}}" aria-hidden="true" data-itemtype="Power" data-type="edgepower" data-parentid="{{item._id}}"></i>
                             </div>
                         {{/if}}
-                        <div class="pullLeft pointer headlineNormal tooltip">
-                            <i class="icon fa-solid fa-memo"></i>
-                            <span class="tooltiptext">
-                                {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                                <br /><br />
-                                {{/if}}{{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                            </span>
-                        </div>
+                        {{{getToolTip item.system.description item.system.details}}}
                         <div class="pullLeft pointer">
                             <a class="send-chat" 
                                 title="{{localize 'wod.labels.send'}}" 

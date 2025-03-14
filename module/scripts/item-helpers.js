@@ -22,8 +22,6 @@ export default class ItemHelper {
 	}
 
     static async sortActorItems(actor, config) {     
-		console.log("WoD | Sorting Actor items");
-
 		actor.system.listdata = [];
 
 		if (actor.system.listdata.settings == undefined) {
@@ -53,7 +51,6 @@ export default class ItemHelper {
 	static async removeItemBonus(actor, removedItem) {
 		for (const item of actor.items) {
 			if ((item.system.parentid == removedItem._id) && (item.type == "Bonus")) {
-				console.log("Remove bonus " + item.name);
 				await actor.deleteEmbeddedDocuments("Item", [item._id]);
 			}
 		}
@@ -62,7 +59,6 @@ export default class ItemHelper {
 	static async removeConnectedItems(actor, removedItem) {
 		for (const item of actor.items) {
 			if (item.system.parentid == removedItem._id) {
-				console.log("Remove item " + item.name);
 				await actor.deleteEmbeddedDocuments("Item", [item._id]);
 			}
 		}
@@ -109,28 +105,7 @@ export default class ItemHelper {
 		actor.system.listdata.combat.naturalWeapons = [];
 		actor.system.listdata.combat.meleeWeapons = [];
 		actor.system.listdata.combat.rangedWeapons = [];
-		actor.system.listdata.combat.armors = [];
-
-		actor.system.listdata.gear = [];
-
-		actor.system.listdata.gear.fetishlist = [];
-		actor.system.listdata.gear.talenlist = [];
-		actor.system.listdata.gear.treasures = [];
-		actor.system.listdata.gear.devices = [];
-		actor.system.listdata.gear.talismans = [];
-		actor.system.listdata.gear.periapts = [];
-		actor.system.listdata.gear.matrixs = [];
-		actor.system.listdata.gear.trinkets = [];
-
-		actor.system.listdata.features = [];
-
-		actor.system.listdata.features.backgrounds = [];
-		actor.system.listdata.features.merits = [];
-		actor.system.listdata.features.flaws = [];
-		actor.system.listdata.features.bloodbounds = [];
-		actor.system.listdata.features.boons = [];
-		actor.system.listdata.features.oaths = [];
-		
+		actor.system.listdata.combat.armors = [];	
 
 		actor.system.listdata.experiences = [];
 
@@ -144,7 +119,7 @@ export default class ItemHelper {
 
 		actor.system.listdata.traits.passions = [];
 		actor.system.listdata.traits.fetters = [];
-		actor.system.listdata.traits.othertraits = [];
+		//actor.system.listdata.traits.othertraits = [];
 
 		actor.system.listdata.powers = [];
 
@@ -185,11 +160,19 @@ export default class ItemHelper {
 			this._createArcanoiStructure(actor);
 		}
 
+		if (actor.system.settings.powers.hasstains) {
+			this._createStainStructure(actor);
+		}
+
+		if (actor.system.settings.powers.hashorrors) {
+			this._createHorrorStructure(actor);
+		}
+
 		// If no items then Power structure needs to be created regardless...
 		for (const item of actor.items) {
 			await this._sortCombat(item, actor);
-			await this._sortGear(item, actor);
-			await this._sortFeatures(item, actor);
+			//await this._sortGear(item, actor);
+			//await this._sortFeatures(item, actor);
 			await this._sortExperiences(item, actor);
 			await this._sortTraits(item, actor);				
 			await this._sortPowers(item, actor);
@@ -206,20 +189,6 @@ export default class ItemHelper {
 
 		// Armor
 		actor.system.listdata.combat.armors.sort((a, b) => a.name.localeCompare(b.name));
-
-		// Gear
-		actor.system.listdata.gear.fetishlist.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.gear.talenlist.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.gear.treasures.sort((a, b) => a.name.localeCompare(b.name));
-
-		// Notes
-		actor.system.listdata.features.backgrounds.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.features.merits.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.features.flaws.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.features.bloodbounds.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.features.boons.sort((a, b) => a.name.localeCompare(b.name));
-		
-		actor.system.listdata.traits.othertraits.sort((a, b) => a.name.localeCompare(b.name));		
 
 		// Powers
 		if (actor.system.settings.powers.haspowers) {
@@ -250,6 +219,14 @@ export default class ItemHelper {
 			await this._organizeArcanois(actor);
 		}
 
+		if (actor.system.settings.powers.hasstains) {
+			await this._organizeStains(actor);
+		}
+
+		if (actor.system.settings.powers.hashorrors) {
+			await this._organizeHorrors(actor);
+		}
+
 		// Experience Points
 		actor.system.listdata.experiences.experience = actor.system.listdata.experiences.totalExp - actor.system.listdata.experiences.spentExp;
 	}
@@ -272,63 +249,63 @@ export default class ItemHelper {
 	}
 
 	static async _sortGear(item, actor) {
-		if (item.type == "Fetish") {
-			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+		// if (item.type == "Fetish") {
+		// 	// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
-			if (item.system.type == "wod.types.fetish") {
-				actor.system.listdata.gear.fetishlist.push(item);
-			}
-			if (item.system.type == "wod.types.talen") {
-				actor.system.listdata.gear.talenlist.push(item);
-			}			
-		}
-		if (item.type == "Item") {
-			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+		// 	if (item.system.type == "wod.types.fetish") {
+		// 		actor.system.listdata.gear.fetishlist.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.talen") {
+		// 		actor.system.listdata.gear.talenlist.push(item);
+		// 	}			
+		// }
+		// if (item.type == "Item") {
+		// 	// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
-			if (item.system.type == "wod.types.treasure") {
-				actor.system.listdata.gear.treasures.push(item);
-			}
-			if (item.system.type == "wod.types.device") {
-				actor.system.listdata.gear.devices.push(item);
-			}
-			if (item.system.type == "wod.types.talisman") {
-				actor.system.listdata.gear.talismans.push(item);
-			}
-			if (item.system.type == "wod.types.periapt") {
-				actor.system.listdata.gear.periapts.push(item);
-			}
-			if (item.system.type == "wod.types.matrix") {
-				actor.system.listdata.gear.matrixs.push(item);
-			}
-			if (item.system.type == "wod.types.trinket") {
-				actor.system.listdata.gear.trinkets.push(item);
-			}
-		}
+		// 	if (item.system.type == "wod.types.treasure") {
+		// 		actor.system.listdata.gear.treasures.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.device") {
+		// 		actor.system.listdata.gear.devices.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.talisman") {
+		// 		actor.system.listdata.gear.talismans.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.periapt") {
+		// 		actor.system.listdata.gear.periapts.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.matrix") {
+		// 		actor.system.listdata.gear.matrixs.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.trinket") {
+		// 		actor.system.listdata.gear.trinkets.push(item);
+		// 	}
+		// }
 	}
 
 	static async _sortFeatures(item, actor) {
-		if (item.type == "Feature") {
-			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
+		// if (item.type == "Feature") {
+		// 	// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 
-			if (item.system.type == "wod.types.background") {
-				actor.system.listdata.features.backgrounds.push(item);
-			}
-			if (item.system.type == "wod.types.merit") {
-				actor.system.listdata.features.merits.push(item);
-			}
-			if (item.system.type == "wod.types.flaw") {
-				actor.system.listdata.features.flaws.push(item);
-			}
-			if (item.system.type == "wod.types.bloodbound") {
-				actor.system.listdata.features.bloodbounds.push(item);
-			}
-			if (item.system.type == "wod.types.boon") {
-				actor.system.listdata.features.boons.push(item);
-			}
-			if (item.system.type == "wod.types.oath") {
-				actor.system.listdata.features.oaths.push(item);
-			}
-		}
+		// 	if (item.system.type == "wod.types.background") {
+		// 		actor.system.listdata.features.backgrounds.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.merit") {
+		// 		actor.system.listdata.features.merits.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.flaw") {
+		// 		actor.system.listdata.features.flaws.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.bloodbound") {
+		// 		actor.system.listdata.features.bloodbounds.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.boon") {
+		// 		actor.system.listdata.features.boons.push(item);
+		// 	}
+		// 	if (item.system.type == "wod.types.oath") {
+		// 		actor.system.listdata.features.oaths.push(item);
+		// 	}
+		// }
 	}
 
 	static async _sortExperiences(item, actor) {
@@ -430,11 +407,6 @@ export default class ItemHelper {
 
 				actor.system.listdata.secondary_knowledges.push(trait);
 			}
-			if (item.system.type == "wod.types.othertraits") {
-				// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
-
-				actor.system.listdata.traits.othertraits.push(item);
-			}
 			if (item.system.type == "wod.types.passion") {
 				actor.system.listdata.traits.passions.push(item);
 			}
@@ -446,8 +418,6 @@ export default class ItemHelper {
 
 	static async _sortPowers(item, actor) {
 		if (item.type == "Power") {
-			// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
-
 			if (actor.system.settings.powers.haspowers) {
 				this._sortSpecialPowers(item, actor);
 			}
@@ -472,19 +442,23 @@ export default class ItemHelper {
 			if (actor.system.settings.powers.hasarcanois) {
 				this._sortArcanois(item, actor);
 			}
+			if (actor.system.settings.powers.hasstains) {
+				this._sortStains(item, actor);
+			}
+			if (actor.system.settings.powers.hashorrors) {
+				this._sortHorrors(item, actor);
+			}
 		}			
 	}
 
 	static async _sortSpecialPowers(item, actor) {
 		if (item.system.type == "wod.types.power") {
-			// item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.powerlist.push(item);			
 		}			
 	}
 
 	static async _sortGifts(item, actor) {
 		if (item.system.type == "wod.types.gift") {
-			// item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.gifts.giftlist.push(item);
 
 			if (item.system.isactive) {
@@ -517,7 +491,6 @@ export default class ItemHelper {
 
 	static async _sortCharms(item, actor) {
 		if (item.system.type == "wod.types.charm") {
-			// item.bonuses = BonusHelper.getBonuses(actor.items, item._id);
 			actor.system.listdata.powers.charms.charmlist.push(item);
 		}
 	}
@@ -544,6 +517,14 @@ export default class ItemHelper {
 
 		// Activate Gifts
 		actor.system.listdata.powers.gifts.powercombat = _createList(actor.system.listdata.powers.gifts.powercombat);
+	}
+
+	static _createHorrorStructure(actor) {
+		actor.system.listdata.powers.horrors = _createList(actor.system.listdata.powers.horrors);
+	}
+
+	static _createStainStructure(actor) {
+		actor.system.listdata.powers.stains = _createList(actor.system.listdata.powers.stains);
 	}
 
 	static _createCharmStructure(actor) {
@@ -624,7 +605,7 @@ export default class ItemHelper {
 
 	static async _organizeDisciplines(actor) {
 		actor.system.listdata.powers.disciplines.listeddisciplines.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.powers.disciplines.listeddisciplinepowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.disciplines.listeddisciplinepowers.sort((a, b) => a.system.level.toString().localeCompare(b.system.level.toString()));	
 
 		// add the correct discipline in the right list
 		for (const discipline of actor.system.listdata.powers.disciplines.listeddisciplines) {
@@ -659,7 +640,7 @@ export default class ItemHelper {
 		}
 
 		actor.system.listdata.powers.disciplines.listedpaths.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.powers.disciplines.listedpathpowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.disciplines.listedpathpowers.sort((a, b) => a.system.level.toString().localeCompare(b.system.level.toString()));	
 		actor.system.listdata.powers.disciplines.combinationlist.sort((a, b) => a.name.localeCompare(b.name));
 
 		// add the correct path in the right list
@@ -706,7 +687,7 @@ export default class ItemHelper {
 
 	static async _organizeArts(actor) {
 		actor.system.listdata.powers.arts.listedarts.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.powers.arts.listedartpowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.arts.listedartpowers.sort((a, b) => a.system.level.toString().localeCompare(b.system.level.toString()));	
 
 		// add the correct art in the right list
 		for (const art of actor.system.listdata.powers.arts.listedarts) {
@@ -749,7 +730,7 @@ export default class ItemHelper {
 
 	static async _organizeEdges(actor) {
 		actor.system.listdata.powers.edges.listededges.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.powers.edges.listededgepowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.edges.listededgepowers.sort((a, b) => a.system.level.toString().localeCompare(b.system.level.toString()));	
 
 		// add the correct edge in the right list
 		for (const edge of actor.system.listdata.powers.edges.listededges) {
@@ -806,7 +787,7 @@ export default class ItemHelper {
 
 	static async _organizeLores(actor) {
 		actor.system.listdata.powers.lores.listedlores.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.powers.lores.listedlorepowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.lores.listedlorepowers.sort((a, b) => a.system.level.toString().localeCompare(b.system.level.toString()));	
 		actor.system.listdata.powers.lores.rituallist.sort((a, b) => a.name.localeCompare(b.name));
 
 		// add the correct lore in the right list
@@ -861,7 +842,7 @@ export default class ItemHelper {
 
 	static async _organizeArcanois(actor) {
 		actor.system.listdata.powers.arcanois.listedarcanois.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.powers.arcanois.listedarcanoipowers.sort((a, b) => a.system.level.localeCompare(b.system.level));	
+		actor.system.listdata.powers.arcanois.listedarcanoipowers.sort((a, b) => a.system.level.toString().localeCompare(b.system.level.toString()));	
 
 		// add the correct arcanoi in the right list
 		for (const arcanoi of actor.system.listdata.powers.arcanois.listedarcanois) {
@@ -875,6 +856,26 @@ export default class ItemHelper {
 		}
 
 		actor.system.listdata.powers.arcanois.hasunlistedarcanois = actor.system.listdata.powers.arcanois.unlistedarcanois.length > 0 ? true : false;		
+	}
+
+	static async _sortStains(item, actor) {		
+		if (item.system.type == "wod.types.stain") {
+			actor.system.listdata.powers.stains.push(item);
+		}
+	}
+
+	static async _organizeStains(actor) {
+		actor.system.listdata.powers.stains.sort((a, b) => a.name.localeCompare(b.name));
+	}
+
+	static async _sortHorrors(item, actor) {		
+		if (item.system.type == "wod.types.horror") {
+			actor.system.listdata.powers.horrors.push(item);
+		}
+	}
+
+	static async _organizeHorrors(actor) {
+		actor.system.listdata.powers.horrors.sort((a, b) => a.name.localeCompare(b.name));
 	}
 
 	/**
@@ -929,233 +930,22 @@ export default class ItemHelper {
 		}
 	}
 
-	static async CreateItemPower(event, type, itemData, itemtype) {
-		if (type == "gift") {
-			const level = $(event.currentTarget).data("level");
+	
 
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.gift"),
-				type: itemtype,
-				system: {
-					level: level,
-					game: "werewolf",
-					type: "wod.types.gift"
-				}
-			};
-		}
-		if (type == "charm") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.charm"),
-				type: itemtype,
-				system: {
-					game: "werewolf",
-					type: "wod.types.charm"
-				}
-			};
-		}
-		if (type == "rite") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.rite"),
-				type: itemtype,
-				system: {
-					game: "werewolf",
-					type: "wod.types.rite"
-				}
-			};
-		}
-		if (type == "discipline") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.discipline"),
-				type: itemtype,
-				system: {
-					game: "vampire",
-					type: "wod.types.discipline"
-				}
-			};
-		}
-		if (type == "disciplinepower") {
-			const id = $(event.currentTarget).data("parentid");
+	static GetAllItems(actor) {
+		let items = actor.items.filter(item => item.type === "Item" || item.type === "Fetish");
 
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.disciplinepower"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: "vampire",
-					parentid: id,
-					type: "wod.types.disciplinepower"
-				}
-			};
-		}
-		if (type == "disciplinepath") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.disciplinepath"),
-				type: itemtype,
-				system: {
-					game: "vampire",
-					type: "wod.types.disciplinepath"
-				}
-			};
-		}
-		if (type == "disciplinepathpower") {
-			const id = $(event.currentTarget).data("parentid");
+		return items.sort((a, b) => {
+			return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
+		});
+	}
 
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.disciplinepathpower"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: "vampire",
-					parentid: id,
-					type: "wod.types.disciplinepathpower"
-				}
-			};
-		}
-		if (type == "ritual") {
-			const source = $(event.currentTarget).data("game");
+	static GetAllNotes(actor) {
+		let items = actor.items.filter(item => item.type === "Feature" || (item.type == "Trait" && (item.system.type == "wod.types.othertraits") || (item.system.type == "wod.types.shapeform") || (item.system.type == "wod.types.aspect")));
 
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.ritual"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: source,
-					type: "wod.types.ritual"
-				}
-			};
-		}
-		if (type == "combination") {
-			const source = $(event.currentTarget).data("game");
-
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.combination"),
-				type: itemtype,
-				system: {
-					game: source,
-					type: "wod.types.combination"
-				}
-			};
-		}
-		if (type == "edge") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.edge"),
-				type: itemtype,
-				system: {
-					game: "hunter",
-					type: "wod.types.edge"
-				}
-			};
-		}
-		if (type == "edgepower") {
-			const id = $(event.currentTarget).data("parentid");
-
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.edgepower"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: "hunter",
-					parentid: id,
-					type: "wod.types.edgepower"
-				}
-			};
-		}
-		if (type == "art") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.art"),
-				type: itemtype,
-				system: {
-					game: "changeling",
-					type: "wod.types.art"
-				}
-			};
-		}
-		if (type == "sliver") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.sliver"),
-				type: itemtype,
-				system: {
-					game: "changeling",
-					type: "wod.types.art"
-				}
-			};
-		}
-		if (type == "artpower") {
-			const id = $(event.currentTarget).data("parentid");
-
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.artpower"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: "changeling",
-					parentid: id,
-					property: {
-						arttype: ""
-					},
-					type: "wod.types.artpower"
-				}
-			};
-		}
-		if (type == "lore") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.lore"),
-				type: itemtype,
-				system: {
-					game: "demon",
-					type: "wod.types.lore"
-				}
-			};
-		}
-		if (type == "lorepower") {
-			const id = $(event.currentTarget).data("parentid");
-
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.lorepower"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: "demon",
-					parentid: id,
-					type: "wod.types.lorepower"
-				}
-			};
-		}
-		if (type == "arcanoi") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.arcanoi"),
-				type: itemtype,
-				system: {
-					game: "wraith",
-					type: "wod.types.arcanoi"
-				}
-			};
-		}
-		if (type == "arcanoipower") {
-			const id = $(event.currentTarget).data("parentid");
-
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.arcanoipower"),
-				type: itemtype,
-				system: {
-					level: 1,
-					game: "wraith",
-					parentid: id,
-					type: "wod.types.arcanoipower"
-				}
-			};
-		}
-		if (type == "power") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.power"),
-				type: itemtype,
-				system: {
-					type: "wod.types.power"
-				}
-			};
-		}
-
-		return itemData;
+		return items.sort((a, b) => {
+			return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
+		});
 	}
 }
 

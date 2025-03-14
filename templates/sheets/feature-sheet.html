@@ -14,7 +14,7 @@
 						{{/if}}
 					</div>
 
-					<div class="pullLeft" style="display: flex; width: 200px;">
+					<div class="pullLeft" style="display: flex; width: 300px;">
 						<div class="area-box">
 							<div class="top-sidetext">
 								{{#if (eq data.system.type "wod.types.background")}} 
@@ -70,7 +70,7 @@
 				{{/if}}
 
 				<!-- level -->
-				{{#if (ne data.system.type "wod.types.oath")}}
+				{{#if (eqAnyNot data.system.type "wod.types.oath" "")}}
 					<div class="infobox bioInformationArea floating-label-group">
 						{{#if (eqAny data.system.type "wod.types.boon")}}
 							<select class="sheet-infoValues editable" name="system.level" data-dtype="String">
@@ -89,10 +89,12 @@
 					</div>
 				{{/if}}
 				
-				<div class="infobox bioInformationArea floating-label-group">
-					<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
-					<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
-				</div>			
+				{{#if (eqAnyNot data.system.type "")}}
+					<div class="infobox bioInformationArea floating-label-group">
+						<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+						<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
+					</div>
+				{{/if}}			
 			</div>
 
 			{{#if (eqAnyNot data.system.type "wod.types.bloodbound" "wod.types.boon")}}

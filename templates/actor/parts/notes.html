@@ -1,497 +1,64 @@
-<div class="sheet-area flex-columns">
-    <div class="clearareaBox area-box">
-
-        <div class="headlineRow splatFont">
-            <div class="clearareaBox">
-                <div class="pullLeft">
-                    <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.background'}}" aria-hidden="true" data-itemtype="Feature" data-type="background"></i>
-                </div>
-                <div class="pullLeft largeBox">{{localize "wod.labels.notes.backgrounds"}}</div>                
-                <div class="pullLeft pointer">
-                    <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.background'}}" data-sheet="{{config.sheettype.mortal}}" data-type="background"></i>
-                </div>
-            </div>
-        </div>
-        <div class="clearareaBox hide background" data-area="background">
-
-            {{#each actor.system.listdata.features.backgrounds as |item id|}}
-
-                <div class="item-row-area">
-                    <div class="clearareaBox note-row">
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                        <div class="pullLeft largeBox headlineNormal">
-                            {{#if (ne item.name "")}}
-                                {{item.name}}
-                            {{else}}
-                                {{localize "wod.notes.unnamedbackground"}}
-                            {{/if}}
-                        </div>
-                        <div class="pullLeft notes-valueBox headlineNormal">{{item.system.level}}</div>
-
-                        <div class="pullLeft note-iconbox">           
-                            <div class="pullLeft pointer headlineNormal tooltip">
-                                <i class="icon fa-solid fa-memo"></i>
-                                <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                            </div>
-                            <div class="pullLeft">
-                                <a class="send-chat" 
-                                    title="{{localize 'wod.labels.send'}}"
-                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.background'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                </div>
-                                <div class="pullLeft">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.background'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                </div>
-                            {{/if}}
-                            {{#if (gt item.system.bonuslist.length 0)}}
-                                <div class="pullLeft pointer">
-                                    <i id="collapsiblebackgroundbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="background{{id}}"></i>
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="hide bonuses background{{id}}" data-area="backgroundbonus{{id}}">
-                        
-                        {{#each item.system.bonuslist as |bonus id|}}
-                            <div class="clearareaBox note-row">
-                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                            </div>
-                        {{/each}}
-
-                    </div>
-                </div>
-
-            {{/each}}
-
-        </div>
-
-    </div>
-</div>
+<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="note"></i>
 
 <div class="sheet-area flex-columns">
-    <div class="clearareaBox area-box">
-
-        <div class="headlineRow splatFont">
-            <div class="clearareaBox">
-                <div class="pullLeft">
-                    <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.merit"}}" aria-hidden="true" data-itemtype="Feature" data-type="merit"></i>
-                </div>
-                <div class="pullLeft largeBox">{{localize "wod.labels.notes.merits"}}</div>                
-                <div class="pullLeft pointer">
-                    <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.merit'}}" data-sheet="{{config.sheettype.mortal}}" data-type="merit"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearareaBox hide merit" data-area="merit">
-            {{#each actor.system.listdata.features.merits as |item id|}}
-                <div class="item-row-area">
-                    <div class="clearareaBox note-row">
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                        <div class="pullLeft largeBox headlineNormal">
-                            {{#if (ne item.name "")}}
-                                {{item.name}}
-                            {{else}}
-                                {{localize "wod.notes.unnamedmerit"}}
-                            {{/if}}
-                        </div>
-                        <div class="pullLeft notes-valueBox headlineNormal">{{item.system.level}}</div>
-
-                        <div class="pullLeft note-iconbox">
-                            <div class="pullLeft pointer headlineNormal tooltip">
-                                <i class="icon fa-solid fa-memo"></i>
-                                <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                            </div>
-                            <div class="pullLeft">
-                                <a class="send-chat" 
-                                    title="{{localize 'wod.labels.send'}}"
-                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.merit'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                </div>
-                                <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.merit'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                </div>
-                            {{/if}}  
-                            {{#if (gt item.system.bonuslist.length 0)}}
-                                <div class="pullLeft pointer">
-                                    <i id="collapsiblemeritbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="merit{{id}}"></i>
-                                </div>
-                            {{/if}}                      
-                        </div>
-                    </div>
-                    <div class="hide bonuses merit{{id}}" data-area="meritbonus{{id}}">
-
-                        {{#each item.system.bonuslist as |bonus id|}}
-                            <div class="clearareaBox note-row">
-                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                            </div>
-                        {{/each}}
-
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-
+    <div class="headlineRow splatFont">
+        <div class="largeBox">{{localize "TYPES.Item.Feature"}}</div>                
     </div>
-</div>
+    <div class="clearareaBox">
 
-<div class="sheet-area flex-columns">
-    <div class="clearareaBox area-box">
+        {{#each (getNotes actor) as |item id|}}
 
-        <div class="headlineRow splatFont">
-            <div class="clearareaBox">
-                <div class="pullLeft">
-                    <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.flaw"}}" aria-hidden="true" data-itemtype="Feature" data-type="flaw"></i>
-                </div>
-                <div class="pullLeft largeBox">{{localize "wod.labels.notes.flaws"}}</div>                
-                <div class="pullLeft pointer">
-                    <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.flaw'}}" data-sheet="{{config.sheettype.mortal}}" data-type="flaw"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearareaBox hide flaw" data-area="flaw">
-            {{#each actor.system.listdata.features.flaws as |item id|}}
-                <div class="item-row-area">
-                    <div class="clearareaBox note-row">
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                        <div class="pullLeft largeBox headlineNormal">
-                            {{#if (ne item.name "")}}
-                                {{item.name}}
-                            {{else}}
-                                {{localize "wod.notes.unnamedflaw"}}
-                            {{/if}}</div>
-                        <div class="pullLeft notes-valueBox headlineNormal">{{item.system.level}}</div>
-
-                        <div class="pullLeft note-iconbox">
-                            <div class="pullLeft pointer headlineNormal tooltip">
-                                <i class="icon fa-solid fa-memo"></i>
-                                <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                            </div>
-                            <div class="pullLeft">
-                                <a class="send-chat" 
-                                    title="{{localize 'wod.labels.send'}}"
-                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.flaw'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                </div>
-                                <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.flaw'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                </div>
-                            {{/if}}
-                            {{#if (gt item.system.bonuslist.length 0)}}
-                                <div class="pullLeft pointer">
-                                    <i id="collapsibleflawbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="flaw{{id}}"></i>
-                                </div>
-                            {{/if}}
-                            
-                        </div>
+            <div class="item-row-area">
+                <div class="clearareaBox note-row">
+                    <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
+                    <div class="pullLeft largeBox headlineNormal">
+                        {{#if (ne item.name "")}}
+                            {{item.name}}
+                        {{else}}
+                            {{localize "wod.notes.unnamedbackground"}}
+                        {{/if}}
                     </div>
-                    <div class="hide bonuses flaw{{id}}" data-area="flawbonus{{id}}">
-
-                        {{#each item.system.bonuslist as |bonus id|}}
-                            <div class="clearareaBox note-row">
-                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                            </div>
-                        {{/each}}
-
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-
-    </div>
-</div>
-
-{{#if (ne actor.type config.sheettype.wraith)}}
-    {{#if (ne actor.type config.sheettype.demon)}}
-
-        <div class="sheet-area flex-columns">
-            <div class="clearareaBox area-box">
-                <div class="headlineRow splatFont" data-area="bloodbound">
-                    <div class="clearareaBox">
+                    <div class="pullLeft headlineNormal largeBox">{{localize item.system.type}}</div>
+                    <div class="pullLeft notes-valueBox headlineNormal">{{#if (gt item.system.level 0)}}{{item.system.level}}{{else}}&nbsp;{{/if}}</div>
+                    <div class="pullLeft note-iconbox">           
+                        {{{getToolTip item.system.description item.system.details}}}
                         <div class="pullLeft">
-                            <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.bloodbound"}}" aria-hidden="true" data-itemtype="Feature" data-type="bloodbound"></i>
+                            <a class="send-chat" 
+                                title="{{localize 'wod.labels.send'}}"
+                                data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
                         </div>
-                        <div class="pullLeft largeBox">{{localize "wod.labels.notes.bloodbound"}}</div>                
-                        <div class="pullLeft pointer">
-                            <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bloodbound'}}" data-sheet="{{config.sheettype.mortal}}" data-type="bloodbound"></i>
-                        </div>
+                        {{#if (eq ../locked false)}}
+                            <div class="pullLeft">
+                                <a class="item-edit" {{#if (eq item.system.type 'other')}}data-type="other"{{else}}data-type="Feature"{{/if}} data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                            <div class="pullLeft">
+                                <a class="item-delete" {{#if (eq item.system.type 'other')}}data-type="other"{{else}}data-type="Feature"{{/if}} data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                            </div>
+                        {{/if}}
+                        {{#if (gt item.system.bonuslist.length 0)}}
+                            <div class="pullLeft pointer">
+                                <i id="collapsible{{item.type}}bonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="{{item.type}}{{id}}"></i>
+                            </div>
+                        {{/if}}
                     </div>
                 </div>
-
-                <div class="clearareaBox hide bloodbound">
-                    {{#each actor.system.listdata.features.bloodbounds as |item id|}}
-                        <div class="item-row-area">
-                            <div class="clearareaBox note-row">
-                                <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                                <div class="pullLeft largeBox headlineNormal">
-                                    {{#if (ne item.name "")}}
-                                        {{item.name}}
-                                    {{else}}
-                                        {{localize "wod.notes.unnamedbloodbound"}}
-                                    {{/if}}</div>
-                                <div class="pullLeft notes-valueBox headlineNormal">{{item.system.level}}</div>
-
-                                <div class="pullLeft note-iconbox">
-                                    <div class="pullLeft pointer headlineNormal tooltip">
-                                        <i class="icon fa-solid fa-memo"></i>
-                                        <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                                    </div>
-                                    <div class="pullLeft">
-                                        <a class="send-chat" 
-                                            title="{{localize 'wod.labels.send'}}"
-                                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                    </div>
-                                    {{#if (eq ../locked false)}}
-                                        <div class="pullLeft pointer">
-                                            <a class="item-edit" title="{{localize 'wod.labels.edit.bloodbound'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                        </div>
-                                        <div class="pullLeft pointer">
-                                            <a class="item-delete" title="{{localize 'wod.labels.remove.bloodbound'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                        </div>
-                                    {{/if}}
-                                    
-                                </div>
-                            </div>
+                <div class="hide bonuses {{item.type}}{{id}}" data-area="{{item.type}}bonus{{id}}">
+                        
+                    {{#each item.system.bonuslist as |bonus id|}}
+                        <div class="clearareaBox note-row">
+                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                            <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
+                            <div class="pullLeft headlineNormal">{{bonus.value}}</div>
                         </div>
                     {{/each}}
-                </div>
-            </div>
-        </div>
 
-    {{/if}}
-{{/if}}
-
-{{#if (eq actor.type config.sheettype.changeling)}}
-    <div class="sheet-area flex-columns">
-        <div class="clearareaBox area-box">
-            <div class="headlineRow splatFont" data-type="oath">
-                <div class="clearareaBox">
-                    <div class="pullLeft">
-                        <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.oath'}}" aria-hidden="true" data-itemtype="Feature" data-type="oath"></i>
-                    </div>
-                    <div class="pullLeft largeBox">{{localize "wod.labels.notes.oath"}}</div>                
-                    <div class="pullLeft pointer">
-                        <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.oath'}}" data-sheet="{{config.sheettype.mortal}}" data-type="oath"></i>
-                    </div>
                 </div>
             </div>
 
-            <div class="clearareaBox hide oath" data-area="oath">
-                {{#each actor.system.listdata.features.oaths as |item id|}}
-                    <div class="item-row-area">
-                        <div class="clearareaBox note-row">
-                            <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                            <div class="pullLeft largeBox headlineNormal">
-                                {{#if (ne item.name "")}}
-                                    {{item.name}}
-                                {{else}}
-                                    {{localize "wod.notes.unnamedoath"}}
-                                {{/if}}
-                            </div>
+        {{/each}}
 
-                            {{#if (eq item.system.level 1)}}
-                                <div class="pullLeft notes-valueBox headlineNormal">&nbsp;</div>
-                            {{else}}
-                                <div class="pullLeft notes-valueBox headlineNormal">{{localize item.system.level}}</div>
-                            {{/if}}
-
-                            <div class="pullLeft note-iconbox">
-                                <div class="pullLeft pointer headlineNormal tooltip">
-                                    <i class="icon fa-solid fa-memo"></i>
-                                    <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                                </div>
-                                <div class="pullLeft">
-                                    <a class="send-chat" 
-                                        title="{{localize 'wod.labels.send'}}"
-                                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                </div>
-                                {{#if (eq ../locked false)}}
-                                    <div class="pullLeft pointer">
-                                        <a class="item-edit" title="{{localize 'wod.labels.edit.oath'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                    </div>
-                                    <div class="pullLeft pointer">
-                                        <a class="item-delete" title="{{localize 'wod.labels.remove.oath'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                    </div>
-                                {{/if}}
-                                {{#if (gt item.system.bonuslist.length 0)}}
-                                    <div class="pullLeft pointer">
-                                        <i id="collapsibleoathbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="oath{{id}}"></i>
-                                    </div>
-                                {{/if}}
-                                
-                            </div>
-                        </div>
-                        <div class="hide bonuses oath{{id}}" data-area="oathbonus{{id}}">
-
-                            {{#each item.system.bonuslist as |bonus id|}}
-                                <div class="clearareaBox note-row">
-                                    <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                    <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                    <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                                </div>
-                            {{/each}}
-    
-                        </div>
-                    </div> 
-                {{/each}}
-            </div>
-        </div>
     </div>
-{{/if}}
-
-{{#if (eq actor.type config.sheettype.vampire)}}
-    <div class="sheet-area flex-columns">
-        <div class="clearareaBox area-box">
-            <div class="headlineRow splatFont" data-type="boon">
-                <div class="clearareaBox">
-                    <div class="pullLeft">
-                        <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.boon'}}" aria-hidden="true" data-itemtype="Feature" data-type="boon"></i>
-                    </div>
-                    <div class="pullLeft largeBox">{{localize "wod.labels.notes.boon"}}</div>                
-                    <div class="pullLeft pointer">
-                        <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.boon'}}" data-sheet="{{config.sheettype.mortal}}" data-type="boon"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="clearareaBox hide boon" data-area="boon">
-                {{#each actor.system.listdata.features.boons as |item id|}}
-                    <div class="item-row-area">
-                        <div class="clearareaBox note-row">
-                            <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                            <div class="pullLeft largeBox headlineNormal">
-                                {{#if (ne item.name "")}}
-                                    {{item.name}}
-                                {{else}}
-                                    {{localize "wod.notes.unnamedboon"}}
-                                {{/if}}
-                            </div>
-
-                            {{#if (eq item.system.level 1)}}
-                                <div class="pullLeft notes-valueBox headlineNormal">&nbsp;</div>
-                            {{else}}
-                                <div class="pullLeft notes-valueBox headlineNormal">{{localize item.system.level}}</div>
-                            {{/if}}
-
-                            <div class="pullLeft note-iconbox">
-                                <div class="pullLeft pointer headlineNormal tooltip">
-                                    <i class="icon fa-solid fa-memo"></i>
-                                    <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                                </div>
-                                <div class="pullLeft">
-                                    <a class="send-chat" 
-                                        title="{{localize 'wod.labels.send'}}"
-                                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                </div>
-                                {{#if (eq ../locked false)}}
-                                    <div class="pullLeft pointer">
-                                        <a class="item-edit" title="{{localize 'wod.labels.edit.boon'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                    </div>
-                                    <div class="pullLeft pointer">
-                                        <a class="item-delete" title="{{localize 'wod.labels.remove.boon'}}" data-type="Feature" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                    </div>
-                                {{/if}}
-                                
-                            </div>
-                        </div>
-                    </div> 
-                {{/each}}
-            </div>
-        </div>
-    </div>
-{{/if}}
-
-<div class="sheet-area flex-columns">
-    <div class="clearareaBox area-box">
-        <div class="headlineRow splatFont">
-            <div class="clearareaBox">
-                <div class="pullLeft">
-                    <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize "wod.labels.add.othertraits"}}" aria-hidden="true" data-itemtype="Trait" data-type="other"></i>
-                </div>
-                <div class="pullLeft largeBox">{{localize "wod.labels.notes.othertraits"}}</div>                
-                <div class="pullLeft pointer">
-                    <i class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.trait'}}" data-sheet="{{config.sheettype.mortal}}" data-type="traits"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="clearareaBox hide traits" data-area="traits">
-            {{#each actor.system.listdata.traits.othertraits as |item id|}}
-                <div class="item-row-area">
-                    <div class="clearareaBox note-row">
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                        <div class="pullLeft largeBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                            data-type="{{../config.sheettype.mortal}}"
-                            data-object="Power"
-                            data-rollitem="true"
-                            data-itemid="{{item._id}}">{{item.name}}</div>
-
-                        <div class="pullLeft">
-                            <div class="resource-value dotvalueArea" data-value="{{item.system.value}}" style="width: 150px;">
-                                {{#numLoop item.system.max}}
-
-                                    <span class="resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-itemid="{{item._id}}" data-index="{{this}}"></span>
-                                
-                                {{/numLoop}}
-                            </div>  
-                        </div>
-                        <div class="pullLeft note-iconTraits">
-                            <div class="pullLeft pointer headlineNormal tooltip">
-                                <i class="icon fa-solid fa-memo"></i>
-                                <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                            </div>
-                            <div class="pullLeft">
-                                <a class="send-chat" 
-                                    title="{{localize 'wod.labels.send'}}"
-                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.othertraits'}}" data-type="other" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                </div>
-                                <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.othertraits'}}" data-type="other" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                </div>
-                            {{/if}}
-                            {{#if (gt item.system.bonuslist.length 0)}}
-                                <div class="pullLeft pointer">
-                                    <i id="collapsibletraitbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="trait{{id}}"></i>
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                    <div class="hide bonuses trait{{id}}" data-area="traitbonus{{id}}">
-
-                        {{#each item.system.bonuslist as |bonus id|}}
-                            <div class="clearareaBox note-row">
-                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                            </div>
-                        {{/each}}
-
-                    </div>
-                </div>
-            {{/each}}  
-        </div>
-    </div>
-</div>
+</div>        
 
 <div class="sheet-area flex-columns">
     <div class="clearareaBox area-box">

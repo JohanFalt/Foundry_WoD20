@@ -1,3 +1,5 @@
+<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
+
 <div class="sheet-area flex-columns">
     <div class="clearareaBox">
 
@@ -37,7 +39,7 @@
         
             {{#each config.skills as |ability key|}}
 
-                {{#if (showAbility key "skills" ../actor.type)}}
+                {{#if (showAbility key "skills" ../actor)}}
 
                     <div class="clearareaBox row">
                         <label for="data.system.abilities.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">
@@ -69,7 +71,7 @@
         
             {{#each config.knowledges as |ability key|}}
 
-                {{#if (showAbility key "knowledges" ../actor.type)}}
+                {{#if (showAbility key "knowledges" ../actor)}}
 
                     <div class="clearareaBox row">
                         <label for="data.system.abilities.{{key}}.value" class="pullLeft headlineNormal settings-abilitylabel">

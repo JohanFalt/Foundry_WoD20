@@ -18,6 +18,12 @@
 	
 		{{#each actor.system.listdata.ability_talents as |ability key|}}	
 			<div class="clearareaBox">
+				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+					<div class="pullLeft" style="margin-left: 20px;">&nbsp;</div>
+				{{/if}}
+
 				<label for="data.system.abilities.{{ability._id}}.value"
 					class="pullLeft vrollable {{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
 					data-type="{{../config.sheettype.mortal}}"
@@ -65,10 +71,16 @@
 
 		{{#if (isEmpty actor.system.listdata.ability_skills)}}
 			<div class="centerText headlineNormal">{{localize 'wod.abilities.noskills'}}</div>
+		{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+			<div class="pullLeft" style="margin-left: 20px;">&nbsp;</div>
 		{{/if}}
 	
 		{{#each actor.system.listdata.ability_skills as |ability key|}}
 			<div class="clearareaBox">
+				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{/if}}
+
 				<label for="data.system.abilities.{{ability._id}}.value" 
 					class="pullLeft vrollable {{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
 					data-type="{{../config.sheettype.mortal}}"
@@ -116,10 +128,16 @@
 
 		{{#if (isEmpty actor.system.listdata.ability_knowledges)}}
 			<div class="centerText headlineNormal">{{localize 'wod.abilities.noknowledges'}}</div>
+		{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+			<div class="pullLeft" style="margin-left: 20px;">&nbsp;</div>
 		{{/if}}
 	
 		{{#each actor.system.listdata.ability_knowledges as |ability key|}}
 			<div class="clearareaBox">
+				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{/if}}
+
 				<label for="data.system.abilities.{{ability._id}}.value" 
 					class="pullLeft vrollable {{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
 					data-type="{{../config.sheettype.mortal}}"

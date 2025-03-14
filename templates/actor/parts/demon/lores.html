@@ -1,5 +1,5 @@
 <div class="sheet-area flex-columns">
-    <div class="clearareaBox area-box">
+    <div class="clearareaBox area-box" style="min-height: 150px;">
 
         <div class="sheet-headline sheet-banner splatFont" data-area="lores">
             <span class="sheet-banner-text">{{localize "wod.power.lores"}}</span>
@@ -51,15 +51,7 @@
                                 <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.lorepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
                             </div>
                         {{/if}}
-                        <div class="pullLeft pointer headlineNormal tooltip">
-                            <i class="icon fa-solid fa-memo"></i>
-                            <span class="tooltiptext">
-                                <b>{{item.name}}</b><br />
-                                {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}
-                                <br /><br />
-                                {{/if}}{{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                            </span>
-                        </div>
+                        {{{getToolTip item.system.description item.system.details}}}
                         <div class="pullLeft pointer">
                             <a class="send-chat" 
                                 title="{{localize 'wod.labels.send'}}" 
@@ -147,7 +139,7 @@
     </div>
 {{/if}}
 
-<div class="sheet-area flex-columns">
+<div class="sheet-area flex-columns" style="min-height: 150px;">
     <div class="clearareaBox">
         <div class="sheet-headline sheet-banner splatFont" data-area="rituals">
             <span class="sheet-banner-text">{{localize "wod.power.rituals"}}</span>
@@ -179,14 +171,7 @@
                 {{/if}}
 
                 <div class="power-iconbox">
-                    <div class="pullLeft pointer headlineNormal tooltip">
-                        <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">
-                            {{#if (ne item.system.description "")}}<b>{{localize "wod.labels.description"}}:</b> {{{item.system.description}}}{{/if}}
-                            <br /><br />
-                            {{#if (ne item.system "")}}<b>{{localize "wod.labels.power.system"}}:</b> {{{item.system.details}}}{{/if}}
-                        </span>
-                    </div>
+                    {{{getToolTip item.system.description item.system.details}}}
                     <div class="pullLeft">
                         <a class="send-chat" 
                             title="{{localize 'wod.labels.send'}}" 
@@ -208,11 +193,19 @@
                             data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                     {{/if}}
 
-                    </div>
-            
+                    </div>            
                 </div>
             </div>
 
         {{/each}}
+    </div>
+</div>
+
+<div class="sheet-area flex-columns" style="width: 50%;">
+    <div class="clearareaBox">
+
+        <!-- Forms -->
+        {{>"systems/worldofdarkness/templates/actor/parts/demon/forms.html"}}
+
     </div>
 </div>

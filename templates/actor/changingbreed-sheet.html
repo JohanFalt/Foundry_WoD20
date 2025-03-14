@@ -13,7 +13,7 @@
 
 			<!-- Menu -->
 			<div class="navigation pullLeft">
-				{{#if (eq actor.limited false)}}
+				{{#if (not actor.limited)}}
 					<!-- Lock/Unlock -->
 					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
 				{{/if}}
@@ -58,6 +58,9 @@
 		
 			<!-- Core Tab -->
 			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
+
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
+
 				<!-- Core Attributes -->
 				<div class="sheet-area flex-columns">
 
@@ -79,8 +82,48 @@
 
 							<div class="pullLeft" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 								{{#if (ne data.system.changingbreed "Nagah")}}
-									{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_renown.html"}}
+									{{{getGetStatArea actor actor.system.renown.glory "glory" false true true}}}
+
+									{{{getGetStatArea actor actor.system.renown.honor "honor" false true true}}}
+
+									{{{getGetStatArea actor actor.system.renown.wisdom "wisdom" false true true}}}
+
+									<div class="rank-area">
+										<div class="sheet-headline headlineGroup sheet-banner-small splatFont centerText" data-area="rank" style="margin-top: auto;"><span class="sheet-banner-text">{{localize "wod.advantages.rank"}}</span></div>
+									
+										<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="renown.rank">
+									
+											{{#if (ne data.system.changingbreed "Nagah")}}
+												{{#numLoop 5}}
+												
+												<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+												
+												{{/numLoop}}
+											{{else}}
+												{{#numLoop 6}}
+													
+												<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+												
+												{{/numLoop}}
+											{{/if}}
+									
+											<span class="splatFont">{{getShifterRank actor}}</span>
+											
+										</div>
+									</div>
+
 								{{else}}
+									<div class="sheet-headline headlineGroup sheet-banner-small splatFont centerText" data-area="rank"><span class="sheet-banner-text">{{localize "wod.advantages.rank"}}</span></div>
+									<div class="resource-value permValueRow" data-value="{{data.system.renown.rank}}" data-name="renown.rank">
+									
+										{{#numLoop 6}}
+										
+											<span class="resource-value-step rankAttribute" data-type="{{../config.sheettype.werewolf}}" data-index="{{this}}"></span>
+										
+										{{/numLoop}}
+									
+									</div>
+
 									{{> "systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html"}}
 								{{/if}}                            
 							</div>
@@ -88,22 +131,23 @@
 							<div class="pullLeft" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 
 								{{#if data.system.settings.hasrage}}
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+									
+									{{{getGetStatArea actor actor.system.advantages.rage "rage" true true true}}}
 
 									<div style="margin-top: auto; margin-bottom: auto;">
-										{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}     
+										{{{getGetStatArea actor actor.system.advantages.gnosis "gnosis" true true true}}}
 									</div>
 								{{else}}
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}     
+									{{{getGetStatArea actor actor.system.advantages.gnosis "gnosis" true true true}}}
 								{{/if}}
 
 								<div style="margin-top: auto;">
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}    
+									{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 								</div>
 								
 								{{#if data.system.settings.hasbloodpool}}         
 									<div style="margin-top: auto;">
-										{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}                                    
+										{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}                           -->
 									</div>                           
 								{{/if}}
 						
@@ -138,8 +182,6 @@
 			<div class="tab gear sheet-inner-area" data-group="primary" data-tab="gear">
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
-
-				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html"}}
 
 			</div>
 
@@ -201,6 +243,8 @@
 			<!-- Gift Tab -->
 			<div class="tab gift sheet-inner-area" data-group="primary" data-tab="gift">
 
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+
 				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/gift.html"}}
 				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
 
@@ -217,6 +261,13 @@
 			<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
+
+			</div>
+
+			<!-- Effect Tab -->
+			<div class="tab effect sheet-inner-area" data-group="primary" data-tab="effect">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/effect.html"}} 	
 
 			</div>
 			

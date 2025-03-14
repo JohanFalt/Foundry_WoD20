@@ -40,7 +40,7 @@
 
 {{/if}}
 
-{{#if (eq actor.type config.sheettype.vampire)}}
+{{#if (and (eq actor.type config.sheettype.vampire) (eq actor.system.settings.variant "general"))}}
 
     <div class="sheet-area flex-columns">
         <div class="area-box" data-area="pathsetting">
@@ -250,6 +250,17 @@
                         </div>
                     </div>
 
+                    <div class="clearareaBox row">
+                        <label for="data.system.settings.hasquintessence" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.quintessence'}}</label>
+                        <div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasquintessence" data-type="{{config.sheettype.mortal}}">
+                            {{#if data.system.settings.hasquintessence}}
+                                <i class="icon fa-solid fa-eye"></i>
+                            {{else}}
+                                <i class="icon fa-solid fa-eye-slash"></i>
+                            {{/if}}
+                        </div>
+                    </div>
+
                 {{/if}}
 
                 {{#if (eq actor.type config.sheettype.creature)}}
@@ -258,6 +269,17 @@
                         <label for="data.system.settings.hasessence" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.essence'}}</label>
                         <div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasessence" data-type="{{config.sheettype.mortal}}">
                             {{#if data.system.settings.hasessence}}
+                                <i class="icon fa-solid fa-eye"></i>
+                            {{else}}
+                                <i class="icon fa-solid fa-eye-slash"></i>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="clearareaBox row">
+                        <label for="data.system.settings.hastorment" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.torment'}}</label>
+                        <div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hastorment" data-type="{{config.sheettype.mortal}}">
+                            {{#if data.system.settings.hastorment}}
                                 <i class="icon fa-solid fa-eye"></i>
                             {{else}}
                                 <i class="icon fa-solid fa-eye-slash"></i>

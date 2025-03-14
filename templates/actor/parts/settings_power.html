@@ -46,9 +46,20 @@
         </div>
 
         <div class="clearareaBox row">
-            <label for="data.system.settings.powers.hasgifts" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.haspowers"}}</label>
+            <label for="data.system.settings.powers.haspowers" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.haspowers"}}</label>
             <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="haspowers" data-type="{{config.sheettype.mortal}}">
                 {{#if data.system.settings.powers.haspowers}}
+                    {{localize "wod.labels.yes"}}
+                {{else}}
+                    {{localize "wod.labels.no"}}
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="clearareaBox row">
+            <label for="data.system.settings.powers.hasnumina" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasnumina"}}</label>
+            <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasnumina" data-type="{{config.sheettype.mortal}}">
+                {{#if data.system.settings.powers.hasnumina}}
                     {{localize "wod.labels.yes"}}
                 {{else}}
                     {{localize "wod.labels.no"}}

@@ -1,0 +1,135 @@
+.exalted:not(.noSplatFont) nav,
+.exalted:not(.noSplatFont) .splatFont,
+.exaltedDialog:not(.noSplatFont) .splatFont,
+.exaltedItem:not(.noSplatFont) .splatFont {
+	font-family: "exalted", var(--main-font);
+}
+
+.exaltedDialog,
+.exalted,
+.exaltedItem {
+  --main-full-color: var(--main-exalted-color);
+  --main-mid-color: var(--main-exalted-mid-color);
+  --main-dim-color: var(--main-exalted-dim-color);
+  --color-shadow-primary: var(--main-exalted-color);
+}
+
+.wod20.exalted.window-app {
+  font-family: var(--main-exalted-font);
+}
+
+.wod20.exalted button,
+.wod20.exalted input,
+.wod20.exalted select {
+  font-family: var(--main-exalted-font);
+}
+
+.exalted.wod-item .infobox {
+  margin-bottom: 5px;
+  font-family: var(--main-exalted-font);
+  min-height: 36px;
+}
+
+.exalted.wod-dialog .infobox {
+  margin: 5px;
+  font-family: var(--main-exalted-font);
+  min-height: 36px;
+}
+
+.exalted.wod-sheet.noSplatFont .sheet-headline {  
+  font-family: var(--main-exalted-font);
+}
+.exalted.wod-sheet.noSplatFont .headlineGroup {
+  font-family: var(--main-exalted-font);
+}
+
+.exalted:not(.noSplatFont) .sheet-headline {
+  font-size: 36px;
+}
+
+.exalted .secondHeadlineTabs:not(.noSplatFont) {
+  font-size: 25px;
+}
+
+.exalted .secondHeadlineTabs {
+  width: 25%;
+}
+
+.exalted {
+    --sheet-background-color: var(--exalted-page-background);
+}
+  
+.exalted {  
+    --main-wod-banner: var(--exalted-banner-background);
+    --main-wod-banner-small: var(--exalted-banner-small-background); 
+}
+
+.exalted:not(.noSplatFont) .splatFont.sheet-headline span.sheet-banner-text {
+  font-family: "exalted", var(--main-font);
+  font-size: 26px;
+}
+
+.exalted:not(.noSplatFont) .headlineList {
+  font-size: 16px;
+}
+
+.exalted .sheet-headline-variant {
+  font-size: 26px;
+}
+
+.exalted .experienceValue {
+  font-family: "exalted", var(--main-font);
+  font-size: 18px;  
+  line-height: 23px;
+}
+
+.exalted .total.experienceValue {
+  line-height: 50px;
+  margin-left: 15px;
+  font-size: 26px;  
+}
+
+.exalted.wod-sheet .sheet-banner-text {
+  border-radius: 0;
+  opacity: 1;
+}
+
+.exalted.wod-sheet .sheet-banner-small {
+  margin-bottom: 0;
+  background-size: 100%;
+}
+
+.exalted.wod-sheet .sheet-banner {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.wod-sheet.exalted .ability-headlineWidth {
+  width: 40%;
+  line-height: 23px;
+}
+
+.wod20.exalted .attribute-rowheight {
+  height: 19px;
+  line-height: 26px;
+}
+
+.exalted .exaltedsorcery-headlineBox,
+.exalted .exaltedcharm-headlineBox {
+  width: 200px;
+}
+
+.exalted .exaltedsorcery-headline.headlineGroup,
+.exalted .exaltedcharm-headline.headlineGroup {
+  width: 240px;
+}
+
+.wod20 .exaltedsorcery-nonerollablerow .power-iconbox,
+.wod20 .exaltedcharm-nonerollablerow .power-iconbox {
+  margin-left: 290px;
+}
+
+.wod20 .exaltedsorcery-rollablerow .power-iconbox,
+.wod20 .exaltedcharm-rollablerow .power-iconbox {
+  margin-left: 45px;
+}

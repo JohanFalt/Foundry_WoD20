@@ -13,7 +13,7 @@
 
 			<!-- Menu -->
 			<div class="navigation pullLeft">
-				{{#if (eq actor.limited false)}}
+				{{#if (not actor.limited)}}
 					<!-- Lock/Unlock -->
 					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
 				{{/if}}
@@ -41,6 +41,8 @@
 			<!-- Core Normal -->
 			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
 
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
+
 				<!-- Core Attributes -->
 				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
@@ -58,24 +60,24 @@
 
 							<div class="pullLeft" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_nightmare.html"}}
+								{{{getGetStatArea actor actor.system.advantages.nightmare "nightmare" false false true}}}
 
 								<div style="margin-top: auto;">
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_banality.html"}}							
+									{{{getGetStatArea actor actor.system.advantages.banality "banality" true true true}}}					 -->
 								</div>
 						
 							</div>
 							
 							<div class="pullLeft" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_glamour.html"}}
+								{{{getGetStatArea actor actor.system.advantages.glamour "glamour" true true true}}}
 
 								<div style="margin-top: auto;">
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}							
+									{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}	
 								</div>
 
 								{{#if data.system.settings.haspath}}
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+									{{{getGetStatArea actor actor.system.advantages.path "path" true true false}}}
 								{{/if}}
 
 								{{#if data.system.settings.hasvirtue}}
@@ -83,7 +85,9 @@
 								{{/if}}
 
 								{{#if data.system.settings.hasbloodpool}}
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+									{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}
+
+									<div class="information-area centerText">{{localize "wod.advantages.perturn"}}: {{data.system.advantages.bloodpool.perturn}}</div>
 								{{/if}}	
 
 							</div>
@@ -91,7 +95,7 @@
 							<div class="pullLeft healthBox" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 									
 								<div style="width: 100%;">
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+									{{> "systems/worldofdarkness/templates/actor/parts/stats_health_old.html"}}
 								</div>
 
 								<div class="sheet-headline headlineGroup splatFont" style="margin-top: auto;">
@@ -108,6 +112,8 @@
 
 			{{!-- Dreaming Tab --}}
 			<div class="tab dreaming sheet-inner-area" data-group="primary" data-tab="dreaming">
+
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
 				{{> "systems/worldofdarkness/templates/actor/parts/changeling/dreaming.html"}}
 
@@ -132,18 +138,19 @@
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
 
-				<div class="sheet-headline sheet-banner splatFont">
-					<span class="sheet-banner-text">{{localize "wod.gear.otheritems"}}</span>
-				</div>
-
-				{{> "systems/worldofdarkness/templates/actor/parts/changeling/treasure.html"}}
-
 			</div>
 
 			<!-- Notes Tab -->
 			<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
+
+			</div>
+
+			<!-- Effect Tab -->
+			<div class="tab effect sheet-inner-area" data-group="primary" data-tab="effect">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/effect.html"}} 	
 
 			</div>
 			

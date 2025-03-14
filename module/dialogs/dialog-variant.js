@@ -26,13 +26,13 @@ export class DialogVariant extends FormApplication {
     }
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog dialog-top"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-variant.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-variant.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -76,6 +76,11 @@ export class DialogVariant extends FormApplication {
         event.preventDefault();       
     }
 
+    close() {
+        // do something for 'on close here'
+        super.close()
+    }
+
     async _select(event) {
         event.preventDefault();
         const element = event.currentTarget;
@@ -96,6 +101,9 @@ export class DialogVariant extends FormApplication {
         if (this.object.type == CONFIG.worldofdarkness.sheettype.changeling) {
             await CreateHelper.SetChangingVariant(actorData, this.object.variant);
         }
+        else if (this.object.type == CONFIG.worldofdarkness.sheettype.vampire) {
+            await CreateHelper.SetVampireVariant(actorData, this.object.variant);
+        }
         else if (this.object.type == CONFIG.worldofdarkness.sheettype.wraith) {
             actorData.system.settings.variant = this.object.variant;
         }
@@ -103,7 +111,7 @@ export class DialogVariant extends FormApplication {
             await CreateHelper.SetShifterAttributes(actorData, this.object.variant);
         }
         else if (this.object.type == CONFIG.worldofdarkness.sheettype.mortal) {
-			await CreateHelper.SetMortalVariant(actorData, this.object.variant);
+			await CreateHelper.SetMortalVariant(this.actor, actorData, this.object.variant);
 		}
         else if (this.object.type == CONFIG.worldofdarkness.sheettype.creature) {
 			await CreateHelper.SetCreatureVariant(actorData, this.object.variant);
@@ -112,14 +120,10 @@ export class DialogVariant extends FormApplication {
             actorData.system.settings.variant = this.object.variant;
         }
 
+        actorData.system.settings.isupdated = false;
         await this.actor.update(actorData);
-        await CreateHelper.SetVariantItems(this.actor, this.object.variant);
+        await CreateHelper.SetVariantItems(this.actor, this.object.variant, game.data.system.version);
 
         this.close();
     }
-
-    /* clicked to close form */
-    /* _closeForm(event) {
-        this.object.close = true;
-    }     */
 }

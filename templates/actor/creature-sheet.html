@@ -13,7 +13,7 @@
 
 			<!-- Menu -->
 			<div class="navigation pullLeft">
-				{{#if (eq actor.limited false)}}
+				{{#if (not actor.limited)}}
 					<!-- Lock/Unlock -->
 					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
 				{{/if}}
@@ -76,14 +76,12 @@
 
 				{{~> "systems/worldofdarkness/templates/actor/parts/gear.html"}}
 
-				{{#if data.system.settings.hasgnosis}}
-					{{> "systems/worldofdarkness/templates/actor/parts/werewolf/fetish.html"}}
-				{{/if}}
-
 			</div>
 
 			{{!-- Charm Tab --}}
 			<div class="tab discipline sheet-inner-area" data-group="primary" data-tab="charms">
+
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
 				{{> "systems/worldofdarkness/templates/actor/parts/creature/charms.html"}}
 
@@ -92,6 +90,8 @@
 			{{!-- Gift Tab --}}
 			<div class="tab gift sheet-inner-area" data-group="primary" data-tab="gift">
 
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+
 				{{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
 
 			</div>
@@ -99,7 +99,18 @@
 			{{!-- Discipline Tab --}}
 			<div class="tab discipline sheet-inner-area" data-group="primary" data-tab="discipline">
 
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+
 				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
+
+			</div>
+
+			{{!-- Lore Tab --}}
+			<div class="tab lore sheet-inner-area" data-group="primary" data-tab="lore">
+
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+
+				{{> "systems/worldofdarkness/templates/actor/parts/demon/lores.html"}}
 
 			</div>
 
@@ -110,10 +121,51 @@
 
 			</div>
 
+			{{!-- Numina Tab --}}
+			<div class="tab numina sheet-inner-area" data-group="primary" data-tab="numina">
+
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+
+				{{{getGetPowerList locked actor "numina" "wod.types.numina" (localize "wod.power.numinas") false}}}
+
+				<div class="sheet-area flex-columns" style="margin-top: 25px;">
+					<div class="clearareaBox">
+						<div class="headlineList splatFont">{{localize "wod.power.unsortednuminas"}}</div>
+					</div>
+
+					<div class="clearareaBox area-box">
+						{{#each (getConnectedItemList actor "Power" "wod.types.numinapower" "") as | item id|}}
+
+							<div class="clearareaBox row">
+								<div class="pullLeft numina-headline headlineNormal vrollable" 
+									data-type="{{../config.sheettype.mortal}}"
+									data-object="SortNuminaPower"
+									data-rollitem="true"
+									data-itemid="{{item._id}}">{{item.name}}</div>
+								
+								{{#if (eq ../locked false)}}
+									<div class="pullLeft power-iconbox">
+										<a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+									</div>
+								{{/if}}                    
+							</div>
+						{{/each}}
+					</div>
+				</div>
+
+			</div>
+
 			{{!-- Notes Tab --}}
 			<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
+
+			</div>
+
+			<!-- Effect Tab -->
+			<div class="tab effect sheet-inner-area" data-group="primary" data-tab="effect">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/effect.html"}} 	
 
 			</div>
 

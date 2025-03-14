@@ -1,0 +1,35 @@
+{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+
+    <div class="pullLeft" style="display: flex; width: 320px;">
+        <div class="pullLeft area-box">
+            
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.affiliation}}" data-dtype="String" autofocus required />
+                {{else}}
+                <input class="sheet-infoValues editable" name="system.affiliation" type="text" value="{{data.system.affiliation}}" data-name="data.system.affiliation" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.mage.affiliation"}}</span>
+            </div>
+
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{localize data.system.affinity}}" data-dtype="Number" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.affinity" type="text" value="{{data.system.affinity}}" data-name="data.system.affinity" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.mage.affinity"}}</span>
+            </div>
+
+            <div class="bioInformationArea floating-label-group">
+                {{#if locked}}
+                    <input class="sheet-infoValues" type="text" value="{{data.system.essence}}" autocomplete="off" autofocus required />
+                {{else}}
+                    <input class="sheet-infoValues editable" name="system.essence" type="text" value="{{data.system.essence}}" data-name="data.system.essence" data-dtype="String" autocomplete="off" autofocus required />
+                {{/if}}
+                <span class="floating-label">{{localize "wod.bio.mage.essence"}}</span>
+            </div>
+        </div>
+    </div>    
+
+{{/if}}

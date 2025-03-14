@@ -1,64 +1,146 @@
-<div class="clearareaBox" style="display: flex;">
-
-	<div class="pullLeft" style="width: 33%;">
-	
-		{{#if data.system.settings.hasvirtue}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
-		{{else}}
-			&nbsp;
-		{{/if}}
-		
-	</div>
-	
-	<div class="pullLeft" style="width: 33%;">
+<div class="sheet-boxcontainer item-row">
 
 		{{#if data.system.settings.haspath}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_path.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.path "path" true true false}}}
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.hasrage}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_rage.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.rage "rage" true true true}}}
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.hasgnosis}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_gnosis.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.gnosis "gnosis" true true true}}}
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.hasglamour}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_glamour.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.glamour "glamour" true true true}}}
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.hasnightmare}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_nightmare.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.nightmare "nightmare" false false true}}}
+			</div>
 		{{/if}}
 	
 		{{#if data.system.settings.hasfaith}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_faith.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.faith "faith" true true true}}}
+			</div>
+		{{/if}}
+
+		{{#if data.system.settings.hasvitality}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.vitality "vitality" false true false}}}
+			</div>
+		{{/if}}
+
+		{{#if data.system.settings.hasbalance}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.balance "balance" true true false}}}
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.haswillpower}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.hasbloodpool}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_bloodpool.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}
+
+				<div class="information-area centerText">{{localize "wod.advantages.perturn"}}: {{data.system.advantages.bloodpool.perturn}}</div>
+			</div>
 		{{/if}}
 
 		{{#if data.system.settings.hasbanality}}
-			{{> "systems/worldofdarkness/templates/actor/parts/stats_banality.html"}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.banality "banality" true true true}}}
+			</div>
 		{{/if}}
 
-	</div>
+		{{#if data.system.settings.hasspite}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.spite "spite" false false true}}}
+			</div>
+		{{/if}}	
+
+		{{#if data.system.settings.hassekhem}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.sekhem "sekhem" false true true}}}
+			</div>
+		{{/if}}
+
+		{{#if data.system.settings.hasquintessence}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.quintessence "quintessence" false false true}}}
+			</div>
+		{{/if}}
+
+		{{#if (eq data.type config.sheettype.exalted)}}
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.essence "essence" false true false}}}				
+			</div>
+			
+			<div style="width: 33%;">
+				{{{getGetStatArea actor actor.system.advantages.essencepool "essencepool" false false true}}}
+
+				<div class="information-area centerText">{{localize "wod.advantages.essenceperturn"}}: {{data.system.advantages.essencepool.perturn}}</div>
+			</div>
+
+			{{#if (eq data.system.settings.variant "solar")}}
+				<div style="width: 33%;">
+					{{{getGetStatArea actor actor.system.advantages.limitbreak "limitbreak" false false true}}}
+				</div>
+			{{/if}}
+
+			{{#if (eq data.system.settings.variant "liminal")}}
+				<div style="width: 33%;">
+					{{{getGetStatArea actor actor.system.advantages.limitbreak "limit" false false true}}}
+				</div>
+			{{/if}}
+		{{/if}}
 	
-	<div class="pullLeft healthBox" style="width: 33%;">
+</div>
 
-		{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}
+<div class="clearareaBox" style="display: flex;">
 
-		<div class="sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
-			<div class="pullLeft">{{localize 'wod.experience.experience'}}</div>
-			<div class="pullRight experienceValue">{{actor.system.listdata.experiences.experience}}</div>
+	{{#if data.system.settings.hasvirtue}}
+		<div class="pullLeft" style="width: 33%;">
+		
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
+		
+		</div>
+	{{/if}}
+
+	{{#if (ne actor.system.settings.variant 'spirit')}}
+	
+		<div class="healthBox" style="width: 60%; height: 100%; display: flex; flex-direction: column;">
+
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}		
+
 		</div>
 
-	</div>
+	{{/if}}
+
+	{{#if (ne actor.type config.sheettype.creature)}}
+
+		<div class="clearareaBox sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
+			<div class="pullRight item-row">
+				<div>{{localize 'wod.experience.experience'}}</div>
+				<div class="total experienceValue">{{actor.system.listdata.experiences.experience}}</div>
+			</div>		
+		</div>
+
+	{{/if}}
 
 </div>

@@ -117,6 +117,21 @@ export default class SelectHelper {
                 group: game.i18n.localize("wod.games.wraith")
             },
             {
+                value: "wod.types.apocalypticform", 
+                label: game.i18n.localize("wod.types.apocalypticform"), 
+                group: game.i18n.localize("wod.games.demon")
+            },
+            {
+                value: "wod.types.shapeform", 
+                label: game.i18n.localize("wod.types.shapeform"), 
+                group: game.i18n.localize("wod.games.exalted")
+            },
+            {
+                value: "wod.types.aspect", 
+                label: game.i18n.localize("wod.types.aspect"), 
+                group: game.i18n.localize("wod.games.exalted")
+            },
+            {
                 value: "wod.types.talentsecondability", 
                 label: game.i18n.localize("wod.types.talentsecondability"), 
                 group: game.i18n.localize("wod.labels.custom")
@@ -146,11 +161,21 @@ export default class SelectHelper {
                 "changeling": game.i18n.localize("wod.games.changeling"),
                 "demon": game.i18n.localize("wod.games.demon"),
                 "hunter": game.i18n.localize("wod.games.hunter"),
+                "mummy": game.i18n.localize("wod.games.mummy"),
+                "mage": game.i18n.localize("wod.games.mage"),
                 "vampire": game.i18n.localize("wod.games.vampire"),
                 "werewolf": game.i18n.localize("wod.games.werewolf"),
-                "wraith": game.i18n.localize("wod.games.wraith")
+                "wraith": game.i18n.localize("wod.games.wraith"),
+                "orpheus": game.i18n.localize("wod.games.orpheus"),
+                "exalted": game.i18n.localize("wod.games.exalted")
             }
-            
+
+            if (data.system.game == "orpheus") {
+                type = {
+                    "wod.types.stain": game.i18n.localize("wod.types.stain"),
+                    "wod.types.horror": game.i18n.localize("wod.types.horror"),
+                }
+            }            
             if (data.system.game == "changeling") {
                 type = {
                     "wod.types.art": game.i18n.localize("wod.types.art"),
@@ -168,6 +193,12 @@ export default class SelectHelper {
                 type = {
                     "wod.types.edge": game.i18n.localize("wod.types.edge"),
                     "wod.types.edgepower": game.i18n.localize("wod.types.edgepower")
+                }
+            }
+            if (data.system.game == "mage") {
+                type = {
+                    "wod.types.numina": game.i18n.localize("wod.types.numina"),
+                    "wod.types.numinapower": game.i18n.localize("wod.types.numinapower")
                 }
             }
             if (data.system.game == "vampire") {
@@ -191,6 +222,286 @@ export default class SelectHelper {
                     "wod.types.arcanoi": game.i18n.localize("wod.types.arcanoi"),
                     "wod.types.arcanoipower": game.i18n.localize("wod.types.arcanoipower")
                 }
+            }
+            if (data.system.game == "mummy") {
+                type = {
+                    "wod.types.hekau": game.i18n.localize("wod.types.hekau"),
+                    "wod.types.hekaupower": game.i18n.localize("wod.types.hekaupower")
+                }
+            }
+
+            if (data.system.game == "exalted") {
+                type = {
+                    "wod.types.exaltedcharm": game.i18n.localize("wod.types.exaltedcharm"),
+                    "wod.types.exaltedsorcery": game.i18n.localize("wod.types.exaltedsorcery")
+                }
+
+                listData.ExaltedCharmTypes = [
+                    {
+                        value: "", 
+                        label: "- " + game.i18n.localize("wod.labels.select") + " -"
+                    },
+                    {
+                        value: "wod.types.solar.dawn", 
+                        label: game.i18n.localize("wod.types.solar.dawn"), 
+                        group: game.i18n.localize("wod.bio.exalted.solar")
+                    },
+                    {
+                        value: "wod.types.solar.zenith", 
+                        label: game.i18n.localize("wod.types.solar.zenith"),
+                        group: game.i18n.localize("wod.bio.exalted.solar")
+                    },
+                    {
+                        value: "wod.types.solar.twilight", 
+                        label: game.i18n.localize("wod.types.solar.zenith"),
+                        group: game.i18n.localize("wod.bio.exalted.solar")
+                    },
+                    {
+                        value: "wod.types.solar.night", 
+                        label: game.i18n.localize("wod.types.solar.night"),
+                        group: game.i18n.localize("wod.bio.exalted.solar")
+                    },
+                    {
+                        value: "wod.types.solar.eclipse", 
+                        label: game.i18n.localize("wod.types.solar.eclipse"),
+                        group: game.i18n.localize("wod.bio.exalted.solar")
+                    },
+                    {
+                        value: "wod.types.solar.special", 
+                        label: game.i18n.localize("wod.types.solar.special"),
+                        group: game.i18n.localize("wod.bio.exalted.solar")
+                    },
+                    {
+                        value: "wod.types.lunar.fullmoon", 
+                        label: game.i18n.localize("wod.types.lunar.fullmoon"), 
+                        group: game.i18n.localize("wod.bio.exalted.lunar")
+                    },
+                    {
+                        value: "wod.types.lunar.changingmoon", 
+                        label: game.i18n.localize("wod.types.lunar.changingmoon"), 
+                        group: game.i18n.localize("wod.bio.exalted.lunar")
+                    },
+                    {
+                        value: "wod.types.lunar.nomoon", 
+                        label: game.i18n.localize("wod.types.lunar.nomoon"), 
+                        group: game.i18n.localize("wod.bio.exalted.lunar")
+                    },
+                    {
+                        value: "wod.types.lunar.shapeshifting", 
+                        label: game.i18n.localize("wod.types.lunar.shapeshifting"), 
+                        group: game.i18n.localize("wod.bio.exalted.lunar")
+                    },
+                    {
+                        value: "wod.types.dragon.air", 
+                        label: game.i18n.localize("wod.types.dragon.air"), 
+                        group: game.i18n.localize("wod.bio.exalted.dragon")
+                    },
+                    {
+                        value: "wod.types.dragon.earth", 
+                        label: game.i18n.localize("wod.types.dragon.earth"), 
+                        group: game.i18n.localize("wod.bio.exalted.dragon")
+                    },
+                    {
+                        value: "wod.types.dragon.fire", 
+                        label: game.i18n.localize("wod.types.dragon.fire"), 
+                        group: game.i18n.localize("wod.bio.exalted.dragon")
+                    },
+                    {
+                        value: "wod.types.dragon.water", 
+                        label: game.i18n.localize("wod.types.dragon.water"),
+                        group: game.i18n.localize("wod.bio.exalted.dragon")
+                    },
+                    {
+                        value: "wod.types.dragon.wood", 
+                        label: game.i18n.localize("wod.types.dragon.wood"),
+                        group: game.i18n.localize("wod.bio.exalted.dragon")
+                    },
+                    {
+                        value: "wod.types.sidereal.journey", 
+                        label: game.i18n.localize("wod.types.sidereal.journey"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.serenity", 
+                        label: game.i18n.localize("wod.types.sidereal.serenity"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.battle", 
+                        label: game.i18n.localize("wod.types.sidereal.battle"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.secret", 
+                        label: game.i18n.localize("wod.types.sidereal.secret"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.ending", 
+                        label: game.i18n.localize("wod.types.sidereal.ending"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.border", 
+                        label: game.i18n.localize("wod.types.sidereal.border"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.hand", 
+                        label: game.i18n.localize("wod.types.sidereal.hand"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.march", 
+                        label: game.i18n.localize("wod.types.sidereal.march"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.shard", 
+                        label: game.i18n.localize("wod.types.sidereal.shard"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.prismatic", 
+                        label: game.i18n.localize("wod.types.sidereal.prismatic"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.veil", 
+                        label: game.i18n.localize("wod.types.sidereal.veil"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.sidereal.scarlet", 
+                        label: game.i18n.localize("wod.types.sidereal.scarlet"),
+                        group: game.i18n.localize("wod.bio.exalted.sidereal")
+                    },
+                    {
+                        value: "wod.types.abyssal.dusk", 
+                        label: game.i18n.localize("wod.types.abyssal.dusk"),
+                        group: game.i18n.localize("wod.bio.exalted.abyssal")
+                    },
+                    {
+                        value: "wod.types.abyssal.midnight", 
+                        label: game.i18n.localize("wod.types.abyssal.midnight"),
+                        group: game.i18n.localize("wod.bio.exalted.abyssal")
+                    },
+                    {
+                        value: "wod.types.abyssal.daybreak", 
+                        label: game.i18n.localize("wod.types.abyssal.daybreak"),
+                        group: game.i18n.localize("wod.bio.exalted.abyssal")
+                    },
+                    {
+                        value: "wod.types.abyssal.day", 
+                        label: game.i18n.localize("wod.types.abyssal.day"),
+                        group: game.i18n.localize("wod.bio.exalted.abyssal")
+                    },
+                    {
+                        value: "wod.types.abyssal.moonshadow", 
+                        label: game.i18n.localize("wod.types.abyssal.moonshadow"),
+                        group: game.i18n.localize("wod.bio.exalted.abyssal")
+                    },
+                    {
+                        value: "wod.types.infernal.general", 
+                        label: game.i18n.localize("wod.types.infernal.general"),
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.infernal.realm", 
+                        label: game.i18n.localize("wod.types.infernal.realm"), 
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.infernal.lanka", 
+                        label: game.i18n.localize("wod.types.infernal.lanka"),
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.infernal.skinned", 
+                        label: game.i18n.localize("wod.types.infernal.skinned"),
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.infernal.city", 
+                        label: game.i18n.localize("wod.types.infernal.city"),
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.infernal.boiling", 
+                        label: game.i18n.localize("wod.types.infernal.boiling"),
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.infernal.burrowing", 
+                        label: game.i18n.localize("wod.types.infernal.burrowing"),
+                        group: game.i18n.localize("wod.bio.exalted.infernal")
+                    },
+                    {
+                        value: "wod.types.alchemical.general", 
+                        label: game.i18n.localize("wod.types.alchemical.general"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.combat", 
+                        label: game.i18n.localize("wod.types.alchemical.combat"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.physical", 
+                        label: game.i18n.localize("wod.types.alchemical.physical"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.social", 
+                        label: game.i18n.localize("wod.types.alchemical.social"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.stealth", 
+                        label: game.i18n.localize("wod.types.alchemical.stealth"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.analytic", 
+                        label: game.i18n.localize("wod.types.alchemical.analytic"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.utility", 
+                        label: game.i18n.localize("wod.types.alchemical.utility"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.alchemical.spirit", 
+                        label: game.i18n.localize("wod.types.alchemical.spirit"),
+                        group: game.i18n.localize("wod.bio.exalted.alchemical")
+                    },
+                    {
+                        value: "wod.types.liminal.blood", 
+                        label: game.i18n.localize("wod.types.liminal.blood"),
+                        group: game.i18n.localize("wod.bio.exalted.liminal")
+                    },
+                    {
+                        value: "wod.types.liminal.breath", 
+                        label: game.i18n.localize("wod.types.liminal.breath"),
+                        group: game.i18n.localize("wod.bio.exalted.liminal")
+                    },
+                    {
+                        value: "wod.types.liminal.fleash", 
+                        label: game.i18n.localize("wod.types.liminal.fleash"),
+                        group: game.i18n.localize("wod.bio.exalted.liminal")
+                    },
+                    {
+                        value: "wod.types.liminal.marrow", 
+                        label: game.i18n.localize("wod.types.liminal.marrow"),
+                        group: game.i18n.localize("wod.bio.exalted.liminal")
+                    },
+                    {
+                        value: "wod.types.liminal.soil", 
+                        label: game.i18n.localize("wod.types.liminal.soil"),
+                        group: game.i18n.localize("wod.bio.exalted.liminal")
+                    }
+                ];
             }
     
             let creature = {
@@ -295,7 +606,33 @@ export default class SelectHelper {
                 arcanoilist = Object.assign(arcanoilist, {[id]: name});
             }
     
-            listData.Arcanoi = arcanoilist;            
+            listData.Arcanoi = arcanoilist;   
+            
+            let hekaulist = {
+                "": "- " + game.i18n.localize("wod.labels.select") + " -"
+            }
+            
+            for (const hekau of game.worldofdarkness.powers.hekau) {
+                let id = hekau.name.toLowerCase();
+                let name = hekau.name;
+    
+                hekaulist = Object.assign(hekaulist, {[id]: name});
+            }
+    
+            listData.Hekau = hekaulist;
+
+            let numinalist = {
+                "": "- " + game.i18n.localize("wod.labels.select") + " -"
+            }
+            
+            for (const numina of game.worldofdarkness.powers.numina) {
+                let id = numina.name.toLowerCase();
+                let name = numina.name;
+    
+                numinalist = Object.assign(numinalist, {[id]: name});
+            }
+
+            listData.Numina = numinalist;
         }
 
         if (data.type == "Experience") {
@@ -308,6 +645,20 @@ export default class SelectHelper {
         
         // Actors
         if (isCharacter) {
+            listData.Dice = {
+                "": "- " + game.i18n.localize("wod.labels.sheetsetting") + " -",
+                "none": game.i18n.localize("wod.labels.nosetting"),
+                "mortal": game.i18n.localize("wod.games.mortal"),
+                "changeling": game.i18n.localize("wod.games.changeling"),
+                "demon": game.i18n.localize("wod.games.demon"),
+                "hunter": game.i18n.localize("wod.games.hunter"),
+                "mummy": game.i18n.localize("wod.games.mummy"),
+                "mage": game.i18n.localize("wod.games.mage"),
+                "vampire": game.i18n.localize("wod.games.vampire"),
+                "werewolf": game.i18n.localize("wod.games.werewolf"),
+                "wraith": game.i18n.localize("wod.games.wraith")
+            }
+
             if ((data.type == CONFIG.worldofdarkness.sheettype.werewolf) || (data.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
                 let breedlist = {};
                 let auspicelist = {};
@@ -474,6 +825,11 @@ export default class SelectHelper {
                     group: game.i18n.localize("wod.labels.other")
                 },
                 {
+                    value: "soak_diff", 
+                    label: game.i18n.localize("wod.labels.bonus.soakdiffbonus"),
+                    group: game.i18n.localize("wod.labels.other")
+                },
+                {
                     value: "health_buff", 
                     label: game.i18n.localize("wod.labels.bonus.healthbuff"),
                     group: game.i18n.localize("wod.labels.other")
@@ -498,9 +854,6 @@ export default class SelectHelper {
         }];
 
         for (let i = 1; i < 6; i++) {
-            let id = i;
-            let name = i;
-
             const data = {
                 value: i,
                 label: i.toString()
@@ -517,9 +870,6 @@ export default class SelectHelper {
         }];
 
         for (let i = 1; i < 7; i++) {
-            let id = i;
-            let name = i;
-
             const data = {
                 value: i,
                 label: i.toString()
@@ -536,9 +886,6 @@ export default class SelectHelper {
         }];
 
         for (let i = 1; i < 10; i++) {
-            let id = i;
-            let name = i;
-
             const data = {
                 value: i,
                 label: i.toString()
@@ -550,14 +897,27 @@ export default class SelectHelper {
         listData.Level9Value = values;
 
         values = [{
+            value: 0,
+            label: "0"
+        }];
+
+        for (let i = 1; i < 10; i++) {
+            const data = {
+                value: i,
+                label: i.toString()
+            };
+
+            values.push(data);
+        }
+
+        listData.ZeroToNine = values;
+
+        values = [{
             value: "",
             label: "- " + game.i18n.localize("wod.labels.select") + " -"
         }];
 
         for (let i = 1; i < 11; i++) {
-            let id = i;
-            let name = i;
-
             const data = {
                 value: i,
                 label: i.toString()
@@ -575,9 +935,6 @@ export default class SelectHelper {
         }];
             
         for (let i = CONFIG.worldofdarkness.lowestDifficulty; i < 10; i++) {
-            let id = i;
-            let name = i;
-
             const data = {
                 value: i,
                 label: i.toString()

@@ -26,8 +26,7 @@ export class GeneralRoll {
         this.useSpeciality = false;
         this.useWillpower = false;
         this.hasSpeciality = false;
-
-        //data.object.ignorepain = CombatHelper.ignoresPain(this.actor);
+        this.isFavored = false;
 
         if (actor != undefined) {
             this.ignorepain = CombatHelper.ignoresPain(actor);
@@ -41,6 +40,8 @@ export class GeneralRoll {
         this.specialityText = "";
 
         this.sheettype = "";
+
+        
 
         if (type == "attribute") {
             this.attributeKey = key;
@@ -80,13 +81,13 @@ export class DialogGeneralRoll extends FormApplication {
     }
 
     /**
-        * Extend and override the default options used by the 5e Actor Sheet
+        * Extend and override the default options used by the WoD Actor Sheet
         * @returns {Object}
     */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["wod20 wod-dialog general-dialog"],
-            template: "systems/worldofdarkness/templates/dialogs/dialog-generalroll.html",
+            template: "systems/worldofdarkness/templates/dialogs/dialog-generalroll.hbs",
             closeOnSubmit: false,
             submitOnChange: true,
             resizable: true
@@ -182,6 +183,7 @@ export class DialogGeneralRoll extends FormApplication {
 
             if (abilityKey != "") {
                 let ability = undefined;
+                let abilitytype = "";                
 
                 if ((data.actorData.abilities[abilityKey] != undefined) && (data.actorData.abilities[abilityKey].isvisible)) {
                     ability = data.actorData.abilities[abilityKey];
@@ -202,8 +204,8 @@ export class DialogGeneralRoll extends FormApplication {
 					}
                 }
 
-                if (await BonusHelper.CheckAbilityBonus(this.actor, ability._id)) {
-                    let bonus = await BonusHelper.GetAbilityBonus(this.actor, ability._id);
+                if (await BonusHelper.CheckAbilityDiff(this.actor, ability._id)) {
+                    let bonus = await BonusHelper.GetAbilityDiff(this.actor, ability._id); 
                     this.object.difficulty += parseInt(bonus);
                 }              
                 
@@ -285,7 +287,7 @@ export class DialogGeneralRoll extends FormApplication {
             this.object.usedReducedDiff = true;
         }
         else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty += parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = false;
         }
         
@@ -310,6 +312,11 @@ export class DialogGeneralRoll extends FormApplication {
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
         this.render();
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setDifficulty(event) {
@@ -459,6 +466,7 @@ export class DialogGeneralRoll extends FormApplication {
         const generalRoll = new DiceRollContainer(this.actor);
         generalRoll.action = rollName;
         generalRoll.attribute = this.object.attributeKey;
+        generalRoll.ability = this.object.abilityKey;
         generalRoll.dicetext = template;
         generalRoll.bonus = parseInt(this.object.bonus);
         generalRoll.origin = "general";

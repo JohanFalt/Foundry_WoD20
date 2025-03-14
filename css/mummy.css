@@ -1,0 +1,87 @@
+.mummy:not(.noSplatFont) nav,
+.mummy:not(.noSplatFont) .splatFont,
+.mummyDialog:not(.noSplatFont) .splatFont,
+.mummyItem:not(.noSplatFont) .splatFont {
+	font-family: "mummy", var(--main-font);
+}
+
+.mummyDialog,
+.mummy,
+.mummyItem {
+  --main-full-color: var(--main-mummy-color);
+  --main-mid-color: var(--main-mummy-mid-color);
+  --main-dim-color: var(--main-mummy-dim-color);
+  --color-shadow-primary: var(--main-mummy-color);
+}
+
+.mummy .secondHeadlineTabs:not(.noSplatFont) {
+  font-size: 25px;
+}
+
+.mummy .secondHeadlineTabs {
+  width: 25%;
+}
+
+.mummy {
+    --sheet-background-color: var(--mummy-page-background);
+}
+  
+.mummy .modern {  
+    --main-wod-banner: var(--mummy-banner-background);
+    --main-wod-banner-small: var(--mummy-banner-small-background); 
+}
+
+.mummy:not(.noSplatFont) .splatFont.sheet-headline {
+  font-family: "mummy_italic", var(--main-font);
+  font-size: 32px;
+}
+
+.mummy:not(.noSplatFont) .splatFont.sheet-headline span.sheet-banner-text {
+  font-family: "mummy", var(--main-font);
+  font-size: 26px;
+}
+
+.mummy .experienceValue {
+  font-family: "mummy", var(--main-font);
+  font-size: 26px;  
+  line-height: 18px;
+}
+
+.mummy .total.experienceValue {
+  line-height: 50px;
+  margin-left: 15px;
+}
+
+.mummy.wod-sheet .sheet-banner-text {
+  background: 0;
+  border-radius: 0;
+  opacity: 1;
+  color: white;
+}
+
+.mummy.wod-sheet .sheet-banner-small {
+  margin-bottom: 0;
+  background-size: 100%;
+}
+
+.mummy.wod-sheet .sheet-banner {
+  margin-bottom: 0;
+  margin-top: 0;
+  background-size: 50%;
+}
+
+.mummy .hekau-headline.headlineGroup {
+  width: 240px;
+}
+
+.mummy .hekau-headline {
+  width: 200px;
+}
+
+.wod20 .hekaupower-nonerollablerow .power-iconbox {
+  margin-left: 290px;
+}
+
+.wod20 .hekaupower-rollablerow .power-iconbox {
+  margin-left: 140px;
+}

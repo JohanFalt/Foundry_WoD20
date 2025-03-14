@@ -76,9 +76,11 @@
   
 .changeling .pullLeft.healthbox {
     margin-left: 15px;
+    margin-right: 15px;
 }
   
 .changeling .pullRight.healthbox {
+    margin-left: 15px;
     margin-right: 15px;  
 }
   

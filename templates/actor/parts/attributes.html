@@ -1,5 +1,4 @@
 <div class="clearareaBox area-box">
-
 	<div class="sheet-headline sheet-banner splatFont">
 		<span class="sheet-banner-text">{{localize 'wod.attributes.attributes'}}</span>
 	</div>
@@ -16,55 +15,51 @@
 			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
 			{{#if attribute.isvisible}}
-				<!-- <div> -->
-					<div class="attribute-rowheight attributes" style="clear:left;">
-						<label for="data.system.attributes.{{key}}.value" 
-							class="pullLeft vrollable {{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
-							data-type="{{../config.sheettype.mortal}}"
-							data-key="{{key}}"
-							data-attribute="true">{{localize attribute.label}}</label>			
+				<div class="attribute-rowheight attributes" style="clear:left;">
+					{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eqAny ../actor.system.settings.variant "lunar" "liminal" "alchemical"))}}
+						<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="attribute.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{key}}" data-attribute="true" {{isChecked attribute.isfavorited}}></input></div>
+					{{/if}}
 
-						<div class="{{#if (gt attribute.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value" 
-							data-value="{{attribute.value}}" 
-							data-name="attributes.{{key}}.value">
+					<label for="data.system.attributes.{{key}}.value" 
+						class="pullLeft vrollable {{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
+						data-type="{{../config.sheettype.mortal}}"
+						data-key="{{key}}"
+						data-attribute="true">{{localize attribute.label}}</label>			
 
-							{{#if (eq ../actor.type ../config.sheettype.werewolf)}}
-								<span class="attribute-total">{{attribute.total}}</span>
-							{{/if}}
-									
-							{{#if (eq ../actor.type ../config.sheettype.changingbreed)}}
-								<span class="attribute-total">{{attribute.total}}</span>
-							{{/if}}
+					<div class="{{#if (gt attribute.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value" 
+						data-value="{{attribute.value}}" 
+						data-name="attributes.{{key}}.value">
 
-							{{#numLoop attribute.max}}							
-								<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>							
-							{{/numLoop}}
+						{{#if (eqAny ../actor.type ../config.sheettype.werewolf ../config.sheettype.changingbreed ../config.sheettype.demon)}}
+							<span class="attribute-total">{{attribute.total}}</span>
+						{{/if}}
 
-							
-							{{#if (gte attribute.value 4)}}
-								{{#if (eq ../locked false)}}
-									<div class="pullRight speciality-attribute-icon {{#if (and (eq attribute.speciality '') (gte attribute.value 4))}}item-warning{{/if}}">
-										<a class="item-edit" title="{{localize 'wod.labels.edit.speciality'}}" data-type="Attribute" data-item-id="{{key}}"><i class="fa-solid fa-pen-to-square"></i></a>
-									</div>
-								{{else}}
-									<div class="pullRight speciality-attribute-icon">
-										<i class="fa-solid fa-circle-exclamation {{#if (eq attribute.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{attribute.speciality}}"></i>
-									</div>
-								{{/if}}
-							{{else}}
-								<div class="pullRight speciality-attribute-empty-icon">
-									&nbsp;
+						{{#numLoop attribute.max}}							
+							<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>							
+						{{/numLoop}}
+						
+						{{#if (gte attribute.value 4)}}
+							{{#if (eq ../locked false)}}
+								<div class="pullRight speciality-attribute-icon {{#if (and (eq attribute.speciality '') (gte attribute.value 4))}}item-warning{{/if}}">
+									<a class="item-edit" title="{{localize 'wod.labels.edit.speciality'}}" data-type="Attribute" data-item-id="{{key}}"><i class="fa-solid fa-pen-to-square"></i></a>
 								</div>
-							{{/if}}	
+							{{else}}
+								<div class="pullRight speciality-attribute-icon">
+									<i class="fa-solid fa-circle-exclamation {{#if (eq attribute.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{attribute.speciality}}"></i>
+								</div>
+							{{/if}}
+						{{else}}
+							<div class="pullRight speciality-attribute-empty-icon">
+								&nbsp;
+							</div>
+						{{/if}}	
 
-						</div>				
 					</div>				
-				<!-- </div> -->
+				</div>				
 			{{/if}}
 
 			{{#if (bottenAttributes key)}}</div>{{/if}}
 		
 		{{/each}}	
 	</div> 
-
 </div>	

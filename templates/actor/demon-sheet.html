@@ -13,7 +13,7 @@
 
 			<!-- Menu -->
 			<div class="navigation pullLeft">
-				{{#if (eq actor.limited false)}}
+				{{#if (not actor.limited)}}
 					<!-- Lock/Unlock -->
 					{{> "systems/worldofdarkness/templates/actor/parts/profile-img.html"}}	
 				{{/if}}
@@ -41,6 +41,8 @@
 			<!-- Core Normal -->
 			<div class="tab core sheet-inner-area" data-group="primary" data-tab="core">
 
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
+
 				<!-- Core Attributes -->
 				<div class="sheet-area flex-columns">
 					{{> "systems/worldofdarkness/templates/actor/parts/attributes.html"}} 	
@@ -59,23 +61,20 @@
 							<div class="pullLeft" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 						
 								<!-- Virtues -->
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
-
-								<!-- Forms -->
-								{{> "systems/worldofdarkness/templates/actor/parts/demon/forms.html"}}
+								{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}								
 								
 							</div>
 							
 							<div class="pullLeft" style="width: 33%; min-height: 259px; display: flex; flex-direction: column;">
 
-								{{> "systems/worldofdarkness/templates/actor/parts/stats_faith.html"}}
+								{{{getGetStatArea actor actor.system.advantages.faith "faith" true true true}}}
 					
 								<div style="margin-top: auto; margin-bottom: auto;">
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_torment.html"}}
+									{{{getGetStatArea actor actor.system.advantages.torment "torment" false true true}}}
 								</div>
 
 								<div style="margin-top: auto;">
-									{{> "systems/worldofdarkness/templates/actor/parts/stats_willpower.html"}}
+									{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 								</div>
 						
 							</div>
@@ -115,6 +114,8 @@
 			{{!-- Lore Tab --}}
 			<div class="tab lore sheet-inner-area" data-group="primary" data-tab="lore">
 
+				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+
 				{{> "systems/worldofdarkness/templates/actor/parts/demon/lores.html"}}
 
 			</div>
@@ -130,6 +131,13 @@
 			<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">
 
 				{{> "systems/worldofdarkness/templates/actor/parts/notes.html"}}
+
+			</div>
+
+			<!-- Effect Tab -->
+			<div class="tab effect sheet-inner-area" data-group="primary" data-tab="effect">
+
+				{{> "systems/worldofdarkness/templates/actor/parts/effect.html"}} 	
 
 			</div>
 			

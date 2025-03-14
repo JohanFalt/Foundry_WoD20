@@ -9,7 +9,7 @@
 }
 
 :root {
-    --main-chat-font: font-family: "default", Arial, Helvetica, sans-serif;
+    --main-chat-font: font-family: "default", Verdana, Helvetica, sans-serif;
   
     --font-large: 16px;
     --font-x-large: 24px;
@@ -174,15 +174,3 @@
     border: 2px solid #6f6c66;
     border-radius: 5px;
 }
-
-/*
-:root {
-    --main-chat-font: font-family: "default", Arial, Helvetica, sans-serif;
-    --font-large: 16px;
-    --font-x-large: 24px;
-    --chat-background-color: #171717;
-    --chat-header-background: rgb(196, 23, 29, 1);
-    --chat-header-text-color: white;
-    --chat-text-background: white;
-    --chat-text-color: black;
-} */

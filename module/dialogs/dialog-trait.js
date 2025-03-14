@@ -76,7 +76,7 @@ export class DialogRoll extends FormApplication {
 
     /** @override */
 	get template() {
-        return "systems/worldofdarkness/templates/dialogs/dialog-item.html";
+        return "systems/worldofdarkness/templates/dialogs/dialog-item.hbs";
 	}    
 
     async getData() {
@@ -227,17 +227,22 @@ export class DialogRoll extends FormApplication {
         this.object.useWillpower = formData["useWillpower"];
 
         if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
-            this.object.difficulty -= CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty -= parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = true;
         }
         else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff){
-            this.object.difficulty += CONFIG.worldofdarkness.specialityReduceDiff;
+            this.object.difficulty += parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = false;
         }
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
         this.render();
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     _setDifficulty(event) {
@@ -299,6 +304,7 @@ export class DialogRoll extends FormApplication {
         const dialogRoll = new DiceRollContainer(this.actor);
         dialogRoll.action = this.object.name;
         dialogRoll.attribute = this.object.dice1;
+        dialogRoll.ability = this.object.dice2;
         dialogRoll.dicetext = template;
         dialogRoll.bonus = parseInt(this.object.bonus);
         dialogRoll.origin = "item";

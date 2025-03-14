@@ -31,7 +31,7 @@ export class DialogBonus extends FormApplication {
 
     /** @override */
 	get template() {
-        return "systems/worldofdarkness/templates/dialogs/dialog-bonus.html";
+        return "systems/worldofdarkness/templates/dialogs/dialog-bonus.hbs";
 	}    
 
     async getData() {
@@ -40,7 +40,10 @@ export class DialogBonus extends FormApplication {
         data.config = CONFIG.worldofdarkness;
         data.object.sheettype = "mortalDialog";
 
-        if ((this.actor?.type != undefined) && (this.actor?.type != CONFIG.worldofdarkness.sheettype.changingbreed)) {
+        if (this.actor?.system?.settings?.variantsheet != "") {
+            data.object.sheettype = this.actor?.system?.settings?.variantsheet.toLowerCase() + "Dialog";
+        }
+        else if ((this.actor?.type != undefined) && (this.actor?.type != CONFIG.worldofdarkness.sheettype.changingbreed)) {
             data.object.sheettype = this.actor.type.toLowerCase() + "Dialog";
         }
         else if (this.actor?.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
@@ -77,6 +80,11 @@ export class DialogBonus extends FormApplication {
             this.close();
             return;
         }
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     async _onsheetChange(event) {
@@ -157,6 +165,7 @@ export class DialogBonus extends FormApplication {
         }
         
         this.object.bonus[source] = value;
+        this.object.cansave = true;
         this.render();
     }
 
@@ -190,7 +199,6 @@ export class DialogBonus extends FormApplication {
             }
         }		
 
-        //const itemData = foundry.utils.duplicate(item);
         const itemData = foundry.utils.duplicate(this.object.item);
 
         let bonus = {
@@ -204,8 +212,16 @@ export class DialogBonus extends FormApplication {
         itemData.system.bonuslist[this.object.bonusId] = bonus
         await this.object.item.update(itemData);
 
+        const actorData = foundry.utils.duplicate(this.object.actor);
+
+        if (actorData != null) {
+            actorData.system.settings.isupdated = false;
+            await this.object.actor.update(actorData);
+        }        
+
         ui.notifications.info(game.i18n.localize("wod.labels.bonus.savesuccess"));
 
         this.object.cansave = false;
+        this.render();
     } 
 }

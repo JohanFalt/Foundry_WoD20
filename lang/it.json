@@ -34,7 +34,7 @@
 			"vampire": "Vampiri la Masquerade",
 			"werewolf": "Licantropi l'Apocalisse",
 			"mage": "Maghi l'Ascensione",
-			"wraith": "Wraith the Oblivion",
+			"wraith": "Presenze: l'oblio",
 			"breed": "Changing Breed",
 			"creature": "Creature",
 			"mortal": "Mortal"
@@ -199,8 +199,8 @@
 			"resonance": "Risonanza",
 			"othertraits": "Altri Tratti",
 			"apocalypticform": "Forma Apocalittica",
-			"passion": "Passion",
-			"fetter": "Fetter",
+			"passion": "Passione",
+			"fetter": "Catena",
 			"wyrd": "Wyrd"
 		},
 		"tab": {
@@ -217,7 +217,7 @@
 			"dreaming": "Sogno",
 			"edge": "Vantaggi",
 			"lore": "Lore",
-			"death": "Death",
+			"death": "Morte",
 			"shapechange": "Forme",
 			"settings": "Impostazioni",
 			"sheet": "Impostazioni scheda",
@@ -609,16 +609,16 @@
 				"reconciler": "Riconciliatore"
 			},
 			"wraith": {
-				"shadow": "Shadow",
-				"life": "Life",
-				"death": "Death",
-				"regret": "Regret",
-				"psyche": "Psyche",
-				"archetype": "Archetype",
-				"player": "Player",
-				"thorns": "Thorns",
-				"darkpassions": "Dark Passions",
-				"psychewillpower": "Psyche Willpower"
+				"shadow": "Ombra",
+				"life": "Vita",
+				"death": "Morte",
+				"regret": "Rimpianto",
+				"psyche": "Psiche",
+				"archetype": "Archetipo",
+				"player": "Giocatore",
+				"thorns": "Spine",
+				"darkpassions": "Passioni oscure",
+				"psychewillpower": "Volontà della psiche"
 			},
 			"mortal": {
 				"autumnpeople": "Autumn people",
@@ -693,7 +693,7 @@
 			"kenning": "Perifrasare",
 			"leadership": "Autorità",
 			"legerdemain": "Destrezza di Mano",
-			"persuasion": "Persuasion",
+			"persuasion": "Manipolare",
 			"primalurge": "Istinto Primordiale",
 			"streetwise": "Bassifondi",
 			"subterfuge": "Sotterfugio",
@@ -899,7 +899,7 @@
 			"apocalypticforms": "Forme Apocalittiche",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
-			"angst": "Angst"
+			"angst": "Angoscia"
 		},
 		"combat": {
 			"conditions": {
@@ -1054,8 +1054,8 @@
 			"necromancy": "Negromanzia",
 			"ritualcategory": "Categoria Rituale",
 			"arcanoi": "Arcanoi",
-			"passions": "Passions",
-			"fetters": "Fetters"
+			"passions": "Passioni",
+			"fetters": "Catene"
 		},
 		"spheres": {
 			"spheres": "Sfere",
@@ -1363,10 +1363,10 @@
 				"matrix": "Nuova Matrice",
 				"trinket": "Nuovo Gingillo",
 				"oath": "New oath",
-				"arcanoi": "New arcanoi",
-				"arcanoipower": "New arcanoi power",
-				"passion": "New passion",
-				"fetter": "New fetter"
+				"arcanoi": "Nuovo arcanoi",
+				"arcanoipower": "Nuovo potere",
+				"passion": "Nuova passione",
+				"fetter": "Nuova catena"
 			},
 			"add": {
 				"naturalweapon": "Add natural weapon",
@@ -1410,10 +1410,10 @@
 				"matrix": "Aggiungi Matrice",
 				"trinket": "Aggiungi Gingillo",
 				"oath": "Add oath",
-				"arcanoi": "Add arcanoi",
-				"arcanoipower": "Add arcanoi power",
-				"passion": "Add passion",
-				"fetter": "Add fetter"
+				"arcanoi": "Aggiungi arcanoi",
+				"arcanoipower": "Aggiungi potere ",
+				"passion": "Aggiungi passione",
+				"fetter": "Aggiungi catena"
 			},
 			"edit": {
 				"naturalweapon": "Modifica Armi Naturali",
@@ -1460,10 +1460,10 @@
 				"sphere": "Modifica Sfera",
 				"experience": "Modifica Esperienza",
 				"oath": "Edit oath",
-				"arcanoi": "Edit arcanoi",
-				"arcanoipower": "Edit arcanoi power",
-				"passion": "Edit passion",
-				"fetter": "Edit fetter"
+				"arcanoi": "Modifica arcanoi",
+				"arcanoipower": "Modifica arcanoi",
+				"passion": "Modifica passione",
+				"fetter": "Modifica catena"
 			},
 			"remove": {
 				"item": "Rimuovi Oggetto",
@@ -1509,10 +1509,10 @@
 				"trinket": "Rimuovi Gingillo",
 				"experience": "Rimuovi Esperienza",
 				"oath": "Remove oath",
-				"arcanoi": "Remove arcanoi",
-				"arcanoipower": "Remove arcanoi power",
-				"passion": "Remove passion",
-				"fetter": "Remove fetter"
+				"arcanoi": "Rimuovi arcanoi",
+				"arcanoipower": "Rimuovi potere",
+				"passion": "Rimuovi passione",
+				"fetter": "Rimuovi catena"
 			},
 			"show": {
 				"background": "Mostra Background",
@@ -1708,12 +1708,12 @@
 				"bonuses": "Bonuses"
 			},
 			"variant": {
-				"sheettype": "Set sheet type",
+				"sheettype": "Scegli il tipo di scheda",
 				"notype": "No sheet type selected",
 				"general": "General type",
 				"changeling": "General changeling",
 				"mortal": "General mortal",
-				"wraith": "General wraith",
+				"wraith": "Presenza generica",
 				"creature": "General creature",
 				"info": "This setting sets what variant of the sheet it is set to use.",
 				"description": "This setting can be changed under the sheet's settings",

@@ -71,6 +71,18 @@
 
 		</div>
 
+		{{#if (eq actor.system.settings.variant 'orpheus')}}
+
+			{{~> "systems/worldofdarkness/templates/actor/parts/variant/bio_orpheus_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.system.settings.variant 'sorcerer')}}
+
+			{{~> "systems/worldofdarkness/templates/actor/parts/variant/bio_sorcerer_background.html"}}
+
+		{{/if}}
+
 		{{#if (eq actor.type config.sheettype.vampire)}}
 
 			{{~> "systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html"}}
@@ -106,6 +118,12 @@
 		{{#if (eq actor.type config.sheettype.wraith)}}
 
 			{{> "systems/worldofdarkness/templates/actor/parts/wraith/bio_wraith_background.html"}}
+
+		{{/if}}
+
+		{{#if (eq actor.type config.sheettype.mummy)}}
+
+			{{> "systems/worldofdarkness/templates/actor/parts/mummy/bio_mummy_background.html"}}
 
 		{{/if}}
 
@@ -164,6 +182,12 @@
 				{{/if}}
 
 		{{/if}}	
+
+		{{#if (eq actor.type config.sheettype.exalted)}}
+
+			{{> "systems/worldofdarkness/templates/actor/parts/exalted/bio_exalted_background.html"}}
+
+		{{/if}}
 
 	</div>
 	

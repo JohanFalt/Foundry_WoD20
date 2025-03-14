@@ -79,7 +79,7 @@ export class DialogBio extends FormApplication {
 
     /** @override */
 	get template() {
-        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.html";
+        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.hbs";
 	}    
 
     getData() {
@@ -111,6 +111,11 @@ export class DialogBio extends FormApplication {
         event.preventDefault();       
     }
 
+    close() {
+        // do something for 'on close here'
+        super.close()
+    }
+
     async _save(event) {  
         this.object.custom = document.getElementById("custom").value;
         const actorData = foundry.utils.duplicate(this.actor);
@@ -128,6 +133,7 @@ export class DialogBio extends FormApplication {
             
             actorData.system[area][property].custom = this.object.custom;
         }
+        actorData.system.settings.isupdated = false;
         await this.actor.update(actorData);
         this.close();
     }
@@ -154,7 +160,7 @@ export class DialogAttribute extends FormApplication {
 
     /** @override */
 	get template() {
-        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.html";
+        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.hbs";
 	}    
 
     getData() {
@@ -186,11 +192,17 @@ export class DialogAttribute extends FormApplication {
         event.preventDefault();       
     }
 
+    close() {
+        // do something for 'on close here'
+        super.close()
+    }
+
     async _save(event) {  
         this.object.speciality = document.getElementById("speciality").value;
 
         const actorData = foundry.utils.duplicate(this.actor);
         actorData.system.attributes[this.object.id].speciality = this.object.speciality;
+        actorData.system.settings.isupdated = false;
         await this.actor.update(actorData);
         this.close();
     }
@@ -217,7 +229,7 @@ export class DialogAbility extends FormApplication {
 
     /** @override */
 	get template() {
-        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.html";
+        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.hbs";
 	}    
 
     getData() {
@@ -247,6 +259,11 @@ export class DialogAbility extends FormApplication {
 
     async _updateObject(event, formData) {
         event.preventDefault();       
+    }
+
+    close() {
+        // do something for 'on close here'
+        super.close()
     }
 
     async _save(event) {  
@@ -301,7 +318,7 @@ export class DialogSphere extends FormApplication {
 
     /** @override */
 	get template() {
-        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.html";
+        return "systems/worldofdarkness/templates/dialogs/dialog-attribute.hbs";
 	}    
 
     getData() {
@@ -333,6 +350,11 @@ export class DialogSphere extends FormApplication {
             .click(this._save.bind(this));
     }
 
+    close() {
+        // do something for 'on close here'
+        super.close()
+    }
+
     async _save(event) {  
         if (parseInt(this.object.value) >= 4) {
             this.object.speciality = document.getElementById("speciality").value;
@@ -347,6 +369,7 @@ export class DialogSphere extends FormApplication {
         actorData.system.spheres[this.object.id].speciality = this.object.speciality;
         actorData.system.spheres[this.object.id].istechnocracy = this.object.istechnocracy;
         actorData.system.spheres[this.object.id].label = await this.setSphereName(this.object.id, this.object.istechnocracy);
+        actorData.system.settings.isupdated = false;
         await this.actor.update(actorData);
 
         this.close();

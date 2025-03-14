@@ -4,22 +4,27 @@ import { wod } from "./module/config.js";
 import { systemSettings } from "./module/settings.js";
 import * as templates from "./module/templates.js";
 
+import { RenderSettings } from './module/ui/settings-sidebar.js'
 import * as WoDSetup from "./module/scripts/wodsetup.js";
 
-import { MortalActorSheet } from "./module/actor/mortal-actor-sheet.js";
-import { WerewolfActorSheet } from "./module/actor/werewolf-actor-sheet.js";
-import { MageActorSheet } from "./module/actor/mage-actor-sheet.js";
-import { VampireActorSheet } from "./module/actor/vampire-actor-sheet.js";
-import { ChangelingActorSheet } from "./module/actor/changeling-actor-sheet.js";
-import { HunterActorSheet } from "./module/actor/hunter-actor-sheet.js";
-import { DemonActorSheet } from "./module/actor/demon-actor-sheet.js";
-import { WraithActorSheet } from "./module/actor/wraith-actor-sheet.js";
-import { ChangingBreedActorSheet } from "./module/actor/changingbreed-actor-sheet.js";
-import { SpiritActorSheet } from "./module/actor/spirit-actor-sheet.js";
-import { CreatureActorSheet } from "./module/actor/creature-actor-sheet.js";
+import { WoDActor } from "./module/actor/data/wod-actor-base.js";
+import { WoDItem } from "./module/items/data/wod-item-base.js";
+
+import { MortalActorSheet } from "./module/actor/template/mortal-actor-sheet.js";
+import { WerewolfActorSheet } from "./module/actor/template/werewolf-actor-sheet.js";
+import { MageActorSheet } from "./module/actor/template/mage-actor-sheet.js";
+import { VampireActorSheet } from "./module/actor/template/vampire-actor-sheet.js";
+import { ChangelingActorSheet } from "./module/actor/template/changeling-actor-sheet.js";
+import { HunterActorSheet } from "./module/actor/template/hunter-actor-sheet.js";
+import { DemonActorSheet } from "./module/actor/template/demon-actor-sheet.js";
+import { WraithActorSheet } from "./module/actor/template/wraith-actor-sheet.js";
+import { MummyActorSheet } from "./module/actor/template/mummy-actor-sheet.js";
+import { ExaltedActorSheet } from "./module/actor/template/exalted-actor-sheet.js";
+import { ChangingBreedActorSheet } from "./module/actor/template/changingbreed-actor-sheet.js";
+import { CreatureActorSheet } from "./module/actor/template/creature-actor-sheet.js";
 import { tourSetup } from './tours/toursetup.js';
 
-import { WoDItemSheet } from "./module/items/item-sheet.js";
+import { WoDItemSheet } from "./module/items/template/item-sheet.js";
 
 import { DialogGeneralRoll, GeneralRoll } from "./module/dialogs/dialog-generalroll.js";
 
@@ -34,11 +39,12 @@ const SheetTypes = [
 	"Hunter",
 	"Demon",
 	"Wraith",
+	"Mummy",
+	"Exalted",
 	"Changing Breed"
 ];
 const AdversaryTypes = [
-	"Creature",
-	"Spirit"	
+	"Creature"
 ];
 const PowerCreationItemTypes = [
 	"Power",
@@ -164,6 +170,12 @@ Hooks.once("init", async function() {
 	CONFIG.worldofdarkness.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
 	CONFIG.worldofdarkness.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
 
+	// Register application classes
+	CONFIG.Actor.documentClass = WoDActor;
+	CONFIG.Item.documentClass = WoDItem;
+
+	console.log("WoD | Classes Registered");
+
 	// Register sheet application classes
 	Actors.unregisterSheet("core", ActorSheet);
 	
@@ -215,6 +227,18 @@ Hooks.once("init", async function() {
 		makeDefault: true
 	});
 
+	Actors.registerSheet("WoD", MummyActorSheet, {
+		label: game.i18n.localize("wod.sheet.mummy"),
+		types: ["Mummy"],
+		makeDefault: true
+	});
+
+	Actors.registerSheet("WoD", ExaltedActorSheet, {
+		label: game.i18n.localize("wod.sheet.exalted"),
+		types: ["Exalted"],
+		makeDefault: true
+	});
+
 	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
 		label: game.i18n.localize("wod.sheet.breed"),
 		types: ["Changing Breed"],
@@ -226,14 +250,8 @@ Hooks.once("init", async function() {
 		types: ["Creature"],
 		makeDefault: true
 	});	
-
-	Actors.registerSheet("WoD", SpiritActorSheet, {
-		label: game.i18n.localize("wod.sheet.spirit"),
-		types: ["Spirit"],
-		makeDefault: true
-	});		
 	
-	console.log("WoD | Sheets Registered");
+	console.log("WoD | Actor Sheets Registered");
 	
 	// Register item application classes
 	Items.unregisterSheet("core", ItemSheet);
@@ -242,12 +260,15 @@ Hooks.once("init", async function() {
 		makeDefault: true		
 	});
 
-	console.log("WoD | Items Registered");
+	console.log("WoD | Item Sheets Registered");
 	
 	templates.preloadHandlebarsTemplates();
 	templates.registerHandlebarsHelpers();	
 
 	console.log("WoD | Added Handelebars");
+
+	// Initialize the alterations to the settings sidebar
+	RenderSettings();
 
 	game.worldofdarkness = {
 		powers: WoDSetup.getInstalledPowers(game.data.items)
@@ -270,23 +291,37 @@ Hooks.once("init", async function() {
 			discipline: IconHelper.GetIcon("discipline", race),
 			shapechange: IconHelper.GetIcon("shapechange", race),
 			death: IconHelper.GetIcon("death", race),
+			scarab: IconHelper.GetIcon("scarab", race),
 			charms: IconHelper.GetIcon("charms", race),
 			gift: IconHelper.GetIcon("gift", race),
 			dreaming: IconHelper.GetIcon("dreaming", race),
 			edge: IconHelper.GetIcon("edge", race),
 			lore: IconHelper.GetIcon("lore", race),
 			power: IconHelper.GetIcon("power", race),
+			exaltedcharm: IconHelper.GetIcon("exaltedcharm", race),
 			combat: IconHelper.GetIcon("combat", race),
 			gear: IconHelper.GetIcon("gear", race),
 			note: IconHelper.GetIcon("note", race),
+			effect: IconHelper.GetIcon("effect", race),
 			settings: IconHelper.GetIcon("settings", race),
-			dice: IconHelper.GetIcon("dice", race)
+			dice: IconHelper.GetIcon("dice", race),
+			frenzy: IconHelper.GetIcon("frenzy", race),
+			shapechange: IconHelper.GetIcon("shapechange", race),
+			remainactive: IconHelper.GetIcon("remainactive", race),
+			spellcasting: IconHelper.GetIcon("spellcasting", race),
+			initiative: IconHelper.GetIcon("initiative", race),
+			soak: IconHelper.GetIcon("soak", race),
+			d10: IconHelper.GetIcon("d10", race)
 		}
 
 		Object.assign(game.worldofdarkness.icons[race], iconlist);
 	}	
 
 	Handlebars.registerHelper('dtSvgDie', (icon, sheettype, options) => {
+		if ((options != "") && (options != undefined)) {
+			sheettype = options;
+		}
+
 		const context = sheettype.toLowerCase().replace(" ", "") + "_" + icon.toLowerCase();
 
 		return `${context}Svg`;
@@ -297,9 +332,7 @@ Hooks.once("init", async function() {
 		for (let icon of Object.entries(iconlist)) {
 			Handlebars.registerPartial(`${race}_${icon[0]}Svg`, icon[1]);
 		}
-	}
-
-	
+	}	
 
 	console.log("WoD | Icons added"); 
 });
@@ -423,26 +456,37 @@ Hooks.on("renderActorSheet", (sheet) => {
 		sheet.element[0].classList.add("langEN");
 	}
 
-	if (sheet.object.type.toLowerCase() == "creature") {
+	if (sheet.object.type.toLowerCase() == "mortal") {
+		sheet.element[0].classList.add("mortal");
+		sheet.element[0].classList.remove("wraith");
 		sheet.element[0].classList.remove("mage");
+		sheet.element[0].classList.remove("vampire");
 		sheet.element[0].classList.remove("werewolf");
 		sheet.element[0].classList.remove("changeling");
 
-		if (sheet.object.system.settings.variant.toLowerCase() == "chimera") {			
-			sheet.element[0].classList.remove("creature");
-			sheet.element[0].classList.add("changeling");
+		for (const variant in CONFIG.worldofdarkness.variant.mortal) {
+			sheet.element[0].classList.remove(variant);
 		}
-		else if (sheet.object.system.settings.variant.toLowerCase() == "familiar") {
-			sheet.element[0].classList.remove("creature");
-			sheet.element[0].classList.add("mage");
+
+		if (sheet.object.system.settings.variantsheet != "") {
+			sheet.element[0].classList.remove("mortal");
+			sheet.element[0].classList.add(sheet.object.system.settings.variant);
+			sheet.element[0].classList.add(sheet.object.system.settings.variantsheet.toLowerCase());
 		}
-		else if (sheet.object.system.settings.variant.toLowerCase() == "construct") {
+	}
+
+	if (sheet.object.type.toLowerCase() == "creature") {
+		sheet.element[0].classList.add("creature");
+		sheet.element[0].classList.remove("wraith");
+		sheet.element[0].classList.remove("mage");
+		sheet.element[0].classList.remove("vampire");
+		sheet.element[0].classList.remove("werewolf");
+		sheet.element[0].classList.remove("changeling");
+		sheet.element[0].classList.remove("demon");
+
+		if (sheet.object.system.settings.variantsheet != "") {
 			sheet.element[0].classList.remove("creature");
-			sheet.element[0].classList.add("mage");
-		}
-		else if (sheet.object.system.settings.variant.toLowerCase() != "general") {
-			sheet.element[0].classList.remove("creature");
-			sheet.element[0].classList.add("werewolf");
+			sheet.element[0].classList.add(sheet.object.system.settings.variantsheet.toLowerCase());
 		}
 	}
 

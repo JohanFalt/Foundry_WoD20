@@ -1,86 +1,87 @@
 import BonusHelper from "./bonus-helpers.js";
 
-export async function calculateTotals(actorData) {
-	let toForm = getForm(actorData);
+export async function calculateTotals(updateData) {
+	let toForm = getForm(updateData);
+
+	const actor = game.actors.get(updateData._id);
 
     // attributes totals
-	for (const i in actorData.system.attributes) {
+	for (const i in updateData.system.attributes) {
 		let shift = {"type": i, "value": 0};
 
-		if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
-			shift = handleWerewolfShiftAttributeData(actorData.system.attributes[i].label, toForm);
-		}
-		if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-			shift = getShiftAttributeBonus(actorData.system.attributes[i].label, toForm, actorData);
+		if (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+			shift = getShiftAttributeBonus(updateData.system.attributes[i].label, toForm, updateData);
 		}
 
-		actorData.system.attributes[i].total = parseInt(actorData.system.attributes[i].value) + parseInt(actorData.system.attributes[i].bonus) + parseInt(shift.value);
+		updateData.system.attributes[i].total = parseInt(updateData.system.attributes[i].value) + parseInt(updateData.system.attributes[i].bonus) + parseInt(shift.value);
 
 		//bonus attribute
-		if (await BonusHelper.CheckAttributeBuff(actorData, i)) {
-			let bonus = await BonusHelper.GetAttributeBuff(actorData, i);
-			actorData.system.attributes[i].total += parseInt(bonus);
+		//if (await BonusHelper.CheckAttributeBuff(actor, i)) {
+		if (await BonusHelper.CheckAttributeBuff(updateData, i)) {
+			//let bonus = await BonusHelper.GetAttributeBuff(actor, i);
+			let bonus = await BonusHelper.GetAttributeBuff(updateData, i);
+			updateData.system.attributes[i].total += parseInt(bonus);
 		}
 
-		if ((actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
+		if ((updateData.type == CONFIG.worldofdarkness.sheettype.werewolf) || (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
 
-			if (actorData.system.attributes[i].label == "wod.attributes.strength") {
-				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-					if (actorData.system.changingbreed == "Ananasi") {
+			if (updateData.system.attributes[i].label == "wod.attributes.strength") {
+				if (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+					if (updateData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 					}
 				}
 			}
 
-			if (actorData.system.attributes[i].label == "wod.attributes.stamina") {
-				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-					if (actorData.system.changingbreed == "Ananasi") {
+			if (updateData.system.attributes[i].label == "wod.attributes.stamina") {
+				if (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+					if (updateData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 					}
 				}
 			}
 
-			if (actorData.system.attributes[i].label == "wod.attributes.manipulation") {
-				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-					if ((actorData.system.changingbreed == "Ananasi") || (actorData.system.changingbreed == "Nagah") || (actorData.system.changingbreed == "Camazotz")) {
+			if (updateData.system.attributes[i].label == "wod.attributes.manipulation") {
+				if (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+					if ((updateData.system.changingbreed == "Ananasi") || (updateData.system.changingbreed == "Nagah") || (updateData.system.changingbreed == "Camazotz")) {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 					}
 				}
 			}
 
-			if (actorData.system.attributes[i].label == "wod.attributes.appearance") {
-				if ((toForm == "wod.shapes.crinos") && ((actorData.system?.changingbreed != "Kitsune") && (actorData.system?.changingbreed != "Ratkin"))) {
-					actorData.system.attributes[i].total = 0;
+			if (updateData.system.attributes[i].label == "wod.attributes.appearance") {
+				if ((toForm == "wod.shapes.crinos") && ((updateData.system?.changingbreed != "Kitsune") && (updateData.system?.changingbreed != "Ratkin"))) {
+					updateData.system.attributes[i].total = 0;
 				}
 
-				if (actorData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-					if (((actorData.system.changingbreed == "Ajaba") || (actorData.system?.changingbreed == "Grondr")) && (toForm == "wod.shapes.hispo")) {
-						actorData.system.attributes[i].total = 0;
+				if (updateData.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+					if (((updateData.system.changingbreed == "Ajaba") || (updateData.system?.changingbreed == "Grondr")) && (toForm == "wod.shapes.hispo")) {
+						updateData.system.attributes[i].total = 0;
 					}
 
-					if (actorData.system.changingbreed == "Ananasi") {
+					if (updateData.system.changingbreed == "Ananasi") {
 						if (toForm == "wod.shapes.glabro") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 
 						if (toForm == "wod.shapes.hispo") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 
 						if (toForm == "wod.shapes.lupus") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 					}
 
-					if (actorData.system.changingbreed == "Camazotz") {
+					if (updateData.system.changingbreed == "Camazotz") {
 						if (toForm == "wod.shapes.lupus") {
-							actorData.system.attributes[i].total = 0;
+							updateData.system.attributes[i].total = 0;
 						}
 					}
 				}
@@ -88,71 +89,71 @@ export async function calculateTotals(actorData) {
 		}
 	}    
 	
-	actorData.system.soak.bashing = 0;
-	actorData.system.soak.lethal = 0;
-	actorData.system.soak.aggravated = 0;
+	updateData.system.soak.bashing = 0;
+	updateData.system.soak.lethal = 0;
+	updateData.system.soak.aggravated = 0;
 
-	if (actorData.system.settings.soak.bashing.isrollable) {
-		actorData.system.soak.bashing = actorData.system.attributes.stamina.total;
+	if (updateData.system.settings.soak.bashing.isrollable) {
+		updateData.system.soak.bashing = updateData.system.attributes.stamina.total;
 	}
-	if (actorData.system.settings.soak.lethal.isrollable) {
-		actorData.system.soak.lethal = actorData.system.attributes.stamina.total;
+	if (updateData.system.settings.soak.lethal.isrollable) {
+		updateData.system.soak.lethal = updateData.system.attributes.stamina.total;
 	}
-	if (actorData.system.settings.soak.aggravated.isrollable) {
-		actorData.system.soak.aggravated = actorData.system.attributes.stamina.total;
+	if (updateData.system.settings.soak.aggravated.isrollable) {
+		updateData.system.soak.aggravated = updateData.system.attributes.stamina.total;
 	}	
 
 	/* If Changeling and Chimerical soak */
-	if (actorData.system.settings.soak.chimerical != undefined) {
-		actorData.system.soak.chimerical.bashing = 0;
-		actorData.system.soak.chimerical.lethal = 0;
-		actorData.system.soak.chimerical.aggravated = 0;
+	if (updateData.system.settings.soak.chimerical != undefined) {
+		updateData.system.soak.chimerical.bashing = 0;
+		updateData.system.soak.chimerical.lethal = 0;
+		updateData.system.soak.chimerical.aggravated = 0;
 
-		if (actorData.system.settings.soak.chimerical.bashing.isrollable) {
-			actorData.system.soak.chimerical.bashing = actorData.system.attributes.stamina.total;
+		if (updateData.system.settings.soak.chimerical.bashing.isrollable) {
+			updateData.system.soak.chimerical.bashing = updateData.system.attributes.stamina.total;
 		}
-		if (actorData.system.settings.soak.chimerical.lethal.isrollable) {
-			actorData.system.soak.chimerical.lethal = actorData.system.attributes.stamina.total;
+		if (updateData.system.settings.soak.chimerical.lethal.isrollable) {
+			updateData.system.soak.chimerical.lethal = updateData.system.attributes.stamina.total;
 		}
-		if (actorData.system.settings.soak.chimerical.aggravated.isrollable) {
-			actorData.system.soak.chimerical.aggravated = actorData.system.attributes.stamina.total;
+		if (updateData.system.settings.soak.chimerical.aggravated.isrollable) {
+			updateData.system.soak.chimerical.aggravated = updateData.system.attributes.stamina.total;
 		}
 	}	
 
 	//bonus soak
-	if (await BonusHelper.CheckSoakBuff(actorData)) {
-		let bonus = await BonusHelper.GetSoakBuff(actorData);
-		actorData.system.soak.bashing += parseInt(bonus);
-		actorData.system.soak.lethal += parseInt(bonus);
-		actorData.system.soak.aggravated += parseInt(bonus);
+	if (await BonusHelper.CheckSoakBuff(updateData)) {
+		let bonus = await BonusHelper.GetSoakBuff(updateData);
+		updateData.system.soak.bashing += parseInt(bonus);
+		updateData.system.soak.lethal += parseInt(bonus);
+		updateData.system.soak.aggravated += parseInt(bonus);
 
-		if (actorData.system.settings.soak.chimerical != undefined) {
-			actorData.system.soak.chimerical.bashing += parseInt(bonus);
-			actorData.system.soak.chimerical.lethal += parseInt(bonus);
-			actorData.system.soak.chimerical.aggravated += parseInt(bonus);
+		if (updateData.system.settings.soak.chimerical != undefined) {
+			updateData.system.soak.chimerical.bashing += parseInt(bonus);
+			updateData.system.soak.chimerical.lethal += parseInt(bonus);
+			updateData.system.soak.chimerical.aggravated += parseInt(bonus);
 		}
 	}
 
 	// armor
-	for (const i of actorData.items) {
+	for (const i of actor.items) {
 		if ((i.type == "Armor") && (i.system?.isequipped)) {
-			if (actorData.system.shapes == undefined) {
-				actorData.system.soak.bashing += i.system.soak.bashing;
-				actorData.system.soak.lethal += i.system.soak.lethal;
-				actorData.system.soak.aggravated += i.system.soak.aggravated;
-				actorData.system.attributes.dexterity.total += i.system.dexpenalty;
+			if (updateData.system.shapes == undefined) {
+				updateData.system.soak.bashing += i.system.soak.bashing;
+				updateData.system.soak.lethal += i.system.soak.lethal;
+				updateData.system.soak.aggravated += i.system.soak.aggravated;
+				updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
 				/* If changeling */
-				if (actorData.system.settings.soak.chimerical != undefined) {
-					actorData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
-					actorData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
-					actorData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
+				if (updateData.system.settings.soak.chimerical != undefined) {
+					updateData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
+					updateData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
+					updateData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
 				}
 			}
 			/* If Werewolf or Changing breed */
 			else {
-				for (const form in actorData.system.shapes) {
-					if (actorData.system.shapes[form].isactive) {
+				for (const form in updateData.system.shapes) {
+					if (updateData.system.shapes[form].isactive) {
 						let hasform = false;
 
 						if (form == "homid") {
@@ -172,10 +173,10 @@ export async function calculateTotals(actorData) {
 						}
 
 						if (hasform) {
-							actorData.system.soak.bashing += i.system.soak.bashing;
-							actorData.system.soak.lethal += i.system.soak.lethal;
-							actorData.system.soak.aggravated += i.system.soak.aggravated;
-							actorData.system.attributes.dexterity.total += i.system.dexpenalty;
+							updateData.system.soak.bashing += i.system.soak.bashing;
+							updateData.system.soak.lethal += i.system.soak.lethal;
+							updateData.system.soak.aggravated += i.system.soak.aggravated;
+							updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
 							break;
 						}	
@@ -187,36 +188,37 @@ export async function calculateTotals(actorData) {
 
 	// health levels totals
 	for (const i in CONFIG.worldofdarkness.woundLevels) {
-		actorData.system.health[i].total = parseInt(actorData.system.health[i].value);		
+		let bonus = await BonusHelper.GetHealthlevelsBuff(updateData, i);
+		updateData.system.health[i].total = parseInt(updateData.system.health[i].value) + bonus;		
 	}	
 
 	//bonus healthlevels
-	if (await BonusHelper.CheckHealthlevelsBuff(actorData)) {
-		let bonus = await BonusHelper.GetHealthlevelsBuff(actorData);
-		actorData.system.health.bruised.total += parseInt(bonus);
-	}
+	// if (await BonusHelper.CheckHealthlevelsBuff(actor)) {
+	// 	let bonus = await BonusHelper.GetHealthlevelsBuff(actor, "");
+	// 	updateData.system.health.bruised.total += parseInt(bonus);
+	// }
 
-	if (actorData.system.settings.variant != "spirit") {
+	if (updateData.system.settings.variant != "spirit") {
 		// intitiative totals
-		actorData.system.initiative.base = parseInt(actorData.system.attributes.dexterity.total) + parseInt(actorData.system.attributes.wits.total);
-		actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
+		updateData.system.initiative.base = parseInt(updateData.system.attributes.dexterity.total) + parseInt(updateData.system.attributes.wits.total);
+		updateData.system.initiative.total = parseInt(updateData.system.initiative.base) + parseInt(updateData.system.initiative.bonus);
 
 		//bonus initiative
-		if (await BonusHelper.CheckInitiativeBuff(actorData)) {
-			let bonus = await BonusHelper.GetInitiativeBuff(actorData);
-			actorData.system.initiative.total += parseInt(bonus);
+		if (await BonusHelper.CheckInitiativeBuff(actor)) {
+			let bonus = await BonusHelper.GetInitiativeBuff(actor);
+			updateData.system.initiative.total += parseInt(bonus);
 		}
 	}
 	else {
-		actorData.system.initiative.base = parseInt(actorData.system.advantages.willpower.permanent);
-		actorData.system.initiative.total = parseInt(actorData.system.initiative.base) + parseInt(actorData.system.initiative.bonus);
+		updateData.system.initiative.base = parseInt(updateData.system.advantages.willpower.permanent);
+		updateData.system.initiative.total = parseInt(updateData.system.initiative.base) + parseInt(updateData.system.initiative.bonus);
 
-		actorData.system.soak.bashing = parseInt(actorData.system.advantages.willpower.permanent);
-		actorData.system.soak.lethal = parseInt(actorData.system.advantages.willpower.permanent);
-		actorData.system.soak.aggravated = parseInt(actorData.system.advantages.willpower.permanent);
+		updateData.system.soak.bashing = parseInt(updateData.system.advantages.willpower.permanent);
+		updateData.system.soak.lethal = parseInt(updateData.system.advantages.willpower.permanent);
+		updateData.system.soak.aggravated = parseInt(updateData.system.advantages.willpower.permanent);
 	}	
 
-    return actorData;
+    return updateData;
 }
 
 function getForm(actorData) {
@@ -283,7 +285,6 @@ function getShiftAttributeBonus(attribute, presentForm, actor) {
 		data = handleRokeaShiftAttributeData(attribute, presentForm);
 	}
 
-	//TODO
 	if (actor.system.changingbreed == "Apis") {
 		data = handleApisShiftAttributeData(attribute, presentForm);
 	}
@@ -301,7 +302,7 @@ function getShiftAttributeBonus(attribute, presentForm, actor) {
 
 /* Here starts all the shifter table data */
 
-function handleWerewolfShiftAttributeData(attribute, presentForm) {
+/* function handleWerewolfShiftAttributeData(attribute, presentForm) {
 	let data = {"type": attribute, "value": 0};
 
 	if (presentForm == "wod.shapes.glabro")
@@ -366,7 +367,7 @@ function handleWerewolfShiftAttributeData(attribute, presentForm) {
 	}
 
 	return data;
-}
+} */
 
 function handleAjabaShiftAttributeData(attribute, presentForm) {
 	let data = 0;

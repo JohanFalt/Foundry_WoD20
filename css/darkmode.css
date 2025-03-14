@@ -167,7 +167,8 @@
 }
 
 .wod20.dark-theme .item-notice,
-.wod20.dark-theme .item-create {
+.wod20.dark-theme .item-create,
+.wod20.dark-theme .fa-toggle-on {
   color: rgb(9, 142, 9);
 }
 
@@ -175,7 +176,8 @@
   color: rgb(223, 147, 6);
 }
 
-.wod20.dark-theme .item-delete {
+.wod20.dark-theme .item-delete,
+.wod20.dark-theme .fa-toggle-off {
   color: rgb(166, 0, 0);
 }
 

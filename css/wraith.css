@@ -43,14 +43,34 @@
   font-size: 25px;
 }
 
+.wraith .headlineRow:not(.noSplatFont) {
+  font-size: 20px;
+} 
+
+.wraith .icon {
+  scale: 1.0;
+}
+
+/* START Core */
+
+.wraith .sheet-banner-small {
+  background: var(--main-wod-banner-small);
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 10px; 
+} 
+
+/* END - Core */
+
 /* START - Death */
 
-.arcanoipower-nonerollablerow .power-iconbox {
+.wod20 .arcanoipower-nonerollablerow .power-iconbox {
   margin-left: 305px;
 }
 
-.arcanoipower-rollablerow .power-iconbox {
-  margin-left: 38px;
+.wod20 .arcanoipower-rollablerow .power-iconbox {
+  margin-left: 155px;
 }
 
 .wraith .fetter .power-dotBox,

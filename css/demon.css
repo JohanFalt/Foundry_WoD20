@@ -45,7 +45,7 @@
 }
 
 .demon:not(.noSplatFont) .headlineGroup {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .demon:not(.noSplatFont) .sheet-banner .sheet-banner-text {
@@ -68,6 +68,12 @@
 
 .demon:not(.noSplatFont) .experienceValue {
     font-family: var(--main-font);
+}
+
+/* CORE */
+
+.demon .ability-headlineWidth {
+	width: 	110px;
 }
 
 /* COMBAT */

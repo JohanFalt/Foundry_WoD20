@@ -1,0 +1,43 @@
+<div class="pullLeft" style="display: flex; width: 320px; flex-direction: column;">
+    <div class="area-box">
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.amenti}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.amenti" type="text" value="{{data.system.amenti}}" data-name="data.system.amenti" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.mummy.amenti"}}</span>
+        </div>
+
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.hamartia}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.hamartia" type="text" value="{{data.system.hamartia}}" data-name="data.system.hamartia" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.mummy.hamartia"}}</span>
+        </div>
+
+        <div class="bioInformationArea floating-label-group">
+            {{#if locked}}
+                <input class="sheet-infoValues" type="text" value="{{data.system.inheritance}}" autocomplete="off" autofocus required />
+            {{else}}
+                <input class="sheet-infoValues editable" name="system.inheritance" type="text" value="{{data.system.inheritance}}" data-name="data.system.inheritance" data-dtype="String" autocomplete="off" autofocus required />
+            {{/if}}
+            <span class="floating-label">{{localize "wod.bio.mummy.inheritance"}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="clearareaBox area-box">
+    <div>
+        <label class="headlineText splatFont" for="data.system.rebirth">{{localize "wod.bio.mummy.rebirth"}}</label>
+        <div class="clearareaBox">
+            {{#if locked}}
+                <div class="headlineNormal textarea {{#if (eq actor.system.rebirth '')}}small{{/if}}">{{{actor.system.rebirth}}}</div>
+            {{else}}
+                {{editor actor.system.rebirth target="system.rebirth" button=false owner=owner editable=true}}
+            {{/if}}				
+        </div>
+    </div>
+</div>

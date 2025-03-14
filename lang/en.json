@@ -2,14 +2,15 @@
 	"TYPES.Actor.Changeling": "Changeling the Dreaming",
 	"TYPES.Actor.Changing Breed": "Changing Breed",
 	"TYPES.Actor.Demon": "Demon the Fallen",
+	"TYPES.Actor.Exalted": "Exalted vs WoD",
 	"TYPES.Actor.Hunter": "Hunter the Reckoning",
 	"TYPES.Actor.Mage": "Mage the Ascension",
 	"TYPES.Actor.Mortal": "Mortal sheet",
 	"TYPES.Actor.Vampire": "Vampire the Masquerade",
 	"TYPES.Actor.Wraith": "Wraith the Oblivion",
+	"TYPES.Actor.Mummy": "Mummy the Resurrection",
 	"TYPES.Actor.Werewolf": "Werewolf the Apocalypse",
 	"TYPES.Actor.Creature": "Creature sheet",
-	"TYPES.Actor.Spirit": "Spirit (deprecated)",
 	"TYPES.Item.Bonus": "Bonus",
 	"TYPES.Item.Experience": "Experience Points",
 	"TYPES.Item.Feature": "Feature",
@@ -35,9 +36,12 @@
 			"werewolf": "Werewolf the Apocalypse",
 			"mage": "Mage the Ascension",
 			"wraith": "Wraith the Oblivion",
+			"mummy": "Mummy the Resurrection",
+			"exalted": "Exalted vs WoD",
 			"breed": "Changing Breed",
 			"creature": "Creature",
-			"mortal": "Mortal"
+			"mortal": "Mortal",
+			"orpheus": "Orpheus"
 		},
 		"sheets": {
 			"mortal": "Mortal sheet",
@@ -48,9 +52,10 @@
 			"hunter": "Hunter sheet",
 			"demon": "Demon sheet",
 			"wraith": "Wraith sheet",
+			"mummy": "Mummy sheet",
 			"breed": "Changing breed sheet",
 			"creature": "Creature sheet",
-			"spirit": "Spirit sheet (deprecated)",
+			"spirit": "Spirit sheet",
 			"items": "Item sheet",
 			"powers": "Powers",
 			"equipment": "Equipment",
@@ -179,6 +184,7 @@
 			"combination": "Combination Discipline",
 			"art": "Art",
 			"artpower": "Art Power",
+			"sliver": "Sliver",
 			"edge": "Edge",
 			"edgepower": "Edge Power",
 			"lore": "Lore",
@@ -202,9 +208,87 @@
 			"resonance": "Resonance",
 			"othertraits": "Other Traits",
 			"apocalypticform": "Apocalyptic Form",
+			"shapeform": "Shapeshifting Form",
+			"aspect": "Aspect",
 			"passion": "Passion",
 			"fetter": "Fetter",
-			"wyrd": "Wyrd"
+			"wyrd": "Wyrd",
+			"hekau": "Hekau",
+			"hekaupower": "Hekau power",
+			"numina": "Numina",
+			"numinapower": "Spell/Ritual",
+			"stain": "Stain",
+			"horror": "Horror",
+			"exaltedcharm": "Charm",
+			"exaltedsorcery": "Ancient sorcery",
+			"solar": {
+				"dawn": "Dawn charms",
+				"zenith": "Zenith charms",
+				"twilight": "Twilight charms",
+				"night": "Night charms",
+				"eclipse": "Eclipse charms",
+				"special": "Special charms"
+			},
+			"lunar": {
+				"fullmoon": "Full moon charms",
+				"changingmoon": "Changing moon charms",
+				"nomoon": "No moon charms",
+				"shapeshifting": "Shapeshifting charms"
+			},
+			"dragon": {
+				"air": "Air charms",
+				"earth": "Earth charms",
+				"fire": "Fire charms",
+				"water": "Water charms",
+				"wood": "Wood charms"
+			},
+			"sidereal": {
+				"journey": "Journey charms",
+				"serenity": "Serenity charms",
+				"battle": "Battle charms",
+				"secret": "Secret charms",
+				"ending": "Ending charms",
+				"border": "The kaleidoscopic border",
+				"hand": "The quicksilver hand",
+				"march": "The charcoal march",
+				"shard": "The obsidian shards",
+				"prismatic": "The prismatic arrangement",
+				"veil": "The sapphire veil",
+				"scarlet": "The scarlet battlefields"
+			},
+			"abyssal": {
+				"dusk": "Dusk charms",
+				"midnight": "Midnight charms",
+				"daybreak": "Daybreak charms",
+				"day": "Day charms",
+				"moonshadow": "Moonshadow charms"
+			},
+			"infernal": {
+				"general": "General charms",
+				"realm": "The night realm charms",
+				"lanka": "Lanka: Demon city of the Rakshas charms",
+				"skinned": "The hell of being skinned alive charms",
+				"city": "The wicked city charms",
+				"boiling": "The hell of boiling oil charms",
+				"burrowing": "The hell of burrowing maggots charms"
+			},
+			"alchemical": {
+				"general": "General charms",
+				"combat": "Combat charms",
+				"physical": "Physical enhancement charms",
+				"social": "Social charms",
+				"stealth": "Stealth and disguise charms",
+				"analytic": "Analytic and cognitive charms",
+				"utility": "Utility charms",
+				"spirit": "Spiritual charms"
+			},
+			"liminal": {
+				"blood": "Blood charms",
+				"breath": "Breath charms",
+				"fleash": "Flesh charms",
+				"marrow": "Marrow charms",
+				"soil": "Soil charms"
+			}
 		},
 		"tab": {
 			"bio": "Bio",
@@ -221,7 +305,11 @@
 			"edge": "Edges",
 			"lore": "Lores",
 			"death": "Death",
+			"hekau": "Hekau",
+			"numina": "Numina",
+			"exaltedcharm": "Charms",
 			"shapechange": "Shapechange",
+			"effect": "Effects",
 			"settings": "Settings",
 			"sheet": "Sheet Settings",
 			"attribute": "Attribute Settings"
@@ -442,13 +530,19 @@
 				"sire": "Sire",
 				"weakness": "Weakness",
 				"lowergeneration": "Lower generation",
-				"cleargeneration": "Clear temporary generation"
+				"cleargeneration": "Clear temporary generation",
+				"kindredeast": "Kindred of the East",
+				"balance": "Balance",
+				"ponature": "P'o nature",
+				"direction": "Direction",
+				"wu": "Wu"
 			},
 			"mage": {
 				"affiliation": "Affiliation",			
 				"essence": "Essence",
 				"sect": "Sect",
 				"affinitysphere": "Affinity Sphere",
+				"affinity": "Affinity",
 				"tradition": "The Tradition",
 				"technocracy": "The Technocracy",
 				"disparate": "The Disparate",
@@ -623,12 +717,43 @@
 				"darkpassions": "Dark Passions",
 				"psychewillpower": "Psyche Willpower"
 			},
+			"mummy": {
+				"amenti": "Amenti",
+				"hamartia": "Hamartia",
+				"inheritance": "Inheritance",
+				"rebirth": "Rebirth"
+			},
+			"exalted": {
+				"solar": "Solar Exalted",
+				"lunar": "Lunar Exalted",
+				"dragon": "Dragon-Born Exalted",
+				"sidereal": "Sidereal Exalted",
+				"abyssal": "Abyssal Exalted",
+				"infernal": "Infernal Exalted",
+				"alchemical": "Alchemical Exalted",
+				"liminal": "Liminal Exalted",
+				"urge": "Urge",
+				"caste": "Caste",
+				"anima": "Anima",
+				"circle": "Circle",
+				"favored": "Favored charms",
+				"intimacy": "Intimacy",
+				"crown": "Crown",
+				"animapowers": "Anima powers"
+			},
+			"orpheus": {
+				"shade": "Shade",
+				"lament": "Lament",
+				"role": "Role"
+			},
 			"mortal": {
 				"autumnpeople": "Autumn people",
 				"enchanted": "Enchanted",
 				"ghoul": "Ghoul",
 				"kinfolk": "Kinfolk",
-				"truefaith": "True faith"
+				"truefaith": "True faith",
+				"orpheus": "Orpheus",
+				"sorcerer": "Sorcerer"
 			},
 			"creature": {
 				"chimera": "Chimera",
@@ -639,7 +764,8 @@
 				"anurana": "Anurana",
 				"samsa": "Samsa",
 				"kerasi": "Kerasi",
-				"yeren": "Yeren"
+				"yeren": "Yeren",
+				"earthbound": "Earthbound"
 			}
 		},
 		"attributes": {
@@ -671,7 +797,11 @@
 				"dexterity": "Dexterity bonus",
 				"stamina": "Stamina bonus",
 				"manipulation": "Manipulation bonus",
-				"appearance": "Appearance bonus"
+				"appearance": "Appearance bonus"				
+			},
+			"diff": {
+				"perception": "Perception difficulty",
+				"wits": "Wits difficulty"
 			}
 		},
 		"abilities": {
@@ -753,6 +883,7 @@
 		},		
 		"health": {
 			"health": "Health",
+			"uninjured": "Uninjured",
 			"bruised": "Bruised",
 			"hurt": "Hurt",
 			"injured": "Injured",
@@ -760,6 +891,11 @@
 			"mauled": "Mauled",
 			"crippled": "Crippled",
 			"incapacitated": "Incapacitated",
+			"broken": "Broken/Scorched",
+			"crushed": "Crushed/Burned",
+			"dismembered": "Dismembered/Incinerated",
+			"pulverized": "Pulverized/Cremated",
+			"dust": "Dust/Ash",
 			"bashing": "Bashing",
 			"lethal": "Lethal",
 			"aggravated": "Aggravated",
@@ -807,6 +943,7 @@
 			},
 			"bloodpool": "Blood Pool",	
 			"perturn": "Blood per turn",			
+			"faithpool": "Faith Pool",
 			"bearing": "Bearing",
 			"renown": "Renown",
 			"glory": "Glory",
@@ -825,6 +962,7 @@
 			"valor": "Valor",
 			"harmony": "Harmony",
 			"innovation": "Innovation",
+			"power": "Power",
 			"rank": "Rank",
 			"ranknames": {
 				"garou": {
@@ -902,7 +1040,23 @@
 			"apocalypticforms": "Apocalyptic Forms",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
-			"angst": "Angst"
+			"angst": "Angst",
+			"vitality": "Vitality",
+			"spite": "Spite",
+			"balance": "Balance",
+			"sekhem": "Sekhem",			
+			"essencepool": "Essence pool",
+			"essenceperturn": "Essence per turn",
+			"limitbreak": "Limit break",
+			"limit": "Limit",
+			"yinchi": "Yin chi",
+			"yin": "Yin",
+			"yang": "Yang",
+			"yangchi": "Yang chi",
+			"dharma": "Dharma",
+			"hun": "Hun",
+			"po": "P'o",
+			"demonchi": "Demon chi"
 		},
 		"combat": {
 			"conditions": {
@@ -1046,6 +1200,8 @@
 			"unsortedarts": "Here is all unsorted art powers which needs to get a selected Art. Click on the headline to sort one.",
 			"unsortededges": "Here is all unsorted edge powers which needs to get a selected Edge. Click on the headline to sort one.",
 			"unsortedlores": "Here is all unsorted lore powers which needs to get a selected Lore. Click on the headline to sort one.",
+			"unsortedhekaus": "Here is all unsorted hekau powers which needs to get a selected Hekau. Click on the headline to sort one.",
+			"unsortednuminas": "Here is all unsorted numina powers which needs to get a selected Numina. Click on the headline to sort one.",
 			"arts": "Arts",
 			"slivers": "Slivers",
 			"edges": "Edges",
@@ -1058,7 +1214,13 @@
 			"ritualcategory": "Ritual category",
 			"arcanoi": "Arcanoi",
 			"passions": "Passions",
-			"fetters": "Fetters"
+			"fetters": "Fetters",
+			"hekaus": "Hekaus",
+			"numinas": "Numinas",
+			"horrors": "Horrors",
+			"stains": "Stains",
+			"exaltedcharm": "Charms",
+			"exaltedsorcery": "Ancient sorcery"
 		},
 		"spheres": {
 			"spheres": "Spheres",
@@ -1113,7 +1275,13 @@
 			"periapt": "Periapt",
 			"matrix": "Matrix",
 			"trinket": "Trinket",
-			"contains": "Contains"
+			"contains": "Contains",
+			"name": "Name",
+			"type": "Type"
+		},
+		"effects": {
+			"origin": "Origin",
+			"area": "Area"
 		},
 		"notes": {
 			"unnamedbackground": "Unnamed background",
@@ -1148,6 +1316,8 @@
 			"specialty": "Use speciality",			
 			"select": "Select",
 			"noneselect": "Nothing selected",
+			"sheetsetting": "Use sheet setting",
+			"nosetting": "No setting use black",
 			"custom": "Secondary ability",
 			"custompath": "Custom path",
 			"customtribe": "Custom tribe",
@@ -1204,8 +1374,11 @@
 				"clearedge": "Clear edge connection",
 				"clearlore": "Clear lore connection",
 				"cleararcanoi": "Clear arcanoi connection",
+				"clearhekau": "Clear hekau connection",
+				"clearnumina": "Clear numina connection",
 				"disconnect": "Disconnect power",
 				"disconnectlabel": "Disconnecting power",
+				"charmtypes": "Charm types",				
 				"removebonus": {
 					"art": "Remove connected powers to art",
 					"sliver": "Remove connected powers to sliver",
@@ -1213,7 +1386,9 @@
 					"edge": "Remove connected powers to edge",
 					"discipline": "Remove connected powers to discipline",
 					"path": "Remove connected powers to path",
-					"arcanoi": "Remove connected powers to arcanoi"
+					"arcanoi": "Remove connected powers to arcanoi",
+					"hekau": "Remove connected powers to hekau",
+					"numina": "Remove connected powers to numina"
 				}
 			},
 			"notes": {
@@ -1240,11 +1415,14 @@
 				"usedpowers": "Set what type of powers the sheet are using",
 				"essencevalue": "Set value of essence",
 				"sheetfont": "Use special sheet font",
+				"dice": "Dice settings",
+				"dicehint": "This settings able you to override the sheet's dice color.",
 				"secondaryabilities": "Secondary Abilities",
 				"abilitiesmaxrating": "Max rating on Abilities",
 				"hasdisciplines": "Has disciplines and rituals",
 				"hasgifts": "Has gifts and rites",
 				"haspowers": "Has special powers",
+				"hasnumina": "Has numina",
 				"setdarkages": "Sheet set to Dark Ages era!",
 				"setclassical": "Sheet set to Classical Ages era!",
 				"setlivinggods": "Sheet set to Age of the Living Gods era!",
@@ -1273,7 +1451,8 @@
 				},
 				"power": {
 					"maxrating": "Max rating on Powers",
-					"maxratinghint": "This settings set the maximum rating a power can have."
+					"maxratinghint": "This settings set the maximum rating a power can have.",
+					"bonusmaxrating": "Bonus to max rating"
 				}
 			},
 			"trait": {
@@ -1303,6 +1482,8 @@
 				"abilitydiffhint": "This bonus changes the difficulty of any use of this ability when you make a roll.",
 				"soakbonus": "Soak bonus",
 				"soakbonushint": "This bonus changes the value of the number dice rolled when making any soak rolls.",
+				"soakdiffbonus": "Soak difficulty bonus",
+				"soakdiffbonushint": "This bonus changes the difficulty to succeed with soak rolls.",
 				"healthbuff": "Health level bonus",
 				"healthbuffhint": "This bonus adds the number of bruised health levels the character has.",
 				"initbonus": "Initiative bonus",
@@ -1317,7 +1498,9 @@
 				"savefail": "Failed so save the bonus"
 			},
 			"new": {
+				"create": "Create item",
 				"notfound": "Item type does not exist",
+				"alreadyexists": "already exists on the sheet.",
 				"armor": "New armor",
 				"naturalweapon": "New natural weapon",
 				"meleeweapon": "New melee weapon",
@@ -1374,7 +1557,16 @@
 				"arcanoi": "New arcanoi",
 				"arcanoipower": "New arcanoi power",
 				"passion": "New passion",
-				"fetter": "New fetter"
+				"fetter": "New fetter",
+				"hekau": "New hekau",
+				"hekaupower": "New hekau power",
+				"numina": "New numina",
+				"numinapower": "New ritual/spell",
+				"stain": "New stain",
+				"horror": "New horror",
+				"ancientsorcery": "New ancient sorcery",
+				"shapeform": "New shapeshifting form",
+				"description": "Select what type of item you wish want to create to the sheet by clicking on the correct button below."
 			},
 			"add": {
 				"naturalweapon": "Add natural weapon",
@@ -1421,9 +1613,17 @@
 				"arcanoi": "Add arcanoi",
 				"arcanoipower": "Add arcanoi power",
 				"passion": "Add passion",
-				"fetter": "Add fetter"
+				"fetter": "Add fetter",
+				"hekau": "Add hekau",
+				"hekaupower": "Add hekau power",
+				"numina": "Add numina",
+				"numinapower": "Add ritual/spell",
+				"item": "Add item",
+				"horror": "Add horror",
+				"stain": "Add stain"
 			},
 			"edit": {
+				"headline": "Edit",
 				"naturalweapon": "Edit natural weapon",
 				"meleeweapon": "Edit melee weapon",
 				"rangedweapon": "Edit ranged weapon",
@@ -1471,9 +1671,16 @@
 				"arcanoi": "Edit arcanoi",
 				"arcanoipower": "Edit arcanoi power",
 				"passion": "Edit passion",
-				"fetter": "Edit fetter"
+				"fetter": "Edit fetter",
+				"hekau": "Edit hekau",
+				"hekaupower": "Edit hekau power",
+				"numina": "Edit numina",
+				"numinapower": "Edit ritual/spell",
+				"horror": "Edit horror",
+				"stain": "Edit stain"
 			},
 			"remove": {
+				"headline": "Remove",
 				"item": "Remove item",
 				"removing": "Removing",
 				"naturalweapon": "Remove natural weapon",
@@ -1520,7 +1727,13 @@
 				"arcanoi": "Remove arcanoi",
 				"arcanoipower": "Remove arcanoi power",
 				"passion": "Remove passion",
-				"fetter": "Remove fetter"
+				"fetter": "Remove fetter",
+				"hekau": "Remove hekau",
+				"hekaupower": "Remove hekau power",
+				"numina": "Remove numina",
+				"numinapower": "Remove ritual/spell",
+				"horror": "Remove horror",
+				"stain": "Remove stain"
 			},
 			"show": {
 				"background": "Show backgrounds",
@@ -1554,7 +1767,9 @@
 			},
 			"items": {
 				"spheres": "Fill what Spheres and what level that are needed to cast the Rote"
-			}
+			},
+			"changelog": "Changelog",
+			"wiki": "Wiki"
 		},
 		"dice": {
 			"activate": "Roll to activate",			
@@ -1576,7 +1791,8 @@
 			"rollingremainactive": "Roll to remain active",
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
 			"addedautosucc": "The roll add {0} automatic successes",
-			"usingwillpower": "Using Willpower"
+			"usingwillpower": "Using Willpower",
+			"favored": "Is a favored roll"
 		},
 		"dialog": {	
 			"save": "Save",
@@ -1689,7 +1905,7 @@
 				"nightmaredice": "Nightmare dice",
 				"missingrealm": "You need to select a Realm",
 				"arttype": "Art type",
-				"noarttype": "Art type not selected",
+				"noarttype": "Art type not selected on used Art",
 				"shiftnightmaredice": "Shift to Nightmare dice",
 				"notset": "Not set",
 				"selectpower": "Select power to connect to",
@@ -1712,9 +1928,10 @@
 				"chosenattribute": "Chosen attribute",
 				"movement": "Type of movement",
 				"name": "Name",
-				"type": "Type",
 				"bonusvalue": "Value",
-				"bonuses": "Bonuses"
+				"bonuses": "Bonuses",
+				"healthleveltype": "Health level type",
+				"section": "Section"
 			},
 			"variant": {
 				"sheettype": "Set sheet type",
@@ -1722,6 +1939,7 @@
 				"general": "General type",
 				"changeling": "General changeling",
 				"mortal": "General mortal",
+				"vampire": "General vampire",
 				"wraith": "General wraith",
 				"creature": "General creature",
 				"info": "This setting sets what variant of the sheet it is set to use.",

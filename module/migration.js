@@ -1,6 +1,5 @@
-//import ActionHelper from "./scripts/action-helpers.js";
 import MessageHelper from "./scripts/message-helpers.js"
-import { getImage } from "./items/item-sheet.js";
+import BonusHelper from "./scripts/bonus-helpers.js";
 
 /**
  * Time to update the entire world and patch it correctly
@@ -20,6 +19,18 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         MessageHelper.printMessage("Updating World", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
         MessageHelper.printMessage("Starting with Actors", "");
 
+        for (const id of game.actors.invalidDocumentIds) {
+            try {
+                const actor = game.actors.getInvalid(id);
+                console.error(`Actor ${actor.name} is of a not valid type and have been removed from the system`);
+                if (actor.type === "Spirit") await actor.delete()
+            }
+            catch(err) {
+                err.message = `invalidDocumentIds ${actor.name}: ${err.message}`;
+                console.error(err);
+            }
+        }
+
         //World Actors
         for (const actor of game.actors) {
             try {
@@ -29,9 +40,20 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 console.error(err);
                 isError = true;
             }
+
+            for (const item of actor.items) {
+                try {
+                    await updateItem(item);
+                } catch(err) {
+                    err.message = `Failed migration for Actor Item ${item.name}: ${err.message}`;
+                    console.error(err);
+                    isError = true;
+                }
+            }
         }
 
         MessageHelper.printMessage("Starting with World Items", "");
+
         //World Items
         for (const item of game.items) {
             try {
@@ -44,6 +66,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         }
 
         MessageHelper.printMessage("Starting with World Compendiums", "");
+
         // World Compendiums
         for ( let pack of game.packs ) {
             try {
@@ -54,11 +77,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 console.error(err);
                 isError = true;
             }
-        }
-        //MessageHelper.printMessage("Compendiums done", "");
-
-        //console.log("Update completed!"); 
-        
+        }        
     }
 
     try {
@@ -98,7 +117,7 @@ export  const updates = async () => {
         rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
     } 
     catch (e) {
-        console.log("Fel uppstod i migration.js");
+        console.error("Error in migration.js");
     }    
 
     for (const actor of game.actors) {
@@ -191,22 +210,6 @@ export  const updates = async () => {
             if (actorData.type == CONFIG.worldofdarkness.sheettype.creatures) {
                 actorData.system.settings.powers.haspowers = true;
             }
-
-            // for (const item of actor.items) {
-
-            //     let hasChanged = false;
-            //     const itemData = foundry.utils.duplicate(item);
-            //     const imgUrl = getImage(item);
-
-            //     if (imgUrl != "") {                    
-            //         hasChanged = itemData.img == imgUrl ? false : true;
-            //         itemData.img = imgUrl;
-            //     }
-
-            //     if (hasChanged) {
-            //         await item.update(itemData);
-            //     }
-            // }
         }
 
         totalinit = parseInt(actor.system.initiative.base) + parseInt(actor.system.initiative.bonus);
@@ -223,32 +226,6 @@ export  const updates = async () => {
             }
         }
     }
-
-    /* for (const actor of game.actors) {
-        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
-            for (const effect of actor.effects) {
-                if (effect.icon.includes("werewolf")) {
-                    const effectid = effect.id;
-                    await actor.deleteEmbeddedDocuments("ActiveEffect", [effectid]);
-                }                
-            }
-        }
-    } */
-    
-    /* for (const item of game.items) {
-        let hasChanged = false;
-        const itemData = foundry.utils.duplicate(item);
-        const imgUrl = getImage(item);
-
-        if (imgUrl != "") {                    
-            hasChanged = itemData.img == imgUrl ? false : true;
-            itemData.img = imgUrl;
-        }
-
-        if (hasChanged) {
-            await item.update(itemData);
-        }
-    } */
 }
 
 /* -------------------------------------------- */
@@ -1734,13 +1711,170 @@ export  const updates = async () => {
         }
 
         if (update) {
-            //let updateData = foundry.utils.duplicate(actor);
             updateData.system.settings.version = "4.1.0";
 
             await actor.update(updateData);
             update = false;
         }
     }
+
+    if (_compareVersion(actor.system.settings.version, "4.2.0")) {
+        update = false;    
+        let updateData = foundry.utils.duplicate(actor);   
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.mortal) {
+            let variant = updateData.system.settings.variant;
+
+            if (variant == 'orpheus') {
+                update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.wraith;
+			}
+			if (variant == 'sorcerer') {
+                update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.mage;
+			}
+			if (variant == 'autumnpeople') {
+                update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.changeling;
+			}
+			if (variant == 'enchanted') {
+                update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.changeling;
+			}
+			if (variant == 'ghoul') {
+                update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.vampire;
+			}
+			if (variant == 'kinfolk') {
+                update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.werewolf;
+			}
+        }
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {            
+            update = true;
+            let itemData;
+
+            /* GLABRO */
+            itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+        
+            itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+        
+            itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.appearance"), "appearance", -1, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            /* CRINOS */
+            itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 4, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 1, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            /* HISPO */
+            itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 3, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -1, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -1, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            /* LUPUS */
+            itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 1, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+            
+            itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -2, false, "4.2.0");
+            await actor.createEmbeddedDocuments("Item", [itemData]);
+
+            updateData.system.settings.isshapecreated = true;
+        }
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.vampire) {
+            updateData.system.settings.variant = "general";
+            update = true;
+        }
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.creature) {
+            let variant = updateData.system.settings.variant;
+
+            if (variant == 'chimera') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.changeling;
+			}
+			if (variant == 'familiar') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.mage;
+			}
+			if (variant == 'construct') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.mage;
+			}
+			if (variant == 'warwolves') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.werewolf;
+			}
+			if (variant == 'anurana') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.werewolf;
+			}
+			if (variant == 'samsa') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.werewolf;
+			}
+			if (variant == 'kerasi') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.werewolf;
+			}
+			if (variant == 'yeren') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.werewolf;
+			}
+            if (variant == 'earthbound') {
+				update = true;
+				updateData.system.settings.variantsheet = CONFIG.worldofdarkness.sheettype.demon;
+			}
+        }
+
+        if (update) {
+            updateData.system.settings.version = "4.2.0";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }    
 }
 
 /**
@@ -2055,7 +2189,7 @@ export  const updates = async () => {
     if (_compareVersion(item.system.version, "3.3.0")) {
         let itemData = foundry.utils.duplicate(item);
 
-        if ((item.type == "Bonus") && ((item.system.parentid != "") && (item.system.parentid != "hispo") && (item.system.parentid != "lupus") && item.actor != null)) {
+        if ((item.type == "Bonus") && ((item.system.parentid != "") && (item.system.parentid != "glabro") && (item.system.parentid != "crinos") && (item.system.parentid != "hispo") && (item.system.parentid != "lupus") && item.actor != null)) {
             console.log(`Bonus found on ${item.actor.name} type ${item.system.type}`);
 
             let bonus = item.actor.getEmbeddedDocument("Item", item.system.parentid);
@@ -2096,6 +2230,76 @@ export  const updates = async () => {
             altered = false;
         }
     }
+
+    if (_compareVersion(item.system.version, "4.2.0")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if ((item.type == "Fetish") && (item.system.type == "wod.types.fetish")) {
+            altered = true;
+
+            itemData.system.isrollable = true;
+        }
+
+        if ((item.type == "Bonus") && (item.system.type == "health_buff") && (item.system.settingtype == "")) {
+            altered = true;
+
+            itemData.system.settingtype = "bruised";
+        }
+
+        if (item.system.bonuslist.length > 0) {
+            for (const bonus in item.system.bonuslist) {
+                if ((item.system.bonuslist[bonus].type == "health_buff") && (itemData.system.bonuslist[bonus].settingtype == "")) {
+                    altered = true;
+
+                    itemData.system.bonuslist[bonus].settingtype = "bruised";
+                }
+            }
+        }
+
+        if (altered) {
+            itemData.system.version = "4.2.0";
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
+
+    // TODO #935
+    // if (item.type == "Feature") {
+    //     try {
+    //         if (item.actor == null) {
+    //             console.log(`Feature ${item.name} has no actor`);
+
+    //             // let x = await Item.create({
+    //             //     name: itemData.name,
+    //             //     type: "Trait",
+    //             //     effects: itemData.effects,
+    //             //     flags: itemData.flags,
+    //             //     folder: itemData.folder,
+    //             //     img: itemData.img,
+    //             //     ownership: itemData.ownership
+    //             // });	  
+    
+    //             // let newItem = game.items.get(x._id);
+    //             // const newItemData = foundry.utils.duplicate(newItem);
+    //             // //await CreateHelper.SetCreatureVariant(newActorData, 'spirit');
+    
+    //             // newItemData.system.advantages.rage.permanent = parseInt(itemData.system.advantages.rage.permanent);
+    
+    //             // await newItem.update(newItemData);	
+
+                
+    //         }                
+    //         else {
+    //             console.log(`Feature ${item.name} has actor ${item.actor.name}`);
+
+    //             // await item.actor.deleteEmbeddedDocuments("Item", [itemId]);
+    //         }
+    //     } 
+    //     catch (error) {
+    //         console.error('Error converting feature:', error);
+    //     }
+    // }
  };
 
  /**
@@ -2166,6 +2370,7 @@ export  const updates = async () => {
     let patch330 = false;
     let patch400 = false;
     let patch410 = false;
+    let patch420 = false;
 
     let newfunctions = "";
 
@@ -2186,177 +2391,61 @@ export  const updates = async () => {
         patch330 = game.settings.get('worldofdarkness', 'patch330');
         patch400 = game.settings.get('worldofdarkness', 'patch400');
         patch410 = game.settings.get('worldofdarkness', 'patch410');
+        patch420 = game.settings.get('worldofdarkness', 'patch420');
     } 
     catch (e) {
     }
 
     if (!patch110) {
         game.settings.set('worldofdarkness', 'patch110', true);
-
-        /* newfunctions += "<li>Creature sheet released</li>";
-        newfunctions += "<li>Added new System Setting where you can switch to use 5th ed Attributes and 5th ed Willpower.</li>";
-        newfunctions += "<li>Added new alternatives in sheet Settings</li>";
-        newfunctions += "<li>And a bunch of bug fixes</li>"; */
     }
 
     if (!patch120) {
         game.settings.set('worldofdarkness', 'patch120', true);
-
-        /* newfunctions += "<li>Added buttons to handle Initiative, Soak and general dice rolling</li>";
-        newfunctions += "<li>Added German Translation</li>";
-        newfunctions += "<li>Fixed the System can use Foundry rolling of Initiative</li>";
-        newfunctions += "<li>Worked on design on the different sheets"; */
     }
 
     if (!patch130) {
         game.settings.set('worldofdarkness', 'patch130', true);
-
-        /* newfunctions += "<li>Added Changing Breed sheets. Supports Ajaba, Ananasi, Bastet, Corax, Gurahl, Kitsune, Mokole, Nagah, Nuwisha, Ratkin and Rokea</li>";
-        newfunctions += "<li>Worked on design on the sheets of the macro buttons</li>";
-        newfunctions += "<li>Changed font</li>";
-        newfunctions += "<li>Worked on design on the combat section of the sheets</li>";
-        newfunctions += "<li>Fixed graphical problems if using German Translation</li>";
-        newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1">#1</a> a problem where the Attribute Setting in Power Items did not read the setting if you where using the 20th or 5th System setting</li>';
-        newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/2">#2</a> so you can clear permanent Renown</li>'; */
     }
 
     if (!patch140) {
         game.settings.set('worldofdarkness', 'patch140', true);
-
-        /* newfunctions += "<li>Added Spanish</li>";
-        newfunctions += "<li>Added Mage the Ascension</li>";
-        newfunctions += "<li>Added Secondary Abilities is added under Settings</li>";
-        newfunctions += "<li>[WtA] Added icon to roll frenzy</li>";
-        newfunctions += "<li>[WtA] Added new item - Fetish listed in Gear</li>";
-        newfunctions += "<li>[MtA] Added icon to roll cast spell</li>";
-        newfunctions += "<li>[MtA] Added support to create and cast Rote spells</li>";
-        newfunctions += "<li>Fixed graphical problems if using Spanish Translation</li>";     */    
     }
 
     if (!patch150) {
         game.settings.set('worldofdarkness', 'patch150', true);
-
-        /* newfunctions += "<li>Added Vampire the Masquerade</li>";
-        newfunctions += "<li>Added full support for update existing World and Compendiums</li>";
-        newfunctions += "<li>Remade all roll functions and redesigned them</li>";
-        newfunctions += "<li>Unified the structure of all Actors and Items</li>";
-        newfunctions += "<li>Altered design of all power tabs</li>";
-        newfunctions += "<li>All item lists are sorted</li>";
-        newfunctions += "<li>Fixed a number of bugs and graphical issues</li>";
-        newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/124">#124</a> Could not alter a Sphere value</li>';
-        newfunctions += '<li>Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/126">#126</a> that pain penalty was not calculated in Rolls</li>';
-        newfunctions += '<li>[VtM] Added Cappadocian and Salubri as clans <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/128">#128</a></li>';
-        newfunctions += '<li>[WtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/135">#135</a> the shifter image in Changing Breeds sheet had wrong width for English</li>';
-        newfunctions += '<li>[MtA] Fixed <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/130">#130</a> could not set Affinity Sphere</li>';
-        newfunctions += '<li>[MtA] Got report that Features did not work in Notes - Unrepeatable. Added descriptive texts if item has no values</li>';
-        newfunctions += '<li>[MTA] Added Technology as a Skill Ability <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/125">#125</a></li>';
-        newfunctions += '<li>Added User Permissions <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/141">#141</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
-        newfunctions += '<li>Fixed so you could add Ability Specialities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/145">#145</a></li>';
-        newfunctions += '<li>Fixed problems rolling Attributes and Abilities <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/146">#146</a> and <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/147">#147</a></li>';    
-        newfunctions += '<li>[VtM] Fixed so you can clear Blood Pool <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/148">#148</a></li>';
-        newfunctions += '<li>Added Bone Craft as a selective Skill <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/162">#162</a></li>';    
-        newfunctions += '<li>Fixed problems with permissions to alter Actor and Item images <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/143">#143</a></li>';
-        newfunctions += '<li>Fixed that spirits could not roll macro buttons <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/163">#163</a></li>'; */
     } 
 
     if (!patch160) {
         game.settings.set('worldofdarkness', 'patch160', true);
-
-        /* newfunctions += "<li>Major update of the graphics way too much to list here</li>";
-        newfunctions += "<li>Can turn off the special sheet fonts</li>";
-        newfunctions += "<li>German and Spanish updated</li>";
-        newfunctions += "<li>Added an Add-button to add backgrounds, mertis, flaws and blood bounds to the sheet</li>";
-        newfunctions += "<li>[WtA] Added rank 6</li>";
-        newfunctions += "<li>[WtA] Spirits can have Gifts</li>";
-        newfunctions += "<li>[MtA] Added Paradigm, Practice and Instruments</li>";
-        newfunctions += "<li>[MtA] Supports Constructs and Familiars</li>";
-        newfunctions += "<li>[VtM] Added Blood Bounded people under Info</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and stuff of irritation</li>"; */
     }
 
     if (!patch210) {
-        game.settings.set('worldofdarkness', 'patch210', true);
-
-        /* newfunctions += "<li>Added Changeling the Dreaming</li>";
-        newfunctions += "<li>Added support automatic fire</li>";
-        newfunctions += "<li>Added a Secondary Ability system</li>";
-        newfunctions += "<li>Added editors to textfields</li>";
-        newfunctions += "<li>Added possibility to specialize abilities e.g Craft</li>";
-        newfunctions += "<li>Able you to equip armor that is calculated in soak rolls</li>";
-        newfunctions += "<li>Creature sheet supports Chimeras</li>";
-        newfunctions += "<li>[WtA] Added Shapeshift button</li>";
-        newfunctions += "<li>[VtM] Added support temporary generation</li>";
-        newfunctions += "<li>[MtA] Added resonance and fetish support</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";  */       
+        game.settings.set('worldofdarkness', 'patch210', true);    
     }
 
     if (!patch220) {
         game.settings.set('worldofdarkness', 'patch220', true);
-
-        /* newfunctions += "<li>Added Hunter the Reckoning</li>";
-        newfunctions += "<li>Removed the 'clear' icon</li>";
-        newfunctions += "<li>Added functions to handle Ghouls and Kinfolk</li>";
-        newfunctions += "<li>Added more functionality to Other Traits</li>";
-        newfunctions += "<li>Expanded the settings of Mortals and Creatures</li>";
-        newfunctions += "<li>Added to be able to set max trait of abilities to above 5</li>";
-        newfunctions += "<li>[WtA] Added remain active icon</li>";
-        newfunctions += "<li>[WtA] Added shapeshift image on token</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>"; */
     }
 
     if (!patch230) {
         game.settings.set('worldofdarkness', 'patch230', true);
-
-        /* newfunctions += "<li>Added Demon the Fallen</li>";
-        newfunctions += "<li>Added Tours - see Foundry Tour Management</li>";
-        newfunctions += "<li>Added a bonus system to use with merit/flaws/powers and so on</li>";
-        newfunctions += "<li>Graphical improvements</li>";
-        newfunctions += "<li>Improved how specialities are edited</li>";
-        newfunctions += "<li>Shows the character's movement under Combat tab</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>"; */
     }
 
     if (!patch300) {
         game.settings.set('worldofdarkness', 'patch300', true);
-
-        //newfunctions += "<li>Support Foundry v11</li>";
     }
 
     if (!patch310) {
         game.settings.set('worldofdarkness', 'patch310', true);
-
-        /* newfunctions += "<li>Biggest update yet.</li>";
-        newfunctions += "<li>Total new design with a bunch of improvments on all sheets.</li>";
-        newfunctions += "<li>Support for eras in VtM, WtA and MtA</li>";
-        newfunctions += "<li>A number of new World settings to help you run the game you wish</li>";
-        newfunctions += "<li>[CtD] Improved how to roll arts</li>";
-        newfunctions += "<li>[MtA] Added magical items</li>";
-        newfunctions += "<li>[MtA] Improved spellcasting dialog</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>"; */
     }
 
     if (!patch320) {
         game.settings.set('worldofdarkness', 'patch320', true);
-
-        /* newfunctions += "<li>Added Wraith the Oblivion.</li>";
-        newfunctions += "<li>Spirit sheet is no longer supported use Crerature sheet instead.</li>";
-        newfunctions += "<li>Added variant sheet support.</li>";
-        newfunctions += "<li>[CtD] Added support for changeling variants.</li>";
-        newfunctions += "<li>[WtO] Added support for shadow variant.</li>";
-        newfunctions += "<li>[Mortal] Added support for mortal variants.</li>";
-        newfunctions += "<li>[Creature] Added support for creature variants.</li>"; */
     }
 
     if (!patch330) {
         game.settings.set('worldofdarkness', 'patch330', true);
-
-        /*newfunctions += "<li>Dark mode setting</li>";
-        newfunctions += '<li>Added support for <a href="https://foundryvtt.com/packages/drag-ruler/">Drag Rules module</a></li>';
-        newfunctions += "<li>Bonus system is reworked to support adding bonus to items not connected to Actor</li>";
-        newfunctions += "<li>[MtA] Added creature variants Familiar and Construct</li>";
-        newfunctions += "<li>[VtM] Combination disciplines</li>";
-        newfunctions += "<li>[WtA] Added lost breeds Apis, Camazotz and Grondr</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";*/
     }
 
     if (!patch400) {
@@ -2380,16 +2469,42 @@ export  const updates = async () => {
         newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
     }
 
-    // Support Drag Ruler module (notify stabchenfisch about it)
+    if (!patch420) {
+        game.settings.set('worldofdarkness', 'patch420', true);
+
+        newfunctions += '<li>[MtR] Added support for Mummy the Resurrection Revised. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/878">[#878]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/140">[#140]</a></li>';
+        newfunctions += '<li>[Exalted] Added support for Exalted vs WoD. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/904">[#904]</a></li>';
+        newfunctions += '<li>[MtA] Added support for Sorcerer 20th ed, now a variant Mortal sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/880">[#880]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/391">[#391]</a></li>';
+        newfunctions += '<li>[WtO] Added support for Orpheus, now a variant Mortal sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/907">[#907]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/391">[#391]</a></li>';
+        newfunctions += '<li>[VtM] Adding support for Kindred of the East, now as a variant Vampire sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/503">[#503]</a></li>';
+        newfunctions += '<li>[DtF] Added Earthbound as Creature variant. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/959">[#959]</a></li>';
+        newfunctions += '<li>Removed the old Spirit sheet from the system. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/940">[#940], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/942">[#942]</a></a></li>';
+
+        newfunctions += '<li>[VtM] Adding support for Vampire Classical Era and Age of Living Gods Era (mortal and vampire sheets). <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/912">[#912]</a></li>';
+        newfunctions += '<li>[VtM] Adding support for 16th generation vampire. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1009">[#1009]</a></li>';
+
+        newfunctions += '<li>[WtA] Changed how form modifiers are handled, the new way is by bonuses directly making them come up on the new Effect tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/918">[#918]</a></li>';
+        newfunctions += '<li>[CtD] Imbalance is now shown in correct order. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/963">[#963]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/964">[#964]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/985">[#985]</a></li>';
+
+        newfunctions += '<li>[DtF] Added Compendium for Demon the Fallen with Apocalyptic Forms. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1015">[#1015]</a></li>';
+        newfunctions += '<li>[Exalted] Added Compendium for Exalted vs WoD handling Lunar Exalted character generation. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/989">[#989]</a></li>';
+        newfunctions += '<li>[Exalted] Added Compendium for Exalted vs WoD handling Infernal Exalted character generation. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/991">[#991]</a></li>';
+
+        newfunctions += '<li>Added a new tab called Effect. From there you can control all bonuses one the sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/916">[#916]</a></li>';
+        newfunctions += '<li>Reworked listing of magical items in the Gear tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/938">[#938]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/934">[#934]</a></li>';
+        newfunctions += '<li>Reworked listing of features in the Note tab. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/957">[#957]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/934">[#934]</a></li>';
+        newfunctions += '<li>Reworked how add items to sheet by only use one button down to the right. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/935">[#935]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/934">[#934]</a></li>';
+
+        newfunctions += '<li>Fixed how Willpower spending effect number of successes in a roll so it follows the rules of 20th ed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/980">[#980]</a></li>';
+        newfunctions += '<li>On the sheet setting you can now set what type of dice you want to roll. The hidden vampire will now not be spoiled by the dices rolled. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/914">[#914]</a></li>';
+        
+        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";        
+    }
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
-		
-		if (_compareVersion(installedVersion, '4.1.4')) {
-            newfunctions += '<li>Fixed bug that caused problem creating bonus to item not connected to actor. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/917">[#917]</a></li>';
-        }
 
-        if (_compareVersion(installedVersion, '4.1.3')) {
+        /* if (_compareVersion(installedVersion, '4.1.3')) {
             newfunctions += '<li>Adding support for Vampire Classical Era and Age of Living Gods (mortal and vampire sheets). <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/912">[#912]</a></li>';
         }
 
@@ -2403,7 +2518,7 @@ export  const updates = async () => {
             newfunctions += '<li>The new setting of using health penalties in damage rolls did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/900">[#900]</a></li>';
             newfunctions += '<li>[VtM] Changes to Combined Disciplines broke the form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/903">[#903]</a></li>';
             newfunctions += '<li>[MtA] Mages with Arete higher than 5 did not got their increase in Sphere max level. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/898">[#898]</a></li>';
-        }
+        } */
 
         /* if (_compareVersion(installedVersion, '4.0.2')) {
             newfunctions += '<li>Fixed problems to send message to chat.</li>';
@@ -2419,12 +2534,12 @@ export  const updates = async () => {
 
     const headline = "Version "+migrationVersion+" installed";
 
-    let message = 'New version of the system has been installed. Details can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-410">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-420">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 
     if (installedVersion != "1") {
-        message += '<h2><b>Short Summery of update:</b></h2>';
+        message += '<h2><b>Important Summery of update:</b></h2>';
         message += '<ul>';
         message += newfunctions;
         message += '</ul>';

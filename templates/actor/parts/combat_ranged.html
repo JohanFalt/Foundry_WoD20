@@ -73,29 +73,22 @@
             <!--<div class="pullLeft combat-valueBox headlineNormal">
                 {{#if item.system.mode.hasreload}}{{localize "wod.combat.mode.reload"}} {{/if}}{{#if item.system.mode.hasburst}}{{localize "wod.combat.mode.burst"}} {{/if}}{{#if item.system.mode.hasfullauto}}{{localize "wod.combat.mode.fullauto"}} {{/if}}{{#if item.system.mode.hasspray}}{{localize "wod.combat.mode.spray"}}{{/if}}
             </div>-->
-            {{#if (eq ../locked false)}}
-                <div class="pullRight">                
-                    <a class="item-edit" title="{{localize "wod.labels.edit.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                    {{#if (eq ../locked false)}}                                                    
-                        <a class="item-delete" title="{{localize "wod.labels.remove.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                    {{/if}}
-                </div>
-            {{else}}
-                {{#if (ne item.system.description "")}}
-                    <div class="pullRight">
-                        <a class="send-chat" 
-                            title="{{localize 'wod.labels.send'}}" 
-                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+            <div class="pullRight">
+                {{{getToolTip item.system.description item.system.details}}}
+                <div class="pullLeft">
+                    <a class="send-chat" 
+                        title="{{localize 'wod.labels.send'}}" 
+                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                </div>           
+                {{#if (eq ../locked false)}} 
+                    <div class="pullLeft pointer">
+                        <a class="item-edit" title="{{localize "wod.labels.edit.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
                     </div>
-                    <div class="pullRight pointer headlineNormal tooltip">                    
-                        <i class="icon fa-solid fa-memo"></i>
-                        <span class="tooltiptext">{{{getDescriptionTooltip item.system.description item.system.details}}}</span>
-                    </div>                    
-                {{else}}
-                    <div class="pullLeft"><i class="icon fa-solid fa-memo transparent"></i></div>
+                    <div class="pullLeft pointer">
+                        <a class="item-delete" title="{{localize "wod.labels.remove.rangedweapon"}}" data-type="Ranged Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                    </div>
                 {{/if}}
-            {{/if}}
-
+            </div>
         </div>
 
     {{/each}}

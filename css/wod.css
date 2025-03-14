@@ -2,30 +2,22 @@
 
 /* Imported Fonts */
 @font-face {
-  font-family: "default";
-  src: url("../assets/fonts/times.ttf") format("truetype");
-}
-
-@font-face {
   font-family: "mortal";
   src: url("../assets/fonts/EscalidoGothico.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "changelingES";
-  /* src: url("../assets/fonts/Umb000.ttf") format("truetype"); */
   src: url("../assets/fonts/C20_Kells_2.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "changeling";
-  /* src: url("../assets/fonts/Umb000.ttf") format("truetype"); */
   src: url("../assets/fonts/C20_MeathFLF.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "vampire";
-  /* src: url("../assets/fonts/percexp.ttf") format("truetype"); */
   src: url("../assets/fonts/V20_delavan.ttf") format("truetype");
 }
 
@@ -46,13 +38,11 @@
 
 @font-face {
   font-family: "mage";
-  /* src: url("../assets/fonts/visit.TTF") format("truetype"); */
   src: url("../assets/fonts/M20_abbess_regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "werewolf";
-  /* src: url("../assets/fonts/werewolf.ttf") format("truetype"); */
   src: url("../assets/fonts/W20_balthazar.ttf") format("truetype");
 }
 
@@ -63,7 +53,6 @@
 
 @font-face {
   font-family: "demon";
-  /* src: url("../assets/fonts/demon.ttf") format("truetype"); */
   src: url("../assets/fonts/Demon_LushUs_v2.otf") format("truetype");
 }
 
@@ -72,10 +61,34 @@
   src: url("../assets/fonts/Wr20_MatrixTall.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "orpheus";
+  src: url("../assets/fonts/orpheus/Fudge.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "mummy";
+  src: url("../assets/fonts/mummy/Nueva_Caesar2_0.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "mummy_italic";
+  src: url("../assets/fonts/mummy/P22_Cezanne_Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "exalted_normal";
+  src: url("../assets/fonts/exalted/frizquadratatt.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "exalted";
+  src: url("../assets/fonts/exalted/SevenSerifICG-Bold.ttf") format("truetype");
+}
+
 :root {
   /* --main-font: Arial, Helvetica, sans-serif; */
   --main-font: Verdana, Helvetica, sans-serif;
-  --main-large-headline: Georgia, 'Times New Roman', Times, sans-serif;
 
   --main-dialog-background: url('../assets/img/graphics/20Page.jpg');
 
@@ -142,6 +155,28 @@
   --wraith-banner-background: url('../assets/img/graphics/Wr20Banner.png');
   --wraith-banner-small-background: url('../assets/img/graphics/Wr20Banner_small.png');
 
+  --main-mummy-color: rgb(175, 153, 8);
+  --main-mummy-mid-color: rgba(175, 153, 8, 0.4);
+  --main-mummy-dim-color: rgba(175, 153, 8, 0.12);  
+
+  --mummy-page-background: url('../assets/img/graphics/parchment.jpg');
+  --mummy-banner-background: url('../assets/img/graphics/sand.png');
+  --mummy-banner-small-background: url('../assets/img/graphics/sand.png');
+
+  --main-exalted-font: "exalted_normal", Verdana, Helvetica, sans-serif;
+
+  /* --main-exalted-color: rgb(253, 179, 30);
+  --main-exalted-mid-color: rgba(255, 211, 126, 0.4);
+  --main-exalted-dim-color: rgba(255, 211, 126, 0.12); */
+
+  --main-exalted-color: rgb(169, 44, 38);
+  --main-exalted-mid-color: rgba(169,44,38, 0.4);
+  --main-exalted-dim-color: rgba(169,44,38, 0.12);
+
+  --exalted-page-background: url('../assets/img/graphics/Exalted.jpg');
+  --exalted-banner-background: url('../assets/img/graphics/exalted_banner.jpg');
+  --exalted-banner-small-background: url('../assets/img/graphics/exalted_banner_small.jpg');
+
   --main-creature-color: rgba(116, 115, 115, 1);
   --main-creature-mid-color: rgba(72, 71, 71, 0.4);
   --main-creature-dim-color: rgba(72, 71, 71, 0.12);
@@ -155,6 +190,14 @@
   --main-dim-color: var(--main-mortal-dim-color);  
 
   --sheet-background-color: white;
+
+  --healthlevel-bruised-color: white;
+  --healthlevel-hurt-color: #FFFF00;
+  --healthlevel-injured-color: #FFCC00;
+  --healthlevel-wounded-color: #FF8C00;
+  --healthlevel-mauled-color: #FF0000;
+  --healthlevel-crippled-color: #800000;
+  --healthlevel-incapacitated-color: #000000;
 }
 
 /* START - Type of sheet designs */
@@ -327,13 +370,13 @@
   background: black;
 }
 
-.pointer:hover,
-.pointer:focus {
+.wod20 .pointer:hover,
+.wod20 .pointer:focus {
   cursor: pointer;
 }
 
-.nopointer:hover,
-.nopointer:focus {
+.wod20 .nopointer:hover,
+.wod20 .nopointer:focus {
   cursor: default;
 }
 
@@ -346,7 +389,6 @@
 
 .wod20 .textarea {
   overflow-y: auto !important;
-  /* height: 150px; */
   min-height: 150px;
   height: auto !important;
   border-radius: 3px;
@@ -366,7 +408,7 @@
   font-weight: normal;
 }
 
-.locked .resource-value-step {
+.wod20 .locked .resource-value-step {
   cursor: default;
 }
 
@@ -467,7 +509,7 @@ input.sheet-infoWidth {
   box-shadow: 2px 2px 5px var(--main-mid-color);
 }
 
-.sheet-smallinfoValues {
+.wod20 .sheet-smallinfoValues {
   height: 75px;
 }
 
@@ -478,12 +520,23 @@ input.sheet-infoWidth {
   scale: 1.2;
 }
 
+.wod20.wod-sheet .icon.fa-square-plus {
+  display: none;
+}
+
 .wod20 i.smallicon {
   scale: 1.0;
 }
 
 .wod20 i.largeicon {
   scale: 1.4;
+}
+
+.wod20 i.createicon {
+  scale: 3; 
+  position: absolute; 
+  bottom: 20px; 
+  right: -15px;
 }
 
 .wod20 i.transparent {
@@ -500,7 +553,7 @@ input.sheet-infoWidth {
   text-align: center;
 }
 
-.wod20 .sheet-area flex-columns {
+.wod20 .sheet-area .flex-columns {
   margin-top: 15px;
 }
 
@@ -532,10 +585,15 @@ input.sheet-infoWidth {
   margin-bottom: 10px; 
 }
 
+.wod-sheet .sheet-banner-small.sheet-headline {
+  /* min-width: 259px; */
+  min-width: 230px;
+}
+
 .wod-sheet .sheet-banner-text {
   background: var(--sheet-background-color);
   border-radius: 33%;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 
 .wod-sheet .sheet-headline {  
@@ -546,10 +604,10 @@ input.sheet-infoWidth {
 }
 
 .wod-sheet.noSplatFont .sheet-headline {  
-  font-family: var(--main-large-headline);
+  font-family: var(--main-font);
 }
 .wod-sheet.noSplatFont .headlineGroup {
-  font-family: var(--main-large-headline);
+  font-family: var(--main-font);
 }
 
 .wod20 .headlineNormal {
@@ -599,7 +657,7 @@ input.sheet-infoWidth {
   font-weight: bold;
 }
 
-.headlineTabs {
+.wod20 .headlineTabs {
 	font-size: 20px;    
   height: 30px;
 }
@@ -607,6 +665,10 @@ input.sheet-infoWidth {
 .wod20 .largeBox {
   width: 250px;
   height: 19px;
+}
+
+.wod20 .largeBox {
+  width: 200px;
 }
 
 .wod20 .numberBox {
@@ -618,7 +680,7 @@ input.sheet-infoWidth {
   min-width: 25px !important;
 }
 
-.text-unfocus {
+.wod20 .text-unfocus {
   opacity: 0.5;
 }
 
@@ -627,12 +689,12 @@ input.sheet-infoWidth {
   font-weight: bold !important;
 }
 
-.thin-border-left {
+.wod20 .thin-border-left {
   border-left-style: solid;
   border-width: 1px;
 }
 
-.thin-border-right {
+.wod20 .thin-border-right {
   border-right-style: solid;
   border-width: 1px;
 }
@@ -705,7 +767,7 @@ input.sheet-infoWidth {
   width: 75%;
 }
 
-.headlineRow {
+.wod20 .headlineRow {
   display: flex;
   height: 23px;
   line-height: 23px;
@@ -771,21 +833,57 @@ input.sheet-infoWidth {
 
 /* END - General */
 
-/* START - Dialog */
+/* Create ALL button */
+.wod20.wod-dialog.wod-create .dialog-content {
+  flex: 0;
+}
+
+.wod20.wod-dialog.wod-create .dialog-buttons {
+  text-align: center;
+}
+
+.wod20.wod-dialog.wod-create button {
+  font-family: var(--main-font);
+  border: 0;
+  background: var(--main-full-color);
+  color: white;
+  width: 50%;
+  height: 34px;
+  margin-bottom: 10px;
+}
+
+.wod20.wod-dialog.wod-create button.active {
+  background: white;
+	color: var(--main-full-color);
+  border: 1px solid var(--main-full-color);
+}
+
+.wod20.wod-dialog.wod-create button:hover,
+.wod20.wod-dialog.wod-create button:focus {
+  cursor: pointer;
+}
+
+.wod20.wod-dialog.wod-create button:hover,
+.wod20.wod-dialog.wod-create button:focus {
+  cursor: default;
+}
+
+.wod20 .fullSplatColor.button.active {
+  background: white;
+	color: var(--main-full-color);
+  border: 1px solid var(--main-full-color);
+}
 
 .wod-dialog .setting-area {
   margin-bottom: 20px !important;
 }
+/* End Create ALL button */
 
-.setting-radiospan {
+/* START - Dialog */
+
+.wod20 .setting-radiospan {
   width: 45px; 
   display: inline-block;
-}
-
-.setting-radiospanText {
-  width: 200px; 
-  display: inline-block;
-  height: 12px;
 }
 
 .wod-dialog .setting-radiobuttons {
@@ -798,6 +896,7 @@ input.sheet-infoWidth {
   padding-bottom: 10px;
   padding-top: 5px;
   margin-bottom: 10px;
+  margin-right: 15px;
   padding-left: 10px;
   padding-right: 10px;
   border: 1px solid var(--main-full-color);
@@ -813,53 +912,63 @@ input.sheet-infoWidth {
   width: 60px;
 }
 
-.dialog-one-button {
-  width: 75%;
-  height: 34px;
-}
-
-.dialog-two-button {
+.wod20 .dialog-two-button {
   width: 40%;
   height: 34px;
 }
 
-.dialog-three-button,
-.dialog-realm-button,
-.dialog-power-button,
-.dialog-attribute-button,
-.dialog-secondaryability-button {
+.wod20 .dialog-three-button,
+.wod20 .dialog-realm-button,
+.wod20 .dialog-power-button,
+.wod20 .dialog-attribute-button,
+.wod20 .dialog-secondaryability-button {
   width: 30%;
   height: 34px;
   margin-bottom: 5px;
 }
 
-.dialog-mode-button {
+/* Dialog button rules */
+.wod20.wod-item .dialog-one-button.item-bonusvalue-button,
+.wod20.wod-dialog .dialog-one-button.item-bonusvalue-button {
+  margin-bottom: 5px;
+}
+
+/* Dialog button rules */
+.wod20.wod-item .dialog-ten-button.item-bonusvalue-button,
+.wod20.wod-dialog .dialog-ten-button.item-bonusvalue-button {
+  margin-left: 230px;
+  margin-right: 270px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.wod20 .dialog-mode-button {
   width: 20%;
   height: 34px;
   margin-bottom: 5px;
 }
 
-.dialog-numbertargets-button,
-.dialog-numdices-button,
-.item-bonusvalue-button {
+.wod20 .dialog-numbertargets-button,
+.wod20 .dialog-numdices-button,
+.wod20 .item-bonusvalue-button {
   width: 8%;
   height: 34px;
   max-width: 40px;
 }
 
-.dialog-difficulty-button {
+.wod20 .dialog-difficulty-button {
   width: 8%;
   height: 34px;
   max-width: 40px;
 }
 
-.dialog-moon-button,
-.dialog-shapechange-button {
+.wod20 .dialog-moon-button,
+.wod20 .dialog-shapechange-button {
   width: 19%;
   height: 34px;
 }
 
-.aretecasting-dialog .dialog-label {
+.wod20 .aretecasting-dialog .dialog-label {
   width: 480px;
 }
 
@@ -911,7 +1020,7 @@ input.sheet-infoWidth {
   border: 0;
 }
 
-.navigation img.navBtn {
+.wod20 .navigation img.navBtn {
   height: 30px;
   width: 30px;
   border: 0px;
@@ -936,7 +1045,7 @@ input.sheet-infoWidth {
 
 /* START - Bio */
 
-.headlineBio {
+.wod20 .headlineBio {
   float: left; 
   width: 30%;
 }
@@ -954,7 +1063,7 @@ input.sheet-infoWidth {
   height: 32px;
 }
 
-.smallbox {
+.wod20 .smallbox {
   height: 75px;
 }
 
@@ -962,15 +1071,15 @@ input.sheet-infoWidth {
 
 /* START - Core */
 
-.dotvalueArea {
+.wod20 .dotvalueArea {
   margin-right: 10%;
 }
 
-.attribute-statArea {	
+.wod20 .attribute-statArea {	
 	width: 33%;	
 }
 
-.attribute-headlineWidth {
+.wod20 .attribute-headlineWidth {
 	width: 	110px;
 }
 
@@ -978,16 +1087,16 @@ input.sheet-infoWidth {
   width: 	110px;
 }
 
-.attribute-total {
+.wod20 .attribute-total {
   display: inline-block;
   width: 10px;
 }
 
-.ability-statArea {	
+.wod20 .ability-statArea {	
 	width: 33%;
 }
 
-.attribute-rowheight {
+.wod20 .attribute-rowheight {
   height: 19px;
 }
 
@@ -998,101 +1107,148 @@ input.sheet-infoWidth {
   width: 40%;
 }
 
-.ability-rowheight {
+.wod20 .ability-rowheight {
   height: 19px;
 }
 
-.healthBox {
+.wod20 div.health {
+  display: inline-block;
+}
+
+.wod20 div.healthBox {
   padding-right: 30px;
 }
 
-.experienceValue {
+.wod20 span.healthBox {
+  margin: 1px;
+}
+
+.wod20 span.bruised.healthBox {
+  background: var(--healthlevel-bruised-color);
+}
+
+.wod20 span.hurt.healthBox {
+  background: var(--healthlevel-hurt-color);
+}
+
+.wod20 span.injured.healthBox {
+  background: var(--healthlevel-injured-color);
+}
+
+.wod20 span.wounded.healthBox {
+  background: var(--healthlevel-wounded-color);
+}
+
+.wod20 span.mauled.healthBox {
+  background: var(--healthlevel-mauled-color);
+}
+
+.wod20 span.crippled.healthBox {
+  background: var(--healthlevel-crippled-color);
+}
+
+.wod20 span.incapacitated.healthBox {
+  background: var(--healthlevel-incapacitated-color);
+}
+
+.wod20 .experienceValue {
   padding-right: 30px;
 }
 
-div.permValueRow {
+.wod20 .total.experienceValue {
+  line-height: 26px;
+  margin-left: 15px;
+}
+
+.wod20.ghoul .total.experienceValue,
+.wod20.kinfolk .total.experienceValue {
+  line-height: 36px;
+}
+
+.wod20 div.permValueRow {
   margin: 0 auto;
 }
 
-div.tempSquareRow {
+.wod20 div.tempSquareRow {
   margin: 0 auto;
+  max-width: 200px;
 }
 
-span.supernaturalAttribute:nth-of-type(5n) {
+.wod20 span.supernaturalAttribute:nth-of-type(5n) {
   margin-right: 10px;
 }
 
-.rankAttribute:nth-of-type(5n) {
+.wod20 .rankAttribute:nth-of-type(5n) {
   margin-right: 5px;
 }
 
-div.bloodpool {
+.wod20 div.bloodpool {
   width: 185px;
   margin: 0 auto;
 } 
 
-div.essence-counters {
+.wod20 div.essence-counters {
   width: 180px;
   margin: 0 auto;
 }
 
-.form-apocalyptic {
+.wod20 .form-apocalyptic {
   width: 100%;
   display: flex;
   height: 23px;
   line-height: 23px;
 }
 
-.form-apocalyptic-name {
-  width: 140px;
+.wod20 .form-apocalyptic-name {
+  width: 270px;
 }
 
-.bonus-apocalyptic-name {
+.wod20 .bonus-apocalyptic-name {
   margin-left: 40px;
   width: 150px;
   height: 23px;
   line-height: 23px;
 }
 
-.bonus-power-name {
+.wod20 .bonus-power-name {
   margin-left: 60px;
   width: 200px;
   height: 23px;
   line-height: 23px;
 }
 
-div.speciality-ability {
+.wod20 div.speciality-ability {
   margin-left: 25px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-div.speciality-attribute {
+.wod20 div.speciality-attribute {
   margin-left: 25px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-div.speciality-magic {
+.wod20 div.speciality-magic {
   margin-left: 25px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
 
-div.speciality-ability-icon,
-div.speciality-attribute-icon,
-div.speciality-magic-icon {
+.wod20 div.speciality-ability-icon,
+.wod20 div.speciality-attribute-icon,
+.wod20 div.speciality-magic-icon {
   margin-right: 10px;
   margin-left: 5px;
 }
 
-div.speciality-ability-empty-icon,
-div.speciality-attribute-empty-icon,
-div.speciality-magic-empty-icon {
+.wod20 div.speciality-ability-empty-icon,
+.wod20 div.speciality-attribute-empty-icon,
+.wod20 div.speciality-magic-empty-icon {
   margin-right: 25px;
 }
 
-div.rank-area {
+.wod20 div.rank-area {
   height: 75px;
 }
 
@@ -1180,32 +1336,52 @@ div.rank-area {
   width: 135px;
 }
 
+.wod20 .movementBox {
+  line-height: 23px;
+}
+
 /* END - Combat */
 
 /* START - Gear */
 
-.sheet-gearArea {
+.wod20 .sheet-gearArea {
   height: 400px;
 }
 
-.gear-valueBox {
+.wod20 .gear-valueBox {
   width: 80px;
 }
 
-.fetish-largeBox {
-  width: 120px;
+.wod20 .item-largebox.headlineList {
+  width: 245px
+}
+
+.wod20 .item-largebox {
+  width: 200px
+}
+
+.wod20 .item-box {
+  width: 100px
+}
+
+.wod20 .item-poolbox {
+  width: 200px;
+}
+
+.wod20 .item-valuebox {
+  width: 50px;
 }
 
 /* END - Gear */
 
 /* START - Power */
 
-.ritual-headline {
+.wod20 .ritual-headline {
   width: 225px;
   margin-left: 20px;
 }
 
-.ritual-row .power-iconbox {
+.wod20 .ritual-row .power-iconbox {
   margin-left: 40px;
 }
 
@@ -1217,11 +1393,11 @@ div.rank-area {
   height: 23px; */
 }
 
-.bonus-icons.power-iconbox {
+.wod20 .bonus-icons.power-iconbox {
   margin-left: 38px;
 }
 
-.power-dotBox {
+.wod20 .power-dotBox {
   width: 200px;
 }
 
@@ -1229,22 +1405,26 @@ div.rank-area {
   width: 100px;
 }
 
-.power-row .power-iconbox {
+.wod20 .power-row .power-iconbox {
   margin-left: 93px;
 }
 
-.art-headline,
-.discipline-headline,
-.edge-headline,
-.lore-headline,
-.arcanoi-headline {
+.wod20 .art-headline,
+.wod20 .discipline-headline,
+.wod20 .edge-headline,
+.wod20 .lore-headline,
+.wod20 .arcanoi-headline,
+.wod20 .hekau-headline,
+.wod20 .numina-headline {
   width: 200px;
 }
 
-.discipline-headline.headlineGroup,
-.edge-headline.headlineGroup,
-.lore-headline.headlineGroup,
-.arcanoi-headline.headlineGroup {
+.wod20 .discipline-headline.headlineGroup,
+.wod20 .edge-headline.headlineGroup,
+.wod20 .lore-headline.headlineGroup,
+.wod20 .arcanoi-headline.headlineGroup,
+.wod20 .hekau-headline.headlineGroup,
+.wod20 .numina-headline.headlineGroup {
   width: 240px;
 }
 
@@ -1263,10 +1443,8 @@ div.rank-area {
   flex-basis: auto;  
 }
 
-
-
-.power-row,
-.art-row {  
+.wod20 .power-row,
+.wod20 .art-row {  
   display: flex;
   height: 23px;
   line-height: 23px;
@@ -1274,49 +1452,59 @@ div.rank-area {
   margin-bottom: 5px;
 }
 
-.artpower-row,
-.disciplinepower-row,
-.edgepower-row {
+.wod20 .artpower-row,
+.wod20 .disciplinepower-row,
+.wod20 .edgepower-row,
+.wod20 .hekaupower-row,
+.wod20 .numinapower-row {
   display: flex;
   height: 23px;
   line-height: 23px;
   margin-left: 13px;
 }
 
-.power-row .resource-value,
-.art-row .resource-value {
+.wod20 .power-row .resource-value,
+.wod20 .art-row .resource-value {
   line-height: 30px;
+}
+
+.wod20 .numinapower-nonerollablerow .power-iconbox {
+  margin-left: 290px;
+}
+
+.wod20 .numinapower-rollablerow .power-iconbox {
+  margin-left: 140px;
 }
 
 /* END - Power */
 
 /* START - Notes */
 
-.note-row {
+.wod20 .note-row {
   height: 23px;
   line-height: 23px;
   margin-left: 13px;
 }
 
-.note-iconbox {
-  margin-left: 180px;
+.wod20 .note-iconbox {
+  margin-left: 150px;
 }
 
-.note-iconTraits {
+.wod20 .note-iconTraits {
   margin-left: 85px;
 }
 
-.notes-valueBox {
+.wod20 .notes-valueBox {
   width: 55px;
   height: 19px;
 }
 
-.notes-centerexperienceadd {
+.wod20 .notes-centerexperienceadd {
   height: 26px;
   line-height: 26px;
 }
 
-.notes-experienceHeadline {
+.wod20 .notes-experienceHeadline {
   width: 230px;
   height: 19px;
 }
@@ -1340,19 +1528,19 @@ div.rank-area {
   cursor: pointer;
 }
 
-.settings-abilitylabel {
+.wod20 .settings-abilitylabel {
   width: 90px;
 }
 
-.settings-ability-altnamefiller {
+.wod20 .settings-ability-altnamefiller {
   width: 125px;
 }
 
-.settings-leftwidth {
+.wod20 .settings-leftwidth {
   width: 150px;
 }
 
-.settings-verticalcenter {
+.wod20 .settings-verticalcenter {
   line-height: 26px;
 }
 
@@ -1360,7 +1548,7 @@ div.rank-area {
 
 /* START - Dialogs */
 
-.dialog-casting-type-label {
+.wod20 .dialog-casting-type-label {
   width: 250px;
 }
 
@@ -1377,7 +1565,7 @@ div.rank-area {
   margin-left: 0;
 }
 
-.headlineItem {
+.wod20 .headlineItem {
   font-size: 16px;
   margin-right: 25px;
   float: left; 
@@ -1385,7 +1573,7 @@ div.rank-area {
   font-weight: bold;
 }
 
-.headlineButton {
+.wod20 .headlineButton {
   font-size: 18px;
   float:left;
 }
@@ -1420,54 +1608,59 @@ div.rank-area {
   min-height: 36px;
 }
 
-.sheet-header > .top-area > .top-side > img {
+.wod20 .sheet-header > .top-area > .top-side > img {
   height: 80px;
   border: 0px;
 }
 
-.item-body {
+.wod20 .item-body {
   margin-top: 10px;
 }
 
-.item-area {
+.wod20 .item-area {
   margin: 10px;
 }
 
-.item-info {
+.wod20 .item-info {
   width: 50%;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.item-label {
+.wod20 .item-label {
   width: 300px;  
 }
 
 /* END - Items */
 
 /* START - handle design of radio buttons */
-.difficulty-value .resource-value-step,
-.resource-value .resource-value-step {
+.wod20 .difficulty-value .resource-value-step,
+.wod20 .resource-value .resource-value-step {
   height: 14px;
   width: 14px;
   border: 1px solid black;
   display: inline-block;
   border-radius: 50%;
   cursor: pointer;
-  background: white;
+  background: white;  
 }
 
-span.supernaturalAttribute.resource-value-step {
+.wod20 .resource-counter.tempSquareRow .resource-value-step,
+.wod20 .resource-value.permValueRow .resource-value-step {
+  margin-right: 5px;
+}
+
+.wod20 span.supernaturalAttribute.resource-value-step {
   height: 12px;
   width: 12px;
 }
 
-.difficulty-value .resource-value-step.active,
-.resource-value .resource-value-step.active {
+.wod20 .difficulty-value .resource-value-step.active,
+.wod20 .resource-value .resource-value-step.active {
   background-color: black;
 }
 
-.resource-value-static .resource-value-static-step {
+.wod20 .resource-value-static .resource-value-static-step {
   height: 14px;
   width: 14px;
   border: 1px solid black;
@@ -1475,7 +1668,35 @@ span.supernaturalAttribute.resource-value-step {
   border-radius: 50%;
 }
 
-.resource-counter .resource-value-step {
+.wod20 span.bruised.healthBox {
+  background-color: var(--healthlevel-bruised-color);
+}
+
+.wod20 span.hurt.healthBox {
+  background: var(--healthlevel-hurt-color);
+}
+
+.wod20 span.injured.healthBox {
+  background: var(--healthlevel-injured-color);
+}
+
+.wod20 span.wounded.healthBox {
+  background: var(--healthlevel-wounded-color);
+}
+
+.wod20 span.mauled.healthBox {
+  background: var(--healthlevel-mauled-color);
+}
+
+.wod20 span.crippled.healthBox {
+  background: var(--healthlevel-crippled-color);
+}
+
+.wod20 span.incapacitated.healthBox {
+  background: var(--healthlevel-incapacitated-color);
+}
+
+.wod20 .resource-counter .resource-value-step {
   height: 14px;
   width: 14px;
   border: 1px solid black;
@@ -1485,7 +1706,7 @@ span.supernaturalAttribute.resource-value-step {
 }
 
 /* bashing */
-.resource-counter .resource-value-step[data-state="/"] {
+.wod20 .resource-counter .resource-value-step[data-state="/"] {
   background:
     linear-gradient(
       135deg,
@@ -1495,12 +1716,102 @@ span.supernaturalAttribute.resource-value-step {
       black 55%,
       transparent 57%,
       transparent 100%
-    ), 
-    white;
+    ),  var(--healthlevel-bruised-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].bruised {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-bruised-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].hurt {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-hurt-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].injured {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-injured-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].wounded {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-wounded-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].mauled {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-mauled-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].crippled {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-crippled-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="/"].incapacitated {
+  background:
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ),  var(--healthlevel-incapacitated-color);
 }
 
 /* lethal */
-.resource-counter .resource-value-step[data-state="x"] {
+.wod20 .resource-counter .resource-value-step[data-state="x"] {
   background:
     linear-gradient(
       45deg,
@@ -1519,12 +1830,165 @@ span.supernaturalAttribute.resource-value-step {
       black 55%,
       transparent 57%,
       transparent 100%
+    ), white;
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].bruised {
+  background:
+    linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
     ),
-    white;
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ), var(--healthlevel-bruised-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].hurt {
+  background:
+  linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+  ),
+  linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+    ), var(--healthlevel-hurt-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].injured {
+  background:
+  linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+  ),
+  linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+    ), var(--healthlevel-injured-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].wounded {
+  background:
+  linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+  ),
+  linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+    ), var(--healthlevel-wounded-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].mauled {
+  background:
+  linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+  ),
+  linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 43%,
+    black 45%,
+    black 55%,
+    transparent 57%,
+    transparent 100%
+    ), var(--healthlevel-mauled-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].crippled {
+  background:
+  linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 43%,
+    white 45%,
+    white 55%,
+    transparent 57%,
+    transparent 100%
+  ),
+  linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 43%,
+    white 45%,
+    white 55%,
+    transparent 57%,
+    transparent 100%
+    ), var(--healthlevel-crippled-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="x"].incapacitated {
+  background:
+  linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 43%,
+    white 45%,
+    white 55%,
+    transparent 57%,
+    transparent 100%
+  ),
+  linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 43%,
+    white 45%,
+    white 55%,
+    transparent 57%,
+    transparent 100%
+    ), var(--healthlevel-incapacitated-color);
 }
 
 /* aggravated */
-.resource-counter .resource-value-step[data-state="*"] {
+.wod20 .resource-counter .resource-value-step[data-state="*"] {
   background:
     linear-gradient(
       45deg,
@@ -1554,4 +2018,222 @@ span.supernaturalAttribute.resource-value-step {
       transparent 100%
     ),
     white;
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].bruised {
+  background:
+    linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    white;
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].hurt {
+  background:
+  linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ), var(--healthlevel-hurt-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].injured {
+  background:
+  linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ), var(--healthlevel-injured-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].wounded {
+  background:
+  linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),var(--healthlevel-wounded-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].mauled {
+  background:
+  linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      black 45%,
+      black 55%,
+      transparent 57%,
+      transparent 100%
+    ), var(--healthlevel-mauled-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].crippled {
+  background:
+  linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ), var(--healthlevel-crippled-color);
+}
+
+.wod20 .resource-counter .resource-value-step[data-state="*"].incapacitated {
+  background:
+  linear-gradient(
+      45deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ),
+    linear-gradient(
+      135deg,
+      transparent 0%,
+      transparent 43%,
+      white 45%,
+      white 55%,
+      transparent 57%,
+      transparent 100%
+    ), var(--healthlevel-incapacitated-color);
 }
