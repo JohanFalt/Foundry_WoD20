@@ -507,6 +507,22 @@ export class DialogPower extends FormApplication {
                 data.object.attributeValue += parseInt(bonus);
             }
         }
+        // is dice1 an Ability
+        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice1]?.value != undefined)) {
+            data.object.attributeValue = parseInt(this.actor.system.abilities[data.object.dice1].value);
+
+            if (this.actor.system.abilities[data.object.dice1] == undefined) {
+                data.object.attributeName = game.i18n.localize(this.actor.system.abilities[data.object.dice1].label);
+            }
+            else {
+                data.object.attributeName = (this.actor.system.abilities[data.object.dice1].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice1].label) : this.actor.system.abilities[data.object.dice1].altlabel;        
+            }                
+
+            if ((parseInt(this.actor.system.abilities[data.object.dice1].value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice1]._id))) {
+                data.object.hasSpeciality = true;
+                attributeSpeciality = this.actor.system.abilities[data.object.dice1].speciality;
+            }
+        }
         // is dice1 an Advantage
         else if (this.actor.system.advantages[data.object.dice1]?.roll != undefined) { 
             data.object.attributeValue = parseInt(this.actor.system.advantages[data.object.dice1].roll);

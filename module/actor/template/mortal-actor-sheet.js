@@ -938,18 +938,28 @@ export class MortalActorSheet extends ActorSheet {
 			// Define the actor's gamesystem, defaulting to "mortal" if it's not in the systems list
 			let system = this.actor.type;
 			let buttons = {};
+			let sheettype;
 
 			if (this.actor.system.settings.variantsheet != "") {
 				system = this.actor.system.settings.variantsheet;
 			}
 
 			let origin = $(event.currentTarget).data("origin");
+			
+			if (this.actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
+				sheettype = this.actor.type.toLowerCase();
+			}
+			else {
+				sheettype = "werewolf";
+			}
+
+			system = sheettype;
 
 			// Render the template
 			const itemselectionTemplate = 'systems/worldofdarkness/templates/dialogs/dialog-new-item.hbs';
 			const itemselectionData = {
 				tab: origin,
-				sheettype: this.actor.type,
+				sheettype: sheettype,
 				actor: this.actor
 			}
 			const itemselectionContent = await renderTemplate(itemselectionTemplate, itemselectionData);

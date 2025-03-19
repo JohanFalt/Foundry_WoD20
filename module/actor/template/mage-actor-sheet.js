@@ -27,15 +27,9 @@ export class MageActorSheet extends MortalActorSheet {
 			if (i.type == "Rote") {
 			 	rotes.push(i);
 			}
-			if (i.type == "Trait") {
-				if (i.system.type == "wod.types.resonance") {
-					resonance.push(i);
-				}
-			}
 		}
 
 		data.actor.system.listdata.rotes = rotes.sort((a, b) => a.name.localeCompare(b.name));
-		data.actor.system.listdata.resonance = resonance.sort((a, b) => a.name.localeCompare(b.name));
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.mage) {
 			console.log(`${data.actor.name} - (${CONFIG.worldofdarkness.sheettype.mage})`);

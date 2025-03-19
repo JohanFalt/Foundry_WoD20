@@ -4,6 +4,7 @@
     </div>
 
     <div class="infobox clearareaBox">
+
         <div class="pullLeft" style="margin-right: 10px;">
             <div class="bioInformationArea floating-label-group">
                 <select class="sheet-infoValues smallbox editable" name="system.dice1">
@@ -25,6 +26,30 @@
                             {{#if (eq (checkSystemsetting "attributeSettings") "20th")}}
                                 {{#each config.attributes20 as | name type|}}
                                     <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+                            {{/if}}
+
+                            {{#if (eq data.system.type "wod.types.hekaupower")}}
+                                <option disabled>- {{captilize (localize "wod.abilities.talents")}} -</option>
+
+                                {{#each config.talents as | name type|}}                
+                                    <option value="{{type}}">{{localize name}}</option>
+                                {{/each}}
+
+                                <option disabled>- {{captilize (localize "wod.abilities.skills")}} -</option>
+
+                                {{#each config.skills as | name type|}}
+                                    {{#if (ne type "technology")}}
+                                        <option value="{{type}}">{{localize name}}</option>
+                                    {{/if}}
+                                {{/each}}
+
+                                <option disabled>- {{captilize (localize "wod.abilities.knowledges")}} -</option>
+
+                                {{#each config.knowledges as | name type|}}
+                                    {{#if (ne type "research")}}
+                                        <option value="{{type}}">{{localize name}}</option>
+                                    {{/if}}
                                 {{/each}}
                             {{/if}}
 
@@ -154,6 +179,7 @@
                                     <option value="selfcontrol">{{localize "wod.advantages.virtue.selfcontrol"}}</option>
                                     <option value="selfcontrol">{{localize "wod.advantages.virtue.instinct"}}</option>
                                     <option value="courage">{{localize "wod.advantages.virtue.courage"}}</option>
+
                                 {{/if}}
                             {{/if}}
                         {{/select}}

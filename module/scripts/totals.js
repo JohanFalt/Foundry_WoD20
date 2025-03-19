@@ -16,9 +16,7 @@ export async function calculateTotals(updateData) {
 		updateData.system.attributes[i].total = parseInt(updateData.system.attributes[i].value) + parseInt(updateData.system.attributes[i].bonus) + parseInt(shift.value);
 
 		//bonus attribute
-		//if (await BonusHelper.CheckAttributeBuff(actor, i)) {
 		if (await BonusHelper.CheckAttributeBuff(updateData, i)) {
-			//let bonus = await BonusHelper.GetAttributeBuff(actor, i);
 			let bonus = await BonusHelper.GetAttributeBuff(updateData, i);
 			updateData.system.attributes[i].total += parseInt(bonus);
 		}
@@ -88,7 +86,28 @@ export async function calculateTotals(updateData) {
 			}
 		}
 	}    
+
+	// fix rage stuff
+	if (updateData.system.settings.hasrage) {
+		let wererwolfrageSettings = true;
+
+		try {
+			wererwolfrageSettings = CONFIG.worldofdarkness.wererwolfrageSettings;
+		} 
+		catch (e) {
+			wererwolfrageSettings = true;
+		}
+
+		if (wererwolfrageSettings) {
+			if (updateData.system.advantages.rage.roll > updateData.system.advantages.willpower.roll) {
+				const rageDiff = parseInt(updateData.system.advantages.rage.roll) - parseInt(updateData.system.advantages.willpower.roll);
 	
+				updateData.system.attributes.charisma.total = parseInt(updateData.system.attributes.charisma.total) - rageDiff;
+				updateData.system.attributes.manipulation.total = parseInt(updateData.system.attributes.manipulation.total) - rageDiff;
+			}
+		}
+	}
+
 	updateData.system.soak.bashing = 0;
 	updateData.system.soak.lethal = 0;
 	updateData.system.soak.aggravated = 0;

@@ -2,7 +2,7 @@ import * as AbilityDialog from "../dialogs/dialog-edits.js";
 
 export default class AbilityHelper {
     static async CreateAbility(actor, abilitytype, abilitynamn, maxvalue, ismeleeweapon = false, israngedeweapon = false, autoopen = false) {
-		const existed = this.CheckAbilityExists(actor, abilitytype, abilitynamn);
+		const existed = await this.CheckAbilityExists(actor, abilitytype, abilitynamn);
 
 		if (existed) {
 			ui.notifications.warn(abilitynamn + ` ${game.i18n.localize("wod.labels.new.alreadyexists")}`);
@@ -48,9 +48,9 @@ export default class AbilityHelper {
 	}
 
 	static CreateAbility_nowait(actor, abilitytype, abilitynamn, maxvalue, ismeleeweapon, israngedeweapon) {
-		const existed = this.CheckAbilityExists(actor, abilitytype, abilitynamn);
+		const items = actor.items.filter(item => item.type === "Trait" && item.system.type === abilitytype && item.name === abilitynamn);
 
-		if (existed) {
+		if (items.length > 0) {
 			return;
 		}
 
@@ -74,14 +74,14 @@ export default class AbilityHelper {
 		}
 	}
 
-	static CheckAbilityExists(actor, itemtype, itemname) {
-		for (const i of actor.items) {
-			if ((i.type == "Trait") && (i.system.type == itemtype) && (i.name == itemname)) {
-				return true;
-			}
-		}
+	static async CheckAbilityExists(actor, itemtype, itemname) {
+		return await this.CheckItemExists(actor, "Trait", itemtype, itemname);
+	}
 
-        return false;
+	static async CheckItemExists(actor, itemtype, itemsystemtype, itemname) {
+		const items = await actor.items.filter(item => item.type === itemtype && item.system.type === itemsystemtype && item.name === itemname);
+
+		return items.length > 0;
 	}
 
 	static async EditAbility(event, actor) {

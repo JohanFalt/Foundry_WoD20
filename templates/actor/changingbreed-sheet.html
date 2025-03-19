@@ -248,6 +248,37 @@
 				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/gift.html"}}
 				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
 
+				{{{getGetPowerList locked actor "numina" "wod.types.numina" (localize "wod.power.numinas") false}}}
+
+				{{#if (listNotEmpty (getConnectedItemList actor "Power" "wod.types.numinapower" ""))}}
+
+					<div class="sheet-area flex-columns" style="margin-top: 25px;">
+						<div class="clearareaBox">
+							<div class="headlineList splatFont">{{localize "wod.power.unsortednuminas"}}</div>
+						</div>
+
+						<div class="clearareaBox area-box">
+							{{#each (getConnectedItemList actor "Power" "wod.types.numinapower" "") as | item id|}}
+
+								<div class="clearareaBox row">
+									<div class="pullLeft numina-headline headlineNormal vrollable" 
+										data-type="{{../config.sheettype.mortal}}"
+										data-object="SortNuminaPower"
+										data-rollitem="true"
+										data-itemid="{{item._id}}">{{item.name}}</div>
+									
+									{{#if (eq ../locked false)}}
+										<div class="pullLeft power-iconbox">
+											<a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+										</div>
+									{{/if}}                    
+								</div>
+							{{/each}}
+						</div>
+					</div>
+
+				{{/if}}
+
 			</div>
 
 			{{!-- Power Tab --}}

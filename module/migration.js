@@ -26,7 +26,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 if (actor.type === "Spirit") await actor.delete()
             }
             catch(err) {
-                err.message = `invalidDocumentIds ${actor.name}: ${err.message}`;
+                console.error(`invalidDocumentIds ${actor.name}: ${err.message}`);
                 console.error(err);
             }
         }
@@ -45,7 +45,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 try {
                     await updateItem(item);
                 } catch(err) {
-                    err.message = `Failed migration for Actor Item ${item.name}: ${err.message}`;
+                    console.error(`Failed migration for Actor ${actor.name} | Item ${item.name}: ${err.message}`);
                     console.error(err);
                     isError = true;
                 }
@@ -59,7 +59,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
             try {
                 await updateItem(item);
             } catch(err) {
-                err.message = `Failed migration for Actor Item ${item.name}: ${err.message}`;
+                console.error(`Failed migration for World Item ${item.name}: ${err.message}`);
                 console.error(err);
                 isError = true;
             }
@@ -74,6 +74,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
                 if ( !["Actor", "Item", "Scene"].includes(pack.documentName) ) continue;
                 await updateCompendium(pack, migrationVersion);
             } catch(err) {
+                console.error(`Failed migration forCompendium ${pack.collection}: ${err.message}`);
                 console.error(err);
                 isError = true;
             }
@@ -1875,6 +1876,24 @@ export  const updates = async () => {
             update = false;
         }
     }    
+
+    if (_compareVersion(actor.system.settings.version, "4.2.1")) {
+        update = false;    
+        let updateData = foundry.utils.duplicate(actor);
+
+        if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
+            updateData.system.settings.powers.hasnumina = true;
+            update = true;
+        }
+
+        if (update) {
+            updateData.system.settings.version = "4.2.1";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
+    
 }
 
 /**
@@ -2310,6 +2329,7 @@ export  const updates = async () => {
  */
  export const updateCompendium = async function(pack, migrationVersion) {
     const entity = pack.documentName;
+    let success = true;
     if ( !["Actor", "Item", "Scene"].includes(entity) ) return;
 
     // Unlock the pack for editing
@@ -2333,19 +2353,25 @@ export  const updates = async () => {
                 case "Scene":
                     break;
             }
-            //console.log(`Migrated ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
         }
 
         // Handle migration failures
         catch(err) {
-            err.message = `Failed migration for entity ${ent.name} in pack ${pack.collection}: ${err.message}`;
+            console.error(`Failed migration for entity ${ent.name} in pack ${pack.collection}: ${err.message}`);
             console.error(err);
+            success = false;
         }
     }
 
     // Apply the original locked status for the pack
     await pack.configure({locked: wasLocked});
-    console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
+
+    if (success) {
+        console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
+    }    
+    else {
+        console.error(`A compendium failed its migration`);
+    }
  };
 
   /**
@@ -2498,36 +2524,20 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed how Willpower spending effect number of successes in a roll so it follows the rules of 20th ed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/980">[#980]</a></li>';
         newfunctions += '<li>On the sheet setting you can now set what type of dice you want to roll. The hidden vampire will now not be spoiled by the dices rolled. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/914">[#914]</a></li>';
         
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";        
+        newfunctions += '<li>Fixed a bunish of bugs and other minor issues</li>';        
     }
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        /* if (_compareVersion(installedVersion, '4.1.3')) {
-            newfunctions += '<li>Adding support for Vampire Classical Era and Age of Living Gods (mortal and vampire sheets). <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/912">[#912]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.1.2')) {
-            newfunctions += '<li>Added Realms in the type list as you create/edit Traits (Item).</li>';
-            newfunctions += '<li>Added so you can set max value of Traits (Item).</li>';
-            newfunctions += '<li>Using Willpower broke the Use-Result-One-Rule. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/909">[#909]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.1.1')) {
-            newfunctions += '<li>The new setting of using health penalties in damage rolls did not work. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/900">[#900]</a></li>';
-            newfunctions += '<li>[VtM] Changes to Combined Disciplines broke the form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/903">[#903]</a></li>';
-            newfunctions += '<li>[MtA] Mages with Arete higher than 5 did not got their increase in Sphere max level. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/898">[#898]</a></li>';
-        } */
-
-        /* if (_compareVersion(installedVersion, '4.0.2')) {
-            newfunctions += '<li>Fixed problems to send message to chat.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.0.1')) {
-            newfunctions += '<li>New Werewolves, Demons or Changelings was created in a wrong way which is now fixed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/859">[#859], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/860">[#860], <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/861">[#861]</li>';
-            newfunctions += '<li>Setting an item to Active or Equipped now works. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/858">[#858]</a></li>';
-        } */           
+        if (_compareVersion(installedVersion, '4.2.1')) {
+            newfunctions += '<li>[MtR] Hekau Powers now lists Abilities as well. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1035">[#1035]</a></li>';
+            newfunctions += '<li>[MtA] Sorcerer now has access to Resonance. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1041">[#1041]</a></li>';
+            newfunctions += '<li>[WtA] Changing Breeds and Werewolves now has access to Numina. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1042">[#1042]</a></li>';
+            newfunctions += '<li>[WtA] Fixed bug that prevented you from edit Renown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1029">[#1029]</a></li>';
+            newfunctions += '<li>[WtA] Fixed bug that prevented Rage Penalty to work as it should. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1039">[#1039]</a></li>';
+            newfunctions += '<li>[CtD] Fixed bug that if you duplicated a Changeling it doubled the number of Realms. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1032">[#1032]</a></li>';
+        }        
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);

@@ -292,6 +292,7 @@ export class WoDActor extends Actor {
         // needs to be run last as all items, bonuses and changes needs to be added FIRST before total values can be calculated.
         updateData = await calculateTotals(updateData);
 
+
         // movement needs the total dexterity and all active items to work correctly.
         updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
 
@@ -536,20 +537,12 @@ export class WoDActor extends Actor {
     async _handleWerewolfCalculations(actorData) {
         try {
             let advantageRollSetting = true;
-            let wererwolfrageSettings = true;
     
             try {
                 advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
             } 
             catch (e) {
                 advantageRollSetting = true;
-            }
-    
-            try {
-                wererwolfrageSettings = CONFIG.worldofdarkness.wererwolfrageSettings;
-            } 
-            catch (e) {
-                wererwolfrageSettings = true;
             }
     
             // shift
@@ -619,19 +612,7 @@ export class WoDActor extends Actor {
                 actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent > actorData.system.advantages.willpower.temporary ? actorData.system.advantages.willpower.temporary : actorData.system.advantages.willpower.permanent; 
             }		
     
-            actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total);
-            actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total);		
-    
-            if (wererwolfrageSettings) {
-                if (actorData.system.advantages.rage.roll > actorData.system.advantages.willpower.roll) {
-                    const rageDiff = parseInt(actorData.system.advantages.rage.roll) - parseInt(actorData.system.advantages.willpower.roll);
-        
-                    actorData.system.attributes.charisma.total = parseInt(actorData.system.attributes.charisma.total) - rageDiff;
-                    actorData.system.attributes.manipulation.total = parseInt(actorData.system.attributes.manipulation.total) - rageDiff;
-                }
-            }		
-    
-            // TODO fixa till
+                // TODO fixa till
             for (const item of actorData.items) {
                 if (item.type == "Bonus") {
                     if ((item.system.parentid == "glabro") || (item.system.parentid == "crinos") || (item.system.parentid == "hispo") || (item.system.parentid == "lupus")) {

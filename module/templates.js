@@ -357,6 +357,7 @@ export const registerHandlebarsHelpers = function () {
 		let temporary_html = "";
 		let stat_headline_text = game.i18n.localize(`wod.advantages.${statname}`);
 		let rollable = "";
+		let splat = CONFIG.worldofdarkness.sheettype.mortal;
 
 		if (isrollable) {
 			rollable = " vrollable";
@@ -374,6 +375,7 @@ export const registerHandlebarsHelpers = function () {
 
 		// wereweolf and shifter renown
 		if ((statname == "glory") || (statname == "honor") || (statname == "wisdom")) {
+			splat = CONFIG.worldofdarkness.sheettype.werewolf;
 			if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 				stat_headline_text = game.i18n.localize(actor.GetShifterRenownName(actor.system.tribe, statname));
 			}
@@ -383,10 +385,10 @@ export const registerHandlebarsHelpers = function () {
 		}		
 
 		if (showbanner) {
-			html += `<div class="sheet-headline sheet-banner-small splatFont ${rollable}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-key="${statname}" data-noability="true"><span class="sheet-banner-text">${stat_headline_text}</span></div>`;	
+			html += `<div class="sheet-headline sheet-banner-small splatFont ${rollable}" data-type="${splat}" data-key="${statname}" data-noability="true"><span class="sheet-banner-text">${stat_headline_text}</span></div>`;	
 		}
 		else {
-			html += `<div class="sheet-headline splatFont ${rollable}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-key="${statname}" data-noability="true"><span class="sheet-banner-text">${stat_headline_text}</span></div>`;
+			html += `<div class="sheet-headline splatFont ${rollable}" data-type="${splat}" data-key="${statname}" data-noability="true"><span class="sheet-banner-text">${stat_headline_text}</span></div>`;
 		}
 		
 
@@ -406,10 +408,10 @@ export const registerHandlebarsHelpers = function () {
 						imbalance_title_text = game.i18n.localize(`wod.advantages.imbalance`);
 					}
 
-					permanent_html += `<span class="resource-value-step ${imbalance}" title="${imbalance_title_text}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-key="${statname}" data-index="${value}"></span>`;
+					permanent_html += `<span class="resource-value-step ${imbalance}" title="${imbalance_title_text}" data-type="${splat}" data-key="${statname}" data-index="${value}"></span>`;
 				}
 				else {
-					permanent_html += `<span class="resource-value-step" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-key="${statname}" data-index="${value}"></span>`;
+					permanent_html += `<span class="resource-value-step" data-type="${splat}" data-key="${statname}" data-index="${value}"></span>`;
 				}
 			}
 					
@@ -427,7 +429,7 @@ export const registerHandlebarsHelpers = function () {
 					mark = "x";
 				}
 
-				temporary_html += `<span class="resource-value-step" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-key="${statname}" data-index="${value}" data-state="${mark}"></span>`;
+				temporary_html += `<span class="resource-value-step" data-type="${splat}" data-key="${statname}" data-index="${value}" data-state="${mark}"></span>`;
 			}			
 
 			temporary_html = header + temporary_html + footer;
@@ -579,6 +581,7 @@ export const registerHandlebarsHelpers = function () {
 
 				if (itempowers[p].system.isrollable) {
 					let dice1name = game.i18n.localize(getAttributes(itempowers[p].system.dice1));
+					dice1name = game.i18n.localize(getAbility(actor, itempowers[p].system.dice1));
 					let difficultyText = itempowers[p].system.difficulty;
 
 					if (itempowers[p].system.dice1 == "path") {
@@ -678,7 +681,6 @@ export const registerHandlebarsHelpers = function () {
 			  		)
 				];
 			
-			uniqueVariants.sort();
 			let powers = [];
 
 			// if category isn't used by the power
@@ -912,6 +914,12 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return "";
+	});
+
+	/* returns a list of a particular items sorted */
+	Handlebars.registerHelper("getItemList", function (actor, itemtype, itemcategory) {
+		const items = (actor.items.filter(i => i.type === itemtype && i.system.type === itemcategory));
+		return items.sort((a, b) => a.name.localeCompare(b.name));
 	});
 
 	/* get all bonuses */

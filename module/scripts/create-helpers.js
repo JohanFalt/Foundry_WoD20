@@ -182,6 +182,7 @@ export default class CreateHelper {
 
 	static async SetChangelingAbilities(actor) {	
 		console.log(`WoD | Set Changeling Abilities`);
+		let exists = false;
 
 		try {
 			let itemData = {
@@ -194,7 +195,10 @@ export default class CreateHelper {
 					type: "wod.types.realms"
 				}
 			};
-			await actor.updateSource({ items: [itemData]});
+			exists = await AbilityHelper.CheckItemExists(actor, "Trait", "wod.types.realms", "actor");
+			if (!exists) {
+				await actor.updateSource({ items: [itemData]});
+			}			
 			
 			itemData = {
 				name: "fae",
@@ -206,7 +210,10 @@ export default class CreateHelper {
 					type: "wod.types.realms"
 				}
 			};
-			await actor.updateSource({ items: [itemData]});
+			exists = await AbilityHelper.CheckItemExists(actor, "Trait", "wod.types.realms", "fae");
+			if (!exists) {
+				await actor.updateSource({ items: [itemData]});
+			}
 	
 			itemData = {
 				name: "nature",
@@ -218,7 +225,10 @@ export default class CreateHelper {
 					type: "wod.types.realms"
 				}
 			};
-			await actor.updateSource({ items: [itemData]});
+			exists = await AbilityHelper.CheckItemExists(actor, "Trait", "wod.types.realms", "nature");
+			if (!exists) {
+				await actor.updateSource({ items: [itemData]});
+			}
 	
 			itemData = {
 				name: "prop",
@@ -230,7 +240,10 @@ export default class CreateHelper {
 					type: "wod.types.realms"
 				}
 			};
-			await actor.updateSource({ items: [itemData]});
+			exists = await AbilityHelper.CheckItemExists(actor, "Trait", "wod.types.realms", "prop");
+			if (!exists) {
+				await actor.updateSource({ items: [itemData]});
+			}
 	
 			itemData = {
 				name: "scene",
@@ -242,7 +255,10 @@ export default class CreateHelper {
 					type: "wod.types.realms"
 				}
 			};
-			await actor.updateSource({ items: [itemData]});
+			exists = await AbilityHelper.CheckItemExists(actor, "Trait", "wod.types.realms", "scene");
+			if (!exists) {
+				await actor.updateSource({ items: [itemData]});
+			}
 	
 			itemData = {
 				name: "time",
@@ -254,7 +270,10 @@ export default class CreateHelper {
 					type: "wod.types.realms"
 				}
 			};				
-			await actor.updateSource({ items: [itemData]});
+			exists = await AbilityHelper.CheckItemExists(actor, "Trait", "wod.types.realms", "time");
+			if (!exists) {
+				await actor.updateSource({ items: [itemData]});
+			}
 		}
 		catch (err) {
             err.message = `Failed SetChangelingAbilities Actor ${actor.name}: ${err.message}`;
@@ -281,104 +300,27 @@ export default class CreateHelper {
 		console.log(`WoD | Set Demon Abilities`);
 
 		try {
-			console.log(`CREATION: Adds Apocalyptic Forms to ${actor.name}`);
+			const items = actor.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.apocalypticform");
+			const exists = items.length >= 8;
 
-			if (game.settings.get('worldofdarkness', 'demonCreateForms')) {
-				let itemData = {
-					name: "form1",
-					type: "Trait",						
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
+			if ((game.settings.get('worldofdarkness', 'demonCreateForms')) && (!exists))  {
+				console.log(`CREATION: Adds missing Apocalyptic Forms to ${actor.name}`);
 
-				itemData = {
-					name: "form2",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
-
-				itemData = {
-					name: "form3",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
-
-				itemData = {
-					name: "form4",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
-
-				itemData = {
-					name: "form5",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
-
-				itemData = {
-					name: "form6",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
-
-				itemData = {
-					name: "form7",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
-
-				itemData = {
-					name: "form8",
-					type: "Trait",
-					system: {
-						iscreated: true,
-						version: game.data.system.version,
-						level: 0,
-						type: "wod.types.apocalypticform"
-					}
-				};
-				await actor.updateSource({ items: [itemData]});
+				const number = 8 - items.length;
+				
+				for (let i = 1; i <= number; i++) {
+					let itemData = {
+						name: game.i18n.localize("wod.labels.new.apocalypticform"),
+						type: "Trait",						
+						system: {
+							iscreated: true,
+							version: game.data.system.version,
+							level: 0,
+							type: "wod.types.apocalypticform"
+						}
+					};
+					await actor.updateSource({ items: [itemData]});
+				}
 			}
 		}
 		catch (err) {
@@ -473,6 +415,7 @@ export default class CreateHelper {
 		actor.system.settings.hasgnosis = true;
 
 		actor.system.settings.powers.hasgifts = true;
+		actor.system.settings.powers.hasnumina = true;
 
 		return actor;
 	}
@@ -2097,6 +2040,7 @@ export default class CreateHelper {
 					return;
 				}
 			};
+			
 		}
 		if (actor.system.settings.powers.haspowers) {
 			buttons.power = {
@@ -2130,6 +2074,17 @@ export default class CreateHelper {
 					return;
 				}
 			};
+			buttons.resonance = {
+				label: game.i18n.localize("wod.types.resonance"),
+				callback: async () => {
+					let itemData = await this.CreateItemPower("resonance", system);
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			};
+		}
+		if ((actor.type == CONFIG.worldofdarkness.sheettype.mortal) && (actor.system.settings.variant == "sorcerer")) {
 			buttons.resonance = {
 				label: game.i18n.localize("wod.types.resonance"),
 				callback: async () => {
