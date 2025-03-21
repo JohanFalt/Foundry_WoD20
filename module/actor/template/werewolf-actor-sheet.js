@@ -1,6 +1,5 @@
 import { MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../../scripts/action-helpers.js";
-import CreateHelper from "../../scripts/create-helpers.js";
 import TokenHelper from "../../scripts/token-helpers.js";
 
 export class WerewolfActorSheet extends MortalActorSheet {
@@ -170,8 +169,7 @@ export class WerewolfActorSheet extends MortalActorSheet {
 	async _assignToWerewolf(fields, value) {
 		const actorData = foundry.utils.duplicate(this.actor);
 
-		//if (fields[0] === "renown") {
-		if (fields[0] === "advantages") {
+		if ((fields[0] === "advantages") || (fields[0] === "renown")) {
 			let renowntype = fields[1];
 
 			if (renowntype === "rank") {

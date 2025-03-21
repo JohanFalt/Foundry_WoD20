@@ -1877,22 +1877,22 @@ export  const updates = async () => {
         }
     }    
 
-    if (_compareVersion(actor.system.settings.version, "4.2.1")) {
-        update = false;    
-        let updateData = foundry.utils.duplicate(actor);
+    // if (_compareVersion(actor.system.settings.version, "4.2.1")) {
+    //     update = false;    
+    //     let updateData = foundry.utils.duplicate(actor);
 
-        if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
-            updateData.system.settings.powers.hasnumina = true;
-            update = true;
-        }
+    //     if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
+    //         updateData.system.settings.powers.hasnumina = true;
+    //         update = true;
+    //     }
 
-        if (update) {
-            updateData.system.settings.version = "4.2.1";
+    //     if (update) {
+    //         updateData.system.settings.version = "4.2.1";
 
-            await actor.update(updateData);
-            update = false;
-        }
-    }
+    //         await actor.update(updateData);
+    //         update = false;
+    //     }
+    // }
     
 }
 
@@ -2529,6 +2529,15 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '4.2.2')) {
+            newfunctions += '<li>German language updated.</li>';
+            newfunctions += '<li>Fixed bug with the general dice roller. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1054">[#1054]</a></li>';
+            newfunctions += '<li>[WtA] Fixed bug that prevented to change rank. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1050">[#1050]</a></li>';
+            newfunctions += '<li>[WtA] Fixed bug that prevented you from edit Renown on Changing Breeds. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1047">[#1047]</a></li>';
+            newfunctions += '<li>[DtF] Fixed headline problem with altering Earthbound Faith Pool. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1045">[#1045]</a></li>';
+            newfunctions += '<li>[WtA] Fixed fixed graphical glitch for seeing Numina. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1046">[#1046]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '4.2.1')) {
             newfunctions += '<li>[MtR] Hekau Powers now lists Abilities as well. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1035">[#1035]</a></li>';

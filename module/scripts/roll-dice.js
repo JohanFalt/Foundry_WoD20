@@ -5,18 +5,18 @@ let _diceColor;
 let _specialDiceType = "";
 
 function _GetDiceColors(actor) {
-
-	let diceType = actor?.type.toLowerCase();	
-
-	if (actor?.system?.settings?.dicesetting != "") {
-		diceType = actor?.system.settings.dicesetting;
-	}
-
 	_diceColor = "black_";
 
 	if (actor == undefined) {
 		_diceColor = "black_";
+		return;
 	}		
+
+	let diceType = actor?.type.toLowerCase();	
+
+	if (actor?.system?.settings?.dicesetting != "") {
+		diceType = actor.system.settings.dicesetting;
+	}
 	if ((actor.system.settings.variantsheet == CONFIG.worldofdarkness.sheettype.changeling) && (actor.system.settings.dicesetting == "")) { 
 		_diceColor = "blue_";
 	}

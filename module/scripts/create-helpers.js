@@ -415,7 +415,6 @@ export default class CreateHelper {
 		actor.system.settings.hasgnosis = true;
 
 		actor.system.settings.powers.hasgifts = true;
-		actor.system.settings.powers.hasnumina = true;
 
 		return actor;
 	}

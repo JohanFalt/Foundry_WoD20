@@ -1,3 +1,5 @@
+<div style="margin-top:10px">&nbsp;</div>
+
 {{#if (ne actor.system.settings.variant (lowercase config.sheettype.spirit))}}
 
     <div class="sheet-area flex-columns">
@@ -161,7 +163,7 @@
                 </div>
 
                 <div class="clearareaBox row">
-                    <label for="data.system.settings.hasbloodpool" class="pullLeft headlineNormal" style="width: 150px;">{{localize 'wod.advantages.bloodpool'}}</label>
+                    <label for="data.system.settings.hasbloodpool" class="pullLeft headlineNormal" style="width: 150px;">{{#if (eq actor.system.settings.variant "earthbound")}}{{localize "wod.advantages.faithpool"}}{{else}}{{localize "wod.advantages.bloodpool"}}{{/if}}</label>
                     <div class="switch headlineNormal bold pointer splatFont" data-source="advantages" data-switchtype="hasbloodpool" data-type="{{config.sheettype.mortal}}">
                         {{#if data.system.settings.hasbloodpool}}
                             <i class="icon fa-solid fa-eye"></i>
@@ -294,9 +296,9 @@
 
         {{#if data.system.settings.hasbloodpool}}
 
-            <div class="sheet-area flex-columns">
+            <div class="sheet-area flex-columns" style="margin-top: 10px;">
                 <div class="clearareaBox">
-                    <div class="headlineGroup splatFont">{{localize "wod.advantages.bloodpool"}}</div>
+                    <div class="headlineGroup splatFont">{{#if (eq actor.system.settings.variant "earthbound")}}{{localize "wod.advantages.faithpool"}}{{else}}{{localize "wod.advantages.bloodpool"}}{{/if}}</div>
 
                     <div class="clearareaBox">
                         <label for="data.system.advantages.bloodpool.max" class="pullLeft headlineNormal" style="width: 150px;" 

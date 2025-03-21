@@ -175,7 +175,7 @@ export class ChangingBreedActorSheet extends MortalActorSheet {
 	async _assignToWerewolf(fields, value) {
 		const actorData = foundry.utils.duplicate(this.actor);
 
-		if (fields[0] === "renown") {
+		if ((fields[0] === "advantages") || (fields[0] === "renown")) {
 			let renowntype = fields[1];
 
 			if (renowntype === "rank") {

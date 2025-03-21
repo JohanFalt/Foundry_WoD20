@@ -1,3 +1,5 @@
+<div style="margin-top:10px">&nbsp;</div>
+
 <div class="sheet-area flex-columns">
 
     {{#if (eq actor.type config.sheettype.creature)}}
@@ -56,6 +58,11 @@
             </div>
         </div>
 
+        
+
+    {{/if}}    
+
+    {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature config.sheettype.werewolf config.sheettype.changingbreed)}}
         <div class="clearareaBox row">
             <label for="data.system.settings.powers.hasnumina" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasnumina"}}</label>
             <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasnumina" data-type="{{config.sheettype.mortal}}">
@@ -66,8 +73,7 @@
                 {{/if}}
             </div>
         </div>
-
-    {{/if}}    
+    {{/if}}
 
     {{#if (eq actor.type config.sheettype.mage)}}
         <div class="headlineGroup splatFont">{{localize "wod.labels.settings.permparadox"}}</div>

@@ -41,11 +41,13 @@
 .item-row-area.mainpower-row {
   padding: 3px;
   border-bottom: 0px;
+  display: flex;
 }
 
 .wod20 .power-row {
   border-bottom: 1px solid var(--main-full-color);
   background-color: var(--main-dim-color);
+  width: 100%;
 }
 
 .wod20 .art-row {

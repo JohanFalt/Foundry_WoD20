@@ -7,15 +7,17 @@
 
 </div>
 
-{{!-- Gift Tab --}}
-<div class="tab gift sheet-inner-area" data-group="primary" data-tab="gift">
+{{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+    {{!-- Gift Tab --}}
+    <div class="tab gift sheet-inner-area" data-group="primary" data-tab="gift">
 
-    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+        <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-    {{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
-    {{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
+        {{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
+        {{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
 
-</div>
+    </div>
+{{/if}}
 
 {{!-- Dreaming Tab --}}
 <div class="tab dreaming" data-group="primary" data-tab="dreaming">
@@ -222,7 +224,7 @@
 </div>
 
 {{!-- Numina Tab --}}
-<div class="tab numina sheet-inner-area" data-group="primary" data-tab="numina">
+<div class="tab numina sheet-inner-area" data-group="primary" data-tab="numina" {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}style="display: flow-root;"{{/if}}>
 
     <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
@@ -257,9 +259,13 @@
 
     {{/if}}
 
-    <div class="pullLeft" style="width: 36%; height: 100%; display: flex; flex-direction: column; margin-top: 50px;">
-        {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}
-    </div>
+    {{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+
+        <div class="pullLeft" style="width: 36%; height: 100%; display: flex; flex-direction: column; margin-top: 50px;">
+            {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}
+        </div>
+
+    {{/if}}
 
 </div>
 
