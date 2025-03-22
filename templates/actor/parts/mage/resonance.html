@@ -10,13 +10,13 @@
     <div class="item-row-area" data-area="resonancerow{{id}}">
         <div class="clearareaBox resonance-row">
             <div class="resonance-headline vrollable headlineNormal pullLeft"
-                data-type="{{../config.sheettype.mage}}"
+                data-type="{{../config.sheettype.mortal}}"
                 data-object="Resonance"
                 data-rollitem="true"
                 data-itemid="{{item._id}}" title="{{item.name}}">{{shorten item.name 15}}</div>
             <div class="resource-value pullLeft" data-value="{{item.system.value}}">
                 {{#numLoop item.system.max}}
-                    <span class="resource-value-step" data-type="{{../../config.sheettype.mage}}" data-itemid="{{item._id}}" data-index="{{this}}"></span>                
+                    <span class="resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-itemid="{{item._id}}" data-index="{{this}}"></span>                
                 {{/numLoop}}
             </div>     
             {{{getToolTip item.system.description item.system.details}}}

@@ -492,8 +492,24 @@ export class DialogPower extends FormApplication {
         data.actorData = this.actor.system;
         data.config = CONFIG.worldofdarkness;        
 
+        if (data.object.dice1 == "path") {
+            data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
+        }
+        else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
+            if (!this.object.isUnleashing) {
+                const art = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
+                data.object.attributeValue = art.system.value;
+                data.object.attributeName = art.name;
+            }
+            else {
+                data.object.attributeValue = parseInt(this.actor.system.advantages.glamour.roll);
+                data.object.attributeName = game.i18n.localize(this.actor.system.advantages.glamour.label);
+                data.object.difficulty = 7;                
+            }
+        }
         // is dice1 an Attributes
-        if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
+        else if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
             data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
 
@@ -553,26 +569,30 @@ export class DialogPower extends FormApplication {
             data.object.attributeValue = parseInt(this.actor.system.advantages.virtues[data.object.dice1].roll);
             data.object.attributeName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice1].label);
         }
-        else if (data.object.dice1 == "path") {
-            data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
-        }
-        else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
-            if (!this.object.isUnleashing) {
-                const art = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
-                data.object.attributeValue = art.system.value;
-                data.object.attributeName = art.name;
-            }
-            else {
-                data.object.attributeValue = parseInt(this.actor.system.advantages.glamour.roll);
-                data.object.attributeName = game.i18n.localize(this.actor.system.advantages.glamour.label);
-                data.object.difficulty = 7;                
-            }
-        }
+        
 
         if (data.object.dice2 != "") {
+            if (data.object.dice2 == "path") {
+                data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);
+                data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
+            } 
+            else if ((data.object.dice2 == "realm") && (data.object.type == "wod.types.artpower")) {
+                if (!this.object.isUnleashing) {
+                    const realm = data.object._lowestRank();
+                    data.object.bonus = parseInt(realm);
+                }
+                else {
+                    data.object.abilityValue = parseInt(this.actor.system.advantages.nightmare.roll);
+                    data.object.abilityName = game.i18n.localize(this.actor.system.advantages.nightmare.label);
+                    data.object.bonus = 0;
+
+                    for (const realm of data.object.selectedRealms) {
+                        realm.isselected = false;
+                    }
+                }
+            }
             // is dice2 an Attributes
-            if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice2]?.value != undefined)) {
+            else if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice2]?.value != undefined)) {
                 data.object.abilityValue = parseInt(this.actor.system.attributes[data.object.dice2].total);
                 data.object.abilityName = game.i18n.localize(this.actor.system.attributes[data.object.dice2].label);
     
@@ -606,25 +626,7 @@ export class DialogPower extends FormApplication {
                 data.object.abilityValue = parseInt(this.actor.system.advantages.virtues[data.object.dice2].roll);
                 data.object.abilityName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice2].label);
             }    
-            else if (data.object.dice2 == "path") {
-                data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);
-                data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
-            } 
-            else if ((data.object.dice2 == "realm") && (data.object.type == "wod.types.artpower")) {
-                if (!this.object.isUnleashing) {
-                    const realm = data.object._lowestRank();
-                    data.object.bonus = parseInt(realm);
-                }
-                else {
-                    data.object.abilityValue = parseInt(this.actor.system.advantages.nightmare.roll);
-                    data.object.abilityName = game.i18n.localize(this.actor.system.advantages.nightmare.label);
-                    data.object.bonus = 0;
-
-                    for (const realm of data.object.selectedRealms) {
-                        realm.isselected = false;
-                    }
-                }
-            }
+            
         }
         else if ((data.object.type == "wod.types.arcanoipower") || (data.object.type == "wod.types.hekaupower") || (data.object.type == "wod.types.numinapower")) {
             const power = await this.actor.getEmbeddedDocument("Item", data.object.parentid);

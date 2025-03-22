@@ -9,7 +9,9 @@
                 <div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.value'}}</div>
                 <div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.bonus.headline'}}</div>
                 <div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.total'}}</div>
-                <div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.max'}}</div>
+                {{#if (ne actor.type config.sheettype.vampire)}}
+                    <div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.max'}}</div>
+                {{/if}}
             </div>
 
             {{#each data.system.attributes as |attribute key|}}
@@ -23,10 +25,12 @@
                             data-attribute="{{key}}"
                             data-dtype="Number" {{#if locked}}readonly{{/if}} />
                         <input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
-                        <input class="pullLeft sheet-infoValues numberBox {{#if (eq ../locked false)}}editable{{/if}}" type="text" value="{{attribute.max}}" name="system.attributes.{{key}}.max" 
-                            data-value="{{attribute.max}}" 
-                            data-name="data.system.attributes.{{key}}.max" 
-                            data-dtype="Number" {{#if locked}}readonly{{/if}} />
+                        {{#if (ne ../actor.type ../config.sheettype.vampire)}}
+                            <input class="pullLeft sheet-infoValues numberBox {{#if (eq ../locked false)}}editable{{/if}}" type="text" value="{{attribute.max}}" name="system.attributes.{{key}}.max" 
+                                data-value="{{attribute.max}}" 
+                                data-name="data.system.attributes.{{key}}.max" 
+                                data-dtype="Number" {{#if locked}}readonly{{/if}} />
+                        {{/if}}
                     </div>
                 {{/if}}
                 

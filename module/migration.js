@@ -2530,6 +2530,15 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.3')) {
+            newfunctions += '<li>German language updated.</li>';
+            newfunctions += '<li>[CtD] Dices are now correctly selected when rolling an Art Power. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1056">[#1056]</a></li>';
+            newfunctions += '<li>[MtA] Fixed a bug that caused mortals not to be able to alter Resonances. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1057">[#1057]</a></li>';
+            newfunctions += '<li>[WtA] Fixed graphical glitch regarding Numina for Werewolf and Changeing Breeds. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1055">[#1055]</a></li>';
+            newfunctions += '<li>[Exalted] Secondary Abilities can now be favorited. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1026">[#1026]</a></li>';
+            
+        }
+
         if (_compareVersion(installedVersion, '4.2.2')) {
             newfunctions += '<li>German language updated.</li>';
             newfunctions += '<li>Fixed bug with the general dice roller. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1054">[#1054]</a></li>';

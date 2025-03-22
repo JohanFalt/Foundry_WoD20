@@ -1691,6 +1691,7 @@
 			"ismeleeweapon": false,
 			"israngedeweapon": false,
 			"isrollable": false,
+			"isfavorited": false,
 			"label": "",
 			"speciality": "",
 			"dice1": "",

@@ -21,7 +21,7 @@
 				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
 					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
 				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
-					<div class="pullLeft" style="margin-left: 20px;">&nbsp;</div>
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" {{#if ability.issecondary}}data-ability="secondary" data-field="isfavorited"{{else}}data-ability="true"{{/if}} {{isChecked ability.isfavorited}}></input></div>
 				{{/if}}
 
 				<label for="data.system.abilities.{{ability._id}}.value"
@@ -50,16 +50,14 @@
 						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
 							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 						</div>
+					{{else if (hasSpeciality ability)}}
+						<div class="pullRight speciality-ability-icon">
+							<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+						</div>
 					{{else}}
-						{{#if (hasSpeciality ability)}}
-							<div class="pullRight speciality-ability-icon">
-								<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
-							</div>
-						{{else}}
-							<div class="pullRight speciality-ability-empty-icon">
-								&nbsp;
-							</div>
-						{{/if}}
+						<div class="pullRight speciality-ability-empty-icon">
+							&nbsp;
+						</div>
 					{{/if}}
 					
 				</div>	
@@ -79,6 +77,8 @@
 			<div class="clearareaBox">
 				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
 					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" {{#if ability.issecondary}}data-ability="secondary" data-field="isfavorited"{{else}}data-ability="true"{{/if}} {{isChecked ability.isfavorited}}></input></div>
 				{{/if}}
 
 				<label for="data.system.abilities.{{ability._id}}.value" 
@@ -107,16 +107,14 @@
 						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
 							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 						</div>
+					{{else if (hasSpeciality ability)}}
+						<div class="pullRight speciality-ability-icon">
+							<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+						</div>
 					{{else}}
-						{{#if (hasSpeciality ability)}}
-							<div class="pullRight speciality-ability-icon">
-								<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
-							</div>
-						{{else}}
-							<div class="pullRight speciality-ability-empty-icon">
-								&nbsp;
-							</div>
-						{{/if}}
+						<div class="pullRight speciality-ability-empty-icon">
+							&nbsp;
+						</div>
 					{{/if}}
 					
 				</div>				
@@ -136,6 +134,8 @@
 			<div class="clearareaBox">
 				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
 					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" {{#if ability.issecondary}}data-ability="secondary" data-field="isfavorited"{{else}}data-ability="true"{{/if}} {{isChecked ability.isfavorited}}></input></div>
 				{{/if}}
 
 				<label for="data.system.abilities.{{ability._id}}.value" 
@@ -164,16 +164,14 @@
 						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
 							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 						</div>
+					{{else if (hasSpeciality ability)}}
+						<div class="pullRight speciality-ability-icon">
+							<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+						</div>
 					{{else}}
-						{{#if (hasSpeciality ability)}}
-							<div class="pullRight speciality-ability-icon">
-								<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
-							</div>
-						{{else}}
-							<div class="pullRight speciality-ability-empty-icon">
-								&nbsp;
-							</div>
-						{{/if}}
+						<div class="pullRight speciality-ability-empty-icon">
+							&nbsp;
+						</div>
 					{{/if}}
 					
 				</div>				

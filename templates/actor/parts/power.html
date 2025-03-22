@@ -224,48 +224,52 @@
 </div>
 
 {{!-- Numina Tab --}}
-<div class="tab numina sheet-inner-area" data-group="primary" data-tab="numina" {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}style="display: flow-root;"{{/if}}>
+<div class="tab numina sheet-inner-area" data-group="primary" data-tab="numina">
 
-    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
+    {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}<div style="display: flow-root;">{{/if}}
 
-    {{{getGetPowerList locked actor "numina" "wod.types.numina" (localize "wod.power.numinas") false}}}
+        <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-    {{#if (listNotEmpty (getConnectedItemList actor "Power" "wod.types.numinapower" ""))}}
+        {{{getGetPowerList locked actor "numina" "wod.types.numina" (localize "wod.power.numinas") false}}}
 
-        <div class="sheet-area flex-columns" style="margin-top: 25px;">
-            <div class="clearareaBox">
-                <div class="headlineList splatFont">{{localize "wod.power.unsortednuminas"}}</div>
+        {{#if (listNotEmpty (getConnectedItemList actor "Power" "wod.types.numinapower" ""))}}
+
+            <div class="sheet-area flex-columns" style="margin-top: 25px;">
+                <div class="clearareaBox">
+                    <div class="headlineList splatFont">{{localize "wod.power.unsortednuminas"}}</div>
+                </div>
+
+                <div class="clearareaBox area-box">
+                    {{#each (getConnectedItemList actor "Power" "wod.types.numinapower" "") as | item id|}}
+
+                        <div class="clearareaBox row">
+                            <div class="pullLeft numina-headline headlineNormal vrollable" 
+                                data-type="{{../config.sheettype.mortal}}"
+                                data-object="SortNuminaPower"
+                                data-rollitem="true"
+                                data-itemid="{{item._id}}">{{item.name}}</div>
+                            
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft power-iconbox">
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}                    
+                        </div>
+                    {{/each}}
+                </div>
             </div>
 
-            <div class="clearareaBox area-box">
-                {{#each (getConnectedItemList actor "Power" "wod.types.numinapower" "") as | item id|}}
+        {{/if}}
 
-                    <div class="clearareaBox row">
-                        <div class="pullLeft numina-headline headlineNormal vrollable" 
-                            data-type="{{../config.sheettype.mortal}}"
-                            data-object="SortNuminaPower"
-                            data-rollitem="true"
-                            data-itemid="{{item._id}}">{{item.name}}</div>
-                        
-                        {{#if (eq ../locked false)}}
-                            <div class="pullLeft power-iconbox">
-                                <a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            </div>
-                        {{/if}}                    
-                    </div>
-                {{/each}}
+        {{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+
+            <div class="pullLeft" style="width: 36%; height: 100%; display: flex; flex-direction: column; margin-top: 50px;">
+                {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}
             </div>
-        </div>
 
-    {{/if}}
+        {{/if}}
 
-    {{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
-
-        <div class="pullLeft" style="width: 36%; height: 100%; display: flex; flex-direction: column; margin-top: 50px;">
-            {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}
-        </div>
-
-    {{/if}}
+    {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}</div>{{/if}}
 
 </div>
 

@@ -341,6 +341,7 @@ export default class ItemHelper {
 					speciality: item.system.speciality,
 					value: item.system.value,
 					isvisible: item.system.isvisible,
+					isfavorited: item.system.isfavorited,
 					_id: item._id
 				}
 
@@ -366,6 +367,7 @@ export default class ItemHelper {
 					speciality: item.system.speciality,
 					value: item.system.value,
 					isvisible: item.system.isvisible,
+					isfavorited: item.system.isfavorited,
 					_id: item._id
 				}
 
@@ -391,6 +393,7 @@ export default class ItemHelper {
 					speciality: item.system.speciality,
 					value: item.system.value,
 					isvisible: item.system.isvisible,
+					isfavorited: item.system.isfavorited,
 					_id: item._id
 				}
 

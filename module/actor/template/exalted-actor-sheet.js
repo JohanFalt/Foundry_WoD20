@@ -88,7 +88,11 @@ export class ExaltedActorSheet extends MortalActorSheet {
 
 		// e.g powers like disciplines
 		if (parent[0].dataset.itemid != undefined) {
-			itemid = parent[0].dataset.itemid
+			itemid = parent[0].dataset.itemid;
+		}
+		// isfavorite function for secondary abilities
+		else if ((itemid == undefined) && (dataset.key != undefined)) {
+			itemid = dataset.key;
 		}
 
 		if (itemid != undefined) {
@@ -98,21 +102,27 @@ export class ExaltedActorSheet extends MortalActorSheet {
 		   	}
 
 			let item = await this.actor.getEmbeddedDocument("Item", itemid);
-			const itemData = foundry.utils.duplicate(item);
 
-			if ((index == 0) && (itemData.system.value == 1)) {
-				itemData.system.value = 0;
-			}
-			else {
-				itemData.system.value = parseInt(index + 1);
-			}
+			if (item != undefined) {
+				const itemData = foundry.utils.duplicate(item);
 
-			await item.update(itemData);
-
-			return;
+				if (dataset.ability == "secondary") {
+					itemData.system[dataset.field] = !itemData.system[dataset.field];
+				}
+				else if ((index == 0) && (itemData.system.value == 1)) {
+					itemData.system.value = 0;
+				}
+				else {
+					itemData.system.value = parseInt(index + 1);
+				}
+	
+				await item.update(itemData);
+	
+				return;
+			}			
 		}
 		// favored box
-		else if (dataset.attribute == "true") {
+		if (dataset.attribute == "true") {
 			const actorData = foundry.utils.duplicate(this.actor);
 			actorData.system.attributes[dataset.key].isfavorited = !this.actor.system.attributes[dataset.key].isfavorited;
 			await this.actor.update(actorData);

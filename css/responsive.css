@@ -46,8 +46,7 @@
 
 .wod20 .power-row {
   border-bottom: 1px solid var(--main-full-color);
-  background-color: var(--main-dim-color);
-  width: 100%;
+  background-color: var(--main-dim-color);  
 }
 
 .wod20 .art-row {

@@ -1450,6 +1450,7 @@ input.sheet-infoWidth {
   line-height: 23px;
   margin-top: 20px;
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .wod20 .artpower-row,
