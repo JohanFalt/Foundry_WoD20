@@ -11,6 +11,14 @@ export class WoDActor extends Actor {
    * Augment the basic actor data with additional dynamic data.
    */
     prepareData() {
+        // This exists because if an actor exists from another system (such as "Vampire" from WOD5),
+        // the prepareData function will get stuck in a loop. For some reason Foundry isn't registering
+        // those kinds of actors as invalid, and thus this is a quick way to make sure people can
+        // still load their worlds with those invalid actors.
+        if (game.actors.invalidDocumentIds.has(this.id)) {
+            return
+        }
+
         super.prepareData();
 
         const actorData = this;
@@ -24,7 +32,6 @@ export class WoDActor extends Actor {
    */
     _prepareCharacterData(actorData) {
         let listData = [];
-
         actorData.listData = listData;
     }
 
@@ -51,7 +58,6 @@ export class WoDActor extends Actor {
         if (data.type == CONFIG.worldofdarkness.sheettype.demon) {
             await CreateHelper.SetDemonAbilities(this);
         }
-
     }
 
   /**
@@ -213,14 +219,19 @@ export class WoDActor extends Actor {
         super._onUpdate(updateData, options, user);   
 
         const actor = await game.actors.get(updateData._id);
+
+        // if no owner skip
+        if (actor.permission < 3) {
+            return;
+        }
+
         updateData = foundry.utils.duplicate(actor);
          
         if ((updateData?.system?.settings?.isupdated == undefined) || (updateData?.system?.settings?.isupdated)) {
             return;
-        }
+        }        
 
-        let advantageRollSetting = true;
-        
+        let advantageRollSetting = true;        
         let isSpirit = false;
 
         if ((updateData.type == CONFIG.worldofdarkness.sheettype.creature) && (updateData.system.settings.variant == "spirit")) {
@@ -285,7 +296,7 @@ export class WoDActor extends Actor {
             updateData = await this._keepSheetValuesCorrect(updateData);
         }
 
-        updateData = await this._setItems(updateData);      // TODO - ej bra
+        updateData = await this._setItems(actor, updateData);
         updateData = await this._handleWoundLevelCalculations(updateData);
 
         // attributes totals
@@ -308,6 +319,9 @@ export class WoDActor extends Actor {
         try {
             if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
                 actorData.system.settings.abilities.defaultmaxvalue = 5;
+            }
+            if (!isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
+                actorData.system.settings.powers.defaultmaxvalue = 5;
             }
 
             for (const i in actorData.system.abilities) {
@@ -400,6 +414,9 @@ export class WoDActor extends Actor {
 
             if (actorData.type != CONFIG.worldofdarkness.sheettype.vampire) {
                 if (!isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
+                    actorData.system.settings.powers.defaultmaxvalue = 5;
+                }
+                if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
                     actorData.system.settings.abilities.defaultmaxvalue = 5;
                 }
             }
@@ -407,6 +424,8 @@ export class WoDActor extends Actor {
                 const bloodpoolMax = await this._calculteMaxBlood(actorData.system.generation - actorData.system.generationmod);
                 const bloodSpending = await this._calculteMaxBloodSpend(actorData.system.generation - actorData.system.generationmod);
                 const traitMax = await this._calculteMaxTrait(actorData.system.generation - actorData.system.generationmod);
+                actorData.system.settings.abilities.defaultmaxvalue = traitMax;
+                actorData.system.settings.powers.defaultmaxvalue = traitMax;
 
                 // attributes max
                 for (const i in actorData.system.attributes) {
@@ -852,36 +871,56 @@ export class WoDActor extends Actor {
         return actorData;
     }
 
-    async _setItems(actorData) {
-        for (const item of actorData.items) {
-            if ((item.type == "Trait") && ((item.system.type == "wod.types.talentsecondability") || (item.system.type == "wod.types.skillsecondability") || (item.system.type == "wod.types.knowledgesecondability"))) {
-                if (item.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
-                    item.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
-                }
+    async _setItems(actor, actorData) {
+        // bonus item correctly active if connected item has changed active status
+        const bonuses = actorData.items.filter(item => item.type === "Bonus" && item.system.parentid != -1);
+        for (const bonus of bonuses) {
+            const parentItem = await actor.getEmbeddedDocument("Item", bonus.system.parentid);
+            // e.g Werewolf bonus
+            if (parentItem == undefined) {
+                continue;
+            }
+
+            if (parentItem.system.isactive != bonus.system.isactive) {
+                const item = await actor.getEmbeddedDocument("Item", bonus._id);
+                let bonusData = foundry.utils.duplicate(item);
+                bonusData.system.isactive = parentItem.system.isactive;
+                await item.update(bonusData);
             }
         }
 
-        // make sure all bonuses connected to an item have the same status as the item itself.
-		for (const item of actorData.items) {
-			for (const bonus of actorData.items) {
-				if ((bonus.type == "Bonus") && (bonus.system.parentid == item._id)) {
-					bonus.system.isactive = item.system.isactive;
-				}
-			}
+        // if a bonusitem's main item has changed active status
+        const bonuslistItems = actorData.items.filter(item => item.system.bonuslist.length > 0);
+        for (const bonuslistItem of bonuslistItems) {
+            const item = await actor.getEmbeddedDocument("Item", bonuslistItem._id);
+            let itemData = foundry.utils.duplicate(item);
 
-			if (item.system.bonuslist.length > 0) {
-				for (let i = 0; i <= item.system.bonuslist.length - 1; i++) {
-					item.system.bonuslist[i].isactive = item.system.isactive;
-				}
-			}			
-		}
+            for (let i = 0; i <= itemData.system.bonuslist.length - 1; i++) {
+                itemData.system.bonuslist[i].isactive = bonuslistItem.system.isactive;
+            }
 
-        if (actorData.type != CONFIG.worldofdarkness.sheettype.vampire) {
-            for (const item of actorData.items) {
-                if (item.type == "Power") {
-                    if (item.system.max != parseInt(actorData.system.settings.powers.defaultmaxvalue)) {
-                        item.system.max = parseInt(actorData.system.settings.powers.defaultmaxvalue);
-                    }
+            await item.update(itemData);
+        }
+
+        if (actor.type != CONFIG.worldofdarkness.sheettype.vampire) {
+            // secondary skills to correct max value.
+            const abilities = actorData.items.filter(item => item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability"));
+            for (const ability of abilities) {
+                if (ability.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
+                    const item = await actor.getEmbeddedDocument("Item", ability._id);
+                    let itemData = foundry.utils.duplicate(item);
+                    itemData.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue)
+                    await item.update(itemData);
+                }
+            }
+
+            const powers = actorData.items.filter(item => item.type == "Power");
+            for (const power of powers) {
+                if (power.system.max != parseInt(actorData.system.settings.powers.defaultmaxvalue)) {
+                    const item = await actor.getEmbeddedDocument("Item", power._id);
+                    let itemData = foundry.utils.duplicate(item);
+                    itemData.system.max = parseInt(actorData.system.settings.powers.defaultmaxvalue);
+                    await item.update(itemData);
                 }
             }
         }
