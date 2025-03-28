@@ -1079,7 +1079,16 @@ export class MortalActorSheet extends ActorSheet {
 				active = true;
 			}
 
-			await item.update({"system.isactive" : active});
+			let itemData = foundry.utils.duplicate(item);
+			itemData.system.isactive = active;
+
+			if (itemData.system.bonuslist.length > 0) {
+				for (let i = 0; i <= itemData.system.bonuslist.length - 1; i++) {
+					itemData.system.bonuslist[i].isactive = active;
+				}
+			}
+
+			await item.update(itemData);
 		}
 		if (type == "isequipped") {
 			let equipped = false;

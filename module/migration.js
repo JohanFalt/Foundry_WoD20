@@ -2530,6 +2530,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.5')) {
+            newfunctions += '<li>Fixed problems keeping connected bonuses to items active/deactive when an item is activated or deactivated.</li>'
+        }
+
         if (_compareVersion(installedVersion, '4.2.4')) {
             newfunctions += '<li>Fixed problems with migrations and updates of Actors.</li>'
         }

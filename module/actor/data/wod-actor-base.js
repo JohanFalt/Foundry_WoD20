@@ -889,19 +889,6 @@ export class WoDActor extends Actor {
             }
         }
 
-        // if a bonusitem's main item has changed active status
-        const bonuslistItems = actorData.items.filter(item => item.system.bonuslist.length > 0);
-        for (const bonuslistItem of bonuslistItems) {
-            const item = await actor.getEmbeddedDocument("Item", bonuslistItem._id);
-            let itemData = foundry.utils.duplicate(item);
-
-            for (let i = 0; i <= itemData.system.bonuslist.length - 1; i++) {
-                itemData.system.bonuslist[i].isactive = bonuslistItem.system.isactive;
-            }
-
-            await item.update(itemData);
-        }
-
         if (actor.type != CONFIG.worldofdarkness.sheettype.vampire) {
             // secondary skills to correct max value.
             const abilities = actorData.items.filter(item => item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability"));
