@@ -49,6 +49,14 @@
   font-size: 30px;
 }
 
+/* CORE */
+
+.hunter .sheet-banner-small {
+  background-size: 95%;
+}
+
+/* CORE end */
+
 /* SETTINGS */
 
 .hunter:not(.noSplatFont) .secondHeadlineTabs {
@@ -58,3 +66,5 @@
 .hunter .secondHeadlineTabs {
   width: 25%;
 }
+
+/* SETTINGS end */

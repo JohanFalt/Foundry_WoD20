@@ -107,13 +107,13 @@ export default class ItemHelper {
 		actor.system.listdata.combat.rangedWeapons = [];
 		actor.system.listdata.combat.armors = [];	
 
-		actor.system.listdata.experiences = [];
+		//actor.system.listdata.experiences = [];
 
-		actor.system.listdata.experiences.expearned = [];
-		actor.system.listdata.experiences.expspend = [];
-		actor.system.listdata.experiences.totalExp = 0;
-		actor.system.listdata.experiences.spentExp = 0;
-		actor.system.listdata.experiences.experience = 0;
+		//actor.system.listdata.experiences.expearned = [];
+		//actor.system.listdata.experiences.expspend = [];
+		//actor.system.listdata.experiences.totalExp = 0;
+		//actor.system.listdata.experiences.spentExp = 0;
+		//actor.system.listdata.experiences.experience = 0;
 
 		actor.system.listdata.traits = [];
 
@@ -173,7 +173,7 @@ export default class ItemHelper {
 			await this._sortCombat(item, actor);
 			//await this._sortGear(item, actor);
 			//await this._sortFeatures(item, actor);
-			await this._sortExperiences(item, actor);
+			//await this._sortExperiences(item, actor);
 			await this._sortTraits(item, actor);				
 			await this._sortPowers(item, actor);
 			await this._sortBonus(item, actor);
@@ -228,7 +228,7 @@ export default class ItemHelper {
 		}
 
 		// Experience Points
-		actor.system.listdata.experiences.experience = actor.system.listdata.experiences.totalExp - actor.system.listdata.experiences.spentExp;
+		//actor.system.listdata.experiences.experience = actor.system.listdata.experiences.totalExp - actor.system.listdata.experiences.spentExp;
 	}
 
 	static async _sortCombat(item, actor) {
@@ -309,19 +309,19 @@ export default class ItemHelper {
 	}
 
 	static async _sortExperiences(item, actor) {
-		if (item.type == "Experience") {
-			if (item.system.type == "wod.types.expgained") {
-				actor.system.listdata.experiences.expearned.push(item);
-				actor.system.listdata.experiences.totalExp += parseInt(item.system.amount);
-			}
-			if (item.system.type == "wod.types.expspent") {
-				actor.system.listdata.experiences.expspend.push(item);
+		// if (item.type == "Experience") {
+		// 	if (item.system.type == "wod.types.expgained") {
+		// 		actor.system.listdata.experiences.expearned.push(item);
+		// 		actor.system.listdata.experiences.totalExp += parseInt(item.system.amount);
+		// 	}
+		// 	if (item.system.type == "wod.types.expspent") {
+		// 		actor.system.listdata.experiences.expspend.push(item);
 
-				if (item.system.isspent) {
-					actor.system.listdata.experiences.spentExp += parseInt(item.system.amount);
-				}
-			}
-		}
+		// 		if (item.system.isspent) {
+		// 			actor.system.listdata.experiences.spentExp += parseInt(item.system.amount);
+		// 		}
+		// 	}
+		// }
 	}
 
 	static async _sortBonus(item, actor) {
@@ -949,6 +949,24 @@ export default class ItemHelper {
 		return items.sort((a, b) => {
 			return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
 		});
+	}
+
+	static GetEarnedExperience(actor) {
+		let items = actor.items.filter(item => item.type === "Experience" && (item.system.type == "wod.types.expgained"));
+
+		// return items.sort((a, b) => {
+		// 	return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
+		// });
+		return [...items].reverse();
+	}
+
+	static GetSpendExperience(actor) {
+		let items = actor.items.filter(item => item.type === "Experience" && (item.system.type == "wod.types.expspent"));
+
+		// return items.sort((a, b) => {
+		// 	return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
+		// });
+		return [...items].reverse();
 	}
 }
 

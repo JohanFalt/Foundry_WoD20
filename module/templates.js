@@ -2,6 +2,7 @@ import { databio } from "../assets/data/bio.js";
 import { dataability } from "../assets/data/ability.js";
 import BonusHelper from "./scripts/bonus-helpers.js";
 import ItemHelper from "./scripts/item-helpers.js";
+import Functions from "./functions.js";
 
 /**
  * Define a set of template paths to pre-load
@@ -953,6 +954,49 @@ export const registerHandlebarsHelpers = function () {
 		return ItemHelper.GetAllNotes(actor);
 	});
 
+	Handlebars.registerHelper("getEarnedExperience", function (actor) {
+		return ItemHelper.GetEarnedExperience(actor);
+	});
+
+	Handlebars.registerHelper("getSpendExperience", function (actor) {
+		return ItemHelper.GetSpendExperience(actor);
+	});
+
+	Handlebars.registerHelper("getTotalExperience", function (actor, type) {
+		const earnedExp = ItemHelper.GetEarnedExperience(actor);
+		const spendExp = ItemHelper.GetSpendExperience(actor);
+		
+
+		if (type == "total") {
+			let earned = 0;
+			let spent = 0;
+			earnedExp.forEach(item => 
+				earned += parseInt(item.system.amount));
+			spendExp.forEach((item) => {
+				if (item.system.isspent) {
+					spent += parseInt(item.system.amount);
+				}
+			});
+
+			return earned - spent;
+		}
+		if (type == "earned") {
+			let earned = 0;
+			earnedExp.forEach(item => earned += parseInt(item.system.amount));
+			return earned;
+		}
+		if (type == "spent") {
+			let spent = 0;
+			spendExp.forEach((item) => {
+				if (item.system.isspent) {
+					spent += parseInt(item.system.amount);
+				}
+			});
+			return spent;
+			
+		}
+	});
+
 	Handlebars.registerHelper("getAbility", function (ability, actor) {	
 		
 		if (ability == "") {
@@ -1126,12 +1170,17 @@ export const registerHandlebarsHelpers = function () {
 
 		let hasSpeciality = false;
 		let id = ability._id;
+		let specialityLevel = 4;
 
 		if (ability.id != undefined) {
 			id = ability.id;
 		}
 
-		if (ability.value >= 4) {
+		if ((CONFIG.worldofdarkness.specialityLevel != undefined) && (Functions.isNumber(CONFIG.worldofdarkness.specialityLevel))) {
+			specialityLevel = parseInt(CONFIG.worldofdarkness.specialityLevel);
+		}
+
+		if (ability.value >= specialityLevel) {
 			hasSpeciality = true;
 		}
 		else if (ability.value >= 1) {
@@ -1461,6 +1510,10 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.worldofdarkness.rollSettings;
 		}
 
+		if (text == "specialityLevel") {
+			return CONFIG.worldofdarkness.specialityLevel;
+		}
+
 		if (text == "theRollofOne") {
 			return CONFIG.worldofdarkness.handleOnes;
 		}
@@ -1493,12 +1546,20 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.worldofdarkness.specialityReduceDiff;
 		}
 
+		if (text == "specialityAllowBotch") {
+			return CONFIG.worldofdarkness.specialityAllowBotch;
+		}	
+
+		if (text == "specialityAllowBotch") {
+			return CONFIG.worldofdarkness.specialityAllowBotch;
+		}	
+		
 		if (text == "tenAddSuccess") {
 			return CONFIG.worldofdarkness.tenAddSuccess;
 		}
 
 		if (text == "explodingDice") {
-			return CONFIG.worldofdarkness.specialityReduceDiff;
+			return CONFIG.worldofdarkness.explodingDice;
 		}
 
 		if (text == "wererwolfrageSettings") {

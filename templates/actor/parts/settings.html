@@ -8,7 +8,7 @@
 		{{#if (ne actor.system.settings.variant (lowercase config.sheettype.spirit))}}				
 			<a class="secondHeadlineTabs thin-border-left" data-tab="abilities">{{localize "wod.abilities.abilities"}}</a>		
 			
-			{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.creature config.sheettype.werewolf config.sheettype.changingbreed)}}
+			{{#if (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.exalted config.sheettype.creature config.sheettype.werewolf config.sheettype.changingbreed)}}
 				<a class="secondHeadlineTabs thin-border-left" data-tab="power">{{localize "wod.tab.power"}}</a>				
 			{{/if}}
 

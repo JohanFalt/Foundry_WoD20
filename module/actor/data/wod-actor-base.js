@@ -1,6 +1,7 @@
 import { calculateTotals } from "../../scripts/totals.js";
 import CombatHelper from "../../scripts/combat-helpers.js";
 import CreateHelper from "../../scripts/create-helpers.js";
+import Functions from "../../functions.js";
 
 /**
  * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Simple system.
@@ -317,10 +318,10 @@ export class WoDActor extends Actor {
         }
 
         try {
-            if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+            if (!Functions.isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
                 actorData.system.settings.abilities.defaultmaxvalue = 5;
             }
-            if (!isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
+            if (!Functions.isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
                 actorData.system.settings.powers.defaultmaxvalue = 5;
             }
 
@@ -413,10 +414,10 @@ export class WoDActor extends Actor {
             }
 
             if (actorData.type != CONFIG.worldofdarkness.sheettype.vampire) {
-                if (!isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
+                if (!Functions.isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
                     actorData.system.settings.powers.defaultmaxvalue = 5;
                 }
-                if (!isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+                if (!Functions.isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
                     actorData.system.settings.abilities.defaultmaxvalue = 5;
                 }
             }
@@ -1122,12 +1123,6 @@ export class WoDActor extends Actor {
 
         return actor;
     }
-}
-
-function isNumber(data) {
-	let value = parseInt(data);
-
-	return !isNaN(parseFloat(value)) && !isNaN(value - 0);
 }
 
 async function _calculteMaxEssencepool(variant, essence) {

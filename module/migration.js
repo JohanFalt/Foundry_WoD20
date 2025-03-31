@@ -170,6 +170,7 @@ export  const updates = async () => {
                 }
             }
 
+            // TODO: Does this really need to be run any longer given the new WoDActor update?
             actorData.system.settings.haswillpower = true;
 
             if (actorData.type == CONFIG.worldofdarkness.sheettype.werewolf) {
@@ -218,6 +219,7 @@ export  const updates = async () => {
 
         await actor.update(actorData);
 
+        // TODO: this should not be needed any longer or just add a patch.
         if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             for (const effect of actor.effects) {
                 if (effect.icon.includes("werewolf")) {
@@ -241,6 +243,11 @@ export  const updates = async () => {
  export const updateActor = async function(actor, migrationVersion) {
     let update = false;
     let found = false;
+
+    if (actor.system.settings.version == undefined) {
+        log.warn("Skipping Actor " + actor.name + " ("+actor.type+"): does not seem to be a Word of Darkness Actor.");
+        return;
+    }
 
     // deprecated sheet
     if (actor.type == CONFIG.worldofdarkness.sheettype.spirit) {
@@ -1904,6 +1911,11 @@ export  const updates = async () => {
  export const updateItem = async function(item) {
     let altered = false;
 
+    if (item.system.version == undefined) {
+        log.warn("Skipping Item " + item.name + ": does not seem to be a Word of Darkness Item.");
+        return;
+    }
+
     if (_compareVersion(item.system.version, "1.5.0")) {
         const itemData = foundry.utils.duplicate(item);
 
@@ -2530,6 +2542,14 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.6')) {
+            newfunctions += '<li>Fixed listings of a sheet experience points. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1066">[#1066]</a></li>';
+            newfunctions += '<li>New System setting under Rules - able to set how many dots required before highlight Speciality for Abilities. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1064">[#1064]</a></li>';
+            newfunctions += '<li>New System setting under Roling Dice - able to set if an Ability with a Speciality can botch. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1063">[#1063]</a></li>';
+            newfunctions += '<li>[Exalted] Limit Break now visible for all Exalted variants except Abyssals. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1065">[#1065]</a></li>';
+            newfunctions += '<li>[Exalted] Exalted can now activate Numina under Settings -> Power on the sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1067">[#1067]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.2.5')) {
             newfunctions += '<li>Fixed problems keeping connected bonuses to items active/deactive when an item is activated or deactivated.</li>'
         }
@@ -2592,59 +2612,64 @@ export  const updates = async () => {
  * @param newVersion   The new version no: e.g. 1.5.10
  */
   function _compareVersion(oldVersion, newVersion) {
-    if (newVersion == "") {
-        return false;
-    }
-  
-    if (newVersion == undefined) {
-        return false;
-    }
-  
-    if (oldVersion == "") {
-      return true;
-    }
-  
-    if (oldVersion.toLowerCase().includes("alpha")) {
-      oldVersion = oldVersion.toLowerCase().replace("alpha", "");
-      oldVersion = oldVersion.toLowerCase().replace("-", "");
-      oldVersion = oldVersion.toLowerCase().replace(" ", "");
-    }
-  
-    if (newVersion.toLowerCase().includes("alpha")) {
-      newVersion = newVersion.toLowerCase().replace("alpha", "");
-      newVersion = newVersion.toLowerCase().replace("-", "");
-      newVersion = newVersion.toLowerCase().replace(" ", "");
-    }
-  
-    if (oldVersion == "1") {
-      return true;
-    } 
-  
-    if (oldVersion == newVersion) {
-      return false;
-    }
-  
     try {
-      const newfields = newVersion.split(".");
-      const oldfields = oldVersion.split(".");
+        if (newVersion == undefined) {
+            return false;
+        }
+
+        if (oldVersion == undefined) {
+            return false;
+        }
+
+        if (newVersion == "") {
+            return false;
+        }
+    
+        if (oldVersion == "") {
+            return true;
+        }
+    
+        if (oldVersion.toLowerCase().includes("alpha")) {
+        oldVersion = oldVersion.toLowerCase().replace("alpha", "");
+        oldVersion = oldVersion.toLowerCase().replace("-", "");
+        oldVersion = oldVersion.toLowerCase().replace(" ", "");
+        }
+    
+        if (newVersion.toLowerCase().includes("alpha")) {
+        newVersion = newVersion.toLowerCase().replace("alpha", "");
+        newVersion = newVersion.toLowerCase().replace("-", "");
+        newVersion = newVersion.toLowerCase().replace(" ", "");
+        }
+    
+        if (oldVersion == "1") {
+            return true;
+        } 
+    
+        if (oldVersion == newVersion) {
+            return false;
+        }
   
-      for (let i = 0; i <= 2; i++) {
-        let varde1 = 0;
-        let varde2 = 0;
-        
-        if (newfields[i] != undefined) {
-          varde1 = newfields[i];
+    
+        const newfields = newVersion.split(".");
+        const oldfields = oldVersion.split(".");
+    
+        for (let i = 0; i <= 2; i++) {
+            let varde1 = 0;
+            let varde2 = 0;
+            
+            if (newfields[i] != undefined) {
+                varde1 = newfields[i];
+            }
+            if (oldfields[i] != undefined) {
+                varde2 = oldfields[i];
+            }
+            if (parseInt(varde1) > parseInt(varde2)) {
+                return true;
+            }
+            else if (parseInt(varde1) < parseInt(varde2)) {
+                return false;
+            }
         }
-        if (oldfields[i] != undefined) {
-          varde2 = oldfields[i];
-        }
-        if (parseInt(varde1) > parseInt(varde2)) {
-          return true;
-        }
-        else if (parseInt(varde1) < parseInt(varde2)) {
-          return false;
-        }
-      }
     }
     catch {
     }

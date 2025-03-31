@@ -1860,17 +1860,7 @@ export default class CreateHelper {
 				}
 			};
 		}
-		if (actor.system.settings.powers.hascharms) {
-			buttons.charm = {
-				label: game.i18n.localize("wod.types.charm"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("charm", system);
 
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-		}
 		if (actor.system.settings.powers.hasdisciplines) {
 			buttons.discipline = {
 				label: game.i18n.localize("wod.types.discipline"),
@@ -1927,6 +1917,7 @@ export default class CreateHelper {
 				}
 			};
 		}
+
 		if (actor.system.settings.powers.haslores) {
 			buttons.lore = {
 				label: game.i18n.localize("wod.types.lore"),
@@ -1956,6 +1947,7 @@ export default class CreateHelper {
 				}
 			};
 		}
+
 		if (actor.system.settings.powers.hasedges) {
 			buttons.edge = {
 				label: game.i18n.localize("wod.types.edge"),
@@ -1976,6 +1968,7 @@ export default class CreateHelper {
 				}
 			};
 		}
+
 		if (actor.system.settings.powers.hashekau) {
 			buttons.hekau = {
 				label: game.i18n.localize("wod.types.hekau"),
@@ -1996,6 +1989,7 @@ export default class CreateHelper {
 				}
 			};
 		}
+
 		if ((actor.system.settings.powers.hashorrors) || (actor.system.settings.powers.hasstains)) {
 			if (actor.system.settings.powers.hashorrors) {
 				buttons.horror = {
@@ -2020,49 +2014,7 @@ export default class CreateHelper {
 				};
 			}
 		}
-		if (actor.system.settings.powers.hasnumina) {
-			buttons.numina = {
-				label: game.i18n.localize("wod.types.numina"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("numina", system);
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-			buttons.numinapower = {
-				label: game.i18n.localize("wod.types.numinapower"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("numinapower", system);
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-			
-		}
-		if (actor.system.settings.powers.haspowers) {
-			buttons.power = {
-				label: game.i18n.localize("wod.types.power"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("power", system);
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-		}
-		if (actor.system.settings.powers.hascharms) {
-			buttons.charm = {
-				label: game.i18n.localize("wod.types.charm"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("charm", system);
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-		}
+		
 		if (actor.type == CONFIG.worldofdarkness.sheettype.mage) {
 			buttons.rote = {
 				label: game.i18n.localize("wod.types.rote"),
@@ -2083,17 +2035,7 @@ export default class CreateHelper {
 				}
 			};
 		}
-		if ((actor.type == CONFIG.worldofdarkness.sheettype.mortal) && (actor.system.settings.variant == "sorcerer")) {
-			buttons.resonance = {
-				label: game.i18n.localize("wod.types.resonance"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("resonance", system);
 
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-		}
 		if (actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
 			if (actor.system.settings.variant != 'inanimae') {
 				buttons.art = {
@@ -2214,6 +2156,64 @@ export default class CreateHelper {
 				label: game.i18n.localize("wod.types.exaltedsorcery"),
 				callback: async () => {
 					let itemData = await this.CreateItemPower("exaltedsorcery", system);
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			};
+		}
+
+		if (actor.system.settings.powers.hasnumina) {
+			buttons.numina = {
+				label: game.i18n.localize("wod.types.numina"),
+				callback: async () => {
+					let itemData = await this.CreateItemPower("numina", system);
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			};
+			buttons.numinapower = {
+				label: game.i18n.localize("wod.types.numinapower"),
+				callback: async () => {
+					let itemData = await this.CreateItemPower("numinapower", system);
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			};
+			
+		}
+
+		if (actor.system.settings.powers.hascharms) {
+			buttons.charm = {
+				label: game.i18n.localize("wod.types.charm"),
+				callback: async () => {
+					let itemData = await this.CreateItemPower("charm", system);
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			};
+		}
+
+		if (actor.system.settings.powers.haspowers) {
+			buttons.power = {
+				label: game.i18n.localize("wod.types.power"),
+				callback: async () => {
+					let itemData = await this.CreateItemPower("power", system);
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			};
+		}
+
+		if ((actor.type == CONFIG.worldofdarkness.sheettype.mortal) && (actor.system.settings.variant == "sorcerer")) {
+			buttons.resonance = {
+				label: game.i18n.localize("wod.types.resonance"),
+				callback: async () => {
+					let itemData = await this.CreateItemPower("resonance", system);
 
 					await this.CreateItem(actor, itemData);
 					return;

@@ -21,12 +21,11 @@
 								{{captilize (localize "wod.experience.experience")}}
 							</div>
 
-							{{#if userpermissions.itemAdministrator}}
-								<div class="bioInformationArea floating-label-group">
-									<input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
-									<span class="floating-label">{{localize 'wod.bio.name'}}</span>
-								</div>														
-							{{/if}}
+							<!-- description -->
+							<div class="bioInformationArea floating-label-group">
+								<input class="sheet-infoValues editable" name="system.description" type="text" value="{{data.system.description}}" data-dtype="String" autocomplete="off" autofocus required />
+								<span class="floating-label">{{localize "wod.labels.description"}}</span>
+							</div>
 						</div>	
 					</div>
 				</div>				
@@ -65,13 +64,7 @@
 						</div>
 					{{/if}}
 
-				</div>
-
-				<!-- description -->
-				<div class="bioInformationArea floating-label-group">
-					<input class="sheet-infoValues editable" name="system.description" type="text" value="{{data.system.description}}" data-dtype="String" autocomplete="off" autofocus required />
-					<span class="floating-label">{{localize "wod.labels.description"}}</span>
-				</div>
+				</div>				
 			</div>
 
 		</section>

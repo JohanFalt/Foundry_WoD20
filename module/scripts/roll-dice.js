@@ -250,6 +250,11 @@ export async function NewRollDice(diceRoll) {
 			rollResult = "fail";
 		}	
 
+		// if setting of speciality not allow botch is in effect it is a fail instead
+		if ((rollResult == "botch") && (!CONFIG.worldofdarkness.specialityAllowBotch) && (diceRoll.speciality)) {
+			rollResult = "fail";
+		}
+
 		diceResult.successes = `${game.i18n.localize("wod.dice.successes")}: ${success}`;
 		diceResult.rolledAnySuccesses = rolledAnySuccesses;
 		diceResult.rollResult = rollResult;
@@ -285,6 +290,7 @@ export async function NewRollDice(diceRoll) {
 	}
 
 	if (diceRoll.speciality) {
+
 		if (specialityText == "") {
 			specialityText = game.i18n.localize("wod.dialog.usingspeciality");
 		}

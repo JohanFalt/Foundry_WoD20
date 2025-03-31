@@ -58,16 +58,16 @@
 					<a id="tablore" class="item" data-tab="lore" data-tab-area="power" title="{{localize 'wod.tab.lore'}}">{{> (dtSvgDie 'lore' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 						
-				{{#if actor.system.settings.powers.haspowers}}
-					<a id="tabpowers" class="item" data-tab="power" data-tab-area="power" title="{{localize 'wod.tab.power'}}">{{> (dtSvgDie 'power' actor.type actor.system.settings.variantsheet)}}</a>
+				{{#if (eq actor.type config.sheettype.exalted)}}
+					<a id="tabexaltedcharm" class="item" data-tab="exaltedcharm" data-tab-area="power" title="{{localize 'wod.tab.exaltedcharm'}}">{{> (dtSvgDie 'exaltedcharm' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				{{#if actor.system.settings.powers.hasnumina}}
 					<a id="tabnumina" class="item" data-tab="numina" data-tab-area="power" title="{{localize 'wod.tab.numina'}}">{{> (dtSvgDie 'magic' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
-				{{#if (eq actor.type config.sheettype.exalted)}}
-					<a id="tabexaltedcharm" class="item" data-tab="exaltedcharm" data-tab-area="power" title="{{localize 'wod.tab.exaltedcharm'}}">{{> (dtSvgDie 'exaltedcharm' actor.type actor.system.settings.variantsheet)}}</a>
+				{{#if actor.system.settings.powers.haspowers}}
+					<a id="tabpowers" class="item" data-tab="power" data-tab-area="power" title="{{localize 'wod.tab.power'}}">{{> (dtSvgDie 'power' actor.type actor.system.settings.variantsheet)}}</a>
 				{{/if}}
 
 				<a id="tabcombat" class="item" data-tab="combat" data-tab-area="item" title="{{localize 'wod.tab.combat'}}">{{> (dtSvgDie 'combat' actor.type actor.system.settings.variantsheet)}}</a>

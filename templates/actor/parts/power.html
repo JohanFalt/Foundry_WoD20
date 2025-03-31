@@ -261,7 +261,7 @@
 
         {{/if}}
 
-        {{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+        {{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed config.sheettype.exalted)}}
 
             <div class="pullLeft" style="width: 36%; height: 100%; display: flex; flex-direction: column; margin-top: 50px;">
                 {{> "systems/worldofdarkness/templates/actor/parts/mage/resonance.html"}}

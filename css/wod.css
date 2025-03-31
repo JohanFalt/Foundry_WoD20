@@ -1152,7 +1152,7 @@ input.sheet-infoWidth {
 }
 
 .wod20 .experienceValue {
-  padding-right: 30px;
+  margin-left: 70px;
 }
 
 .wod20 .total.experienceValue {
@@ -1305,19 +1305,19 @@ input.sheet-infoWidth {
 }
 
 .wod20 .combat-headlineLargeBox {
-  width: 165px;
+  width: 170px;
 }
 
 .wod20 .combat-largeBox {
-  width: 170px;
+  width: 150px;
 }
 
 .wod20 .armor-placebox {
-  width: 170px;
+  width: 150px;
 }
 
 .wod20 .armor-largeBox {
-  width: 150px;
+  width: 160px;
 }
 
 .wod20 .combat-abilityBox {
@@ -1484,7 +1484,6 @@ input.sheet-infoWidth {
 .wod20 .note-row {
   height: 23px;
   line-height: 23px;
-  margin-left: 13px;
 }
 
 .wod20 .note-iconbox {
@@ -1506,7 +1505,7 @@ input.sheet-infoWidth {
 }
 
 .wod20 .notes-experienceHeadline {
-  width: 230px;
+  width: 270px;
   height: 19px;
 }
 

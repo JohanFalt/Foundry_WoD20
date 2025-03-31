@@ -76,6 +76,7 @@ Hooks.once("init", async function() {
 	CONFIG.worldofdarkness.attributeSettings = game.settings.get("worldofdarkness", "attributeSettings");
 	CONFIG.worldofdarkness.fifthEditionWillpowerSetting = game.settings.get("worldofdarkness", "fifthEditionWillpowerSetting");
 	CONFIG.worldofdarkness.rollSettings = game.settings.get('worldofdarkness', 'advantageRolls');
+	CONFIG.worldofdarkness.specialityLevel = game.settings.get('worldofdarkness', 'specialityLevel');
 	CONFIG.worldofdarkness.demonSystemSettings = game.settings.get('worldofdarkness', 'demonSystemSettings');
 	CONFIG.worldofdarkness.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
 	CONFIG.worldofdarkness.wererwolfrageSettings = game.settings.get('worldofdarkness', 'wererwolfrageSettings');
@@ -129,10 +130,12 @@ Hooks.once("init", async function() {
 	try {
 		CONFIG.worldofdarkness.specialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff'));
 		CONFIG.worldofdarkness.usespecialityReduceDiff = parseInt(game.settings.get('worldofdarkness', 'specialityReduceDiff')) > 0;
+		CONFIG.worldofdarkness.specialityAllowBotch = game.settings.get('worldofdarkness', 'specialityAllowBotch');
 	} 
 	catch (e) {
 		CONFIG.worldofdarkness.specialityReduceDiff = 0;
 		CONFIG.worldofdarkness.usespecialityReduceDiff = false;
+		CONFIG.worldofdarkness.specialityAllowBotch = true;
 	}
 
 	try {
@@ -410,9 +413,7 @@ Hooks.once("ready", async function () {
 			await migration.UpdateWorld(installedVersion, systemVersion);
 		}
 		else {
-			//ui.notifications.warn("Checking character's settings!", {permanent: true});
 			await migration.updates();
-			//ui.notifications.info("Done!", {permanent: true});
 		}
 	}
 	

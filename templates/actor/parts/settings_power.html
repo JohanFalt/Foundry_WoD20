@@ -62,7 +62,7 @@
 
     {{/if}}    
 
-    {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature config.sheettype.werewolf config.sheettype.changingbreed)}}
+    {{#if (eqAny actor.type config.sheettype.mortal config.sheettype.creature config.sheettype.werewolf config.sheettype.changingbreed config.sheettype.exalted)}}
         <div class="clearareaBox row">
             <label for="data.system.settings.powers.hasnumina" class="pullLeft headlineNormal" style="width: 200px;">{{localize "wod.labels.settings.hasnumina"}}</label>
             <div class="switch headlineNormal bold pointer splatFont" data-source="powers" data-switchtype="hasnumina" data-type="{{config.sheettype.mortal}}">

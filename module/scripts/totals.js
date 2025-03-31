@@ -17,7 +17,7 @@ export async function calculateTotals(updateData) {
 
 		//bonus attribute
 		if (await BonusHelper.CheckAttributeBuff(updateData, i)) {
-			let bonus = await BonusHelper.GetAttributeBuff(updateData, i);
+			const bonus = await BonusHelper.GetAttributeBuff(updateData, i);
 			updateData.system.attributes[i].total += parseInt(bonus);
 		}
 
@@ -141,7 +141,7 @@ export async function calculateTotals(updateData) {
 
 	//bonus soak
 	if (await BonusHelper.CheckSoakBuff(updateData)) {
-		let bonus = await BonusHelper.GetSoakBuff(updateData);
+		const bonus = await BonusHelper.GetSoakBuff(updateData);
 		updateData.system.soak.bashing += parseInt(bonus);
 		updateData.system.soak.lethal += parseInt(bonus);
 		updateData.system.soak.aggravated += parseInt(bonus);
@@ -207,15 +207,9 @@ export async function calculateTotals(updateData) {
 
 	// health levels totals
 	for (const i in CONFIG.worldofdarkness.woundLevels) {
-		let bonus = await BonusHelper.GetHealthlevelsBuff(updateData, i);
+		const bonus = await BonusHelper.GetHealthlevelsBuff(updateData, i);
 		updateData.system.health[i].total = parseInt(updateData.system.health[i].value) + bonus;		
 	}	
-
-	//bonus healthlevels
-	// if (await BonusHelper.CheckHealthlevelsBuff(actor)) {
-	// 	let bonus = await BonusHelper.GetHealthlevelsBuff(actor, "");
-	// 	updateData.system.health.bruised.total += parseInt(bonus);
-	// }
 
 	if (updateData.system.settings.variant != "spirit") {
 		// intitiative totals
@@ -223,8 +217,8 @@ export async function calculateTotals(updateData) {
 		updateData.system.initiative.total = parseInt(updateData.system.initiative.base) + parseInt(updateData.system.initiative.bonus);
 
 		//bonus initiative
-		if (await BonusHelper.CheckInitiativeBuff(actor)) {
-			let bonus = await BonusHelper.GetInitiativeBuff(actor);
+		if (await BonusHelper.CheckInitiativeBuff(updateData)) {
+			const bonus = await BonusHelper.GetInitiativeBuff(updateData);
 			updateData.system.initiative.total += parseInt(bonus);
 		}
 	}

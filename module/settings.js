@@ -29,6 +29,22 @@ export const systemSettings = function() {
 		type: Boolean,
 	});	
 
+    game.settings.register("worldofdarkness", "specialityLevel", {
+		name: game.i18n.localize('wod.settings.specialitylevel'),
+		hint: game.i18n.localize('wod.settings.specialitylevelhint'),
+		scope: "world",
+		config: false,
+		default: 4,
+		type: Number,
+        choices: {
+			1 : "1",
+			2 : "2",
+            3 : "3",
+            4 : "4",
+            5 : "5"
+		}
+	});	
+
 	game.settings.register("worldofdarkness", "attributeSettings", {
 		name: game.i18n.localize('wod.settings.attributesettings'),
 		hint: game.i18n.localize('wod.settings.attributesettingshint'),
@@ -119,6 +135,15 @@ export const systemSettings = function() {
 			"2": "2",
 			"3": "3"
 		}
+	});
+
+    game.settings.register("worldofdarkness", "specialityAllowBotch", {
+		name: game.i18n.localize('wod.settings.specialityallowbotch'),
+		hint: game.i18n.localize('wod.settings.specialityallowbotchhint'),    
+		scope: "world",
+		config: false,
+		default: true,
+		type: Boolean
 	});
 
     game.settings.register("worldofdarkness", "specialityReduceDiff", {
@@ -631,7 +656,7 @@ export class Rules extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "advantageRolls") || (s.key == "attributeSettings") || (s.key == "fifthEditionWillpowerSetting")) {
+                if ((s.key == "advantageRolls") || (s.key == "specialityLevel") || (s.key == "attributeSettings") || (s.key == "fifthEditionWillpowerSetting")) {
                     // Update setting data
                     const setting = foundry.utils.duplicate(s);
 
@@ -713,7 +738,16 @@ export class Dices extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "theRollofOne") || (s.key == "useOnesDamage") || (s.key == "usePenaltyDamage") || (s.key == "useOnesSoak") || (s.key == "lowestDifficulty") || (s.key == "specialityAddSuccess") || (s.key == "specialityReduceDiff") || (s.key == "tenAddSuccess") || (s.key == "explodingDice"))  {
+                if ((s.key == "theRollofOne") || 
+                        (s.key == "useOnesDamage") || 
+                        (s.key == "usePenaltyDamage") || 
+                        (s.key == "useOnesSoak") || 
+                        (s.key == "lowestDifficulty") || 
+                        (s.key == "specialityAddSuccess") || 
+                        (s.key == "specialityReduceDiff") || 
+                        (s.key == "specialityAllowBotch") ||                         
+                        (s.key == "tenAddSuccess") || 
+                        (s.key == "explodingDice"))  {
                     // Update setting data
                     const setting = foundry.utils.duplicate(s);
 

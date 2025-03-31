@@ -97,7 +97,7 @@
 				<div class="information-area centerText">{{localize "wod.advantages.essenceperturn"}}: {{data.system.advantages.essencepool.perturn}}</div>
 			</div>
 
-			{{#if (eq data.system.settings.variant "solar")}}
+			{{#if (ne data.system.settings.variant "abyssal")}}
 				<div style="width: 33%;">
 					{{{getGetStatArea actor actor.system.advantages.limitbreak "limitbreak" false false true}}}
 				</div>
@@ -137,7 +137,7 @@
 		<div class="clearareaBox sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
 			<div class="pullRight item-row">
 				<div>{{localize 'wod.experience.experience'}}</div>
-				<div class="total experienceValue">{{actor.system.listdata.experiences.experience}}</div>
+				<div class="total experienceValue">{{getTotalExperience actor "total"}}</div>
 			</div>		
 		</div>
 
