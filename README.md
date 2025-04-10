@@ -8,7 +8,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk)
 
 ## Supported sheets
-- Mortals (General, Orpheus, Autumn people, Enchanted, Ghoul, Kinfolk)
+- Mortals (General, Orpheus, Sorcerer 20th ed, Autumn people, Enchanted, Ghoul, Kinfolk)
 - [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade) (General, Kindred of the East)
 - [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension)
 - [Werewolf the Apocalypse (W20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Werewolf-the-Apocalypse)
@@ -16,6 +16,8 @@ I would never require it by anyone or even expect someone to do but if you reall
 - [Hunter the Reckoning (HtR)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Hunter-the-Reckoning)
 - [Demon the Fallen (DtF)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Demon-the-Fallen)
 - Wraith the Oblivion (Wr20) (General, Shadow)
+- Mummy the Resurrection Revised (MtR)
+- [Exalted vs WoD](https://holdenshearer.wordpress.com/2021/10/26/exalted-vs-world-of-darkness-revised/)
 - [Changing Breeds](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Changing-Breed) (Ajaba, Ananasi, Baset, Corax, Gurahl, Kitsune, Mokolé, Nagah, Nuwisha, Ratkin, Rokea, Apis, Camazotz, Grondr)
 - Creatures (General, Chimera, Familiar, Construct, Spirit, War wolves, Anurana, Samsa, Kerasi, Yeren, Earthbound demon)
 
