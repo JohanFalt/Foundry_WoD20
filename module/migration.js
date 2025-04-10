@@ -2542,6 +2542,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.7')) {
+            newfunctions += '<li>Fixed a bug that caused Faith Pool to always be visible on Creature sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1077">[#1077]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.2.6')) {
             newfunctions += '<li>Fixed listings of a sheet experience points. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1066">[#1066]</a></li>';
             newfunctions += '<li>New System setting under Rules - able to set how many dots required before highlight Speciality for Abilities. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1064">[#1064]</a></li>';

@@ -42,7 +42,8 @@
 
 		{{#if (and data.system.settings.hasbloodpool (ne data.system.settings.variant "earthbound"))}}
 			{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}
-		{{else}}
+		{{/if}}
+		{{#if (and data.system.settings.hasbloodpool (eq data.system.settings.variant "earthbound"))}}
 			{{{getGetStatArea actor actor.system.advantages.bloodpool "faithpool" false false true}}}
 		{{/if}}
 
