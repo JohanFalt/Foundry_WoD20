@@ -70,7 +70,7 @@
 
 		{{#if data.system.settings.hasspite}}
 			<div style="width: 33%;">
-				{{{getGetStatArea actor actor.system.advantages.spite "spite" false false true}}}
+				{{{getGetStatArea actor actor.system.advantages.spite "spite" true true true}}}
 			</div>
 		{{/if}}	
 
@@ -112,7 +112,7 @@
 	
 </div>
 
-<div class="clearareaBox" style="display: flex;">
+<div class="clearareaBox" style="display: flex;" style="width: 100%">
 
 	{{#if data.system.settings.hasvirtue}}
 		<div class="pullLeft" style="width: 33%;">
@@ -124,7 +124,7 @@
 
 	{{#if (ne actor.system.settings.variant 'spirit')}}
 	
-		<div class="healthBox" style="width: 60%; height: 100%; display: flex; flex-direction: column;">
+		<div class="healthBox" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
 
 			{{> "systems/worldofdarkness/templates/actor/parts/stats_health.html"}}		
 
@@ -134,8 +134,14 @@
 
 	{{#if (ne actor.type config.sheettype.creature)}}
 
-		<div class="clearareaBox sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 25px;">
-			<div class="pullRight item-row">
+		{{#if (not data.system.settings.hasvirtue)}}
+			<div class="pullLeft" style="width: 33%;">
+				&nbsp;
+			</div>
+		{{/if}}
+
+		<div class="clearareaBox sheet-headline headlineGroup splatFont" style="width: 33%; margin-top: 25px;">
+			<div class="pullLeft item-row">
 				<div>{{localize 'wod.experience.experience'}}</div>
 				<div class="total experienceValue">{{getTotalExperience actor "total"}}</div>
 			</div>		

@@ -586,8 +586,11 @@ input.sheet-infoWidth {
 }
 
 .wod-sheet .sheet-banner-small.sheet-headline {
-  /* min-width: 259px; */
   min-width: 230px;
+}
+
+.wod-sheet .healthBox .sheet-banner-small.sheet-headline {
+  min-width: 259px;
 }
 
 .wod-sheet .sheet-banner-text {
@@ -1171,7 +1174,7 @@ input.sheet-infoWidth {
 
 .wod20 div.tempSquareRow {
   margin: 0 auto;
-  max-width: 200px;
+  max-width: 240px;
 }
 
 .wod20 span.supernaturalAttribute:nth-of-type(5n) {

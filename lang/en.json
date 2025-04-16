@@ -215,6 +215,7 @@
 			"shapeform": "Shapeshifting Form",
 			"aspect": "Aspect",
 			"passion": "Passion",
+			"darkpassion": "Dark passion",
 			"fetter": "Fetter",
 			"wyrd": "Wyrd",
 			"hekau": "Hekau",
@@ -1462,6 +1463,7 @@
 			"trait": {
 				"meleeweapon": "Listed melee weapon",
 				"rangedweapon": "Listed ranged weapon",
+				"power": "Listed power ability",
 				"reference": "Reference"
 			},
 			"feature": {
@@ -1561,6 +1563,7 @@
 				"arcanoi": "New arcanoi",
 				"arcanoipower": "New arcanoi power",
 				"passion": "New passion",
+				"darkpassion": "New dark passion",
 				"fetter": "New fetter",
 				"hekau": "New hekau",
 				"hekaupower": "New hekau power",
@@ -1915,7 +1918,9 @@
 				"selectpower": "Select power to connect to",
 				"disciplineneeded": "Disciplines needed",
 				"savecombination": "Save combination discipline",
-				"removecombination": "Remove combination discipline"
+				"removecombination": "Remove combination discipline",
+				"nopower": "No power secondary abilities listed on sheet",
+				"secondarynotselected": "Secondary ability not selected"
 			},
 			"attribute": {
 				"speciality": "Speciality",

@@ -16,6 +16,7 @@ export class Gift {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -24,6 +25,13 @@ export class Gift {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -43,6 +51,7 @@ export class Charm {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -51,6 +60,13 @@ export class Charm {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = "";
         this.system = item.system["description"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -70,6 +86,7 @@ export class CharmGift {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = ActionHelper._transformToSpiritAttributes(item.system["dice1"]);
@@ -78,6 +95,13 @@ export class CharmGift {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = "";
         this.system = item.system["description"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -97,6 +121,7 @@ export class Power {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -105,6 +130,13 @@ export class Power {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = "";
         this.system = item.system["description"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -124,6 +156,7 @@ export class DisciplinePower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -132,6 +165,13 @@ export class DisciplinePower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -151,6 +191,7 @@ export class PathPower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -159,6 +200,13 @@ export class PathPower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -178,6 +226,7 @@ export class RitualPower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -186,6 +235,13 @@ export class RitualPower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.usedReducedDiff = false;
         this.canRoll = this.difficulty > -1 ? true : false;
@@ -205,6 +261,7 @@ export class ArtPower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item.system["type"];
         this.parentid = item.system["parentid"];
@@ -227,6 +284,13 @@ export class ArtPower {
         this.difficulty = 8;
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.selectedRealms = [];
         this.isUnleashing = false;
@@ -292,6 +356,7 @@ export class EdgePower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -300,6 +365,13 @@ export class EdgePower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -318,6 +390,7 @@ export class LorePower {
         this.hasSpeciality = false;
         this.specialityText = "";
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item["type"];
         this.dice1 = item.system["dice1"];
@@ -327,6 +400,13 @@ export class LorePower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -345,6 +425,7 @@ export class ArcanoiPower {
         this.hasSpeciality = false;
         this.specialityText = "";        
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item.system["type"];
         this.dice1 = item.system["dice1"];
@@ -356,6 +437,13 @@ export class ArcanoiPower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -372,8 +460,9 @@ export class HekauPower {
         this.abilityName = "";
 
         this.hasSpeciality = false;
-        this.specialityText = "";        
-
+        this.specialityText = "";     
+        
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item.system["type"];
         this.dice1 = item.system["dice1"];
@@ -385,6 +474,13 @@ export class HekauPower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -403,6 +499,7 @@ export class NuminaPower {
         this.hasSpeciality = false;
         this.specialityText = "";        
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item.system["type"];
         this.dice1 = item.system["dice1"];
@@ -414,6 +511,13 @@ export class NuminaPower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -432,6 +536,7 @@ export class ExaltedPower {
         this.hasSpeciality = false;
         this.specialityText = "";        
 
+        this._id = item["_id"];
         this.name = item["name"];
         this.type = item.system["type"];
         this.dice1 = item.system["dice1"];
@@ -443,6 +548,13 @@ export class ExaltedPower {
         this.difficulty = parseInt(item.system["difficulty"]);
         this.description = item.system["description"];
         this.system = item.system["details"];
+        
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
 
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
@@ -490,11 +602,24 @@ export class DialogPower extends FormApplication {
         let specialityText = "";
 
         data.actorData = this.actor.system;
-        data.config = CONFIG.worldofdarkness;        
+        data.config = CONFIG.worldofdarkness;     
+        data.config.powerAbilities = this.actor.system.listdata.powerAbilities;   
 
         if (data.object.dice1 == "path") {
             data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);
             data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
+        }
+        else if (data.object.dice1 == "custom") {
+            if (this.object.secondaryabilityid != "") {
+                const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
+                this.object.attributeValue = parseInt(item.system.value);
+                this.object.attributeName = item.system.label;
+
+                if (parseInt(item.system.value) >= 4) {
+                    data.object.hasSpeciality = true;
+                    abilitySpeciality = item.system.speciality;
+                }
+            }
         }
         else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
             if (!this.object.isUnleashing) {
@@ -576,6 +701,18 @@ export class DialogPower extends FormApplication {
                 data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);
                 data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
             } 
+            else if (data.object.dice2 == "custom") {
+                if (this.object.secondaryabilityid != "") {
+                    const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
+                    this.object.abilityValue = parseInt(item.system.value);
+                    this.object.abilityName = item.system.label;
+    
+                    if (parseInt(item.system.value) >= 4) {
+                        data.object.hasSpeciality = true;
+                        abilitySpeciality = item.system.speciality;
+                    }
+                }
+            }
             else if ((data.object.dice2 == "realm") && (data.object.type == "wod.types.artpower")) {
                 if (!this.object.isUnleashing) {
                     const realm = data.object._lowestRank();
@@ -673,7 +810,11 @@ export class DialogPower extends FormApplication {
 
         html
             .find('.dialog-difficulty-button')
-            .click(this._setDifficulty.bind(this));        
+            .click(this._setDifficulty.bind(this));    
+            
+        html
+            .find('.dialog-secondaryability-button')
+            .click(this._setSecondaryAbility.bind(this));
 
         html
             .find('.actionbutton')
@@ -752,6 +893,37 @@ export class DialogPower extends FormApplication {
         });
     }
 
+    async _setSecondaryAbility(event) {
+        event.preventDefault();
+
+        const element = event.currentTarget;
+        const parent = $(element.parentNode);
+        const steps = parent.find(".dialog-secondaryability-button");
+        const key = element.value;
+
+        if (key == "") {
+            steps.removeClass("active");
+            return;
+        }
+
+        const abilityId = key;
+        const item = await this.actor.getEmbeddedDocument("Item", abilityId);
+
+        this.object.abilityValue = parseInt(item.system.value);
+        this.object.abilityName = item.system.label;
+        this.object.secondaryabilityid = item._id;
+
+        steps.removeClass("active");
+
+        steps.each(function (i) {
+            if (this.value == key) {
+                $(this).addClass("active");
+            }
+        });
+
+        this.render();
+    }
+
     _selectRealm(event) {
         const element = event.currentTarget;
         const parent = $(element.parentNode);
@@ -804,7 +976,7 @@ export class DialogPower extends FormApplication {
     // pool. The character can accumulate multiple Nightmare points
     // during a single roll, but the Nightmare rating never exceeds 10.
     
-    _rollPower(event) {
+    async _rollPower(event) {
         if (this.object.close) {
             this.close();
             return;
@@ -822,6 +994,13 @@ export class DialogPower extends FormApplication {
         if (!this.object.canRoll) {
             ui.notifications.warn(game.i18n.localize("wod.dialog.missingdifficulty"));
             return;
+        }
+
+        if ((this.object.dice1 == "custom") || (this.object.dice2 == "custom")) {
+            let item = await this.actor.getEmbeddedDocument("Item", this.object._id);
+            const itemData = foundry.utils.duplicate(item);
+            itemData.system.secondaryabilityid = this.object.secondaryabilityid;
+            await item.update(itemData);
         }
 
         template.push(`${this.object.attributeName} (${this.object.attributeValue})`);

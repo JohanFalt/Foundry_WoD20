@@ -2090,56 +2090,77 @@ export default class CreateHelper {
 		}
 
 		if (actor.type == CONFIG.worldofdarkness.sheettype.wraith) {
-			buttons.arcanoi = {
-				label: game.i18n.localize("wod.types.arcanoi"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("arcanoi", system);
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-			buttons.arcanoipower = {
-				label: game.i18n.localize("wod.types.arcanoipower"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("arcanoipower", system);
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-			buttons.passion = {
-				label: game.i18n.localize("wod.types.passion"),
-				callback: async () => {
-					let itemData = {
-						name: `${game.i18n.localize("wod.labels.new.passion")}`,
-						type: "Trait",
-						system: {
-							iscreated: true,
-							level: 0,
-							type: "wod.types.passion"
-						}
-					};
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-			buttons.fetter = {
-				label: game.i18n.localize("wod.types.fetter"),
-				callback: async () => {
-					let itemData = {
-						name: `${game.i18n.localize("wod.labels.new.fetter")}`,
-						type: "Trait",
-						system: {
-							iscreated: true,
-							level: 0,
-							type: "wod.types.fetter"
-						}
-					};
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
+			if (actor.system.settings.variant != "shadow") {
+				buttons.arcanoi = {
+					label: game.i18n.localize("wod.types.arcanoi"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("arcanoi", system);
+	
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				};
+				buttons.arcanoipower = {
+					label: game.i18n.localize("wod.types.arcanoipower"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("arcanoipower", system);
+	
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				};
+				buttons.passion = {
+					label: game.i18n.localize("wod.types.passion"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.passion")}`,
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.passion"
+							}
+						};
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				};
+				buttons.fetter = {
+					label: game.i18n.localize("wod.types.fetter"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.fetter")}`,
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.fetter"
+							}
+						};
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				};
+			}
+			else {
+				buttons.passion = {
+					label: game.i18n.localize("wod.types.darkpassion"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.darkpassion")}`,
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.passion"
+							}
+						};
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				};
+			}
+			
 		}
 
 		if (actor.type == CONFIG.worldofdarkness.sheettype.exalted) {

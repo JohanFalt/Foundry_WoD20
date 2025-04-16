@@ -125,6 +125,7 @@ export default class ItemHelper {
 
 		actor.system.listdata.meleeAbilities = [];
 		actor.system.listdata.rangedAbilities = [];
+		actor.system.listdata.powerAbilities = [];
 
 		actor.system.listdata.bonus = [];
 
@@ -181,11 +182,12 @@ export default class ItemHelper {
 
 		actor.system.listdata.meleeAbilities.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.rangedAbilities.sort((a, b) => a.name.localeCompare(b.name));
+		actor.system.listdata.powerAbilities.sort((a, b) => a.name.localeCompare(b.name));
 
 		// Weapons
 		actor.system.listdata.combat.naturalWeapons.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.combat.meleeWeapons.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.combat.rangedWeapons.sort((a, b) => a.name.localeCompare(b.name));
+		actor.system.listdata.combat.rangedWeapons.sort((a, b) => a.name.localeCompare(b.name));		
 
 		// Armor
 		actor.system.listdata.combat.armors.sort((a, b) => a.name.localeCompare(b.name));
@@ -355,6 +357,9 @@ export default class ItemHelper {
 				if (item.system.israngedeweapon) {
 					actor.system.listdata.rangedAbilities.push(item);
 				}
+				if (item.system.ispower) {
+					actor.system.listdata.powerAbilities.push(item);
+				}
 
 				actor.system.listdata.secondary_talents.push(trait);
 			}
@@ -381,6 +386,9 @@ export default class ItemHelper {
 				if (item.system.israngedeweapon) {
 					actor.system.listdata.rangedAbilities.push(item);
 				}
+				if (item.system.ispower) {
+					actor.system.listdata.powerAbilities.push(item);
+				}
 
 				actor.system.listdata.secondary_skills.push(trait);
 			}
@@ -406,6 +414,9 @@ export default class ItemHelper {
 				}
 				if (item.system.israngedeweapon) {
 					actor.system.listdata.rangedAbilities.push(item);
+				}
+				if (item.system.ispower) {
+					actor.system.listdata.powerAbilities.push(item);
 				}
 
 				actor.system.listdata.secondary_knowledges.push(trait);

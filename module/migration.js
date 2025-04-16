@@ -2542,6 +2542,14 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.8')) {
+            newfunctions += '<li>Fixed a bug that caused an unlicked Token not update its sheet correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1085">[#1085]</a></li>';
+            newfunctions += '<li>[Orpheus] Fixed so Spite is correctly displayed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1084">[#1084]</a></li>';
+            newfunctions += '<li>[MrR] Fixed so Powers can use Secondary Abilities see <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Feature:-Secondary-Ability#weapons">Wiki</a> for details. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1082">[#1082]</a></li>';
+            newfunctions += '<li>[VtM] Fixed so Powers can use Secondary Abilities see <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Feature:-Secondary-Ability#powers">Wiki</a> for details. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1082">[#1082]</a></li>';
+            newfunctions += '<li>[WtO] Fixed so Shadows can add Dark Passions. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1081">[#1081]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.2.7')) {
             newfunctions += '<li>Fixed a bug that caused Faith Pool to always be visible on Creature sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1077">[#1077]</a></li>';
         }

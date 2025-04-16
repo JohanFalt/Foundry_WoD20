@@ -582,11 +582,27 @@ export const registerHandlebarsHelpers = function () {
 
 				if (itempowers[p].system.isrollable) {
 					let dice1name = game.i18n.localize(getAttributes(itempowers[p].system.dice1));
-					dice1name = game.i18n.localize(getAbility(actor, itempowers[p].system.dice1));
+					dice1name = game.i18n.localize(getAbility(actor, itempowers[p].system.dice1));					
+
 					let difficultyText = itempowers[p].system.difficulty;
 
 					if (itempowers[p].system.dice1 == "path") {
 						dice1name = actor.system.advantages.path.label;
+					}
+					if (itempowers[p].system.dice1 == "custom") {
+						if (itempowers[p].system.secondaryabilityid != "") {
+							const item = actor.getEmbeddedDocument("Item", itempowers[p].system.secondaryabilityid);
+							if (item == undefined) {
+								console.warn("Secondary ability for power " + itempowers[p].name + " not found.");
+								dice1name = game.i18n.localize("wod.dialog.power.secondarynotselected");
+							}
+							else {
+								dice1name = item.system.label;
+							}							
+						}
+						else {
+							dice1name = game.i18n.localize("wod.dialog.power.secondarynotselected");
+						}						
 					}
 
 					if (useabilitiy) {

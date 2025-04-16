@@ -3,6 +3,50 @@ export default class SelectHelper {
         let listData = [];
 
         // Items
+        if ((data.type == "Melee Weapon") || (data.type == "Ranged Weapon")) {
+            listData.AttackAttributes = [{
+                value: "", 
+                label: "- " + game.i18n.localize("wod.labels.none") + " -"
+            }];
+            listData.AttackAbilities = [{
+                value: "", 
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            },{
+                value: "custom", 
+                label: "- " + game.i18n.localize("wod.labels.custom") + " -"
+            }];
+                
+            for (const attribute in CONFIG.worldofdarkness.attackAttributes) {
+                const data = {
+                    value: attribute,
+                    label: game.i18n.localize(CONFIG.worldofdarkness.attackAttributes[attribute])
+                };
+
+                listData.AttackAttributes.push(data);
+            }
+
+            if (data.type == "Melee Weapon") {
+                for (const ability in CONFIG.worldofdarkness.attackMeleeAbilities) {
+                    const data = {
+                        value: ability,
+                        label: game.i18n.localize(CONFIG.worldofdarkness.attackMeleeAbilities[ability])
+                    };
+
+                    listData.AttackAbilities.push(data);
+                }
+            }
+            if (data.type == "Ranged Weapon") {
+                for (const ability in CONFIG.worldofdarkness.attackRangedAbilities) {
+                    const data = {
+                        value: ability,
+                        label: game.i18n.localize(CONFIG.worldofdarkness.attackRangedAbilities[ability])
+                    };
+    
+                    listData.AttackAbilities.push(data);
+                }
+            }
+        }
+
         if (data.type == "Feature") {
             listData.TypeList = [
             {

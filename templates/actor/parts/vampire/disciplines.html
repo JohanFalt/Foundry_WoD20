@@ -35,8 +35,23 @@
                     {{/if}}
 
                     {{#if item.system.isrollable}}
-                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice1 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAttributes item.system.dice1)}}{{/if}}</div>
-                        <div class="pullLeft power-dicebox headlineNormal">{{#if (eq item.system.dice2 "path")}}{{localize ../actor.system.advantages.path.label}}{{else}}{{localize (getAbility item.system.dice2  ../actor)}}{{/if}}</div>
+                        <div class="pullLeft power-dicebox headlineNormal">
+                            {{#if (eq item.system.dice1 "path")}}
+                                {{localize ../actor.system.advantages.path.label}}
+                            {{else if (eq item.system.dice1 "custom")}}
+                                {{getSecondaryAbility item.system.dice1 ../actor item.system.secondaryabilityid}}
+                            {{else}}
+                                {{localize (getAttributes item.system.dice1)}}
+                            {{/if}}
+                        </div>
+                        <div class="pullLeft power-dicebox headlineNormal">
+                            {{#if (eq item.system.dice2 "path")}}
+                                {{localize ../actor.system.advantages.path.label}}
+                            {{else if (eq item.system.dice2 "custom")}}
+                                {{getSecondaryAbility item.system.dice2 ../actor item.system.secondaryabilityid}}
+                            {{else}}
+                                {{localize (getAbility item.system.dice2  ../actor)}}
+                            {{/if}}</div>
                         <div class="pullLeft power-valueBox headlineNormal centerText">
                             {{#if (eq item.system.difficulty "-1")}}
                                 {{localize "wod.labels.varies"}}

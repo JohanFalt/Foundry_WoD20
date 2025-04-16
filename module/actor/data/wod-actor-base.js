@@ -219,7 +219,15 @@ export class WoDActor extends Actor {
     async _onUpdate(updateData, options, user) {
         super._onUpdate(updateData, options, user);   
 
-        const actor = await game.actors.get(updateData._id);
+        let actor;
+
+        actor ??= await game.actors.get(updateData._id);
+
+        if (!actor) {
+            const speaker = ChatMessage.getSpeaker();
+            if ( speaker.token ) actor = await game.actors.tokens[speaker.token];
+            actor ??= game.actors.get(speaker.actor);
+        }
 
         // if no owner skip
         if (actor.permission < 3) {

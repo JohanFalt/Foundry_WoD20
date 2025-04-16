@@ -31,6 +31,19 @@
             <div class="pullLeft"><label for="useWillpower" class="dialog-casting-type-label">{{localize "wod.labels.usewillpower"}}</label></div>
         </div>
 
+        {{#if (or (eq object.dice1 "custom") (eq object.dice2 "custom"))}}
+            <div class="dialog-area">
+                <div class="infobox centerText">
+                    {{#if (eq config.powerAbilities.length 0)}}
+                        {{localize "wod.dialog.power.nopower"}}
+                    {{/if}}
+                    {{#each config.powerAbilities as |ability key|}}
+                        <button id="secondaryability" class="button fullSplatColor pointer dialog-secondaryability-button {{#if (eq ../object.secondaryabilityid ability._id)}}active{{/if}}" value="{{ability._id}}">{{ability.name}}</button>
+                    {{/each}}
+                </div>
+            </div>
+        {{/if}}
+
         {{#if (eq object.type "wod.types.artpower")}}
             <div class="infobox headline splatFont">{{localize "wod.dialog.power.arttype"}}</div>
                 {{#if (eq object.arttype 'wod.labels.both')}}

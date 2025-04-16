@@ -30,6 +30,7 @@
                             {{/if}}
 
                             {{#if (eq data.system.type "wod.types.hekaupower")}}
+                                <option value="custom">- {{localize "wod.labels.custom"}} -</option>
                                 <option disabled>- {{captilize (localize "wod.abilities.talents")}} -</option>
 
                                 {{#each config.talents as | name type|}}                
@@ -127,6 +128,7 @@
                             <option value="">- {{localize "wod.labels.power.noability"}} -</option>
 
                             {{#if (ne data.system.type "wod.types.charm")}}
+                                <option value="custom">- {{localize "wod.labels.custom"}} -</option>
                                 <option disabled>- {{captilize (localize "wod.abilities.talents")}} -</option>
 
                                 {{#each config.talents as | name type|}}                

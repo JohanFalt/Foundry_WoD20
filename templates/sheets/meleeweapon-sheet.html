@@ -123,12 +123,7 @@
 						<div class="pullLeft" style="margin-right: 10px;">
 							<div class="bioInformationArea floating-label-group">
 								<select class="sheet-infoValues smallbox editable" name="system.attack.attribute">
-									{{#select data.system.attack.attribute}}
-										<option value="">- {{localize "wod.labels.select"}} -</option>
-										{{#each config.attackAttributes as | name type|}}
-											<option value="{{type}}">{{localize name}}</option>
-										{{/each}}						
-									{{/select}}
+									{{selectOptions listData.AttackAttributes selected=data.system.attack.attribute localize=false}}
 								</select>
 								<span class="floating-label">{{localize "wod.combat.weapon.attribute"}}</span>
 							</div>	
@@ -137,13 +132,7 @@
 						<div class="pullLeft">
 							<div class="bioInformationArea floating-label-group">
 								<select class="sheet-infoValues smallbox editable" name="system.attack.ability">
-									{{#select data.system.attack.ability}}
-										<option value="">- {{localize "wod.labels.select"}} -</option>
-										<option value="custom">- {{localize "wod.labels.custom"}} -</option>
-										{{#each config.attackMeleeAbilities as | name type|}}
-											<option value="{{type}}">{{localize name}}</option>
-										{{/each}}
-									{{/select}}
+									{{selectOptions listData.AttackAbilities selected=data.system.attack.ability localize=false}}
 								</select>
 								<span class="floating-label">{{localize "wod.combat.weapon.ability"}}</span>
 							</div>	
