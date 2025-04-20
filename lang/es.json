@@ -2,14 +2,15 @@
 	"TYPES.Actor.Changeling": "Changeling: el Ensueño",
 	"TYPES.Actor.Changing Breed": "Razas Cambiantes",
 	"TYPES.Actor.Demon": "Demonio: la Caída",
+	"TYPES.Actor.Exalted": "Exaltado vs MdT",
 	"TYPES.Actor.Hunter": "Cazador: la Venganza",
 	"TYPES.Actor.Mage": "Mago: la Ascensión",
 	"TYPES.Actor.Mortal": "Humanos",
 	"TYPES.Actor.Vampire": "Vampiro: la Mascarada",
 	"TYPES.Actor.Wraith": "Wraith: el Olvido",
+	"TYPES.Actor.Mummy": "Momia: la Resurrección",
 	"TYPES.Actor.Werewolf": "Hombre lobo: el Apocalipsis",
 	"TYPES.Actor.Creature": "Criaturas",
-	"TYPES.Actor.Spirit": "Espíritus",
 	"TYPES.Item.Bonus": "Bonus",
 	"TYPES.Item.Experience": "Puntos de Experiencia",
 	"TYPES.Item.Feature": "Característica",
@@ -35,9 +36,12 @@
 			"werewolf": "Hombre lobo: el Apocalipsis",
 			"mage": "Mago: la Ascensión",
 			"wraith": "Wraith: el Olvido",
+			"mummy": "Momia: la Resurrección",
+			"exalted": "Exaltado vs MdT",
 			"breed": "Razas Cambiantes",
 			"creature": "Criatura",
-			"mortal": "Mortal"
+			"mortal": "Mortal",
+			"orpheus": "Orpheus"
 		},
 		"sheets": {
 			"mortal": "Ficha de mortal",
@@ -48,6 +52,7 @@
 			"hunter": "Ficha de cazador",
 			"demon": "Ficha de demonio",
 			"wraith": "Ficha de Wraith",
+			"mummy": "Ficha de Momia",
 			"breed": "Ficha de Raza Cambiante",
 			"creature": "Ficha de criaturas",
 			"spirit": "Ficha de espíritu",
@@ -62,8 +67,8 @@
 			"victorian": "Edad Victoriana",
 			"wildwest": "Salvaje Oeste ",
 			"darkages": "Edad Oscura",
-			"classical": "Edad Clásica",
-			"livinggods": "La Era de los Dioses Vivientes",
+			"classical": "Época Clásica",
+			"livinggods": "Era de los Dioses Vivientes",
 			"changeera": "¿Estás seguro de que quieres cambiar de época?",
 			"changeerahint": "La ficha ya está configurada para esta época, ¿estás seguro de que deseas resetearla?",
 			"mortaleratext": "Época por defecto para fichas de mortales",
@@ -85,6 +90,8 @@
 			"worldversionhint": "Para saber si se necesita actualizar el Mundo.",
 			"advantagerolls": "Cómo tirar Rasgos de Ventajas",
 			"advantagerollshint": "Usar los valores permanentes (activado) o temporales (desactivado) en tiradas de, p. ej., Fuerza Voluntad. Requiere reiniciar Foundry VTT.",
+			"specialitylevel": "Número de puntos para Especialización",
+			"specialitylevelhint": "Cantidad normal de puntos necesaria para activar una Especialización; por defecto 4.",
 			"attributesettings": "Configuración de los Atributos",
 			"attributesettingshint": "Hay dos opciones: Puedes usar la de edición 20 aniversario, donde tienes Apariencia y Percepción y se calcula Fuerza de Voluntad como estadística (por defecto). O 5ª edición, cambiando Apariencia y Percepción por Compostura y Resolución y calculando Fuerza de Voluntad con Compostura + Resolución.",
 			"observersactorpermission": "Permisos de visualización para espectadores",
@@ -137,6 +144,8 @@
 			"specialityaddsuccesshint": "Sistema por defecto: añade un número de éxitos por cada resultado de '10'",
 			"specialityreducediff": "La Especialización reduce la dificultad",
 			"specialityreducediffhint": "Si se usa, la Especialización reduce la dificultad de la tirada.",
+			"specialityallowbotch": "Los dados de Especialización pueden fracasar",
+			"specialityallowbotchhint": "Si tiras una Habilidad usando una Especialización, esta tirada puede fracasar. Activo por defecto.",
 			"tenaddsuccess": "Los '10' siempre añaden éxitos",
 			"tenaddsuccesshint": "Modifica los '10' para que siempre añadan ciertos éxitos a la tirada.",
 			"explodingdice": "Comportamiento de '10' explosivo",
@@ -147,7 +156,10 @@
 			"erasettings": "Configuración de época",
 			"erasettingshint": "Opciones de mundo relativas a ambientaciones de época",
 			"darkmodesetting": "Modo oscuro",
-			"darkmodesettinghint": "Nota: el modo oscuro requiere actualizar el mundo."
+			"darkmodesettinghint": "Nota: el modo oscuro requiere actualizar el mundo.",
+			"fifthedwillpowersetting": "Fuerza de Voluntad (Sólo 5ª edición)",
+			"fifthedwillpowersettinghint": "Una ampliación de la configuración de Atributos que establece cómo se calcula la puntuación de Fuerza de Voluntad. En 5ª edición ésta se calcula sumando Compostura y Resolución. En 20 aniversario es un Rasgo con valor normal.",
+			"usepenaltydamage": "Aplicar las penalizaciones por heridas a las tiradas de daño"
 		},
 		"types": {
 			"mortal": "Mortal",
@@ -176,6 +188,7 @@
 			"combination": "Combinación de Disciplinas",
 			"art": "Arte",
 			"artpower": "Poder de Arte",
+			"sliver": "Espina",
 			"edge": "Facultad",
 			"edgepower": "Poder de Facultad",
 			"lore": "Saber",
@@ -199,9 +212,88 @@
 			"resonance": "Resonancia",
 			"othertraits": "Otros Rasgos",
 			"apocalypticform": "Forma Apocalíptica",
+			"shapeform": "Forma cambiante",
+			"aspect": "Aspecto",
 			"passion": "Pasión",
+			"darkpassion": "Pasión Oscura",
 			"fetter": "Grillete",
-			"wyrd": "Fantasía"
+			"wyrd": "Fantasía",
+			"hekau": "Hekau",
+			"hekaupower": "Poder de Hekau",
+			"numina": "Númina",
+			"numinapower": "Hechizo/Ritual",
+			"stain": "Mácula",
+			"horror": "Horror",
+			"exaltedcharm": "Encantamiento",
+			"exaltedsorcery": "Hechicería Ancestral",
+			"solar": {
+				"dawn": "Encantamientos del Alba",
+				"zenith": "Encantamientos del Cénit",
+				"twilight": "Encantamientos del Crepúsculo",
+				"night": "Encantamientos de la Noche",
+				"eclipse": "Encantamientos del Eclipse",
+				"special": "Encantamientos Especiales"
+			},
+			"lunar": {
+				"fullmoon": "Encantamientos de la Luna Llena",
+				"changingmoon": "Encantamientos de la Luna Cambiante",
+				"nomoon": "Encantamientos de la Luna Nueva",
+				"shapeshifting": "Encantamientos de Cambios de Forma"
+			},
+			"dragon": {
+				"air": "Encantamientos del Aire",
+				"earth": "Encantamientos de la Tierra",
+				"fire": "Encantamientos del Fuego",
+				"water": "Encantamientos del Agua",
+				"wood": "Encantamientos de la Madera"
+			},
+			"sidereal": {
+				"journey": "Encantamientos del Viaje",
+				"serenity": "Encantamientos de la Serenidad",
+				"battle": "Encantamientos de la Batalla",
+				"secret": "Encantamientos de los Secretos",
+				"ending": "Encantamientos de los Finales",
+				"border": "El Límite Caleidoscópico",
+				"hand": "La Mano de Mercurio",
+				"march": "La Marcha de Carbón",
+				"shard": "Los Fragmentos Obsidiana",
+				"prismatic": "La Disposición Prismática",
+				"veil": "El Velo de Zafiro",
+				"scarlet": "Los Campos de Batalla Escarlata"
+			},
+			"abyssal": {
+				"dusk": "Encantamientos del Ocaso",
+				"midnight": "Encantamientos de la Medianoche",
+				"daybreak": "Encantamientos del Amanecer",
+				"day": "Encantamientos del Día",
+				"moonshadow": "Enccantamientos de Sombra Lunar"
+			},
+			"infernal": {
+				"general": "Encantamientos Generales",
+				"realm": "Encantamientos del Reino Nocturno",
+				"lanka": "Encantamientos de Lanka: ciudad demoníaca de los Rakshas",
+				"skinned": "Encantamientos del Desuello Vivo",
+				"city": "Encantamientos de la Ciudad Perversa",
+				"boiling": "Encantamientos del Infierno del Aceite Hirviente",
+				"burrowing": "Encantamientos del Infierno de los Gusanos Horadores"
+			},
+			"alchemical": {
+				"general": "Encantamientos Generales",
+				"combat": "Encantamientos de Combate",
+				"physical": "Encantamientos de Mejora Física",
+				"social": "Encantamientos Sociales",
+				"stealth": "Encantamientos de Sigilo y Disfraz",
+				"analytic": "Encantamientos Analíticos y Cognitivos",
+				"utility": "Encantamientos de Utilidad",
+				"spirit": "Encantamientos Espirituales"
+			},
+			"liminal": {
+				"blood": "Encantamientos de la Sangre",
+				"breath": "Encantamientos del Aliento",
+				"fleash": "Encantamientos de la Carne",
+				"marrow": "Encantamientos de la Médula",
+				"soil": "Encantamientos de la Tierra Fúnebre"
+			}
 		},
 		"tab": {
 			"bio": "Biografía",
@@ -218,7 +310,11 @@
 			"edge": "Facultades",
 			"lore": "Saberes",
 			"death": "Muerte",
+			"hekau": "Hekau",
+			"numina": "Númina",
+			"exaltedcharm": "Encantamientos",
 			"shapechange": "Cambio de Forma",
+			"effect": "Efectos",
 			"settings": "Configuración",
 			"sheet": "Configuración de ficha",
 			"attribute": "Configuración de Atributos"
@@ -439,13 +535,19 @@
 				"sire": "Sire",
 				"weakness": "Debilidad",
 				"lowergeneration": "Reducir Generación temporalmente",
-				"cleargeneration": "Borrar Generación temporal"
+				"cleargeneration": "Borrar Generación temporal",
+				"kindredeast": "Estirpe de Oriente",
+				"balance": "Equilibrio",
+				"ponature": "Naturaleza P’o",
+				"direction": "Dirección",
+				"wu": "Wu"
 			},
 			"mage": {
 				"affiliation": "Afiliación",			
 				"essence": "Esencia",
 				"sect": "Secta",
 				"affinitysphere": "Esfera Afín",
+				"affinity": "Afinidad",
 				"tradition": "Tradición",
 				"technocracy": "Tecnocracia",
 				"disparate": "Disparate",
@@ -620,12 +722,43 @@
 				"darkpassions": "Pasiones Oscuras",
 				"psychewillpower": "Fuerza de Voluntad de la Psique"
 			},
+			"mummy": {
+				"amenti": "Amenti",
+				"hamartia": "Hamartia",
+				"inheritance": "Herencia",
+				"rebirth": "Renacimiento"
+			},
+			"exalted": {
+				"solar": "Exaltado Solar",
+				"lunar": "Exaltado Lunar",
+				"dragon": "Exaltado Sangre de Dragón",
+				"sidereal": "Exaltado Sideral",
+				"abyssal": "Exaltado Abisal",
+				"infernal": "Exaltado Infernal",
+				"alchemical": "Exaltado Alquímico",
+				"liminal": "Exaltado Liminar",
+				"urge": "Impulso",
+				"caste": "Casta",
+				"anima": "Ánima",
+				"circle": "Círculo",
+				"favored": "Encantamientos Predilectos",
+				"intimacy": "Intimidad",
+				"crown": "Corona",
+				"animapowers": "Poderes de Ánima"
+			},
+			"orpheus": {
+				"shade": "Sombra",
+				"lament": "Lamento",
+				"role": "Rol"
+			},
 			"mortal": {
 				"autumnpeople": "Gente de Otoño",
 				"enchanted": "Encantado",
 				"ghoul": "Ghoul",
 				"kinfolk": "Parentela",
-				"truefaith": "Fe Verdadera"
+				"truefaith": "Fe Verdadera",
+				"orpheus": "Orpheus",
+				"sorcerer": "Hechicero"
 			},
 			"creature": {
 				"chimera": "Quimera",
@@ -636,7 +769,8 @@
 				"anurana": "Anurana",
 				"samsa": "Samsa",
 				"kerasi": "Kerasi",
-				"yeren": "Yeren"
+				"yeren": "Yeren",
+				"earthbound": "Encadenado"
 			}
 		},
 		"attributes": {
@@ -669,6 +803,10 @@
 				"stamina": "Modif. de Resistencia",
 				"manipulation": "Modif. de Manipulación",
 				"appearance": "Modif. de Apariencia"
+			},
+			"diff": {
+				"perception": "Dificultad de Percepción",
+				"wits": "Dificultad de Astucia"
 			}
 		},
 		"abilities": {
@@ -750,6 +888,7 @@
 		},		
 		"health": {
 			"health": "Salud",
+			"uninjured": "Ileso",
 			"bruised": "Magullado",
 			"hurt": "Lastimado",
 			"injured": "Lesionado",
@@ -757,6 +896,11 @@
 			"mauled": "Malherido",
 			"crippled": "Tullido",
 			"incapacitated": "Incapacitado",
+			"broken": "Destrozado/Quemado",
+			"crushed": "Aplastado/Abrasado",
+			"dismembered": "Desmembrado/Calcinado",
+			"pulverized": "Pulverizado/Incinerado",
+			"dust": "Polvo/Cenizas",
 			"bashing": "Contundente",
 			"lethal": "Letal",
 			"aggravated": "Agravado",
@@ -804,6 +948,7 @@
 			},
 			"bloodpool": "Reserva de Sangre",
 			"perturn": "Sangre por turno",
+			"faithpool": "Reserva de Fe",
 			"bearing": "Porte",
 			"renown": "Renombre",
 			"glory": "Gloria",
@@ -822,6 +967,7 @@
 			"valor": "Valor",
 			"harmony": "Armonía",
 			"innovation": "Innovación",
+			"power": "Poder",
 			"rank": "Rango",
 			"ranknames": {
 				"garou": {
@@ -899,7 +1045,23 @@
 			"apocalypticforms": "Formas Apocalípticas",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
-			"angst": "Angustia"
+			"angst": "Angustia",
+			"vitality": "Vitalidad",
+			"spite": "Rencor",
+			"balance": "Equilibrio",
+			"sekhem": "Sekhem",			
+			"essencepool": "Reserva de Esencia",
+			"essenceperturn": "Esencia por turno",
+			"limitbreak": "Condición de Límite",
+			"limit": "Límite",
+			"yinchi": "Chi Yin",
+			"yin": "Yin",
+			"yang": "Yang",
+			"yangchi": "Chi Yang",
+			"dharma": "Dharma",
+			"hun": "Hun",
+			"po": "P’o",
+			"demonchi": "Chi Demoníaco"
 		},
 		"combat": {
 			"conditions": {
@@ -1043,6 +1205,8 @@
 			"unsortedarts": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Arte. Clic en el título para ordenar uno.",
 			"unsortededges": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a una Facultad. Clic en el título para ordenar uno.",
 			"unsortedlores": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Saber. Clic en el título para ordenar uno.",
+			"unsortedhekaus": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a una Hekau. Clic en el título para ordenar uno.",
+			"unsortednuminas": "Aquí están todos los Poderes sin ordenar que necesitan ser asignados a un Numen. Clic en el título para ordenar uno..",
 			"arts": "Artes",
 			"slivers": "Espinas",
 			"edges": "Facultades",
@@ -1055,7 +1219,13 @@
 			"ritualcategory": "Categoría (Escuela de Magia)",
 			"arcanoi": "Arcanoi",
 			"passions": "Pasiones",
-			"fetters": "Grilletes"
+			"fetters": "Grilletes",
+			"hekaus": "Hekau",
+			"numinas": "Númina",
+			"horrors": "Horrores",
+			"stains": "Máculas",
+			"exaltedcharm": "Encantamientos",
+			"exaltedsorcery": "Hechicería Ancestral"
 		},
 		"spheres": {
 			"spheres": "Esferas",
@@ -1110,7 +1280,13 @@
 			"periapt": "Periapto",
 			"matrix": "Matriz",
 			"trinket": "Baratija",
-			"contains": "Contiene"
+			"contains": "Contiene",
+			"name": "Nombre",
+			"type": "Tipo"
+		},
+		"effects": {
+			"origin": "Orígen",
+			"area": "Área"
 		},
 		"notes": {
 			"unnamedbackground": "Trasfondo sin nombre",
@@ -1145,6 +1321,8 @@
 			"specialty": "Especialidad",			
 			"select": "Escoger",
 			"noneselect": "Nada seleccionado",
+			"sheetsetting": "Ajuste por defecto de ficha",
+			"nosetting": "Sin definir (negro)",
 			"custom": "Habilidad secundaria",
 			"custompath": "Senda personalizada",
 			"customtribe": "Tribu personalizada",
@@ -1175,6 +1353,7 @@
 			"other": "Otros",
 			"both": "Ambos",
 			"nochange": "Sin cambio",
+			"usewillpower": "Usar Fuerza de Voluntad",
 			"bio": {
 				"wronggeneration": "Generación no válida",
 				"wrongtempgeneration": "No se puede bajar de Cuarta Generación",
@@ -1194,14 +1373,17 @@
 				"rollable": "Tirable",
 				"combat": "Usado en combate",
 				"system": "Sistema",
-				"cleardiscipline": "Limpiar conexiones de Disciplina",
-				"clearpath": "Limpiar conexiones de Senda",
-				"clearart": "Limpiar conexiones de Arte",
-				"clearedge": "Limpiar conexiones de Facultad",
-				"clearlore": "Limpiar conexiones de Saber",
-				"cleararcanoi": "Limpiar conexiones de Arcanos",
+				"cleardiscipline": "Quitar conexiones de Disciplina",
+				"clearpath": "Quitar conexiones de Senda",
+				"clearart": "Quitar conexiones de Arte",
+				"clearedge": "Quitar conexiones de Facultad",
+				"clearlore": "Quitar conexiones de Saber",
+				"cleararcanoi": "Quitar conexiones de Arcanos",
+				"clearhekau": "Quitar conexiones de Hekau",
+				"clearnumina": "Quitar conexiones de Númina",
 				"disconnect": "Desenlazar Poder",
 				"disconnectlabel": "Desenlazando Poder",
+				"charmtypes": "Tipos de Encantamientos",
 				"removebonus": {
 					"art": "Eliminar Poderes relacionados al Arte",
 					"sliver": "Eliminar Poderes relacionados a la Espina",
@@ -1209,7 +1391,9 @@
 					"edge": "Eliminar Poderes relacionados a la Facultad",
 					"discipline": "Eliminar Poderes relacionados a la Disciplina",
 					"path": "Eliminar Poderes relacionados a la Senda",
-					"arcanoi": "Eliminar Poderes relacionados al Arcanos"
+					"arcanoi": "Eliminar Poderes relacionados al Arcanos",
+					"hekau": "Eliminar Poderes relacionados al Hekau",
+					"numina": "Eliminar Poderes relacionados al Numen"
 				}
 			},
 			"notes": {
@@ -1236,14 +1420,17 @@
 				"usedpowers": "Determinar qué tipo de Poderes está usando la ficha",
 				"essencevalue": "Determinar valor de Esencia",
 				"sheetfont": "Usar fuente especial de ficha",
+				"dice": "Configuración de dados",
+				"dicehint": "Te permite redefinir el color de los dados de la ficha.",
 				"secondaryabilities": "Habilidades secundarias",
 				"abilitiesmaxrating": "Puntuación máxima en Habilidades",
 				"hasdisciplines": "Tiene Disciplinas y Rituales",
 				"hasgifts": "Tiene Dones y Ritos",
 				"haspowers": "Tiene Poderes especiales",
+				"hasnumina": "Tiene Númina",
 				"setdarkages": "¡Ficha configurada para Edad Oscura!",
-				"setclassical": "¡Ajusta el juego de sábanas a la era de los Edad Clásicas!",
-				"setlivinggods": "Juego de sábanas establecido para la era de los Dioses Vivientes! ",
+				"setclassical": "¡Ficha configurada para Época Clásica!",
+				"setlivinggods": "¡Ficha configurada para Era de los Dioses Vivientes!",
 				"setvictorian": "¡Ficha configurada para Edad Victoriana!",
 				"setwildwest": "¡Ficha configurada para el Salvaje Oeste!",
 				"setmodern": "¡Ficha configurada para la época actual!",
@@ -1260,17 +1447,23 @@
 					"headline": "Época (ambientación histórica)",
 					"modern": "Actual (20 aniv.)",
 					"victorian": "Edad Victoriana (20 aniv.)",
-					"classical": "Edad Clásica (20 aniv.)",
-					"livinggods": "Era de los Dioses Vivos (20 aniv.)",
+					"classical": "Época Clásica (20 aniv.)",
+					"livinggods": "Era de los Dioses Vivientes (20 aniv.)",
 					"wildwest": "Salvaje Oeste (20 aniv.)",
 					"darkages": "Edad Oscura (20 aniv.)",
 					"infoone": "Cambiar esto significa que las Habilidades de la ficha se reconfigurarán para encajar en el área.",
 					"infotwo": "Esto podría ocasionar que Habilidades ya en uso queden ocultas."
+				},
+				"power": {
+					"maxrating": "Puntuación máxima en Poderes",
+					"maxratinghint": "Establece la puntuación máxima que puede tenert un Poder.",
+					"bonusmaxrating": "Bonif. al Poder máximo"
 				}
 			},
 			"trait": {
 				"meleeweapon": "Usar para arma C. C.",
 				"rangedweapon": "Usar para arma a distancia",
+				"power": "Habilidad de Poder",
 				"reference": "Referencia"
 			},
 			"feature": {
@@ -1294,7 +1487,9 @@
 				"abilitydiff": "Dificultad de la Habilidad",
 				"abilitydiffhint": "Este modificador cambia la dificultad de cualquier tirada que use la Habilidad.",
 				"soakbonus": "Bonus de absorción",
-				"soakbonushint": "Este modificador cambiar la cantidad de dados de la reserva para cualquiera tirada de absorción.",
+				"soakbonushint": "Este modificador cambia la cantidad de dados de la reserva para cualquiera tirada de absorción.",
+				"soakdiffbonus": "Modif. a la dificultad de absorción",
+				"soakdiffbonushint": "Este modificador cambia la dificultad para tener éxito con las tiradas de absorción.",
 				"healthbuff": "Niveles de Salud adicionales",
 				"healthbuffhint": "Este modificador añade tantos niveles de Salud Magullado como puntuación tenga el personaje.",
 				"initbonus": "Bonus de iniciativa",
@@ -1309,7 +1504,9 @@
 				"savefail": "¡Fallo al guardar los cambios de modificadores!"
 			},
 			"new": {
+				"create": "Crear objeto",
 				"notfound": "Este tipo de objeto no existe",
+				"alreadyexists": "Ya existe en la ficha",
 				"armor": "Nueva Armadura",
 				"naturalweapon": "Nueva arma natural",
 				"meleeweapon": "Nueva arma cuerpo a cuerpo",
@@ -1366,7 +1563,17 @@
 				"arcanoi": "Nuevo Arcanos",
 				"arcanoipower": "Nuevo Poder de Arcanos",
 				"passion": "Nueva Pasión",
-				"fetter": "Nuevo Grillete"
+				"darkpassion": "Nueva Pasión Oscura",
+				"fetter": "Nuevo Grillete",
+				"hekau": "Nueva Hekau",
+				"hekaupower": "Nuevo Poder de Hekau",
+				"numina": "Nuevo Numen",
+				"numinapower": "Nuevo Ritual/Hechizo",
+				"stain": "Nueva Mácula",
+				"horror": "Nuevo Horror",
+				"ancientsorcery": "Nueva Hechicería Ancestral",
+				"shapeform": "Nueva Forma Cambiante",
+				"description": "Selecciona el tipo de objeto que deseas añadir a la ficha haciendo click en el botón inferior correspondiente."
 			},
 			"add": {
 				"naturalweapon": "Añadir arma natural",
@@ -1413,9 +1620,17 @@
 				"arcanoi": "Añadir Arcanos",
 				"arcanoipower": "Añadir Poder de Arcanos",
 				"passion": "Añadir Pasión",
-				"fetter": "Añadir Grillete"
+				"fetter": "Añadir Grillete",
+				"hekau": "Añadir Hekau",
+				"hekaupower": "Añadir Poder de  Hekau",
+				"numina": "Añadir Numen",
+				"numinapower": "Añadir Ritual/Hechizo",
+				"item": "Añadir objeto",
+				"horror": "Añadir Horror",
+				"stain": "Añadir Mácula"
 			},
 			"edit": {
+				"headline": "Editar",
 				"naturalweapon": "Editar arma natural",
 				"meleeweapon": "Editar arma cuerpo a cuerpo",
 				"rangedweapon": "Editar arma a distancia",
@@ -1463,9 +1678,16 @@
 				"arcanoi": "Editar Arcanos",
 				"arcanoipower": "Editar Poder de Arcanos",
 				"passion": "Editar Pasión",
-				"fetter": "Editar Grillete"
+				"fetter": "Editar Grillete",
+				"hekau": "Editar Hekau",
+				"hekaupower": "Editar Poder de Hekau",
+				"numina": "Editar Numen",
+				"numinapower": "Editar Ritual/Hechizo",
+				"horror": "Editar Horror",
+				"stain": "Editar Mácula"
 			},
 			"remove": {
+				"headline": "Eliminar",
 				"item": "Quitar Objeto",
 				"removing": "Quitando",
 				"naturalweapon": "Quitar Arma natural",
@@ -1512,7 +1734,13 @@
 				"arcanoi": "Quitar Arcanos",
 				"arcanoipower": "Quitar Poder de Arcanos",
 				"passion": "Quitar Pasión",
-				"fetter": "Quitar Grillete"
+				"fetter": "Quitar Grillete",
+				"hekau": "Quitar Hekau",
+				"hekaupower": "Quitar Poder de Hekau",
+				"numina": "Quitar Numen",
+				"numinapower": "Quitar Ritual/Hechizo",
+				"horror": "Quitar Horror",
+				"stain": "Quitar Mácula"
 			},
 			"show": {
 				"background": "Mostrar Trasfondos",
@@ -1545,8 +1773,10 @@
 				"healthpenalty": "Penalizador — Penalizador por heridas del personaje para ese nivel"
 			},
 			"items": {
-				"spheres": "Rellena qué Esferas y qué niveles necesitas para conjurar esta Fórmula"
-			}
+				"spheres": "Rellena qué Esferas y niveles necesitas para conjurar esta Fórmula"
+			},
+			"changelog": "Registro de cambios",
+			"wiki": "Wiki"
 		},
 		"dice": {
 			"activate": "Tira para activar",
@@ -1567,7 +1797,9 @@
 			"rollingsoak": "Tirada de absorción",
 			"rollingremainactive": "Tirada para permanecer activo y consciente",
 			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito.",
-			"addedautosucc": "La tirada añade {0} éxitos automáticos"
+			"addedautosucc": "La tirada añade {0} éxitos automáticos",
+			"usingwillpower": "Usando Fuerza de Voluntad",
+			"favored": "Tirada predilecta"
 		},
 		"dialog": {	
 			"save": "Guardar",
@@ -1680,13 +1912,15 @@
 				"nightmaredice": "Dados de Pesadilla",
 				"missingrealm": "Debes seleccionar un Reino",
 				"arttype": "Tipo de Arte",
-				"noarttype": "Art type not selected on used Art",
+				"noarttype": "Tipo de Arte no seleccionado",
 				"shiftnightmaredice": "Cambio de dado de Pesadilla",
 				"notset": "No configurado",
 				"selectpower": "Selecciona Poder al que conectarse",
 				"disciplineneeded": "Disciplinas requeridas",
 				"savecombination": "Guardar Combinación de Disciplinas",
-				"removecombination": "Quitar Combinación de Disciplinas"
+				"removecombination": "Quitar Combinación de Disciplinas",
+				"nopower": "No existen Habilidades secundarias de Poder en la ficha",
+				"secondarynotselected": "Habilidad secundaria no seleccionada"
 			},
 			"attribute": {
 				"speciality": "Especialización",
@@ -1703,9 +1937,10 @@
 				"chosenattribute": "Atributo elegido",
 				"movement": "Tipo de movimiento",
 				"name": "Nombre",
-				"type": "Tipo",
 				"bonusvalue": "Valor del modificador",
-				"bonuses": "Modificadores"
+				"bonuses": "Modificadores",
+				"healthleveltype": "Tipo de nivel de Salud",
+				"section": "Sección"
 			},
 			"variant": {
 				"sheettype": "Selecciona el modelo de ficha",
@@ -1713,6 +1948,7 @@
 				"general": "Modelo base",
 				"changeling": "Changeling estándar",
 				"mortal": "Mortal estándar",
+				"vampire": "Vampiro estándar",
 				"wraith": "Wraith estándar",
 				"creature": "Criatura genérica",
 				"info": "Esta opción establece qué variante de hoja de personaje se usa.",

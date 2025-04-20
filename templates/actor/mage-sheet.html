@@ -59,7 +59,7 @@
 					<div class="clearareaBox" style="display: flex;">
 						<div class="sheet-boxcontainer">
 
-							<div class="pullLeft" style="width: 33%; height: 269px; display: flex; flex-direction: column;">
+							<div class="pullLeft {{#if (eqAny true data.system.settings.haspath data.system.settings.hasvirtue data.system.settings.hasbloodpool)}}advantageFullArea{{else}}advantageArea{{/if}}">
 					
 								{{> "systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html"}}
 	

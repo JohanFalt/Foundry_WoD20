@@ -147,7 +147,9 @@
 								
 								{{#if data.system.settings.hasbloodpool}}         
 									<div style="margin-top: auto;">
-										{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}                           -->
+										{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}     
+
+										<div class="information-area centerText">{{localize "wod.advantages.perturn"}}: {{data.system.advantages.bloodpool.perturn}}</div>
 									</div>                           
 								{{/if}}
 						

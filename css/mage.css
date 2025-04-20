@@ -123,6 +123,24 @@
   background-position: center;
   margin-bottom: 10px; 
 } 
+
+.mage div.tempSquareRow {
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.mage div.advantageArea {
+  width: 33%;   
+  display: flex; 
+  flex-direction: column;
+  height: 269px; 
+}
+
+.mage div.advantageFullArea {  
+  width: 33%;   
+  display: flex; 
+  flex-direction: column;
+}
   
 /* quintessence */
 .quintessence .resource-counter .resource-value-step[data-state="Ψ"] {

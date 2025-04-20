@@ -271,6 +271,17 @@ export const registerHandlebarsHelpers = function () {
 		}
 		return false;
 	});
+	
+	Handlebars.registerHelper('eqAll', function () {
+		for(let i = 1; i < arguments.length; i++) {
+		  	if(arguments[0] === arguments[i]) {
+		  	}
+			else {
+				return false;
+			}
+		}
+		return true;
+	});
 
 	Handlebars.registerHelper('neAny', function () {
 		for(let i = 1; i < arguments.length; i++) {
@@ -280,6 +291,7 @@ export const registerHandlebarsHelpers = function () {
 		}
 		return true;
 	});
+
 
 	Handlebars.registerHelper('eqAnyNot', function () {
 		let found = false;

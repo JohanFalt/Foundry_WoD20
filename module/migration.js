@@ -2542,6 +2542,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.9')) {
+            newfunctions += '<li>Updated the Spanish language.</li>';
+            newfunctions += '<li>[MtA] Fixed bug on Mage sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1093">[#1093]</a></li>';
+            newfunctions += '<li>[WtA] Fixed bug on Changing breed sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1094">[#1094]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.2.8')) {
             newfunctions += '<li>Fixed a bug that caused an unlicked Token not update its sheet correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1085">[#1085]</a></li>';
             newfunctions += '<li>[Orpheus] Fixed so Spite is correctly displayed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1084">[#1084]</a></li>';
