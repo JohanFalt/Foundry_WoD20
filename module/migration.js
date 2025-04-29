@@ -2542,6 +2542,18 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.10')) {
+            newfunctions += '<li>Hint text for health level bonus was wrong. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1100">[#1100]</a></li>';
+            newfunctions += '<li>Hint text and background color for tooltip fixed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1091">[#1091]</a></li>';
+            newfunctions += '<li>Wound Penalty are not calculated in your initiative roll. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1074">[#1074]</a></li>';
+            newfunctions += '<li>[CtD] If sheet was in narrow state Damage was crunched. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1102">[#1102]</a></li>';
+            newfunctions += '<li>[MtA] Rotes now have System description. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1075">[#1075]</a></li>';
+            newfunctions += '<li>[VtM] Vampire Classical Era and Age of Living Gods Era did display weapon sheets as Dark Ages era. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1103">[#1103]</a></li>';
+            newfunctions += '<li>[WtA] Changing Breed sheet did not display Path or Virtue if selected. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1097">[#1097]</a></li>';
+            newfunctions += '<li>[Creature] Quintessence was not displayed if selected. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1098">[#1098]</a></li>';
+
+        }
+
         if (_compareVersion(installedVersion, '4.2.9')) {
             newfunctions += '<li>Updated the Spanish language.</li>';
             newfunctions += '<li>[MtA] Fixed bug on Mage sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1093">[#1093]</a></li>';

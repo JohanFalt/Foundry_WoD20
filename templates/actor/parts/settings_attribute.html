@@ -331,6 +331,28 @@
             </div>
             
         {{/if}}   
+
+        {{#if data.system.settings.hasquintessence}}
+
+            <div class="sheet-area flex-columns" style="margin-top: 10px;">
+                <div class="clearareaBox">
+                    <div class="headlineGroup splatFont">{{localize 'wod.advantages.quintessence'}}</div>
+
+                    <div class="clearareaBox">
+                        <label for="data.system.advantages.quintessence.max" class="pullLeft headlineNormal" style="width: 150px;" 
+                                data-label="{{data.system.advantages.quintessence.max}}" 
+                                    data-ability="true">{{localize "wod.labels.maxvalue"}}</label>
+                            <input class="pullLeft sheet-infoValues numberBox {{#if (eq locked false)}}editable{{/if}}" 
+                                name="system.advantages.quintessence.max" 
+                                type="text" 
+                                value="{{data.system.advantages.quintessence.max}}" 
+                                data-name="data.system.advantages.quintessence.max" 
+                                data-dtype="Number" {{#if locked}} readonly {{/if}} />
+                    </div>
+                </div>
+            </div>
+            
+        {{/if}}
     {{/if}} 
 {{/if}}		
 

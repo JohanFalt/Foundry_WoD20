@@ -130,6 +130,10 @@
     width: 	140px;
 }
 
+.changeling div.healthBox {
+    padding-right: 15px;
+}
+
 /* START - Combat */
 
 .changeling .armor-type-width {

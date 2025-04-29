@@ -145,6 +145,18 @@
 									{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 								</div>
 								
+								{{#if data.system.settings.haspath}}
+									<div style="margin-top: auto;">
+										{{{getGetStatArea actor actor.system.advantages.path "path" true true false}}}
+									</div>
+								{{/if}}
+
+								{{#if data.system.settings.hasvirtue}}
+									<div style="margin-top: auto;">
+										{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.html"}}
+									</div>
+								{{/if}}
+								
 								{{#if data.system.settings.hasbloodpool}}         
 									<div style="margin-top: auto;">
 										{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}     

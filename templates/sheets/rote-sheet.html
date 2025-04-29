@@ -235,21 +235,8 @@
             </div>    
             
             {{> "systems/worldofdarkness/templates/sheets/parts/item_bonus.html"}}
-            
-            <!-- description -->
-			<div class="dialog-area">
-				<div class="clearareaBox">
-					<div class="headlineItem headlineBio splatFont">{{localize "wod.labels.description"}}</div>
-				</div>
-				<div class="infobox">
 
-					{{#if locked}}
-						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
-					{{else}}
-						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
-					{{/if}}
-				</div>
-			</div>            
+            {{> "systems/worldofdarkness/templates/sheets/parts/power_description.html"}}         
 
 		</section>
 

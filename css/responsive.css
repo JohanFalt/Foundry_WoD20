@@ -26,11 +26,17 @@
   border-color: var(--main-full-color);
 }
 
-.wod20 .tooltip .tooltiptext,
 .resource-value-static .resource-value-static-step.active {
   background-color: var(--main-full-color);
   color: white;
+  
 }
+
+.wod20 .tooltip .tooltiptext {
+  background-color: white;
+  color: black;
+}
+
 
 .item-row-area {
   border-bottom: 1px solid var(--main-full-color);

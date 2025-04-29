@@ -55,6 +55,10 @@
 			{{{getGetStatArea actor actor.system.advantages.banality "banality" true true true}}}
 		{{/if}}
 
+		{{#if data.system.settings.hasquintessence}}
+			{{{getGetStatArea actor actor.system.advantages.quintessence "quintessence" false false true}}}
+		{{/if}}
+
         {{#if actor.system.settings.hasessence}}
 			{{{getGetStatArea actor actor.system.advantages.essence "essence" false false true}}}
 		{{/if}}

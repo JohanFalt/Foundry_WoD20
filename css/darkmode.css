@@ -161,6 +161,11 @@
     margin-right: 2px;
 }
 
+.dark-theme.wod-sheet .tooltip .tooltiptext {
+    background-color: black;
+    color: white;
+}
+
 .dark-theme.wod-sheet.mage .sheet-banner-small,
 .dark-theme.wod-sheet.vampire .sheet-banner-small {
     background: transparent;

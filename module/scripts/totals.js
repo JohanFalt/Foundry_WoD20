@@ -214,7 +214,14 @@ export async function calculateTotals(updateData) {
 	if (updateData.system.settings.variant != "spirit") {
 		// intitiative totals
 		updateData.system.initiative.base = parseInt(updateData.system.attributes.dexterity.total) + parseInt(updateData.system.attributes.wits.total);
-		updateData.system.initiative.total = parseInt(updateData.system.initiative.base) + parseInt(updateData.system.initiative.bonus);
+
+		let woundpenalty = parseInt(updateData.system.health.damage.woundpenalty);
+
+		if (updateData.system.conditions.isignoringpain) {
+			woundpenalty = 0;
+		}
+
+		updateData.system.initiative.total = parseInt(updateData.system.initiative.base) + parseInt(updateData.system.initiative.bonus) + woundpenalty;
 
 		//bonus initiative
 		if (await BonusHelper.CheckInitiativeBuff(updateData)) {

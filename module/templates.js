@@ -916,6 +916,65 @@ export const registerHandlebarsHelpers = function () {
 		return listhtml;
 	});
 
+	Handlebars.registerHelper("getToolTipRote", function (description, detail, actor, item) {
+		let listhtml = "";
+		let descriptionhtml = "";
+				
+		if (description != "") {
+			descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${description}`;
+		}
+
+		let detailshtml = "";
+
+		if (detail != "") {
+			detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${detail}`;					
+		}
+
+		if ((descriptionhtml != "") || (detailshtml != "")) {
+			let description = descriptionhtml + detailshtml;
+			let spheredescription = "";
+
+			if (item.system.correspondence > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.correspondence.label)} (${item.system.correspondence})</div>`;
+			}
+			if (item.system.entropy > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.entropy.label)} (${item.system.entropy})</div>`;
+			}
+			if (item.system.forces > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.forces.label)} (${item.system.forces})</div>`;
+			}
+			if (item.system.life > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.life.label)} (${item.system.life})</div>`;
+			}
+			if (item.system.matter > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.matter.label)} (${item.system.matter})</div>`;
+			}
+			if (item.system.mind > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.mind.label)} (${item.system.mind})</div>`;
+			}
+			if (item.system.prime > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.prime.label)} (${item.system.prime})</div>`;
+			}
+			if (item.system.spirit > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.spirit.label)} (${item.system.spirit})</div>`;
+			}
+			if (item.system.time > 0) {
+				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.time.label)} (${item.system.time})</div>`;
+			}
+
+			description += spheredescription;
+
+			listhtml = `
+				<div class="pullLeft pointer headlineNormal tooltip">
+					<i class="icon fa-solid fa-memo"></i>
+					<span class="tooltiptext">${description}</span>
+	
+				</div>`;
+		}
+
+		return listhtml;
+	});
+
 	Handlebars.registerHelper("getConnectedItemList", function (actor, type, variant, parentid) {
 		let list = [];
 		let items = (actor.items.filter(i => i.type === type && i.system.type === variant && i.system.parentid === parentid));
@@ -1457,7 +1516,7 @@ export const registerHandlebarsHelpers = function () {
 				}
 			}
 
-			if (era == CONFIG.worldofdarkness.era.darkages) {
+			if ((era == CONFIG.worldofdarkness.era.darkages) || (era == CONFIG.worldofdarkness.era.classical) || (era == CONFIG.worldofdarkness.era.livinggods)) {
 				if (conceal == "P") {
 					conceal = game.i18n.localize("wod.combat.weapon.conceal.pouch");
 				}
