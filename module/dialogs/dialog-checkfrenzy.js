@@ -254,7 +254,7 @@ export class DialogCheckFrenzy extends FormApplication {
         if (this.actor.system.renown.rank == 3) {
             difficulty = baseDifficulty + 1;
         }
-        if (this.actor.system.renown.rank >= 4) {
+        else if (this.actor.system.renown.rank >= 4) {
             difficulty = baseDifficulty + 2;
         }
         else {

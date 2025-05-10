@@ -2542,6 +2542,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.11')) {
+            newfunctions += '<li>[WTA] Bug that caused rank 3 Werewolves to have wrong difficulty when rolling for frenzy. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1119">[#1119]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.2.10')) {
             newfunctions += '<li>Hint text for health level bonus was wrong. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1100">[#1100]</a></li>';
             newfunctions += '<li>Hint text and background color for tooltip fixed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1091">[#1091]</a></li>';
