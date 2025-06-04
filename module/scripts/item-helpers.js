@@ -9,7 +9,10 @@ export default class ItemHelper {
 				(item.system.type == "wod.types.artpower") ||
 				(item.system.type == "wod.types.edgepower") ||
 				(item.system.type == "wod.types.lorepower") ||
-				(item.system.type == "wod.types.arcanoipower")) {
+				(item.system.type == "wod.types.arcanoipower") ||
+				(item.system.type == "wod.types.hekaupower") ||
+				(item.system.type == "wod.types.numinapower")	
+			) {
 			for (const i of actor.items) {
 				if (i.name.toLowerCase() == item.system.parentid.toLowerCase()) {
 					id = i._id;

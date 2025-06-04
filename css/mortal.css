@@ -15,7 +15,7 @@
 .mortal:not(.noSplatFont) .splatFont,
 .mortalDialog:not(.noSplatFont) .splatFont,
 .mortalItem:not(.noSplatFont) .splatFont {
-	/* font-family: "mortal", var(--main-font); */
+	/* font-family: "mortal", var(--main-font); (exalteds är snyggare) */          
     font-family: "exalted", var(--main-font);
 }
 
