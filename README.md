@@ -1,3 +1,5 @@
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v4.2.12/v4.2.12.zip)
+
 ![](https://img.shields.io/badge/Foundry-v12-informational)
 
 # World of Darkness 20th ed
