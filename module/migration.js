@@ -2542,6 +2542,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '4.2.12')) {
+            newfunctions += '<li>Numen spells and Henkupowers did not keep the set connection to their main powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1131">[#1131]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '4.2.11')) {
             newfunctions += '<li>[WTA] Bug that caused rank 3 Werewolves to have wrong difficulty when rolling for frenzy. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1119">[#1119]</a></li>';
         }
