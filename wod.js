@@ -10,6 +10,7 @@ import * as WoDSetup from "./module/scripts/wodsetup.js";
 import { WoDActor } from "./module/actor/data/wod-actor-base.js";
 import { WoDItem } from "./module/items/data/wod-item-base.js";
 
+//import { MortalActorSheet } from "./module/actor/template/mortal-actor-sheet2.js";
 import { MortalActorSheet } from "./module/actor/template/mortal-actor-sheet.js";
 import { WerewolfActorSheet } from "./module/actor/template/werewolf-actor-sheet.js";
 import { MageActorSheet } from "./module/actor/template/mage-actor-sheet.js";
@@ -180,75 +181,75 @@ Hooks.once("init", async function() {
 	console.log("WoD | Classes Registered");
 
 	// Register sheet application classes
-	Actors.unregisterSheet("core", ActorSheet);
-	
-	Actors.registerSheet("WoD", MortalActorSheet, {
+	foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet)
+
+	foundry.documents.collections.Actors.registerSheet("WoD", MortalActorSheet, {
 		label: game.i18n.localize("wod.sheet.mortal"),
 		types: ["Mortal"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", WerewolfActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", WerewolfActorSheet, {
 		label: game.i18n.localize("wod.sheet.werewolf"),
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
 
-	Actors.registerSheet("WoD", MageActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", MageActorSheet, {
 		label: game.i18n.localize("wod.sheet.mage"),
 		types: ["Mage"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", VampireActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", VampireActorSheet, {
 		label: game.i18n.localize("wod.sheet.vampire"),
 		types: ["Vampire"],
 		makeDefault: true
 	});
 	
-	Actors.registerSheet("WoD", ChangelingActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", ChangelingActorSheet, {
 		label: game.i18n.localize("wod.sheet.changeling"),
 		types: ["Changeling"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", HunterActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", HunterActorSheet, {
 		label: game.i18n.localize("wod.sheet.hunter"),
 		types: ["Hunter"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", DemonActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", DemonActorSheet, {
 		label: game.i18n.localize("wod.sheet.demon"),
 		types: ["Demon"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", WraithActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", WraithActorSheet, {
 		label: game.i18n.localize("wod.sheet.wraith"),
 		types: ["Wraith"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", MummyActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", MummyActorSheet, {
 		label: game.i18n.localize("wod.sheet.mummy"),
 		types: ["Mummy"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", ExaltedActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", ExaltedActorSheet, {
 		label: game.i18n.localize("wod.sheet.exalted"),
 		types: ["Exalted"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", ChangingBreedActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", ChangingBreedActorSheet, {
 		label: game.i18n.localize("wod.sheet.breed"),
 		types: ["Changing Breed"],
 		makeDefault: true
 	});
 
-	Actors.registerSheet("WoD", CreatureActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", CreatureActorSheet, {
 		label: game.i18n.localize("wod.sheet.creature"),
 		types: ["Creature"],
 		makeDefault: true
@@ -257,9 +258,9 @@ Hooks.once("init", async function() {
 	console.log("WoD | Actor Sheets Registered");
 	
 	// Register item application classes
-	Items.unregisterSheet("core", ItemSheet);
+	foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
 
-	Items.registerSheet("WoD", WoDItemSheet, {
+	foundry.documents.collections.Items.registerSheet("WoD", WoDItemSheet, {
 		makeDefault: true		
 	});
 
@@ -314,7 +315,17 @@ Hooks.once("init", async function() {
 			spellcasting: IconHelper.GetIcon("spellcasting", race),
 			initiative: IconHelper.GetIcon("initiative", race),
 			soak: IconHelper.GetIcon("soak", race),
-			d10: IconHelper.GetIcon("d10", race)
+			d10: IconHelper.GetIcon("d10", race),
+			dice1: IconHelper.GetIcon("xd10", race, 1),
+			dice2: IconHelper.GetIcon("xd10", race, 2),
+			dice3: IconHelper.GetIcon("xd10", race, 3),
+			dice4: IconHelper.GetIcon("xd10", race, 4),
+			dice5: IconHelper.GetIcon("xd10", race, 5),
+			dice6: IconHelper.GetIcon("xd10", race, 6),
+			dice7: IconHelper.GetIcon("xd10", race, 7),
+			dice8: IconHelper.GetIcon("xd10", race, 8),
+			dice9: IconHelper.GetIcon("xd10", race, 9),
+			dice0: IconHelper.GetIcon("xd10", race, 0)
 		}
 
 		Object.assign(game.worldofdarkness.icons[race], iconlist);
@@ -329,13 +340,14 @@ Hooks.once("init", async function() {
 
 		return `${context}Svg`;
 	});
-	
+
+		
 	// Register dice partials.
 	for (let [race, iconlist] of Object.entries(game.worldofdarkness.icons)) {
 		for (let icon of Object.entries(iconlist)) {
 			Handlebars.registerPartial(`${race}_${icon[0]}Svg`, icon[1]);
 		}
-	}	
+	}
 
 	console.log("WoD | Icons added"); 
 });
@@ -412,9 +424,9 @@ Hooks.once("ready", async function () {
 		if ((installedVersion !== systemVersion || installedVersion === null)) {
 			await migration.UpdateWorld(installedVersion, systemVersion);
 		}
-		else {
-			await migration.updates();
-		}
+		// else {
+		// 	await migration.updates();
+		// }
 	}
 	
 	CONFIG.language = game.i18n.lang;	
@@ -428,6 +440,19 @@ Hooks.once("ready", async function () {
 		ui.notifications.error("World of Darkness settings couldn't load! Check your modules!", {permanent: true});
 	}
 });
+
+Hooks.on('createItem', async (item, options, userId) => {
+	if (item.flags?.copyFile !== undefined) {
+		if (item.flags?.copyFile?.receivedPlayer !== game.user.id) {
+			const text = game.i18n.localize("wod.info.droprecieved");
+			text = text.replace("{1}", item.name);
+			text = text.replace("{2}", item.flags?.copyFile?.receivedName);
+			
+			ui.notifications.info(text); 
+		}
+	}
+});
+
 
 Hooks.on("renderActorSheet", (sheet) => { 
 	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
@@ -628,7 +653,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 //Dice Roller
 $(document).ready(() => {
-	const diceIconSelector = '#chat-controls .chat-control-icon .fa-dice-d20';
+	const diceIconSelector = '#roll-privacy .fa-globe';
   
 	$(document).on('click', diceIconSelector, ev => {
 	  	ev.preventDefault();

@@ -33,7 +33,7 @@
   
 .werewolf .shape-selector-active {
     background-color: var(--main-full-color);
-    color: white;
+    color: #e0e0e0;
 }
 
 .werewolf:not(.noSplatFont) .sheet-headline {
@@ -175,7 +175,7 @@
 
 .werewolf .shape-selector:hover {
 	background-color: var(--main-dim-color); 
-  color: black;  
+  color: #121212;  
   cursor: pointer;
 }
 

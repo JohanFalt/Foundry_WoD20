@@ -1,4 +1,4 @@
-<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="gear"></i>
+<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="gear"></i>
 
 <div class="sheet-area flex-columns">	
 	<div class="sheet-headline sheet-banner splatFont">
@@ -10,7 +10,7 @@
 			{{#if locked}}
 				<div class="sheet-gearArea headlineNormal textarea">{{{data.system.gear}}}</div>
 			{{else}}
-				{{editor actor.system.gear target="system.gear" button=false owner=owner editable=true}}
+				{{editor actor.system.gear target="system.gear" engine="prosemirror" button=false owner=owner editable=true}}
 			{{/if}}
 		</div>
 	</div>
@@ -52,91 +52,93 @@
 </div>
 
 <div class="sheet-area flex-columns">    
-    <div class="clearareaBox area-box">
+    <div class="area-box">
 
-		<div class="headlineRow">
-            <div class="clearareaBox headlineList splatFont">
-                <div class="pullLeft item-largebox headlineList">{{localize "wod.gear.name"}}</div>     
-				<div class="pullLeft item-box headlineList">{{localize "wod.gear.type"}}</div>
-                <div class="pullLeft item-poolbox headlineList">{{localize "wod.dialog.dicepool"}}</div>
-                <div class="pullLeft item-valuebox headlineList centerText">{{localize "wod.combat.weapon.diff"}}</div>
-            </div>
+		<div class="headlineRow headlineList splatFont gear-itemlist">
+			<div class="width-namebox">{{localize "wod.gear.name"}}</div>     
+			<div class="width-mediumbox">{{localize "wod.gear.type"}}</div>
+			<div class="width-abilitybox">{{localize "wod.dialog.dicepool"}}</div>
+			<div class="width-valuebox">{{localize "wod.combat.weapon.diff"}}</div>
         </div>
 
-		{{#each (getItems actor) as |item id|}}
-			<div class="item-row-area">
-				<div class="clearareaBox">
-					{{#if item.system.isrollable}}
-						<div class="pullLeft weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i></div>
-					{{else}}
-						<div class="pullLeft weapon-rolliconbox-empty">&nbsp;</div>
-					{{/if}}
-					<div class="pullLeft item-activeBox">
-						<input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input>
-					</div>
-					<div class="pullLeft item-largebox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-							data-type="{{../actor.type}}"
-							data-object="{{item.type}}"
-							data-rollitem="true"
-							data-itemid="{{item._id}}">{{item.name}}</div>
-					<div class="pullLeft item-box headlineNormal">{{localize item.system.type}}</div>
-					{{#if item.system.isrollable}}
-						<div class="pullLeft item-poolbox headlineNormal">
-							{{#if (eq item.type "Fetish")}}
-								{{#if ../actor.system.settings.hasgnosis}}
-									{{localize "wod.advantages.gnosis"}}
+		<div>
+
+			{{#each (getItems actor) as |item id|}}
+
+				<div class="item-row-area gear-itemlist">
+					<div class="dragrow headlineNormal gear-itemlist" data-itemid="{{item._id}}">
+						<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+
+						<div class="width-namebox {{#if item.system.isrollable}}vrollable{{/if}}" 
+								data-type="{{../actor.type}}"
+								data-object="{{item.type}}"
+								data-rollitem="true"
+								data-itemid="{{item._id}}">{{item.name}}</div>
+
+						<div class="width-mediumbox">{{localize item.system.type}}</div>
+
+						{{#if item.system.isrollable}}
+							<div class="width-abilitybox">
+								{{#if (eq item.type "Fetish")}}
+									{{#if ../actor.system.settings.hasgnosis}}
+										{{localize "wod.advantages.gnosis"}}
+									{{else}}
+										{{localize "wod.advantages.willpower"}}
+									{{/if}}
 								{{else}}
-									{{localize "wod.advantages.willpower"}}
+									{{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
+									{{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
+									{{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
 								{{/if}}
-							{{else}}
-								{{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
-								{{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
-								{{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
-							{{/if}}
-						</div>
-						<div class="pullLeft item-valuebox headlineNormal centerText">
-							{{#if (eq item.system.difficulty "-1")}}
-								{{localize "wod.labels.varies"}}
-							{{else}}
-								{{item.system.difficulty}}
-							{{/if}}
-						</div>
-					{{else}}
-						<div class="pullLeft item-poolbox headlineNormal">&nbsp;</div>
-						<div class="pullLeft item-valuebox headlineNormal">&nbsp;</div>
-					{{/if}}
-					<div class="pullLeft power-iconbox">
-						{{{getToolTip item.system.description item.system.details}}}
-						<div class="pullLeft">
-							<a class="send-chat" 
-								title="{{localize 'wod.labels.send'}}"
-								data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-							{{#if (eq ../locked false)}}
-								<a class="item-edit" title="{{localize 'wod.labels.edit.device'}}" data-type="Item" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-								<a class="item-delete" title="{{localize 'wod.labels.remove.device'}}" data-type="Item" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-							{{/if}}
-						</div>
-						{{#if (gt item.system.bonuslist.length 0)}}
-							<div class="pullLeft pointer">
-								<i id="collapsibledevicebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="device{{id}}"></i>
 							</div>
+							<div class="width-valuebox">
+								{{#if (eq item.system.difficulty "-1")}}
+									{{localize "wod.labels.varies"}}
+								{{else}}
+									{{item.system.difficulty}}
+								{{/if}}
+							</div>
+						{{else}}
+							<div class="width-abilitybox">&nbsp;</div>
+							<div class="width-valuebox">&nbsp;</div>
 						{{/if}}
+						
 					</div>
-				</div>
-				<div class="hide bonuses device{{id}}" data-area="devicebonus{{id}}">
+					<div class="iconBox">
 
-					{{#each item.system.bonuslist as |bonus id|}}
-						<div class="clearareaBox note-row">
-							<div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-							<div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-							<div class="pullLeft headlineNormal">{{bonus.value}}</div>
-						</div>
-					{{/each}}
+						{{#if (isChecked item.system.isactive)}}
+							<i class="item-active pointer icon fa-solid fa-shield" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive"></i>
+						{{else}}
+							<i class="item-active pointer icon fa-duotone fa-solid fa-shield" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive"></i>
+						{{/if}}							
 
-				</div>
-			</div>
-			
-		{{/each}}
+						<a class="pointer send-chat" title="{{localize 'wod.labels.send'}}" data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+						
+						{{#if (eq ../locked false)}}
+							<a class="pointer item-edit" title="{{localize 'wod.labels.edit.device'}}" data-type="Item" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+							<a class="pointer item-delete" title="{{localize 'wod.labels.remove.device'}}" data-type="Item" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+						{{/if}}
+
+						{{#if (showToolTip item)}}
+							<i class="pointer icon collapsible button fa-solid fa-expand"
+									title="{{localize 'wod.labels.show.description'}}"
+									data-itemid="{{item._id}}"></i>
+						{{else}}
+							<i class="icon no-description-disabled fa-solid fa-solid fa-expand"></i>
+						{{/if}}
+
+						<a class="pointer" title="LANG: Menu" data-itemid="{{item._id}}"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
+					</div>																				
+				</div>	
+				<div class="description" data-itemid="{{item._id}}">
+
+					{{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
+
+				</div>			
+				
+			{{/each}}
+
+		</div>
 	</div>
 </div>
 

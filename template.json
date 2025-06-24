@@ -1636,8 +1636,10 @@
 		"Rote": {
 			"templates": [
 				"settings",
+				"feature",
 				"base"
 			],
+			"type": "wod.types.rote",
 			"correspondence": 0,
 			"entropy": 0,
 			"forces": 0,

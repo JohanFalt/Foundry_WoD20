@@ -10,7 +10,7 @@
                 data-itemid="{{item._id}}">{{item.name}}</div>
 
         <div class="gift-iconbox">
-            {{{getToolTip item.system.description item.system.details}}}
+            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
             <div class="pullLeft">
                 <a class="send-chat" 
                     title="{{localize 'wod.labels.send'}}" 

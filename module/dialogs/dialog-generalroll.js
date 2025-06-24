@@ -2,6 +2,7 @@ import { NewRollDice } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
+import Functions from "../functions.js";
 
 export class GeneralRoll {
     constructor(key, type, actor) {
@@ -124,6 +125,11 @@ export class DialogGeneralRoll extends FormApplication {
         data.config = CONFIG.worldofdarkness;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";      
+        let specialityLevel = 4;
+
+        if ((CONFIG.worldofdarkness.specialityLevel != undefined) && (Functions.isNumber(CONFIG.worldofdarkness.specialityLevel))) {
+            specialityLevel = parseInt(CONFIG.worldofdarkness.specialityLevel);
+        }
 
         if ((this.object.type == "attribute") && (data.object.difficulty == 6)) {
             if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {
@@ -145,12 +151,12 @@ export class DialogGeneralRoll extends FormApplication {
                     }
                     else {
                         if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
-                            if (parseInt(data.actorData.attributes?.composure.value) >= 4) {
+                            if (parseInt(data.actorData.attributes?.composure.value) >= specialityLevel) {
                                 data.object.hasSpeciality = true;
                                 attributeSpeciality = data.actorData.attributes.composure.speciality;
                             }
             
-                            if ((parseInt(data.actorData.attributes?.resolve.value) >= 4) && (data.actorData.attributes?.resolve.speciality != "")) {
+                            if ((parseInt(data.actorData.attributes?.resolve.value) >= specialityLevel) && (data.actorData.attributes?.resolve.speciality != "")) {
                                 data.object.hasSpeciality = true;
     
                                 if (attributeSpeciality != "") {
@@ -161,7 +167,13 @@ export class DialogGeneralRoll extends FormApplication {
                             }  
                         } 
                         
-                        data.object.attributeName = game.i18n.localize(data.actorData.advantages[attributeKey].label);
+                        if (data.actorData.advantages[attributeKey].label === "custom") {
+                            data.object.attributeName = data.actorData.advantages[attributeKey].custom;
+                        }
+                        else {
+                            data.object.attributeName = game.i18n.localize(data.actorData.advantages[attributeKey].label);
+                        }
+                        
                         data.object.attributeValue = parseInt(data.actorData.advantages[attributeKey].roll);
                         data.object.name = data.object.attributeName;
                     }         
@@ -169,7 +181,7 @@ export class DialogGeneralRoll extends FormApplication {
                 else {
                     data.object.attributeValue = parseInt(data.actorData.attributes[attributeKey].total);
 
-                    if (parseInt(data.actorData.attributes[attributeKey].value) >= 4) {
+                    if (parseInt(data.actorData.attributes[attributeKey].value) >= specialityLevel) {
                         data.object.hasSpeciality = true;
                         attributeSpeciality = data.actorData.attributes[attributeKey].speciality;
                     }
@@ -223,7 +235,7 @@ export class DialogGeneralRoll extends FormApplication {
                 data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
                 
-                if ((parseInt(ability.value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(ability._id))) {
+                if ((parseInt(ability.value) >= specialityLevel) || (CONFIG.worldofdarkness.alwaysspeciality.includes(ability._id))) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = ability.speciality;
                 }

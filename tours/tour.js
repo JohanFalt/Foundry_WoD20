@@ -1,4 +1,4 @@
-export class TourHelper extends Tour {
+export class TourHelper extends foundry.nue.Tour {
 
 	constructor(config) {
 		super(config);

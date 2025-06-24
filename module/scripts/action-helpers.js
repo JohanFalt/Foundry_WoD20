@@ -179,7 +179,7 @@ export default class ActionHelper {
 			}	
 			
 			// used a Gift
-			if (dataset.object == "Gift") {
+			if (dataset.object == "wod.types.gift") {
 				const gift = new PowerDialog.Gift(item);
 				let giftUse = new PowerDialog.DialogPower(actor, gift);
 				giftUse.render(true);
@@ -188,7 +188,7 @@ export default class ActionHelper {
 			}
 
 			// used a Rite
-			if (dataset.object == "Rite") {
+			if (dataset.object == "wod.types.rite") {
 				const rite = new PowerDialog.Gift(item);
 				let riteUse = new PowerDialog.DialogPower(actor, rite);
 				riteUse.render(true);
@@ -197,7 +197,7 @@ export default class ActionHelper {
 			}
 			
 			// used a Rote
-			if (dataset.object == "Rote") {
+			if (dataset.object == "wod.types.rote") {
 				const rote = new Rote(item);
 				let areteCasting = new DialogAreteCasting(actor, rote);
 				areteCasting.render(true);
@@ -206,7 +206,7 @@ export default class ActionHelper {
 			}
 
 			// used a Charm
-			if (dataset.object == "Charm") {
+			if (dataset.object == "wod.types.charm") {
 				const charm = new PowerDialog.Charm(item);
 				let charmUse = new PowerDialog.DialogPower(actor, charm);
 				charmUse.render(true);
@@ -215,7 +215,7 @@ export default class ActionHelper {
 			}
 
 			// used a Power
-			if (dataset.object == "Power") {
+			if (dataset.object == "wod.types.power") {
 				const power = new PowerDialog.Power(item);
 				let powerUse = new PowerDialog.DialogPower(actor, power);
 				powerUse.render(true);
@@ -224,7 +224,7 @@ export default class ActionHelper {
 			}
 
 			// used a DisciplinePower
-			if (dataset.object == "Discipline") {
+			if ((dataset.object == "wod.types.disciplinepower") || (dataset.object == "wod.types.combination")) {
 				const discipline = new PowerDialog.DisciplinePower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, discipline);
 				powerUse.render(true);
@@ -233,7 +233,7 @@ export default class ActionHelper {
 			}
 
 			// used a PathPower
-			if (dataset.object == "Path") {
+			if (dataset.object == "wod.types.disciplinepathpower") {
 				const path = new PowerDialog.PathPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, path);
 				powerUse.render(true);
@@ -242,7 +242,7 @@ export default class ActionHelper {
 			}
 
 			// used a Ritual
-			if (dataset.object == "Ritual") {
+			if (dataset.object == "wod.types.ritual") {
 				const ritual = new PowerDialog.RitualPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, ritual);
 				powerUse.render(true);
@@ -251,7 +251,7 @@ export default class ActionHelper {
 			}
 
 			// used an Art
-			if (dataset.object == "Art") {
+			if (dataset.object == "wod.types.artpower") {
 				const art = new PowerDialog.ArtPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, art);
 				powerUse.render(true);
@@ -260,7 +260,7 @@ export default class ActionHelper {
 			}
 
 			// used an Edge
-			if (dataset.object == "Edge") {
+			if (dataset.object == "wod.types.edgepower") {
 				const edge = new PowerDialog.EdgePower(item);
 				let powerUse = new PowerDialog.DialogPower(actor,edge);
 				powerUse.render(true);
@@ -269,7 +269,7 @@ export default class ActionHelper {
 			}
 
 			// used an Lore
-			if (dataset.object == "Lore") {
+			if (dataset.object == "wod.types.lorepower") {
 				const lore = new PowerDialog.LorePower(item);
 				let powerUse = new PowerDialog.DialogPower(actor,lore);
 				powerUse.render(true);
@@ -278,7 +278,7 @@ export default class ActionHelper {
 			}
 
 			// used an Arcanoi
-			if (dataset.object == "Arcanoi") {
+			if (dataset.object == "wod.types.arcanoipower") {
 				const arcanoi = new PowerDialog.ArcanoiPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, arcanoi);
 				powerUse.render(true);
@@ -287,7 +287,7 @@ export default class ActionHelper {
 			}
 
 			// used an Hekau
-			if (dataset.object == "hekau") {
+			if (dataset.object == "wod.types.hekaupower") {
 				const hekau = new PowerDialog.HekauPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, hekau);
 				powerUse.render(true);
@@ -296,7 +296,7 @@ export default class ActionHelper {
 			}
 
 			// used an Numina
-			if (dataset.object == "numina") {
+			if (dataset.object == "wod.types.numinapower") {
 				const numina = new PowerDialog.NuminaPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, numina);
 				powerUse.render(true);

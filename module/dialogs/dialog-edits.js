@@ -356,7 +356,7 @@ export class DialogSphere extends FormApplication {
     }
 
     async _save(event) {  
-        if (parseInt(this.object.value) >= 4) {
+        if (parseInt(this.object.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
             this.object.speciality = document.getElementById("speciality").value;
         }
         else {

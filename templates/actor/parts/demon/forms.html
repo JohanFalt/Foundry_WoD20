@@ -12,7 +12,7 @@
                     <input class="item-active pointer" type="checkbox" data-item-id="{{form._id}}" data-type="isactive" {{isChecked form.isactive}}></input>
                 </div>
                 <div class="pullLeft form-apocalyptic-name headlineNormal">{{form.name}}</div>
-                {{{getToolTip form.description form.details form.bonuses actor}}}
+                {{{getToolTip form.description form.details form.bonuses ../actor}}}
                 <div class="pullLeft pointer">
                     <a class="send-chat" 
                         title="{{localize 'wod.labels.send'}}"

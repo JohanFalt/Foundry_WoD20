@@ -3,7 +3,7 @@ import BonusHelper from "./bonus-helpers.js";
 export async function calculateTotals(updateData) {
 	let toForm = getForm(updateData);
 
-	const actor = game.actors.get(updateData._id);
+	const actor = await game.actors.get(updateData._id);
 
     // attributes totals
 	for (const i in updateData.system.attributes) {

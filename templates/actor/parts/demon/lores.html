@@ -51,7 +51,7 @@
                                 <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.lorepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
                             </div>
                         {{/if}}
-                        {{{getToolTip item.system.description item.system.details}}}
+                        {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                         <div class="pullLeft pointer">
                             <a class="send-chat" 
                                 title="{{localize 'wod.labels.send'}}" 
@@ -171,7 +171,7 @@
                 {{/if}}
 
                 <div class="power-iconbox">
-                    {{{getToolTip item.system.description item.system.details}}}
+                    {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                     <div class="pullLeft">
                         <a class="send-chat" 
                             title="{{localize 'wod.labels.send'}}" 

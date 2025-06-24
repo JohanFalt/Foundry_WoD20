@@ -14,36 +14,14 @@
     --font-large: 16px;
     --font-x-large: 24px;
   
-    --chat-background-color: black;
+    --chat-background-color: #121212;
     --chat-header-background: rgb(196, 23, 29, 1);
-    --chat-header-text-color: white;
-    --chat-text-background: white;
-    --chat-text-color: black;
+    --chat-header-text-color: #ffffff;
+    --chat-text-background: #f5f5f5;
+    --chat-text-color: #121212;
 }
 
 /* Chat Controls */
-
-.chat-control-icon .fa-dice-d20 {
-    height: 29px;
-    width: 29px;
-    position: relative;
-    background: var(--background-input-active);
-    border: var(--border-button-macro);
-}
-
-.chat-control-icon .fa-dice-d20:before {
-    content: url(../assets/img/dice/d10.svg) !important;
-    height: 25px;
-    width: 25px;
-    position: absolute;
-    border: 1px solid #000;
-    border-radius: 2px;
-}
-
-.chat-control-icon .fas.fa-dice-d20:hover:before {
-    cursor: pointer;  
-    filter: var(--filter-button-macro-hover);
-}
 
 #chat-controls {
     flex-basis: 36px;
@@ -66,31 +44,44 @@
     cursor: pointer;
 }
 
-/* START - Chat window */
-
-
-
-/* END - Chat window */
-
-
 /* dice rolling */
 
-#chat-log {    
+img.wod-svg {
+    font-family: 'svg';
+	width: 50px;
+	height: 50px;	
+    float: left;
+}
+
+img[src$=".wod-svg"] {
+font-family: 'svg';
+	width: 50px;
+	height: 60px;	
+}
+
+
+#chat,
+#chat-notifications {    
     font-family: "default", "mortal";
     background: var(--chat-background-color);  
 }
-  
-#chat-log .chat-message {
-    padding: 0;   
+
+/* Make sure to not alter the background in the hovering chat */
+#ui-right-column-1 #chat-notifications {
+    background: none; 
 }
   
-#chat-log .message {
+#chat .message,
+#chat-notifications .message,
+#ui-right-column-1 .message {
     border: 0;
     color: var(--chat-text-color);   
     background: var(--chat-text-background); 
 }
   
-#chat-log .message .message-header {    
+#chat .message .message-header,
+#chat-notifications .message .message-header,
+#ui-right-column-1 .message .message-header {    
     font-size: var(--font-large); 
     padding: 5px;
     color: var(--chat-header-text-color);
@@ -99,42 +90,42 @@
   
 /* the rolls */
 
-#chat-log .rolldices {
+.wod20-roll .rolldices {
 	width: 50px;
 	height: 50px;
 	clip-path: polygon(52% 12%, 92% 40%, 91% 61%, 57% 85%, 44% 84%, 10% 61%, 10% 40%);
 	margin-bottom: -8px;
+    display: inline;
 }
 
-#chat-log .tray-title-area {
-    /* font-family: var(--main-chat-font); */
+.wod20-roll .tray-title-area
+ {
     font-size: var(--font-x-large);    
     margin-bottom: 5px;    
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #121212;
     padding: 5px;
 }
   
-#chat-log .tray-action-area {
+.wod20-roll .tray-action-area {
     padding-left: 10px;
 }
 
-#chat-log .tray-info-area {
+.wod20-roll .tray-info-area {
     margin: 10px;
     padding: 5px;
 }
 
-#chat-log .tray-system-area {
+.wod20-roll .tray-system-area {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
 }
   
-#chat-log .tray-roll-area {
+.wod20-roll .tray-roll-area {
     padding: 5px;  
-    /* text-align: center; */
 }
   
-#chat-log .tray-roll-area .tray-dice {
+.wod20-roll .tray-roll-area .tray-dice {
     margin: 5px;
     scale:2;
     margin-left: 8px;
@@ -142,7 +133,7 @@
     opacity: 0.8;
 }
   
-#chat-log .tray-result-area {
+.wod20-roll .tray-result-area {
     border-top: 3px ridge #6c4737;    
     padding: 5px;
     margin-top: 5px;
@@ -150,27 +141,18 @@
     overflow: hidden;
 }
 
-
-
-
 /* Chatt window */
-.dark-theme #chat-log .message .message-header {
+.theme-dark #chat .message .message-header,
+.theme-dark #chat-notifications .message .message-header {
     font-size: var(--font-large);
     padding: 5px;
     color: var(--chat-header-text-color);
     border-bottom: 3px ridge #6c4737;
     background: rgb(23,23,23,255);
 }
-.dark-theme #chat-log .message {
+.theme-dark #chat .message,
+.theme-dark #chat-notifications .message {
     border: 0;
-    color: white;
-    background: black;
-}
-.dark-theme .chat-message {
-    margin: 3px;
-    padding: 5px;
-    font-size: var(--font-size-14);
-    color: var(--color-text-dark-primary);
-    border: 2px solid #6f6c66;
-    border-radius: 5px;
+    color: #e0e0e0;
+    background: #121212;
 }

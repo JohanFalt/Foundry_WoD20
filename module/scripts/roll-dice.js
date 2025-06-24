@@ -202,7 +202,7 @@ export async function NewRollDice(diceRoll) {
 					rolledAnySuccesses = true;
 					success += 1;
 				}
-				else if (dice.result == 1) {
+				else if ((dice.result == 1) && (actor !== undefined)) {
 					if ((CONFIG.worldofdarkness.handleOnes) && (canBotch) && 
 							(!actor.system.attributes[diceRoll.attribute]?.isfavorited) && (!actor.system.attributes[diceRoll.ability]?.isfavorited) && 
 							(!actor.system.abilities[diceRoll.attribute]?.isfavorited) && (!actor.system.abilities[diceRoll.ability]?.isfavorited)) {
@@ -333,15 +333,15 @@ export async function NewRollDice(diceRoll) {
             type: diceRoll.origin,
             action: diceRoll.action,
             title: rollInfo,
-						info: info,		
-						systemtext: systemtext,	
-						multipleresult: allDiceResult
+			info: info,		
+			systemtext: systemtext,	
+			multipleresult: allDiceResult
         }
     };
 
     // Render the chat card template
     const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
-    const html = await renderTemplate(template, templateData);
+    const html = await foundry.applications.handlebars.renderTemplate(template, templateData);
 
     const chatData = {
         rolls: allDices,
@@ -370,7 +370,7 @@ export async function InitiativeRoll(diceRoll) {
 	let tokenAdded = false;
 	let rolledInitiative = false;
 	let init = 0;
-	let initAttribute = "";
+	let initAttribute;
 
 	let token = await canvas.tokens.placeables.find(t => t.document.actor._id === actor._id);
 
@@ -458,7 +458,7 @@ export async function InitiativeRoll(diceRoll) {
 
     // Render the chat card template
     const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
-    const html = await renderTemplate(template, templateData);
+    const html = await foundry.applications.handlebars.renderTemplate(template, templateData);
 
     const chatData = {
         content: html,

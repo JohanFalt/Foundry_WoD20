@@ -115,7 +115,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.birthright1 '')}}small{{/if}}">{{{actor.system.birthright1}}}</div>
             {{else}}
-                {{editor actor.system.birthright1 target="system.birthright1" button=false owner=owner editable=true}}
+                {{editor actor.system.birthright1 target="system.birthright1" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
 
@@ -123,7 +123,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.birthright2 '')}}small{{/if}}">{{{actor.system.birthright2}}}</div>
             {{else}}
-                {{editor actor.system.birthright2 target="system.birthright2" button=false owner=owner editable=true}}
+                {{editor actor.system.birthright2 target="system.birthright2" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
@@ -136,7 +136,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.frailty '')}}small{{/if}}">{{{actor.system.frailty}}}</div>
             {{else}}
-                {{editor actor.system.frailty target="system.frailty" button=false owner=owner editable=true}}
+                {{editor actor.system.frailty target="system.frailty" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
@@ -152,7 +152,7 @@
         {{#if locked}}
             <div class="smallbox headlineNormal textarea {{#if (eq actor.system.threshold '')}}small{{/if}}">{{{actor.system.threshold}}}</div>
         {{else}}
-            {{editor actor.system.threshold target="system.threshold" button=false owner=owner editable=true}}
+            {{editor actor.system.threshold target="system.threshold" engine="prosemirror" button=false owner=owner editable=true}}
         {{/if}}
     </div>
 </div>	
@@ -167,7 +167,7 @@
         {{#if locked}}
             <div class="smallbox headlineNormal textarea {{#if (eq actor.system.revelry '')}}small{{/if}}">{{{actor.system.revelry}}}</div>
         {{else}}
-            {{editor actor.system.revelry target="system.revelry" button=false owner=owner editable=true}}
+            {{editor actor.system.revelry target="system.revelry" engine="prosemirror" button=false owner=owner editable=true}}
         {{/if}}
     </div>
 </div>
@@ -178,7 +178,7 @@
         {{#if locked}}
             <div class="smallbox headlineNormal textarea {{#if (eq actor.system.house '')}}small{{/if}}">{{{actor.system.house}}}</div>
         {{else}}
-            {{editor actor.system.house target="system.house" button=false owner=owner editable=true}}
+            {{editor actor.system.house target="system.house" engine="prosemirror" button=false owner=owner editable=true}}
         {{/if}}
     </div>
 </div>
@@ -205,7 +205,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.legacyseelie '')}}small{{/if}}">{{{actor.system.legacyseelie}}}</div>
             {{else}}
-                {{editor actor.system.legacyseelie target="system.legacyseelie" button=false owner=owner editable=true}}
+                {{editor actor.system.legacyseelie target="system.legacyseelie" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
@@ -232,7 +232,7 @@
         {{#if locked}}
             <div class="headlineNormal textarea {{#if (eq actor.system.legacyunseelie '')}}small{{/if}}">{{{actor.system.legacyunseelie}}}</div>
         {{else}}
-            {{editor actor.system.legacyunseelie target="system.legacyunseelie" button=false owner=owner editable=true}}
+            {{editor actor.system.legacyunseelie target="system.legacyunseelie" engine="prosemirror" button=false owner=owner editable=true}}
         {{/if}}				
     </div>
 </div>
@@ -249,7 +249,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.variant.legacy '')}}small{{/if}}">{{{actor.system.variant.legacy}}}</div>
             {{else}}
-                {{editor actor.system.variant.legacy target="system.variant.legacy" button=false owner=owner editable=true}}
+                {{editor actor.system.variant.legacy target="system.variant.legacy" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>
@@ -262,7 +262,7 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.variant.anchor '')}}small{{/if}}">{{{actor.system.variant.anchor}}}</div>
             {{else}}
-                {{editor actor.system.variant.anchor target="system.variant.anchor" button=false owner=owner editable=true}}
+                {{editor actor.system.variant.anchor target="system.variant.anchor" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}				
         </div>
     </div>

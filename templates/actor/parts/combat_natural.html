@@ -1,88 +1,99 @@
-<div class="headlineRow splatFont">
-    <div class="clearareaBox">
-        <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.naturalweapon'}}" aria-hidden="true" data-itemtype="Weapon" data-type="natural"></i></div>
-        <div class="pullLeft headlineList combat-headlineLargeBox">{{localize "wod.labels.combat.natural"}}</div>  
-        <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.attr"}}</div>
-        <div class="pullLeft combat-abilityBox headlineList">{{localize "wod.combat.weapon.ability"}}</div>
-        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.acc"}}</div>
-        <div class="pullLeft combat-valueBox headlineList">{{localize "wod.combat.weapon.diff"}}</div>
-        <div class="pullLeft combat-smallBox headlineList">{{localize "wod.combat.weapon.damage"}}</div>      
-    </div>
+<div class="headlineRow headlineList splatFont combat-natural-itemlist">
+    <div class="width-namebox">{{localize "wod.labels.combat.natural"}}</div>  
+    <div class="width-smallbox">{{localize "wod.combat.weapon.attr"}}</div>
+    <div class="width-abilitybox">{{localize "wod.combat.weapon.ability"}}</div>
+    <div class="width-valuebox">{{localize "wod.combat.weapon.acc"}}</div>
+    <div class="width-valuebox">{{localize "wod.combat.weapon.diff"}}</div>
+    <div class="width-smallbox">{{localize "wod.combat.weapon.damage"}}</div>      
 </div>
 
-<div class="clearareaBox">
+<div>
 
     {{#each actor.system.listdata.combat.naturalWeapons as |item id|}}
 
-        <div class="clearareaBox item-row-area">
-            
-            {{#if item.system.attack.isrollable}}
-                <div class="pullLeft weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i></div>
-                <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
-                    data-type="{{../config.sheettype.mortal}}"
-                    data-object="Melee"
-                    data-rollitem="true" 
-                    data-itemid="{{item._id}}"
-                    title="{{item.name}}">            
-                    {{shorten item.name 18}}&nbsp;
-                </div>
-            {{else}}
-                {{#if item.system.damage.isrollable}}
-                    <div class="pullLeft weapon-rolliconbox"><i class="fa-duotone fa-dice-d10"></i></div>
-                    <div class="pullLeft combat-largeBox headlineNormal {{#if item.system.damage.isrollable}}vrollable{{/if}}" 
+        <div class="item-row-area combat-natural-itemlist">
+            <div class="dragrow headlineNormal combat-natural-itemlist" data-itemid="{{item._id}}">
+                <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    
+                {{#if item.system.attack.isrollable}}
+                    <div class="width-namebox {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
                         data-type="{{../config.sheettype.mortal}}"
-                        data-object="Damage"
+                        data-object="Melee"
                         data-rollitem="true" 
                         data-itemid="{{item._id}}"
-                        title="{{item.name}}">
-                        {{shorten item.name 18}}&nbsp;
+                        title="{{item.name}}">            
+                        {{shorten item.name 18}}
                     </div>
                 {{else}}
-                    <div class="pullLeft weapon-rolliconbox-empty">&nbsp;</div>
-                    <div class="pullLeft combat-largeBox headlineNormal" title="{{item.name}}">{{shorten item.name 18}}&nbsp;</div>
+                    {{#if item.system.damage.isrollable}}
+                        <div class="width-namebox {{#if item.system.damage.isrollable}}vrollable{{/if}}" 
+                            data-type="{{../config.sheettype.mortal}}"
+                            data-object="Damage"
+                            data-rollitem="true" 
+                            data-itemid="{{item._id}}"
+                            title="{{item.name}}">
+                            {{shorten item.name 18}}
+                        </div>
+                    {{else}}
+                        <div class="width-iconbox-empty">&nbsp;</div>
+                        <div class="width-namebox" title="{{item.name}}">{{shorten item.name 18}}</div>
+                    {{/if}}
                 {{/if}}
-            {{/if}}
 
-            <div class="pullLeft combat-smallBox headlineNormal">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}&nbsp;</div>
-            <div class="pullLeft combat-abilityBox headlineNormal">
-                {{#if (eq item.system.attack.ability "custom")}}
-                    {{shorten (getSecondaryAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
-                {{else}}
-                    {{shorten (localize (getAbility item.system.attack.ability ../actor "")) 10}}
-                {{/if}}&nbsp;
-            </div>
-            <div class="pullLeft combat-valueBox headlineNormal">{{item.system.attack.accuracy}}</div>
-            <div class="pullLeft combat-valueBox headlineNormal">
-                {{#if (eq item.system.difficulty "-1")}}
-                    {{localize "wod.labels.varies"}}
-                {{else}}
-                    {{item.system.difficulty}}
-                {{/if}}
-            </div>
-            <div class="pullLeft combat-smallBox headlineNormal">
-                {{#if item.system.damage.isrollable}}
-                    {{captilizeFirst (convertDamageCode item.system.damage.attribute item.system.damage.bonus item.system.damage.type)}}
-                {{else}}
-                    &nbsp;
-                {{/if}}
-            </div>
+                <div class="width-smallbox">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}&nbsp;</div>
+                <div class="width-abilitybox">
 
-            <div class="pullRight">
-                {{{getToolTip item.system.description item.system.details}}}
-                <div class="pullLeft">
-                    <a class="send-chat" 
-                        title="{{localize 'wod.labels.send'}}" 
-                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                </div>           
+                    {{#if (eq item.system.attack.ability "custom")}}
+                        {{shorten (getSecondaryAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
+                    {{else}}
+                        {{shorten (localize (getAbility item.system.attack.ability ../actor "")) 10}}
+                    {{/if}}
+
+                </div>
+                <div class="width-valuebox">{{item.system.attack.accuracy}}</div>
+                <div class="width-valuebox">
+
+                    {{#if (eq item.system.difficulty "-1")}}
+                        {{localize "wod.labels.varies"}}
+                    {{else}}
+                        {{item.system.difficulty}}
+                    {{/if}}
+
+                </div>
+                <div class="width-smallbox">
+
+                    {{#if item.system.damage.isrollable}}
+                        {{captilizeFirst (convertDamageCode item.system.damage.attribute item.system.damage.bonus item.system.damage.type)}}
+                    {{else}}
+                        &nbsp;
+                    {{/if}}
+
+                </div>            
+            </div>
+            <div class="iconBox">
+
+                <a class="pointer send-chat" title="{{localize 'wod.labels.send'}}" data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+
                 {{#if (eq ../locked false)}} 
-                    <div class="pullLeft pointer">
-                        <a class="item-edit" title="{{localize "wod.labels.edit.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                    </div>
-                    <div class="pullLeft pointer">
-                        <a class="item-delete" title="{{localize "wod.labels.remove.naturalweapon"}}" data-type="Melee Weapon" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                    </div>
+                    <a class="pointer item-edit" title="{{localize 'wod.labels.edit.naturalweapon'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                    <a class="pointer item-delete" title="{{localize 'wod.labels.remove.naturalweapon'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                 {{/if}}
+
+                {{#if (showToolTip item)}}
+                    <i class="pointer icon collapsible button fa-solid fa-expand"
+                            title="{{localize 'wod.labels.show.description'}}"
+                            data-itemid="{{item._id}}"></i>
+                {{else}}
+                    <i class="icon no-description-disabled fa-solid fa-solid fa-expand"></i>
+                {{/if}}
+
+                <a class="pointer" title="LANG: Menu" data-itemid="{{item._id}}"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
             </div>
+        </div>
+        <div class="description" data-itemid="{{item._id}}">
+
+            {{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
+
         </div>
 
     {{/each}}

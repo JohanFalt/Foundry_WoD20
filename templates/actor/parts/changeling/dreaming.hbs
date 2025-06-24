@@ -1,0 +1,153 @@
+<div class="sheet-area flex-columns">
+
+    <div class="sheet-headline sheet-banner splatFont" style="margin-bottom: 20px;"><span class="sheet-banner-text">{{localize 'wod.realms.headline'}}</span></div>	
+    
+    <div class="clearareaBox area-box">
+        <div class="pullLeft" style="width: 33%;">&nbsp;</div>
+        <div class="pullLeft area-box" style="width: 33%;">
+            
+            {{#each actor.system.listdata.powers.arts.realms as |realm key|}}   
+                <div class="clearareaBox {{#if realm.isaffinity}}highlightedPowerRow{{/if}}">
+                    <div class="pullLeft {{#if realm.isaffinity}}highlightedPower{{/if}}" style="width:15px;height:15px;">&nbsp;</div>
+                    <label class="pullLeft realms-headlineWidth headlineNormal" for="data.system.realms.{{key}}.value" {{#if realm.isaffinity}}title="{{localize 'wod.bio.changeling.affinity'}}"{{/if}}>{{localize realm.label}}</label>
+                    <div class="pullLeft resource-value" 
+                        data-value="{{realm.value}}"
+                        data-itemid="{{realm._id}}">
+                        {{#numLoop realm.max}}                            
+                            <span class="resource-value-step realm-resource-values" data-type="{{../../config.sheettype.changeling}}" data-index="{{this}}"></span>                            
+                        {{/numLoop}}                        
+                    </div>
+                </div>		
+            {{/each}}	
+        </div>	
+        <div class="pullLeft" style="width: 33%;">&nbsp;</div>
+    </div>
+
+    {{#if (ne actor.system.settings.variant 'inanimae')}}
+
+        <div class="sheet-area flex-columns">
+            <div class="area-box">
+                <div class="sheet-headline sheet-banner splatFont">
+                    <span class="sheet-banner-text">{{localize "wod.power.arts"}}</span>
+                </div>            
+            </div> 
+        </div>
+
+        {{#each (getMainPowerList actor "wod.types.art") as |item id|}}
+            {{> "systems/worldofdarkness/templates/actor/parts/mainpower_list.hbs" mainpower=item config=../config actor=../actor locked=../locked}}
+        {{/each}}
+
+    {{else}}
+
+        <div class="clearareaBox area-box">
+
+            <div class="sheet-headline sheet-banner splatFont">
+                <span class="sheet-banner-text">{{localize "wod.power.slivers"}}</span>
+                <div class="pullRight pointer headlineNormal">
+                    <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.sliver'}}" aria-hidden="true" data-itemtype="Power" data-type="sliver"></i>
+                </div>
+            </div>                     
+
+            {{#each actor.system.listdata.powers.arts.artlist as | item id|}}
+
+                <div class="clearareaBox item-row-area mainpower-row">
+                    <div class="clearareaBox art-row">
+                        <div class="pullLeft art-headline vrollable splatFont headlineGroup"
+                            data-type="{{../config.sheettype.changeling}}"
+                            data-object="Art"
+                            data-rollitem="true"
+                            data-itemid="{{item._id}}">{{item.name}}</div>
+
+                        <div class="resource-value pullLeft power-dotBox" 
+                            data-value="{{item.system.value}}" 
+                            data-itemid="{{item._id}}">
+
+                            {{#numLoop item.system.max}}                                
+                                <span class="{{#if (gt item.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.changeling}}" data-index="{{this}}"></span>                                
+                            {{/numLoop}}
+                        </div>
+
+                        <div class="pullLeft art-iconbox">
+                            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
+                            <div class="pullLeft pointer">
+                                <a class="send-chat" 
+                                    title="{{localize 'wod.labels.send'}}" 
+                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+                            </div>
+
+                            {{#if (eq ../locked false)}}
+                                    <div class="pullLeft pointer">
+                                        <a class="clearPower" 
+                                            title="{{localize 'wod.labels.power.removebonus.sliver'}}" 
+                                            data-powertype="main"
+                                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+                                    </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-edit" 
+                                        title="{{localize 'wod.labels.edit.sliver'}}" 
+                                        data-type="Sliver" 
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                </div>
+                                <div class="pullLeft pointer">
+                                    <a class="item-delete" 
+                                        title="{{localize 'wod.labels.remove.sliver'}}" 
+                                        data-type="Sliver" 
+                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}       
+                            {{#if (gt item.system.bonuslist.length 0)}}
+                                <div class="pullLeft pointer">
+                                    <i id="collapsibleartbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="art{{id}}"></i>
+                                </div>
+                            {{/if}}
+                            
+                    
+                        </div>
+                    </div>
+
+                    <div class="hide bonuses art{{id}}" data-area="artbonus{{id}}">
+
+                        {{#each item.system.bonuslist as |bonus id|}}
+                            <div class="clearareaBox">
+                                <div class="clearareaBox">
+                                    <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
+                                    <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
+                                    <div class="pullLeft headlineNormal">{{bonus.value}}</div>
+                                </div>
+                            </div>
+                        {{/each}}
+
+                    </div>
+                </div>
+
+            {{/each}}
+        </div>
+
+    {{/if}}
+</div>
+
+{{#if actor.system.listdata.powers.arts.hasunlistedarts}}
+    <div class="sheet-area unsorted-area flex-columns">
+        <div class="headlineNormal info-box">{{localize "wod.power.unsortedarts"}}</div>
+
+        <div class="area-box">
+            {{#each actor.system.listdata.powers.arts.unlistedarts as | item id|}}
+
+                <div class="row">
+                    <div class="pullLeft headlineNormal width-namebox vrollable" 
+                        data-type="{{../config.sheettype.changeling}}"
+                        data-object="SortArtPower"
+                        data-rollitem="true"
+                        data-itemid="{{item._id}}">{{item.name}}</div>
+                    
+                    {{#if (eq ../locked false)}}
+                        <div class="art-iconbox">
+                            <a class="item-delete" title="{{localize "wod.labels.remove.artpower"}}" data-type="Art" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                        </div>
+                    {{/if}}
+                </div>
+
+            {{/each}}
+        </div>
+    </div>
+{{/if}}

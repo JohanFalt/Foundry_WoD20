@@ -28,8 +28,7 @@ input.fancyComboBox + div > div.kOptionDelimiter {
 
 input.fancyComboBox + div > div.kOptionHeader {
     pointer-events: none;
-    text-align: center;
-    
+    text-align: center;    
 }
 
 .fancyTextArea {

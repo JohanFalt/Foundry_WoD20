@@ -51,7 +51,7 @@
                                 <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.arcanoipower'}}" aria-hidden="true" data-itemtype="Power" data-type="arcanoipower" data-parentid="{{item._id}}"></i>
                             </div>
                         {{/if}}
-                        {{{getToolTip item.system.description item.system.details}}}
+                        {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                         <div class="pullLeft pointer">
                             <a class="send-chat" 
                                 title="{{localize 'wod.labels.send'}}" 

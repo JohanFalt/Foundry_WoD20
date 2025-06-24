@@ -190,7 +190,7 @@ export default class ItemHelper {
 		// Weapons
 		actor.system.listdata.combat.naturalWeapons.sort((a, b) => a.name.localeCompare(b.name));
 		actor.system.listdata.combat.meleeWeapons.sort((a, b) => a.name.localeCompare(b.name));
-		actor.system.listdata.combat.rangedWeapons.sort((a, b) => a.name.localeCompare(b.name));		
+		actor.system.listdata.combat.rangedWeapons.sort((a, b) => a.name.localeCompare(b.name));
 
 		// Armor
 		actor.system.listdata.combat.armors.sort((a, b) => a.name.localeCompare(b.name));
@@ -964,6 +964,23 @@ export default class ItemHelper {
 			return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
 		});
 	}
+
+	static GetItemType(actor, type, category) {
+		let items;
+
+		if (category != "") {
+			items = actor.items.filter(item => item.type === type && item.system.type === category);
+		}
+		else {
+			let items = actor.items.filter(item => item.type === type);
+		}
+		
+
+		return items.sort((a, b) => {
+			return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
+		});
+	}
+
 
 	static GetEarnedExperience(actor) {
 		let items = actor.items.filter(item => item.type === "Experience" && (item.system.type == "wod.types.expgained"));

@@ -37,7 +37,7 @@
 		{{#if locked}}
 			<div class="headlineNormal textarea {{#if (eq data.system.thorns '')}}small{{/if}}">{{{data.system.thorns}}}</div>
 		{{else}}
-			{{editor actor.system.thorns target="system.thorns" button=false owner=owner editable=true}}
+			{{editor actor.system.thorns target="system.thorns" engine="prosemirror" button=false owner=owner editable=true}}
 		{{/if}}	
     </div>
 </div>

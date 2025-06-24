@@ -144,7 +144,7 @@
 								<div style="margin-top: auto;">
 									{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 								</div>
-								
+
 								{{#if data.system.settings.haspath}}
 									<div style="margin-top: auto;">
 										{{{getGetStatArea actor actor.system.advantages.path "path" true true false}}}
@@ -259,13 +259,13 @@
 
 				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/gift.html"}}
-				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/gift.hbs"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/werewolf/rites.hbs"}}
 
 			</div>
 
 			{{!-- Power Tab --}}
-			{{> "systems/worldofdarkness/templates/actor/parts/power.html"}}
+			{{> "systems/worldofdarkness/templates/actor/parts/power.hbs"}}
 			
 			<!-- Notes Tab -->
 			<div class="tab note sheet-inner-area" data-group="primary" data-tab="note">

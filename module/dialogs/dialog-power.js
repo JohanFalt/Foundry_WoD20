@@ -606,8 +606,14 @@ export class DialogPower extends FormApplication {
         data.config.powerAbilities = this.actor.system.listdata.powerAbilities;   
 
         if (data.object.dice1 == "path") {
-            data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
+            if (this.actor.system.advantages.path?.label === "custom") {
+                data.object.attributeName = this.actor.system.advantages.path?.custom;
+            }
+            else {
+                data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
+            }
+
+            data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);                
         }
         else if (data.object.dice1 == "custom") {
             if (this.object.secondaryabilityid != "") {
@@ -615,7 +621,7 @@ export class DialogPower extends FormApplication {
                 this.object.attributeValue = parseInt(item.system.value);
                 this.object.attributeName = item.system.label;
 
-                if (parseInt(item.system.value) >= 4) {
+                if (parseInt(item.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = item.system.speciality;
                 }
@@ -638,7 +644,7 @@ export class DialogPower extends FormApplication {
             data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
             data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
 
-            if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= 4) {
+            if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
                 data.object.hasSpeciality = true;
                 attributeSpeciality = this.actor.system.attributes[data.object.dice1].speciality;
             }     
@@ -659,7 +665,7 @@ export class DialogPower extends FormApplication {
                 data.object.attributeName = (this.actor.system.abilities[data.object.dice1].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice1].label) : this.actor.system.abilities[data.object.dice1].altlabel;        
             }                
 
-            if ((parseInt(this.actor.system.abilities[data.object.dice1].value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice1]._id))) {
+            if ((parseInt(this.actor.system.abilities[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice1]._id))) {
                 data.object.hasSpeciality = true;
                 attributeSpeciality = this.actor.system.abilities[data.object.dice1].speciality;
             }
@@ -671,7 +677,7 @@ export class DialogPower extends FormApplication {
 
             // om willpower
             if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
-                if (parseInt(this.actor.system.attributes?.composure.value) >= 4) {
+                if (parseInt(this.actor.system.attributes?.composure.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
                     data.object.hasSpeciality = true;
 
                     if (attributeSpeciality != "") {
@@ -679,7 +685,7 @@ export class DialogPower extends FormApplication {
                     }
                     attributeSpeciality += this.actor.system.attributes.composure.speciality;
                 }
-                if (parseInt(this.actor.system.attributes?.resolve.value) >= 4) {
+                if (parseInt(this.actor.system.attributes?.resolve.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
                     data.object.hasSpeciality = true;
 
                     if (attributeSpeciality != "") {
@@ -698,8 +704,14 @@ export class DialogPower extends FormApplication {
 
         if (data.object.dice2 != "") {
             if (data.object.dice2 == "path") {
-                data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);
-                data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
+                if (this.actor.system.advantages.path?.label === "custom") {
+                    data.object.abilityName = this.actor.system.advantages.path?.custom;
+                }
+                else {
+                    data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
+                }
+
+                data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);                
             } 
             else if (data.object.dice2 == "custom") {
                 if (this.object.secondaryabilityid != "") {
@@ -707,7 +719,7 @@ export class DialogPower extends FormApplication {
                     this.object.abilityValue = parseInt(item.system.value);
                     this.object.abilityName = item.system.label;
     
-                    if (parseInt(item.system.value) >= 4) {
+                    if (parseInt(item.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
                         data.object.hasSpeciality = true;
                         abilitySpeciality = item.system.speciality;
                     }
@@ -733,7 +745,7 @@ export class DialogPower extends FormApplication {
                 data.object.abilityValue = parseInt(this.actor.system.attributes[data.object.dice2].total);
                 data.object.abilityName = game.i18n.localize(this.actor.system.attributes[data.object.dice2].label);
     
-                if (parseInt(this.actor.system.attributes[data.object.dice2].value) >= 4) {
+                if (parseInt(this.actor.system.attributes[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = this.actor.system.attributes[data.object.dice2].speciality;
                 }   
@@ -753,7 +765,7 @@ export class DialogPower extends FormApplication {
                     data.object.abilityName = (this.actor.system.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice2].label) : this.actor.system.abilities[data.object.dice2].altlabel;        
                 }                
 
-                if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= 4) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice2]._id))) {
+                if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice2]._id))) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = this.actor.system.abilities[data.object.dice2].speciality;
                 }

@@ -21,6 +21,31 @@ export class CreatureActorSheet extends MortalActorSheet {
 	/** @override */
 	async getData() {
 		const data = await super.getData();
+		const forms = [];
+
+		if (data.actor.system.settings.powers.haslores) {
+			for (const i of data.items) {
+				if (i.type == "Trait") {
+					if (i.system.type == "wod.types.apocalypticform") {
+						const bonus = i.system.bonuslist;
+
+						const form = {
+							isactive: i.system.isactive,
+							name: i.name,
+							level: i.system.level,
+							details: i.system.details,
+							description: i.system.description,
+							_id: i._id,
+							bonuses: bonus
+						}
+
+						forms.push(form);
+					}
+				}
+			}
+		}		
+
+		data.actor.system.listdata.forms = forms;
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.creature) {
 			console.log(`${data.actor.name} - (${CONFIG.worldofdarkness.sheettype.creature})`);

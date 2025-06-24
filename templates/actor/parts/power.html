@@ -63,7 +63,7 @@
                         {{/if}}
 
                         <div class="gift-iconbox">
-                            {{{getToolTip item.system.description item.system.details}}}
+                            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}" 
@@ -135,7 +135,7 @@
                         {{/if}}
 
                         <div class="gift-iconbox">
-                            {{{getToolTip item.system.description item.system.details}}}
+                            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                             <div class="pullLeft">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}" 
@@ -181,7 +181,7 @@
 {{!-- Power Tab --}}
 <div class="tab power sheet-inner-area" data-group="primary" data-tab="power">
 
-    {{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+    {{> "systems/worldofdarkness/templates/actor/parts/creature/power.hbs"}}
 
 </div>
 

@@ -56,7 +56,7 @@
 				</div>
 
 				<div class="infobox bioInformationArea floating-label-group">
-					<select class="sheet-infoValues smallbox editable" name="system.conceal">
+					<select class="sheet-infoValues editable" name="system.conceal">
 						{{#select data.system.conceal}}
 							<option value="">- {{localize "wod.labels.select"}} -</option>
 							<option value="P">{{translateConceal "P" data.system.era true}}</option>
@@ -84,8 +84,6 @@
 						</div>
 					</div>
 					<div class="pullLeft">
-
-
 						<div class="infobox bioInformationArea floating-label-group">
 							<input class="sheet-infoValues smallbox editable" name="system.clip.max" type="text" value="{{data.system.clip.max}}" data-dtype="Number" autocomplete="off" autofocus required />
 							<span class="floating-label">{{localize "wod.combat.weapon.clip"}}</span>
@@ -117,15 +115,19 @@
 					<input name="system.istwohanded" type="checkbox" {{isChecked data.system.istwohanded}}></input>
 				</div>
 
-				<div class="infobox">
-					<label class="headlineItem headlineBio splatFont" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
-					<div>
-						<input name="system.mode.hasreload" type="checkbox" {{isChecked data.system.mode.hasreload}}>{{localize "wod.combat.mode.reload"}}</input>
-						<input name="system.mode.hasburst" type="checkbox" {{isChecked data.system.mode.hasburst}}>{{localize "wod.combat.mode.burst"}}</input>
-						<input name="system.mode.hasfullauto" type="checkbox" {{isChecked data.system.mode.hasfullauto}}>{{localize "wod.combat.mode.fullauto"}}</input>
-						<input name="system.mode.hasspray" type="checkbox" {{isChecked data.system.mode.hasspray}}>{{localize "wod.combat.mode.spray"}}</input>
+				{{#if (eq data.system.era "wod.era.modern")}}
+
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont" for="data.mode">{{localize "wod.combat.mode.mode"}}</label>
+						<div>
+							<input name="system.mode.hasreload" type="checkbox" {{isChecked data.system.mode.hasreload}}>{{localize "wod.combat.mode.reload"}}</input>
+							<input name="system.mode.hasburst" type="checkbox" {{isChecked data.system.mode.hasburst}}>{{localize "wod.combat.mode.burst"}}</input>
+							<input name="system.mode.hasfullauto" type="checkbox" {{isChecked data.system.mode.hasfullauto}}>{{localize "wod.combat.mode.fullauto"}}</input>
+							<input name="system.mode.hasspray" type="checkbox" {{isChecked data.system.mode.hasspray}}>{{localize "wod.combat.mode.spray"}}</input>
+						</div>
 					</div>
-				</div>
+
+				{{/if}}
 			</div>
 
 			<div class="dialog-area">
@@ -236,7 +238,7 @@
 					{{#if locked}}
 						<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 					{{else}}
-						{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
+						{{editor actor.system.description target="system.description" engine="prosemirror" button=false owner=owner editable=true}}
 					{{/if}}
 				</div>
 			</div>

@@ -1,3 +1,4 @@
+import DropHelper from "../../scripts/drop-helpers.js";
 import ActionHelper from "../../scripts/action-helpers.js";
 import CreateHelper from "../../scripts/create-helpers.js";
 import BioHelper from "../../scripts/bio-helpers.js";
@@ -8,10 +9,11 @@ import ItemHelper from "../../scripts/item-helpers.js";
 import SelectHelper from "../../scripts/select-helpers.js"
 import CombatHelper from "../../scripts/combat-helpers.js";
 
+
 import { calculateHealth } from "../../scripts/health.js";
 import * as selectbox from "../../scripts/spec-select.js";
 
-export class MortalActorSheet extends ActorSheet {
+export class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {
@@ -62,31 +64,33 @@ export class MortalActorSheet extends ActorSheet {
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;
 
+		
+
 		await ItemHelper.sortActorItems(data.actor, data.config);
 
-		data.actor.system.appearance = await TextEditor.enrichHTML(data.actor.system.appearance, {async: true});
-		data.actor.system.background = await TextEditor.enrichHTML(data.actor.system.background, {async: true});
-		data.actor.system.gear = await TextEditor.enrichHTML(data.actor.system.gear, {async: true});
+		data.actor.system.appearance = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.appearance, {async: true});
+		data.actor.system.background = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.background, {async: true});
+		data.actor.system.gear = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.gear, {async: true});
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.mage) {
-			data.actor.system.focus.paradigm = await TextEditor.enrichHTML(data.actor.system.focus.paradigm, {async: true});
-			data.actor.system.focus.practice = await TextEditor.enrichHTML(data.actor.system.focus.practice, {async: true});
-			data.actor.system.focus.instruments = await TextEditor.enrichHTML(data.actor.system.focus.instruments, {async: true});
+			data.actor.system.focus.paradigm = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.focus.paradigm, {async: true});
+			data.actor.system.focus.practice = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.focus.practice, {async: true});
+			data.actor.system.focus.instruments = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.focus.instruments, {async: true});
 		}
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
-			data.actor.system.threshold = await TextEditor.enrichHTML(data.actor.system.threshold, {async: true});
-			data.actor.system.legacyseelie = await TextEditor.enrichHTML(data.actor.system.legacyseelie, {async: true});
-			data.actor.system.legacyunseelie = await TextEditor.enrichHTML(data.actor.system.legacyunseelie, {async: true});
+			data.actor.system.threshold = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.threshold, {async: true});
+			data.actor.system.legacyseelie = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.legacyseelie, {async: true});
+			data.actor.system.legacyunseelie = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.legacyunseelie, {async: true});
 		}
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.mummy) {
-			data.actor.system.rebirth = await TextEditor.enrichHTML(data.actor.system.rebirth, {async: true});
+			data.actor.system.rebirth = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.rebirth, {async: true});
 		}
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.exalted) {
-			data.actor.system.intimacy = await TextEditor.enrichHTML(data.actor.system.intimacy, {async: true});
-			data.actor.system.animapowers = await TextEditor.enrichHTML(data.actor.system.animapowers, {async: true});
+			data.actor.system.intimacy = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.intimacy, {async: true});
+			data.actor.system.animapowers = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.animapowers, {async: true});
 		}
 
 		data.actor.system.listdata.health = await calculateHealth(data.actor, data.config.sheettype.mortal);
@@ -143,11 +147,11 @@ export class MortalActorSheet extends ActorSheet {
 
 		// Click collapsed
 		html
-			.find('.collapsible.button')
+			.find('.unfold.button')
 			.click(event => ItemHelper._onTableCollapse(event, this.actor._id));		
 
 		// Receive collapsed state from flags
-		html.find('.collapsible.button').toArray().filter(ele => {
+		html.find('.unfold.button').toArray().filter(ele => {
 			if (ele.dataset.sheet == CONFIG.worldofdarkness.sheettype.mortal){
 				if (this.actor && this.actor.id && game.user.flags.wod && game.user.flags.wod[this.actor.id] && game.user.flags.wod[this.actor.id][ele.dataset.type] && !game.user.flags.wod[this.actor.id][ele.dataset.type].collapsed) {
 					$(ele).removeClass("fa-angles-right");
@@ -165,6 +169,11 @@ export class MortalActorSheet extends ActorSheet {
 				}
 			}
 		});
+
+		// drag and drop
+		html.find('.draggable').each((i, element) => {
+            DropHelper.HandleDragDrop(this, this.actor, html, element);
+        }); 
 
 		// resource dots
 		html
@@ -256,7 +265,42 @@ export class MortalActorSheet extends ActorSheet {
 		// skicka till chat
 		html
 			.find(".send-chat")
-			.click(this._onSendChat.bind(this));		
+			.click(this._onSendChat.bind(this));	
+			
+		const collapsibles = html[0].querySelectorAll(".collapsible");
+
+		collapsibles.forEach(icon => {
+			icon.addEventListener("click", () => {
+				const itemId = icon.dataset.itemid;
+				const bonusDiv = html[0].querySelector(`.description[data-itemid="${itemId}"]`);
+				if (!bonusDiv) return;
+
+				const isOpen = bonusDiv.style.maxHeight && bonusDiv.style.maxHeight !== "0px";
+
+				if (isOpen) {
+					bonusDiv.style.maxHeight = "0";
+					icon.classList.remove("fa-compress");
+					icon.classList.add("fa-expand");
+					bonusDiv.classList.remove("collapsible-open");					
+				} 
+				else {
+					bonusDiv.style.maxHeight = bonusDiv.scrollHeight + "px";
+					bonusDiv.classList.add("collapsible-open");
+					icon.classList.remove("fa-expand");
+					icon.classList.add("fa-compress");
+				}
+			});
+		});
+	}
+
+	async _onDrop(event) {
+		const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);		
+
+		// Handle different data types
+		switch (data.type) {
+			case 'Item':
+				return this._onDropItem(event, data)
+		}
 	}
 
 	/** @override */
@@ -266,25 +310,11 @@ export class MortalActorSheet extends ActorSheet {
         * @param data - the dropped item
     */
     async _onDropItem(_event, _data) {
-		if (!this.actor.isOwner) return false
+		if (!_data.uuid) return false;
+		if (!this.actor.isOwner) return false;
 
-		//await super._onDropItem(_event, _data);
-
-        const droppedItem = await Item.implementation.fromDropData(_data);
-		const itemData = foundry.utils.duplicate(droppedItem);
-
-        if (droppedItem.type == "Bonus") {            
-			itemData.system.isremovable = true;
-        }
-
-		// Create the owned item
-		return this._onDropItemCreate(itemData, _event)
+		await DropHelper.OnDropItem(_event, _data, this.actor);
     }
-
-	async _onDropItemCreate (itemData) {
-		itemData = itemData instanceof Array ? itemData : [itemData]
-		return this.actor.createEmbeddedDocuments('Item', itemData)
-	}
 
 	async _setDarkAges(event) {
 		event.preventDefault();
@@ -563,14 +593,6 @@ export class MortalActorSheet extends ActorSheet {
 		await CreateHelper.SetVariantItems(this.actor, dataset.value, game.data.system.version);
 	}
 
-	async _onDropItemCreate(itemData) {
-		if ((itemData.type == "Power") && (itemData.system.parentid != "")) {
-			itemData.system.parentid = await ItemHelper.GetPowerId(itemData, this.actor);
-		}
-
-		super._onDropItemCreate(itemData);
-	}
-
 	async _onsheetChange(event) {
 		event.preventDefault();
 
@@ -635,6 +657,23 @@ export class MortalActorSheet extends ActorSheet {
 
 			actorData.system.initiative.bonus = value;			
 		}
+		else if (source == "item") {
+			const itemid = dataset.itemid;
+			const item = await this.actor.getEmbeddedDocument("Item", itemid);
+			const itemData = foundry.utils.duplicate(item);
+
+			const fields = dataset.type.split(".");
+
+			if (parseInt(element.value) > itemData.system[fields[0]].max) {
+				element.value = itemData.system[fields[0]].max;
+			}
+
+			itemData.system[fields[0]][fields[1]] = parseInt(element.value);
+			await item.update(itemData);
+
+			this.render();
+			return;
+		}
 
 		actorData.system.settings.isupdated = false;
 		await this.actor.update(actorData);
@@ -671,6 +710,9 @@ export class MortalActorSheet extends ActorSheet {
 	/* Lock / unlock the sheet */
 	async _onToggleLocked(event) {
 		event.preventDefault();
+
+		// make sure it is a click
+		if (event.detail === 0) return; // detail === 0 means keyboard-triggered click
 
 		this.locked = !this.locked;
 
@@ -962,7 +1004,7 @@ export class MortalActorSheet extends ActorSheet {
 				sheettype: sheettype,
 				actor: this.actor
 			}
-			const itemselectionContent = await renderTemplate(itemselectionTemplate, itemselectionData);
+			const itemselectionContent = await foundry.applications.handlebars.renderTemplate(itemselectionTemplate, itemselectionData);
 
 			if (origin == "core") {
 				buttons = {
@@ -1230,7 +1272,7 @@ export class MortalActorSheet extends ActorSheet {
 	
 		// Render the chat card template
 		const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
-		const html = await renderTemplate(template, templateData);
+		const html = await foundry.applications.handlebars.renderTemplate(template, templateData);
 	
 		const chatData = {
 			content: html,

@@ -9,21 +9,21 @@
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.focus.paradigm '')}}small{{/if}}">{{{actor.system.focus.paradigm}}}</div>
             {{else}}
-                {{editor actor.system.focus.paradigm target="system.focus.paradigm" button=false owner=owner editable=true}}
+                {{editor actor.system.focus.paradigm target="system.focus.paradigm" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}
 
             <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.practice">{{localize 'wod.spheres.practice'}}</label></div>
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.focus.practice '')}}small{{/if}}">{{{actor.system.focus.practice}}}</div>
             {{else}}
-                {{editor actor.system.focus.practice target="system.focus.practice" button=false owner=owner editable=true}}
+                {{editor actor.system.focus.practice target="system.focus.practice" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}
 
             <div class="clearareaBox area-box"><label class="headlineText headlineBio splatFont" for="data.system.focus.instruments">{{localize 'wod.spheres.instruments'}}</label></div>
             {{#if locked}}
                 <div class="headlineNormal textarea {{#if (eq actor.system.focus.instruments '')}}small{{/if}}">{{{actor.system.focus.instruments}}}</div>
             {{else}}
-                {{editor actor.system.focus.instruments target="system.focus.instruments" button=false owner=owner editable=true}}
+                {{editor actor.system.focus.instruments target="system.focus.instruments" engine="prosemirror" button=false owner=owner editable=true}}
             {{/if}}
 
         </div>

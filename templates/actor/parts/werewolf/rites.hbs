@@ -1,0 +1,15 @@
+<div class="sheet-area flex-columns">
+
+    <div class="headlineRow splatFont">
+        <div class="largeBox" data-area="ritelist">{{localize "wod.power.rites"}}</div>            
+    </div>
+
+    <div>
+
+        {{#each actor.system.listdata.powers.gifts.ritelist as |item id|}}
+
+            {{> "systems/worldofdarkness/templates/actor/parts/power_list.hbs" item=item config=../config actor=../actor locked=../locked showclear=false}}
+
+        {{/each}}
+    </div>
+</div>

@@ -1,5 +1,3 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-
 /* Imported Fonts */
 @font-face {
   font-family: "mortal";
@@ -86,8 +84,12 @@
   src: url("../assets/fonts/exalted/SevenSerifICG-Bold.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "wod-svg";
+	src: url("../assets/fonts/Umb000.ttf") format("truetype");
+}
+
 :root {
-  /* --main-font: Arial, Helvetica, sans-serif; */
   --main-font: Verdana, Helvetica, sans-serif;
 
   --main-dialog-background: url('../assets/img/graphics/20Page.jpg');
@@ -111,7 +113,6 @@
   --mage-page-background: url('../assets/img/graphics/20Page.jpg');
   --mage-banner-background: url('../assets/img/graphics/M20Banner.png');
   --mage-banner-small-background: url('../assets/img/graphics/M20Banner.png');
-  --mage-affinity-power: url('../assets/img/icons/mage/spheres.svg');
 
   --main-vampire-color: rgb(121, 8, 19);
   --main-vampire-mid-color: rgb(121, 8, 19, 0.4);
@@ -129,7 +130,6 @@
   --changeling-topbanner-background: url('../assets/img/graphics/C20TopBanner.png');
   --changeling-banner-background: url('../assets/img/graphics/C20Banner.png');
   --changeling-banner-small-background: url('../assets/img/graphics/C20Banner.png');
-  --changeling-affinity-power: url('../assets/img/icons/changeling/realms.svg');
 
   --main-hunter-color: rgb(191, 67, 18);
   --main-hunter-mid-color: rgba(191, 67, 18, 0.4);
@@ -165,10 +165,6 @@
 
   --main-exalted-font: "exalted_normal", Verdana, Helvetica, sans-serif;
 
-  /* --main-exalted-color: rgb(253, 179, 30);
-  --main-exalted-mid-color: rgba(255, 211, 126, 0.4);
-  --main-exalted-dim-color: rgba(255, 211, 126, 0.12); */
-
   --main-exalted-color: rgb(169, 44, 38);
   --main-exalted-mid-color: rgba(169,44,38, 0.4);
   --main-exalted-dim-color: rgba(169,44,38, 0.12);
@@ -189,9 +185,11 @@
   --main-mid-color: var(--main-mortal-mid-color);
   --main-dim-color: var(--main-mortal-dim-color);  
 
-  --sheet-background-color: white;
+  --sheet-background-color: #f5f5f5;
 
-  --healthlevel-bruised-color: white;
+  --sheet-white: #f5f5f5;
+
+  --healthlevel-bruised-color: #ffffff;
   --healthlevel-hurt-color: #FFFF00;
   --healthlevel-injured-color: #FFCC00;
   --healthlevel-wounded-color: #FF8C00;
@@ -199,6 +197,7 @@
   --healthlevel-crippled-color: #800000;
   --healthlevel-incapacitated-color: #000000;
 }
+
 
 /* START - Type of sheet designs */
 
@@ -212,6 +211,7 @@
   min-width: 650px;
   width: 650px;
   min-height: 650px;
+  height: 650px;
 } 
 
 .wod20rule-dialog:not(.minimized) {
@@ -247,8 +247,8 @@
 }
 
 .wod-dialog.aretecasting-dialog:not(.minimized) {
-  min-width: 750px;
-  width: 750px;
+  min-width: 950px;
+  width: 950px;
 }
 
 .wod20.window-app {
@@ -296,19 +296,19 @@
 }
 
 .wod20 select option {
-  background: white;
-  color: black;
+  background: #e0e0e0;
+  color: #121212;
 }
 
 .wod20 select option[value=""] {
   background: var(--main-full-color);
-  color: white;
+  color: #e0e0e0;
 }
 
 .wod20 select.editable,
 .wod20 input.editable {
   background: rgba(255, 255, 255, 1);
-  color: black;
+  color: #121212;
 }
 
 .wod20 button {
@@ -336,7 +336,7 @@
 
 /* START - handle lock design */
 
-.sheet-character .profile-img-zone {
+.wod-sheet .profile-img-zone {
   max-width: 105px;
   display: flex;
   align-items: center;
@@ -350,12 +350,12 @@
   margin-right: 10px;
 }
 
-.sheet-character .profile-img-zone button {  
+.wod-sheet .profile-img-zone button {  
   border: none;
   width: 30px;
 }
 
-.sheet-character .profile-img,
+.wod-sheet .profile-img,
 .sheet-item .profile-img {
   height: auto;
   width: 105px;
@@ -366,8 +366,8 @@
   border-radius: 10px;
 }
 
-.sheet-character .profile-img.defaultimage {
-  background: black;
+.wod-sheet .profile-img.defaultimage {
+  background: #121212;
 }
 
 .wod20 .pointer:hover,
@@ -384,7 +384,7 @@
 .wod20 .locked select,
 .wod20 .textarea {
   background: rgba(255, 255, 255, 1);
-  color: black;  
+  color: #121212;  
 } 
 
 .wod20 .textarea {
@@ -520,7 +520,8 @@ input.sheet-infoWidth {
   scale: 1.2;
 }
 
-.wod20.wod-sheet .icon.fa-square-plus {
+.wod20.wod-sheet .icon.fa-square-plus,
+.wod20.wod-sheet .icon.fa-ellipsis-vertical {
   display: none;
 }
 
@@ -551,6 +552,10 @@ input.sheet-infoWidth {
 .wod20 .sheet-boxcontainer {
   width: 100%;
   text-align: center;
+}
+
+.wod20 .sheet-area.flex-columns {
+  min-height: 100px;
 }
 
 .wod20 .sheet-area .flex-columns {
@@ -596,7 +601,6 @@ input.sheet-infoWidth {
 .wod-sheet .sheet-banner-text {
   background: var(--sheet-background-color);
   border-radius: 33%;
-  /* opacity: 0.8; */
 }
 
 .wod-sheet .sheet-headline {  
@@ -665,10 +669,10 @@ input.sheet-infoWidth {
   height: 30px;
 }
 
-.wod20 .largeBox {
+/* .wod20 .largeBox {
   width: 250px;
   height: 19px;
-}
+} */
 
 .wod20 .largeBox {
   width: 200px;
@@ -727,9 +731,22 @@ input.sheet-infoWidth {
 }
 
 .wod20 .vrollable:hover,
-.wod20.vrollable:focus {
+.wod20 .vrollable:focus {
   color: #000;  
   cursor: pointer;
+}
+
+.wod20 .draggable {
+  cursor: default; /* Default cursor normalt */
+}
+
+.wod20 .draggable:hover,
+.wod20 .draggable:focus {
+  cursor: grab;
+}
+
+.wod20 .draggable:active {
+  cursor: grabbing;
 }
 
 .wod-sheet .macroBtn {
@@ -834,9 +851,36 @@ input.sheet-infoWidth {
   margin: 5px;
 }
 
+.wod20 .headlineNormal.info-box {
+  padding: 10px;
+  background: var( --sheet-white);
+  border: black;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+  margin-top: 5px;
+  max-width: 400px;
+}
+
 /* END - General */
 
+/* 
+    START drag and drop
+    .wod20-drag-row is added as you drag the row
+*/
+.wod20 .wod20-drag-row {
+  white-space: nowrap;
+}
+
+.wod20 .wod20-drag-row > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* END drag and drop */
+
 /* Create ALL button */
+
 .wod20.wod-dialog.wod-create .dialog-content {
   flex: 0;
 }
@@ -849,14 +893,14 @@ input.sheet-infoWidth {
   font-family: var(--main-font);
   border: 0;
   background: var(--main-full-color);
-  color: white;
+  color: #e0e0e0;
   width: 50%;
   height: 34px;
   margin-bottom: 10px;
 }
 
 .wod20.wod-dialog.wod-create button.active {
-  background: white;
+  background: #e0e0e0;
 	color: var(--main-full-color);
   border: 1px solid var(--main-full-color);
 }
@@ -872,7 +916,7 @@ input.sheet-infoWidth {
 }
 
 .wod20 .fullSplatColor.button.active {
-  background: white;
+  background: #e0e0e0;
 	color: var(--main-full-color);
   border: 1px solid var(--main-full-color);
 }
@@ -880,6 +924,7 @@ input.sheet-infoWidth {
 .wod-dialog .setting-area {
   margin-bottom: 20px !important;
 }
+
 /* End Create ALL button */
 
 /* START - Dialog */
@@ -931,12 +976,12 @@ input.sheet-infoWidth {
 }
 
 /* Dialog button rules */
+
 .wod20.wod-item .dialog-one-button.item-bonusvalue-button,
 .wod20.wod-dialog .dialog-one-button.item-bonusvalue-button {
   margin-bottom: 5px;
 }
 
-/* Dialog button rules */
 .wod20.wod-item .dialog-ten-button.item-bonusvalue-button,
 .wod20.wod-dialog .dialog-ten-button.item-bonusvalue-button {
   margin-left: 230px;
@@ -1009,14 +1054,196 @@ input.sheet-infoWidth {
 
 /* END - Dialog */
 
+/* START List item rows */
+
+.wod20 .item-row-area {
+  border-bottom: 1px solid var(--main-full-color);
+  padding: 3px;
+  line-height: 23px;
+  display: flex;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.wod20 .item-row-area .dragrow,
+.wod20-drag-row.dragrow {
+  display: flex;
+  white-space: nowrap;
+}
+
+.wod20 .item-row-area .iconBox {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; 
+}
+
+.wod20 .power-itemlist {
+  line-height: 23px;
+  height: 26px;
+  display: flex;
+}
+
+.wod20 .item-row-area.power-row {
+  border-top: 0;
+  border-bottom: 0;
+  background: var(--sheet-background-color) no-repeat;    
+}
+  
+
+    /* headline */
+.wod20 .headlineRow.combat-natural-itemlist .width-namebox,
+.wod20 .headlineRow.combat-melee-itemlist .width-namebox,
+.wod20 .headlineRow.combat-ranged-itemlist .width-namebox,
+.wod20 .headlineRow.combat-armor-itemlist .width-namebox,
+.wod20 .headlineRow.gear-itemlist .width-namebox,
+.wod20 .headlineRow.feature-itemlist .width-namebox {
+  width: 190px;
+}
+
+    /* item row */
+.wod20 .item-row-area.combat-natural-itemlist .width-namebox,
+.wod20 .item-row-area.combat-melee-itemlist .width-namebox,
+.wod20 .item-row-area.combat-ranged-itemlist .width-namebox,
+.wod20 .item-row-area.combat-armor-itemlist .width-namebox,
+.wod20 .item-row-area.gear-itemlist .width-namebox,
+.wod20 .item-row-area.feature-itemlist .width-namebox,
+.wod20-drag-row .width-namebox { 
+  width: 170px;
+}
+
+.wod20 .effect-itemlist .item-row .width-namebox {
+  width: 300px;
+}
+
+.wod20 .item-row-area.mainpower-row {
+    height: 26px;
+    line-height: 23px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 100%;
+    background-color: var(--main-dim-color);
+}
+
+.wod20 .item-row-area.mainpower-row .power-itemlist .width-namebox {
+  font-size: 20px;
+  font-weight: normal;
+  width: 240px;
+}
+
+.wod20 .item-row-area.power-row .power-itemlist .width-namebox,
+.wod20 .unsorted-area .width-namebox {
+  width: 210px;
+}
+
+.wod20 .combat-natural-itemlist .width-abilitybox,
+.wod20 .combat-melee-itemlist .width-abilitybox,
+.wod20 .combat-ranged-itemlist .width-abilitybox,
+.wod20 .combat-armor-itemlist .width-abilitybox,
+.wod20 .gear-itemlist .width-abilitybox,
+.wod20 .power-itemlist .width-abilitybox,
+.wod20-drag-row .width-abilitybox {
+  width: 90px;
+}
+
+.wod20 .effect-itemlist .item-row .width-abilitybox {
+  width: 200px;
+}
+
+.wod20 .combat-melee-itemlist .width-mediumbox,
+.wod20 .gear-itemlist .width-mediumbox,
+.wod20 .feature-itemlist .width-mediumbox,
+.wod20 .effect-itemlist .item-row .width-mediumbox,
+.wod20-drag-row .width-mediumbox {
+  width: 100px;
+}
+
+.wod20 .combat-natural-itemlist .width-smallbox,
+.wod20 .combat-melee-itemlist .width-smallbox,
+.wod20 .combat-ranged-itemlist .width-smallbox,
+.wod20 .combat-armor-itemlist .width-smallbox,
+.wod20 .power-itemlist .width-smallbox,
+.wod20-drag-row .width-smallbox {
+  width: 75px;
+}
+
+.wod20 .combat-natural-itemlist .width-valuebox,
+.wod20 .combat-melee-itemlist .width-valuebox,
+.wod20 .combat-ranged-itemlist .width-valuebox,
+.wod20 .combat-armor-itemlist .width-valuebox,
+.wod20 .gear-itemlist .width-valuebox,
+.wod20 .feature-itemlist .width-valuebox,
+.wod20-drag-row .width-valuebox {
+  width: 50px;
+  text-align: center;
+}
+
+.wod20 .effect-itemlist .item-row .width-valuebox {
+  width: 75px;
+  text-align:center;
+}
+
+.wod20 .width-iconbox,
+.wod20-drag-row .width-iconbox {
+  margin-right: 2px;
+  width: 15px;
+}
+
+.wod20 .width-iconbox-empty,
+.wod20-drag-row .width-iconbox-empty {
+  margin-right: 2px;
+  width: 15px;
+}
+
+.wod20 .description {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+  
+}
+
+.wod20 .description.collapsible-open {
+    border-bottom: 1px solid var(--main-full-color);
+}
+
+
+.wod20 .no-description-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+.wod20 .highlightedPowerRow {
+  border-top: 1px solid var(--main-full-color);
+  border-bottom: 1px solid var(--main-full-color);
+  background-color: var(--main-dim-color);
+}
+
+.wod20:not(.noSplatFont) .description .headlineList {
+    font-weight: normal;
+    font-size: 16px;
+}
+
+/* END List item rows */
+
 /* START - Navigation */
+
+.wod-sheet .shapeIcon {
+  margin-bottom: 8px;
+}
+
+.wod-sheet nav.tabs {
+  border-top: 0;
+  border-bottom: 0;
+}
 
 .wod-sheet .sheet-tabs {
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.wod-sheet a.item {
+.wod-sheet div.item {
   width: 30px;
   height: 30px;
   margin-bottom: 8px;
@@ -1029,11 +1256,24 @@ input.sheet-infoWidth {
   border: 0px;
 }
 
+.wod-sheet .tabs .item {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  padding: 0;
+  background-color: transparent;
+}
+
 .wod-sheet .tabs .item.active {
   box-shadow: 5px 5px 5px var(--main-mid-color);
   -moz-box-shadow: 5px 5px 5px var(--main-mid-color);
   -webkit-box-shadow: 5px 5px 5px var(--main-mid-color);
   -khtml-box-shadow: 5px 5px 5px var(--main-mid-color);
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  padding: 0;
+  background-color: transparent;
 }
 
 .wod20 .secondHeadlineTabs {
@@ -1116,10 +1356,6 @@ input.sheet-infoWidth {
 
 .wod20 div.health {
   display: inline-block;
-}
-
-.wod20 div.healthBox {
-  padding-right: 30px;
 }
 
 .wod20 span.healthBox {
@@ -1274,14 +1510,7 @@ input.sheet-infoWidth {
   height: 23px;
 }
 
-.wod20 .weapon-rolliconbox {
-  margin-right: 2px;
-  width: 15px;
-}
 
-.wod20 .weapon-rolliconbox-empty {
-  width: 17px;
-} 
 
 .wod20 .combat-activeBox {
   width: 30px;
@@ -1295,40 +1524,12 @@ input.sheet-infoWidth {
   width: 33%
 }
 
-.wod20 .combat-valueBox {
-  width: 50px;
-}
-
-.wod20 .combat-smallBox {
-  width: 75px;
-}
-
-.wod20 .combat-mediumBox {
-  width: 100px;
-}
-
-.wod20 .combat-headlineLargeBox {
-  width: 170px;
-}
-
-.wod20 .combat-largeBox {
-  width: 150px;
-}
-
 .wod20 .armor-placebox {
   width: 150px;
 }
 
 .wod20 .armor-largeBox {
   width: 160px;
-}
-
-.wod20 .combat-abilityBox {
-  width: 110px;
-}
-
-.wod20 .combat-concealBox {
-  width: 50px;
 }
 
 .wod20 .combat-valueBoxArmor {
@@ -1351,156 +1552,17 @@ input.sheet-infoWidth {
   height: 400px;
 }
 
-.wod20 .gear-valueBox {
-  width: 80px;
-}
 
-.wod20 .item-largebox.headlineList {
-  width: 245px
-}
-
-.wod20 .item-largebox {
-  width: 200px
-}
-
-.wod20 .item-box {
-  width: 100px
-}
-
-.wod20 .item-poolbox {
-  width: 200px;
-}
-
-.wod20 .item-valuebox {
-  width: 50px;
-}
 
 /* END - Gear */
 
 /* START - Power */
 
-.wod20 .ritual-headline {
-  width: 225px;
-  margin-left: 20px;
-}
 
-.wod20 .ritual-row .power-iconbox {
-  margin-left: 40px;
-}
-
-.wod20 .highlightedPowerRow {
-  border-top: 1px solid var(--main-full-color);
-  border-bottom: 1px solid var(--main-full-color);
-  background-color: var(--main-dim-color);
-  /* line-height: 23px;
-  height: 23px; */
-}
-
-.wod20 .bonus-icons.power-iconbox {
-  margin-left: 38px;
-}
-
-.wod20 .power-dotBox {
-  width: 200px;
-}
-
-.wod-sheet .power-dicebox {
-  width: 100px;
-}
-
-.wod20 .power-row .power-iconbox {
-  margin-left: 93px;
-}
-
-.wod20 .art-headline,
-.wod20 .discipline-headline,
-.wod20 .edge-headline,
-.wod20 .lore-headline,
-.wod20 .arcanoi-headline,
-.wod20 .hekau-headline,
-.wod20 .numina-headline {
-  width: 200px;
-}
-
-.wod20 .discipline-headline.headlineGroup,
-.wod20 .edge-headline.headlineGroup,
-.wod20 .lore-headline.headlineGroup,
-.wod20 .arcanoi-headline.headlineGroup,
-.wod20 .hekau-headline.headlineGroup,
-.wod20 .numina-headline.headlineGroup {
-  width: 240px;
-}
-
-.wod-item .top-headline {
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.wod-item .top-sidetext {
-  color: #7e7e7e;
-  font-weight: normal;
-}
-
-.wod-item .top-center {	
-	flex-grow: 2;
-  flex-basis: auto;  
-}
-
-.wod20 .power-row,
-.wod20 .art-row {  
-  display: flex;
-  height: 23px;
-  line-height: 23px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-  width: 100%;
-}
-
-.wod20 .artpower-row,
-.wod20 .disciplinepower-row,
-.wod20 .edgepower-row,
-.wod20 .hekaupower-row,
-.wod20 .numinapower-row {
-  display: flex;
-  height: 23px;
-  line-height: 23px;
-  margin-left: 13px;
-}
-
-.wod20 .power-row .resource-value,
-.wod20 .art-row .resource-value {
-  line-height: 30px;
-}
-
-.wod20 .numinapower-nonerollablerow .power-iconbox {
-  margin-left: 290px;
-}
-
-.wod20 .numinapower-rollablerow .power-iconbox {
-  margin-left: 140px;
-}
 
 /* END - Power */
 
 /* START - Notes */
-
-.wod20 .note-row {
-  height: 23px;
-  line-height: 23px;
-}
-
-.wod20 .note-iconbox {
-  margin-left: 150px;
-}
-
-.wod20 .note-iconTraits {
-  margin-left: 85px;
-}
-
-.wod20 .notes-valueBox {
-  width: 55px;
-  height: 19px;
-}
 
 .wod20 .notes-centerexperienceadd {
   height: 26px;
@@ -1520,14 +1582,14 @@ input.sheet-infoWidth {
   text-shadow: none;
   box-shadow: none;
   background-color: var(--main-full-color);
-  color: white;  
+  color: #ffffff;  
   cursor: pointer;
   font-weight: normal;
 }
 
 .wod20 .secondHeadlineTabs:hover {
 	background-color: var(--main-dim-color); 
-  color: black;  
+  color: #121212;  
   cursor: pointer;
 }
 
@@ -1641,11 +1703,11 @@ input.sheet-infoWidth {
 .wod20 .resource-value .resource-value-step {
   height: 14px;
   width: 14px;
-  border: 1px solid black;
+  border: 1px solid #121212;
   display: inline-block;
   border-radius: 50%;
   cursor: pointer;
-  background: white;  
+  background: #ffffff;  
 }
 
 .wod20 .resource-counter.tempSquareRow .resource-value-step,
@@ -1660,13 +1722,13 @@ input.sheet-infoWidth {
 
 .wod20 .difficulty-value .resource-value-step.active,
 .wod20 .resource-value .resource-value-step.active {
-  background-color: black;
+  background-color: #121212;
 }
 
 .wod20 .resource-value-static .resource-value-static-step {
   height: 14px;
   width: 14px;
-  border: 1px solid black;
+  border: 1px solid #121212;
   display: inline-block;
   border-radius: 50%;
 }
@@ -1702,10 +1764,10 @@ input.sheet-infoWidth {
 .wod20 .resource-counter .resource-value-step {
   height: 14px;
   width: 14px;
-  border: 1px solid black;
+  border: 1px solid #121212;
   display: inline-block;
   cursor: pointer;
-  background: white;
+  background: #ffffff;
 }
 
 /* bashing */
@@ -1833,7 +1895,7 @@ input.sheet-infoWidth {
       black 55%,
       transparent 57%,
       transparent 100%
-    ), white;
+    ), #ffffff;
 }
 
 .wod20 .resource-counter .resource-value-step[data-state="x"].bruised {
@@ -2020,7 +2082,7 @@ input.sheet-infoWidth {
       transparent 57%,
       transparent 100%
     ),
-    white;
+    #e0e0e0;
 }
 
 .wod20 .resource-counter .resource-value-step[data-state="*"].bruised {
@@ -2052,7 +2114,7 @@ input.sheet-infoWidth {
       transparent 57%,
       transparent 100%
     ),
-    white;
+    #e0e0e0;
 }
 
 .wod20 .resource-counter .resource-value-step[data-state="*"].hurt {

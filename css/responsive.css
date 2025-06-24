@@ -4,11 +4,11 @@
 
 .wod20 .fullSplatColor {
   background: var(--main-full-color);
-  color: white;
+  color: #ffffff;
 }
 
 .wod20 .fullSplatColor.button.active {
-  background: white;
+  background: #e0e0e0;
 	color: var(--main-full-color);
   border: 1px solid var(--main-full-color);
 }
@@ -28,26 +28,13 @@
 
 .resource-value-static .resource-value-static-step.active {
   background-color: var(--main-full-color);
-  color: white;
+  color: #e0e0e0;
   
 }
 
 .wod20 .tooltip .tooltiptext {
-  background-color: white;
-  color: black;
-}
-
-
-.item-row-area {
-  border-bottom: 1px solid var(--main-full-color);
-  padding: 3px;
-  line-height: 23px;
-}
-
-.item-row-area.mainpower-row {
-  padding: 3px;
-  border-bottom: 0px;
-  display: flex;
+  background-color: #e0e0e0;
+  color: #121212;
 }
 
 .wod20 .power-row {
@@ -75,8 +62,8 @@
   color: rgb(167, 2, 2);
 }
 
-.wod20 .send-chat:hover,
-.wod20 .send-chat:focus,
+.wod20 .pointer.icon:hover,
+.wod20 .pointer.icon:focus,
 .wod20 .item-create:hover,
 .wod20 .item-create:focus,
 .wod20 .item-edit:hover,
@@ -86,7 +73,7 @@
 .wod20 .collapsible.button:hover,
 .wod20 .collapsible.button:focus,
 .wod20 .vrollable:hover,
-.wod20 .vrollable:focus,
+.wod20 .vrollable:focus, 
 .wod20 .item:hover,
 .wod20 .item:focus,
 .wod20 .item.active {
@@ -130,6 +117,11 @@
   width: 950px;
 }
 
+.langDE.demon:not(.noSplatFont) .headlineList,
+.langDE.demon:not(.noSplatFont) .headlineRow {
+    font-size: 12px;
+}
+
 /* END - General */
 
 /* START Core */
@@ -139,12 +131,19 @@
   width: 60%;
 }
 
+.langES.wod-sheet .supernaturalAttribute.ability-headlineWidth {
+  width: 40%;
+}
+
 .langDE.werewolf .ability-headlineWidth,
-.langES.werewolf .ability-headlineWidth {
+.langDE.demon .ability-headlineWidth,
+.langES.werewolf .ability-headlineWidth,
+.langES.demon .ability-headlineWidth {
   width: 55%;
 }
 
 .langPT.werewolf .ability-headlineWidth,
+.langPT.demon .ability-headlineWidth,
 .langFR .attribute-headlineWidth,
 .langIT .attribute-headlineWidth {
   width: 120px;
@@ -167,7 +166,79 @@
 /* END Core */
 
 /* START Combat */
-.langDE .combat-smallBox,
+
+.wod20.langDE .combat-natural-itemlist .width-abilitybox,
+.wod20.langDE .combat-melee-itemlist .width-abilitybox,
+.wod20.langDE .combat-ranged-itemlist .width-abilitybox,
+.wod20.langDE .combat-armor-itemlist .width-abilitybox,
+.wod20.langDE .power-itemlist .width-abilitybox,
+.langDE .wod20-drag-row .width-abilitybox {
+  width: 110px;
+}
+
+.wod20.langDE.hunter .power-itemlist .width-abilitybox {
+  width: 160px;
+}
+
+.wod20.langDE .gear-itemlist .width-abilitybox,
+.wod20.langES .gear-itemlist .width-abilitybox {
+  width: 200px;
+}
+
+.wod20.langDE .combat-natural-itemlist .width-valuebox,
+.wod20.langDE .combat-melee-itemlist .width-valuebox,
+.wod20.langDE .combat-ranged-itemlist .width-valuebox,
+.wod20.langDE .combat-armor-itemlist .width-valuebox,
+.wod20.langDE .gear-itemlist .width-valuebox,
+.wod20.langDE .feature-itemlist .width-valuebox,
+.langDE .wod20-drag-row .width-valuebox {
+  width: 60px;
+  text-align: center;
+}
+
+.wod20.langDE .effect-itemlist .item-row .width-mediumbox,
+.wod20.langES .effect-itemlist .item-row .width-mediumbox {
+  width: 200px;
+}
+
+.wod20.langDE .combat-natural-itemlist .width-valuebox,
+.wod20.langDE .combat-melee-itemlist .width-valuebox,
+.wod20.langDE .combat-ranged-itemlist .width-valuebox,
+.wod20.langDE .combat-armor-itemlist .width-valuebox,
+.wod20.langDE .gear-itemlist .width-valuebox,
+.wod20.langDE .feature-itemlist .width-valuebox,
+.langDE .wod20-drag-row .width-valuebox,
+.wod20.langES .combat-natural-itemlist .width-valuebox,
+.wod20.langES .combat-melee-itemlist .width-valuebox,
+.wod20.langES .combat-ranged-itemlist .width-valuebox,
+.wod20.langES .combat-armor-itemlist .width-valuebox,
+.wod20.langES .gear-itemlist .width-valuebox,
+.wod20.langES .feature-itemlist .width-valuebox,
+.langES .wod20-drag-row .width-valuebox {
+  width: 80px;
+  text-align: center;
+}
+
+.wod20.langDE.demon .combat-armor-itemlist .width-valuebox,
+.wod20.langDE.mage .combat-armor-itemlist .width-valuebox,
+.wod20.langDE.mortal .combat-armor-itemlist .width-valuebox,
+.wod20.langES.demon .combat-armor-itemlist .width-valuebox,
+.wod20.langES.mage .combat-armor-itemlist .width-valuebox,
+.wod20.langES.mortal .combat-armor-itemlist .width-valuebox {
+  width: 100px;
+}
+
+.wod20.langDE.werewolf .combat-armor-itemlist .width-valuebox.form-box,
+.wod20.langES.werewolf .combat-armor-itemlist .width-valuebox.form-box {
+  width: 60px;
+}
+
+.wod20.langES .combat-armor-itemlist .width-smallbox {
+  width: 100px;
+}
+
+
+/* .langDE .combat-smallBox,
 .langPT .combat-smallBox {
   width: 90px;
 }
@@ -197,7 +268,7 @@
 
 .langFR .combat-valueBoxArmor {
   width: 95px;
-}
+} */
 
 /* END Combat */
 

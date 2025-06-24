@@ -37,7 +37,7 @@
                     {{#if item.system.isrollable}}
                         <div class="pullLeft power-dicebox headlineNormal">
                             {{#if (eq item.system.dice1 "path")}}
-                                {{localize ../actor.system.advantages.path.label}}
+                                {{#if (eq ../actor.system.advantages.path.label 'custom')}}{{../actor.system.advantages.path.custom}}{{else}}{{localize ../actor.system.advantages.path.label}}{{/if}}                                
                             {{else if (eq item.system.dice1 "custom")}}
                                 {{getSecondaryAbility item.system.dice1 ../actor item.system.secondaryabilityid}}
                             {{else}}
@@ -46,7 +46,7 @@
                         </div>
                         <div class="pullLeft power-dicebox headlineNormal">
                             {{#if (eq item.system.dice2 "path")}}
-                                {{localize ../actor.system.advantages.path.label}}
+                                {{#if (eq ../actor.system.advantages.path.label 'custom')}}{{../actor.system.advantages.path.custom}}{{else}}{{localize ../actor.system.advantages.path.label}}{{/if}}
                             {{else if (eq item.system.dice2 "custom")}}
                                 {{getSecondaryAbility item.system.dice2 ../actor item.system.secondaryabilityid}}
                             {{else}}
@@ -67,7 +67,7 @@
                                 <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepower'}}" aria-hidden="true" data-itemtype="Power" data-type="disciplinepower" data-parentid="{{item._id}}"></i>
                             </div>
                         {{/if}}
-                        {{{getToolTip item.system.description item.system.details}}}
+                        {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                         <div class="pullLeft pointer">
                             <a class="send-chat" 
                                 title="{{localize 'wod.labels.send'}}" 
@@ -192,7 +192,7 @@
                     {{/if}}
 
                     <div class="pullLeft power-iconbox">
-                        {{{getToolTip item.system.description item.system.details}}}
+                        {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                         <div class="pullLeft pointer">
                             <a class="send-chat" 
                                 title="{{localize 'wod.labels.send'}}" 
@@ -290,7 +290,7 @@
                                     <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.disciplinepathpower'}}" aria-hidden="true" data-itemtype="Power" data-type="disciplinepathpower" data-parentid="{{item._id}}"></i>
                                 </div>
                             {{/if}}
-                            {{{getToolTip item.system.description item.system.details}}}
+                            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                             <div class="pullLeft pointer">
                                 <a class="send-chat" 
                                     title="{{localize 'wod.labels.send'}}" 
@@ -415,7 +415,7 @@
                 <div class="pullLeft headlineNormal">{{localize item.system.category}}</div>
 
                 <div class="pullLeft power-iconbox">
-                    {{{getToolTip item.system.description item.system.details}}}
+                    {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
                     <div class="pullLeft pointer">
                         <a class="send-chat" 
                             title="{{localize 'wod.labels.send'}}" 

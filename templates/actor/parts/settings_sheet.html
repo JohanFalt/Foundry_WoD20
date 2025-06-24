@@ -92,7 +92,7 @@
 
 {{/if}}
 
-{{#if (and (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf) (or (eq actor.system.settings.variant "general") (eq actor.system.settings.variant "")))}}
+{{#if (and (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf) (eq actor.system.settings.variant "general"))}}
 
     <div class="sheet-area flex-columns">
         <div class="headlineGroup splatFont">{{localize "wod.labels.settings.era.headline"}}</div>

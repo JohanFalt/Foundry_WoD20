@@ -83,7 +83,7 @@
 
 				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-				{{> "systems/worldofdarkness/templates/actor/parts/creature/charms.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/creature/charms.hbs"}}
 
 			</div>
 
@@ -92,7 +92,7 @@
 
 				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-				{{> "systems/worldofdarkness/templates/actor/parts/gifts.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/gifts.hbs"}}
 
 			</div>
 
@@ -101,7 +101,7 @@
 
 				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/vampire/disciplines.hbs"}}
 
 			</div>
 
@@ -110,14 +110,14 @@
 
 				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-				{{> "systems/worldofdarkness/templates/actor/parts/demon/lores.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/demon/lores.hbs"}}
 
 			</div>
 
 			{{!-- Power Tab --}}
 			<div class="tab power sheet-inner-area" data-group="primary" data-tab="power">
 
-				{{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
+				{{> "systems/worldofdarkness/templates/actor/parts/creature/power.hbs"}}
 
 			</div>
 
@@ -126,32 +126,43 @@
 
 				<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-				{{{getGetPowerList locked actor "numina" "wod.types.numina" (localize "wod.power.numinas") false}}}
+				<div class="sheet-area flex-columns">
+					<div class="area-box">
 
-				<div class="sheet-area flex-columns" style="margin-top: 25px;">
-					<div class="clearareaBox">
-						<div class="headlineList splatFont">{{localize "wod.power.unsortednuminas"}}</div>
-					</div>
+						<div class="sheet-headline sheet-banner splatFont" data-area="numina"><span class="sheet-banner-text">{{localize "wod.power.numinas"}}</span></div>
 
-					<div class="clearareaBox area-box">
-						{{#each (getConnectedItemList actor "Power" "wod.types.numinapower" "") as | item id|}}
-
-							<div class="clearareaBox row">
-								<div class="pullLeft numina-headline headlineNormal vrollable" 
-									data-type="{{../config.sheettype.mortal}}"
-									data-object="SortNuminaPower"
-									data-rollitem="true"
-									data-itemid="{{item._id}}">{{item.name}}</div>
-								
-								{{#if (eq ../locked false)}}
-									<div class="pullLeft power-iconbox">
-										<a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-									</div>
-								{{/if}}                    
-							</div>
+						{{#each (getMainPowerList actor "wod.types.numina") as |item id|}}
+							{{> "systems/worldofdarkness/templates/actor/parts/mainpower_list.hbs" mainpower=item config=../config actor=../actor locked=../locked}}
 						{{/each}}
 					</div>
 				</div>
+
+				{{#if (gt (couintUnsortedMainPowerList actor "wod.types.numinapower") 0)}}
+
+					<div class="sheet-area unsorted-area flex-columns">
+						<div class="headlineNormal info-box">{{localize "wod.power.unsortednuminas"}}</div>
+
+						<div class="area-box">
+							{{#each (getUnsortedMainPowerList actor "wod.types.numinapower") as | item id|}}
+
+								<div class="row">
+									<div class="pullLeft headlineNormal width-namebox vrollable" 
+										data-type="{{../config.sheettype.mortal}}"
+										data-object="SortNuminaPower"
+										data-rollitem="true"
+										data-itemid="{{item._id}}">{{item.name}}</div>
+									
+									{{#if (eq ../locked false)}}
+										<div class="pullLeft power-iconbox">
+											<a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-type="Numina" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+										</div>
+									{{/if}}                    
+								</div>
+
+							{{/each}}
+						</div>
+					</div>
+				{{/if}}
 
 			</div>
 

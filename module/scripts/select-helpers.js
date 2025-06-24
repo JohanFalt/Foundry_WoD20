@@ -824,6 +824,8 @@ export default class SelectHelper {
             }
     
             listData.AbilityList = abilitylist;
+
+                       
     
             // ******** BONUS
             listData.BonusLista = [
@@ -939,6 +941,17 @@ export default class SelectHelper {
         }
 
         listData.Level9Value = values;
+
+        for (let i = 1; i < 11; i++) {
+            const data = {
+                value: i,
+                label: i.toString()
+            };
+
+            values.push(data);
+        }
+
+        listData.Level10Value = values;
 
         values = [{
             value: 0,

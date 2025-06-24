@@ -81,12 +81,12 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         }        
     }
 
-    try {
-        ui.notifications.warn("Checking character settings");
-        await this.updates();
-    }
-    catch (e) {
-    }
+    // try {
+    //     ui.notifications.warn("Checking character settings");
+    //     await this.updates();
+    // }
+    // catch (e) {
+    // }
 
     if (updateWorld) {
         ui.notifications.info(`World updated to version ${game.system.version}!`, {permanent: true});
@@ -1882,24 +1882,7 @@ export  const updates = async () => {
             await actor.update(updateData);
             update = false;
         }
-    }    
-
-    // if (_compareVersion(actor.system.settings.version, "4.2.1")) {
-    //     update = false;    
-    //     let updateData = foundry.utils.duplicate(actor);
-
-    //     if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
-    //         updateData.system.settings.powers.hasnumina = true;
-    //         update = true;
-    //     }
-
-    //     if (update) {
-    //         updateData.system.settings.version = "4.2.1";
-
-    //         await actor.update(updateData);
-    //         update = false;
-    //     }
-    // }
+    } 
     
 }
 
@@ -2295,6 +2278,28 @@ export  const updates = async () => {
         }
     }
 
+    if (_compareVersion(item.system.version, "5.0.0")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if (item.type == "Ranged Weapon") {
+            altered = true;
+
+            itemData.system.clip.value = parseInt(itemData.system.clip.max);
+        }
+        if (item.type == "Rote") {
+            altered = true;
+
+            itemData.system.type = "wod.types.rote";
+        }
+
+        if (altered) {
+            itemData.system.version = "5.0.0";
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
+
     // TODO #935
     // if (item.type == "Feature") {
     //     try {
@@ -2409,6 +2414,7 @@ export  const updates = async () => {
     let patch400 = false;
     let patch410 = false;
     let patch420 = false;
+    let patch500 = false;
 
     let newfunctions = "";
 
@@ -2430,6 +2436,7 @@ export  const updates = async () => {
         patch400 = game.settings.get('worldofdarkness', 'patch400');
         patch410 = game.settings.get('worldofdarkness', 'patch410');
         patch420 = game.settings.get('worldofdarkness', 'patch420');
+        patch500 = game.settings.get('worldofdarkness', 'patch500');
     } 
     catch (e) {
     }
@@ -2539,106 +2546,44 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed a bunish of bugs and other minor issues</li>';        
     }
 
+    if (!patch500) {
+        game.settings.set('worldofdarkness', 'patch500', true);
+
+        newfunctions += '<li>Foundry version 13</li>';
+        newfunctions += '<li>Added support for <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Feature:-Drag-and-drop-between-Actors" target="">Drag and Drop</a> between Actors</li>';
+        newfunctions += '<li>The general roll has been moved from the d10 by the chat to the globe.</li>';
+        newfunctions += '<li>How tooltip works has been altered.</li>';
+        newfunctions += '<li>How Items are listed on Actors has been altered.</li>';
+        newfunctions += '<li>[MtA] Can now see speciallities as you cast spells.</li>';
+        newfunctions += '<li>Fixed a bunish of bugs and other minor issues</li>';  
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        if (_compareVersion(installedVersion, '4.2.12')) {
-            newfunctions += '<li>Numen spells and Henkupowers did not keep the set connection to their main powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1131">[#1131]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.11')) {
-            newfunctions += '<li>[WTA] Bug that caused rank 3 Werewolves to have wrong difficulty when rolling for frenzy. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1119">[#1119]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.10')) {
-            newfunctions += '<li>Hint text for health level bonus was wrong. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1100">[#1100]</a></li>';
-            newfunctions += '<li>Hint text and background color for tooltip fixed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1091">[#1091]</a></li>';
-            newfunctions += '<li>Wound Penalty are not calculated in your initiative roll. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1074">[#1074]</a></li>';
-            newfunctions += '<li>[CtD] If sheet was in narrow state Damage was crunched. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1102">[#1102]</a></li>';
-            newfunctions += '<li>[MtA] Rotes now have System description. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1075">[#1075]</a></li>';
-            newfunctions += '<li>[VtM] Vampire Classical Era and Age of Living Gods Era did display weapon sheets as Dark Ages era. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1103">[#1103]</a></li>';
-            newfunctions += '<li>[WtA] Changing Breed sheet did not display Path or Virtue if selected. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1097">[#1097]</a></li>';
-            newfunctions += '<li>[Creature] Quintessence was not displayed if selected. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1098">[#1098]</a></li>';
-
-        }
-
-        if (_compareVersion(installedVersion, '4.2.9')) {
-            newfunctions += '<li>Updated the Spanish language.</li>';
-            newfunctions += '<li>[MtA] Fixed bug on Mage sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1093">[#1093]</a></li>';
-            newfunctions += '<li>[WtA] Fixed bug on Changing breed sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1094">[#1094]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.8')) {
-            newfunctions += '<li>Fixed a bug that caused an unlicked Token not update its sheet correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1085">[#1085]</a></li>';
-            newfunctions += '<li>[Orpheus] Fixed so Spite is correctly displayed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1084">[#1084]</a></li>';
-            newfunctions += '<li>[MrR] Fixed so Powers can use Secondary Abilities see <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Feature:-Secondary-Ability#weapons">Wiki</a> for details. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1082">[#1082]</a></li>';
-            newfunctions += '<li>[VtM] Fixed so Powers can use Secondary Abilities see <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Feature:-Secondary-Ability#powers">Wiki</a> for details. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1082">[#1082]</a></li>';
-            newfunctions += '<li>[WtO] Fixed so Shadows can add Dark Passions. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1081">[#1081]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.7')) {
-            newfunctions += '<li>Fixed a bug that caused Faith Pool to always be visible on Creature sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1077">[#1077]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.6')) {
-            newfunctions += '<li>Fixed listings of a sheet experience points. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1066">[#1066]</a></li>';
-            newfunctions += '<li>New System setting under Rules - able to set how many dots required before highlight Speciality for Abilities. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1064">[#1064]</a></li>';
-            newfunctions += '<li>New System setting under Roling Dice - able to set if an Ability with a Speciality can botch. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1063">[#1063]</a></li>';
-            newfunctions += '<li>[Exalted] Limit Break now visible for all Exalted variants except Abyssals. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1065">[#1065]</a></li>';
-            newfunctions += '<li>[Exalted] Exalted can now activate Numina under Settings -> Power on the sheet. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1067">[#1067]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.5')) {
-            newfunctions += '<li>Fixed problems keeping connected bonuses to items active/deactive when an item is activated or deactivated.</li>'
-        }
-
-        if (_compareVersion(installedVersion, '4.2.4')) {
-            newfunctions += '<li>Fixed problems with migrations and updates of Actors.</li>'
-        }
-
-        if (_compareVersion(installedVersion, '4.2.3')) {
-            newfunctions += '<li>[CtD] Dices are now correctly selected when rolling an Art Power. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1056">[#1056]</a></li>';
-            newfunctions += '<li>[MtA] Fixed a bug that caused mortals not to be able to alter Resonances. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1057">[#1057]</a></li>';
-            newfunctions += '<li>[WtA] Fixed graphical glitch regarding Numina for Werewolf and Changeing Breeds. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1055">[#1055]</a></li>';
-            newfunctions += '<li>[Exalted] Secondary Abilities can now be favorited. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1026">[#1026]</a></li>';
-            
-        }
-
-        if (_compareVersion(installedVersion, '4.2.2')) {
-            newfunctions += '<li>German language updated.</li>';
-            newfunctions += '<li>Fixed bug with the general dice roller. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1054">[#1054]</a></li>';
-            newfunctions += '<li>[WtA] Fixed bug that prevented to change rank. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1050">[#1050]</a></li>';
-            newfunctions += '<li>[WtA] Fixed bug that prevented you from edit Renown on Changing Breeds. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1047">[#1047]</a></li>';
-            newfunctions += '<li>[DtF] Fixed headline problem with altering Earthbound Faith Pool. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1045">[#1045]</a></li>';
-            newfunctions += '<li>[WtA] Fixed fixed graphical glitch for seeing Numina. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1046">[#1046]</a></li>';
-        }
-
-        if (_compareVersion(installedVersion, '4.2.1')) {
-            newfunctions += '<li>[MtR] Hekau Powers now lists Abilities as well. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1035">[#1035]</a></li>';
-            newfunctions += '<li>[MtA] Sorcerer now has access to Resonance. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1041">[#1041]</a></li>';
-            newfunctions += '<li>[WtA] Changing Breeds and Werewolves now has access to Numina. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1042">[#1042]</a></li>';
-            newfunctions += '<li>[WtA] Fixed bug that prevented you from edit Renown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1029">[#1029]</a></li>';
-            newfunctions += '<li>[WtA] Fixed bug that prevented Rage Penalty to work as it should. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1039">[#1039]</a></li>';
-            newfunctions += '<li>[CtD] Fixed bug that if you duplicated a Changeling it doubled the number of Realms. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1032">[#1032]</a></li>';
-        }        
+        // if (_compareVersion(installedVersion, '4.2.9')) {
+        //     newfunctions += '<li>Updated the Spanish language.</li>';
+        //     newfunctions += '<li>[MtA] Fixed bug on Mage sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1093">[#1093]</a></li>';
+        //     newfunctions += '<li>[WtA] Fixed bug on Changing breed sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1094">[#1094]</a></li>';
+        // }
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "Version "+migrationVersion+" installed";
 
-    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-in-420">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v50">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 
     if (installedVersion != "1") {
-        message += '<h2><b>Important Summery of update:</b></h2>';
+        message += '<h3>Summery of update:</h3>';
         message += '<ul>';
         message += newfunctions;
         message += '</ul>';
     } 
 
-    message += '<h2><b>Support my work</b></h2>';
+    message += '<h3>Support my work</h3>';
     message += '<a href="https://ko-fi.com/johanfk"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>';
 
     MessageHelper.printMessage(headline, message);

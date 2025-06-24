@@ -1,0 +1,68 @@
+<div class="item-row-area power-itemlist power-row">
+    <div class="dragrow headlineNormal power-itemlist" data-itemid="{{item._id}}">
+        <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+        <div class="item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
+
+        <div class="width-namebox {{#if item.system.isrollable}}vrollable{{/if}}" 
+            data-type="{{config.sheettype.mortal}}"
+            data-object="{{item.system.type}}"
+            data-rollitem="true"
+            data-itemid="{{item._id}}">{{item.name}}</div>
+
+        {{#if item.system.isrollable}}
+            <div class="width-abilitybox">
+                {{#if (eq item.system.dice1 "path")}}
+                    {{#if (eq actor.system.advantages.path.label 'custom')}}{{../actor.system.advantages.path.custom}}{{else}}{{localize actor.system.advantages.path.label}}{{/if}}                                
+                {{else if (eq item.system.dice1 "custom")}}
+                    {{getSecondaryAbility item.system.dice1 actor item.system.secondaryabilityid}}
+                {{else}}
+                    {{localize (getAttributes item.system.dice1)}}
+                {{/if}}
+            </div>
+            <div class="width-abilitybox">
+                {{#if (eq item.system.dice2 "path")}}
+                    {{#if (eq actor.system.advantages.path.label 'custom')}}{{../actor.system.advantages.path.custom}}{{else}}{{localize actor.system.advantages.path.label}}{{/if}}
+                {{else if (eq item.system.dice2 'custom')}}
+                    {{getSecondaryAbility item.system.dice2 actor item.system.secondaryabilityid}}
+                {{else}}
+                    {{localize (getAbility item.system.dice2  actor)}}
+                {{/if}}</div>
+            <div class="width-smallbox centerText">
+                {{#if (eq item.system.difficulty "-1")}}
+                    {{localize "wod.labels.varies"}}
+                {{else}}
+                    {{item.system.difficulty}}
+                {{/if}}
+            </div>
+        {{/if}}
+            
+                    
+    </div>
+    <div class="iconBox">
+
+        <a class="pointer send-chat" title="{{localize 'wod.labels.send'}}" data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+
+        {{#if (eq locked false)}} 
+            {{#if showclear}}
+                <a class="pointer clearPower" title="{{localize 'wod.labels.power.clearpower'}}" data-powertype="power" data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
+            {{/if}}
+            <a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+            <a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+        {{/if}}
+
+        {{#if (showToolTip item)}}
+            <i class="pointer icon collapsible button fa-solid fa-expand"
+                    title="{{localize 'wod.labels.show.description'}}"
+                    data-itemid="{{item._id}}"></i>
+        {{else}}
+            <i class="icon no-description-disabled fa-solid fa-solid fa-expand"></i>
+        {{/if}}
+
+        <a class="pointer" title="LANG: Menu" data-itemid="{{item._id}}"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
+    </div>
+</div>
+<div class="description" data-itemid="{{item._id}}">
+
+    {{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist actor}}}
+
+</div>

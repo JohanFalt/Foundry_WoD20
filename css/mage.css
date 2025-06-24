@@ -171,7 +171,7 @@
       white 57%,
       white 100%
     ),
-    white;
+    #e0e0e0;
 }
 
 /* perm paradox */
@@ -195,7 +195,7 @@
       white 57%,
       white 100%
     ),
-    white;
+    #e0e0e0;
 }
   
 .flex-group-center:not(.flexrow) .resource-value,
@@ -371,3 +371,14 @@ span.quintessence {
 }
 
 /* WHEEL END */
+
+/* arete casting */
+
+.wod20.aretecasting-dialog .setting-radiospan {
+  width: 30px; 
+  display: inline-block;
+}
+
+.wod20.aretecasting-dialog .setting-radiospan.setting-radiospanText {
+  width: 200px;
+}

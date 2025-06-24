@@ -21,6 +21,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/power.html",
+		"systems/worldofdarkness/templates/actor/parts/power.hbs",
 		"systems/worldofdarkness/templates/actor/parts/conditions.html",			// TODO - Seperate file?
 		"systems/worldofdarkness/templates/actor/parts/movement.html",				// TODO - Seperate file?
 		"systems/worldofdarkness/templates/actor/parts/macro_icons.html",
@@ -35,6 +36,7 @@ export const preloadHandlebarsTemplates = async function () {
 
 		"systems/worldofdarkness/templates/actor/parts/hunter/stats_virtue.html",
 		"systems/worldofdarkness/templates/actor/parts/demon/forms.html",
+		"systems/worldofdarkness/templates/actor/parts/demon/forms.hbs",
 		
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_health_old.html",		// TODO - should be removed or reworked in future
@@ -52,6 +54,9 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html",
+		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.hbs",
+		"systems/worldofdarkness/templates/actor/parts/mainpower_list.hbs",
+		"systems/worldofdarkness/templates/actor/parts/power_list.hbs",
 
 		// Mage
 		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",		
@@ -61,7 +66,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/resonance.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/rotes.hbs",
 		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",
 
 		// Werewolf
@@ -104,23 +109,29 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_grondr.html",	
 
 		"systems/worldofdarkness/templates/actor/parts/gifts.html",
+		"systems/worldofdarkness/templates/actor/parts/gifts.hbs",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.hbs",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.html",
+		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.hbs",
 
 		// Changeling
 		"systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html",				
 
 		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.html",
+		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.hbs",
 
 		// Hunter
 		"systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html",		
 		
 		"systems/worldofdarkness/templates/actor/parts/hunter/edges.html",
+		"systems/worldofdarkness/templates/actor/parts/hunter/edges.hbs",
 
 		// Demon
 		"systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html",	
 		
 		"systems/worldofdarkness/templates/actor/parts/demon/lores.html",
+		"systems/worldofdarkness/templates/actor/parts/demon/lores.hbs",
 
 		// Wraith
 		"systems/worldofdarkness/templates/actor/parts/wraith/bio_wraith_background.html",
@@ -131,6 +142,7 @@ export const preloadHandlebarsTemplates = async function () {
 
 		// Wraith
 		"systems/worldofdarkness/templates/actor/parts/wraith/death.html",
+		"systems/worldofdarkness/templates/actor/parts/wraith/death.hbs",
 
 		// Exalted
 		"systems/worldofdarkness/templates/actor/parts/exalted/bio_exalted_background.html",
@@ -144,7 +156,9 @@ export const preloadHandlebarsTemplates = async function () {
 		
 		// Creature
 		"systems/worldofdarkness/templates/actor/parts/creature/charms.html",		
+		"systems/worldofdarkness/templates/actor/parts/creature/charms.hbs",
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
+		"systems/worldofdarkness/templates/actor/parts/creature/power.hbs",
 
 		// Item Sheet Partials
 		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
@@ -155,7 +169,7 @@ export const preloadHandlebarsTemplates = async function () {
 	/* Load the template parts
 		That function is part of foundry, not founding it here is normal
 	*/
-	return loadTemplates(templatePaths); // eslint-disable-line no-undef
+	return foundry.applications.handlebars.loadTemplates(templatePaths); // eslint-disable-line no-undef
 };
 
 export function SetupAbilities()
@@ -271,17 +285,6 @@ export const registerHandlebarsHelpers = function () {
 		}
 		return false;
 	});
-	
-	Handlebars.registerHelper('eqAll', function () {
-		for(let i = 1; i < arguments.length; i++) {
-		  	if(arguments[0] === arguments[i]) {
-		  	}
-			else {
-				return false;
-			}
-		}
-		return true;
-	});
 
 	Handlebars.registerHelper('neAny', function () {
 		for(let i = 1; i < arguments.length; i++) {
@@ -291,7 +294,6 @@ export const registerHandlebarsHelpers = function () {
 		}
 		return true;
 	});
-
 
 	Handlebars.registerHelper('eqAnyNot', function () {
 		let found = false;
@@ -320,6 +322,25 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return result;
+	});
+
+	Handlebars.registerHelper('SvgHtml', (icon, value, sheettype, options) => {
+		if ((options != "") && (options != undefined)) {
+			sheettype = options;
+		}
+
+		if (value == 10) {
+			value = 0;
+		}
+
+		if (sheettype === undefined) {
+			sheettype = "mortal";
+		}
+		if (sheettype === "Changing Breed") {
+			sheettype = "werewolf";
+		}
+
+		return encodeURIComponent(game.worldofdarkness.icons[sheettype.toLowerCase()][icon+value]);
 	});
 
 	Handlebars.registerHelper("getEra", function (actor) {
@@ -451,6 +472,38 @@ export const registerHandlebarsHelpers = function () {
 		html += permanent_html + temporary_html;
 
 		return html;
+	});
+
+	Handlebars.registerHelper("getMainPowerList", function (actor, powertype) {
+		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype);
+		items.sort((a, b) => a.name.localeCompare(b.name));
+		
+		return items;
+	});
+
+	Handlebars.registerHelper("getUnsortedMainPowerList", function (actor, powertype) {
+		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype && item?.system?.parentid === "");
+		items.sort((a, b) => a.name.localeCompare(b.name));
+		
+		return items;
+	});
+
+	Handlebars.registerHelper("couintUnsortedMainPowerList", function (actor, powertype) {
+		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype && item?.system?.parentid === "");
+		items.sort((a, b) => a.name.localeCompare(b.name));
+		
+		return items.length;
+	});
+
+	Handlebars.registerHelper("getPowerList", function (actor, mainpowerId) {
+		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.parentid === mainpowerId);
+		items.sort((a, b) => {
+			const levelComparison = a.system.level - b.system.level;
+			if (levelComparison !== 0) return levelComparison;
+			return a.name.localeCompare(b.name);
+		});
+		
+		return items;
 	});
 
 	/**
@@ -872,7 +925,7 @@ export const registerHandlebarsHelpers = function () {
 			}			
 		} 
 		else {
-			console.error("items är inte en array eller är odefinierad");
+			console.error("items is not an array or undefined");
 		}
 
 		html += headerhtml + listhtml + footerhtml;
@@ -907,13 +960,45 @@ export const registerHandlebarsHelpers = function () {
 			let description = descriptionhtml + detailshtml;
 
 			listhtml = `
-				<div class="pullLeft pointer headlineNormal tooltip">
+				<div class="pointer tooltip">
 					<i class="icon fa-solid fa-memo"></i>
 					<span class="tooltiptext">${description}</span>
 				</div>`;
 		}
 
 		return listhtml;
+	});
+
+	Handlebars.registerHelper("showToolTip", function (item) {
+		if (item?.system?.bonuslist?.length > 0) return true;
+		if (item?.system?.description !== "") return true;
+		if (item?.system?.details !== "") return true;
+
+		return false;
+	});
+
+	Handlebars.registerHelper("getToolTip_v2", function (description, detail, bonuses, actor) {
+		let descriptionhtml = "";
+				
+		if (description != "") {
+			descriptionhtml = `<div class="headlineList">${game.i18n.localize("wod.labels.description")}</div><div class="headlineNormal">${description}</div>`;
+		}
+
+		let detailshtml = "";
+
+		if ((detail !== "") || (bonuses?.length > 0)) {
+			detailshtml = `<div class="headlineList">${game.i18n.localize("wod.labels.power.system")}</div><div class="headlineNormal">${detail}</div>`;
+
+			if (bonuses?.length > 0) {
+				detailshtml += `<table><tr><th style="text-align: left;">${game.i18n.localize("wod.labels.type")}</th><th style="text-align: left;">${game.i18n.localize("wod.effects.area")}</th><th>${game.i18n.localize("wod.labels.modifier")}</th><tr>`;
+				for (const bonus of bonuses) {
+					detailshtml += `<tr><td>${game.i18n.localize(CONFIG.worldofdarkness.bonus[bonus.type])}</td><td>${game.i18n.localize(getAbility(actor, game.i18n.localize(getAttributes(bonus.settingtype))))}</td><td style="text-align: center;">${bonus.value}</td></tr>`;
+				}
+				detailshtml += `</table>`;
+			}			
+		}
+
+		return descriptionhtml + detailshtml;
 	});
 
 	Handlebars.registerHelper("getToolTipRote", function (description, detail, actor, item) {
@@ -996,12 +1081,17 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("getSecondaryAbility", function (ability, actor, id) {
+		let abilityName = game.i18n.localize("wod.labels.power.noabilityselected");
+
 		if ((ability == "custom") && (id != "") ) {
 			const item = actor.getEmbeddedDocument("Item", id);
-			return item.system.label;	
+
+			if (item !== undefined) {
+				abilityName = item.system.label;
+			}
 		}
 
-		return "";
+		return abilityName;
 	});
 
 	/* returns a list of a particular items sorted */
@@ -1035,6 +1125,10 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("getItems", function (actor) {
 		return ItemHelper.GetAllItems(actor);
+	});
+
+	Handlebars.registerHelper("getItemType", function (actor, itemtype, itemcategory = "") {
+		return ItemHelper.GetItemType(actor, itemtype, itemcategory);
 	});
 
 	Handlebars.registerHelper("getNotes", function (actor) {
@@ -1756,12 +1850,12 @@ export const registerHandlebarsHelpers = function () {
 	Handlebars.registerHelper("calculateHight", function (area, list) {
 		if (area == "rotes") {
 			if (list.length < 26) {
-				return "350px";
+				return "max-height: 350px";
 			}
 			else {
 				const height = Math.ceil(350 / 25 *list.length);
 
-				return height + "px";
+				return "max-height: " + height + "px";
 			}
 		}
 	});

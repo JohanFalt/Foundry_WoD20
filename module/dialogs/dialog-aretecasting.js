@@ -449,7 +449,7 @@ export class DialogAreteCasting extends FormApplication {
                 let exists = (this.object.selectedSpheres[sphere] === undefined) ? false : true;
 
                 if (exists) {
-                    if ((parseInt(this.actor.system.spheres[sphere].value) >= 4) && (this.object.useSpeciality)) {
+                    if ((parseInt(this.actor.system.spheres[sphere].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) && (this.object.useSpeciality)) {
                         specialityRoll = true;
                         specialityText = specialityText != "" ? specialityText + ", " + this.actor.system.spheres[sphere].speciality : this.actor.system.spheres[sphere].speciality;
                     }

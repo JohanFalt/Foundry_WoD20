@@ -59,7 +59,7 @@
                 {{#if locked}}
                     <div class="headlineNormal textarea {{#if (eq actor.system.intimacy '')}}small{{/if}}">{{{actor.system.intimacy}}}</div>
                 {{else}}
-                    {{editor actor.system.intimacy target="system.intimacy" button=false owner=owner editable=true}}
+                    {{editor actor.system.intimacy target="system.intimacy" engine="prosemirror" button=false owner=owner editable=true}}
                 {{/if}}				
             </div>
         </div>
@@ -77,7 +77,7 @@
                 {{#if locked}}
                     <div class="headlineNormal textarea {{#if (eq actor.system.animapowers '')}}small{{/if}}">{{{actor.system.animapowers}}}</div>
                 {{else}}
-                    {{editor actor.system.animapowers target="system.animapowers" button=false owner=owner editable=true}}
+                    {{editor actor.system.animapowers target="system.animapowers" engine="prosemirror" button=false owner=owner editable=true}}
                 {{/if}}				
             </div>
         </div>

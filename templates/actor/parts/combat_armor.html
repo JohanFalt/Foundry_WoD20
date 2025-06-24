@@ -6,74 +6,97 @@
     </div>
 {{/if}}
 
-<div class="headlineRow splatFont">
+<div class="headlineRow headlineList splatFont combat-armor-itemlist">
 
-    <div class="clearareaBox">
-        <div class="pullLeft"><i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.labels.add.armor'}}" aria-hidden="true" data-itemtype="Armor"></i></div>
-        <div class="pullLeft headlineList armor-largeBox">{{localize "wod.labels.combat.armor"}}</div>    
-    </div>    
-    
-    <div class="clearareaBox">
-        <div class="pullLeft combat-valueBoxArmor centerText headlineList leftwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.bashing")}}</div>
-        <div class="pullLeft combat-valueBoxArmor centerText headlineList topwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.lethal")}}</div>
-        <div class="pullLeft combat-valueBoxArmor centerText headlineList rightwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.aggravated")}}</div>
+    <div class="width-namebox">{{localize "wod.labels.combat.armor"}}</div>    
+    <div class="width-valuebox leftwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.bashing")}}</div>
+    <div class="width-valuebox topwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.lethal")}}</div>
+    <div class="width-valuebox rightwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.aggravated")}}</div>
 
-        {{#if actor.system.listdata.settings.haschimericalhealth}}
-            <div class="pullLeft combat-valueBoxArmor centerText headlineList leftwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.bashing")}}</div>
-            <div class="pullLeft combat-valueBoxArmor centerText headlineList topwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.lethal")}}</div>
-            <div class="pullLeft combat-valueBoxArmor centerText headlineList rightwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.aggravated")}}</div>
-        {{/if}}
+    {{#if actor.system.listdata.settings.haschimericalhealth}}
+        <div class="width-valuebox leftwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.bashing")}}</div>
+        <div class="width-valuebox topwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.lethal")}}</div>
+        <div class="width-valuebox rightwrapper">{{localize "wod.health.soak"}} {{firstLetter (localize "wod.health.aggravated")}}</div>
+    {{/if}}
 
-        <div class="pullLeft combat-valueBoxArmor centerText headlineList">{{localize "wod.combat.armor.dexpen"}}</div>
+    <div class="width-smallbox centerText">{{localize "wod.combat.armor.dexpen"}}</div>
 
-        {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
-            <div class="pullLeft combat-valueBox centerText headlineList">{{localize "wod.shapes.homid"}}</div>
-            <div class="pullLeft combat-valueBox centerText headlineList">{{localize "wod.shapes.glabro"}}</div>
-            <div class="pullLeft combat-valueBox centerText headlineList">{{localize "wod.shapes.crinos"}}</div>
-            <div class="pullLeft combat-valueBox centerText headlineList">{{localize "wod.shapes.hispo"}}</div>
-            <div class="pullLeft combat-valueBox centerText headlineList">{{localize "wod.shapes.lupus"}}</div>
-        {{/if}}
-    </div>
+    {{#if (eqAny actor.type config.sheettype.werewolf config.sheettype.changingbreed)}}
+        <div class="width-valuebox form-box">{{localize "wod.shapes.homid"}}</div>
+        <div class="width-valuebox form-box">{{localize "wod.shapes.glabro"}}</div>
+        <div class="width-valuebox form-box">{{localize "wod.shapes.crinos"}}</div>
+        <div class="width-valuebox form-box">{{localize "wod.shapes.hispo"}}</div>
+        <div class="width-valuebox form-box">{{localize "wod.shapes.lupus"}}</div>
+    {{/if}}
+
 </div>
 
-<div class="clearareaBox">
+<div>
 
     {{#each actor.system.listdata.combat.armors as |item id|}}
 
-        <div class="clearareaBox item-row-area">
-            <div class="pullLeft combat-activeBox"><input class="item-active pointer" name="system.isequipped" type="checkbox" data-item-id="{{item._id}}" data-type="isequipped" {{isChecked item.system.isequipped}}></input></div>
-            <div class="pullLeft armor-largeBox headlineNormal">{{shorten item.name 18}}</div>
-            <div class="pullLeft combat-valueBoxArmor centerText headlineNormal {{#if ../actor.system.listdata.settings.haschimericalhealth}}wrapperboxleft{{/if}}">{{item.system.soak.bashing}}</div>
-            <div class="pullLeft combat-valueBoxArmor centerText headlineNormal">{{item.system.soak.lethal}}</div>
-            <div class="pullLeft combat-valueBoxArmor centerText headlineNormal {{#if ../actor.system.listdata.settings.haschimericalhealth}}wrapperboxright{{/if}}">{{item.system.soak.aggravated}}</div>
-            {{#if ../actor.system.listdata.settings.haschimericalhealth}}
-                <div class="pullLeft combat-valueBoxArmor centerText headlineNormal wrapperboxleft">{{item.system.soak.chimerical.bashing}}</div>
-                <div class="pullLeft combat-valueBoxArmor centerText headlineNormal">{{item.system.soak.chimerical.lethal}}</div>
-                <div class="pullLeft combat-valueBoxArmor centerText headlineNormal wrapperboxright">{{item.system.soak.chimerical.aggravated}}</div>
-            {{/if}}
-            <div class="pullLeft combat-valueBoxArmor centerText headlineNormal">{{item.system.dexpenalty}}</div>
+        <div class="item-row-area combat-armor-itemlist">
+            <div class="dragrow headlineNormal combat-armor-itemlist" data-itemid="{{item._id}}">
+                <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                
+                <div class="width-namebox">{{shorten item.name 18}}</div>
+                <div class="width-valuebox {{#if ../actor.system.listdata.settings.haschimericalhealth}}wrapperboxleft{{/if}}">{{item.system.soak.bashing}}</div>
+                <div class="width-valuebox">{{item.system.soak.lethal}}</div>
+                <div class="width-valuebox {{#if ../actor.system.listdata.settings.haschimericalhealth}}wrapperboxright{{/if}}">{{item.system.soak.aggravated}}</div>
+                {{#if ../actor.system.listdata.settings.haschimericalhealth}}
+                    <div class="width-valuebox wrapperboxleft">{{item.system.soak.chimerical.bashing}}</div>
+                    <div class="width-valuebox">{{item.system.soak.chimerical.lethal}}</div>
+                    <div class="width-valuebox wrapperboxright">{{item.system.soak.chimerical.aggravated}}</div>
+                {{/if}}
+                <div class="width-smallbox centerText">{{item.system.dexpenalty}}</div>
 
-            {{#if (eq ../actor.type ../config.sheettype.werewolf)}}
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hashomid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hasglabro}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hascrinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hashispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.haslupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-            {{/if}}
-            {{#if (eq ../actor.type ../config.sheettype.changingbreed)}}
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hashomid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hasglabro}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hascrinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.hashispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-                <div class="pullLeft combat-valueBox centerText headlineNormal">{{#if item.system.forms.haslupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
-            {{/if}}
+                {{#if (eq ../actor.type ../config.sheettype.werewolf)}}
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hashomid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hasglabro}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hascrinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hashispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.haslupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                {{/if}}
+                {{#if (eq ../actor.type ../config.sheettype.changingbreed)}}
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hashomid}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hasglabro}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hascrinos}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.hashispo}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                    <div class="width-valuebox form-box">{{#if item.system.forms.haslupus}}{{localize "wod.labels.yes"}}{{else}}{{localize "wod.labels.no"}}{{/if}}</input></div>
+                {{/if}}
+                
+            </div>
+            
+            <div class="iconBox">
 
-            {{#if (eq ../locked false)}}
-                <div class="pullRight">
-                    <a class="item-edit" title="{{localize 'wod.labels.edit.armor'}}" data-type="Armor" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                    <a class="item-delete" title="{{localize 'wod.labels.remove.armor'}}" data-type="Armor" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                </div>
-            {{/if}}
+                {{#if (isChecked item.system.isequipped)}}
+                    <i class="item-active pointer icon fa-solid fa-shield" name="system.isequipped" type="checkbox" data-item-id="{{item._id}}" data-type="isequipped"></i>
+                {{else}}
+                    <i class="item-active pointer icon fa-duotone fa-solid fa-shield" name="system.isequipped" type="checkbox" data-item-id="{{item._id}}" data-type="isequipped"></i>
+                {{/if}}
+
+                <a class="pointer send-chat" title="{{localize 'wod.labels.send'}}" data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+
+                {{#if (eq ../locked false)}} 
+                    <a class="pointer item-edit" title="{{localize 'wod.labels.edit.armor'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                    <a class="pointer item-delete" title="{{localize 'wod.labels.remove.armor'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                {{/if}}
+
+                {{#if (showToolTip item)}}
+                    <i class="pointer icon collapsible button fa-solid fa-expand"
+                            title="{{localize 'wod.labels.show.description'}}"
+                            data-itemid="{{item._id}}"></i>
+                {{else}}
+                    <i class="icon no-description-disabled fa-solid fa-solid fa-expand"></i>
+                {{/if}}
+
+                <a class="pointer" title="LANG: Menu" data-itemid="{{item._id}}"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
+            </div>
+        </div>
+        <div class="description" data-itemid="{{item._id}}">
+
+            {{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
+
         </div>
 
     {{/each}}

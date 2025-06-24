@@ -70,6 +70,13 @@
     font-family: var(--main-font);
 }
 
+.demon:not(.noSplatFont) .headlineList,
+.demon:not(.noSplatFont) .headlineRow {
+    font-family: var(--main-font);
+    font-size: 14px;
+    font-weight: bold;
+}
+
 /* CORE */
 
 .demon .ability-headlineWidth {
@@ -78,8 +85,19 @@
 
 /* COMBAT */
 
-.demon .combat-concealBox {
-    width: 75px;
+.demon .combat-armor-itemlist .width-valuebox {
+    width: 60px;
+}
+
+/* POWER */
+
+.demon .item-row-area.mainpower-row .power-itemlist .width-namebox {
+    font-size: 14px;
+    width: 260px;
+}
+
+.demon .item-row-area.power-row .power-itemlist .width-namebox {
+    width: 230px;
 }
 
 /* SETTINGS */

@@ -1218,6 +1218,7 @@ export default class CreateHelper {
 				name: `${game.i18n.localize("wod.labels.new.rote")}`,
 				type: "Rote",
 				system: {
+					type: "wod.types.rote"
 				}
 			};
 		}
@@ -2070,7 +2071,7 @@ export default class CreateHelper {
 			}
 		}
 
-		if (actor.type == CONFIG.worldofdarkness.sheettype.demon) {
+		if ((actor.type == CONFIG.worldofdarkness.sheettype.demon) || (actor.system.settings.variant === "earthbound")) {
 			buttons.apocalypticform = {
 				label: game.i18n.localize("wod.types.apocalypticform"),
 				callback: async () => {

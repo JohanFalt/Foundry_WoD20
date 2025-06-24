@@ -56,7 +56,7 @@
 					{{/if}}
 				{{/if}}
 
-				{{#if (eqAnyNot data.system.type "wod.types.othertraits" "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "")}}
+				{{#if (eqAnyNot data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability" "wod.types.othertraits" "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "")}}
 					<div class="bioInformationArea floating-label-group">
 						<select class="sheet-infoValues editable" name="system.max" data-dtype="String">
 							{{selectOptions listData.Level9Value selected=data.system.max localize=false}}
@@ -72,7 +72,7 @@
 					</div>
 				{{/if}}
 
-				<!-- if weapon -->
+				<!-- if weapon/power -->
 				{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}
 					<div class="infobox">
 						<label class="headlineItem headlineBio splatFont" for="data.ismeleeweapon">{{localize "wod.labels.trait.meleeweapon"}}</label>
@@ -128,7 +128,7 @@
 						{{#if locked}}
 							<div class="headlineNormal textarea">{{{data.system.description}}}</div>					
 						{{else}}
-							{{editor actor.system.description target="system.description" button=false owner=owner editable=true}}
+							{{editor actor.system.description target="system.description" engine="prosemirror" button=false owner=owner editable=true}}
 						{{/if}}
 					</div>
 				</div>

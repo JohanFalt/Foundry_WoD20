@@ -1,5 +1,6 @@
 <div class="sheet-area flex-columns">	
 
+	
 	<div class="clearareaBox">
 
 		<div class="pullLeft" style="display: flex;">
@@ -219,7 +220,7 @@
 		{{#if locked}}
 			<div class="headlineNormal textarea {{#if (eq data.system.appearance '')}}small{{/if}}">{{{data.system.appearance}}}</div>
 		{{else}}
-			{{editor actor.system.appearance target="system.appearance" button=false owner=owner editable=true}}
+			{{editor actor.system.appearance target="system.appearance" engine="prosemirror" button=false owner=owner editable=true}}
 		{{/if}}				
 	
 
@@ -229,7 +230,7 @@
 			{{#if locked}}				
 				<div class="headlineNormal textarea {{#if (eq data.system.background '')}}small{{/if}}">{{{data.system.background}}}</div>
 			{{else}}
-				{{editor actor.system.background target="system.background" button=false owner=owner editable=true}}
+				{{editor actor.system.background target="system.background" engine="prosemirror" button=false owner=owner editable=true}}
 			{{/if}}			
 			
 		{{/if}}
@@ -239,7 +240,7 @@
 			{{#if locked}}
 				<div class="headlineNormal textarea {{#if (eq data.system.roleplaytip '')}}small{{/if}}">{{{data.system.roleplaytip}}}</div>
 			{{else}}
-				{{editor actor.system.roleplaytip target="system.roleplaytip" button=false owner=owner editable=true}}
+				{{editor actor.system.roleplaytip target="system.roleplaytip" engine="prosemirror" button=false owner=owner editable=true}}
 			{{/if}}		
 		{{/if}}
 	</div>

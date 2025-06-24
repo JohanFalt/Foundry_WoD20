@@ -218,11 +218,10 @@ export class WoDActor extends Actor {
 
     async _onUpdate(updateData, options, user) {
         super._onUpdate(updateData, options, user);   
+        let actor;
 
         try {
-            let actor;
-
-            actor = await game.actors.get(updateData._id);
+            actor = this;
 
             if ((!actor) || (actor == undefined)) {
                 return;
@@ -258,9 +257,11 @@ export class WoDActor extends Actor {
             updateData = await this._setAbilityMaxValue(updateData);
 
             // willpower
-            if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
-                updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
-            }
+            if (updateData.system.settings.variant != "spirit") {
+                if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
+                    updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
+                }
+            }            
             
             if (updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.max) {
                 updateData.system.advantages.willpower.permanent = updateData.system.advantages.willpower.max;
@@ -311,7 +312,6 @@ export class WoDActor extends Actor {
             // needs to be run last as all items, bonuses and changes needs to be added FIRST before total values can be calculated.
             updateData = await calculateTotals(updateData);
 
-
             // movement needs the total dexterity and all active items to work correctly.
             updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
 
@@ -319,8 +319,8 @@ export class WoDActor extends Actor {
             await actor.update(updateData);
         }
         catch (err) {
-            ui.notifications.error(`Cannot update Actor ${actor.name}. Please check console for details.`);
-            err.message = `Cannot set abilities to max rating for Actor ${actor.name}: ${err.message}`;
+            ui.notifications.error(`Cannot update Actor ${actor?.name}. Please check console for details.`);
+            err.message = `Cannot update Actor ${actor?.name}: ${err.message}`;
             console.error(err);
             console.log(actor);
         }

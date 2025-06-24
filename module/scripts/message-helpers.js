@@ -18,7 +18,7 @@ export default class MessageHelper {
 	
 		// Render the chat card template
 		const template = `systems/worldofdarkness/templates/dialogs/roll-template.hbs`;
-		const html = await renderTemplate(template, templateData);
+		const html = await foundry.applications.handlebars.renderTemplate(template, templateData);
 	
 		const chatData = {
 			content: html,

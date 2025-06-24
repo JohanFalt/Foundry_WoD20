@@ -23,9 +23,9 @@
     --color-shadow-primary: var(--main-changeling-color);
 }
 
-.changeling .sheet-character .profile-img-zone button {  
+.changeling .wod-sheet .profile-img-zone button {  
     background: url('../assets/img/buttons/changeling.png');	
-    color: white;
+    color: #e0e0e0;
     background-repeat: no-repeat;
     background-size: contain;
     width: 30px;
@@ -134,6 +134,10 @@
     padding-right: 15px;
 }
 
+.changeling .total.experienceValue {
+    line-height: 30px;
+}
+
 /* START - Combat */
 
 .changeling .armor-type-width {
@@ -152,7 +156,7 @@
 
 /* START - Dreaming */
 
-.changeling .art-row .art-iconbox {
+/* .changeling .art-row .art-iconbox {
     margin-left: 100px;
 }
   
@@ -166,6 +170,12 @@
   
 .changeling .bonuses .art-iconbox {
     margin-left: 180px;
+} */
+
+.wod20.changeling .item-row-area.mainpower-row .power-itemlist .width-namebox {
+  font-size: 20px;
+  font-weight: bold;
+  width: 240px;
 }
   
 .changeling .realms-headlineWidth {
@@ -173,7 +183,6 @@
 }
 
 .changeling .highlightedPower {
-    background: var(--changeling-affinity-power);
     height: 15px;
     width: 15px;
     /* margin-top: 5px;     */

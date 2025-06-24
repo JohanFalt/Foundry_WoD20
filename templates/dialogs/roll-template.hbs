@@ -1,4 +1,4 @@
-<div>
+<div class="wod20-roll">
     {{#if (eqAny data.type "general" "soak" "power" "magic" "item")}}
         <div class="tray-title-area">{{data.action}}</div>
 
@@ -46,9 +46,9 @@
                     </div>
                 </div>
 
-                <div>
+                <div>     
                     {{#each result.dices as |dice key|}}   
-                        <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                        <img class="wod-svg" src='data:image/svg+xml;utf8,{{SvgHtml 'dice' dice.value ../../data.actor.type ../../data.actor.system.settings.variantsheet}}' title="{{dice.value}}">
                     {{/each}}
                 </div>
             </div>
@@ -68,7 +68,7 @@
         {{#each data.multipleresult as |result key|}}
             <div class="tray-roll-area">
                 {{#each result.dices as |dice key|}}   
-                    <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                    <img class="wod-svg" src='data:image/svg+xml;utf8,{{SvgHtml 'dice' dice.value ../../data.actor.type ../../data.actor.system.settings.variantsheet}}' title="{{dice.value}}">
                 {{/each}}
             </div>
         {{/each}}
@@ -120,7 +120,7 @@
 
                 <div>
                     {{#each result.dices as |dice key|}}   
-                        <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                        <img class="wod-svg" src='data:image/svg+xml;utf8,{{SvgHtml 'dice' dice.value ../../data.actor.type ../../data.actor.system.settings.variantsheet}}' title="{{dice.value}}">
                     {{/each}}
                 </div>
             </div>            
@@ -173,7 +173,7 @@
 
                 <div>
                     {{#each result.dices as |dice key|}}   
-                        <img src="systems/worldofdarkness/assets/img/dice/{{dice.color}}{{dice.value}}.png" class="rolldices" />
+                        <img class="wod-svg" src='data:image/svg+xml;utf8,{{SvgHtml 'dice' dice.value ../../data.actor.type ../../data.actor.system.settings.variantsheet}}' title="{{dice.value}}">
                     {{/each}}
                 </div>
             </div>            

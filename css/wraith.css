@@ -24,11 +24,11 @@
 }
 
 .wraith .sheet-headline:not(.noSplatFont) {
-  font-size: 35px;
+  font-size: 40px;
 }
 
 .wraith .headlineGroup:not(.noSplatFont) {
-  font-size: 25px;
+  font-size: 32px;
 }
 
 .wraith .headlineText:not(.noSplatFont) {
@@ -36,7 +36,7 @@
 }
 
 .wraith .headlineList:not(.noSplatFont) {
-  font-size: 20px;
+  font-size: 26px;
 }
 
 .wraith .secondHeadlineTabs:not(.noSplatFont) {
@@ -44,8 +44,12 @@
 }
 
 .wraith .headlineRow:not(.noSplatFont) {
-  font-size: 20px;
+  font-size: 26px;
 } 
+
+.wraith .icon.collapsible.button {
+  font-size: 18px;
+}
 
 .wraith .icon {
   scale: 1.0;
@@ -61,16 +65,16 @@
   margin-bottom: 10px; 
 } 
 
+.wraith .total.experienceValue {
+  line-height: 32px;
+}
+
 /* END - Core */
 
 /* START - Death */
 
-.wod20 .arcanoipower-nonerollablerow .power-iconbox {
-  margin-left: 305px;
-}
-
-.wod20 .arcanoipower-rollablerow .power-iconbox {
-  margin-left: 155px;
+.wraith .item-row-area.mainpower-row .power-itemlist .width-namebox {
+    font-size: 26px;
 }
 
 .wraith .fetter .power-dotBox,

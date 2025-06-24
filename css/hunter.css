@@ -23,7 +23,7 @@
 	font-family: "hunter", var(--main-font);
 }
 
-.changeling:not(.noSplatFont) .sheet-headline {
+.hunter:not(.noSplatFont) .sheet-headline {
   font-size: 30px;
 }
 
