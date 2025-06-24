@@ -61,7 +61,8 @@ export class WoDItem extends Item {
 			if (updateData.type == "Power") {
 				const imgUrl = _getImage(updateData);
 
-				if (imgUrl.startsWith('systems/worldofdarkness/assets/img/items/')) {
+				//if (imgUrl.startsWith('systems/worldofdarkness/assets/img/items/')) {
+				if (updateData.img.startsWith('systems/worldofdarkness/')) {
 					updateData.img = imgUrl;
 					updated = true;
 				}            
