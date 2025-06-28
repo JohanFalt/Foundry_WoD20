@@ -1,0 +1,182 @@
+<div class="clearareaBox area-box">
+
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize 'wod.abilities.abilities'}}</span>
+	</div>
+
+	<div class="clearareaBox">
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.talents'}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.skills'}}</div>
+		<div class="ability-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.abilities.knowledges'}}</div>
+	</div>
+	
+	<div class="ability-statArea pullLeft">
+
+		{{#if (isEmpty actor.system.listdata.ability_talents)}}
+			<div class="centerText headlineNormal">{{localize 'wod.abilities.notalents'}}</div>
+		{{/if}}
+	
+		{{#each actor.system.listdata.ability_talents as |ability key|}}	
+			<div class="clearareaBox">
+				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" {{#if ability.issecondary}}data-ability="secondary" data-field="isfavorited"{{else}}data-ability="true"{{/if}} {{isChecked ability.isfavorited}}></input></div>
+				{{/if}}
+
+				<label for="data.system.abilities.{{ability._id}}.value"
+					class="pullLeft vrollable {{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
+					data-type="{{../config.sheettype.mortal}}"
+					data-key="{{ability._id}}"
+					data-ability="true">
+						{{#if ability.issecondary}}
+							{{ability.label}}
+						{{else}}
+							{{getAbilityLabel ability}}
+						{{/if}}
+				</label>	
+
+				<div class="{{#if (gt ability.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value"  
+					data-value="{{ability.value}}" 
+					data-name="abilities.{{ability._id}}.value"
+					data-key="{{ability._id}}"
+					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
+
+					{{#numLoop ability.max}}					
+						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
+					{{/numLoop}}
+
+					{{#if (eq ../locked false)}}
+						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
+							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+						</div>
+					{{else if (hasSpeciality ability)}}
+						<div class="pullRight speciality-ability-icon">
+							<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+						</div>
+					{{else}}
+						<div class="pullRight speciality-ability-empty-icon">
+							&nbsp;
+						</div>
+					{{/if}}
+					
+				</div>	
+			</div>				
+		{{/each}}
+	
+	</div>
+	<div class="ability-statArea pullLeft">
+
+		{{#if (isEmpty actor.system.listdata.ability_skills)}}
+			<div class="centerText headlineNormal">{{localize 'wod.abilities.noskills'}}</div>
+		{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+			<div class="pullLeft" style="margin-left: 20px;">&nbsp;</div>
+		{{/if}}
+	
+		{{#each actor.system.listdata.ability_skills as |ability key|}}
+			<div class="clearareaBox">
+				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" {{#if ability.issecondary}}data-ability="secondary" data-field="isfavorited"{{else}}data-ability="true"{{/if}} {{isChecked ability.isfavorited}}></input></div>
+				{{/if}}
+
+				<label for="data.system.abilities.{{ability._id}}.value" 
+					class="pullLeft vrollable {{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
+					data-type="{{../config.sheettype.mortal}}"
+					data-key="{{ability._id}}"
+					data-ability="true">
+						{{#if ability.issecondary}}
+							{{ability.label}}
+						{{else}}
+							{{getAbilityLabel ability}}
+						{{/if}}
+				</label>				
+
+				<div class="{{#if (gt ability.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value"  
+					data-value="{{ability.value}}" 
+					data-name="abilities.{{ability._id}}.value"
+					data-key="{{ability._id}}"
+					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
+
+					{{#numLoop ability.max}}					
+						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
+					{{/numLoop}}
+
+					{{#if (eq ../locked false)}}
+						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
+							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+						</div>
+					{{else if (hasSpeciality ability)}}
+						<div class="pullRight speciality-ability-icon">
+							<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+						</div>
+					{{else}}
+						<div class="pullRight speciality-ability-empty-icon">
+							&nbsp;
+						</div>
+					{{/if}}
+					
+				</div>				
+			</div>
+		{{/each}}
+	
+	</div>
+	<div class="ability-statArea pullLeft">
+
+		{{#if (isEmpty actor.system.listdata.ability_knowledges)}}
+			<div class="centerText headlineNormal">{{localize 'wod.abilities.noknowledges'}}</div>
+		{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+			<div class="pullLeft" style="margin-left: 20px;">&nbsp;</div>
+		{{/if}}
+	
+		{{#each actor.system.listdata.ability_knowledges as |ability key|}}
+			<div class="clearareaBox">
+				{{#if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary false))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.isfavorited}}></input></div>
+				{{else if (and (eq ../actor.type ../config.sheettype.exalted) (eq ability.issecondary true))}}
+					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" {{#if ability.issecondary}}data-ability="secondary" data-field="isfavorited"{{else}}data-ability="true"{{/if}} {{isChecked ability.isfavorited}}></input></div>
+				{{/if}}
+
+				<label for="data.system.abilities.{{ability._id}}.value" 
+					class="pullLeft vrollable {{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
+					data-type="{{../config.sheettype.mortal}}"
+					data-key="{{ability._id}}"
+					data-ability="true">
+					{{#if ability.issecondary}}
+						{{ability.label}}
+					{{else}}
+						{{getAbilityLabel ability}}
+					{{/if}}
+				</label>				
+
+				<div class="{{#if (gt ability.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value" 
+					data-value="{{ability.value}}" 
+					data-name="abilities.{{ability._id}}.value"
+					data-key="{{ability._id}}"
+					{{#if ability.issecondary}}data-ability="secondary"{{else}}data-ability="core"{{/if}}>
+					
+					{{#numLoop ability.max}}					
+						<span class="{{#if (gt ability.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}" {{#if ability.issecondary}}data-ability="secondary" data-itemid="{{ability._id}}"{{else}}data-ability="core"{{/if}}></span>					
+					{{/numLoop}}
+
+					{{#if (eq ../locked false)}}
+						<div class="pullRight speciality-ability-icon {{#if (and (eq ability.speciality '') (hasSpeciality ability))}}item-warning{{/if}}{{#if (and (ne ability.speciality '') (hasSpeciality ability))}}item-notice{{/if}}">
+							<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-item-id="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+						</div>
+					{{else if (hasSpeciality ability)}}
+						<div class="pullRight speciality-ability-icon">
+							<i class="fa-solid fa-circle-exclamation {{#if (eq ability.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{ability.speciality}}"></i>
+						</div>
+					{{else}}
+						<div class="pullRight speciality-ability-empty-icon">
+							&nbsp;
+						</div>
+					{{/if}}
+					
+				</div>				
+			</div>
+		{{/each}}
+	
+	</div>	
+</div>	

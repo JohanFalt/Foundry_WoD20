@@ -91,11 +91,11 @@
                     <div class="resource-value" data-value="{{data.correspondence}}" data-name="data.spheres.correspondence">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.correspondence ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.correspondence this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -107,11 +107,11 @@
                     <div class="resource-value" data-value="{{data.entropy}}" data-name="data.spheres.entropy">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.entropy ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.entropy this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -123,11 +123,11 @@
                     <div class="resource-value" data-value="{{data.forces}}" data-name="data.spheres.forces">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.forces ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.forces this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -139,11 +139,11 @@
                     <div class="resource-value" data-value="{{data.life}}" data-name="data.spheres.life">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.life ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.life this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -155,11 +155,11 @@
                     <div class="resource-value" data-value="{{data.matter}}" data-name="data.spheres.matter">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.matter ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.matter this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -171,11 +171,11 @@
                     <div class="resource-value" data-value="{{data.mind}}" data-name="data.spheres.mind">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.mind ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.mind this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -187,11 +187,11 @@
                     <div class="resource-value" data-value="{{data.prime}}" data-name="data.spheres.prime">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.prime ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.prime this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -203,11 +203,11 @@
                     <div class="resource-value" data-value="{{data.spirit}}" data-name="data.spheres.spirit">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.spirit ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.spirit this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             
@@ -219,11 +219,11 @@
                     <div class="resource-value" data-value="{{data.time}}" data-name="data.spheres.time">
                         {{#numLoop 5}}
                             
-                        {{#iff ../data.system.time ">" this}}
-                            <span class="resource-value-step active" data-index="{{this}}"></span>
-                        {{else}}
-                            <span class="resource-value-step" data-index="{{this}}"></span>
-                        {{/iff}}
+                            {{#if (gt ../data.system.time this)}}
+                                <span class="resource-value-step active" data-index="{{this}}"></span>
+                            {{else}}
+                                <span class="resource-value-step" data-index="{{this}}"></span>
+                            {{/if}}
                             
                         {{/numLoop}}
                             

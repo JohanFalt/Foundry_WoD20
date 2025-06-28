@@ -14,11 +14,23 @@ export const preloadHandlebarsTemplates = async function () {
 	// Define template paths to load
 	const templatePaths = [
 		// Actor Sheet Partials
+		"systems/worldofdarkness/templates/actor/parts/description.hbs",
+
+		"systems/worldofdarkness/templates/actor/parts/bio.hbs",
+		"systems/worldofdarkness/templates/actor/parts/stats.hbs",
+		"systems/worldofdarkness/templates/actor/parts/attributes.hbs",
+		"systems/worldofdarkness/templates/actor/parts/abilities.hbs",
+		"systems/worldofdarkness/templates/actor/parts/stats_adventages.hbs",
+
+		
+
 		"systems/worldofdarkness/templates/actor/parts/profile-img.html",
 		"systems/worldofdarkness/templates/actor/parts/navigation.html",
-		"systems/worldofdarkness/templates/actor/parts/bio.html",
-		"systems/worldofdarkness/templates/actor/parts/attributes.html",
+		"systems/worldofdarkness/templates/actor/parts/navigation.hbs",
+		"systems/worldofdarkness/templates/actor/parts/bio.html",		
+		"systems/worldofdarkness/templates/actor/parts/attributes.html",		
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
+		
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/power.html",
 		"systems/worldofdarkness/templates/actor/parts/power.hbs",
@@ -31,6 +43,7 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/combat_armor.html",		
 
 		"systems/worldofdarkness/templates/actor/parts/stats.html",		
+		
 		"systems/worldofdarkness/templates/actor/parts/creature/stats.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_virtue.html",		
 
@@ -166,10 +179,8 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/sheets/parts/item_bonus.html"		
 	];
 
-	/* Load the template parts
-		That function is part of foundry, not founding it here is normal
-	*/
-	return foundry.applications.handlebars.loadTemplates(templatePaths); // eslint-disable-line no-undef
+	/* Load the template parts */
+	return foundry.applications.handlebars.loadTemplates(templatePaths);
 };
 
 export function SetupAbilities()
@@ -238,44 +249,44 @@ export const registerHandlebarsHelpers = function () {
 		return ret;
 	});
 
-	Handlebars.registerHelper("iff", function (a, operator, b, opts) {
-		var bool = false;
-		switch (operator) {
-			case "==":
-				bool = a == b;
-				break;
-			case ">":
-				bool = a > b;
-				break;
-			case "<":
-				bool = a < b;
-				break;
-			case ">=":
-				bool = parseInt(a) >= parseInt(b);
-				break;
-			case "<=":
-				bool = a <= b;
-				break;
-			case "!=":
-				bool = a != b;
-				break;
-			case "contains":
-				if (a && b) {
-					bool = a.includes(b);
-				} else {
-					bool = false;
-				}
-				break;
-			default:
-			throw "Unknown operator " + operator;
-		}
+	// Handlebars.registerHelper("iff", function (a, operator, b, opts) {
+	// 	var bool = false;
+	// 	switch (operator) {
+	// 		case "==":
+	// 			bool = a == b;
+	// 			break;
+	// 		case ">":
+	// 			bool = a > b;
+	// 			break;
+	// 		case "<":
+	// 			bool = a < b;
+	// 			break;
+	// 		case ">=":
+	// 			bool = parseInt(a) >= parseInt(b);
+	// 			break;
+	// 		case "<=":
+	// 			bool = a <= b;
+	// 			break;
+	// 		case "!=":
+	// 			bool = a != b;
+	// 			break;
+	// 		case "contains":
+	// 			if (a && b) {
+	// 				bool = a.includes(b);
+	// 			} else {
+	// 				bool = false;
+	// 			}
+	// 			break;
+	// 		default:
+	// 		throw "Unknown operator " + operator;
+	// 	}
 
-		if (bool) {
-			return opts.fn(this);
-		} else {
-			return opts.inverse(this);
-		}
-	});
+	// 	if (bool) {
+	// 		return opts.fn(this);
+	// 	} else {
+	// 		return opts.inverse(this);
+	// 	}
+	// });
 
 	Handlebars.registerHelper('eqAny', function () {
 		for(let i = 1; i < arguments.length; i++) {
@@ -1001,7 +1012,7 @@ export const registerHandlebarsHelpers = function () {
 		return descriptionhtml + detailshtml;
 	});
 
-	Handlebars.registerHelper("getToolTipRote", function (description, detail, actor, item) {
+	/* Handlebars.registerHelper("getToolTipRote", function (description, detail, actor, item) {
 		let listhtml = "";
 		let descriptionhtml = "";
 				
@@ -1058,7 +1069,7 @@ export const registerHandlebarsHelpers = function () {
 		}
 
 		return listhtml;
-	});
+	}); */
 
 	Handlebars.registerHelper("getConnectedItemList", function (actor, type, variant, parentid) {
 		let list = [];
@@ -1095,10 +1106,10 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	/* returns a list of a particular items sorted */
-	Handlebars.registerHelper("getItemList", function (actor, itemtype, itemcategory) {
+	/* Handlebars.registerHelper("getItemList", function (actor, itemtype, itemcategory) {
 		const items = (actor.items.filter(i => i.type === itemtype && i.system.type === itemcategory));
 		return items.sort((a, b) => a.name.localeCompare(b.name));
-	});
+	}); */
 
 	/* get all bonuses */
 	Handlebars.registerHelper("getBonuses", function (actor, type, sort) {
@@ -1380,9 +1391,9 @@ export const registerHandlebarsHelpers = function () {
 		}
 	});
 
-	Handlebars.registerHelper("getShifterRenown", function (actor, type, renown) {
+	/* Handlebars.registerHelper("getShifterRenown", function (actor, type, renown) {
 		return actor.GetShifterRenownName(type, renown);
-	});
+	}); */
 
 	Handlebars.registerHelper("getShifterRank", function (actor) {
 		return actor.GetShifterRank();
@@ -1545,21 +1556,21 @@ export const registerHandlebarsHelpers = function () {
 		return list;
 	});
 
-	Handlebars.registerHelper("checkProperty", function (properties, name, value) {
-		if (properties.length == 0) {
-			return false;
-		}
+	// Handlebars.registerHelper("checkProperty", function (properties, name, value) {
+	// 	if (properties.length == 0) {
+	// 		return false;
+	// 	}
 
-		if (properties[name] == undefined) {
-			return false;
-		}
+	// 	if (properties[name] == undefined) {
+	// 		return false;
+	// 	}
 
-		if (properties[name] == value) {
-			return true;
-		}
+	// 	if (properties[name] == value) {
+	// 		return true;
+	// 	}
 
-		return false;
-	});
+	// 	return false;
+	// });
 
 	Handlebars.registerHelper("getProperty", function (properties, name) {
 		if (properties.length == 0) {
@@ -1837,15 +1848,15 @@ export const registerHandlebarsHelpers = function () {
 		}
 	});
 
-	Handlebars.registerHelper("ragePenalty", function (value) {
-		let rageDiff = parseInt(this.actor.system.advantages.rage.roll) - parseInt(this.actor.system.advantages.willpower.roll);
+	// Handlebars.registerHelper("ragePenalty", function (value) {
+	// 	let rageDiff = parseInt(this.actor.system.advantages.rage.roll) - parseInt(this.actor.system.advantages.willpower.roll);
 
-		if (rageDiff < 0) {
-			rageDiff = 0;
-		}
+	// 	if (rageDiff < 0) {
+	// 		rageDiff = 0;
+	// 	}
 
-		return rageDiff * -1;
-	});
+	// 	return rageDiff * -1;
+	// });
 
 	Handlebars.registerHelper("calculateHight", function (area, list) {
 		if (area == "rotes") {

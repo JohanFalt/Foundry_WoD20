@@ -91,7 +91,7 @@ export default class IconHelper {
     }    
 
     static _getTypeColor(type) {
-        const darkmode = game.settings.get('worldofdarkness', 'darkMode');
+        const darkmode = CONFIG.worldofdarkness.darkmode; //game.settings.get('worldofdarkness', 'darkMode');
         let color = "rgb(24, 78, 119)";
 
         type = type.toLowerCase().replace(" ", "");

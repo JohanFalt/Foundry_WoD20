@@ -1,60 +1,60 @@
 <div class="sheet-boxcontainer item-row">
 
-		{{#if data.system.settings.haspath}}
+		{{#if actor.system.settings.haspath}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.path "path" true true false}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasrage}}
+		{{#if actor.system.settings.hasrage}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.rage "rage" true true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasgnosis}}
+		{{#if actor.system.settings.hasgnosis}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.gnosis "gnosis" true true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasglamour}}
+		{{#if actor.system.settings.hasglamour}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.glamour "glamour" true true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasnightmare}}
+		{{#if actor.system.settings.hasnightmare}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.nightmare "nightmare" false false true}}}
 			</div>
 		{{/if}}
 	
-		{{#if data.system.settings.hasfaith}}
+		{{#if actor.system.settings.hasfaith}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.faith "faith" true true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasvitality}}
+		{{#if actor.system.settings.hasvitality}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.vitality "vitality" false true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasbalance}}
+		{{#if actor.system.settings.hasbalance}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.balance "balance" true true false}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.haswillpower}}
+		{{#if actor.system.settings.haswillpower}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.willpower "willpower" true true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasbloodpool}}
+		{{#if actor.system.settings.hasbloodpool}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.bloodpool "bloodpool" false false true}}}
 
@@ -62,31 +62,31 @@
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasbanality}}
+		{{#if actor.system.settings.hasbanality}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.banality "banality" true true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasspite}}
+		{{#if actor.system.settings.hasspite}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.spite "spite" true true true}}}
 			</div>
 		{{/if}}	
 
-		{{#if data.system.settings.hassekhem}}
+		{{#if actor.system.settings.hassekhem}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.sekhem "sekhem" false true true}}}
 			</div>
 		{{/if}}
 
-		{{#if data.system.settings.hasquintessence}}
+		{{#if actor.system.settings.hasquintessence}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.quintessence "quintessence" false false true}}}
 			</div>
 		{{/if}}
 
-		{{#if (eq data.type config.sheettype.exalted)}}
+		{{#if (eq actor.type config.sheettype.exalted)}}
 			<div style="width: 33%;">
 				{{{getGetStatArea actor actor.system.advantages.essence "essence" false true false}}}				
 			</div>
@@ -97,13 +97,13 @@
 				<div class="information-area centerText">{{localize "wod.advantages.essenceperturn"}}: {{data.system.advantages.essencepool.perturn}}</div>
 			</div>
 
-			{{#if (ne data.system.settings.variant "abyssal")}}
+			{{#if (ne actor.system.settings.variant "abyssal")}}
 				<div style="width: 33%;">
 					{{{getGetStatArea actor actor.system.advantages.limitbreak "limitbreak" false false true}}}
 				</div>
 			{{/if}}
 
-			{{#if (eq data.system.settings.variant "liminal")}}
+			{{#if (eq actor.system.settings.variant "liminal")}}
 				<div style="width: 33%;">
 					{{{getGetStatArea actor actor.system.advantages.limitbreak "limit" false false true}}}
 				</div>

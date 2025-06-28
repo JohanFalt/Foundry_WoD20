@@ -81,12 +81,12 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         }        
     }
 
-    // try {
-    //     ui.notifications.warn("Checking character settings");
-    //     await this.updates();
-    // }
-    // catch (e) {
-    // }
+    try {
+        ui.notifications.warn("Checking character settings");
+        await this.updates();
+    }
+    catch (e) {
+    }
 
     if (updateWorld) {
         ui.notifications.info(`World updated to version ${game.system.version}!`, {permanent: true});
@@ -2511,7 +2511,7 @@ export  const updates = async () => {
         newfunctions += "<li>Added world setting to add health penalties to damage rolls</li>";
         newfunctions += "<li>[MtA] The graphics of the listing of Rotes has been reworked</li>";
         newfunctions += "<li>[MtA] Can alter a difficulty of a Rote roll manually</li>";
-        newfunctions += "<li>Fixed a bunish of bugs and other minor issues</li>";
+        newfunctions += "<li>Fixed a bunch of bugs and other minor issues</li>";
     }
 
     if (!patch420) {
@@ -2543,7 +2543,7 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed how Willpower spending effect number of successes in a roll so it follows the rules of 20th ed. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/980">[#980]</a></li>';
         newfunctions += '<li>On the sheet setting you can now set what type of dice you want to roll. The hidden vampire will now not be spoiled by the dices rolled. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/914">[#914]</a></li>';
         
-        newfunctions += '<li>Fixed a bunish of bugs and other minor issues</li>';        
+        newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';        
     }
 
     if (!patch500) {
@@ -2555,11 +2555,18 @@ export  const updates = async () => {
         newfunctions += '<li>How tooltip works has been altered.</li>';
         newfunctions += '<li>How Items are listed on Actors has been altered.</li>';
         newfunctions += '<li>[MtA] Can now see speciallities as you cast spells.</li>';
-        newfunctions += '<li>Fixed a bunish of bugs and other minor issues</li>';  
+        newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';  
     }
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '5.0.1')) {
+            newfunctions += '<li>Fixed Graphics on the attributes if you where using the 5th ed rules.</li>';
+            newfunctions += '<li>[WtA] Fixed Willpower on the Creature (spirit) sheet if you where using the 5th ed rules.</li>';
+            newfunctions += '<li>[WtO] Fixed temporary Vitality on the Orpheus sheet.</li>';
+            
+        }
 
         // if (_compareVersion(installedVersion, '4.2.9')) {
         //     newfunctions += '<li>Updated the Spanish language.</li>';

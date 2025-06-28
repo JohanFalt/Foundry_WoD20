@@ -198,6 +198,19 @@
   --healthlevel-incapacitated-color: #000000;
 }
 
+/* hbs */
+
+.wod20 section .tabs-container {
+  position: absolute;
+}
+
+.wod20 section.tab {
+  overflow-y: auto;
+  margin-left: 50px;  
+}
+
+/* hbs */
+
 
 /* START - Type of sheet designs */
 
@@ -255,7 +268,7 @@
   font-family: var(--main-font);
 }
 
-.wod20 button,
+.wod20 button:not(.header-control),
 .wod20 input,
 .wod20 select {
   font-family: var(--main-font);
@@ -311,7 +324,7 @@
   color: #121212;
 }
 
-.wod20 button {
+.wod20 button:not(.header-control) {
   border: 0;
 }
 
@@ -521,7 +534,7 @@ input.sheet-infoWidth {
 }
 
 .wod20.wod-sheet .icon.fa-square-plus,
-.wod20.wod-sheet .icon.fa-ellipsis-vertical {
+.wod20.wod-sheet .icon.fa-ellipsis-vertical:not(.header-control) {
   display: none;
 }
 

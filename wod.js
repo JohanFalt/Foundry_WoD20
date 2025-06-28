@@ -81,7 +81,8 @@ Hooks.once("init", async function() {
 	CONFIG.worldofdarkness.demonSystemSettings = game.settings.get('worldofdarkness', 'demonSystemSettings');
 	CONFIG.worldofdarkness.hunteredgeSettings = game.settings.get('worldofdarkness', 'hunteredgeSettings');
 	CONFIG.worldofdarkness.wererwolfrageSettings = game.settings.get('worldofdarkness', 'wererwolfrageSettings');
-	CONFIG.worldofdarkness.darkmode = game.settings.get('worldofdarkness', 'darkMode');
+
+	
 
 	// Roll settings
 	try {
@@ -424,12 +425,14 @@ Hooks.once("ready", async function () {
 		if ((installedVersion !== systemVersion || installedVersion === null)) {
 			await migration.UpdateWorld(installedVersion, systemVersion);
 		}
-		// else {
-		// 	await migration.updates();
-		// }
+		else {
+			// so attributes are shown correctly according to the settings
+			await migration.updates();
+		}
 	}
 	
 	CONFIG.language = game.i18n.lang;	
+	CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
 	
 	if (CONFIG.worldofdarkness.darkmode) {
 		let chat = document.getElementById("chat");
@@ -456,6 +459,7 @@ Hooks.on('createItem', async (item, options, userId) => {
 
 Hooks.on("renderActorSheet", (sheet) => { 
 	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
+	CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
 
 	clearHTML(sheet);
 
@@ -527,6 +531,7 @@ Hooks.on("renderActorSheet", (sheet) => {
 
 Hooks.on("renderItemSheet", (sheet) => { 
 	const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');
+	CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
 
 	clearHTML(sheet);
 
@@ -569,6 +574,7 @@ Hooks.on("renderItemSheet", (sheet) => {
 Hooks.on("renderFormApplication", (sheet) => { 
 	if (sheet.isDialog) {
 		const useSplatFonts = game.settings.get('worldofdarkness', 'useSplatFonts');	
+		CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
 
 		clearHTML(sheet);	
 
@@ -607,6 +613,7 @@ Hooks.on("renderFormApplication", (sheet) => {
 
 Hooks.on("renderDialog", (_dialog, html, _data) => {
 	const container = html[0];
+	CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
 
 	if (container.classList.contains("dialog")) {
 		const select = container.querySelector("select[name=type]");

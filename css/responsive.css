@@ -74,18 +74,18 @@
 .wod20 .collapsible.button:focus,
 .wod20 .vrollable:hover,
 .wod20 .vrollable:focus, 
-.wod20 .item:hover,
-.wod20 .item:focus,
-.wod20 .item.active {
+.wod20 nav .item:hover,
+.wod20 nav .item:focus,
+.wod20 nav .item.active {
 	text-shadow: 0 0 10px var(--main-full-color);
 }
 
-.headlineRow {
+.wod20 .headlineRow {
   border-bottom: 1px solid var(--main-full-color);
   background-color: var(--main-dim-color);
 }
 
-.headlineRowBackground {
+.wod20 .headlineRowBackground {
   background-color: var(--main-dim-color);
 }
 

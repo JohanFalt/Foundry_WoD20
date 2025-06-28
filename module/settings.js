@@ -394,14 +394,14 @@ export const systemSettings = function() {
     /**
     * dark mode. Css adjustements are located in the dark-theme.less file.
     */
-    game.settings.register( "worldofdarkness", "darkMode", {
-        name: game.i18n.localize('wod.settings.darkmodesetting'),
-        hint: game.i18n.localize('wod.settings.darkmodesettinghint'),
-        scope: "client",
-        config: true,
-        default: false,
-        type: Boolean,        
-    });
+    // game.settings.register( "worldofdarkness", "darkMode", {
+    //     name: game.i18n.localize('wod.settings.darkmodesetting'),
+    //     hint: game.i18n.localize('wod.settings.darkmodesettinghint'),
+    //     scope: "client",
+    //     config: true,
+    //     default: false,
+    //     type: Boolean,        
+    // });
 
     // PATCH SETTINGS
 	game.settings.register("worldofdarkness", "patch107", {

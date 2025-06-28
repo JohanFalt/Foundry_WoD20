@@ -1,0 +1,20 @@
+{{log "stats"}}
+
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">
+    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
+           
+    <!-- Attributes -->
+    <div class="sheet-area flex-columns">
+        {{> "systems/worldofdarkness/templates/actor/parts/attributes.hbs"}} 	
+    </div>
+
+    <!-- Abilities -->
+    <div class="sheet-area flex-columns">
+        {{> "systems/worldofdarkness/templates/actor/parts/abilities.hbs"}}
+    </div>
+
+    <!-- Adventages -->
+    <div class="sheet-area flex-columns">
+        {{> "systems/worldofdarkness/templates/actor/parts/stats_adventages.hbs"}}
+    </div>
+</section>

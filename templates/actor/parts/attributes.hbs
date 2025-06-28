@@ -10,8 +10,7 @@
 	</div>
 
 	<div class="clearareaBox">
-		{{#each data.system.attributes as |attribute key|}}
-
+		{{#each actor.system.attributes as |attribute key|}}
 			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
 			{{#if attribute.isvisible}}
@@ -35,7 +34,7 @@
 						{{/if}}
 
 						{{#numLoop attribute.max}}							
-							<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>							
+							<span class="{{#if (lt this attribute.value)}} active {{/if}}{{#if (gt attribute.max 5)}} supernaturalAttribute {{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>							
 						{{/numLoop}}
 						
 						{{#if (gte attribute.value 4)}}
