@@ -180,11 +180,11 @@ Hooks.once("init", async function() {
 
 	// Add/remove to types in template.json row 4		"PC",
 	// Add/remove above "Mortal" row 1378 				"PC": {},
-	foundry.documents.collections.Actors.registerSheet("WoD", sheets.PCActorSheet, {
-		label: "LANG: PC",
-		types: ["PC"],
-		makeDefault: true
-	});
+	// foundry.documents.collections.Actors.registerSheet("WoD", sheets.PCActorSheet, {
+	// 	label: "LANG: PC",
+	// 	types: ["PC"],
+	// 	makeDefault: true
+	// });
 
 	foundry.documents.collections.Actors.registerSheet("WoD", sheets.MortalActorSheet, {
 		label: game.i18n.localize("wod.sheet.mortal"),
