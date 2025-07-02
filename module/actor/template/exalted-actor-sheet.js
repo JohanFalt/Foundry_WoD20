@@ -1,8 +1,8 @@
-import { MortalActorSheet } from "./mortal-actor-sheet.js";
+import { default as MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../../scripts/action-helpers.js";
 import CreateHelper from "../../scripts/create-helpers.js";
 
-export class ExaltedActorSheet extends MortalActorSheet {
+export default class ExaltedActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {

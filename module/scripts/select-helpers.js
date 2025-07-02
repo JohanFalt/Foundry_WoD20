@@ -297,7 +297,7 @@ export default class SelectHelper {
                     },
                     {
                         value: "wod.types.solar.twilight", 
-                        label: game.i18n.localize("wod.types.solar.zenith"),
+                        label: game.i18n.localize("wod.types.solar.twilight"),
                         group: game.i18n.localize("wod.bio.exalted.solar")
                     },
                     {

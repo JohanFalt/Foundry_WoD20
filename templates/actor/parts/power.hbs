@@ -291,8 +291,6 @@
 
     <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-    {{{getGetPowers locked actor "charmtype" "exaltedcharm" "wod.types.exaltedcharm" (localize "wod.power.exaltedcharm")}}}
-
-    {{{getGetPowers locked actor "exaltedsorcerytype" "exaltedsorcery" "wod.types.exaltedsorcery" (localize "wod.power.exaltedsorcery")}}}
+    {{> "systems/worldofdarkness/templates/actor/parts/exalted/exalted_charms.hbs"}}    
 
 </div>

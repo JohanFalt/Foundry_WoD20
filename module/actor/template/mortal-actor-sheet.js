@@ -13,7 +13,7 @@ import CombatHelper from "../../scripts/combat-helpers.js";
 import { calculateHealth } from "../../scripts/health.js";
 import * as selectbox from "../../scripts/spec-select.js";
 
-export class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
+export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {

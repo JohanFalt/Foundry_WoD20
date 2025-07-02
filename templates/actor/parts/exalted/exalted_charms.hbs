@@ -1,0 +1,29 @@
+<div class="sheet-area flex-columns" style="min-height: 150px;">
+    <div class="sheet-headline sheet-banner splatFont" data-area="exaltedcharmlist"><span class="sheet-banner-text">{{localize 'wod.power.exaltedcharm'}}</span></div>
+
+    {{#each (getExaltedCharmTypes actor "charmtype" "wod.types.exaltedcharm") as |charmtype id|}}
+        <div>
+            <div class="headlineRow splatFont">{{localize charmtype}}</div>
+
+            {{#each (getExaltedCharm ../actor "charmtype" charmtype) as |item itemid|}}
+
+                {{> "systems/worldofdarkness/templates/actor/parts/power_list.hbs" item=item config=../../config actor=../../actor locked=../../locked showclear=false}}
+
+            {{/each}}
+
+        </div>
+    {{/each}}
+
+</div>
+
+
+<div class="sheet-area flex-columns">
+    <div class="sheet-headline sheet-banner splatFont" data-area="exaltedsorcerytypelist"><span class="sheet-banner-text">{{localize 'wod.power.exaltedsorcery'}}</span></div>
+
+    {{#each (getExaltedCharm actor "type" "wod.types.exaltedsorcery") as |item itemid|}}
+
+        {{> "systems/worldofdarkness/templates/actor/parts/power_list.hbs" item=item config=../config actor=../actor locked=../locked showclear=false}}
+
+    {{/each}}
+
+</div>

@@ -53,6 +53,10 @@
     padding-bottom: 1px;
 }
 
+.dark-theme.wod20 .item-row-area.power-row {
+  background: var(--darkmode-area10-background);
+}
+
 .dark-theme.wod20 input {
     color: var(--darkmode-textcolor-dark);
     background: var(--darkmode-background-dark); 

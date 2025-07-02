@@ -10,22 +10,14 @@ import * as WoDSetup from "./module/scripts/wodsetup.js";
 import { WoDActor } from "./module/actor/data/wod-actor-base.js";
 import { WoDItem } from "./module/items/data/wod-item-base.js";
 
-//import { MortalActorSheet } from "./module/actor/template/mortal-actor-sheet2.js";
-import { MortalActorSheet } from "./module/actor/template/mortal-actor-sheet.js";
-import { WerewolfActorSheet } from "./module/actor/template/werewolf-actor-sheet.js";
-import { MageActorSheet } from "./module/actor/template/mage-actor-sheet.js";
-import { VampireActorSheet } from "./module/actor/template/vampire-actor-sheet.js";
-import { ChangelingActorSheet } from "./module/actor/template/changeling-actor-sheet.js";
-import { HunterActorSheet } from "./module/actor/template/hunter-actor-sheet.js";
-import { DemonActorSheet } from "./module/actor/template/demon-actor-sheet.js";
-import { WraithActorSheet } from "./module/actor/template/wraith-actor-sheet.js";
-import { MummyActorSheet } from "./module/actor/template/mummy-actor-sheet.js";
-import { ExaltedActorSheet } from "./module/actor/template/exalted-actor-sheet.js";
-import { ChangingBreedActorSheet } from "./module/actor/template/changingbreed-actor-sheet.js";
-import { CreatureActorSheet } from "./module/actor/template/creature-actor-sheet.js";
-import { tourSetup } from './tours/toursetup.js';
+/* Modules */
+import * as models from "./module/actor/datamodel/_module.js";
 
+/* Sheets */
+import * as sheets from "./module/actor/template/_module.js";
 import { WoDItemSheet } from "./module/items/template/item-sheet.js";
+
+import { tourSetup } from './tours/toursetup.js';
 
 import { DialogGeneralRoll, GeneralRoll } from "./module/dialogs/dialog-generalroll.js";
 
@@ -175,6 +167,8 @@ Hooks.once("init", async function() {
 	CONFIG.worldofdarkness.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
 	CONFIG.worldofdarkness.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
 
+	CONFIG.Actor.dataModels.PC = models.PCDataModel;
+
 	// Register application classes
 	CONFIG.Actor.documentClass = WoDActor;
 	CONFIG.Item.documentClass = WoDItem;
@@ -184,73 +178,81 @@ Hooks.once("init", async function() {
 	// Register sheet application classes
 	foundry.documents.collections.Actors.unregisterSheet('core', foundry.appv1.sheets.ActorSheet)
 
-	foundry.documents.collections.Actors.registerSheet("WoD", MortalActorSheet, {
+	// Add/remove to types in template.json row 4		"PC",
+	// Add/remove above "Mortal" row 1378 				"PC": {},
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.PCActorSheet, {
+		label: "LANG: PC",
+		types: ["PC"],
+		makeDefault: true
+	});
+
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.MortalActorSheet, {
 		label: game.i18n.localize("wod.sheet.mortal"),
 		types: ["Mortal"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", WerewolfActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.WerewolfActorSheet, {
 		label: game.i18n.localize("wod.sheet.werewolf"),
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
 
-	foundry.documents.collections.Actors.registerSheet("WoD", MageActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.MageActorSheet, {
 		label: game.i18n.localize("wod.sheet.mage"),
 		types: ["Mage"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", VampireActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.VampireActorSheet, {
 		label: game.i18n.localize("wod.sheet.vampire"),
 		types: ["Vampire"],
 		makeDefault: true
 	});
 	
-	foundry.documents.collections.Actors.registerSheet("WoD", ChangelingActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.ChangelingActorSheet, {
 		label: game.i18n.localize("wod.sheet.changeling"),
 		types: ["Changeling"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", HunterActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.HunterActorSheet, {
 		label: game.i18n.localize("wod.sheet.hunter"),
 		types: ["Hunter"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", DemonActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.DemonActorSheet, {
 		label: game.i18n.localize("wod.sheet.demon"),
 		types: ["Demon"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", WraithActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.WraithActorSheet, {
 		label: game.i18n.localize("wod.sheet.wraith"),
 		types: ["Wraith"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", MummyActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.MummyActorSheet, {
 		label: game.i18n.localize("wod.sheet.mummy"),
 		types: ["Mummy"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", ExaltedActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.ExaltedActorSheet, {
 		label: game.i18n.localize("wod.sheet.exalted"),
 		types: ["Exalted"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", ChangingBreedActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.ChangingBreedActorSheet, {
 		label: game.i18n.localize("wod.sheet.breed"),
 		types: ["Changing Breed"],
 		makeDefault: true
 	});
 
-	foundry.documents.collections.Actors.registerSheet("WoD", CreatureActorSheet, {
+	foundry.documents.collections.Actors.registerSheet("WoD", sheets.CreatureActorSheet, {
 		label: game.i18n.localize("wod.sheet.creature"),
 		types: ["Creature"],
 		makeDefault: true

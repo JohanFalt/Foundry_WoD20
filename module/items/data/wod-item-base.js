@@ -61,7 +61,6 @@ export class WoDItem extends Item {
 			if (updateData.type == "Power") {
 				const imgUrl = _getImage(updateData);
 
-				//if (imgUrl.startsWith('systems/worldofdarkness/assets/img/items/')) {
 				if (updateData.img.startsWith('systems/worldofdarkness/')) {
 					updateData.img = imgUrl;
 					updated = true;
@@ -179,7 +178,7 @@ function _getImage(item) {
 			return "systems/worldofdarkness/assets/img/items/power_mummy.svg";
 		}
 
-		if (item.system.type == "wod.types.exaltedcharm") {
+		if ((item.system.type == "wod.types.exaltedcharm") || (item.system.type == "wod.types.exaltedsorcery")) {
 			return "systems/worldofdarkness/assets/img/items/power_exalted.svg";
 		}
 

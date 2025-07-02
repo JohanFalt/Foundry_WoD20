@@ -1103,6 +1103,11 @@ input.sheet-infoWidth {
   border-bottom: 0;
   background: var(--sheet-background-color) no-repeat;    
 }
+
+.wod20 .tooltipText {
+  font-size: 0.75rem;
+  padding: 5px;
+}
   
 
     /* headline */

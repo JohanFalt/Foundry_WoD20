@@ -1,8 +1,8 @@
-import { MortalActorSheet } from "./mortal-actor-sheet.js";
+import { default as MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../../scripts/action-helpers.js";
 import TokenHelper from "../../scripts/token-helpers.js";
 
-export class WerewolfActorSheet extends MortalActorSheet {
+export default class WerewolfActorSheet extends MortalActorSheet {
 	
 	/** @override */
 	static get defaultOptions() {

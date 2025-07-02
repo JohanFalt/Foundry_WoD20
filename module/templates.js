@@ -159,6 +159,7 @@ export const preloadHandlebarsTemplates = async function () {
 
 		// Exalted
 		"systems/worldofdarkness/templates/actor/parts/exalted/bio_exalted_background.html",
+		"systems/worldofdarkness/templates/actor/parts/exalted/exalted_charms.hbs",
 
 		// Orpheus
 		"systems/worldofdarkness/templates/actor/parts/variant/bio_orpheus_background.html",	
@@ -755,194 +756,221 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	/* exalted */
-	Handlebars.registerHelper("getGetPowers", function (locked, actor, categoryname, powername, powertype, bannertext, useabilitiy) {
-		let html = "";
-		let headerhtml = `<div class="sheet-area flex-columns"><div class="sheet-headline sheet-banner splatFont" data-area="${powername}list"><span class="sheet-banner-text">${bannertext}</span></div>`;
-		let listhtml = "";
-		let footerhtml = `</div>`;
-
+	Handlebars.registerHelper("getExaltedCharmTypes", function (actor, categoryname, powertype) {
 		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype);
 
 		if (Array.isArray(items)) {
 			const uniqueVariants = [
-			  		...new Set(
-					items
-				  		.map(item => {
-							return item.system?.[categoryname] !== undefined ? item.system[categoryname] : null;
-				  		})
-				  		.filter(value => value !== null) // Ta bort null-värden som inte finns
-			  		)
-				];
-			
-			let powers = [];
+				...new Set(
+				items
+					.map(item => {
+						return item.system?.[categoryname] !== undefined ? item.system[categoryname] : null;
+					})
+					.filter(value => value !== null) // Ta bort null-värden som inte finns
+				)
+			];
 
-			// if category isn't used by the power
-			if (uniqueVariants.length == 0) {
-				uniqueVariants.push("");
-			}
-
-			for (const unique of uniqueVariants) {
-				let addText = game.i18n.localize("wod.labels.add." + powername);
-				let removebonusText = game.i18n.localize("wod.labels.power.removebonus." + powername);
-				let sendText = game.i18n.localize("wod.labels.send");
-				let editText = game.i18n.localize("wod.labels.edit." + powername);
-				let deleteText = game.i18n.localize("wod.labels.remove." + powername);
-				let uniquetext = unique.replace(/[.,?]/g, "");
-
-				let showbonusText = game.i18n.localize("wod.labels.show.bonus");
-
-				let i = 0;
-
-				// no inner seperation of power
-				if (unique == "") {
-					powers = items;
-				}
-				else {
-					listhtml += `<div class="headlineRow splatFont">${game.i18n.localize(unique)}</div>`;
-					powers = items.filter(item => item.system?.[categoryname] === unique);	
-				}				
-
-				powers = powers.sort((a, b) => {
-					if (a.system?.level < b.system?.level) return -1;
-					if (a.system?.level > b.system?.level) return 1;
-				  
-					return a.name.localeCompare(b.name);
-			  	});				
-
-				for (const power of powers) {
-					
-					let descriptionhtml = "";
-			
-					if (power.system.description != "") {
-						descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${power.system.description}`;
-					}
-
-					let detailshtml = "";
-
-					if (power.system.details != "") {
-						detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${power.system.details}`;
-					}
-
-					let isactive = '';
-					let rollablerow = powername + '-row';
-					let rollabelcss = '';
-
-					if (power.system.isrollable) {
-						rollablerow = powername + '-rollablerow';
-					}
-					else {
-						rollablerow = powername + '-nonerollablerow';
-					}
-					
-					if (power.system.isrollable) {
-						rollabelcss = `vrollable`;
-					}
-
-					if (power.system.isactive) {
-						isactive = `checked`;
-					}					
-
-					listhtml += `<div class="item-row-area" data-area="${uniquetext}row${i}">
-									<div class="clearareaBox ${rollablerow}">
-										<div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="${power._id}" data-type="isactive" ${isactive}></input></div>
-										<div class="pullLeft ${powername}-headlineBox headlineNormal ${rollabelcss}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-object="${powername}" data-rollitem="true" data-itemid="${power._id}">${power.name}</div>`;
-					
-					listhtml += `<div class="pullLeft numberBox">${(power.system.level > 0) ? power.system.level : "&nbsp;"}</div>`;
-
-					if (power.system.isrollable) {
-						let dice1name = game.i18n.localize(getAttributes(power.system.dice1));
-						let dice2name = "";
-	
-						if (power.system.dice1 == "path") {
-							dice1name = actor.system.advantages.path.label;
-						}
-	
-						if (useabilitiy) {
-							dice2name = game.i18n.localize(getAbility(actor, power.system.dice2));
-						}						
-	
-						let difficultyText = power.system.difficulty;
-
-						if (parseInt(power.system.difficulty) == -1) {
-							difficultyText = game.i18n.localize("wod.labels.varies");
-						}
-	
-						listhtml += `
-							<div class="pullLeft power-dicebox headlineNormal">${dice1name}</div>
-							<div class="pullLeft power-dicebox headlineNormal">${dice2name}</div>
-							<div class="pullLeft power-valueBox headlineNormal centerText">${difficultyText}</div>`;
-					}
-					else {
-						listhtml += `<div class="pullLeft">&nbsp;</div>`;
-					}
-
-					listhtml += `<div class="pullLeft power-iconbox">`;				// ----- POWERICONS START
-				
-					if ((descriptionhtml != "") || (detailshtml != "")) {
-						let description = descriptionhtml + detailshtml;
-
-						listhtml += `
-							<div class="pullLeft pointer headlineNormal tooltip">
-								<i class="icon fa-solid fa-memo"></i>
-								<span class="tooltiptext">${description}</span>
-							</div>`;
-					}
-
-					listhtml += `<div class="pullLeft pointer"><a class="send-chat" title="${sendText}" data-itemid="${power._id}"><i class="icon fa-solid fa-comment-dots"></i></a></div>`;                        
-
-					if (!locked) {
-						listhtml += `
-							<div class="pullLeft pointer">
-								<a class="clearPower" title="${removebonusText}" data-powertype="power" data-item-id="${power._id}"><i class="icon fa-solid fa-lock"></i></a>
-							</div>
-							<div class="pullLeft pointer">
-								<a class="item-edit" title="${editText}" data-type="Power" data-item-id="${power._id}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-							</div>
-							<div class="pullLeft pointer">
-								<a class="item-delete" title="${deleteText}" data-type="Power" data-item-id="${power._id}"><i class="icon fa-solid fa-trash-can"></i></a>
-							</div>`; 
-					}
-
-					if (power.system.bonuslist.length > 0) {
-						let id = `collapsiblehekaubonus${i}`;
-						let typeid = `${powername}${i}`;
-		
-						listhtml += `
-							<div class="pullLeft pointer">
-								<i id="${id}" class="icon collapsible button fa-solid fa-angles-right" title="${showbonusText}" data-sheet="${CONFIG.worldofdarkness.sheettype.mortal}" data-type="${typeid}"></i>
-							</div>`; 
-					}
-
-					listhtml += `</div>`;											// ----- POWERICONS END
-
-					listhtml += `</div>`;											// ----- ROW END
-
-					listhtml += `<div class="hide bonuses ${powername}${i}" data-area="${powername}bonus${i}">`;		// ----- BONUS START
-
-					for (const b in power.system.bonuslist) {
-						listhtml += `<div class="clearareaBox">
-										<div class="pullLeft bonus-power-name headlineNormal">${power.system.bonuslist[b].name}</div>
-										<div class="pullLeft headlineNormal" style="width: 200px;">${game.i18n.localize(CONFIG.worldofdarkness.bonus[power.system.bonuslist[b].type])}</div>
-										<div class="pullLeft headlineNormal">${power.system.bonuslist[b].value}</div>
-									</div>`;
-					}
-
-					listhtml += `</div>`;											// ----- BONUS END
-
-					listhtml += `</div>`;
-
-					i = i + 1;
-				}
-			}			
-		} 
-		else {
-			console.error("items is not an array or undefined");
+			return uniqueVariants;
 		}
-
-		html += headerhtml + listhtml + footerhtml;
-
-		return html;
 	});
+
+	Handlebars.registerHelper("getExaltedCharm", function (actor, categoryname, unique) {
+		let charms = [];
+		charms = actor?.items.filter(item => item.system?.[categoryname] === unique);
+
+		console.log(charms);
+
+		return charms;		
+	});
+
+	// Handlebars.registerHelper("getGetPowers", function (locked, actor, categoryname, powername, powertype, bannertext, useabilitiy) {
+	// 	let html = "";
+	// 	let headerhtml = `<div class="sheet-area flex-columns"><div class="sheet-headline sheet-banner splatFont" data-area="${powername}list"><span class="sheet-banner-text">${bannertext}</span></div>`;
+	// 	let listhtml = "";
+	// 	let footerhtml = `</div>`;
+
+	// 	const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype);
+
+	// 	if (Array.isArray(items)) {
+	// 		const uniqueVariants = [
+	// 		  		...new Set(
+	// 				items
+	// 			  		.map(item => {
+	// 						return item.system?.[categoryname] !== undefined ? item.system[categoryname] : null;
+	// 			  		})
+	// 			  		.filter(value => value !== null) // Ta bort null-värden som inte finns
+	// 		  		)
+	// 			];
+			
+	// 		let powers = [];
+
+	// 		// if category isn't used by the power
+	// 		if (uniqueVariants.length == 0) {
+	// 			uniqueVariants.push("");
+	// 		}
+
+	// 		for (const unique of uniqueVariants) {
+	// 			let addText = game.i18n.localize("wod.labels.add." + powername);
+	// 			let removebonusText = game.i18n.localize("wod.labels.power.removebonus." + powername);
+	// 			let sendText = game.i18n.localize("wod.labels.send");
+	// 			let editText = game.i18n.localize("wod.labels.edit." + powername);
+	// 			let deleteText = game.i18n.localize("wod.labels.remove." + powername);
+	// 			let uniquetext = unique.replace(/[.,?]/g, "");
+
+	// 			let showbonusText = game.i18n.localize("wod.labels.show.bonus");
+
+	// 			let i = 0;
+
+	// 			// no inner seperation of power
+	// 			if (unique == "") {
+	// 				powers = items;
+	// 			}
+	// 			else {
+	// 				listhtml += `<div class="headlineRow splatFont">${game.i18n.localize(unique)}</div>`;
+	// 				powers = items.filter(item => item.system?.[categoryname] === unique);	
+	// 			}				
+
+	// 			powers = powers.sort((a, b) => {
+	// 				if (a.system?.level < b.system?.level) return -1;
+	// 				if (a.system?.level > b.system?.level) return 1;
+				  
+	// 				return a.name.localeCompare(b.name);
+	// 		  	});				
+
+	// 			for (const power of powers) {
+					
+	// 				let descriptionhtml = "";
+			
+	// 				if (power.system.description != "") {
+	// 					descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${power.system.description}`;
+	// 				}
+
+	// 				let detailshtml = "";
+
+	// 				if (power.system.details != "") {
+	// 					detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${power.system.details}`;
+	// 				}
+
+	// 				let isactive = '';
+	// 				let rollablerow = powername + '-row';
+	// 				let rollabelcss = '';
+
+	// 				if (power.system.isrollable) {
+	// 					rollablerow = powername + '-rollablerow';
+	// 				}
+	// 				else {
+	// 					rollablerow = powername + '-nonerollablerow';
+	// 				}
+					
+	// 				if (power.system.isrollable) {
+	// 					rollabelcss = `vrollable`;
+	// 				}
+
+	// 				if (power.system.isactive) {
+	// 					isactive = `checked`;
+	// 				}					
+
+	// 				listhtml += `<div class="item-row-area" data-area="${uniquetext}row${i}">
+	// 								<div class="clearareaBox ${rollablerow}">
+	// 									<div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="${power._id}" data-type="isactive" ${isactive}></input></div>
+	// 									<div class="pullLeft ${powername}-headlineBox headlineNormal ${rollabelcss}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-object="${powername}" data-rollitem="true" data-itemid="${power._id}">${power.name}</div>`;
+					
+	// 				listhtml += `<div class="pullLeft numberBox">${(power.system.level > 0) ? power.system.level : "&nbsp;"}</div>`;
+
+	// 				if (power.system.isrollable) {
+	// 					let dice1name = game.i18n.localize(getAttributes(power.system.dice1));
+	// 					let dice2name = "";
+	
+	// 					if (power.system.dice1 == "path") {
+	// 						dice1name = actor.system.advantages.path.label;
+	// 					}
+	
+	// 					if (useabilitiy) {
+	// 						dice2name = game.i18n.localize(getAbility(actor, power.system.dice2));
+	// 					}						
+	
+	// 					let difficultyText = power.system.difficulty;
+
+	// 					if (parseInt(power.system.difficulty) == -1) {
+	// 						difficultyText = game.i18n.localize("wod.labels.varies");
+	// 					}
+	
+	// 					listhtml += `
+	// 						<div class="pullLeft power-dicebox headlineNormal">${dice1name}</div>
+	// 						<div class="pullLeft power-dicebox headlineNormal">${dice2name}</div>
+	// 						<div class="pullLeft power-valueBox headlineNormal centerText">${difficultyText}</div>`;
+	// 				}
+	// 				else {
+	// 					listhtml += `<div class="pullLeft">&nbsp;</div>`;
+	// 				}
+
+	// 				listhtml += `<div class="pullLeft power-iconbox">`;				// ----- POWERICONS START
+				
+	// 				if ((descriptionhtml != "") || (detailshtml != "")) {
+	// 					let description = descriptionhtml + detailshtml;
+
+	// 					listhtml += `
+	// 						<div class="pullLeft pointer headlineNormal tooltip">
+	// 							<i class="icon fa-solid fa-memo"></i>
+	// 							<span class="tooltiptext">${description}</span>
+	// 						</div>`;
+	// 				}
+
+	// 				listhtml += `<div class="pullLeft pointer"><a class="send-chat" title="${sendText}" data-itemid="${power._id}"><i class="icon fa-solid fa-comment-dots"></i></a></div>`;                        
+
+	// 				if (!locked) {
+	// 					listhtml += `
+	// 						<div class="pullLeft pointer">
+	// 							<a class="clearPower" title="${removebonusText}" data-powertype="power" data-item-id="${power._id}"><i class="icon fa-solid fa-lock"></i></a>
+	// 						</div>
+	// 						<div class="pullLeft pointer">
+	// 							<a class="item-edit" title="${editText}" data-type="Power" data-item-id="${power._id}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+	// 						</div>
+	// 						<div class="pullLeft pointer">
+	// 							<a class="item-delete" title="${deleteText}" data-type="Power" data-item-id="${power._id}"><i class="icon fa-solid fa-trash-can"></i></a>
+	// 						</div>`; 
+	// 				}
+
+	// 				if (power.system.bonuslist.length > 0) {
+	// 					let id = `collapsiblehekaubonus${i}`;
+	// 					let typeid = `${powername}${i}`;
+		
+	// 					listhtml += `
+	// 						<div class="pullLeft pointer">
+	// 							<i id="${id}" class="icon collapsible button fa-solid fa-angles-right" title="${showbonusText}" data-sheet="${CONFIG.worldofdarkness.sheettype.mortal}" data-type="${typeid}"></i>
+	// 						</div>`; 
+	// 				}
+
+	// 				listhtml += `</div>`;											// ----- POWERICONS END
+
+	// 				listhtml += `</div>`;											// ----- ROW END
+
+	// 				listhtml += `<div class="hide bonuses ${powername}${i}" data-area="${powername}bonus${i}">`;		// ----- BONUS START
+
+	// 				for (const b in power.system.bonuslist) {
+	// 					listhtml += `<div class="clearareaBox">
+	// 									<div class="pullLeft bonus-power-name headlineNormal">${power.system.bonuslist[b].name}</div>
+	// 									<div class="pullLeft headlineNormal" style="width: 200px;">${game.i18n.localize(CONFIG.worldofdarkness.bonus[power.system.bonuslist[b].type])}</div>
+	// 									<div class="pullLeft headlineNormal">${power.system.bonuslist[b].value}</div>
+	// 								</div>`;
+	// 				}
+
+	// 				listhtml += `</div>`;											// ----- BONUS END
+
+	// 				listhtml += `</div>`;
+
+	// 				i = i + 1;
+	// 			}
+	// 		}			
+	// 	} 
+	// 	else {
+	// 		console.error("items is not an array or undefined");
+	// 	}
+
+	// 	html += headerhtml + listhtml + footerhtml;
+
+	// 	return html;
+	// });
 
 	/* Get the tooltip graphics */
 	Handlebars.registerHelper("getToolTip", function (description, detail, bonuses, actor) {
@@ -992,13 +1020,13 @@ export const registerHandlebarsHelpers = function () {
 		let descriptionhtml = "";
 				
 		if (description != "") {
-			descriptionhtml = `<div class="headlineList">${game.i18n.localize("wod.labels.description")}</div><div class="headlineNormal">${description}</div>`;
+			descriptionhtml = `<div class="headlineList">${game.i18n.localize("wod.labels.description")}</div><div class="tooltipText">${description}</div>`;
 		}
 
 		let detailshtml = "";
 
 		if ((detail !== "") || (bonuses?.length > 0)) {
-			detailshtml = `<div class="headlineList">${game.i18n.localize("wod.labels.power.system")}</div><div class="headlineNormal">${detail}</div>`;
+			detailshtml = `<div class="headlineList">${game.i18n.localize("wod.labels.power.system")}</div><div class="tooltipText">${detail}</div>`;
 
 			if (bonuses?.length > 0) {
 				detailshtml += `<table><tr><th style="text-align: left;">${game.i18n.localize("wod.labels.type")}</th><th style="text-align: left;">${game.i18n.localize("wod.effects.area")}</th><th>${game.i18n.localize("wod.labels.modifier")}</th><tr>`;

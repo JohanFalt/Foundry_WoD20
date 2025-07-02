@@ -2561,6 +2561,13 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '5.0.2')) {
+            newfunctions += '<li>Fixed styling of tool tip text. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1170">[#1170]</a></li>';
+            newfunctions += '<li>[VtM] Background color error in dark mode when listing disciplines. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1169">[#1169]</a></li>';
+            newfunctions += '<li>[Exalted] Fixed tool tip of charms and spells. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1162">[#1162]</a></li>';
+            newfunctions += '<li>[Exalted] Fixed text problems when setting charm type. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1164">[#1164]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '5.0.1')) {
             newfunctions += '<li>Fixed Graphics on the attributes if you where using the 5th ed rules.</li>';
             newfunctions += '<li>[WtA] Fixed Willpower on the Creature (spirit) sheet if you where using the 5th ed rules.</li>';

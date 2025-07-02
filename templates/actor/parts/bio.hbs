@@ -19,9 +19,9 @@
 						{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
 							<div class="bioInformationArea floating-label-group">
 								{{#if locked}}
-									<input class="sheet-infoValues" type="text" value="{{data.system.nature}}" autocomplete="off" autofocus required />
+									<input class="sheet-infoValues" type="text" value="{{actor.system.bio.nature}}" autocomplete="off" autofocus required />
 								{{else}}
-									<input class="sheet-infoValues editable" name="system.nature" type="text" value="{{data.system.nature}}" data-name="data.system.nature" data-dtype="String" autocomplete="off" autofocus required />
+									<input class="sheet-infoValues editable" name="system.bio.nature" type="text" value="{{actor.system.bio.nature}}" data-name="data.system.bio.nature" data-dtype="String" autocomplete="off" autofocus required />
 								{{/if}}
 								<span class="floating-label">{{localize 'wod.bio.nature'}}</span>
 							</div>
@@ -29,9 +29,9 @@
 											
 						<div class="bioInformationArea floating-label-group">
 							{{#if locked}}
-								<input class="sheet-infoValues" type="text" value="{{data.system.demeanor}}" autocomplete="off" autofocus required />
+								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.demeanor}}" autocomplete="off" autofocus required />
 							{{else}}
-								<input class="sheet-infoValues editable" name="system.demeanor" type="text" value="{{data.system.demeanor}}" data-name="data.system.demeanor" data-dtype="String" autocomplete="off" autofocus required />
+								<input class="sheet-infoValues editable" name="system.bio.demeanor" type="text" value="{{actor.system.bio.demeanor}}" data-name="data.system.bio.demeanor" data-dtype="String" autocomplete="off" autofocus required />
 							{{/if}}
 							<span class="floating-label">{{localize 'wod.bio.demeanor'}}</span>
 						</div>
@@ -41,18 +41,18 @@
 					{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
 						<div class="bioInformationArea floating-label-group">
 							{{#if locked}}
-								<input class="sheet-infoValues" type="text" value="{{data.system.concept}}" autocomplete="off" autofocus required />
+								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.concept}}" autocomplete="off" autofocus required />
 							{{else}}
-								<input class="sheet-infoValues editable" name="system.concept" type="text" value="{{data.system.concept}}" data-name="data.system.concept" data-dtype="String" autocomplete="off" autofocus required />
+								<input class="sheet-infoValues editable" name="system.bio.concept" type="text" value="{{actor.system.bio.concept}}" data-name="data.system.bio.concept" data-dtype="String" autocomplete="off" autofocus required />
 							{{/if}}
 							<span class="floating-label">{{localize 'wod.bio.concept'}}</span>
 						</div>
 						
 						<div class="bioInformationArea floating-label-group">
 							{{#if locked}}
-								<input class="sheet-infoValues" type="text" value="{{data.system.derangement}}" autocomplete="off" autofocus required />
+								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.derangement}}" autocomplete="off" autofocus required />
 							{{else}}
-								<input class="sheet-infoValues editable" name="system.derangement" type="text" value="{{data.system.derangement}}" data-name="data.system.derangement" data-dtype="String" autocomplete="off" autofocus required />
+								<input class="sheet-infoValues editable" name="system.bio.derangement" type="text" value="{{actor.system.bio.derangement}}" data-name="data.system.bio.derangement" data-dtype="String" autocomplete="off" autofocus required />
 							{{/if}}
 							<span class="floating-label">{{localize 'wod.bio.derangement'}}</span>
 						</div>	
@@ -88,20 +88,20 @@
 							{{localize 'wod.bio.noworldanvillink'}}
 						{{/if}}
 					{{else}}
-						<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.worldanvil" type="text" value="{{data.system.worldanvil}}" data-name="data.system.worldanvil" data-dtype="String" />
+						<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.bio.worldanvil" type="text" value="{{data.system.bio.worldanvil}}" data-name="data.system.bio.worldanvil" data-dtype="String" />
 					{{/if}}
 
 				</div>
 			{{/if}}
 
-			{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.appearance" prosename="system.appearance" prosevalue=appearance proseenriched=enrichedAppearance}}
+			{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.appearance" prosename="system.bio.appearance" prosevalue=appearance proseenriched=enrichedAppearance}}
 
 			{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.background" prosename="system.background" prosevalue=background proseenriched=enrichedBackground}}									
+				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.background" prosename="system.bio.background" prosevalue=background proseenriched=enrichedBackground}}									
 			{{/if}}
 
 			{{#if isGM}}
-				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.tips" prosename="system.roleplaytip" prosevalue=roleplaytip proseenriched=enrichedRoleplaytip}}
+				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.tips" prosename="system.bio.roleplaytip" prosevalue=roleplaytip proseenriched=enrichedRoleplaytip}}
 			{{/if}}
 		</div>
 	</div>	
