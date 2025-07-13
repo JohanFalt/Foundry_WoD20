@@ -2560,6 +2560,10 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+		
+		if (_compareVersion(installedVersion, '5.0.4')) {
+            newfunctions += '<li>[Exalted] Fixed rolling Exalted Charms and Exalted Ancient Sorcery. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1183">[#1183]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '5.0.2')) {
             newfunctions += '<li>Fixed styling of tool tip text. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1170">[#1170]</a></li>';
