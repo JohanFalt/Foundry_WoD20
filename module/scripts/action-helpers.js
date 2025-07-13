@@ -305,7 +305,7 @@ export default class ActionHelper {
 			}
 
 			// exalted powers
-			if ((dataset.object == "wod.types.exaltedcharm") || (dataset.object == "wod.types.exaltedcharm")) {
+			if ((dataset.object == "wod.types.exaltedcharm") || (dataset.object == "wod.types.exaltedsorcery")) {
 				const charm = new PowerDialog.ExaltedPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, charm);
 				powerUse.render(true);
