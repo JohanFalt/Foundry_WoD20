@@ -2300,7 +2300,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(itemversion, "5.0.5")) {
+    if (_compareVersion(item.system.version, "5.0.5")) {
         let itemData = foundry.utils.duplicate(item);
 
         if ((item.type == "Power") && (item.system.type == "wod.types.artpower")) {
