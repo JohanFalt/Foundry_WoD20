@@ -2300,6 +2300,24 @@ export  const updates = async () => {
         }
     }
 
+    if (_compareVersion(itemversion, "5.0.5")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if ((item.type == "Power") && (item.system.type == "wod.types.artpower")) {
+            itemData.system.isrollable = true;
+            itemData.system.difficulty = "";
+            
+            altered = true;
+        }
+
+        if (altered) {
+            itemData.system.version = "5.0.5";
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
+
     // TODO #935
     // if (item.type == "Feature") {
     //     try {
@@ -2560,6 +2578,10 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '5.0.5')) {
+            newfunctions += '<li>[CtD] Unable to click and roll Art Powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1184">[#1184]</a></li>';
+        }
 		
 		if (_compareVersion(installedVersion, '5.0.4')) {
             newfunctions += '<li>[Exalted] Fixed rolling Exalted Charms and Exalted Ancient Sorcery. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1183">[#1183]</a></li>';

@@ -1294,7 +1294,9 @@ export default class CreateHelper {
 					property: {
 						arttype: ""
 					},
-					type: "wod.types.artpower"
+					type: "wod.types.artpower",
+					isrollable: true,
+					difficulty: ""
 				}
 			};
 		}
