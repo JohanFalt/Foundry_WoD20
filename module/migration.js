@@ -2579,6 +2579,14 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '5.0.7')) {
+            newfunctions += '<li>Brazilian Portuguese has been updated.</li>';
+            newfunctions += '<li>[CtD] Adding/removing Imbalance was confusing so now you just right-click and it adds to Willpower as it should. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1211">[#1211]</a></li>';
+            newfunctions += '<li>[CtD] How using Nightmare dice with Cantrip casting was wrong so now if you have three nightmare dices or more to add you can check to add these to the roll. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1202">[#1202]</a></li>';
+            newfunctions += '<li>[CtD] As you rolled Cantrips the black Nightmare dices was not shown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1209">[#1209]</a></li>';
+            newfunctions += '<li>[WtO] Temporary Corpus now handles damage as any health box should. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1206">[#1206]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '5.0.5')) {
             newfunctions += '<li>[CtD] Unable to click and roll Art Powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1184">[#1184]</a></li>';
         }
