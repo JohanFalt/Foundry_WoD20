@@ -299,6 +299,9 @@ export class WoDActor extends Actor {
             if (updateData.system.settings.hasbalance) {
                 updateData = await this._handleMummyCalculations(updateData);
             }
+            if (updateData.type == CONFIG.worldofdarkness.sheettype.wraith) {
+                updateData = await this._handleWraithCalculations(updateData);
+            }
 
             if (updateData.type == CONFIG.worldofdarkness.sheettype.exalted) {
                 updateData = await this._handleExaltedCalculations(updateData);
@@ -873,6 +876,54 @@ export class WoDActor extends Actor {
         return actorData;
 		
 	}
+
+    async _handleWraithCalculations(actorData) {
+       if (actorData.system.advantages.corpus.permanent > actorData.system.advantages.corpus.max) {
+            actorData.system.advantages.corpus.permanent = actorData.system.advantages.corpus.max;
+        }
+        
+        if (actorData.system.advantages.corpus.permanent < actorData.system.advantages.corpus.temporary) {
+            // has to check the health levels
+            if ((actorData.system.health.damage.corpus.bashing + actorData.system.health.damage.corpus.lethal + actorData.system.health.damage.corpus.aggravated) > actorData.system.advantages.corpus.permanent) {
+                let diff = actorData.system.advantages.corpus.temporary - actorData.system.advantages.corpus.permanent;
+
+                if ((actorData.system.health.damage.corpus.bashing > 0) && (diff > 0)) {
+                    if (actorData.system.health.damage.corpus.bashing >= diff) {
+                        actorData.system.health.damage.corpus.bashing -= diff;
+                        diff = 0;                        
+                    }
+                    else {
+                        diff -= actorData.system.health.damage.corpus.bashing;
+                        actorData.system.health.damage.corpus.bashing = 0;
+                    }
+                }
+                if ((actorData.system.health.damage.corpus.lethal > 0) && (diff > 0)) {
+                    if (actorData.system.health.damage.corpus.lethal >= diff) {
+                        actorData.system.health.damage.corpus.lethal -= diff;
+                        diff = 0;                        
+                    }
+                    else {
+                        diff -= actorData.system.health.damage.corpus.lethal;
+                        actorData.system.health.damage.corpus.lethal = 0;
+                    }
+                }
+                if ((actorData.system.health.damage.corpus.aggravated > 0) && (diff > 0)) {
+                    if (actorData.system.health.damage.corpus.aggravated >= diff) {
+                        actorData.system.health.damage.corpus.aggravated -= diff;
+                        diff = 0;                        
+                    }
+                    else {
+                        diff -= actorData.system.health.damage.corpus.aggravated;
+                        actorData.system.health.damage.corpus.aggravated = 0;
+                    }
+                }
+            }
+
+            actorData.system.advantages.corpus.temporary = actorData.system.advantages.corpus.permanent;
+        }
+
+        return actorData;
+    }
 
     async _handleExaltedCalculations(actorData) {
         try {

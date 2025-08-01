@@ -1,6 +1,7 @@
 import { default as MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../../scripts/action-helpers.js";
 import CreateHelper from "../../scripts/create-helpers.js";
+import { calculateHealth } from "../../scripts/health.js";
 
 export default class WraithActorSheet extends MortalActorSheet {
 	
@@ -19,6 +20,8 @@ export default class WraithActorSheet extends MortalActorSheet {
 	/** @override */
 	async getData() {
 		const data = await super.getData();
+
+		data.actor.system.listdata.health = await calculateHealth(this.actor, CONFIG.worldofdarkness.sheettype.wraith);
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.wraith) {
 			console.log(`${data.actor.name} - (${CONFIG.worldofdarkness.sheettype.wraith})`);
@@ -55,6 +58,15 @@ export default class WraithActorSheet extends MortalActorSheet {
 		html
 			.find(".resource-counter > .resource-value-step")
 			.click(this._onDotCounterWraithChange.bind(this));
+
+		// wraith handling of corpus
+		html
+			.find(".wraith.health .resource-counter > .resource-value-step")
+			.click(this._onSquareCounterWraithChange.bind(this));
+			
+		html
+			.find(".wraith.health .resource-counter > .resource-value-step")
+			.on('contextmenu', this._onSquareCounterClear.bind(this));
 	}	
 
 	_onRollWraithDialog(event) {		
@@ -114,6 +126,10 @@ export default class WraithActorSheet extends MortalActorSheet {
 		else {
 			const fieldStrings = parent[0].dataset.name;
 			const fields = fieldStrings.split(".");
+
+			if (fields[1] == "corpus") {
+				return;
+			}
 	
 			if (index < 0 || index > steps.length) {
 				return;
@@ -121,6 +137,106 @@ export default class WraithActorSheet extends MortalActorSheet {
 			
 			await this._assignToActorField(fields, index + 1);
 		}			
+	}
+
+	/* Clicked health boxes */
+	async _onSquareCounterWraithChange(event) {
+		event.preventDefault();
+
+		const element = event.currentTarget;
+		const oldState = element.dataset.state || "";
+		const states = parseCounterStates("/:bashing,x:lethal,*:aggravated");
+		const dataset = element.dataset;
+		const type = dataset.type;
+
+		const allStates = ["", ...Object.keys(states)];
+		const currentState = allStates.indexOf(oldState);
+
+		if (type != CONFIG.worldofdarkness.sheettype.wraith) {
+			return;
+		}
+		
+		if (currentState < 0) {
+			return;
+		}
+		
+		const actorData = foundry.utils.duplicate(this.actor);
+
+		if (oldState == "") {
+			actorData.system.health.damage.corpus.bashing = parseInt(actorData.system.health.damage.corpus.bashing) + 1;
+		}
+		else if (oldState == "/") { 
+			actorData.system.health.damage.corpus.bashing = parseInt(actorData.system.health.damage.corpus.bashing) - 1;
+			actorData.system.health.damage.corpus.lethal = parseInt(actorData.system.health.damage.corpus.lethal) + 1;			
+		}
+		else if (oldState == "x") { 
+			actorData.system.health.damage.corpus.lethal = parseInt(actorData.system.health.damage.corpus.lethal) - 1;
+			actorData.system.health.damage.corpus.aggravated = parseInt(actorData.system.health.damage.corpus.aggravated) + 1;
+		}
+		else if (oldState == "*") { 
+			actorData.system.health.damage.corpus.aggravated = parseInt(actorData.system.health.damage.corpus.aggravated) - 1;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.bashing) < 0) {
+			actorData.system.health.damage.corpus.bashing = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.lethal) < 0) {
+			actorData.system.health.damage.corpus.lethal = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.aggravated) < 0) {
+			actorData.system.health.damage.corpus.aggravated = 0;
+		}
+
+		actorData.system.settings.isupdated = false;
+		await this.actor.update(actorData);
+		this.render();
+	}
+
+	/* Clear health boxes */
+	async _onSquareCounterClear(event) {
+		event.preventDefault();
+
+		const element = event.currentTarget;
+		const oldState = element.dataset.state || "";
+		const dataset = element.dataset;
+		const type = dataset.type;
+
+		if (type != CONFIG.worldofdarkness.sheettype.wraith) {
+			return;
+		}
+
+		const actorData = foundry.utils.duplicate(this.actor);
+
+		if (oldState == "") {
+			return
+		}
+		else if (oldState == "/") { 
+			actorData.system.health.damage.corpus.bashing = parseInt(actorData.system.health.damage.corpus.bashing) - 1;
+		}
+		else if (oldState == "x") { 
+			actorData.system.health.damage.corpus.lethal = parseInt(actorData.system.health.damage.corpus.lethal) - 1;
+		}
+		else if (oldState == "*") { 
+		 	actorData.system.health.damage.corpus.aggravated = parseInt(actorData.system.health.damage.corpus.aggravated) - 1;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.bashing) < 0) {
+			actorData.system.health.damage.corpus.bashing = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.lethal) < 0) {
+			actorData.system.health.damage.corpus.lethal = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.aggravated) < 0) {
+			actorData.system.health.damage.corpus.aggravated = 0;
+		}
+
+		actorData.system.settings.isupdated = false;
+		await this.actor.update(actorData);
+		this.render();
 	}
 	
 	async _assignToWraith(fields, value) {
@@ -158,4 +274,12 @@ export default class WraithActorSheet extends MortalActorSheet {
 		await this.actor.update(actorData);
 		this.render();
 	}
+}
+
+function parseCounterStates(states) {
+	return states.split(",").reduce((obj, state) => {
+	  	const [k, v] = state.split(":");
+	  	obj[k] = v;
+	  	return obj;
+	}, {});
 }

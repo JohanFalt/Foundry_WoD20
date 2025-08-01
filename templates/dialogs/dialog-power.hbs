@@ -75,9 +75,7 @@
                 <div class="clearareaBox infobox">
                     <div class="pullLeft headline splatFont">{{localize "wod.dialog.power.shiftnightmaredice"}}</div>
                     <div class="pullLeft">
-                        {{#numFromLoop 0 object.maxnightmareDice}}
-                            <span class="headlineNormal setting-radiospan"><input type="radio" class="setting-radiobuttons" name="select_nightmaredice" value="{{this}}" {{isChecked (eq ../object.nightmareReplace this)}}>{{this}}</input></span>
-                        {{/numFromLoop}}
+                        <span class="headlineNormal setting-radiospan"><input type="checkbox" class="setting-radiobuttons" name="select_nightmaredice" value="1" {{isChecked (eq object.nightmareReplace 1)}} /></span>
                     </div>
                 </div>
             {{/if}}

@@ -1297,6 +1297,15 @@
 						"roll": 0,
 						"label": "wod.advantages.angst"
 					}
+				},
+				"health": {
+					"damage": {
+						"corpus": {
+							"bashing": 0,
+							"lethal" : 0,
+							"aggravated": 0
+						}
+					}
 				}
 			},
 			"mummy": {

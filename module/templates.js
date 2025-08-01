@@ -336,7 +336,10 @@ export const registerHandlebarsHelpers = function () {
 		return result;
 	});
 
-	Handlebars.registerHelper('SvgHtml', (icon, value, sheettype, options) => {
+	Handlebars.registerHelper('SvgHtml', (icon, dice, sheettype, options) => {
+		let value = dice.value;
+		let color = dice.color;
+
 		if ((options != "") && (options != undefined)) {
 			sheettype = options;
 		}
@@ -352,7 +355,14 @@ export const registerHandlebarsHelpers = function () {
 			sheettype = "werewolf";
 		}
 
-		return encodeURIComponent(game.worldofdarkness.icons[sheettype.toLowerCase()][icon+value]);
+		if (color == "black_") {
+			return encodeURIComponent(game.worldofdarkness.icons["black"][icon+value]);
+		}
+		else {
+			return encodeURIComponent(game.worldofdarkness.icons[sheettype.toLowerCase()][icon+value]);
+		}
+
+		
 	});
 
 	Handlebars.registerHelper("getEra", function (actor) {
@@ -396,7 +406,7 @@ export const registerHandlebarsHelpers = function () {
 		return game.i18n.localize(CONFIG.worldofdarkness.bonus[type]);
 	});	
 
-	/* get advantages box mainly used on Core */
+	/* get advantages box mainly used on Core (application v1) */
 	Handlebars.registerHelper("getGetStatArea", function (actor, stat, statname, isrollable, ispermanent, istemporary, showbanner = true) {
 		let html = "";
 		let permanent_html = "";
@@ -404,6 +414,7 @@ export const registerHandlebarsHelpers = function () {
 		let stat_headline_text = game.i18n.localize(`wod.advantages.${statname}`);
 		let rollable = "";
 		let splat = CONFIG.worldofdarkness.sheettype.mortal;
+		let splat_temporary = CONFIG.worldofdarkness.sheettype.mortal;
 
 		if (isrollable) {
 			rollable = " vrollable";
@@ -417,6 +428,11 @@ export const registerHandlebarsHelpers = function () {
 			else {
 				stat_headline_text = game.i18n.localize(stat.label);
 			}
+		}
+
+		// wraith corpus
+		if (statname == "corpus") {
+			splat_temporary = CONFIG.worldofdarkness.sheettype.wraith;
 		}
 
 		// wereweolf and shifter renown
@@ -468,14 +484,23 @@ export const registerHandlebarsHelpers = function () {
 			let header = `<div class="sheet-boxcontainer"><div class="resource-counter tempSquareRow" data-value="${stat.temporary}" data-name="advantages.${statname}.temporary">`;
 			let footer = `</div></div>`;
 
-			for (let value = 0; value <= stat.max - 1; value++) {
+			for (let value = 0; value <= stat.max - 1; value++) {				
 				let mark = "";
 
-				if (stat.temporary > value) {
-					mark = "x";
-				}
+				if ((splat_temporary === CONFIG.worldofdarkness.sheettype.wraith) && (stat.label === "wod.advantages.corpus")) {
+					if (stat.temporary > value) {
+						mark = "/";
+					}
 
-				temporary_html += `<span class="resource-value-step" data-type="${splat}" data-key="${statname}" data-index="${value}" data-state="${mark}"></span>`;
+					mark = actor.system.listdata.health[value].status;
+				}
+				else {
+					if (stat.temporary > value) {
+						mark = "x";
+					}
+				}				
+
+				temporary_html += `<span class="resource-value-step" data-type="${splat_temporary}" data-key="${statname}" data-index="${value}" data-state="${mark}"></span>`;
 			}			
 
 			temporary_html = header + temporary_html + footer;

@@ -1607,7 +1607,7 @@
 				"missingrealm": "Du måste välja en Realm",
 				"arttype": "Art typ",
 				"noarttype": "Art typ inte vald på använd Art",
-				"shiftnightmaredice": "Byt till Nightmare dice",
+				"shiftnightmaredice": "Replace at least 3 dice with Nightmare Dice",
 				"notset": "Inte satt",
 				"selectpower": "Välj power att koppla till"
 			},

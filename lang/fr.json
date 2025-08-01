@@ -1681,7 +1681,7 @@
 				"missingrealm": "Vous devez sélectionner un Royaume",
 				"arttype": "Type d'Art",
 				"noarttype": "Art type not selected on used Art",
-				"shiftnightmaredice": "Passage aux dés de cauchemar",
+				"shiftnightmaredice": "Replace at least 3 dice with Nightmare Dice",
 				"notset": "Non défini",
 				"selectpower": "Sélectionner le pouvoir auquel se connecter",
 				"disciplineneeded": "Disciplines needed",

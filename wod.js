@@ -291,48 +291,13 @@ Hooks.once("init", async function() {
 	for (const race in CONFIG.worldofdarkness.sheettype) {
 		game.worldofdarkness.icons[race] = {};
 
-		let iconlist = {
-			bio: IconHelper.GetIcon("bio", race),
-			stats: IconHelper.GetIcon("stats", race),
-			magic: IconHelper.GetIcon("magic", race),
-			discipline: IconHelper.GetIcon("discipline", race),
-			shapechange: IconHelper.GetIcon("shapechange", race),
-			death: IconHelper.GetIcon("death", race),
-			scarab: IconHelper.GetIcon("scarab", race),
-			charms: IconHelper.GetIcon("charms", race),
-			gift: IconHelper.GetIcon("gift", race),
-			dreaming: IconHelper.GetIcon("dreaming", race),
-			edge: IconHelper.GetIcon("edge", race),
-			lore: IconHelper.GetIcon("lore", race),
-			power: IconHelper.GetIcon("power", race),
-			exaltedcharm: IconHelper.GetIcon("exaltedcharm", race),
-			combat: IconHelper.GetIcon("combat", race),
-			gear: IconHelper.GetIcon("gear", race),
-			note: IconHelper.GetIcon("note", race),
-			effect: IconHelper.GetIcon("effect", race),
-			settings: IconHelper.GetIcon("settings", race),
-			dice: IconHelper.GetIcon("dice", race),
-			frenzy: IconHelper.GetIcon("frenzy", race),
-			shapechange: IconHelper.GetIcon("shapechange", race),
-			remainactive: IconHelper.GetIcon("remainactive", race),
-			spellcasting: IconHelper.GetIcon("spellcasting", race),
-			initiative: IconHelper.GetIcon("initiative", race),
-			soak: IconHelper.GetIcon("soak", race),
-			d10: IconHelper.GetIcon("d10", race),
-			dice1: IconHelper.GetIcon("xd10", race, 1),
-			dice2: IconHelper.GetIcon("xd10", race, 2),
-			dice3: IconHelper.GetIcon("xd10", race, 3),
-			dice4: IconHelper.GetIcon("xd10", race, 4),
-			dice5: IconHelper.GetIcon("xd10", race, 5),
-			dice6: IconHelper.GetIcon("xd10", race, 6),
-			dice7: IconHelper.GetIcon("xd10", race, 7),
-			dice8: IconHelper.GetIcon("xd10", race, 8),
-			dice9: IconHelper.GetIcon("xd10", race, 9),
-			dice0: IconHelper.GetIcon("xd10", race, 0)
-		}
+		let iconlist = IconHelper.GetIconlist(race)
 
 		Object.assign(game.worldofdarkness.icons[race], iconlist);
 	}	
+
+	game.worldofdarkness.icons["black"] = {};
+	Object.assign(game.worldofdarkness.icons["black"], IconHelper.GetIconlist("black"));
 
 	Handlebars.registerHelper('dtSvgDie', (icon, sheettype, options) => {
 		if ((options != "") && (options != undefined)) {

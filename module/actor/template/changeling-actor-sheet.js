@@ -306,18 +306,25 @@ export default class ChangelingActorSheet extends MortalActorSheet {
 		  	return;
 		}
 
-		index += 1
+		//index += 1
 
 		const actorData = foundry.utils.duplicate(this.actor);
+		let clickvalue = actorData.system.advantages.willpower.permanent - index;
 
-		if ((index == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
+		//if ((index == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
+		if ((index == actorData.system.advantages.willpower.permanent) && (actorData.system.advantages.willpower.imbalance == 1)) {
 			actorData.system.advantages.willpower.imbalance = 0;
 		}
+		//else if (index > actorData.system.advantages.willpower.permanent) {
 		else if (index > actorData.system.advantages.willpower.permanent) {
-			actorData.system.advantages.willpower.imbalance = actorData.system.advantages.willpower.permanent;
+			actorData.system.advantages.willpower.imbalance = 0;
+		}
+		else if (clickvalue == 0) {
+			actorData.system.advantages.willpower.imbalance = 1;
 		}
 		else {
-			actorData.system.advantages.willpower.imbalance = index;
+			//actorData.system.advantages.willpower.imbalance = index;
+			actorData.system.advantages.willpower.imbalance = clickvalue;
 		}
 
 		actorData.system.settings.isupdated = false;

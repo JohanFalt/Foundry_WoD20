@@ -1916,7 +1916,7 @@
                 "missingrealm": "Du musst ein Königreich wählen!",
                 "arttype": "Kunsttyp",
                 "noarttype": "Art-Typ nicht ausgewählt bei verwendeter Art",
-                "shiftnightmaredice": "wechsel zu Alptraumwürfel",
+                "shiftnightmaredice": "Replace at least 3 dice with Nightmare Dice",
                 "notset": "Nicht festgelegt",
                 "selectpower": "Wähle Kraft mit der verbunden wird",
                 "disciplineneeded": "Erforderliche Disziplinen",

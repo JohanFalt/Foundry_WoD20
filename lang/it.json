@@ -1681,7 +1681,7 @@
 				"missingrealm": "Devi selezionare un Reame",
 				"arttype": "Tipo di Arte",
 				"noarttype": "Art type not selected",
-				"shiftnightmaredice": "Scambia con dadi Incubo",
+				"shiftnightmaredice": "Replace at least 3 dice with Nightmare Dice",
 				"notset": "Non selezionato",
 				"selectpower": "Seleziona un potere a cui collegarla.",
 				"disciplineneeded": "Disciplines needed",

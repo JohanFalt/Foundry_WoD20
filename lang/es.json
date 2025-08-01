@@ -1916,7 +1916,7 @@
 				"missingrealm": "Debes seleccionar un Reino",
 				"arttype": "Tipo de Arte",
 				"noarttype": "Tipo de Arte no seleccionado",
-				"shiftnightmaredice": "Cambio de dado de Pesadilla",
+				"shiftnightmaredice": "Replace at least 3 dice with Nightmare Dice",
 				"notset": "No configurado",
 				"selectpower": "Selecciona Poder al que conectarse",
 				"disciplineneeded": "Disciplinas requeridas",
