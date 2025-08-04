@@ -312,7 +312,7 @@ export default class ChangelingActorSheet extends MortalActorSheet {
 		let clickvalue = actorData.system.advantages.willpower.permanent - index;
 
 		//if ((index == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
-		if ((index == actorData.system.advantages.willpower.permanent) && (actorData.system.advantages.willpower.imbalance == 1)) {
+		if ((clickvalue == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
 			actorData.system.advantages.willpower.imbalance = 0;
 		}
 		//else if (index > actorData.system.advantages.willpower.permanent) {
@@ -321,6 +321,9 @@ export default class ChangelingActorSheet extends MortalActorSheet {
 		}
 		else if (clickvalue == 0) {
 			actorData.system.advantages.willpower.imbalance = 1;
+		}
+		else if (clickvalue == actorData.system.advantages.willpower.imbalance) {
+			actorData.system.advantages.willpower.imbalance -= 1;
 		}
 		else {
 			//actorData.system.advantages.willpower.imbalance = index;

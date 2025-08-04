@@ -53,6 +53,12 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 				await this.item.update(itemData);	
 			}			
 		}
+		if (itemData.type == "Power") {
+			if ((itemData.system.type == "wod.types.artpower") && (!itemData.system.isrollable)) {
+				itemData.system.isrollable = true;	
+				await this.item.update(itemData);
+			}
+		}
 
 		const data = await super.getData();
 

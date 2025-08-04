@@ -492,7 +492,9 @@ export const registerHandlebarsHelpers = function () {
 						mark = "/";
 					}
 
-					mark = actor.system.listdata.health[value].status;
+					if (actor.system?.listdata?.health[value] !== undefined) {
+						mark = actor.system.listdata.health[value].status;
+					}
 				}
 				else {
 					if (stat.temporary > value) {

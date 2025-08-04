@@ -2300,7 +2300,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "5.0.5")) {
+    if (_compareVersion(item.system.version, "5.0.7")) {
         let itemData = foundry.utils.duplicate(item);
 
         if ((item.type == "Power") && (item.system.type == "wod.types.artpower")) {
@@ -2311,7 +2311,7 @@ export  const updates = async () => {
         }
 
         if (altered) {
-            itemData.system.version = "5.0.5";
+            itemData.system.version = "5.0.7";
             await item.update(itemData);
             
             altered = false;
@@ -2578,6 +2578,14 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '5.0.8')) {
+            newfunctions += '<li>German has been updated.</li>';
+            newfunctions += '<li>[CtD] Fixed so Art Powers always are rollable. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1213">[#1213]</a></li>';
+            newfunctions += '<li>[CtD] Fixed so you can remove the last dot of Imbalance. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1211">[#1211]</a></li>';
+            newfunctions += '<li>[MtA] Era settings could not be seen under Settings -> Sheet Settings. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1212">[#1212]</a></li>';
+            newfunctions += '<li>[WtO] Fixed problem with opening certain sheets of Wraiths. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1214">[#1214]</a></li>';
+        }
 
         if (_compareVersion(installedVersion, '5.0.7')) {
             newfunctions += '<li>Brazilian Portuguese has been updated.</li>';
