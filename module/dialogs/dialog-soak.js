@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class Soak {
@@ -211,7 +211,7 @@ export class DialogSoakRoll extends FormApplication {
         soakRoll.difficulty = this.object.difficulty;     
         soakRoll.usewillpower = this.object.useWillpower;
         
-        NewRollDice(soakRoll);
+        DiceRoller(soakRoll);
 
         this.object.close = true;
     }

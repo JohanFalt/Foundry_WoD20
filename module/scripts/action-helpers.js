@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 import CombatHelper from "./combat-helpers.js";
@@ -173,7 +173,7 @@ export default class ActionHelper {
 				fetishRoll.systemText = item.system.details;
 				fetishRoll.usewillpower = false;
 
-        		NewRollDice(fetishRoll);
+        		DiceRoller(fetishRoll);
 
 				return;
 			}	
@@ -299,6 +299,15 @@ export default class ActionHelper {
 			if (dataset.object == "wod.types.numinapower") {
 				const numina = new PowerDialog.NuminaPower(item);
 				let powerUse = new PowerDialog.DialogPower(actor, numina);
+				powerUse.render(true);
+
+				return;
+			}
+
+			// used an Horror
+			if (dataset.object == "wod.types.horror") {
+				const horror = new PowerDialog.Horror(item);
+				let powerUse = new PowerDialog.DialogPower(actor, horror);
 				powerUse.render(true);
 
 				return;
@@ -485,7 +494,7 @@ export default class ActionHelper {
 				activeRoll.difficulty = 8;    
 				activeRoll.usewillpower = false;      				
 				
-				NewRollDice(activeRoll);
+				DiceRoller(activeRoll);
 
 				return;
 			}			
@@ -524,7 +533,7 @@ export default class ActionHelper {
         paradoxRoll.difficulty = 6;      
 		paradoxRoll.usewillpower = false; 		// can't use willpower on Paradox
 		
-        NewRollDice(paradoxRoll);
+        DiceRoller(paradoxRoll);
 	}
 
 	static SetupDotCounters(html) {

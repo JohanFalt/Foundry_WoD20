@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class Shape {
@@ -76,6 +76,7 @@ export class DialogShapeChange extends FormApplication {
         event.preventDefault();
 
         this.object.bonus = parseInt(formData["shiftMod"]);
+        this.object.useWillpower = formData["useWillpower"];
         this.object.canRoll = await this._calculateDifficulty();
 
         this.render();
@@ -154,9 +155,9 @@ export class DialogShapeChange extends FormApplication {
             shiftRoll.numDices = parseInt(this.actor.system.attributes.stamina.total) + parseInt(this.actor.system.abilities.primalurge.value) + parseInt(this.object.bonus);
             shiftRoll.woundpenalty = parseInt(this.actor.system.health.damage.woundpenalty);
             shiftRoll.difficulty = parseInt(this.object.difficulty);  
-            shiftRoll.usewillpower = false;                   
+            shiftRoll.usewillpower = this.object.useWillpower;                
             
-            const successes = await NewRollDice(shiftRoll);
+            const successes = await DiceRoller(shiftRoll);
             
             this.object.numSuccesses += parseInt(successes);
 

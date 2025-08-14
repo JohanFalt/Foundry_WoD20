@@ -2579,6 +2579,14 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '5.0.9')) {
+            newfunctions += '<li>[WtA] Fixed so you can alter temporary renown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1228">[#1228]</a></li>';
+            newfunctions += '<li>[WtA]Added so you can spend Willpower on Shapechange rolls. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1228">[#1228]</a></li>';
+            newfunctions += '<li>[Orpheus] Fixed listings of Horrors and Stains. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1229">[#1229]</a></li>';
+            newfunctions += '<li>[Orpheus] Fixed rolling of Horrors. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1230">[#1230]</a></li>';
+            newfunctions += '<li>[Orpheus] Fixed adding bonuses to Horrors and Stains. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1231">[#1231]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '5.0.8')) {
             newfunctions += '<li>German has been updated.</li>';
             newfunctions += '<li>[CtD] Fixed so Art Powers always are rollable. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1213">[#1213]</a></li>';

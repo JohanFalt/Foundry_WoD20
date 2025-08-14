@@ -63,7 +63,7 @@ function _GetDiceColors(actor) {
 	}
 }
 
-/* klassen som man använder för att skicka in information in i RollDice */
+/* klassen som man använder för att skicka in information in i DiceRoller */
 export class DiceRollContainer {
     constructor(actor) {
 		this.actor = actor; 	// rolling actor
@@ -89,7 +89,7 @@ export class DiceRollContainer {
 }
 
 // Function to roll dice
-export async function NewRollDice(diceRoll) {
+export async function DiceRoller(diceRoll) {
 
 	const actor = diceRoll.actor;
 	let difficulty = diceRoll.difficulty;

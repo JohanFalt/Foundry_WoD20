@@ -1,7 +1,7 @@
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class MeleeWeapon {
@@ -599,7 +599,7 @@ export class DialogWeapon extends FormApplication {
                 await item.update(itemData);
             }
 
-            const numberOfSuccesses = await NewRollDice(weaponRoll);   
+            const numberOfSuccesses = await DiceRoller(weaponRoll);   
             
             if ((numberOfSuccesses > 0) && (this.object.rolldamage)) {
                 // add number of successes to Damage roll
@@ -660,10 +660,10 @@ export class DialogWeapon extends FormApplication {
 
                 weaponRoll.extraInfo.push(spraytext);
                 weaponRoll.targetlist = targetlist;
-                NewRollDice(weaponRoll);
+                DiceRoller(weaponRoll);
             }
             else {
-                NewRollDice(weaponRoll);
+                DiceRoller(weaponRoll);
             }
         }
     }

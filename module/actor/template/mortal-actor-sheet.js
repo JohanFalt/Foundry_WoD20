@@ -1357,7 +1357,20 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 					actorData.system.advantages[ability][abilityType][field] = parseInt(value);
 				}
 			}
-		}		
+		}	
+		// renown (only v1 sheets)
+		else if (area === "renown") {	
+			if (fields.length == 3) {
+				const field = fields[2];
+
+				if (actorData.system[area][ability][field] == value) {
+					actorData.system[area][ability][field] = parseInt(actorData.system[area][ability][field]) - 1;
+				}
+				else {
+					actorData.system[area][ability][field] = parseInt(value);
+				}
+			}
+		}	
 		// attribute or ability
 		else {			
 			if (area == "abilities") {

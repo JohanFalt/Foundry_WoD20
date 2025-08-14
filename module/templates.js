@@ -415,6 +415,7 @@ export const registerHandlebarsHelpers = function () {
 		let rollable = "";
 		let splat = CONFIG.worldofdarkness.sheettype.mortal;
 		let splat_temporary = CONFIG.worldofdarkness.sheettype.mortal;
+		let path = "advantages";
 
 		if (isrollable) {
 			rollable = " vrollable";
@@ -437,6 +438,8 @@ export const registerHandlebarsHelpers = function () {
 
 		// wereweolf and shifter renown
 		if ((statname == "glory") || (statname == "honor") || (statname == "wisdom")) {
+			path = "renown";
+
 			splat = CONFIG.worldofdarkness.sheettype.werewolf;
 			if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 				stat_headline_text = game.i18n.localize(actor.GetShifterRenownName(actor.system.tribe, statname));
@@ -455,7 +458,7 @@ export const registerHandlebarsHelpers = function () {
 		
 
 		if (ispermanent) {
-			let header = `<div class="sheet-boxcontainer ${statname}"><div class="resource-value permValueRow" data-value="${stat.permanent}" data-name="advantages.${statname}.permanent">`;
+			let header = `<div class="sheet-boxcontainer ${statname}"><div class="resource-value permValueRow" data-value="${stat.permanent}" data-name="${path}.${statname}.permanent">`;
 			let footer = `</div></div>`;
 
 			for (let value = 0; value <= stat.max - 1; value++) {
@@ -481,7 +484,7 @@ export const registerHandlebarsHelpers = function () {
 		}		
 
 		if (istemporary) {
-			let header = `<div class="sheet-boxcontainer"><div class="resource-counter tempSquareRow" data-value="${stat.temporary}" data-name="advantages.${statname}.temporary">`;
+			let header = `<div class="sheet-boxcontainer"><div class="resource-counter tempSquareRow" data-value="${stat.temporary}" data-name="${path}.${statname}.temporary">`;
 			let footer = `</div></div>`;
 
 			for (let value = 0; value <= stat.max - 1; value++) {				
@@ -494,7 +497,7 @@ export const registerHandlebarsHelpers = function () {
 
 					if (actor.system?.listdata?.health[value] !== undefined) {
 						mark = actor.system.listdata.health[value].status;
-					}
+					}					
 				}
 				else {
 					if (stat.temporary > value) {

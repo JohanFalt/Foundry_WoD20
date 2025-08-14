@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 import ActionHelper from "../scripts/action-helpers.js";
@@ -522,6 +522,41 @@ export class NuminaPower {
         this.canRoll = this.difficulty > -1 ? true : false;
         this.close = false;
         this.sheettype = "mageDialog";
+    }
+}
+
+export class Horror {
+    constructor(item) {
+        this.attributeValue = 0;
+        this.attributeName = "";
+
+        this.abilityValue = 0;
+        this.abilityName = "";
+
+        this.hasSpeciality = false;
+        this.specialityText = "";
+
+        this._id = item["_id"];
+        this.name = item["name"];
+        this.type = item["type"];
+        this.dice1 = item.system["dice1"];
+        this.dice2 = item.system["dice2"];
+        this.bonus = parseInt(item.system["bonus"]);
+        this.difficulty = parseInt(item.system["difficulty"]);
+        this.description = item.system["description"];
+        this.system = item.system["details"];
+
+        if (this.dice1 == "custom") {
+            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+        else if (this.dice2 == "custom") {
+            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        }
+
+        this.usedReducedDiff = false;
+        this.canRoll = this.difficulty > -1 ? true : false;
+        this.close = false;
+        this.sheettype = "wraithDialog";
     }
 }
 
@@ -1088,7 +1123,7 @@ export class DialogPower extends FormApplication {
         powerRoll.systemText = this.object.system;
         powerRoll.usewillpower = this.object.useWillpower;
         
-        NewRollDice(powerRoll);
+        DiceRoller(powerRoll);
     }
 
     /* clicked to close form */

@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 /**
@@ -473,7 +473,7 @@ export class DialogAreteCasting extends FormApplication {
             powerRoll.extraInfo = extraInfo;
             powerRoll.systemText = this.object.description;
             
-            let successes = await NewRollDice(powerRoll);
+            let successes = await DiceRoller(powerRoll);
             
             if (!this.object.isExtendedCasting) {
                 this.object.close = true;

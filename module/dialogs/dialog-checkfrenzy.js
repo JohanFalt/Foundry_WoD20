@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class WerewolfFrenzy {
@@ -188,7 +188,7 @@ export class DialogCheckFrenzy extends FormApplication {
             frenzyRoll.usewillpower = false;
             frenzyRoll.difficulty = parseInt(this.object.totalDifficulty);       
 
-            this.object.numSuccesses += await NewRollDice(frenzyRoll);            
+            this.object.numSuccesses += await DiceRoller(frenzyRoll);            
         }
     }
 

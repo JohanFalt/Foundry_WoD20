@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
@@ -489,7 +489,7 @@ export class DialogGeneralRoll extends FormApplication {
         generalRoll.usewillpower = this.object.useWillpower;
         generalRoll.specialityText = specialityText;
         
-        NewRollDice(generalRoll);
+        DiceRoller(generalRoll);
 
         this.object.close = true;
     }

@@ -2,6 +2,11 @@
 
     <div class="dialog-area">
         <div class="headlineGroup splatFont">{{localize "wod.dialog.shapechange.headline"}}</div>
+
+        <div class="infobox dialog-checkbox">
+            <label for="useWillpower" class="dialog-casting-type-label">{{localize "wod.labels.usewillpower"}}</label>
+            <input name="useWillpower" type="checkbox" {{isChecked object.useWillpower}} />
+        </div>
     </div>
 
     <div class="dialog-area">
