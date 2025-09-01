@@ -2579,6 +2579,11 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '5.0.10')) {
+            newfunctions += '<li>[VtM] The icon to save selected disiplines when editing combination disciplines is now visible. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1238">[#1238]</a></li>';
+            newfunctions += '<li>[MtA] Description of Resonance buggs out. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1233">[#1233]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '5.0.9')) {
             newfunctions += '<li>[WtA] Fixed so you can alter temporary renown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1228">[#1228]</a></li>';
             newfunctions += '<li>[WtA]Added so you can spend Willpower on Shapechange rolls. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1228">[#1228]</a></li>';

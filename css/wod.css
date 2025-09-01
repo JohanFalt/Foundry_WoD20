@@ -726,13 +726,17 @@ input.sheet-infoWidth {
 
 .wod20 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 450px;  
+  max-width: 450px;  
   border-radius: 6px;
   padding: 5px;
   left: 20px;
   top: 70px;
   position: fixed;
   z-index: 1;
+
+  white-space: normal;   /* allow line breaks */
+  word-wrap: break-word; /* force long words/links to break */
+  overflow-wrap: break-word; /* modern alternative */
 }
 
 .wod20 .chatt-headline {

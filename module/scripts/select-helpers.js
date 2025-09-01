@@ -942,6 +942,11 @@ export default class SelectHelper {
 
         listData.Level9Value = values;
 
+        values = [{
+            value: "",
+            label: "- " + game.i18n.localize("wod.labels.select") + " -"
+        }];
+
         for (let i = 1; i < 11; i++) {
             const data = {
                 value: i,
