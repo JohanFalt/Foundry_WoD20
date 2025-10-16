@@ -278,6 +278,18 @@ wod.allSpheres = {
 	time: "wod.spheres.time"
 }
 
+wod.allSpheresTechnocracy = {
+    correspondence: "wod.spheres.data",
+	entropy: "wod.spheres.entropicstate",
+	forces: "wod.spheres.forcebased",
+	life: "wod.spheres.lifescience",
+	matter: "wod.spheres.material",
+	mind: "wod.spheres.psychodynamics",
+	prime: "wod.spheres.primal",
+	spirit: "wod.spheres.dimensional",
+	time: "wod.spheres.temporalscience"
+}
+
 wod.bonus = {
     attribute_buff: "wod.labels.bonus.attributebonus",
     attribute_dice_buff: "wod.labels.bonus.attributedicebonus",

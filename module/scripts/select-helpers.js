@@ -713,6 +713,34 @@ export default class SelectHelper {
                 let affiliationlist = {};
                 let sectlist = {};
                 let affinitylist = {};
+				
+				// ******** SPHERES
+                let spherelist = [{
+                    value: "",
+                    label: "- " + game.i18n.localize("wod.labels.select") + " -"
+                }];
+
+                for (const sphere in CONFIG.worldofdarkness.allSpheres) {
+                    const data = {
+                        value: CONFIG.worldofdarkness.allSpheres[sphere],
+                        label: game.i18n.localize(CONFIG.worldofdarkness.allSpheres[sphere]),
+                        group: game.i18n.localize("wod.bio.mage.tradition")
+                    };
+        
+                    spherelist.push(data);
+                }
+
+                for (const sphere in CONFIG.worldofdarkness.allSpheresTechnocracy) {
+                    const data = {
+                        value: CONFIG.worldofdarkness.allSpheresTechnocracy[sphere],
+                        label: game.i18n.localize(CONFIG.worldofdarkness.allSpheresTechnocracy[sphere]),
+                        group: game.i18n.localize("wod.bio.mage.technocracy")
+                    };
+        
+                    spherelist.push(data);
+                }
+
+                listData.SphereList = spherelist;
             }
 
             if (data.type == CONFIG.worldofdarkness.sheettype.vampire) {

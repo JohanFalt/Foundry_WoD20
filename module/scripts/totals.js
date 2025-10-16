@@ -505,7 +505,7 @@ function handleAnanasiShiftAttributeData(attribute, presentForm) {
 function handleBastetShiftAttributeData(type, attribute, presentForm) {
 	let data = 0;
 
-	if (type == "Bagheera") {
+	if (type == "wod.bio.tribename.bagheera") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -574,7 +574,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Balam") {
+	if (type == "wod.bio.tribename.balam") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -640,7 +640,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Bubasti") {
+	if (type == "wod.bio.tribename.bubasti") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.dexterity") {
@@ -700,7 +700,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Ceilican") {
+	if (type == "wod.bio.tribename.ceilican") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.dexterity") {
@@ -757,7 +757,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Khan") { 
+	if (type == "wod.bio.tribename.khan") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -822,7 +822,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 			}
 		}
 	}
-	if (type == "Pumonca") { 
+	if (type == "wod.bio.tribename.pumonca") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -888,7 +888,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Qualmi") { 
+	if (type == "wod.bio.tribename.qualmi") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.dexterity") {
@@ -942,7 +942,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Simba") { 
+	if (type == "wod.bio.tribename.simba") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -1008,7 +1008,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Swara") { 
+	if (type == "wod.bio.tribename.swara") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -1265,7 +1265,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 	}
 	if (presentForm == "wod.shapes.lupus")
 	{
-		if (type == "Champsa") {
+		if (type == "wod.bio.varnaname.champsa") {
 			if (attribute == "wod.attributes.strength") {
 				data = 3;
 			}
@@ -1279,7 +1279,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Gharial") {
+		if (type == "wod.bio.varnaname.gharial") {
 			if (attribute == "wod.attributes.strength") {
 				data = 1;
 			}
@@ -1293,7 +1293,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Halpatee") {
+		if (type == "wod.bio.varnaname.halpatee") {
 			if (attribute == "wod.attributes.strength") {
 				data = 2;
 			}
@@ -1307,7 +1307,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -2;
 			}
 		}
-		if (type == "Karna") {
+		if (type == "wod.bio.varnaname.karna") {
 			if (attribute == "wod.attributes.strength") {
 				data = 3;
 			}
@@ -1321,7 +1321,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Makara") {
+		if (type == "wod.bio.varnaname.makara") {
 			if (attribute == "wod.attributes.strength") {
 				data = 1;
 			}
@@ -1332,7 +1332,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -3;
 			}
 		}
-		if (type == "Ora") {
+		if (type == "wod.bio.varnaname.ora") {
 			if (attribute == "wod.attributes.stamina") {
 				data = 2;
 			}
@@ -1340,7 +1340,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Paisa") {
+		if (type == "wod.bio.varnaname.paisa") {
 			if (attribute == "wod.attributes.strength") {
 				data = 2;
 			}
@@ -1354,7 +1354,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -2;
 			}
 		}
-		if (type == "Syrta") {
+		if (type == "wod.bio.varnaname.syrta") {
 			if (attribute == "wod.attributes.strength") {
 				data = 1;
 			}
@@ -1368,7 +1368,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -3;
 			}
 		}
-		if (type == "Unktehi") {
+		if (type == "wod.bio.varnaname.unktehi") {
 			if (attribute == "wod.attributes.strength") {
 				data = -1;
 			}

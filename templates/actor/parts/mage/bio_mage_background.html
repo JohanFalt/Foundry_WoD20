@@ -70,12 +70,7 @@
                     <input class="sheet-infoValues" type="text" value="{{localize data.system.affinity}}" data-dtype="Number" autofocus required />
                 {{else}}
                     <select class="sheet-infoValues editable"  name="system.affinity" data-name="data.system.affinity" data-dtype="String">
-                        {{#select data.system.affinity}}
-                            <option value="">- {{localize "wod.labels.select"}} -</option>
-                            {{#each config.allSpheres as | name type|}}
-                                <option value="{{name}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions listData.SphereList selected=data.system.affinity localize=false}}
                     </select>
                 {{/if}}
                 <span class="floating-label">{{localize "wod.bio.mage.affinitysphere"}}</span>
