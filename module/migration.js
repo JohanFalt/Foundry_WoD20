@@ -2579,6 +2579,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 		
+		if (_compareVersion(installedVersion, '5.0.12')) {
+            newfunctions += '<li>[General] Automatic spendage of temporary willpower when used in roll.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/pull/1253">[#1253]</a></li>';
+        }
+		
 		if (_compareVersion(installedVersion, '5.0.11')) {
             newfunctions += '<li>[MtA] Your affinity sphere is not highlighted if technocratic. <b>Will require that you reselect your affinity sphere.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1245">[#1245]</a></li>';
             newfunctions += '<li>[WtA] Baset sheet do not shift attributes as shift form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1250">[#1250]</a></li>';

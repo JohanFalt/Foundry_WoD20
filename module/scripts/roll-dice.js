@@ -128,6 +128,13 @@ export async function DiceRoller(diceRoll) {
 	}
 
 	if (usewillpower) {
+		if (actor) {
+			let currentWillpower = actor.system.advantages.willpower.temporary;
+			if (currentWillpower > 0) {
+				let newWillpower = currentWillpower - 1;
+				await actor.update({"system.advantages.willpower.temporary": newWillpower});
+			}
+		}
 		rolledAnySuccesses = true;
 		bonusSuccesses += 1;
 	}
