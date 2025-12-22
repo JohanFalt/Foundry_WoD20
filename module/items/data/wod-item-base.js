@@ -58,14 +58,14 @@ export class WoDItem extends Item {
 			let updated = false;
 			updateData = foundry.utils.duplicate(item);
 
-			if (updateData.type == "Power") {
-				const imgUrl = _getImage(updateData);
+			// if (updateData.type == "Power") {
+			// 	const imgUrl = _getImage(updateData);
 
-				if (updateData.img.startsWith('systems/worldofdarkness/')) {
-					updateData.img = imgUrl;
-					updated = true;
-				}            
-			}
+			// 	if (updateData.img.startsWith('systems/worldofdarkness/')) {
+			// 		updateData.img = imgUrl;
+			// 		updated = true;
+			// 	}            
+			// }
 
 			if (updateData?.flags?.copyFile !== undefined) {
 				updateData.flags.copyFile = null;
