@@ -1756,6 +1756,10 @@ export const registerHandlebarsHelpers = function () {
 			return CONFIG.worldofdarkness.fifthEditionWillpowerSetting;
 		}
 
+		if (text == "willpowerBonusDice") {
+			return CONFIG.worldofdarkness.willpowerBonusDice;
+		}
+
 		if (text == "rollSettings") {
 			return CONFIG.worldofdarkness.rollSettings;
 		}

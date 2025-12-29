@@ -132,11 +132,17 @@ export async function DiceRoller(diceRoll) {
 			let currentWillpower = actor.system.advantages.willpower.temporary;
 			if (currentWillpower > 0) {
 				let newWillpower = currentWillpower - 1;
-				await actor.update({"system.advantages.willpower.temporary": newWillpower});
+				await actor.update({ "system.advantages.willpower.temporary": newWillpower });
 			}
 		}
-		rolledAnySuccesses = true;
-		bonusSuccesses += 1;
+		if (CONFIG.worldofdarkness.willpowerBonusDice) {
+			canBotch = false;
+			diceRoll.numDices += 3;
+		}
+		else {
+			rolledAnySuccesses = true;
+			bonusSuccesses += 1;
+		}
 	}
 
 	if ((diceRoll.origin == "soak") && (!CONFIG.worldofdarkness.useOnesSoak)) {
@@ -237,7 +243,7 @@ export async function DiceRoller(diceRoll) {
 			});
 		}
 
-		if ((usewillpower) && (success < 1)) {
+		if ((usewillpower && !CONFIG.worldofdarkness.willpowerBonusDice) && (success < 1)) {
 			success = 1;
 		}
 		else if (success < 0) {
