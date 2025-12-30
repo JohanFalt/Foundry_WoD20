@@ -71,6 +71,15 @@ export const systemSettings = function() {
 		}
 	});
 
+	game.settings.register("worldofdarkness", "willpowerBonusDice", {
+		name: game.i18n.localize('wod.settings.willpowerBonusDice'),
+		hint: game.i18n.localize('wod.settings.willpowerBonusDicehint'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});	
+
     // DICE RULES
 
     game.settings.register("worldofdarkness", "theRollofOne", {
@@ -665,7 +674,7 @@ export class Rules extends FormApplication {
         if (hasPermission) {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
-                if ((s.key == "advantageRolls") || (s.key == "specialityLevel") || (s.key == "attributeSettings") || (s.key == "fifthEditionWillpowerSetting")) {
+                if ((s.key == "advantageRolls") || (s.key == "specialityLevel") || (s.key == "attributeSettings") || (s.key == "fifthEditionWillpowerSetting") || (s.key == "willpowerBonusDice")) {
                     // Update setting data
                     const setting = foundry.utils.duplicate(s);
 
