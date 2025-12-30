@@ -2579,13 +2579,17 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '5.0.14')) {
+            newfunctions += '<li>[General] New world setting - Willpower spending +3 Dice prevents botch. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1089">[#1089]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '5.0.13')) {
-            newfunctions += '<li>[General] Dragging items from world to actor resets image.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/pull/1242">[#1242]</a></li>';
-            newfunctions += '<li>[WtA] Active gift list was broken.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/pull/1272">[#1272]</a></li>';
+            newfunctions += '<li>[General] Dragging items from world to actor resets image. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1242">[#1242]</a></li>';
+            newfunctions += '<li>[WtA] Active gift list was broken.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1272">[#1272]</a></li>';
         }
 		
 		if (_compareVersion(installedVersion, '5.0.12')) {
-            newfunctions += '<li>[General] Automatic spendage of temporary willpower when used in roll.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/pull/1253">[#1253]</a></li>';
+            newfunctions += '<li>[General] Automatic spendage of temporary willpower when used in roll. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1253">[#1253]</a></li>';
         }
 		
 		if (_compareVersion(installedVersion, '5.0.11')) {

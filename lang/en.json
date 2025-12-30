@@ -160,7 +160,7 @@
 			"fifthedwillpowersetting": "Willpower (5th edition only)",
 			"fifthedwillpowersettinghint": "This is an expansion of the attribute settings that sets how the permanent Willpower is calculated. In 5th edition Willpower is calculated by adding Composure and Resolve. In 20th edition Willpower is a normal stat value.",
 			"willpowerBonusDice": "Willpower Bonus Dice",
-			"willpowerBonusDiceint": "Instead of granting automatic one success on rolls, when using Willpower, instead you add three (3) bonus dice. Botch is still prevented.",
+			"willpowerBonusDicehint": "Instead of granting automatic one success on rolls, when using Willpower, instead you add three (3) bonus dice. Botch is still prevented.",
 			"usepenaltydamage": "Use health penalties in damage rolls"
 		},
 		"types": {
