@@ -73,7 +73,6 @@ export class WoDItem extends Item {
 			}
 
 			if (updated) {
-				//updateData.system.settings.isupdated = true;
 				await item.update(updateData);
 			}				
 		}

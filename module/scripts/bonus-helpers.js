@@ -107,6 +107,10 @@ export default class BonusHelper {
     }
 
     static async CheckAttributeBonus(actor, attribute) {
+        if (attribute === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_diff") && (i.system.settingtype == attribute)) {
 				return true;
@@ -125,6 +129,10 @@ export default class BonusHelper {
     } 
     
     static async CheckAttributeBuff(actor, attribute) {
+        if (attribute === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_buff") && (i.system.settingtype == attribute)) {
 				return true;
@@ -143,6 +151,10 @@ export default class BonusHelper {
     }
 
     static async CheckAttributeDiceBuff(actor, attribute) {
+        if (attribute === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_dice_buff") && (i.system.settingtype == attribute)) {
 				return true;
@@ -161,6 +173,10 @@ export default class BonusHelper {
     }
 
     static async CheckAttributeAutoBuff(actor, attribute) {
+        if (attribute === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "attribute_auto_buff") && (i.system.settingtype == attribute)) {
 				return true;
@@ -179,6 +195,10 @@ export default class BonusHelper {
     }    
 
     static async CheckAbilityDiff(actor, ability) {
+        if (ability === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_diff") && (i.system.settingtype == ability)) {
 				return true;
@@ -209,6 +229,10 @@ export default class BonusHelper {
     } 
     
     static async CheckAbilityBuff(actor, ability) {
+        if (ability === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "ability_buff") && (i.system.settingtype == ability)) {
 				return true;
@@ -311,6 +335,10 @@ export default class BonusHelper {
     }
 
     static async CheckMovementBuff(actor, movementtype) {
+        if (movementtype === "") {
+            return false;
+        }
+
         for (const i of actor.items) {
 			if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "movement_buff") && (i.system.settingtype == movementtype)) {
 				return true;
@@ -329,6 +357,10 @@ export default class BonusHelper {
     }
 
     static async GetAttributeBonus(actor, attribute) {
+        if (attribute === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -349,6 +381,10 @@ export default class BonusHelper {
     }
 
     static async GetAttributeBuff(actor, attribute) {
+        if (attribute === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -369,6 +405,10 @@ export default class BonusHelper {
     }
 
     static async GetAttributeDiceBuff(actor, attribute) {
+        if (attribute === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -389,6 +429,10 @@ export default class BonusHelper {
     }
 
     static async GetAttributeAutoBuff(actor, attribute) {
+        if (attribute === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -409,6 +453,10 @@ export default class BonusHelper {
     }
 
     static async GetAbilityDiff(actor, ability) {
+        if (ability === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -437,6 +485,10 @@ export default class BonusHelper {
     }
 
     static async GetAbilityBuff(actor, ability) {
+        if (ability === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -525,6 +577,10 @@ export default class BonusHelper {
     }
 
     static async GetHealthlevelsBuff(actor, healthlevel) {
+        if (healthlevel === "") {
+            return 0;
+        }
+
         let bonus = 0;
 
         for (const i of actor.items) {
@@ -545,6 +601,10 @@ export default class BonusHelper {
     }
 
     static async GetMovementBuff(actor, movementtype) {
+        if (movementtype === "") {
+            return 0;
+        }
+        
         let bonus = 0;
 
         for (const i of actor.items) {

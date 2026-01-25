@@ -2579,6 +2579,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '5.0.15')) {
+            newfunctions += '<li>[General] Fixed bugg that caused the bonus for certain rolls to add dices that should not exist. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1284">[#1284]</a></li>';
+        }
+
         if (_compareVersion(installedVersion, '5.0.14')) {
             newfunctions += '<li>[General] New world setting - Willpower spending +3 Dice prevents botch. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1089">[#1089]</a></li>';
         }
