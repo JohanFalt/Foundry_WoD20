@@ -402,7 +402,15 @@ Hooks.once("init", async function() {
 			sheettype = "mortal";
 		}
 
-		const context = sheettype.toLowerCase().replace(" ", "") + "_" + icon.toLowerCase();
+		// Convert to lowercase and remove spaces
+		sheettype = sheettype.toLowerCase().replace(" ", "");
+		
+		// Convert "pc" to "mortal" (same logic as getSplat)
+		if (sheettype === "pc") {
+			sheettype = "mortal";
+		}
+
+		const context = sheettype + "_" + icon.toLowerCase();
 
 		return `${context}Svg`;
 	});
@@ -908,6 +916,19 @@ Hooks.on("renderFormApplication", (sheet) => {
 
 		if (CONFIG.worldofdarkness.darkmode) {
 			sheet.element[0].classList.add("wod-theme-dark");
+		}
+	}
+});
+
+// Add hook for ApplicationV2 dialogs (like migration wizard)
+Hooks.on("renderApplicationV2", (app, html, data) => {
+	// Check if this is a migration wizard dialog
+	if (app.constructor.name === "DialogMigrationWizard" || 
+	    app.element?.classList?.contains("migration-wizard-dialog")) {
+		CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
+		
+		if (CONFIG.worldofdarkness.darkmode) {
+			app.element?.classList?.add("wod-theme-dark");
 		}
 	}
 });

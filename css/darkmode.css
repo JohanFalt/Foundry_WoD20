@@ -183,3 +183,46 @@
 .wod20.wod-theme-dark .condition-checkbox {
     font-weight: normal;
 }
+
+/* Migration Wizard Dark Mode Styles */
+.wod-theme-dark.wod20.migration-wizard-dialog .dialog-area {
+    background: var(--darkmode-area10-background) !important;
+    color: var(--darkmode-textcolor-dark);
+    border-color: var(--main-full-color);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .infobox {
+    background: var(--darkmode-area10-background);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .wizard-page-indicator {
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .wizard-message-area,
+.wod-theme-dark.wod20.migration-wizard-dialog .wizard-message-content {
+    background: var(--darkmode-area10-background);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .wizard-checkbox-area {
+    background: var(--darkmode-area10-background);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .wizard-checkbox-area label {
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .wizard-checkbox-area span {
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .migration-wizard-buttons {
+    border-top-color: var(--main-full-color);
+}
+
+.wod-theme-dark.wod20.migration-wizard-dialog .headlineGroup {
+    color: var(--darkmode-textcolor-dark);
+}

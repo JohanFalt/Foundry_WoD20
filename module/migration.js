@@ -2646,6 +2646,11 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '6.0.1')) {
+             newfunctions += '<li>[General] Fixed dark mode problem on message wizard.</li>';
+             newfunctions += '<li>[General] Fixed problems to open a newly created PC actor.</li>';
+        }
         
         // if (_compareVersion(installedVersion, '5.0.15')) {
         //     newfunctions += '<li>[General] Fixed bugg that caused the bonus for certain rolls to add dices that should not exist. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1284">[#1284]</a></li>';
