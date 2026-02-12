@@ -1,5 +1,8 @@
-import { databio } from "../assets/data/bio.js";
-import { dataability } from "../assets/data/ability.js";
+import { databio } from "../assets/data/sheet/bio.js";
+import { dataability } from "../assets/data/sheet/ability.js";
+import { databiotab } from "../assets/data/sheet/biotab.js";
+import { datapowertab } from "../assets/data/sheet/powertab.js";
+
 import BonusHelper from "./scripts/bonus-helpers.js";
 import ItemHelper from "./scripts/item-helpers.js";
 import Functions from "./functions.js";
@@ -13,27 +16,56 @@ export const preloadHandlebarsTemplates = async function () {
 
 	// Define template paths to load
 	const templatePaths = [
-		// Actor Sheet Partials
-		"systems/worldofdarkness/templates/actor/parts/description.hbs",
-
+		// PC Actor Sheet Partials - .hbs files		
+		"systems/worldofdarkness/templates/actor/parts/navigation.hbs",
+			"systems/worldofdarkness/templates/actor/parts/macro_icons.hbs",
+			"systems/worldofdarkness/templates/actor/parts/navigation_lock.hbs",
 		"systems/worldofdarkness/templates/actor/parts/bio.hbs",
+			"systems/worldofdarkness/templates/actor/parts/bio_splatfields.hbs",
+			"systems/worldofdarkness/templates/actor/parts/bio_splatboxes.hbs",
 		"systems/worldofdarkness/templates/actor/parts/stats.hbs",
-		"systems/worldofdarkness/templates/actor/parts/attributes.hbs",
-		"systems/worldofdarkness/templates/actor/parts/abilities.hbs",
-		"systems/worldofdarkness/templates/actor/parts/stats_adventages.hbs",
+			"systems/worldofdarkness/templates/actor/parts/stats_attributes.hbs",
+			"systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs",
+			"systems/worldofdarkness/templates/actor/parts/stats_advantages.hbs",
+			"systems/worldofdarkness/templates/actor/parts/stats_virtue.hbs",	
+			"systems/worldofdarkness/templates/actor/parts/stats_renown.hbs",	
+			"systems/worldofdarkness/templates/actor/parts/stats_quintessence.hbs",
+			"systems/worldofdarkness/templates/actor/parts/stats_groupedadvantages.hbs",
+		"systems/worldofdarkness/templates/actor/parts/powers.hbs",
+			"systems/worldofdarkness/templates/actor/parts/power_listmainpower.hbs",
+			"systems/worldofdarkness/templates/actor/parts/power_listpower.hbs",
+			"systems/worldofdarkness/templates/actor/parts/power_shapes.hbs",
+			"systems/worldofdarkness/templates/actor/parts/power_spheres.hbs",
+		"systems/worldofdarkness/templates/actor/parts/combat.hbs",
+			"systems/worldofdarkness/templates/actor/parts/combat_natural.hbs",
+			"systems/worldofdarkness/templates/actor/parts/combat_melee.hbs",
+			"systems/worldofdarkness/templates/actor/parts/combat_ranged.hbs",
+			"systems/worldofdarkness/templates/actor/parts/combat_armor.hbs",
+			"systems/worldofdarkness/templates/actor/parts/combat_conditions.hbs",
+			"systems/worldofdarkness/templates/actor/parts/combat_movement.hbs",
+		"systems/worldofdarkness/templates/actor/parts/gear.hbs",
+		"systems/worldofdarkness/templates/actor/parts/feature.hbs",
+		"systems/worldofdarkness/templates/actor/parts/feature_item.hbs",
+		"systems/worldofdarkness/templates/actor/parts/effects.hbs",		
+		"systems/worldofdarkness/templates/actor/parts/stats_health.hbs",
+
+		// PC Actor Sheet Partials - .html files
+		//"systems/worldofdarkness/templates/actor/parts/power_listpower.html",
+
+		// PC and Legacy Actor Sheet Partials - .hbs files
+		"systems/worldofdarkness/templates/actor/parts/description.hbs",
+		"systems/worldofdarkness/templates/actor/parts/list_icons.hbs",
 
 		
 
+		// Legacy Actor Sheet Partials - .html files
 		"systems/worldofdarkness/templates/actor/parts/profile-img.html",
-		"systems/worldofdarkness/templates/actor/parts/navigation.html",
-		"systems/worldofdarkness/templates/actor/parts/navigation.hbs",
+		"systems/worldofdarkness/templates/actor/parts/navigation.html",		
 		"systems/worldofdarkness/templates/actor/parts/bio.html",		
 		"systems/worldofdarkness/templates/actor/parts/attributes.html",		
 		"systems/worldofdarkness/templates/actor/parts/abilities.html",
-		
 		"systems/worldofdarkness/templates/actor/parts/combat.html",
 		"systems/worldofdarkness/templates/actor/parts/power.html",
-		"systems/worldofdarkness/templates/actor/parts/power.hbs",
 		"systems/worldofdarkness/templates/actor/parts/conditions.html",			// TODO - Seperate file?
 		"systems/worldofdarkness/templates/actor/parts/movement.html",				// TODO - Seperate file?
 		"systems/worldofdarkness/templates/actor/parts/macro_icons.html",
@@ -41,16 +73,11 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/combat_melee.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_ranged.html",
 		"systems/worldofdarkness/templates/actor/parts/combat_armor.html",		
-
 		"systems/worldofdarkness/templates/actor/parts/stats.html",		
-		
 		"systems/worldofdarkness/templates/actor/parts/creature/stats.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_virtue.html",		
-
 		"systems/worldofdarkness/templates/actor/parts/hunter/stats_virtue.html",
 		"systems/worldofdarkness/templates/actor/parts/demon/forms.html",
-		"systems/worldofdarkness/templates/actor/parts/demon/forms.hbs",
-		
 		"systems/worldofdarkness/templates/actor/parts/stats_health.html",
 		"systems/worldofdarkness/templates/actor/parts/stats_health_old.html",		// TODO - should be removed or reworked in future
 		"systems/worldofdarkness/templates/actor/parts/gear.html",
@@ -62,24 +89,21 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/settings_combat.html",
 		"systems/worldofdarkness/templates/actor/parts/settings_power.html",
 		"systems/worldofdarkness/templates/actor/parts/settings_sheet.html",
-
+		
 		// Vampire
 		"systems/worldofdarkness/templates/actor/parts/vampire/bio_vampire_background.html",		
-
 		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.html",
-		"systems/worldofdarkness/templates/actor/parts/vampire/disciplines.hbs",
-		"systems/worldofdarkness/templates/actor/parts/mainpower_list.hbs",
-		"systems/worldofdarkness/templates/actor/parts/power_list.hbs",
+		"systems/worldofdarkness/templates/actor/parts/mainpower_list.html",
+		"systems/worldofdarkness/templates/actor/parts/power_list.html",
 
 		// Mage
 		"systems/worldofdarkness/templates/actor/parts/mage/bio_mage_background.html",		
 		"systems/worldofdarkness/templates/actor/parts/mage/stats_arete.html",			// TODO - should use the new stat function
 		"systems/worldofdarkness/templates/actor/parts/mage/stats_quintessence.html",	
-
 		"systems/worldofdarkness/templates/actor/parts/mage/magic.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/resonance.html",
+		"systems/worldofdarkness/templates/actor/parts/mage/rotes.html",
 		"systems/worldofdarkness/templates/actor/parts/mage/spheres.html",
-		"systems/worldofdarkness/templates/actor/parts/mage/rotes.hbs",
 		"systems/worldofdarkness/templates/actor/parts/mage/focus.html",
 
 		// Werewolf
@@ -95,15 +119,11 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_nuwisha_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_ratkin_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_rokea_background.html",
-
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_apis_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_camazotz_background.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/bio_grondr_background.html",
-
 		"systems/worldofdarkness/templates/actor/parts/werewolf/stats_nagah_renown.html",
-
 		"systems/worldofdarkness/templates/actor/parts/werewolf/combat_active.html",
-
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ajaba.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ananasi.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_bastet.html",
@@ -116,50 +136,36 @@ export const preloadHandlebarsTemplates = async function () {
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_ratkin.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_rokea.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift.html",		
-
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_apis.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_camazotz.html",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/shift_grondr.html",	
-
 		"systems/worldofdarkness/templates/actor/parts/gifts.html",
-		"systems/worldofdarkness/templates/actor/parts/gifts.hbs",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/gift.hbs",
 		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.html",
-		"systems/worldofdarkness/templates/actor/parts/werewolf/rites.hbs",
 
 		// Changeling
 		"systems/worldofdarkness/templates/actor/parts/changeling/bio_changeling_background.html",				
-
 		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.html",
-		"systems/worldofdarkness/templates/actor/parts/changeling/dreaming.hbs",
 
 		// Hunter
 		"systems/worldofdarkness/templates/actor/parts/hunter/bio_hunter_background.html",		
-		
 		"systems/worldofdarkness/templates/actor/parts/hunter/edges.html",
-		"systems/worldofdarkness/templates/actor/parts/hunter/edges.hbs",
 
 		// Demon
 		"systems/worldofdarkness/templates/actor/parts/demon/bio_demon_background.html",	
-		
 		"systems/worldofdarkness/templates/actor/parts/demon/lores.html",
-		"systems/worldofdarkness/templates/actor/parts/demon/lores.hbs",
 
 		// Wraith
 		"systems/worldofdarkness/templates/actor/parts/wraith/bio_wraith_background.html",
 		"systems/worldofdarkness/templates/actor/parts/wraith/shadow.html",
+		"systems/worldofdarkness/templates/actor/parts/wraith/death.html",
 
 		// Mummy
 		"systems/worldofdarkness/templates/actor/parts/mummy/bio_mummy_background.html",
 
-		// Wraith
-		"systems/worldofdarkness/templates/actor/parts/wraith/death.html",
-		"systems/worldofdarkness/templates/actor/parts/wraith/death.hbs",
-
 		// Exalted
 		"systems/worldofdarkness/templates/actor/parts/exalted/bio_exalted_background.html",
-		"systems/worldofdarkness/templates/actor/parts/exalted/exalted_charms.hbs",
+		"systems/worldofdarkness/templates/actor/parts/exalted/exalted_charms.html",
 
 		// Orpheus
 		"systems/worldofdarkness/templates/actor/parts/variant/bio_orpheus_background.html",	
@@ -170,9 +176,10 @@ export const preloadHandlebarsTemplates = async function () {
 		
 		// Creature
 		"systems/worldofdarkness/templates/actor/parts/creature/charms.html",		
-		"systems/worldofdarkness/templates/actor/parts/creature/charms.hbs",
 		"systems/worldofdarkness/templates/actor/parts/creature/power.html",
-		"systems/worldofdarkness/templates/actor/parts/creature/power.hbs",
+
+		// Item Sheet Partials - .hbs files
+		"systems/worldofdarkness/templates/items/parts/description.hbs",
 
 		// Item Sheet Partials
 		"systems/worldofdarkness/templates/sheets/parts/power_rollable.html",
@@ -203,12 +210,35 @@ export function SetupBio()
 {
     try {        
 		let importData = databio;
-		/* let fileData = await fetch(`systems/worldofdarkness/assets/data/bio.json`).then((response) => response.json());
-		Object.assign(importData, fileData);
- */
 		return importData;		
     } catch(err) {
 		err.message = `Failed Setup bio: ${err.message}`;
+        console.error(err);
+        return
+    }
+}
+
+// PC
+export function SetupBioTab()
+{
+    try {        
+		let importData = databiotab;
+		return importData;		
+    } catch(err) {
+		err.message = `Failed Setup bio: ${err.message}`;
+        console.error(err);
+        return
+    }
+}
+
+// PC
+export function SetupPowerTab()
+{
+    try {        
+		let importData = datapowertab;
+		return importData;		
+    } catch(err) {
+		err.message = `Failed Setup power: ${err.message}`;
         console.error(err);
         return
     }
@@ -218,6 +248,16 @@ export const registerHandlebarsHelpers = function () {
 		
 	Handlebars.registerHelper("add", function (num1, num2) {
 		return parseInt(num1) + parseInt(num2);
+	});
+
+	Handlebars.registerHelper("subtract", function (num1, num2) {
+		return parseInt(num1) - parseInt(num2);
+	});
+
+	Handlebars.registerHelper("concat", function (...args) {
+		// Remove the last argument (options object) if present
+		const strings = args.filter(arg => typeof arg === 'string');
+		return strings.join('');
 	});
 
 	Handlebars.registerHelper("numLoop", function (num, options) {
@@ -325,6 +365,10 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("shorten", function (text, i) {
+		if (text == undefined) {
+			return "";
+		}
+
 		let result = text;
 
 		if (text.length > i) {
@@ -355,14 +399,49 @@ export const registerHandlebarsHelpers = function () {
 			sheettype = "werewolf";
 		}
 
+		// Map color prefixes to correct sheettype for icon lookup
+		if (color === "brown_") {
+			sheettype = "werewolf";
+		}
+		else if (color === "blue_") {
+			// blue_ can be changeling or mortal, use sheettype if available
+			if (sheettype !== "changeling" && sheettype !== "mortal") {
+				sheettype = "changeling"; // default to changeling for blue_
+			}
+		}
+		else if (color === "purple_") {
+			sheettype = "mage";
+		}
+		else if (color === "red_") {
+			sheettype = "vampire";
+		}
+		else if (color === "death_") {
+			sheettype = "wraith";
+		}
+		else if (color === "orange_") {
+			sheettype = "hunter"; // hunter and demon use same icons
+		}
+		else if (color === "yellow_") {
+			sheettype = "mummy";
+		}
+
 		if (color == "black_") {
 			return encodeURIComponent(game.worldofdarkness.icons["black"][icon+value]);
 		}
 		else {
 			return encodeURIComponent(game.worldofdarkness.icons[sheettype.toLowerCase()][icon+value]);
-		}
+		}		
+	});
 
-		
+	/**
+	 * Returns the remainder after dividing value by mod.
+	 * Useful for creating repeating patterns in loops (e.g., every nth item).
+	 * @param {number} value - The number to divide
+	 * @param {number} mod - The divisor
+	 * @return {number} - The remainder (value % mod)
+	 */
+	Handlebars.registerHelper("mod", function (value, mod) {
+		return value % mod;
 	});
 
 	Handlebars.registerHelper("getEra", function (actor) {
@@ -404,6 +483,19 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("getBonusName", function (type) {
 		return game.i18n.localize(CONFIG.worldofdarkness.bonus[type]);
+	});	
+
+	Handlebars.registerHelper("lookupListData", function (listData, listname, value) {
+		if (value === "") {
+			return value;
+		}
+
+		// const list = listData[listname]
+		// 				.filter(item => item.value === value);
+		// return game.i18n.localize(list.label);
+
+		return game.i18n.localize(listData[listname]?.find(i => i.value === value)?.label ?? ""
+	);
 	});	
 
 	/* get advantages box mainly used on Core (application v1) */
@@ -516,6 +608,104 @@ export const registerHandlebarsHelpers = function () {
 		return html;
 	});
 
+	/* get advantages box mainly used on Core (application v2) */
+	Handlebars.registerHelper("getGetStatArea_v2", function (actor, stat, showbanner = true) {
+
+		const statname = stat.system.label;
+		const statid = stat.system.id;
+		const isrollable = stat.system.settings.useroll;
+		const ispermanent = stat.system.settings.usepermanent;
+		const istemporary = stat.system.settings.usetemporary;
+
+		let html = "";
+		let permanent_html = "";
+		let temporary_html = "";
+		//let stat_headline_text = game.i18n.localize(`wod.advantages.${statname}`);
+		let stat_headline_text = game.i18n.localize(statname);
+		let rollable = "";
+		let rollaction = "";
+		let splat = CONFIG.worldofdarkness.sheettype.mortal;	
+		let splat_temporary = CONFIG.worldofdarkness.sheettype.mortal;	
+
+		if (isrollable) {
+			rollable = " vrollable";
+			rollaction = `data-action="rollDice"`;
+		}
+
+		// wraith corpus
+		if (statid == "corpus") {
+			splat_temporary = CONFIG.worldofdarkness.sheettype.wraith;
+		}
+
+		// wereweolf and shifter renown
+		if ((statid == "glory") || (statid == "honor") || (statid == "wisdom")) {
+			splat = CONFIG.worldofdarkness.sheettype.werewolf;
+			if (actor.type == "PC") {
+				stat_headline_text = game.i18n.localize(actor.GetShifterRenownName(actor.system.bio.splatfields.tribe.value, statid));
+			}
+			else if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
+				stat_headline_text = game.i18n.localize(actor.GetShifterRenownName(actor.system.tribe, statid));
+			}
+			else {
+				stat_headline_text = game.i18n.localize(actor.GetShifterRenownName(actor.system.changingbreed, statid));
+			}
+		}		
+
+		if (showbanner) {
+			html += `<div class="sheet-headline sheet-banner-small splatFont ${rollable}" data-type="${splat}" data-key="${statid}" data-noability="true" ${rollaction}><span class="sheet-banner-text">${stat_headline_text}</span></div>`;	
+		}
+		else {
+			html += `<div class="sheet-headline splatFont ${rollable}" data-type="${splat}" data-key="${statname}" data-noability="true" ${rollaction}><span class="sheet-banner-text">${stat_headline_text}</span></div>`;
+		}		
+
+		if (ispermanent) {
+			let header = `<div class="sheet-boxcontainer ${statid}"><div class="resource-value permValueRow" data-itemid="${stat._id}" data-key="${statid}" data-value="${stat.system.permanent}" data-name="system.permanent">`;
+			let footer = `</div></div>`;
+
+			for (let value = 0; value <= stat.system.max - 1; value++) {
+				if ((actor.system.settings.splat == CONFIG.worldofdarkness.splat.changeling) && (statname == "willpower")) {
+					let imbalance = "";
+					let imbalance_title_text = "";
+
+					let imbalanceValue = stat.system.permanent - stat.system.imbalance;
+
+					if ((value >= imbalanceValue) && (value < stat.system.permanent)) {
+						imbalance = `imbalance`;
+						imbalance_title_text = game.i18n.localize(`wod.advantages.imbalance`);
+					}
+
+					permanent_html += `<span class="resource-value-step ${imbalance}" title="${imbalance_title_text}" data-action="editDot" data-type="${splat}" data-index="${value}"></span>`;
+				}
+				else {
+					permanent_html += `<span class="resource-value-step" data-action="editDot" data-type="${splat}" data-index="${value}"></span>`;
+				}
+			}
+					
+			permanent_html = header + permanent_html + footer;
+		}		
+
+		if (istemporary) {
+			let header = `<div class="sheet-boxcontainer"><div class="resource-counter tempSquareRow" data-itemid="${stat._id}" data-key="${statid}" data-value="${stat.system.temporary}" data-name="system.temporary">`;
+			let footer = `</div></div>`;
+
+			for (let value = 0; value <= stat.system.max - 1; value++) {
+				let mark = "";
+
+				if (stat.system.temporary > value) {
+					mark = "x";
+				}
+
+				temporary_html += `<span class="resource-value-step" data-action="editDot" data-type="${splat_temporary}" data-index="${value}" data-state="${mark}"></span>`;
+			}			
+
+			temporary_html = header + temporary_html + footer;
+		}
+		
+		html += permanent_html + temporary_html;
+
+		return html;
+	});
+
 	Handlebars.registerHelper("getMainPowerList", function (actor, powertype) {
 		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype);
 		items.sort((a, b) => a.name.localeCompare(b.name));
@@ -550,6 +740,7 @@ export const registerHandlebarsHelpers = function () {
 
 	/**
 	 * Get a power list with main power and then connected sub powers to that one. E.g disciplines
+	 * @deprecated Legacy Actor only - Used only by legacy actor sheets (Mortal, Vampire, Werewolf, Mage, etc.)
 	 */	
 	Handlebars.registerHelper("getGetPowerList", function (locked, actor, powername, powertype, bannertext, useabilitiy) {
 		let html = "";
@@ -564,10 +755,6 @@ export const registerHandlebarsHelpers = function () {
 		html = 
 			`<div class="sheet-headline sheet-banner splatFont" data-area="${powername}">
 				<span class="sheet-banner-text">${bannertext}</span>
-
-				<div class="pullRight pointer headlineNormal">
-					<i class="icon fa-solid fa-square-plus item-create" title="${addText}" aria-hidden="true" data-itemtype="Power" data-type="${powername}"></i>
-				</div>
 			</div>`;
 
 		const items = actor.items.filter(item => item.type === "Power" && item.system.type === powertype);
@@ -608,11 +795,6 @@ export const registerHandlebarsHelpers = function () {
 
 			listhtml += `<div class="pullLeft power-iconbox">`;				// ----- POWERICONS START
 				
-            listhtml += 
-				`<div class="pullLeft pointer">
-                   	<i class="icon fa-solid fa-square-plus item-create" title="${addsubpowertext}" aria-hidden="true" data-itemtype="Power" data-type="${powername}power" data-parentid="${items[i]._id}"></i>
-                </div>`;
-
 			if ((descriptionhtml != "") || (detailshtml != "")) {
 				let description = descriptionhtml + detailshtml;
 
@@ -786,6 +968,9 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	/* exalted */
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy Exalted actor sheets
+	 */
 	Handlebars.registerHelper("getExaltedCharmTypes", function (actor, categoryname, powertype) {
 		const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype);
 
@@ -804,205 +989,20 @@ export const registerHandlebarsHelpers = function () {
 		}
 	});
 
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy Exalted actor sheets
+	 */
 	Handlebars.registerHelper("getExaltedCharm", function (actor, categoryname, unique) {
 		let charms = [];
 		charms = actor?.items.filter(item => item.system?.[categoryname] === unique);
 
-		console.log(charms);
-
 		return charms;		
 	});
 
-	// Handlebars.registerHelper("getGetPowers", function (locked, actor, categoryname, powername, powertype, bannertext, useabilitiy) {
-	// 	let html = "";
-	// 	let headerhtml = `<div class="sheet-area flex-columns"><div class="sheet-headline sheet-banner splatFont" data-area="${powername}list"><span class="sheet-banner-text">${bannertext}</span></div>`;
-	// 	let listhtml = "";
-	// 	let footerhtml = `</div>`;
-
-	// 	const items = (actor?.items || []).filter(item => item.type === "Power" && item.system.type === powertype);
-
-	// 	if (Array.isArray(items)) {
-	// 		const uniqueVariants = [
-	// 		  		...new Set(
-	// 				items
-	// 			  		.map(item => {
-	// 						return item.system?.[categoryname] !== undefined ? item.system[categoryname] : null;
-	// 			  		})
-	// 			  		.filter(value => value !== null) // Ta bort null-värden som inte finns
-	// 		  		)
-	// 			];
-			
-	// 		let powers = [];
-
-	// 		// if category isn't used by the power
-	// 		if (uniqueVariants.length == 0) {
-	// 			uniqueVariants.push("");
-	// 		}
-
-	// 		for (const unique of uniqueVariants) {
-	// 			let addText = game.i18n.localize("wod.labels.add." + powername);
-	// 			let removebonusText = game.i18n.localize("wod.labels.power.removebonus." + powername);
-	// 			let sendText = game.i18n.localize("wod.labels.send");
-	// 			let editText = game.i18n.localize("wod.labels.edit." + powername);
-	// 			let deleteText = game.i18n.localize("wod.labels.remove." + powername);
-	// 			let uniquetext = unique.replace(/[.,?]/g, "");
-
-	// 			let showbonusText = game.i18n.localize("wod.labels.show.bonus");
-
-	// 			let i = 0;
-
-	// 			// no inner seperation of power
-	// 			if (unique == "") {
-	// 				powers = items;
-	// 			}
-	// 			else {
-	// 				listhtml += `<div class="headlineRow splatFont">${game.i18n.localize(unique)}</div>`;
-	// 				powers = items.filter(item => item.system?.[categoryname] === unique);	
-	// 			}				
-
-	// 			powers = powers.sort((a, b) => {
-	// 				if (a.system?.level < b.system?.level) return -1;
-	// 				if (a.system?.level > b.system?.level) return 1;
-				  
-	// 				return a.name.localeCompare(b.name);
-	// 		  	});				
-
-	// 			for (const power of powers) {
-					
-	// 				let descriptionhtml = "";
-			
-	// 				if (power.system.description != "") {
-	// 					descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${power.system.description}`;
-	// 				}
-
-	// 				let detailshtml = "";
-
-	// 				if (power.system.details != "") {
-	// 					detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${power.system.details}`;
-	// 				}
-
-	// 				let isactive = '';
-	// 				let rollablerow = powername + '-row';
-	// 				let rollabelcss = '';
-
-	// 				if (power.system.isrollable) {
-	// 					rollablerow = powername + '-rollablerow';
-	// 				}
-	// 				else {
-	// 					rollablerow = powername + '-nonerollablerow';
-	// 				}
-					
-	// 				if (power.system.isrollable) {
-	// 					rollabelcss = `vrollable`;
-	// 				}
-
-	// 				if (power.system.isactive) {
-	// 					isactive = `checked`;
-	// 				}					
-
-	// 				listhtml += `<div class="item-row-area" data-area="${uniquetext}row${i}">
-	// 								<div class="clearareaBox ${rollablerow}">
-	// 									<div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="${power._id}" data-type="isactive" ${isactive}></input></div>
-	// 									<div class="pullLeft ${powername}-headlineBox headlineNormal ${rollabelcss}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-object="${powername}" data-rollitem="true" data-itemid="${power._id}">${power.name}</div>`;
-					
-	// 				listhtml += `<div class="pullLeft numberBox">${(power.system.level > 0) ? power.system.level : "&nbsp;"}</div>`;
-
-	// 				if (power.system.isrollable) {
-	// 					let dice1name = game.i18n.localize(getAttributes(power.system.dice1));
-	// 					let dice2name = "";
-	
-	// 					if (power.system.dice1 == "path") {
-	// 						dice1name = actor.system.advantages.path.label;
-	// 					}
-	
-	// 					if (useabilitiy) {
-	// 						dice2name = game.i18n.localize(getAbility(actor, power.system.dice2));
-	// 					}						
-	
-	// 					let difficultyText = power.system.difficulty;
-
-	// 					if (parseInt(power.system.difficulty) == -1) {
-	// 						difficultyText = game.i18n.localize("wod.labels.varies");
-	// 					}
-	
-	// 					listhtml += `
-	// 						<div class="pullLeft power-dicebox headlineNormal">${dice1name}</div>
-	// 						<div class="pullLeft power-dicebox headlineNormal">${dice2name}</div>
-	// 						<div class="pullLeft power-valueBox headlineNormal centerText">${difficultyText}</div>`;
-	// 				}
-	// 				else {
-	// 					listhtml += `<div class="pullLeft">&nbsp;</div>`;
-	// 				}
-
-	// 				listhtml += `<div class="pullLeft power-iconbox">`;				// ----- POWERICONS START
-				
-	// 				if ((descriptionhtml != "") || (detailshtml != "")) {
-	// 					let description = descriptionhtml + detailshtml;
-
-	// 					listhtml += `
-	// 						<div class="pullLeft pointer headlineNormal tooltip">
-	// 							<i class="icon fa-solid fa-memo"></i>
-	// 							<span class="tooltiptext">${description}</span>
-	// 						</div>`;
-	// 				}
-
-	// 				listhtml += `<div class="pullLeft pointer"><a class="send-chat" title="${sendText}" data-itemid="${power._id}"><i class="icon fa-solid fa-comment-dots"></i></a></div>`;                        
-
-	// 				if (!locked) {
-	// 					listhtml += `
-	// 						<div class="pullLeft pointer">
-	// 							<a class="clearPower" title="${removebonusText}" data-powertype="power" data-item-id="${power._id}"><i class="icon fa-solid fa-lock"></i></a>
-	// 						</div>
-	// 						<div class="pullLeft pointer">
-	// 							<a class="item-edit" title="${editText}" data-type="Power" data-item-id="${power._id}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-	// 						</div>
-	// 						<div class="pullLeft pointer">
-	// 							<a class="item-delete" title="${deleteText}" data-type="Power" data-item-id="${power._id}"><i class="icon fa-solid fa-trash-can"></i></a>
-	// 						</div>`; 
-	// 				}
-
-	// 				if (power.system.bonuslist.length > 0) {
-	// 					let id = `collapsiblehekaubonus${i}`;
-	// 					let typeid = `${powername}${i}`;
-		
-	// 					listhtml += `
-	// 						<div class="pullLeft pointer">
-	// 							<i id="${id}" class="icon collapsible button fa-solid fa-angles-right" title="${showbonusText}" data-sheet="${CONFIG.worldofdarkness.sheettype.mortal}" data-type="${typeid}"></i>
-	// 						</div>`; 
-	// 				}
-
-	// 				listhtml += `</div>`;											// ----- POWERICONS END
-
-	// 				listhtml += `</div>`;											// ----- ROW END
-
-	// 				listhtml += `<div class="hide bonuses ${powername}${i}" data-area="${powername}bonus${i}">`;		// ----- BONUS START
-
-	// 				for (const b in power.system.bonuslist) {
-	// 					listhtml += `<div class="clearareaBox">
-	// 									<div class="pullLeft bonus-power-name headlineNormal">${power.system.bonuslist[b].name}</div>
-	// 									<div class="pullLeft headlineNormal" style="width: 200px;">${game.i18n.localize(CONFIG.worldofdarkness.bonus[power.system.bonuslist[b].type])}</div>
-	// 									<div class="pullLeft headlineNormal">${power.system.bonuslist[b].value}</div>
-	// 								</div>`;
-	// 				}
-
-	// 				listhtml += `</div>`;											// ----- BONUS END
-
-	// 				listhtml += `</div>`;
-
-	// 				i = i + 1;
-	// 			}
-	// 		}			
-	// 	} 
-	// 	else {
-	// 		console.error("items is not an array or undefined");
-	// 	}
-
-	// 	html += headerhtml + listhtml + footerhtml;
-
-	// 	return html;
-	// });
-
 	/* Get the tooltip graphics */
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy actor sheets. PC Actor uses getToolTip_v2 instead.
+	 */
 	Handlebars.registerHelper("getToolTip", function (description, detail, bonuses, actor) {
 		let listhtml = "";
 		let descriptionhtml = "";
@@ -1039,14 +1039,33 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("showToolTip", function (item) {
+		let description = item?.system?.description;
+
+		if (description === undefined) {
+			description = "";
+		}
+		else {
+			description = description.trim();
+		}
+
+		let details = item?.system?.details;
+
+		if (details === undefined) {
+			details = "";
+		}
+		else {
+			details = details.trim();
+		}		
+
+		if(item?.type === "Rote") return true;
 		if (item?.system?.bonuslist?.length > 0) return true;
-		if (item?.system?.description !== "") return true;
-		if (item?.system?.details !== "") return true;
+		if (description !== "") return true;
+		if (details !== "") return true;	
 
 		return false;
 	});
 
-	Handlebars.registerHelper("getToolTip_v2", function (description, detail, bonuses, actor) {
+	Handlebars.registerHelper("getToolTip_v2", function (description, detail, bonuses, actor, item) {
 		let descriptionhtml = "";
 				
 		if (description != "") {
@@ -1059,75 +1078,93 @@ export const registerHandlebarsHelpers = function () {
 			detailshtml = `<div class="headlineList">${game.i18n.localize("wod.labels.power.system")}</div><div class="tooltipText">${detail}</div>`;
 
 			if (bonuses?.length > 0) {
-				detailshtml += `<table><tr><th style="text-align: left;">${game.i18n.localize("wod.labels.type")}</th><th style="text-align: left;">${game.i18n.localize("wod.effects.area")}</th><th>${game.i18n.localize("wod.labels.modifier")}</th><tr>`;
+				detailshtml += `<div class="headlineRow description-itemlist">
+									<div class="width-namebox">${game.i18n.localize("wod.labels.type")}</div>
+									<div class="width-namebox">${game.i18n.localize("wod.effects.area")}</div>
+									<div class="width-valuebox">${game.i18n.localize("wod.labels.modifier")}</div>
+								</div>`;
 				for (const bonus of bonuses) {
-					detailshtml += `<tr><td>${game.i18n.localize(CONFIG.worldofdarkness.bonus[bonus.type])}</td><td>${game.i18n.localize(getAbility(actor, game.i18n.localize(getAttributes(bonus.settingtype))))}</td><td style="text-align: center;">${bonus.value}</td></tr>`;
+					detailshtml += `<div class="item-row-area description-itemlist">
+										<div class="width-namebox tooltipText">${game.i18n.localize(CONFIG.worldofdarkness.bonus[bonus.type])}</div>
+										<div class="width-namebox tooltipText">${game.i18n.localize(getAbility(actor, game.i18n.localize(getAttributes(bonus.settingtype))))}</div>
+										<div class="width-valuebox tooltipText">${bonus.value}</div>
+									</div>`;
 				}
-				detailshtml += `</table>`;
 			}			
+		}
+
+		if ((item?.type === "Rote") && (actor?.type === "PC")) {
+			let spheredescription = "";
+			
+			if (item.system.correspondence > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "correspondence")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.correspondence})</div>`;
+				}				
+			}
+			if (item.system.entropy > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "entropy")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.entropy})</div>`;
+				}
+			}
+			if (item.system.forces > 0) {		
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "forces")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.forces})</div>`;
+				}
+			}
+			if (item.system.life > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "life")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.life})</div>`;
+				}
+			}
+			if (item.system.matter > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "matter")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.matter})</div>`;
+				}
+			}
+			if (item.system.mind > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "mind")[0];
+				
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.mind})</div>`;
+				}
+			}
+			if (item.system.prime > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "prime")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.prime})</div>`;
+				}
+			}
+			if (item.system.spirit > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "spirit")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.spirit})</div>`;
+				}
+			}
+			if (item.system.time > 0) {
+				const sphere = actor.items.filter(item => item.type === "Sphere" && item.system.id === "time")[0];
+
+				if (sphere) {
+					spheredescription += `<div>${game.i18n.localize(sphere.system.label)} (${item.system.time})</div>`;
+				}
+			}
+
+			descriptionhtml += spheredescription;
 		}
 
 		return descriptionhtml + detailshtml;
 	});
-
-	/* Handlebars.registerHelper("getToolTipRote", function (description, detail, actor, item) {
-		let listhtml = "";
-		let descriptionhtml = "";
-				
-		if (description != "") {
-			descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${description}`;
-		}
-
-		let detailshtml = "";
-
-		if (detail != "") {
-			detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${detail}`;					
-		}
-
-		if ((descriptionhtml != "") || (detailshtml != "")) {
-			let description = descriptionhtml + detailshtml;
-			let spheredescription = "";
-
-			if (item.system.correspondence > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.correspondence.label)} (${item.system.correspondence})</div>`;
-			}
-			if (item.system.entropy > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.entropy.label)} (${item.system.entropy})</div>`;
-			}
-			if (item.system.forces > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.forces.label)} (${item.system.forces})</div>`;
-			}
-			if (item.system.life > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.life.label)} (${item.system.life})</div>`;
-			}
-			if (item.system.matter > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.matter.label)} (${item.system.matter})</div>`;
-			}
-			if (item.system.mind > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.mind.label)} (${item.system.mind})</div>`;
-			}
-			if (item.system.prime > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.prime.label)} (${item.system.prime})</div>`;
-			}
-			if (item.system.spirit > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.spirit.label)} (${item.system.spirit})</div>`;
-			}
-			if (item.system.time > 0) {
-				spheredescription += `<div>${game.i18n.localize(actor.system.spheres.time.label)} (${item.system.time})</div>`;
-			}
-
-			description += spheredescription;
-
-			listhtml = `
-				<div class="pullLeft pointer headlineNormal tooltip">
-					<i class="icon fa-solid fa-memo"></i>
-					<span class="tooltiptext">${description}</span>
-	
-				</div>`;
-		}
-
-		return listhtml;
-	}); */
 
 	Handlebars.registerHelper("getConnectedItemList", function (actor, type, variant, parentid) {
 		let list = [];
@@ -1163,12 +1200,6 @@ export const registerHandlebarsHelpers = function () {
 		return abilityName;
 	});
 
-	/* returns a list of a particular items sorted */
-	/* Handlebars.registerHelper("getItemList", function (actor, itemtype, itemcategory) {
-		const items = (actor.items.filter(i => i.type === itemtype && i.system.type === itemcategory));
-		return items.sort((a, b) => a.name.localeCompare(b.name));
-	}); */
-
 	/* get all bonuses */
 	Handlebars.registerHelper("getBonuses", function (actor, type, sort) {
 		let bonuslist = [];
@@ -1181,6 +1212,7 @@ export const registerHandlebarsHelpers = function () {
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "attribute_buff");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "attribute_dice_buff");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "attribute_auto_buff");
+		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "attribute_fixed_value");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "ability_buff");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "ability_diff");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "soak_buff");
@@ -1188,6 +1220,10 @@ export const registerHandlebarsHelpers = function () {
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "health_buff");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "initiative_buff");
 		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "movement_buff");
+		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "attack_buff");
+		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "attack_diff");
+		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "frenzy_buff");
+		bonuslist = BonusHelper.GetAllAttributeBonus(actor, bonuslist, "frenzy_diff");
 		
 		return bonuslist;
 	});
@@ -1196,12 +1232,17 @@ export const registerHandlebarsHelpers = function () {
 		return ItemHelper.GetAllItems(actor);
 	});
 
-	Handlebars.registerHelper("getItemType", function (actor, itemtype, itemcategory = "") {
+	Handlebars.registerHelper("getItemType", function (actor, itemtype, itemcategory) {
 		return ItemHelper.GetItemType(actor, itemtype, itemcategory);
 	});
 
-	Handlebars.registerHelper("getNotes", function (actor) {
-		return ItemHelper.GetAllNotes(actor);
+	Handlebars.registerHelper("getNotes", function (actor, type, category) {
+		if (type == "" || type == undefined || typeof type === "object") {
+			return ItemHelper.GetAllNotes(actor);
+		}
+		else {
+			return ItemHelper.GetItemType(actor, type, category);
+		}		
 	});
 
 	Handlebars.registerHelper("getEarnedExperience", function (actor) {
@@ -1214,8 +1255,7 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("getTotalExperience", function (actor, type) {
 		const earnedExp = ItemHelper.GetEarnedExperience(actor);
-		const spendExp = ItemHelper.GetSpendExperience(actor);
-		
+		const spendExp = ItemHelper.GetSpendExperience(actor);		
 
 		if (type == "total") {
 			let earned = 0;
@@ -1255,7 +1295,7 @@ export const registerHandlebarsHelpers = function () {
 
 		if (actor != undefined) {
 			if (actor.system.abilities[ability] != undefined) {
-				if (actor.system.abilities[ability].altlabel != "") {
+				if ((actor.system.abilities[ability].altlabel != "") && (actor.system.abilities[ability].altlabel != undefined)) {
 					return actor.system.abilities[ability].altlabel;
 				}
 			}			
@@ -1311,7 +1351,7 @@ export const registerHandlebarsHelpers = function () {
 	});
 
 	Handlebars.registerHelper("getAbilityLabel", function (ability) {
-		if (ability.altlabel == "") {
+		if ((ability.altlabel == "") || (ability.altlabel == undefined)) {
 			return game.i18n.localize(ability.label);
 		}
 		
@@ -1412,7 +1452,8 @@ export const registerHandlebarsHelpers = function () {
 		return value;
 	});
 
-	Handlebars.registerHelper("hasSpeciality" , function (ability) {
+	// Check if an ability should show the speciality icon (application_v1)
+	Handlebars.registerHelper("hasSpeciality" , function (ability, type) {
 		// opens in dialog to edit speciality
 		if (ability.typeform == "attribute") {
 			return true;
@@ -1430,16 +1471,60 @@ export const registerHandlebarsHelpers = function () {
 			specialityLevel = parseInt(CONFIG.worldofdarkness.specialityLevel);
 		}
 
-		if (ability.value >= specialityLevel) {
-			hasSpeciality = true;
+		if (ability?.type === "Ability") {
+			if (ability.system.value >= specialityLevel) {
+				hasSpeciality = true;
+			}
+			else if (ability.system.value >= 1) {
+				hasSpeciality = ability.system.settings.alwaysspeciality;
+			}
 		}
-		else if (ability.value >= 1) {
-			hasSpeciality = CONFIG.worldofdarkness.alwaysspeciality.includes(id); 			
-		}		
+		// legacy
+		else {
+			if (ability.value >= specialityLevel) {
+				hasSpeciality = true;
+			}
+			else if (ability.value >= 1) {
+				type = type.toLowerCase();
+
+				if (CONFIG.worldofdarkness.alwaysspeciality[type] == undefined) {
+					type = "vampire";
+				}
+
+				hasSpeciality = CONFIG.worldofdarkness.alwaysspeciality[type].includes(id); 							
+			}
+		}
+				
 
 		return hasSpeciality;
 	});
 
+	Handlebars.registerHelper("getSpecialityIcon" , function (ability) {
+		let specialityLevel = 4;
+
+		if ((CONFIG.worldofdarkness.specialityLevel != undefined) && (Functions.isNumber(CONFIG.worldofdarkness.specialityLevel))) {
+			specialityLevel = parseInt(CONFIG.worldofdarkness.specialityLevel);
+		}
+
+		if ((ability.system.settings.alwaysspeciality) && (ability.system.speciality !== "") && (ability.system.value >= 1)) {
+			return 'item-notice';
+		}
+		if ((ability.system.settings.alwaysspeciality) && (ability.system.speciality === "") && (ability.system.value >= 1)) {
+			return 'item-warning';
+		}
+		if ((ability.system.value >= specialityLevel) && (ability.system.speciality !== "")) {
+			return 'item-notice';
+		}
+		if ((ability.system.value >= specialityLevel) && (ability.system.speciality === "")) {
+			return 'item-warning';
+		}
+
+		return "";
+	});
+
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy Werewolf and Changing Breed actor sheets
+	 */
 	Handlebars.registerHelper("shifterHasForm", function (actor, form) {
 		if (actor.system.shapes[form].isactive) {
 			return true;
@@ -1448,11 +1533,10 @@ export const registerHandlebarsHelpers = function () {
 			return false;
 		}
 	});
-
-	/* Handlebars.registerHelper("getShifterRenown", function (actor, type, renown) {
-		return actor.GetShifterRenownName(type, renown);
-	}); */
-
+	
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy Werewolf and Changing Breed actor sheets
+	 */
 	Handlebars.registerHelper("getShifterRank", function (actor) {
 		return actor.GetShifterRank();
 	});
@@ -1464,6 +1548,7 @@ export const registerHandlebarsHelpers = function () {
 	 * @param attribute		- the attribute searched for
 	 * @param istext		- TRUE / FALSE if the return is to be a STRING or integer
 	 * @return {Promise}
+	 * @deprecated Legacy Actor only - Used only by legacy Werewolf and Changing Breed actor sheets
 	 */
 	Handlebars.registerHelper("getShifterAttrbuteBonus", function (actor, form, attribute, istext) {
 		const type = "Bonus";
@@ -1481,6 +1566,77 @@ export const registerHandlebarsHelpers = function () {
 		}
 		
 		return items[0].system.value;
+	});
+
+	/**
+	 * Gets all attribute bonuses from shapeform item's bonuslist, sorted by type (attribute_buff first, then attribute_diff)
+	 * @param shapeformItem - the shapeform item
+	 * @return {Array} - array of bonus objects sorted by type
+	 */
+	Handlebars.registerHelper("getShapeformAttributeBonuses", function (shapeformItem) {
+		if (!shapeformItem?.system?.bonuslist || shapeformItem.system.bonuslist.length === 0) {
+			return [];
+		}
+
+		// Filter for attribute bonuses only (attribute_buff and attribute_diff)
+		const attributeBonuses = shapeformItem.system.bonuslist.filter(b => 
+			b.type === "attribute_buff" || b.type === "attribute_diff" || b.type === "attribute_fixed_value"
+		);
+
+		// Sort: attribute_buff first, then attribute_diff
+		attributeBonuses.sort((a, b) => {
+			// attribute_buff comes before attribute_diff
+			if (a.type === "attribute_buff" && b.type === "attribute_diff") {
+				return -1;
+			}
+			if (a.type === "attribute_diff" && b.type === "attribute_buff") {
+				return 1;
+			}
+			// Within same type, sort alphabetically by settingtype
+			return a.settingtype.localeCompare(b.settingtype);
+		});
+
+		return attributeBonuses;
+	});
+
+	/**
+	 * Gets attribute short name localization key from attribute name (e.g. "strength" -> "wod.attributes.short.str")
+	 * @param attributeName - the attribute name (e.g. "strength", "dexterity")
+	 * @return {String} - the full localization key (e.g. "wod.attributes.short.str") or full attribute name if no mapping
+	 */
+	Handlebars.registerHelper("getAttributeShortKey", function (attributeName) {
+		const shortNameMap = {
+			"strength": "wod.attributes.short.str",
+			"dexterity": "wod.attributes.short.dex",
+			"stamina": "wod.attributes.short.sta",
+			"manipulation": "wod.attributes.short.man",
+			"appearance": "wod.attributes.short.app",
+			"perception": "wod.attributes.perception",
+			"wits": "wod.attributes.wits",
+			"intelligence": "wod.attributes.intelligence",
+			"charisma": "wod.attributes.charisma",
+			"composure": "wod.attributes.composure",
+			"resolve": "wod.attributes.resolve"
+		};
+
+		return shortNameMap[attributeName?.toLowerCase()] || attributeName;
+	});
+
+	/**
+	 * Formats bonus value as string with + prefix for positive values
+	 * @param bonus - the bonus object with value property
+	 * @return {String} - formatted bonus value (e.g. "+2", "-1", "0")
+	 */
+	Handlebars.registerHelper("formatBonusValue", function (bonus) {
+		if (!bonus || bonus.value === undefined || bonus.value === null) {
+			return "0";
+		}
+
+		const value = Number(bonus.value);
+		if (value > 0) {
+			return "+" + value;
+		}
+		return value.toString();
 	});
 
 	Handlebars.registerHelper("topSpheres", function (sphere) {
@@ -1567,6 +1723,9 @@ export const registerHandlebarsHelpers = function () {
 		if (totalDamage >= 6) return game.i18n.localize("wod.health.dust");
 	});	
 
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy Mage actor sheets. PC Actor uses quintessenceWheel_v2 instead.
+	 */
 	Handlebars.registerHelper("quintessenceWheel", function (quintessence, paradox, index) {
 		let state = "";
 		const square = index + 1;
@@ -1589,6 +1748,38 @@ export const registerHandlebarsHelpers = function () {
 		return state;
 	});
 
+	Handlebars.registerHelper("quintessenceWheel_v2", function (quintessence, paradox, index) {
+		let state = "";
+
+		if ((quintessence == undefined) || (paradox == undefined)) {
+			return state;
+		}
+
+		const square = index + 1;
+
+
+
+		if ((paradox.system.permanent > 0) && (20 - paradox.system.permanent  < square)) {
+			state = "*";
+			return state;
+		}
+
+		if ((paradox.system.temporary > 0) && (20 - (paradox.system.permanent + paradox.system.temporary) < square)) {
+			state = "x";
+			return state;
+		}
+
+		if ((quintessence.system.temporary > 0) && (square <= quintessence.system.temporary))  {
+			state = "Ψ";
+			return state;
+		}
+
+		return state;
+	});
+
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy Werewolf actor sheets
+	 */
 	Handlebars.registerHelper("getGiftList", function (gifts, rank) {
 		let list = [];
 
@@ -1614,22 +1805,9 @@ export const registerHandlebarsHelpers = function () {
 		return list;
 	});
 
-	// Handlebars.registerHelper("checkProperty", function (properties, name, value) {
-	// 	if (properties.length == 0) {
-	// 		return false;
-	// 	}
-
-	// 	if (properties[name] == undefined) {
-	// 		return false;
-	// 	}
-
-	// 	if (properties[name] == value) {
-	// 		return true;
-	// 	}
-
-	// 	return false;
-	// });
-
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy actor sheets
+	 */
 	Handlebars.registerHelper("getProperty", function (properties, name) {
 		if (properties.length == 0) {
 			return "";
@@ -1642,6 +1820,9 @@ export const registerHandlebarsHelpers = function () {
 		return game.i18n.localize(properties[name]);
 	});
 
+	/**
+	 * @deprecated Legacy Actor only - Used only by legacy actor sheets
+	 */
 	Handlebars.registerHelper("translateConceal", function (conceal, era, fullname) {
 
 		if (era == undefined) {
@@ -1847,12 +2028,12 @@ export const registerHandlebarsHelpers = function () {
 		return text.toLowerCase();
 	});
 
-	Handlebars.registerHelper("isEmpty", function (text) {
-		if (text == undefined) {
+	Handlebars.registerHelper("isEmpty", function (list) {
+		if (list == undefined) {
 			return true;
 		}
 
-		if (text.length == 0) {
+		if (list.length == 0) {
 			return true;
 		}
 		else {
@@ -1910,16 +2091,6 @@ export const registerHandlebarsHelpers = function () {
 		}
 	});
 
-	// Handlebars.registerHelper("ragePenalty", function (value) {
-	// 	let rageDiff = parseInt(this.actor.system.advantages.rage.roll) - parseInt(this.actor.system.advantages.willpower.roll);
-
-	// 	if (rageDiff < 0) {
-	// 		rageDiff = 0;
-	// 	}
-
-	// 	return rageDiff * -1;
-	// });
-
 	Handlebars.registerHelper("calculateHight", function (area, list) {
 		if (area == "rotes") {
 			if (list.length < 26) {
@@ -1965,7 +2136,7 @@ export const registerHandlebarsHelpers = function () {
 
 		if (actor != undefined) {
 			if (actor.system.abilities[ability] != undefined) {
-				if (actor.system.abilities[ability].altlabel != "") {
+				if ((actor.system.abilities[ability].altlabel != "") && (actor.system.abilities[ability].altlabel != undefined)) {
 					return actor.system.abilities[ability].altlabel;
 				}
 			}			

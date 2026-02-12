@@ -1,0 +1,32 @@
+<div class="dialog-area">
+    <div class="item information-area">
+        {{localize 'wod.labels.new.description'}}
+    </div>
+    
+    <div class="power-selection">
+        {{#each categories as |category gameKey|}}
+        <div class="power-category {{#if category.expanded}}expanded{{/if}}" data-game="{{gameKey}}">
+            <div class="power-category-header" data-action="toggleCategory">
+                <i class="fas fa-chevron-{{#if category.expanded}}down{{else}}right{{/if}}"></i>
+                <span class="power-category-label">{{category.label}}</span>
+            </div>
+            <div class="power-category-buttons" {{#unless category.expanded}}style="display:none;"{{/unless}}>
+                {{#each category.buttons as |button key|}}
+                <button type="button" class="power-button" data-action="createPower" data-power-type="{{key}}">
+                    {{button.label}}
+                </button>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

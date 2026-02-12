@@ -1,4 +1,4 @@
-<div class="sheet-area flex-columns">
+<div class="sheet-area flex-columns" style="min-height: 150px;">
     <div class="sheet-headline sheet-banner splatFont" data-area="giftlist"><span class="sheet-banner-text">{{localize "wod.power.gifts"}}</span></div>
     
     {{#if (eq data.system.renown.rank 0)}}
@@ -7,76 +7,13 @@
 
     {{#numFromLoop 1 6}}
         {{#if (gte ../data.system.renown.rank this)}}
-            <div class="clearareaBox">
+            <div>
 
-                <div class="headlineRow splatFont" data-area="giftrank{{this}}">
-                    <div class="clearareaBox">
-                        <div class="pullLeft">
-                            <i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.advantages.rank'}} {{this}}" aria-hidden="true" data-itemtype="Power" data-type="gift" data-level="{{this}}"></i>
-                        </div>
-                        <div class="pullLeft">{{localize "wod.advantages.rank"}} {{this}}</div>                        
-                    </div>
-                </div>
+                <div class="headlineRow splatFont" data-area="giftrank{{this}}">{{localize "wod.advantages.rank"}} {{this}}</div>                        
 
                 {{#each (getGiftList ../actor.system.listdata.powers.gifts this) as |item id|}}
 
-                    <div class="item-row-area" data-area="giftrow{{id}}">
-                        <div class="clearareaBox {{#if item.system.isrollable}}gift-rollablerow{{else}}gift-row{{/if}}">
-                            <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                            <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                                data-type="{{../../config.sheettype.werewolf}}"
-                                data-object="Gift"
-                                data-rollitem="true"
-                                data-itemid="{{item._id}}">{{item.name}}</div>
-                            {{#if item.system.isrollable}}
-                                <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                                <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2  ../actor)}}{{else}}&nbsp;{{/if}}</div>
-                                <div class="pullLeft power-valueBox headlineNormal centerText">
-                                    {{#if (eq item.system.difficulty "-1")}}
-                                        {{localize "wod.labels.varies"}}
-                                    {{else}}
-                                        {{item.system.difficulty}}
-                                    {{/if}}
-                                </div>
-                            {{else}}
-                                <div class="pullLeft">&nbsp;</div>
-                            {{/if}}
-                            
-                            <div class="pullLeft gift-iconbox">
-                                {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}                                    
-                                <div class="pullLeft">
-                                    <a class="send-chat" 
-                                        title="{{localize 'wod.labels.send'}}" 
-                                        data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                                </div>
-                                {{#if (eq ../../locked false)}}
-                                    <div class="pullLeft pointer">
-                                        <a class="item-edit" title="{{localize "wod.labels.edit.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                    </div>
-                                    <div class="pullLeft pointer">
-                                        <a class="item-delete" title="{{localize "wod.labels.remove.gift"}}" data-type="Gift" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                    </div>
-                                {{/if}}
-                                
-                                {{#if (gt item.system.bonuslist.length 0)}}
-                                    <div class="pullLeft pointer">
-                                        <i id="collapsiblegift{{../this}}bonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../../config.sheettype.mortal}}" data-type="gift{{../this}}{{id}}"></i>
-                                    </div>
-                                {{/if}}   
-                            </div>
-                        </div>
-                        <div class="hide bonuses gift{{../this}}{{id}}" data-area="gift{{../this}}bonus{{id}}">
-
-                            {{#each item.system.bonuslist as |bonus id|}}
-                                <div class="clearareaBox" data-area="giftbonus_{{id}}">
-                                    <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                    <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                    <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                                </div>
-                            {{/each}}
-
-                        </div>
-                    </div>
+                    {{> "systems/worldofdarkness/templates/actor/parts/power_list.html" item=item config=../../config actor=../../actor locked=../../locked showclear=false}}
 
                 {{/each}}
 

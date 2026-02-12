@@ -5,10 +5,30 @@
   --main-mid-color: var(--main-mortal-mid-color);
   --main-dim-color: var(--main-mortal-dim-color);
   --color-shadow-primary: var(--main-mortal-color);
-}
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  /* .headlineTabs (24px) */
+  --wod-font-headline-tabs: 1.5rem; /* 24px */
+  /* .secondHeadlineTabs (18px) */
+  --wod-font-second-headline-tabs: 1.125rem; /* 18px */
+  /* .headlineGroup (dialog 26px) */
+  --wod-font-headline-group: 1.625rem; /* 26px */
+  /* .headline (dialog 18px) */
+  --wod-font-headline: 1.125rem; /* 18px */
+}  
 
 .mortal:not(.noSplatFont) .headlineTabs {
-    font-size: 24px;
+    font-size: var(--wod-font-headline-tabs);
 }
 
 .mortal:not(.noSplatFont) nav,
@@ -24,17 +44,17 @@
 }
 
 .mortal:not(.noSplatFont) .secondHeadlineTabs {
-    font-size: 18px;
+    font-size: var(--wod-font-second-headline-tabs);
 }
 
 .mortalDialog:not(.noSplatFont) .headlineGroup {
-    font-size: 26px;
+    font-size: var(--wod-font-headline-group);
 }
 
 .mortalDialog:not(.noSplatFont) .headline {
-    font-size: 18px;
+    font-size: var(--wod-font-headline);
 }
 
 .mortal .headlineList:not(.noSplatFont) {
-    font-size: 16px;
-}
+    font-size: var(--wod-font-base);
+} 

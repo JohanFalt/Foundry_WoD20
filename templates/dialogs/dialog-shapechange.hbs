@@ -10,10 +10,10 @@
     </div>
 
     <div class="dialog-area">
-        <div class="headline splatFont">{{localize "wod.dialog.shapechange.selectshape"}}</div>
+        <div class="headline splatFont">{{localize "wod.dialog.shapechange.selectshape"}}</div>        
 
         <div class="infobox centerText">
-            {{#if (eq actorType config.sheettype.werewolf)}}
+            {{#if (eq actorType config.splat.werewolf)}}
                 <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.homid.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'homid')}}active{{/if}}" value="homid" >{{localize "wod.shapes.homid"}}</button>
                 <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.glabro.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'glabro')}}active{{/if}}" value="glabro" >{{localize "wod.shapes.glabro"}}</button>
                 <button id="shape" class="button fullSplatColor dialog-shapechange-button {{#if (eq actorData.shapes.crinos.isactive true)}}disabled{{else}}pointer{{/if}} {{#if (eq object.selectedShape 'crinos')}}active{{/if}}" value="crinos" >{{localize "wod.shapes.crinos"}}</button>

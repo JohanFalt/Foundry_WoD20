@@ -5,7 +5,23 @@
   --main-mid-color: var(--main-creature-mid-color);
   --main-dim-color: var(--main-creature-dim-color);
   --color-shadow-primary: var(--main-creature-color);
-}
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-headline-text: 1.125rem; /* 18px (.headlineText) */
+  --wod-font-second-headline-tabs: 0.875rem; /* 14px (.secondHeadlineTabs) */
+  --wod-font-headline: 0.875rem; /* 14px (dialog .headline) */
+  --wod-font-xl: 0.875rem; /* 14px (.secondHeadlineTabs uses xl normally) */
+} 
 
 .creature:not(.noSplatFont) nav,
 .creature:not(.noSplatFont) .splatFont {
@@ -13,7 +29,7 @@
 }
 
 .creature:not(.noSplatFont) .headlineText {
-	font-size: 18px;
+	font-size: var(--wod-font-headline-text);
 }
 
 .creature .headlineRow {
@@ -22,7 +38,7 @@
   line-height: 23px;
   margin-top: 25px;
   margin-bottom: 5px;
-}
+} 
 
 /* CORE */
 
@@ -64,7 +80,7 @@
 /* SETTING */
 
 .creature:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 14px;
+  font-size: var(--wod-font-second-headline-tabs);
 }
 
 .creature .secondHeadlineTabs {
@@ -78,5 +94,5 @@
 /* DIALOG */
 
 .creatureDialog:not(.noSplatFont) .headline {
-    font-size: 14px;
+    font-size: var(--wod-font-headline);
 }

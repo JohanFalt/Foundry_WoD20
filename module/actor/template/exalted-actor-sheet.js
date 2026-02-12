@@ -66,7 +66,7 @@ export default class ExaltedActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 
 	async _onDotCounterExaltedChange(event) {

@@ -1,0 +1,61 @@
+<div class="clearareaBox area-box">
+
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize 'wod.spheres.spheres'}}</span>
+	</div>
+
+	<div class="">
+		{{#each spheres as |sphere index|}}
+
+			{{#if (eq (mod index 3) 0)}}<div class="magic-statArea pullLeft">{{/if}}
+
+			<div class="sphere-itemlist">
+				<div class="headlineNormal sphere-itemlist {{#if (eq sphere.system.id ../actor.system.bio.splatfields.affinity.value)}}highlightedPowerRow{{/if}}" style="width: 100%;">
+					<div class="spheres-headlineWidth headlineNormalSpheres splatFont" 
+						{{#if (eq sphere.system.id ../actor.system.bio.splatfields.affinity.value)}}
+							title="{{localize 'wod.bio.mage.affinitysphere'}}"
+						{{/if}}>
+						{{localize sphere.system.label}}
+					</div>
+
+					<div class="resource-value" 
+						data-itemid="{{sphere._id}}"
+						data-key="{{sphere.system.id}}"
+						data-value="{{sphere.system.value}}" 
+						data-name="system.value">
+
+						{{#numLoop sphere.system.max}}					
+							<span class="{{#if (gt sphere.system.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-action="editDot" data-type="{{../../config.sheettype.mage}}" data-index="{{this}}" data-itemid="{{sphere._id}}" data-ability="core"></span>					
+						{{/numLoop}}						
+						
+					</div>
+					{{#if (eq ../locked false)}}
+						<div class="iconBox">							
+							{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showedit=true item=sphere locked=../locked edittitle="wod.labels.edit.sphere" collapseclass="power"}}
+						</div>
+					{{else}}
+						{{#if (gte sphere.system.value 4)}}
+							<div class="pullRight speciality-magic-icon">
+								<i class="fa-solid fa-circle-exclamation {{#if (eq sphere.system.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{sphere.system.speciality}}"></i>
+							</div>
+						{{else}}
+							<div class="pullRight speciality-magic-empty-icon">
+								&nbsp;
+							</div>
+						{{/if}}
+					{{/if}}
+				</div>	
+					
+			</div>
+			<div class="description" data-itemid="{{sphere._id}}">
+
+				{{{getToolTip_v2 sphere.system.description "" sphere.system.bonuslist ../actor}}}
+
+			</div>
+
+			{{#if (eq (mod index 3) 2)}}</div>{{/if}}
+		
+		{{/each}}	
+	</div> 
+
+</div>

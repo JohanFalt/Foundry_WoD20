@@ -85,11 +85,33 @@ export class DialogRoll extends FormApplication {
         data.actorData = this.actor.system;
         data.config = CONFIG.worldofdarkness;
 
-        if (this.actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
-            data.object.sheettype = this.actor.type.toLowerCase() + "Dialog";
+        // Determine sheettype for dialog CSS classes
+        let actortype = this.actor.type.toLowerCase();
+        
+        // For PC actors, use splat or variantsheet to determine type
+        if (this.actor.type === "PC") {
+            if (this.actor?.system?.settings?.splat && this.actor.system.settings.splat !== "") {
+                actortype = this.actor.system.settings.splat.toLowerCase();
+            }
+            else if (this.actor?.system?.settings?.variantsheet && this.actor.system.settings.variantsheet !== "") {
+                actortype = this.actor.system.settings.variantsheet.toLowerCase();
+            }
+        }
+
+        if (actortype != CONFIG.worldofdarkness.sheettype.changingbreed.toLowerCase()) {
+            data.object.sheettype = actortype + "Dialog";
         }
         else {
             data.object.sheettype = "werewolfDialog";
+        }
+
+        // Use actortype for speciality checks (keep existing logic)
+        if (this.actor?.system?.settings?.splat !== undefined) {
+            actortype = this.actor.system.settings.splat;
+        }
+
+        if (CONFIG.worldofdarkness.alwaysspeciality[actortype] == undefined) {
+            actortype = CONFIG.worldofdarkness.sheettype.vampire.toLowerCase();
         }
 
         // is dice1 an Attributes
@@ -107,6 +129,33 @@ export class DialogRoll extends FormApplication {
             }
         }
         // is dice1 an Advantage
+        else if ((this.actor.type == "PC") && this.actor.api) {
+            const advantage = this.actor.api.getAdvantage(data.object.dice1);
+            if (advantage && advantage.system?.roll != undefined) {
+                data.object.attributeValue = parseInt(advantage.system.roll);
+                data.object.attributeName = game.i18n.localize(advantage.system.label);
+
+                // om willpower
+                if ((advantage.system.label == "wod.advantages.willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
+                    if (parseInt(this.actor.system.attributes?.composure.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+                        data.object.hasSpeciality = true;
+
+                        if (data.object.specialityText != "") {
+                            data.object.specialityText += ", ";
+                        }
+                        data.object.specialityText += this.actor.system.attributes.composure.speciality;
+                    }
+                    if (parseInt(this.actor.system.attributes?.resolve.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+                        data.object.hasSpeciality = true;
+
+                        if (data.object.specialityText != "") {
+                            data.object.specialityText += ", ";
+                        }
+                        data.object.specialityText += this.actor.system.attributes.resolve.speciality;
+                    }
+                }
+            }
+        }
         else if ((this.actor.system?.advantages[data.object.dice1] != undefined) && (this.actor.system.advantages[data.object.dice1]?.roll != undefined)) {
             data.object.attributeValue = parseInt(this.actor.system.advantages[data.object.dice1].roll);
             data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
@@ -157,11 +206,25 @@ export class DialogRoll extends FormApplication {
             }
         }
 
-        if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
+        // ability on dice2
+        if ((this.actor.type == "PC") && this.actor.api && data.object.dice2 && data.object.dice2 !== "") {
+            const abilityItem = this.actor.api.getAbility(data.object.dice2);
+            if (abilityItem) {
+                data.object.abilityValue = parseInt(abilityItem.system.value);
+                data.object.abilityName = game.i18n.localize(abilityItem.system.label);
+
+                if ((parseInt(abilityItem.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || 
+                    (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(abilityItem.system.id))) {
+                    data.object.hasSpeciality = true;
+                    abilitySpeciality = abilityItem.system.speciality;
+                }
+            }
+        }
+        else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
             data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
             data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
 
-            if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice2]._id))) {
+            if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(this.actor.system.abilities[data.object.dice2]._id))) {
                 data.object.hasSpeciality = true;
 
                 if (data.object.specialityText != "") {

@@ -1,6 +1,22 @@
 .hunter {
     --sheet-background-color: var(--hunter-page-background);
-}
+
+    /* Splat-specific font-size defaults (tweak per splat if needed) */
+    --wod-font-xxs: 0.4375rem;   /* 7px */
+    --wod-font-xs: 0.625rem;     /* 10px */
+    --wod-font-md: 0.875rem;     /* 14px */
+    --wod-font-base: 1rem;       /* 16px */
+    --wod-font-lg: 1.125rem;     /* 18px */
+    --wod-font-xl: 1.25rem;      /* 20px */
+    --wod-font-xxl: 1.5rem;      /* 24px */
+
+    /* Overrides to preserve current hard-coded sizes in this splat */
+    --wod-font-sheet-headline: 1.875rem; /* 30px */
+    --wod-font-headline-tabs: 1.75rem; /* 28px (.headlineTabs) */
+    --wod-font-headline-group: 1.75rem; /* 28px (dialog .headlineGroup) */
+    --wod-font-headline: 1.125rem; /* 18px (dialog .headline) */
+    --wod-font-second-headline-tabs: 1.625rem; /* 26px */
+} 
   
 .hunter .modern {  
     --main-wod-banner: var(--hunter-banner-background);
@@ -24,30 +40,30 @@
 }
 
 .hunter:not(.noSplatFont) .sheet-headline {
-  font-size: 30px;
+  font-size: var(--wod-font-sheet-headline);
 }
 
 .hunter:not(.noSplatFont) .headlineTabs {
-  font-size: 28px;
+  font-size: var(--wod-font-headline-tabs);
   line-height: 28px;
 }
 
 .hunterDialog:not(.noSplatFont) .headlineGroup {
-  font-size: 28px;
+  font-size: var(--wod-font-headline-group);
 }
 
 .hunterDialog:not(.noSplatFont) .headline {
-  font-size: 18px;
+  font-size: var(--wod-font-headline);
 }
 
 .hunter:not(.noSplatFont) .headlineList {
-  font-size: 18px;
+  font-size: var(--wod-font-lg);
   font-weight: normal;
 }
 
 .hunter:not(.noSplatFont) .sheet-headline {
-  font-size: 30px;
-}
+  font-size: var(--wod-font-sheet-headline);
+} 
 
 /* CORE */
 
@@ -60,7 +76,7 @@
 /* SETTINGS */
 
 .hunter:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 26px;
+  font-size: var(--wod-font-second-headline-tabs);
 }
 
 .hunter .secondHeadlineTabs {

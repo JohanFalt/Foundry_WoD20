@@ -11,7 +11,7 @@
         <div class="item-row item-row-area">
             <div class="width-namebox">{{#if (ne bonus.origin "")}}{{bonus.origin}}{{else}}{{bonus.name}}{{/if}}</div>
             <div class="width-abilitybox">{{getBonusName bonus.system.type}}</div>
-            <div class="width-mediumbox">{{localize (getAbility (localize (getAttributes bonus.system.settingtype)) ../actor)}}</div>        
+            <div class="width-mediumbox">{{shorten (localize (getAbility (localize (getAttributes bonus.system.settingtype)) ../actor)) 15}}</div>        
             <div class="width-valuebox">{{bonus.system.value}}</div>
             <div class="width-valuebox">            
                 {{#if bonus.system.isactive}}

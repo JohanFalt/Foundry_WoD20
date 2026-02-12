@@ -19,6 +19,8 @@ export const systemSettings = function() {
 		type: String,
 	});
 
+    
+
 	// Are you to use the permanent (check) values or temporary (not checked) of e.g. Willpower in rolls
 	game.settings.register("worldofdarkness", "advantageRolls", {
 		name: game.i18n.localize('wod.settings.advantagerolls'),
@@ -71,7 +73,7 @@ export const systemSettings = function() {
 		}
 	});
 
-	game.settings.register("worldofdarkness", "willpowerBonusDice", {
+    game.settings.register("worldofdarkness", "willpowerBonusDice", {
 		name: game.i18n.localize('wod.settings.willpowerBonusDice'),
 		hint: game.i18n.localize('wod.settings.willpowerBonusDicehint'),
 		scope: "world",
@@ -87,8 +89,14 @@ export const systemSettings = function() {
 		hint: game.i18n.localize('wod.settings.therollofonehint'),
 		scope: "world",
 		config: false,
-		default: true,
-		type: Boolean,
+		default: 1,
+		type: Number,
+        choices: {
+            "0": game.i18n.localize('wod.settings.nonotuse'),
+            "1": "-1",
+			"2": "-2",
+			"3": "-3"
+		}
 	});
 
     game.settings.register("worldofdarkness", "useOnesDamage", {
@@ -569,6 +577,25 @@ export const systemSettings = function() {
     game.settings.register("worldofdarkness", "patch500", {
 		name: "patch500",
 		hint: "patch500",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
+    game.settings.register("worldofdarkness", "patch600", {
+		name: "patch600",
+		hint: "patch600",
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean,
+	});
+
+    /* Messages */
+    game.settings.register("worldofdarkness", "readmessage01", {
+		name: "Read message01",
+		hint: "",
 		scope: "world",
 		config: false,
 		default: false,

@@ -1,0 +1,185 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
+
+    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-origin="feature" data-action="itemCreate"></i>
+
+    <div class="sheet-area flex-columns">
+        <div class="headlineRow headlineList splatFont feature-itemlist">
+            <div class="largeBox">{{localize "TYPES.Item.Feature"}}</div>                
+        </div>
+
+        {{#if (gt backgrounds.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each backgrounds as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked unnamedtitle="wod.notes.unnamedbackground" edittitle="wod.labels.edit.background" deletetitle="wod.labels.remove.background"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt merits.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each merits as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.merit" deletetitle="wod.labels.remove.merit"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt flaws.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each flaws as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.flaw" deletetitle="wod.labels.remove.flaw"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt bloodbounds.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each bloodbounds as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.bloodbound" deletetitle="wod.labels.remove.bloodbound"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt boons.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each boons as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.boon" deletetitle="wod.labels.remove.boon"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt oaths.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each oaths as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.oath" deletetitle="wod.labels.remove.oath"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt shapeforms.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each shapeforms as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.headline" deletetitle="wod.labels.remove.headline"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+        {{#if (gt othertraits.length 0)}}
+            <div class="feature-itemlistarea">
+
+                {{#each othertraits as |item id|}}
+
+                    {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=item locked=../locked edittitle="wod.labels.edit.othertraits" deletetitle="wod.labels.remove.othertraits"}}
+
+                {{/each}}
+
+            </div>
+        {{/if}}
+
+    </div>        
+
+    <div class="sheet-area flex-columns">
+        <div class="clearareaBox area-box">
+            <div class="pullLeft" style="width:50%;">
+                <div class="headlineRow splatFont">
+                    <div class="clearareaBox" style="width:100%">
+                        <div class="pullLeft largeBox">{{localize "wod.labels.notes.expearned"}}</div>
+                        <div class="pullLeft experienceValue">{{getTotalExperience actor "earned"}}</div>
+                        <div class="pullRight pointer" style="margin-right: 15px;">
+                            <i class="icon unfold button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.experience'}}" data-sheet="{{config.sheettype.mortal}}" data-type="addexp"></i>
+                        </div>                                            
+                    </div>
+                </div>
+
+                <div class="clearareaBox hide addexp" data-area="addexp">
+                    {{#each (getEarnedExperience actor) as |item id|}}
+                        <div class="clearareaBox row note-row" style="margin-right: 5px;">
+                            <div class="pullLeft notes-experienceHeadline headlineNormal">
+                                {{#if (ne item.system.description "")}}
+                                    {{item.system.description}}
+                                {{else}}
+                                    {{localize "wod.notes.descriptionmissing"}}
+                                {{/if}}
+                            </div>
+                            <div class="pullLeft notes-valueBox headlineNormal">{{item.system.amount}}</div>
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft">
+                                    <a class="item-edit" title="{{localize 'wod.labels.edit.experience'}}" data-type="Experience" data-itemid="{{item.id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.experience'}}" data-type="Experience" data-itemid="{{item.id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}
+                        </div>                    
+                    {{/each}}            
+                </div>
+            </div>
+
+            <div class="pullLeft" style="width:50%">
+                <div class="headlineRow splatFont">
+                    <div class="clearareaBox" style="width:100%">
+                        <div class="pullLeft largeBox">{{localize "wod.labels.notes.expspend"}}</div>
+                        <div class="pullLeft experienceValue">{{getTotalExperience actor "spent"}}</div> 
+                        <div class="pullRight pointer" style="margin-right: 15px;">
+                            <i class="icon unfold button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.spentexp'}}" data-sheet="{{config.sheettype.mortal}}" data-type="spentexp"></i>
+                        </div>                                            
+                    </div>
+                </div>
+
+                <div class="clearareaBox hide spentexp" data-area="spentexp">
+                    {{#each (getSpendExperience actor) as |item id|}}
+                        <div class="clearareaBox row note-row">
+                            <div class="pullLeft notes-experienceHeadline headlineNormal">
+                                {{#if (ne item.system.description "")}}
+                                    {{item.system.description}}
+                                {{else}}
+                                    {{localize "wod.notes.descriptionmissing"}}
+                                {{/if}}
+                            </div>
+                            <div class="pullLeft notes-valueBox headlineNormal">
+                                {{#if item.system.isspent}}
+                                    {{item.system.amount}}
+                                {{else}}
+                                    {{localize "wod.notes.unspent"}}
+                                {{/if}}
+                            </div>
+                            {{#if (eq ../locked false)}}
+                                <div class="pullLeft">
+                                    <a class="item-edit" title="{{localize 'wod.labels.edit.experience'}}" data-type="Experience" data-itemid="{{item.id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.experience'}}" data-type="Experience" data-itemid="{{item.id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+                                </div>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>

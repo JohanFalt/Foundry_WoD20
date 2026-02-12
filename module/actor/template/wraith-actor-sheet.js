@@ -78,7 +78,7 @@ export default class WraithActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 
 	async _onDotCounterWraithChange(event) {

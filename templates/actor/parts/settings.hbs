@@ -1,0 +1,553 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
+
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize "wod.tab.settings"}}</span>
+	</div>
+
+	<nav class="sheet-setting-tabs tabs" data-group="settings">
+		<a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="bio">{{localize "wod.tab.bio"}}</a>
+		<a class="secondHeadlineTabs thin-border-left active" data-action="settingsTab" data-tab="statsadv">{{localize "wod.tab.stats"}}</a>
+		<a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="power">{{localize "wod.tab.power"}}</a>
+		<a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="combat">{{localize "wod.tab.combat"}}</a>
+		<!-- <a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="features">{{localize "wod.tab.features"}}</a> -->
+		<!-- <a class="secondHeadlineTabs thin-border-left thin-border-right" data-action="settingsTab" data-tab="sheet">features</a> -->
+	</nav>
+
+	<section class="sheet-setting-body">
+		{{!-- Bio --}}
+		<div class="tab settings-bio" data-group="settings" data-tab="bio">
+
+			<div class="space headlineGroup splatFont">{{localize 'wod.settings.splatfields'}}</div>
+
+			{{#each splatfields as |field key|}}
+
+				<div class="flex-row advantage-item">
+					<div class="headlineNormal" style="width:150px;">{{localize field.label}}</div>
+					<div>
+						{{#if (not ../locked)}}
+							{{#if field.isvisible}}
+								<i class="item-active pointer icon fa-solid fa-eye" data-type="system.bio.splatfields.{{key}}.isvisible" data-action="actorSwitch"></i>
+							{{else}}
+								<i class="item-active pointer icon fa-solid fa-eye-slash" data-type="system.bio.splatfields.{{key}}.isvisible" data-action="actorSwitch"></i>
+							{{/if}}
+							{{#if field.isremovable}}
+								<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-type="system.bio.splatfields.{{key}}" data-action="actorDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+							{{/if}}
+						{{/if}}
+					</div>
+				</div>
+
+			{{/each}}
+			{{#if (not hassplatfields)}}
+				<div>{{localize "wod.settings.notinstalled"}}</div>
+			{{/if}}
+		</div>
+
+		{{!-- Stats & Advantages --}}
+		<div class="tab settings-statsadv" data-group="settings" data-tab="statsadv">
+
+			<div class="space headlineGroup splatFont">{{localize 'wod.attributes.attributes'}}</div>		
+
+			<div class="sheet-area flex-columns">
+				<div class="clearareaBox">
+					<div class="clearareaBox">
+						<div class="pullLeft headlineNormal settings-leftwidth">&nbsp;</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.value'}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.bonus.headline'}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.total'}}</div>
+						{{#if (ne actor.type config.sheettype.vampire)}}
+							<div class="pullLeft headlineNormal numberBox">{{localize 'wod.labels.max'}}</div>
+						{{/if}}
+					</div>
+
+					{{#each actor.system.attributes as |attribute key|}}
+				
+						{{#if attribute.isvisible}}
+							<div class="clearareaBox">
+								<label for="data.system.attributes.{{key}}.value" class="pullLeft headlineNormal settings-leftwidth">{{localize attribute.label}}</label>	
+								<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.value}}" readonly />
+								<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq ../locked false)}}editable{{/if}}" type="text" value="{{attribute.bonus}}" name="system.attributes.{{key}}.bonus" 
+									data-source="attribute"
+									data-attribute="{{key}}"
+									data-dtype="Number" {{#if locked}}readonly{{/if}} />
+								<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{attribute.total}}" readonly />
+								{{#if (ne ../actor.system.settings.splat ../config.splat.vampire)}}
+									<input class="pullLeft sheet-infoValues numberBox {{#if (eq ../locked false)}}editable{{/if}}" type="text" value="{{attribute.max}}" name="system.attributes.{{key}}.max" 
+										data-value="{{attribute.max}}" 
+										data-name="data.system.attributes.{{key}}.max" 
+										data-dtype="Number" {{#if locked}}readonly{{/if}} />
+								{{/if}}
+							</div>
+						{{/if}}
+						
+					{{/each}}
+				</div>
+				<div class="clearareaBox information-area">
+					{{localize 'wod.info.settings.attribute1'}}<br />
+					{{localize 'wod.info.settings.attribute2'}}<br />
+					{{localize 'wod.info.settings.attribute3'}}<br />
+					{{localize 'wod.info.settings.attribute4'}}
+				</div>
+			</div>
+
+			<div class="space">
+				<div class="clearareaBox">
+					<div class="pullLeft headlineNormal" style="line-height: 26px;">{{localize "wod.labels.settings.attributesmaxrating"}}</div>
+					<div class="pullLeft settings-verticalcenter bold">
+						{{#if locked}}
+							<input class="sheet-infoValues half" type="text" value="{{actor.system.settings.attributes.defaultmaxvalue}}" data-dtype="Number" readonly />
+						{{else}}
+							<input class="sheet-infoValues half editable" type="text" name="system.settings.attributes.defaultmaxvalue" value="{{actor.system.settings.attributes.defaultmaxvalue}}" data-dtype="Number" autofocus required />
+						{{/if}}
+					</div>				
+				</div>
+				<div class="clearareaBox information-area">{{localize "wod.labels.settings.maxattribute"}}</div>
+			</div>
+
+			<div class="headlineGroup splatFont">{{localize 'wod.abilities.abilities'}}</div>
+
+			<div class="sheet-area flex-columns">
+				{{> "systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs" showheadline=false useroll=false showvalues=false showvisibleicon=true}}
+			</div>
+
+			<div class="space">
+				<div class="clearareaBox">
+					<div class="pullLeft headlineNormal" style="line-height: 26px;">{{localize "wod.labels.settings.abilitiesmaxrating"}}</div>
+					<div class="pullLeft settings-verticalcenter bold">
+						{{#if locked}}
+							<input class="sheet-infoValues half" type="text" value="{{actor.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" readonly />
+						{{else}}
+							<input class="sheet-infoValues half editable" type="text" name="system.settings.abilities.defaultmaxvalue" value="{{actor.system.settings.abilities.defaultmaxvalue}}" data-dtype="Number" autofocus required />
+						{{/if}}
+					</div>				
+				</div>
+				<div class="clearareaBox information-area">{{localize "wod.labels.settings.maxability"}}</div>
+			</div>
+
+			<div class="headlineGroup splatFont">{{localize 'wod.advantages.advantages'}}</div>
+			<div class="clearareaBox information-area">{{localize "wod.settings.orderhint"}}</div>
+
+			<div class="dialog-area flex-columns" data-drop-area="advantages" data-droparea="advantages">
+				{{#each advantages as |item|}}
+					<div class="flex-row advantage-item"
+								data-drag="true"
+								data-documentid="{{../actor._id}}"
+								data-itemid="{{item._id}}"
+								data-list="system.advantages"
+								data-type="{{item.type}}"
+								data-order="{{item.system.settings.order}}">
+						<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+						<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
+						<div>
+							{{#if (not ../locked)}}
+								{{#if item.system.settings.isvisible}}
+									<i class="item-active pointer icon fa-solid fa-eye" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+								{{else}}
+									<i class="item-active pointer icon fa-solid fa-eye-slash" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+								{{/if}}
+								<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+								{{#if item.system.settings.isremovable}}
+									<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+								{{/if}}
+							{{/if}}
+						</div>
+					</div>
+				{{/each}}
+			</div>
+
+			{{#if actor.system.settings.hasvirtue}}
+				<div class="headlineGroup splatFont">{{localize "wod.advantages.virtue.virtues"}}</div>
+
+				<div class="dialog-area flex-columns">
+					{{#each vampire_virtues as |item|}}
+						<div class="flex-row">
+							<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
+							<div>
+								{{#if (not ../locked)}}
+									{{#if item.system.settings.isvisible}}
+										<i class="item-active pointer icon fa-solid fa-eye" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+									{{else}}
+										<i class="item-active pointer icon fa-solid fa-eye-slash" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+									{{/if}}
+									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+									{{#if item.system.settings.isremovable}}
+										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+					{{/each}}
+				</div>
+
+			{{/if}}
+		</div>
+
+		{{!-- Power --}}
+		<div class="tab settings-power" data-group="settings" data-tab="power" style="display:none;">
+			<div class="space">
+				<div class="clearareaBox">
+					<div class="pullLeft headlineNormal" style="line-height: 26px;">{{localize "wod.labels.settings.power.maxrating"}}</div>
+					<div class="pullLeft settings-verticalcenter bold">
+						{{#if locked}}
+							<input class="sheet-infoValues half" type="text" value="{{actor.system.settings.powers.defaultmaxvalue}}" data-dtype="Number" readonly />
+						{{else}}
+							<input class="sheet-infoValues half editable" type="text" name="system.settings.powers.defaultmaxvalue" value="{{actor.system.settings.powers.defaultmaxvalue}}" data-dtype="Number" autofocus required />
+						{{/if}}
+					</div>				
+				</div>
+				<div class="clearareaBox information-area">{{localize "wod.labels.settings.power.maxratinghint"}}</div>
+			</div>
+
+			{{#if actor.system.settings.hasshapes}}
+				<div class="headlineGroup splatFont">{{localize "wod.settings.existingshapes"}}</div>
+				<div class="clearareaBox information-area">{{localize "wod.settings.orderhint"}}</div>
+
+				<div class="space dialog-area flex-columns" data-drop-area="features" data-droparea="features">
+					{{#each shapes as |item|}}
+						<div class="flex-row feature-item"
+								data-drag="true"
+								data-documentid="{{../actor._id}}"
+								data-itemid="{{item._id}}"
+								data-list="system.features"
+								data-type="{{item.type}}"
+								data-order="{{item.system.order}}">
+							<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+							<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
+							<div>
+								{{#if (not ../locked)}}
+									{{#if item.system.isvisible}}
+										<i class="item-active pointer icon fa-solid fa-eye" data-itemid="{{item._id}}" data-type="isvisible" data-action="itemSwitch"></i>
+									{{else}}
+										<i class="item-active pointer icon fa-solid fa-eye-slash" data-itemid="{{item._id}}" data-type="isvisible" data-action="itemSwitch"></i>
+									{{/if}}
+									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+									{{#if item.system.isremovable}}
+										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item.id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+					{{/each}}
+				</div>
+			{{/if}}
+
+			{{#if actor.system.settings.hasspheres}}
+				<div class="headlineGroup splatFont">{{localize "wod.spheres.spheres"}}</div>
+				<div class="clearareaBox information-area">{{localize "wod.settings.orderhint"}}</div>
+
+				<div class="space">
+					{{#each spheres as |item|}}
+						<div class="flex-row power-item"
+								data-drag="true"
+								data-documentid="{{../actor._id}}"
+								data-itemid="{{item._id}}"
+								data-list="system.powers"
+								data-type="{{item.type}}"
+								data-order="{{item.system.settings.order}}">
+							<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+							<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
+							<div>
+								{{#if (not ../locked)}}
+									{{#if item.system.settings.isvisible}}
+										<i class="item-active pointer icon fa-solid fa-eye" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+									{{else}}
+										<i class="item-active pointer icon fa-solid fa-eye-slash" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+									{{/if}}
+									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+									{{#if item.system.settings.isremovable}}
+										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item.id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+					{{/each}}
+				</div>
+			{{/if}}
+		</div>
+
+		{{!-- Combat --}}
+		<div class="tab settings-combat" data-group="settings" data-tab="combat" style="display:none;">
+			<div class="space sheet-area flex-columns">
+				<div class="clearareaBox">
+					<div class="headlineGroup splatFont">{{localize "wod.health.soak"}}</div>
+					<div class="clearareaBox">
+						<div class="pullLeft settings-leftwidth">&nbsp;</div>
+						<div class="pullLeft numberBox">&nbsp;</div>
+						<div class="pullLeft numberBox headlineNormal">{{localize "wod.labels.bonus.headline"}}</div>
+						<div class="pullLeft settings-leftwidth centerText headlineNormal">{{localize "wod.labels.settings.usesoak"}}</div>
+					</div>
+					<div class="clearareaBox">
+						<label for="data.system.soak.bashing" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.soak.bashing}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.soak.bashing.bonus" value="{{actor.system.settings.soak.bashing.bonus}}"
+							data-source="soak"
+							data-type="bashing"
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="bashing" data-source="soak" data-type="{{config.sheettype.mortal}}">
+							{{#if actor.system.settings.soak.bashing.isrollable}}
+								<i class="pointer fa-solid fa-toggle-on" data-type="settings.soak.bashing.isrollable" data-action="itemSwitch"></i>
+							{{else}}
+								<i class="pointer fa-solid fa-toggle-off" data-type="settings.soak.bashing.isrollable" data-action="itemSwitch"></i>
+							{{/if}}
+						</div>
+					</div>
+					<div class="clearareaBox">
+						<label for="data.system.soak.lethal" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.soak.lethal}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.soak.lethal.bonus" value="{{actor.system.settings.soak.lethal.bonus}}"
+							data-source="soak"
+							data-type="lethal"
+							data-dtype="Number"
+							{{#if locked}} readonly {{/if}} />
+						<div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="lethal" data-source="soak" data-type="{{config.sheettype.mortal}}">
+							{{#if actor.system.settings.soak.lethal.isrollable}}
+								<i class="pointer fa-solid fa-toggle-on" data-type="settings.soak.lethal.isrollable" data-action="itemSwitch"></i>
+							{{else}}
+								<i class="pointer fa-solid fa-toggle-off" data-type="settings.soak.lethal.isrollable" data-action="itemSwitch"></i>
+							{{/if}}
+						</div>
+					</div>
+					<div class="clearareaBox">
+						<label for="data.system.soak.aggravated" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.soak.aggravated}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.soak.aggravated.bonus" value="{{actor.system.settings.soak.aggravated.bonus}}"
+							data-source="soak"
+							data-type="aggravated"
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="aggravated" data-source="soak" data-type="{{config.sheettype.mortal}}">
+							{{#if actor.system.settings.soak.aggravated.isrollable}}
+								<i class="pointer fa-solid fa-toggle-on" data-type="settings.soak.aggravated.isrollable" data-action="itemSwitch"></i>
+							{{else}}
+								<i class="pointer fa-solid fa-toggle-off" data-type="settings.soak.aggravated.isrollable" data-action="itemSwitch"></i>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+				<div class="clearareaBox information-area">
+					{{localize "wod.labels.settings.soakinfoone"}}<br />
+					{{localize "wod.labels.settings.soakinfotwo"}}<br />
+					{{localize "wod.labels.settings.soakinfothree"}}
+				</div>
+			</div>
+
+			{{#if actor.system.listdata.settings.haschimericalhealth}}
+				<div class="sheet-area flex-columns">
+					<div class="clearareaBox">
+						<div class="headlineGroup splatFont">{{localize 'wod.health.chimerical'}}</div>
+						<div class="clearareaBox">
+							<div class="pullLeft settings-leftwidth">&nbsp;</div>
+							<div class="pullLeft numberBox">&nbsp;</div>
+							<div class="pullLeft numberBox headlineNormal">{{localize "wod.labels.bonus.headline"}}</div>
+							<div class="pullLeft settings-leftwidth centerText headlineNormal">{{localize "wod.labels.settings.usesoak"}}</div>
+						</div>
+						<div class="clearareaBox">
+							<label for="data.system.soak.chimerical.bashing" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>
+							<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.soak.chimerical.bashing}}" readonly />
+							<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.soak.chimerical.bashing.bonus" value="{{actor.system.settings.soak.chimerical.bashing.bonus}}"
+								data-source="soak"
+								data-type="bashing"
+								data-dtype="Number" {{#if locked}} readonly {{/if}} />
+							<div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="bashing" data-source="soak" data-type="{{config.sheettype.changeling}}">
+								{{#if actor.system.settings.soak.chimerical.bashing.isrollable}}
+									<i class="pointer fa-solid fa-toggle-on" data-type="settings.soak.chimerical.bashing.isrollable" data-action="itemSwitch"></i>
+								{{else}}
+									<i class="pointer fa-solid fa-toggle-off" data-type="settings.soak.chimerical.bashing.isrollable" data-action="itemSwitch"></i>
+								{{/if}}
+							</div>
+						</div>
+						<div class="clearareaBox">
+							<label for="data.system.soak.chimerical.lethal" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>
+							<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.system.soak.chimerical.lethal}}" readonly />
+							<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.soak.chimerical.lethal.bonus" value="{{actor.system.settings.soak.chimerical.lethal.bonus}}"
+								data-source="soak"
+								data-type="lethal"
+								data-dtype="Number"
+								{{#if locked}} readonly {{/if}} />
+							<div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="lethal" data-source="soak" data-type="{{config.sheettype.changeling}}">
+								{{#if actor.system.settings.soak.chimerical.lethal.isrollable}}
+									<i class="pointer fa-solid fa-toggle-on" data-type="settings.soak.chimerical.lethal.isrollable" data-action="itemSwitch"></i>
+								{{else}}
+									<i class="pointer fa-solid fa-toggle-off" data-type="settings.soak.chimerical.lethal.isrollable" data-action="itemSwitch"></i>
+								{{/if}}
+							</div>
+						</div>
+						<div class="clearareaBox">
+							<label for="data.system.soak.chimerical.aggravated" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>
+							<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{data.system.soak.chimerical.aggravated}}" readonly />
+							<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" type="text" name="system.settings.soak.chimerical.aggravated.bonus" value="{{actor.system.settings.soak.chimerical.aggravated.bonus}}"
+								data-source="soak"
+								data-type="aggravated"
+								data-dtype="Number" {{#if locked}} readonly {{/if}} />
+							<div class="pullLeft switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-label="soak" data-switchtype="aggravated" data-source="soak" data-type="{{config.sheettype.changeling}}">
+								{{#if actor.system.settings.soak.chimerical.aggravated.isrollable}}
+									<i class="pointer fa-solid fa-toggle-on" data-type="settings.soak.chimerical.aggravated.isrollable" data-action="itemSwitch"></i>
+								{{else}}
+									<i class="pointer fa-solid fa-toggle-off" data-type="settings.soak.chimerical.aggravated.isrollable" data-action="itemSwitch"></i>
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+			{{/if}}
+
+			<div class="space sheet-area flex-columns">
+				<div class="clearareaBox">
+					<div class="headlineGroup splatFont">{{localize "wod.combat.initiative"}}</div>
+					<div class="clearareaBox">
+						<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.bonus.headline"}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
+					</div>
+					<div class="clearareaBox">
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.initiative.base}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.initiative.bonus" type="text" value="{{actor.system.initiative.bonus}}"
+							data-source="initiative"
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.initiative.total}}" readonly />
+					</div>
+				</div>
+				<div class="clearareaBox information-area">
+					{{localize "wod.labels.settings.initiativeinfoone"}}<br />
+					{{localize "wod.labels.settings.initiativeinfotwo"}}<br />
+					{{localize "wod.labels.settings.initiativeinfothree"}}
+				</div>
+			</div>
+
+			<div class="space sheet-area flex-columns">
+				<div class="clearareaBox">
+					<div class="headlineGroup splatFont">{{localize "wod.health.health"}}</div>
+					<div class="clearareaBox">
+						<div class="pullLeft" style="width: 150px;">&nbsp;</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.value"}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.total"}}</div>
+						<div class="pullLeft headlineNormal numberBox">{{localize "wod.labels.penalty"}}</div>
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.bruised.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.bruised.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.bruised"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.bruised.value" type="text" value="{{actor.system.health.bruised.value}}"
+							data-name="data.system.health.bruised.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.bruised.total}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.bruised.penalty" type="text" value="{{actor.system.health.bruised.penalty}}"
+							data-name="data.system.health.bruised.penalty"
+							data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.hurt.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.hurt.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.hurt"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.hurt.value" type="text" value="{{actor.system.health.hurt.value}}"
+							data-name="data.system.health.hurt.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.hurt.total}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.hurt.penalty" type="text" value="{{actor.system.health.hurt.penalty}}"
+							data-name="data.system.health.hurt.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.injured.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.injured.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.injured"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.injured.value" type="text" value="{{actor.system.health.injured.value}}"
+							data-name="data.system.health.injured.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+							<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.injured.total}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.injured.penalty" type="text" value="{{actor.system.health.injured.penalty}}"
+							data-name="data.system.health.injured.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.wounded.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.wounded.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.wounded"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.wounded.value" type="text" value="{{actor.system.health.wounded.value}}"
+							data-name="data.system.health.wounded.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.wounded.total}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.wounded.penalty" type="text" value="{{actor.system.health.wounded.penalty}}"
+							data-name="data.system.health.wounded.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.mauled.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.mauled.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.mauled"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.mauled.value" type="text" value="{{actor.system.health.mauled.value}}"
+							data-name="data.system.health.mauled.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.mauled.total}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.mauled.penalty" type="text" value="{{actor.system.health.mauled.penalty}}"
+							data-name="data.system.health.mauled.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.crippled.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.crippled.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.crippled"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.crippled.value" type="text" value="{{actor.system.health.crippled.value}}"
+							data-name="data.system.health.crippled.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.crippled.total}}" readonly />
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.crippled.penalty" type="text" value="{{actor.system.health.crippled.penalty}}"
+							data-name="data.system.health.crippled.penalty" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+					</div>
+
+					<div class="clearareaBox">
+						<label for="data.system.health.incapacitated.value" class="pullLeft headlineNormal settings-leftwidth settings-verticalcenter"
+							data-label="{{actor.system.health.incapacitated.value}}"
+							data-ability="true" style="width: 150px;">{{localize "wod.health.incapacitated"}}</label>
+						<input class="pullLeft sheet-infoValues numberBox inputdata {{#if (eq locked false)}}editable{{/if}}" name="system.health.incapacitated.value" type="text" value="{{actor.system.health.incapacitated.value}}"
+							data-name="data.system.health.incapacitated.value" data-dtype="Number" {{#if locked}} readonly {{/if}} />
+						<input class="pullLeft sheet-infoValues numberBox" type="text" value="{{actor.system.health.incapacitated.total}}" readonly />
+					</div>
+				</div>
+				<div class="clearareaBox information-area">
+					{{localize "wod.info.settings.healthvalue"}}<br />
+					{{localize "wod.info.settings.healthpenalty"}}
+				</div>
+			</div>
+		</div>
+
+		{{!-- Features (not implemented yet) --}}
+		<div class="tab settings-features" data-group="settings" data-tab="features" style="display:none;">
+			{{!-- intentionally empty (not implemented yet) --}}
+		</div>
+
+		{{!-- Sheet --}}
+		<div class="tab settings-sheet" data-group="settings" data-tab="sheet" style="display:none;">
+			<div class="sheet-area flex-columns">
+				<div class="headlineGroup splatFont">{{localize "wod.labels.settings.game"}}</div>
+
+				<button class="dialog-three-button fullSplatColor button sheet_vampire {{#if (eq actor.system.settings.game "vampire")}}active{{/if}}">{{localize "wod.games.vampire"}}</button>
+				<button class="dialog-three-button fullSplatColor button sheet_werewolf {{#if (eq actor.system.settings.game "werewolf")}}active{{/if}}">{{localize "wod.games.werewolf"}}</button>
+				<button class="dialog-three-button fullSplatColor button sheet_mage {{#if (eq actor.system.settings.game "mage")}}active{{/if}}">{{localize "wod.games.mage"}}</button>
+
+				<div class="headlineGroup splatFont">LANG: Display sheet type</div>
+
+				<button class="dialog-three-button fullSplatColor button sheet_vampire {{#if (eq actor.system.settings.variantsheet "mortal")}}active{{/if}}">{{localize "wod.sheets.mortal"}}</button>
+				<button class="dialog-three-button fullSplatColor button sheet_vampire {{#if (eq actor.system.settings.variantsheet "vampire")}}active{{/if}}">{{localize "wod.sheets.vampire"}}</button>
+				<button class="dialog-three-button fullSplatColor button sheet_werewolf {{#if (eq actor.system.settings.variantsheet "werewolf")}}active{{/if}}">{{localize "wod.sheets.werewolf"}}</button>
+				<button class="dialog-three-button fullSplatColor button sheet_mage {{#if (eq actor.system.settings.variantsheet "mage")}}active{{/if}}">{{localize "wod.sheets.mage"}}</button>
+
+				<div class="headlineGroup splatFont">{{localize "wod.labels.settings.era.headline"}}</div>
+
+				{{#if (eq actor.system.settings.game "vampire")}}
+					<button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era "modern")}}active{{/if}}">{{localize "wod.era.modern"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era "victorian")}}active{{/if}}">{{localize "wod.era.victorian"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era "darkages")}}active{{/if}}">{{localize "wod.era.darkages"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_classical {{#if (eq actor.system.settings.era "classical")}}active{{/if}}">{{localize "wod.era.classical"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_livinggods {{#if (eq actor.system.settings.era "livinggods")}}active{{/if}}">{{localize "wod.era.livinggods"}}</button>
+				{{/if}}
+				{{#if (eq actor.system.settings.game "werewolf")}}
+					<button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era "modern")}}active{{/if}}">{{localize "wod.era.modern"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era "victorian")}}active{{/if}}">{{localize "wod.era.wildwest"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_darkages {{#if (eq actor.system.settings.era "darkages")}}active{{/if}}">{{localize "wod.era.darkages"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_savage {{#if (eq actor.system.settings.era "savage")}}active{{/if}}">{{localize "wod.era.savage"}}</button>
+				{{/if}}
+				{{#if (eq actor.system.settings.game "mage")}}
+					<button class="dialog-three-button fullSplatColor button sheet_modern {{#if (eq actor.system.settings.era "modern")}}active{{/if}}" data-type="{{config.sheettype.mage}}">{{localize "wod.era.modern"}}</button>
+					<button class="dialog-three-button fullSplatColor button sheet_victorian {{#if (eq actor.system.settings.era "victorian")}}active{{/if}}" data-type="{{config.sheettype.mage}}">{{localize "wod.era.victorian"}}</button>
+				{{/if}}
+			</div>
+		</div>
+	</section>
+
+</section>

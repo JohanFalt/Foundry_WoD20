@@ -22,6 +22,7 @@ export class MeleeWeapon {
         this.dice1 = item.system.attack["attribute"];
         this.dice2 = item.system.attack["ability"];
         this.bonus =  parseInt(item.system.attack["accuracy"]);
+        this.dodgebonus = 0;
         this.difficulty = parseInt(item.system["difficulty"]);
         this.accuracy = parseInt(item.system.attack["accuracy"]);
 
@@ -65,6 +66,7 @@ export class RangedWeapon {
         this.dice1 = item.system.attack["attribute"];
         this.dice2 = item.system.attack["ability"];
         this.bonus =  parseInt(item.system.attack["accuracy"]);
+        this.dodgebonus = 0;
         this.difficulty = parseInt(item.system["difficulty"]);
         this.accuracy = parseInt(item.system.attack["accuracy"]);
 
@@ -108,6 +110,7 @@ export class Damage {
         this.dice1 = item.system.damage["attribute"];
         this.dice2 = "";        
         this.bonus = parseInt(item.system.damage["bonus"]);
+        this.dodgebonus = 0;
         this.accuracy = parseInt(item.system.damage["bonus"]);
         this.difficulty = 6;
         this.damageType = item.system.damage["type"];
@@ -174,17 +177,48 @@ export class DialogWeapon extends FormApplication {
         let abilitySpeciality = "";
         let specialityText = "";
 
-        data.actorData = this.actor.system;
-        data.actorData.type = this.actor.type;
+        data.actorData = this.actor.system;        
         data.config = CONFIG.worldofdarkness;
-        data.config.meleeAbilities = this.actor.system.listdata.meleeAbilities;
-        data.config.rangedAbilities = this.actor.system.listdata.rangedAbilities;
 
-        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
+        if (this.actor.type == "PC") {
+            data.actorData.type = this.actor.system.settings.game;
             data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+
+            const abilities = Object.values(this.actor.system.abilities ?? {});
+
+            data.config.meleeAbilities = abilities
+                                .filter(item => item.type === "Ability" && item.system.settings.isvisible && item.system.settings.ismeleeweapon)
+                                .sort((a, b) => game.i18n.localize(a.system.label).localeCompare(game.i18n.localize(b.system.label)));
+
+            data.config.rangedAbilities = abilities
+                                .filter(item => item.type === "Ability" && item.system.settings.isvisible && item.system.settings.israngedeweapon)
+                                .sort((a, b) => game.i18n.localize(a.system.label).localeCompare(game.i18n.localize(b.system.label)));
         }
         else {
-            data.object.sheettype = "werewolfDialog";
+            data.actorData.type = this.actor.type;
+
+            if (this.actor.system?.listdata?.meleeAbilities.length > 0) 
+                data.config.meleeAbilities = this.actor.system.listdata.meleeAbilities;
+
+            if (this.actor.system?.listdata?.rangedAbilities.length > 0) 
+                data.config.rangedAbilities = this.actor.system.listdata.rangedAbilities;
+
+            if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
+                data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+            }
+            else {
+                data.object.sheettype = "werewolfDialog";
+            }       
+        }        
+
+        let actortype = this.actor.type.toLowerCase();
+
+        if (this.actor?.system?.settings?.splat !== undefined) {
+            actortype = this.actor.system.settings.splat;
+        }
+
+        if (CONFIG.worldofdarkness.alwaysspeciality[actortype] == undefined) {
+            actortype = CONFIG.worldofdarkness.sheettype.vampire.toLowerCase();
         }
 
         // is dice1 an Attributes
@@ -221,7 +255,23 @@ export class DialogWeapon extends FormApplication {
             }
         }
 
-        if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities[data.object.dice2]?.value != undefined)) {
+        if (this.actor.type == "PC") {
+            // Only try to get ability if dice2 is set and not empty
+            if (data.object.dice2 && data.object.dice2 !== "" && this.actor.api) {
+                const abilityItem = this.actor.api.getAbility(data.object.dice2);
+                if (abilityItem) {
+                    data.object.abilityValue = parseInt(abilityItem.system.value);
+                    data.object.abilityName = game.i18n.localize(abilityItem.system.label);
+                    
+                    if ((parseInt(abilityItem.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || 
+                        (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(abilityItem.system.id))) {
+                        data.object.hasSpeciality = true;
+                        abilitySpeciality = abilityItem.system.speciality;
+                    }
+                }
+            }
+        }
+        else if ((this.actor.system?.abilities != undefined) && (data.actorData.abilities[data.object.dice2]?.value != undefined)) {
             data.object.abilityValue = parseInt(data.actorData.abilities[data.object.dice2].value);
 
             if (data.actorData.abilities[data.object.dice2] == undefined) {
@@ -231,7 +281,7 @@ export class DialogWeapon extends FormApplication {
                 data.object.abilityName = (data.actorData.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(data.actorData.abilities[data.object.dice2].label) : data.actorData.abilities[data.object.dice2].altlabel;            
             }
 
-            if ((parseInt(data.actorData.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality.includes(data.actorData.abilities[data.object.dice2]._id))) {
+            if ((parseInt(data.actorData.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(data.actorData.abilities[data.object.dice2]._id))) {
                 data.object.hasSpeciality = true;
                 abilitySpeciality = data.actorData.abilities[data.object.dice2].speciality;
             }
@@ -239,6 +289,11 @@ export class DialogWeapon extends FormApplication {
         else if (data.object.dice2 == "custom") {
             if (this.object.secondaryabilityid != "") {
                 const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
+
+                if (!item) {
+                    return;
+                }
+                
                 this.object.abilityValue = parseInt(item.system.value);
                 this.object.abilityName = item.system.label;
 
@@ -329,6 +384,13 @@ export class DialogWeapon extends FormApplication {
         }
         catch {
             this.object.bonus = 0;
+        }
+
+        try {
+            this.object.dodgebonus = parseInt(formData["dodgebonus"]);
+        }
+        catch {
+            this.object.dodgebonus = 0;
         }
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
@@ -508,11 +570,6 @@ export class DialogWeapon extends FormApplication {
                 prevtext = true;
             }
 
-            /* if (this.object.bonus != 0) {
-                template.push(this.object.bonus);
-                prevtext = true;
-            } */
-
             if (this.object.extraSuccesses > 0) {
                 template.push(this.object.extraSuccesses);
             }
@@ -569,8 +626,23 @@ export class DialogWeapon extends FormApplication {
             specialityText = this.object.specialityText;
         }
 
+        let difficulty = this.object.difficulty;
+
+        if (await BonusHelper.CheckAttackDiff(this.actor, this.object.weaponType)) {
+            const mod = await BonusHelper.GetAttackDiff(this.actor, this.object.weaponType);
+
+            difficulty += mod;
+            weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.attackdiffchat") + ` ${mod}`);
+        }
+        if (await BonusHelper.CheckAttackBuff(this.actor, this.object.weaponType)) {
+            const mod = await BonusHelper.GetAttackBuff(this.actor, this.object.weaponType);
+
+            numDices += mod;
+            weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.attackbonuschat") + ` ${mod}`);
+        }
+
         weaponRoll.numDices = numDices;
-        weaponRoll.difficulty = parseInt(this.object.difficulty);          
+        weaponRoll.difficulty = difficulty;          
         weaponRoll.dicetext = template;
         weaponRoll.usewillpower = this.object.useWillpower;
         weaponRoll.woundpenalty = parseInt(woundPenaltyVal);
@@ -592,6 +664,9 @@ export class DialogWeapon extends FormApplication {
             weaponRoll.bonus = parseInt(this.object.bonus);
 
             let item = await this.actor.getEmbeddedDocument("Item", this.object._id);            
+            
+            // Uppdatera rolldamage från det hämtade objektet för att säkerställa aktuellt värde
+            this.object.rolldamage = item.system.damage?.isrollable ?? false;
 
             if (this.object.dice2 == "custom") {
                 const itemData = foundry.utils.duplicate(item);
@@ -600,6 +675,11 @@ export class DialogWeapon extends FormApplication {
             }
 
             const numberOfSuccesses = await DiceRoller(weaponRoll);   
+            
+            // DEBUGGING: Logga värden för att identifiera problem
+            console.log("Attack roll - numberOfSuccesses:", numberOfSuccesses);
+            console.log("Attack roll - this.object.rolldamage:", this.object.rolldamage);
+            console.log("Attack roll - item.system.damage:", item.system.damage);
             
             if ((numberOfSuccesses > 0) && (this.object.rolldamage)) {
                 // add number of successes to Damage roll
@@ -610,9 +690,14 @@ export class DialogWeapon extends FormApplication {
                 let rollDamage = new DialogWeapon(this.actor, damageData);
                 rollDamage.render(true);
             }
+            else {
+                // DEBUGGING: Logga varför damage inte triggas
+                console.log("Damage roll not triggered - numberOfSuccesses:", numberOfSuccesses, 
+                           "rolldamage:", this.object.rolldamage);
+            }
         } 
         else {
-            weaponRoll.bonus = parseInt(this.object.bonus);
+            weaponRoll.bonus = parseInt(this.object.bonus) +  parseInt(this.object.dodgebonus);
 
             // if you have selected multiple targets and thus are to roll several damage rolls with one "session"
             if ((this.object.numberoftargets > 1) && (this.object.modename == "spray")) {
@@ -629,7 +714,7 @@ export class DialogWeapon extends FormApplication {
                 // create the "bag of number of dices"
                 for (let i = 0; i <= numberTargets - 1; i++) {
                     let target = {
-                         numDices: parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + parseInt(this.object.bonus)
+                         numDices: parseInt(this.object.attributeValue) + parseInt(this.object.abilityValue) + weaponRoll.bonus
                     }
 
                     targetlist.push(target);

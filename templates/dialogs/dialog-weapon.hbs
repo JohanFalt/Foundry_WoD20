@@ -25,11 +25,19 @@
         </div>
 
         <div class="dialog-area">
-            <div class="headline splatFont">{{localize "wod.labels.modifier"}}</div>
-            <div class="infobox dialog-valueBox">
-                <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
+            <div class="infobox headline splatFont">{{localize "wod.dialog.weapon.attackrollbonus"}} {{object.extraSuccesses}}</div>
+            <div>
+                <div class="infobox headline splatFont">{{localize "wod.dialog.weapon.dodgemodifier"}}</div>
+                <div class="infobox dialog-valueBox">
+                    <input class="editable" type="text" name="dodgebonus" value="{{object.dodgebonus}}" autofocus />
+                </div>
             </div>
-            <div class="infobox headline splatFont">{{localize "wod.dialog.weapon.extrasuccesses"}}: {{object.extraSuccesses}}</div>
+            <div>
+                <div class="infobox headline splatFont">{{localize "wod.dialog.weapon.generalmodifier"}}</div>
+                <div class="infobox dialog-valueBox">
+                    <input class="editable" type="text" name="bonus" value="{{object.bonus}}" />
+                </div>
+            </div>
         </div>
 
         {{#if (eq object.modename 'spray')}}
@@ -95,6 +103,8 @@
                         {{/each}}
                     </div>
                 {{/if}}
+
+                <div class="information-area">{{localize "wod.labels.secondaryabilityinfo"}}</div>
             </div>
         {{/if}}
 
@@ -103,9 +113,7 @@
             <div class="infobox dialog-valueBox">
                 <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
             </div>
-        </div>
-
-        
+        </div>        
 
     {{/if}}
 

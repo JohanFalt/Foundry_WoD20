@@ -1,7 +1,15 @@
 <div>
-    <div class="area-box headlineText splatFont">{{localize proseheadline}}</div>
+    {{#if headline}}
+        <div class="area-box sheet-headline headlineText splatFont">{{localize proseheadline}}</div>
+    {{else}}
+        <div class="area-box headlineText splatFont">{{localize proseheadline}}</div>
+    {{/if}}
 
-    <prose-mirror name="{{prosename}}" value="{{prosevalue}}" toggled="true" compact="true">
-        {{{proseenriched}}}
-    </prose-mirror>
+    {{#if locked}}
+		<div class="headlineNormal textarea {{#if (eq prosevalue '')}}small{{/if}}">{{{proseenriched}}}</div>
+    {{else}}
+        <prose-mirror name="{{prosename}}" value="{{prosevalue}}" toggled="true" compact="true">
+            {{{proseenriched}}}
+        </prose-mirror>
+    {{/if}}    
 </div>

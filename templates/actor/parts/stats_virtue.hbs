@@ -1,0 +1,20 @@
+<div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize "wod.advantages.virtue.headline"}}</span></div>	
+
+{{#each virtues as |virtue id|}}
+	<div class="sheet-boxcontainer">
+		<div class="pullLeft ability-headlineWidth headlineNormal {{#if virtue.system.settings.useroll}}vrollable{{/if}}" 
+			data-type="{{../config.sheettype.mortal}}"
+			data-key="{{virtue.system.id}}"
+			data-noability="true"
+			{{#if virtue.system.settings.useroll}} data-action="rollDice"{{/if}}>{{localize virtue.system.label}}
+		</div>
+
+		<div class="pullLeft resource-value {{#if (gt virtue.system.max 5)}}supernaturalAttribute{{/if}}" data-key="{{virtue.system.id}}" data-itemid="{{virtue._id}}" data-value="{{virtue.system.permanent}}" data-name="system.permanent">
+			{{#numLoop virtue.system.max}}
+			
+				<span class="resource-value-step" data-action="editDot" data-type="{{virtue.system.id}}" data-index="{{this}}"></span>
+			
+			{{/numLoop}}			
+		</div>
+	</div>
+{{/each}}	

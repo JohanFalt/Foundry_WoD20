@@ -59,6 +59,7 @@ export class Rote {
 
         this.useSpeciality = false;
         this.useWillpower = false;
+        this.ignoreSphereBaseDifficulty = false;
 
         this.isRote = false;
         this.canCast = false;
@@ -130,17 +131,22 @@ export class Rote {
     _setDifficulty(rank) {
         let diff = -1;
 
-        if (rank > -1) {
-            if ((this.witnesses) && (this.spelltype == "vulgar")) {
-                diff = parseInt(rank) + 5;
-            }
-            else if ((!this.witnesses) && (this.spelltype == "vulgar")) {
-                diff = parseInt(rank) + 4;
-            }
-            else if (this.spelltype == "coincidental") {
-                diff = parseInt(rank) + 3;
-            }
+        if (this.ignoreSphereBaseDifficulty) {
+            diff = this.baseDifficulty;
         }
+        else {
+            if (rank > -1) {
+                if ((this.witnesses) && (this.spelltype == "vulgar")) {
+                    diff = parseInt(rank) + 5;
+                }
+                else if ((!this.witnesses) && (this.spelltype == "vulgar")) {
+                    diff = parseInt(rank) + 4;
+                }
+                else if (this.spelltype == "coincidental") {
+                    diff = parseInt(rank) + 3;
+                }
+            }
+        }       
 
         if (diff > -1) {
             this.baseDifficulty = diff;
@@ -205,6 +211,11 @@ export class DialogAreteCasting extends FormApplication {
         data.config = CONFIG.worldofdarkness;
         data.actorData = this.actor.system;          // used in the dialog html
 
+        if (this.actor.type === "PC") {
+             data.spheres = this.actor.items.filter(item => item.type === "Sphere" && item.system.settings.isvisible);
+             data.spheres = data.spheres.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));
+        }
+
         return data;
     }
 
@@ -215,6 +226,10 @@ export class DialogAreteCasting extends FormApplication {
         html
             .find(".resource-value > .resource-value-step")
             .click(this._onDotSphereChange.bind(this));
+
+        html
+            .find('.dialog-difficulty-button')
+            .click(this._setDifficulty.bind(this));
 
         html
             .find('.actionbutton')
@@ -233,9 +248,11 @@ export class DialogAreteCasting extends FormApplication {
     _setupDotCounters(html) {
         const data = this.getData();
 
-		html.find(".resource-value").each(function () {
+        html.find(".resource-value").each(function () {
             const sphere = this.dataset.name;
 
+            // Only fill dots based on selectedSpheres from the rote
+            // Works for both legacy and PC actors since they use the same sphere IDs
             if (data.object?.selectedSpheres[sphere] > 0) {
                 const value = Number(data.object?.selectedSpheres[sphere]);
 
@@ -247,8 +264,30 @@ export class DialogAreteCasting extends FormApplication {
                         }
                     });
             }
-		});
-	}
+        });
+    }
+
+    _setDifficulty(event) {
+        if (!this.object.ignoreSphereBaseDifficulty) {
+            return;
+        }
+
+        const element = event.currentTarget;
+        const parent = $(element.parentNode);
+        const steps = parent.find(".dialog-difficulty-button");
+        const index = element.value;   
+
+        this.object.baseDifficulty = parseInt(index);     
+        steps.removeClass("active");
+
+        steps.each(function (i) {
+            if (parseInt(this.value) == index) {
+                $(this).addClass("active");
+            }
+        });
+
+        this.object._setDifficulty(0);
+    }
 
     async _updateObject(event, formData){
         if (this.object.close) {
@@ -335,7 +374,8 @@ export class DialogAreteCasting extends FormApplication {
 
         this.object.useSpeciality = formData["object.useSpeciality"];
         this.object.useWillpower = formData["object.useWillpower"];
-        
+        this.object.ignoreSphereBaseDifficulty = formData["object.ignoreSphereBaseDifficulty"];
+
         this.object.areteModifier = parseInt(formData["object.areteModifier"]);
 
         this.object.canCast = this._calculateDifficulty(false);   
@@ -397,7 +437,13 @@ export class DialogAreteCasting extends FormApplication {
                 action = game.i18n.localize("wod.dialog.aretecasting.castingarete");
             }           
             
-            template.push(`${game.i18n.localize("wod.advantages.arete")} (${this.actor.system.advantages.arete.roll})`);
+            if (this.actor.type === "PC") {
+                const arete = this.actor.api?.getAdvantage("arete");
+                template.push(`${game.i18n.localize("wod.advantages.arete")} (${arete?.system?.roll ?? 0})`);
+            }
+            else {
+                template.push(`${game.i18n.localize("wod.advantages.arete")} (${this.actor.system.advantages.arete.roll})`);
+            }            
 
             if (parseInt(this.object.areteModifier) > 0) {
                 template.push(`${game.i18n.localize("wod.dialog.aretecasting.aretebonus")} +${this.object.areteModifier}`);
@@ -447,18 +493,41 @@ export class DialogAreteCasting extends FormApplication {
 
             for (const sphere in CONFIG.worldofdarkness.allSpheres) {
                 let exists = (this.object.selectedSpheres[sphere] === undefined) ? false : true;
+                let label = "";
 
                 if (exists) {
-                    if ((parseInt(this.actor.system.spheres[sphere].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) && (this.object.useSpeciality)) {
-                        specialityRoll = true;
-                        specialityText = specialityText != "" ? specialityText + ", " + this.actor.system.spheres[sphere].speciality : this.actor.system.spheres[sphere].speciality;
+                    if (this.actor.type === "PC") {
+                        const spheres = this.actor.items.find(item => item.type === "Sphere" && item.system.id === sphere);
+
+                        if (spheres.system.value >= parseInt(CONFIG.worldofdarkness.specialityLevel) && this.object.useSpeciality) {
+                            specialityRoll = true;
+                            specialityText = specialityText != "" ? specialityText + ", " + spheres.system.speciality : spheres.system.speciality;
+                        }
+
+                        label = spheres.system.label;
+                    }
+                    else {
+                        if ((parseInt(this.actor.system.spheres[sphere].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) && (this.object.useSpeciality)) {
+                                specialityRoll = true;
+                                specialityText = specialityText != "" ? specialityText + ", " + this.actor.system.spheres[sphere].speciality : this.actor.system.spheres[sphere].speciality;
+                        }
+
+                        label = this.actor.system.spheres[sphere].label;                        
                     }
 
-                    extraInfo.push(`${game.i18n.localize(this.actor.system.spheres[sphere].label)} (${this.object.selectedSpheres[sphere]})`);
-                }
+                    extraInfo.push(`${game.i18n.localize(label)} (${this.object.selectedSpheres[sphere]})`);
+                }                    
             }
 
-            const numDices = parseInt(this.actor.system.advantages.arete.roll) + parseInt(this.object.areteModifier);
+            let numDices = 0;
+            
+            if (this.actor.type === "PC") {
+                const arete = this.actor.api?.getAdvantage("arete");
+                numDices = parseInt(arete?.system?.roll ?? 0) + parseInt(this.object.areteModifier);
+            }
+            else {
+                numDices = parseInt(this.actor.system.advantages.arete.roll) + parseInt(this.object.areteModifier);
+            }
 
             const powerRoll = new DiceRollContainer(this.actor);
             powerRoll.action = action;
@@ -481,7 +550,7 @@ export class DialogAreteCasting extends FormApplication {
                 return;
             }
             else {
-                if (!this.object.keepDifficulty) {
+                if (!this.object.keepDifficulty && (successes == 0)) {
                     this.object.difficultyModifier = parseInt(this.object.difficultyModifier) + 1;
                 }
                 

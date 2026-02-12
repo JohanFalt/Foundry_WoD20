@@ -1,0 +1,52 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
+
+    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-origin="combat" data-action="itemCreate"></i>
+
+    <div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.tab.combat"}}</span></div>        
+
+    <div class="sheet-area flex-columns">    
+        <div class="area-box">
+            {{> "systems/worldofdarkness/templates/actor/parts/combat_natural.hbs" actor=actor config=config locked=locked weapon_natural=weapon_natural}}
+        </div>
+    </div>
+
+    <div class="sheet-area flex-columns">    
+        <div class="area-box">
+            {{> "systems/worldofdarkness/templates/actor/parts/combat_melee.hbs" actor=actor config=config locked=locked weapon_melee=weapon_melee}}
+        </div>
+    </div>
+
+    <div class="sheet-area flex-columns">    
+        <div class="area-box">
+            {{> "systems/worldofdarkness/templates/actor/parts/combat_ranged.hbs" actor=actor config=config locked=locked weapon_ranged=weapon_ranged}}
+        </div>
+    </div>
+
+    <div class="sheet-area flex-columns">    
+        <div class="area-box">
+            {{> "systems/worldofdarkness/templates/actor/parts/combat_armor.hbs" actor=actor config=config locked=locked armor=armor}}
+        </div>
+    </div>
+
+    <div class="sheet-area flex-columns">
+        <div class="area-box flex-rows">
+            <div class="combat-bottomarea two-columns">
+                {{> "systems/worldofdarkness/templates/actor/parts/combat_conditions.hbs"}}
+            </div>
+
+            <div class="combat-bottomhealth two-columns">
+                <div class="healthBox" style="width: 100%;">                    
+                    {{> "systems/worldofdarkness/templates/actor/parts/stats_health.hbs"}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sheet-area flex-columns">   
+        
+        <div class="area-box" style="padding-left: 5px;">                
+            {{> "systems/worldofdarkness/templates/actor/parts/combat_movement.hbs"}}
+        </div>
+    </div>
+
+</section>

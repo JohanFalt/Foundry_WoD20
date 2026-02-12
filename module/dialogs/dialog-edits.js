@@ -49,7 +49,7 @@ export class Ability {
 
 export class Sphere {
     constructor(item) {
-        this.typeform = "sphere";
+        this.typeform = "sphere";         
         this.name = item.label;
         this.speciality = item.speciality;
         this.istechnocracy = item.istechnocracy;

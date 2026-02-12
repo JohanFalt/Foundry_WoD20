@@ -37,4 +37,5 @@
 .wod-item .editor {
   border: 1px solid var(--main-full-color);
   resize: vertical;
+  width: 90%;;
 }

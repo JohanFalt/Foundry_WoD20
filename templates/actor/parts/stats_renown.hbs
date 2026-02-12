@@ -1,0 +1,7 @@
+{{!-- <div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize "wod.advantages.renown"}}</span></div>	 --}}
+
+{{#each renowns as |renown id|}}
+	<div class="sheet-boxcontainer">
+		{{{getGetStatArea_v2 ../actor renown}}}
+	</div>
+{{/each}}	

@@ -16,12 +16,29 @@ wod.sheettype = {
     spirit: "Spirit"
 }
 
+wod.splat = {
+    vampire: "vampire",
+    werewolf: "werewolf",
+    mage: "mage",
+    changeling: "changeling",
+    hunter: "hunter",
+    demon: "demon",
+    wraith: "wraith",
+    mummy: "mummy",
+    exalted: "exalted",
+    mortal: "mortal",
+    creature: "creature",
+    changingbreed: "changing breed",
+    spirit: "spirit"
+}
+
 wod.era = {
     modern: "wod.era.modern",
     victorian: "wod.era.victorian",
     darkages: "wod.era.darkages",
     classical: "wod.era.classical",
-    livinggods: "wod.era.livinggods"
+    livinggods: "wod.era.livinggods",
+    savage: "wod.era.savage"
 }
 
 wod.sheetsettings = {
@@ -216,15 +233,49 @@ wod.knowledges = {
     technology: "wod.abilities.technology"
 }
 
-wod.alwaysspeciality = [
-    "expression", 
-    "craft", 
-    "performance", 
-    "academics", 
-    "law", 
-    "science", 
-    "technology"
-]
+wod.alwaysspeciality = {
+    vampire: [
+        "expression", 
+        "craft", 
+        "performance", 
+        "academics", 
+        "law", 
+        "science", 
+        "technology"
+    ],
+    werewolf: [
+        "expression", 
+        "craft", 
+        "performance", 
+        "academics", 
+        "law", 
+        "science", 
+        "technology"
+    ],
+    mage: [
+        "art",
+        "athletics",
+        "craft",
+        "firearms",
+        "martialarts",
+        "melee",
+        "academics", 
+        "esoterica",
+        "law", 
+        "politics",
+        "science"        
+    ],
+    changeling: [
+        "expression", 
+        "craft", 
+        "performance", 
+        "academics", 
+        "law", 
+        "science", 
+        "technology"       
+    ],
+    wraith: []
+}
 
 wod.attackAttributes = {
     strength: "wod.attributes.strength",
@@ -259,7 +310,7 @@ wod.damageTypes = {
 wod.woundLevels = {
     bruised: "wod.health.bruised",
     hurt: "wod.health.hurt",
-    injured: "wod,.health.injured",
+    injured: "wod.health.injured",
     wounded: "wod.health.wounded",
     mauled: "wod.health.mauled",
     crippled: "wod.health.crippled",
@@ -293,13 +344,18 @@ wod.allSpheresTechnocracy = {
 wod.bonus = {
     attribute_buff: "wod.labels.bonus.attributebonus",
     attribute_dice_buff: "wod.labels.bonus.attributedicebonus",
-    attribute_diff: "wod.labels.bonus.attributediff",
+    attribute_diff: "wod.labels.bonus.attributediff",    
     attribute_auto_buff: "wod.labels.bonus.attributesucc",
     ability_buff: "wod.labels.bonus.abilitybonus",
-    ability_diff: "wod.labels.bonus.abilitydiff",
+    ability_diff: "wod.labels.bonus.abilitydiff",    
     soak_buff: "wod.labels.bonus.soakbonus",
     soak_diff: "wod.labels.bonus.soakdiffbonus",
     health_buff: "wod.labels.bonus.healthbuff",
     initiative_buff: "wod.labels.bonus.initbonus",
-    movement_buff: "wod.labels.bonus.movebonus"
+    movement_buff: "wod.labels.bonus.movebonus",
+    attribute_fixed_value: "wod.labels.bonus.attributefixedvalue",
+    attack_buff: "wod.labels.bonus.attackbuff",
+    attack_diff: "wod.labels.bonus.attackdiff",
+    frenzy_buff: "wod.labels.bonus.frenzybuff",
+    frenzy_diff: "wod.labels.bonus.frenzydiff"
 }

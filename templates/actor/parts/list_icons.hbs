@@ -1,0 +1,24 @@
+{{#if showsendchat}}
+    <a class="pointer send-chat" title="{{localize 'wod.labels.send'}}" data-itemid="{{item._id}}" data-action="sendChat"><i class="icon fa-solid fa-comment-dots"></i></a>
+{{/if}}
+
+{{#if (eq locked false)}} 
+    {{#if showedit}}
+        <a class="pointer item-edit" title="{{localize edittitle}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+    {{/if}}
+    {{#if showdelete}}
+        <a class="pointer item-delete" title="{{localize deletetitle}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+    {{/if}}
+{{/if}}
+
+{{#if showtooltip}}
+    {{#if (showToolTip item)}}
+        <i class="pointer icon collapsible button {{collapseclass}} fa-solid fa-expand"
+                title="{{localize 'wod.labels.show.description'}}"
+                data-itemid="{{item._id}}"></i>
+    {{else}}
+        <i class="icon no-description-disabled fa-solid fa-solid fa-expand"></i>
+    {{/if}}
+{{/if}}
+
+<a class="pointer" title="LANG: Menu" data-itemid="{{item._id}}"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>

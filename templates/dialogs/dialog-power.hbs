@@ -31,6 +31,7 @@
             <div class="pullLeft"><label for="useWillpower" class="dialog-casting-type-label">{{localize "wod.labels.usewillpower"}}</label></div>
         </div>
 
+        {{!-- TODO: Only legacy actors --}}
         {{#if (or (eq object.dice1 "custom") (eq object.dice2 "custom"))}}
             <div class="dialog-area">
                 <div class="infobox centerText">
@@ -71,7 +72,7 @@
         {{/if}}
 
         <div class="clearareaBox dialog-area">
-            {{#if (gt object.maxnightmareDice 0)}}
+            {{#if (gt object.maxnightmareDice 2)}}
                 <div class="clearareaBox infobox">
                     <div class="pullLeft headline splatFont">{{localize "wod.dialog.power.shiftnightmaredice"}}</div>
                     <div class="pullLeft">

@@ -62,6 +62,11 @@ export class DialogBonus extends FormApplication {
             .find('.inputdata')
             .change(event => this._onsheetChange(event));
 
+        // Add input event listener for movement_buff to clean and convert values as user types
+        html
+            .find('.inputdata[data-formid="bonus_value"]')
+            .on('input', event => this._onMovementBuffInput(event));
+
         html
 			.find('.selectdata')
 			.change(event => this._onsheetChange(event));
@@ -87,6 +92,31 @@ export class DialogBonus extends FormApplication {
         super.close()
     }
 
+    _onMovementBuffInput(event) {
+        // Only process if this is a movement_buff bonus
+        if (this.object.bonus.type !== "movement_buff") {
+            return;
+        }
+
+        const element = event.currentTarget;
+        let value = element.value;
+
+        // Remove all characters except digits, dots, and commas
+        value = value.replace(/[^0-9.,]/g, '');
+
+        // Convert comma to dot
+        value = value.replace(/,/g, '.');
+
+        // Ensure only one decimal point exists
+        const parts = value.split('.');
+        if (parts.length > 2) {
+            value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // Update the input field value
+        element.value = value;
+    }
+
     async _onsheetChange(event) {
         event.preventDefault();
 
@@ -109,7 +139,12 @@ export class DialogBonus extends FormApplication {
         }
         else if (dtype == "Number") {
             try{
-                value = parseInt(value);
+                // Use parseFloat for movement_buff to support decimal multipliers
+                if (this.object.bonus.type === "movement_buff" && source === "value") {
+                    value = parseFloat(value);
+                } else {
+                    value = parseInt(value);
+                }
 
                 if (isNaN(value)) {
                     value = 0;
@@ -194,18 +229,31 @@ export class DialogBonus extends FormApplication {
         if (valueInput != null) {
             let value = valueInput.value;
 
-            if (parseInt(value) != parseInt(this.object.bonus.value)) {
-                this.object.bonus.value = parseInt(value);
+            // Use parseFloat for movement_buff to support decimal multipliers
+            if (this.object.bonus.type === "movement_buff") {
+                const parsedValue = parseFloat(value) || 0;
+                if (parsedValue != parseFloat(this.object.bonus.value) || 0) {
+                    this.object.bonus.value = parsedValue;
+                }
+            } else {
+                if (parseInt(value) != parseInt(this.object.bonus.value)) {
+                    this.object.bonus.value = parseInt(value);
+                }
             }
         }		
 
         const itemData = foundry.utils.duplicate(this.object.item);
 
+        // Use parseFloat for movement_buff, parseInt for others
+        const bonusValue = (this.object.bonus.type === "movement_buff")
+            ? (parseFloat(this.object.bonus.value) || 0)
+            : (parseInt(this.object.bonus.value) || 0);
+
         let bonus = {
             name: this.object.bonus.name,
             settingtype: this.object.bonus.settingtype,
             type: this.object.bonus.type,
-            value: parseInt(this.object.bonus.value),
+            value: bonusValue,
             isactive: this.object.bonus.isactive
         }
 

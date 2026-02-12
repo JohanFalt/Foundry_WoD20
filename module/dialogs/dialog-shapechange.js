@@ -11,6 +11,7 @@ export class Shape {
         this.successesRequired = 0;
         this.numSuccesses = 0;
         this.selectedShape = "";
+        this.shapes = {};
     }
 }
 
@@ -42,7 +43,42 @@ export class DialogShapeChange extends FormApplication {
         
         data.config = CONFIG.worldofdarkness;
         data.actorData = this.actor.system;
-        data.actorType = this.actor.type;
+        data.actorType = this.actor.type === "PC" ? this.actor.system.settings.splat : this.actor.type.toLowerCase();
+
+        if (this.actor.type === "PC") {
+            // Build shapes structure from shape items for PC actors
+            // This structure needs to match Legacy actor structure for template compatibility
+            data.actorData.shapes = {};
+            
+            // Get all shape items (Trait items with system.type === "wod.types.shapeform")
+            const shapeItems = this.actor.items.filter(item => 
+                item.type === "Trait" && 
+                item.system?.type === "wod.types.shapeform"
+            );
+            
+            // Sort shapes by system.order
+            shapeItems.sort((a, b) => {
+                const orderA = a.system?.order ?? 0;
+                const orderB = b.system?.order ?? 0;
+                return orderA - orderB;
+            });
+            
+            // Build shapes object matching Legacy actor structure
+            // Shape names are mapped to lowercase keys (e.g., "Homid" -> "homid")
+            for (const shapeItem of shapeItems) {
+                const shapeKey = shapeItem.name.toLowerCase();
+                data.actorData.shapes[shapeKey] = {
+                    isactive: shapeItem.system?.isactive ?? false
+                };
+            }
+            
+            // Store shapes in this.object.shapes for easy access in methods
+            this.object.shapes = data.actorData.shapes;
+        }
+        else {
+            // For Legacy actors, copy shapes from actor.system to object.shapes
+            this.object.shapes = this.actor.system.shapes || {};
+        }
 
         return data;
     }
@@ -133,13 +169,27 @@ export class DialogShapeChange extends FormApplication {
     async _shiftform(event) {
         let template = [];
         let extraInfo = [];
-        let attribute = game.i18n.localize(this.actor.system.attributes.stamina.label);
-        let ability = (this.actor.system.abilities.primalurge.altlabel == "" ? game.i18n.localize(this.actor.system.abilities.primalurge.label) : this.actor.system.abilities.primalurge.altlabel);
+        let attribute = game.i18n.localize(this.actor.system.attributes.stamina.label);        
+        let attributevalue = this.actor.system.attributes.stamina.total;
+        let ability = "";
+        let abilityvalue = 0;
+        let woundpenalty = this.actor.system.health.damage.woundpenalty;
+
+        if (this.actor.type === "PC" && this.actor.api) {      
+            const primalurge = this.actor.api.getAbility("primalurge");
+            
+            ability = game.i18n.localize(primalurge?.system?.label) ?? "";
+            abilityvalue = primalurge?.system?.value ?? 0;
+        }
+        else {
+            ability = (this.actor.system.abilities.primalurge.altlabel == "" ? game.i18n.localize(this.actor.system.abilities.primalurge.label) : this.actor.system.abilities.primalurge.altlabel);
+            abilityvalue = this.actor.system.abilities.primalurge.value;
+        }
 
         this.object.canRoll = this.object.difficulty > -1 ? true : false;
 
-        template.push(`${attribute} (${this.actor.system.attributes.stamina.total})`);
-        template.push(`${ability} (${this.actor.system.abilities.primalurge.value})`);
+        template.push(`${attribute} (${attributevalue})`);
+        template.push(`${ability} (${abilityvalue})`);
 
         extraInfo.push(`${game.i18n.localize("wod.dialog.numbersuccesses")}: ${this.object.numSuccesses}`);
         extraInfo.push(`${game.i18n.localize("wod.dialog.neededsuccesses")}: ${this.object.successesRequired}`);        
@@ -152,10 +202,10 @@ export class DialogShapeChange extends FormApplication {
             shiftRoll.bonus = parseInt(this.object.bonus);
             shiftRoll.extraInfo = extraInfo;
             shiftRoll.origin = "general";
-            shiftRoll.numDices = parseInt(this.actor.system.attributes.stamina.total) + parseInt(this.actor.system.abilities.primalurge.value) + parseInt(this.object.bonus);
-            shiftRoll.woundpenalty = parseInt(this.actor.system.health.damage.woundpenalty);
+            shiftRoll.numDices = parseInt(attributevalue) + parseInt(abilityvalue) + parseInt(this.object.bonus);
+            shiftRoll.woundpenalty = parseInt(woundpenalty);
             shiftRoll.difficulty = parseInt(this.object.difficulty);  
-            shiftRoll.usewillpower = this.object.useWillpower;                
+            shiftRoll.usewillpower = this.object.useWillpower;                    
             
             const successes = await DiceRoller(shiftRoll);
             
@@ -179,19 +229,19 @@ export class DialogShapeChange extends FormApplication {
     }    
 
     async _calculateDifficulty() {
-        if (this.actor.system.shapes.homid.isactive) {
+        if (this.object.shapes.homid?.isactive) {
             this.object.difficulty = 6;
         }
-        else if (this.actor.system.shapes.glabro.isactive) {
+        else if (this.object.shapes.glabro?.isactive) {
             this.object.difficulty = 7;
         }
-        else if (this.actor.system.shapes.crinos.isactive) {
+        else if (this.object.shapes.crinos?.isactive) {
             this.object.difficulty = 6;
         }
-        else if (this.actor.system.shapes.hispo.isactive) {
+        else if (this.object.shapes.hispo?.isactive) {
             this.object.difficulty = 7;
         }
-        else if (this.actor.system.shapes.lupus.isactive) {
+        else if (this.object.shapes.lupus?.isactive) {
             this.object.difficulty = 6;
         }
         else {
@@ -205,19 +255,19 @@ export class DialogShapeChange extends FormApplication {
     async _calculateSuccessesRequired() {
         let mod = 0;
 
-        if (this.actor.system.shapes.homid.isactive) {
+        if (this.object.shapes.homid?.isactive) {
             mod = 0;
         }
-        else if (this.actor.system.shapes.glabro.isactive) {
+        else if (this.object.shapes.glabro?.isactive) {
             mod = 1;
         }
-        else if (this.actor.system.shapes.crinos.isactive) {
+        else if (this.object.shapes.crinos?.isactive) {
             mod = 2;
         }
-        else if (this.actor.system.shapes.hispo.isactive) {
+        else if (this.object.shapes.hispo?.isactive) {
             mod = 3;
         }
-        else if (this.actor.system.shapes.lupus.isactive) {
+        else if (this.object.shapes.lupus?.isactive) {
             mod = 4;
         }
 

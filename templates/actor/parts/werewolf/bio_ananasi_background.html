@@ -5,11 +5,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.breed}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
-                    {{#select data.system.breed}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.breedname.homid">{{localize "wod.bio.breedname.homid"}}</option>
-                        <option value="wod.bio.breedname.arachnid">{{localize "wod.bio.breedname.arachnid"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.BreedList selected=data.system.breed localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.breed"}}</span>
@@ -19,12 +15,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.auspice}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
-                    {{#select data.system.auspice}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.aspectname.tenere">{{localize "wod.bio.aspectname.tenere"}}</option>
-                        <option value="wod.bio.aspectname.hatar">{{localize "wod.bio.aspectname.hatar"}}</option>
-                        <option value="wod.bio.aspectname.kumoti">{{localize "wod.bio.aspectname.kumoti"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.AuspiceList selected=data.system.auspice localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.aspect"}}</span>
@@ -34,12 +25,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.tribe}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.tribe" data-name="data.system.tribe" data-dtype="String">
-                    {{#select data.system.tribe}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.factionname.myrmidon">{{localize "wod.bio.factionname.myrmidon"}}</option>
-                        <option value="wod.bio.factionname.viskir">{{localize "wod.bio.factionname.viskir"}}</option>
-                        <option value="wod.bio.factionname.wyrsta">{{localize "wod.bio.factionname.wyrsta"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.TribeList selected=data.system.tribe localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.faction"}}</span>

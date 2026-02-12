@@ -22,6 +22,10 @@
 	"TYPES.Item.Item": "Objeto",
 	"TYPES.Item.Melee Weapon": "Arma C. C./natural",
 	"TYPES.Item.Ranged Weapon": "Arma a distancia",
+	"TYPES.Item.Splat": "Splat",
+	"TYPES.Item.Advantage": "Advantage",
+	"TYPES.Item.Ability": "Ability",
+	"TYPES.Item.Sphere": "Sphere",
 	"wod": {
 		"system": {
 			"world": "¡Mundo actualizado!",
@@ -69,6 +73,7 @@
 			"darkages": "Edad Oscura",
 			"classical": "Época Clásica",
 			"livinggods": "Era de los Dioses Vivientes",
+			"savage": "Savage Age",
 			"changeera": "¿Estás seguro de que quieres cambiar de época?",
 			"changeerahint": "La ficha ya está configurada para esta época, ¿estás seguro de que deseas resetearla?",
 			"mortaleratext": "Época por defecto para fichas de mortales",
@@ -135,7 +140,7 @@
 			"choicevirtue": "Gastando puntos de Virtud",
 			"choiceexperience": "Gastando puntos de Experiencia",
 			"therollofone": "Usar el funcionamiento por defecto de los '1'",
-			"therollofonehint": "Sistema por defecto del 20 aniversario: Cada '1' reduce los éxitos en uno. (Si está desactivado, no restarán).",
+			"therollofonehint": "How many successes does a '1' remove from the result. Deafult is -1.",
 			"useOnesDamage": "Usar la regla de los '1' en tiradas de daño",
 			"useOnesSoak": "Usar la regla de los '1' en tiradas de absorción",
 			"lowestdifficulty": "Dificultad mínima permitida",
@@ -159,12 +164,19 @@
 			"darkmodesettinghint": "Nota: el modo oscuro requiere actualizar el mundo.",
 			"fifthedwillpowersetting": "Fuerza de Voluntad (Sólo 5ª edición)",
 			"fifthedwillpowersettinghint": "Una ampliación de la configuración de Atributos que establece cómo se calcula la puntuación de Fuerza de Voluntad. En 5ª edición ésta se calcula sumando Compostura y Resolución. En 20 aniversario es un Rasgo con valor normal.",
-			"usepenaltydamage": "Aplicar las penalizaciones por heridas a las tiradas de daño"
+			"willpowerBonusDice": "Willpower Bonus Dice",
+			"willpowerBonusDicehint": "Instead of granting automatic one success on rolls, when using Willpower, instead you add three (3) bonus dice. Botch is still prevented.",
+			"usepenaltydamage": "Aplicar las penalizaciones por heridas a las tiradas de daño",
+			"existingshapes": "Existing shapes",
+			"orderhint": "Drag the items into the order you want them presented on the sheet.",
+			"splatfields": "Existing splat fields",
+			"notinstalled": "None installed"
 		},
 		"types": {
 			"mortal": "Mortal",
 			"werewolf": "Hombre Lobo",
 			"mage": "Mago",
+			
 			"background": "Trasfondo",
 			"bloodbound": "Vínculo de Sangre/Vinculum",
 			"boon": "Favor",
@@ -205,10 +217,14 @@
 			"matrix": "Matriz",
 			"trinket": "Baratija",
 			"power": "Poder",
+			"talentability": "Talent Ability",
+			"skillability": "Skill Ability",
+			"knowledgeability": "Knowledge Ability",
+			"advantage": "Advantage",
 			"talentsecondability": "Talento secundario",
 			"skillsecondability": "Técnica secundaria",
 			"knowledgesecondability": "Conocimiento secundario",
-			"realm": "Reino",
+			"realms": "Reino",
 			"resonance": "Resonancia",
 			"othertraits": "Otros Rasgos",
 			"apocalypticform": "Forma Apocalíptica",
@@ -297,9 +313,11 @@
 		},
 		"tab": {
 			"bio": "Biografía",
+			"stats": "Stats",
 			"core": "Principal",
 			"combat": "Combate",
 			"gear": "Equipo",
+			"features": "Features",
 			"notes": "Notas",
 			"gifts": "Dones y Ritos",
 			"charms": "Encantamientos",
@@ -320,6 +338,7 @@
 			"attribute": "Configuración de Atributos"
 		},
 		"bio": {
+			"nobio": "No bio selected",
 			"tradition": "Tradición",
 			"technocracy": "Tecnocracia",
 			"disparate": "Disparate",
@@ -377,7 +396,7 @@
 				"squamus": "Squamus",
 				"bos": "Bos",
 				"scrofa": "Scrofa"
-			},	
+			},
 			"clan": "Clan",
 			"auspice": "Auspicio",
 			"auspicename": {
@@ -409,7 +428,7 @@
 				"solar": "Solar",
 				"lunar": "Lunar"
 			},
-			"aspect": "Aspecto",	
+			"aspect": "Aspecto",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -425,7 +444,7 @@
 				"plaguelords": "Señores de la Plaga",
 				"munchmausen": "Munchmausen",
 				"twitchers": "Espasmódicos"
-			},		
+			},
 			"tribe": "Tribu",
 			"tribename": {
 				"chasers": "Cazadores",
@@ -540,10 +559,11 @@
 				"balance": "Equilibrio",
 				"ponature": "Naturaleza P’o",
 				"direction": "Dirección",
-				"wu": "Wu"
+				"wu": "Wu",
+				"destiny": "Destiny"
 			},
 			"mage": {
-				"affiliation": "Afiliación",			
+				"affiliation": "Afiliación",
 				"essence": "Esencia",
 				"sect": "Secta",
 				"affinitysphere": "Esfera Afín",
@@ -807,9 +827,16 @@
 			"diff": {
 				"perception": "Dificultad de Percepción",
 				"wits": "Dificultad de Astucia"
+			},
+			"fixed": {
+				"appearance": "Fixed Appearance"
 			}
 		},
 		"abilities": {
+			"ability": "Ability",
+			"talent": "Talent",
+			"skill": "Skill",
+			"knowledge": "Knowledge",
 			"abilities": "Habilidades",
 			"talents": "Talentos",
 			"skills": "Técnicas",
@@ -835,6 +862,9 @@
 			"primalurge": "Impulso Primario",
 			"streetwise": "Callejeo",
 			"subterfuge": "Subterfugio",
+			"socialize": "Socialize",
+			"artist": "Artist",
+			"instruction": "Instruction",
 
 			"animalken": "Trato con Animales",
 			"archery": "Tiro con Arco",
@@ -854,12 +884,15 @@
 			"security": "Seguridad",
 			"stealth": "Sigilo",
 			"survival": "Supervivencia",
+			"ranged": "Ranged",
+			"thievery": "Thievery",
+			"weaponry": "Weaponry",
 
 			"academics": "Academicismo",
 			"ancientmedicine": "Medicina Antigua",
 			"astrology": "Astrología",
 			"bureaucracy": "Burocracia",
-			"computer": "Informática",	
+			"computer": "Informática",
 			"cosmology": "Cosmología",
 			"culture": "Cultura Encubierta",
 			"customs": "Costumbres",
@@ -884,8 +917,13 @@
 			"science": "Ciencia",
 			"technology": "Tecnología",
 			"theology": "Teología",
-			"writing": "Escritura"
-		},		
+			"writing": "Escritura",
+			"ancestralmedicine": "Ancestral Medicine",
+			"invention": "Invention",
+			"legendlore": "Legend-Lore",
+			"lore": "Lore",
+			"metaphysics": "Metaphysics"
+		},
 		"health": {
 			"health": "Salud",
 			"uninjured": "Ileso",
@@ -901,6 +939,7 @@
 			"dismembered": "Desmembrado/Calcinado",
 			"pulverized": "Pulverizado/Incinerado",
 			"dust": "Polvo/Cenizas",
+			"all": "All",
 			"bashing": "Contundente",
 			"lethal": "Letal",
 			"aggravated": "Agravado",
@@ -918,6 +957,7 @@
 			"willpower": "Fuerza de Voluntad",
 			"imbalance": "Desequilibrio",
 			"willpowerchange": "¡La Fuerza de Voluntad está basada en tu Compostura + Resolución en la configuración del Sistema y no puede alterarse!",
+			"noadvantages": "No advantage selected",
 			"path": {
 				"headline": "Moralidad",
 				"humanity": "Humanidad",
@@ -936,6 +976,7 @@
 			},
 			"virtue": {
 				"headline": "Virtudes",
+				"virtues": "Virtues",
 				"selected": "Virtudes seleccionadas",
 				"conscience": "Conciencia",
 				"conviction": "Convicción",
@@ -948,6 +989,7 @@
 			},
 			"bloodpool": "Reserva de Sangre",
 			"perturn": "Sangre por turno",
+			"truefaith": "True faith",
 			"faithpool": "Reserva de Fe",
 			"bearing": "Porte",
 			"renown": "Renombre",
@@ -1049,7 +1091,7 @@
 			"vitality": "Vitalidad",
 			"spite": "Rencor",
 			"balance": "Equilibrio",
-			"sekhem": "Sekhem",			
+			"sekhem": "Sekhem",
 			"essencepool": "Reserva de Esencia",
 			"essenceperturn": "Esencia por turno",
 			"limitbreak": "Condición de Límite",
@@ -1070,6 +1112,7 @@
 				"stunned": "Aturdido"
 			},
 			"movement": {
+				"headline": "Movement",
 				"walk": "Caminar",
 				"jog": "Trotar",
 				"run": "Correr",
@@ -1109,7 +1152,7 @@
 				"armorpiercing": "Penetración de armadura"
 			},
 			"armor": {
-				"active": "Activa",
+				"equip": "Equip",
 				"armor": "Armaduras",
 				"dexpen": "Pen. de Des.",
 				"soakbashing": "Absorción de Cont.",
@@ -1181,6 +1224,7 @@
 			"daeodon": "Daeodon"
 		},
 		"power": {
+			"nopowers": "No power selected",
 			"rank0": "Eres de Rango 0, no se permiten Dones",
 			"rank1": "Rango 1",
 			"rank2": "Rango 2",
@@ -1245,7 +1289,7 @@
 			"entropicstate": "Control del Estado Entrópico",
 			"forcebased": "Parafísica Basada en Fuerzas",
 			"lifescience": "Ciencias de la Vida",
-			"material": "Ciencias de la Materia",	
+			"material": "Ciencias de la Materia",
 			"psychodynamics": "Psicodinámica",
 			"primal": "Teoría de la Utilidad Primordial",
 			"dimensional": "Parafísica de la Ciencia Dimensional",
@@ -1290,6 +1334,8 @@
 			"area": "Área"
 		},
 		"notes": {
+			"features": "Features",
+			"nofeatures": "No feature selected",
 			"unnamedbackground": "Trasfondo sin nombre",
 			"unnamedmerit": "Mérito sin nombre",
 			"unnamedflaw": "Defecto sin nombre",
@@ -1319,7 +1365,7 @@
 			"woundlevel": "Nivel de heridas",
 			"selectability": "Selecciona Habilidad",
 			"selectattribute": "Selecciona Atributo",
-			"specialty": "Especialidad",			
+			"specialty": "Especialidad",
 			"select": "Escoger",
 			"noneselect": "Nada seleccionado",
 			"sheetsetting": "Ajuste por defecto de ficha",
@@ -1352,16 +1398,18 @@
 			"level": "Nivel",
 			"rank": "Rango",
 			"other": "Otros",
+			"Combat": "Combat",
 			"both": "Ambos",
 			"nochange": "Sin cambio",
 			"usewillpower": "Usar Fuerza de Voluntad",
+			"ignoreshpehre": "Ignore sphere when setting base difficulty",
 			"bio": {
 				"wronggeneration": "Generación no válida",
 				"wrongtempgeneration": "No se puede bajar de Cuarta Generación",
 				"tempgeneration": "Generación temporal"
 			},
 			"combat": {
-				"conditions": "Condiciones",				
+				"conditions": "Condiciones",
 				"natural": "Armas naturales",
 				"melee": "Armas cuerpo a cuerpo",
 				"ranged": "Armas a distancia",
@@ -1375,7 +1423,7 @@
 				"rollable": "Tirable",
 				"combat": "Usado en combate",
 				"system": "Sistema",
-				"cleardiscipline": "Quitar conexiones de Disciplina",
+				"clearpower": "Clear main power connection",
 				"clearpath": "Quitar conexiones de Senda",
 				"clearart": "Quitar conexiones de Arte",
 				"clearedge": "Quitar conexiones de Facultad",
@@ -1426,6 +1474,7 @@
 				"dice": "Configuración de dados",
 				"dicehint": "Te permite redefinir el color de los dados de la ficha.",
 				"secondaryabilities": "Habilidades secundarias",
+				"attributesmaxrating": "Max rating on Attributes",
 				"abilitiesmaxrating": "Puntuación máxima en Habilidades",
 				"hasdisciplines": "Tiene Disciplinas y Rituales",
 				"hasgifts": "Tiene Dones y Ritos",
@@ -1437,6 +1486,7 @@
 				"setvictorian": "¡Ficha configurada para Edad Victoriana!",
 				"setwildwest": "¡Ficha configurada para el Salvaje Oeste!",
 				"setmodern": "¡Ficha configurada para la época actual!",
+				"maxattribute": "This setting sets the maximum value an attribute can have",
 				"maxability": "Esta opción establece el valor máximo que una Habilidad puede tener",
 				"customizepath": "Personalizar Senda",
 				"soakinfoone": "Valor total de absorción (Atributo, armaduras y bonus)",
@@ -1446,6 +1496,7 @@
 				"initiativeinfotwo": "Bonus — bonificadores a la Iniciativa",
 				"initiativeinfothree": "Total — el valor total que se usa en combate, con todos los bonus activos",
 				"graphics": "Gráficos",
+				"game": "Game",
 				"era": {
 					"headline": "Época (ambientación histórica)",
 					"modern": "Actual (20 aniv.)",
@@ -1467,7 +1518,9 @@
 				"meleeweapon": "Usar para arma C. C.",
 				"rangedweapon": "Usar para arma a distancia",
 				"power": "Habilidad de Poder",
-				"reference": "Referencia"
+				"reference": "Referencia",
+				"token": "Token icon",
+				"tokenhint": "Choose what icon that will be added to the sheet's token when this shapeform is active."
 			},
 			"feature": {
 				"trivial": "Trivial",
@@ -1504,7 +1557,65 @@
 					"athletics": "Modificadores de Atletismo"
 				},
 				"savesuccess": "Cambios de modificadores guardados",
-				"savefail": "¡Fallo al guardar los cambios de modificadores!"
+				"savefail": "¡Fallo al guardar los cambios de modificadores!",
+				"attributefixedvalue": "Fixed attribute value",
+				"attackbuff": "Attack bonus",
+				"attackdiff": "Attack difficulty",
+				"frenzybuff": "Frenzy bonus",
+				"frenzydiff": "Frenzy difficulty",
+				"attributefixedvaluehint": "This bonus sets the attribute to a fixed value overriding all other bonuses.",
+				"attackbuffhint": "This bonus adds/subracts a value to attack rolls altering the total value by the selected amount.",
+				"attackdiffhint": "This bonus changes the difficulty of any attack roll.",
+				"frenzybuffhint": "This bonus adds/subracts a value to frenzy rolls altering the total value by the selected amount.",
+				"frenzydiffhint": "This bonus changes the difficulty of any frenzy roll.",
+				"frenzydiffchat": "Frenzy difficulty modifier:",
+				"frenzybonuschat": "Frenzy dice bonus:"
+			},
+			"ability": {
+				"worldname": "Item name in world",
+				"id": "Id *",
+				"idhint": "What internal ID this splat has within the system. Is used for internal hardcoded rules and settings.",
+				"sheetname": "Visible name on sheet *",
+				"speciality": "Speciality",
+				"startvalue": "Start value of ability",
+				"currentvalue": "Current value of ability",
+				"mandatory": "* Mandatory fields.",
+				"abilitytype": "Ability type",
+				"alwaysspeciality": "Always has a speciality",
+				"alwaysspecialityhint": "Regardless of game rules this ability always have a speciality.",
+				"usemelee": "Is an ability used by melee weapons",
+				"usemeleehint": "This ability can be used with a melee weapon attack.",
+				"useranged": "Is an ability used by rangeded weapons",
+				"userangedhint": "This ability can be used with a ranged weapon attack.",
+				"usepower": "Is an ability that is used by powers",
+				"usepowerhint": "This ability is used by powers.",
+				"favorited": "Is a favorited ability"
+			},
+			"advantage": {
+				"groupname": "Advantage group name",
+				"order": "Display order *",
+				"haspemanent": "Has permanent value",
+				"hastemporary": "Has temporary value",
+				"canroll": "Can be rolled",
+				"usepermanenttemporary": "Dice pool uses both permanent and temporary values",
+				"temporarycanbehigher": "Temporary can be higher than permanent value",
+				"permanentstart": "Permanent beginning value",
+				"max": "Max value"
+			},
+			"sphere": {
+				"start": "Starting value",
+				"technocracy": "Is Technocracy sphere"
+			},
+			"splat": {
+				"game": "Game line",
+				"gamehint": "What game line is used for this splat sheet.",
+				"sheet": "Splat sheet",
+				"sheethint": "What type of base splat this sheet is.",
+				"sheehint": "What type of splat is this sheet representing (e.g. mortal, vampire, werewolf, mage).",
+				"variant": "Variant name",
+				"varianthint": "What type of variant of the splat sheet is this sheet representing. Default is general.",
+				"era": "Game Era",
+				"erahint": "What game era the sheet it set to."
 			},
 			"new": {
 				"create": "Crear objeto",
@@ -1525,6 +1636,10 @@
 				"merit": "Nuevo Mérito",
 				"flaw": "Nuevo Defecto",
 				"ability": "Nueva Habilidad secundaria",
+				"talent": "New talent",
+				"skill": "New skill",
+				"knowledge": "New knowledge",
+				"advantage": "New advantage",
 				"resonance": "Nueva Resonancia",
 				"othertraits": "Nuevo 'Otro Rasgo'",
 				"addexp": "Añadir Experiencia",
@@ -1644,6 +1759,8 @@
 				"boon": "Editar Favor",
 				"gift": "Editar Don",
 				"rite": "Editar Rito",
+				"discipline": "Edit discipline",
+				"disciplinepower": "Edit discipline power",
 				"disciplinepath": "Editar Senda de Disciplina",
 				"disciplinepathpower": "Editar Poder de Senda de Disciplina",
 				"ritual": "Editar Ritual",
@@ -1697,6 +1814,8 @@
 				"armor": "Quitar Armadura",
 				"gift": "Quitar Don",
 				"rite": "Quitar Rito",
+				"discipline": "Remove discipline",
+				"disciplinepower": "Remove discipline power",
 				"disciplinepath": "Quitar Senda de Disciplina",
 				"disciplinepathpower": "Quitar Poder de Senda de Disciplina",
 				"ritual": "Quitar Ritual",
@@ -1747,12 +1866,20 @@
 				"flaw": "Mostrar Defectos",
 				"bloodbound": "Mostrar Vínculos/Vinculi",
 				"boon": "Mostrar Favores",
-				"traits": "Mostrar Otros Rasgos",
+				"trait": "Show other traits",
 				"experience": "Mostrar Experiencia ganada",
 				"spentexp": "Mostrar Experiencia gastada",
 				"bonus": "Mostrar otros bonificadores",
 				"oath": "Mostrar Juramento",
 				"description": "Mostrar descripción"
+			},
+			"drop": {
+				"nopcactor": "Item type {1} are not supported on this type of Actor {2} requires Actor type PC.",
+				"advantageexists": "This Advantage {1}} already exist on the sheet and can't be added.",
+				"dropsphere": "No function to add Spheres manually yet.",
+				"warning": "Warning!",
+				"warningtext": "If you change Splat all settings and alterations you have made be reset according to the new Splat added",
+				"splatinstalled": "Splat '{1}' added to '{2}'."
 			},
 			"yes": "Sí",
 			"no": "No",
@@ -1802,9 +1929,11 @@
 			"rollingremainactivetext": "Cada éxito sana un nivel de Salud, de cualquier tipo de daño. Sin importar cuanto daño ha sanado, el personaje entra en Frenesí Rabioso. Un hombre lobo gana una Cicatriz de batalla cada vez que permanece activo con éxito.",
 			"addedautosucc": "La tirada añade {0} éxitos automáticos",
 			"usingwillpower": "Usando Fuerza de Voluntad",
-			"favored": "Tirada predilecta"
+			"favored": "Tirada predilecta",
+			"bonusdices": "Bonus dices",
+			"nobotchpossible": "No botch possible on this roll"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Guardar",
 			"reset": "Reiniciar",
 			"close": "Cerrar",
@@ -1818,7 +1947,7 @@
 			"nonelisted": "Ninguno listado",
 			"aretecasting": {
 				"castspell": "Lanzar hechizo",
-				"castingspell": "Lanzando hechizo",	
+				"castingspell": "Lanzando hechizo",
 				"casting": "Lanzando",
 				"modifierarete": "Modificador de Areté",
 				"castingtype": "Tipo de hechizo",
@@ -1860,7 +1989,7 @@
 				"additionaldifficulty": "Modificador de dificultad adicional",
 				"castingsettings": "Opciones de Lanzamiento",
 				"extendedcasting": "Lanzamiento extendido",
-				"extendedcastingdesc": "Una tirada extendida sucede cuando tiras por el mismo efecto una y otra vez, sumando los éxitos de cada tirada, pero cada intento añade +1 a la dificultad.",
+				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each fail adds +1 to the difficulty.",
 				"selectsphere": "Se necesita primero seleccionar las Esferas",
 				"keepdifficulty": "Mantener la misma dificultad",
 				"keepdiff": "Mantener dificultad",
@@ -1885,6 +2014,14 @@
 				"noshape": "No se ha seleccionado Forma",
 				"selectshape": "Forma en la que convertirse"
 			},
+			"migrationwizard": {
+				"title": "Migration Information",
+				"page": "Page",
+				"of": "of",
+				"previous": "Previous",
+				"next": "Next",
+				"dontshowagain": "Don't show again"
+			},
 			"weapon": {
 				"attack": "Ataque",
 				"damage": "Daño",
@@ -1903,7 +2040,13 @@
 				"firemodes": "Modos de fuego automático",
 				"numbertargets": "Número de objetivos",
 				"nomeleeweapon": "No hay Habilidades secundarias de armas cuerpo a cuerpo presentes en la ficha",
-				"norangedweapon": "No hay Habilidades secundarias de armas a distancia presentes en la ficha"
+				"norangedweapon": "No hay Habilidades secundarias de armas a distancia presentes en la ficha",
+				"attackdiffchat": "Attack difficulty modifier:",
+				"attackbonuschat": "Attack dice bonus:",
+				"attackrollbonus": "Attack roll bonus:",
+				"dodgemodifier": "Dodge modifier",
+				"generalmodifier": "General modifier",
+				"secondaryabilityinfo": "Pick what secodary ability to use for this weapon if no ability have been selected."
 			},
 			"soak": {
 				"missingdamage": "Debes seleccionar un tipo de daño",
@@ -1943,7 +2086,8 @@
 				"bonusvalue": "Valor del modificador",
 				"bonuses": "Modificadores",
 				"healthleveltype": "Tipo de nivel de Salud",
-				"section": "Sección"
+				"section": "Sección",
+				"weapontype": "Weapon type"
 			},
 			"variant": {
 				"sheettype": "Selecciona el modelo de ficha",
@@ -1959,5 +2103,5 @@
 				"lostbreeds": "Tribus Perdidas"
 			}
 		}
-	}	
+	}
 }

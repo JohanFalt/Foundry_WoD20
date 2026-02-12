@@ -14,6 +14,16 @@ function _GetDiceColors(actor) {
 
 	let diceType = actor?.type.toLowerCase();	
 
+	// For PC actors, use variantsheet or splat to determine dice type
+	if (actor.type === "PC") {
+		if (actor?.system?.settings?.splat && actor.system.settings.splat !== "") {
+			diceType = actor.system.settings.splat.toLowerCase();
+		}
+		else if (actor?.system?.settings?.variantsheet && actor.system.settings.variantsheet !== "") {
+			diceType = actor.system.settings.variantsheet.toLowerCase();
+		}
+	}
+
 	if (actor?.system?.settings?.dicesetting != "") {
 		diceType = actor.system.settings.dicesetting;
 	}
@@ -63,7 +73,7 @@ function _GetDiceColors(actor) {
 	}
 }
 
-/* klassen som man använder för att skicka in information in i DiceRoller */
+/* klassen som man använder för att skicka in information in i RollDice */
 export class DiceRollContainer {
     constructor(actor) {
 		this.actor = actor; 	// rolling actor
@@ -132,7 +142,7 @@ export async function DiceRoller(diceRoll) {
 			let currentWillpower = actor.system.advantages.willpower.temporary;
 			if (currentWillpower > 0) {
 				let newWillpower = currentWillpower - 1;
-				await actor.update({ "system.advantages.willpower.temporary": newWillpower });
+				await actor.update({"system.advantages.willpower.temporary": newWillpower});
 			}
 		}
 		if (CONFIG.worldofdarkness.willpowerBonusDice) {
@@ -216,10 +226,10 @@ export async function DiceRoller(diceRoll) {
 					success += 1;
 				}
 				else if ((dice.result == 1) && (actor !== undefined)) {
-					if ((CONFIG.worldofdarkness.handleOnes) && (canBotch) && 
+					if ((CONFIG.worldofdarkness.usehandleOnes) && (canBotch) && 
 							(!actor.system.attributes[diceRoll.attribute]?.isfavorited) && (!actor.system.attributes[diceRoll.ability]?.isfavorited) && 
 							(!actor.system.abilities[diceRoll.attribute]?.isfavorited) && (!actor.system.abilities[diceRoll.ability]?.isfavorited)) {
-						success--;
+						success = success - CONFIG.worldofdarkness.handleOnes;
 					}
 					// special rules regardingh Exalted
 					else if ((actor.system.attributes[diceRoll.attribute]?.isfavorited) || (actor.system.attributes[diceRoll.ability]?.isfavorited) && 
@@ -253,10 +263,10 @@ export async function DiceRoller(diceRoll) {
 		if (success > 0) {
 			rollResult = "success";
 		}
-		else if ((CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
+		else if ((CONFIG.worldofdarkness.usehandleOnes) && (rolledOne) && (!rolledAnySuccesses) && (canBotch)) {
 			rollResult = "botch";
 		}
-		else if ((!CONFIG.worldofdarkness.handleOnes) && (rolledOne) && (canBotch)) {
+		else if ((!CONFIG.worldofdarkness.usehandleOnes) && (rolledOne) && (canBotch)) {
 			rollResult = "botch";
 		}
 		else {
@@ -282,10 +292,10 @@ export async function DiceRoller(diceRoll) {
 		rollInfo += property;
 	} 
 
-	if (diceRoll.bonus > 0) {
+	if ((diceRoll.bonus > 0) && (diceRoll.dicetext.length > 0)) {
 		rollInfo += ` + ${diceRoll.bonus}`;
 	}
-	else if (diceRoll.bonus < 0) {
+	else if ((diceRoll.bonus > 0) || (diceRoll.bonus < 0)) {
 		rollInfo += ` ${diceRoll.bonus}`;
 	}
 
@@ -325,7 +335,14 @@ export async function DiceRoller(diceRoll) {
 		info.push(specialityText);
 	}
 	if (usewillpower) {
-		info.push(game.i18n.localize("wod.dice.usingwillpower"));
+		let willpowerText = "";
+		if (CONFIG.worldofdarkness.willpowerBonusDice) {
+			willpowerText = ` (+3 ${game.i18n.localize("wod.dice.bonusdices")})`;
+		}
+		info.push(game.i18n.localize("wod.dice.usingwillpower") + willpowerText);				
+	}
+	if (!canBotch) {
+		info.push(game.i18n.localize("wod.dice.nobotchpossible"));
 	}
 	if (systemText != "") {
 		systemtext.push(systemText);

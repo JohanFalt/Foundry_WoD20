@@ -7,14 +7,8 @@
                 {{#if locked}}
                     <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.affiliation 'custom')}}{{actor.system.custom.affiliation}}{{else}}{{localize data.system.affiliation}}{{/if}}" data-dtype="String" autofocus required />
                 {{else}}
-                    <select class="sheet-infoValues {{#if (eq actor.system.affiliation 'custom')}}edit-property{{/if}} editable" name="system.affiliation" data-name="data.system.affiliation" data-dtype="String">
-                        {{#select data.system.affiliation}}
-                            <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.affiliation "")}}- {{localize "wod.labels.customaffiliation"}} -{{else}}{{actor.system.custom.affiliation}} ({{localize "wod.labels.customaffiliation"}}){{/if}}</option>                            
-                            {{#each worldofdarkness.bio.affiliation as |affiliation id|}}
-                                <option value="{{affiliation}}">{{localize affiliation}}</option>
-                            {{/each}}
-                        {{/select}}
+                    <select class="sheet-infoValues {{#if (eq actor.system.affiliation 'custom')}}edit-property{{/if}} editable" name="system.affiliation" data-type="{{config.sheettype.mage}}" data-name="data.system.affiliation" data-dtype="String">
+                        {{selectOptions listData.AffiliationList selected=data.system.affiliation localize=false}}
                     </select>
                     {{#if (eq actor.system.affiliation "custom")}}
                         <a class="pullLeft item-edit" title="{{localize 'wod.labels.customaffiliation'}}" data-type="Bio" data-name="{{localize "wod.bio.mage.affiliation"}}" data-item-id="affiliation" data-custom="{{actor.system.custom.affiliation}}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -27,36 +21,8 @@
                 {{#if locked}}
                     <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.sect 'custom')}}{{actor.system.custom.sect}}{{else}}{{localize data.system.sect}}{{/if}}" data-dtype="String" autofocus required />
                 {{else}}
-                    <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-name="data.system.sect" data-dtype="String">
-                        {{#select data.system.sect}}
-                            <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}} ({{localize "wod.labels.customsect"}}){{/if}}</option>                            
-                            <optgroup label="{{localize "wod.bio.mage.tradition"}}">
-                                {{#each worldofdarkness.bio.magesect.tradition as |sect id|}}
-                                    <option value="{{sect}}">{{localize sect}}</option>
-                                {{/each}}
-                            </optgroup>
-                            <optgroup label="{{localize "wod.bio.mage.technocracy"}}">
-                                {{#each worldofdarkness.bio.magesect.technocracy as |sect id|}}
-                                    <option value="{{sect}}">{{localize sect}}</option>
-                                {{/each}}
-                            </optgroup>
-                            <optgroup label="{{localize "wod.bio.mage.disparate"}}">
-                                {{#each worldofdarkness.bio.magesect.disparate as |sect id|}}
-                                    <option value="{{sect}}">{{localize sect}}</option>
-                                {{/each}}
-                            </optgroup>
-                            <optgroup label="{{localize "wod.bio.mage.fallen"}}">
-                                {{#each worldofdarkness.bio.magesect.fallen as |sect id|}}
-                                    <option value="{{sect}}">{{localize sect}}</option>
-                                {{/each}}
-                            </optgroup>
-                            <optgroup label="{{localize "wod.bio.mage.mad"}}">
-                                {{#each worldofdarkness.bio.magesect.mad as |sect id|}}
-                                    <option value="{{sect}}">{{localize sect}}</option>
-                                {{/each}}
-                            </optgroup>
-                        {{/select}}
+                    <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-type="{{config.sheettype.mage}}" data-name="data.system.sect" data-dtype="String">
+                        {{selectOptions listData.MageSectList selected=data.system.sect localize=false}}
                     </select>
                     {{#if (eq actor.system.sect "custom")}}
                         <a class="pullLeft item-edit" title="{{localize 'wod.labels.customsect'}}" data-type="Bio" data-name="{{localize "wod.bio.mage.sect"}}" data-item-id="sect" data-custom="{{actor.system.custom.sect}}"><i class="fa-solid fa-pen-to-square"></i></a>

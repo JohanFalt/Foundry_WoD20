@@ -1,64 +1,13 @@
-{{log "bio"}}
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
 
-<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">
+	<div class="pullRight">
+		<!-- Macro icons -->
+		{{> "systems/worldofdarkness/templates/actor/parts/macro_icons.hbs"}}				        	
+	</div>
+
 	<div class="sheet-area">	
 
-		<div class="" style="display: flex;">
-			<div style="width: 320px; flex-direction: column;">
-				<div class="area-box">
-					<div class="bioInformationArea floating-label-group">
-						{{#if locked}}
-							<input class="sheet-infoValues" type="text" value="{{actor.name}}" autocomplete="off" autofocus required />
-						{{else}}
-							<input class="sheet-infoValues editable" name="name" type="text" value="{{actor.name}}" data-dtype="String" autocomplete="off" autofocus required />
-						{{/if}}
-						<span class="floating-label">{{localize 'wod.bio.name'}}</span>
-					</div>
-
-					{{#if (ne actor.type config.sheettype.changeling)}}
-						{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-							<div class="bioInformationArea floating-label-group">
-								{{#if locked}}
-									<input class="sheet-infoValues" type="text" value="{{actor.system.bio.nature}}" autocomplete="off" autofocus required />
-								{{else}}
-									<input class="sheet-infoValues editable" name="system.bio.nature" type="text" value="{{actor.system.bio.nature}}" data-name="data.system.bio.nature" data-dtype="String" autocomplete="off" autofocus required />
-								{{/if}}
-								<span class="floating-label">{{localize 'wod.bio.nature'}}</span>
-							</div>
-						{{/if}}
-											
-						<div class="bioInformationArea floating-label-group">
-							{{#if locked}}
-								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.demeanor}}" autocomplete="off" autofocus required />
-							{{else}}
-								<input class="sheet-infoValues editable" name="system.bio.demeanor" type="text" value="{{actor.system.bio.demeanor}}" data-name="data.system.bio.demeanor" data-dtype="String" autocomplete="off" autofocus required />
-							{{/if}}
-							<span class="floating-label">{{localize 'wod.bio.demeanor'}}</span>
-						</div>
-						
-					{{/if}}
-
-					{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-						<div class="bioInformationArea floating-label-group">
-							{{#if locked}}
-								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.concept}}" autocomplete="off" autofocus required />
-							{{else}}
-								<input class="sheet-infoValues editable" name="system.bio.concept" type="text" value="{{actor.system.bio.concept}}" data-name="data.system.bio.concept" data-dtype="String" autocomplete="off" autofocus required />
-							{{/if}}
-							<span class="floating-label">{{localize 'wod.bio.concept'}}</span>
-						</div>
-						
-						<div class="bioInformationArea floating-label-group">
-							{{#if locked}}
-								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.derangement}}" autocomplete="off" autofocus required />
-							{{else}}
-								<input class="sheet-infoValues editable" name="system.bio.derangement" type="text" value="{{actor.system.bio.derangement}}" data-name="data.system.bio.derangement" data-dtype="String" autocomplete="off" autofocus required />
-							{{/if}}
-							<span class="floating-label">{{localize 'wod.bio.derangement'}}</span>
-						</div>	
-					{{/if}}
-				</div>				
-			</div>
+		<div style="display: flex;">
 
 			<div style="flex: 1; margin-left: auto;">
 				{{#if locked}}
@@ -71,38 +20,102 @@
 					{{/if}}
 				{{/if}} 
 			</div>
+
+			<div style="width: 320px; flex-direction: column;">
+				<div class="area-box">
+					<div class="bioInformationArea floating-label-group">
+						{{#if locked}}
+							<input class="sheet-infoValues" type="text" value="{{actor.name}}" autocomplete="off" autofocus required />
+						{{else}}
+							<input class="sheet-infoValues editable" name="name" type="text" value="{{actor.name}}" data-dtype="String" autocomplete="off" autofocus required />
+						{{/if}}
+						<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+					</div>
+
+					{{#if (ne actor.system.settings.splat config.splat.changeling)}}
+						{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+							<div class="bioInformationArea floating-label-group">
+								{{#if locked}}
+									<input class="sheet-infoValues" type="text" value="{{actor.system.bio.nature}}" autocomplete="off" autofocus required />
+								{{else}}
+									<input class="sheet-infoValues editable" name="system.bio.nature" type="text" value="{{actor.system.bio.nature}}" data-dtype="String" autocomplete="off" autofocus required />
+								{{/if}}
+								<span class="floating-label">{{localize 'wod.bio.nature'}}</span>
+							</div>
+						{{/if}}
+											
+						<div class="bioInformationArea floating-label-group">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.demeanor}}" autocomplete="off" autofocus required />
+							{{else}}
+								<input class="sheet-infoValues editable" name="system.bio.demeanor" type="text" value="{{actor.system.bio.demeanor}}" data-dtype="String" autocomplete="off" autofocus required />
+							{{/if}}
+							<span class="floating-label">{{localize 'wod.bio.demeanor'}}</span>
+						</div>
+						
+					{{/if}}
+
+					{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+						<div class="bioInformationArea floating-label-group">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.concept}}" autocomplete="off" autofocus required />
+							{{else}}
+								<input class="sheet-infoValues editable" name="system.bio.concept" type="text" value="{{actor.system.bio.concept}}" data-dtype="String" autocomplete="off" autofocus required />
+							{{/if}}
+							<span class="floating-label">{{localize 'wod.bio.concept'}}</span>
+						</div>
+						
+						<div class="bioInformationArea floating-label-group">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{actor.system.bio.derangement}}" autocomplete="off" autofocus required />
+							{{else}}
+								<input class="sheet-infoValues editable" name="system.bio.derangement" type="text" value="{{actor.system.bio.derangement}}" data-dtype="String" autocomplete="off" autofocus required />
+							{{/if}}
+							<span class="floating-label">{{localize 'wod.bio.derangement'}}</span>
+						</div>	
+					{{/if}}
+				</div>				
+			</div>
+
+			<!-- To list splat input and selects -->
+			{{> "systems/worldofdarkness/templates/actor/parts/bio_splatfields.hbs" locked=locked}}
+			
 		</div>			
 	</div>	
 
-	<div class="sheet-area flex-columns">		
+	<div class="sheet-area flex-columns">	
 
 		<div class="area-box">
+
+			<!-- To list splat textboxes -->
+			{{> "systems/worldofdarkness/templates/actor/parts/bio_splatboxes.hbs" locked=locked}}			
 
 			{{#if graphicsettings.useLinkPlatform}}
 				<div class="area-box headlineText splatFont">{{localize 'wod.bio.worldanvil'}}</div>
 				<div class="bioInformationArea">
 					{{#if locked}}
-						{{#if (ne data.system.worldanvil "")}}
-							<a href="{{data.system.worldanvil}}" target="_blank">{{localize 'wod.bio.worldanvillink'}}</a>
+						{{#if (ne actor.system.bio.worldanvil "")}}
+							<a href="{{actor.system.bio.worldanvil}}" target="_blank">{{localize 'wod.bio.worldanvillink'}}</a>
 						{{else}}
 							{{localize 'wod.bio.noworldanvillink'}}
 						{{/if}}
 					{{else}}
-						<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.bio.worldanvil" type="text" value="{{data.system.bio.worldanvil}}" data-name="data.system.bio.worldanvil" data-dtype="String" />
+						<input class="sheet-infoValues {{#if (eq locked false)}}editable{{/if}}" name="system.bio.worldanvil" type="text" value="{{actor.system.bio.worldanvil}}" style="width: 90%;" data-dtype="String" />
 					{{/if}}
 
 				</div>
 			{{/if}}
 
-			{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.appearance" prosename="system.bio.appearance" prosevalue=appearance proseenriched=enrichedAppearance}}
+			{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.appearance" locked=locked headline=false prosename="system.bio.appearance" locked=locked prosevalue=appearance proseenriched=enrichedAppearance}}
 
 			{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
-				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.background" prosename="system.bio.background" prosevalue=background proseenriched=enrichedBackground}}									
+				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.background" locked=locked headline=false prosename="system.bio.background" prosevalue=background proseenriched=enrichedBackground}}									
 			{{/if}}
 
 			{{#if isGM}}
-				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.tips" prosename="system.bio.roleplaytip" prosevalue=roleplaytip proseenriched=enrichedRoleplaytip}}
+				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.tips" locked=locked headline=false prosename="system.bio.roleplaytip" prosevalue=roleplaytip proseenriched=enrichedRoleplaytip}}
 			{{/if}}
 		</div>
 	</div>	
+	
 </section>

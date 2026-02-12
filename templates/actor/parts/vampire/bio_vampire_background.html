@@ -8,14 +8,8 @@
                     {{#if locked}}                
                         <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.sect 'custom')}}{{actor.system.custom.sect}}{{else}}{{localize data.system.sect}}{{/if}}" data-dtype="String" autofocus required />
                     {{else}}
-                        <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-name="data.system.sect" data-dtype="String">
-                            {{#select data.system.sect}}
-                                <option value="">- {{localize "wod.labels.select"}} -</option>
-                                <option value="custom">{{#if (eq actor.system.custom.sect "")}}- {{localize "wod.labels.customsect"}} -{{else}}{{actor.system.custom.sect}} ({{localize "wod.labels.customsect"}}){{/if}}</option>                            
-                                {{#each worldofdarkness.bio.sect as |sect id|}}
-                                    <option value="{{sect}}">{{localize sect}}</option>
-                                {{/each}}
-                            {{/select}}
+                        <select class="sheet-infoValues {{#if (eq actor.system.sect 'custom')}}edit-property{{/if}} editable" name="system.sect" data-type="{{config.sheettype.vampire}}" data-name="data.system.sect" data-dtype="String">
+                            {{selectOptions listData.SectList selected=data.system.sect localize=false}}
                         </select>
                         {{#if (eq actor.system.sect "custom")}}
                             <a class="pullLeft item-edit" title="{{localize 'wod.labels.customizesect'}}" data-type="Bio" data-name="{{localize "wod.bio.vampire.sect"}}" data-item-id="sect" data-custom="{{actor.system.custom.sect}}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -29,15 +23,9 @@
                 {{#if locked}}
                     <input class="sheet-infoValues" type="text" value="{{#if (eq actor.system.clan 'custom')}}{{actor.system.custom.clan}}{{else}}{{localize data.system.clan}}{{/if}}" data-dtype="String" autofocus required />
                 {{else}}
-                    <select class="sheet-infoValues {{#if (eq actor.system.clan 'custom')}}edit-property{{/if}} editable" name="system.clan" data-name="data.system.clan" data-dtype="String">
-                        {{#select data.system.clan}}
-                            <option value="">- {{localize "wod.labels.select"}} -</option>
-                            <option value="custom">{{#if (eq actor.system.custom.clan "")}}- {{localize "wod.labels.customclan"}} -{{else}}{{actor.system.custom.clan}} ({{localize "wod.labels.customclan"}}){{/if}}</option>                            
-                            {{#each worldofdarkness.bio.clan as |clan id|}}
-                                <option value="{{clan}}">{{localize clan}}</option>
-                            {{/each}}
-                        {{/select}}
-                    </select>
+                    <select class="sheet-infoValues {{#if (eq actor.system.clan 'custom')}}edit-property{{/if}} editable" name="system.clan" data-type="{{config.sheettype.vampire}}" data-name="data.system.clan" data-dtype="String">
+                        {{selectOptions listData.ClanList selected=data.system.clan localize=false}}
+                    </select>                    
                     {{#if (eq actor.system.clan "custom")}}
                         <a class="pullLeft item-edit" title="{{localize 'wod.labels.customizeclan'}}" data-type="Bio" data-name="{{localize "wod.bio.vampire.clan"}}" data-item-id="clan" data-custom="{{actor.system.custom.clan}}"><i class="fa-solid fa-pen-to-square"></i></a>
                     {{/if}}
@@ -77,13 +65,8 @@
                     {{#if locked}}
                         <input class="sheet-infoValues" type="text" value="{{data.system.generation}}" data-dtype="Number" autofocus required />
                     {{else}}
-                        <select class="sheet-infoValues editable inputdata" name="system.generation" data-type="{{config.sheettype.vampire}}" data-name="data.system.generation" data-dtype="Number">
-                            {{#select data.system.generation}}
-                                <option value="">- {{localize "wod.labels.select"}} -</option>
-                                {{#numFromLoop 4 16}}
-                                    <option value="{{this}}">{{this}}</option>
-                                {{/numFromLoop}}
-                            {{/select}}
+                        <select class="sheet-infoValues editable" name="system.generation" data-type="{{config.sheettype.vampire}}" data-name="data.system.generation" data-dtype="Number">
+                            {{selectOptions listData.Generation selected=data.system.generation localize=false}}
                         </select>
                     {{/if}}
                     <span class="floating-label">{{localize "wod.bio.vampire.generation"}}</span>                                    

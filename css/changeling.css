@@ -21,6 +21,22 @@
     --main-mid-color: var(--main-changeling-mid-color);
     --main-dim-color: var(--main-changeling-dim-color);
     --color-shadow-primary: var(--main-changeling-color);
+
+    /* Splat-specific font-size defaults (tweak per splat if needed) */
+    --wod-font-xxs: 0.4375rem;   /* 7px */
+    --wod-font-xs: 0.625rem;     /* 10px */
+    --wod-font-sm: 0.75rem;      /* 12px */
+    --wod-font-md: 0.875rem;     /* 14px */
+    --wod-font-base: 1rem;       /* 16px */
+    --wod-font-lg: 1.125rem;     /* 18px */
+    --wod-font-xl: 1.25rem;      /* 20px */
+    --wod-font-xxl: 1.5rem;      /* 24px */
+
+    /* Overrides to preserve current hard-coded sizes in this splat */
+    --wod-font-sheet-headline: 1.875rem; /* 30px (.sheet-headline) */
+    --wod-font-headline-group: 2rem; /* 32px (.headlineGroup) */
+    --wod-font-headline-tabs: 1.5rem; /* 24px (.headlineTabs) */
+    --wod-font-second-headline-tabs: 1.625rem; /* 26px (.secondHeadlineTabs) */
 }
 
 .changeling .wod-sheet .profile-img-zone button {  
@@ -32,33 +48,12 @@
     height: 30px;
 }
 
-.changeling .sheet-banner.sheet-topbanner {
-    background: var(--changeling-topbanner-background);
-    background-size: 75%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-.changeling .sheet-banner-small {
-    background: var(--main-wod-banner-small);
-    background-size: 90%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 10px; 
-} 
-
-.changeling:not(.noSplatFont) .sheet-headline {
-    font-size: 30px;
-}
-
 .changelingDialog:not(.noSplatFont) .headlineGroup {
-    font-size: 32px;
+    font-size: var(--wod-font-headline-group);
 }
 
 .changelingDialog:not(.noSplatFont) .headline {
-    font-size: 20px;
+    font-size: var(--wod-font-xl);
 }
   
 .changeling .lock-icon {
@@ -66,13 +61,13 @@
 }
   
 .changeling:not(.noSplatFont) .headlineTabs {
-    font-size: 24px;
+    font-size: var(--wod-font-headline-tabs);
     line-height: 24px;
 }
 
 .changeling .splatFont .headlineList {
-    font-size: 16px;
-}
+    font-size: var(--wod-font-base);
+} 
   
 .changeling .pullLeft.healthbox {
     margin-left: 15px;
@@ -173,7 +168,7 @@
 } */
 
 .wod20.changeling .item-row-area.mainpower-row .power-itemlist .width-namebox {
-  font-size: 20px;
+  font-size: var(--wod-font-xl);
   font-weight: bold;
   width: 240px;
 }
@@ -197,9 +192,9 @@
 /* SETTINGS */
 
 .changeling:not(.noSplatFont) .secondHeadlineTabs {
-    font-size: 26px;
+    font-size: var(--wod-font-second-headline-tabs);
 }
 
 .changeling .secondHeadlineTabs {
     width: 25%;
-}
+} 

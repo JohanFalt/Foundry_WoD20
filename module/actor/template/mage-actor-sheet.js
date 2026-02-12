@@ -1,5 +1,6 @@
 import { default as MortalActorSheet } from "./mortal-actor-sheet.js";
 import ActionHelper from "../../scripts/action-helpers.js";
+import { calculateQuintessenceChange, calculateParadoxChange } from "../../scripts/action-helpers.js";
 import CreateHelper from "../../scripts/create-helpers.js";
 import BonusHelper from "../../scripts/bonus-helpers.js";
 
@@ -89,7 +90,7 @@ export default class MageActorSheet extends MortalActorSheet {
 			return;
 		}			
 		
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 	
 	async _onDotCounterMageChange(event) {
@@ -161,30 +162,26 @@ export default class MageActorSheet extends MortalActorSheet {
 		}
 		
 		const actorData = foundry.utils.duplicate(this.actor);
-
-		if (oldState == "") {
-			if ((parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent)) < 20) {
-				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) + 1;
-			}			
+		
+		const result = calculateQuintessenceChange(
+			oldState,
+			parseInt(actorData.system.quintessence.temporary),
+			parseInt(actorData.system.paradox.temporary),
+			parseInt(actorData.system.paradox.permanent)
+		);
+		
+		if (result && result.quintessenceTemporary !== undefined) {
+			actorData.system.quintessence.temporary = result.quintessenceTemporary;
+			actorData.system.settings.isupdated = false;
+			await this.actor.update(actorData);
 		}
-		else if (oldState == "Ψ") { 
-			if (parseInt(actorData.system.quintessence.temporary) > 0) {
-				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;			
-			}			
-		}
-		else {
-			return;
-		}
-
-		actorData.system.settings.isupdated = false;
-		await this.actor.update(actorData);
 	}
 
 	async _onParadoxChange(event) {
 		event.preventDefault();
 
 		const element = event.currentTarget;
-		let oldState = element.dataset.state || "";
+		const oldState = element.dataset.state || "";
 		const states = parseCounterStates("Ψ:quintessence,x:paradox,*:permanent_paradox");
 
 		const allStates = ["", ...Object.keys(states)];
@@ -196,41 +193,24 @@ export default class MageActorSheet extends MortalActorSheet {
 
 		const actorData = foundry.utils.duplicate(this.actor);
 
-		if (oldState == "") {
-			if ((parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1) > 20) {
-				oldState = "Ψ";
+		const result = calculateParadoxChange(
+			oldState,
+			parseInt(actorData.system.quintessence.temporary),
+			parseInt(actorData.system.paradox.temporary),
+			parseInt(actorData.system.paradox.permanent)
+		);
+		
+		if (result) {
+			if (result.quintessenceTemporary !== undefined) {
+				actorData.system.quintessence.temporary = result.quintessenceTemporary;
 			}
-		}		
-
-		if (oldState == "") {
-			if (parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) < 20) {
-				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;	
-			}			
-		}
-		else if (oldState == "x") {
-			if (parseInt(actorData.system.paradox.temporary) > 0) {
-				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) - 1;
-			}			
-		}
-		else if (oldState == "*") {
-			return;
-		}
-		else if ((oldState == "Ψ") && (parseInt(actorData.system.quintessence.temporary) + parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) + 1 > 20)) { 
-			if ((parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent) < 20)) {
-				actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;	
-				actorData.system.paradox.temporary = parseInt(actorData.system.paradox.temporary) + 1;		
+			if (result.paradoxTemporary !== undefined) {
+				actorData.system.paradox.temporary = result.paradoxTemporary;
 			}
+			actorData.system.settings.isupdated = false;
+			await this.actor.update(actorData);
 		}
-		else if (oldState == "Ψ") {
-			actorData.system.quintessence.temporary = parseInt(actorData.system.quintessence.temporary) - 1;
-		}
-		else {
-			return;
-		}
-
-		actorData.system.settings.isupdated = false;
-		await this.actor.update(actorData);
-	}	
+	}
 
 	async _assignToMage(fields, value) {
 		const actorData = foundry.utils.duplicate(this.actor);

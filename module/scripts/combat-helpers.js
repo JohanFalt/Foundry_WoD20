@@ -6,9 +6,7 @@ import { DiceRollContainer } from "./roll-dice.js";
 
 export default class CombatHelper {
 
-    static async RollInitiative(event, actor) {
-		event.preventDefault();		
-
+    static async RollInitiative(actor) {
 		const generalRoll = new DiceRollContainer(actor);
         generalRoll.origin = "initiative";
         InitiativeRoll(generalRoll);
@@ -69,13 +67,65 @@ export default class CombatHelper {
 		}
 
 		if (await BonusHelper.CheckMovementBuff(actor, "walk") == true) {
-			movement.walk = movement.walk * parseInt(await BonusHelper.GetMovementBuff(actor, "walk"));
+			movement.walk = movement.walk * (await BonusHelper.GetMovementBuff(actor, "walk"));
 		}
 		if (await BonusHelper.CheckMovementBuff(actor, "jog") == true) {
-			movement.jog = movement.jog * parseInt(await BonusHelper.GetMovementBuff(actor, "jog"));
+			movement.jog = movement.jog * (await BonusHelper.GetMovementBuff(actor, "jog"));
 		}
 		if (await BonusHelper.CheckMovementBuff(actor, "run") == true) {
-			movement.run = movement.run * parseInt(await BonusHelper.GetMovementBuff(actor, "run"));
+			movement.run = movement.run * (await BonusHelper.GetMovementBuff(actor, "run"));
+		}
+
+		return movement;
+	}
+
+	static async CalculateMovementv2(actor) {
+		let movement = actor.system.movement;
+
+		movement.walk.value = 7;
+		movement.jog.value = parseInt(actor.system.attributes.dexterity.total) + 12;
+		movement.run.value = parseInt(actor.system.attributes.dexterity.total) * 3 + 20;
+		movement.vjump.value = 2;
+		movement.hjump.value = 4;
+		movement.fly.isactive = false;
+		movement.fly.value = 0;
+
+		if ((actor.type == CONFIG.worldofdarkness.sheettype.werewolf) || (actor.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
+			if (actor.system.shapes.glabro.isactive) {
+				movement.vjump.value = 3;
+				movement.hjump.value = 4;
+			}
+			if (actor.system.shapes.crinos.isactive) {
+				movement.walk.value = movement.walk.value + 2;
+				movement.jog.value = movement.jog.value + 2;
+				movement.run.value = movement.run.value + 2;
+				movement.vjump.value = 4;
+				movement.hjump.value = 5;
+			}
+			if (actor.system.shapes.hispo.isactive) {
+				movement.walk.value = movement.walk.value * 1.5;
+				movement.jog.value = movement.jog.value * 1.5;
+				movement.run.value = movement.run.value * 1.5;
+				movement.vjump.value = 5;
+				movement.hjump.value = 6;
+			}
+			if (actor.system.shapes.lupus.isactive) {
+				movement.walk.value = movement.walk.value * 2;
+				movement.jog.value = movement.jog.value * 2;
+				movement.run.value = movement.run.value * 2;
+				movement.vjump.value = 4;
+				movement.hjump.value = 7;
+			}
+		}
+
+		if (await BonusHelper.CheckMovementBuff(actor, "walk") == true) {
+			movement.walk.value = movement.walk.value * (await BonusHelper.GetMovementBuff(actor, "walk"));
+		}
+		if (await BonusHelper.CheckMovementBuff(actor, "jog") == true) {
+			movement.jog.value = movement.jog.value * (await BonusHelper.GetMovementBuff(actor, "jog"));
+		}
+		if (await BonusHelper.CheckMovementBuff(actor, "run") == true) {
+			movement.run.value = movement.run.value * (await BonusHelper.GetMovementBuff(actor, "run"));
 		}
 
 		return movement;

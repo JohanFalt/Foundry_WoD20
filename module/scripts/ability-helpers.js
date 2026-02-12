@@ -84,15 +84,14 @@ export default class AbilityHelper {
 		return items.length > 0;
 	}
 
-	static async EditAbility(event, actor) {
-		const itemId = $(event.currentTarget).data("item-id");		
+	static async EditAbility(actor, id) {
 		let item;
 
-		if ((CONFIG.worldofdarkness.talents[itemId] == undefined) && (CONFIG.worldofdarkness.skills[itemId] == undefined) && (CONFIG.worldofdarkness.knowledges[itemId] == undefined)) {
-			item = await actor.getEmbeddedDocument("Item", itemId);
+		if ((CONFIG.worldofdarkness.talents[id] == undefined) && (CONFIG.worldofdarkness.skills[id] == undefined) && (CONFIG.worldofdarkness.knowledges[id] == undefined)) {
+			item = await actor.getEmbeddedDocument("Item", id);
 		}
 		else {
-			item = actor.system.abilities[itemId];
+			item = actor.system.abilities[id];
 		}	
 		
 		const ability = new AbilityDialog.Ability(item);

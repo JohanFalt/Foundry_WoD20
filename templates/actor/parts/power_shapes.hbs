@@ -1,0 +1,45 @@
+<div class="sheet-area flex-columns">  
+    <div>
+        <div class="sheet-headline sheet-banner splatFont">
+            <span class="sheet-banner-text">{{localize "wod.tab.shapechange"}}</span>
+        </div>
+        <div class="shape-details-container" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            {{#each shapes as |shapeform index|}}
+                <div class="shape-panel {{#if shapeform.system.isactive}}shape-panel-active{{/if}}">
+                    <div class="shape-panel-header flex-rows">
+                        <div class="shape-selector {{#if shapeform.system.isactive}}shape-selector-active{{/if}}" style="width: 140px;"
+                             data-form="{{shapeform._id}}" data-itemid="{{shapeform._id}}" data-type="isactive" data-action="formActive">
+                            {{shapeform.name}}                            
+                        </div>
+                        <div>
+                            <i class="pointer icon collapsible button power fa-solid fa-expand"
+                               title="{{localize 'wod.labels.show.description'}}"
+                               data-itemid="shape-{{shapeform._id}}"></i>
+                        </div>                        
+                    </div>
+                    <div class="description shape-panel-body"
+                         data-itemid="shape-{{shapeform._id}}">
+                        <div class="shape-bonus-list">
+                            {{#if (isEmpty (getShapeformAttributeBonuses shapeform))}}
+                                {{localize "wod.labels.nochange"}}
+                            {{else}}
+                                {{#each (getShapeformAttributeBonuses shapeform) as |bonus|}}
+                                    {{#if (eq bonus.type "attribute_fixed_value")}}
+                                        {{localize (getAttributeShortKey bonus.settingtype)}} {{bonus}}<br />
+                                    {{else if (eq bonus.type "attribute_buff")}}
+                                        {{localize (getAttributeShortKey bonus.settingtype)}} ({{formatBonusValue bonus}})<br />
+                                    {{else if (eq bonus.type "attribute_diff")}}
+                                        {{localize (getAttributeShortKey bonus.settingtype)}} {{lowercase (localize "wod.labels.difficulty")}} {{formatBonusValue bonus}}<br />
+                                    {{/if}}
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                        <div class="shape-difficulty">
+                            {{localize "wod.power.diff"}}: {{shapeform.system.difficulty}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

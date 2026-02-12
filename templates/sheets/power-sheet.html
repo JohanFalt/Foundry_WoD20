@@ -37,15 +37,6 @@
 									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
 								{{/if}}
 
-								{{#if (eq data.system.type "wod.types.disciplinepath")}} 
-									{{captilize (localize "wod.types.disciplinepath")}}
-								{{/if}}
-
-								{{#if (eq data.system.type "wod.types.disciplinepathpower")}} 
-									{{captilize (localize "wod.types.disciplinepathpower")}}<br />
-									{{captilize (localize "wod.labels.level")}} {{data.system.level}}
-								{{/if}}
-
 								{{#if (eq data.system.type "wod.types.combination")}} 
 									{{captilize (localize "wod.types.combination")}}
 								{{/if}}
@@ -195,24 +186,6 @@
 						</select>
 						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
 					</div>					
-				{{/if}}
-
-				{{#if (eq data.system.type "wod.types.disciplinepathpower")}}
-					{{#if (eq hasActor false)}}
-						<div class="infobox bioInformationArea floating-label-group">
-							<select class="sheet-infoValues editable" name="system.parentid" data-dtype="String">
-								{{selectOptions listData.DisciplinePaths selected=data.system.parentid localize=false}}
-							</select>
-							<span class="floating-label">{{localize "wod.types.disciplinepath"}}</span>
-						</div>
-					{{/if}}
-
-					<div class="infobox bioInformationArea floating-label-group">
-						<select class="sheet-infoValues editable" name="system.level" data-dtype="Number">
-							{{selectOptions listData.Level9Value selected=data.system.level localize=false}}
-						</select>
-						<span class="floating-label">{{localize "wod.labels.power.level"}}</span>
-					</div>
 				{{/if}}
 
 				{{#if (eq data.system.type "wod.types.ritual")}}
@@ -400,7 +373,6 @@
 
 				<div class="dialog-area">
 					<div class="clearareaBox">
-						<div class="pullLeft"><i class="icon fa-solid fa-square-plus item-create pointer" title="{{localize "wod.labels.add.combination"}}" aria-hidden="true" data-type="combination" data-game="vampire"></i></div>
 						<div class="pullLeft sheet-banner-text">{{localize "wod.dialog.power.disciplineneeded"}}</div>								
 					</div>
 					
@@ -438,7 +410,7 @@
 
 			<!-- dice -->
 			{{#if (ne data.system.type "")}}
-				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.disciplinepathpower" "wod.types.ritual" "wod.types.combination" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.hekaupower" "wod.types.numinapower" "wod.types.horror" "wod.types.exaltedcharm" "wod.types.exaltedsorcery" "wod.types.charm" "wod.types.power")}}
+				{{#if (eqAny data.system.type "wod.types.disciplinepower" "wod.types.ritual" "wod.types.combination" "wod.types.gift" "wod.types.rite" "wod.types.edgepower" "wod.types.lorepower" "wod.types.arcanoipower" "wod.types.hekaupower" "wod.types.numinapower" "wod.types.horror" "wod.types.exaltedcharm" "wod.types.exaltedsorcery" "wod.types.charm" "wod.types.power")}}
 					<div class="dialog-area">
 						<div class="infobox">
 							<label class="headlineItem headlineBio splatFont" for="data.isrollable">{{localize "wod.labels.power.rollable"}}</label>

@@ -50,9 +50,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 
 	/** @override */
 	async getData() {
-		const data = await super.getData();
-
-		CONFIG.worldofdarkness.sheetsettings.useSplatFonts = this.actor.system.settings.usesplatfont;	
+		const data = await super.getData();			
 		
 		data.config = CONFIG.worldofdarkness;	
 		data.worldofdarkness = game.worldofdarkness;
@@ -62,9 +60,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
-		data.isGM = this.isGM;
-
-		
+		data.isGM = this.isGM;		
 
 		await ItemHelper.sortActorItems(data.actor, data.config);
 
@@ -347,7 +343,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			found = true;
-			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "darkages");
+			await CreateHelper.SetWerewolfAbilities(this.actor, "darkages");
 		}
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
@@ -478,12 +474,11 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			found = true;
-			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "victorian");
+			await CreateHelper.SetWerewolfAbilities(this.actor, "victorian");
 		}
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.mage) {
 			found = true;
-			await CreateHelper.SetMageAbilities(actorData, this.actor, "victorian");
 		}
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
@@ -536,12 +531,11 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.werewolf) {
 			found = true;
-			await CreateHelper.SetWerewolfAbilities(actorData, this.actor, "modern");
+			await CreateHelper.SetWerewolfAbilities(this.actor, "modern");
 		}
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.mage) {
 			found = true;
-			await CreateHelper.SetMageAbilities(actorData, this.actor, "modern");
 		}
 
 		if (dataset.type == CONFIG.worldofdarkness.sheettype.mortal) {
@@ -690,7 +684,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);		
+		ActionHelper.RollDialog(dataset, this.actor);		
 	}
 
 	_onChatRoll(event) {		
@@ -704,7 +698,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);		
+		ActionHelper.RollDialog(dataset, this.actor);		
 	}
 
 	/* Lock / unlock the sheet */
@@ -946,6 +940,18 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 			actorData.system.health.damage.aggravated = parseInt(actorData.system.health.damage.aggravated) - 1;
 		}
 
+		if (parseInt(actorData.system.health.damage.bashing) < 0) {
+			actorData.system.health.damage.bashing = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.lethal) < 0) {
+			actorData.system.health.damage.lethal = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.aggravated) < 0) {
+			actorData.system.health.damage.aggravated = 0;
+		}
+
 		actorData.system.settings.isupdated = false;
 		await this.actor.update(actorData);
 		this.render();
@@ -992,7 +998,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 				sheettype = this.actor.type.toLowerCase();
 			}
 			else {
-				sheettype = "werewolf";
+				sheettype = CONFIG.worldofdarkness.sheettype.werewolf;
 			}
 
 			system = sheettype;
@@ -1032,9 +1038,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 							return;
 						}
 					}
-				}
-
-				
+				}				
 			}
 			if (origin == "combat") {
 				buttons = await CreateHelper.CreateButtonsCombat(this.actor);
@@ -1076,26 +1080,26 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
         event.stopPropagation();
 
 		const itemtype = $(event.currentTarget).data("type");
-		const itemId = $(event.currentTarget).data("item-id");
+		const itemid = $(event.currentTarget).data("item-id");
 
 		if (itemtype == "Bio") {
 			BioHelper.EditBio(event, this.actor);
 			return;
 		}
 		if (itemtype == "Attribute") {
-			AttributeHelper.EditAttribute(event, this.actor);
+			AttributeHelper.EditAttribute(this.actor, itemid);
 			return;
 		}
 		if (itemtype == "Ability") {
-			AbilityHelper.EditAbility(event, this.actor);
+			AbilityHelper.EditAbility(this.actor, itemid);
 			return;
 		}
 		if (itemtype == "Sphere") {
-			SphereHelper.EditSphere(event, this.actor);
+			SphereHelper.EditSphere(this.actor, itemid);
 			return;
 		}		
 
-		const item = await this.actor.getEmbeddedDocument("Item", itemId);		
+		const item = await this.actor.getEmbeddedDocument("Item", itemid);		
 		item.sheetType = this.actor.type;
 
 		if (item instanceof Item) {
@@ -1370,7 +1374,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 					actorData.system[area][ability][field] = parseInt(value);
 				}
 			}
-		}	
+		}
 		// attribute or ability
 		else {			
 			if (area == "abilities") {
@@ -1391,7 +1395,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 				else {
 					actorData.system[area][ability].value = parseInt(value);
 				}
-			}				
+			}		
 		}
 		
 		actorData.system.settings.isupdated = false;

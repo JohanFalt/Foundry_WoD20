@@ -2,14 +2,15 @@
 	"TYPES.Actor.Changeling": "Changeling the Dreaming",
 	"TYPES.Actor.Changing Breed": "Changing Breed",
 	"TYPES.Actor.Demon": "Demon the Fallen",
+	"TYPES.Actor.Exalted": "Exalted vs WoD",
 	"TYPES.Actor.Hunter": "Hunter the Reckoning",
 	"TYPES.Actor.Mage": "Mage the Ascension",
 	"TYPES.Actor.Mortal": "Mortal sheet",
 	"TYPES.Actor.Vampire": "Vampire the Masquerade",
 	"TYPES.Actor.Wraith": "Wraith the Oblivion",
+	"TYPES.Actor.Mummy": "Mummy the Resurrection",
 	"TYPES.Actor.Werewolf": "Werewolf the Apocalypse",
 	"TYPES.Actor.Creature": "Creature sheet",
-	"TYPES.Actor.Spirit": "Spirit (deprecated)",
 	"TYPES.Item.Bonus": "Bonus",
 	"TYPES.Item.Experience": "Experience Points",
 	"TYPES.Item.Feature": "Feature",
@@ -21,6 +22,10 @@
 	"TYPES.Item.Item": "Item",
 	"TYPES.Item.Melee Weapon": "Natural/Melee Weapon",
 	"TYPES.Item.Ranged Weapon": "Ranged Weapon",
+	"TYPES.Item.Splat": "Splat",
+	"TYPES.Item.Advantage": "Advantage",
+	"TYPES.Item.Ability": "Ability",
+	"TYPES.Item.Sphere": "Sphere",
 	"wod": {
 		"system": {
 			"world": "Mondo aggiornato!",
@@ -35,9 +40,12 @@
 			"werewolf": "Licantropi l'Apocalisse",
 			"mage": "Maghi l'Ascensione",
 			"wraith": "Presenze: l'oblio",
+			"mummy": "Mummy the Resurrection",
+			"exalted": "Exalted vs WoD",
 			"breed": "Changing Breed",
 			"creature": "Creature",
-			"mortal": "Mortal"
+			"mortal": "Mortal",
+			"orpheus": "Orpheus"
 		},
 		"sheets": {
 			"mortal": "Mortal sheet",
@@ -48,6 +56,7 @@
 			"hunter": "Hunter sheet",
 			"demon": "Demon sheet",
 			"wraith": "Wraith sheet",
+			"mummy": "Mummy sheet",
 			"breed": "Changing breed sheet",
 			"creature": "Creature sheet",
 			"spirit": "Spirit sheet (deprecated)",
@@ -64,13 +73,14 @@
 			"darkages": "Dark Ages",
 			"classical": "Età Classica",
 			"livinggods": "L'Età degli Dei Vivi",
+			"savage": "Savage Age",
 			"changeera": "You sure you wish to change era?",
 			"changeerahint": "The sheet is already set to this era you sure you wish to reset it?",
 			"mortaleratext": "Mortal sheet default era",
 			"mageeratext": "Mage sheet default era",
 			"vampireeratext": "Vampire sheet default era",
 			"werewolferatext": "Werewolf sheet default era"
-		},		
+		},
 		"settings": {
 			"nonotuse": "Non usare",
 			"alwaysuse": "Usare sempre",
@@ -85,6 +95,8 @@
 			"worldversionhint": "Usato per sapere se serve un aggiornamento",
 			"advantagerolls": "Come tirare gli attributi Vantaggio",
 			"advantagerollshint": "Usare i valori permanenti (attivo) o quelli temporanei (disattivo) ad esempio nei tiri di Volontà? Richiede il riavvio di Foundry VTT.",
+			"specialitylevel": "Number of dots for Speciality",
+			"specialitylevelhint": "What is the normal number of dots needed to be able to set a speciality, default 4.",
 			"attributesettings": "Impostazioni per gli attributi",
 			"attributesettingshint": "Ci sono due opzioni tra cui scegliere. Si può usare la regola di 20° dove si ha Aspetto e Percezione e si calcola Volontà come una statistica, oppure la regola di 5° edizione, dove scambi Aspetto e Percezione con Fermezza e Autocontrollo e la Volontà viene calcolata con la loro somma. La regola di 20° è la predefinita. Dopo aver cambiato questa impostazione bisogna riavviare Foundry VTT.",
 			"observersactorpermission": "Permesso di visione totale degli utenti Osservatori",
@@ -101,14 +113,14 @@
 			"changeitemimage": "Permesso di cambiare l'immagine degli Oggetti",
 			"changeitemimagehint": "Tutti hanno il permesso di cambiare le immagini degli Oggetti di cui hanno il permesso di editing",
 			"itemadministrator": "Livello di permesso necessario per essere Amministratore di Oggetti",
-			"itemadministratorhint": "Che livello di permesso è necessario per essere un Amministratore di Oggetti, dando ad esempio l'abilità di decidere il tipo di un oggetto mentre lo si modifica",			
+			"itemadministratorhint": "Che livello di permesso è necessario per essere un Amministratore di Oggetti, dando ad esempio l'abilità di decidere il tipo di un oggetto mentre lo si modifica",
 			"player": "Giocatore",
 			"trustedplayer": "Giocatore Fidato",
 			"assistantgm": "Assistente DM",
 			"usesplatfont": "Usa i font dei libri",
 			"usesplatfonthint": "Disattiva i font usati per le schede diverse per il mondo",
 			"usesworldanvil": "Usa i link di World Anvil",
-			"usesworldanvilhint": "Aggiungi una sezione nella scheda Biografia dove si può mettere il link di una pagina di World Anvil", 
+			"usesworldanvilhint": "Aggiungi una sezione nella scheda Biografia dove si può mettere il link di una pagina di World Anvil",
 			"demonsettings": "Demon the Fallen Settings",
 			"demonsettingshint": "World settings used in Demon the Fallen.",
 			"demoncreateforms": "Create apocalyptic forms automatically",
@@ -126,9 +138,9 @@
 			"ragesettings": "Usa malus Furia",
 			"ragesettingshints": "In Licantropi se il Garou ha più Furia che Volontà subiscono una penalità a tutti i loro tiri sociali.",
 			"choicevirtue": "Spendere punti Virtù",
-			"choiceexperience": "Spendere punti Esperienza",	
+			"choiceexperience": "Spendere punti Esperienza",
 			"therollofone": "Usa l'effetto base degli 1",
-			"therollofonehint": "Effetto standard di 20° - Tutti gli 1 riducono di uno i successi ottenuti.",
+			"therollofonehint": "How many successes does a '1' remove from the result. Deafult is -1.",
 			"useOnesDamage": "Use rule of '1's in damage rolls",
 			"useOnesSoak": "Use rule of '1's in soak rolls",
 			"lowestdifficulty": "Difficoltà minima consentita",
@@ -137,6 +149,8 @@
 			"specialityaddsuccesshint": "Aggiunge un determinato numero di successi per ogni 10 ottenuto nel tiro.",
 			"specialityreducediff": "Le specializzazioni diminuiscono la difficoltà",
 			"specialityreducediffhint": "Seleziona se l'uso delle specializzazioni abbassa o no la difficoltà del tiro.",
+			"specialityallowbotch": "Speciality rolls can botch",
+			"specialityallowbotchhint": "If you roll an Ability with a speciality this roll can botch, default is true.",
 			"tenaddsuccess": "I 10 aggiungono sempre successi",
 			"tenaddsuccesshint": "Se selezionato i 10 ottenuti aggiungono sempre un numero determinato di successi al risultato.",
 			"explodingdice": "Esplosione dei 10",
@@ -147,12 +161,22 @@
 			"erasettings": "Era settings",
 			"erasettingshint": "The world settings regards to eras",
 			"darkmodesetting": "Darkmode",
-			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)"
+			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)",
+			"fifthedwillpowersetting": "Willpower (5th edition only)",
+			"fifthedwillpowersettinghint": "This is an expansion of the attribute settings that sets how the permanent Willpower is calculated. In 5th edition Willpower is calculated by adding Composure and Resolve. In 20th edition Willpower is a normal stat value.",
+			"willpowerBonusDice": "Willpower Bonus Dice",
+			"willpowerBonusDicehint": "Instead of granting automatic one success on rolls, when using Willpower, instead you add three (3) bonus dice. Botch is still prevented.",
+			"usepenaltydamage": "Use health penalties in damage rolls",
+			"existingshapes": "Existing shapes",
+			"orderhint": "Drag the items into the order you want them presented on the sheet.",
+			"splatfields": "Existing splat fields",
+			"notinstalled": "None installed"
 		},
 		"types": {
 			"mortal": "Mortale",
 			"werewolf": "Licantropo",
 			"mage": "Mago",
+			
 			"background": "Background",
 			"bloodbound": "Legame di sangue",
 			"boon": "Favore",
@@ -176,6 +200,7 @@
 			"combination": "Combination Discipline",
 			"art": "Arte",
 			"artpower": "Arte (potere)",
+			"sliver": "Sliver",
 			"edge": "Privilegio",
 			"edgepower": "Privilegio (potere)",
 			"lore": "Lore",
@@ -192,22 +217,107 @@
 			"matrix": "Matrice",
 			"trinket": "Gingillo",
 			"power": "Potere",
+			"talentability": "Talent Ability",
+			"skillability": "Skill Ability",
+			"knowledgeability": "Knowledge Ability",
+			"advantage": "Advantage",
 			"talentsecondability": "Talenti Secondari",
 			"skillsecondability": "Attitudini Secondarie",
 			"knowledgesecondability": "Conoscenze Secondarie",
-			"realm": "Reame",
+			"realms": "Reame",
 			"resonance": "Risonanza",
 			"othertraits": "Altri Tratti",
 			"apocalypticform": "Forma Apocalittica",
+			"shapeform": "Shapeshifting Form",
+			"aspect": "Aspect",
 			"passion": "Passione",
+			"darkpassion": "Dark passion",
 			"fetter": "Catena",
-			"wyrd": "Wyrd"
+			"wyrd": "Wyrd",
+			"hekau": "Hekau",
+			"hekaupower": "Hekau power",
+			"numina": "Numin",
+			"numinapower": "Spell/Ritual",
+			"stain": "Stain",
+			"horror": "Horror",
+			"exaltedcharm": "Charm",
+			"exaltedsorcery": "Ancient sorcery",
+			"solar": {
+				"dawn": "Dawn charms",
+				"zenith": "Zenith charms",
+				"twilight": "Twilight charms",
+				"night": "Night charms",
+				"eclipse": "Eclipse charms",
+				"special": "Special charms"
+			},
+			"lunar": {
+				"fullmoon": "Full moon charms",
+				"changingmoon": "Changing moon charms",
+				"nomoon": "No moon charms",
+				"shapeshifting": "Shapeshifting charms"
+			},
+			"dragon": {
+				"air": "Air charms",
+				"earth": "Earth charms",
+				"fire": "Fire charms",
+				"water": "Water charms",
+				"wood": "Wood charms"
+			},
+			"sidereal": {
+				"journey": "Journey charms",
+				"serenity": "Serenity charms",
+				"battle": "Battle charms",
+				"secret": "Secret charms",
+				"ending": "Ending charms",
+				"border": "The kaleidoscopic border",
+				"hand": "The quicksilver hand",
+				"march": "The charcoal march",
+				"shard": "The obsidian shards",
+				"prismatic": "The prismatic arrangement",
+				"veil": "The sapphire veil",
+				"scarlet": "The scarlet battlefields"
+			},
+			"abyssal": {
+				"dusk": "Dusk charms",
+				"midnight": "Midnight charms",
+				"daybreak": "Daybreak charms",
+				"day": "Day charms",
+				"moonshadow": "Moonshadow charms"
+			},
+			"infernal": {
+				"general": "General charms",
+				"realm": "The night realm charms",
+				"lanka": "Lanka: Demon city of the Rakshas charms",
+				"skinned": "The hell of being skinned alive charms",
+				"city": "The wicked city charms",
+				"boiling": "The hell of boiling oil charms",
+				"burrowing": "The hell of burrowing maggots charms"
+			},
+			"alchemical": {
+				"general": "General charms",
+				"combat": "Combat charms",
+				"physical": "Physical enhancement charms",
+				"social": "Social charms",
+				"stealth": "Stealth and disguise charms",
+				"analytic": "Analytic and cognitive charms",
+				"utility": "Utility charms",
+				"spirit": "Spiritual charms"
+			},
+			"liminal": {
+				"blood": "Blood charms",
+				"breath": "Breath charms",
+				"fleash": "Flesh charms",
+				"marrow": "Marrow charms",
+				"soil": "Soil charms"
+			}
 		},
 		"tab": {
 			"bio": "Bio",
+			"stats": "Stats",
 			"core": "Core",
 			"combat": "Combattimento",
 			"gear": "Equipaggiamento",
+			"features": "Features",
 			"notes": "Note",
 			"gifts": "Doni & Riti",
 			"charms": "Malie",
@@ -218,17 +328,22 @@
 			"edge": "Vantaggi",
 			"lore": "Lore",
 			"death": "Morte",
+			"hekau": "Hekau",
+			"numina": "Numin",
+			"exaltedcharm": "Charms",
 			"shapechange": "Forme",
+			"effect": "Effects",
 			"settings": "Impostazioni",
 			"sheet": "Impostazioni scheda",
 			"attribute": "Impostazioni attributi"
 		},
 		"bio": {
+			"nobio": "No bio selected",
 			"tradition": "Tradizioni",
 			"technocracy": "Tecnocrazia",
 			"disparate": "Disparati",
 			"fallen": "I Caduti",
-			"mad": "I Predoni",				
+			"mad": "I Predoni",
 			"name": "Nome",
 			"appearance": "Aspetto",
 			"background": "Background",
@@ -281,7 +396,7 @@
 				"squamus": "Squamus",
 				"bos": "Bos",
 				"scrofa": "Scrofa"
-			},	
+			},
 			"clan": "Clan",
 			"auspice": "Auspicio",
 			"auspicename": {
@@ -313,7 +428,7 @@
 				"solar": "Solar",
 				"lunar": "Lunar"
 			},
-			"aspect": "Orientamento",	
+			"aspect": "Orientamento",
 			"aspectname": {
 				"tenere": "Tenere",
 				"hatar": "Hatar",
@@ -329,7 +444,7 @@
 				"plaguelords": "Signori delle Piaghe",
 				"munchmausen": "Roditopi",
 				"twitchers": "Spasmodici"
-			},			
+			},
 			"tribe": "Tribù",
 			"tribename": {
 				"chasers": "Chasers",
@@ -390,7 +505,7 @@
 				"unktehi": "Unktehi"
 			},
 			"jamak": "Jamak",
-			"yava": "Yava",					
+			"yava": "Yava",
 			"werewolf": {
 				"blackfuries": "Furie Nere",
 				"bonegnawer": "Rodi Ossa",
@@ -410,7 +525,7 @@
 				"bunyip": "Bunyip",
 				"croatan": "Croatan",
 				"whitehowler": "Ululati Bianchi"
-			},	
+			},
 			"vampire": {
 				"sect": "Setta",
 				"camarilla": "Camarilla",
@@ -439,13 +554,20 @@
 				"sire": "Sire",
 				"weakness": "Debolezza",
 				"lowergeneration": "Abbassa Generazione",
-				"cleargeneration": "Togli Generazione temporanea"
+				"cleargeneration": "Togli Generazione temporanea",
+				"kindredeast": "Kindred of the East",
+				"balance": "Balance",
+				"ponature": "P'o nature",
+				"direction": "Direction",
+				"wu": "Wu",
+				"destiny": "Destiny"
 			},
 			"mage": {
-				"affiliation": "Affiliazione",			
+				"affiliation": "Affiliazione",
 				"essence": "Essenza",
 				"sect": "Setta",
 				"affinitysphere": "Sfera affine",
+				"affinity": "Affinity",
 				"tradition": "Tradizioni",
 				"technocracy": "Tecnocrazia",
 				"disparate": "Disparati",
@@ -620,12 +742,43 @@
 				"darkpassions": "Passioni oscure",
 				"psychewillpower": "Volontà della psiche"
 			},
+			"mummy": {
+				"amenti": "Amenti",
+				"hamartia": "Hamartia",
+				"inheritance": "Inheritance",
+				"rebirth": "Rebirth"
+			},
+			"exalted": {
+				"solar": "Solar Exalted",
+				"lunar": "Lunar Exalted",
+				"dragon": "Dragon-Born Exalted",
+				"sidereal": "Sidereal Exalted",
+				"abyssal": "Abyssal Exalted",
+				"infernal": "Infernal Exalted",
+				"alchemical": "Alchemical Exalted",
+				"liminal": "Liminal Exalted",
+				"urge": "Urge",
+				"caste": "Caste",
+				"anima": "Anima",
+				"circle": "Circle",
+				"favored": "Favored charms",
+				"intimacy": "Intimacy",
+				"crown": "Crown",
+				"animapowers": "Anima powers"
+			},
+			"orpheus": {
+				"shade": "Shade",
+				"lament": "Lament",
+				"role": "Role"
+			},
 			"mortal": {
 				"autumnpeople": "Autumn people",
 				"enchanted": "Enchanted",
 				"ghoul": "Ghoul",
 				"kinfolk": "Kinfolk",
-				"truefaith": "True faith"
+				"truefaith": "True faith",
+				"orpheus": "Orpheus",
+				"sorcerer": "Sorcerer"
 			},
 			"creature": {
 				"chimera": "Chimera",
@@ -636,7 +789,8 @@
 				"anurana": "Anurana",
 				"samsa": "Samsa",
 				"kerasi": "Kerasi",
-				"yeren": "Yeren"
+				"yeren": "Yeren",
+				"earthbound": "Earthbound"
 			}
 		},
 		"attributes": {
@@ -669,9 +823,20 @@
 				"stamina": "Stamina bonus",
 				"manipulation": "Manipulation bonus",
 				"appearance": "Appearance bonus"
+			},
+			"diff": {
+				"perception": "Perception difficulty",
+				"wits": "Wits difficulty"
+			},
+			"fixed": {
+				"appearance": "Fixed Appearance"
 			}
 		},
 		"abilities": {
+			"ability": "Ability",
+			"talent": "Talent",
+			"skill": "Skill",
+			"knowledge": "Knowledge",
 			"abilities": "Abilità",
 			"talents": "Attitudini",
 			"skills": "Capacità",
@@ -697,6 +862,9 @@
 			"primalurge": "Istinto Primordiale",
 			"streetwise": "Bassifondi",
 			"subterfuge": "Sotterfugio",
+			"socialize": "Socialize",
+			"artist": "Artist",
+			"instruction": "Instruction",
 
 			"animalken": "Affinità Animale",
 			"archery": "Archery",
@@ -709,21 +877,24 @@
 			"larceny": "Criminalità",
 			"martialarts": "Arti Marziali",
 			"meditation": "Meditazione",
-			"melee": "Armi da Mischia",	
+			"melee": "Armi da Mischia",
 			"performance": "Espr. Artistica",
 			"research": "Ricerca",
 			"ride": "Ride",
 			"security": "Sicurezza",
-			"stealth": "Furtività",		
+			"stealth": "Furtività",
 			"survival": "Sopravvivenza",
+			"ranged": "Ranged",
+			"thievery": "Thievery",
+			"weaponry": "Weaponry",
 
 			"academics": "Accademiche",
 			"ancientmedicine": "Medicina Antica",
 			"astrology": "Astrologia",
 			"bureaucracy": "Burocrazia",
 			"computer": "Informatica",
-			"cosmology": "Cosmologia",	
-			"culture": "Cultura Nascosta",	
+			"cosmology": "Cosmologia",
+			"culture": "Cultura Nascosta",
 			"customs": "Usanze",
 			"enigmas": "Enigmi",
 			"esoterica": "Esoterismo",
@@ -746,10 +917,16 @@
 			"science": "Scienze",
 			"technology": "Tecnologia",
 			"theology": "Teologia",
-			"writing": "Scrittura"
-		},		
+			"writing": "Scrittura",
+			"ancestralmedicine": "Ancestral Medicine",
+			"invention": "Invention",
+			"legendlore": "Legend-Lore",
+			"lore": "Lore",
+			"metaphysics": "Metaphysics"
+		},
 		"health": {
 			"health": "Salute",
+			"uninjured": "Uninjured",
 			"bruised": "Contuso",
 			"hurt": "Graffiato",
 			"injured": "Leso",
@@ -757,6 +934,12 @@
 			"mauled": "Straziato",
 			"crippled": "Menomato",
 			"incapacitated": "Inabilitato",
+			"broken": "Broken/Scorched",
+			"crushed": "Crushed/Burned",
+			"dismembered": "Dismembered/Incinerated",
+			"pulverized": "Pulverized/Cremated",
+			"dust": "Dust/Ash",
+			"all": "All",
 			"bashing": "Contundenti",
 			"lethal": "Letali",
 			"aggravated": "Aggravati",
@@ -774,6 +957,7 @@
 			"willpower": "Volontà",
 			"imbalance": "Sbilanciamento",
 			"willpowerchange": "La Volontà si basa su Autocontrollo + Fermezza come da Impostazioni di Sistema e non può essere modificata!",
+			"noadvantages": "No advantage selected",
 			"path": {
 				"headline": "Via",
 				"humanity": "Umanità",
@@ -792,7 +976,8 @@
 			},
 			"virtue": {
 				"headline": "Virtù",
-				"selected": "Virtù selezionate", 			
+				"virtues": "Virtues",
+				"selected": "Virtù selezionate",
 				"conscience": "Coscienza",
 				"conviction": "Convinzione",
 				"selfcontrol": "Autocontrollo",
@@ -802,8 +987,10 @@
 				"vision": "Visione",
 				"zeal": "Zelo"
 			},
-			"bloodpool": "Punti Sangue",	
+			"bloodpool": "Punti Sangue",
 			"perturn": "Sangue per Turno",
+			"truefaith": "True faith",
+			"faithpool": "Faith Pool",
 			"bearing": "Aura",
 			"renown": "Rinomanza",
 			"glory": "Gloria",
@@ -822,6 +1009,7 @@
 			"valor": "Valore",
 			"harmony": "Armonia",
 			"innovation": "Innovazione",
+			"power": "Power",
 			"rank": "Rango",
 			"ranknames": {
 				"garou": {
@@ -899,7 +1087,23 @@
 			"apocalypticforms": "Forme Apocalittiche",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
-			"angst": "Angoscia"
+			"angst": "Angoscia",
+			"vitality": "Vitality",
+			"spite": "Spite",
+			"balance": "Balance",
+			"sekhem": "Sekhem",
+			"essencepool": "Essence pool",
+			"essenceperturn": "Essence per turn",
+			"limitbreak": "Limit break",
+			"limit": "Limit",
+			"yinchi": "Yin chi",
+			"yin": "Yin",
+			"yang": "Yang",
+			"yangchi": "Yang chi",
+			"dharma": "Dharma",
+			"hun": "Hun",
+			"po": "P'o",
+			"demonchi": "Demon chi"
 		},
 		"combat": {
 			"conditions": {
@@ -908,6 +1112,7 @@
 				"stunned": "Stordito"
 			},
 			"movement": {
+				"headline": "Movement",
 				"walk": "Camminata",
 				"jog": "Camm. veloce",
 				"run": "Corsa",
@@ -947,7 +1152,7 @@
 				"armorpiercing": "Penetrazione armatura"
 			},
 			"armor": {
-				"active": "In Uso",
+				"equip": "Equip",
 				"armor": "Armatura",
 				"dexpen": "Malus Destr.",
 				"soakbashing": "Contundenti",
@@ -1019,6 +1224,7 @@
 			"daeodon": "Daeodon"
 		},
 		"power": {
+			"nopowers": "No power selected",
 			"rank0": "Sei Rango 0, non puoi avere Doni",
 			"rank1": "Rango 1",
 			"rank2": "Rango 2",
@@ -1043,6 +1249,9 @@
 			"unsortedarts": "Qui ci sono tutti gli Incanti che devono essere assegnati a un'Arte. Clicca sul titolo per selezionarne una.",
 			"unsortededges": "Qui ci sono tutti i Vantaggi che devono essere assegnati a un Privilegio. Clicca sul titolo per selezionarne uno.",
 			"unsortedlores": "Qui ci sono tutte le Lore che devono essere assegnate a un'Arte. Clicca sul titolo per selezionarne una.",
+			"unsortedarcanois": "Here is all unsorted arcanois powers which needs to get a selected Arcanois. Click on the headline to sort one.",
+			"unsortedhekaus": "Here is all unsorted hekau powers which needs to get a selected Hekau. Click on the headline to sort one.",
+			"unsortednuminas": "Here is all unsorted numina powers which needs to get a selected Numin. Click on the headline to sort one.",
 			"arts": "Arti",
 			"slivers": "Slivers",
 			"edges": "Privilegi",
@@ -1055,7 +1264,13 @@
 			"ritualcategory": "Categoria Rituale",
 			"arcanoi": "Arcanoi",
 			"passions": "Passioni",
-			"fetters": "Catene"
+			"fetters": "Catene",
+			"hekaus": "Hekau",
+			"numinas": "Numina",
+			"horrors": "Horrors",
+			"stains": "Stains",
+			"exaltedcharm": "Charms",
+			"exaltedsorcery": "Ancient sorcery"
 		},
 		"spheres": {
 			"spheres": "Sfere",
@@ -1069,12 +1284,12 @@
 			"prime": "Primordio",
 			"spirit": "Spirito",
 			"time": "Tempo",
-			
+
 			"data": "Dati",
 			"entropicstate": "Controllo di stato entropico",
 			"forcebased": "Force-Based Paraphysics",
 			"lifescience": "Life Sciences",
-			"material": "Scienza materiale",			
+			"material": "Scienza materiale",
 			"psychodynamics": "Psicodinamica",
 			"primal": "Utilità primaria",
 			"dimensional": "Scienza dimensionale",
@@ -1110,9 +1325,17 @@
 			"periapt": "Amuleto",
 			"matrix": "Matrice",
 			"trinket": "Gingillo",
-			"contains": "Contiene"
+			"contains": "Contiene",
+			"name": "Name",
+			"type": "Type"
+		},
+		"effects": {
+			"origin": "Origin",
+			"area": "Area"
 		},
 		"notes": {
+			"features": "Features",
+			"nofeatures": "No feature selected",
 			"unnamedbackground": "Background senza nome",
 			"unnamedmerit": "Pregio senza nome",
 			"unnamedflaw": "Difetto senza nome",
@@ -1142,9 +1365,11 @@
 			"woundlevel": "Livello ferita",
 			"selectability": "Seleziona Abilità",
 			"selectattribute": "Seleziona Attributo",
-			"specialty": "Usa Specializzazione",			
+			"specialty": "Usa Specializzazione",
 			"select": "Seleziona",
-			"noneselect": "Nulla di selezionato", 
+			"noneselect": "Nulla di selezionato",
+			"sheetsetting": "Use sheet setting",
+			"nosetting": "No setting use black",
 			"custom": "Abilità Secondaria",
 			"custompath": "Via personalizzata",
 			"customtribe": "Tribù personalizzata",
@@ -1173,15 +1398,18 @@
 			"level": "Livello",
 			"rank": "Rango",
 			"other": "Altro",
+			"Combat": "Combat",
 			"both": "Both",
 			"nochange": "No Change",
+			"usewillpower": "Use Willpower",
+			"ignoreshpehre": "Ignore sphere when setting base difficulty",
 			"bio": {
 				"wronggeneration": "Generazione invalida",
 				"wrongtempgeneration": "Non si può abbassare la generazione oltre a 4",
 				"tempgeneration": "Generazione temporanea"
 			},
 			"combat": {
-				"conditions": "Condizioni",				
+				"conditions": "Condizioni",
 				"natural": "Armi naturali",
 				"melee": "Armi da Mischia",
 				"ranged": "Armi da Fuoco",
@@ -1191,25 +1419,32 @@
 				"level": "Livello",
 				"noattribute": "Nessun Attributo",
 				"noability": "Nessuna Abilità",
+				"noabilityselected": "No ability selected",
 				"rollable": "Lanciabile",
 				"combat": "Usato in combattimento",
 				"system": "Sistema",
-				"cleardiscipline": "Togli connessione con Disciplina",
+				"clearpower": "Clear main power connection",
 				"clearpath": "Togli connessione con Via",
 				"clearart": "Togli connessione con Arte",
 				"clearedge": "Togli connessione con Privilegio",
 				"clearlore": "Togli connessione con Lore",
 				"cleararcanoi": "Clear arcanoi connection",
+				"clearhekau": "Clear hekau connection",
+				"clearnumina": "Clear numina connection",
 				"disconnect": "Disconnetti",
 				"disconnectlabel": "Disconnessione",
+				"charmtypes": "Charm types",
 				"removebonus": {
+					"headline": "Remove connected powers",
 					"art": "Rimuovi bonus connessi all'Arte",
 					"sliver": "Remove connected powers to sliver",
 					"lore": "Rimuovi bonus connessi alla Lore",
 					"edge": "Rimuovi bonus connessi al Privilegio",
 					"discipline": "Rimuovi bonus connessi alla Disciplina",
 					"path": "Rimuovi bonus connessi alla Via",
-					"arcanoi": "Remove connected powers to arcanoi"
+					"arcanoi": "Remove connected powers to arcanoi",
+					"hekau": "Remove connected powers to hekau",
+					"numina": "Remove connected powers to numina"
 				}
 			},
 			"notes": {
@@ -1236,17 +1471,22 @@
 				"usedpowers": "Scegli che Poteri sta usando la scheda",
 				"essencevalue": "Seleziona il valore di Essenza",
 				"sheetfont": "Usa font speciale di scheda",
+				"dice": "Dice settings",
+				"dicehint": "This settings able you to override the sheet's dice color.",
 				"secondaryabilities": "Abilità secondarie",
+				"attributesmaxrating": "Max rating on Attributes",
 				"abilitiesmaxrating": "Punteggio massimo Abilità",
 				"hasdisciplines": "Ha Rituali e Discipline",
 				"hasgifts": "Ha Doni e Riti",
 				"haspowers": "Has special powers",
+				"hasnumina": "Has numina",
 				"setdarkages": "Scheda settata su Secoli Bui",
 				"setclassical": "Imposta il set di lenzuola all'era delle Età Classiche!",
 				"setlivinggods": "Set di lenzuola impostato sull'era degli Dei Vivi!",
 				"setvictorian": "Scheda settata su Età Vittoriana!",
 				"setwildwest": "Scheda settata su Selvaggio West!",
 				"setmodern": "Scheda settata su Età Moderna!",
+				"maxattribute": "This setting sets the maximum value an attribute can have",
 				"maxability": "Questa impostazione determina il punteggio massimo di un'Abilità",
 				"customizepath": "Modifica Via",
 				"soakinfoone": "Il valore totale usato per assorbire unendo Attributi, armatura e bonus",
@@ -1256,6 +1496,7 @@
 				"initiativeinfotwo": "Bonus - bonus extra all'iniziativa",
 				"initiativeinfothree": "Totale - il valore totale usato in combattimento con tutti i bonus attivi",
 				"graphics": "Grafica",
+				"game": "Game",
 				"era": {
 					"headline": "Era",
 					"modern": "Moderna (20°)",
@@ -1263,15 +1504,23 @@
 					"classical": "Età Classica (20°)",
 					"livinggods": "Era degli Dei Viventi (20°)",
 					"wildwest": "Selvaggio West (20°)",
-					"darkages": "Secoli Bui (20°)", 
+					"darkages": "Secoli Bui (20°)",
 					"infoone": "Cambiare questo setting riconfigura tutte le abilità all'età scelta.",
 					"infotwo": "Questo può nascondere abilità esistenti."
+				},
+				"power": {
+					"maxrating": "Max rating on Powers",
+					"maxratinghint": "This settings set the maximum rating a power can have.",
+					"bonusmaxrating": "Bonus to max rating"
 				}
 			},
 			"trait": {
 				"meleeweapon": "Armi da mischia",
 				"rangedweapon": "Armi a distanza",
-				"reference": "Fonte"
+				"power": "Listed power ability",
+				"reference": "Fonte",
+				"token": "Token icon",
+				"tokenhint": "Choose what icon that will be added to the sheet's token when this shapeform is active."
 			},
 			"feature": {
 				"trivial": "Insignificante",
@@ -1295,6 +1544,8 @@
 				"abilitydiffhint": "Questo bonus cambia la difficoltà di ogni uso di questa Abilità quando viene tirato.",
 				"soakbonus": "Bonus Assorbimento",
 				"soakbonushint": "Questo bonus cambia il numero di dadi tirati per assorbire.",
+				"soakdiffbonus": "Soak difficulty bonus",
+				"soakdiffbonushint": "This bonus changes the difficulty to succeed with soak rolls.",
 				"healthbuff": "Bonus Livelli di Salute",
 				"healthbuffhint": "Questo bonus aggiunge dei livelli di salute contundenti.",
 				"initbonus": "Bonus Iniziativa",
@@ -1306,10 +1557,70 @@
 					"athletics": "Athletics bonus"
 				},
 				"savesuccess": "Bonus changes saved",
-				"savefail": "Failed so save the bonus"
+				"savefail": "Failed so save the bonus",
+				"attributefixedvalue": "Fixed attribute value",
+				"attackbuff": "Attack bonus",
+				"attackdiff": "Attack difficulty",
+				"frenzybuff": "Frenzy bonus",
+				"frenzydiff": "Frenzy difficulty",
+				"attributefixedvaluehint": "This bonus sets the attribute to a fixed value overriding all other bonuses.",
+				"attackbuffhint": "This bonus adds/subracts a value to attack rolls altering the total value by the selected amount.",
+				"attackdiffhint": "This bonus changes the difficulty of any attack roll.",
+				"frenzybuffhint": "This bonus adds/subracts a value to frenzy rolls altering the total value by the selected amount.",
+				"frenzydiffhint": "This bonus changes the difficulty of any frenzy roll.",
+				"frenzydiffchat": "Frenzy difficulty modifier:",
+				"frenzybonuschat": "Frenzy dice bonus:"
+			},
+			"ability": {
+				"worldname": "Item name in world",
+				"id": "Id *",
+				"idhint": "What internal ID this splat has within the system. Is used for internal hardcoded rules and settings.",
+				"sheetname": "Visible name on sheet *",
+				"speciality": "Speciality",
+				"startvalue": "Start value of ability",
+				"currentvalue": "Current value of ability",
+				"mandatory": "* Mandatory fields.",
+				"abilitytype": "Ability type",
+				"alwaysspeciality": "Always has a speciality",
+				"alwaysspecialityhint": "Regardless of game rules this ability always have a speciality.",
+				"usemelee": "Is an ability used by melee weapons",
+				"usemeleehint": "This ability can be used with a melee weapon attack.",
+				"useranged": "Is an ability used by rangeded weapons",
+				"userangedhint": "This ability can be used with a ranged weapon attack.",
+				"usepower": "Is an ability that is used by powers",
+				"usepowerhint": "This ability is used by powers.",
+				"favorited": "Is a favorited ability"
+			},
+			"advantage": {
+				"groupname": "Advantage group name",
+				"order": "Display order *",
+				"haspemanent": "Has permanent value",
+				"hastemporary": "Has temporary value",
+				"canroll": "Can be rolled",
+				"usepermanenttemporary": "Dice pool uses both permanent and temporary values",
+				"temporarycanbehigher": "Temporary can be higher than permanent value",
+				"permanentstart": "Permanent beginning value",
+				"max": "Max value"
+			},
+			"sphere": {
+				"start": "Starting value",
+				"technocracy": "Is Technocracy sphere"
+			},
+			"splat": {
+				"game": "Game line",
+				"gamehint": "What game line is used for this splat sheet.",
+				"sheet": "Splat sheet",
+				"sheethint": "What type of base splat this sheet is.",
+				"sheehint": "What type of splat is this sheet representing (e.g. mortal, vampire, werewolf, mage).",
+				"variant": "Variant name",
+				"varianthint": "What type of variant of the splat sheet is this sheet representing. Default is general.",
+				"era": "Game Era",
+				"erahint": "What game era the sheet it set to."
 			},
 			"new": {
+				"create": "Create item",
 				"notfound": "Item type does not exist",
+				"alreadyexists": "already exists on the sheet.",
 				"armor": "Nuova Armatura",
 				"naturalweapon": "Nuova Arma naturale",
 				"meleeweapon": "Nuova Arma da mischia",
@@ -1325,6 +1636,10 @@
 				"merit": "Nuovo Pregio",
 				"flaw": "Nuovo Difetto",
 				"ability": "Nuova Abilità Secondaria",
+				"talent": "New talent",
+				"skill": "New skill",
+				"knowledge": "New knowledge",
+				"advantage": "New advantage",
 				"resonance": "Nuova Risonanza",
 				"othertraits": "Nuovo Tratto (altro)",
 				"addexp": "Esperienza guadagnata",
@@ -1366,7 +1681,17 @@
 				"arcanoi": "Nuovo arcanoi",
 				"arcanoipower": "Nuovo potere",
 				"passion": "Nuova passione",
-				"fetter": "Nuova catena"
+				"darkpassion": "New dark passion",
+				"fetter": "Nuova catena",
+				"hekau": "New hekau",
+				"hekaupower": "New hekau power",
+				"numina": "New numin",
+				"numinapower": "New ritual/spell",
+				"stain": "New stain",
+				"horror": "New horror",
+				"ancientsorcery": "New ancient sorcery",
+				"shapeform": "New shapeshifting form",
+				"description": "Select what type of item you wish want to create to the sheet by clicking on the correct button below."
 			},
 			"add": {
 				"naturalweapon": "Add natural weapon",
@@ -1413,9 +1738,17 @@
 				"arcanoi": "Aggiungi arcanoi",
 				"arcanoipower": "Aggiungi potere ",
 				"passion": "Aggiungi passione",
-				"fetter": "Aggiungi catena"
+				"fetter": "Aggiungi catena",
+				"hekau": "Add hekau",
+				"hekaupower": "Add hekau power",
+				"numina": "Add numina",
+				"numinapower": "Add ritual/spell",
+				"item": "Add item",
+				"horror": "Add horror",
+				"stain": "Add stain"
 			},
 			"edit": {
+				"headline": "Edit",
 				"naturalweapon": "Modifica Armi Naturali",
 				"meleeweapon": "Modifica Armi da Mischia",
 				"rangedweapon": "Modifica Armi a Distanza",
@@ -1463,9 +1796,16 @@
 				"arcanoi": "Modifica arcanoi",
 				"arcanoipower": "Modifica arcanoi",
 				"passion": "Modifica passione",
-				"fetter": "Modifica catena"
+				"fetter": "Modifica catena",
+				"hekau": "Edit hekau",
+				"hekaupower": "Edit hekau power",
+				"numina": "Edit numina",
+				"numinapower": "Edit ritual/spell",
+				"horror": "Edit horror",
+				"stain": "Edit stain"
 			},
 			"remove": {
+				"headline": "Remove",
 				"item": "Rimuovi Oggetto",
 				"removing": "Rimozione",
 				"naturalweapon": "Rimuovi Arma Naturale",
@@ -1512,7 +1852,13 @@
 				"arcanoi": "Rimuovi arcanoi",
 				"arcanoipower": "Rimuovi potere",
 				"passion": "Rimuovi passione",
-				"fetter": "Rimuovi catena"
+				"fetter": "Rimuovi catena",
+				"hekau": "Remove hekau",
+				"hekaupower": "Remove hekau power",
+				"numina": "Remove numina",
+				"numinapower": "Remove ritual/spell",
+				"horror": "Remove horror",
+				"stain": "Remove stain"
 			},
 			"show": {
 				"background": "Mostra Background",
@@ -1520,11 +1866,20 @@
 				"flaw": "Mostra Difetti",
 				"bloodbound": "Mostra Legami di Sangue",
 				"boon": "Mostra Favori",
-				"traits": "Mostra altri Tratti",
+				"trait": "Show other traits",
 				"experience": "Mostra Esperienza aggiunta",
 				"spentexp": "Mostra Esperienza spesa",
 				"bonus": "Mostra Bonus aggiunti",
-				"oath": "Show oath"
+				"oath": "Show oath",
+				"description": "Show description"
+			},
+			"drop": {
+				"nopcactor": "Item type {1} are not supported on this type of Actor {2} requires Actor type PC.",
+				"advantageexists": "This Advantage {1}} already exist on the sheet and can't be added.",
+				"dropsphere": "No function to add Spheres manually yet.",
+				"warning": "Warning!",
+				"warningtext": "If you change Splat all settings and alterations you have made be reset according to the new Splat added",
+				"splatinstalled": "Splat '{1}' added to '{2}'."
 			},
 			"yes": "sì",
 			"no": "no",
@@ -1546,13 +1901,18 @@
 			},
 			"items": {
 				"spheres": "Inserisci che Sfere e a che livello servono per lanciare l'accordo"
-			}
+			},
+			"changelog": "Changelog",
+			"wiki": "Wiki",
+			"droprecieved": "You got {1} from {2}.",
+			"dropnopermission": "You don't have permission to create Items on"
 		},
 		"dice": {
-			"activate": "Tiro di attivazione",			
+			"activate": "Tiro di attivazione",
 			"rollattack": "Tira attacco",
 			"rolldamage": "Tira danni",
 			"roll": "Tiro",
+			"rollof": "Roll",
 			"successes": "Successi",
 			"botch": "Fallimento Critico",
 			"fail": "Fallimento",
@@ -1567,9 +1927,13 @@
 			"rollingsoak": "Tiro per assorbire",
 			"rollingremainactive": "Tiro per rimanere attivo",
 			"rollingremainactivetext": "Ogni successo guarisce un livello di salute di ogni tipo. Dopo il personaggio entra in uan frenesia berserk. Un Licantropo guadagna una Cicatrice di battaglia ogni volta che riesce a rimanere attivo.",
-			"addedautosucc": "Il tiro aggiunge {0} successi automatici"
+			"addedautosucc": "Il tiro aggiunge {0} successi automatici",
+			"usingwillpower": "Using Willpower",
+			"favored": "Is a favored roll",
+			"bonusdices": "Bonus dices",
+			"nobotchpossible": "No botch possible on this roll"
 		},
-		"dialog": {	
+		"dialog": {
 			"save": "Salva",
 			"reset": "Resetta",
 			"close": "Chiudi",
@@ -1583,7 +1947,7 @@
 			"nonelisted": "Nessuna",
 			"aretecasting": {
 				"castspell": "Lancia incantesimo",
-				"castingspell": "Lancio di incantesimo",	
+				"castingspell": "Lancio di incantesimo",
 				"casting": "Lancio",
 				"modifierarete": "Modificatore di Aretè",
 				"castingtype": "Tipologia di incantesimo",
@@ -1625,7 +1989,7 @@
 				"additionaldifficulty": "Modificatori Extra",
 				"castingsettings": "Impostazioni dei lanci",
 				"extendedcasting": "Lancio prolungato",
-				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each try adds +1 to the difficulty.",
+				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each fail adds +1 to the difficulty.",
 				"selectsphere": "Seleziona prima una Sfera!",
 				"keepdifficulty": "Keeps the difficulty the same",
 				"keepdiff": "Keep difficulty",
@@ -1650,6 +2014,14 @@
 				"noshape": "Nessuna forma selezionata",
 				"selectshape": "Forma prescelta"
 			},
+			"migrationwizard": {
+				"title": "Migration Information",
+				"page": "Page",
+				"of": "of",
+				"previous": "Previous",
+				"next": "Next",
+				"dontshowagain": "Don't show again"
+			},
 			"weapon": {
 				"attack": "Attacco",
 				"damage": "Danni",
@@ -1668,7 +2040,13 @@
 				"firemodes": "Modalità di fuoco automatico",
 				"numbertargets": "Numero di bersagli",
 				"nomeleeweapon": "No melee weapon secondary abilities listed on sheet",
-				"norangedweapon": "No ranged weapon secondary abilities listed on sheet"
+				"norangedweapon": "No ranged weapon secondary abilities listed on sheet",
+				"attackdiffchat": "Attack difficulty modifier:",
+				"attackbonuschat": "Attack dice bonus:",
+				"attackrollbonus": "Attack roll bonus:",
+				"dodgemodifier": "Dodge modifier",
+				"generalmodifier": "General modifier",
+				"secondaryabilityinfo": "Pick what secodary ability to use for this weapon if no ability have been selected."
 			},
 			"soak": {
 				"missingdamage": "Seleziona la gravità del danno",
@@ -1686,7 +2064,9 @@
 				"selectpower": "Seleziona un potere a cui collegarla.",
 				"disciplineneeded": "Disciplines needed",
 				"savecombination": "Save combination discipline",
-				"removecombination": "Remove combination discipline"
+				"removecombination": "Remove combination discipline",
+				"nopower": "No power secondary abilities listed on sheet",
+				"secondarynotselected": "Secondary ability not selected"
 			},
 			"attribute": {
 				"speciality": "Specializzazione",
@@ -1703,9 +2083,11 @@
 				"chosenattribute": "Attributo scelto",
 				"movement": "Tipo di movimento",
 				"name": "Name",
-				"type": "Type",
 				"bonusvalue": "Valore Bonus",
-				"bonuses": "Bonuses"
+				"bonuses": "Bonuses",
+				"healthleveltype": "Health level type",
+				"section": "Section",
+				"weapontype": "Weapon type"
 			},
 			"variant": {
 				"sheettype": "Scegli il tipo di scheda",
@@ -1713,6 +2095,7 @@
 				"general": "General type",
 				"changeling": "General changeling",
 				"mortal": "General mortal",
+				"vampire": "General vampire",
 				"wraith": "Presenza generica",
 				"creature": "General creature",
 				"info": "This setting sets what variant of the sheet it is set to use.",
@@ -1720,5 +2103,5 @@
 				"lostbreeds": "Lost breeds"
 			}
 		}
-	}	
+	}
 }

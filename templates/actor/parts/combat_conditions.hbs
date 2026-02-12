@@ -1,0 +1,40 @@
+{{#if (ne actor.system.settings.variant  (lowercase config.sheettype.spirit))}}
+    <div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize 'wod.labels.combat.conditions'}}</span></div>
+
+    <div class="info-container info-box splatFont" style="text-align: left;">
+
+            {{#if (eq actor.system.settings.variantsheet config.sheettype.vampire)}}
+                <div class="condition">
+                    <div class="condition-checkbox" data-area="frenzycheck">
+                        <input class="item-active pointer" name="system.conditions.isfrenzy" type="checkbox" {{isChecked actor.system.conditions.isfrenzy}} />
+                        {{localize "wod.combat.conditions.frenzy"}}                    
+                    </div>                
+                </div>
+            {{/if}}
+            {{#if (eq actor.system.settings.variantsheet config.sheettype.werewolf)}}
+                <div class="condition">
+                    <div class="condition-checkbox" data-area="frenzycheck">
+                        <input class="item-active pointer" name="system.conditions.isfrenzy" type="checkbox" {{isChecked actor.system.conditions.isfrenzy}} />
+                        {{localize "wod.combat.conditions.frenzy"}}                    
+                    </div>                
+                </div>
+            {{/if}}    
+            {{#if (eq actor.system.settings.variantsheet config.sheettype.changingbreed)}}
+                {{#if (eqAnyNot actor.system.changingbreed "Ananasi" "Nuwisha")}}
+                    <div class="condition">
+                        <div class="condition-checkbox" data-area="frenzycheck">
+                            <input class="item-active pointer" name="system.conditions.isfrenzy" type="checkbox" {{isChecked actor.system.conditions.isfrenzy}} />
+                            {{localize "wod.combat.conditions.frenzy"}}                    
+                        </div>                
+                    </div>
+                {{/if}}    
+            {{/if}}
+            <div class="condition">
+                <div class="condition-checkbox" data-area="ignorepaincheck">
+                    <input class="item-active pointer" name="system.conditions.isignoringpain" type="checkbox" {{isChecked actor.system.conditions.isignoringpain}} />
+                    {{localize "wod.combat.conditions.ignorepain"}}                    
+                </div>                
+            </div>
+
+    </div>
+{{/if}}

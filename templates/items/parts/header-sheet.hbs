@@ -1,0 +1,45 @@
+<header class="item-header">
+
+    <div class="sheet-item">
+        <div class="top-area">
+
+            <div class="clearareaBox top-side">
+                <div class="pullLeft" style="display: flex;">
+                    {{#if userpermissions.changeItemImage}}
+                        <img class="profile-img pointer" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+                    {{else}}
+                        <img class="profile-img" src="{{item.img}}" />
+                    {{/if}}
+                </div>
+
+                <div class="pullLeft" style="display: flex; width: 300px;">
+                    <div class="area-box">
+
+                        <div class="top-sidetext">
+                            {{localize item.system.type}}
+                        </div>
+
+                        <div class="infobox bioInformationArea floating-label-group">
+                            <input class="sheet-infoValues editable" name="name" type="text" value="{{item.name}}" data-dtype="String" autocomplete="off" autofocus required />
+                            <span class="floating-label">{{localize "wod.labels.ability.worldname"}}</span>
+                        </div>
+
+                        <div class="infobox bioInformationArea floating-label-group">
+                            <input class="sheet-infoValues editable" name="system.reference" type="text" value="{{item.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
+                            <span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
+                        </div>														
+                    </div>	
+                </div>
+
+                {{#if (and hasActor item.system.settings.isremovable)}}
+
+                    <div class="pullRight" style="flex-grow: 1; text-align: right;">
+                        <a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+                    </div>	
+
+                {{/if}}
+            </div>				
+        </div>
+    </div>
+
+</header>

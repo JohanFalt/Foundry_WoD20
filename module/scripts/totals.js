@@ -53,6 +53,7 @@ export async function calculateTotals(updateData) {
 				}
 			}
 
+			// TODO: This can be removed as all shapshifters has gotten fixed value as bonus.
 			if (updateData.system.attributes[i].label == "wod.attributes.appearance") {
 				if ((toForm == "wod.shapes.crinos") && ((updateData.system?.changingbreed != "Kitsune") && (updateData.system?.changingbreed != "Ratkin"))) {
 					updateData.system.attributes[i].total = 0;
@@ -84,6 +85,12 @@ export async function calculateTotals(updateData) {
 					}
 				}
 			}
+		}
+
+		//attribute fixed value, this needs to be after all other calculations
+		if (await BonusHelper.CheckAttributeFixedValue(updateData, i)) {
+			const bonus = await BonusHelper.GetFixedAttributeBuff(updateData, i);
+			updateData.system.attributes[i].total = parseInt(bonus);
 		}
 	}    
 
@@ -123,7 +130,16 @@ export async function calculateTotals(updateData) {
 	}	
 
 	/* If Changeling and Chimerical soak */
-	if (updateData.system.settings.soak.chimerical != undefined) {
+	let usechimerical = false;
+
+	if (updateData.type === "PC") {
+		usechimerical = updateData.system.settings.usechimerical;
+	}
+	else {
+		usechimerical = updateData.system.settings.soak.chimerical != undefined;
+	}
+
+	if (usechimerical) {
 		updateData.system.soak.chimerical.bashing = 0;
 		updateData.system.soak.chimerical.lethal = 0;
 		updateData.system.soak.chimerical.aggravated = 0;
@@ -141,15 +157,18 @@ export async function calculateTotals(updateData) {
 
 	//bonus soak
 	if (await BonusHelper.CheckSoakBuff(updateData)) {
-		const bonus = await BonusHelper.GetSoakBuff(updateData);
-		updateData.system.soak.bashing += parseInt(bonus);
-		updateData.system.soak.lethal += parseInt(bonus);
+		let bonus = await BonusHelper.GetSoakBuff(updateData, "all");
+		const bashing = await BonusHelper.GetSoakBuff(updateData, "bashing");
+		updateData.system.soak.bashing += parseInt(bonus+bashing);
+		const lethal = await BonusHelper.GetSoakBuff(updateData, "lethal");
+		updateData.system.soak.lethal += parseInt(bonus+lethal);
+		const aggravated = await BonusHelper.GetSoakBuff(updateData, "aggravated");
 		updateData.system.soak.aggravated += parseInt(bonus);
 
-		if (updateData.system.settings.soak.chimerical != undefined) {
-			updateData.system.soak.chimerical.bashing += parseInt(bonus);
-			updateData.system.soak.chimerical.lethal += parseInt(bonus);
-			updateData.system.soak.chimerical.aggravated += parseInt(bonus);
+		if (usechimerical) {
+			updateData.system.soak.chimerical.bashing += parseInt(bonus+bashing);
+			updateData.system.soak.chimerical.lethal += parseInt(bonus+lethal);
+			updateData.system.soak.chimerical.aggravated += parseInt(bonus+aggravated);
 		}
 	}
 
@@ -163,7 +182,7 @@ export async function calculateTotals(updateData) {
 				updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
 				/* If changeling */
-				if (updateData.system.settings.soak.chimerical != undefined) {
+				if (usechimerical) {
 					updateData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
 					updateData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
 					updateData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;

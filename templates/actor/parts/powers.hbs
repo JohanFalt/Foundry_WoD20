@@ -1,0 +1,120 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
+
+    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-origin="power" data-action="itemCreate"></i>
+
+    {{#if actor.system.settings.hasshapes}}
+        <!-- SHAPES - Always first, handled separately since they're Trait items -->
+        {{> "systems/worldofdarkness/templates/actor/parts/power_shapes.hbs" shapes=shapes actor=actor config=config}}
+    {{/if}}
+
+    {{#if actor.system.settings.hasspheres}}
+        {{> "systems/worldofdarkness/templates/actor/parts/power_spheres.hbs" spheres=spheres actor=actor config=config}}
+    {{/if}}
+
+    {{#each powerSections as |section|}}
+        {{#if section.condition}}
+            
+            {{#if (eq section.id "gifts")}}
+                <!-- GIFTS - Special template -->
+                <div class="sheet-area flex-columns" style="min-height: 150px;">
+                    <div class="sheet-headline sheet-banner splatFont" data-area="gifts">
+                        <span class="sheet-banner-text">{{localize "wod.power.gifts"}}</span>
+                    </div>
+                    {{#each section.data.giftsByRank as |rankGroup|}}
+                        <div>
+                            <div class="headlineRow splatFont" data-area="giftrank{{rankGroup.rank}}">
+                                {{localize "wod.advantages.rank"}} {{rankGroup.rank}}
+                            </div>
+                            {{#each rankGroup.gifts as |item id|}}
+                                {{> "systems/worldofdarkness/templates/actor/parts/power_listpower.hbs" 
+                                    item=item config=../../../config actor=../../../actor locked=../../../locked showclear=false}}
+                            {{/each}}
+                        </div>
+                    {{/each}}
+                </div>                
+            
+            {{else if (eq section.template "hierarchical")}}
+                <!-- HIERARCHICAL POWER (Disciplines, Paths, etc.) -->
+                <div class="sheet-area flex-columns">
+                    <div class="area-box">
+                        <div class="sheet-headline sheet-banner splatFont" data-area="{{section.id}}">
+                            <span class="sheet-banner-text">{{localize section.localizeKey}}</span>
+                        </div>
+                        {{#each section.data.items as |item id|}}
+                            {{> "systems/worldofdarkness/templates/actor/parts/power_listmainpower.hbs" 
+                                mainpower=item config=../../config actor=../../actor locked=../../locked}}
+                        {{/each}}
+                    </div>
+                </div>
+            
+            {{else if (eq section.template "simple")}}                
+                <!-- SIMPLE POWER LIST (Rites, Rituals, Combinations, etc.) -->
+                <div class="sheet-area flex-columns">
+                    <div>
+                        <div class="sheet-headline sheet-banner splatFont" data-area="{{section.id}}">
+                            <span class="sheet-banner-text">{{localize section.localizeKey}}</span>
+                        </div>
+                        {{#each section.data.items as |item id|}}
+                            {{> "systems/worldofdarkness/templates/actor/parts/power_listpower.hbs" 
+                                item=item config=../../config actor=../../actor locked=../../locked showclear=false}}
+                        {{/each}}
+                    </div>
+                </div>
+            
+            {{else if (eq section.template "column")}}                
+                <!-- 2 COLUMN POWER LIST (Rotes, etc.) -->
+                <div class="sheet-area flex-columns">
+                    <div>
+                        <div class="sheet-headline sheet-banner splatFont" data-area="{{section.id}}">
+                            <span class="sheet-banner-text">{{localize section.localizeKey}}</span>
+                        </div>
+
+                        <div class="item-column" style="{{calculateHight 'rotes' ../rotes}}">
+
+                            {{#each section.data.items as |item id|}}
+
+                                <div style="width:50%">
+                                    {{> "systems/worldofdarkness/templates/actor/parts/power_listpower.hbs" 
+                                        item=item config=../../config actor=../../actor locked=../../locked showclear=false}}
+                                </div>
+
+                            {{/each}}
+
+                        </div>
+                    </div>
+                </div>
+            
+            {{else if (eq section.template "unsorted")}}
+                <!-- UNSORTED POWERS -->
+                <div class="sheet-area unsorted-area flex-columns">
+                    <div class="headlineNormal info-box">{{localize section.localizeKey}}</div>
+                    <div class="area-box">
+                        {{#each section.data.items as |item id|}}
+                            <div class="row">
+                                <div class="pullLeft headlineNormal width-namebox vrollable" 
+                                     data-action="powerSort"
+                                     data-type="{{../../config.sheettype.mortal}}"
+                                     data-object="{{section.sortAction}}"
+                                     data-rollitem="true"
+                                     data-itemid="{{item._id}}">{{item.name}}</div>
+                                {{#if (eq ../../locked false)}}
+                                    <div class="pullLeft power-iconbox">
+                                        <a class="pointer item-delete" 
+                                           title="{{localize 'wod.labels.remove.disciplinepower'}}" 
+                                           data-itemid="{{item._id}}" 
+                                           data-action="itemDelete">
+                                            <i class="icon fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            
+            {{/if}}
+        
+        {{/if}}
+    {{/each}}
+
+</section>

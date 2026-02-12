@@ -22,6 +22,10 @@
 	"TYPES.Item.Item": "Item",
 	"TYPES.Item.Melee Weapon": "Natural/Melee Weapon",
 	"TYPES.Item.Ranged Weapon": "Ranged Weapon",
+	"TYPES.Item.Splat": "Splat",
+	"TYPES.Item.Advantage": "Advantage",
+	"TYPES.Item.Ability": "Ability",
+	"TYPES.Item.Sphere": "Sphere",
 	"wod": {		
 		"system": {
 			"world": "World updated!",
@@ -69,6 +73,7 @@
 			"darkages": "Dark Ages",
 			"classical": "Classical Age",
 			"livinggods": "Age of the Living Gods",
+			"savage": "Savage Age",
 			"changeera": "You sure you wish to change era?",
 			"changeerahint": "The sheet is already set to this era you sure you wish to reset it?",
 			"mortaleratext": "Mortal sheet default era",
@@ -135,7 +140,7 @@
 			"choicevirtue": "Spending virtue points",
 			"choiceexperience": "Spending experience points",
 			"therollofone": "Use default result 1 handling",
-			"therollofonehint": "Use the default rule of all '1's rolled reduce number of success by one.",
+			"therollofonehint": "How many successes does a '1' remove from the result. Deafult is -1.",
 			"useOnesDamage": "Use rule of '1's in damage rolls",
 			"useOnesSoak": "Use rule of '1's in soak rolls",
 			"lowestdifficulty": "Lowest difficulty allowed",
@@ -161,12 +166,17 @@
 			"fifthedwillpowersettinghint": "This is an expansion of the attribute settings that sets how the permanent Willpower is calculated. In 5th edition Willpower is calculated by adding Composure and Resolve. In 20th edition Willpower is a normal stat value.",
 			"willpowerBonusDice": "Willpower Bonus Dice",
 			"willpowerBonusDicehint": "Instead of granting automatic one success on rolls, when using Willpower, instead you add three (3) bonus dice. Botch is still prevented.",
-			"usepenaltydamage": "Use health penalties in damage rolls"
+			"usepenaltydamage": "Use health penalties in damage rolls",
+			"existingshapes": "Existing shapes",
+			"orderhint": "Drag the items into the order you want them presented on the sheet.",
+			"splatfields": "Existing splat fields",
+			"notinstalled": "None installed"
 		},
 		"types": {
 			"mortal": "Mortal",
 			"werewolf": "Werewolf",
 			"mage": "Mage",
+			
 			"background": "Background",
 			"bloodbound": "Blood Bond / Vinculum",
 			"boon": "Boon",
@@ -207,10 +217,14 @@
 			"matrix": "Matrix",
 			"trinket": "Trinket",
 			"power": "Power",
+			"talentability": "Talent Ability",
+			"skillability": "Skill Ability",
+			"knowledgeability": "Knowledge Ability",
+			"advantage": "Advantage",
 			"talentsecondability": "Secondary Talent Ability",
 			"skillsecondability": "Secondary Skill Ability",
 			"knowledgesecondability": "Secondary Knowledge Ability",
-			"realm": "Realm",
+			"realms": "Realm",
 			"resonance": "Resonance",
 			"othertraits": "Other Traits",
 			"apocalypticform": "Apocalyptic Form",
@@ -299,9 +313,11 @@
 		},
 		"tab": {
 			"bio": "Bio",
+			"stats": "Stats",
 			"core": "Core",
 			"combat": "Combat",
 			"gear": "Gear",
+			"features": "Features",
 			"notes": "Notes",
 			"gifts": "Gifts & Rites",
 			"charms": "Charms",
@@ -322,9 +338,10 @@
 			"attribute": "Attribute Settings"
 		},
 		"bio": {
-			"tradition": "The Tradition",
+			"nobio": "No bio selected",
+			"tradition": "The Traditions",
 			"technocracy": "The Technocracy",
-			"disparate": "The Disparate",
+			"disparate": "The Disparates",
 			"fallen": "The Fallen",
 			"mad": "The Mad",
 			"name": "Name",
@@ -542,7 +559,8 @@
 				"balance": "Balance",
 				"ponature": "P'o nature",
 				"direction": "Direction",
-				"wu": "Wu"
+				"wu": "Wu",
+				"destiny": "Destiny"
 			},
 			"mage": {
 				"affiliation": "Affiliation",			
@@ -550,9 +568,9 @@
 				"sect": "Sect",
 				"affinitysphere": "Affinity Sphere",
 				"affinity": "Affinity",
-				"tradition": "The Tradition",
+				"tradition": "The Traditions",
 				"technocracy": "The Technocracy",
-				"disparate": "The Disparate",
+				"disparate": "The Disparates",
 				"fallen": "The Fallen",
 				"mad": "The Mad",
 				"akashic": "Akashic Brotherhood",
@@ -809,10 +827,17 @@
 			"diff": {
 				"perception": "Perception difficulty",
 				"wits": "Wits difficulty"
+			},
+			"fixed": {
+				"appearance": "Fixed Appearance"
 			}
 		},
 		"abilities": {
-			"abilities": "Abilities",
+			"ability": "Ability",
+			"talent": "Talent",
+			"skill": "Skill",
+			"knowledge": "Knowledge",
+			"abilities": "Abilities",			
 			"talents": "Talents",
 			"skills": "Skills",
 			"knowledges": "Knowledges",
@@ -837,11 +862,14 @@
 			"primalurge": "Primal-Urge",			
 			"streetwise": "Streetwise",
 			"subterfuge": "Subterfuge",
+			"socialize": "Socialize",
+			"artist": "Artist",
+			"instruction": "Instruction",
 
-			"animalken": "Animal-Ken",
+			"animalken": "Animal Ken",
 			"archery": "Archery",
 			"commerce": "Commerce",
-			"craft": "Craft",
+			"craft": "Crafts",
 			"demolitions": "Demolition",
 			"drive": "Drive",
 			"etiquette": "Etiquette",
@@ -856,6 +884,9 @@
 			"security": "Security",
 			"stealth": "Stealth",
 			"survival": "Survival",
+			"ranged": "Ranged",
+			"thievery": "Thievery",
+			"weaponry": "Weaponry",
 
 			"academics": "Academics",
 			"ancientmedicine": "Ancient Medicine",
@@ -886,7 +917,12 @@
 			"science": "Science",
 			"technology": "Technology",
 			"theology": "Theology",
-			"writing": "Writing"
+			"writing": "Writing",
+			"ancestralmedicine": "Ancestral Medicine",
+			"invention": "Invention",
+			"legendlore": "Legend-Lore",
+			"lore": "Lore",
+			"metaphysics": "Metaphysics"
 		},		
 		"health": {
 			"health": "Health",
@@ -903,6 +939,7 @@
 			"dismembered": "Dismembered/Incinerated",
 			"pulverized": "Pulverized/Cremated",
 			"dust": "Dust/Ash",
+			"all": "All",
 			"bashing": "Bashing",
 			"lethal": "Lethal",
 			"aggravated": "Aggravated",
@@ -920,6 +957,7 @@
 			"willpower": "Willpower",
 			"imbalance": "Imbalance",
 			"willpowerchange": "Willpower is based on Composure + Resolve in System Setting and can not be altered!",
+			"noadvantages": "No advantage selected",
 			"path": {
 				"headline": "Path",
 				"humanity": "Humanity",
@@ -938,6 +976,7 @@
 			},
 			"virtue": {
 				"headline": "Virtue",
+				"virtues": "Virtues",
 				"selected": "Selected virtues",
 				"conscience": "Conscience",
 				"conviction": "Conviction",
@@ -949,7 +988,8 @@
 				"zeal": "Zeal"
 			},
 			"bloodpool": "Blood Pool",	
-			"perturn": "Blood per turn",			
+			"perturn": "Blood per turn",
+			"truefaith": "True faith",
 			"faithpool": "Faith Pool",
 			"bearing": "Bearing",
 			"renown": "Renown",
@@ -1072,6 +1112,7 @@
 				"stunned": "Stunned"
 			},
 			"movement": {
+				"headline": "Movement",
 				"walk": "Walk",
 				"jog": "Jog",
 				"run": "Run",
@@ -1111,7 +1152,7 @@
 				"armorpiercing": "Armor piercing"
 			},
 			"armor": {
-				"active": "Active",
+				"equip": "Equip",
 				"armor": "Armor",
 				"dexpen": "Dex Pen",
 				"soakbashing": "Soak Bashing",
@@ -1183,6 +1224,7 @@
 			"daeodon": "Daeodon"
 		},
 		"power": {
+			"nopowers": "No power selected",
 			"rank0": "You have rank 0 so no Gifts are allowed",
 			"rank1": "Rank 1",
 			"rank2": "Rank 2",
@@ -1292,6 +1334,8 @@
 			"area": "Area"
 		},
 		"notes": {
+			"features": "Features",
+			"nofeatures": "No feature selected",
 			"unnamedbackground": "Unnamed background",
 			"unnamedmerit": "Unnamed merit",
 			"unnamedflaw": "Unnamed flaw",
@@ -1354,9 +1398,11 @@
 			"level": "Level",
 			"rank": "Rank",
 			"other": "Other",
+			"Combat": "Combat",
 			"both": "Both",
 			"nochange": "No Change",
 			"usewillpower": "Use Willpower",
+			"ignoreshpehre": "Ignore sphere when setting base difficulty",
 			"bio": {
 				"wronggeneration": "Not a valid generation",
 				"wrongtempgeneration": "Cannot lower generation past 4",
@@ -1428,6 +1474,7 @@
 				"dice": "Dice settings",
 				"dicehint": "This settings able you to override the sheet's dice color.",
 				"secondaryabilities": "Secondary Abilities",
+				"attributesmaxrating": "Max rating on Attributes",
 				"abilitiesmaxrating": "Max rating on Abilities",
 				"hasdisciplines": "Has disciplines and rituals",
 				"hasgifts": "Has gifts and rites",
@@ -1439,6 +1486,7 @@
 				"setvictorian": "Sheet set to Victorian era!",
 				"setwildwest": "Sheet set to Wild West era!",
 				"setmodern": "Sheet set to Modern era!",
+				"maxattribute": "This setting sets the maximum value an attribute can have",
 				"maxability": "This setting sets the maximum value an ability can have",
 				"customizepath": "Customize path",
 				"soakinfoone": "The total value used in soak with attribute, armor and bonus",
@@ -1448,6 +1496,7 @@
 				"initiativeinfotwo": "Bonus - extra bonus to initiative",
 				"initiativeinfothree": "Total - the total value used in combat with all active bonuses",
 				"graphics": "Graphics",
+				"game": "Game",
 				"era": {
 					"headline": "Era",
 					"modern": "Modern (20th)",
@@ -1469,7 +1518,9 @@
 				"meleeweapon": "Listed melee weapon",
 				"rangedweapon": "Listed ranged weapon",
 				"power": "Listed power ability",
-				"reference": "Reference"
+				"reference": "Reference",
+				"token": "Token icon",
+				"tokenhint": "Choose what icon that will be added to the sheet's token when this shapeform is active."
 			},
 			"feature": {
 				"trivial": "Trivial",
@@ -1506,7 +1557,65 @@
 					"athletics": "Athletics bonus"
 				},
 				"savesuccess": "Bonus changes saved",
-				"savefail": "Failed so save the bonus"
+				"savefail": "Failed so save the bonus",
+				"attributefixedvalue": "Fixed attribute value",
+				"attackbuff": "Attack bonus",
+				"attackdiff": "Attack difficulty",
+				"frenzybuff": "Frenzy bonus",
+				"frenzydiff": "Frenzy difficulty",
+				"attributefixedvaluehint": "This bonus sets the attribute to a fixed value overriding all other bonuses.",
+				"attackbuffhint": "This bonus adds/subracts a value to attack rolls altering the total value by the selected amount.",
+				"attackdiffhint": "This bonus changes the difficulty of any attack roll.",
+				"frenzybuffhint": "This bonus adds/subracts a value to frenzy rolls altering the total value by the selected amount.",
+				"frenzydiffhint": "This bonus changes the difficulty of any frenzy roll.",
+				"frenzydiffchat": "Frenzy difficulty modifier:",
+				"frenzybonuschat": "Frenzy dice bonus:"
+			},
+			"ability": {
+				"worldname": "Item name in world",
+				"id": "Id *",
+				"idhint": "What internal ID this splat has within the system. Is used for internal hardcoded rules and settings.",
+				"sheetname": "Visible name on sheet *",
+				"speciality": "Speciality",
+				"startvalue": "Start value of ability",
+				"currentvalue": "Current value of ability",
+				"mandatory": "* Mandatory fields.",
+				"abilitytype": "Ability type",
+				"alwaysspeciality": "Always has a speciality",
+				"alwaysspecialityhint": "Regardless of game rules this ability always have a speciality.",
+				"usemelee": "Is an ability used by melee weapons",
+				"usemeleehint": "This ability can be used with a melee weapon attack.",
+				"useranged": "Is an ability used by rangeded weapons",
+				"userangedhint": "This ability can be used with a ranged weapon attack.",
+				"usepower": "Is an ability that is used by powers",
+				"usepowerhint": "This ability is used by powers.",
+				"favorited": "Is a favorited ability"
+			},
+			"advantage": {
+				"groupname": "Advantage group name",
+				"order": "Display order *",
+				"haspemanent": "Has permanent value",
+				"hastemporary": "Has temporary value",
+				"canroll": "Can be rolled",
+				"usepermanenttemporary": "Dice pool uses both permanent and temporary values",
+				"temporarycanbehigher": "Temporary can be higher than permanent value",
+				"permanentstart": "Permanent beginning value",
+				"max": "Max value"
+			},
+			"sphere": {
+				"start": "Starting value",
+				"technocracy": "Is Technocracy sphere"
+			},
+			"splat": {
+				"game": "Game line",
+				"gamehint": "What game line is used for this splat sheet.",
+				"sheet": "Splat sheet",
+				"sheethint": "What type of base splat this sheet is.",
+				"sheehint": "What type of splat is this sheet representing (e.g. mortal, vampire, werewolf, mage).",
+				"variant": "Variant name",
+				"varianthint": "What type of variant of the splat sheet is this sheet representing. Default is general.",
+				"era": "Game Era",
+				"erahint": "What game era the sheet it set to."
 			},
 			"new": {
 				"create": "Create item",
@@ -1527,6 +1636,10 @@
 				"merit": "New merit",
 				"flaw": "New flaw",
 				"ability": "New secondary ability",
+				"talent": "New talent",
+				"skill": "New skill",
+				"knowledge": "New knowledge",
+				"advantage": "New advantage",
 				"resonance": "New resonance",
 				"othertraits": "New other trait",
 				"addexp": "Gained experience",
@@ -1646,6 +1759,8 @@
 				"boon": "Edit boon",
 				"gift": "Edit gift",
 				"rite": "Edit rite",
+				"discipline": "Edit discipline",
+				"disciplinepower": "Edit discipline power",
 				"disciplinepath": "Edit discipline path",
 				"disciplinepathpower": "Edit discipline path power",
 				"ritual": "Edit ritual",
@@ -1699,6 +1814,8 @@
 				"armor": "Remove armor",
 				"gift": "Remove gift",
 				"rite": "Remove rite",
+				"discipline": "Remove discipline",
+				"disciplinepower": "Remove discipline power",
 				"disciplinepath": "Remove discipline path",
 				"disciplinepathpower": "Remove discipline path power",
 				"ritual": "Remove ritual",
@@ -1756,6 +1873,14 @@
 				"oath": "Show oath",
 				"description": "Show description"
 			},
+			"drop": {
+				"nopcactor": "Item type {1} are not supported on this type of Actor {2} requires Actor type PC.",
+				"advantageexists": "This Advantage {1}} already exist on the sheet and can't be added.",
+				"dropsphere": "No function to add Spheres manually yet.",
+				"warning": "Warning!",
+				"warningtext": "If you change Splat all settings and alterations you have made be reset according to the new Splat added",
+				"splatinstalled": "Splat '{1}' added to '{2}'."
+			},
 			"yes": "yes",
 			"no": "no",
 			"numdices": "Number of dice",
@@ -1804,7 +1929,9 @@
 			"rollingremainactivetext": "Each success heals one health level of any kind of damage. No matter how much damage is healed, the character enters a berserk frenzy. A werewolf gains a Battle Scar whenever she successfully remains active.",
 			"addedautosucc": "The roll add {0} automatic successes",
 			"usingwillpower": "Using Willpower",
-			"favored": "Is a favored roll"
+			"favored": "Is a favored roll",
+			"bonusdices": "Bonus dices",
+			"nobotchpossible": "No botch possible on this roll"
 		},
 		"dialog": {	
 			"save": "Save",
@@ -1862,7 +1989,7 @@
 				"additionaldifficulty": "Additional difficulty modifier",
 				"castingsettings": "Casting settings",
 				"extendedcasting": "Extended casting",
-				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each try adds +1 to the difficulty.",
+				"extendedcastingdesc": "Extended casting is when you roll for the same magic time and time again adding the successes together for each roll, each fail adds +1 to the difficulty.",
 				"selectsphere": "Need to select sphere's first",
 				"keepdifficulty": "Keeps the difficulty the same",
 				"keepdiff": "Keep difficulty",
@@ -1887,6 +2014,14 @@
 				"noshape": "No shape selected",
 				"selectshape": "Shape to turn into"
 			},
+			"migrationwizard": {
+				"title": "Migration Information",
+				"page": "Page",
+				"of": "of",
+				"previous": "Previous",
+				"next": "Next",
+				"dontshowagain": "Don't show again"
+			},
 			"weapon": {
 				"attack": "Attack",
 				"damage": "Damage",
@@ -1905,7 +2040,13 @@
 				"firemodes": "Automatic fire modes",
 				"numbertargets": "Number of targets",
 				"nomeleeweapon": "No melee weapon secondary abilities listed on sheet",
-				"norangedweapon": "No ranged weapon secondary abilities listed on sheet"
+				"norangedweapon": "No ranged weapon secondary abilities listed on sheet",
+				"attackdiffchat": "Attack difficulty modifier:",
+				"attackbonuschat": "Attack dice bonus:",
+				"attackrollbonus": "Attack roll bonus:",
+				"dodgemodifier": "Dodge modifier",
+				"generalmodifier": "General modifier",
+				"secondaryabilityinfo": "Pick what secodary ability to use for this weapon if no ability have been selected."
 			},
 			"soak": {
 				"missingdamage": "You need to select a damage type",
@@ -1945,7 +2086,8 @@
 				"bonusvalue": "Value",
 				"bonuses": "Bonuses",
 				"healthleveltype": "Health level type",
-				"section": "Section"
+				"section": "Section",
+				"weapontype": "Weapon type"
 			},
 			"variant": {
 				"sheettype": "Set sheet type",

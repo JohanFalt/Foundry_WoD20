@@ -1,0 +1,48 @@
+
+<div style="width: 320px; flex-direction: column;">
+
+    <div class="area-box">
+
+        {{#each splatfields as |field key|}}
+
+            {{#if (eq field.type "input")}}
+
+                <div class="bioInformationArea floating-label-group">
+                    {{#if ../locked}}
+                        <input class="sheet-infoValues" type="text" value="{{localize field.value}}" autofocus required />
+                    {{else}}
+                        <input class="sheet-infoValues editable" type="text" name="system.bio.splatfields.{{key}}.value" value="{{localize field.value}}" data-dtype="String" autocomplete="off" autofocus required />
+                    {{/if}}                    
+                    <span class="floating-label">{{localize field.label}}</span>
+                </div>
+
+            {{else if (eq field.type "select")}}
+
+                <div class="bioInformationArea floating-label-group {{#if (eq field.label "wod.bio.vampire.generation")}}half{{/if}}" data-area="generation">
+                    {{#if ../locked}}
+                        <input class="sheet-infoValues" type="text" value="{{lookupListData ../listData field.listdata field.value}}" autofocus required />
+                    {{else}}
+                        <select class="sheet-infoValues editable" name="system.bio.splatfields.{{key}}.value" data-dtype="String">
+                            {{selectOptions (lookup ../listData field.listdata) selected=field.value localize=false}}
+                        </select>
+                    {{/if}}
+					<span class="floating-label">{{localize field.label}}</span>
+				</div>
+
+                {{#if (eq field.label "wod.bio.vampire.generation")}}
+                <div style="top: -25px; left: 85px; position: relative;">
+                    <i class="fa-solid fa-square-minus pointer" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-action="generationChange" data-source="reduce" data-field-key="{{key}}" aria-hidden="true"></i>
+                    <i class="fa-solid fa-eraser pointer" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-action="generationChange" data-source="clear" data-field-key="{{key}}" aria-hidden="true"></i>
+                    {{#if field.mod}}
+                        <span>-{{field.mod}}</span>
+                    {{/if}}
+                </div>
+                {{/if}}
+
+            {{/if}}
+
+        {{/each}}
+
+    </div>     
+
+</div>

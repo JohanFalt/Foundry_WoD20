@@ -62,6 +62,66 @@ export default class CreateHelper {
 
 		return actorCopy;
 	}
+
+	static async SetAbilitiesv2(updates, actor, type, era) {
+		console.log(`WoD | Set ${type} Abilities - ${era}`);
+
+		// hide all
+		for (const ability in actor.system.abilities) {
+			if (actor.system.abilities[ability] != undefined) {
+				if (actor.system.abilities[ability].value == 0) {
+					updates["system.abilities." + ability + ".isvisible"] = false;
+				}
+			}
+		}
+
+		if (type == "demon") {
+			if (game.settings.get('worldofdarkness', 'demonSystemSettings') == "20th") {
+				era = "modern20";
+			}
+		}
+
+		for (const talent in game.worldofdarkness.abilities[type][era].talents) {
+			if (actor.system.abilities[game.worldofdarkness.abilities[type][era].talents[talent]] != undefined) {
+				updates["system.abilities." + game.worldofdarkness.abilities[type][era].talents[talent] + ".isvisible"] = true;
+			}
+		}
+
+		for (const skill in game.worldofdarkness.abilities[type][era].skills) {
+			if (actor.system.abilities[game.worldofdarkness.abilities[type][era].skills[skill]] != undefined) {
+				updates["system.abilities." + game.worldofdarkness.abilities[type][era].skills[skill] + ".isvisible"] = true;
+			}
+		}
+
+		for (const knowledge in game.worldofdarkness.abilities[type][era].knowledges) {
+			if (actor.system.abilities[game.worldofdarkness.abilities[type][era].knowledges[knowledge]] != undefined) {
+				updates["system.abilities." + game.worldofdarkness.abilities[type][era].knowledges[knowledge] + ".isvisible"] = true;
+			}
+		}
+
+		if (type == "hunter") {
+			updates["system.abilities.technology.type"] = "skill";
+		}
+		if (type == "demon") {
+			if (game.settings.get('worldofdarkness', 'demonSystemSettings') != "20th") {
+				updates["system.abilities.technology.type"] = "skill";
+			}
+		}
+		if (type == "wraith") {
+			updates["system.abilities.leadership.type"] = "skill";
+		}
+		if (type == "orpheus") {
+			updates["system.abilities.technology.type"] = "skill";
+		}
+		if (type == "sorcerer") {
+			updates["system.abilities.technology.type"] = "skill";
+		}
+		if (type == "mummy") {
+			updates["system.abilities.technology.type"] = "skill";
+		}
+
+		return updates;
+	}
     
     static async SetMortalAbilities(actor, era) {
 		console.log(`WoD | Set Mortal Abilities - ${era}`);		
@@ -343,6 +403,21 @@ export default class CreateHelper {
 
 		return actor;
 	}
+
+	static async SetCreatureAbilitiesv2(updates, actor) {
+		console.log('WoD | Set Creature Abilities');
+
+		// hide all
+		for (const ability in actor.system.abilities) {
+			if (actor.system.abilities[ability] != undefined) {
+				if (actor.system.abilities[ability].value == 0) {
+					updates["system.abilities." + ability + ".isvisible"] = false;
+				}
+			}
+		}	
+
+		return updates;
+	}
 	
 	static async SetMortalAttributes(actor) {
 		console.log('WoD | Set Mortal Attributes');
@@ -388,20 +463,20 @@ export default class CreateHelper {
 		return actor;
 	}
 
-	static async SetVampireAttributes(actor) {
+	static async SetVampireAttributesv2(updates) {
 		console.log('WoD | Set Vampire Attributes');
 
-		actor.system.settings.soak.bashing.isrollable = true;
-		actor.system.settings.soak.lethal.isrollable = true;
-		actor.system.settings.soak.aggravated.isrollable = false;
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = true;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
 
-		actor.system.settings.haspath = true;
-		actor.system.settings.hasbloodpool = true;		
-		actor.system.settings.hasvirtue = true;
+		updates["system.settings.haspath"] = true;
+		updates["system.settings.hasbloodpool"] = true;		
+		updates["system.settings.hasvirtue"] = true;
 
-		actor.system.settings.powers.hasdisciplines = true;
+		updates["system.settings.powers.hasdisciplines"] = true;
 
-		return actor;
+		return updates;
 	}
 
 	static async SetWerewolfAttributes(actor) {
@@ -417,6 +492,21 @@ export default class CreateHelper {
 		actor.system.settings.powers.hasgifts = true;
 
 		return actor;
+	}
+
+	static async SetWerewolfAttributesv2(updates, actor) {
+		console.log('WoD | Set Werewolf Attributes');
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = true;
+		updates["system.settings.soak.aggravated.isrollable"] = true;
+
+		updates["system.settings.hasrage"] = true;
+		updates["system.settings.hasgnosis"] = true;
+
+		updates["system.settings.powers.hasgifts"] = true;
+
+		return updates;
 	}
 
 	static async SetShifterAttributes(actor, type) {
@@ -454,6 +544,22 @@ export default class CreateHelper {
 		return actor;
 	}
 
+	static async SetMageAttributesv2(updates, actor) {
+		console.log('WoD | Set Mage Attributes');
+
+		updates["system.advantages.arete.permanent"] = 1;
+		updates["system.advantages.arete.roll"] = 1;
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = false;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
+
+		updates["system.abilities.technology.type"] = "skill";
+		updates["system.abilities.research.type"] = "skill";
+
+		return updates;
+	}
+
 	static async SetChangelingAttributes(actor) {
 		console.log('WoD | Set Changeling Attributes');
 
@@ -469,6 +575,21 @@ export default class CreateHelper {
 		return actor;
 	}
 
+	static async SetChangelingAttributesv2(updates, actor) {
+		console.log('WoD | Set Changeling Attributes');
+
+		updates["system.settings.soak.chimerical.bashing.isrollable"] = true;
+		updates["system.settings.soak.chimerical.lethal.isrollable"] = true;
+		updates["system.settings.soak.chimerical.aggravated.isrollable"] = false;
+		
+		updates["system.settings.hasglamour"] = true;
+		updates["system.settings.hasbanality"] = true;
+
+		updates["system.settings.powers.hasarts"] = true;
+
+		return updates;
+	}
+
 	static async SetHunterAttributes(actor) {
 		console.log('WoD | Set Hunter Attributes');
 
@@ -478,6 +599,17 @@ export default class CreateHelper {
 		actor.system.settings.powers.hasedges = true;
 
 		return actor;
+	}
+
+	static async SetHunterAttributesv2(updates, actor) {
+		console.log('WoD | Set Hunter Attributes');
+
+		updates["system.settings.hasconviction"] = true;
+		updates["system.settings.hasvirtue"] = true;
+
+		updates["system.settings.powers.hasedges"] = true;
+
+		return updates;
 	}
 
 	static async SetDemonAttributes(actor) {
@@ -498,6 +630,24 @@ export default class CreateHelper {
 		return actor;
 	}
 
+	static async SetDemonAttributesv2(updates, actor) {
+		console.log('WoD | Set Demon Attributes');
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = true;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
+
+		updates["system.settings.hasvirtue"] = true;
+		updates["system.settings.hasfaith"] = true;
+		updates["system.settings.hastorment"] = true;
+		
+		updates["system.settings.powers.haslores"] = true;
+
+		updates["system.advantages.virtues.selfcontrol.label"] = "wod.advantages.virtue.conviction";
+
+		return updates;
+	}
+
 	static async SetWraithAttributes(actor) {
 		console.log('WoD | Set Wraith Attributes');
 
@@ -507,6 +657,17 @@ export default class CreateHelper {
 		actor.system.settings.powers.hasarcanois = true;
 
 		return actor;
+	}
+
+	static async SetWraithAttributesv2(updates, actor) {
+		console.log('WoD | Set Wraith Attributes');
+
+		updates["system.settings.hascorpus"] = true;
+		updates["system.settings.haspathos"] = true;
+
+		updates["system.settings.powers.hasarcanois"] = true;
+
+		return updates;
 	}
 
 	static async SetOrpheusAttributes(actor) {
@@ -543,6 +704,20 @@ export default class CreateHelper {
 		return actor;
 	}
 
+	static async SetMummyAttributesv2(updates, actor) {
+		console.log('WoD | Set Mummy Attributes');
+
+		updates["system.settings.hasbalance"] = true;
+		updates["system.settings.hassekhem"] = true;
+		updates["system.settings.powers.hashekau"] = true;
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = true;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
+
+		return updates;
+	}
+
 	static async SetExaltedAttributes(actor) {
 		console.log('WoD | Set Exalted Attributes');
 
@@ -555,6 +730,16 @@ export default class CreateHelper {
 		return actor;
 	}
 
+	static async SetExaltedAttributesv2(updates, actor) {
+		console.log('WoD | Set Exalted Attributes');
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = true;
+		updates["system.settings.soak.aggravated.isrollable"] = true;
+
+		return updates;
+	}
+
 	static async SetCreatureAttributes(actor) {
 		console.log('WoD | Set Creature Attributes');
 
@@ -565,6 +750,18 @@ export default class CreateHelper {
 		actor.system.settings.powers.haspowers = true;
 
 		return actor;
+	}
+
+	static async SetCreatureAttributesv2(updates, actor) {
+		console.log('WoD | Set Creature Attributes');
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = false;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
+
+		updates["system.settings.powers.haspowers"] = true;
+
+		return updates;
 	}
 
 	static async SetSpiritAttributes(actor) {
@@ -1030,70 +1227,41 @@ export default class CreateHelper {
 
 	static async CreateShape(actor, version) {
 		if (!actor.system.settings.isshapecreated) {
-			let itemData;
+			const itemsArray = [];
 
-			itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 2, false, version);
-			await actor.updateSource({ items: [itemData]});
+			// GLABRO
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.appearance"), "appearance", -1, false, version));
 
-			itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version);
-			await actor.updateSource({ items: [itemData]});
+			// CRINOS
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 4, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 1, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.fixed.appearance"), "appearance", 0, false, version));
 
-			itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -2, false, version);
-			await actor.updateSource({ items: [itemData]});
+			// HISPO
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 3, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -1, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -1, false, version));
 
-			itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.appearance"), "appearance", -1, false, version);
-			await actor.updateSource({ items: [itemData]});
+			// LUPUS
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 1, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -2, false, version));
+			itemsArray.push(await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -2, false, version));
 
-			/* CRINOS */
-			itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 4, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 1, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			/* HISPO */
-			itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 3, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -1, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -1, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			/* LUPUS */
-			itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 1, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
-			await actor.updateSource({ items: [itemData]});
-			
-			itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -2, false, version);
-			await actor.updateSource({ items: [itemData]});
-
-			itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -2, false, version);
-			await actor.updateSource({ items: [itemData]});
+			// Update source once with all items
+			if (itemsArray.length > 0) {
+				await actor.updateSource({ items: itemsArray });
+			}
 		}
 	}
 
@@ -1171,27 +1339,27 @@ export default class CreateHelper {
 				}
 			};
 		}
-		if (type == "disciplinepath") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.disciplinepath"),
-				type: "Power",
-				system: {
-					game: "vampire",
-					type: "wod.types.disciplinepath"
-				}
-			};
-		}
-		if (type == "disciplinepathpower") {
-			itemData = {
-				name: game.i18n.localize("wod.labels.new.disciplinepathpower"),
-				type: "Power",
-				system: {
-					level: 1,
-					game: "vampire",
-					type: "wod.types.disciplinepathpower"
-				}
-			};
-		}
+		// if (type == "disciplinepath") {
+		// 	itemData = {
+		// 		name: game.i18n.localize("wod.labels.new.disciplinepath"),
+		// 		type: "Power",
+		// 		system: {
+		// 			game: "vampire",
+		// 			type: "wod.types.disciplinepath"
+		// 		}
+		// 	};
+		// }
+		// if (type == "disciplinepathpower") {
+		// 	itemData = {
+		// 		name: game.i18n.localize("wod.labels.new.disciplinepathpower"),
+		// 		type: "Power",
+		// 		system: {
+		// 			level: 1,
+		// 			game: "vampire",
+		// 			type: "wod.types.disciplinepathpower"
+		// 		}
+		// 	};
+		// }
 		if (type == "ritual") { 	
 			itemData = {
 				name: game.i18n.localize("wod.labels.new.ritual"),
@@ -1428,7 +1596,102 @@ export default class CreateHelper {
 		return itemData;
 	}
 
-	/* Create the buttons for create Combat Items */
+	static async CreateButtonsBio(actor) {
+		return {
+
+		}
+	}
+
+	static async CreateButtonsCore(actor) {
+		return {
+			talent: {
+				label: game.i18n.localize("wod.types.talentability"),
+				callback: async () => {
+					let itemData = {
+						name: game.i18n.localize("wod.labels.new.talent"),
+						type: "Ability",					
+						system: {
+							label: game.i18n.localize("wod.labels.new.talent"),
+							max: actor.system.settings.abilities.defaultmaxvalue,
+							type: "wod.abilities.talent",
+							value: 0,
+							settings: {
+								isvisible: true,
+								isremovable: true
+							}
+						}
+					};
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			},
+			skill: {
+				label: game.i18n.localize("wod.types.skillability"),
+				callback: async () => {
+					let itemData = {
+						name: game.i18n.localize("wod.labels.new.skill"),
+						type: "Ability",
+						system: {
+							label: game.i18n.localize("wod.labels.new.skill"),
+							max: actor.system.settings.abilities.defaultmaxvalue,
+							type: "wod.abilities.skill",
+							value: 0,
+							settings: {
+								isvisible: true,
+								isremovable: true
+							}
+						}
+					};
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			},
+			knowledge: {
+				label: game.i18n.localize("wod.types.knowledgeability"),
+				callback: async () => {
+					let itemData = {
+						name: game.i18n.localize("wod.labels.new.knowledge"),
+						type: "Ability",
+						system: {
+							label: game.i18n.localize("wod.labels.new.knowledge"),
+							max: actor.system.settings.abilities.defaultmaxvalue,
+							type: "wod.abilities.knowledge",
+							value: 0,
+							settings: {
+								isvisible: true,
+								isremovable: true
+							}
+						}
+					};
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			},
+			advantage: {
+				label: game.i18n.localize("wod.types.advantage"),
+				callback: async () => {
+					let itemData = {
+						name: game.i18n.localize("wod.labels.new.advantage"),
+						type: "Advantage",
+						system: {
+							label: game.i18n.localize("wod.labels.new.advantage"),
+							settings: {
+								isvisible: true,
+								isremovable: true
+							}
+						}
+					};
+
+					await this.CreateItem(actor, itemData);
+					return;
+				}
+			}
+		}
+	}
+
 	static async CreateButtonsCombat(actor) {
 		return {
 			natural: {
@@ -1499,6 +1762,338 @@ export default class CreateHelper {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Analyserar en actor och returnerar array med alla spel vars Powers finns på actorn
+	 * @param {Actor} actor - PC Actor att analysera
+	 * @returns {string[]} Array med game-namn (t.ex. ["werewolf", "mage"])
+	 */
+	static getActorGames(actor) {
+		if (!actor || actor.type !== "PC") {
+			return [];
+		}
+		
+		const games = new Set();
+		
+		// Lägg till actor's huvudspel
+		if (actor.system.settings?.game) {
+			games.add(actor.system.settings.game);
+		}
+		
+		// Analysera alla Power items på actorn
+		const powerItems = actor.items.filter(item => 
+			item.type === "Power" && item.system?.game
+		);
+		
+		for (const item of powerItems) {
+			if (item.system.game) {
+				games.add(item.system.game);
+			}
+		}
+		
+		// Analysera Rote items (tillhör mage)
+		const roteItems = actor.items.filter(item => 
+			item.type === "Rote"
+		);
+		if (roteItems.length > 0) {
+			games.add("mage");
+		}
+		
+		return Array.from(games);
+	}
+
+	/**
+	 * Hämtar lokaliserat label för ett spel
+	 * @param {string} gameName - Game-namn (t.ex. "werewolf", "vampire")
+	 * @returns {string} Lokaliserat label
+	 */
+	static getGameLabel(gameName) {
+		const gameLabels = {
+			werewolf: "wod.games.werewolf",
+			vampire: "wod.games.vampire",
+			mage: "wod.games.mage",
+			changeling: "wod.games.changeling",
+			demon: "wod.games.demon",
+			hunter: "wod.games.hunter",
+			wraith: "wod.games.wraith",
+			mummy: "wod.games.mummy",
+			exalted: "wod.games.exalted",
+			other: "wod.labels.other"
+		};
+		
+		const labelKey = gameLabels[gameName] || "wod.labels.other";
+		return game.i18n.localize(labelKey);
+	}
+
+	static async CreateButtonsPowerv2(actor) {
+		// Hämta vilka spel som är relevanta för denna actor
+		const actorGames = this.getActorGames(actor);
+		
+		// Definiera alla buttons med deras game-tillhörighet
+		const allButtons = {
+			gift: {
+				game: "werewolf",
+				button: {
+					label: game.i18n.localize("wod.types.gift"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.gift"),
+							type: "Power",
+							system: {
+								game: "werewolf",
+								level: 1,
+								type: "wod.types.gift"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			rite: {
+				game: "werewolf",
+				button: {
+					label: game.i18n.localize("wod.types.rite"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.rite"),
+							type: "Power",
+							system: {
+								game: "werewolf",
+								type: "wod.types.rite"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			discipline: {
+				game: "vampire",
+				button: {
+					label: game.i18n.localize("wod.types.discipline"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.discipline"),
+							type: "Power",
+							system: {
+								game: "vampire",
+								type: "wod.types.discipline"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			disciplinepower: {
+				game: "vampire",
+				button: {
+					label: game.i18n.localize("wod.types.disciplinepower"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.disciplinepower"),
+							type: "Power",
+							system: {
+								game: "vampire",
+								level: 1,
+								type: "wod.types.disciplinepower"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			combination: {
+				game: "vampire",
+				button: {
+					label: game.i18n.localize("wod.types.combination"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.combination"),
+							type: "Power",
+							system: {
+								game: "vampire",
+								type: "wod.types.combination"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			ritual: {
+				game: "vampire",
+				button: {
+					label: game.i18n.localize("wod.types.ritual"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.ritual"),
+							type: "Power",
+							system: {
+								game: "vampire",
+								level: 1,
+								type: "wod.types.ritual"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			numina: {
+				game: "mage",
+				button: {
+					label: game.i18n.localize("wod.types.numina"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.numina"),
+							type: "Power",
+							system: {
+								game: "mage",
+								type: "wod.types.numina"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			numinapower: {
+				game: "mage",
+				button: {
+					label: game.i18n.localize("wod.types.numinapower"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.numinapower"),
+							type: "Power",
+							system: {
+								level: 1,
+								game: "mage",
+								type: "wod.types.numinapower"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			resonance: {
+				game: "mage",
+				button: {
+					label: game.i18n.localize("wod.types.resonance"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.resonance")}`,
+							type: "Trait",
+							system: {
+								label: `${game.i18n.localize("wod.labels.new.resonance")}`,
+								type: "wod.types.resonance"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			shapeform: {
+				game: null, // "other"
+				button: {
+					label: game.i18n.localize("wod.types.shapeform"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.shapeform"),
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.shapeform"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			}
+		};
+		
+		// Lägg till rote om actor har spheres
+		if (actor.system.settings.hasspheres) {
+			allButtons.rote = {
+				game: "mage",
+				button: {
+					label: game.i18n.localize("wod.types.rote"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.rote")}`,
+							type: "Rote",
+							system: {
+								type: "wod.types.rote"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			};
+		}
+		
+		// Gruppera buttons efter game
+		const categories = {};
+		const flatButtons = {};
+		
+		for (const [key, buttonData] of Object.entries(allButtons)) {
+			const game = buttonData.game || "other";
+			
+			// Skapa kategori om den inte finns
+			if (!categories[game]) {
+				categories[game] = {
+					label: this.getGameLabel(game),
+					expanded: actorGames.includes(game),
+					buttons: {}
+				};
+			}
+			
+			// Lägg till button i kategori
+			categories[game].buttons[key] = buttonData.button;
+			
+			// Lägg till i flatButtons för callback-hantering
+			flatButtons[key] = buttonData.button;
+		}
+		
+		// Sortera knappar i varje kategori så att "rote" kommer först i Mage-kategorin
+		for (const [game, category] of Object.entries(categories)) {
+			if (game === "mage" && category.buttons.rote) {
+				const sortedButtons = {};
+				// Lägg till rote först
+				sortedButtons.rote = category.buttons.rote;
+				// Lägg till resten av knapparna
+				for (const [key, button] of Object.entries(category.buttons)) {
+					if (key !== "rote") {
+						sortedButtons[key] = button;
+					}
+				}
+				categories[game].buttons = sortedButtons;
+			}
+		}
+		
+		return {
+			categories: categories,
+			flatButtons: flatButtons
+		};
 	}
 
 	/* Create the buttons for create Gear Items */
@@ -1662,6 +2257,325 @@ export default class CreateHelper {
 
 	/* Create the buttons for create Note Items */
 	static async CreateButtonsNote(actor) {
+		if (actor.type === "PC") {
+			return {
+				background: {
+					label: game.i18n.localize("wod.types.background"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.background"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.background"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				merit: {
+					label: game.i18n.localize("wod.types.merit"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.merit"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.merit"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				flaw: {
+					label: game.i18n.localize("wod.types.flaw"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.flaw"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.flaw"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				bloodbound: {
+					label: game.i18n.localize("wod.types.bloodbound"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.bloodbound"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.bloodbound"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				boon: {
+					label: game.i18n.localize("wod.types.boon"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.boon"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.boon"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				oath: {
+					label: game.i18n.localize("wod.types.oath"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.oath"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.oath"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				other: {
+					label: game.i18n.localize("wod.types.othertraits"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.othertraits"),
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.othertraits"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				addexp: {
+					label: game.i18n.localize("wod.labels.add.experience"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.addexp")}`,
+							type: "Experience",
+							system: {
+								amount: 0,
+								type: "wod.types.expgained"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				spendexp: {
+					label: game.i18n.localize("wod.labels.add.spentexp"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.spentexp")}`,
+							type: "Experience",
+							system: {
+								amount: 0,
+								type: "wod.types.expspent"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			}
+		}
+		else {
+			return {
+				background: {
+					label: game.i18n.localize("wod.types.background"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.background"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.background"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				merit: {
+					label: game.i18n.localize("wod.types.merit"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.merit"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.merit"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				flaw: {
+					label: game.i18n.localize("wod.types.flaw"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.flaw"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.flaw"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				bloodbound: {
+					label: game.i18n.localize("wod.types.bloodbound"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.bloodbound"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.bloodbound"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				boon: {
+					label: game.i18n.localize("wod.types.boon"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.boon"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.boon"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				oath: {
+					label: game.i18n.localize("wod.types.oath"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.oath"),
+							type: "Feature",
+							system: {
+								level: 1,
+								type: "wod.types.oath"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				shapeform: {
+					label: game.i18n.localize("wod.types.shapeform"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.shapeform"),
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.shapeform"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				other: {
+					label: game.i18n.localize("wod.types.othertraits"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.othertraits"),
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.othertraits"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				addexp: {
+					label: game.i18n.localize("wod.labels.add.experience"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.addexp")}`,
+							type: "Experience",
+							system: {
+								amount: 0,
+								type: "wod.types.expgained"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				},
+				spendexp: {
+					label: game.i18n.localize("wod.labels.add.spentexp"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.spentexp")}`,
+							type: "Experience",
+							system: {
+								amount: 0,
+								type: "wod.types.expspent"
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	/* Create the buttons for create Note Items */
+	static async CreateButtonsNotev2(actor) {
 		return {
 			background: {
 				label: game.i18n.localize("wod.types.background"),
@@ -1752,23 +2666,6 @@ export default class CreateHelper {
 						system: {
 							level: 1,
 							type: "wod.types.oath"
-						}
-					};
-
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			},
-			shapeform: {
-				label: game.i18n.localize("wod.types.shapeform"),
-				callback: async () => {
-					let itemData = {
-						name: game.i18n.localize("wod.labels.new.shapeform"),
-						type: "Trait",
-						system: {
-							iscreated: true,
-							level: 0,
-							type: "wod.types.shapeform"
 						}
 					};
 
@@ -1883,28 +2780,28 @@ export default class CreateHelper {
 					return;
 				}
 			};
-			buttons.disciplinepath = {
-				label: game.i18n.localize("wod.types.disciplinepath"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("disciplinepath", system);
+			// buttons.disciplinepath = {
+			// 	label: game.i18n.localize("wod.types.disciplinepath"),
+			// 	callback: async () => {
+			// 		let itemData = await this.CreateItemPower("disciplinepath", system);
 
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
-			buttons.disciplinepathpower = {
-				label: game.i18n.localize("wod.types.disciplinepathpower"),
-				callback: async () => {
-					let itemData = await this.CreateItemPower("disciplinepathpower", system);
+			// 		await this.CreateItem(actor, itemData);
+			// 		return;
+			// 	}
+			// };
+			// buttons.disciplinepathpower = {
+			// 	label: game.i18n.localize("wod.types.disciplinepathpower"),
+			// 	callback: async () => {
+			// 		let itemData = await this.CreateItemPower("disciplinepathpower", system);
 
-					await this.CreateItem(actor, itemData);
-					return;
-				}
-			};
+			// 		await this.CreateItem(actor, itemData);
+			// 		return;
+			// 	}
+			// };
 			buttons.ritual = {
 				label: game.i18n.localize("wod.types.ritual"),
 				callback: async () => {
-					let itemData = await this.CreateItemPower("ritual", "vampire");
+					let itemData = await this.CreateItemPower("ritual", CONFIG.worldofdarkness.sheettype.vampire.toLowerCase());
 
 					await this.CreateItem(actor, itemData);
 					return;
@@ -1913,7 +2810,7 @@ export default class CreateHelper {
 			buttons.combination = {
 				label: game.i18n.localize("wod.types.combination"),
 				callback: async () => {
-					let itemData = await this.CreateItemPower("combination", "vampire");
+					let itemData = await this.CreateItemPower("combination", CONFIG.worldofdarkness.sheettype.vampire.toLowerCase());
 
 					await this.CreateItem(actor, itemData);
 					return;

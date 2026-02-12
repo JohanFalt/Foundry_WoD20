@@ -70,7 +70,7 @@ export default class HunterActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 	
 	async _onDotCounterHunterChange(event) {

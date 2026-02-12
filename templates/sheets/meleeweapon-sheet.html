@@ -44,13 +44,9 @@
 
 			<div class="dialog-area">
 
-				<div class="infobox bioInformationArea floating-label-group">
-					<select class="sheet-infoValues editable" name="system.era">
-						{{#select data.system.era}}
-							{{#each config.era as | name type|}}
-								<option value="{{name}}">{{localize name}}</option>
-							{{/each}}						
-						{{/select}}
+				<div class="infobox bioInformationArea floating-label-group">					
+					<select class="sheet-infoValues smallbox editable" name="system.era">
+						{{selectOptions listData.WeaponEra selected=data.system.era localize=false}}
 					</select>
 					<span class="floating-label">{{localize 'wod.labels.settings.era.headline'}}</span>
 				</div>
@@ -62,15 +58,9 @@
 
 				{{#if (eq data.system.isnatural false)}}
 					<div class="infobox bioInformationArea floating-label-group">
-						<select class="sheet-infoValues editable" name="system.conceal">
-							{{#select data.system.conceal}}
-								<option value="">- {{localize "wod.labels.select"}} -</option>
-								<option value="P">{{translateConceal "P" data.system.era true}}</option>
-								<option value="J">{{translateConceal "J" data.system.era true}}</option>
-								<option value="T">{{translateConceal "T" data.system.era true}}</option>
-								<option value="NA">{{translateConceal "NA" data.system.era true}}</option>					
-							{{/select}}
-						</select>
+						<select class="sheet-infoValues smallbox editable" name="system.conceal">
+							{{selectOptions listData.Conceal selected=data.system.conceal localize=false}}
+						</select> 
 						<span class="floating-label">{{localize "wod.combat.weapon.conceal.conceal"}}</span>
 					</div>
 				{{/if}}
@@ -172,10 +162,7 @@
 						<div class="pullLeft" style="margin-right: 10px;">
 							<div class="bioInformationArea floating-label-group">
 								<select class="sheet-infoValues smallbox editable" name="system.damage.attribute">
-									{{#select data.system.damage.attribute}}
-										<option value="">- {{localize "wod.labels.none"}} -</option>
-										<option value="strength">{{localize "wod.attributes.strength"}}</option>
-									{{/select}}
+									{{selectOptions listData.DamageAttribute selected=data.system.damage.attribute localize=false}}
 								</select>
 								<span class="floating-label">{{localize "wod.combat.weapon.attribute"}}</span>
 							</div>	
@@ -191,12 +178,8 @@
 						<div class="pullLeft">
 							<div class="bioInformationArea floating-label-group">
 								<select class="sheet-infoValues smallbox editable" name="system.damage.type">
-									{{#select data.system.damage.type}}
 									<option value="">- {{localize "wod.labels.select"}} -</option>
-										{{#each config.damageTypes as | name type|}}
-											<option value="{{type}}">{{localize name}}</option>
-										{{/each}}
-									{{/select}}
+									{{selectOptions config.damageTypes selected=data.system.damage.type localize=true}}
 								</select>
 								<span class="floating-label">{{localize "wod.labels.damagetype"}}</span>
 							</div>	

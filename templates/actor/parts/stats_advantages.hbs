@@ -1,0 +1,50 @@
+<div class="clearareaBox">
+
+	<div class="pullLeft" style="width: 33%;">
+		{{#if actor.system.settings.hasvirtue}}		
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_virtue.hbs"}}
+		{{/if}}
+		{{#if actor.system.settings.hasrenown}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_renown.hbs"}}
+		{{/if}}
+		{{#if actor.system.settings.hasquintessence}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_quintessence.hbs"}}
+		{{/if}}
+		{{#if hasGroupedAdvantages}}
+			{{> "systems/worldofdarkness/templates/actor/parts/stats_groupedadvantages.hbs"}}
+		{{/if}}
+		&nbsp;
+	</div>
+
+	<div class="pullLeft sheet-boxcontainer item-row" style="width: 33%;">
+
+		{{#each advantages as |advantage id|}}
+			{{{getGetStatArea_v2 ../actor advantage}}}
+
+			{{#if (eq advantage.system.id "bloodpool")}}
+				<div class="information-area centerText">{{localize "wod.advantages.perturn"}}: {{advantage.system.perturn}}</div>
+			{{/if}}
+			{{#if (eq advantage.system.id "path")}}
+				<div class="information-area centerText">
+					{{#if ../locked}}
+						{{localize "wod.advantages.bearing"}}: {{advantage.system.bearingtext}} ({{../actor.system.advantages.path.system.bearing}})
+					{{else}}
+						{{localize "wod.advantages.bearing"}}: <input class="sheet-infoValues smallbox inputdata editable" name="system.bearingtext" type="text" value="{{advantage.system.bearingtext}}" data-itemid="{{advantage._id}}" /> ({{../actor.system.advantages.path.system.bearing}})
+					{{/if}}
+				</div>
+			{{/if}}
+		{{/each}}
+		
+	</div>
+	
+	<div class="healthBox" style="width: 33%; height: 100%; display: flex; flex-direction: column;">
+
+		{{> "systems/worldofdarkness/templates/actor/parts/stats_health.hbs"}}		
+
+		<div class="clearareaBox sheet-headline headlineGroup splatFont" style="width: 100%; margin-top: 5px; padding-left: 35px;">
+			<div>{{localize 'wod.experience.experience'}}</div>
+			<div class="total experienceValue">{{getTotalExperience actor "total"}}</div>
+		</div>
+
+	</div>
+</div>

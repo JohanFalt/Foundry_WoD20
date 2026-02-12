@@ -40,13 +40,11 @@
 
 		<section class="item-body">
 
-			<input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" />
-
 			<div class="dialog-area">
 
 				<!-- type -->
 				{{#if userpermissions.itemAdministrator}}
-					{{#if (eqAnyNot data.system.type "wod.types.realm" "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "wod.types.fetter" "wod.types.passion")}}
+					{{#if (eqAnyNot data.system.type "wod.types.realms" "wod.types.apocalypticform" "wod.types.shapeform" "wod.types.aspect" "wod.types.fetter" "wod.types.passion")}}
 						<div class="infobox bioInformationArea floating-label-group">
 							<select class="sheet-infoValues editable" name="system.type" data-dtype="String">
 								{{selectOptions listData.TypeList selected=data.system.type localize=false}}
@@ -70,7 +68,7 @@
 						<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
 						<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 					</div>
-				{{/if}}
+				{{/if}}				
 
 				<!-- if weapon/power -->
 				{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}
@@ -91,6 +89,19 @@
 				{{/if}}						
 				
 			</div>
+
+			{{#if (eq data.system.type "wod.types.shapeform")}}
+				<div class="dialog-area">
+					<div class="splatFont">{{localize "wod.labels.trait.token"}}</div>
+					<img class="profile-img pointer" src="{{data.system.icon}}" data-edit="system.icon" style="width: 100px; height: 100px;" />	
+					<div class="information-area">{{localize "wod.labels.trait.tokenhint"}}</div>
+					
+					<div class="bioInformationArea floating-label-group">
+						<input class="sheet-infoValues editable" name="system.label" type="text" value="{{item.system.label}}" data-dtype="String" autocomplete="off" autofocus required />
+						<span class="floating-label">{{localize "wod.labels.ability.sheetname"}}</span>
+					</div>					
+				</div>
+			{{/if}}
 
 			{{#if (eq data.system.type "wod.types.apocalypticform")}}			
 				{{> "systems/worldofdarkness/templates/sheets/parts/item_bonus.html"}}
@@ -117,7 +128,7 @@
 
 			{{/if}}			
 
-			{{#if (eqAny data.system.type "wod.types.apocalypticform" "wod.types.resonance" "wod.types.passion" "wod.types.fetter")}}			
+			{{#if (eqAny data.system.type "wod.types.apocalypticform" "wod.types.realms" "wod.types.resonance" "wod.types.passion" "wod.types.fetter")}}			
 
 				<!-- description -->
 				<div class="dialog-area">			

@@ -1,11 +1,10 @@
 import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
-import ActionHelper from "../scripts/action-helpers.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 
-export class Gift {
+export class BasePower {
     constructor(item) {
         this.attributeValue = 0;
         this.attributeName = "";
@@ -18,7 +17,8 @@ export class Gift {
 
         this._id = item["_id"];
         this.name = item["name"];
-        this.type = item["type"];
+        //this.type = item["type"];
+        this.type = item.system["type"];
         this.dice1 = item.system["dice1"];
         this.dice2 = item.system["dice2"];
         this.bonus = parseInt(item.system["bonus"]);
@@ -26,244 +26,73 @@ export class Gift {
         this.description = item.system["description"];
         this.system = item.system["details"];
 
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
+        if (this.dice1 === "custom") {
+            this.secondaryabilityid = item.system["secondaryabilityid"];
+        } else if (this.dice2 === "custom") {
+            this.secondaryabilityid = item.system["secondaryabilityid"];
         }
 
         this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
+        this.canRoll = this.difficulty > -1;
         this.close = false;
+
+        // Let subclasses define this
+        this.sheettype = "mortalDialog";
+    }
+}
+
+export class Gift extends BasePower {
+    constructor(item) {
+        super(item);
+
         this.sheettype = "werewolfDialog";
     }
 }
 
-export class Charm {
+export class Charm extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = "";
-        this.system = item.system["description"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "spiritDialog";
     }
 }
 
-export class CharmGift {
+export class Power extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = ActionHelper._transformToSpiritAttributes(item.system["dice1"]);
-        this.dice2 = "";
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = "";
-        this.system = item.system["description"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
-        this.sheettype = "spiritDialog";
-    }
-}
-
-export class Power {
-    constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
-
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = "";
-        this.system = item.system["description"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "creatureDialog";
     }
 }
 
-export class DisciplinePower {
+export class DisciplinePower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "vampireDialog";
     }
 }
 
-export class PathPower {
+export class PathPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "vampireDialog";
     }
 }
 
-export class RitualPower {
+export class RitualPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "vampireDialog";
     }
 }
 
-export class ArtPower {
+export class ArtPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item.system["type"];
         this.parentid = item.system["parentid"];
 
         if (item.system["arttype"] == "") {
@@ -276,19 +105,17 @@ export class ArtPower {
             if (this.arttype != "wod.labels.both") {
                 this.selectedarttype = this.arttype;
             }
-        }        
+        } 
 
         this.dice1 = "art";
         this.dice2 = "realm";
         this.bonus = 0;
         this.difficulty = 8;
-        this.description = item.system["description"];
-        this.system = item.system["details"];
 
-        if (this.dice1 == "custom") {
+        if (this.dice1 === "custom") {
             this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
         }
-        else if (this.dice2 == "custom") {
+        else if (this.dice2 === "custom") {
             this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
         }
 
@@ -297,9 +124,6 @@ export class ArtPower {
         this.nightmareReplace = 0;
         this.maxnightmareDice = 0;
 
-        this.usedReducedDiff = false;
-        this.canRoll = false;
-        this.close = false;
         this.sheettype = "changelingDialog";
     }
 
@@ -345,254 +169,66 @@ export class ArtPower {
     }
 }
 
-export class EdgePower {
+export class EdgePower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "hunterDialog";
     }
 }
 
-export class LorePower {
+export class LorePower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "demonDialog";
     }
 }
 
-export class ArcanoiPower {
+export class ArcanoiPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
-
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";        
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item.system["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
+        super(item);
 
         this.parentid = item.system["parentid"];
 
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "wraithDialog";
     }
 }
 
-export class HekauPower {
+export class HekauPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
-
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";     
-        
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item.system["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
+        super(item);
 
         this.parentid = item.system["parentid"];
 
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "mummyDialog";
     }
 }
 
-export class NuminaPower {
+export class NuminaPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
-
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";        
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item.system["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
+        super(item);
 
         this.parentid = item.system["parentid"];
 
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "mageDialog";
     }
 }
 
-export class Horror {
+export class Horror extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
+        super(item);
 
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.usedReducedDiff = false;
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "wraithDialog";
     }
 }
 
-export class ExaltedPower {
+export class ExaltedPower extends BasePower {
     constructor(item) {
-        this.attributeValue = 0;
-        this.attributeName = "";
-
-        this.abilityValue = 0;
-        this.abilityName = "";
-
-        this.hasSpeciality = false;
-        this.specialityText = "";        
-
-        this._id = item["_id"];
-        this.name = item["name"];
-        this.type = item.system["type"];
-        this.dice1 = item.system["dice1"];
-        this.dice2 = item.system["dice2"];
-        this.bonus = parseInt(item.system["bonus"]);
+        super(item);
 
         this.parentid = item.system["parentid"];
 
-        this.difficulty = parseInt(item.system["difficulty"]);
-        this.description = item.system["description"];
-        this.system = item.system["details"];
-        
-        if (this.dice1 == "custom") {
-            this.secondaryabilityid = this.dice1 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-        else if (this.dice2 == "custom") {
-            this.secondaryabilityid = this.dice2 == "custom" ? item.system["secondaryabilityid"] : "";
-        }
-
-        this.canRoll = this.difficulty > -1 ? true : false;
-        this.close = false;
         this.sheettype = "exaltedDialog";
     }
 }
@@ -632,205 +268,541 @@ export class DialogPower extends FormApplication {
     async getData() {
         const data = super.getData();
 
-        let attributeSpeciality = "";
-        let abilitySpeciality = "";
-        let specialityText = "";
+        // Use objects to allow modification in helper functions
+        const attributeSpeciality = { value: "" };
+        const abilitySpeciality = { value: "" };
 
         data.actorData = this.actor.system;
         data.config = CONFIG.worldofdarkness;     
-        data.config.powerAbilities = this.actor.system.listdata.powerAbilities;   
 
-        if (data.object.dice1 == "path") {
-            if (this.actor.system.advantages.path?.label === "custom") {
-                data.object.attributeName = this.actor.system.advantages.path?.custom;
-            }
-            else {
-                data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
-            }
+        if (this.actor.type == "PC") {
+            //data.config.powerAbilities = [];
 
-            data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll);                
+            const abilities = Object.values(this.actor.system.abilities ?? {});
+
+            data.config.powerAbilities = abilities
+                                .filter(item => item.type === "Ability" && item.system.settings.isvisible && item.system.settings.ispower)
+                                .sort((a, b) => game.i18n.localize(a.system.label).localeCompare(game.i18n.localize(b.system.label)));
         }
-        else if (data.object.dice1 == "custom") {
-            if (this.object.secondaryabilityid != "") {
-                const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
-                this.object.attributeValue = parseInt(item.system.value);
-                this.object.attributeName = item.system.label;
+        else {
+            data.config.powerAbilities = this.actor.system.listdata.powerAbilities; 
+        }        
+        
+        const actortype = this._getActorType();
 
-                if (parseInt(item.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
-                    data.object.hasSpeciality = true;
-                    abilitySpeciality = item.system.speciality;
-                }
-            }
+        // Handle dice1 (attribute/primary dice)
+        if ((this.actor.type == "PC") && (data.object.dice1 == "path")) {
+            await this._handleDice1PathPC(data);
+        }
+        else if ((this.actor.type != "PC") && (data.object.dice1 == "path")) {
+            this._handleDice1PathLegacy(data);
+        }                    
+        else if (data.object.dice1 == "custom") {
+            await this._handleDice1Custom(data, abilitySpeciality);
         }
         else if ((data.object.dice1 == "art") && (data.object.type == "wod.types.artpower")) {
-            if (!this.object.isUnleashing) {
-                const art = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
-                data.object.attributeValue = art.system.value;
-                data.object.attributeName = art.name;
-            }
-            else {
-                data.object.attributeValue = parseInt(this.actor.system.advantages.glamour.roll);
-                data.object.attributeName = game.i18n.localize(this.actor.system.advantages.glamour.label);
-                data.object.difficulty = 7;                
-            }
+            await this._handleDice1Art(data);
         }
-        // is dice1 an Attributes
         else if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice1]?.value != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
-            data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
-
-            if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
-                data.object.hasSpeciality = true;
-                attributeSpeciality = this.actor.system.attributes[data.object.dice1].speciality;
-            }     
-            
-            if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice1)) {
-                let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice1);
-                data.object.attributeValue += parseInt(bonus);
-            }
+            await this._handleDice1Attribute(data, attributeSpeciality);
         }
-        // is dice1 an Ability
+            else if ((this.actor.type == "PC") && this.actor.api && data.object.dice1 && data.object.dice1 !== "") {
+                const abilityItem = this.actor.api.getAbility(data.object.dice1);
+                if (abilityItem) {
+                    this._handleDice1AbilityPC(data, actortype, abilitySpeciality);
+                }
+            }
         else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice1]?.value != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.system.abilities[data.object.dice1].value);
-
-            if (this.actor.system.abilities[data.object.dice1] == undefined) {
-                data.object.attributeName = game.i18n.localize(this.actor.system.abilities[data.object.dice1].label);
-            }
-            else {
-                data.object.attributeName = (this.actor.system.abilities[data.object.dice1].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice1].label) : this.actor.system.abilities[data.object.dice1].altlabel;        
-            }                
-
-            if ((parseInt(this.actor.system.abilities[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice1]._id))) {
-                data.object.hasSpeciality = true;
-                attributeSpeciality = this.actor.system.abilities[data.object.dice1].speciality;
-            }
+            this._handleDice1AbilityLegacy(data, actortype, attributeSpeciality);
         }
-        // is dice1 an Advantage
-        else if (this.actor.system.advantages[data.object.dice1]?.roll != undefined) { 
-            data.object.attributeValue = parseInt(this.actor.system.advantages[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
-
-            // om willpower
-            if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
-                if (parseInt(this.actor.system.attributes?.composure.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
-                    data.object.hasSpeciality = true;
-
-                    if (attributeSpeciality != "") {
-                        attributeSpeciality += ", ";
-                    }
-                    attributeSpeciality += this.actor.system.attributes.composure.speciality;
-                }
-                if (parseInt(this.actor.system.attributes?.resolve.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
-                    data.object.hasSpeciality = true;
-
-                    if (attributeSpeciality != "") {
-                        attributeSpeciality += ", ";
-                    }
-                    attributeSpeciality += this.actor.system.attributes.resolve.speciality;
-                }
-            }
-        }        
-        // virtues
+        else if ((this.actor.type == "PC") && ((this.actor.system?.advantages != undefined) && (this.actor.system.advantages[data.object.dice1]?.system?.roll != undefined))) {
+            this._handleDice1AdvantagePC(data, attributeSpeciality);
+        }
+        else if (this.actor.system.advantages[data.object.dice1]?.roll != undefined) {
+            this._handleDice1AdvantageLegacy(data, attributeSpeciality);
+        }
+        else if ((this.actor.type == "PC") && (this.actor.system?.advantages != undefined) && (this.actor.system.advantages[data.object.dice1]?.system?.group === "virtue") && (this.actor.system.advantages[data.object.dice1]?.system?.roll != undefined)) {
+            this._handleDice1VirtuePC(data);
+        }
         else if ((this.actor.system.advantages.virtues != undefined) && (this.actor.system.advantages.virtues[data.object.dice1]?.roll != undefined)) {
-            data.object.attributeValue = parseInt(this.actor.system.advantages.virtues[data.object.dice1].roll);
-            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice1].label);
+            this._handleDice1VirtueLegacy(data);
         }
-        
 
+        // Handle dice2 (ability/secondary dice)
         if (data.object.dice2 != "") {
             if (data.object.dice2 == "path") {
-                if (this.actor.system.advantages.path?.label === "custom") {
-                    data.object.abilityName = this.actor.system.advantages.path?.custom;
-                }
-                else {
-                    data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
-                }
-
-                data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll);                
-            } 
+                this._handleDice2Path(data);
+            }
             else if (data.object.dice2 == "custom") {
-                if (this.object.secondaryabilityid != "") {
-                    const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
-                    this.object.abilityValue = parseInt(item.system.value);
-                    this.object.abilityName = item.system.label;
-    
-                    if (parseInt(item.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
-                        data.object.hasSpeciality = true;
-                        abilitySpeciality = item.system.speciality;
-                    }
-                }
+                await this._handleDice2Custom(data, abilitySpeciality);
             }
             else if ((data.object.dice2 == "realm") && (data.object.type == "wod.types.artpower")) {
-                if (!this.object.isUnleashing) {
-                    const realm = data.object._lowestRank();
-                    data.object.bonus = parseInt(realm);
-                }
-                else {
-                    data.object.abilityValue = parseInt(this.actor.system.advantages.nightmare.roll);
-                    data.object.abilityName = game.i18n.localize(this.actor.system.advantages.nightmare.label);
-                    data.object.bonus = 0;
-
-                    for (const realm of data.object.selectedRealms) {
-                        realm.isselected = false;
-                    }
-                }
+                this._handleDice2Realm(data);
             }
-            // is dice2 an Attributes
             else if ((this.actor.system?.attributes != undefined) && (this.actor.system.attributes[data.object.dice2]?.value != undefined)) {
-                data.object.abilityValue = parseInt(this.actor.system.attributes[data.object.dice2].total);
-                data.object.abilityName = game.i18n.localize(this.actor.system.attributes[data.object.dice2].label);
-    
-                if (parseInt(this.actor.system.attributes[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
-                    data.object.hasSpeciality = true;
-                    abilitySpeciality = this.actor.system.attributes[data.object.dice2].speciality;
-                }   
-                
-                if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice2)) {
-                    let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice2);
-                    data.object.abilityValue += parseInt(bonus);
+                await this._handleDice2Attribute(data, abilitySpeciality);
+            }
+            else if ((this.actor.type == "PC") && this.actor.api && data.object.dice2 && data.object.dice2 !== "") {
+                const abilityItem = this.actor.api.getAbility(data.object.dice2);
+                if (abilityItem) {
+                    this._handleDice2AbilityPC(data, actortype, abilitySpeciality);
                 }
-            }  
+            }
             else if ((this.actor.system?.abilities != undefined) && (this.actor.system.abilities[data.object.dice2]?.value != undefined)) {
-                data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
-
-                if (this.actor.system.abilities[data.object.dice2] == undefined) {
-                    data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
-                }
-                else {
-                    data.object.abilityName = (this.actor.system.abilities[data.object.dice2].altlabel == "") ? game.i18n.localize(this.actor.system.abilities[data.object.dice2].label) : this.actor.system.abilities[data.object.dice2].altlabel;        
-                }                
-
-                if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (CONFIG.worldofdarkness.alwaysspeciality.includes(this.actor.system.abilities[data.object.dice2]._id))) {
-                    data.object.hasSpeciality = true;
-                    abilitySpeciality = this.actor.system.abilities[data.object.dice2].speciality;
-                }
-            }             
-            // virtues
+                this._handleDice2AbilityLegacy(data, actortype, abilitySpeciality);
+            }
+            else if ((this.actor.type == "PC") && (this.actor.system?.advantages != undefined) && (this.actor.system.advantages[data.object.dice2]?.system?.group === "virtue") && (this.actor.system.advantages[data.object.dice2]?.system?.roll != undefined)) {
+                this._handleDice2VirtuePC(data);
+            }
             else if ((this.actor.system.advantages.virtues != undefined) && (this.actor.system.advantages.virtues[data.object.dice2]?.roll != undefined)) {
-                data.object.abilityValue = parseInt(this.actor.system.advantages.virtues[data.object.dice2].roll);
-                data.object.abilityName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice2].label);
-            }    
-            
+                this._handleDice2VirtueLegacy(data);
+            }
         }
+        // Handle Arcanoi, Hekau, or Numina power types (uses parent power value as ability)
         else if ((data.object.type == "wod.types.arcanoipower") || (data.object.type == "wod.types.hekaupower") || (data.object.type == "wod.types.numinapower")) {
-            const power = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
-            data.object.abilityValue = parseInt(power.system.value);
-            data.object.abilityName = power.name;
+            await this._handleArcanoiHekauNumina(data);
         }
 
-        if (data.object.hasSpeciality) {
-            if ((attributeSpeciality != "") && (abilitySpeciality != "")) {
-                specialityText = attributeSpeciality + ", " + abilitySpeciality;
-            }
-            else if (attributeSpeciality != "") {
-                specialityText = attributeSpeciality;
-            }
-            else if (abilitySpeciality != "") {
-                specialityText = abilitySpeciality;
-            }
+        // Combine specialities and apply final calculations
+        data.object.specialityText = this._combineSpecialityText(data, attributeSpeciality.value, abilitySpeciality.value);
+        this._handleNightmareDice(data);
+        await this._applyAbilityBuffs(data);
+
+        return data;
+    }
+
+    /**
+     * Get actor type for speciality checks
+     * @returns {string} Actor type (vampire, mage, etc.)
+     */
+    _getActorType() {
+        let actortype = this.actor.type.toLowerCase();
+
+        if (this.actor?.system?.settings?.splat !== undefined) {
+            actortype = this.actor.system.settings.splat;
         }
 
-        // set maximum Nightmare dices to use.
+        if (CONFIG.worldofdarkness.alwaysspeciality[actortype] == undefined) {
+            actortype = CONFIG.worldofdarkness.sheettype.vampire.toLowerCase();
+        }
+
+        return actortype;
+    }
+
+    /**
+     * Handle dice1 when it's a Path
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice1PathPC(data) {
+        if (this.actor.system.advantages.path?.system?.label === "custom") {
+            data.object.attributeName = this.actor.system.advantages.path?.custom;
+        }
+        else {
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.system?.label);
+        }
+        data.object.attributeValue = parseInt(this.actor.system.advantages.path?.system?.roll ?? 0);
+    }
+
+    /**
+     * Handle dice1 when it's a Path
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice1PathLegacy(data) {
+        if (this.actor.system.advantages.path?.label === "custom") {
+            data.object.attributeName = this.actor.system.advantages.path?.custom;
+        }
+        else {
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.path?.label);
+        }
+        data.object.attributeValue = parseInt(this.actor.system.advantages.path?.roll ?? 0);
+    }
+
+    /**
+     * Handle dice1 when it's a custom secondary ability
+     * @param {Object} data - Dialog data object
+     * @param {string} abilitySpeciality - Reference to ability speciality string
+     * @returns {Promise<void>}
+     */
+    async _handleDice1Custom(data, abilitySpeciality) {
+        if (this.object.secondaryabilityid != "") {
+            const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
+
+            if (!item) {
+                return;
+            }
+
+            this.object.attributeValue = parseInt(item.system.value);
+            this.object.attributeName = item.system.label;
+
+            if (parseInt(item.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+                data.object.hasSpeciality = true;
+                abilitySpeciality.value = item.system.speciality;
+            }
+        }
+    }
+
+    /**
+     * Handle dice1 when it's an Art (Changeling)
+     * @param {Object} data - Dialog data object
+     * @returns {Promise<void>}
+     */
+    async _handleDice1Art(data) {
+        if (!this.object.isUnleashing) {
+            const art = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
+            data.object.attributeValue = art.system.value;
+            data.object.attributeName = art.name;
+        }
+        else {
+            data.object.attributeValue = parseInt(this.actor.system.advantages.glamour.roll);
+            data.object.attributeName = game.i18n.localize(this.actor.system.advantages.glamour.label);
+            data.object.difficulty = 7;
+        }
+    }
+
+    /**
+     * Handle dice1 when it's an Attribute
+     * @param {Object} data - Dialog data object
+     * @param {string} attributeSpeciality - Reference to attribute speciality string
+     * @returns {Promise<void>}
+     */
+    async _handleDice1Attribute(data, attributeSpeciality) {
+        data.object.attributeValue = parseInt(this.actor.system.attributes[data.object.dice1].total);
+        data.object.attributeName = game.i18n.localize(this.actor.system.attributes[data.object.dice1].label);
+
+        if (parseInt(this.actor.system.attributes[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+            data.object.hasSpeciality = true;
+            attributeSpeciality.value = this.actor.system.attributes[data.object.dice1].speciality;
+        }
+
+        if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice1)) {
+            let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice1);
+            data.object.attributeValue += parseInt(bonus);
+        }
+    }
+
+    /**
+     * Handle dice1 when it's an Ability (PC actors)
+     * @param {Object} data - Dialog data object
+     * @param {string} actortype - Actor type
+     * @param {string} abilitySpeciality - Reference to ability speciality string
+     */
+    _handleDice1AbilityPC(data, actortype, abilitySpeciality) {
+        if (!data.object.dice1 || data.object.dice1 === "" || !this.actor.api) {
+            return;
+        }
+        const abilityItem = this.actor.api.getAbility(data.object.dice1);
+        if (!abilityItem) {
+            return;
+        }
+
+        data.object.abilityValue = parseInt(abilityItem.system.value);
+        data.object.abilityName = game.i18n.localize(abilityItem.system.label);
+
+        if ((parseInt(abilityItem.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || 
+            (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(abilityItem.system.id))) {
+            data.object.hasSpeciality = true;
+            abilitySpeciality.value = abilityItem.system.speciality;
+        }
+    }
+
+    /**
+     * Handle dice1 when it's an Ability (Legacy actors)
+     * @param {Object} data - Dialog data object
+     * @param {string} actortype - Actor type
+     * @param {string} attributeSpeciality - Reference to attribute speciality string
+     */
+    _handleDice1AbilityLegacy(data, actortype, attributeSpeciality) {
+        data.object.attributeValue = parseInt(this.actor.system.abilities[data.object.dice1].value);
+
+        if (this.actor.system.abilities[data.object.dice1] == undefined) {
+            data.object.attributeName = game.i18n.localize(this.actor.system.abilities[data.object.dice1].label);
+        }
+        else {
+            data.object.attributeName = (this.actor.system.abilities[data.object.dice1].altlabel == "") ? 
+                game.i18n.localize(this.actor.system.abilities[data.object.dice1].label) : 
+                this.actor.system.abilities[data.object.dice1].altlabel;
+        }
+
+        const hasSpeciality = CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(this.actor.system.abilities[data.object.dice1]._id);
+
+        if ((parseInt(this.actor.system.abilities[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (hasSpeciality)) {
+            data.object.hasSpeciality = true;
+            attributeSpeciality.value = this.actor.system.abilities[data.object.dice1].speciality;
+        }
+    }
+
+    /**
+     * Handle dice1 when it's an Advantage (PC actors)
+     * @param {Object} data - Dialog data object
+     * @param {string} attributeSpeciality - Reference to attribute speciality string
+     */
+    _handleDice1AdvantagePC(data, attributeSpeciality) {
+        const advantage = this.actor.api?.getAdvantage(data.object.dice1);
+        if (!advantage) {
+            return;
+        }
+        data.object.attributeValue = parseInt(advantage.system.roll ?? 0);
+        data.object.attributeName = game.i18n.localize(advantage.system.label);
+
+        // Handle willpower speciality for 5th edition
+        if ((advantage.system.label == "wod.advantages.willpower") && 
+            (CONFIG.worldofdarkness.attributeSettings == "5th")) {
+            this._handleWillpowerSpeciality(data, attributeSpeciality);
+        }
+    }
+
+    /**
+     * Handle dice1 when it's an Advantage (Legacy actors)
+     * @param {Object} data - Dialog data object
+     * @param {string} attributeSpeciality - Reference to attribute speciality string
+     */
+    _handleDice1AdvantageLegacy(data, attributeSpeciality) {
+        data.object.attributeValue = parseInt(this.actor.system.advantages[data.object.dice1].roll);
+        data.object.attributeName = game.i18n.localize(this.actor.system.advantages[data.object.dice1].label);
+
+        // Handle willpower speciality for 5th edition
+        if ((this.actor.system.advantages[data.object.dice1].label == "wod.advantages.willpower") && 
+            (CONFIG.worldofdarkness.attributeSettings == "5th")) {
+            this._handleWillpowerSpeciality(data, attributeSpeciality);
+        }
+    }
+
+    /**
+     * Handle willpower speciality (composure + resolve)
+     * @param {Object} data - Dialog data object
+     * @param {string} attributeSpeciality - Reference to attribute speciality string
+     */
+    _handleWillpowerSpeciality(data, attributeSpeciality) {
+        if (parseInt(this.actor.system.attributes?.composure.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+            data.object.hasSpeciality = true;
+            if (attributeSpeciality.value != "") {
+                attributeSpeciality.value += ", ";
+            }
+            attributeSpeciality.value += this.actor.system.attributes.composure.speciality;
+        }
+        if (parseInt(this.actor.system.attributes?.resolve.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+            data.object.hasSpeciality = true;
+            if (attributeSpeciality.value != "") {
+                attributeSpeciality.value += ", ";
+            }
+            attributeSpeciality.value += this.actor.system.attributes.resolve.speciality;
+        }
+    }
+
+    /**
+     * Handle dice1 when it's a Virtue (PC actors)
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice1VirtuePC(data) {
+        const advantage = this.actor.api?.getAdvantage(data.object.dice1);
+        if (!advantage) {
+            return;
+        }
+        data.object.attributeValue = parseInt(advantage.system.roll ?? 0);
+        data.object.attributeName = game.i18n.localize(advantage.system.label);
+    }
+
+    /**
+     * Handle dice1 when it's a Virtue (Legacy actors)
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice1VirtueLegacy(data) {
+        data.object.attributeValue = parseInt(this.actor.system.advantages.virtues[data.object.dice1].roll);
+        data.object.attributeName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice1].label);
+    }
+
+    /**
+     * Handle dice2 when it's a Path
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice2Path(data) {
+        if (this.actor.system.advantages.path?.label === "custom") {
+            data.object.abilityName = this.actor.system.advantages.path?.custom;
+        }
+        else {
+            data.object.abilityName = game.i18n.localize(this.actor.system.advantages.path?.label);
+        }
+        data.object.abilityValue = parseInt(this.actor.system.advantages.path?.roll ?? 0);
+    }
+
+    /**
+     * Handle dice2 when it's a custom secondary ability
+     * @param {Object} data - Dialog data object
+     * @param {string} abilitySpeciality - Reference to ability speciality string
+     * @returns {Promise<void>}
+     */
+    async _handleDice2Custom(data, abilitySpeciality) {
+        if (this.object.secondaryabilityid != "") {
+            const item = await this.actor.getEmbeddedDocument("Item", this.object.secondaryabilityid);
+
+            if (!item) {
+                return;
+            }
+
+            this.object.abilityValue = parseInt(item.system.value);
+            this.object.abilityName = item.system.label;
+
+            if (parseInt(item.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+                data.object.hasSpeciality = true;
+                abilitySpeciality.value = item.system.speciality;
+            }
+        }
+    }
+
+    /**
+     * Handle dice2 when it's a Realm (Changeling)
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice2Realm(data) {
+        if (!this.object.isUnleashing) {
+            const realm = data.object._lowestRank();
+            data.object.bonus = parseInt(realm);
+        }
+        else {
+            data.object.abilityValue = parseInt(this.actor.system.advantages.nightmare.roll);
+            data.object.abilityName = game.i18n.localize(this.actor.system.advantages.nightmare.label);
+            data.object.bonus = 0;
+
+            for (const realm of data.object.selectedRealms) {
+                realm.isselected = false;
+            }
+        }
+    }
+
+    /**
+     * Handle dice2 when it's an Attribute
+     * @param {Object} data - Dialog data object
+     * @param {string} abilitySpeciality - Reference to ability speciality string
+     * @returns {Promise<void>}
+     */
+    async _handleDice2Attribute(data, abilitySpeciality) {
+        data.object.abilityValue = parseInt(this.actor.system.attributes[data.object.dice2].total);
+        data.object.abilityName = game.i18n.localize(this.actor.system.attributes[data.object.dice2].label);
+
+        if (parseInt(this.actor.system.attributes[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+            data.object.hasSpeciality = true;
+            abilitySpeciality.value = this.actor.system.attributes[data.object.dice2].speciality;
+        }
+
+        if (await BonusHelper.CheckAttributeDiceBuff(this.actor, data.object.dice2)) {
+            let bonus = await BonusHelper.GetAttributeDiceBuff(this.actor, data.object.dice2);
+            data.object.abilityValue += parseInt(bonus);
+        }
+    }
+
+    /**
+     * Handle dice2 when it's an Ability (PC actors)
+     * @param {Object} data - Dialog data object
+     * @param {string} actortype - Actor type
+     * @param {string} abilitySpeciality - Reference to ability speciality string
+     */
+    _handleDice2AbilityPC(data, actortype, abilitySpeciality) {
+        if (!data.object.dice2 || data.object.dice2 === "" || !this.actor.api) {
+            return;
+        }
+        const abilityItem = this.actor.api.getAbility(data.object.dice2);
+        if (!abilityItem) {
+            return;
+        }
+
+        data.object.abilityValue = parseInt(abilityItem.system.value);
+        data.object.abilityName = game.i18n.localize(abilityItem.system.label);
+
+        if ((parseInt(abilityItem.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || 
+            (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(abilityItem.system.id))) {
+            data.object.hasSpeciality = true;
+            abilitySpeciality.value = abilityItem.system.speciality;
+        }
+    }
+
+    /**
+     * Handle dice2 when it's an Ability (Legacy actors)
+     * @param {Object} data - Dialog data object
+     * @param {string} actortype - Actor type
+     * @param {string} abilitySpeciality - Reference to ability speciality string
+     */
+    _handleDice2AbilityLegacy(data, actortype, abilitySpeciality) {
+        data.object.abilityValue = parseInt(this.actor.system.abilities[data.object.dice2].value);
+
+        if (this.actor.system.abilities[data.object.dice2] == undefined) {
+            data.object.abilityName = game.i18n.localize(this.actor.system.abilities[data.object.dice2].label);
+        }
+        else {
+            data.object.abilityName = (this.actor.system.abilities[data.object.dice2].altlabel == "") ? 
+                game.i18n.localize(this.actor.system.abilities[data.object.dice2].label) : 
+                this.actor.system.abilities[data.object.dice2].altlabel;
+        }
+
+        const hasSpeciality = CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(this.actor.system.abilities[data.object.dice2]._id);
+
+        if ((parseInt(this.actor.system.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) || (hasSpeciality)) {
+            data.object.hasSpeciality = true;
+            abilitySpeciality.value = this.actor.system.abilities[data.object.dice2].speciality;
+        }
+    }
+
+    /**
+     * Handle dice2 when it's a Virtue (PC actors)
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice2VirtuePC(data) {
+        const advantage = this.actor.api?.getAdvantage(data.object.dice2);
+        if (!advantage) {
+            return;
+        }
+        data.object.abilityValue = parseInt(advantage.system.roll ?? 0);
+        data.object.abilityName = game.i18n.localize(advantage.system.label);
+    }
+
+    /**
+     * Handle dice2 when it's a Virtue (Legacy actors)
+     * @param {Object} data - Dialog data object
+     */
+    _handleDice2VirtueLegacy(data) {
+        data.object.abilityValue = parseInt(this.actor.system.advantages.virtues[data.object.dice2].roll);
+        data.object.abilityName = game.i18n.localize(this.actor.system.advantages.virtues[data.object.dice2].label);
+    }
+
+    /**
+     * Handle Arcanoi, Hekau, or Numina power types
+     * @param {Object} data - Dialog data object
+     * @returns {Promise<void>}
+     */
+    async _handleArcanoiHekauNumina(data) {
+        const power = await this.actor.getEmbeddedDocument("Item", data.object.parentid);
+        data.object.abilityValue = parseInt(power.system.value);
+        data.object.abilityName = power.name;
+    }
+
+    /**
+     * Combine attribute and ability specialities into speciality text
+     * @param {Object} data - Dialog data object
+     * @param {string} attributeSpeciality - Attribute speciality text
+     * @param {string} abilitySpeciality - Ability speciality text
+     * @returns {string} Combined speciality text
+     */
+    _combineSpecialityText(data, attributeSpeciality, abilitySpeciality) {
+        if (!data.object.hasSpeciality) {
+            return "";
+        }
+
+        if ((attributeSpeciality != "") && (abilitySpeciality != "")) {
+            return attributeSpeciality + ", " + abilitySpeciality;
+        }
+        else if (attributeSpeciality != "") {
+            return attributeSpeciality;
+        }
+        else if (abilitySpeciality != "") {
+            return abilitySpeciality;
+        }
+        return "";
+    }
+
+    /**
+     * Set maximum Nightmare dice for Changeling art powers
+     * @param {Object} data - Dialog data object
+     */
+    _handleNightmareDice(data) {
         if (data.object.type == "wod.types.artpower") {
             this.object.maxnightmareDice = data.object.attributeValue + data.object.abilityValue + data.object.bonus - this.actor.system.advantages.nightmare.temporary;
 
@@ -840,16 +812,19 @@ export class DialogPower extends FormApplication {
             if (this.object.maxnightmareDice > 3) {
                 this.object.maxnightmareDice = 3;
             }
-        }       
+        }
+    }
 
-        data.object.specialityText = specialityText;
-
+    /**
+     * Apply ability buffs to dice2
+     * @param {Object} data - Dialog data object
+     * @returns {Promise<void>}
+     */
+    async _applyAbilityBuffs(data) {
         if (await BonusHelper.CheckAbilityBuff(this.actor, data.object.dice2)) {
             let bonus = await BonusHelper.GetAbilityBuff(this.actor, data.object.dice2);
             this.object.abilityValue += parseInt(bonus);
         }
-
-        return data;
     }
 
     activateListeners(html) {

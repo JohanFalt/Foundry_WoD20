@@ -1,0 +1,92 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">				
+
+	<div class="dialog-area">			
+
+		{{#if (not hasActor)}}
+
+			<div class="infobox bioInformationArea floating-label-group">
+				<input class="sheet-infoValues editable" name="system.id" type="text" value="{{item.system.id}}" data-dtype="String" autocomplete="off" autofocus required />
+				<span class="floating-label">{{localize "wod.labels.ability.id"}}</span>
+			</div>	
+
+		{{else}}
+
+			<div class="infobox bioInformationArea floating-label-group">
+				<input class="sheet-infoValues" type="text" value="{{item.system.id}}" data-dtype="String" autocomplete="off" autofocus required />
+				<span class="floating-label">{{localize "wod.labels.ability.id"}}</span>
+			</div>	
+
+		{{/if}}
+
+		<div class="information-area">{{localize "wod.labels.ability.idhint"}}</div>
+
+		<div class="infobox bioInformationArea floating-label-group">
+				<input class="sheet-infoValues editable" name="system.label" type="text" value="{{item.system.label}}" data-dtype="String" autocomplete="off" autofocus required />
+				<span class="floating-label">{{localize "wod.labels.ability.sheetname"}}</span>
+		</div>		
+
+		{{#if hasActor}}
+
+			<div class="infobox bioInformationArea floating-label-group">
+				<input class="sheet-infoValues editable" name="system.speciality" type="text" value="{{item.system.speciality}}" data-dtype="String" autocomplete="off" autofocus required />
+				<span class="floating-label">{{localize "wod.labels.ability.speciality"}}</span>
+			</div>	
+
+		{{/if}}		
+
+		<div class="infobox bioInformationArea floating-label-group">
+			<input class="sheet-infoValues editable" name="system.value" type="text" value="{{item.system.value}}" data-dtype="Number" autocomplete="off" autofocus required />
+			<span class="floating-label">{{#if (not hasActor)}}{{localize "wod.labels.ability.startvalue"}}{{else}}{{localize "wod.labels.ability.currentvalue"}}{{/if}}</span>
+		</div>
+
+		<div class="information-area">{{localize "wod.labels.ability.mandatory"}}</div>
+
+	</div>
+
+	<div class="dialog-area">
+
+		<div class="infobox">
+			<label class="headlineBio splatFont" for="data.type" style="width: 55%;">{{localize "wod.labels.ability.abilitytype"}}</label>
+			<select class="sheet-infoValues editable" name="system.type" data-source="setvalue" data-dtype="String">
+				{{selectOptions listData.AbilityType selected=item.system.type localize=false}}
+			</select>
+		</div>
+
+		<div class="infobox">
+			<label class="headlineBio splatFont" for="data.system.settings.alwaysspeciality" style="width: 55%;">{{localize "wod.labels.ability.alwaysspeciality"}}</label>
+			<input name="system.settings.alwaysspeciality" type="checkbox" {{isChecked item.system.settings.alwaysspeciality}}></input>
+			<div class="information-area">{{localize "wod.labels.ability.alwaysspecialityhint"}}</div>
+		</div>
+
+		<div class="infobox">
+			<label class="headlineBio splatFont" for="data.system.settings.ismeleeweapon" style="width: 55%;">{{localize "wod.labels.ability.usemelee"}}</label>
+			<input name="system.settings.ismeleeweapon" type="checkbox" {{isChecked item.system.settings.ismeleeweapon}}></input>
+			<div class="information-area">{{localize "wod.labels.ability.usemeleehint"}}</div>
+		</div>
+
+		<div class="infobox">
+			<label class="headlineBio splatFont" for="data.system.settings.israngedeweapon" style="width: 55%;">{{localize "wod.labels.ability.useranged"}}</label>
+			<input name="system.settings.israngedeweapon" type="checkbox" {{isChecked item.system.settings.israngedeweapon}}></input>
+			<div class="information-area">{{localize "wod.labels.ability.userangedhint"}}</div>
+		</div>
+
+		<div class="infobox">
+			<label class="headlineBio splatFont" for="data.system.settings.ispower" style="width: 55%;">{{localize "wod.labels.ability.usepower"}}</label>
+			<input name="system.settings.ispower" type="checkbox" {{isChecked item.system.settings.ispower}}></input>
+			<div class="information-area">{{localize "wod.labels.ability.usepowerhint"}}</div>
+		</div>
+
+		{{#if (eq splat "exalted")}}
+
+			<div class="infobox">
+				<label class="headlineBio splatFont" for="data.system.settings.isfavorited" style="width: 55%;">{{localize "wod.labels.ability.favorited"}}</label>
+				<input name="system.settings.isfavorited" type="checkbox" {{isChecked item.system.settings.isfavorited}}></input>
+			</div>
+
+		{{/if}}
+
+		{{> "systems/worldofdarkness/templates/items/parts/description.hbs" proseheadline="wod.labels.description" locked=locked headline=false prosename="system.description" prosevalue=description proseenriched=enrichedDescription}}
+
+	</div>		
+			
+</section>

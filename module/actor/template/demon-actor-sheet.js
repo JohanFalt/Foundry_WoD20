@@ -113,7 +113,7 @@ export default class DemonActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 	
 	async _onDotCounterDemonChange(event) {

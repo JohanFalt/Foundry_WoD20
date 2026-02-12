@@ -153,6 +153,6 @@ font-family: 'svg';
 .theme-dark #chat .message,
 .theme-dark #chat-notifications .message {
     border: 0;
-    color: #e0e0e0;
-    background: #121212;
+    color: #e0e0e0 !important;
+    background: #121212 !important;
 }

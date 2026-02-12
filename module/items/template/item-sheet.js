@@ -2,7 +2,7 @@ import ActionHelper from "../../scripts/action-helpers.js";
 import BonusHelper from "../../scripts/bonus-helpers.js"
 import SelectHelper from "../../scripts/select-helpers.js"
 
-export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
+export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 	
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
@@ -13,7 +13,8 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 	constructor(item, options) {
 		super(item, options);
 
-		this.locked = item.system.iscreated;
+		//this.locked = item.system.iscreated;
+		this.locked = false;
 		this.isCharacter = false;	
 		this.isGM = game.user.isGM;	
 		this.game = game;
@@ -71,11 +72,20 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		data.locked = this.locked;
 		data.isCharacter = this.isCharacter;
 		data.isGM = game.user.isGM;	
-		data.canEdit = this.item.isOwner || game.user.isGM;		
+		data.hasChimerical = false;
+		//data.canEdit = this.item.isOwner || game.user.isGM;		
 
 		if (this.item.actor != null) {
 			data.hasActor = true;
 			data.actor = this.item.actor;
+
+			if (data.actor.type == "PC") {
+				data.hasChimerical = false;
+			}
+			else if (data.actor.system?.listdata?.settings?.haschimericalhealth != undefined) {
+				data.hasChimerical = data.actor.system?.listdata?.settings?.haschimericalhealth;
+			}
+			
 		}
 		else {
 			data.hasActor = false;
@@ -123,11 +133,6 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 
 		console.log(`${data.item.name} - (${data.item.type})`);
 		console.log(data.item);
-
-		if (data.bonus != undefined) {
-			console.log("Connected bonus traits");
-			console.log(data.value);
-		}
 		
 		return data;
 	}
@@ -157,6 +162,14 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
             .find('.item-property')
             .click(this._setProperty.bind(this));
 
+		// Add input event listener for movement_buff to clean and convert values as user types
+		if (this.item.type === "Bonus" && this.item.system.type === "movement_buff") {
+			html
+				.find('input[name="system.value"]')
+				.on('input', event => this._onMovementBuffInput(event))
+				.on('change', event => this._onMovementBuffChange(event));
+		}
+
 		// items
 		html
 			.find(".item-create")
@@ -179,6 +192,56 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		this._render();
 	}
 
+	_onMovementBuffInput(event) {
+		// Only process if this is a movement_buff bonus
+		if (this.item.type !== "Bonus" || this.item.system.type !== "movement_buff") {
+			return;
+		}
+
+		const element = event.currentTarget;
+		let value = element.value;
+
+		// Remove all characters except digits, dots, and commas
+		value = value.replace(/[^0-9.,]/g, '');
+
+		// Convert comma to dot
+		value = value.replace(/,/g, '.');
+
+		// Ensure only one decimal point exists
+		const parts = value.split('.');
+		if (parts.length > 2) {
+			value = parts[0] + '.' + parts.slice(1).join('');
+		}
+
+		// Update the input field value
+		element.value = value;
+	}
+
+	_onMovementBuffChange(event) {
+		// Only process if this is a movement_buff bonus
+		if (this.item.type !== "Bonus" || this.item.system.type !== "movement_buff") {
+			return;
+		}
+
+		const element = event.currentTarget;
+		let value = element.value;
+
+		// If empty, set to 0
+		if (value === "" || value === null || value === undefined) {
+			element.value = "0";
+			return;
+		}
+
+		// Parse and validate the value
+		const parsedValue = parseFloat(value);
+		if (isNaN(parsedValue)) {
+			element.value = "0";
+		} else {
+			// Format the value to remove unnecessary trailing zeros (but keep at least one decimal place if it was a decimal)
+			element.value = parsedValue.toString();
+		}
+	}
+
 	async _setBonus(event) {
         event.preventDefault();
 
@@ -196,7 +259,12 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
         });
 
 		const itemData = foundry.utils.duplicate(this.item);
-		itemData.system.value = parseInt(bonus);
+		// Use parseFloat for movement_buff to support decimal multipliers
+		if (this.item.system.type === "movement_buff") {
+			itemData.system.value = parseFloat(bonus) || 0;
+		} else {
+			itemData.system.value = parseInt(bonus);
+		}
 		await this.item.update(itemData);
 		this.render();
     }
@@ -264,7 +332,7 @@ export class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		const game = $(event.currentTarget).data("game");
 		const itemData = foundry.utils.duplicate(this.item);
 
-		if ((type == "combination") && (game == "vampire")) {
+		if ((type == "combination") && (game == CONFIG.worldofdarkness.sheettype.vampire.toLowerCase())) {
 			let property = {
 				discipline: "",
 				value: 0

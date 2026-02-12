@@ -95,7 +95,7 @@ export default class ChangingBreedActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 	
 	_onDotCounterWerewolfChange(event) {

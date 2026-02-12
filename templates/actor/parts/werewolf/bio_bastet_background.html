@@ -6,12 +6,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.breed}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.breed" data-name="data.system.breed" data-dtype="String">
-                    {{#select data.system.breed}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.breedname.homid">{{localize "wod.bio.breedname.homid"}}</option>
-                        <option value="wod.bio.breedname.metis">{{localize "wod.bio.breedname.metis"}}</option>
-                        <option value="wod.bio.breedname.feline">{{localize "wod.bio.breedname.feline"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.BreedList selected=data.system.breed localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.breed"}}</span>
@@ -22,12 +17,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.auspice}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.auspice" data-name="data.system.auspice" data-dtype="String">
-                    {{#select data.system.auspice}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.pryioname.daylight">{{localize "wod.bio.pryioname.daylight"}}</option>
-                        <option value="wod.bio.pryioname.twilight">{{localize "wod.bio.pryioname.twilight"}}</option>
-                        <option value="wod.bio.pryioname.night">{{localize "wod.bio.pryioname.night"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.AuspiceList selected=data.system.auspice localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.pryio"}}</span>
@@ -38,18 +28,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.tribe}}" autocomplete="off" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.tribe" data-name="data.system.tribe" data-dtype="String">
-                    {{#select data.system.tribe}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.tribename.bagheera">{{localize "wod.bio.tribename.bagheera"}}</option>
-                        <option value="wod.bio.tribename.balam">{{localize "wod.bio.tribename.balam"}}</option>
-                        <option value="wod.bio.tribename.bubasti">{{localize "wod.bio.tribename.bubasti"}}</option>
-                        <option value="wod.bio.tribename.ceilican">{{localize "wod.bio.tribename.ceilican"}}</option>
-                        <option value="wod.bio.tribename.khan">{{localize "wod.bio.tribename.khan"}}</option>
-                        <option value="wod.bio.tribename.pumonca">{{localize "wod.bio.tribename.pumonca"}}</option>
-                        <option value="wod.bio.tribename.qualmi">{{localize "wod.bio.tribename.qualmi"}}</option>
-                        <option value="wod.bio.tribename.simba">{{localize "wod.bio.tribename.simba"}}</option>
-                        <option value="wod.bio.tribename.swara">{{localize "wod.bio.tribename.swara"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.TribeList selected=data.system.tribe localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize "wod.bio.tribe"}}</span>

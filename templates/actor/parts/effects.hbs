@@ -1,0 +1,39 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
+
+    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-origin="effect" data-action="itemCreate"></i>
+
+    <div class="effect-itemlist">
+        <div class="item-row headlineRow splatFont">
+            <div class="headlineList width-namebox">{{localize "wod.effects.origin"}}</div>
+            <div class="headlineList width-abilitybox">{{localize "wod.labels.type"}}</div>
+            <div class="headlineList width-mediumbox">{{localize "wod.effects.area"}}</div>
+            <div class="headlineList width-valuebox">{{localize "wod.labels.modifier"}}</div>
+            <div class="headlineList width-valuebox">{{localize "wod.power.active"}}</div>
+        </div>
+
+        {{#each effects as |bonus key|}}
+            <div class="item-row item-row-area">
+                <div class="width-namebox">{{#if (ne bonus.origin "")}}{{bonus.origin}}{{else}}{{bonus.name}}{{/if}}</div>
+                <div class="width-abilitybox">{{getBonusName bonus.system.type}}</div>
+                <div class="width-mediumbox">{{shorten (localize (getAbility (localize (getAttributes bonus.system.settingtype)) ../actor)) 15}}</div>        
+                <div class="width-valuebox">{{bonus.system.value}}</div>
+                <div class="width-valuebox">  
+                    {{#if bonus.system.isactive}}
+                        <i class="{{#if (or (ne bonus.origin '') bonus.system.isremovable)}}item-active pointer{{/if}} fa-solid fa-toggle-on" data-itemid="{{bonus._id}}" data-type="isactive" data-action="itemActive"></i>
+                    {{else}}
+                        <i class="{{#if (or (ne bonus.origin '') bonus.system.isremovable)}}item-active pointer{{/if}} fa-solid fa-toggle-off" data-itemid="{{bonus._id}}" data-type="isactive" data-action="itemActive"></i>
+                    {{/if}}
+
+                    {{#if (eq ../locked false)}}  
+                        <a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{#if (eq bonus._id 'parent')}}{{bonus.system.parentid}}{{else}}{{bonus._id}}{{/if}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+                        {{#if bonus.system.isremovable}}
+                            <a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{#if (eq bonus._id 'parent')}}{{bonus.system.parentid}}{{else}}{{bonus._id}}{{/if}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+                        {{/if}}
+                    {{/if}}
+                </div>
+                
+            </div>
+        {{/each}}
+    </div>
+
+</section>

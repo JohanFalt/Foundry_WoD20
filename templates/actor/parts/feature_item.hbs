@@ -1,0 +1,67 @@
+<div class="item-row-area feature-itemlist">
+    <div class="dragrow headlineNormal feature-itemlist" data-itemid="{{item._id}}">
+        <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+
+        {{#if (isChecked item.system.isactive)}}
+            <i class="item-active pointer icon fa-regular fa-square-check" title="{{localize 'wod.power.active'}}" data-itemid="{{item._id}}" data-type="isactive" data-action="itemActive"></i>
+        {{else}}
+            <i class="item-active pointer icon fa-regular fa-square" title="{{localize 'wod.power.active'}}" data-itemid="{{item._id}}" data-type="isactive" data-action="itemActive"></i>
+        {{/if}}
+
+        
+        {{#if item.system.isrollable}}
+            <div class="largeBox vrollable" 
+                data-rollitem="true" 
+                data-itemid="{{item._id}}"
+                title="{{item.name}}"
+                data-action="rollDice">           
+                {{#if (ne item.name "")}}
+                    {{item.name}}
+                {{else}}
+                    {{localize unnamedtitle}}
+                {{/if}}
+            </div>
+        {{else}}
+            <div class="largeBox">
+                {{#if (ne item.name "")}}
+                    {{item.name}}
+                {{else}}
+                    {{localize unnamedtitle}}
+                {{/if}}
+            </div>
+        {{/if}}
+
+        <div class="largeBox">{{localize item.system.type}}</div>
+        {{#if item.system.isrollable}}
+            <div class="width-namebox">{{shorten (localize (getAttributes item.system.dice1)) 10}}</div>
+            <div class="width-abilitybox">{{shorten (localize (getAbility item.system.dice2 actor)) 10}}</div>
+            <div class="width-valuebox">
+                {{#if (eq item.system.difficulty "-1")}}
+                    {{localize "wod.labels.varies"}}
+                {{else}}
+                    {{item.system.difficulty}}
+                {{/if}}
+            </div>
+        {{else}}
+            <div class="width-valuebox">
+                {{#if (gt item.system.level 0)}}
+                    {{item.system.level}}
+                {{else if (ne item.system.level 0)}}
+                    {{localize item.system.level}}
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </div>                    
+        {{/if}}
+    </div>
+    <div class="iconBox">
+
+        {{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=locked edittitle=edittitle deletetitle=deletetitle}}
+
+    </div>	                
+</div>
+<div class="description" data-itemid="{{item._id}}">
+
+    {{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist actor}}}
+
+</div>

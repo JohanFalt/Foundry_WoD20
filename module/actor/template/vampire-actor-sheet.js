@@ -85,7 +85,7 @@ export default class VampireActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);		
+		ActionHelper.RollDialog(dataset, this.actor);		
 	}
 
 	/* makes the alternations on the sheet based on generation */
@@ -201,7 +201,7 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 			}
 		}
 		// disciplines and paths
-		if ((item.type == "Power") && ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepath"))) {
+		if ((item.type == "Power") && ((item.system.type == "wod.types.discipline") /*|| (item.system.type == "wod.types.disciplinepath") */)) {
 			const itemData = foundry.utils.duplicate(item);
 
 			if (itemData.system.max != parseInt(disciplineMax)) {
@@ -210,7 +210,7 @@ async function keepAbilitiesDisciplinesCorrect(disciplineMax, actor) {
 			}			
 		}		
 		// disipline powers and path powers
-		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower") || (item.system.type == "wod.types.disciplinepathpower")) {
+		if ((item.type == "Power") && (item.system.type == "wod.types.disciplinepower") /*|| (item.system.type == "wod.types.disciplinepathpower") */) {
 			const itemData = foundry.utils.duplicate(item);
 
 			if (itemData.system.max != 0) {

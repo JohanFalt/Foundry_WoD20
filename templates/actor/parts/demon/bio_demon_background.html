@@ -6,16 +6,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.house}}" data-dtype="String" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.house" data-type="{{config.sheettype.demon}}" data-name="data.system.house" data-dtype="String">
-                    {{#select data.system.house}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.demon.defiler">{{localize "wod.bio.demon.defiler"}}</option>
-                        <option value="wod.bio.demon.devil">{{localize "wod.bio.demon.devil"}}</option>
-                        <option value="wod.bio.demon.devourer">{{localize "wod.bio.demon.devourer"}}</option>
-                        <option value="wod.bio.demon.fiend">{{localize "wod.bio.demon.fiend"}}</option>
-                        <option value="wod.bio.demon.malefactor">{{localize "wod.bio.demon.malefactor"}}</option>
-                        <option value="wod.bio.demon.scourge">{{localize "wod.bio.demon.scourge"}}</option>
-                        <option value="wod.bio.demon.slayer">{{localize "wod.bio.demon.slayer"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.HouseList selected=data.system.house localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize 'wod.bio.demon.house'}}</span>
@@ -26,14 +17,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.faction}}" data-dtype="String" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.faction" data-type="{{config.sheettype.demon}}" data-name="data.system.faction" data-dtype="String">
-                    {{#select data.system.faction}}
-                        <option value="">- {{localize "wod.labels.select"}} -</option>
-                        <option value="wod.bio.demon.faustian">{{localize "wod.bio.demon.faustian"}}</option>
-                        <option value="wod.bio.demon.cryptic">{{localize "wod.bio.demon.cryptic"}}</option>
-                        <option value="wod.bio.demon.luciferan">{{localize "wod.bio.demon.luciferan"}}</option>
-                        <option value="wod.bio.demon.ravener">{{localize "wod.bio.demon.ravener"}}</option>
-                        <option value="wod.bio.demon.reconciler">{{localize "wod.bio.demon.reconciler"}}</option>
-                    {{/select}}
+                    {{selectOptions listData.FactionList selected=data.system.faction localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize 'wod.bio.demon.faction'}}</span>

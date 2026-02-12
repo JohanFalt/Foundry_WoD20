@@ -5,6 +5,23 @@
   --main-mid-color: var(--main-mage-mid-color);
   --main-dim-color: var(--main-mage-dim-color);
   --color-shadow-primary: var(--main-mage-color);
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-second-headline-tabs: 1rem; /* 16px (.secondHeadlineTabs) */
+  --wod-font-headline-text: 1rem; /* 16px (.headlineText) */
+  --wod-font-sheet-headline: 1.375rem; /* 22px (.sheet-headline) */
+  --wod-font-headline-group: 1.5rem; /* 24px (dialog .headlineGroup) */
+  --wod-font-headline: 0.875rem; /* 14px (dialog .headline) */
 } 
 
 .mage {
@@ -30,36 +47,36 @@
 /* MAGE BEGINS */
 
 .wod-sheet.mage:not(.noSplatFont) .secondHeadlineTabs {
-    font-size: 16px;
+    font-size: var(--wod-font-second-headline-tabs);
   }
   
   .mage .headlineRow:not(.noSplatFont) {
-    font-size: 12px;
+    font-size: var(--wod-font-sm);
   }  
   
   .mage:not(.noSplatFont) .headlineText {
-      font-size: 16px;
+      font-size: var(--wod-font-headline-text);
   }
   
   .mage:not(.noSplatFont) .sheet-headline {
-    font-size: 22px;
+    font-size: var(--wod-font-sheet-headline);
   }
   
   .mage:not(.noSplatFont) .condition {
-    font-size: 12px;
+    font-size: var(--wod-font-sm);
   }
   
   .mage:not(.noSplatFont) .headlineList {
-    font-size: 12px;
+    font-size: var(--wod-font-sm);
   }
   
   .mageDialog:not(.noSplatFont) .headlineGroup {
-    font-size: 24px;
+    font-size: var(--wod-font-headline-group);
   }
 
   .mageDialog:not(.noSplatFont) .headline {
-    font-size: 14px;
-  }
+    font-size: var(--wod-font-headline);
+  } 
     
   .wod-sheet.mage .secondHeadlineTabs {
     width: 20%;
@@ -73,26 +90,17 @@
     width: 50%;
 }
 
+.wod-sheet.pc-actor .spheres-headlineWidth {
+    width: 40%;
+}
+
 .wod-dialog .spheres-headlineWidth {
     width: 55%;
 }
   
 .headlineNormalSpheres {
-    font-size: 12px;
-    font-weight: bold;
+    font-size: var(--wod-font-sm);
 }
-
-.mage .sphere-resource-values {
-    margin-top: 4px;
-}
-  
-.magic-row {
-  /* display: flex; */
-  height: 23px;
-  line-height: 23px;
-  margin-left: 13px;
-}
-
 .magic-statArea {	
     width: 33%;	
 }
@@ -301,7 +309,7 @@ span.quintessence {
   -ms-transform:rotate(-110deg); /* IE 9 */
   -webkit-transform:rotate(-110deg); /* Opera, Chrome, and Safari */
   top: 25px;
-  left: 15px
+  left: 15px;
 }
 
 .wheel-17:not(.noSplatFont) {

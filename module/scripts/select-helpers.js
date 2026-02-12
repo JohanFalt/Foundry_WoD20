@@ -1,9 +1,100 @@
+/**
+ * SelectHelper
+ *
+ * Builds `listData` used by Handlebars `{{selectOptions ...}}` across the system templates.
+ *
+ * ## Conventions
+ * - **Option Map**: `{ [value: string]: label: string }`
+ *   - Used with `{{selectOptions ... localize=false}}` when `label` is already localized.
+ * - **Option Array**: `Array<{ value: string|number, label: string, group?: string }>`
+ *   - Used for optgroups (via `group`) and/or when templates expect arrays.
+ *
+ * ## Quick index (listData keys referenced by templates)
+ *
+ * **Shared / generic**
+ * - `DifficultyList`: Difficulty values (`CONFIG.worldofdarkness.lowestDifficulty`..10), includes “varies”.
+ * - `Era`: Game era options (values are `wod.era.*` keys from `CONFIG.worldofdarkness.era`).
+ * - `Games`: Game line options for sheets/items.
+ * - `Sheet`: Sheet type options (mortal/vampire/...) for splat item settings.
+ * - Numeric helpers: `Levelnegative3Value`, `Level5Value`, `Level6Value`, `Level9Value`, `ZeroToNine`
+ *
+ * **Weapons (item sheets)**
+ * - `WeaponEra`: Alias of `Era` (kept for backward compatibility in weapon templates).
+ * - `Conceal`: Weapon concealment code list (P/J/T/NA) with era-aware labels.
+ * - `AttackAttributes`: Attack attribute list for weapons.
+ * - `AttackAbilities`: Attack ability list for melee/ranged weapons (+ custom).
+ * - `DamageAttribute`: Alias of `AttackAttributes` (used by weapon damage roll config).
+ *
+ * **Powers (item sheets)**
+ * - `Dice1List`, `Dice2List`: Lists for `templates/sheets/parts/power_rollable.html` (dice selection).
+ * - `Types`: Power type options per game line (discipline/gift/art/etc).
+ * - Parent lists: `Disciplines`, `DisciplinePaths`, `Arts`, `Edges`, `Lores`, `Arcanoi`, `Hekau`, `Numina`
+ * - `RitualCategories`: Ritual category options (Vampire).
+ * - `ArtTypes`, `ExaltedCharmTypes`, `SpellType`, `Experience`, `AbilityType`, `AbilityList`, `BonusLista`
+ *
+ * **Actor bio**
+ * - Werewolf: `BreedList`, `AuspiceList`, `TribeList` (also used for Changing Breeds/Fera overrides).
+ * - Mage: `AffiliationList`, `MageSectList`, `SphereList`
+ * - Vampire: `Generation`, `SectList`, `ClanList`, `PathList`, `Conscience`, `Selfcontrol`
+ * - Changeling: `SeemingList`, `CourtList`, `KithList`, `AffinityRealmList`
+ * - Hunter: `CreedList`, `PrimaryVirtueList`
+ * - Demon: `HouseList`, `FactionList`
+ *
+ * Notes:
+ * - This file is long. Use the `//#region ...` markers below to quickly fold and navigate sections.
+ */
+import { selectPlaceholder, makeLocalizedOptionMap } from "./select/utils.js";
+import { getEraList, getWeaponConcealList } from "./select/era.js";
+import {
+    getChangelingSeemingList,
+    getChangelingCourtList,
+    getChangelingKithList,
+    getChangelingAffinityRealmList
+} from "./select/changeling.js";
+import { getHunterCreedList, getHunterPrimaryVirtueList } from "./select/hunter.js";
+import { getDemonHouseList, getDemonFactionList } from "./select/demon.js";
+import { getChangingBreedLists } from "./select/changingbreed.js";
+import { getPowerDice1List, getPowerDice2List } from "./select/power-roll.js";
+import { getValueList, getGeneration } from "./select/numeric.js";
+import { getVampireSects, getVampireClans, getVampirePaths } from "./select/vampire.js";
+import {
+    getWerewolfBreeds,
+    getWerewolfBreedsv2,
+    getWerewolfAuspices,
+    getWerewolfAuspicesv2,
+    getWerewolfTribes
+} from "./select/werewolf.js";
+import { getMageAffiliations, getMageSects } from "./select/mage.js";
+
 export default class SelectHelper {
+    //#region SetupItem (entry point)
     static SetupItem(data, isCharacter = false) {
-        let listData = [];
+        let listData = {};
+
+        // Defaults to avoid undefined lookups in templates
+        listData.SeemingList = {};
+        listData.CourtList = {};
+        listData.KithList = {};
+        listData.AffinityRealmList = {};
+        listData.CreedList = {};
+        listData.PrimaryVirtueList = {};
+        listData.HouseList = {};
+        listData.FactionList = {};
+        listData.Dice1List = [];
+        listData.Dice2List = [];
+
+        // Rollable dice lists (used by templates/sheets/parts/power_rollable.html)
+        listData.Dice1List = this.GetPowerDice1List(data);
+        listData.Dice2List = this.GetPowerDice2List(data);
 
         // Items
         if ((data.type == "Melee Weapon") || (data.type == "Ranged Weapon")) {
+            // Weapons: used by `templates/sheets/*weapon-sheet.html`
+            // Era and conceal lists used by weapon sheets
+            listData.Era = this.GetEraList();
+            listData.WeaponEra = listData.Era;
+            listData.Conceal = this.GetWeaponConcealList(data);
+
             listData.AttackAttributes = [{
                 value: "", 
                 label: "- " + game.i18n.localize("wod.labels.none") + " -"
@@ -45,6 +136,9 @@ export default class SelectHelper {
                     listData.AttackAbilities.push(data);
                 }
             }
+
+            // Damage attribute uses the same attribute list as attack attribute
+            listData.DamageAttribute = listData.AttackAttributes;
         }
 
         if (data.type == "Feature") {
@@ -83,6 +177,33 @@ export default class SelectHelper {
                 label: game.i18n.localize("wod.types.oath"), 
                 group: game.i18n.localize("wod.games.changeling")
             }];
+
+            listData.BoonTypes = [
+            {
+                value: "", 
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            },
+            {
+
+                value: "wod.labels.feature.trivial", 
+                label: game.i18n.localize("wod.labels.feature.trivial")
+            },
+            {
+
+                value: "wod.labels.feature.minor", 
+                label: game.i18n.localize("wod.labels.feature.minor")
+            },
+            {
+
+                value: "wod.labels.feature.major", 
+                label: game.i18n.localize("wod.labels.feature.major")
+            },
+            {
+
+                value: "wod.labels.feature.life", 
+                label: game.i18n.localize("wod.labels.feature.life")
+            }
+            ];
         }
 
         if (data.type == "Fetish") {
@@ -176,6 +297,21 @@ export default class SelectHelper {
                 group: game.i18n.localize("wod.games.exalted")
             },
             {
+                value: "wod.types.talentability", 
+                label: game.i18n.localize("wod.types.talentability"), 
+                group: game.i18n.localize("wod.abilities.ability")
+            },
+            {
+                value: "wod.types.skillability", 
+                label: game.i18n.localize("wod.types.skillability"), 
+                group: game.i18n.localize("wod.abilities.ability")
+            },
+            {
+                value: "wod.types.knowledgeability", 
+                label: game.i18n.localize("wod.types.knowledgeability"), 
+                group: game.i18n.localize("wod.abilities.ability")
+            },
+            {
                 value: "wod.types.talentsecondability", 
                 label: game.i18n.localize("wod.types.talentsecondability"), 
                 group: game.i18n.localize("wod.labels.custom")
@@ -198,21 +334,7 @@ export default class SelectHelper {
         }
 
         if (data.type == "Power") {
-            let type = {};
-
-            listData.Games = {
-                "": "- " + game.i18n.localize("wod.labels.select") + " -",
-                "changeling": game.i18n.localize("wod.games.changeling"),
-                "demon": game.i18n.localize("wod.games.demon"),
-                "hunter": game.i18n.localize("wod.games.hunter"),
-                "mummy": game.i18n.localize("wod.games.mummy"),
-                "mage": game.i18n.localize("wod.games.mage"),
-                "vampire": game.i18n.localize("wod.games.vampire"),
-                "werewolf": game.i18n.localize("wod.games.werewolf"),
-                "wraith": game.i18n.localize("wod.games.wraith"),
-                "orpheus": game.i18n.localize("wod.games.orpheus"),
-                "exalted": game.i18n.localize("wod.games.exalted")
-            }
+            let type = {};            
 
             if (data.system.game == "orpheus") {
                 type = {
@@ -239,23 +361,23 @@ export default class SelectHelper {
                     "wod.types.edgepower": game.i18n.localize("wod.types.edgepower")
                 }
             }
-            if (data.system.game == "mage") {
+            if (data.system.game == CONFIG.worldofdarkness.sheettype.mage.toLowerCase()) {
                 type = {
                     "wod.types.numina": game.i18n.localize("wod.types.numina"),
                     "wod.types.numinapower": game.i18n.localize("wod.types.numinapower")
                 }
             }
-            if (data.system.game == "vampire") {
+            if (data.system.game == CONFIG.worldofdarkness.sheettype.vampire.toLowerCase()) {
                 type = {
                     "wod.types.discipline": game.i18n.localize("wod.types.discipline"),
                     "wod.types.disciplinepower": game.i18n.localize("wod.types.disciplinepower"),
-                    "wod.types.disciplinepath": game.i18n.localize("wod.types.disciplinepath"),
-                    "wod.types.disciplinepathpower": game.i18n.localize("wod.types.disciplinepathpower"),
+                    // "wod.types.disciplinepath": game.i18n.localize("wod.types.disciplinepath"),
+                    // "wod.types.disciplinepathpower": game.i18n.localize("wod.types.disciplinepathpower"),
                     "wod.types.ritual": game.i18n.localize("wod.types.ritual"),
                     "wod.types.combination": game.i18n.localize("wod.types.combination")
                 }
             }
-            if (data.system.game == "werewolf") {
+            if (data.system.game == CONFIG.worldofdarkness.sheettype.werewolf.toLowerCase()) {
                 type = {
                     "wod.types.gift": game.i18n.localize("wod.types.gift"),
                     "wod.types.rite": game.i18n.localize("wod.types.rite")
@@ -600,18 +722,18 @@ export default class SelectHelper {
     
             listData.Disciplines = disciplinelist;
 
-            let disciplinepathlist = {
-                "": "- " + game.i18n.localize("wod.labels.select") + " -"
-            }
+            // let disciplinepathlist = {
+            //     "": "- " + game.i18n.localize("wod.labels.select") + " -"
+            // }
     
-            for (const disciplines of game.worldofdarkness.powers.disciplinepaths) {
-                let id = disciplines.name.toLowerCase();
-                let name = disciplines.name;
+            // for (const disciplines of game.worldofdarkness.powers.disciplinepaths) {
+            //     let id = disciplines.name.toLowerCase();
+            //     let name = disciplines.name;
     
-                disciplinepathlist = Object.assign(disciplinepathlist, {[id]: name});
-            }
+            //     disciplinepathlist = Object.assign(disciplinepathlist, {[id]: name});
+            // }
     
-            listData.DisciplinePaths = disciplinepathlist;
+            // listData.DisciplinePaths = disciplinepathlist;
 
             let edgelist = {
                 "": "- " + game.i18n.localize("wod.labels.select") + " -"
@@ -677,6 +799,16 @@ export default class SelectHelper {
             }
 
             listData.Numina = numinalist;
+
+            
+        }
+
+        if (data.type == "Rote") {
+            listData.SpellType = {
+                "": "- " + game.i18n.localize("wod.labels.varies") + " -",
+                "coincidental": game.i18n.localize("wod.spheres.coincidental"),
+                "vulgar": game.i18n.localize("wod.spheres.vulgar")
+            }
         }
 
         if (data.type == "Experience") {
@@ -686,10 +818,42 @@ export default class SelectHelper {
                 "wod.types.expgained": game.i18n.localize("wod.types.expgained")
             }
         }
+
+        if (data.type == "Ability") {
+            // the Ability is placed on an Actor (the item MUST have an specified ability type)
+            if (data.actor != undefined) {
+                listData.AbilityType = {
+                    "wod.abilities.talent": game.i18n.localize("wod.abilities.talent"),
+                    "wod.abilities.skill": game.i18n.localize("wod.abilities.skill"),
+                    "wod.abilities.knowledge": game.i18n.localize("wod.abilities.knowledge")
+                }
+            }
+            // the Ability is without Actor any will do.
+            else {
+                listData.AbilityType = {
+                    "wod.abilities.ability": game.i18n.localize("wod.abilities.ability"),
+                    "wod.abilities.talent": game.i18n.localize("wod.abilities.talent"),
+                    "wod.abilities.skill": game.i18n.localize("wod.abilities.skill"),
+                    "wod.abilities.knowledge": game.i18n.localize("wod.abilities.knowledge")
+                }
+            }
+            
+        }                  
+
+        listData.Conscience = {
+            "wod.advantages.virtue.conscience": game.i18n.localize("wod.advantages.virtue.conscience"),
+            "wod.advantages.virtue.conviction": game.i18n.localize("wod.advantages.virtue.conviction")
+        }
+
+        listData.Selfcontrol = {
+            "wod.advantages.virtue.selfcontrol": game.i18n.localize("wod.advantages.virtue.selfcontrol"),
+            "wod.advantages.virtue.instinct": game.i18n.localize("wod.advantages.virtue.instinct")
+        }
         
         // Actors
         if (isCharacter) {
-            listData.Dice = {
+            // Actor sheets: bio lists and system-wide selectors (PC + legacy)
+            listData.Games = {
                 "": "- " + game.i18n.localize("wod.labels.sheetsetting") + " -",
                 "none": game.i18n.localize("wod.labels.nosetting"),
                 "mortal": game.i18n.localize("wod.games.mortal"),
@@ -700,111 +864,146 @@ export default class SelectHelper {
                 "mage": game.i18n.localize("wod.games.mage"),
                 "vampire": game.i18n.localize("wod.games.vampire"),
                 "werewolf": game.i18n.localize("wod.games.werewolf"),
-                "wraith": game.i18n.localize("wod.games.wraith")
+                "wraith": game.i18n.localize("wod.games.wraith"),
+                "exalted": game.i18n.localize("wod.games.exalted")
             }
 
-            if ((data.type == CONFIG.worldofdarkness.sheettype.werewolf) || (data.type == CONFIG.worldofdarkness.sheettype.changingbreed)) {
-                let breedlist = {};
-                let auspicelist = {};
-                let tribelist = {};
+            // Werewolf the Apocalypse
+            // ******** BREEDS
+            listData.BreedList = this.GetWerewolfBreeds();
+            listData.BreedListv2 = this.GetWerewolfBreedsv2();
+            // ******** AUSPICES
+            listData.AuspiceList = this.GetWerewolfAuspices();
+            listData.AuspiceListv2 = this.GetWerewolfAuspicesv2();
+            // ******** TRIBES
+            listData.TribeList = this.GetWerewolfTribes(data, isCharacter);
+
+            // Changing Breeds (Fera) override Breed/Auspice/Tribe lists
+            if ((data.type == CONFIG.worldofdarkness.sheettype.changingbreed) && (data.system?.changingbreed != undefined)) {
+                const feraLists = this.GetChangingBreedLists(data.system.changingbreed);
+                if (feraLists.BreedList) listData.BreedList = feraLists.BreedList;
+                if (feraLists.AuspiceList) listData.AuspiceList = feraLists.AuspiceList;
+                if (feraLists.TribeList) listData.TribeList = feraLists.TribeList;
             }
 
-            if (data.type == CONFIG.worldofdarkness.sheettype.mage) {
-                let affiliationlist = {};
-                let sectlist = {};
-                let affinitylist = {};
-				
-				// ******** SPHERES
-                let spherelist = [{
-                    value: "",
-                    label: "- " + game.i18n.localize("wod.labels.select") + " -"
-                }];
+            // Mage the Ascension
+            // ******** AFFILIATIONS
+            listData.AffiliationList = this.GetMageAffiliations(data, isCharacter);
+            // ******** SECTS
+            listData.MageSectList = this.GetMageSects(data, isCharacter);
 
-                for (const sphere in CONFIG.worldofdarkness.allSpheres) {
-                    const data = {
-                        value: CONFIG.worldofdarkness.allSpheres[sphere],
-                        label: game.i18n.localize(CONFIG.worldofdarkness.allSpheres[sphere]),
-                        group: game.i18n.localize("wod.bio.mage.tradition")
-                    };
-        
-                    spherelist.push(data);
-                }
+            // ******** SPHERES
+            let spherelist = [{
+                value: "",
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            }];
 
-                for (const sphere in CONFIG.worldofdarkness.allSpheresTechnocracy) {
-                    const data = {
-                        value: CONFIG.worldofdarkness.allSpheresTechnocracy[sphere],
-                        label: game.i18n.localize(CONFIG.worldofdarkness.allSpheresTechnocracy[sphere]),
-                        group: game.i18n.localize("wod.bio.mage.technocracy")
-                    };
-        
-                    spherelist.push(data);
-                }
-
-                listData.SphereList = spherelist;
+            for (const sphere in CONFIG.worldofdarkness.allSpheres) {
+                const data = {
+                    //value: CONFIG.worldofdarkness.allSpheres[sphere],
+                    value: sphere,
+                    label: game.i18n.localize(CONFIG.worldofdarkness.allSpheres[sphere]),
+                    group: game.i18n.localize("wod.bio.mage.tradition")
+                };
+    
+                spherelist.push(data);
             }
 
-            if (data.type == CONFIG.worldofdarkness.sheettype.vampire) {
-                let sectlist = {};
-                let clanlist = {};
-                let generationlist = {};
-
-                // ******** PATHS 
-                let pathlist = {
-                    "": "- " + game.i18n.localize("wod.labels.select") + " -"
-                }
-
-                if (data.system.advantages.path.custom == "") {
-                    let id = "custom";
-                    let name = game.i18n.localize("wod.labels.custompath");
-        
-                    pathlist = Object.assign(pathlist, {[id]: name});
-                }
-                else {
-                    let id = "custom";
-                    let name = data.system.advantages.path.custom;
-        
-                    pathlist = Object.assign(pathlist, {[id]: name});
-                }
-
-                for (const path in game.worldofdarkness.bio.path) {
-                    let id = game.worldofdarkness.bio.path[path];
-                    let name = game.i18n.localize(game.worldofdarkness.bio.path[path]);
-        
-                    pathlist = Object.assign(pathlist, {[id]: name});
-                }
-
-                listData.PathList = pathlist;            
-
-                listData.Conscience = {
-                    "wod.advantages.virtue.conscience": game.i18n.localize("wod.advantages.virtue.conscience"),
-                    "wod.advantages.virtue.conviction": game.i18n.localize("wod.advantages.virtue.conviction")
-                }
-
-                listData.Selfcontrol = {
-                    "wod.advantages.virtue.selfcontrol": game.i18n.localize("wod.advantages.virtue.selfcontrol"),
-                    "wod.advantages.virtue.instinct": game.i18n.localize("wod.advantages.virtue.instinct")
-                }
+            for (const sphere in CONFIG.worldofdarkness.allSpheresTechnocracy) {
+                const data = {
+                    value: CONFIG.worldofdarkness.allSpheresTechnocracy[sphere],
+                    label: game.i18n.localize(CONFIG.worldofdarkness.allSpheresTechnocracy[sphere]),
+                    group: game.i18n.localize("wod.bio.mage.technocracy")
+                };
+    
+                spherelist.push(data);
             }
+
+            listData.SphereList = spherelist;
+            
+            // Vampire the Masquerade
+            // ******** GENERATION
+            listData.Generation = this.GetGeneration();
+
+            // ******** SECTS 
+            listData.SectList = this.GetVampireSects(data, isCharacter);
+
+            // ******** CLANS
+            listData.ClanList = this.GetVampireClans(data, isCharacter);
+
+            // ******** PATHS 
+            listData.PathList = this.GetVampirePaths(data, isCharacter);  
 
             if (data.type == CONFIG.worldofdarkness.sheettype.changeling) {
-                let seeminglist = {};
-                let kithlist = {};
-                let courtlist = {};
-                let affinityrealm = {};
+                listData.SeemingList = this.GetChangelingSeemingList();
+                listData.CourtList = this.GetChangelingCourtList();
+                listData.KithList = this.GetChangelingKithList(data);
+                listData.AffinityRealmList = this.GetChangelingAffinityRealmList(data);
             }
 
             if (data.type == CONFIG.worldofdarkness.sheettype.hunter) {
-                let creedlist = {};
-                let primaryvirtue = {};
+                listData.CreedList = this.GetHunterCreedList();
+                listData.PrimaryVirtueList = this.GetHunterPrimaryVirtueList();
             }
 
             if (data.type == CONFIG.worldofdarkness.sheettype.demon) {
-                let houselist = {};
-                let factionlist = {};
+                listData.HouseList = this.GetDemonHouseList();
+                listData.FactionList = this.GetDemonFactionList();
             }
         }   
         // Dialogs and Items
         else {
+            listData.Era = this.GetEraList();
+            // Backward-compat alias for weapon templates
+            listData.WeaponEra = listData.Era;
+
+            let sheetlist = [{
+                value: "",
+                label: "- " + game.i18n.localize("wod.labels.select") + " -"
+            }];
+
+            for (const sheet in CONFIG.worldofdarkness.sheettype) {
+                const data = {
+                    value: sheet,
+                    label: game.i18n.localize(CONFIG.worldofdarkness.sheettype[sheet]),
+                };
+    
+                sheetlist.push(data);
+            }
+
+            listData.Sheet = sheetlist;
+
+            // game lines, in powers orpheus is also a concept.
+            if (data.type === "Power") {
+                listData.Games = {
+                    "": "- " + game.i18n.localize("wod.labels.select") + " -",
+                    "changeling": game.i18n.localize("wod.games.changeling"),
+                    "demon": game.i18n.localize("wod.games.demon"),
+                    "hunter": game.i18n.localize("wod.games.hunter"),
+                    "mummy": game.i18n.localize("wod.games.mummy"),
+                    "mage": game.i18n.localize("wod.games.mage"),
+                    "vampire": game.i18n.localize("wod.games.vampire"),
+                    "werewolf": game.i18n.localize("wod.games.werewolf"),
+                    "wraith": game.i18n.localize("wod.games.wraith"),
+                    "orpheus": game.i18n.localize("wod.games.orpheus"),
+                    "exalted": game.i18n.localize("wod.games.exalted")
+                }
+            }
+            else {
+                listData.Games = {
+                    "": "- " + game.i18n.localize("wod.labels.select") + " -",
+                    "changeling": game.i18n.localize("wod.games.changeling"),
+                    "demon": game.i18n.localize("wod.games.demon"),
+                    "hunter": game.i18n.localize("wod.games.hunter"),
+                    "mummy": game.i18n.localize("wod.games.mummy"),
+                    "mage": game.i18n.localize("wod.games.mage"),
+                    "vampire": game.i18n.localize("wod.games.vampire"),
+                    "werewolf": game.i18n.localize("wod.games.werewolf"),
+                    "wraith": game.i18n.localize("wod.games.wraith"),
+                    "exalted": game.i18n.localize("wod.games.exalted")
+                }
+            }            
+
             let abilitylist = [{}];
 
             for (const ability in CONFIG.worldofdarkness.talents) {
@@ -853,7 +1052,18 @@ export default class SelectHelper {
     
             listData.AbilityList = abilitylist;
 
-                       
+            listData.Dice1 = [
+                {
+                    value: "", 
+                    label: "- " + game.i18n.localize("wod.labels.power.noattribute") + " -"
+                }
+            ];
+            listData.Dice2 = [
+                {
+                    value: "", 
+                    label: "- " + game.i18n.localize("wod.labels.power.noability") + " -"
+                }
+            ];
     
             // ******** BONUS
             listData.BonusLista = [
@@ -864,13 +1074,16 @@ export default class SelectHelper {
                 {
                     value: "attribute_buff", 
                     label: game.i18n.localize("wod.labels.bonus.attributebonus"), 
-                    //selected: true, 
+                    group: game.i18n.localize("wod.attributes.attributes")
+                },
+                {
+                    value: "attribute_fixed_value", 
+                    label: game.i18n.localize("wod.labels.bonus.attributefixedvalue"), 
                     group: game.i18n.localize("wod.attributes.attributes")
                 },
                 {
                     value: "attribute_dice_buff", 
                     label: game.i18n.localize("wod.labels.bonus.attributedicebonus"),
-                    //disabled: true, 
                     group: game.i18n.localize("wod.attributes.attributes")
                 },
                 {
@@ -894,23 +1107,43 @@ export default class SelectHelper {
                     group: game.i18n.localize("wod.abilities.abilities")
                 },
                 {
+                    value: "attack_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.attackbuff"),
+                    group: game.i18n.localize("wod.labels.combat")
+                },
+                {
+                    value: "attack_diff", 
+                    label: game.i18n.localize("wod.labels.bonus.attackdiff"),
+                    group: game.i18n.localize("wod.labels.combat")
+                },
+                {
                     value: "soak_buff", 
                     label: game.i18n.localize("wod.labels.bonus.soakbonus"),
-                    group: game.i18n.localize("wod.labels.other")
+                    group: game.i18n.localize("wod.labels.combat")
                 },
                 {
                     value: "soak_diff", 
                     label: game.i18n.localize("wod.labels.bonus.soakdiffbonus"),
-                    group: game.i18n.localize("wod.labels.other")
+                    group: game.i18n.localize("wod.labels.combat")
                 },
                 {
                     value: "health_buff", 
                     label: game.i18n.localize("wod.labels.bonus.healthbuff"),
-                    group: game.i18n.localize("wod.labels.other")
+                    group: game.i18n.localize("wod.labels.combat")
                 },
                 {
                     value: "initiative_buff", 
                     label: game.i18n.localize("wod.labels.bonus.initbonus"),
+                    group: game.i18n.localize("wod.labels.combat")
+                },
+                {
+                    value: "frenzy_buff", 
+                    label: game.i18n.localize("wod.labels.bonus.frenzybuff"),
+                    group: game.i18n.localize("wod.labels.other")
+                },
+                {
+                    value: "frenzy_diff", 
+                    label: game.i18n.localize("wod.labels.bonus.frenzydiff"),
                     group: game.i18n.localize("wod.labels.other")
                 },
                 {
@@ -922,119 +1155,164 @@ export default class SelectHelper {
         }             
 
         // ******** VALUES 1-5, 1-9, and so on
-        let values = [{
-            value: "",
-            label: "- " + game.i18n.localize("wod.labels.select") + " -"
-        }];
+        listData.Levelnegative3Value = [
+            {
+                value: 0, 
+                label: "0"
+            },
+            {
+                value: -1, 
+                label: "-1"
+            },
+            {
+                value: -2, 
+                label: "-2"
+            },  
+            {
+                value: -3, 
+                label: "-3"
+            }
+        ];
+        
+        listData.Level5Value = this.GetValueList(1, 6, "", "- " + game.i18n.localize("wod.labels.select") + " -");
 
-        for (let i = 1; i < 6; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
+        listData.Level6Value = this.GetValueList(1, 7, "", "- " + game.i18n.localize("wod.labels.select") + " -");
 
-            values.push(data);
-        }
+        listData.Level9Value = this.GetValueList(1, 10, "", "- " + game.i18n.localize("wod.labels.select") + " -");
 
-        listData.Level5Value = values;
+        listData.Level10Value = this.GetValueList(1, 11, "", "- " + game.i18n.localize("wod.labels.select") + " -");
 
-        values = [{
-            value: "",
-            label: "- " + game.i18n.localize("wod.labels.select") + " -"
-        }];
+        listData.ZeroToNine = this.GetValueList(1, 10, 0, "0"); 
 
-        for (let i = 1; i < 7; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
-
-            values.push(data);
-        }
-
-        listData.Level6Value = values;
-
-        values = [{
-            value: "",
-            label: "- " + game.i18n.localize("wod.labels.select") + " -"
-        }];
-
-        for (let i = 1; i < 10; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
-
-            values.push(data);
-        }
-
-        listData.Level9Value = values;
-
-        values = [{
-            value: "",
-            label: "- " + game.i18n.localize("wod.labels.select") + " -"
-        }];
-
-        for (let i = 1; i < 11; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
-
-            values.push(data);
-        }
-
-        listData.Level10Value = values;
-
-        values = [{
-            value: 0,
-            label: "0"
-        }];
-
-        for (let i = 1; i < 10; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
-
-            values.push(data);
-        }
-
-        listData.ZeroToNine = values;
-
-        values = [{
-            value: "",
-            label: "- " + game.i18n.localize("wod.labels.select") + " -"
-        }];
-
-        for (let i = 1; i < 11; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
-
-            values.push(data);
-        }
-
-        listData.Level10Value = values;
-     
-
-        let difficulty = [{
-            value: -1,
-            label: "- " + game.i18n.localize("wod.labels.varies") + " -"
-        }];
-            
-        for (let i = CONFIG.worldofdarkness.lowestDifficulty; i < 10; i++) {
-            const data = {
-                value: i,
-                label: i.toString()
-            };
-
-            difficulty.push(data);
-        }
-
-        listData.DifficultyList = difficulty;
+        listData.DifficultyList = this.GetValueList(CONFIG.worldofdarkness.lowestDifficulty, 10, -1, "- " + game.i18n.localize("wod.labels.varies") + " -"); 
 
         return listData;
     }    
+    //#endregion
+
+    //#region Shared utilities (option helpers + Era/Conceal)
+
+    /**
+     * Era: options for `system.era` (weapons) and `item.system.settings.era` (splat items).
+     * Values are localization keys from `CONFIG.worldofdarkness.era` (e.g. `"wod.era.modern"`).
+     */
+    static GetEraList() { return getEraList(); }
+
+    /**
+     * Conceal: weapon concealment code list (P/J/T/NA) with era-aware labels.
+     * Used by `templates/sheets/*weapon-sheet.html` for `system.conceal`.
+     */
+    static GetWeaponConcealList(itemData) { return getWeaponConcealList(itemData); }
+
+    static _selectPlaceholder(labelKey = "wod.labels.select") { return selectPlaceholder(labelKey); }
+
+    static _makeLocalizedOptionMap(values, opts) { return makeLocalizedOptionMap(values, opts); }
+
+    //#endregion
+
+    //#region Changeling (Bio tab lists)
+
+    /** Changeling Seeming list (Bio tab). */
+    static GetChangelingSeemingList() { return getChangelingSeemingList(); }
+
+    /** Changeling Court list (Bio tab). */
+    static GetChangelingCourtList() { return getChangelingCourtList(); }
+
+    /**
+     * Changeling Kith list (Bio tab).
+     * - Includes a custom option unless variant is Inanimae or Darkkin.
+     * - Uses `game.worldofdarkness.bio.kith[variant]`.
+     */
+    static GetChangelingKithList(actorData) { return getChangelingKithList(actorData); }
+
+    /**
+     * Changeling Affinity Realm list (Bio tab).
+     * Prefer deriving from actor Trait items (type: realms) to avoid ordering issues.
+     */
+    static GetChangelingAffinityRealmList(actorData) { return getChangelingAffinityRealmList(actorData); }
+
+    //#endregion
+
+    //#region Hunter (Bio tab lists)
+
+    /** Hunter Creed list (Bio tab). */
+    static GetHunterCreedList() { return getHunterCreedList(); }
+
+    /** Hunter primary Virtue list (Bio tab). */
+    static GetHunterPrimaryVirtueList() { return getHunterPrimaryVirtueList(); }
+
+    //#endregion
+
+    //#region Demon (Bio tab lists)
+
+    /** Demon House list (Bio tab). */
+    static GetDemonHouseList() { return getDemonHouseList(); }
+
+    /** Demon Faction list (Bio tab). */
+    static GetDemonFactionList() { return getDemonFactionList(); }
+
+    //#endregion
+
+    //#region Changing Breeds / Fera (Bio tab lists)
+
+    static GetChangingBreedLists(changingbreed) { return getChangingBreedLists(changingbreed); }
+
+    //#endregion
+
+    //#region Power roll helpers (Dice1/Dice2 lists for power sheets)
+
+    /**
+     * Dice1List: attribute/advantage selector for power rolls.
+     * Used by `templates/sheets/parts/power_rollable.html` for `system.dice1`.
+     */
+    static GetPowerDice1List(itemData) { return getPowerDice1List(itemData); }
+
+    /**
+     * Dice2List: ability/attribute selector for power rolls.
+     * Used by `templates/sheets/parts/power_rollable.html` for `system.dice2`.
+     */
+    static GetPowerDice2List(itemData) { return getPowerDice2List(itemData); }
+
+    //#endregion
+
+    //#region Numeric helpers (generic value lists)
+
+    static GetValueList(begin, end, startvalue, headline) { return getValueList(begin, end, startvalue, headline); }
+
+    /** Vampire Generation list (4..16). Used by Vampire bio. */
+    static GetGeneration() { return getGeneration(); }
+
+    //#endregion
+
+    //#region Vampire (Bio tab lists)
+
+    static GetVampireSects(actor, isCharacter) { return getVampireSects(actor, isCharacter); }
+
+    static GetVampireClans(actor, isCharacter) { return getVampireClans(actor, isCharacter); }
+
+    static GetVampirePaths(actor, isCharacter) { return getVampirePaths(actor, isCharacter); }
+
+    //#endregion
+
+    //#region Werewolf (Bio tab lists)
+
+    static GetWerewolfBreeds() { return getWerewolfBreeds(); }
+
+    static GetWerewolfBreedsv2() { return getWerewolfBreedsv2(); }
+
+    static GetWerewolfAuspices() { return getWerewolfAuspices(); }
+
+    static GetWerewolfAuspicesv2() { return getWerewolfAuspicesv2(); }
+
+    static GetWerewolfTribes(actor, isCharacter) { return getWerewolfTribes(actor, isCharacter); }
+
+    //#endregion
+
+    //#region Mage (Bio tab lists)
+
+    static GetMageAffiliations(actor, isCharacter) { return getMageAffiliations(actor, isCharacter); }
+
+    static GetMageSects(actor, isCharacter) { return getMageSects(actor, isCharacter); }
+    //#endregion
 }
+

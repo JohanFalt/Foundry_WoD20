@@ -1,20 +1,23 @@
-{{log "stats"}}
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">
+    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-origin="core" data-action="itemCreate"></i>
 
-<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">
-    <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="core"></i>
+    <div class="pullRight">
+        <!-- Macro icons -->
+        {{> "systems/worldofdarkness/templates/actor/parts/macro_icons.hbs"}}				        	
+    </div>
            
     <!-- Attributes -->
     <div class="sheet-area flex-columns">
-        {{> "systems/worldofdarkness/templates/actor/parts/attributes.hbs"}} 	
+        {{> "systems/worldofdarkness/templates/actor/parts/stats_attributes.hbs"}} 	
     </div>
 
     <!-- Abilities -->
     <div class="sheet-area flex-columns">
-        {{> "systems/worldofdarkness/templates/actor/parts/abilities.hbs"}}
+        {{> "systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs" showheadline=true useroll=true showvalues=true showvisibleicon=false}}
     </div>
 
     <!-- Adventages -->
     <div class="sheet-area flex-columns">
-        {{> "systems/worldofdarkness/templates/actor/parts/stats_adventages.hbs"}}
+        {{> "systems/worldofdarkness/templates/actor/parts/stats_advantages.hbs"}}
     </div>
 </section>

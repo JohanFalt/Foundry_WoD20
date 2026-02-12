@@ -12,7 +12,25 @@
   --main-mid-color: var(--main-demon-mid-color);
   --main-dim-color: var(--main-demon-dim-color);
   --color-shadow-primary: var(--main-demon-color);
-}
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-sheet-headline: 1.625rem; /* 26px (.sheet-headline) */
+  --wod-font-headline-tabs: 1.625rem; /* 26px (.headlineTabs) */
+  --wod-font-headline-text: 1rem; /* 16px (.headlineText) */
+  --wod-font-headline-group: 0.875rem; /* 14px (.headlineGroup) */
+  --wod-font-dialog-headline-group: 1.625rem; /* 26px (dialog .headlineGroup) */
+  --wod-font-dialog-headline: 1.25rem; /* 20px (dialog .headline) */
+} 
 
 .demon {
     --sheet-background-color: var(--demon-page-background);
@@ -28,7 +46,7 @@
 }
 
 .demon:not(.noSplatFont) .sheet-headline {
-    font-size: 26px;
+    font-size: var(--wod-font-sheet-headline);
 }
 
 .demon.demon:not(.noSplatFont) .sheet-banner {
@@ -36,34 +54,34 @@
 }
 
 .demon:not(.noSplatFont) .headlineTabs {
-    font-size: 26px;
+    font-size: var(--wod-font-headline-tabs);
     line-height: 26px;
 }
 
 .demon:not(.noSplatFont) .headlineText {
-    font-size: 16px;
+    font-size: var(--wod-font-headline-text);
 }
 
 .demon:not(.noSplatFont) .headlineGroup {
-    font-size: 14px;
+    font-size: var(--wod-font-headline-group);
 }
 
 .demon:not(.noSplatFont) .sheet-banner .sheet-banner-text {
-    font-size: 20px;
+    font-size: var(--wod-font-dialog-headline);
     position: relative;
     top: 16px;
 }
 
 .demon.demon:not(.noSplatFont) .sheet-banner-small .sheet-banner-text {
-    font-size: 16px;
+    font-size: var(--wod-font-headline-text);
 }
 
 .demonDialog:not(.noSplatFont) .headlineGroup {
-    font-size: 26px;
+    font-size: var(--wod-font-dialog-headline-group);
 }
 
 .demonDialog:not(.noSplatFont) .headline {
-    font-size: 20px;
+    font-size: var(--wod-font-dialog-headline);
 }
 
 .demon:not(.noSplatFont) .experienceValue {
@@ -73,7 +91,7 @@
 .demon:not(.noSplatFont) .headlineList,
 .demon:not(.noSplatFont) .headlineRow {
     font-family: var(--main-font);
-    font-size: 14px;
+    font-size: var(--wod-font-md);
     font-weight: bold;
 }
 
@@ -92,7 +110,7 @@
 /* POWER */
 
 .demon .item-row-area.mainpower-row .power-itemlist .width-namebox {
-    font-size: 14px;
+    font-size: var(--wod-font-md);
     width: 260px;
 }
 
@@ -107,8 +125,8 @@
 }
 
 .demon:not(.noSplatFont) .secondHeadlineTabs {
-    font-size: 16px;
-}
+    font-size: var(--wod-font-headline-text);
+} 
 
 @media all and (max-height : 1024px)
 {

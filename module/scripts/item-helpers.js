@@ -5,7 +5,7 @@ export default class ItemHelper {
 		let id = "";
 
 		if ((item.system.type == "wod.types.disciplinepower") || 
-				(item.system.type == "wod.types.disciplinepathpower") ||
+				//(item.system.type == "wod.types.disciplinepathpower") ||
 				(item.system.type == "wod.types.artpower") ||
 				(item.system.type == "wod.types.edgepower") ||
 				(item.system.type == "wod.types.lorepower") ||
@@ -110,14 +110,6 @@ export default class ItemHelper {
 		actor.system.listdata.combat.rangedWeapons = [];
 		actor.system.listdata.combat.armors = [];	
 
-		//actor.system.listdata.experiences = [];
-
-		//actor.system.listdata.experiences.expearned = [];
-		//actor.system.listdata.experiences.expspend = [];
-		//actor.system.listdata.experiences.totalExp = 0;
-		//actor.system.listdata.experiences.spentExp = 0;
-		//actor.system.listdata.experiences.experience = 0;
-
 		actor.system.listdata.traits = [];
 
 		actor.system.listdata.traits.passions = [];
@@ -175,9 +167,6 @@ export default class ItemHelper {
 		// If no items then Power structure needs to be created regardless...
 		for (const item of actor.items) {
 			await this._sortCombat(item, actor);
-			//await this._sortGear(item, actor);
-			//await this._sortFeatures(item, actor);
-			//await this._sortExperiences(item, actor);
 			await this._sortTraits(item, actor);				
 			await this._sortPowers(item, actor);
 			await this._sortBonus(item, actor);
@@ -231,9 +220,6 @@ export default class ItemHelper {
 		if (actor.system.settings.powers.hashorrors) {
 			await this._organizeHorrors(actor);
 		}
-
-		// Experience Points
-		//actor.system.listdata.experiences.experience = actor.system.listdata.experiences.totalExp - actor.system.listdata.experiences.spentExp;
 	}
 
 	static async _sortCombat(item, actor) {
@@ -251,82 +237,6 @@ export default class ItemHelper {
 		if (item.type == "Armor") {
 			actor.system.listdata.combat.armors.push(item);
 		}
-	}
-
-	static async _sortGear(item, actor) {
-		// if (item.type == "Fetish") {
-		// 	// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
-
-		// 	if (item.system.type == "wod.types.fetish") {
-		// 		actor.system.listdata.gear.fetishlist.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.talen") {
-		// 		actor.system.listdata.gear.talenlist.push(item);
-		// 	}			
-		// }
-		// if (item.type == "Item") {
-		// 	// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
-
-		// 	if (item.system.type == "wod.types.treasure") {
-		// 		actor.system.listdata.gear.treasures.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.device") {
-		// 		actor.system.listdata.gear.devices.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.talisman") {
-		// 		actor.system.listdata.gear.talismans.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.periapt") {
-		// 		actor.system.listdata.gear.periapts.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.matrix") {
-		// 		actor.system.listdata.gear.matrixs.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.trinket") {
-		// 		actor.system.listdata.gear.trinkets.push(item);
-		// 	}
-		// }
-	}
-
-	static async _sortFeatures(item, actor) {
-		// if (item.type == "Feature") {
-		// 	// item.system.bonuses = BonusHelper.getBonuses(actor.items, item._id);
-
-		// 	if (item.system.type == "wod.types.background") {
-		// 		actor.system.listdata.features.backgrounds.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.merit") {
-		// 		actor.system.listdata.features.merits.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.flaw") {
-		// 		actor.system.listdata.features.flaws.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.bloodbound") {
-		// 		actor.system.listdata.features.bloodbounds.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.boon") {
-		// 		actor.system.listdata.features.boons.push(item);
-		// 	}
-		// 	if (item.system.type == "wod.types.oath") {
-		// 		actor.system.listdata.features.oaths.push(item);
-		// 	}
-		// }
-	}
-
-	static async _sortExperiences(item, actor) {
-		// if (item.type == "Experience") {
-		// 	if (item.system.type == "wod.types.expgained") {
-		// 		actor.system.listdata.experiences.expearned.push(item);
-		// 		actor.system.listdata.experiences.totalExp += parseInt(item.system.amount);
-		// 	}
-		// 	if (item.system.type == "wod.types.expspent") {
-		// 		actor.system.listdata.experiences.expspend.push(item);
-
-		// 		if (item.system.isspent) {
-		// 			actor.system.listdata.experiences.spentExp += parseInt(item.system.amount);
-		// 		}
-		// 	}
-		// }
 	}
 
 	static async _sortBonus(item, actor) {
@@ -583,18 +493,18 @@ export default class ItemHelper {
 			actor.system.listdata.powers.disciplines.combinationlist.push(item);
 		}
 
-		if (item.system.type == "wod.types.disciplinepath") {
-			actor.system.listdata.powers.disciplines.listedpaths.push(item);
-		}
-		if (item.system.type == "wod.types.disciplinepathpower") {
-			if (item.system.parentid != "") {
-				item.system.level = item.system.level.toString();
-				actor.system.listdata.powers.disciplines.listedpathpowers.push(item);
-			}
-			else {
-				actor.system.listdata.powers.disciplines.unlistedpaths.push(item);
-			}					
-		}
+		// if (item.system.type == "wod.types.disciplinepath") {
+		// 	actor.system.listdata.powers.disciplines.listedpaths.push(item);
+		// }
+		// if (item.system.type == "wod.types.disciplinepathpower") {
+		// 	if (item.system.parentid != "") {
+		// 		item.system.level = item.system.level.toString();
+		// 		actor.system.listdata.powers.disciplines.listedpathpowers.push(item);
+		// 	}
+		// 	else {
+		// 		actor.system.listdata.powers.disciplines.unlistedpaths.push(item);
+		// 	}					
+		// }
 
 		if (item.system.type == "wod.types.ritual") {
 			actor.system.listdata.powers.disciplines.rituallist.push(item);
@@ -626,12 +536,10 @@ export default class ItemHelper {
 
 		// add the correct discipline in the right list
 		for (const discipline of actor.system.listdata.powers.disciplines.listeddisciplines) {
-			// discipline.bonuses = BonusHelper.getBonuses(actor.items, discipline._id);			
 			actor.system.listdata.powers.disciplines.disciplinelist.push(discipline);
 
 			for (const power of actor.system.listdata.powers.disciplines.listeddisciplinepowers) {
 				if (power.system.parentid == discipline._id) {
-					// power.bonuses = BonusHelper.getBonuses(actor.items, power._id);
 					actor.system.listdata.powers.disciplines.disciplinelist.push(power);
 				}
 			}
@@ -895,6 +803,7 @@ export default class ItemHelper {
 		actor.system.listdata.powers.horrors.sort((a, b) => a.name.localeCompare(b.name));
 	}
 
+	
 	/**
    * Handle collapsing of item lists, mainly bonus lists.
    */
@@ -947,7 +856,6 @@ export default class ItemHelper {
 		}
 	}
 
-	
 
 	static GetAllItems(actor) {
 		let items = actor.items.filter(item => item.type === "Item" || item.type === "Fetish");
@@ -957,6 +865,7 @@ export default class ItemHelper {
 		});
 	}
 
+
 	static GetAllNotes(actor) {
 		let items = actor.items.filter(item => item.type === "Feature" || (item.type == "Trait" && (item.system.type == "wod.types.othertraits") || (item.system.type == "wod.types.shapeform") || (item.system.type == "wod.types.aspect")));
 
@@ -965,16 +874,20 @@ export default class ItemHelper {
 		});
 	}
 
+
 	static GetItemType(actor, type, category) {
 		let items;
+		
+		if (category === undefined) {
+			category = "";
+		}
 
 		if (category != "") {
 			items = actor.items.filter(item => item.type === type && item.system.type === category);
 		}
 		else {
-			let items = actor.items.filter(item => item.type === type);
-		}
-		
+			items = actor.items.filter(item => item.type === type);
+		}	
 
 		return items.sort((a, b) => {
 			return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
@@ -982,21 +895,204 @@ export default class ItemHelper {
 	}
 
 
+	// Is used in power tab for PC Actor
+	static GetPowersByType(actor, systemType, sort = false) {
+		if (actor?.type !== "PC") {
+			return [];
+		}
+
+		const sortByName = (a, b) => a.name.localeCompare(b.name);
+		let powers = actor.items.filter(item => item.type === "Power");
+
+		if (systemType) {
+			powers = powers.filter(item => item.system.type === systemType);
+		}
+
+		if (sort) {
+			powers.sort(sort === true ? sortByName : sort);
+		}
+
+		return powers;
+	}
+
+
+	static BuildPowerSections(actor, context, splat, powerConfig = {}) {
+		const sections = [];
+		const config = powerConfig || {};
+		const splatConfig = config[splat] || {};
+
+		const buildPowerSection = (powerId) => {
+			const definitions = {
+				disciplines: {
+					id: "disciplines",
+					template: "hierarchical",
+					data: { items: context.disciplines },
+					localizeKey: "wod.power.disciplines",
+					condition: actor.system.settings.hasdisciplines && context.disciplines?.length
+				},
+				numinas: {
+					id: "numinas",
+					template: "hierarchical",
+					data: { items: context.numinas },
+					localizeKey: "wod.power.numinas",
+					condition: actor.system.settings.hasnuminas && context.numinas?.length
+				},
+				// paths: {
+				// 	id: "paths",
+				// 	template: "hierarchical",
+				// 	data: { items: context.paths },
+				// 	localizeKey: "wod.power.paths",
+				// 	condition: actor.system.settings.hasdisciplinepaths && context.paths?.length
+				// },
+				combinations: {
+					id: "combinations",
+					template: "simple",
+					data: { items: context.combinations },
+					localizeKey: "wod.power.combinations",
+					condition: actor.system.settings.hascombinationdisciplines && context.combinations?.length
+				},
+				rituals: {
+					id: "rituals",
+					template: "simple",
+					data: { items: context.rituals },
+					localizeKey: "wod.power.rituals",
+					condition: actor.system.settings.hasrituals && context.rituals?.length
+				},
+				gifts: {
+					id: "gifts",
+					template: "gifts",
+					data: { gifts: context.gifts, giftsByRank: context.giftsByRank },
+					localizeKey: "wod.power.gifts",
+					condition: actor.system.settings.hasgifts && context.gifts?.length
+				},
+				rites: {
+					id: "rites",
+					template: "simple",
+					data: { items: context.rites },
+					localizeKey: "wod.power.rites",
+					condition: actor.system.settings.hasrites && context.rites?.length
+				},
+				rotes: {
+					id: "rotes",
+					template: "column",
+					data: { items: context.rotes },
+					localizeKey: "wod.spheres.rotes",
+					condition: actor.system.settings.hasrotes && context.rotes?.length
+				},
+				resonances: {
+					id: "resonances",
+					template: "simple",
+					data: { items: context.resonances },
+					localizeKey: "wod.types.resonance",
+					condition: actor.system.settings.hasresonances && context.resonances?.length
+				}
+			};
+
+			const definition = definitions[powerId];
+			if (!definition || !definition.condition) return null;
+			return foundry.utils.duplicate(definition);
+		};
+
+		const addSection = (powerId, priority) => {
+			const section = buildPowerSection(powerId);
+			if (section) {
+				section.priority = priority;
+				sections.push(section);
+			}
+		};
+
+		// Primary sections
+		if (Array.isArray(splatConfig.primary)) {
+			for (const primary of splatConfig.primary) {
+				addSection(primary, 1);
+			}
+		}
+
+		// Default order for remaining sections
+		const addedPrimary = splatConfig.primary || [];
+		const defaultOrder = config.defaultOrder || [];
+		for (const entry of defaultOrder) {
+			if (addedPrimary.includes(entry)) continue;
+			addSection(entry, 2);
+		}
+
+		// Unsorted sections
+		if (context.unsorteddisciplines?.length) {
+			sections.push({
+				id: "unsorteddisciplines",
+				priority: config.unsorted?.priority || 99,
+				template: "unsorted",
+				data: { items: context.unsorteddisciplines },
+				localizeKey: "wod.power.unsorteddisciplines",
+				sortAction: "SortDisciplinePower",
+				condition: true
+			});
+		}
+
+		if (context.unsortednuminas?.length) {
+			sections.push({
+				id: "unsortednuminas",
+				priority: config.unsorted?.priority || 99,
+				template: "unsorted",
+				data: { items: context.unsortednuminas },
+				localizeKey: "wod.power.unsortednuminas",
+				sortAction: "SortNuminaPower",
+				condition: true
+			});
+		}
+
+		// if (context.unsortedpaths?.length) {
+		// 	sections.push({
+		// 		id: "unsortedpaths",
+		// 		priority: config.unsorted?.priority || 99,
+		// 		template: "unsorted",
+		// 		data: { items: context.unsortedpaths },
+		// 		localizeKey: "wod.power.unsortedpaths",
+		// 		sortAction: "SortPathPower",
+		// 		condition: true
+		// 	});
+		// }
+
+		return sections.sort((a, b) => a.priority - b.priority);
+	}
+
+	static GroupGiftsByRank(giftItems) {
+		const sortByName = (a, b) => a.name.localeCompare(b.name);
+		const groups = {};
+
+		for (const gift of giftItems) {
+			const rank = String(Number(gift.system.level || gift.system.rank || 0));
+			if (!groups[rank]) groups[rank] = [];
+			groups[rank].push(gift);
+		}
+
+		for (const rank in groups) {
+			groups[rank].sort(sortByName);
+		}
+
+		const giftsByRank = Object.keys(groups)
+			.map(Number)
+			.sort((a, b) => a - b)
+			.map(rank => ({
+				rank: String(rank),
+				gifts: groups[String(rank)]
+			}));
+
+		return {
+			giftsByRank,
+			flatGifts: giftsByRank.flatMap(group => group.gifts)
+		};
+	}
+
 	static GetEarnedExperience(actor) {
 		let items = actor.items.filter(item => item.type === "Experience" && (item.system.type == "wod.types.expgained"));
 
-		// return items.sort((a, b) => {
-		// 	return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
-		// });
 		return [...items].reverse();
 	}
 
 	static GetSpendExperience(actor) {
 		let items = actor.items.filter(item => item.type === "Experience" && (item.system.type == "wod.types.expspent"));
 
-		// return items.sort((a, b) => {
-		// 	return a.system.type.localeCompare(b.system.type) || a.name.localeCompare(b.name);
-		// });
 		return [...items].reverse();
 	}
 }
