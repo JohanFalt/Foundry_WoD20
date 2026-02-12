@@ -10,7 +10,7 @@ import { OnDotCounterChange } from "../../scripts/action-helpers.js";
 import { OnActorSwitch } from "../../scripts/action-helpers.js";
 import { OnUseMacro } from "../../scripts/action-helpers.js";
 
-import { OnItemCreate, OnItemEdit, OnItemActive, OnItemSwitch, OnItemDelete, OnQuintessenceHandling, OnQuintessenceWheelClick, OnParadoxWheelClick, OnFormActivate, OnPowerSort, OnPowerClear, OnGenerationChange, SendChat, RollDice } from "../../scripts/action-helpers.js";
+import { OnItemCreate, OnItemEdit, OnItemActive, OnItemSwitch, OnItemDelete, OnRemoveSplat, OnQuintessenceHandling, OnQuintessenceWheelClick, OnParadoxWheelClick, OnFormActivate, OnPowerSort, OnPowerClear, OnGenerationChange, SendChat, RollDice, OnEditImage } from "../../scripts/action-helpers.js";
 
 import { calculateHealth } from "../../scripts/health.js";
 
@@ -72,12 +72,14 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 			editHealth: OnSquareCounterChange,				// Health
 			editDot: OnDotCounterChange, 					// Permanent / temporary dots
 			useMacro: OnUseMacro,
+			editImage: OnEditImage,							// Actor image editing
 
 			itemCreate: OnItemCreate,
 			itemEdit: OnItemEdit,
 			itemActive: OnItemActive,
 			itemSwitch: OnItemSwitch,
-			itemDelete: OnItemDelete,			
+			itemDelete: OnItemDelete,
+			removeSplat: OnRemoveSplat,
 
 			formActive: OnFormActivate,
 
@@ -1157,6 +1159,7 @@ export const prepareSettingsContext = async function (context, actor) {
 	context.splatfields = actor.system.bio.splatfields;
 	context.hassplatfields = Object.keys(actor.system.bio.splatfields).length > 0;
 
+
 	// Abilities
 	context.talents = actor.items
 								.filter(item => item.type === "Ability" && item.system.type === 'wod.abilities.talent')
@@ -1183,22 +1186,6 @@ export const prepareSettingsContext = async function (context, actor) {
 
 	context.advantages = context.advantages.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));
 
-	if (actor.system.settings.hasvirtue) {
-
-		let virtues = actor.items
-								.filter(item => item.type === "Advantage" && item.system.group === 'virtue')
-								.map(item => ({ _id: item._id, ...item }));
-						
-		virtues = virtues.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));		
-
-		if (actor.system.settings.splat === CONFIG.worldofdarkness.splat.vampire) {
-			context.vampire_virtues = virtues;
-		}
-		else {
-			context.virtues = virtues;
-		}
-	}
-
 	// Shapes remain Traits but follow the same ordering logic
 	const allShapes = actor?.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.shapeform");
 	context.shapes = allShapes.sort((a, b) => {
@@ -1207,6 +1194,61 @@ export const prepareSettingsContext = async function (context, actor) {
 		if (orderA !== orderB) return orderA - orderB;
 		return a.name.localeCompare(b.name);
 	});
+
+	// Grouped Advantages (including virtues, renown, quintessence, and other groups like "yinchi")
+	// Find all grouped advantages - include all groups except empty string
+	// Don't filter by isvisible here - we want to show all grouped advantages in settings so user can manage them
+	const knownGroups = ['', 'virtue', 'renown', 'quintessence'];
+	const allGroupedAdvantages = actor.items
+		.filter(item => 
+			item.type === "Advantage" && 
+			item.system.group !== '' && 
+			!knownGroups.includes(item.system.group)
+		)
+		.map(item => ({ _id: item._id, ...item }));
+	
+	// Also include virtues, renown, and quintessence if they exist (these are excluded from the filter above)
+	if (actor.system.settings.hasvirtue) {
+		const virtues = actor.items
+			.filter(item => item.type === "Advantage" && item.system.group === 'virtue')
+			.map(item => ({ _id: item._id, ...item }));
+		allGroupedAdvantages.push(...virtues);
+	}
+	if (actor.system.settings.hasrenown) {
+		const renowns = actor.items
+			.filter(item => item.type === "Advantage" && item.system.group === 'renown')
+			.map(item => ({ _id: item._id, ...item }));
+		allGroupedAdvantages.push(...renowns);
+	}
+	if (actor.system.settings.hasquintessence) {
+		const quintessences = actor.items
+			.filter(item => item.type === "Advantage" && item.system.group === 'quintessence')
+			.map(item => ({ _id: item._id, ...item }));
+		allGroupedAdvantages.push(...quintessences);
+	}
+
+	// Group by system.group and sort
+	const groupedMap = new Map();
+	for (const advantage of allGroupedAdvantages) {
+		const group = advantage.system.group;
+		if (!groupedMap.has(group)) {
+			groupedMap.set(group, []);
+		}
+		groupedMap.get(group).push(advantage);
+	}
+
+	// Sort items within each group by system.settings.order
+	for (const [group, items] of groupedMap.entries()) {
+		items.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));
+	}
+
+	// Convert to array and sort groups alphabetically
+	context.groupedadvantages = Array.from(groupedMap.entries())
+		.map(([group, items]) => ({ group, items }))
+		.sort((a, b) => a.group.localeCompare(b.group));
+
+	// Set hasGroupedAdvantages flag
+	context.hasGroupedAdvantages = context.groupedadvantages.length > 0;
 
 	// Spheres
 	context.spheres = actor.items.filter(item => item.type === "Sphere");

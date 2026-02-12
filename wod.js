@@ -881,6 +881,44 @@ Hooks.on("renderItemSheet", (sheet) => {
 	}
 });
 
+Hooks.on("renderItemSheetV2", (sheet) => {
+	CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";
+
+	// Check if this is a WoD item sheet
+	if (sheet.element?.classList?.contains("wod-item")) {
+		// adding the means to control the CSS by what language is used.
+		if (CONFIG.language == "de") {
+			sheet.classList.add("langDE");
+		}
+		else if (CONFIG.language == "es") {
+			sheet.classList.add("langES");
+		}
+		else if (CONFIG.language == "it") {
+			sheet.classList.add("langIT");
+		}
+		else if (CONFIG.language == "fr") {
+			sheet.classList.add("langFR");
+		}
+		else if (CONFIG.language == "pt-BR") {
+			sheet.classList.add("langPT");
+		}
+		else {
+			sheet.classList.add("langEN");
+		}
+
+		if (game.settings.get('worldofdarkness', 'useSplatFonts') === false) {
+			sheet.classList.add("noSplatFont");
+		}
+		else if (sheet.item?.actor?.system?.settings?.usesplatfont === false) {
+			sheet.classList.add("noSplatFont");
+		}
+
+		if (CONFIG.worldofdarkness.darkmode) {
+			sheet.classList.add("wod-theme-dark");
+		}
+	}
+});
+
 Hooks.on("renderFormApplication", (sheet) => { 
 	if (sheet.isDialog) {
 		CONFIG.worldofdarkness.darkmode = game.settings.get('core', 'uiConfig').colorScheme.applications === "dark";

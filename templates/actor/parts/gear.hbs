@@ -2,136 +2,143 @@
 
 	<i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-origin="gear" data-action="itemCreate"></i>
 
-	<div class="sheet-headline sheet-banner splatFont">
-		<span class="sheet-banner-text">{{localize 'wod.gear.headline'}}</span>
-	</div>
+	<div class="pullRight">
+        <!-- Macro icons -->
+        {{> "systems/worldofdarkness/templates/actor/parts/macro_icons.hbs"}}				        	
+    </div>
 
-	<div class="sheet-area flex-columns">	
-		{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" locked=locked headline=true prosename="system.gear.notes" prosevalue=gear proseenriched=enrichedGear}}									
-	</div>
+	<div class="sheet-inner-area">
+		<div class="sheet-headline sheet-banner splatFont">
+			<span class="sheet-banner-text">{{localize 'wod.gear.headline'}}</span>
+		</div>
 
-	<div class="sheet-headline sheet-banner splatFont">
-		<span class="sheet-banner-text">{{localize "wod.gear.money"}}</span>
-	</div>
+		<div class="sheet-area flex-columns">	
+			{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" locked=locked headline=true prosename="system.gear.notes" prosevalue=gear proseenriched=enrichedGear}}									
+		</div>
 
-	<div class="sheet-area flex-columns" style="flex-flow: row nowrap;">	
-		<div class="clearareaBox">
-			<div class="pullLeft" style="display: flex;">
-				<div class="area-box">		
+		<div class="sheet-headline sheet-banner splatFont">
+			<span class="sheet-banner-text">{{localize "wod.gear.money"}}</span>
+		</div>
 
-					<div class="pullLeft bioInformationArea floating-label-group half">
-						{{#if locked}}
-							<input class="sheet-infoValues" type="text" value="{{actor.system.gear.money.carried}}" autocomplete="off" autofocus required />
-						{{else}}
-							<input class="sheet-infoValues editable" name="system.gear.money.carried" type="text" value="{{actor.system.gear.money.carried}}" data-name="data.system.gear.money.carried" data-dtype="Number" autocomplete="off" autofocus required />
-						{{/if}}
-						<span class="floating-label">{{localize "wod.gear.moneycarried"}}</span>
-					</div>
+		<div class="sheet-area flex-columns" style="flex-flow: row nowrap;">	
+			<div class="clearareaBox">
+				<div class="pullLeft" style="display: flex;">
+					<div class="area-box">		
 
-					<div class="pullLeft bioInformationArea floating-label-group half">
-						{{#if locked}}
-							<input class="sheet-infoValues" type="text" value="{{actor.system.gear.money.bank}}" autocomplete="off" autofocus required />
-						{{else}}
-							<input class="sheet-infoValues editable" name="system.gear.money.bank" type="text" value="{{actor.system.gear.money.bank}}" data-name="data.system.gear.money.bank" data-dtype="Number" autocomplete="off" autofocus required />
-						{{/if}}
-						<span class="floating-label">{{localize "wod.gear.moneybank"}}</span>
+						<div class="pullLeft bioInformationArea floating-label-group half">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{actor.system.gear.money.carried}}" autocomplete="off" autofocus required />
+							{{else}}
+								<input class="sheet-infoValues editable" name="system.gear.money.carried" type="text" value="{{actor.system.gear.money.carried}}" data-name="data.system.gear.money.carried" data-dtype="Number" autocomplete="off" autofocus required />
+							{{/if}}
+							<span class="floating-label">{{localize "wod.gear.moneycarried"}}</span>
+						</div>
+
+						<div class="pullLeft bioInformationArea floating-label-group half">
+							{{#if locked}}
+								<input class="sheet-infoValues" type="text" value="{{actor.system.gear.money.bank}}" autocomplete="off" autofocus required />
+							{{else}}
+								<input class="sheet-infoValues editable" name="system.gear.money.bank" type="text" value="{{actor.system.gear.money.bank}}" data-name="data.system.gear.money.bank" data-dtype="Number" autocomplete="off" autofocus required />
+							{{/if}}
+							<span class="floating-label">{{localize "wod.gear.moneybank"}}</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="sheet-headline sheet-banner splatFont">
-		<span class="sheet-banner-text">{{localize "wod.gear.otheritems"}}</span>
-	</div>
+		<div class="sheet-headline sheet-banner splatFont">
+			<span class="sheet-banner-text">{{localize "wod.gear.otheritems"}}</span>
+		</div>
 
-	<div class="sheet-area flex-columns">    
-		<div class="area-box">
+		<div class="sheet-area flex-columns">    
+			<div class="area-box">
 
-			<div class="headlineRow headlineList splatFont gear-itemlist">
-				<div class="width-namebox">{{localize "wod.gear.name"}}</div>     
-				<div class="width-mediumbox">{{localize "wod.gear.type"}}</div>
-				<div class="width-abilitybox">{{localize "wod.dialog.dicepool"}}</div>
-				<div class="width-valuebox">{{localize "wod.combat.weapon.diff"}}</div>
-			</div>
+				<div class="headlineRow headlineList splatFont gear-itemlist">
+					<div class="width-namebox">{{localize "wod.gear.name"}}</div>     
+					<div class="width-mediumbox">{{localize "wod.gear.type"}}</div>
+					<div class="width-abilitybox">{{localize "wod.dialog.dicepool"}}</div>
+					<div class="width-valuebox">{{localize "wod.combat.weapon.diff"}}</div>
+				</div>
 
-			<div>
+				<div>
 
-				{{#each (getItems actor) as |item id|}}
+					{{#each (getItems actor) as |item id|}}
 
-					<div class="item-row-area gear-itemlist">
-						<div class="dragrow headlineNormal gear-itemlist" data-itemid="{{item._id}}">
-							<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+						<div class="item-row-area gear-itemlist">
+							<div class="dragrow headlineNormal gear-itemlist" data-itemid="{{item._id}}">
+								<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
 
-							<div class="width-namebox {{#if item.system.isrollable}}vrollable{{/if}}" 
-									data-type="{{../actor.type}}"
-									data-object="{{item.type}}"
-									data-rollitem="true"
-									data-itemid="{{item._id}}">{{item.name}}</div>
+								<div class="width-namebox {{#if item.system.isrollable}}vrollable{{/if}}" 
+										data-type="{{../actor.type}}"
+										data-object="{{item.type}}"
+										data-rollitem="true"
+										data-itemid="{{item._id}}">{{item.name}}</div>
 
-							<div class="width-mediumbox">{{localize item.system.type}}</div>
+								<div class="width-mediumbox">{{localize item.system.type}}</div>
 
-							{{#if item.system.isrollable}}
-								<div class="width-abilitybox">
-									{{#if (eq item.type "Fetish")}}
-										{{#if ../actor.system.settings.hasgnosis}}
-											{{localize "wod.advantages.gnosis"}}
+								{{#if item.system.isrollable}}
+									<div class="width-abilitybox">
+										{{#if (eq item.type "Fetish")}}
+											{{#if ../actor.system.settings.hasgnosis}}
+												{{localize "wod.advantages.gnosis"}}
+											{{else}}
+												{{localize "wod.advantages.willpower"}}
+											{{/if}}
 										{{else}}
-											{{localize "wod.advantages.willpower"}}
+											{{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
+											{{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
+											{{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
 										{{/if}}
-									{{else}}
-										{{#if (ne item.system.dice1 "")}}{{localize (getAttributes item.system.dice1)}}{{/if}}
-										{{#if (ne item.system.dice2 "")}} + {{localize (getAbility item.system.dice2  ../actor)}}{{/if}}
-										{{#if (gt item.system.bonus 0)}} + {{item.system.bonus}}{{/if}}
-									{{/if}}
-								</div>
-								<div class="width-valuebox">
-									{{#if (eq item.system.difficulty "-1")}}
-										{{localize "wod.labels.varies"}}
-									{{else}}
-										{{item.system.difficulty}}
-									{{/if}}
-								</div>
-							{{else}}
-								<div class="width-abilitybox">&nbsp;</div>
-								<div class="width-valuebox">&nbsp;</div>
-							{{/if}}
-							
-						</div>
-						<div class="iconBox">
-							{{#if (isChecked item.system.isactive)}}
-								<i class="item-active pointer icon fa-solid fa-shield" title="{{localize 'wod.combat.armor.equip'}}" data-itemid="{{item.id}}" data-type="isactive" data-action="itemActive"></i>
-							{{else}}
-								<i class="item-active pointer icon fa-duotone fa-solid fa-shield" title="{{localize 'wod.combat.armor.equip'}}" data-itemid="{{item.id}}" data-type="isactive" data-action="itemActive"></i>
-							{{/if}}
+									</div>
+									<div class="width-valuebox">
+										{{#if (eq item.system.difficulty "-1")}}
+											{{localize "wod.labels.varies"}}
+										{{else}}
+											{{item.system.difficulty}}
+										{{/if}}
+									</div>
+								{{else}}
+									<div class="width-abilitybox">&nbsp;</div>
+									<div class="width-valuebox">&nbsp;</div>
+								{{/if}}
+								
+							</div>
+							<div class="iconBox">
+								{{#if (isChecked item.system.isactive)}}
+									<i class="item-active pointer icon fa-solid fa-shield" title="{{localize 'wod.combat.armor.equip'}}" data-itemid="{{item.id}}" data-type="isactive" data-action="itemActive"></i>
+								{{else}}
+									<i class="item-active pointer icon fa-duotone fa-solid fa-shield" title="{{localize 'wod.combat.armor.equip'}}" data-itemid="{{item.id}}" data-type="isactive" data-action="itemActive"></i>
+								{{/if}}
 
-							{{#if (eq item.system.type "wod.types.treasure")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.treasure" deletetitle="wod.labels.remove.treasure"}}
-							{{else if (eq item.system.type "wod.types.device")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.device" deletetitle="wod.labels.remove.device"}}
-							{{else if (eq item.system.type "wod.types.talisman")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.talisman" deletetitle="wod.labels.remove.talisman"}}
-							{{else if (eq item.system.type "wod.types.periapt")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.periapt" deletetitle="wod.labels.remove.periapt"}}
-							{{else if (eq item.system.type "wod.types.matrix")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.matrix" deletetitle="wod.labels.remove.matrix"}}
-							{{else if (eq item.system.type "wod.types.trinket")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.trinket" deletetitle="wod.labels.remove.trinket"}}
-							{{else if (eq item.system.type "wod.types.fetish")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.fetish" deletetitle="wod.labels.remove.fetish"}}
-							{{else if (eq item.system.type "wod.types.talen")}}
-								{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.talen" deletetitle="wod.labels.remove.talen"}}
-							{{/if}}
-						</div>																			
-					</div>	
-					<div class="description" data-itemid="{{item._id}}">
+								{{#if (eq item.system.type "wod.types.treasure")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.treasure" deletetitle="wod.labels.remove.treasure"}}
+								{{else if (eq item.system.type "wod.types.device")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.device" deletetitle="wod.labels.remove.device"}}
+								{{else if (eq item.system.type "wod.types.talisman")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.talisman" deletetitle="wod.labels.remove.talisman"}}
+								{{else if (eq item.system.type "wod.types.periapt")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.periapt" deletetitle="wod.labels.remove.periapt"}}
+								{{else if (eq item.system.type "wod.types.matrix")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.matrix" deletetitle="wod.labels.remove.matrix"}}
+								{{else if (eq item.system.type "wod.types.trinket")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.trinket" deletetitle="wod.labels.remove.trinket"}}
+								{{else if (eq item.system.type "wod.types.fetish")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.fetish" deletetitle="wod.labels.remove.fetish"}}
+								{{else if (eq item.system.type "wod.types.talen")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.talen" deletetitle="wod.labels.remove.talen"}}
+								{{/if}}
+							</div>																			
+						</div>	
+						<div class="description" data-itemid="{{item._id}}">
 
-						{{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
+							{{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
 
-					</div>			
-					
-				{{/each}}
+						</div>			
+						
+					{{/each}}
 
+				</div>
 			</div>
 		</div>
 	</div>

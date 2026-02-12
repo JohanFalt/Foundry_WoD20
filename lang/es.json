@@ -169,6 +169,7 @@
 			"usepenaltydamage": "Aplicar las penalizaciones por heridas a las tiradas de daño",
 			"existingshapes": "Existing shapes",
 			"orderhint": "Drag the items into the order you want them presented on the sheet.",
+			"splatitem": "Splat Item",
 			"splatfields": "Existing splat fields",
 			"notinstalled": "None installed"
 		},
@@ -1520,7 +1521,9 @@
 				"power": "Habilidad de Poder",
 				"reference": "Referencia",
 				"token": "Token icon",
-				"tokenhint": "Choose what icon that will be added to the sheet's token when this shapeform is active."
+				"tokenhint": "Choose what icon that will be added to the sheet's token when this shapeform is active.",
+				"tokenimage": "Imagen del token",
+				"tokenimagehint": "La imagen que mostrará el token cuando esta forma esté activa. Deje vacío para usar la imagen predeterminada del actor."
 			},
 			"feature": {
 				"trivial": "Trivial",
@@ -1808,6 +1811,10 @@
 				"headline": "Eliminar",
 				"item": "Quitar Objeto",
 				"removing": "Quitando",
+				"splatitem": "Remove Splat Item",
+				"splatwarning": "Remove Splat Item?",
+				"splatwarningtext": "Removing this splat item will delete all splat-related abilities, advantages, features, and powers. This action cannot be undone. Are you sure you want to continue?",
+				"splatremoved": "Splat '{1}' has been removed from '{2}'.",
 				"naturalweapon": "Quitar Arma natural",
 				"meleeweapon": "Quitar Arma cuerpo a cuerpo",
 				"rangedweapon": "Quitar Arma a distancia",

@@ -1,4 +1,5 @@
 import ItemHelper from "./item-helpers.js";
+import { calculateTotals } from "./totals.js";
 
 export default class DropHelper {
 
@@ -731,6 +732,202 @@ export default class DropHelper {
         ui.notifications.info(translation);
 
         return false;
+    }
+
+    /**
+     * Remove splat item and reset actor to initial state (like a newly created PC actor)
+     * This is the reverse operation of DropSplatToActor
+     * @param {Actor} actor - The actor to remove splat from
+     * @param {Item|null} splatItem - The splat item being removed (optional, can be null)
+     * @returns {Promise<boolean>} - Returns true if removal was successful
+     */
+    static async RemoveSplatFromActor(actor, splatItem = null) {
+        // Delete ALL items - reset actor to empty state
+        const allItemIds = actor.items.map(i => i.id);
+        if (allItemIds.length > 0) {
+            await actor.deleteEmbeddedDocuments("Item", allItemIds);
+        }
+
+        
+
+        // Prepare actor data updates - reset to default PC actor state
+        let actorData = foundry.utils.duplicate(actor);
+
+        // Reset all attributes to default (value: 1, bonus: 0, total: 1, max: 5)
+        const attributeDefaults = {
+            strength: { value: 1, bonus: 0, total: 1, max: 5, type: "physical", label: "wod.attributes.strength", speciality: "", sort: 1, isvisible: true, isfavorited: false },
+            dexterity: { value: 1, bonus: 0, total: 1, max: 5, type: "physical", label: "wod.attributes.dexterity", speciality: "", sort: 2, isvisible: true, isfavorited: false },
+            stamina: { value: 1, bonus: 0, total: 1, max: 5, type: "physical", label: "wod.attributes.stamina", speciality: "", sort: 3, isvisible: true, isfavorited: false },
+            charisma: { value: 1, bonus: 0, total: 1, max: 5, type: "social", label: "wod.attributes.charisma", speciality: "", sort: 4, isvisible: true, isfavorited: false },
+            manipulation: { value: 1, bonus: 0, total: 1, max: 5, type: "social", label: "wod.attributes.manipulation", speciality: "", sort: 5, isvisible: true, isfavorited: false },
+            appearance: { value: 1, bonus: 0, total: 1, max: 5, type: "social", label: "wod.attributes.appearance", speciality: "", sort: 6, isvisible: true, isfavorited: false },
+            composure: { value: 1, bonus: 0, total: 1, max: 5, type: "social", label: "wod.attributes.composure", speciality: "", sort: 7, isvisible: false, isfavorited: false },
+            perception: { value: 1, bonus: 0, total: 1, max: 5, type: "mental", label: "wod.attributes.perception", speciality: "", sort: 8, isvisible: true, isfavorited: false },
+            intelligence: { value: 1, bonus: 0, total: 1, max: 5, type: "mental", label: "wod.attributes.intelligence", speciality: "", sort: 9, isvisible: true, isfavorited: false },
+            wits: { value: 1, bonus: 0, total: 1, max: 5, type: "mental", label: "wod.attributes.wits", speciality: "", sort: 10, isvisible: true, isfavorited: false },
+            resolve: { value: 1, bonus: 0, total: 1, max: 5, type: "mental", label: "wod.attributes.resolve", speciality: "", sort: 11, isvisible: false, isfavorited: false }
+        };
+        actorData.system.attributes = attributeDefaults;
+
+        // Reset health damage tracking
+        actorData.system.health.damage = {
+            bashing: 0,
+            lethal: 0,
+            aggravated: 0,
+            woundlevel: "",
+            woundpenalty: 0
+        };
+
+        // Reset health levels to default (all value: 1, total: 1)
+        const healthLevels = ["bruised", "hurt", "injured", "wounded", "mauled", "crippled", "incapacitated"];
+        const healthPenalties = [0, -1, -1, -2, -2, -5, -99];
+        const healthLabels = [
+            "wod.health.bruised",
+            "wod.health.hurt",
+            "wod.health.injured",
+            "wod.health.wounded",
+            "wod.health.mauled",
+            "wod.health.crippled",
+            "wod.health.incapacitated"
+        ];
+        for (let i = 0; i < healthLevels.length; i++) {
+            actorData.system.health[healthLevels[i]] = {
+                value: 1,
+                total: 1,
+                penalty: healthPenalties[i],
+                label: healthLabels[i]
+            };
+        }
+
+        // Reset health totals
+        actorData.system.traits.health.totalhealthlevels.value = 7;
+        actorData.system.traits.health.totalhealthlevels.max = 7;
+
+        // Reset soak values
+        actorData.system.soak = {
+            bashing: 0,
+            lethal: 0,
+            aggravated: 0
+        };
+
+        // Reset soak settings (bonus: 0, isrollable: true for all)
+        for (const damage in CONFIG.worldofdarkness.damageTypes) {
+            actorData.system.settings.soak[damage].bonus = 0;
+            actorData.system.settings.soak[damage].isrollable = true;
+            if (actorData.system.settings.soak.chimerical && actorData.system.settings.soak.chimerical[damage]) {
+                actorData.system.settings.soak.chimerical[damage].bonus = 0;
+                actorData.system.settings.soak.chimerical[damage].isrollable = true;
+            }
+        }
+
+        // Reset initiative
+        actorData.system.initiative = {
+            base: 0,
+            bonus: 0,
+            total: 0
+        };
+
+        // Reset conditions
+        actorData.system.conditions = {
+            isignoringpain: false,
+            isstunned: false,
+            isfrenzy: false
+        };
+
+        // Reset movement
+        actorData.system.movement = {
+            walk: { value: 0, isactive: true },
+            jog: { value: 0, isactive: true },
+            run: { value: 0, isactive: true },
+            fly: { value: 0, isactive: false },
+            vjump: { value: 0, isactive: true },
+            hjump: { value: 0, isactive: true }
+        };
+
+        // Reset gear money
+        actorData.system.gear.money = {
+            carried: 0,
+            bank: 0
+        };
+
+        // Reset favoriterolls to empty array
+        actorData.system.favoriterolls = [];
+
+        // Clear bio.splatfields (remove all splat-specific bio fields)
+        if (actorData.system.bio.splatfields) {
+            // Ta bort alla keys från det befintliga objektet explicit
+            Object.keys(actorData.system.bio.splatfields).forEach(key => {
+                delete actorData.system.bio.splatfields[key];
+            });
+        }
+        // Reset settings to default values
+        actorData.system.settings.splat = "";
+        actorData.system.settings.game = "";
+        actorData.system.settings.variant = "";
+        actorData.system.settings.variantsheet = "";
+        actorData.system.settings.dicesetting = "";
+        actorData.system.settings.era = "wod.era.modern";
+
+        // Reset advantage flags
+        actorData.system.settings.haswillpower = false;
+        actorData.system.settings.hasvirtue = false;
+        actorData.system.settings.hasrenown = false;
+        actorData.system.settings.hasquintessence = false;
+
+        // Reset power flags
+        actorData.system.settings.hasdisciplines = false;
+        actorData.system.settings.hascombinationdisciplines = false;
+        actorData.system.settings.hasrituals = false;
+        actorData.system.settings.hasgifts = false;
+        actorData.system.settings.hasrites = false;
+        actorData.system.settings.hasshapes = false;
+        actorData.system.settings.hasspheres = false;
+        actorData.system.settings.hasrotes = false;
+        actorData.system.settings.hasresonances = false;
+        actorData.system.settings.hasnuminas = false;
+
+        // Reset chimerical
+        actorData.system.settings.usechimerical = false;
+
+        // Keep usesplatfont from game settings (as per default PC actor)
+        actorData.system.settings.usesplatfont = game.settings.get('worldofdarkness', 'useSplatFonts') ?? true;
+
+        // Reset default max values to standard (5)
+        actorData.system.settings.attributes.defaultmaxvalue = 5;
+        actorData.system.settings.abilities.defaultmaxvalue = 5;
+        actorData.system.settings.powers.defaultmaxvalue = 5;
+
+        // Mark as created but not updated (like a new PC actor)
+        actorData.system.settings.iscreated = true;
+        actorData.system.settings.isupdated = false;
+        actorData.system.settings.isshapecreated = false;
+
+        actorData = await calculateTotals(actorData);
+
+        // Update actor
+        await actor.update(actorData);
+
+        await actor.update({
+            "system.bio.splatfields": null
+        }, {
+            recursive: false
+        });
+
+        // Show notification
+        let translation = game.i18n.localize("wod.labels.remove.splatremoved");
+        if (!translation || translation === "wod.labels.remove.splatremoved") {
+            // Fallback if translation doesn't exist
+            const splatName = splatItem?.name || actor.system.settings.splat || "Splat";
+            translation = `Splat item "${splatName}" has been removed from ${actor.name}.`;
+        } else {
+            const splatName = splatItem?.name || actor.system.settings.splat || "Splat";
+            translation = translation.replace("{1}", splatName);
+            translation = translation.replace("{2}", actor.name);
+        }
+
+        ui.notifications.info(translation);
+
+        return true;
     }
 
  

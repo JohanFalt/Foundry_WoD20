@@ -5,19 +5,22 @@
         <!-- Macro icons -->
         {{> "systems/worldofdarkness/templates/actor/parts/macro_icons.hbs"}}				        	
     </div>
-           
-    <!-- Attributes -->
-    <div class="sheet-area flex-columns">
-        {{> "systems/worldofdarkness/templates/actor/parts/stats_attributes.hbs"}} 	
-    </div>
+        
+    <div class="sheet-inner-area">
+        <!-- Attributes -->
+        <div class="sheet-area flex-columns">
+            {{> "systems/worldofdarkness/templates/actor/parts/stats_attributes.hbs"}} 	
+        </div>
 
-    <!-- Abilities -->
-    <div class="sheet-area flex-columns">
-        {{> "systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs" showheadline=true useroll=true showvalues=true showvisibleicon=false}}
-    </div>
+        <!-- Abilities -->
+        <div class="sheet-area flex-columns">
+            {{> "systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs" showheadline=true useroll=true showvalues=true showvisibleicon=false}}
+        </div>
 
-    <!-- Adventages -->
-    <div class="sheet-area flex-columns">
-        {{> "systems/worldofdarkness/templates/actor/parts/stats_advantages.hbs"}}
+        <!-- Adventages -->
+        <div class="sheet-area flex-columns">
+            {{> "systems/worldofdarkness/templates/actor/parts/stats_advantages.hbs"}}
+        </div>
+
     </div>
 </section>

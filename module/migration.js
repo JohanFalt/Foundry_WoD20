@@ -2647,9 +2647,17 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '6.0.2')) {
+            newfunctions += '<li>[PC actor] Added so you can give a shape on PC actor a token image, this causes you to be able to shift token image based on what shape the actor has.</li>'; 
+            newfunctions += '<li>[PC actor] Fixed dark mode problem on the items ability, advantage and spheres used by PC actor.</li>';
+            newfunctions += '<li>[PC actor] Fixed a problem with removing old virtues on PC actors.</li>';
+            newfunctions += '<li>[PC actor] Fixed alignment problems PC actor macro meny.</li>';
+            newfunctions += '<li>[PC actor] Fixed problem to change actor image on PC actor.</li>';             
+        }
+
         if (_compareVersion(installedVersion, '6.0.1')) {
              newfunctions += '<li>[General] Fixed dark mode problem on message wizard.</li>';
-             newfunctions += '<li>[General] Fixed problems to open a newly created PC actor.</li>';
+             newfunctions += '<li>[PC actor] Fixed problems to open a newly created PC actor.</li>';
         }
         
         // if (_compareVersion(installedVersion, '5.0.15')) {

@@ -7,6 +7,7 @@ import CreateHelper from "../scripts/create-helpers.js";
 import CombatHelper from "./combat-helpers.js";
 import BonusHelper from "./bonus-helpers.js";
 import ItemHelper from "./item-helpers.js";
+import DropHelper from "./drop-helpers.js";
 
 import AttributeHelper from "./attribute-helpers.js";
 import SphereHelper from "./sphere-helpers.js";
@@ -1101,6 +1102,7 @@ export const OnItemDelete = async function (event, target) {
 	if (!performDelete)
 		return;
 
+	// Standard item deletion for non-splat items
 	// FIRST remove all bonuses connected to the item
 	await ItemHelper.removeItemBonus(this.actor, item);
 	// If removing a main power the secondary powers needs to be emptied of parentId.
@@ -1113,6 +1115,48 @@ export const OnItemDelete = async function (event, target) {
 	actorData = await calculateTotals(actorData);
 	await this.actor.update(actorData);
 	this.render(); 
+}
+
+export const OnRemoveSplat = async function (event, target) {
+	event.preventDefault();
+	event.stopPropagation();
+
+	if (this.locked) {
+		ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+		return;
+	}
+
+	// Show warning dialog - alltid visa varning oavsett om splat item finns
+	const performDelete = await new Promise((resolve) => {
+		Dialog.confirm({
+			title: game.i18n.localize("wod.labels.remove.splatwarning") || "Remove Splat Item?",
+			yes: () => resolve(true),
+			no: () => resolve(false),
+			content: game.i18n.localize("wod.labels.remove.splatwarningtext") || 
+				`Removing this splat item will delete all splat-related abilities, advantages, features, and powers. This action cannot be undone. Are you sure you want to continue?`
+		});
+	});
+
+	if (!performDelete) {
+		return;
+	}
+
+	// Hitta splat item om det finns (för att ta bort det)
+	const splatItem = this.actor.items.find(i => i.type === "Splat");
+	
+	// Remove splat and all related data (fungerar även utan splat item)
+	await DropHelper.RemoveSplatFromActor(this.actor, splatItem || null);
+	
+	// Delete the splat item itself om det finns
+	// if (splatItem) {
+	// 	await this.actor.deleteEmbeddedDocuments("Item", [splatItem.id]);
+	// }
+
+	// // Recalculate totals and render
+	// let actorData = foundry.utils.duplicate(this.actor);
+	// actorData = await calculateTotals(actorData);
+	// await this.actor.update(actorData);
+	this.render();
 }
 
 // Adds or remove a value (always number) from an existing one
@@ -1316,13 +1360,13 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 	const iconUrl = shapeformItem?.system?.icon?.trim();
 	const isSvg = iconUrl?.toLowerCase().endsWith('.svg');
 	
-	// Skapa unikt status ID baserat på icon URL
+	// Create unique status ID based on icon URL
 	let statusId = "wod_shapeform_icon";
 	if (isSvg) {
 		const fileName = iconUrl.split('/').pop().replace('.svg', '');
 		statusId = `wod_shapeform_${fileName}`;
 		
-		// Registrera status effect dynamiskt om den inte finns
+		// Register status effect dynamically if it doesn't exist
 		if (!Array.isArray(CONFIG.statusEffects)) {
 			CONFIG.statusEffects = [];
 		}
@@ -1335,7 +1379,7 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 		}
 	}
 	
-	// Hjälpfunktion för att konvertera effects till array
+	// Helper function to convert effects to array
 	const getEffectsArray = () => {
 		if (!actor.effects) return [];
 		if (actor.effects instanceof foundry.utils.Collection) return Array.from(actor.effects.values());
@@ -1344,7 +1388,7 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 		return [];
 	};
 	
-	// Hjälpfunktion för att hitta shapeform status keys i en effect
+	// Helper function to find shapeform status keys in an effect
 	const getShapeformStatusKeys = (statuses) => {
 		if (!statuses) return [];
 		const keys = [];
@@ -1364,7 +1408,7 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 		return keys;
 	};
 	
-	// Ta bort alla befintliga shapeform ikoner
+	// Remove all existing shapeform icons
 	const effectsArray = getEffectsArray();
 	const activeShapeformStatuses = new Set();
 	
@@ -1372,13 +1416,13 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 		getShapeformStatusKeys(effect.statuses).forEach(key => activeShapeformStatuses.add(key));
 	}
 	
-	// Deaktivera befintliga status effects
+	// Deactivate existing status effects
 	if (actor.toggleStatusEffect && activeShapeformStatuses.size > 0) {
 		await Promise.all(Array.from(activeShapeformStatuses).map(async (statusKey) => {
 			try {
 				await actor.toggleStatusEffect(statusKey, {active: false});
 			} catch (error) {
-				// Fallback: Ta bort effect direkt om toggleStatusEffect misslyckas
+				// Fallback: Remove effect directly if toggleStatusEffect fails
 				const effect = effectsArray.find(e => {
 					if (!e.statuses) return false;
 					const keys = getShapeformStatusKeys(e.statuses);
@@ -1388,47 +1432,47 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 			}
 		}));
 	} else {
-		// Fallback: Ta bort effects via flags
+		// Fallback: Remove effects via flags
 		const effectsToDelete = effectsArray.filter(e => e.flags?.worldofdarkness?.shapeformIcon === true);
 		await Promise.all(effectsToDelete.map(e => e.delete()));
 	}
 	
-	// Skapa ny ikon om URL finns och är SVG
+	// Create new icon if URL exists and is SVG
 	if (isSvg) {
 		try {
-			// Uppdatera CONFIG.statusEffects med rätt ikon
+			// Update CONFIG.statusEffects with correct icon
 			const statusEffect = CONFIG.statusEffects.find(s => s.id === statusId);
 			if (statusEffect && statusEffect.img !== iconUrl) {
 				statusEffect.img = iconUrl;
 				statusEffect.name = shapeformItem.name || "Shapeform";
 			}
 			
-			// Skapa ActiveEffect
+			// Create ActiveEffect
 			if (actor.toggleStatusEffect) {
 				await actor.toggleStatusEffect(statusId, {active: true});
 				
-				// Uppdatera icon om den skiljer sig
+				// Update icon if it differs
 				const updatedEffects = getEffectsArray();
 				const createdEffect = updatedEffects.find(e => {
 					if (!e || !e.statuses) return false;
 					
-					// Om statuses är en array
+					// If statuses is an array
 					if (Array.isArray(e.statuses)) {
 						return e.statuses.includes(statusId);
 					}
-					// Om statuses är ett objekt
+					// If statuses is an object
 					if (typeof e.statuses === 'object') {
 						return e.statuses[statusId] === true;
 					}
 					return false;
 				});
 				
-				// Kontrollera att createdEffect finns och har update-metod innan vi anropar den
+				// Check that createdEffect exists and has update method before calling it
 				if (createdEffect && typeof createdEffect.update === 'function' && createdEffect.icon !== iconUrl) {
 					await createdEffect.update({icon: iconUrl});
 				}
 			} else {
-				// Fallback: Skapa ActiveEffect direkt
+				// Fallback: Create ActiveEffect directly
 				await actor.createEmbeddedDocuments("ActiveEffect", [{
 					name: shapeformItem.name || "Shapeform",
 					icon: iconUrl,
@@ -1445,7 +1489,7 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 			}
 		} catch (error) {
 			console.error("Failed to create shapeform icon status effect:", error);
-			// Fallback: Försök skapa ActiveEffect direkt
+			// Fallback: Try to create ActiveEffect directly
 			try {
 				await actor.createEmbeddedDocuments("ActiveEffect", [{
 					name: shapeformItem.name || "Shapeform",
@@ -1466,9 +1510,36 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 		}
 	}
 	
-	// Uppdatera tokens på scenen
+	// Update tokens on scene
 	if (canvas?.ready && canvas.tokens) {
 		const tokens = canvas.tokens.placeables.filter(token => token.document.actorId === actor.id);
+		tokens.forEach(token => token.draw());
+	}
+	
+	// ============================================
+	// NEW: Token Image update
+	// ============================================
+	// Get tokenimage, fallback to actor.img if not set
+	const tokenImageUrl = shapeformItem?.system?.tokenimage?.trim() || actor.img;
+	
+	// Update all tokens on scene that belong to this actor
+	if (canvas?.ready && canvas.tokens) {
+		const tokens = canvas.tokens.placeables.filter(token => token.document.actorId === actor.id);
+		
+		// Update each token's image
+		await Promise.all(tokens.map(async (token) => {
+			try {
+				await token.document.update({
+					texture: {
+						src: tokenImageUrl
+					}
+				});
+			} catch (error) {
+				console.error(`Failed to update token image for token ${token.id}:`, error);
+			}
+		}));
+		
+		// Redraw tokens to show changes
 		tokens.forEach(token => token.draw());
 	}
 }
@@ -1506,8 +1577,32 @@ export const OnFormActivate = async function (event, target) {
 		}
 	}
 
-	// Uppdatera token ikon för PC Actors
+	// Update token icon for PC Actors
 	await _updateShapeformTokenIcon(this.actor, item);
+
+	// Check if any form is active after update
+	const activeForm = this.actor.items.find(item => 
+		item.system.type === "wod.types.shapeform" && item.system.isactive
+	);
+
+	// If no form is active, reset token images to actor's default image
+	if (!activeForm) {
+		if (canvas?.ready && canvas.tokens) {
+			const tokens = canvas.tokens.placeables.filter(token => token.document.actorId === this.actor.id);
+			await Promise.all(tokens.map(async (token) => {
+				try {
+					await token.document.update({
+						texture: {
+							src: this.actor.img
+						}
+					});
+				} catch (error) {
+					console.error(`Failed to reset token image:`, error);
+				}
+			}));
+			tokens.forEach(token => token.draw());
+		}
+	}
 
 	let actorData = foundry.utils.duplicate(this.actor);
 	actorData = await calculateTotals(actorData);
@@ -1694,6 +1789,41 @@ export const RollDice = async function (event, target) {
 
 	const dataset = target.dataset;
 	ActionHelper.RollDialog(dataset, this.actor);	
+};
+
+export const OnEditImage = async function (event, target) {
+	event.preventDefault();
+
+	// Check if sheet is locked
+	if (this.locked) {
+		ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
+		return;
+	}
+
+	// Check permissions for actor image editing
+	const userPermissions = ActionHelper._getUserPermissions(game.user);
+	if (!userPermissions.changeActorImage) {
+		return;
+	}
+
+	// Top-level variables
+	const actor = this.actor;
+	const FilePicker = foundry.applications.apps.FilePicker.implementation;
+
+	// Get the field to edit from data-edit attribute, default to "img"
+	const editField = target?.dataset?.edit || "img";
+
+	await new FilePicker({
+		type: 'image',
+		current: foundry.utils.getProperty(actor, editField) || actor.img,
+		callback: async (path) => {
+			const updateData = {};
+			updateData[editField] = path;
+			await actor.update(updateData);
+		},
+		top: this.position.top + 40,
+		left: this.position.left + 10
+	}).browse();
 };
 
 function setNested(obj, pathArray, value) {

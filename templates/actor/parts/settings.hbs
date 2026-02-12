@@ -10,12 +10,14 @@
 		<a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="power">{{localize "wod.tab.power"}}</a>
 		<a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="combat">{{localize "wod.tab.combat"}}</a>
 		<!-- <a class="secondHeadlineTabs thin-border-left" data-action="settingsTab" data-tab="features">{{localize "wod.tab.features"}}</a> -->
-		<!-- <a class="secondHeadlineTabs thin-border-left thin-border-right" data-action="settingsTab" data-tab="sheet">features</a> -->
+		<!-- <a class="secondHeadlineTabs thin-border-left thin-border-right" data-action="settingsTab" data-tab="sheet">LANG: Sheet</a> -->
 	</nav>
 
 	<section class="sheet-setting-body">
 		{{!-- Bio --}}
 		<div class="tab settings-bio" data-group="settings" data-tab="bio">
+
+				
 
 			<div class="space headlineGroup splatFont">{{localize 'wod.settings.splatfields'}}</div>
 
@@ -155,30 +157,41 @@
 				{{/each}}
 			</div>
 
-			{{#if actor.system.settings.hasvirtue}}
-				<div class="headlineGroup splatFont">{{localize "wod.advantages.virtue.virtues"}}</div>
+			{{#if hasGroupedAdvantages}}
+				{{#each groupedadvantages as |groupData|}}
+					<div class="headlineGroup splatFont">
+						{{#if (eq groupData.group "virtue")}}
+							{{localize "wod.advantages.virtue.virtues"}}
+						{{else if (eq groupData.group "renown")}}
+							{{localize "wod.advantages.renown"}}
+						{{else if (eq groupData.group "quintessence")}}
+							{{localize "wod.advantages.quintessence.headline"}}
+						{{else}}
+							{{groupData.group}}
+						{{/if}}
+					</div>
 
-				<div class="dialog-area flex-columns">
-					{{#each vampire_virtues as |item|}}
-						<div class="flex-row">
-							<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
-							<div>
-								{{#if (not ../locked)}}
-									{{#if item.system.settings.isvisible}}
-										<i class="item-active pointer icon fa-solid fa-eye" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
-									{{else}}
-										<i class="item-active pointer icon fa-solid fa-eye-slash" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+					<div class="dialog-area flex-columns">
+						{{#each groupData.items as |item|}}
+							<div class="flex-row">
+								<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
+								<div>
+									{{#if (not ../../locked)}}
+										{{#if item.system.settings.isvisible}}
+											<i class="item-active pointer icon fa-solid fa-eye" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+										{{else}}
+											<i class="item-active pointer icon fa-solid fa-eye-slash" data-itemid="{{item._id}}" data-type="settings.isvisible" data-action="itemSwitch"></i>
+										{{/if}}
+										<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+										{{#if item.system.settings.isremovable}}
+											<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+										{{/if}}
 									{{/if}}
-									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
-									{{#if item.system.settings.isremovable}}
-										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
-									{{/if}}
-								{{/if}}
+								</div>
 							</div>
-						</div>
-					{{/each}}
-				</div>
-
+						{{/each}}
+					</div>
+				{{/each}}
 			{{/if}}
 		</div>
 
@@ -512,8 +525,17 @@
 		</div>
 
 		{{!-- Sheet --}}
-		<div class="tab settings-sheet" data-group="settings" data-tab="sheet" style="display:none;">
+		<div class="tab settings-sheet" data-group="settings" data-tab="sheet">
 			<div class="sheet-area flex-columns">
+				<div class="space headlineGroup splatFont">{{localize 'wod.settings.splatitem'}}</div>
+				<div class="flex-row advantage-item">
+					<div class="headlineNormal" style="width:150px;">LANG: Döda knappen!!!!</div>
+					<div>
+						<a class="pointer splat-remove" title="{{localize 'wod.labels.remove.splatitem'}}" data-action="removeSplat"><i class="icon fa-solid fa-trash-can"></i> {{localize 'wod.labels.remove.splatitem'}}</a>
+					</div>
+				</div>
+
+
 				<div class="headlineGroup splatFont">{{localize "wod.labels.settings.game"}}</div>
 
 				<button class="dialog-three-button fullSplatColor button sheet_vampire {{#if (eq actor.system.settings.game "vampire")}}active{{/if}}">{{localize "wod.games.vampire"}}</button>
