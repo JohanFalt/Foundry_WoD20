@@ -18,7 +18,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk)
 
 ## Supported sheets
-For Vampire, Werewolf and Mage use PC actor.
+For Vampire, Werewolf and Mage use [PC actor](https://github.com/JohanFalt/Foundry_WoD20/wiki/PC-Actor).
 
 - Mortals (General, Orpheus, Sorcerer 20th ed, Autumn people, Enchanted, Ghoul, Kinfolk)
 - [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade) (General, Kindred of the East)
