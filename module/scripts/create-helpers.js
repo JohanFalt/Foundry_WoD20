@@ -2016,6 +2016,7 @@ export default class CreateHelper {
 							name: game.i18n.localize("wod.labels.new.shapeform"),
 							type: "Trait",
 							system: {
+								label: game.i18n.localize("wod.labels.new.shapeform"),
 								iscreated: true,
 								level: 0,
 								type: "wod.types.shapeform"

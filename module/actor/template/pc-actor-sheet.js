@@ -762,20 +762,23 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 			await DropHelper.OnDropItem(event, droppedItem, this.actor);
 		 	return;
 		}
-		if (droppedItem.type === "Ability") {
-			if (droppedItem.system.type === "wod.abilities.ability") {
-        		droppedItem.system.type = "wod.abilities.talent";
-        	}
+
+		const itemData = droppedItem.toObject();
+		
+		if (itemData.type === "Ability") {
+			if (itemData.system.type === "wod.abilities.ability") {
+				itemData.system.type = "wod.abilities.talent";
+			}
 		}		
 
-    	if (droppedItem.system?.isremovable !== undefined) {
-			droppedItem.system.isremovable = true;
+		if (itemData.system?.isremovable !== undefined) {
+			itemData.system.isremovable = true;
 		}
-		if (droppedItem.system?.settings?.isremovable !== undefined) {
-			droppedItem.system.settings.isremovable = true;
+		if (itemData.system?.settings?.isremovable !== undefined) {
+			itemData.system.settings.isremovable = true;
 		}
 
-		return this.actor.createEmbeddedDocuments('Item', [droppedItem]);
+		return await this.actor.createEmbeddedDocuments('Item', [itemData]);
     }
 
 	async _onReorderItem(event, data) {

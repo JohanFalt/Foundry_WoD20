@@ -9,7 +9,7 @@
                     <div class="shape-panel-header flex-rows">
                         <div class="shape-selector {{#if shapeform.system.isactive}}shape-selector-active{{/if}}" style="width: 140px;"
                              data-form="{{shapeform._id}}" data-itemid="{{shapeform._id}}" data-type="isactive" data-action="formActive">
-                            {{shapeform.name}}                            
+                            {{localize shapeform.system.label}}                            
                         </div>
                         <div>
                             <i class="pointer icon collapsible button power fa-solid fa-expand"
@@ -25,7 +25,7 @@
                             {{else}}
                                 {{#each (getShapeformAttributeBonuses shapeform) as |bonus|}}
                                     {{#if (eq bonus.type "attribute_fixed_value")}}
-                                        {{localize (getAttributeShortKey bonus.settingtype)}} {{bonus}}<br />
+                                        {{localize (getAttributeShortKey bonus.settingtype)}} {{formatBonusValue bonus}}<br />
                                     {{else if (eq bonus.type "attribute_buff")}}
                                         {{localize (getAttributeShortKey bonus.settingtype)}} ({{formatBonusValue bonus}})<br />
                                     {{else if (eq bonus.type "attribute_diff")}}

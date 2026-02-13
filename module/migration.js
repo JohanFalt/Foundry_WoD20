@@ -2647,6 +2647,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '6.0.3')) {
+            newfunctions += '<li>[PC actor] Fixed more dark mode problems.</li>'; 
+            newfunctions += '<li>[PC actor] Fixed a problem that caused some of the items added by drag and drop could not be removed.</li>';
+            newfunctions += '<li>[PC actor] Fixed a viewing problem with shapes that used a fixed value bonus.</li>';
+        }
+
         if (_compareVersion(installedVersion, '6.0.2')) {
             newfunctions += '<li>[PC actor] Added so you can give a shape on PC actor a token image, this causes you to be able to shift token image based on what shape the actor has.</li>'; 
             newfunctions += '<li>[PC actor] Fixed dark mode problem on the items ability, advantage and spheres used by PC actor.</li>';

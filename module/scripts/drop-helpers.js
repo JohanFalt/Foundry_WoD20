@@ -54,7 +54,6 @@ export default class DropHelper {
             update = true;
         }
 
-        // TODO: App v2
         if (droppedItem.type === "Sphere") {
             ui.notifications.warn(game.i18n.localize("wod.labels.drop.dropsphere"));
 

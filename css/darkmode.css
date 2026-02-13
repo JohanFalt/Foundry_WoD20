@@ -226,3 +226,56 @@
 .wod-theme-dark.wod20.migration-wizard-dialog .headlineGroup {
     color: var(--darkmode-textcolor-dark);
 }
+
+/* Settings Dialog Dark Mode Styles */
+.wod-theme-dark.wod20rule-dialog .window-content {
+    background: var(--darkmode-black);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog .setting-dialog {
+    background: var(--darkmode-black);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog .settings-list {
+    background: var(--darkmode-black);
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog .module-header {
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog .setting-area {
+    background: var(--darkmode-area10-background);
+    color: var(--darkmode-textcolor-dark);
+    border-color: var(--main-full-color);
+}
+
+.wod-theme-dark.wod20rule-dialog .form-group {
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog label {
+    color: var(--darkmode-textcolor-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog .notes {
+    color: var(--darkmode-textcolor-dark);
+    opacity: 0.8;
+}
+
+.wod-theme-dark.wod20rule-dialog .sheet-footer {
+    background: var(--darkmode-area10-background);
+    border-top-color: var(--main-full-color);
+}
+
+.wod-theme-dark.wod20rule-dialog .sheet-footer button {
+    color: var(--darkmode-textcolor-dark);
+    background: var(--darkmode-background-dark);
+}
+
+.wod-theme-dark.wod20rule-dialog .sheet-footer button:hover {
+    background: var(--darkmode-background-light);
+}
