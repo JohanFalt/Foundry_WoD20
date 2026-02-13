@@ -369,6 +369,17 @@ Hooks.once("init", async function() {
 
 	console.log("WoD | Added Handelebars");
 
+	// Register all system hooks
+	const hooksConstants = {
+		SheetTypes,
+		AdversaryTypes,
+		PowerCreationItemTypes,
+		CharacterCreationItemTypes,
+		EquipmentItemTypes
+	};
+	registerHooks(hooksConstants, isTablet);
+	console.log("WoD | Added Hooks");
+
 	// Initialize the alterations to the settings sidebar
 	RenderSettings();
 
@@ -645,15 +656,7 @@ Hooks.once("ready", async function () {
 		isTablet = true;
 	}
 
-	// Register all system hooks
-	const hooksConstants = {
-		SheetTypes,
-		AdversaryTypes,
-		PowerCreationItemTypes,
-		CharacterCreationItemTypes,
-		EquipmentItemTypes
-	};
-	registerHooks(hooksConstants, isTablet);
+	
 });
 
 //Dice Roller

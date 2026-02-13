@@ -2,7 +2,7 @@
     "id": "worldofdarkness",
     "title": "World of Darkness 20th edition",
     "description": "To play World of Darkness 20th ed. Support for all the larger and most of the smaller games of the gameline. Portions of the materials are the copyrights and trademarks of Paradox Interactive AB, and are used with permission. All rights reserved. For more information please visit worldofdarkness.com.",
-    "version": "6.0.3",
+    "version": "6.0.4",
     "compatibility": {
         "minimum": "13",
         "verified": "13",
@@ -741,7 +741,7 @@
     "bugs": "https://github.com/JohanFalt/Foundry_WoD20/issues",
     "changelog": "https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog",
     "background": "systems/worldofdarkness/assets/img/graphics/wod.png",
-    "manifest": "https://github.com/JohanFalt/Foundry_WoD20/releases/download/v6.0.3/system.json",
-    "download": "https://github.com/JohanFalt/Foundry_WoD20/releases/download/v6.0.3/v6.0.3.zip",
+    "manifest": "https://github.com/JohanFalt/Foundry_WoD20/releases/download/v6.0.4/system.json",
+    "download": "https://github.com/JohanFalt/Foundry_WoD20/releases/download/v6.0.4/v6.0.4.zip",
     "license": "LICENSE.txt"
 }

@@ -2647,7 +2647,7 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        if (_compareVersion(installedVersion, '6.0.3')) {
+        if (_compareVersion(installedVersion, '6.0.4')) {
             newfunctions += '<li>[PC actor] Fixed more dark mode problems.</li>'; 
             newfunctions += '<li>[PC actor] Fixed a problem that caused some of the items added by drag and drop could not be removed.</li>';
             newfunctions += '<li>[PC actor] Fixed a viewing problem with shapes that used a fixed value bonus.</li>';
