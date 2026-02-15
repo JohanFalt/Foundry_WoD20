@@ -418,52 +418,53 @@ export default class CreateHelper {
 
 		return updates;
 	}
-	
-	static async SetMortalAttributes(actor) {
+
+	static async SetMortalAttributesv2(updates, actor) {
 		console.log('WoD | Set Mortal Attributes');
 
 		let willpower = -1;
 
+		// Set all attributes to visible
 		for (const attribute in actor.system.attributes) {
-			actor.system.attributes[attribute].isvisible = true;
+			updates["system.attributes." + attribute + ".isvisible"] = true;
 		}
 
 		if (CONFIG.worldofdarkness.attributeSettings == "5th") {
-			actor.system.attributes.appearance.isvisible = false;
-			actor.system.attributes.perception.isvisible = false;
+			updates["system.attributes.appearance.isvisible"] = false;
+			updates["system.attributes.perception.isvisible"] = false;
 
 			if (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "20th") {
-				actor.system.advantages.willpower.permanent = 0;
+				updates["system.advantages.willpower.permanent"] = 0;
 			}
 			else {
-				actor.system.advantages.willpower.permanent = 2;
+				updates["system.advantages.willpower.permanent"] = 2;
 			}			
 		}
 		else {
-			actor.system.attributes.composure.isvisible = false;
-			actor.system.attributes.resolve.isvisible = false;
-			actor.system.advantages.willpower.permanent = 0;
+			updates["system.attributes.composure.isvisible"] = false;
+			updates["system.attributes.resolve.isvisible"] = false;
+			updates["system.advantages.willpower.permanent"] = 0;
 		}
-	
+
 		if (CONFIG.worldofdarkness.rollSettings) {
 			willpower = actor.system.advantages.willpower.permanent; 
 		}
 		else {
 			willpower = actor.system.advantages.willpower.permanent > actor.system.advantages.willpower.temporary ? actor.system.advantages.willpower.temporary : actor.system.advantages.willpower.permanent; 
 		}
-	
-		actor.system.advantages.willpower.roll = willpower;
 
-		actor.system.settings.soak.bashing.isrollable = true;
-		actor.system.settings.soak.lethal.isrollable = false;
-		actor.system.settings.soak.aggravated.isrollable = false;
+		updates["system.advantages.willpower.roll"] = willpower;
 
-		actor.system.settings.haswillpower = true;
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = false;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
 
-		return actor;
+		updates["system.settings.haswillpower"] = true;
+
+		return updates;
 	}
 
-	static async SetVampireAttributesv2(updates) {
+	static async SetVampireAttributesv2(updates, actor) {
 		console.log('WoD | Set Vampire Attributes');
 
 		updates["system.settings.soak.bashing.isrollable"] = true;
@@ -680,6 +681,16 @@ export default class CreateHelper {
 		return actor;
 	}
 
+	static async SetOrpheusAttributesv2(updates, actor) {
+		console.log('WoD | Set Orpheus Attributes');
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = true;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
+
+		return updates;
+	}
+
 	static async SetSorcererAttributes(actor) {
 		console.log('WoD | Set Sorcerer Attributes');
 
@@ -688,6 +699,16 @@ export default class CreateHelper {
 		actor.system.settings.soak.aggravated.isrollable = false;
 
 		return actor;
+	}
+
+	static async SetSorcererAttributesv2(updates, actor) {
+		console.log('WoD | Set Sorcerer Attributes');
+
+		updates["system.settings.soak.bashing.isrollable"] = true;
+		updates["system.settings.soak.lethal.isrollable"] = false;
+		updates["system.settings.soak.aggravated.isrollable"] = false;
+
+		return updates;
 	}
 
 	static async SetMummyAttributes(actor) {

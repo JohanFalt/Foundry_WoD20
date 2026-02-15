@@ -30,13 +30,13 @@
 				</div>
 
                 {{#if (eq field.label "wod.bio.vampire.generation")}}
-                <div style="top: -25px; left: 85px; position: relative;">
-                    <i class="fa-solid fa-square-minus pointer" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-action="generationChange" data-source="reduce" data-field-key="{{key}}" aria-hidden="true"></i>
-                    <i class="fa-solid fa-eraser pointer" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-action="generationChange" data-source="clear" data-field-key="{{key}}" aria-hidden="true"></i>
-                    {{#if field.mod}}
-                        <span>-{{field.mod}}</span>
-                    {{/if}}
-                </div>
+                    <div style="top: -25px; left: 85px; position: relative;">
+                        <i class="fa-solid fa-square-minus pointer" title="{{localize 'wod.bio.vampire.lowergeneration'}}" data-action="generationChange" data-source="reduce" data-field-key="{{key}}" aria-hidden="true"></i>
+                        <i class="fa-solid fa-eraser pointer" title="{{localize 'wod.bio.vampire.cleargeneration'}}" data-action="generationChange" data-source="clear" data-field-key="{{key}}" aria-hidden="true"></i>
+                        {{#if field.mod}}
+                            <span>-{{field.mod}}</span>
+                        {{/if}}
+                    </div>
                 {{/if}}
 
             {{/if}}

@@ -1779,6 +1779,7 @@ export const OnGenerationChange = async function (event, target) {
 	actorData.system.settings.isupdated = false;
 	
 	await actor.update(actorData);
+	await actor._setItems();
 	this.render();
 }
 

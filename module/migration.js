@@ -2647,6 +2647,14 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '6.0.5')) {
+            newfunctions += '<li>[General] Fixed problem creating secondary abilities.</li>';
+            newfunctions += '<li>[General] Fixed problem updating secondary abilities.</li>';
+            newfunctions += '<li>[PC actor] Fixed problem showing 5th edition attributes.</li>'; 
+            newfunctions += '<li>[PC actor] Generation value not shown on locked sheet.</li>'; 
+            newfunctions += '<li>[PC actor] Fixed problem handling generation shifts that cause max values to be altered.</li>';            
+        }
+
         if (_compareVersion(installedVersion, '6.0.4')) {
             newfunctions += '<li>[PC actor] Fixed more dark mode problems.</li>'; 
             newfunctions += '<li>[PC actor] Fixed a problem that caused some of the items added by drag and drop could not be removed.</li>';

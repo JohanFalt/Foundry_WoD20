@@ -140,7 +140,7 @@ export class WoDItem extends Item {
 
     async _handleAdvantagesCalculations(item, itemData) {
         try {
-			let actor = item.actor;
+			let actor = game.actors.get(item.actor._id);
 
             let traitMax = 5;
 			// let bloodpoolMax = 10;
@@ -153,6 +153,7 @@ export class WoDItem extends Item {
             catch (e) {
                 advantageRollSetting = true;
             }
+
 
 			if (actor !== null) {
 				traitMax = actor.system.settings.powers.defaultmaxvalue;

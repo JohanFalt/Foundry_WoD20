@@ -83,7 +83,7 @@ export default class WoDItemSheetV2 extends HandlebarsApplicationMixin(foundry.a
 
         data.locked = this.locked;
         data.isCharacter = this.isCharacter;
-        data.isGM = this.isGM;
+        data.isGM = this.isGM;     
 
         return {
             ...data

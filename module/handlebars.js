@@ -252,12 +252,13 @@ export const registerHandlebarsHelpers = function () {
 			return value;
 		}
 
-		// const list = listData[listname]
-		// 				.filter(item => item.value === value);
-		// return game.i18n.localize(list.label);
+		let returnvalue = game.i18n.localize(listData[listname]?.find(i => i.value === value)?.label ?? "");
 
-		return game.i18n.localize(listData[listname]?.find(i => i.value === value)?.label ?? ""
-	);
+		if ((returnvalue == "") && (value != "")) {
+			return value;
+		}
+
+		return  returnvalue;
 	});	
 
 	/* get advantages box mainly used on Core (application v1) */
@@ -1953,4 +1954,9 @@ export const registerHandlebarsHelpers = function () {
 		return ability;
 	}
 }
+
+
+
+
+
 

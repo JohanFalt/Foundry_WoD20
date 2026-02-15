@@ -97,8 +97,14 @@
     color: var(--darkmode-textcolor-light);
 }
 
+.wod-theme-dark.wod20 .secondHeadlineTabs {
+    color: #fff; 
+    font-weight: normal;
+}
+
 .wod-theme-dark.wod20 .secondHeadlineTabs:hover {
     color: var(--darkmode-textcolor-light); 
+    font-weight: normal;
 }
 
 .wod-theme-dark.wod-sheet .sheet-headline,
