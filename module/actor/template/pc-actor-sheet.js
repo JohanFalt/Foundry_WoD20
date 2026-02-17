@@ -334,7 +334,7 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 		}
 
 		// is an item
-		if (target.dataset.itemid !== undefined) {
+		if (target?.dataset?.itemid !== undefined) {
 			let value;
 
 			// Handle numbers and strings properly
@@ -392,6 +392,8 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 				// Update the actor data
 				await this.actor.update(expandedData);
 			}
+
+			await this.actor._setItems();
 		} 
 	}
 

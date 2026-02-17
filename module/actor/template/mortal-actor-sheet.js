@@ -62,7 +62,6 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 		data.isCharacter = this.isCharacter;
 		data.isGM = this.isGM;		
 
-		//await actor._setItems(data.actor, data.actor.system);
 		await ItemHelper.sortActorItems(data.actor, data.config);
 
 		data.actor.system.appearance = await foundry.applications.ux.TextEditor.implementation.enrichHTML(data.actor.system.appearance, {async: true});
@@ -1151,7 +1150,7 @@ export default class MortalActorSheet extends foundry.appv1.sheets.ActorSheet {
 		}
 
 		const actorData = foundry.utils.duplicate(this.actor);
-		actorData.system.movement = await CombatHelper.CalculateMovement(actorData);
+		//actorData.system.movement = await CombatHelper.CalculateMovement(actorData);
 		actorData.system.settings.isupdated = false;
 		await this.actor.update(actorData);
 		this.render();

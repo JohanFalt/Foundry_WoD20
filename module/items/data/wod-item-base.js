@@ -61,39 +61,35 @@ export class WoDItem extends Item {
 	}
 
 	async _preUpdate(updateData, options, user) {
-		let item;
-
 		try {
-			item = this;
-
 			if (!updateData.system) {
 				updateData.system = {};
 			}
 
-			if (item.type === "Ability") {
-				updateData = await this._handleAbilitiesCalculations(item, updateData);
+			if (updateData.type === "Ability") {
+				updateData = await this._handleAbilitiesCalculations(updateData);
 			}
 
-			if (item.type === "Advantage") {
-				updateData = await this._handleAdvantagesCalculations(item, updateData);
+			if (updateData.type === "Advantage") {
+				updateData = await this._handleAdvantagesCalculations(updateData);
 			}                
 
-			if (item.type === "Sphere") {
-				updateData = await this._handlePowerCalculations(item, updateData);
+			if (updateData.type === "Sphere") {
+				updateData = await this._handlePowerCalculations(updateData);
 			}  
 
-			if (item.type === "Power") {
-				updateData = await this._handlePowerCalculations(item, updateData);
+			if (updateData.type === "Power") {
+				updateData = await this._handlePowerCalculations(updateData);
 			} 
 
 			// Call super._preUpdate to allow parent class to process
 			return await super._preUpdate(updateData, options, user);
 		}
 		catch (err) {
-			ui.notifications.error(`Cannot update Item ${item?.name}. Please check console for details.`);
-			err.message = `Cannot update Item ${item?.name}: ${err.message}`;
+			ui.notifications.error(`Cannot update Item ${updateData.name}. Please check console for details.`);
+			err.message = `Cannot update Item ${updateData.name}: ${err.message}`;
 			console.error(err);
-			console.log(item);
+			console.log(updateData);
 			return false; // Prevent update if there's an error
 		}
 	}
@@ -111,7 +107,11 @@ export class WoDItem extends Item {
 	async _handleAbilitiesCalculations(itemData) {
         try {
             const item = this;
-			let actor = item.actor;
+			let actor = null;
+			
+			if ((item.actor !== undefined) && (item.actor !== null)) {
+				actor = game.actors.get(item.actor._id);
+			}
 
 			let traitMax = 5;
 
@@ -122,7 +122,6 @@ export class WoDItem extends Item {
 			if (itemData.system.max === traitMax) {
 				return itemData;
 			}
-
 
             itemData.system.max = traitMax;
 
@@ -138,9 +137,14 @@ export class WoDItem extends Item {
         return itemData;
     }
 
-    async _handleAdvantagesCalculations(item, itemData) {
+    async _handleAdvantagesCalculations(itemData) {
         try {
-			let actor = game.actors.get(item.actor._id);
+			const item = this;
+			let actor = null;
+			
+			if ((item.actor !== undefined) && (item.actor !== null)) {
+				actor = game.actors.get(item.actor._id);
+			}
 
             let traitMax = 5;
 			// let bloodpoolMax = 10;
@@ -159,7 +163,7 @@ export class WoDItem extends Item {
 				traitMax = actor.system.settings.powers.defaultmaxvalue;
 			}
 
-			if (itemData.system?.id === "willpower") {
+			if ((itemData.system?.id === "willpower") && (actor !== null)) {
 			 	if ((CONFIG.worldofdarkness.attributeSettings === "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting === "5th") && (actor !== null)) {
 					if (actor.system.settings.variant !== "spirit") {
 						itemData.system.permanent = parseInt(actor.system.attributes.composure.value) + parseInt(actor.system.attributes.resolve.value);
@@ -236,8 +240,12 @@ export class WoDItem extends Item {
 
 	async _handlePowerCalculations(itemData) {
         try {
-            const item = this;
-			let actor = item.actor;
+            const item = this;			
+			let actor = null;
+			
+			if ((item.actor !== undefined) && (item.actor !== null)) {
+				actor = game.actors.get(item.actor._id);
+			}
 
 			let traitMax = 5;
 

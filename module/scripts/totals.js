@@ -173,56 +173,59 @@ export async function calculateTotals(updateData) {
 	}
 
 	// armor
-	for (const i of actor.items) {
-		if ((i.type == "Armor") && (i.system?.isequipped)) {
-			if (updateData.system.shapes == undefined) {
-				updateData.system.soak.bashing += i.system.soak.bashing;
-				updateData.system.soak.lethal += i.system.soak.lethal;
-				updateData.system.soak.aggravated += i.system.soak.aggravated;
-				updateData.system.attributes.dexterity.total += i.system.dexpenalty;
+	if (actor !== undefined) {
+		for (const i of actor?.items) {
+			if ((i.type == "Armor") && (i.system?.isequipped)) {
+				if (updateData.system.shapes == undefined) {
+					updateData.system.soak.bashing += i.system.soak.bashing;
+					updateData.system.soak.lethal += i.system.soak.lethal;
+					updateData.system.soak.aggravated += i.system.soak.aggravated;
+					updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
-				/* If changeling */
-				if (usechimerical) {
-					updateData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
-					updateData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
-					updateData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
+					/* If changeling */
+					if (usechimerical) {
+						updateData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
+						updateData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
+						updateData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
+					}
 				}
-			}
-			/* If Werewolf or Changing breed */
-			else {
-				for (const form in updateData.system.shapes) {
-					if (updateData.system.shapes[form].isactive) {
-						let hasform = false;
+				/* If Werewolf or Changing breed */
+				else {
+					for (const form in updateData.system.shapes) {
+						if (updateData.system.shapes[form].isactive) {
+							let hasform = false;
 
-						if (form == "homid") {
-							hasform = i.system.forms.hashomid;
-						}
-						if (form == "glabro") {
-							hasform = i.system.forms.hasglabro;
-						}
-						if (form == "crinos") {
-							hasform = i.system.forms.hascrinos;
-						}
-						if (form == "hispo") {
-							hasform = i.system.forms.hashispo;
-						}
-						if (form == "lupus") {
-							hasform = i.system.forms.haslupus;
-						}
+							if (form == "homid") {
+								hasform = i.system.forms.hashomid;
+							}
+							if (form == "glabro") {
+								hasform = i.system.forms.hasglabro;
+							}
+							if (form == "crinos") {
+								hasform = i.system.forms.hascrinos;
+							}
+							if (form == "hispo") {
+								hasform = i.system.forms.hashispo;
+							}
+							if (form == "lupus") {
+								hasform = i.system.forms.haslupus;
+							}
 
-						if (hasform) {
-							updateData.system.soak.bashing += i.system.soak.bashing;
-							updateData.system.soak.lethal += i.system.soak.lethal;
-							updateData.system.soak.aggravated += i.system.soak.aggravated;
-							updateData.system.attributes.dexterity.total += i.system.dexpenalty;
+							if (hasform) {
+								updateData.system.soak.bashing += i.system.soak.bashing;
+								updateData.system.soak.lethal += i.system.soak.lethal;
+								updateData.system.soak.aggravated += i.system.soak.aggravated;
+								updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
-							break;
-						}	
-					}		
+								break;
+							}	
+						}		
+					}
 				}
 			}
 		}
 	}
+	
 
 	// health levels totals
 	for (const i in CONFIG.worldofdarkness.woundLevels) {

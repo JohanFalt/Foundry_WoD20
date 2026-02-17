@@ -63,6 +63,7 @@ export class WoDActor extends Actor {
                 // Derived calculations: Wound levels
                 await this._handleWoundLevelCalculations(actorData);
                 
+                
                 // Derived calculations: Movement (needs total dexterity and all active items)
                 systemData.movement = await CombatHelper.CalculateMovementv2(actorData);
             }
@@ -152,11 +153,10 @@ export class WoDActor extends Actor {
                     await this._keepSheetValuesCorrect(actorData);
                 }
 
+                
                 // Derived calculations: Wound levels
                 await this._handleWoundLevelCalculations(actorData);
-
-                // Derived calculations: Totals (must be run last as all items, bonuses and changes need to be added FIRST)
-                //await calculateTotals(actorData);
+                
 
                 // Derived calculations: Movement (needs total dexterity and all active items)
                 systemData.movement = await CombatHelper.CalculateMovement(actorData);
@@ -394,8 +394,6 @@ export class WoDActor extends Actor {
 
 
         }
-
-        await calculateTotals(actorData);
     }
 
     
@@ -608,6 +606,115 @@ export class WoDActor extends Actor {
 
     async _onUpdate(updateData, options, user) {
         super._onUpdate(updateData, options, user);
+
+        if (this.type !== "PC") {
+            let actor;
+
+            try {
+                actor = this;
+
+                if ((!actor) || (actor == undefined)) {
+                    return;
+                }
+
+                // if no owner skip
+                if (actor.permission < 3) {
+                    return;
+                }
+
+                updateData = foundry.utils.duplicate(actor);
+            
+            if ((updateData?.system?.settings?.isupdated == undefined) || (updateData?.system?.settings?.isupdated)) {
+                return;
+            }        
+
+            let advantageRollSetting = true;        
+            let isSpirit = false;
+
+            if ((updateData.type == CONFIG.worldofdarkness.sheettype.creature) && (updateData.system.settings.variant == "spirit")) {
+                isSpirit = true;
+            }
+
+            try {
+                advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
+            } 
+            catch (e) {
+                advantageRollSetting = true;
+            }
+
+            // abilities max
+            // set base line of what is normally max values
+            updateData = await this._setAbilityMaxValue(updateData);
+
+            // willpower
+            if (updateData.system.settings.variant != "spirit") {
+                if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
+                    updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
+                }
+            }            
+            
+            if (updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.max) {
+                updateData.system.advantages.willpower.permanent = updateData.system.advantages.willpower.max;
+            }
+            
+            if (updateData.system.advantages.willpower.permanent < updateData.system.advantages.willpower.temporary) {
+                updateData.system.advantages.willpower.temporary = updateData.system.advantages.willpower.permanent;
+            }
+
+            if (advantageRollSetting) {
+                updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent;
+            }
+            else {
+                updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.temporary ? updateData.system.advantages.willpower.temporary : updateData.system.advantages.willpower.permanent; 
+            }
+
+            if ((updateData.system.settings.hasrage) || (updateData.system.settings.hasgnosis)) {
+                updateData = await this._handleWerewolfCalculations(updateData);
+            }
+            if ((updateData.system.settings.haspath) || (updateData.system.settings.hasbloodpool) || (updateData.system.settings.hasvirtue)) {
+                updateData = await this._handleVampireCalculations(updateData);
+            }
+            if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
+                updateData = await this._handleMageCalculations(updateData);
+            }
+            if (updateData.system.settings.hasglamour) {
+                updateData = await this._handleChangelingCalculations(updateData);
+            }
+            if (updateData.system.settings.hasconviction) {
+                updateData = await this._handleHunterCalculations(updateData);
+            }
+            if ((updateData.system.settings.hasfaith) || (updateData.system.settings.hastorment)) {
+                updateData = await this._handleDemonCalculations(updateData);
+            }
+            if (updateData.system.settings.hasbalance) {
+                updateData = await this._handleMummyCalculations(updateData);
+            }
+            if (updateData.type == CONFIG.worldofdarkness.sheettype.wraith) {
+                updateData = await this._handleWraithCalculations(updateData);
+            }
+
+            if (updateData.type == CONFIG.worldofdarkness.sheettype.exalted) {
+                updateData = await this._handleExaltedCalculations(updateData);
+                updateData = await this._keepSheetValuesCorrect(updateData);
+            }
+
+            await this._setItems(actor, updateData);
+            updateData = await this._handleWoundLevelCalculations(updateData);
+            updateData = await calculateTotals(updateData);
+
+            // movement needs the total dexterity and all active items to work correctly.
+            updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
+
+            updateData.system.settings.isupdated = true;
+            await actor.update(updateData);
+        }
+        catch (err) {
+            ui.notifications.error(`Cannot update Actor ${actor?.name}. Please check console for details.`);
+            err.message = `Cannot update Actor ${actor?.name}: ${err.message}`;
+            console.error(err);
+            console.log(actor);
+        }
+    }    
     }
 
     async _setAbilityMaxValue(actorData) {
@@ -691,178 +798,6 @@ export class WoDActor extends Actor {
         
         return actorData;
 	}
-
-    async _handleWoundLevelCalculationsv2(updates, nextData) {
-        try {
-            let totalNormWoundLevels = parseInt(nextData.system.health.damage.bashing) + parseInt(nextData.system.health.damage.lethal) + parseInt(nextData.system.health.damage.aggravated);
-            let totalChimericalWoundLevels = 0;
-            
-            if (nextData.system.health.damage.chimerical != undefined) {
-                totalChimericalWoundLevels = parseInt(nextData.system.health.damage.chimerical.bashing) + parseInt(nextData.system.health.damage.chimerical.lethal) + parseInt(nextData.system.health.damage.chimerical.aggravated);
-            }
-
-            let totalWoundLevels = totalNormWoundLevels < totalChimericalWoundLevels ? totalChimericalWoundLevels : totalNormWoundLevels;
-
-            // calculate total amount of health levels
-            let totalHealthLevelsMax = 0;
-            
-            for (const i in CONFIG.worldofdarkness.woundLevels) {
-                totalHealthLevelsMax += parseInt(nextData.system.health[i].total);
-            }
-            
-            const totalHealthLevelsValue = totalHealthLevelsMax - totalWoundLevels;
-
-            // Add totalhealthlevels to updates
-            updates["system.traits.health.totalhealthlevels.max"] = totalHealthLevelsMax;
-            updates["system.traits.health.totalhealthlevels.value"] = totalHealthLevelsValue;
-
-            if (totalWoundLevels == 0) {
-                updates["system.health.damage.woundlevel"] = "";
-                updates["system.health.damage.woundpenalty"] = 0;
-                return updates;
-            }
-
-            // check wound level and wound penalty
-            for (const i in CONFIG.worldofdarkness.woundLevels) {
-                totalWoundLevels = totalWoundLevels - parseInt(nextData.system.health[i].total);
-
-                if (totalWoundLevels <= 0) {
-                    updates["system.health.damage.woundlevel"] = nextData.system.health[i].label;
-                    updates["system.health.damage.woundpenalty"] = parseInt(nextData.system.health[i].penalty);
-                    return updates;
-                }
-            }
-        }
-        catch (err) {
-            err.message = `Failed _handleWoundLevelCalculationsv2 Actor ${nextData.name}: ${err.message}`;
-            console.error(err);
-        }
-
-        return updates;
-    }
-
-    async _handleBioCalculations(actorData) {
-        if (actorData.type != "PC") {
-            return actorData;
-        }
-
-        try {
-            for (const bio in actorData.system.bio.splatfields) {
-
-                if (actorData.system.bio.splatfields[bio].label == "wod.bio.vampire.generation") {                    
-                    const traitMax = await this._calculteMaxTrait(parseInt(actorData.system.bio.splatfields.generation.value) - parseInt(actorData.system.bio.splatfields.generation.mod));
-
-                    actorData.system.settings.attributes.defaultmaxvalue = traitMax;
-                    actorData.system.settings.abilities.defaultmaxvalue = traitMax;
-                    actorData.system.settings.powers.defaultmaxvalue = traitMax;
-                }
-            }
-        }
-        catch (err) {
-            err.message = `Failed _handleBioCalculations Actor ${actorData.name}: ${err.message}`;
-            console.error(err);
-        }				
-
-        return actorData;
-    }
-
-    async _handleBioCalculationsv2(updates, actor) {
-        if (actor.type != "PC") {
-            return updates;
-        }
-
-        try {
-            for (const bio in actor.system.bio.splatfields) {
-
-                if (actor.system.bio.splatfields[bio].label == "wod.bio.vampire.generation") {                    
-                    const traitMax = await this._calculteMaxTrait(parseInt(actor.system.bio.splatfields.generation.value) - parseInt(actor.system.bio.splatfields.generation.mod));
-
-                    updates["system.settings.attributes.defaultmaxvalue"] = traitMax;
-                    updates["system.settings.abilities.defaultmaxvalue"] = traitMax;
-                    updates["system.settings.powers.defaultmaxvalue"] = traitMax;
-                }
-            }
-        }
-        catch (err) {
-            err.message = `Failed _handleBioCalculations Actor ${actor.name}: ${err.message}`;
-            console.error(err);
-        }				
-
-        return updates;
-    }
-
-    async _handleAttributesCalculations(actorData) {
-        if (actorData.type != "PC") {
-            return actorData;
-        }
-
-        try {
-            let traitMax = actorData.system.settings.attributes.defaultmaxvalue;
-
-            // attributes max
-            for (const i in actorData.system.attributes) {
-                if (actorData.system.attributes[i].max === traitMax) {
-                    continue;
-                }
-
-                actorData.system.attributes[i].max = traitMax;
-
-                if (actorData.system.attributes[i].value > traitMax) {
-                    actorData.system.attributes[i].value = traitMax;
-                }
-            }
-        }
-        catch (err) {
-            err.message = `Failed _handleAttributesCalculations Actor ${actorData.name}: ${err.message}`;
-            console.error(err);
-        }
-
-        return actorData;
-    }
-
-    async _handleAttributesCalculationsv2(updates, actor) {
-        if (actor.type != "PC") {
-            return updates;
-        }
-
-        try {
-            const traitMax = actor.system?.settings?.attributes?.defaultmaxvalue || 5;
-
-            // attributes max and value
-            for (const key in actor.system.attributes) {
-                const attr = actor.system.attributes[key];
-                if (!attr) continue;
-
-                // Check if max needs to be updated
-                if (attr.max !== traitMax) {
-                    if (!updates["system.attributes"]) {
-                        updates["system.attributes"] = {};
-                    }
-                    if (!updates["system.attributes"][key]) {
-                        updates["system.attributes"][key] = {};
-                    }
-                    updates["system.attributes"][key].max = traitMax;
-                }
-
-                // Check if value needs to be clamped
-                if (attr.value > traitMax) {
-                    if (!updates["system.attributes"]) {
-                        updates["system.attributes"] = {};
-                    }
-                    if (!updates["system.attributes"][key]) {
-                        updates["system.attributes"][key] = {};
-                    }
-                    updates["system.attributes"][key].value = traitMax;
-                }
-            }
-        }
-        catch (err) {
-            err.message = `Failed _handleAttributesCalculationsv2 Actor ${actor.name}: ${err.message}`;
-            console.error(err);
-        }
-
-        return updates;
-    }
 
     async _handleVampireCalculations(actorData) {
         if (actorData.type == "PC") {
@@ -1115,7 +1050,6 @@ export class WoDActor extends Actor {
                 actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent > actorData.system.advantages.willpower.temporary ? actorData.system.advantages.willpower.temporary : actorData.system.advantages.willpower.permanent; 
             }		
     
-                // TODO fixa till
             for (const item of actorData.items) {
                 if (item.type == "Bonus") {
                     if ((item.system.parentid == "glabro") || (item.system.parentid == "crinos") || (item.system.parentid == "hispo") || (item.system.parentid == "lupus")) {
@@ -1431,84 +1365,14 @@ export class WoDActor extends Actor {
         return actorData;
     }
 
-    // async _setItems() {
-    //     const actor = this;
-
-    //     // bonus item correctly active if connected item has changed active status
-    //     const bonuses = actor.items.filter(item => item.type === "Bonus" && item.system.parentid != -1);
-    //     for (const bonus of bonuses) {
-    //         const parentItem = await actor.getEmbeddedDocument("Item", bonus.system.parentid);
-    //         // e.g Werewolf bonus
-    //         if (parentItem == undefined) {
-    //             continue;
-    //         }
-
-    //         if (parentItem.system.isactive != bonus.system.isactive) {
-    //             const item = await actor.getEmbeddedDocument("Item", bonus._id);
-    //             let bonusData = foundry.utils.duplicate(item);
-    //             bonusData.system.isactive = parentItem.system.isactive;
-    //             await item.updateSource(bonusData);
-    //         }
-    //     }
-
-    //     if (actor.type != CONFIG.worldofdarkness.sheettype.vampire) {
-    //         // secondary skills to correct max value.
-    //         const abilities = actor.items.filter(item => item.type === "Ability" || (item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability")));
-    //         for (const ability of abilities) {
-    //             if (ability.system.max != parseInt(actor.system.settings.abilities.defaultmaxvalue)) {
-    //                 const item = await actor.getEmbeddedDocument("Item", ability._id);
-    //                 let itemData = foundry.utils.duplicate(item);
-    //                 itemData.system.max = parseInt(actor.system.settings.abilities.defaultmaxvalue)
-    //                 await item.updateSource(itemData);
-    //             }
-    //         }
-
-    //         const powers = actor.items.filter(item => item.type == "Power");
-            
-    //         // Update powers based on secondaryabilityid
-    //         const updates = [];
-    //         for (const power of powers) {
-    //             let needsUpdate = false;
-    //             let itemData = foundry.utils.duplicate(power);
-                
-    //             if (power.system.secondaryabilityid === "") {
-    //                 // If secondaryabilityid is empty, set max to defaultmaxvalue
-    //                 if (power.system.max != parseInt(actor.system.settings.powers.defaultmaxvalue)) {
-    //                     itemData.system.max = parseInt(actor.system.settings.powers.defaultmaxvalue);
-    //                     needsUpdate = true;
-    //                 }
-    //             } else {
-    //                 // If secondaryabilityid contains something, set value and max to 0
-    //                 if ((power.system.value != 0) || (power.system.max != 0)) {
-    //                     itemData.system.value = 0;
-    //                     itemData.system.max = 0;
-    //                     needsUpdate = true;
-    //                 }
-    //             }
-                
-    //             if (needsUpdate) {
-    //                 updates.push(itemData);
-    //             }
-    //         }
-            
-    //         // Perform all updates using updateSource to avoid triggering hooks
-    //         if (updates.length > 0) {
-    //             for (const updateData of updates) {
-    //                 const item = await actor.getEmbeddedDocument("Item", updateData._id);
-    //                 if (item) {
-    //                     await item.updateSource(updateData);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
     // Securing bonus items needs still to be handled here even by PC actors
     async _setItems() {        
         const actor = this;
 
+        const items = actor?.items || [];
+
         // bonus item correctly active if connected item has changed active status
-        const bonuses = actor.items.filter(item => item.type === "Bonus" && item.system.parentid != -1);
+        const bonuses = items.filter(item => item.type === "Bonus" && item.system.parentid != -1);
         for (const bonus of bonuses) {
             const parentItem = await actor.getEmbeddedDocument("Item", bonus.system.parentid);
             // e.g Werewolf bonus
@@ -1525,7 +1389,7 @@ export class WoDActor extends Actor {
         }
 
         // secondary skills to correct max value.
-        const abilities = actor.items.filter(item => item.type === "Ability" || (item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability")));
+        const abilities = items.filter(item => item.type === "Ability" || (item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability")));
         for (const ability of abilities) {
             if (ability.system.max != parseInt(actor.system.settings.abilities.defaultmaxvalue)) {
                 const item = await actor.getEmbeddedDocument("Item", ability._id);
@@ -1535,7 +1399,7 @@ export class WoDActor extends Actor {
             }
         }
 
-        const powers = actor.items.filter(item => item.type == "Power");
+        const powers = items.filter(item => item.type == "Power");
         
         // Update powers based on secondaryabilityid
         const updates = [];

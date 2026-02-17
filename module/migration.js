@@ -15,7 +15,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         updateWorld = true;
 
         ui.notifications.warn(`Updating World from version ${installedVersion} to ${migrationVersion} do not close your game or shut down your server. Please wait this can take a while...`, {permanent: true});
-        console.log(`Updating from ${installedVersion} to ${migrationVersion}`);
+        console.log(`WoD Migration | Updating from ${installedVersion} to ${migrationVersion}`);
 
         MessageHelper.printMessage("Updating World", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
         MessageHelper.printMessage("Starting with Actors", "");
@@ -122,7 +122,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
  * Function to keep the world up-to-date with possible World settings that you might have altered since last time it opened.
  */
 export  const updates = async () => {
-    console.log('WoD | Start verifying settings');
+    console.log('WoD Migration | Start verifying settings');
 
     let attributeSettings = "20th";
     let rollSettings = true;
@@ -556,7 +556,7 @@ export  const updates = async () => {
                             }
                         };
 
-                        console.log(`MIGRATION: Adds ${actor.system.abilities.talent[ability].label} to ${actor.name}`);
+                        console.log(`WoD Migration | Adds ${actor.system.abilities.talent[ability].label} to ${actor.name}`);
                         await actor.createEmbeddedDocuments("Item", [itemData]);           
                     }
 
@@ -584,7 +584,7 @@ export  const updates = async () => {
                             }
                         };
 
-                        console.log(`MIGRATION: Adds ${actor.system.abilities.skill[ability].label} to ${actor.name}`);
+                        console.log(`WoD Migration | Adds ${actor.system.abilities.skill[ability].label} to ${actor.name}`);
                         await actor.createEmbeddedDocuments("Item", [itemData]);                        
                     }
 
@@ -612,7 +612,7 @@ export  const updates = async () => {
                             }
                         };
 
-                        console.log(`MIGRATION: Adds ${actor.system.abilities.knowledge[ability].label} to ${actor.name}`);
+                        console.log(`WoD Migration | Adds ${actor.system.abilities.knowledge[ability].label} to ${actor.name}`);
                         await actor.createEmbeddedDocuments("Item", [itemData]);                        
                     }
 
@@ -1915,7 +1915,95 @@ export  const updates = async () => {
             await actor.update(updateData);
             update = false;
         }
-    } 
+    }
+    
+    if (_compareVersion(actor.system.settings.version, "6.0.6")) {
+        update = false;    
+        let updateData = foundry.utils.duplicate(actor);
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {            
+            let items = actor.items.filter(i => i.type === "Bonus" && i.system.settingtype === 'all' && (i.system.parentid === "glabro" || i.system.parentid === "crinos" || i.system.parentid === "hispo" || i.system.parentid === "lupus") );
+            if (items.length > 0) {
+                let itemData;
+                const version = "6.0.6";
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.appearance"), "appearance", -1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                /* CRINOS */
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 4, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeFixedValue("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.fixed.appearance"), "appearance", 0, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                /* HISPO */
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]  );
+
+                itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                /* LUPUS */
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+                
+                itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                console.log("WoD Migration | Patch corrupted werewolf actor " + actor.name + ": recreated shapes.");
+            }
+        }   
+        
+        if (update) {
+            updateData.system.settings.version = "6.0.6";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
     
 }
 
@@ -2242,7 +2330,7 @@ export  const updates = async () => {
         let itemData = foundry.utils.duplicate(item);
 
         if ((item.type == "Bonus") && ((item.system.parentid != "") && (item.system.parentid != "glabro") && (item.system.parentid != "crinos") && (item.system.parentid != "hispo") && (item.system.parentid != "lupus") && item.actor != null)) {
-            console.log(`Bonus found on ${item.actor.name} type ${item.system.type}`);
+            console.log(`WoD Migration | Bonus found on ${item.actor.name} type ${item.system.type}`);
 
             let bonus = item.actor.getEmbeddedDocument("Item", item.system.parentid);
             itemData = foundry.utils.duplicate(bonus);
@@ -2259,15 +2347,15 @@ export  const updates = async () => {
             itemData.system.version = "3.3.0";
 
             await bonus.update(itemData);   
-            console.log(`Adding bonus to ${item.actor.name} bonusname ${item.name}`);
+            console.log(`WoD Migration | Adding bonus to ${item.actor.name} bonusname ${item.name}`);
 
             await item.actor.deleteEmbeddedDocuments("Item", [item._id]);
-            console.log(`Removing bonus id ${item._id} bonusname ${item.name}`);
+            console.log(`WoD Migration | Removing bonus id ${item._id} bonusname ${item.name}`);
         }
         if (item.type == "Power") {
             if (item.system.type == "wod.types.artpower")  {
                 if (item.system.arttype == "wod.power.wyld") {
-                    console.log(`Artpower bonusname ${item.name} was type: ${item.system.arttype}`);
+                    console.log(`WoD Migration | Artpower bonusname ${item.name} was type: ${item.system.arttype}`);
                     itemData.system.arttype == "wod.types.wyrd";                    
                 }
 
@@ -2376,7 +2464,7 @@ export  const updates = async () => {
             }            
         } 
 
-        if (item.type === "Bonus") {
+        if (item.type === "Bonus" && item.system.type === "soak_buff") {
             itemData.system.settingtype = 'all';
             altered = true;
         }
@@ -2387,6 +2475,32 @@ export  const updates = async () => {
             }
             else {
                 itemData.system.version = "6.0.0";
+            }
+            
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
+
+    if (_compareVersion(itemversion, "6.0.6")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if (item.type === "Bonus" && item.system.settingtype === 'all' && (item.system.parentid === "glabro" || item.system.parentid === "crinos" || item.system.parentid === "hispo" || item.system.parentid === "lupus")) {
+            if (item.actor !== null) {
+                await item.delete();
+
+                console.log("WoD Migration | Removed corrupted shape bonus item " + item.name + " on actor " + item.actor.name);
+                altered = false;
+            }                
+        }                 
+
+        if (altered) {
+            if (itemData.system?.settings?.version !== undefined) {
+                itemData.system.settings.version = "6.0.6";
+            }
+            else {
+                itemData.system.version = "6.0.6";
             }
             
             await item.update(itemData);
@@ -2442,10 +2556,10 @@ export  const updates = async () => {
     await pack.configure({locked: wasLocked});
 
     if (success) {
-        console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
+        console.log(`WoD Migration | Migrated all ${entity} entities from Compendium ${pack.collection}`);
     }    
     else {
-        console.error(`A compendium failed its migration`);
+        console.error(`WoD Migration | Failed to migrate all ${entity} entities from Compendium ${pack.collection}`);
     }
  };
 
@@ -2646,6 +2760,15 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '6.0.6')) {
+            newfunctions += '<li>[General] Fixed switching eras.</li>';
+            newfunctions += '<li>[General] Fixed problem causing you not to be able to alter a secondary ability name.</li>';
+            newfunctions += '<li>[General] Wound penalty was not shown correctly on sheet.</li>';
+            newfunctions += '<li>[General] Fixed problem that prevented you from rolling an other trait.</li>';
+            newfunctions += '<li>[WtA] Fixed serious problem to werewolves shape bonuses that was caused by update between v5 and v6. All werewolves shapes has been recreated.</li>';
+            newfunctions += '<li>[WtO] Vitality on orpheus sheets now has temporary values.</li>';
+        }
 
         if (_compareVersion(installedVersion, '6.0.5')) {
             newfunctions += '<li>[General] Fixed problem creating secondary abilities.</li>';
