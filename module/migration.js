@@ -2761,6 +2761,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '6.0.7')) {
+            newfunctions += '<li>[General] Fixed update of total values on PC actors.</li>';
+            newfunctions += '<li>[MtA] Fixed spelling error of numen.</li>';
+            newfunctions += '<li>[MtA] Fixed alignment of power section on PC actor.</li>';
+        }
+
         if (_compareVersion(installedVersion, '6.0.6')) {
             newfunctions += '<li>[General] Fixed switching eras.</li>';
             newfunctions += '<li>[General] Fixed problem causing you not to be able to alter a secondary ability name.</li>';

@@ -237,7 +237,7 @@
 			"wyrd": "Wyrd",
 			"hekau": "Hekau",
 			"hekaupower": "Hekau power",
-			"numina": "Numin",
+			"numina": "Numen",
 			"numinapower": "Zauber/Ritual",
 			"stain": "Makel",
 			"horror": "Horror",
@@ -1445,7 +1445,7 @@
 					"path": "Verbundene Boni für Pfade entfernen",
 					"arcanoi": "Verbundene Kräfte der Arkanoi entfernen",
 					"hekau": "Verbundene Kräfte mit Hekau entfernen",
-					"numina": "Verbundene Kräfte mit Numin entfernen"
+					"numina": "Verbundene Kräfte mit Numen entfernen"
 				}
 			},
 			"notes": {

@@ -697,7 +697,7 @@ export const OnActorSwitch = async function (event, target) {
 	const property = target.getAttribute("data-type");
 	const path = `${property}`;
 
-	const actorData = foundry.utils.duplicate(this.actor);	
+	let actorData = foundry.utils.duplicate(this.actor);	
 	const current = foundry.utils.getProperty(actorData, path);
 
 	// Säkerställ att egenskapen finns och är boolean innan toggling
@@ -707,6 +707,7 @@ export const OnActorSwitch = async function (event, target) {
 
 	foundry.utils.setProperty(actorData, path, !current);
 
+	actorData = await calculateTotals(actorData);
 	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
@@ -729,7 +730,7 @@ export const OnSquareCounterChange = async function (event, target) {
 		return;
 	}
 
-	const actorData = foundry.utils.duplicate(this.actor);
+	let actorData = foundry.utils.duplicate(this.actor);
 
 	if (oldState == "") {
 		actorData.system.health.damage.bashing = parseInt(actorData.system.health.damage.bashing) + 1;
@@ -758,6 +759,7 @@ export const OnSquareCounterChange = async function (event, target) {
 		actorData.system.health.damage.aggravated = 0;
 	}
 
+	actorData = await calculateTotals(actorData);
 	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
@@ -777,7 +779,7 @@ export const OnSquareCounterClear = async function (event) {
 		return;
 	}
 
-	const actorData = foundry.utils.duplicate(this.actor);
+	let actorData = foundry.utils.duplicate(this.actor);
 
 	if (oldState == "") {
 		return
@@ -792,6 +794,7 @@ export const OnSquareCounterClear = async function (event) {
 		actorData.system.health.damage.aggravated = parseInt(actorData.system.health.damage.aggravated) - 1;
 	}
 
+	actorData = await calculateTotals(actorData);
 	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
@@ -841,8 +844,9 @@ export const OnDotCounterChange = async function (event, target) {
 		await item.update(itemData);
 	} else {
 		if (index < 0 || index >= steps.length) return;
-		const actorData = foundry.utils.duplicate(this.actor);
+		let actorData = foundry.utils.duplicate(this.actor);
 		setNested(actorData, path, newValue);
+		actorData = await calculateTotals(actorData);
 		actorData.system.settings.isupdated = false;
 		await this.actor.update(actorData);
 	}
@@ -1002,6 +1006,7 @@ export const OnItemActive = async function (event, target) {
 
 	let actorData = foundry.utils.duplicate(this.actor);
 	actorData = await calculateTotals(actorData);
+	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
 }
@@ -1113,6 +1118,7 @@ export const OnItemDelete = async function (event, target) {
 
 	let actorData = foundry.utils.duplicate(this.actor);
 	actorData = await calculateTotals(actorData);
+	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render(); 
 }
@@ -1222,6 +1228,7 @@ export const OnQuintessenceHandling = async function (event, target) {
 
 	let actorData = foundry.utils.duplicate(this.actor);
 	actorData = await calculateTotals(actorData);
+	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
 }
@@ -1606,6 +1613,7 @@ export const OnFormActivate = async function (event, target) {
 
 	let actorData = foundry.utils.duplicate(this.actor);
 	actorData = await calculateTotals(actorData);
+	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
 }
