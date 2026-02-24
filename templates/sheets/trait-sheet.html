@@ -47,7 +47,9 @@
 
 		<section class="item-body">
 
-			<input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" />
+		  	{{#if (eqAnyNot data.system.type "wod.types.shapeform")}}
+				<input class="sheet-infoValues item editable" name="system.label" type="hidden" value="{{item.name}}" data-dtype="String" />
+			{{/if}}
 
 			<div class="dialog-area">
 
@@ -101,13 +103,19 @@
 
 			{{#if (eq data.system.type "wod.types.shapeform")}}
 				<div class="dialog-area">
-					<div class="splatFont">{{localize "wod.labels.trait.token"}}</div>
-					<img class="profile-img pointer" src="{{data.system.icon}}" data-edit="system.icon" style="width: 100px; height: 100px; border: 1px solid var(--main-full-color); margin-top: 0; padding-left: 0; margin-right: 0;" />	
-					<div class="information-area">{{localize "wod.labels.trait.tokenhint"}}</div>
+					<div>
+						<div class="splatFont">{{localize "wod.labels.trait.token"}}</div>
+						<img class="profile-img pointer shape-image" src="{{data.system.icon}}" data-edit="system.icon" />	
+						<div class="image-clear pointer" data-image-field="system.icon">{{localize "wod.labels.trait.clearimage"}}</div>
+						<div class="information-area">{{localize "wod.labels.trait.tokenhint"}}</div>
+					</div>
 					
-					<div class="splatFont">{{localize "wod.labels.trait.tokenimage"}}</div>
-					<img class="profile-img pointer" src="{{#if data.system.tokenimage}}{{data.system.tokenimage}}{{else}}{{actor.img}}{{/if}}" data-edit="system.tokenimage" style="width: 100px; height: 100px; border: 1px solid var(--main-full-color); margin-top: 0; padding-left: 0; margin-right: 0;" />
-					<div class="information-area">{{localize "wod.labels.trait.tokenimagehint"}}</div>
+					<div>
+						<div class="splatFont">{{localize "wod.labels.trait.tokenimage"}}</div>
+						<img class="profile-img pointer shape-image" src="{{data.system.tokenimage}}" data-edit="system.tokenimage" />
+						<div class="image-clear pointer" data-image-field="system.tokenimage">{{localize "wod.labels.trait.clearimage"}}</div>
+						<div class="information-area">{{localize "wod.labels.trait.tokenimagehint"}}</div>					
+					</div>
 				</div>
 			{{/if}}
 

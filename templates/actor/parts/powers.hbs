@@ -11,7 +11,7 @@
 
         {{#if actor.system.settings.hasshapes}}
             <!-- SHAPES - Always first, handled separately since they're Trait items -->
-            {{> "systems/worldofdarkness/templates/actor/parts/power_shapes.hbs" shapes=shapes actor=actor config=config}}
+            {{> "systems/worldofdarkness/templates/actor/parts/power_shapes.hbs" shapes=shapes actor=actor config=config locked=locked}}
         {{/if}}
 
         {{#if actor.system.settings.hasspheres}}

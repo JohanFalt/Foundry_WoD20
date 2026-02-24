@@ -237,6 +237,10 @@
     color: #e0e0e0;
 }
 
+.wod20 .shape-details-container .shape-selector-active {
+  text-shadow: 0 0 10px var(--main-full-color);
+}
+
 .wod20 .shape-selector {
   width: 20%;
   height: 30px;
@@ -2038,6 +2042,120 @@ input.sheet-infoWidth {
 }
 
 .wod20.wod-item .splat-features-columns > .dialog-area:last-child {
+  margin-right: 0;
+}
+
+/* Shapes */
+.wod20 .shape-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;   /* så containern alltid tar hela bredden */
+}
+
+.wod20 .shape-panel {
+  width: 160px;   /* eller t.ex. 180px – anpassa efter bild (100px) + text */
+  /* flex: 0 0 160px; om du vill att de aldrig växer/krymper */
+}
+
+.wod20.werewolf .shape-selector {
+  text-align: left;
+}
+
+.wod20 .shape-panel-body,
+.wod20 .shape-bonus-list,
+.wod20 .shape-difficulty {
+  text-align: left;
+}
+
+.wod20 .shape-image {
+  width: 100px; 
+  height: 100px; 
+  border: 1px solid var(--main-full-color); 
+  margin-top: 0; 
+  padding-left: 0; 
+  margin-right: 0;
+  border-radius: 10px;
+}
+
+.wod20 .shape-panel-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* PC actor power_shapes.hbs only – do not affect legacy werewolf shapechange tab */
+/* Whole panel is the visual unit; selected form indicated by panel, not title background */
+.wod20 .pc-power-shapes .shape-panel {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wod20 .pc-power-shapes .shape-panel:hover {
+  border-color: var(--main-dim-color);
+}
+
+.wod20 .pc-power-shapes .shape-panel.shape-panel-active {
+  border-color: var(--main-full-color);
+  background-color: var(--main-dim-color);
+  box-shadow: 0 0 0 1px var(--main-full-color);
+}
+
+.wod20 .pc-power-shapes .shape-panel-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+
+.wod20 .pc-power-shapes .shape-panel-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--wod-font-base);
+  /* font-weight: 600; */
+  line-height: 1.3;
+  text-align: left;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: transparent;
+  color: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.wod20 .pc-power-shapes .shape-panel-title:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.wod20 .pc-power-shapes .shape-panel-title.shape-selector-active {
+  background-color: transparent;
+  color: inherit;
+  text-shadow: none;
+}
+
+.wod20 .pc-power-shapes .shape-panel-title.shape-selector-active:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.wod20 .pc-power-shapes .shape-panel-header-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.wod20 .pc-power-shapes .shape-panel-header-actions .icon {
+  margin-left: 0;
   margin-right: 0;
 }
 

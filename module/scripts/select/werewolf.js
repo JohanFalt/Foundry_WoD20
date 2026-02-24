@@ -61,8 +61,7 @@ export function getWerewolfAuspicesv2() {
   });
   auspicelist.push({ value: "wod.bio.auspicename.ragabash", label: game.i18n.localize("wod.bio.auspicename.ragabash") });
   auspicelist.push({ value: "wod.bio.auspicename.theurge", label: game.i18n.localize("wod.bio.auspicename.theurge") });
-  // Keep labels as in original implementation (note: philodox label historically referenced galliard in legacy code)
-  auspicelist.push({ value: "wod.bio.auspicename.philodox", label: game.i18n.localize("wod.bio.auspicename.galliard") });
+  auspicelist.push({ value: "wod.bio.auspicename.philodox", label: game.i18n.localize("wod.bio.auspicename.philodox") });
   auspicelist.push({ value: "wod.bio.auspicename.galliard", label: game.i18n.localize("wod.bio.auspicename.galliard") });
   auspicelist.push({ value: "wod.bio.auspicename.ahroun", label: game.i18n.localize("wod.bio.auspicename.ahroun") });
   return auspicelist;

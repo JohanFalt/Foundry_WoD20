@@ -1624,7 +1624,24 @@ export class WoDActor extends Actor {
         }
         
         return "";
-    }    
+    }  
+    
+    ShowTokenImage(actor, shapeid, image) {
+        if (actor == undefined) {
+            return false;
+        }
+        if (actor.type !== "PC") {
+            return false;
+        }
+        
+        const shapeform = actor.items.find(item => item.type === "Trait" && item.system.type === "wod.types.shapeform" && item._id === shapeid);
+
+        if ((shapeform.system[image] === undefined) || (shapeform.system[image] === "") || (shapeform.system[image] == "icons/svg/mystery-man.svg")) {
+            return false;
+        }
+
+        return true;
+    }
 
     async _keepSheetValuesCorrect(actor) {
         const essencepoolMax = await _calculteMaxEssencepool(actor.system.settings.variant, parseInt(actor.system.advantages.essence.permanent));

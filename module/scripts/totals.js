@@ -163,7 +163,7 @@ export async function calculateTotals(updateData) {
 		const lethal = await BonusHelper.GetSoakBuff(updateData, "lethal");
 		updateData.system.soak.lethal += parseInt(bonus+lethal);
 		const aggravated = await BonusHelper.GetSoakBuff(updateData, "aggravated");
-		updateData.system.soak.aggravated += parseInt(bonus);
+		updateData.system.soak.aggravated += parseInt(bonus+aggravated);
 
 		if (usechimerical) {
 			updateData.system.soak.chimerical.bashing += parseInt(bonus+bashing);

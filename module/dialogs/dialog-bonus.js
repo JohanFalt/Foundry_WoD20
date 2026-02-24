@@ -6,6 +6,11 @@ export class Bonus {
         this.item = item;
         this.bonusId = id;
         this.bonus = item.system.bonuslist[id];
+
+        if ((this.bonus.type == "soak_buff") &&(this.bonus.settingtype == "")) {
+            this.bonus.settingtype = "all";
+        }
+
         this.cansave = false;
     }
 }

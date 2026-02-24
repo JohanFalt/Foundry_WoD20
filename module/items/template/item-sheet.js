@@ -182,6 +182,10 @@ export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		html
 			.find(".item-delete")
 			.click(this._onItemDelete.bind(this));
+
+		html
+			.find(".image-clear")
+			.click(this._onImageClear.bind(this));
 	}
 
 	async _onToggleLocked(event) {
@@ -392,6 +396,17 @@ export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		}
 		
 		this.render();  
+	}
+
+	_onImageClear(event) {
+		event.preventDefault();
+
+		const imageField = $(event.currentTarget).data("image-field");
+
+		const itemData = foundry.utils.duplicate(this.item);
+		itemData[imageField] = "";
+		this.item.update(itemData);
+		this.render();
 	}
 
 	_onDotCounterChange(event) {

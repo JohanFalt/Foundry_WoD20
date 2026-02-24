@@ -46,11 +46,6 @@
 .werewolfItem:not(.noSplatFont) .splatFont {
 	  font-family: "werewolf", var(--main-font);
 }
-  
-/* .wod20.werewolf .shape-selector-active {
-    background-color: var(--main-full-color);
-    color: #e0e0e0;
-} */
 
 .wod20.werewolf:not(.noSplatFont) .sheet-headline {
   font-size: var(--wod-font-sheet-headline);

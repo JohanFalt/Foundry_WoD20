@@ -2508,6 +2508,30 @@ export  const updates = async () => {
             altered = false;
         }
     }
+
+    if (_compareVersion(itemversion, "6.0.8")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if ((item.type === "Trait" && item.system.type === 'wod.types.shapeform')) {
+            if (Array.isArray(item.system.label)) {
+                itemData.system.label = item.name;
+                altered = true;
+            }
+        }                
+
+        if (altered) {
+            if (itemData.system?.settings?.version !== undefined) {
+                itemData.system.settings.version = "6.0.8";
+            }
+            else {
+                itemData.system.version = "6.0.8";
+            }
+            
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -2519,7 +2543,7 @@ export  const updates = async () => {
  export const updateCompendium = async function(pack, migrationVersion) {
     const entity = pack.documentName;
     let success = true;
-    if ( !["Actor", "Item", "Scene"].includes(entity) ) return;
+    if ( !["Actor", "Item"].includes(entity) ) return;
 
     // Unlock the pack for editing
     const wasLocked = pack.locked;
@@ -2539,11 +2563,8 @@ export  const updates = async () => {
                 case "Item":
                     await updateItem(ent);
                     break;
-                case "Scene":
-                    break;
             }
         }
-
         // Handle migration failures
         catch(err) {
             console.error(`Failed migration for entity ${ent.name} in pack ${pack.collection}: ${err.message}`);
@@ -2760,6 +2781,15 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
+
+        if (_compareVersion(installedVersion, '6.0.8')) {
+            newfunctions += '<li>[General] What was before known as Splat items and referred as such is now called "Template".</li>';
+            newfunctions += '<li>[General] Improved on the presentation on a PC actor shapes.</li>';
+            newfunctions += '<li>[General] Fixed problem if you tried update a pc actor in a compendium.</li>';
+            newfunctions += '<li>[General] Bonus to soak was not calculated correctly.</li>';
+            newfunctions += '<li>[WtA] On PC actor auspice was displayed twice.</li>';
+            newfunctions += '<li>[VtM] Fixed a problem where Discipline rating was hidden on the sheet.</li>';
+        }
 
         if (_compareVersion(installedVersion, '6.0.7')) {
             newfunctions += '<li>[General] Fixed update of total values on PC actors.</li>';

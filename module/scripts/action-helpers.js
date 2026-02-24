@@ -1554,6 +1554,9 @@ async function _updateShapeformTokenIcon(actor, shapeformItem) {
 export const OnFormActivate = async function (event, target) {
 	event.preventDefault();
 
+	// Don’t activate when clicking edit or expand (whole panel is the form selector)
+	if (event?.target?.closest?.(".shape-panel-header-actions")) return;
+
 	const itemid = target.getAttribute('data-itemid');
 	const item = await this.actor.getEmbeddedDocument("Item", itemid);	
 	const itemData = foundry.utils.duplicate(item);

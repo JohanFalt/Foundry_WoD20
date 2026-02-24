@@ -1208,6 +1208,10 @@ export default class BonusHelper {
     static async GetSoakBuff(actor, damagetype) {
         let bonus = 0;
 
+        if (damagetype === "") {
+            damagetype = "all";
+        }
+
         for (const i of actor.items) {
             if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_buff") && (i.system.settingtype == damagetype)) {
                 bonus += parseInt(i.system.value);
@@ -1219,7 +1223,8 @@ export default class BonusHelper {
 
             if (i.system.bonuslist.length > 0) {
 				for (let x = 0; x <= i.system.bonuslist.length - 1; x++) {
-                    if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_buff") && (i.system.settingtype == damagetype)) {
+                    //if ((i.type == "Bonus") && (i.system.isactive) && (i.system.type == "soak_buff") && (i.system.settingtype == damagetype)) {
+                    if ((i.system.bonuslist[x].type == "soak_buff") && (i.system.bonuslist[x].isactive) && (i.system.bonuslist[x].settingtype == damagetype)) {
                         bonus += parseInt(i.system.bonuslist[x].value);
                     }
 				}

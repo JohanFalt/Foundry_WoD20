@@ -1182,9 +1182,9 @@ export default class SelectHelper {
 
         listData.Level10Value = this.GetValueList(1, 11, "", "- " + game.i18n.localize("wod.labels.select") + " -");
 
-        listData.ZeroToNine = this.GetValueList(1, 10, 0, "0"); 
+        listData.ZeroToNine = this.GetValueList(0, 10, 0, "- " + game.i18n.localize("wod.labels.select") + " -"); 
 
-        listData.DifficultyList = this.GetValueList(CONFIG.worldofdarkness.lowestDifficulty, 10, -1, "- " + game.i18n.localize("wod.labels.varies") + " -"); 
+        listData.DifficultyList = this.GetValueList(CONFIG.worldofdarkness.lowestDifficulty, 10, -1, "- " + game.i18n.localize("wod.labels.donotshow") + " -"); 
 
         return listData;
     }    

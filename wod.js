@@ -590,24 +590,24 @@ Hooks.once("ready", async function () {
 
 				// Page 2: New PC Character Sheet
 				`<h2>Introducing the New PC Character Sheet</h2>
-				<p>Version 6 introduces a completely new Actor called <strong>PC</strong> (Player Character). The PC is in itself just a blank sheet to which you then add a Splat item which sets the Actor up to the type of setting you are playing (e.g., a vampire or a werewolf).</p>
+				<p>Version 6 introduces a completely new Actor called <strong>PC</strong> (Player Character). The PC is in itself just a blank sheet to which you then add a Template item which sets the Actor up to the type of setting you are playing (e.g., a vampire or a werewolf).</p>
 				<p><strong>Important:</strong> The PC sheet will eventually replace all existing character sheets starting with Foundry v16.</p>`,
 
 				// Page 3: System Compendium
 				`<h2>New System Compendium</h2>
-				<p>The new compendium contains new items used for character creation and mainly when creating a new PC Actor. As mentioned before, when you create a PC Actor, it starts blank. To fill it with information, you add one Splat item to it by dragging it to the sheet and it will then add abilities, advantages, powers, features and settings that have been configured on the Splat item.</p>
-				<p>For more detailed information about creating PC Actors and using Splat items, please refer to the <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/PC-Actor" target="_blank">Wiki - PC Actor</a>.</p>`,
+				<p>The new compendium contains new items used for character creation and mainly when creating a new PC Actor. As mentioned before, when you create a PC Actor, it starts blank. To fill it with information, you add one Template item to it by dragging it to the sheet and it will then add abilities, advantages, powers, features and settings that have been configured on the Template item.</p>
+				<p>For more detailed information about creating PC Actors and using Template items, please refer to the <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/PC-Actor" target="_blank">Wiki - PC Actor</a>.</p>`,
 
 				// Page 4: Available Templates
-				`<h2>Available Character Splat items</h2>
-				<p>In this release, the following Splat items are ready for use with the new PC sheet in the Compendium, divided by game:</p>
+				`<h2>Available Character Template items</h2>
+				<p>In this release, the following Template items are ready for use with the new PC sheet in the Compendium, divided by game:</p>
 				<ul style="margin-left: 20px; margin-top: 10px;">
 					<li><strong>Mortal</strong> - (also ghoul, kinfolk, sorcerers)</li>
 					<li><strong>Vampire</strong> - (also kindred of the east)</li>
 					<li><strong>Werewolf</strong></li>
 					<li><strong>Mage</strong></li>
 				</ul>
-				<p>More Splat items will be added in future updates.</p>`,
+				<p>More Template items will be added in future updates.</p>`,
 
 				// Page 5: API
 				`<h2>New API</h2>

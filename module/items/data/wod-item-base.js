@@ -111,6 +111,10 @@ export class WoDItem extends Item {
 			
 			if ((item.actor !== undefined) && (item.actor !== null)) {
 				actor = game.actors.get(item.actor._id);
+
+				if (actor === undefined) {
+					actor = item.actor;
+				}
 			}
 
 			let traitMax = 5;
