@@ -100,7 +100,6 @@ export class WoDItem extends Item {
 
 	static migrateData(source) {
 	    source = super.migrateData(source)
-	    //if (source.type === "badType") source.type = "goodType"
 	    return source;
 	}
 
@@ -148,6 +147,10 @@ export class WoDItem extends Item {
 			
 			if ((item.actor !== undefined) && (item.actor !== null)) {
 				actor = game.actors.get(item.actor._id);
+
+				if (actor === undefined) {
+					actor = item.actor;
+				}
 			}
 
             let traitMax = 5;
@@ -249,6 +252,10 @@ export class WoDItem extends Item {
 			
 			if ((item.actor !== undefined) && (item.actor !== null)) {
 				actor = game.actors.get(item.actor._id);
+
+				if (actor === undefined) {
+					actor = item.actor;
+				}
 			}
 
 			let traitMax = 5;

@@ -2782,6 +2782,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
+        if (_compareVersion(installedVersion, '6.0.9')) {
+            newfunctions += '<li>[General] Fixed problem that caused secondary abilities max value to not be updated correctly.</li>';
+            newfunctions += '<li>[WtA] Fixed graphical problems of showing attributes and abilities higher than five.</li>';
+            newfunctions += '<li>[VtM] Fixed problem that caused vampire actors not able to roll virtues.</li>';
+        }
+
         if (_compareVersion(installedVersion, '6.0.8')) {
             newfunctions += '<li>[General] What was before known as Splat items and referred as such is now called "Template".</li>';
             newfunctions += '<li>[General] Improved on the presentation on a PC actor shapes.</li>';

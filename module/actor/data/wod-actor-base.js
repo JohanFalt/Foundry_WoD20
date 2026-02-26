@@ -80,6 +80,8 @@ export class WoDActor extends Actor {
 
                 // Willpower permanent calculation
                 if (systemData.settings.variant != "spirit") {
+                    
+
                     if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
                         systemData.advantages.willpower.permanent = parseInt(systemData.attributes.composure.value) + parseInt(systemData.attributes.resolve.value);
                     }
@@ -623,122 +625,137 @@ export class WoDActor extends Actor {
                 }
 
                 updateData = foundry.utils.duplicate(actor);
-            
-            if ((updateData?.system?.settings?.isupdated == undefined) || (updateData?.system?.settings?.isupdated)) {
-                return;
-            }        
 
-            let advantageRollSetting = true;        
-            let isSpirit = false;
-
-            if ((updateData.type == CONFIG.worldofdarkness.sheettype.creature) && (updateData.system.settings.variant == "spirit")) {
-                isSpirit = true;
-            }
-
-            try {
-                advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
-            } 
-            catch (e) {
-                advantageRollSetting = true;
-            }
-
-            // abilities max
-            // set base line of what is normally max values
-            updateData = await this._setAbilityMaxValue(updateData);
-
-            // willpower
-            if (updateData.system.settings.variant != "spirit") {
-                if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
-                    updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
+                if ((actor.type != CONFIG.worldofdarkness.sheettype.vampire) && (actor.type != "PC")) {
+                    for (const i in updateData.system?.abilities) {
+                        if ((updateData.system.abilities[i].max !== updateData.system.settings.abilities.defaultmaxvalue) && (updateData.system.settings.isupdated)) {
+                            updateData.system.settings.isupdated = false;
+                        }                
+                    }
                 }
-            }            
             
-            if (updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.max) {
-                updateData.system.advantages.willpower.permanent = updateData.system.advantages.willpower.max;
-            }
-            
-            if (updateData.system.advantages.willpower.permanent < updateData.system.advantages.willpower.temporary) {
-                updateData.system.advantages.willpower.temporary = updateData.system.advantages.willpower.permanent;
-            }
+                if ((updateData?.system?.settings?.isupdated == undefined) || (updateData?.system?.settings?.isupdated)) {
+                    return;
+                }        
 
-            if (advantageRollSetting) {
-                updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent;
-            }
-            else {
-                updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.temporary ? updateData.system.advantages.willpower.temporary : updateData.system.advantages.willpower.permanent; 
-            }
+                let advantageRollSetting = true;        
+                let isSpirit = false;
 
-            if ((updateData.system.settings.hasrage) || (updateData.system.settings.hasgnosis)) {
-                updateData = await this._handleWerewolfCalculations(updateData);
-            }
-            if ((updateData.system.settings.haspath) || (updateData.system.settings.hasbloodpool) || (updateData.system.settings.hasvirtue)) {
-                updateData = await this._handleVampireCalculations(updateData);
-            }
-            if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
-                updateData = await this._handleMageCalculations(updateData);
-            }
-            if (updateData.system.settings.hasglamour) {
-                updateData = await this._handleChangelingCalculations(updateData);
-            }
-            if (updateData.system.settings.hasconviction) {
-                updateData = await this._handleHunterCalculations(updateData);
-            }
-            if ((updateData.system.settings.hasfaith) || (updateData.system.settings.hastorment)) {
-                updateData = await this._handleDemonCalculations(updateData);
-            }
-            if (updateData.system.settings.hasbalance) {
-                updateData = await this._handleMummyCalculations(updateData);
-            }
-            if (updateData.type == CONFIG.worldofdarkness.sheettype.wraith) {
-                updateData = await this._handleWraithCalculations(updateData);
-            }
+                if ((updateData.type == CONFIG.worldofdarkness.sheettype.creature) && (updateData.system.settings.variant == "spirit")) {
+                    isSpirit = true;
+                }
 
-            if (updateData.type == CONFIG.worldofdarkness.sheettype.exalted) {
-                updateData = await this._handleExaltedCalculations(updateData);
-                updateData = await this._keepSheetValuesCorrect(updateData);
+                try {
+                    advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
+                } 
+                catch (e) {
+                    advantageRollSetting = true;
+                }
+
+                // abilities max
+                // set base line of what is normally max values
+                updateData = await this._setAbilityMaxValue(updateData);
+
+                // willpower
+                if (updateData.system.settings.variant != "spirit") {
+                    if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
+                        updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
+                    }
+                    
+                        
+                }            
+                
+                if (updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.max) {
+                    updateData.system.advantages.willpower.permanent = updateData.system.advantages.willpower.max;
+                }
+                
+                if (updateData.system.advantages.willpower.permanent < updateData.system.advantages.willpower.temporary) {
+                    updateData.system.advantages.willpower.temporary = updateData.system.advantages.willpower.permanent;
+                }
+
+                if (advantageRollSetting) {
+                    updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent;
+                }
+                else {
+                    updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.temporary ? updateData.system.advantages.willpower.temporary : updateData.system.advantages.willpower.permanent; 
+                }
+
+                if ((updateData.system.settings.hasrage) || (updateData.system.settings.hasgnosis)) {
+                    updateData = await this._handleWerewolfCalculations(updateData);
+                }
+                if ((updateData.system.settings.haspath) || (updateData.system.settings.hasbloodpool) || (updateData.system.settings.hasvirtue)) {
+                    updateData = await this._handleVampireCalculations(updateData);
+                }
+                if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
+                    updateData = await this._handleMageCalculations(updateData);
+                }
+                if (updateData.system.settings.hasglamour) {
+                    updateData = await this._handleChangelingCalculations(updateData);
+                }
+                if (updateData.system.settings.hasconviction) {
+                    updateData = await this._handleHunterCalculations(updateData);
+                }
+                if ((updateData.system.settings.hasfaith) || (updateData.system.settings.hastorment)) {
+                    updateData = await this._handleDemonCalculations(updateData);
+                }
+                if (updateData.system.settings.hasbalance) {
+                    updateData = await this._handleMummyCalculations(updateData);
+                }
+                if (updateData.type == CONFIG.worldofdarkness.sheettype.wraith) {
+                    updateData = await this._handleWraithCalculations(updateData);
+                }
+
+                if (updateData.type == CONFIG.worldofdarkness.sheettype.exalted) {
+                    updateData = await this._handleExaltedCalculations(updateData);
+                    updateData = await this._keepSheetValuesCorrect(updateData);
+                }
+
+                await this._setItems(actor, updateData);
+                updateData = await this._handleWoundLevelCalculations(updateData);
+                updateData = await calculateTotals(updateData);
+
+                // movement needs the total dexterity and all active items to work correctly.
+                updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
+
+                updateData.system.settings.isupdated = true;
+                await actor.update(updateData);
             }
-
-            await this._setItems(actor, updateData);
-            updateData = await this._handleWoundLevelCalculations(updateData);
-            updateData = await calculateTotals(updateData);
-
-            // movement needs the total dexterity and all active items to work correctly.
-            updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
-
-            updateData.system.settings.isupdated = true;
-            await actor.update(updateData);
-        }
-        catch (err) {
-            ui.notifications.error(`Cannot update Actor ${actor?.name}. Please check console for details.`);
-            err.message = `Cannot update Actor ${actor?.name}: ${err.message}`;
-            console.error(err);
-            console.log(actor);
-        }
-    }    
+            catch (err) {
+                ui.notifications.error(`Cannot update Actor ${actor?.name}. Please check console for details.`);
+                err.message = `Cannot update Actor ${actor?.name}: ${err.message}`;
+                console.error(err);
+                console.log(actor);
+            }
+        }    
     }
 
     async _setAbilityMaxValue(actorData) {
-        if (actorData.type !== "PC") {
-            return actorData;
+        if (!Functions.isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+            actorData.system.settings.abilities.defaultmaxvalue = 5;
+        }
+        if (!Functions.isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
+            actorData.system.settings.powers.defaultmaxvalue = 5;
         }
 
         try {
-            if (!Functions.isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
-                actorData.system.settings.abilities.defaultmaxvalue = 5;
-            }
-            if (!Functions.isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
-                actorData.system.settings.powers.defaultmaxvalue = 5;
-            }
-
-            for (const bio in actorData.system.bio.splatfields) {
-                if (actorData.system.bio.splatfields[bio].label == "wod.bio.vampire.generation") {                    
-                    const traitMax = await this._calculteMaxTrait(parseInt(actorData.system.bio.splatfields.generation.value) - parseInt(actorData.system.bio.splatfields.generation.mod));
-
-                    actorData.system.settings.attributes.defaultmaxvalue = traitMax;
-                    actorData.system.settings.abilities.defaultmaxvalue = traitMax;
-                    actorData.system.settings.powers.defaultmaxvalue = traitMax;
+            if (actorData.type !== "PC") {
+                for (const i in actorData.system.abilities) {
+                    if (actorData.system.abilities[i].max !== actorData.system.settings.abilities.defaultmaxvalue) {
+                        actorData.system.abilities[i].max = actorData.system.settings.abilities.defaultmaxvalue;
+                    }                
                 }
             }
+            else {
+                for (const bio in actorData.system.bio.splatfields) {
+                    if (actorData.system.bio.splatfields[bio].label == "wod.bio.vampire.generation") {                    
+                        const traitMax = await this._calculteMaxTrait(parseInt(actorData.system.bio.splatfields.generation.value) - parseInt(actorData.system.bio.splatfields.generation.mod));
+
+                        actorData.system.settings.attributes.defaultmaxvalue = traitMax;
+                        actorData.system.settings.abilities.defaultmaxvalue = traitMax;
+                        actorData.system.settings.powers.defaultmaxvalue = traitMax;
+                    }
+                }
+            }     
         }
         catch (err) {
             ui.notifications.error("Cannot set abilities to max rating. Please check console for details.");

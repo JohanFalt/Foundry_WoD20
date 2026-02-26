@@ -654,9 +654,7 @@ Hooks.once("ready", async function () {
 
 	if (isIpadViewport()) {
 		isTablet = true;
-	}
-
-	
+	}	
 });
 
 //Dice Roller

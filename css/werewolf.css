@@ -74,9 +74,9 @@
 .wod20.werewolf span.supernaturalAttribute:nth-of-type(5n) {
     margin-right: 0;
 }
-.wod20.werewolf span.supernaturalAttribute:nth-of-type(5n+1) {
+/* .wod20.werewolf span.supernaturalAttribute:nth-of-type(5n+1) {
     margin-right: 10px;
-}
+} */
 
 .wod20.werewolf:not(.noSplatFont) .secondHeadlineTabs {
   font-size: var(--wod-font-xl);

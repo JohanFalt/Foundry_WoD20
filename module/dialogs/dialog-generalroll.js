@@ -157,43 +157,37 @@ export class DialogGeneralRoll extends FormApplication {
         else {
             if (attributeKey != "") {
                 if (data.object.type == "noability") {
-                    // If v1 or v2
-                    const advantage = (data.actorData.advantages[attributeKey].system !== undefined ? data.actorData.advantages[attributeKey].system : data.actorData.advantages[attributeKey]);
-
                     if ((this.actor.type !== "PC") && ((attributeKey == "conscience") || (attributeKey == "selfcontrol") || (attributeKey == "courage"))) {
                         data.object.attributeName = game.i18n.localize(data.actorData.advantages.virtues[attributeKey].label);
                         data.object.attributeValue = parseInt(data.actorData.advantages.virtues[attributeKey].roll);
                         data.object.name = data.object.attributeName; 
                     }
-                    else {
-                        if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
-                            if (parseInt(data.actorData.attributes?.composure.value) >= specialityLevel) {
-                                data.object.hasSpeciality = true;
-                                attributeSpeciality = data.actorData.attributes.composure.speciality;
+                    else if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
+                        if (parseInt(data.actorData.attributes?.composure.value) >= specialityLevel) {
+                            data.object.hasSpeciality = true;
+                            attributeSpeciality = data.actorData.attributes.composure.speciality;
+                        }
+        
+                        if ((parseInt(data.actorData.attributes?.resolve.value) >= specialityLevel) && (data.actorData.attributes?.resolve.speciality != "")) {
+                            data.object.hasSpeciality = true;
+
+                            if (attributeSpeciality != "") {
+                                attributeSpeciality += ", ";
                             }
-            
-                            if ((parseInt(data.actorData.attributes?.resolve.value) >= specialityLevel) && (data.actorData.attributes?.resolve.speciality != "")) {
-                                data.object.hasSpeciality = true;
-    
-                                if (attributeSpeciality != "") {
-                                    attributeSpeciality += ", ";
-                                }
-    
-                                attributeSpeciality += data.actorData.attributes.resolve.speciality;
-                            }  
-                        } 
+
+                            attributeSpeciality += data.actorData.attributes.resolve.speciality;
+                        }  
+                    } 
+                    else {
+                        const advantage = (data.actorData.advantages[attributeKey].system !== undefined ? data.actorData.advantages[attributeKey].system : data.actorData.advantages[attributeKey]);
                         
-                        //if (data.actorData.advantages[attributeKey].label === "custom") {
                         if (advantage.label === "custom") {
-                            //data.object.attributeName = data.actorData.advantages[attributeKey].custom;
                             data.object.attributeName = advantage.custom;
                         }
                         else {
-                            //data.object.attributeName = game.i18n.localize(data.actorData.advantages[attributeKey].label);
                             data.object.attributeName = game.i18n.localize(advantage.label);
                         }
                         
-                        //data.object.attributeValue = parseInt(data.actorData.advantages[attributeKey].roll);
                         data.object.attributeValue = parseInt(advantage.roll);
                         data.object.name = data.object.attributeName;
                     }         
