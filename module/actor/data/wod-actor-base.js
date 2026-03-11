@@ -2,6 +2,7 @@ import { calculateTotals } from "../../scripts/totals.js";
 import CombatHelper from "../../scripts/combat-helpers.js";
 import CreateHelper from "../../scripts/create-helpers.js";
 import Functions from "../../functions.js";
+import PCActorAPI from "../api-handler.js";
 
 /**
  * Extend the base Actor entity by defining a custom roll data structure which is ideal for the Simple system.
@@ -9,7 +10,22 @@ import Functions from "../../functions.js";
  */
 export class WoDActor extends Actor {
     /**
-   * Augment the basic actor data with additional dynamic data.
+     * Get the PC Actor API
+     * @returns {PCActorAPI|undefined} The API instance if actor is PC, undefined otherwise
+     */
+    get api() {
+        if (this.type === "PC") {
+            return new PCActorAPI(this);
+        }
+        return undefined;
+    }
+
+    /**
+   * @override
+   * Prepare data for the actor. Calling the super version of this executes
+   * the following, in order: data reset (to clear active effects),
+   * prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
+   * prepareDerivedData().
    */
     prepareData() {
         // This exists because if an actor exists from another system (such as "Vampire" from WOD5),
@@ -23,18 +39,363 @@ export class WoDActor extends Actor {
         super.prepareData();
 
         const actorData = this;
-        // Make separate methods for each Actor type (character, npc, etc.) to keep
-        // things organized.
+        // Make separate methods for each Actor type (character, npc, etc.) to keep things organized.
         this._prepareCharacterData(actorData);
+    }
+
+    async prepareDerivedData() {
+        const actorData = this;
+        const systemData = actorData.system;
+
+        // Skip if actor is invalid
+        if (game.actors.invalidDocumentIds.has(actorData.id)) {
+            return;
+        }
+
+        // Skip if no owner
+        if (actorData.permission < 3) {
+            return;
+        }
+
+        try {
+            // Handle PC actors
+            if (actorData.type === "PC") {
+                // Derived calculations: Wound levels
+                await this._handleWoundLevelCalculations(actorData);                
+                
+                // Derived calculations: Movement (needs total dexterity and all active items)
+                systemData.movement = await CombatHelper.CalculateMovementv2(actorData);
+            }
+            // Handle legacy actors
+            else {
+                // Normalization: Willpower calculations
+                let advantageRollSetting = true;
+                try {
+                    advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
+                } 
+                catch (e) {
+                    advantageRollSetting = true;
+                }
+
+                // Willpower permanent calculation
+                if (systemData.settings.variant != "spirit") {
+                    
+
+                    if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
+                        systemData.advantages.willpower.permanent = parseInt(systemData.attributes.composure.value) + parseInt(systemData.attributes.resolve.value);
+                    }
+                }
+
+                // Normalization: Willpower clamping
+                if (systemData?.advantages?.willpower?.permanent > systemData?.advantages?.willpower?.max) {
+                    systemData.advantages.willpower.permanent = systemData.advantages.willpower.max;
+                }
+
+                if (systemData?.advantages?.willpower?.permanent < systemData?.advantages?.willpower?.temporary) {
+                    systemData.advantages.willpower.temporary = systemData.advantages.willpower.permanent;
+                }
+
+                // Derived calculations: Willpower roll value
+                if (advantageRollSetting) {
+                    if (systemData?.advantages?.willpower?.permanent) {
+                        systemData.advantages.willpower.roll = systemData.advantages.willpower.permanent;
+                    }
+                }
+                else {
+                    if ((systemData?.advantages?.willpower?.permanent) && (systemData?.advantages?.willpower?.temporary)) {
+                        systemData.advantages.willpower.roll = systemData.advantages.willpower.permanent > systemData.advantages.willpower.temporary ? systemData.advantages.willpower.temporary : systemData.advantages.willpower.permanent;
+                    }
+                }
+
+                // Handle splat-specific calculations
+                // Werewolf and spirits
+                if ((systemData?.settings?.hasrage) || (systemData?.settings?.hasgnosis)) {
+                    await this._handleWerewolfCalculations(actorData);
+                }
+                
+                // Vampire
+                if ((systemData?.settings?.haspath) || (systemData?.settings?.hasbloodpool) || (systemData?.settings?.hasvirtue)) {
+                    await this._handleVampireCalculations(actorData);
+                }
+                
+                // Mage
+                if (actorData.type == CONFIG.worldofdarkness.sheettype.mage) {
+                    await this._handleMageCalculations(actorData);
+                }
+                
+                // Changeling
+                if (systemData?.settings?.hasglamour) {
+                    await this._handleChangelingCalculations(actorData);
+                }
+                
+                // Hunter
+                if (systemData?.settings?.hasconviction) {
+                    await this._handleHunterCalculations(actorData);
+                }
+                
+                // Demon
+                if ((systemData?.settings?.hasfaith) || (systemData?.settings?.hastorment)) {
+                    await this._handleDemonCalculations(actorData);
+                }
+                
+                // Mummy
+                if (systemData?.settings?.hasbalance) {
+                    await this._handleMummyCalculations(actorData);
+                }
+                
+                // Wraith
+                if (actorData.type == CONFIG.worldofdarkness.sheettype.wraith) {
+                    await this._handleWraithCalculations(actorData);
+                }
+
+                // Exalted
+                if (actorData.type == CONFIG.worldofdarkness.sheettype.exalted) {
+                    await this._handleExaltedCalculations(actorData);
+                    await this._keepSheetValuesCorrect(actorData);
+                }
+
+                
+                // Derived calculations: Wound levels
+                await this._handleWoundLevelCalculations(actorData);
+                
+
+                // Derived calculations: Movement (needs total dexterity and all active items)
+                systemData.movement = await CombatHelper.CalculateMovement(actorData);
+            }
+        }
+        catch (err) {
+            ui.notifications.error(`Cannot prepare derived data for Actor ${actorData?.name}. Please check console for details.`);
+            err.message = `Cannot prepare derived data for Actor ${actorData?.name}: ${err.message}`;
+            console.error(err);
+            console.log(actorData);
+        }
     }
 
   /**
    * Prepare Character type specific data
    */
-    _prepareCharacterData(actorData) {
-        let listData = [];
-        actorData.listData = listData;
+    async _prepareCharacterData(actorData) {
+        // As in some cases an attribute on the actor might have updated which affects the items the actor has
+        // this needs to be updated as well.
+
+        let traitMax = 5;
+
+        if (this.type === "PC") {
+            let itemList = [];
+
+            const abilities = (this?.items || []).filter(item => item.type === "Ability");
+            const advantages = (this?.items || []).filter(item => item.type === "Advantage");
+            const spheres = (this?.items || []).filter(item => item.type === "Sphere");
+            const powers = (this?.items || []).filter(item => item.type === "Power" && item.system.secondaryabilityid === "");
+            const allpowers = (this?.items || []).filter(item => item.type === "Power" || item.type === "Sphere" || item.type === "Rote");
+            const shapes = actorData.items.filter(item => item.type === "Trait" && (item.system.type === "wod.types.shapeform"));
+            const resonances = actorData.items.filter(item => item.type === "Trait" && item.system?.type === "wod.types.resonance");            
+
+            // Normalization: Set ability max values
+            await this._setAbilityMaxValue(actorData);
+
+            traitMax = actorData.system.settings.attributes.defaultmaxvalue;
+
+            // attributes max
+            for (const i in actorData.system.attributes) {
+                actorData.system.attributes[i].isvisible = true;                
+
+                if ((actorData.system.attributes[i].max === traitMax) || (actorData.system.attributes[i].max > traitMax)) {
+                    continue;
+                }
+
+                actorData.system.attributes[i].max = traitMax;
+
+                if (actorData.system.attributes[i].value > traitMax) {
+                    actorData.system.attributes[i].value = traitMax;
+                }
+            }
+
+            if (CONFIG.worldofdarkness.attributeSettings == "5th") {
+                if (actorData.system.attributes.appearance) {
+                    actorData.system.attributes.appearance.isvisible = false;
+                }
+                if (actorData.system.attributes.perception) {
+                    actorData.system.attributes.perception.isvisible = false;
+                }
+            }
+            else if (CONFIG.worldofdarkness.attributeSettings == "20th") {
+                if (actorData.system.attributes.composure) {
+                    actorData.system.attributes.composure.isvisible = false;
+                }
+                if (actorData.system.attributes.resolve) {
+                    actorData.system.attributes.resolve.isvisible = false;
+                }
+            }
+
+            // Add abilities as objektstruktur
+            actorData.system.abilities = {};
+
+            for (const ability of abilities) {
+                const key = ability.system.slug ?? ability.system.id ?? ability.name.toLowerCase();
+                actorData.system.abilities[key] = ability.toObject();
+
+                traitMax = actorData.system.settings.abilities.defaultmaxvalue;
+
+                if (ability.system.max != traitMax) {
+                    itemList.push({
+                        _id: ability._id,
+                        "system.max": traitMax
+                    });
+
+                    actorData.system.abilities[key].system.max = traitMax;
+                }
+
+                continue;
+            }
+
+            // Add advantages as objektstruktur
+            actorData.system.advantages = {};            
+            
+            for (const adv of advantages) {
+                const key = adv.system.slug ?? adv.system.id ?? adv.name.toLowerCase();
+                actorData.system.advantages[key] = adv.toObject();
+
+                // set bearing in path correctly
+                if (actorData.system.advantages[key].system.id === "path") {
+    				let bearing = 0;
+                    let pathvalue = actorData.system.advantages[key].system.permanent;
+
+                    if (pathvalue <= 1) {
+                        bearing = 2;
+                    }
+                    else if ((pathvalue >= 2) && (pathvalue <= 3)) {
+                        bearing = 1;
+                    }
+                    else if ((pathvalue >= 4) && (pathvalue <= 7)) {
+                        bearing = 0;
+                    }
+                    else if ((pathvalue >= 8) && (pathvalue <= 9)) {
+                        bearing = -1;
+                    }
+                    else if (pathvalue == 10) {
+                        bearing = -2;
+                    }
+
+                    // bearing is being updated so need to update item
+                    if (adv.system.bearing != bearing) {
+                        itemList.push({
+                            _id: adv._id,
+                            "system.bearing": bearing
+                        });
+
+                        actorData.system.advantages[key].system.bearing = bearing;
+                    }                       
+                    
+                    continue;
+                } 
+
+                // set max value in virtues correctly
+                if (actorData.system.advantages[key].system.group === "virtue") {
+                    traitMax = actorData.system.settings.powers.defaultmaxvalue;
+
+                    if (adv.system.max != traitMax) {
+                        itemList.push({
+                            _id: adv._id,
+                            "system.max": traitMax
+                        });
+
+                        actorData.system.advantages[key].system.max = traitMax;
+                    }
+
+                    continue;
+                }
+
+                if (actorData.system.advantages[key].system.id === "bloodpool") {  
+                    if (actorData.system.bio.splatfields.generation != undefined) {
+                        const bloodpoolMax = this._calculteMaxBlood(actorData.system.bio.splatfields.generation.value - actorData.system.bio.splatfields.generation.mod);
+                        const bloodSpending = this._calculteMaxBloodSpend(actorData.system.bio.splatfields.generation.value - actorData.system.bio.splatfields.generation.mod);
+
+                        if ((adv.system.max != bloodpoolMax) || (adv.system.perturn != bloodSpending)) {
+                            actorData.system.advantages[key].system.max = bloodpoolMax;
+                            actorData.system.advantages[key].system.perturn = bloodSpending;
+
+                            if (actorData.system.advantages[key].system.temporary > bloodpoolMax) {
+                                actorData.system.advantages[key].system.temporary = bloodpoolMax;
+                            }
+
+                            itemList.push({
+                                _id: adv._id,
+                                "system.max": bloodpoolMax,
+                                "system.perturn": bloodSpending,
+                                "system.temporary": actorData.system.advantages[key].system.temporary
+                            });
+                        }  
+                        
+                        
+                    }   
+                    
+                    continue;
+                }
+            }
+
+            traitMax = parseInt(actorData.system.settings.powers.defaultmaxvalue);
+
+            for (const sphere of spheres) {
+                if (sphere.system.max !== traitMax) {
+                    itemList.push({ _id: sphere._id, "system.max": traitMax });
+                }
+            }
+
+            for (const power of powers) {
+                if (power.system.max !== traitMax) {
+                    itemList.push({ _id: power._id, "system.max": traitMax });
+                }
+            }
+
+            // Set power type flags based on what powers exist on the actor
+            actorData.system.settings.hasdisciplines = false;
+            actorData.system.settings.hascombinationdisciplines = false;
+            actorData.system.settings.hasrituals = false;
+            actorData.system.settings.hasgifts = false;
+            actorData.system.settings.hasrites = false;
+            actorData.system.settings.hasshapes = false;
+            actorData.system.settings.hasspheres = false;
+            actorData.system.settings.hasrotes = false;
+            actorData.system.settings.hasnuminas = false;
+
+            for (const power of allpowers) {
+                if (power.system.type === "wod.types.discipline") {
+                    actorData.system.settings.hasdisciplines = true;
+                }
+                if (power.system.type === "wod.types.combination") {
+                    actorData.system.settings.hascombinationdisciplines = true;
+                }
+                if (power.system.type === "wod.types.ritual") {
+                    actorData.system.settings.hasrituals = true;
+                }
+                if (power.system.type === "wod.types.gift") {
+                    actorData.system.settings.hasgifts = true;
+                }
+                if (power.system.type === "wod.types.rite") {
+                    actorData.system.settings.hasrites = true;
+                }
+                if (power.system.type === "wod.types.numina") {
+                    actorData.system.settings.hasnuminas = true;
+                }
+                if (power.type === "Sphere") {
+                    actorData.system.settings.hasspheres = true;
+                }
+                if (power.type === "Rote") {
+                    actorData.system.settings.hasrotes = true;
+                }
+            }            
+
+            actorData.system.settings.hasshapes = shapes.length > 0;
+            actorData.system.settings.hasresonances = resonances.length > 0;
+
+            if (itemList.length > 0) {
+                this.updateEmbeddedDocuments("Item", itemList);
+            }
+        }
     }
+
+    
 
     /**
      * @override
@@ -42,23 +403,193 @@ export class WoDActor extends Actor {
      */
     async _preCreate(data, options, user) {
         await super._preCreate(data, options, user);
+        const actor = this;
 
-        if (data.type == CONFIG.worldofdarkness.sheettype.mortal) {
-            await CreateHelper.SetMortalAbilities(this, CONFIG.worldofdarkness.defaultMortalEra);            
+        try {
+            let updates = {};
+
+            if (!actor.system.settings.iscreated) {
+                updates["system.settings.usesplatfont"] = game.settings.get('worldofdarkness', 'useSplatFonts');
+
+                if (data.type == "PC") {
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.era"] = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultMortalEra];
+
+                    console.log(`Create PC`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.mortal) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);  
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "mortal", CONFIG.worldofdarkness.defaultMortalEra);
+
+                    updates["system.settings.iscreated"] = true;		
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.era"] = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultMortalEra];
+
+                    // Create items
+                    await CreateHelper.SetMortalAbilities(this, CONFIG.worldofdarkness.defaultMortalEra);   
+
+                    console.log(`Create ${CONFIG.worldofdarkness.sheettype.mortal}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.werewolf) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, CONFIG.worldofdarkness.splat.werewolf, CONFIG.worldofdarkness.defaultWerewolfEra);
+                    updates = await CreateHelper.SetWerewolfAttributesv2(updates, this);
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.era"] = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultWerewolfEra];
+                    updates["system.settings.variant"] = "general";
+                    updates["system.settings.isshapecreated"] = true;
+
+                    // Create items
+                    await CreateHelper.SetWerewolfAbilities(this, CONFIG.worldofdarkness.defaultWerewolfEra);
+                    await CreateHelper.CreateShape(this, game.data.system.version);
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.werewolf}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.vampire) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, CONFIG.worldofdarkness.splat.vampire, CONFIG.worldofdarkness.defaultVampireEra);             
+                    updates = await CreateHelper.SetVampireAttributesv2(updates, this);                    
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.era"] = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultVampireEra];
+
+                    // Create items
+                    await CreateHelper.SetVampireAbilities(this, CONFIG.worldofdarkness.defaultVampireEra);
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.vampire}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.mage) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, CONFIG.worldofdarkness.splat.mage, CONFIG.worldofdarkness.defaultMageEra);
+                    updates = await CreateHelper.SetMageAttributesv2(updates, this);
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.era"] = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultMageEra];
+                    updates["system.settings.variant"] = "general";                    
+            
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.mage}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.changeling) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "changeling", "modern");   
+                    updates = await CreateHelper.SetChangelingAttributesv2(updates, this);
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.era"] = CONFIG.worldofdarkness.era["modern"];
+                    updates["system.settings.variant"] = "general";
+
+                    // Create items
+                    await CreateHelper.SetChangelingAbilities(this);
+                    
+                    console.log(`Create ${CONFIG.worldofdarkness.sheettype.changeling}`);
+                } 
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.hunter) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "hunter", "modern");
+                    updates = await CreateHelper.SetHunterAttributesv2(updates, this);	
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.variant"] = "general";                    
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.hunter}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.demon) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "demon", "modern");
+                    updates = await CreateHelper.SetDemonAttributesv2(updates, this);	
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+                    updates["system.settings.variant"] = "general";                    
+
+                    // Create items
+                    await CreateHelper.SetDemonAbilities(this);
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.demon}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.mummy) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "mummy", "modern");
+                    updates = await CreateHelper.SetMummyAttributesv2(updates, this);
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;	
+                    updates["system.settings.variant"] = "general";
+            
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.mummy}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.wraith) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "wraith", "modern");
+                    updates = await CreateHelper.SetWraithAttributesv2(updates, this);	
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;                   
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.wraith}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, CONFIG.worldofdarkness.sheettype.werewolf.toLowerCase(), CONFIG.worldofdarkness.defaultWerewolfEra);
+                    // since no shifter type has been selected only set as werewolf so far			
+                    updates = await CreateHelper.SetWerewolfAttributesv2(updates, this);
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;                    
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.changingbreed}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.exalted) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+
+                    updates = await CreateHelper.SetAbilitiesv2(updates, this, "exalted", "modern");
+                    updates = await CreateHelper.SetExaltedAttributesv2(updates, this);        
+                    // Note: _keepSheetValuesCorrect still uses data, needs to be handled separately if needed
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;	                    
+            
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.exalted}`);
+                }
+
+                if (data.type == CONFIG.worldofdarkness.sheettype.creature) {
+                    updates = await CreateHelper.SetMortalAttributesv2(updates, this);
+                    updates = await CreateHelper.SetCreatureAttributesv2(updates, this);
+                    updates = await CreateHelper.SetCreatureAbilitiesv2(updates, this);
+
+                    updates["system.settings.iscreated"] = true;
+                    updates["system.settings.version"] = game.data.system.version;
+
+                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.creature}`);
+                }	
+            }  
+
+            if (Object.keys(updates).length > 0) {
+                this.updateSource(updates);
+            }
         }
-        if (data.type == CONFIG.worldofdarkness.sheettype.vampire) {
-            await CreateHelper.SetVampireAbilities(this, CONFIG.worldofdarkness.defaultVampireEra);
-        }
-        if (data.type == CONFIG.worldofdarkness.sheettype.werewolf) {
-            await CreateHelper.SetWerewolfAbilities(this, CONFIG.worldofdarkness.defaultWerewolfEra);				
-            await CreateHelper.CreateShape(this, game.data.system.version);
-        }    
-        if (data.type == CONFIG.worldofdarkness.sheettype.changeling) {
-            await CreateHelper.SetChangelingAbilities(this);    
-        }
-        if (data.type == CONFIG.worldofdarkness.sheettype.demon) {
-            await CreateHelper.SetDemonAbilities(this);
-        }
+		catch (err) {
+			err.message = `Failed _preCreate Actor ${data?.name}: ${err.message}`;
+			console.error(err);
+		}
     }
 
   /**
@@ -70,280 +601,158 @@ export class WoDActor extends Actor {
   */
     async _onCreate(data, options, userId) {
         await super._onCreate(data, options, userId);
-
-        try {
-            let data = foundry.utils.duplicate(this);
-
-            if (!data.system.settings.iscreated) {
-                if (data.type == CONFIG.worldofdarkness.sheettype.mortal) {
-                    data.system.settings.iscreated = true;		
-                    data.system.settings.version = game.data.system.version;
-                    data.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultMortalEra];
-                    
-                    data = await CreateHelper.SetAbilities(data, "mortal", CONFIG.worldofdarkness.defaultMortalEra);                
-                    data = await CreateHelper.SetMortalAttributes(data);
-            
-                    console.log(`Create ${CONFIG.worldofdarkness.sheettype.mortal}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.creature) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-
-                    data = await CreateHelper.SetCreatureAbilities(data);
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetCreatureAttributes(data);
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.creature}`);
-                }	
-                if (data.type == CONFIG.worldofdarkness.sheettype.werewolf) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-                    data.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultWerewolfEra];
-                    data.system.settings.variant = "general";
-                    data.system.settings.isshapecreated = true;
-
-                    data = await CreateHelper.SetAbilities(data, "werewolf", CONFIG.worldofdarkness.defaultWerewolfEra);
-                    data = await CreateHelper.SetMortalAttributes(data);				
-                    data = await CreateHelper.SetWerewolfAttributes(data);	
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.werewolf}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.vampire) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-                    data.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultVampireEra];
-
-                    data = await CreateHelper.SetAbilities(data, "vampire", CONFIG.worldofdarkness.defaultVampireEra);                
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetVampireAttributes(data);		
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.vampire}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.mage) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-                    data.system.settings.era = CONFIG.worldofdarkness.era[CONFIG.worldofdarkness.defaultMageEra];
-                    data.system.settings.variant = "general";
-                    
-                    data = await CreateHelper.SetAbilities(data, "mage", CONFIG.worldofdarkness.defaultMageEra);
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetMageAttributes(data);
-            
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.mage}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.changeling) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-
-                    data = await CreateHelper.SetAbilities(data, "changeling", "modern");                
-                    data = await CreateHelper.SetMortalAttributes(data);    
-                    data = await CreateHelper.SetChangelingAttributes(data);	
-                    
-                    console.log(`Create ${CONFIG.worldofdarkness.sheettype.changeling}`);
-                }            
-                if (data.type == CONFIG.worldofdarkness.sheettype.mummy) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;	
-                    data.system.settings.variant = "general";
-            
-                    data = await CreateHelper.SetAbilities(data, "mummy", "modern");
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetMummyAttributes(data);        
-            
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.mummy}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.wraith) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-
-                    data = await CreateHelper.SetAbilities(data, "wraith", "modern");
-                    data = await CreateHelper.SetMortalAttributes(data);    
-                    data = await CreateHelper.SetWraithAttributes(data);	
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.wraith}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.hunter) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-                    data.system.settings.variant = "general";
-
-                    data = await CreateHelper.SetAbilities(data, "hunter", "modern");
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetHunterAttributes(data);	
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.hunter}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.demon) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-                    data.system.settings.variant = "general";
-
-                    data = await CreateHelper.SetAbilities(data, "demon", "modern");
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetDemonAttributes(data);	
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.demon}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.changingbreed) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;
-
-                    data = await CreateHelper.SetAbilities(data, "werewolf", CONFIG.worldofdarkness.defaultWerewolfEra);
-                    data = await CreateHelper.SetMortalAttributes(data);	
-                    // since no shifter type has been selected only set as werewolf so far			
-                    data = await CreateHelper.SetWerewolfAttributes(data);
-
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.changingbreed}`);
-                }
-                if (data.type == CONFIG.worldofdarkness.sheettype.exalted) {
-                    data.system.settings.iscreated = true;
-                    data.system.settings.version = game.data.system.version;	
-            
-                    data = await CreateHelper.SetAbilities(data, "exalted", "modern");
-                    data = await CreateHelper.SetMortalAttributes(data);
-                    data = await CreateHelper.SetExaltedAttributes(data);        
-                    data = await this._keepSheetValuesCorrect(data);
-            
-                    console.log(`Creating ${CONFIG.worldofdarkness.sheettype.exalted}`);
-                }
-            }  
-
-            await this.update(data);
-        }
-        catch (err) {
-            err.message = `Failed _onCreate Actor ${data.name}: ${err.message}`;
-            console.error(err);
-        }    
     }
 
     async _onUpdate(updateData, options, user) {
-        super._onUpdate(updateData, options, user);   
-        let actor;
+        super._onUpdate(updateData, options, user);
 
-        try {
-            actor = this;
-
-            if ((!actor) || (actor == undefined)) {
-                return;
-            }
-
-            // if no owner skip
-            if (actor.permission < 3) {
-                return;
-            }
-
-            updateData = foundry.utils.duplicate(actor);
-            
-            if ((updateData?.system?.settings?.isupdated == undefined) || (updateData?.system?.settings?.isupdated)) {
-                return;
-            }        
-
-            let advantageRollSetting = true;        
-            let isSpirit = false;
-
-            if ((updateData.type == CONFIG.worldofdarkness.sheettype.creature) && (updateData.system.settings.variant == "spirit")) {
-                isSpirit = true;
-            }
+        if (this.type !== "PC") {
+            let actor;
 
             try {
-                advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
-            } 
-            catch (e) {
-                advantageRollSetting = true;
-            }
+                actor = this;
 
-            // abilities max
-            // set base line of what is normally max values
-            updateData = await this._setAbilityMaxValue(updateData);
-
-            // willpower
-            if (updateData.system.settings.variant != "spirit") {
-                if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
-                    updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
+                if ((!actor) || (actor == undefined)) {
+                    return;
                 }
-            }            
+
+                // if no owner skip
+                if (actor.permission < 3) {
+                    return;
+                }
+
+                updateData = foundry.utils.duplicate(actor);
+
+                if ((actor.type != CONFIG.worldofdarkness.sheettype.vampire) && (actor.type != "PC")) {
+                    for (const i in updateData.system?.abilities) {
+                        if ((updateData.system.abilities[i].max !== updateData.system.settings.abilities.defaultmaxvalue) && (updateData.system.settings.isupdated)) {
+                            updateData.system.settings.isupdated = false;
+                        }                
+                    }
+                }
             
-            if (updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.max) {
-                updateData.system.advantages.willpower.permanent = updateData.system.advantages.willpower.max;
-            }
-            
-            if (updateData.system.advantages.willpower.permanent < updateData.system.advantages.willpower.temporary) {
-                updateData.system.advantages.willpower.temporary = updateData.system.advantages.willpower.permanent;
-            }
+                if ((updateData?.system?.settings?.isupdated == undefined) || (updateData?.system?.settings?.isupdated)) {
+                    return;
+                }        
 
-            if (advantageRollSetting) {
-                updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent;
-            }
-            else {
-                updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.temporary ? updateData.system.advantages.willpower.temporary : updateData.system.advantages.willpower.permanent; 
-            }
+                let advantageRollSetting = true;        
+                let isSpirit = false;
 
-            if ((updateData.system.settings.hasrage) || (updateData.system.settings.hasgnosis)) {
-                updateData = await this._handleWerewolfCalculations(updateData);
-            }
-            if ((updateData.system.settings.haspath) || (updateData.system.settings.hasbloodpool) || (updateData.system.settings.hasvirtue)) {
-                updateData = await this._handleVampireCalculations(updateData);
-            }
-            if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
-                updateData = await this._handleMageCalculations(updateData);
-            }
-            if (updateData.system.settings.hasglamour) {
-                updateData = await this._handleChangelingCalculations(updateData);
-            }
-            if (updateData.system.settings.hasconviction) {
-                updateData = await this._handleHunterCalculations(updateData);
-            }
-            if ((updateData.system.settings.hasfaith) || (updateData.system.settings.hastorment)) {
-                updateData = await this._handleDemonCalculations(updateData);
-            }
-            if (updateData.system.settings.hasbalance) {
-                updateData = await this._handleMummyCalculations(updateData);
-            }
+                if ((updateData.type == CONFIG.worldofdarkness.sheettype.creature) && (updateData.system.settings.variant == "spirit")) {
+                    isSpirit = true;
+                }
 
-            if (updateData.type == CONFIG.worldofdarkness.sheettype.exalted) {
-                updateData = await this._handleExaltedCalculations(updateData);
-                updateData = await this._keepSheetValuesCorrect(updateData);
+                try {
+                    advantageRollSetting = CONFIG.worldofdarkness.rollSettings;
+                } 
+                catch (e) {
+                    advantageRollSetting = true;
+                }
+
+                // abilities max
+                // set base line of what is normally max values
+                updateData = await this._setAbilityMaxValue(updateData);
+
+                // willpower
+                if (updateData.system.settings.variant != "spirit") {
+                    if ((CONFIG.worldofdarkness.attributeSettings == "5th") && (CONFIG.worldofdarkness.fifthEditionWillpowerSetting == "5th")) {
+                        updateData.system.advantages.willpower.permanent = parseInt(updateData.system.attributes.composure.value) + parseInt(updateData.system.attributes.resolve.value);
+                    }
+                    
+                        
+                }            
+                
+                if (updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.max) {
+                    updateData.system.advantages.willpower.permanent = updateData.system.advantages.willpower.max;
+                }
+                
+                if (updateData.system.advantages.willpower.permanent < updateData.system.advantages.willpower.temporary) {
+                    updateData.system.advantages.willpower.temporary = updateData.system.advantages.willpower.permanent;
+                }
+
+                if (advantageRollSetting) {
+                    updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent;
+                }
+                else {
+                    updateData.system.advantages.willpower.roll = updateData.system.advantages.willpower.permanent > updateData.system.advantages.willpower.temporary ? updateData.system.advantages.willpower.temporary : updateData.system.advantages.willpower.permanent; 
+                }
+
+                if ((updateData.system.settings.hasrage) || (updateData.system.settings.hasgnosis)) {
+                    updateData = await this._handleWerewolfCalculations(updateData);
+                }
+                if ((updateData.system.settings.haspath) || (updateData.system.settings.hasbloodpool) || (updateData.system.settings.hasvirtue)) {
+                    updateData = await this._handleVampireCalculations(updateData);
+                }
+                if (updateData.type == CONFIG.worldofdarkness.sheettype.mage) {
+                    updateData = await this._handleMageCalculations(updateData);
+                }
+                if (updateData.system.settings.hasglamour) {
+                    updateData = await this._handleChangelingCalculations(updateData);
+                }
+                if (updateData.system.settings.hasconviction) {
+                    updateData = await this._handleHunterCalculations(updateData);
+                }
+                if ((updateData.system.settings.hasfaith) || (updateData.system.settings.hastorment)) {
+                    updateData = await this._handleDemonCalculations(updateData);
+                }
+                if (updateData.system.settings.hasbalance) {
+                    updateData = await this._handleMummyCalculations(updateData);
+                }
+                if (updateData.type == CONFIG.worldofdarkness.sheettype.wraith) {
+                    updateData = await this._handleWraithCalculations(updateData);
+                }
+
+                if (updateData.type == CONFIG.worldofdarkness.sheettype.exalted) {
+                    updateData = await this._handleExaltedCalculations(updateData);
+                    updateData = await this._keepSheetValuesCorrect(updateData);
+                }
+
+                await this._setItems(actor, updateData);
+                updateData = await this._handleWoundLevelCalculations(updateData);
+                updateData = await calculateTotals(updateData);
+
+                // movement needs the total dexterity and all active items to work correctly.
+                updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
+
+                updateData.system.settings.isupdated = true;
+                await actor.update(updateData);
             }
-
-            updateData = await this._setItems(actor, updateData);
-            updateData = await this._handleWoundLevelCalculations(updateData);
-
-            // attributes totals
-            // needs to be run last as all items, bonuses and changes needs to be added FIRST before total values can be calculated.
-            updateData = await calculateTotals(updateData);
-
-            // movement needs the total dexterity and all active items to work correctly.
-            updateData.system.movement = await CombatHelper.CalculateMovement(updateData);
-
-            updateData.system.settings.isupdated = true;
-            await actor.update(updateData);
-        }
-        catch (err) {
-            ui.notifications.error(`Cannot update Actor ${actor?.name}. Please check console for details.`);
-            err.message = `Cannot update Actor ${actor?.name}: ${err.message}`;
-            console.error(err);
-            console.log(actor);
-        }
+            catch (err) {
+                ui.notifications.error(`Cannot update Actor ${actor?.name}. Please check console for details.`);
+                err.message = `Cannot update Actor ${actor?.name}: ${err.message}`;
+                console.error(err);
+                console.log(actor);
+            }
+        }    
     }
 
     async _setAbilityMaxValue(actorData) {
-        if (actorData.type == CONFIG.worldofdarkness.sheettype.vampire) {
-            return actorData;
+        if (!Functions.isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
+            actorData.system.settings.abilities.defaultmaxvalue = 5;
+        }
+        if (!Functions.isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
+            actorData.system.settings.powers.defaultmaxvalue = 5;
         }
 
         try {
-            if (!Functions.isNumber(actorData.system.settings.abilities.defaultmaxvalue)) {
-                actorData.system.settings.abilities.defaultmaxvalue = 5;
-            }
-            if (!Functions.isNumber(actorData.system.settings.powers.defaultmaxvalue)) {
-                actorData.system.settings.powers.defaultmaxvalue = 5;
-            }
-
-            for (const i in actorData.system.abilities) {
-                if (actorData.system.abilities[i].max != actorData.system.settings.abilities.defaultmaxvalue) {
-                    actorData.system.abilities[i].max = parseInt(actorData.system.settings.abilities.defaultmaxvalue);
+            if (actorData.type !== "PC") {
+                for (const i in actorData.system.abilities) {
+                    if (actorData.system.abilities[i].max !== actorData.system.settings.abilities.defaultmaxvalue) {
+                        actorData.system.abilities[i].max = actorData.system.settings.abilities.defaultmaxvalue;
+                    }                
                 }
-            }            
+            }
+            else {
+                for (const bio in actorData.system.bio.splatfields) {
+                    if (actorData.system.bio.splatfields[bio].label == "wod.bio.vampire.generation") {                    
+                        const traitMax = await this._calculteMaxTrait(parseInt(actorData.system.bio.splatfields.generation.value) - parseInt(actorData.system.bio.splatfields.generation.mod));
+
+                        actorData.system.settings.attributes.defaultmaxvalue = traitMax;
+                        actorData.system.settings.abilities.defaultmaxvalue = traitMax;
+                        actorData.system.settings.powers.defaultmaxvalue = traitMax;
+                    }
+                }
+            }     
         }
         catch (err) {
             ui.notifications.error("Cannot set abilities to max rating. Please check console for details.");
@@ -405,6 +814,10 @@ export class WoDActor extends Actor {
 	}
 
     async _handleVampireCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             actorData.system.advantages.path.roll = parseInt(actorData.system.advantages.path.permanent);
             actorData.system.advantages.virtues.conscience.roll = parseInt(actorData.system.advantages.virtues.conscience.permanent);
@@ -436,9 +849,9 @@ export class WoDActor extends Actor {
                 }
             }
             else {
-                const bloodpoolMax = await this._calculteMaxBlood(actorData.system.generation - actorData.system.generationmod);
-                const bloodSpending = await this._calculteMaxBloodSpend(actorData.system.generation - actorData.system.generationmod);
-                const traitMax = await this._calculteMaxTrait(actorData.system.generation - actorData.system.generationmod);
+                const bloodpoolMax = this._calculteMaxBlood(actorData.system.generation - actorData.system.generationmod);
+                const bloodSpending = this._calculteMaxBloodSpend(actorData.system.generation - actorData.system.generationmod);
+                const traitMax = this._calculteMaxTrait(actorData.system.generation - actorData.system.generationmod);
                 actorData.system.settings.abilities.defaultmaxvalue = traitMax;
                 actorData.system.settings.powers.defaultmaxvalue = traitMax;
 
@@ -481,7 +894,7 @@ export class WoDActor extends Actor {
         return actorData;
 	}
 
-    async _calculteMaxBlood(selectedGeneration) {
+    _calculteMaxBlood(selectedGeneration) {
         let bloodpoolMax = 10;
     
         if (selectedGeneration == 16) {
@@ -524,7 +937,7 @@ export class WoDActor extends Actor {
         return bloodpoolMax;
     }
 
-    async _calculteMaxBloodSpend(selectedGeneration) {
+    _calculteMaxBloodSpend(selectedGeneration) {
         let bloodSpending = 1;
     
         if (selectedGeneration == 9) {
@@ -549,7 +962,7 @@ export class WoDActor extends Actor {
         return bloodSpending;
     }
 
-    async _calculteMaxTrait(selectedGeneration) {
+    _calculteMaxTrait(selectedGeneration) {
         let traitMax = 5;
     
         if (selectedGeneration == 7) {
@@ -568,7 +981,12 @@ export class WoDActor extends Actor {
         return traitMax;
     }
 
+
     async _handleWerewolfCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+        
         try {
             let advantageRollSetting = true;
     
@@ -646,7 +1064,6 @@ export class WoDActor extends Actor {
                 actorData.system.advantages.willpower.roll = actorData.system.advantages.willpower.permanent > actorData.system.advantages.willpower.temporary ? actorData.system.advantages.willpower.temporary : actorData.system.advantages.willpower.permanent; 
             }		
     
-                // TODO fixa till
             for (const item of actorData.items) {
                 if (item.type == "Bonus") {
                     if ((item.system.parentid == "glabro") || (item.system.parentid == "crinos") || (item.system.parentid == "hispo") || (item.system.parentid == "lupus")) {
@@ -697,6 +1114,10 @@ export class WoDActor extends Actor {
 	}
 
     async _handleMageCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             actorData.system.advantages.arete.roll = parseInt(actorData.system.advantages.arete.permanent);
             actorData.system.paradox.roll = parseInt(actorData.system.paradox.temporary) + parseInt(actorData.system.paradox.permanent);
@@ -720,6 +1141,10 @@ export class WoDActor extends Actor {
 	}
 
     async _handleChangelingCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             // glamour
             if (actorData.system.advantages.glamour.permanent > actorData.system.advantages.glamour.max) {
@@ -769,6 +1194,10 @@ export class WoDActor extends Actor {
 	}
 
 	async _handleHunterCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             let primary = actorData.system.primaryvirtue;
 
@@ -825,6 +1254,10 @@ export class WoDActor extends Actor {
 	}
 
 	async _handleDemonCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             // faith
             if (actorData.system.settings.hasfaith) {
@@ -859,6 +1292,10 @@ export class WoDActor extends Actor {
 	}
 
 	async _handleMummyCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             // balance
             if (actorData.system.settings.hasbalance) {
@@ -874,7 +1311,63 @@ export class WoDActor extends Actor {
 		
 	}
 
+    async _handleWraithCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
+       if (actorData.system.advantages.corpus.permanent > actorData.system.advantages.corpus.max) {
+            actorData.system.advantages.corpus.permanent = actorData.system.advantages.corpus.max;
+        }
+        
+        if (actorData.system.advantages.corpus.permanent < actorData.system.advantages.corpus.temporary) {
+            // has to check the health levels
+            if ((actorData.system.health.damage.corpus.bashing + actorData.system.health.damage.corpus.lethal + actorData.system.health.damage.corpus.aggravated) > actorData.system.advantages.corpus.permanent) {
+                let diff = actorData.system.advantages.corpus.temporary - actorData.system.advantages.corpus.permanent;
+
+                if ((actorData.system.health.damage.corpus.bashing > 0) && (diff > 0)) {
+                    if (actorData.system.health.damage.corpus.bashing >= diff) {
+                        actorData.system.health.damage.corpus.bashing -= diff;
+                        diff = 0;                        
+                    }
+                    else {
+                        diff -= actorData.system.health.damage.corpus.bashing;
+                        actorData.system.health.damage.corpus.bashing = 0;
+                    }
+                }
+                if ((actorData.system.health.damage.corpus.lethal > 0) && (diff > 0)) {
+                    if (actorData.system.health.damage.corpus.lethal >= diff) {
+                        actorData.system.health.damage.corpus.lethal -= diff;
+                        diff = 0;                        
+                    }
+                    else {
+                        diff -= actorData.system.health.damage.corpus.lethal;
+                        actorData.system.health.damage.corpus.lethal = 0;
+                    }
+                }
+                if ((actorData.system.health.damage.corpus.aggravated > 0) && (diff > 0)) {
+                    if (actorData.system.health.damage.corpus.aggravated >= diff) {
+                        actorData.system.health.damage.corpus.aggravated -= diff;
+                        diff = 0;                        
+                    }
+                    else {
+                        diff -= actorData.system.health.damage.corpus.aggravated;
+                        actorData.system.health.damage.corpus.aggravated = 0;
+                    }
+                }
+            }
+
+            actorData.system.advantages.corpus.temporary = actorData.system.advantages.corpus.permanent;
+        }
+
+        return actorData;
+    }
+
     async _handleExaltedCalculations(actorData) {
+        if (actorData.type == "PC") {
+            return actorData;
+        }
+
         try {
             actorData.system.advantages.essence.roll = actorData.system.advantages.essence.permanent; 
         }
@@ -886,9 +1379,14 @@ export class WoDActor extends Actor {
         return actorData;
     }
 
-    async _setItems(actor, actorData) {
+    // Securing bonus items needs still to be handled here even by PC actors
+    async _setItems() {        
+        const actor = this;
+
+        const items = actor?.items || [];
+
         // bonus item correctly active if connected item has changed active status
-        const bonuses = actorData.items.filter(item => item.type === "Bonus" && item.system.parentid != -1);
+        const bonuses = items.filter(item => item.type === "Bonus" && item.system.parentid != -1);
         for (const bonus of bonuses) {
             const parentItem = await actor.getEmbeddedDocument("Item", bonus.system.parentid);
             // e.g Werewolf bonus
@@ -904,30 +1402,49 @@ export class WoDActor extends Actor {
             }
         }
 
-        if (actor.type != CONFIG.worldofdarkness.sheettype.vampire) {
-            // secondary skills to correct max value.
-            const abilities = actorData.items.filter(item => item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability"));
-            for (const ability of abilities) {
-                if (ability.system.max != parseInt(actorData.system.settings.abilities.defaultmaxvalue)) {
-                    const item = await actor.getEmbeddedDocument("Item", ability._id);
-                    let itemData = foundry.utils.duplicate(item);
-                    itemData.system.max = parseInt(actorData.system.settings.abilities.defaultmaxvalue)
-                    await item.update(itemData);
-                }
-            }
-
-            const powers = actorData.items.filter(item => item.type == "Power");
-            for (const power of powers) {
-                if (power.system.max != parseInt(actorData.system.settings.powers.defaultmaxvalue)) {
-                    const item = await actor.getEmbeddedDocument("Item", power._id);
-                    let itemData = foundry.utils.duplicate(item);
-                    itemData.system.max = parseInt(actorData.system.settings.powers.defaultmaxvalue);
-                    await item.update(itemData);
-                }
+        // secondary skills to correct max value.
+        const abilities = items.filter(item => item.type === "Ability" || (item.type === "Trait" && (item.system.type === "wod.types.talentsecondability" || item.system.type === "wod.types.skillsecondability" || item.system.type === "wod.types.knowledgesecondability")));
+        for (const ability of abilities) {
+            if (ability.system.max != parseInt(actor.system.settings.abilities.defaultmaxvalue)) {
+                const item = await actor.getEmbeddedDocument("Item", ability._id);
+                let itemData = foundry.utils.duplicate(item);
+                itemData.system.max = parseInt(actor.system.settings.abilities.defaultmaxvalue)
+                await item.update(itemData);
             }
         }
 
-        return actorData;
+        const powers = items.filter(item => item.type == "Power");
+        
+        // Update powers based on secondaryabilityid
+        const updates = [];
+        for (const power of powers) {
+            let needsUpdate = false;
+            let itemData = foundry.utils.duplicate(power);
+            
+            if (power.system.secondaryabilityid === "") {
+                // If secondaryabilityid is empty, set max to defaultmaxvalue
+                if (power.system.max != parseInt(actor.system.settings.powers.defaultmaxvalue)) {
+                    itemData.system.max = parseInt(actor.system.settings.powers.defaultmaxvalue);
+                    needsUpdate = true;
+                }
+            } else {
+                // If secondaryabilityid contains something, set value and max to 0
+                if ((power.system.value != 0) || (power.system.max != 0)) {
+                    itemData.system.value = 0;
+                    itemData.system.max = 0;
+                    needsUpdate = true;
+                }
+            }
+            
+            if (needsUpdate) {
+                updates.push(itemData);
+            }
+        }
+        
+        // Perform all updates in a single batch
+        if (updates.length > 0) {
+            await actor.updateEmbeddedDocuments("Item", updates);
+        }
     }
 
     // Function to sort out the correct visible name of the Actor's renown
@@ -1121,7 +1638,24 @@ export class WoDActor extends Actor {
         }
         
         return "";
-    }    
+    }  
+    
+    ShowTokenImage(actor, shapeid, image) {
+        if (actor == undefined) {
+            return false;
+        }
+        if (actor.type !== "PC") {
+            return false;
+        }
+        
+        const shapeform = actor.items.find(item => item.type === "Trait" && item.system.type === "wod.types.shapeform" && item._id === shapeid);
+
+        if ((shapeform.system[image] === undefined) || (shapeform.system[image] === "") || (shapeform.system[image] == "icons/svg/mystery-man.svg")) {
+            return false;
+        }
+
+        return true;
+    }
 
     async _keepSheetValuesCorrect(actor) {
         const essencepoolMax = await _calculteMaxEssencepool(actor.system.settings.variant, parseInt(actor.system.advantages.essence.permanent));

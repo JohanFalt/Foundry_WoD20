@@ -1,0 +1,30 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}">				
+
+	<div class="dialog-area">			
+
+		{{#if (not hasActor)}}
+		
+			<div class="infobox bioInformationArea floating-label-group">
+				<input class="sheet-infoValues editable" name="system.id" type="text" value="{{item.system.id}}" data-dtype="String" autocomplete="off" autofocus required />
+				<span class="floating-label">{{localize "wod.labels.ability.id"}}</span>
+			</div>
+			<div class="information-area">{{localize "wod.labels.ability.idhint"}}</div>
+
+		{{/if}}
+
+		<div class="infobox bioInformationArea floating-label-group">
+			<input class="sheet-infoValues editable" name="system.label" type="text" value="{{item.system.label}}" data-dtype="String" autocomplete="off" autofocus required />
+			<span class="floating-label">{{localize "wod.labels.ability.sheetname"}}</span>
+		</div>
+
+		<div class="information-area">{{localize "wod.labels.ability.mandatory"}}</div>
+
+	</div>
+
+	<div class="dialog-area">
+
+		{{> "systems/worldofdarkness/templates/items/parts/description.hbs" proseheadline="wod.labels.description" locked=locked headline=false prosename="system.description" prosevalue=description proseenriched=enrichedDescription}}
+
+	</div>		
+			
+</section>

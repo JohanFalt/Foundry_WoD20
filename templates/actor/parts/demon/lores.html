@@ -1,211 +1,54 @@
 <div class="sheet-area flex-columns">
-    <div class="clearareaBox area-box" style="min-height: 150px;">
+    <div class="area-box" style="min-height: 150px;">
 
-        <div class="sheet-headline sheet-banner splatFont" data-area="lores">
-            <span class="sheet-banner-text">{{localize "wod.power.lores"}}</span>
-        
-            <div class="pullRight pointer headlineNormal">
-                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.lore'}}" aria-hidden="true" data-itemtype="Power" data-type="lore"></i>
-            </div>
-        </div>
+        <div class="sheet-headline sheet-banner splatFont" data-area="lores"><span class="sheet-banner-text">{{localize "wod.power.lores"}}</span></div>
 
-        {{#each actor.system.listdata.powers.lores.lorelist as | item id|}}
-
-            <div class="item-row-area {{#if (eq item.system.type 'wod.types.lore')}}mainpower-row{{/if}}">
-                <div class="clearareaBox {{#if (eq item.system.type 'wod.types.lore')}}power-row{{else}}disciplinepower-row {{#if item.system.isrollable}}disciplinepower-rollablerow{{else}}disciplinepower-nonerollablerow{{/if}}{{/if}}">
-                    {{#if (eq item.system.type "wod.types.lorepower")}}
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                    {{/if}}
-                    <div class="pullLeft lore-headline {{#if (eq item.system.type 'wod.types.lore')}}splatFont headlineGroup{{else}}headlineNormal{{/if}} {{#if item.system.isrollable}}vrollable{{/if}}" 
-                        data-type="{{../config.sheettype.demon}}"
-                        data-object="Lore"
-                        data-rollitem="true"
-                        data-itemid="{{item._id}}">{{item.name}}</div>
-
-                    {{#if (eq item.system.type "wod.types.lore")}}
-                        <div class="resource-value pullLeft power-dotBox" 
-                            data-value="{{item.system.value}}" 
-                            data-itemid="{{item._id}}">
-
-                            {{#numLoop item.system.max}}                            
-                                <span class="resource-value-step" data-type="{{../../config.sheettype.demon}}" data-index="{{this}}"></span>                            
-                            {{/numLoop}}
-                        </div>
-                    {{/if}}
-
-                    {{#if item.system.isrollable}}
-                        <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                        <div class="pullLeft power-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2  ../actor)}}{{else}}&nbsp;{{/if}}</div>
-                        <div class="pullLeft power-valueBox headlineNormal centerText">
-                            {{#if (eq item.system.difficulty "-1")}}
-                                {{localize "wod.labels.varies"}}
-                            {{else}}
-                                {{item.system.difficulty}}
-                            {{/if}}
-                        </div>
-                    {{/if}}
-
-                    <div class="pullLeft power-iconbox">
-                        {{#if (ne item.system.type "wod.types.lorepower")}}
-                            <div class="pullLeft pointer">
-                                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.lorepower'}}" aria-hidden="true" data-itemtype="Power" data-type="lorepower" data-parentid="{{item._id}}"></i>
-                            </div>
-                        {{/if}}
-                        {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
-                        <div class="pullLeft pointer">
-                            <a class="send-chat" 
-                                title="{{localize 'wod.labels.send'}}" 
-                                data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                        </div>
-
-                        {{#if (eq ../locked false)}}
-                            {{#if (eq item.system.type "wod.types.lorepower")}}
-                                <div class="pullLeft pointer">
-                                    <a class="clearPower" 
-                                        title="{{localize 'wod.labels.power.clearlore'}}" 
-                                        data-powertype="power"
-                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
-                                </div>
-                            {{/if}}
-                            {{#if (eq item.system.type "wod.types.lore")}}
-                                <div class="pullLeft pointer">
-                                    <a class="clearPower" 
-                                        title="{{localize 'wod.labels.power.removebonus.lore'}}" 
-                                        data-powertype="main"
-                                        data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
-                                </div>
-                            {{/if}}
-                            <div class="pullLeft pointer">
-                                <a class="item-edit" 
-                                    title="{{localize 'wod.labels.edit.lore'}}" 
-                                    data-type="Lore" 
-                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                            </div>
-                            <div class="pullLeft pointer">
-                                <a class="item-delete" 
-                                    title="{{localize 'wod.labels.remove.lore'}}" 
-                                    data-type="Lore" 
-                                    data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                            </div>
-                        {{/if}}
-                        {{#if (gt item.system.bonuslist.length 0)}}
-                            <div class="pullLeft pointer">
-                                <i id="collapsiblelorebonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="lore{{id}}"></i>
-                            </div>
-                        {{/if}}
-                    </div>
-                </div>
-                <div class="hide bonuses lore{{id}}" data-area="lorebonus{{id}}">
-
-                    {{#each item.system.bonuslist as |bonus id|}}
-                        <div class="clearareaBox">
-                            <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                            <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                            <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                        </div>
-                    {{/each}}
-
-                </div>
-            </div>
-
+        {{#each (getMainPowerList actor "wod.types.lore") as |item id|}}
+            {{> "systems/worldofdarkness/templates/actor/parts/mainpower_list.html" mainpower=item config=../config actor=../actor locked=../locked}}
         {{/each}}
     </div>
 </div>
 
 {{#if actor.system.listdata.powers.lores.hasunlistedlores}}
-    <div class="sheet-area flex-columns">
-        <div class="clearareaBox">
-            <div class="headlineList splatFont">{{localize "wod.power.unsortedlores"}}</div>
-        </div>
+    <div class="sheet-area unsorted-area flex-columns">
+        <div class="headlineNormal info-box">{{localize "wod.power.unsortedlores"}}</div>
 
-        <div class="clearareaBox area-box">
+        <div class="area-box">
             {{#each actor.system.listdata.powers.lores.unlistedlores as | item id|}}
 
-                <div class="clearareaBox row">
-                    <div class="pullLeft edge-headline headlineNormal vrollable" 
+                <div class="row">
+                    <div class="pullLeft headlineNormal width-namebox vrollable" 
                         data-type="{{../config.sheettype.demon}}"
                         data-object="SortLorePower"
                         data-rollitem="true"
                         data-itemid="{{item._id}}">{{item.name}}</div>
-                    <div class="power-iconbox">
-                        {{#if (eq ../locked false)}}
+                    
+                    {{#if (eq ../locked false)}}
+                        <div class="power-iconbox">
                             <a class="item-delete" title="{{localize 'wod.labels.remove.lorepower'}}" data-type="Lore" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                        {{/if}}
-                    </div>
+                        </div>
+                    {{/if}}                    
                 </div>
-
             {{/each}}
         </div>
     </div>
 {{/if}}
 
+
+<!-- RITUALS -->
 <div class="sheet-area flex-columns" style="min-height: 150px;">
-    <div class="clearareaBox">
-        <div class="sheet-headline sheet-banner splatFont" data-area="rituals">
-            <span class="sheet-banner-text">{{localize "wod.power.rituals"}}</span>
-        
-            <div class="pullRight pointer headlineNormal">
-                <i class="icon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.ritual'}}" aria-hidden="true" data-itemtype="Power" data-type="ritual" data-game="demon"></i>
-            </div>
-        </div>
+    <div>
+        <div class="sheet-headline sheet-banner splatFont" data-area="rituals"><span class="sheet-banner-text">{{localize "wod.power.rituals"}}</span></div>
 
-        {{#each actor.system.listdata.powers.lores.rituallist as | item id|}}
-
-            <div class="clearareaBox ritual-row row">
-                <div class="pullLeft ritual-headline headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                    data-type="{{../config.sheettype.demon}}"
-                    data-object="Ritual"
-                    data-rollitem="true"
-                    data-itemid="{{item._id}}">{{item.name}}</div>
-
-                {{#if item.system.isrollable}}
-                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                    <div class="pullLeft power-dicebox headlineNormal">{{localize (getAbility item.system.dice2  ../actor)}}</div>
-                    <div class="pullLeft power-valueBox headlineNormal centerText">
-                        {{#if (eq item.system.difficulty "-1")}}
-                            {{localize "wod.labels.varies"}}
-                        {{else}}
-                            {{item.system.difficulty}}
-                        {{/if}}
-                    </div>
-                {{/if}}
-
-                <div class="power-iconbox">
-                    {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
-                    <div class="pullLeft">
-                        <a class="send-chat" 
-                            title="{{localize 'wod.labels.send'}}" 
-                            data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-
-                    {{#if (eq ../locked false)}}
-                        <a class="item-edit" 
-                            title="{{localize 'wod.labels.edit.ritual'}}" 
-                            data-type="Lore" 
-                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                        {{#if (eq item.system.type "wod.types.lorepower")}}
-                            <a class="clearPower" 
-                                title="{{localize 'wod.labels.power.clearlore'}}" 
-                                data-item-id="{{item._id}}"><i class="icon fa-solid fa-lock"></i></a>
-                        {{/if}}
-                        <a class="item-delete" 
-                            title="{{localize 'wod.labels.remove.ritual'}}" 
-                            data-type="Discipline" 
-                            data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                    {{/if}}
-
-                    </div>            
-                </div>
-            </div>
-
+        {{#each (getMainPowerList actor "wod.types.ritual") as |item id|}}
+            {{> "systems/worldofdarkness/templates/actor/parts/power_list.html" item=item config=../config actor=../actor locked=../locked showclear=false}}
         {{/each}}
     </div>
 </div>
 
 <div class="sheet-area flex-columns" style="width: 50%;">
-    <div class="clearareaBox">
 
-        <!-- Forms -->
-        {{>"systems/worldofdarkness/templates/actor/parts/demon/forms.html"}}
+    <!-- Forms -->
+    {{>"systems/worldofdarkness/templates/actor/parts/demon/forms.html"}}
 
-    </div>
 </div>

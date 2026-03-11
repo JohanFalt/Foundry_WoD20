@@ -1,0 +1,66 @@
+<div class="clearareaBox area-box">
+	<div class="sheet-headline sheet-banner splatFont">
+		<span class="sheet-banner-text">{{localize 'wod.attributes.attributes'}}</span>
+	</div>
+
+	<div class="clearareaBox">
+		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.physical'}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.social'}}</div>
+		<div class="attribute-statArea pullLeft headlineGroup splatFont centerText">{{localize 'wod.attributes.mental'}}</div>
+	</div>
+
+	<div class="clearareaBox">
+		{{#each actor.system.attributes as |attribute key|}}
+			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
+
+			{{#if attribute.isvisible}}
+				<div class="attribute-rowheight attributes">
+					{{#if (and (eq ../actor.system.settings.splat ../config.splat.exalted) (eqAny ../actor.system.settings.variant "lunar" "liminal" "alchemical"))}}
+						<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="attribute.settings.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{key}}" data-attribute="true" {{isChecked attribute.settings.isfavorited}}></input></div>
+					{{/if}}
+
+					<label for="data.system.attributes.{{key}}.value" 
+						class="pullLeft vrollable {{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} ability-headlineWidth headlineNormal" 
+						data-type="{{../config.sheettype.mortal}}"
+						data-key="{{key}}"
+						data-action="rollDice"
+						data-attribute="true">{{localize attribute.label}}</label>			
+
+					<div class="{{#if (gt attribute.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value" 
+						data-key="{{key}}"
+						data-value="{{attribute.value}}" 
+						data-name="system.attributes.{{key}}.value">
+
+						{{#if (eqAny ../actor.system.settings.splat ../config.splat.werewolf ../config.splat.changingbreed ../config.splat.demon)}}
+							<span class="attribute-total">{{attribute.total}}</span>
+						{{/if}}
+
+						{{#numLoop attribute.max}}							
+							<span class=" {{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-action="editDot" data-type="{{../../config.splat.mortal}}" data-index="{{this}}"></span>							
+						{{/numLoop}}
+						
+						{{#if (gte attribute.value 4)}}
+							{{#if (not ../locked)}}
+								<div class="pullRight speciality-attribute-icon {{#if (and (eq attribute.speciality '') (gte attribute.value 4))}}item-warning{{/if}}{{#if (ne attribute.speciality '')}}item-notice{{/if}}" data-action="editAttribute">
+									<a class="item-edit" title="{{localize 'wod.labels.edit.speciality'}}" data-type="Attribute" data-action="itemEdit" data-itemid="{{key}}"><i class="fa-solid fa-pen-to-square"></i></a>
+								</div>
+							{{else}}
+								<div class="pullRight speciality-attribute-icon" data-type="Attribute" data-action="itemEdit">
+									<i class="fa-solid fa-circle-exclamation {{#if (eq attribute.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{attribute.speciality}}"></i>
+								</div>
+							{{/if}}
+						{{else}}
+							<div class="pullRight speciality-attribute-empty-icon">
+								&nbsp;
+							</div>
+						{{/if}}	
+
+					</div>				
+				</div>				
+			{{/if}}
+
+			{{#if (bottenAttributes key)}}</div>{{/if}}
+		
+		{{/each}}	
+	</div> 
+</div>	

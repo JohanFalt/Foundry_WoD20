@@ -14,7 +14,12 @@
                     <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
 
                     <div class="item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                    <div class="largeBox">
+                    <div class="largeBox {{#if item.system.isrollable}}vrollable{{/if}}"
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="Trait"
+                        {{#if item.system.isrollable}}data-rollitem="true"{{/if}}
+                        data-itemid="{{item._id}}"
+                        title="{{item.name}}">
                         {{#if (ne item.name "")}}
                             {{item.name}}
                         {{else}}

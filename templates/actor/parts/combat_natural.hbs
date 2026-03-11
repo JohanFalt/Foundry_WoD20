@@ -1,0 +1,89 @@
+<div class="headlineRow headlineList splatFont combat-natural-itemlist">
+    <div class="width-namebox">{{localize "wod.labels.combat.natural"}}</div>  
+    <div class="width-smallbox">{{localize "wod.combat.weapon.attr"}}</div>
+    <div class="width-abilitybox">{{localize "wod.combat.weapon.ability"}}</div>
+    <div class="width-valuebox">{{localize "wod.combat.weapon.acc"}}</div>
+    <div class="width-valuebox">{{localize "wod.combat.weapon.diff"}}</div>
+    <div class="width-smallbox">{{localize "wod.combat.weapon.damage"}}</div>      
+</div>
+
+<div>
+
+    {{#each weapon_natural as |item id|}}
+
+        <div class="item-row-area combat-natural-itemlist">
+            <div class="dragrow headlineNormal combat-natural-itemlist" data-itemid="{{item._id}}">
+                <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    
+                {{#if item.system.attack.isrollable}}
+                    <div class="width-namebox {{#if item.system.attack.isrollable}}vrollable{{/if}}" 
+                        data-type="{{../config.sheettype.mortal}}"
+                        data-object="Melee"
+                        data-rollitem="true" 
+                        data-itemid="{{item._id}}"
+                        title="{{item.name}}"
+                        data-action="rollDice">            
+                        {{shorten item.name 18}}
+                    </div>
+                {{else}}
+                    {{#if item.system.damage.isrollable}}
+                        <div class="width-namebox {{#if item.system.damage.isrollable}}vrollable{{/if}}" 
+                            data-type="{{../config.sheettype.mortal}}"
+                            data-object="Damage"
+                            data-rollitem="true" 
+                            data-itemid="{{item._id}}"
+                            title="{{item.name}}"
+                        data-action="rollDice">
+                            {{shorten item.name 18}}
+                        </div>
+                    {{else}}
+                        <div class="width-iconbox-empty">&nbsp;</div>
+                        <div class="width-namebox" title="{{item.name}}">{{shorten item.name 18}}</div>
+                    {{/if}}
+                {{/if}}
+
+                <div class="width-smallbox">{{shorten (localize (getAttributes item.system.attack.attribute)) 10}}&nbsp;</div>
+                <div class="width-abilitybox">
+
+                    {{#if (eq item.system.attack.ability "custom")}}
+                        {{shorten (getSecondaryAbility item.system.attack.ability ../actor item.system.attack.secondaryabilityid) 10}}
+                    {{else}}
+                        {{shorten (localize (getAbility item.system.attack.ability ../actor)) 10}}
+                    {{/if}}&nbsp;
+
+                </div>
+                <div class="width-valuebox">{{item.system.attack.accuracy}}</div>
+                <div class="width-valuebox">
+
+                    {{#if (eq item.system.difficulty "-1")}}
+                        {{localize "wod.labels.varies"}}
+                    {{else}}
+                        {{item.system.difficulty}}
+                    {{/if}}
+
+                </div>
+                <div class="width-smallbox">
+
+                    {{#if item.system.damage.isrollable}}
+                        {{captilizeFirst (convertDamageCode item.system.damage.attribute item.system.damage.bonus item.system.damage.type)}}
+                    {{else}}
+                        &nbsp;
+                    {{/if}}
+
+                </div>            
+            </div>
+            <div class="iconBox">
+
+                {{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.naturalweapon" deletetitle="wod.labels.remove.naturalweapon" collapseclass="combat"}}
+
+            </div>
+        </div>
+        <div class="description" data-itemid="{{item._id}}">
+
+            {{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
+
+        </div>
+
+    {{/each}}
+
+</div>

@@ -1,14 +1,18 @@
 ![](https://img.shields.io/badge/Foundry-v13-informational)
 
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v5.0.6/v5.0.6.zip)
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v6.0.11/v6.0.11.zip)
 
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v5.0.4/v5.0.4.zip)
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v6.0.10/v6.0.10.zip)
 
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v5.0.3/v5.0.3.zip)
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v6.0.9/v6.0.9.zip)
 
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v5.0.1/v5.0.1.zip)
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v6.0.8/v6.0.8.zip)
 
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v5.0.0/v5.0.0.zip)
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v6.0.7/v6.0.7.zip)
+
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v6.0.6/v6.0.6.zip)
+
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v5.0.15/v5.0.15.zip)
 
 ![](https://img.shields.io/badge/Foundry-v12-informational)
 
@@ -24,6 +28,8 @@ I would never require it by anyone or even expect someone to do but if you reall
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johanfk)
 
 ## Supported sheets
+For Vampire, Werewolf and Mage use [PC actor](https://github.com/JohanFalt/Foundry_WoD20/wiki/PC-Actor).
+
 - Mortals (General, Orpheus, Sorcerer 20th ed, Autumn people, Enchanted, Ghoul, Kinfolk)
 - [Vampire the Masquerade (V20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Vampire-the-Masquerade) (General, Kindred of the East)
 - [Mage the Ascension (M20)](https://github.com/JohanFalt/Foundry_WoD20/wiki/Sheet:-Mage-the-Ascension)
@@ -41,7 +47,7 @@ I would never require it by anyone or even expect someone to do but if you reall
 - Mortals (Modern, Victorian Age, Dark Ages, Classical Age, Age of the Living Gods)
 - Vampire the Masquerade (Modern, Victorian Age, Dark Ages, Classical Age, Age of the Living Gods)
 - Mage the Ascension (Modern, Victorian Age)
-- Werewolf the Apocalypse (Modern, Wild West, Dark Ages)
+- Werewolf the Apocalypse (Modern, Wild West, Dark Ages, Savage Age)
 - All other (Modern)
 
 # Foundry VTT

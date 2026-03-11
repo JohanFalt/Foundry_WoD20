@@ -92,7 +92,7 @@
 
 {{/if}}
 
-{{#if (and (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf) (eq actor.system.settings.variant "general"))}}
+{{#if (and (eqAny actor.type config.sheettype.mortal config.sheettype.mage config.sheettype.vampire config.sheettype.werewolf) (eqAny actor.system.settings.variant "general" ""))}}
 
     <div class="sheet-area flex-columns">
         <div class="headlineGroup splatFont">{{localize "wod.labels.settings.era.headline"}}</div>
@@ -139,7 +139,7 @@
         <div class="pullLeft headlineNormal settings-leftwidth">{{localize "wod.labels.settings.dice"}}</div>
         <div class="pullLeft settings-verticalcenter bold" data-type="{{config.sheettype.mortal}}">
             <select class="sheet-infoValues selectAbilityMaxSetting editable" name="system.settings.dicesetting" data-source="setvalue" data-type="{{config.sheettype.mortal}}" data-dtype="String">
-                {{selectOptions listData.Dice selected=data.system.settings.dicesetting localize=false}}
+                {{selectOptions listData.Games selected=data.system.settings.dicesetting localize=false}}
             </select>
         </div>				
     </div>

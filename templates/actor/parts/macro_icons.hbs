@@ -1,0 +1,33 @@
+{{#if (eq (checkSystemsetting "viewBiotabPermission") "full")}}
+
+    <div data-area="microicons headlineTabs" style="display: flex; flex-direction: column; justify-content: flex-start; flex-wrap: nowrap; flex-direction: column; justify-content: flex-start;">
+
+        {{#if (eqAny actor.system.settings.splat config.splat.werewolf)}}
+            <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollfrenzy="true" data-type="{{actor.system.settings.splat}}" title="{{localize 'wod.dialog.checkfrenzy.headline'}}">{{> (dtSvgDie 'frenzy' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+
+            {{#if actor.system.advantages.rage}}
+                <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollremainactive="true" data-type="{{actor.system.settings.splat}}" title="{{localize 'wod.dice.rollingremainactive'}}">{{> (dtSvgDie 'remainactive' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+            {{/if}}
+        {{/if}}
+
+        {{#if (eq actor.system.settings.splat config.splat.vampire)}}
+            {{#if (eq actor.system.advantages.selfcontrol.system.id "selfcontrol")}}
+                <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollfrenzy="true" data-type="{{config.splat.vampire}}" title="{{localize 'wod.dialog.checkfrenzy.headline'}}">{{> (dtSvgDie 'frenzy' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+            {{/if}}
+        {{/if}}
+
+        {{#if (and actor.system.settings.hasshapes (eq actor.system.settings.splat config.splat.werewolf))}}
+            <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollshapechange="true" data-type="{{actor.system.settings.splat}}" title="{{localize 'wod.dialog.shapechange.headline'}}">{{> (dtSvgDie 'shapechange' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+        {{/if}}
+
+        {{#if actor.system.settings.hasspheres}}
+            <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollaretecatsing="true"  data-type="{{config.splat.mage}}" title="{{localize 'wod.dialog.aretecasting.castspell'}}">{{> (dtSvgDie 'spellcasting' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+        {{/if}}
+
+        <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollinitiative="true" title="{{localize 'wod.info.rollinititative'}} ({{#if (gt actor.system.initiative.total -1)}}+{{else}}-{{/if}}{{actor.system.initiative.total}})">{{> (dtSvgDie 'initiative' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+        <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rollsoak="true" title="{{localize 'wod.info.rollsoak'}}">{{> (dtSvgDie 'soak' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+        <a class="macroBtn pointer" data-action="useMacro" data-macroimage="true" data-rolldices="true" title="{{localize 'wod.info.rolldice'}}">{{> (dtSvgDie 'd10' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
+    </div>
+    
+{{/if}}
+

@@ -95,7 +95,7 @@ export default class WerewolfActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 	
 	_onDotCounterWerewolfChange(event) {
@@ -139,10 +139,37 @@ export default class WerewolfActorSheet extends MortalActorSheet {
 		this._assignToWerewolf(fields, index + 1);
 	}
 
+	// async _onShiftForm(event) {
+	// 	event.preventDefault();
+
+	// 	const actorData = foundry.utils.duplicate(this.actor);
+
+	// 	if (actorData.type != CONFIG.worldofdarkness.sheettype.werewolf) {
+	// 		return;
+	// 	}
+
+	// 	const element = event.currentTarget;
+	// 	const dataset = element.dataset;
+	// 	const fromForm = this.actor.system.settings.presentform;
+	// 	const toForm = dataset.form;
+
+	// 	for (const i in actorData.system.shapes) {
+	// 		actorData.system.shapes[i].isactive = false;
+
+	// 		if (actorData.system.shapes[i].label == toForm) {
+	// 			actorData.system.shapes[i].isactive = true;
+	// 		}			
+	// 	}		
+
+	// 	actorData.system.settings.isupdated = false;
+	// 	await this.actor.update(actorData);
+	// 	await TokenHelper.formShift(this.actor, fromForm, toForm);
+	// }
+
 	async _onShiftForm(event) {
 		event.preventDefault();
 
-		const actorData = foundry.utils.duplicate(this.actor);
+		let actorData = foundry.utils.duplicate(this.actor);
 
 		if (actorData.type != CONFIG.worldofdarkness.sheettype.werewolf) {
 			return;
@@ -159,11 +186,34 @@ export default class WerewolfActorSheet extends MortalActorSheet {
 			if (actorData.system.shapes[i].label == toForm) {
 				actorData.system.shapes[i].isactive = true;
 			}			
-		}		
+		}			
+		
+		// Update Bonus items based on active shape
+		const bonuses = this.actor.items.filter(item => item.type === "Bonus" && 
+			(item.system.parentid === "glabro" || item.system.parentid === "crinos" || 
+			 item.system.parentid === "hispo" || item.system.parentid === "lupus"));
+		
+		const bonusUpdates = [];
+		for (const bonus of bonuses) {
+			const shouldBeActive = actorData.system.shapes[bonus.system.parentid]?.isactive || false;
+			
+			if (bonus.system.isactive !== shouldBeActive) {
+				bonusUpdates.push({
+					_id: bonus.id,
+					"system.isactive": shouldBeActive
+				});
+			}
+		}
+		
+		if (bonusUpdates.length > 0) {
+			await this.actor.updateEmbeddedDocuments("Item", bonusUpdates);
+		}
 
 		actorData.system.settings.isupdated = false;
 		await this.actor.update(actorData);
+		
 		await TokenHelper.formShift(this.actor, fromForm, toForm);
+		this.render();
 	}
 	
 	async _assignToWerewolf(fields, value) {

@@ -122,9 +122,20 @@ font-family: 'svg';
 }
   
 .wod20-roll .tray-roll-area {
-    padding: 5px;  
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
-  
+.wod20-roll .tray-roll-area .tray-success-area {
+    flex-shrink: 0;
+}
+.wod20-roll .tray-roll-area .tray-success-area + div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-items: center;
+    margin-top: 4px;
+}
 .wod20-roll .tray-roll-area .tray-dice {
     margin: 5px;
     scale:2;
@@ -141,18 +152,19 @@ font-family: 'svg';
     overflow: hidden;
 }
 
-/* Chatt window */
+/* Chat window – dark mode (uses darkmode.css variables) */
 .theme-dark #chat .message .message-header,
 .theme-dark #chat-notifications .message .message-header {
     font-size: var(--font-large);
     padding: 5px;
     color: var(--chat-header-text-color);
-    border-bottom: 3px ridge #6c4737;
-    background: rgb(23,23,23,255);
+    border-bottom: 3px ridge var(--darkmode-background-dark);
+    background: var(--darkmode-area10-background);
 }
 .theme-dark #chat .message,
+.theme-dark #chat .message .message-content h3,
 .theme-dark #chat-notifications .message {
-    border: 0;
-    color: #e0e0e0;
-    background: #121212;
+    border: 1px solid var(--darkmode-background-dark);
+    color: var(--darkmode-textcolor-dark) !important;
+    background: var(--darkmode-black) !important;
 }

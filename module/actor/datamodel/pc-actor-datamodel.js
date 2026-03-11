@@ -8,7 +8,7 @@ export default class PCDataModel extends foundry.abstract.DataModel {
         const schema = {};
         const fields = foundry.data.fields;
         const valueInteger = {required: true, nullable: false, integer: true, initial: 0, min: 0};
-        const bonusInteger = {required: true, nullable: false, integer: true, initial: 0};
+        const valueNumber = {required: true, nullable: false, integer: true, initial: 0};
         const valueString = {required: true, nullable: false, initial: ""};
 
         // Same as before
@@ -29,6 +29,10 @@ export default class PCDataModel extends foundry.abstract.DataModel {
             demeanor: new fields.StringField({...valueString}),
             derangement: new fields.StringField({...valueString}),
             concept: new fields.StringField({...valueString}),
+            splatfields: new fields.ObjectField({
+                initial: {},
+                nullable: false,
+            }),
             appearance: new fields.HTMLField(),
             background: new fields.HTMLField(),
             notes: new fields.HTMLField(),
@@ -38,32 +42,7 @@ export default class PCDataModel extends foundry.abstract.DataModel {
         // Same as before
         schema.attributes = new fields.SchemaField({
             ...attributes.defineSchema()
-        });
-
-        // TODO: in system.spalt.bio you store the dynamic fields you need
-        // skips system.variant solves that with schema.bio
-        // schema.variant = new fields.SchemaField({});
-        // schema.splat = new fields.SchemaField({
-        //     bio: new fields.ArrayField(
-        //         new fields.ObjectField({
-        //             initial: {},
-        //             nullable: false,
-        //     }))
-        // });
-
-        // TODO: not done
-        schema.abilities = new fields.ArrayField(
-            new fields.ObjectField({
-                initial: {},
-                nullable: false,
-        }));
-
-        // TODO: not done
-        schema.advantages = new fields.ArrayField(
-            new fields.ObjectField({
-                initial: {},
-                nullable: false,
-        }));        
+        }); 
 
         // Same as before
         schema.soak = new fields.SchemaField({
@@ -123,12 +102,10 @@ export default class PCDataModel extends foundry.abstract.DataModel {
         schema.gear  = new fields.SchemaField({
             notes: new fields.HTMLField(),
             money: new fields.SchemaField({
-                carried: new fields.NumberField({...valueInteger}),
-                bank: new fields.NumberField({...valueInteger})
+                carried: new fields.NumberField({...valueNumber}),
+                bank: new fields.NumberField({...valueNumber})
             })
-        });
-
-        
+        });        
 
         schema.favoriterolls = new fields.ArrayField(
             new fields.ObjectField({

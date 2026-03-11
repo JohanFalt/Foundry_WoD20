@@ -55,25 +55,16 @@
                 </div>
 
                 <div class="infobox bioInformationArea floating-label-group">
-					<select class="sheet-infoValues editable" name="system.spendingtime">
-						{{#select data.system.spendingtime}}
-                            <option value="0">0</option>
-                            <option value="-1">-1</option>
-                            <option value="-2">-2</option>
-                            <option value="-3">-3</option>
-                        {{/select}}
-					</select>
+                    <select class="sheet-infoValues editable" name="system.spendingtime" data-dtype="String">
+                        {{selectOptions listData.Levelnegative3Value selected=data.system.spendingtime localize=false}}
+                    </select>
 					<span class="floating-label">{{localize "wod.dialog.aretecasting.spendingtime"}}</span>
 				</div>
 
                 <div class="infobox bioInformationArea floating-label-group">
-					<select class="sheet-infoValues editable" name="system.spelltype">
-						{{#select data.system.spelltype}}
-                            <option value="">- {{localize "wod.labels.varies"}} -</option>
-                            <option value="coincidental">{{localize "wod.spheres.coincidental"}}</option>
-                            <option value="vulgar">{{localize "wod.spheres.vulgar"}}</option>
-                        {{/select}}
-					</select>
+                    <select class="sheet-infoValues editable" name="system.spelltype" data-dtype="String">
+                        {{selectOptions listData.SpellType selected=data.system.spelltype localize=false}}
+                    </select>
 					<span class="floating-label">{{localize "wod.dialog.aretecasting.castingtype"}}</span>
 				</div>                
 

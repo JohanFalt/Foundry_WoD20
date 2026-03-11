@@ -92,6 +92,18 @@
 :root {
   --main-font: Verdana, Helvetica, sans-serif;
 
+  --headline-normal-weight: 700;      /* bold */
+
+  /* font-size constants (semantic names, rem units) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
   --main-dialog-background: url('../assets/img/graphics/20Page.jpg');
 
   --main-mortal-color: rgba(24, 78, 119, 1);
@@ -204,9 +216,52 @@
   position: absolute;
 }
 
+.wod20.wod-item section .tabs-container {
+  position: relative;
+}
+
 .wod20 section.tab {
   overflow-y: auto;
   margin-left: 50px;  
+  min-height: 700px;
+}
+
+.wod20.wod-item section.tab {
+  margin-left: 0px;  
+  margin-top: 10px;
+  height: 100%;
+}
+
+.wod20 .shape-selector-active {
+    background-color: var(--main-full-color);
+    color: #e0e0e0;
+}
+
+.wod20 .shape-details-container .shape-selector-active {
+  text-shadow: 0 0 10px var(--main-full-color);
+}
+
+.wod20 .shape-selector {
+  width: 20%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: var(--wod-font-lg);
+  font-weight: normal;
+} 
+
+.wod20 .shape-selector:hover {
+	background-color: var(--main-dim-color); 
+  color: #121212;  
+  cursor: pointer;
+}
+
+.wod20 .shape-selectortext {
+  width: 20%;
+  font-size: var(--wod-font-md);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 100px;
 }
 
 /* hbs */
@@ -264,7 +319,8 @@
   width: 950px;
 }
 
-.wod20.window-app {
+.wod20.window-app,
+.wod20.wod-sheet {
   font-family: var(--main-font);
 }
 
@@ -295,13 +351,14 @@
 }
 
 .wod20 nav {
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod20 input,
 .wod20 select {
 	font-weight: normal;
-	font-size: 12px;  
+  font-size: var(--wod-font-sm);
 }
 
 .wod20 select {
@@ -393,8 +450,8 @@
   cursor: default;
 }
 
-.wod20 .locked input,
-.wod20 .locked select,
+.wod20 input,
+.wod20 select,
 .wod20 .textarea {
   background: rgba(255, 255, 255, 1);
   color: #121212;  
@@ -438,11 +495,15 @@
 }
 
 .wod20 .item-row {
-  display: flex; flex-wrap: wrap; flex-direction: row;
+  display: flex; 
+  flex-wrap: wrap; 
+  flex-direction: row;
 }
 
 .wod20 .item-column {
-  display: flex; flex-wrap: wrap; flex-direction: column;
+  display: flex; 
+  flex-wrap: wrap; 
+  flex-direction: column;
 }
 
 .wod20 .item-right {
@@ -485,6 +546,11 @@
   flex-wrap: nowrap;
 }
 
+.wod20 .flex-row {
+  display: flex;
+  line-height: 23px;
+}
+
 .wod20 .clearareaBox {
   clear: both !important;
   overflow: hidden !important;
@@ -494,7 +560,7 @@
   width: 100%;
   text-align: left;
 	font-weight: normal;
-	font-size: 12px;
+  font-size: var(--wod-font-sm);
   height: 30px;
 }
 
@@ -614,11 +680,13 @@ input.sheet-infoWidth {
 .wod-sheet .sheet-banner-text {
   background: var(--sheet-background-color);
   border-radius: 33%;
+  font-weight: normal;
 }
 
 .wod-sheet .sheet-headline {  
-  font-size: 24px;
-	font-weight: bold;
+  font-size: var(--wod-font-xxl);
+	/* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 	text-align: center;
 	width: 100%;	
 }
@@ -631,15 +699,14 @@ input.sheet-infoWidth {
 }
 
 .wod20 .headlineNormal {
-	font-weight: bold;
-	font-size: 12px;
-  text-align: left;
+  font-weight: var(--headline-normal-weight);
+  font-size: var(--wod-font-sm);
 }
 
 .wod20 .headlineText {
-	font-size: 24px;
+	font-size: var(--wod-font-xxl);
   margin-right: 25px;
-  font-weight: bold;
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod20 .centerText {
@@ -647,13 +714,13 @@ input.sheet-infoWidth {
 }
 
 .wod20 .headlineList {	
-  font-size: 12px;
-  font-weight: bold;
+  font-weight: var(--headline-normal-weight);
+  font-size: var(--wod-font-sm);
+  line-height: 1.2;
 }
 
 .wod20 .headlineGroup {	
-  font-size: 20px;
-  font-weight: bold;
+  font-size: var(--wod-font-xl);
   border: 0;
 }
 
@@ -662,23 +729,25 @@ input.sheet-infoWidth {
 }
 
 .wod-dialog:not(.noSplatFont) .headlineGroup {
-  font-size: 24px;
+  font-size: var(--wod-font-xxl);
 }
 
 .wod20 .headline {
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod-dialog:not(.noSplatFont) .headline {
-  font-size: 16px;
+  font-size: var(--wod-font-base);
 }
 
 .wod20 .bold {
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod20 .headlineTabs {
-	font-size: 20px;    
+	font-size: var(--wod-font-xl);    
   height: 30px;
 }
 
@@ -726,17 +795,22 @@ input.sheet-infoWidth {
 
 .wod20 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 450px;  
+  max-width: 450px;  
   border-radius: 6px;
   padding: 5px;
   left: 20px;
   top: 70px;
   position: fixed;
   z-index: 1;
+
+  white-space: normal;   /* allow line breaks */
+  word-wrap: break-word; /* force long words/links to break */
+  overflow-wrap: break-word; /* modern alternative */
 }
 
 .wod20 .chatt-headline {
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod20 .tooltip:hover .tooltiptext {
@@ -789,7 +863,7 @@ input.sheet-infoWidth {
 }
 
 .wod20 .information-area {
-  font-size: 10px;
+  font-size: var(--wod-font-xs);
   color: #7e7e7e;
   width: 100%;
   padding-top: 2px;
@@ -806,12 +880,19 @@ input.sheet-infoWidth {
   line-height: 23px;
   margin-top: 10px;
   margin-bottom: 5px;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod20 .item-activeBox {
   width: 30px;
   height: 30px;
+}
+
+.wod20 .actorv2 input.item-active.pointer {
+  width: 16px;
+  height: 16px;
+  margin: 3px 5px;
 }
 
 .wod20 .floating-label-group {
@@ -830,7 +911,7 @@ input.sheet-infoWidth {
 .wod20 .floating-label-group select:focus ~ .floating-label,
 .wod20 .floating-label-group select:disabled ~ .floating-label,
 .wod20 .floating-label-group select:not(:focus):valid ~ .floating-label {
-  font-size: 7px;
+  font-size: var(--wod-font-xxs);
   top: -9px;
   bottom: 0px;
   left: 5px;
@@ -890,6 +971,42 @@ input.sheet-infoWidth {
   vertical-align: middle;
 }
 
+/* Drag-over indicators for sortable items */
+.wod20 .advantage-item,
+.wod20 .power-item,
+.wod20 .feature-item,
+.wod20 .ability-item {
+  transition: border-color 0.15s ease;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.wod20 .advantage-item.drag-over-top,
+.wod20 .power-item.drag-over-top,
+.wod20 .feature-item.drag-over-top,
+.wod20 .ability-item.drag-over-top {
+  border-top: 2px solid var(--main-full-color);
+}
+
+.wod20 .advantage-item.drag-over-bottom,
+.wod20 .power-item.drag-over-bottom,
+.wod20 .feature-item.drag-over-bottom,
+.wod20 .ability-item.drag-over-bottom {
+  border-bottom: 2px solid var(--main-full-color);
+}
+
+.wod20 [data-droparea="advantages"].drag-active,
+.wod20 [data-droparea="features"].drag-active,
+.wod20 [data-droparea="powers"].drag-active {
+  background-color: rgba(var(--main-full-color-rgb, 128, 0, 0), 0.05);
+}
+
+/* Highlight ability drop zones when dragging */
+.wod20 .ability-statArea.drag-over {
+  background-color: rgba(var(--main-full-color-rgb, 128, 0, 0), 0.08);
+  border-radius: 4px;
+}
+
 /* END drag and drop */
 
 /* Create ALL button */
@@ -903,7 +1020,6 @@ input.sheet-infoWidth {
 }
 
 .wod20.wod-dialog.wod-create button {
-  font-family: var(--main-font);
   border: 0;
   background: var(--main-full-color);
   color: #e0e0e0;
@@ -940,6 +1056,91 @@ input.sheet-infoWidth {
 
 /* End Create ALL button */
 
+/* Power Selection Accordion */
+.wod20 .power-selection .power-category {
+	border: 1px solid var(--wod-border-color);
+	margin-bottom: 0.5em;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.wod20 .power-selection .power-category-header {
+	padding: 0.75em;
+	background: var(--wod-bg-secondary);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	user-select: none;
+	transition: background-color 0.2s ease;
+}
+
+.wod20 .power-selection .power-category-header:hover {
+	background: var(--wod-bg-hover);
+}
+
+.wod20 .power-selection .power-category-label {
+	font-weight: bold;
+	flex: 1;
+}
+
+.wod20 .power-selection .power-category-buttons {
+	padding: 0.5em;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	align-items: flex-start;
+}
+
+/* Överskriv width för power-selection-knappar så att de inte påverkas av .wod-create button-regeln */
+.wod20 .power-selection .power-category-buttons .power-button {
+	width: auto !important;
+	flex: 0 0 auto;
+	min-width: 150px;
+}
+
+.wod20 .power-selection .power-button {
+	padding: 0.5em 1em;
+	border: 0;
+	background: var(--main-full-color);
+	color: #e0e0e0;
+	width: auto !important;
+	height: 34px;
+	margin-bottom: 0 !important;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	display: inline-block;
+}
+
+.wod20 .power-selection .power-button:hover {
+	background: #e0e0e0;
+	color: var(--main-full-color);
+	border: 1px solid var(--main-full-color);
+}
+
+/* Power Selection Dialog - Ensure header controls work correctly */
+.wod20.power-selection-dialog.window-app .window-header,
+.wod20.power-selection-dialog .window-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.wod20.power-selection-dialog.window-app .window-header .header-controls,
+.wod20.power-selection-dialog .window-header .header-controls {
+	display: flex;
+	gap: 0.25em;
+}
+
+.wod20.power-selection-dialog.window-app .window-header .header-control,
+.wod20.power-selection-dialog .window-header .header-control {
+	flex: 0 0 auto;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	font-size: 14px;
+}
+
 /* START - Dialog */
 
 .wod20 .setting-radiospan {
@@ -973,6 +1174,14 @@ input.sheet-infoWidth {
   width: 60px;
 }
 
+.wod20 .dialog-action-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
 .wod20 .dialog-two-button {
   width: 40%;
   height: 34px;
@@ -1003,10 +1212,26 @@ input.sheet-infoWidth {
   margin-top: 5px;
 }
 
+.wod20 .dialog-mode-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
 .wod20 .dialog-mode-button {
   width: 20%;
   height: 34px;
   margin-bottom: 5px;
+}
+
+.wod20 .dialog-numbertargets-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
 }
 
 .wod20 .dialog-numbertargets-button,
@@ -1015,6 +1240,14 @@ input.sheet-infoWidth {
   width: 8%;
   height: 34px;
   max-width: 40px;
+}
+
+.wod20 .dialog-difficulty-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
 }
 
 .wod20 .dialog-difficulty-button {
@@ -1038,7 +1271,7 @@ input.sheet-infoWidth {
   bottom: calc(100% - 2px);
   left: 0;
   right: 0;
-  font-size: 14px;
+  font-size: var(--wod-font-md);
   height: 18px;
   line-height: 1;
   background-color: #ff6400;
@@ -1078,6 +1311,14 @@ input.sheet-infoWidth {
   width: 100%;
 }
 
+.wod20 .item-row-area.feature-itemlist {
+  border-bottom: 0px solid var(--main-full-color);
+}
+
+.wod20 .feature-itemlistarea {
+  border-bottom: 1px solid var(--main-full-color);
+}
+
 .wod20 .item-row-area .dragrow,
 .wod20-drag-row.dragrow {
   display: flex;
@@ -1098,14 +1339,21 @@ input.sheet-infoWidth {
   display: flex;
 }
 
+.wod20 .sphere-itemlist {
+  line-height: 23px;
+  height: 26px;
+  display: flex;
+}
+
 .wod20 .item-row-area.power-row {
   border-top: 0;
   border-bottom: 0;
-  background: var(--sheet-background-color) no-repeat;    
+  /* background: var(--sheet-background-color) no-repeat;     */
+  background: transparent;
 }
 
 .wod20 .tooltipText {
-  font-size: 0.75rem;
+  font-size: var(--wod-font-sm);
   padding: 5px;
 }
   
@@ -1116,7 +1364,8 @@ input.sheet-infoWidth {
 .wod20 .headlineRow.combat-ranged-itemlist .width-namebox,
 .wod20 .headlineRow.combat-armor-itemlist .width-namebox,
 .wod20 .headlineRow.gear-itemlist .width-namebox,
-.wod20 .headlineRow.feature-itemlist .width-namebox {
+.wod20 .headlineRow.feature-itemlist .width-namebox,
+.wod20 .description-itemlist .width-namebox {
   width: 190px;
 }
 
@@ -1145,7 +1394,7 @@ input.sheet-infoWidth {
 }
 
 .wod20 .item-row-area.mainpower-row .power-itemlist .width-namebox {
-  font-size: 20px;
+  font-size: var(--wod-font-xl);
   font-weight: normal;
   width: 240px;
 }
@@ -1160,9 +1409,16 @@ input.sheet-infoWidth {
 .wod20 .combat-ranged-itemlist .width-abilitybox,
 .wod20 .combat-armor-itemlist .width-abilitybox,
 .wod20 .gear-itemlist .width-abilitybox,
-.wod20 .power-itemlist .width-abilitybox,
 .wod20-drag-row .width-abilitybox {
   width: 90px;
+}
+
+.wod20 .power-itemlist .width-abilitybox {
+  width: 120px;
+}
+
+.wod20 .gear-itemlist .width-abilitybox {
+  width: 150px;
 }
 
 .wod20 .effect-itemlist .item-row .width-abilitybox {
@@ -1192,6 +1448,7 @@ input.sheet-infoWidth {
 .wod20 .combat-armor-itemlist .width-valuebox,
 .wod20 .gear-itemlist .width-valuebox,
 .wod20 .feature-itemlist .width-valuebox,
+.wod20 .description-itemlist .width-valuebox,
 .wod20-drag-row .width-valuebox {
   width: 50px;
   text-align: center;
@@ -1225,11 +1482,26 @@ input.sheet-infoWidth {
     border-bottom: 1px solid var(--main-full-color);
 }
 
+.wod20 .icon.collapsible.button {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .wod20 .no-description-disabled {
   opacity: 0.5;
   pointer-events: none;
   cursor: default;
+
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .wod20 .highlightedPowerRow {
@@ -1240,28 +1512,33 @@ input.sheet-infoWidth {
 
 .wod20:not(.noSplatFont) .description .headlineList {
     font-weight: normal;
-    font-size: 16px;
+    font-size: var(--wod-font-base);
 }
 
 /* END List item rows */
 
 /* START - Navigation */
 
-.wod-sheet .shapeIcon {
+.wod20 nav.tabs {
+  gap: 0rem;
+}
+
+.wod20.wod-sheet .shapeIcon {
   margin-bottom: 8px;
 }
 
-.wod-sheet nav.tabs {
+.wod20.wod-sheet nav.tabs {
   border-top: 0;
   border-bottom: 0;
 }
 
-.wod-sheet .sheet-tabs {
+.wod20.wod-sheet .sheet-tabs {
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.wod-sheet div.item {
+.wod20.wod-sheet div.item,
+.wod20.wod-sheet .tabs .actorv2{
   width: 30px;
   height: 30px;
   margin-bottom: 8px;
@@ -1274,7 +1551,7 @@ input.sheet-infoWidth {
   border: 0px;
 }
 
-.wod-sheet .tabs .item {
+.wod20.wod-sheet .tabs .item {
   width: 30px;
   height: 30px;
   display: inline-block;
@@ -1282,7 +1559,7 @@ input.sheet-infoWidth {
   background-color: transparent;
 }
 
-.wod-sheet .tabs .item.active {
+.wod20.wod-sheet .tabs .item.active {
   box-shadow: 5px 5px 5px var(--main-mid-color);
   -moz-box-shadow: 5px 5px 5px var(--main-mid-color);
   -webkit-box-shadow: 5px 5px 5px var(--main-mid-color);
@@ -1294,12 +1571,66 @@ input.sheet-infoWidth {
   background-color: transparent;
 }
 
-.wod20 .secondHeadlineTabs {
-  font-size: 20px;
+.wod20.wod-item nav.tabs {
+  border-top: 0px;
+  border-bottom: 0px;
+}
+
+.wod20.wod-item div.item {
+  height: 30px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: 0;
+}
+
+.wod20.wod-sheet .tabs .actorv2 {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: transparent;
+}
+
+.wod20.wod-sheet .tabs .actorv2.active {
+  box-shadow: 5px 5px 5px var(--main-mid-color);
+  -moz-box-shadow: 5px 5px 5px var(--main-mid-color);
+  -webkit-box-shadow: 5px 5px 5px var(--main-mid-color);
+  -khtml-box-shadow: 5px 5px 5px var(--main-mid-color);
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: transparent;
+}
+
+.wod20.wod-item .tabs .itemv2.item {
+  box-shadow: 0px 0px 0px var(--main-mid-color);
+  -moz-box-shadow: 0px 0px 0px var(--main-mid-color);
+  -webkit-box-shadow: 0px 0px 0px var(--main-mid-color);
+  -khtml-box-shadow: 0px 0px 0px var(--main-mid-color);
+  /* width: 30px; */
+  height: 30px;
+  display: inline-block;
+  padding: 0;
+  background-color: transparent;
+}
+
+.wod20.wod-item .tabs .itemv2.item.active {
+  box-shadow: 5px 5px 5px var(--main-mid-color);
+  -moz-box-shadow: 5px 5px 5px var(--main-mid-color);
+  -webkit-box-shadow: 5px 5px 5px var(--main-mid-color);
+  -khtml-box-shadow: 5px 5px 5px var(--main-mid-color);
+}
+
+.wod20 .secondHeadlineTabs,
+.wod20.wod-item .navsection {
+  font-size: var(--wod-font-xl);
   height: 30px;
   line-height: 30px;
   text-align: center;
-  font-weight: bold;
+  font-weight: var(--headline-normal-weight);
+}
+
+.wod20 .actorv2 .secondHeadlineTabs {
+  width: 25% !important;
 }
 
 /* END - Navigation */
@@ -1309,6 +1640,14 @@ input.sheet-infoWidth {
 .wod20 .headlineBio {
   float: left; 
   width: 30%;
+}
+
+.wod20 .itemv2 .headlineBio {
+  width: 40%;
+}
+
+.wod20 .itemv2 .headlineSettings {
+  width: 80%;
 }
 
 .wod20 .bioInformationArea {
@@ -1520,7 +1859,13 @@ input.sheet-infoWidth {
 .wod20 .condition-checkbox {
   height: 25px;
   line-height: 30px;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
+}
+
+.wod20 .actorv2 .condition-checkbox {
+  height: 24px;
+  line-height: 24px;
 }
 
 .wod20 .rowicons {
@@ -1582,6 +1927,10 @@ input.sheet-infoWidth {
 
 /* START - Notes */
 
+.wod20 .notes-valueBox {
+  width: 70px;
+}
+
 .wod20 .notes-centerexperienceadd {
   height: 26px;
   line-height: 26px;
@@ -1595,6 +1944,11 @@ input.sheet-infoWidth {
 /* END - Notes */
 
 /* START - Settings */
+
+.wod20 .space {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
 
 .wod20 .secondHeadlineTabs.active {
   text-shadow: none;
@@ -1649,15 +2003,16 @@ input.sheet-infoWidth {
 }
 
 .wod20 .headlineItem {
-  font-size: 16px;
+  font-size: var(--wod-font-base);
   margin-right: 25px;
   float: left; 
   width: 30%;
-  font-weight: bold;
+  /* font-weight: bold; */
+  font-weight: var(--headline-normal-weight);
 }
 
 .wod20 .headlineButton {
-  font-size: 18px;
+  font-size: var(--wod-font-lg);
   float:left;
 }
 
@@ -1712,6 +2067,128 @@ input.sheet-infoWidth {
 
 .wod20 .item-label {
   width: 300px;  
+}
+
+.wod20.wod-item .splat-features-columns > .dialog-area {
+  flex: 1 1 0;
+}
+
+.wod20.wod-item .splat-features-columns > .dialog-area:last-child {
+  margin-right: 0;
+}
+
+/* Shapes */
+.wod20 .shape-details-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;   /* så containern alltid tar hela bredden */
+}
+
+.wod20 .shape-panel {
+  width: 160px;   /* eller t.ex. 180px – anpassa efter bild (100px) + text */
+  /* flex: 0 0 160px; om du vill att de aldrig växer/krymper */
+}
+
+.wod20.werewolf .shape-selector {
+  text-align: left;
+}
+
+.wod20 .shape-panel-body,
+.wod20 .shape-bonus-list,
+.wod20 .shape-difficulty {
+  text-align: left;
+}
+
+.wod20 .shape-image {
+  width: 100px; 
+  height: 100px; 
+  border: 1px solid var(--main-full-color); 
+  margin-top: 0; 
+  padding-left: 0; 
+  margin-right: 0;
+  border-radius: 10px;
+}
+
+.wod20 .shape-panel-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* PC actor power_shapes.hbs only – do not affect legacy werewolf shapechange tab */
+/* Whole panel is the visual unit; selected form indicated by panel, not title background */
+.wod20 .pc-power-shapes .shape-panel {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wod20 .pc-power-shapes .shape-panel:hover {
+  border-color: var(--main-dim-color);
+}
+
+.wod20 .pc-power-shapes .shape-panel.shape-panel-active {
+  border-color: var(--main-full-color);
+  background-color: var(--main-dim-color);
+  box-shadow: 0 0 0 1px var(--main-full-color);
+}
+
+.wod20 .pc-power-shapes .shape-panel-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 28px;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+
+.wod20 .pc-power-shapes .shape-panel-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--wod-font-base);
+  /* font-weight: 600; */
+  line-height: 1.3;
+  text-align: left;
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: transparent;
+  color: inherit;
+  transition: background-color 0.15s ease;
+}
+
+.wod20 .pc-power-shapes .shape-panel-title:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.wod20 .pc-power-shapes .shape-panel-title.shape-selector-active {
+  background-color: transparent;
+  color: inherit;
+  text-shadow: none;
+}
+
+.wod20 .pc-power-shapes .shape-panel-title.shape-selector-active:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.wod20 .pc-power-shapes .shape-panel-header-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.wod20 .pc-power-shapes .shape-panel-header-actions .icon {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* END - Items */
@@ -2099,8 +2576,7 @@ input.sheet-infoWidth {
       black 55%,
       transparent 57%,
       transparent 100%
-    ),
-    #e0e0e0;
+    ), #ffffff;
 }
 
 .wod20 .resource-counter .resource-value-step[data-state="*"].bruised {
@@ -2131,8 +2607,7 @@ input.sheet-infoWidth {
       black 55%,
       transparent 57%,
       transparent 100%
-    ),
-    #e0e0e0;
+    ), var(--healthlevel-bruised-color);
 }
 
 .wod20 .resource-counter .resource-value-step[data-state="*"].hurt {
@@ -2319,4 +2794,31 @@ input.sheet-infoWidth {
       transparent 57%,
       transparent 100%
     ), var(--healthlevel-incapacitated-color);
+}
+
+/* Migration Wizard - Fixed button layout */
+.wod20.migration-wizard-dialog .migration-wizard-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 500px;
+}
+
+.wod20.migration-wizard-dialog .migration-wizard-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.wod20.migration-wizard-dialog .migration-wizard-buttons {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  margin-top: auto;
+  border-top: 1px solid var(--main-full-color);
 }

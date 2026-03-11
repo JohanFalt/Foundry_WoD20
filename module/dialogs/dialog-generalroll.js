@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
@@ -108,8 +108,21 @@ export class DialogGeneralRoll extends FormApplication {
             data.actorData = this.actor.system;   
             data.actorData.type = this.actor.type;            
 
-            if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
-                data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+            // Determine sheettype for dialog CSS classes
+            let actortype = this.actor.type.toLowerCase();
+            
+            // For PC actors, use splat or variantsheet to determine type
+            if (this.actor.type === "PC") {
+                if (this.actor?.system?.settings?.splat && this.actor.system.settings.splat !== "") {
+                    actortype = this.actor.system.settings.splat.toLowerCase();
+                }
+                else if (this.actor?.system?.settings?.variantsheet && this.actor.system.settings.variantsheet !== "") {
+                    actortype = this.actor.system.settings.variantsheet.toLowerCase();
+                }
+            }
+
+            if (actortype != CONFIG.worldofdarkness.sheettype.changingbreed.toLowerCase()) {
+                data.object.sheettype = actortype + "Dialog";
             }
             else {
                 data.object.sheettype = "werewolfDialog";
@@ -121,7 +134,7 @@ export class DialogGeneralRoll extends FormApplication {
             
             data.object.sheettype = "mortalDialog";
         }
-        
+
         data.config = CONFIG.worldofdarkness;
         data.object.hasSpeciality = false; 
         data.object.specialityText = "";      
@@ -144,37 +157,38 @@ export class DialogGeneralRoll extends FormApplication {
         else {
             if (attributeKey != "") {
                 if (data.object.type == "noability") {
-                    if ((attributeKey == "conscience") || (attributeKey == "selfcontrol") || (attributeKey == "courage")) {
+                    if ((this.actor.type !== "PC") && ((attributeKey == "conscience") || (attributeKey == "selfcontrol") || (attributeKey == "courage"))) {
                         data.object.attributeName = game.i18n.localize(data.actorData.advantages.virtues[attributeKey].label);
                         data.object.attributeValue = parseInt(data.actorData.advantages.virtues[attributeKey].roll);
                         data.object.name = data.object.attributeName; 
                     }
-                    else {
-                        if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
-                            if (parseInt(data.actorData.attributes?.composure.value) >= specialityLevel) {
-                                data.object.hasSpeciality = true;
-                                attributeSpeciality = data.actorData.attributes.composure.speciality;
+                    else if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
+                        if (parseInt(data.actorData.attributes?.composure.value) >= specialityLevel) {
+                            data.object.hasSpeciality = true;
+                            attributeSpeciality = data.actorData.attributes.composure.speciality;
+                        }
+        
+                        if ((parseInt(data.actorData.attributes?.resolve.value) >= specialityLevel) && (data.actorData.attributes?.resolve.speciality != "")) {
+                            data.object.hasSpeciality = true;
+
+                            if (attributeSpeciality != "") {
+                                attributeSpeciality += ", ";
                             }
-            
-                            if ((parseInt(data.actorData.attributes?.resolve.value) >= specialityLevel) && (data.actorData.attributes?.resolve.speciality != "")) {
-                                data.object.hasSpeciality = true;
-    
-                                if (attributeSpeciality != "") {
-                                    attributeSpeciality += ", ";
-                                }
-    
-                                attributeSpeciality += data.actorData.attributes.resolve.speciality;
-                            }  
-                        } 
+
+                            attributeSpeciality += data.actorData.attributes.resolve.speciality;
+                        }  
+                    } 
+                    else {
+                        const advantage = (data.actorData.advantages[attributeKey].system !== undefined ? data.actorData.advantages[attributeKey].system : data.actorData.advantages[attributeKey]);
                         
-                        if (data.actorData.advantages[attributeKey].label === "custom") {
-                            data.object.attributeName = data.actorData.advantages[attributeKey].custom;
+                        if (advantage.label === "custom") {
+                            data.object.attributeName = advantage.custom;
                         }
                         else {
-                            data.object.attributeName = game.i18n.localize(data.actorData.advantages[attributeKey].label);
+                            data.object.attributeName = game.i18n.localize(advantage.label);
                         }
                         
-                        data.object.attributeValue = parseInt(data.actorData.advantages[attributeKey].roll);
+                        data.object.attributeValue = parseInt(advantage.roll);
                         data.object.name = data.object.attributeName;
                     }         
                 }            
@@ -195,25 +209,39 @@ export class DialogGeneralRoll extends FormApplication {
 
             if (abilityKey != "") {
                 let ability = undefined;
-                let abilitytype = "";                
-
-                if ((data.actorData.abilities[abilityKey] != undefined) && (data.actorData.abilities[abilityKey].isvisible)) {
+    
+                if (this.actor.type === "PC" && abilityKey && abilityKey !== "" && this.actor.api) {
+                    // Använd API för PC actors
+                    const abilityItem = this.actor.api.getAbility(abilityKey);
+                    if (abilityItem) {
+                        ability = {
+                            issecondary: false,
+                            isvisible: abilityItem.system.settings?.isvisible ?? true,
+                            label: abilityItem.system.label,
+                            max: abilityItem.system.max,
+                            name: abilityItem.name,
+                            speciality: abilityItem.system.speciality,
+                            value: abilityItem.system.value,
+                            _id: abilityItem.system.id
+                        };
+                    }
+                } else if ((data.actorData.abilities[abilityKey] != undefined) && (data.actorData.abilities[abilityKey].isvisible)) {
+                    // Legacy actors
                     ability = data.actorData.abilities[abilityKey];
                     ability.issecondary = false;
-                }
-                else {
+                } else {
+                    // Fallback för Legacy
                     const item = await this.actor.getEmbeddedDocument("Item", abilityKey);
-
                     ability = {
-						issecondary: true,
-						isvisible: true,
-						label: item.system.label,
-						max: item.system.max,
-						name: item.name,
-						speciality: item.system.speciality,
-						value: item.system.value,
-						_id: abilityKey
-					}
+                        issecondary: item.type === "Ability" ? false : true,
+                        isvisible: true,
+                        label: game.i18n.localize(item.system.label),
+                        max: item.system.max,
+                        name: item.name,
+                        speciality: item.system.speciality,
+                        value: item.system.value,
+                        _id: item.type === "Ability" ? item.system.id : abilityKey
+                    }
                 }
 
                 if (await BonusHelper.CheckAbilityDiff(this.actor, ability._id)) {
@@ -228,14 +256,24 @@ export class DialogGeneralRoll extends FormApplication {
                     data.object.abilityValue += parseInt(bonus);
                 }
 
-                if (!ability.issecondary) {
-                    ability.label = (data.actorData.abilities[abilityKey].altlabel == "") ? ability.label : data.actorData.abilities[abilityKey].altlabel;
+                if ((!ability.issecondary) && (data.actorData.abilities[abilityKey]?.altlabel !== "" && data.actorData.abilities[abilityKey]?.altlabel !== undefined)) {
+                    ability.label =  data.actorData.abilities[abilityKey].altlabel;
                 }                
                 
                 data.object.abilityName = (!ability.issecondary) ? game.i18n.localize(ability.label) : ability.label;
                 data.object.name = data.object.abilityName;
+
+                let actortype = this.actor.type.toLowerCase();
+
+                if (this.actor?.system?.settings?.splat !== undefined) {
+                    actortype = this.actor.system.settings.splat;
+                }
+
+                if (CONFIG.worldofdarkness.alwaysspeciality[actortype] == undefined) {
+                    actortype = CONFIG.worldofdarkness.sheettype.vampire.toLowerCase();
+                }
                 
-                if ((parseInt(ability.value) >= specialityLevel) || (CONFIG.worldofdarkness.alwaysspeciality.includes(ability._id))) {
+                if ((parseInt(ability.value) >= specialityLevel) || (CONFIG.worldofdarkness.alwaysspeciality[actortype].includes(ability._id))) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = ability.speciality;
                 }
@@ -489,7 +527,7 @@ export class DialogGeneralRoll extends FormApplication {
         generalRoll.usewillpower = this.object.useWillpower;
         generalRoll.specialityText = specialityText;
         
-        NewRollDice(generalRoll);
+        DiceRoller(generalRoll);
 
         this.object.close = true;
     }

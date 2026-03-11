@@ -51,7 +51,9 @@ export default class ChangelingActorSheet extends MortalActorSheet {
 		data.actor.system.listdata.settings = [];
 		data.actor.system.listdata.settings.haschimericalhealth = true;
 
-		data.actor.system.listdata.powers.arts.realms = realms.sort((a, b) => a.label.localeCompare(b.label));
+		if (data.actor.system.listdata?.powers?.arts !== undefined) {
+			data.actor.system.listdata.powers.arts.realms = realms.sort((a, b) => a.label.localeCompare(b.label));
+		}
 
 		if (data.actor.type == CONFIG.worldofdarkness.sheettype.changeling) {
 			console.log(`${data.actor.name} - (${CONFIG.worldofdarkness.sheettype.changeling})`);
@@ -115,7 +117,7 @@ export default class ChangelingActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);		
+		ActionHelper.RollDialog(dataset, this.actor);		
 	}
 
 	async _switchChangelingSetting(event) {
@@ -306,18 +308,28 @@ export default class ChangelingActorSheet extends MortalActorSheet {
 		  	return;
 		}
 
-		index += 1
+		//index += 1
 
 		const actorData = foundry.utils.duplicate(this.actor);
+		let clickvalue = actorData.system.advantages.willpower.permanent - index;
 
-		if ((index == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
+		//if ((index == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
+		if ((clickvalue == 1) && (actorData.system.advantages.willpower.imbalance == 1)) {
 			actorData.system.advantages.willpower.imbalance = 0;
 		}
+		//else if (index > actorData.system.advantages.willpower.permanent) {
 		else if (index > actorData.system.advantages.willpower.permanent) {
-			actorData.system.advantages.willpower.imbalance = actorData.system.advantages.willpower.permanent;
+			actorData.system.advantages.willpower.imbalance = 0;
+		}
+		else if (clickvalue == 0) {
+			actorData.system.advantages.willpower.imbalance = 1;
+		}
+		else if (clickvalue == actorData.system.advantages.willpower.imbalance) {
+			actorData.system.advantages.willpower.imbalance -= 1;
 		}
 		else {
-			actorData.system.advantages.willpower.imbalance = index;
+			//actorData.system.advantages.willpower.imbalance = index;
+			actorData.system.advantages.willpower.imbalance = clickvalue;
 		}
 
 		actorData.system.settings.isupdated = false;

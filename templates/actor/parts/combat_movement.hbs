@@ -1,0 +1,27 @@
+<div class="sheet-headline sheet-banner splatFont"><span class="sheet-banner-text">{{localize "wod.combat.movement.headline"}}</span></div> 
+<div class="pullLeft">
+    <div class="pullLeft">
+        <div class="clearareaBox movementBox">
+            <div class="pullLeft headlineList splatFont" style="width: 100px;">{{localize "wod.combat.movement.walk"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.walk.value}}</div>
+        </div>
+        <div class="clearareaBox movementBox">
+            <div class="pullLeft headlineList splatFont" style="width: 100px;">{{localize "wod.combat.movement.jog"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.jog.value}}</div>
+        </div>
+        <div class="clearareaBox movementBox">
+            <div class="pullLeft headlineList splatFont" style="width: 100px;">{{localize "wod.combat.movement.run"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.run.value}}</div>
+        </div>
+        {{#if actor.system.movement.fly.isactive}}
+            <div class="clearareaBox splatFont">
+                <div class="pullLeft headlineList" style="width: 100px;">{{localize "wod.combat.movement.fly"}}</div><div class="pullLeft headlineNormal" style="width: 50px;">{{actor.system.movement.fly.value}}</div>
+            </div>
+        {{/if}}
+    </div>
+    <div class="pullLeft">
+        <div class="clearareaBox movementBox">
+            <div class="pullLeft headlineList splatFont" style="width: 250px;">{{localize "wod.combat.movement.vjump"}}</div><div class="pullLeft headlineNormal">{{actor.system.movement.vjump.value}}</div>
+        </div>
+        <div class="clearareaBox movementBox">
+            <div class="pullLeft headlineList splatFont" style="width: 250px;">{{localize "wod.combat.movement.hjump"}}</div><div class="pullLeft headlineNormal">{{actor.system.movement.hjump.value}}</div>
+        </div>
+    </div>
+</div>

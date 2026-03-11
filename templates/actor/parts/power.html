@@ -42,62 +42,7 @@
 
             {{#each actor.system.listdata.powers.horrors as |item id|}}
 
-                <div class="item-row-area">
-                    <div class="clearareaBox {{#if item.system.isrollable}}creature-rollablerow{{else}}creature-row{{/if}}">
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                            data-type="{{../actor.type}}"
-                            data-object="Power"
-                            data-rollitem="true"
-                            data-itemid="{{item._id}}">{{item.name}}</div>
-                        {{#if item.system.isrollable}}
-                            <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                            <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2  ../actor)}}{{else}}&nbsp;{{/if}}</div>
-                            <div class="pullLeft power-valueBox headlineNormal centerText">
-                                {{#if (eq item.system.difficulty "-1")}}
-                                    {{localize "wod.labels.varies"}}
-                                {{else}}
-                                    {{item.system.difficulty}}
-                                {{/if}}
-                            </div>
-                        {{/if}}
-
-                        <div class="gift-iconbox">
-                            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
-                            <div class="pullLeft">
-                                <a class="send-chat" 
-                                    title="{{localize 'wod.labels.send'}}" 
-                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.horror'}}" data-type="Power" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                </div>
-                                <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.horror'}}" data-type="Power" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                </div>
-                            {{/if}}                
-                            
-                            {{#if (gt item.system.bonuslist.length 0)}}                    
-                                <div class="pullLeft pointer">
-                                    <i id="collapsiblepowerbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="power{{id}}"></i>
-                                </div>
-                            {{/if}}
-                        </div>
-                        
-                    </div>
-                    <div class="hide bonuses power{{id}}" data-area="powerbonus{{id}}">
-
-                        {{#each item.system.bonuslist as |bonus id|}}
-                            <div class="clearareaBox" data-area="giftbonus_{{id}}">
-                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                            </div>
-                        {{/each}}
-
-                    </div>
-                </div>
+                {{> "systems/worldofdarkness/templates/actor/parts/power_list.html" item=item config=../config actor=../actor locked=../locked showclear=false}}
 
             {{/each}}
 
@@ -114,62 +59,7 @@
 
             {{#each actor.system.listdata.powers.stains as |item id|}}
 
-                <div class="item-row-area">
-                    <div class="clearareaBox {{#if item.system.isrollable}}creature-rollablerow{{else}}creature-row{{/if}}">
-                        <div class="pullLeft item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
-                        <div class="pullLeft gift-headlineBox headlineNormal {{#if item.system.isrollable}}vrollable{{/if}}" 
-                            data-type="{{../actor.type}}"
-                            data-object="Power"
-                            data-rollitem="true"
-                            data-itemid="{{item._id}}">{{item.name}}</div>
-                        {{#if item.system.isrollable}}
-                            <div class="pullLeft gift-dicebox headlineNormal">{{localize (getAttributes item.system.dice1)}}</div>
-                            <div class="pullLeft gift-dicebox headlineNormal">{{#if (ne item.system.dice2 "")}}{{localize (getAbility item.system.dice2  ../actor)}}{{else}}&nbsp;{{/if}}</div>
-                            <div class="pullLeft power-valueBox headlineNormal centerText">
-                                {{#if (eq item.system.difficulty "-1")}}
-                                    {{localize "wod.labels.varies"}}
-                                {{else}}
-                                    {{item.system.difficulty}}
-                                {{/if}}
-                            </div>
-                        {{/if}}
-
-                        <div class="gift-iconbox">
-                            {{{getToolTip item.system.description item.system.details item.system.bonuslist ../actor}}}
-                            <div class="pullLeft">
-                                <a class="send-chat" 
-                                    title="{{localize 'wod.labels.send'}}" 
-                                    data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
-                            </div>
-                            {{#if (eq ../locked false)}}
-                                <div class="pullLeft pointer">
-                                    <a class="item-edit" title="{{localize 'wod.labels.edit.stain'}}" data-type="Power" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-                                </div>
-                                <div class="pullLeft pointer">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.stain'}}" data-type="Power" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
-                                </div>
-                            {{/if}}                
-                            
-                            {{#if (gt item.system.bonuslist.length 0)}}                    
-                                <div class="pullLeft pointer">
-                                    <i id="collapsiblepowerbonus{{id}}" class="icon collapsible button fa-solid fa-angles-right" title="{{localize 'wod.labels.show.bonus'}}" data-sheet="{{../config.sheettype.mortal}}" data-type="power{{id}}"></i>
-                                </div>
-                            {{/if}}
-                        </div>
-                        
-                    </div>
-                    <div class="hide bonuses power{{id}}" data-area="powerbonus{{id}}">
-
-                        {{#each item.system.bonuslist as |bonus id|}}
-                            <div class="clearareaBox" data-area="giftbonus_{{id}}">
-                                <div class="pullLeft bonus-power-name headlineNormal">{{bonus.name}}</div>
-                                <div class="pullLeft headlineNormal" style="width: 200px;">{{getBonusName bonus.type}}</div>
-                                <div class="pullLeft headlineNormal">{{bonus.value}}</div>
-                            </div>
-                        {{/each}}
-
-                    </div>
-                </div>
+                {{> "systems/worldofdarkness/templates/actor/parts/power_list.html" item=item config=../config actor=../actor locked=../locked showclear=false}}
 
             {{/each}}
 
@@ -181,7 +71,7 @@
 {{!-- Power Tab --}}
 <div class="tab power sheet-inner-area" data-group="primary" data-tab="power">
 
-    {{> "systems/worldofdarkness/templates/actor/parts/creature/power.hbs"}}
+    {{> "systems/worldofdarkness/templates/actor/parts/creature/power.html"}}
 
 </div>
 
@@ -189,21 +79,28 @@
 <div class="tab scarab sheet-inner-area" data-group="primary" data-tab="scarab">
 
     <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize "wod.labels.add.item"}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
-					
-    {{{getGetPowerList locked actor "hekau" "wod.types.hekau" (localize "wod.power.hekaus") false}}}
 
-    {{#if (listNotEmpty (getConnectedItemList actor "Power" "wod.types.hekaupower" ""))}}
+    <div class="sheet-area flex-columns">
+        <div class="area-box">
 
-        <div class="sheet-area flex-columns" style="margin-top: 25px;">
-            <div class="clearareaBox">
-                <div class="headlineList splatFont">{{localize "wod.power.unsortedhekaus"}}</div>
-            </div>
+            <div class="sheet-headline sheet-banner splatFont" data-area="hekau"><span class="sheet-banner-text">{{localize "wod.power.hekaus"}}</span></div>
 
-            <div class="clearareaBox area-box">
-                {{#each (getConnectedItemList actor "Power" "wod.types.hekaupower" "") as | item id|}}
+            {{#each (getMainPowerList actor "wod.types.hekau") as |item id|}}
+                {{> "systems/worldofdarkness/templates/actor/parts/mainpower_list.html" mainpower=item config=../config actor=../actor locked=../locked}}
+            {{/each}}
+        </div>
+    </div>
 
-                    <div class="clearareaBox row">
-                        <div class="pullLeft hekau-headline headlineNormal vrollable" 
+    {{#if (gt (couintUnsortedMainPowerList actor "wod.types.hekaupower") 0)}}
+
+        <div class="sheet-area unsorted-area flex-columns">
+            <div class="headlineNormal info-box">{{localize "wod.power.unsortedhekaus"}}</div>
+
+            <div class="area-box">
+                {{#each (getUnsortedMainPowerList actor "wod.types.hekaupower") as | item id|}}
+
+                    <div class="row">
+                        <div class="pullLeft headlineNormal width-namebox vrollable" 
                             data-type="{{../config.sheettype.mortal}}"
                             data-object="SortHekauPower"
                             data-rollitem="true"
@@ -215,12 +112,11 @@
                             </div>
                         {{/if}}                    
                     </div>
+
                 {{/each}}
             </div>
         </div>
-
     {{/if}}
-
 </div>
 
 {{!-- Numina Tab --}}
@@ -230,20 +126,27 @@
 
         <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-        {{{getGetPowerList locked actor "numina" "wod.types.numina" (localize "wod.power.numinas") false}}}
+        <div class="sheet-area flex-columns">
+            <div class="area-box">
 
-        {{#if (listNotEmpty (getConnectedItemList actor "Power" "wod.types.numinapower" ""))}}
+                <div class="sheet-headline sheet-banner splatFont" data-area="numina"><span class="sheet-banner-text">{{localize "wod.power.numinas"}}</span></div>
 
-            <div class="sheet-area flex-columns" style="margin-top: 25px;">
-                <div class="clearareaBox">
-                    <div class="headlineList splatFont">{{localize "wod.power.unsortednuminas"}}</div>
-                </div>
+                {{#each (getMainPowerList actor "wod.types.numina") as |item id|}}
+                    {{> "systems/worldofdarkness/templates/actor/parts/mainpower_list.html" mainpower=item config=../config actor=../actor locked=../locked}}
+                {{/each}}
+            </div>
+        </div>
 
-                <div class="clearareaBox area-box">
-                    {{#each (getConnectedItemList actor "Power" "wod.types.numinapower" "") as | item id|}}
+        {{#if (gt (couintUnsortedMainPowerList actor "wod.types.numinapower") 0)}}
 
-                        <div class="clearareaBox row">
-                            <div class="pullLeft numina-headline headlineNormal vrollable" 
+            <div class="sheet-area unsorted-area flex-columns">
+                <div class="headlineNormal info-box">{{localize "wod.power.unsortednuminas"}}</div>
+
+                <div class="area-box">
+                    {{#each (getUnsortedMainPowerList actor "wod.types.numinapower") as | item id|}}
+
+                        <div class="row">
+                            <div class="pullLeft headlineNormal width-namebox vrollable" 
                                 data-type="{{../config.sheettype.mortal}}"
                                 data-object="SortNuminaPower"
                                 data-rollitem="true"
@@ -251,14 +154,14 @@
                             
                             {{#if (eq ../locked false)}}
                                 <div class="pullLeft power-iconbox">
-                                    <a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+                                    <a class="item-delete" title="{{localize 'wod.labels.remove.numinapower'}}" data-type="Numina" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
                                 </div>
                             {{/if}}                    
                         </div>
+
                     {{/each}}
                 </div>
             </div>
-
         {{/if}}
 
         {{#if (eqAnyNot actor.type config.sheettype.werewolf config.sheettype.changingbreed config.sheettype.exalted)}}
@@ -278,8 +181,6 @@
 
     <i class="macroBtn pointer createicon fa-solid fa-square-plus item-create" title="{{localize 'wod.labels.add.item'}}" aria-hidden="true" data-itemtype="All" data-origin="power"></i>
 
-    {{{getGetPowers locked actor "charmtype" "exaltedcharm" "wod.types.exaltedcharm" (localize "wod.power.exaltedcharm")}}}
-
-    {{{getGetPowers locked actor "exaltedsorcerytype" "exaltedsorcery" "wod.types.exaltedsorcery" (localize "wod.power.exaltedsorcery")}}}
+    {{> "systems/worldofdarkness/templates/actor/parts/exalted/exalted_charms.html"}}    
 
 </div>

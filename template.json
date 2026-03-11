@@ -1,6 +1,7 @@
 {
 	"Actor": {
 		"types": [
+			"PC",
 			"Changeling",
 			"Changing Breed",
 			"Creature",
@@ -31,15 +32,15 @@
 					"soak": {
 						"bashing": {
 							"bonus": 0,
-							"isrollable": true
+							"isrollable": false
 						},
 						"lethal": {
 							"bonus": 0,
-							"isrollable": true
+							"isrollable": false
 						},
 						"aggravated": {
 							"bonus": 0,
-							"isrollable": true
+							"isrollable": false
 						}
 					},
 					"abilities": {
@@ -1297,6 +1298,15 @@
 						"roll": 0,
 						"label": "wod.advantages.angst"
 					}
+				},
+				"health": {
+					"damage": {
+						"corpus": {
+							"bashing": 0,
+							"lethal" : 0,
+							"aggravated": 0
+						}
+					}
 				}
 			},
 			"mummy": {
@@ -1375,6 +1385,7 @@
 				}
 			}		
 		},
+		"PC": {},
 		"Mortal": {
 			"templates": [
 				"base",
@@ -1474,6 +1485,10 @@
 	},
 	"Item": {
 		"types": [
+			"Splat",
+			"Ability",
+			"Advantage",
+			"Sphere",
 			"Armor",
 			"Bonus",
 			"Experience",
@@ -1491,9 +1506,11 @@
 				"iscreated": false,
 				"isactive": false,
 				"isvisible": true,
-				"isremovable": false,
+				"isremovable": true,
+				"order": 0,
 				"version": "",
-				"parentid": ""				
+				"parentid": "",
+				"itemuuid": ""
 			},
 			"base": {
 				"worldanvil": "",
@@ -1555,6 +1572,10 @@
 				"spendglamour": false
 			}
 		},
+		"Splat": {},
+		"Ability": {},
+		"Advantage": {},
+		"Sphere": {},
 		"Armor": {
 			"templates": [
 				"settings",
@@ -1639,6 +1660,7 @@
 				"feature",
 				"base"
 			],
+			"isrollable": true,
 			"type": "wod.types.rote",
 			"correspondence": 0,
 			"entropy": 0,
@@ -1700,7 +1722,9 @@
 			"dice1": "",
 			"dice2": "",
 			"bonus": 0,
-			"difficulty": 6			
+			"difficulty": 6,
+			"icon": "",
+			"tokenimage": ""
 		},
 		"Experience": {
 			"templates": [

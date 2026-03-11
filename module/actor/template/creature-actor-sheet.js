@@ -96,7 +96,7 @@ export default class CreatureActorSheet extends MortalActorSheet {
 			return;
 		}
 
-		ActionHelper.RollDialog(event, this.actor);
+		ActionHelper.RollDialog(dataset, this.actor);
 	}
 
 	_onDotCounterCreatureChange(event) {

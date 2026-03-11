@@ -6,18 +6,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.creed}}" data-dtype="String" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.creed" data-type="{{config.sheettype.hunter}}" data-name="data.system.creed" data-dtype="String">
-                    {{#select data.system.creed}}
-                        <option value="">- {{localize 'wod.labels.select'}} -</option>
-                        <option value="wod.bio.hunter.avenger">{{localize 'wod.bio.hunter.avenger'}}</option>
-                        <option value="wod.bio.hunter.defender">{{localize 'wod.bio.hunter.defender'}}</option>
-                        <option value="wod.bio.hunter.hermit">{{localize 'wod.bio.hunter.hermit'}}</option>
-                        <option value="wod.bio.hunter.innocent">{{localize 'wod.bio.hunter.innocent'}}</option>
-                        <option value="wod.bio.hunter.judge">{{localize 'wod.bio.hunter.judge'}}</option>
-                        <option value="wod.bio.hunter.martyr">{{localize 'wod.bio.hunter.martyr'}}</option>
-                        <option value="wod.bio.hunter.redeemer">{{localize 'wod.bio.hunter.redeemer'}}</option>
-                        <option value="wod.bio.hunter.visionary">{{localize 'wod.bio.hunter.visionary'}}</option>
-                        <option value="wod.bio.hunter.wayword">{{localize 'wod.bio.hunter.wayword'}}</option>
-                    {{/select}}
+                    {{selectOptions listData.CreedList selected=data.system.creed localize=false}}
                 </select>
     			
             {{/if}}
@@ -29,11 +18,7 @@
                 <input class="sheet-infoValues" type="text" value="{{localize data.system.primaryvirtue}}" data-dtype="String" autofocus required />
             {{else}}
                 <select class="sheet-infoValues editable" name="system.primaryvirtue" data-type="{{config.sheettype.hunter}}" data-name="data.system.primaryvirtue" data-dtype="String">
-                    {{#select data.system.primaryvirtue}}
-                        <option value="wod.advantages.virtue.mercy">{{localize 'wod.advantages.virtue.mercy'}}</option>
-                        <option value="wod.advantages.virtue.vision">{{localize 'wod.advantages.virtue.vision'}}</option>
-                        <option value="wod.advantages.virtue.zeal">{{localize 'wod.advantages.virtue.zeal'}}</option>
-                    {{/select}}
+                    {{selectOptions listData.PrimaryVirtueList selected=data.system.primaryvirtue localize=false}}
                 </select>
             {{/if}}
             <span class="floating-label">{{localize 'wod.bio.hunter.primaryvirtue'}}</span>                                    

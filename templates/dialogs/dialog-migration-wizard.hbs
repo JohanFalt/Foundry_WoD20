@@ -1,0 +1,45 @@
+<div class="migration-wizard-content">
+    <div class="migration-wizard-body">
+        <div class="dialog-area">
+            <div class="headlineGroup splatFont">{{localize "wod.dialog.migrationwizard.title"}}</div>
+            
+            <div class="infobox">
+                <div class="wizard-page-indicator">
+                    {{localize "wod.dialog.migrationwizard.page"}} {{pageNumber}} {{localize "wod.dialog.migrationwizard.of"}} {{totalPages}}
+                </div>
+            </div>
+
+            <div class="dialog-area wizard-message-area">
+                <div class="wizard-message-content">
+                    {{{currentMessage}}}
+                </div>
+            </div>
+
+            {{#if showCheckbox}}
+            <div class="wizard-checkbox-area" style="margin-top: 15px; padding: 10px;">
+                <label style="display: flex; align-items: center; cursor: pointer;">
+                    <input type="checkbox" 
+                           data-action="toggleCheckbox" 
+                           {{#if dontShowAgainChecked}}checked{{/if}}
+                           style="margin-right: 8px;">
+                    <span>{{localize "wod.dialog.migrationwizard.dontshowagain"}}</span>
+                </label>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+
+    <div class="migration-wizard-buttons centerText flex-row">
+        {{#unless isFirstPage}}
+            <button class="button fullSplatColor pointer dialog-three-button" data-action="previous">{{localize "wod.dialog.migrationwizard.previous"}}</button>
+        {{else}}
+            <button class="button fullSplatColor disabled dialog-three-button" disabled>{{localize "wod.dialog.migrationwizard.previous"}}</button>
+        {{/unless}}
+
+        {{#unless isLastPage}}
+            <button class="button fullSplatColor pointer dialog-three-button" data-action="next">{{localize "wod.dialog.migrationwizard.next"}}</button>
+        {{else}}
+            <button class="button fullSplatColor pointer dialog-three-button" data-action="close">{{localize "wod.dialog.close"}}</button>
+        {{/unless}}
+    </div>
+</div>

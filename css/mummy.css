@@ -12,10 +12,26 @@
   --main-mid-color: var(--main-mummy-mid-color);
   --main-dim-color: var(--main-mummy-dim-color);
   --color-shadow-primary: var(--main-mummy-color);
-}
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-second-headline-tabs: 1.5625rem; /* 25px */
+  --wod-font-sheet-headline: 2rem; /* 32px (.splatFont.sheet-headline) */
+  --wod-font-sheet-banner-text: 1.625rem; /* 26px (span.sheet-banner-text) */
+  --wod-font-experience-value: 1.625rem; /* 26px (.experienceValue) */
+} 
 
 .mummy .secondHeadlineTabs:not(.noSplatFont) {
-  font-size: 25px;
+  font-size: var(--wod-font-second-headline-tabs);
 }
 
 .mummy .secondHeadlineTabs {
@@ -33,19 +49,19 @@
 
 .mummy:not(.noSplatFont) .splatFont.sheet-headline {
   font-family: "mummy_italic", var(--main-font);
-  font-size: 32px;
+  font-size: var(--wod-font-sheet-headline);
 }
 
 .mummy:not(.noSplatFont) .splatFont.sheet-headline span.sheet-banner-text {
   font-family: "mummy", var(--main-font);
-  font-size: 26px;
+  font-size: var(--wod-font-sheet-banner-text);
 }
 
 .mummy .experienceValue {
   font-family: "mummy", var(--main-font);
-  font-size: 26px;  
+  font-size: var(--wod-font-experience-value);  
   line-height: 18px;
-}
+} 
 
 .mummy .total.experienceValue {
   line-height: 50px;

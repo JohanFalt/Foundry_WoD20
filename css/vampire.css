@@ -5,7 +5,23 @@
   --main-mid-color: var(--main-vampire-mid-color);
   --main-dim-color: var(--main-vampire-dim-color);
   --color-shadow-primary: var(--main-vampire-color);
-}
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-sheet-headline: 1.875rem; /* 30px (.sheet-headline) */
+  --wod-font-headline-group: 1.75rem; /* 28px (dialog .headlineGroup) */
+  --wod-font-second-headline-tabs: 1.625rem; /* 26px */
+  --wod-font-headline: 1.25rem; /* 20px (dialog .headline) */
+} 
 
 .vampire {
   --sheet-background-color: var(--vampire-page-background);
@@ -31,7 +47,7 @@
 }
   
 .vampire:not(.noSplatFont) .sheet-headline {
-    font-size: 30px;
+    font-size: var(--wod-font-sheet-headline);
 }
 
 .vampire:not(.noSplatFont) .sheet-banner {
@@ -53,8 +69,8 @@
 
 .vampire:not(.noSplatFont) .headlineList {
   font-weight: normal;
-  font-size: 16px;
-}
+  font-size: var(--wod-font-base);
+} 
 
 .vampire:not(.noSplatFont) .combat-concealBox {
   width: 60px;
@@ -65,7 +81,7 @@
 }
   
 .vampireDialog:not(.noSplatFont) .headlineGroup {
-  font-size: 28px;
+  font-size: var(--wod-font-headline-group);
 }
 
 .vampire:not(.noSplatFont) nav,
@@ -76,30 +92,26 @@
 }
 
 .vampire:not(.noSplatFont) .experienceValue {
-  font-size: 18px;
-}
+  font-size: var(--wod-font-lg);
+} 
 
 .ghoul:not(.noSplatFont) .experienceValue {
-  font-size: 26px;
+  font-size: var(--wod-font-second-headline-tabs);
   margin-top: 15px;
 }
 
-/* SETTING */
-
-.vampire:not(.noSplatFont) .secondHeadlineTabs {
-    font-size: 26px;
-}
-  
-.vampire .secondHeadlineTabs {
-    width: 25%;
-}
-
 .ghoul:not(.noSplatFont) .secondHeadlineTabs {
-  font-size: 20px !important;
+  font-size: var(--wod-font-headline) !important;
 }
 
 .ghoul .secondHeadlineTabs {
   width: 20% !important;
+} 
+
+/* COMBAT */
+
+.vampire .combat-armor-itemlist .width-valuebox {
+    width: 60px;
 }
 
 /* START - Discipline */
@@ -108,8 +120,14 @@
 
 /* END - Discipline */
 
+/* SETTINGS */
+
+.wod20.vampire .secondHeadlineTabs {
+  width: 25%;
+}
+
 /* DIALOG */
 
 .vampireDialog:not(.noSplatFont) .headline {
-  font-size: 20px;
+  font-size: var(--wod-font-headline);
 }

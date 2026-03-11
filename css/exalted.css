@@ -12,9 +12,27 @@
   --main-mid-color: var(--main-exalted-mid-color);
   --main-dim-color: var(--main-exalted-dim-color);
   --color-shadow-primary: var(--main-exalted-color);
-}
 
-.wod20.exalted.window-app {
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-sheet-headline: 2.25rem; /* 36px (.sheet-headline) */
+  --wod-font-second-headline-tabs: 1.5625rem; /* 25px */
+  --wod-font-sheet-banner-text: 1.625rem; /* 26px (.splatFont.sheet-headline span) */
+  --wod-font-sm: 1rem; /* 16px (.headlineList) */
+  --wod-font-sheet-headline-variant: 1.625rem; /* 26px (.sheet-headline-variant) */
+  --wod-font-experience-value: 1.125rem; /* 18px (.experienceValue) */
+} 
+
+.wod20.exalted.window-app,
+.wod20.exalted.wod-sheet {
   font-family: var(--main-exalted-font);
 }
 
@@ -44,11 +62,11 @@
 }
 
 .exalted:not(.noSplatFont) .sheet-headline {
-  font-size: 36px;
+  font-size: var(--wod-font-sheet-headline);
 }
 
 .exalted .secondHeadlineTabs:not(.noSplatFont) {
-  font-size: 25px;
+  font-size: var(--wod-font-second-headline-tabs);
 }
 
 .exalted .secondHeadlineTabs {
@@ -66,28 +84,28 @@
 
 .exalted:not(.noSplatFont) .splatFont.sheet-headline span.sheet-banner-text {
   font-family: "exalted", var(--main-font);
-  font-size: 26px;
+  font-size: var(--wod-font-sheet-banner-text);
 }
 
 .exalted:not(.noSplatFont) .headlineList {
-  font-size: 16px;
+  font-size: var(--wod-font-sm);
 }
 
 .exalted .sheet-headline-variant {
-  font-size: 26px;
+  font-size: var(--wod-font-sheet-headline-variant);
 }
 
 .exalted .experienceValue {
   font-family: "exalted", var(--main-font);
-  font-size: 18px;  
+  font-size: var(--wod-font-experience-value);  
   line-height: 23px;
 }
 
 .exalted .total.experienceValue {
   line-height: 50px;
   margin-left: 15px;
-  font-size: 26px;  
-}
+  font-size: var(--wod-font-total-experience-value);  
+} 
 
 .exalted.wod-sheet .sheet-banner-text {
   border-radius: 0;

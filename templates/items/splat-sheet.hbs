@@ -1,0 +1,43 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">		
+
+    <div class="dialog-area">
+        <div class="infobox bioInformationArea floating-label-group">
+            <input class="sheet-infoValues editable" name="system.settings.id" type="text" value="{{item.system.settings.id}}" data-dtype="String" autocomplete="off" autofocus required />
+            <span class="floating-label">{{localize "wod.labels.ability.id"}}</span>
+        </div>
+        <div class="information-area">{{localize "wod.labels.ability.idhint"}}</div>
+
+        <div class="infobox bioInformationArea floating-label-group">
+            <select class="sheet-infoValues editable" name="system.settings.game" data-dtype="String">
+                {{selectOptions listData.Games selected=item.system.settings.game localize=false}}
+            </select>
+            <span class="floating-label">{{localize "wod.labels.splat.game"}}</span>
+        </div>
+        <div class="information-area">{{localize "wod.labels.splat.gamehint"}}</div>
+
+        <div class="infobox bioInformationArea floating-label-group">
+            <select class="sheet-infoValues editable" name="system.settings.variantsheet" data-dtype="String">
+                {{selectOptions listData.Sheet selected=item.system.settings.variantsheet localize=false}}
+            </select>
+            <span class="floating-label">{{localize "wod.labels.splat.sheet"}}</span>
+        </div>
+        <div class="information-area">{{localize "wod.labels.splat.sheethint"}}</div>
+
+        <div class="infobox bioInformationArea floating-label-group">
+            <input class="sheet-infoValues editable" name="system.settings.variant" type="text" value="{{item.system.settings.variant}}" data-dtype="String" autocomplete="off" autofocus required />
+            <span class="floating-label">{{localize "wod.labels.splat.variant"}}</span>
+        </div>    
+        <div class="information-area">{{localize "wod.labels.splat.varianthint"}}</div>    
+
+        <div class="infobox bioInformationArea floating-label-group">
+            <select class="sheet-infoValues editable" name="system.settings.era" data-dtype="String">
+                {{selectOptions listData.Era selected=item.system.settings.era localize=false}}
+            </select>
+            <span class="floating-label">{{localize "wod.labels.splat.era"}}</span>
+        </div>
+        <div class="information-area">{{localize "wod.labels.splat.erahint"}}</div>
+
+        {{> "systems/worldofdarkness/templates/items/parts/description.hbs" proseheadline="wod.labels.description" locked=locked headline=false prosename="system.description" prosevalue=description proseenriched=enrichedDescription}}
+    </div>
+
+</section>

@@ -12,7 +12,26 @@
   --main-mid-color: var(--main-wraith-mid-color);
   --main-dim-color: var(--main-wraith-dim-color);
   --color-shadow-primary: var(--main-wraith-color);
-}
+
+  /* Splat-specific font-size defaults (tweak per splat if needed) */
+  --wod-font-xxs: 0.4375rem;   /* 7px */
+  --wod-font-xs: 0.625rem;     /* 10px */
+  --wod-font-sm: 0.75rem;      /* 12px */
+  --wod-font-md: 0.875rem;     /* 14px */
+  --wod-font-base: 1rem;       /* 16px */
+  --wod-font-lg: 1.125rem;     /* 18px */
+  --wod-font-xl: 1.25rem;      /* 20px */
+  --wod-font-xxl: 1.5rem;      /* 24px */
+
+  /* Overrides to preserve current hard-coded sizes in this splat */
+  --wod-font-sheet-headline: 2.5rem; /* 40px (.sheet-headline) */
+  --wod-font-headline-group: 2rem; /* 32px (.headlineGroup) */
+  --wod-font-headline-text: 1.75rem; /* 28px (.headlineText) */
+  --wod-font-headline-list: 1.625rem; /* 26px (.headlineList) */
+  --wod-font-second-headline-tabs: 1.5625rem; /* 25px */
+  --wod-font-headline-row: 1.625rem; /* 26px (.headlineRow) */
+  --wod-font-mainpower-row-namebox: 1.625rem; /* 26px */
+} 
 
 .wraith {
     --sheet-background-color: var(--wraith-page-background);
@@ -24,31 +43,31 @@
 }
 
 .wraith .sheet-headline:not(.noSplatFont) {
-  font-size: 40px;
+  font-size: var(--wod-font-sheet-headline);
 }
 
 .wraith .headlineGroup:not(.noSplatFont) {
-  font-size: 32px;
+  font-size: var(--wod-font-headline-group);
 }
 
 .wraith .headlineText:not(.noSplatFont) {
-  font-size: 28px;
+  font-size: var(--wod-font-headline-text);
 }
 
 .wraith .headlineList:not(.noSplatFont) {
-  font-size: 26px;
+  font-size: var(--wod-font-headline-list);
 }
 
 .wraith .secondHeadlineTabs:not(.noSplatFont) {
-  font-size: 25px;
+  font-size: var(--wod-font-second-headline-tabs);
 }
 
 .wraith .headlineRow:not(.noSplatFont) {
-  font-size: 26px;
+  font-size: var(--wod-font-headline-row);
 } 
 
 .wraith .icon.collapsible.button {
-  font-size: 18px;
+  font-size: var(--wod-font-lg);
 }
 
 .wraith .icon {
@@ -74,7 +93,7 @@
 /* START - Death */
 
 .wraith .item-row-area.mainpower-row .power-itemlist .width-namebox {
-    font-size: 26px;
+    font-size: var(--wod-font-mainpower-row-namebox);
 }
 
 .wraith .fetter .power-dotBox,

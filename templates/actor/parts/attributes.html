@@ -30,10 +30,6 @@
 						data-value="{{attribute.value}}" 
 						data-name="attributes.{{key}}.value">
 
-						{{#if (eqAny ../actor.type ../config.sheettype.werewolf ../config.sheettype.changingbreed ../config.sheettype.demon)}}
-							<span class="attribute-total">{{attribute.total}}</span>
-						{{/if}}
-
 						{{#numLoop attribute.max}}							
 							<span class="{{#if (gt attribute.max 5)}}supernaturalAttribute{{/if}} resource-value-step" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>							
 						{{/numLoop}}

@@ -1,0 +1,66 @@
+<div class="area-box">	
+
+	<div class="clearareaBox sheet-headline sheet-banner splatFont" data-area="rotes">
+		<span class="sheet-banner-text">{{localize 'wod.spheres.rotes'}}</span>	
+		<div class="pullRight pointer headlineNormal">
+			<i class="icon largeicon fa-solid fa-square-plus pointer item-create" title="{{localize 'wod.types.rote'}}" aria-hidden="true" data-itemtype="Rote"></i>
+		</div>
+	</div>
+
+	<div class="item-column" style="{{calculateHight 'rotes' actor.system.listdata.rotes}}">
+
+		{{#each actor.system.listdata.rotes as |item id|}}
+
+			<div style="width:50%">
+				<div class="item-row-area rote-itemlist">
+					<div class="dragrow headlineNormal rote-itemlist" data-itemid="{{item._id}}">
+						<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+						<div class="item-activeBox"><input class="item-active pointer" name="item.system.isactive" type="checkbox" data-item-id="{{item._id}}" data-type="isactive" {{isChecked item.system.isactive}}></input></div>
+
+						<div class="width-namebox vrollable" 
+							data-type="{{../config.sheettype.mage}}"
+							data-object="{{item.system.type}}"
+							data-rollitem="true"
+							data-itemid="{{item._id}}">{{item.name}}</div>
+					</div>
+					<div class="iconBox">
+
+						<a class="pointer send-chat" title="{{localize 'wod.labels.send'}}" data-itemid="{{item._id}}"><i class="icon fa-solid fa-comment-dots"></i></a>
+
+						{{#if (eq ../locked false)}} 
+							<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-pen-to-square"></i></a>
+							<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-type="{{item.type}}" data-item-id="{{item._id}}"><i class="icon fa-solid fa-trash-can"></i></a>
+						{{/if}}
+
+						{{#if (showToolTip item)}}
+							<i class="pointer icon collapsible button fa-solid fa-expand"
+									title="{{localize 'wod.labels.show.description'}}"
+									data-itemid="{{item._id}}"></i>
+						{{else}}
+							<i class="icon no-description-disabled fa-solid fa-solid fa-expand"></i>
+						{{/if}}
+
+						<a class="pointer" title="LANG: Menu" data-itemid="{{item._id}}"><i class="icon fa-solid fa-ellipsis-vertical"></i></a>
+					</div>
+				</div>
+				<div class="description" data-itemid="{{item._id}}">
+
+					{{{getToolTip_v2 item.system.description item.system.details item.system.bonuslist ../actor}}}
+
+				</div>
+			</div>
+
+		{{/each}}
+
+	</div>
+
+</div>	
+
+
+
+
+
+
+
+
+

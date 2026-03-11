@@ -17,6 +17,26 @@ export async function calculateHealth(actor, type) {
         lethal = actor.system.health.damage.chimerical.lethal;
         aggravated = actor.system.health.damage.chimerical.aggravated;
     }
+    if (type == CONFIG.worldofdarkness.sheettype.wraith) {
+        bashing = actor.system.health.damage.corpus.bashing;
+        lethal = actor.system.health.damage.corpus.lethal;
+        aggravated = actor.system.health.damage.corpus.aggravated;
+
+        for (let i=0; i < actor.system.advantages.corpus.permanent; i++) {
+            let status = await calculateStatus();
+
+            const healthLevel = {
+                label: "", 
+                status: status
+            };
+
+            healthLevels.push(healthLevel);
+        }
+
+        healthLevels.woundPenalty = 0;
+
+        return healthLevels;
+    }
 
     if (actor.system.health.bruised.total > 0) {
         for (let i=0; i < actor.system.health.bruised.total; i++) {

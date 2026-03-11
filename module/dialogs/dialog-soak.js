@@ -1,4 +1,4 @@
-import { NewRollDice } from "../scripts/roll-dice.js";
+import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
 
 export class Soak {
@@ -14,9 +14,17 @@ export class Soak {
         this.attributeBonus = 0;
 
         this.soaktype = "normal";
-        if (actor.system.listdata.settings.haschimericalhealth != undefined) {
-            this.useChimerical = actor.system.listdata.settings.haschimericalhealth;
+
+        if (actor.type === "PC") {
+            this.useChimerical = actor.system.settings.usechimerical;
         }
+        else {
+            if (actor.system.listdata.settings.haschimericalhealth != undefined) {
+                this.useChimerical = actor.system.listdata.settings.haschimericalhealth;
+            }
+        }
+
+        
 
         this.sheettype = "";
     }
@@ -50,8 +58,21 @@ export class DialogSoakRoll extends FormApplication {
         data.actorData.type = this.actor.type; 
         data.config = CONFIG.worldofdarkness;
 
-        if (data.actorData.type != CONFIG.worldofdarkness.sheettype.changingbreed) {
-            data.object.sheettype = data.actorData.type.toLowerCase() + "Dialog";
+        // Determine sheettype for dialog CSS classes
+        let actortype = this.actor.type.toLowerCase();
+        
+        // For PC actors, use splat or variantsheet to determine type
+        if (this.actor.type === "PC") {
+            if (this.actor?.system?.settings?.splat && this.actor.system.settings.splat !== "") {
+                actortype = this.actor.system.settings.splat.toLowerCase();
+            }
+            else if (this.actor?.system?.settings?.variantsheet && this.actor.system.settings.variantsheet !== "") {
+                actortype = this.actor.system.settings.variantsheet.toLowerCase();
+            }
+        }
+
+        if (actortype != CONFIG.worldofdarkness.sheettype.changingbreed.toLowerCase()) {
+            data.object.sheettype = actortype + "Dialog";
         }
         else {
             data.object.sheettype = "werewolfDialog";
@@ -211,7 +232,7 @@ export class DialogSoakRoll extends FormApplication {
         soakRoll.difficulty = this.object.difficulty;     
         soakRoll.usewillpower = this.object.useWillpower;
         
-        NewRollDice(soakRoll);
+        DiceRoller(soakRoll);
 
         this.object.close = true;
     }

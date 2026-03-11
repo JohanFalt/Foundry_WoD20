@@ -53,6 +53,7 @@ export async function calculateTotals(updateData) {
 				}
 			}
 
+			// TODO: This can be removed as all shapshifters has gotten fixed value as bonus.
 			if (updateData.system.attributes[i].label == "wod.attributes.appearance") {
 				if ((toForm == "wod.shapes.crinos") && ((updateData.system?.changingbreed != "Kitsune") && (updateData.system?.changingbreed != "Ratkin"))) {
 					updateData.system.attributes[i].total = 0;
@@ -84,6 +85,12 @@ export async function calculateTotals(updateData) {
 					}
 				}
 			}
+		}
+
+		//attribute fixed value, this needs to be after all other calculations
+		if (await BonusHelper.CheckAttributeFixedValue(updateData, i)) {
+			const bonus = await BonusHelper.GetFixedAttributeBuff(updateData, i);
+			updateData.system.attributes[i].total = parseInt(bonus);
 		}
 	}    
 
@@ -123,7 +130,16 @@ export async function calculateTotals(updateData) {
 	}	
 
 	/* If Changeling and Chimerical soak */
-	if (updateData.system.settings.soak.chimerical != undefined) {
+	let usechimerical = false;
+
+	if (updateData.type === "PC") {
+		usechimerical = updateData.system.settings.usechimerical;
+	}
+	else {
+		usechimerical = updateData.system.settings.soak.chimerical != undefined;
+	}
+
+	if (usechimerical) {
 		updateData.system.soak.chimerical.bashing = 0;
 		updateData.system.soak.chimerical.lethal = 0;
 		updateData.system.soak.chimerical.aggravated = 0;
@@ -141,69 +157,75 @@ export async function calculateTotals(updateData) {
 
 	//bonus soak
 	if (await BonusHelper.CheckSoakBuff(updateData)) {
-		const bonus = await BonusHelper.GetSoakBuff(updateData);
-		updateData.system.soak.bashing += parseInt(bonus);
-		updateData.system.soak.lethal += parseInt(bonus);
-		updateData.system.soak.aggravated += parseInt(bonus);
+		let bonus = await BonusHelper.GetSoakBuff(updateData, "all");
+		const bashing = await BonusHelper.GetSoakBuff(updateData, "bashing");
+		updateData.system.soak.bashing += parseInt(bonus+bashing);
+		const lethal = await BonusHelper.GetSoakBuff(updateData, "lethal");
+		updateData.system.soak.lethal += parseInt(bonus+lethal);
+		const aggravated = await BonusHelper.GetSoakBuff(updateData, "aggravated");
+		updateData.system.soak.aggravated += parseInt(bonus+aggravated);
 
-		if (updateData.system.settings.soak.chimerical != undefined) {
-			updateData.system.soak.chimerical.bashing += parseInt(bonus);
-			updateData.system.soak.chimerical.lethal += parseInt(bonus);
-			updateData.system.soak.chimerical.aggravated += parseInt(bonus);
+		if (usechimerical) {
+			updateData.system.soak.chimerical.bashing += parseInt(bonus+bashing);
+			updateData.system.soak.chimerical.lethal += parseInt(bonus+lethal);
+			updateData.system.soak.chimerical.aggravated += parseInt(bonus+aggravated);
 		}
 	}
 
 	// armor
-	for (const i of actor.items) {
-		if ((i.type == "Armor") && (i.system?.isequipped)) {
-			if (updateData.system.shapes == undefined) {
-				updateData.system.soak.bashing += i.system.soak.bashing;
-				updateData.system.soak.lethal += i.system.soak.lethal;
-				updateData.system.soak.aggravated += i.system.soak.aggravated;
-				updateData.system.attributes.dexterity.total += i.system.dexpenalty;
+	if (actor !== undefined) {
+		for (const i of actor?.items) {
+			if ((i.type == "Armor") && (i.system?.isequipped)) {
+				if (updateData.system.shapes == undefined) {
+					updateData.system.soak.bashing += i.system.soak.bashing;
+					updateData.system.soak.lethal += i.system.soak.lethal;
+					updateData.system.soak.aggravated += i.system.soak.aggravated;
+					updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
-				/* If changeling */
-				if (updateData.system.settings.soak.chimerical != undefined) {
-					updateData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
-					updateData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
-					updateData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
+					/* If changeling */
+					if (usechimerical) {
+						updateData.system.soak.chimerical.bashing += i.system.soak.chimerical.bashing;
+						updateData.system.soak.chimerical.lethal += i.system.soak.chimerical.lethal;
+						updateData.system.soak.chimerical.aggravated += i.system.soak.chimerical.aggravated;
+					}
 				}
-			}
-			/* If Werewolf or Changing breed */
-			else {
-				for (const form in updateData.system.shapes) {
-					if (updateData.system.shapes[form].isactive) {
-						let hasform = false;
+				/* If Werewolf or Changing breed */
+				else {
+					for (const form in updateData.system.shapes) {
+						if (updateData.system.shapes[form].isactive) {
+							let hasform = false;
 
-						if (form == "homid") {
-							hasform = i.system.forms.hashomid;
-						}
-						if (form == "glabro") {
-							hasform = i.system.forms.hasglabro;
-						}
-						if (form == "crinos") {
-							hasform = i.system.forms.hascrinos;
-						}
-						if (form == "hispo") {
-							hasform = i.system.forms.hashispo;
-						}
-						if (form == "lupus") {
-							hasform = i.system.forms.haslupus;
-						}
+							if (form == "homid") {
+								hasform = i.system.forms.hashomid;
+							}
+							if (form == "glabro") {
+								hasform = i.system.forms.hasglabro;
+							}
+							if (form == "crinos") {
+								hasform = i.system.forms.hascrinos;
+							}
+							if (form == "hispo") {
+								hasform = i.system.forms.hashispo;
+							}
+							if (form == "lupus") {
+								hasform = i.system.forms.haslupus;
+							}
 
-						if (hasform) {
-							updateData.system.soak.bashing += i.system.soak.bashing;
-							updateData.system.soak.lethal += i.system.soak.lethal;
-							updateData.system.soak.aggravated += i.system.soak.aggravated;
-							updateData.system.attributes.dexterity.total += i.system.dexpenalty;
+							if (hasform) {
+								updateData.system.soak.bashing += i.system.soak.bashing;
+								updateData.system.soak.lethal += i.system.soak.lethal;
+								updateData.system.soak.aggravated += i.system.soak.aggravated;
+								updateData.system.attributes.dexterity.total += i.system.dexpenalty;
 
-							break;
-						}	
-					}		
+								break;
+							}	
+						}		
+					}
 				}
 			}
 		}
 	}
+	
 
 	// health levels totals
 	for (const i in CONFIG.worldofdarkness.woundLevels) {
@@ -505,7 +527,7 @@ function handleAnanasiShiftAttributeData(attribute, presentForm) {
 function handleBastetShiftAttributeData(type, attribute, presentForm) {
 	let data = 0;
 
-	if (type == "Bagheera") {
+	if (type == "wod.bio.tribename.bagheera") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -574,7 +596,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Balam") {
+	if (type == "wod.bio.tribename.balam") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -640,7 +662,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Bubasti") {
+	if (type == "wod.bio.tribename.bubasti") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.dexterity") {
@@ -700,7 +722,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Ceilican") {
+	if (type == "wod.bio.tribename.ceilican") {
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.dexterity") {
@@ -757,7 +779,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Khan") { 
+	if (type == "wod.bio.tribename.khan") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -822,7 +844,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 			}
 		}
 	}
-	if (type == "Pumonca") { 
+	if (type == "wod.bio.tribename.pumonca") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -888,7 +910,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Qualmi") { 
+	if (type == "wod.bio.tribename.qualmi") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.dexterity") {
@@ -942,7 +964,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Simba") { 
+	if (type == "wod.bio.tribename.simba") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -1008,7 +1030,7 @@ function handleBastetShiftAttributeData(type, attribute, presentForm) {
 		}
 	}
 
-	if (type == "Swara") { 
+	if (type == "wod.bio.tribename.swara") { 
 		if (presentForm == "wod.shapes.glabro")
 		{
 			if (attribute == "wod.attributes.strength") {
@@ -1265,7 +1287,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 	}
 	if (presentForm == "wod.shapes.lupus")
 	{
-		if (type == "Champsa") {
+		if (type == "wod.bio.varnaname.champsa") {
 			if (attribute == "wod.attributes.strength") {
 				data = 3;
 			}
@@ -1279,7 +1301,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Gharial") {
+		if (type == "wod.bio.varnaname.gharial") {
 			if (attribute == "wod.attributes.strength") {
 				data = 1;
 			}
@@ -1293,7 +1315,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Halpatee") {
+		if (type == "wod.bio.varnaname.halpatee") {
 			if (attribute == "wod.attributes.strength") {
 				data = 2;
 			}
@@ -1307,7 +1329,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -2;
 			}
 		}
-		if (type == "Karna") {
+		if (type == "wod.bio.varnaname.karna") {
 			if (attribute == "wod.attributes.strength") {
 				data = 3;
 			}
@@ -1321,7 +1343,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Makara") {
+		if (type == "wod.bio.varnaname.makara") {
 			if (attribute == "wod.attributes.strength") {
 				data = 1;
 			}
@@ -1332,7 +1354,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -3;
 			}
 		}
-		if (type == "Ora") {
+		if (type == "wod.bio.varnaname.ora") {
 			if (attribute == "wod.attributes.stamina") {
 				data = 2;
 			}
@@ -1340,7 +1362,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -4;
 			}
 		}
-		if (type == "Paisa") {
+		if (type == "wod.bio.varnaname.paisa") {
 			if (attribute == "wod.attributes.strength") {
 				data = 2;
 			}
@@ -1354,7 +1376,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -2;
 			}
 		}
-		if (type == "Syrta") {
+		if (type == "wod.bio.varnaname.syrta") {
 			if (attribute == "wod.attributes.strength") {
 				data = 1;
 			}
@@ -1368,7 +1390,7 @@ function handleMokoleShiftAttributeData(type, attribute, presentForm) {
 				data = -3;
 			}
 		}
-		if (type == "Unktehi") {
+		if (type == "wod.bio.varnaname.unktehi") {
 			if (attribute == "wod.attributes.strength") {
 				data = -1;
 			}

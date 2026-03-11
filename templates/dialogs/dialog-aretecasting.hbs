@@ -6,10 +6,12 @@
                 <div class="dialog-group">
                     <div class="headlineGroup splatFont">{{localize "wod.dialog.aretecasting.availspheres"}}</div>
 
+                    <!-- Legacy actors -->
                     {{#each actorData.spheres as |sphere key|}}
                         <div class="attribute-rowheight {{#if (eq sphere.value 0)}}hide{{/if}}">
                             <label for="{{key}}" class="pullLeft spheres-headlineWidth headlineNormal">{{localize sphere.label}}</label>
                             <div class="resource-value pullLeft" id="{{key}}" data-name="{{key}}">
+
                                 {{#numLoop sphere.value}}
                                 
                                     <span class="resource-value-step" data-type="{{../config.sheettype.mage}}" data-index="{{this}}"></span>
@@ -19,6 +21,24 @@
                             {{#if (gte sphere.value 4)}}
 							    <div class="pullRight speciality-attribute-icon">
 									<i class="fa-solid fa-circle-exclamation {{#if (eq sphere.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{sphere.speciality}}"></i>
+								</div>
+							{{/if}}
+                        </div>
+                    {{/each}}
+                    <!-- PC Actor -->
+                    {{#each spheres as |sphere key|}}
+                        <div class="attribute-rowheight {{#if (eq sphere.value 0)}}hide{{/if}}">
+                            <label for="{{key}}" class="pullLeft spheres-headlineWidth headlineNormal">{{localize sphere.system.label}}</label>
+                            <div class="resource-value pullLeft" id="{{key}}" data-name="{{sphere.system.id}}">
+                                {{#numLoop sphere.system.value}}
+                                
+                                    <span class="resource-value-step" data-type="{{../config.sheettype.mage}}" data-index="{{this}}"></span>
+                                
+                                {{/numLoop}}
+                            </div>
+                            {{#if (gte sphere.system.value 4)}}
+							    <div class="pullRight speciality-attribute-icon">
+									<i class="fa-solid fa-circle-exclamation {{#if (eq sphere.system.speciality '')}}item-warning{{else}}item-notice{{/if}}" title="{{sphere.system.speciality}}"></i>
 								</div>
 							{{/if}}
                         </div>
@@ -107,6 +127,10 @@
                         <label for="useWillpower" class="headline splatFont dialog-casting-type-label">{{localize "wod.labels.usewillpower"}}</label>
                         <input class="headlineNormal" name="object.useWillpower" type="checkbox" {{isChecked object.useWillpower}} />
                     </div>
+                    <div style="height: 26px; line-height: 26px; display: flex;">
+                        <label for="ignoreSphereBaseDifficulty" class="headline splatFont dialog-casting-type-label">{{localize "wod.labels.ignoreshpehre"}}</label>
+                        <input class="headlineNormal" name="object.ignoreSphereBaseDifficulty" type="checkbox" {{isChecked object.ignoreSphereBaseDifficulty}} />
+                    </div>
                 </div>
             </div> 
         </div>       
@@ -114,13 +138,13 @@
 
     <div class="dialog-area">
         <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+        <div class="information-area">{{localize "wod.dialog.aretecasting.difficultylimit"}}</div>
         <div class="infobox centerText">
             
             {{#numFromLoop config.lowestDifficulty 10}}
                 <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.shownDifficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
             {{/numFromLoop}}
         </div>
-        <div class="information-area">{{localize "wod.dialog.aretecasting.difficultylimit"}}</div>
     </div>
 
     <div class="centerText">

@@ -1,7 +1,6 @@
-{{log "navigation"}}
-
 <div class="tabs-container">
     <nav class="sheet-tabs tabs" data-group="primary">
+        {{> "systems/worldofdarkness/templates/actor/parts/navigation_lock.hbs"}}
         {{#each tabs as |tab|}}
             <div class="{{tab.cssClass}}" data-action="tab" data-group="{{tab.group}}" data-tab="{{tab.id}}" title="{{localize tab.title}}">
                 <div class="navicon">
@@ -9,5 +8,7 @@
                 </div>
             </div>
         {{/each}}
+        <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki" target="_blank" class="item" title="Wiki">{{> (dtSvgDie 'dice' actor.type actor.system.settings.variantsheet)}}</a>
     </nav>
 </div>
+

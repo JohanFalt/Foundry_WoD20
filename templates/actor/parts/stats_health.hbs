@@ -1,0 +1,117 @@
+<div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize 'wod.health.health'}}</span></div>	
+<!--<div>Vänsterklick att lägga till skada, högerklick rensar aktuell ruta.</div>-->
+
+<div class="sheet-boxcontainer">
+    <div>{{getInjuredLevel actor.type actor.system.health}}</div>
+</div>
+    
+<div class="sheet-boxcontainer">
+
+    {{#if (gt actor.system.health.bruised.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox" data-name="data.system.health.bruised">
+                {{#numLoop actor.system.health.bruised.total}}            
+                    <span class="resource-value-step healthBox bruised" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.bruised.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}  
+    
+    {{#if (gt actor.system.health.hurt.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox"  data-name="data.system.health.hurt">
+                {{#numLoop actor.system.health.hurt.total}}            
+                    <span class="resource-value-step healthBox hurt" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.hurt.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}
+
+    {{#if (gt actor.system.health.injured.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox" data-name="data.system.health.injured">
+                {{#numLoop actor.system.health.injured.total}}            
+                    <span class="resource-value-step healthBox injured" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.injured.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}
+
+    {{#if (gt actor.system.health.wounded.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox" data-name="data.system.health.wounded">
+                {{#numLoop actor.system.health.wounded.total}}            
+                    <span class="resource-value-step healthBox wounded" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.wounded.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}
+
+    {{#if (gt actor.system.health.mauled.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox" data-name="data.system.health.mauled">
+                {{#numLoop actor.system.health.mauled.total}}            
+                    <span class="resource-value-step healthBox mauled" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.mauled.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}
+
+    {{#if (gt actor.system.health.crippled.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox" data-name="data.system.health.crippled">
+                {{#numLoop actor.system.health.crippled.total}}            
+                    <span class="resource-value-step healthBox crippled" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.crippled.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}
+
+    {{#if (gt actor.system.health.incapacitated.total 0)}}
+
+        <div class="health">
+            <div class="resource-counter healthbox" data-name="data.system.health.incapacitated">
+                {{#numLoop actor.system.health.incapacitated.total}}            
+                    <span class="resource-value-step healthBox incapacitated" 
+                        data-action="editHealth"
+                        data-index="{{this}}" 
+                        data-state="{{damageState ../actor.system.health.incapacitated.label ../health this}}"></span>            
+                {{/numLoop}}
+            </div>
+        </div>
+
+    {{/if}}
+</div>
+<div class="sheet-boxcontainer">
+    <div class="information-area">{{localize "wod.health.penalty"}}: {{ignorePain actor.system.health.damage.woundpenalty}}</div>    
+</div>

@@ -1,0 +1,222 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">		
+
+    <div class="flex-rows splat-features-columns">
+
+        <div class="dialog-area flex-columns" data-drop-area="advantages" data-droparea="advantages">
+            <div class="headlineGroup">{{localize "TYPES.Item.Advantage"}}</div>
+            {{#if (isEmpty advantages)}}
+                <div class="headlineNormal">{{localize 'wod.advantages.noadvantages'}}</div>
+            {{/if}}
+            {{#each advantages as |item key|}}	
+                <div class="flex-row advantage-item" 
+                     data-drag="true" 
+                     data-documentid="{{../item._id}}"
+                     data-itemid="{{item._id}}"
+                     data-list="system.advantages"
+                     data-type="{{item.type}}"
+                     data-order="{{item.system.settings.order}}">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    <div class="headlineNormal" style="width:150px;">{{item.system.label}}</div>
+                    <div><a class="pointer item-delete" data-action="actionRemove" data-type="system.advantages" data-itemid="{{item._id}}" data-islist="true"><i class="icon fa-solid fa-trash-can"></i></a></div>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="dialog-area flex-columns" data-drop-area="features" data-droparea="features">
+            <div class="headlineGroup">{{localize "TYPES.Item.Feature"}}</div>
+            {{#if (isEmpty features)}}
+                <div class="headlineNormal">{{localize 'wod.notes.nofeatures'}}</div>
+            {{/if}}
+            {{#each features as |item key|}}	
+                <div class="flex-row feature-item" 
+                     data-drag="true" 
+                     data-documentid="{{../item._id}}"
+                     data-itemid="{{item._id}}"
+                     data-list="system.features"
+                     data-type="{{item.type}}"
+                     data-order="{{item.system.order}}">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    <div class="headlineNormal" style="width:150px;">{{item.system.label}}</div>
+                    <div><a class="pointer item-delete" data-action="actionRemove" data-type="system.features" data-itemid="{{item._id}}" data-islist="true"><i class="icon fa-solid fa-trash-can"></i></a></div>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="dialog-area flex-columns" data-drop-area="powers" data-droparea="powers">
+            <div class="headlineGroup">{{localize "TYPES.Item.Power"}}</div>
+            {{#if (isEmpty powers)}}
+                <div class="headlineNormal">{{localize 'wod.power.nopowers'}}</div>
+            {{/if}}
+            {{#each powers as |item key|}}	
+                <div class="flex-row power-item" 
+                     data-drag="true" 
+                     data-documentid="{{../item._id}}"
+                     data-itemid="{{item._id}}"
+                     data-list="system.powers"
+                     data-type="{{item.type}}"
+                     data-order="{{item.system.settings.order}}">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    <div class="headlineNormal" style="width:150px;">{{item.system.label}}</div>
+                    <div><a class="pointer item-delete" data-action="actionRemove" data-type="system.powers" data-itemid="{{item._id}}" data-islist="true"><i class="icon fa-solid fa-trash-can"></i></a></div>
+                </div>
+            {{/each}}
+        </div>
+
+    </div>
+
+    <div class="flex-rows splat-features-columns">
+
+        <div class="dialog-area flex-columns">
+            <div class="headlineGroup">{{localize 'wod.health.health'}}</div>
+
+            <div class="flex-rows">
+                <div style="width: 150px;">&nbsp;</div>
+                <div class="headlineNormal numberBox centerText">{{localize "wod.labels.value"}}</div>
+                <div class="headlineNormal numberBox centerText">{{localize "wod.labels.penalty"}}</div>
+            </div>
+
+            {{#each healthlevels as |health key|}}
+                <div class="flex-rows">
+                    <label for="data.system.health.{{key}}.value" class="headlineNormal settings-leftwidth settings-verticalcenter" 
+                        data-ability="true" style="width: 150px;">{{localize health.label}}</label>
+                    <input class="sheet-infoValues numberBox inputdata editable" name="system.health.{{key}}.value" type="text" value="{{health.value}}" 
+                        data-name="data.system.health.{{key}}.value" 
+                        data-dtype="Number" />
+                    {{#if (ne key "incapacitated")}}
+                        <input class="sheet-infoValues numberBox inputdata editable" name="system.health.{{key}}.penalty" type="text" value="{{health.penalty}}" 
+                            data-name="data.system.health.{{key}}.penalty"
+                            data-dtype="Number" />
+                    {{/if}}
+                </div>
+            {{/each}}      
+        </div>
+
+        <div class="dialog-area">
+            <div class="headlineGroup">{{localize 'wod.health.soak'}}</div>
+            <div class="flex-columns">
+                <div class="flex-rows">
+                    <div class="settings-leftwidth">&nbsp;</div>
+                    <div class="numberBox headlineNormal centerText">{{localize "wod.labels.bonus.headline"}}</div>
+                    <div class="settings-leftwidth centerText headlineNormal">{{localize "wod.labels.settings.usesoak"}}</div>
+                </div>
+
+                <div class="flex-rows">
+                    <label for="data.system.soak.bashing" class="headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>	
+                    <input class="sheet-infoValues numberBox inputdata editable" type="text" name="system.settings.soak.bashing.bonus" value="{{item.system.settings.soak.bashing.bonus}}"
+                        data-source="soak"
+                        data-type="bashing"
+                        data-dtype="Number" />
+                    <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.soak.bashing.isrollable">
+                        {{#if item.system.settings.soak.bashing.isrollable}}
+                            <i class="pointer fa-solid fa-toggle-on"></i>
+                        {{else}}
+                            <i class="pointer fa-solid fa-toggle-off"></i>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="flex-rows">
+                    <label for="data.system.soak.lethal" class="headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>	
+                    <input class="sheet-infoValues numberBox inputdata editable" type="text" name="system.settings.soak.lethal.bonus" value="{{item.system.settings.soak.lethal.bonus}}"
+                        data-source="soak"
+                        data-type="lethal" 
+                        data-dtype="Number" />
+                    <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.soak.lethal.isrollable">
+                        {{#if item.system.settings.soak.lethal.isrollable}}
+                            <i class="pointer fa-solid fa-toggle-on"></i>
+                        {{else}}
+                            <i class="pointer fa-solid fa-toggle-off"></i>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="flex-rows">
+                    <label for="data.system.soak.aggravated" class="headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>	
+                    <input class="sheet-infoValues numberBox inputdata editable" type="text" name="system.settings.soak.aggravated.bonus" value="{{item.system.settings.soak.aggravated.bonus}}"
+                        data-source="soak"
+                        data-type="aggravated"
+                        data-dtype="Number" />
+                    <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.soak.aggravated.isrollable">
+                        {{#if item.system.settings.soak.aggravated.isrollable}}
+                            <i class="pointer fa-solid fa-toggle-on"></i>
+                        {{else}}
+                            <i class="pointer fa-solid fa-toggle-off"></i>
+                        {{/if}}
+                    </div>
+                </div>			
+            </div>	
+
+            <div class="flex-columns">
+                <!-- <div class="flex-rows">
+                    <label for="data.system.soak.bashing" class="headlineNormal settings-leftwidth settings-verticalcenter">LANG: Use chimerical soak</label>
+                    <div class="numberBox headlineNormal centerText">&nbsp;</div>
+                    <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.usechimerical">
+                        {{#if item.system.settings.usechimerical}}
+                            <i class="pointer fa-solid fa-toggle-on"></i>
+                        {{else}}
+                            <i class="pointer fa-solid fa-toggle-off"></i>
+                        {{/if}}
+                    </div>
+                </div> -->
+
+                {{#if item.system.settings.usechimerical}}
+
+                    <div class="headlineGroup">LANG: Chimerical soak</div>
+                    <div class="flex-columns">
+                        <div class="flex-rows">
+                            <div class="settings-leftwidth">&nbsp;</div>
+                            <div class="numberBox headlineNormal centerText">{{localize "wod.labels.bonus.headline"}}</div>
+                            <div class="settings-leftwidth centerText headlineNormal">{{localize "wod.labels.settings.usesoak"}}</div>
+                        </div>
+
+                        <div class="flex-rows">
+                            <label for="data.system.soak.bashing" class="headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.bashing"}}</label>	
+                            <input class="sheet-infoValues numberBox inputdata editable" type="text" name="system.settings.soak.chimerical.bashing.bonus" value="{{item.system.settings.soak.chimerical.bashing.bonus}}"
+                                data-source="soak"
+                                data-type="bashing"
+                                data-dtype="Number" />
+                            <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.soak.chimerical.bashing.isrollable">
+                                {{#if item.system.settings.soak.chimerical.bashing.isrollable}}
+                                    <i class="pointer fa-solid fa-toggle-on"></i>
+                                {{else}}
+                                    <i class="pointer fa-solid fa-toggle-off"></i>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="flex-rows">
+                            <label for="data.system.soak.lethal" class="headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.lethal"}}</label>	
+                            <input class="sheet-infoValues numberBox inputdata editable" type="text" name="system.settings.soak.chimerical.lethal.bonus" value="{{item.system.settings.soak.chimerical.lethal.bonus}}"
+                                data-source="soak"
+                                data-type="lethal" 
+                                data-dtype="Number" />
+                            <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.soak.chimerical.lethal.isrollable">
+                                {{#if item.system.settings.soak.chimerical.lethal.isrollable}}
+                                    <i class="pointer fa-solid fa-toggle-on"></i>
+                                {{else}}
+                                    <i class="pointer fa-solid fa-toggle-off"></i>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="flex-rows">
+                            <label for="data.system.soak.aggravated" class="headlineNormal settings-leftwidth settings-verticalcenter">{{localize "wod.health.aggravated"}}</label>	
+                            <input class="sheet-infoValues numberBox inputdata editable" type="text" name="system.settings.soak.chimerical.aggravated.bonus" value="{{item.system.settings.soak.chimerical.aggravated.bonus}}"
+                                data-source="soak"
+                                data-type="aggravated"
+                                data-dtype="Number" />
+                            <div class="switch settings-leftwidth settings-verticalcenter splatFont bold centerText pointer" data-action="actionSwitch" data-type="system.settings.soak.chimerical.aggravated.isrollable">
+                                {{#if item.system.settings.soak.chimerical.aggravated.isrollable}}
+                                    <i class="pointer fa-solid fa-toggle-on"></i>
+                                {{else}}
+                                    <i class="pointer fa-solid fa-toggle-off"></i>
+                                {{/if}}
+                            </div>
+                        </div>			
+                    </div>
+                {{/if}}
+            </div>
+
+            
+
+
+        </div>
+    </div>
+
+</section>

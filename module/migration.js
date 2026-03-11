@@ -1,5 +1,6 @@
 import MessageHelper from "./scripts/message-helpers.js"
 import BonusHelper from "./scripts/bonus-helpers.js";
+import MigrationWizard from "./ui/migration-wizard-helper.js";
 
 /**
  * Time to update the entire world and patch it correctly
@@ -8,13 +9,13 @@ import BonusHelper from "./scripts/bonus-helpers.js";
  */
 export const UpdateWorld = async function (installedVersion, migrationVersion) {
     let updateWorld = false;
-    let isError = false;
+    let isError = false;    
 
     if (_compareVersion(installedVersion, migrationVersion)) {
         updateWorld = true;
 
         ui.notifications.warn(`Updating World from version ${installedVersion} to ${migrationVersion} do not close your game or shut down your server. Please wait this can take a while...`, {permanent: true});
-        console.log(`Updating from ${installedVersion} to ${migrationVersion}`);
+        console.log(`WoD Migration | Updating from ${installedVersion} to ${migrationVersion}`);
 
         MessageHelper.printMessage("Updating World", "As you update the world each entity within it will be updated to the newest version. Depending on how large your world is this can take some time.<br />First is all Actors, then all Items and last any Compendium that are installed.");
         MessageHelper.printMessage("Starting with Actors", "");
@@ -22,14 +23,27 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
         for (const id of game.actors.invalidDocumentIds) {
             try {
                 const actor = game.actors.getInvalid(id);
-                console.error(`Actor ${actor.name} is of a not valid type and have been removed from the system`);
-                if (actor.type === "Spirit") await actor.delete()
+                console.error(`Actor ${actor.name} is of a not valid type ${actor.type} and have been removed from the system`);
+                //if (actor.type === "Spirit") 
+                // await actor.delete()
             }
             catch(err) {
                 console.error(`invalidDocumentIds ${actor.name}: ${err.message}`);
                 console.error(err);
             }
         }
+
+        for (const id of game.items.invalidDocumentIds) {
+            try {
+                const item = game.items.getInvalid(id);
+                console.error(`Item ${item.name} is of a not valid type ${item.type} and have been removed from the system`);
+                await item.delete()
+            }
+            catch(err) {
+                console.error(`invalidDocumentIds ${item.name}: ${err.message}`);
+                console.error(err);
+            }
+        }        
 
         //World Actors
         for (const actor of game.actors) {
@@ -108,7 +122,7 @@ export const UpdateWorld = async function (installedVersion, migrationVersion) {
  * Function to keep the world up-to-date with possible World settings that you might have altered since last time it opened.
  */
 export  const updates = async () => {
-    console.log('WoD | Start verifying settings');
+    console.log('WoD Migration | Start verifying settings');
 
     let attributeSettings = "20th";
     let rollSettings = true;
@@ -121,7 +135,23 @@ export  const updates = async () => {
         console.error("Error in migration.js");
     }    
 
+    try {
+        if (game.settings.get("worldofdarkness", "theRollofOne") === true) {
+            game.settings.set("worldofdarkness", "theRollofOne", 1);
+        }
+        if (game.settings.get("worldofdarkness", "theRollofOne") === false) {
+            game.settings.set("worldofdarkness", "theRollofOne", 0);    
+        }
+    }
+    catch (e) {
+        game.settings.set("worldofdarkness", "theRollofOne", 1);
+    }
+
     for (const actor of game.actors) {
+        if (actor.type === "PC") {
+            continue;
+        }
+
         // handle Game settings  
         let totalinit = -1;
 
@@ -222,7 +252,7 @@ export  const updates = async () => {
         // TODO: this should not be needed any longer or just add a patch.
         if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {
             for (const effect of actor.effects) {
-                if (effect.icon.includes("werewolf")) {
+                if (effect.icon.includes(CONFIG.worldofdarkness.sheettype.werewolf)) {
                     const effectid = effect.id;
                     await actor.deleteEmbeddedDocuments("ActiveEffect", [effectid]);
                 }                
@@ -241,11 +271,14 @@ export  const updates = async () => {
  * @param migrationVersion   The version that is being pushed at the world * 
  */
  export const updateActor = async function(actor, migrationVersion) {
+
+    if (actor.type == "PC") return;
+    
     let update = false;
     let found = false;
 
     if (actor.system.settings.version == undefined) {
-        log.warn("Skipping Actor " + actor.name + " ("+actor.type+"): does not seem to be a Word of Darkness Actor.");
+        console.warn("Skipping Actor " + actor.name + " ("+actor.type+"): does not seem to be a Word of Darkness Actor.");
         return;
     }
 
@@ -523,7 +556,7 @@ export  const updates = async () => {
                             }
                         };
 
-                        console.log(`MIGRATION: Adds ${actor.system.abilities.talent[ability].label} to ${actor.name}`);
+                        console.log(`WoD Migration | Adds ${actor.system.abilities.talent[ability].label} to ${actor.name}`);
                         await actor.createEmbeddedDocuments("Item", [itemData]);           
                     }
 
@@ -551,7 +584,7 @@ export  const updates = async () => {
                             }
                         };
 
-                        console.log(`MIGRATION: Adds ${actor.system.abilities.skill[ability].label} to ${actor.name}`);
+                        console.log(`WoD Migration | Adds ${actor.system.abilities.skill[ability].label} to ${actor.name}`);
                         await actor.createEmbeddedDocuments("Item", [itemData]);                        
                     }
 
@@ -579,7 +612,7 @@ export  const updates = async () => {
                             }
                         };
 
-                        console.log(`MIGRATION: Adds ${actor.system.abilities.knowledge[ability].label} to ${actor.name}`);
+                        console.log(`WoD Migration | Adds ${actor.system.abilities.knowledge[ability].label} to ${actor.name}`);
                         await actor.createEmbeddedDocuments("Item", [itemData]);                        
                     }
 
@@ -779,7 +812,7 @@ export  const updates = async () => {
             update = true;
         }      
         
-        if (updateData.type == CONFIG.worldofdarkness.sheettype.vampire) {
+        if (updateData == CONFIG.worldofdarkness.sheettype.vampire) {
             updateData['system.advantages.path.-=value'] = null;
             updateData['system.advantages.virtues.conscience.-=value'] = null;
             updateData['system.advantages.virtues.selfcontrol.-=value'] = null;
@@ -1882,7 +1915,95 @@ export  const updates = async () => {
             await actor.update(updateData);
             update = false;
         }
-    } 
+    }
+    
+    if (_compareVersion(actor.system.settings.version, "6.0.6")) {
+        update = false;    
+        let updateData = foundry.utils.duplicate(actor);
+
+        if (actor.type == CONFIG.worldofdarkness.sheettype.werewolf) {            
+            let items = actor.items.filter(i => i.type === "Bonus" && i.system.settingtype === 'all' && (i.system.parentid === "glabro" || i.system.parentid === "crinos" || i.system.parentid === "hispo" || i.system.parentid === "lupus") );
+            if (items.length > 0) {
+                let itemData;
+                const version = "6.0.6";
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("glabro", game.i18n.localize("wod.shapes.glabro") + " - " + game.i18n.localize("wod.attributes.bonus.appearance"), "appearance", -1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                /* CRINOS */
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 4, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeFixedValue("crinos", game.i18n.localize("wod.shapes.crinos") + " - " + game.i18n.localize("wod.attributes.fixed.appearance"), "appearance", 0, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                /* HISPO */
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("hispo", game.i18n.localize("wod.shapes.hispo") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]  );
+
+                itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeDiff("hispo", game.i18n.localize("wod.shapes.hispo") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                /* LUPUS */
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.strength"), "strength", 1, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.dexterity"), "dexterity", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.bonus.stamina"), "stamina", 2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeBuff("lupus", game.i18n.localize("wod.shapes.lupus") + " " + game.i18n.localize("wod.attributes.bonus.manipulation"), "manipulation", -3, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+                
+                itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.perception"), "perception", -2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                itemData = await BonusHelper.CreateAttributeDiff("lupus", game.i18n.localize("wod.shapes.lupus") + " - " + game.i18n.localize("wod.attributes.diff.wits"), "wits", -2, false, version);
+                await actor.createEmbeddedDocuments("Item", [itemData]);
+
+                console.log("WoD Migration | Patch corrupted werewolf actor " + actor.name + ": recreated shapes.");
+            }
+        }   
+        
+        if (update) {
+            updateData.system.settings.version = "6.0.6";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
     
 }
 
@@ -1893,13 +2014,18 @@ export  const updates = async () => {
  */
  export const updateItem = async function(item) {
     let altered = false;
+    let itemversion = item.system.version;
 
-    if (item.system.version == undefined) {
-        log.warn("Skipping Item " + item.name + ": does not seem to be a Word of Darkness Item.");
-        return;
+    if (itemversion === undefined) {
+        if (item.system.settings.version == undefined) {
+            console.warn("Skipping Item " + item.name + ": does not seem to be a Word of Darkness Item.");
+            return;
+        }
+
+        itemversion = item.system.settings.version;
     }
 
-    if (_compareVersion(item.system.version, "1.5.0")) {
+    if (_compareVersion(itemversion, "1.5.0")) {
         const itemData = foundry.utils.duplicate(item);
 
         if (item.type == "Armor") {
@@ -2058,7 +2184,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "2.1.0")) {
+    if (_compareVersion(itemversion, "2.1.0")) {
         const itemData = foundry.utils.duplicate(item);
         itemData.system.version = "2.1.0";
 
@@ -2096,7 +2222,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "2.2.0")) {
+    if (_compareVersion(itemversion, "2.2.0")) {
         const itemData = foundry.utils.duplicate(item);
         itemData.system.version = "2.2.0";
 
@@ -2118,7 +2244,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "2.3.0")) {
+    if (_compareVersion(itemversion, "2.3.0")) {
         const itemData = foundry.utils.duplicate(item);        
 
         if (item.type == "Power") {
@@ -2133,11 +2259,11 @@ export  const updates = async () => {
             else if ((item.system.type == "wod.types.discipline") || (item.system.type == "wod.types.disciplinepower") ||
                     (item.system.type == "wod.types.disciplinepath") || (item.system.type == "wod.types.disciplinepathpower") ||
                     (item.system.type == "wod.types.ritual")) {
-                itemData.system.game = "vampire";
+                itemData.system.game = CONFIG.worldofdarkness.sheettype.vampire.toLowerCase();
                 altered = true;
             }
             else if ((item.system.type == "wod.types.gift") || (item.system.type == "wod.types.rite")) {
-                itemData.system.game = "werewolf";
+                itemData.system.game = CONFIG.worldofdarkness.sheettype.werewolf;
                 altered = true;            
             }            
             else {
@@ -2154,7 +2280,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "3.1.0")) {
+    if (_compareVersion(itemversion, "3.1.0")) {
         const itemData = foundry.utils.duplicate(item);        
 
         if (item.type == "Power") {
@@ -2164,7 +2290,7 @@ export  const updates = async () => {
                 };
                 altered = true;
             }           
-            if ((item.system.type == "wod.types.ritual") && (item.system.game == "vampire")) {
+            if ((item.system.type == "wod.types.ritual") && (item.system.game.toLowerCase() == CONFIG.worldofdarkness.sheettype.vampire.toLowerCase())) {
                 itemData.system.category = "wod.power.thaumaturgy";
 
                 altered = true;
@@ -2179,7 +2305,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "3.2.0")) {
+    if (_compareVersion(itemversion, "3.2.0")) {
         const itemData = foundry.utils.duplicate(item);
 
         if (item.type == "Power") {
@@ -2200,11 +2326,11 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "3.3.0")) {
+    if (_compareVersion(itemversion, "3.3.0")) {
         let itemData = foundry.utils.duplicate(item);
 
         if ((item.type == "Bonus") && ((item.system.parentid != "") && (item.system.parentid != "glabro") && (item.system.parentid != "crinos") && (item.system.parentid != "hispo") && (item.system.parentid != "lupus") && item.actor != null)) {
-            console.log(`Bonus found on ${item.actor.name} type ${item.system.type}`);
+            console.log(`WoD Migration | Bonus found on ${item.actor.name} type ${item.system.type}`);
 
             let bonus = item.actor.getEmbeddedDocument("Item", item.system.parentid);
             itemData = foundry.utils.duplicate(bonus);
@@ -2221,15 +2347,15 @@ export  const updates = async () => {
             itemData.system.version = "3.3.0";
 
             await bonus.update(itemData);   
-            console.log(`Adding bonus to ${item.actor.name} bonusname ${item.name}`);
+            console.log(`WoD Migration | Adding bonus to ${item.actor.name} bonusname ${item.name}`);
 
             await item.actor.deleteEmbeddedDocuments("Item", [item._id]);
-            console.log(`Removing bonus id ${item._id} bonusname ${item.name}`);
+            console.log(`WoD Migration | Removing bonus id ${item._id} bonusname ${item.name}`);
         }
         if (item.type == "Power") {
             if (item.system.type == "wod.types.artpower")  {
                 if (item.system.arttype == "wod.power.wyld") {
-                    console.log(`Artpower bonusname ${item.name} was type: ${item.system.arttype}`);
+                    console.log(`WoD Migration | Artpower bonusname ${item.name} was type: ${item.system.arttype}`);
                     itemData.system.arttype == "wod.types.wyrd";                    
                 }
 
@@ -2245,7 +2371,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "4.2.0")) {
+    if (_compareVersion(itemversion, "4.2.0")) {
         let itemData = foundry.utils.duplicate(item);
 
         if ((item.type == "Fetish") && (item.system.type == "wod.types.fetish")) {
@@ -2260,7 +2386,7 @@ export  const updates = async () => {
             itemData.system.settingtype = "bruised";
         }
 
-        if (item.system.bonuslist.length > 0) {
+        if (item.system?.bonuslist?.length > 0) {
             for (const bonus in item.system.bonuslist) {
                 if ((item.system.bonuslist[bonus].type == "health_buff") && (itemData.system.bonuslist[bonus].settingtype == "")) {
                     altered = true;
@@ -2278,7 +2404,7 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "5.0.0")) {
+    if (_compareVersion(itemversion, "5.0.0")) {
         let itemData = foundry.utils.duplicate(item);
 
         if (item.type == "Ranged Weapon") {
@@ -2300,60 +2426,112 @@ export  const updates = async () => {
         }
     }
 
-    if (_compareVersion(item.system.version, "5.0.5")) {
+    if (_compareVersion(itemversion, "6.0.0")) {
         let itemData = foundry.utils.duplicate(item);
 
-        if ((item.type == "Power") && (item.system.type == "wod.types.artpower")) {
-            itemData.system.isrollable = true;
-            itemData.system.difficulty = "";
+        if (item.type === "Splat") {
+            altered = true;
+
+            itemData.img = "systems/worldofdarkness/assets/img/items/skills.svg";
+        }
+
+        if (item.type === "Ability") {
+            altered = true;
             
+            itemData.img = "systems/worldofdarkness/assets/img/items/feature.svg";
+        }
+
+        if (item.type === "Advantage") {
+            altered = true;
+            
+            itemData.img = "systems/worldofdarkness/assets/img/items/feature.svg";
+        }
+
+        if (item.type === "Power") {
+            if (item.system.type == "wod.types.artpower") {
+                itemData.system.isrollable = true;
+                itemData.system.difficulty = "";
+                altered = true;
+            }
+
+            if (item.system.type == "wod.types.disciplinepath") {
+                itemData.system.type = "wod.types.discipline";
+                altered = true;                
+            }
+            if (item.system.type == "wod.types.disciplinepathpower") {
+                itemData.system.type = "wod.types.disciplinepower";
+                altered = true;
+            }            
+        } 
+
+        if (item.type === "Bonus" && item.system.type === "soak_buff") {
+            itemData.system.settingtype = 'all';
             altered = true;
         }
 
         if (altered) {
-            itemData.system.version = "5.0.5";
+            if (itemData.system?.settings?.version !== undefined) {
+                itemData.system.settings.version = "6.0.0";
+            }
+            else {
+                itemData.system.version = "6.0.0";
+            }
+            
             await item.update(itemData);
             
             altered = false;
         }
     }
 
-    // TODO #935
-    // if (item.type == "Feature") {
-    //     try {
-    //         if (item.actor == null) {
-    //             console.log(`Feature ${item.name} has no actor`);
+    if (_compareVersion(itemversion, "6.0.6")) {
+        let itemData = foundry.utils.duplicate(item);
 
-    //             // let x = await Item.create({
-    //             //     name: itemData.name,
-    //             //     type: "Trait",
-    //             //     effects: itemData.effects,
-    //             //     flags: itemData.flags,
-    //             //     folder: itemData.folder,
-    //             //     img: itemData.img,
-    //             //     ownership: itemData.ownership
-    //             // });	  
-    
-    //             // let newItem = game.items.get(x._id);
-    //             // const newItemData = foundry.utils.duplicate(newItem);
-    //             // //await CreateHelper.SetCreatureVariant(newActorData, 'spirit');
-    
-    //             // newItemData.system.advantages.rage.permanent = parseInt(itemData.system.advantages.rage.permanent);
-    
-    //             // await newItem.update(newItemData);	
+        if (item.type === "Bonus" && item.system.settingtype === 'all' && (item.system.parentid === "glabro" || item.system.parentid === "crinos" || item.system.parentid === "hispo" || item.system.parentid === "lupus")) {
+            if (item.actor !== null) {
+                await item.delete();
 
-                
-    //         }                
-    //         else {
-    //             console.log(`Feature ${item.name} has actor ${item.actor.name}`);
+                console.log("WoD Migration | Removed corrupted shape bonus item " + item.name + " on actor " + item.actor.name);
+                altered = false;
+            }                
+        }                 
 
-    //             // await item.actor.deleteEmbeddedDocuments("Item", [itemId]);
-    //         }
-    //     } 
-    //     catch (error) {
-    //         console.error('Error converting feature:', error);
-    //     }
-    // }
+        if (altered) {
+            if (itemData.system?.settings?.version !== undefined) {
+                itemData.system.settings.version = "6.0.6";
+            }
+            else {
+                itemData.system.version = "6.0.6";
+            }
+            
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
+
+    if (_compareVersion(itemversion, "6.0.8")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if ((item.type === "Trait" && item.system.type === 'wod.types.shapeform')) {
+            if (Array.isArray(item.system.label)) {
+                itemData.system.label = item.name;
+                altered = true;
+            }
+        }                
+
+        if (altered) {
+            if (itemData.system?.settings?.version !== undefined) {
+                itemData.system.settings.version = "6.0.8";
+            }
+            else {
+                itemData.system.version = "6.0.8";
+            }
+            
+            await item.update(itemData);
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -2365,7 +2543,7 @@ export  const updates = async () => {
  export const updateCompendium = async function(pack, migrationVersion) {
     const entity = pack.documentName;
     let success = true;
-    if ( !["Actor", "Item", "Scene"].includes(entity) ) return;
+    if ( !["Actor", "Item"].includes(entity) ) return;
 
     // Unlock the pack for editing
     const wasLocked = pack.locked;
@@ -2385,11 +2563,8 @@ export  const updates = async () => {
                 case "Item":
                     await updateItem(ent);
                     break;
-                case "Scene":
-                    break;
             }
         }
-
         // Handle migration failures
         catch(err) {
             console.error(`Failed migration for entity ${ent.name} in pack ${pack.collection}: ${err.message}`);
@@ -2402,10 +2577,10 @@ export  const updates = async () => {
     await pack.configure({locked: wasLocked});
 
     if (success) {
-        console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
+        console.log(`WoD Migration | Migrated all ${entity} entities from Compendium ${pack.collection}`);
     }    
     else {
-        console.error(`A compendium failed its migration`);
+        console.error(`WoD Migration | Failed to migrate all ${entity} entities from Compendium ${pack.collection}`);
     }
  };
 
@@ -2433,6 +2608,7 @@ export  const updates = async () => {
     let patch410 = false;
     let patch420 = false;
     let patch500 = false;
+    let patch600 = false;
 
     let newfunctions = "";
 
@@ -2455,6 +2631,7 @@ export  const updates = async () => {
         patch410 = game.settings.get('worldofdarkness', 'patch410');
         patch420 = game.settings.get('worldofdarkness', 'patch420');
         patch500 = game.settings.get('worldofdarkness', 'patch500');
+        patch600 = game.settings.get('worldofdarkness', 'patch600');
     } 
     catch (e) {
     }
@@ -2576,35 +2753,182 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';  
     }
 
+    if (!patch600) {
+        game.settings.set('worldofdarkness', 'patch600', true);
+
+        newfunctions += '<li>Added new type of <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/PC-Actor">Actor - PC</a></li>';
+        newfunctions += '<li>Added <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Feature:-API">API</a> för PC actor</li>';
+        newfunctions += '<li>Added character creation compendium for PC actor</li>';
+        newfunctions += '<li>Added item drag and drop between both PC actor and legacy actors</li>';
+        newfunctions += '<li>Added new types of bonuses</li>';
+        newfunctions += '<li>Dark mode setting now follow Foundry setting</li>';
+        newfunctions += '<li>The internal lists of existing powers used to connect powers onto powers (e.g disciplines) now reads from compendiums as well</li>';
+        newfunctions += '<li>[WtA] Added support for Savage Age (PC actor only)</li>';
+        newfunctions += '<li>[WtA] Auspice is now calculated in rage rolls</li>';
+        newfunctions += '<li>[VtM] Discipline paths has been removed and converted into disciplines</li>';
+        newfunctions += '<li>[MtA] Corrected difficulty calculations regarding casting spells connected to spirit gauntlet</li>';
+        newfunctions += '<li>[MtA] Fixed problem with Arete rolls being cleared.</li>';
+        newfunctions += '<li>[CtD] Fixed problem to see type of cantrip in art list</li>';
+        newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';
+
+        // Complex messages for wizard (only shown to GM)
+        // MigrationWizard.show([
+        //     "Detaljerad information om Foundry version 13...",
+        //     "Detaljerad information om Drag and Drop funktionalitet...",
+        //     "Viktiga ändringar i systemet..."
+        // ]);
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';
 
-        if (_compareVersion(installedVersion, '5.0.5')) {
-            newfunctions += '<li>[CtD] Unable to click and roll Art Powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1184">[#1184]</a></li>';
+        if (_compareVersion(installedVersion, '6.0.11')) {
+            newfunctions += '<li>[General] Fixed issue where weapons did not save their era correctly.</li>';
+            newfunctions += '<li>[PC Actor] Fixed issue where using other template than a modern one would cause the setup to fail.</li>';
         }
+
+        if (_compareVersion(installedVersion, '6.0.10')) {
+            newfunctions += '<li>[General] Description and system was not visible on items if user was set as observer. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1362">[#1362]</a></li>';
+            newfunctions += '<li>[General] You can now set higher max values on attributes that the general max value in attribute settings.</li>';
+            newfunctions += '<li>[General] Minor dark mode fixes.</li>';            
+            newfunctions += '<li>[General] If no virtues where visible, do not show the virtue box on PC actors.</li>';
+            newfunctions += '<li>[General] PC actors could not clear health levels with right click.</li>';
+            newfunctions += '<li>[General] PC actors other traits with rolls did not display the sheets advantages.</li>';
+            newfunctions += '<li>[General] Fixed graphical issue with chat display of sparying damage.</li>';
+            newfunctions += '<li>[General] Rebuilt weapon dialog for attacking and damage.</li>';
+            newfunctions += '<li>[MtA] Could not set PC actor sphere to technocracy versions.</li>';
+            newfunctions += '<li>[MtA] PC Actor did not show resonance value correctly.</li>';            
+        }
+
+        if (_compareVersion(installedVersion, '6.0.9')) {
+            newfunctions += '<li>[General] Fixed problem that caused secondary abilities max value to not be updated correctly.</li>';
+            newfunctions += '<li>[WtA] Fixed graphical problems of showing attributes and abilities higher than five.</li>';
+            newfunctions += '<li>[VtM] Fixed problem that caused vampire actors not able to roll virtues.</li>';
+        }
+
+        if (_compareVersion(installedVersion, '6.0.8')) {
+            newfunctions += '<li>[General] What was before known as Splat items and referred as such is now called "Template".</li>';
+            newfunctions += '<li>[General] Improved on the presentation on a PC actor shapes.</li>';
+            newfunctions += '<li>[General] Fixed problem if you tried update a pc actor in a compendium.</li>';
+            newfunctions += '<li>[General] Bonus to soak was not calculated correctly.</li>';
+            newfunctions += '<li>[WtA] On PC actor auspice was displayed twice.</li>';
+            newfunctions += '<li>[VtM] Fixed a problem where Discipline rating was hidden on the sheet.</li>';
+        }
+
+        if (_compareVersion(installedVersion, '6.0.7')) {
+            newfunctions += '<li>[General] Fixed update of total values on PC actors.</li>';
+            newfunctions += '<li>[MtA] Fixed spelling error of numen.</li>';
+            newfunctions += '<li>[MtA] Fixed alignment of power section on PC actor.</li>';
+        }
+
+        if (_compareVersion(installedVersion, '6.0.6')) {
+            newfunctions += '<li>[General] Fixed switching eras.</li>';
+            newfunctions += '<li>[General] Fixed problem causing you not to be able to alter a secondary ability name.</li>';
+            newfunctions += '<li>[General] Wound penalty was not shown correctly on sheet.</li>';
+            newfunctions += '<li>[General] Fixed problem that prevented you from rolling an other trait.</li>';
+            newfunctions += '<li>[WtA] Fixed serious problem to werewolves shape bonuses that was caused by update between v5 and v6. All werewolves shapes has been recreated.</li>';
+            newfunctions += '<li>[WtO] Vitality on orpheus sheets now has temporary values.</li>';
+        }
+
+        if (_compareVersion(installedVersion, '6.0.5')) {
+            newfunctions += '<li>[General] Fixed problem creating secondary abilities.</li>';
+            newfunctions += '<li>[General] Fixed problem updating secondary abilities.</li>';
+            newfunctions += '<li>[PC actor] Fixed problem showing 5th edition attributes.</li>'; 
+            newfunctions += '<li>[PC actor] Generation value not shown on locked sheet.</li>'; 
+            newfunctions += '<li>[PC actor] Fixed problem handling generation shifts that cause max values to be altered.</li>';            
+        }
+
+        if (_compareVersion(installedVersion, '6.0.4')) {
+            newfunctions += '<li>[PC actor] Fixed more dark mode problems.</li>'; 
+            newfunctions += '<li>[PC actor] Fixed a problem that caused some of the items added by drag and drop could not be removed.</li>';
+            newfunctions += '<li>[PC actor] Fixed a viewing problem with shapes that used a fixed value bonus.</li>';
+        }
+
+        if (_compareVersion(installedVersion, '6.0.2')) {
+            newfunctions += '<li>[PC actor] Added so you can give a shape on PC actor a token image, this causes you to be able to shift token image based on what shape the actor has.</li>'; 
+            newfunctions += '<li>[PC actor] Fixed dark mode problem on the items ability, advantage and spheres used by PC actor.</li>';
+            newfunctions += '<li>[PC actor] Fixed a problem with removing old virtues on PC actors.</li>';
+            newfunctions += '<li>[PC actor] Fixed alignment problems PC actor macro meny.</li>';
+            newfunctions += '<li>[PC actor] Fixed problem to change actor image on PC actor.</li>';             
+        }
+
+        if (_compareVersion(installedVersion, '6.0.1')) {
+             newfunctions += '<li>[General] Fixed dark mode problem on message wizard.</li>';
+             newfunctions += '<li>[PC actor] Fixed problems to open a newly created PC actor.</li>';
+        }
+        
+        // if (_compareVersion(installedVersion, '5.0.15')) {
+        //     newfunctions += '<li>[General] Fixed bugg that caused the bonus for certain rolls to add dices that should not exist. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1284">[#1284]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.14')) {
+        //     newfunctions += '<li>[General] New world setting - Willpower spending +3 Dice prevents botch. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1089">[#1089]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.13')) {
+        //     newfunctions += '<li>[General] Dragging items from world to actor resets image. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1242">[#1242]</a></li>';
+        //     newfunctions += '<li>[WtA] Active gift list was broken.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1272">[#1272]</a></li>';
+        // }
 		
-		if (_compareVersion(installedVersion, '5.0.4')) {
-            newfunctions += '<li>[Exalted] Fixed rolling Exalted Charms and Exalted Ancient Sorcery. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1183">[#1183]</a></li>';
-        }
+		// if (_compareVersion(installedVersion, '5.0.12')) {
+        //     newfunctions += '<li>[General] Automatic spendage of temporary willpower when used in roll. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1253">[#1253]</a></li>';
+        // }
+		
+		// if (_compareVersion(installedVersion, '5.0.11')) {
+        //     newfunctions += '<li>[MtA] Your affinity sphere is not highlighted if technocratic. <b>Will require that you reselect your affinity sphere.</b> <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1245">[#1245]</a></li>';
+        //     newfunctions += '<li>[WtA] Baset sheet do not shift attributes as shift form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1250">[#1250]</a></li>';
+		// 	newfunctions += '<li>[WtA] Mokole sheet do not shift attributes as shift form. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1251">[#1251]</a></li>';
+        // }
 
-        if (_compareVersion(installedVersion, '5.0.2')) {
-            newfunctions += '<li>Fixed styling of tool tip text. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1170">[#1170]</a></li>';
-            newfunctions += '<li>[VtM] Background color error in dark mode when listing disciplines. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1169">[#1169]</a></li>';
-            newfunctions += '<li>[Exalted] Fixed tool tip of charms and spells. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1162">[#1162]</a></li>';
-            newfunctions += '<li>[Exalted] Fixed text problems when setting charm type. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1164">[#1164]</a></li>';
-        }
+        // if (_compareVersion(installedVersion, '5.0.10')) {
+        //     newfunctions += '<li>[VtM] The icon to save selected disiplines when editing combination disciplines is now visible. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1238">[#1238]</a></li>';
+        //     newfunctions += '<li>[MtA] Description of Resonance buggs out. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1233">[#1233]</a></li>';
+        // }
 
-        if (_compareVersion(installedVersion, '5.0.1')) {
-            newfunctions += '<li>Fixed Graphics on the attributes if you where using the 5th ed rules.</li>';
-            newfunctions += '<li>[WtA] Fixed Willpower on the Creature (spirit) sheet if you where using the 5th ed rules.</li>';
-            newfunctions += '<li>[WtO] Fixed temporary Vitality on the Orpheus sheet.</li>';
+        // if (_compareVersion(installedVersion, '5.0.9')) {
+        //     newfunctions += '<li>[WtA] Fixed so you can alter temporary renown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1228">[#1228]</a></li>';
+        //     newfunctions += '<li>[WtA]Added so you can spend Willpower on Shapechange rolls. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1228">[#1228]</a></li>';
+        //     newfunctions += '<li>[Orpheus] Fixed listings of Horrors and Stains. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1229">[#1229]</a></li>';
+        //     newfunctions += '<li>[Orpheus] Fixed rolling of Horrors. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1230">[#1230]</a></li>';
+        //     newfunctions += '<li>[Orpheus] Fixed adding bonuses to Horrors and Stains. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1231">[#1231]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.8')) {
+        //     newfunctions += '<li>German has been updated.</li>';
+        //     newfunctions += '<li>[CtD] Fixed so Art Powers always are rollable. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1213">[#1213]</a></li>';
+        //     newfunctions += '<li>[CtD] Fixed so you can remove the last dot of Imbalance. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1211">[#1211]</a></li>';
+        //     newfunctions += '<li>[MtA] Era settings could not be seen under Settings -> Sheet Settings. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1212">[#1212]</a></li>';
+        //     newfunctions += '<li>[WtO] Fixed problem with opening certain sheets of Wraiths. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1214">[#1214]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.7')) {
+        //     newfunctions += '<li>Brazilian Portuguese has been updated.</li>';
+        //     newfunctions += '<li>[CtD] Adding/removing Imbalance was confusing so now you just right-click and it adds to Willpower as it should. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1211">[#1211]</a></li>';
+        //     newfunctions += '<li>[CtD] How using Nightmare dice with Cantrip casting was wrong so now if you have three nightmare dices or more to add you can check to add these to the roll. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1202">[#1202]</a></li>';
+        //     newfunctions += '<li>[CtD] As you rolled Cantrips the black Nightmare dices was not shown. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1209">[#1209]</a></li>';
+        //     newfunctions += '<li>[WtO] Temporary Corpus now handles damage as any health box should. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1206">[#1206]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.5')) {
+        //     newfunctions += '<li>[CtD] Unable to click and roll Art Powers. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1184">[#1184]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.4')) {
+        //     newfunctions += '<li>[Exalted] Fixed rolling Exalted Charms and Exalted Ancient Sorcery. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1183">[#1183]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.2')) {
+        //     newfunctions += '<li>Fixed styling of tool tip text. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1170">[#1170]</a></li>';
+        //     newfunctions += '<li>[VtM] Background color error in dark mode when listing disciplines. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1169">[#1169]</a></li>';
+        //     newfunctions += '<li>[Exalted] Fixed tool tip of charms and spells. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1162">[#1162]</a></li>';
+        //     newfunctions += '<li>[Exalted] Fixed text problems when setting charm type. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1164">[#1164]</a></li>';
+        // }
+
+        // if (_compareVersion(installedVersion, '5.0.1')) {
+        //     newfunctions += '<li>Fixed Graphics on the attributes if you where using the 5th ed rules.</li>';
+        //     newfunctions += '<li>[WtA] Fixed Willpower on the Creature (spirit) sheet if you where using the 5th ed rules.</li>';
+        //     newfunctions += '<li>[WtO] Fixed temporary Vitality on the Orpheus sheet.</li>';
             
-        }
-
-        // if (_compareVersion(installedVersion, '4.2.9')) {
-        //     newfunctions += '<li>Updated the Spanish language.</li>';
-        //     newfunctions += '<li>[MtA] Fixed bug on Mage sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1093">[#1093]</a></li>';
-        //     newfunctions += '<li>[WtA] Fixed bug on Changing breed sheet that caused Blood Pool to to be displayed correctly. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1094">[#1094]</a></li>';
         // }
     }
 
@@ -2612,7 +2936,7 @@ export  const updates = async () => {
 
     const headline = "Version "+migrationVersion+" installed";
 
-    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v50">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v60">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
 

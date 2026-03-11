@@ -20,9 +20,11 @@ export class SortDisciplinePower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "vampireDialog";
+        this.variant = "wod.types.discipline";
     }
 }
 
+// Deprecated from v6
 export class SortPathPower {
     constructor(item) {
         this._id = item["_id"];
@@ -31,7 +33,7 @@ export class SortPathPower {
         this.description = item.system["description"];
         this.system = item.system["details"];
         this.parentid = item.system["parentid"];
-        this.powerist = [];
+        this.powerlist = [];
 
         this.isNumina = false;
         this.isHekau = false;
@@ -45,6 +47,7 @@ export class SortPathPower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "vampireDialog";
+        this.variant = "wod.types.disciplinepath";
     }
 }
 
@@ -70,6 +73,7 @@ export class SortArtPower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "changelingDialog";
+        this.variant = "wod.types.art";
     }
 }
 
@@ -95,6 +99,7 @@ export class SortEdgePower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "hunterDialog";
+        this.variant = "wod.types.edge";
     }
 }
 
@@ -119,6 +124,7 @@ export class SortLorePower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "demonDialog";
+        this.variant = "wod.types.lore";
     }
 }
 
@@ -143,6 +149,7 @@ export class SortArcanoiPower {
         this.canSave = false;
         this.close = false;
         this.sheettype = "wraithDialog";
+        this.variant = "wod.types.arcanoi";
     }
 }
 
@@ -227,38 +234,58 @@ export class DialogSortPower extends FormApplication {
 
         data.actorData = this.actor.system;
 
-        if (this.object.isDiscipline) {
-            this.object.powerlist = this.actor.system.listdata.powers.disciplines.listeddisciplines;
-        }
-        if (this.object.isPath) {
-            this.object.powerlist = this.actor.system.listdata.powers.disciplines.listedpaths;
-        }
-        if (this.object.isArt) {
-            this.object.powerlist = this.actor.system.listdata.powers.arts.listedarts;
-        }
+        if (this.actor.type == "PC") {
+            // if (this.object.isDiscipline) {
+            //     let disciplines = (this.actor?.items || []).filter(item => item.type === "Power" && item.system.type === "wod.types.discipline");
+	        //     disciplines.sort((a, b) => a.name.localeCompare(b.name));
+            //     this.object.powerlist = disciplines;
+            // }
+            // if (this.object.isPath) {
+            //     let paths = (this.actor?.items || []).filter(item => item.type === "Power" && item.system.type === "wod.types.disciplinepath");
+	        //     paths.sort((a, b) => a.name.localeCompare(b.name));
+            //     this.object.powerlist = paths;
+            // }
 
-        if (this.object.isEdge) {
-            this.object.powerlist = this.actor.system.listdata.powers.edges.listededges;
+            let powers = (this.actor?.items || []).filter(item => item.type === "Power" && item.system.type === this.object.variant);
+            powers.sort((a, b) => a.name.localeCompare(b.name));
+            this.object.powerlist = powers;            
         }
-
-        if (this.object.isLore) {
-            this.object.powerlist = this.actor.system.listdata.powers.lores.listedlores;
-        }
-
-        if (this.object.isArcanoi) {
-            this.object.powerlist = this.actor.system.listdata.powers.arcanois.listedarcanois;
-        }
-
-        if ((this.object.isHekau) || (this.object.isNumina)) {
-            let list = [];
-            let items = (this.actor.items.filter(i => i.type === "Power" && i.system.type === this.object.variant));
-
-            if (items != undefined) {
-                list = items;
+        else {
+            if (this.object.isDiscipline) {
+                this.object.powerlist = this.actor.system.listdata.powers.disciplines.listeddisciplines;
+            }
+            if (this.object.isPath) {
+                this.object.powerlist = this.actor.system.listdata.powers.disciplines.listedpaths;
+            }
+            if (this.object.isArt) {
+                this.object.powerlist = this.actor.system.listdata.powers.arts.listedarts;
             }
 
-            this.object.powerlist = list;
+            if (this.object.isEdge) {
+                this.object.powerlist = this.actor.system.listdata.powers.edges.listededges;
+            }
+
+            if (this.object.isLore) {
+                this.object.powerlist = this.actor.system.listdata.powers.lores.listedlores;
+            }
+
+            if (this.object.isArcanoi) {
+                this.object.powerlist = this.actor.system.listdata.powers.arcanois.listedarcanois;
+            }
+
+            if ((this.object.isHekau) || (this.object.isNumina)) {
+                let list = [];
+                let items = (this.actor.items.filter(i => i.type === "Power" && i.system.type === this.object.variant));
+
+                if (items != undefined) {
+                    list = items;
+                }
+
+                this.object.powerlist = list;
+            }
         }
+
+        
 
         data.config = CONFIG.worldofdarkness;    
 

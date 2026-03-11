@@ -1,0 +1,55 @@
+<section class="tab {{tab.cssClass}}" data-tab="{{tab.id}}" data-group="{{tab.group}}" data-drop-area="true">		
+
+    <div class="dialog-area" style="display: flex;">
+
+        <div class="ability-statArea" data-droparea="wod.abilities.talent">
+            <div class="headlineGroup">{{localize 'wod.abilities.talents'}}</div>
+            {{#if (isEmpty talents)}}
+                <div class="headlineNormal">{{localize 'wod.abilities.notalents'}}</div>
+            {{/if}}
+            {{#each talents as |talent key|}}	
+                <div class="flex-row ability-item" data-drag="true" data-documentid="{{../item._id}}" data-itemid="{{talent._id}}" data-list="system.abilities" data-field="system.type">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    <div class="headlineNormal" style="width:150px;">{{talent.system.label}}</div>
+                    <div>
+                        <a class="pointer item-delete" data-action="actionRemove" data-type="system.abilities" data-itemid="{{talent._id}}" data-islist="true"><i class="icon fa-solid fa-trash-can"></i></a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="ability-statArea" data-droparea="wod.abilities.skill">
+            <div class="headlineGroup">{{localize 'wod.abilities.skills'}}</div>
+            {{#if (isEmpty skills)}}
+                <div class="headlineNormal">{{localize 'wod.abilities.noskills'}}</div>
+            {{/if}}
+            {{#each skills as |skill key|}}	
+                <div class="flex-row ability-item" data-drag="true" data-documentid="{{../item._id}}" data-itemid="{{skill._id}}" data-list="system.abilities" data-field="system.type">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    <div class="headlineNormal" style="width:150px;">{{skill.system.label}}</div>
+                    <div>
+                        <a class="pointer item-delete" data-action="actionRemove" data-type="system.abilities" data-itemid="{{skill._id}}" data-islist="true"><i class="icon fa-solid fa-trash-can"></i></a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="ability-statArea" data-droparea="wod.abilities.knowledge">
+            <div class="headlineGroup">{{localize 'wod.abilities.knowledges'}}</div>
+            {{#if (isEmpty knowledges)}}
+                <div class="headlineNormal">{{localize 'wod.abilities.noknowledges'}}</div>                
+            {{/if}}
+            {{#each knowledges as |knowledge key|}}	
+                <div class="flex-row ability-item" data-drag="true" data-documentid="{{../item._id}}" data-itemid="{{knowledge._id}}" data-list="system.abilities" data-field="system.type">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+                    <div class="headlineNormal" style="width:150px;">{{knowledge.system.label}}</div>
+                    <div>
+                        <a class="pointer item-delete" data-action="actionRemove" data-type="system.abilities" data-itemid="{{knowledge._id}}" data-islist="true"><i class="icon fa-solid fa-trash-can"></i></a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+    </div>
+
+</section>
