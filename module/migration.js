@@ -2358,6 +2358,32 @@ export  const updates = async () => {
             altered = false;
         }
     }
+
+    if (_compareVersion(itemversion, "7.2.2")) {
+        let itemData = foundry.utils.duplicate(item);
+
+        if ((item.type === "Advantage") && (item.system.id === "paradox")) {
+            if ((item?.actor?.type === "PC") && (item?.actor?.system?.settings?.splat === "mage")) {
+                itemData.system.settings.isvisible = true;
+                altered = true;
+            }
+        }
+
+        if (altered) {
+            if (itemData.system?.settings?.version !== undefined) {
+                itemData.system.settings.version = "7.2.2";
+            }
+            else {
+                itemData.system.version = "7.2.2";
+            }
+            
+            await item.update(itemData);
+
+            console.log("WoD Migration | Updated paradox advantage to be visible.");
+            
+            altered = false;
+        }
+    }
  };
 
  /**
@@ -2637,44 +2663,23 @@ export  const updates = async () => {
         newfunctions += '<li>If failing frenzy rolls the condition frenzy is triggered.</li>';
         newfunctions += '<li>New system setting: 10s explode if not speciality.</li>';
         newfunctions += '<li>Fixed bug that caused temporary willpower not to be removed if using willpower on rolls.</li>';
+
+        newfunctions += '<li>[PC Actor] Fixed problems showing virtues correctly aligned on sheet.</li>';
+        newfunctions += '<li>[PC Actor] Fixed width problem that caused the graphics to be crushed at certain screen settings.</li>';
+        newfunctions += '<li>Fixed problems with soak bonuses that was not calculated correctly to stamina.</li>';
+        newfunctions += '<li>Fixed some translations.</li>';
+        newfunctions += '<li>[PC Actor MtA] Fixed problems showing paradox correctly on mage sheets.</li>';
         newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';
     }
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
         
-        if (_compareVersion(installedVersion, '7.2.1')) {
-            newfunctions += '<li>[PC Actor] Fixed problems showing virtues correctly aligned on sheet.</li>';
-            newfunctions += '<li>[PC Actor] Fixed width problem that caused the graphics to be crushed at certain screen settings.</li>';
-            newfunctions += '<li>Fixed problems with soak bonuses that was not calculated correctly to stamina.</li>';
-            newfunctions += '<li>Fixed some translations.</li>';
-        }
-        
-        // if (_compareVersion(installedVersion, '7.1.5')) {
-        //     newfunctions += '<li>[PC Actor VtM] Fixed issue with discipline powers that rolled advantages causing the dice pool to be 0.</li>';
-        // }
-
-        // if (_compareVersion(installedVersion, '7.1.4')) {
-        //     newfunctions += '<li>[PC Actor VtM] Fixed issue with discipline powers that rolled advantages causing the dice pool to be 0.</li>';
-        //     newfunctions += '<li>Bug caused problem to set speciality on certain abilities. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1424">[#1424]</a></li>';
-        //     newfunctions += '<li>[Creature] A bug where the creature sheet would not update health levels correctly after changes in its setting->combat.</li>';
-        // }
-
-        // if (_compareVersion(installedVersion, '7.1.3')) {
-        //      newfunctions += '<li>[MtA] Fixed issue with the quintessence and paradox advantage on PC actors. It now reads the set label of quintessence and paradox, so if it is renamed this is visible on the sheet.</li>';
-        //      newfunctions += '<li>[MtA] Fixed issue with the quintessence advantage on PC actors. If you had set the number of boxes less than 20 on quintessence it broke.</li>';
-        //      newfunctions += '<li>[MtA] Updated the sorcerer template in the compendium for PC actors giving it the new version of quintessence which as with the quintessence for mages also is in a circle. This only effects new sorcerers.</li>';
-        //      newfunctions += '<li>[WtA] Fixed problem that caused issues with adding Nuwisha template to a PC actor.</li>';
-        // }
-
-        // if (_compareVersion(installedVersion, '7.1.2')) {
-        //      newfunctions += '<li>Graphical error with a white backdrop in chat if using dark mode. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1413">[#1413]</a></li>';
-        //      newfunctions += '<li>[VtM] One skill was not added correctly if using the historic vampire templates. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1414">[#1414]</a></li>';
-        // }
-
-        // if (_compareVersion(installedVersion, '7.1.1')) {
-        //      newfunctions += '<li>Fixed bug causing you not to be able to remove untyped gear. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1411">[#1411]</a></li>';
-        //      newfunctions += '<li>[DtF] Fixed bug causing an Earthbound not to be able to connect their lore powers to lores. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1410">[#1410]</a></li>';
+        // if (_compareVersion(installedVersion, '7.2.1')) {
+        //     newfunctions += '<li>[PC Actor] Fixed problems showing virtues correctly aligned on sheet.</li>';
+        //     newfunctions += '<li>[PC Actor] Fixed width problem that caused the graphics to be crushed at certain screen settings.</li>';
+        //     newfunctions += '<li>Fixed problems with soak bonuses that was not calculated correctly to stamina.</li>';
+        //     newfunctions += '<li>Fixed some translations.</li>';
         // }
     }
 

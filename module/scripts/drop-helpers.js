@@ -22,6 +22,7 @@ export default class DropHelper {
             translation = translation.replace("{1}", droppedItem.type);
             translation = translation.replace("{2}", actor.type);
 			ui.notifications.warn(translation);
+
 			return;
 		}
 
@@ -528,6 +529,7 @@ export default class DropHelper {
         // Keep old advantages but make them removable
         const existingAdvantages = actor.items.filter(i => i.type === "Advantage");
         const advantagesToUpdate = [];
+
         for (const advantage of existingAdvantages) {
             const updateData = {
                 _id: advantage.id,
@@ -542,6 +544,7 @@ export default class DropHelper {
         // Keep old shapeforms but make them removable
         const existingShapeforms = actor.items.filter(i => i.type === "Trait" && i.system.type === "wod.types.shapeform");
         const shapeformsToUpdate = [];
+
         for (const shapeform of existingShapeforms) {
             const updateData = {
                 _id: shapeform.id,
@@ -549,6 +552,7 @@ export default class DropHelper {
             };
             shapeformsToUpdate.push(updateData);
         }
+
         if (shapeformsToUpdate.length > 0) {
             await actor.updateEmbeddedDocuments("Item", shapeformsToUpdate);
         }
@@ -556,6 +560,7 @@ export default class DropHelper {
         // Keep old spheres but make them removable
         const existingSpheres = actor.items.filter(i => i.type === "Sphere");
         const spheresToUpdate = [];
+
         for (const sphere of existingSpheres) {
             const updateData = {
                 _id: sphere.id,
@@ -563,6 +568,7 @@ export default class DropHelper {
             };
             spheresToUpdate.push(updateData);
         }
+
         if (spheresToUpdate.length > 0) {
             await actor.updateEmbeddedDocuments("Item", spheresToUpdate);
         }
@@ -578,6 +584,7 @@ export default class DropHelper {
 
         // Import abilities
         const abilities = droppedItem.system.abilities;
+
         for (const obj in abilities) {
             const abilityData = await this.ImportAbility(actor, abilities[obj]);
 
@@ -590,6 +597,7 @@ export default class DropHelper {
 
         // Import advantages
         const advantages = droppedItem.system.advantages;
+
         for (const obj in advantages) {
             const advantageData = await this.ImportAdvantage(actor, advantages[obj]);
 
@@ -1399,9 +1407,9 @@ export default class DropHelper {
         loadedData.system.settings.isvisible = true;
         loadedData.system.settings.isremovable = false;
 
-        if (loadedData.system.id === "paradox") {
-            loadedData.system.settings.isvisible = false;
-        }
+        // if (loadedData.system.id === "paradox") {
+        //     loadedData.system.settings.isvisible = false;
+        // }
         
         loadedData.system.settings.itemuuid = advantage.uuid;
         loadedData.system.settings.version = game.system.version;

@@ -1109,6 +1109,7 @@ export const prepareStatContext = async function (context, actor) {
 		context.showQuintessences = context.quintessences.length > 0;
 		context.showParadox = actor.items
 								.filter(item => item.type === "Advantage" && item.system.id === 'paradox' && item.system.settings.isvisible)
+								//.filter(item => item.type === "Advantage" && item.system.id === 'paradox')
 								.map(item => ({ _id: item._id, ...item })).length > 0;
 	}
 
