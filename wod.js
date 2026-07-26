@@ -552,6 +552,9 @@ Hooks.once("ready", async function () {
 					<li><strong>Vampire</strong> - (also kindred of the east)</li>
 					<li><strong>Werewolf</strong></li>
 					<li><strong>Mage</strong></li>
+					<li><strong>Changeling</strong></li>
+					<li><strong>Demon</strong></li>
+					<li><strong>Hunter</strong></li>
 				</ul>
 				<p>More Template items will be added in future updates.</p>`,
 

@@ -18,10 +18,9 @@
         },
         {
             "id": "goto-actortabcreate",
-            "selector": "section[data-tab=actors] button.create-document",
+            "selector": "#actors button[data-action='createEntry'], section[data-tab='actors'] button[data-action='createEntry'], #actors button.create-document, section[data-tab='actors'] button.create-document, #actors .directory-footer",
             "title": "Sheet types",
-            "content": "To create a character you click Create Actor then select what type of sheet you wish to create. A character cannot change type once created.",
-            "action": "click"
+            "content": "To create a character you click Create Actor then select what type of sheet you wish to create. A character cannot change type once created."
         },
         {
             "id": "goto-items",

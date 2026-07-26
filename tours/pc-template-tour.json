@@ -1,0 +1,67 @@
+{
+	"namespace": "worldofdarkness",
+	"id": "pc-template-tour",
+	"title": "Create a PC with a Template",
+	"canBeResumed": true,
+	"display": true,
+	"permission": {
+		"GM": false,
+		"Players": true
+	},
+	"steps": [
+		{
+			"id": "goto-intro",
+			"selector": "[data-tab='actors']",
+			"title": "Create a PC with a Template",
+			"content": "This tour shows how to create a modern <strong>PC</strong> actor and turn it into a playable character by dropping a <strong>Template</strong> from the Character creation compendiums.",
+			"action": "click"
+		},
+		{
+			"id": "goto-create-actor",
+			"selector": "#actors button[data-action='createEntry'], section[data-tab='actors'] button[data-action='createEntry'], section[data-tab='actors'] button.create-document, #actors button.create-document, #actors .directory-footer, #actors",
+			"title": "Create a PC actor",
+			"content": "Click <strong>Create Actor</strong>, then choose type <strong>PC</strong>. That creates a blank modern sheet. For this tour an example PC (<strong>PC Tour</strong>) is created automatically.",
+			"action": "addPC"
+		},
+		{
+			"id": "goto-open-pc",
+			"selector": "li[data-entry-id='ExamplePCTour001'] .entry-name, li[data-document-id='ExamplePCTour001'] h4.document-name, li[data-document-id='ExamplePCTour001'] .entry-name",
+			"title": "Open the PC",
+			"content": "Open <strong>PC Tour</strong> by clicking its name in the Actors directory.",
+			"action": "openPC"
+		},
+		{
+			"id": "goto-pc-sheet",
+			"selector": "[id*='PCActorSheet-Actor-ExamplePCTour001']",
+			"title": "Blank mortal setup",
+			"content": "You are looking at the base PC sheet. Without a Template it behaves like a generic <strong>mortal</strong> — usable, but missing the abilities, advantages, and splat fields that make a character type easy to play."
+		},
+		{
+			"id": "goto-compendium-tab",
+			"selector": "[data-tab='compendium']",
+			"title": "Find Templates",
+			"content": "Templates live in the system compendiums. Open the <strong>Compendium Packs</strong> sidebar.",
+			"action": "click"
+		},
+		{
+			"id": "goto-templates-pack",
+			"selector": "li[data-pack='worldofdarkness.splats']",
+			"title": "Character creation → Templates",
+			"content": "Under <strong>WoD - Character creation</strong>, open the <strong>Templates</strong> pack. That pack holds ready-made setups for Vampire, Werewolf, Mage, and many others.",
+			"action": "openTemplatesPack"
+		},
+		{
+			"id": "goto-vampire-modern",
+			"selector": "li[data-entry-id='DzvMAiNxSLTy1pcH'], li[data-document-id='DzvMAiNxSLTy1pcH']",
+			"title": "Vampire [modern]",
+			"content": "As an example we will use <strong>Vampire [modern]</strong>. You can pick any Template you want — or duplicate one into your world and build your own. Drag the Template onto the open PC sheet. Click Next and the tour will add Vampire [modern] for you.",
+			"action": "addVampireModernTemplate"
+		},
+		{
+			"id": "goto-vampire-result",
+			"selector": "[id*='PCActorSheet-Actor-ExamplePCTour001']",
+			"title": "Template applied",
+			"content": "The sheet is now set up as a modern Vampire: abilities, advantages (such as blood pool and virtues), and vampire bio fields are in place. Create new PCs the same way with any Template from the pack. When you finish this tour, the example <strong>PC Tour</strong> actor is removed automatically."
+		}
+	]
+}

@@ -6,6 +6,7 @@
 	"TYPES.Actor.Hunter": "Hunter the Reckoning (deprecated)",
 	"TYPES.Actor.Mage": "Mage the Ascension (deprecated)",
 	"TYPES.Actor.Mortal": "Mortal sheet",
+	"TYPES.Actor.PC": "PC",
 	"TYPES.Actor.Vampire": "Vampire the Masquerade (deprecated)",
 	"TYPES.Actor.Wraith": "Wraith the Oblivion",
 	"TYPES.Actor.Mummy": "Mummy the Resurrection",

@@ -2134,7 +2134,12 @@ export  const updates = async () => {
             console.log(`WoD Migration | Bonus found on ${item.actor.name} type ${item.system.type}`);
 
             let bonus = item.actor.getEmbeddedDocument("Item", item.system.parentid);
-            itemData = foundry.utils.duplicate(bonus);
+            if (!bonus) {
+                console.warn(`WoD Migration | Bonus parent id ${item.system.parentid} missing on ${item.actor.name}; removing orphan bonus ${item.name}`);
+                await item.actor.deleteEmbeddedDocuments("Item", [item._id]);
+            }
+            else {
+                itemData = foundry.utils.duplicate(bonus);
 
             let bonusData = {
                 name: item.name,
@@ -2144,14 +2149,15 @@ export  const updates = async () => {
                 isactive: item.system.isactive
             }
 
-            itemData.system.bonuslist[bonus.system.bonuslist.length] = bonusData;
-            itemData.system.version = "3.3.0";
+                itemData.system.bonuslist.push(bonusData);
+                itemData.system.version = "3.3.0";
 
-            await bonus.update(itemData);   
-            console.log(`WoD Migration | Adding bonus to ${item.actor.name} bonusname ${item.name}`);
+                await bonus.update(itemData);   
+                console.log(`WoD Migration | Adding bonus to ${item.actor.name} bonusname ${item.name}`);
 
-            await item.actor.deleteEmbeddedDocuments("Item", [item._id]);
-            console.log(`WoD Migration | Removing bonus id ${item._id} bonusname ${item.name}`);
+                await item.actor.deleteEmbeddedDocuments("Item", [item._id]);
+                console.log(`WoD Migration | Removing bonus id ${item._id} bonusname ${item.name}`);
+            }
         }
         if (item.type == "Power") {
             if (item.system.type == "wod.types.artpower")  {
@@ -2675,6 +2681,12 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
         
+        if (_compareVersion(installedVersion, '7.2.3')) {
+            newfunctions += '<li>[PC Actor VtM] Made slight improvement showing attributes and abilities so can now see upå to 8 dots before switching to box.</li>';
+            newfunctions += '<li>Cleaned up among the temp files in the compendium folders.</li>';
+            newfunctions += '<li>Fixed and cleaned up the World of Darkness tours.</li>';
+            newfunctions += '<li>Added a tour that shows how to create a PC actor with a template.</li>';
+        }
         // if (_compareVersion(installedVersion, '7.2.1')) {
         //     newfunctions += '<li>[PC Actor] Fixed problems showing virtues correctly aligned on sheet.</li>';
         //     newfunctions += '<li>[PC Actor] Fixed width problem that caused the graphics to be crushed at certain screen settings.</li>';
@@ -2690,6 +2702,7 @@ export  const updates = async () => {
     let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v72">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
+    message += '<p>To see how the PC actor is used and how to use it, please check the Foundry tour for this purpose.</p>';
 
     if (installedVersion != "1") {
         message += '<h3>Summery of update:</h3>';

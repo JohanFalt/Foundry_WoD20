@@ -35,7 +35,7 @@
 
 				{{#if ../showvalues}}
 
-					<div class="{{#if (gt ability.system.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value"  
+					<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} resource-value"  
 						data-itemid="{{ability._id}}"
 						data-key="{{ability.system.id}}"
 						data-value="{{ability.system.value}}" 
@@ -50,15 +50,15 @@
 							dotType=../config.sheettype.mortal}}
 
 						{{#if (eq ../locked false)}}
-							<div class="pullRight speciality-ability-icon {{getSpecialityIcon ability}}">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-icon {{getSpecialityIcon ability}}">
 								<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-action="itemEdit" data-itemid="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 							</div>
 						{{else if (hasSpeciality ability)}}
-							<div class="pullRight speciality-ability-icon">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-icon">
 								<i class="fa-solid fa-circle-exclamation {{getSpecialityIcon ability}}" title="{{ability.system.speciality}}"></i>
 							</div>
 						{{else}}
-							<div class="pullRight speciality-ability-empty-icon">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-empty-icon">
 								&nbsp;
 							</div>
 						{{/if}}
@@ -109,7 +109,7 @@
 
 				{{#if ../showvalues}}
 
-					<div class="{{#if (gt ability.system.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value"  
+					<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}}  resource-value"  
 						data-itemid="{{ability._id}}"
 						data-key="{{ability.system.id}}"
 						data-value="{{ability.system.value}}" 
@@ -124,15 +124,15 @@
 							dotType=../config.sheettype.mortal}}
 
 						{{#if (eq ../locked false)}}
-							<div class="pullRight speciality-ability-icon {{getSpecialityIcon ability}}">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-icon {{getSpecialityIcon ability}}">
 								<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-action="itemEdit" data-itemid="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 							</div>
 						{{else if (hasSpeciality ability)}}
-							<div class="pullRight speciality-ability-icon">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-icon">
 								<i class="fa-solid fa-circle-exclamation {{getSpecialityIcon ability}}" title="{{ability.system.speciality}}"></i>
 							</div>
 						{{else}}
-							<div class="pullRight speciality-ability-empty-icon">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-empty-icon">
 								&nbsp;
 							</div>
 						{{/if}}
@@ -180,7 +180,7 @@
 
 				{{#if ../showvalues}}
 
-					<div class="{{#if (gt ability.system.max 5)}}pullRight{{else}}pullLeft{{/if}} resource-value"  
+					<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}}  resource-value"  
 						data-itemid="{{ability._id}}"
 						data-key="{{ability.system.id}}"
 						data-value="{{ability.system.value}}" 
@@ -195,20 +195,20 @@
 							dotType=../config.sheettype.mortal}}
 
 						{{#if (eq ../locked false)}}
-							<div class="pullRight speciality-ability-icon {{getSpecialityIcon ability}}">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-icon {{getSpecialityIcon ability}}">
 								<a class="item-edit" title="{{localize 'wod.labels.edit.ability'}}" data-type="Ability" data-action="itemEdit" data-itemid="{{ability._id}}"><i class="fa-solid fa-pen-to-square"></i></a>
 							</div>
 						{{else if (hasSpeciality ability)}}
-							<div class="pullRight speciality-ability-icon">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-icon">
 								<i class="fa-solid fa-circle-exclamation {{getSpecialityIcon ability}}" title="{{ability.system.speciality}}"></i>
 							</div>
 						{{else}}
-							<div class="pullRight speciality-ability-empty-icon">
+							<div class="{{#if (gt ability.system.max 8)}}pullLeft{{else}}pullRight{{/if}} speciality-ability-empty-icon">
 								&nbsp;
 							</div>
 						{{/if}}
 						
-					</div>	
+					</div>
 
 				{{/if}}
 				{{#if ../showvisibleicon}}

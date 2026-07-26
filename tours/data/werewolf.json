@@ -866,7 +866,7 @@
       },
       "system": {
         "iscreated": true,
-        "version": "2.3.0",
+        "version": "3.3.0",
         "parentid": "",
         "worldanvil": "",
         "reference": "p153",
@@ -893,7 +893,30 @@
           "created": false
         },
         "image": "",
-        "combat": false
+        "combat": false,
+        "bonuslist": [
+          {
+            "name": "Charisma diff -1",
+            "settingtype": "charisma",
+            "type": "attribute_diff",
+            "value": -1,
+            "isactive": false
+          },
+          {
+            "name": "Manipulation diff -1",
+            "settingtype": "manipulation",
+            "type": "attribute_diff",
+            "value": -1,
+            "isactive": false
+          },
+          {
+            "name": "Appearance",
+            "settingtype": "appearance",
+            "type": "attribute_diff",
+            "value": -1,
+            "isactive": false
+          }
+        ]
       },
       "ownership": {
         "default": 2,
@@ -1553,117 +1576,6 @@
         "coreVersion": "10.291",
         "createdTime": 1668969307187,
         "modifiedTime": 1674477075142,
-        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
-      }
-    },
-    {
-      "name": "Charisma diff -1",
-      "type": "Bonus",
-      "system": {
-        "iscreated": true,
-        "version": "2.3.0",
-        "parentid": "Y50pP5Ygo88tuvnn",
-        "worldanvil": "",
-        "reference": "",
-        "description": "",
-        "details": "",
-        "type": "attribute_diff",
-        "level": "0",
-        "value": -1,
-        "max": 5,
-        "settingtype": "charisma",
-        "isactive": false
-      },
-      "_id": "a9vNZlOAwZ2itQQa",
-      "img": "icons/svg/item-bag.svg",
-      "effects": [],
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0,
-        "CJSsCwdnDobaXtrZ": 3
-      },
-      "flags": {},
-      "_stats": {
-        "systemId": "worldofdarkness",
-        "systemVersion": "2.3.0",
-        "coreVersion": "10.291",
-        "createdTime": 1674543225577,
-        "modifiedTime": 1674543431944,
-        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
-      }
-    },
-    {
-      "name": "Manipulation diff -1",
-      "type": "Bonus",
-      "system": {
-        "iscreated": true,
-        "version": "2.3.0",
-        "parentid": "Y50pP5Ygo88tuvnn",
-        "worldanvil": "",
-        "reference": "",
-        "description": "",
-        "details": "",
-        "type": "attribute_diff",
-        "level": "0",
-        "value": -1,
-        "max": 5,
-        "settingtype": "manipulation",
-        "isactive": false
-      },
-      "_id": "2FVVNMO3txo0Zya3",
-      "img": "icons/svg/item-bag.svg",
-      "effects": [],
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0,
-        "CJSsCwdnDobaXtrZ": 3
-      },
-      "flags": {},
-      "_stats": {
-        "systemId": "worldofdarkness",
-        "systemVersion": "2.3.0",
-        "coreVersion": "10.291",
-        "createdTime": 1674543226230,
-        "modifiedTime": 1674543449923,
-        "lastModifiedBy": "CJSsCwdnDobaXtrZ"
-      }
-    },
-    {
-      "name": "Appearance",
-      "type": "Bonus",
-      "system": {
-        "iscreated": true,
-        "version": "2.3.0",
-        "parentid": "Y50pP5Ygo88tuvnn",
-        "worldanvil": "",
-        "reference": "",
-        "description": "",
-        "details": "",
-        "type": "attribute_diff",
-        "level": "0",
-        "value": -1,
-        "max": 5,
-        "settingtype": "appearance",
-        "isactive": false
-      },
-      "_id": "Kj8GqeTf9wKI6i5d",
-      "img": "icons/svg/item-bag.svg",
-      "effects": [],
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0,
-        "CJSsCwdnDobaXtrZ": 3
-      },
-      "flags": {},
-      "_stats": {
-        "systemId": "worldofdarkness",
-        "systemVersion": "2.3.0",
-        "coreVersion": "10.291",
-        "createdTime": 1674543226747,
-        "modifiedTime": 1674543464231,
         "lastModifiedBy": "CJSsCwdnDobaXtrZ"
       }
     }
