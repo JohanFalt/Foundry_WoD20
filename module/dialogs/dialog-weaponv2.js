@@ -58,7 +58,7 @@ function buildViewModel(item, state, attackResult = null) {
             close: false,
             sheettype: "",
             useSpeciality: false,
-            useWillpower: false
+            useWillpower: false,
         };
     }
 
@@ -81,9 +81,9 @@ function buildViewModel(item, state, attackResult = null) {
         difficulty,
         accuracy: parseInt(attack.accuracy) || 0,
         usedReducedDiff: false,
-        hasburst: isRanged ? !!(mode.hasburst) : false,
-        hasfullauto: isRanged ? !!(mode.hasfullauto) : false,
-        hasspray: isRanged ? !!(mode.hasspray) : false,
+        hasburst: isRanged ? !!mode.hasburst : false,
+        hasfullauto: isRanged ? !!mode.hasfullauto : false,
+        hasspray: isRanged ? !!mode.hasspray : false,
         modename: "single",
         modebonus: 0,
         numberoftargets: 1,
@@ -92,12 +92,13 @@ function buildViewModel(item, state, attackResult = null) {
         rollattack: !!attack.isrollable,
         rolldamage: !!damage.isrollable,
         system: item.system?.description ?? "",
-        secondaryabilityid: (attack.ability === "custom" && attack.secondaryabilityid) ? attack.secondaryabilityid : "",
+        secondaryabilityid:
+            attack.ability === "custom" && attack.secondaryabilityid ? attack.secondaryabilityid : "",
         canRoll: difficulty > -1,
         close: false,
         sheettype: "",
         useSpeciality: false,
-        useWillpower: false
+        useWillpower: false,
     };
     return obj;
 }
@@ -111,7 +112,7 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
         /** @type {{ extraSuccesses: number, numberoftargets: number, modename: string }|null} temporary data from attack roll, never saved to item */
         this.attackResult = attackResult;
 
-        if (this.weaponState === "attack" && !(item.system?.attack?.isrollable)) {
+        if (this.weaponState === "attack" && !item.system?.attack?.isrollable) {
             this.weaponState = "damage";
         }
 
@@ -124,12 +125,12 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
         tag: "form",
         window: {
             title: "",
-            resizable: true
+            resizable: true,
         },
         classes: ["wod20", "wod-dialog", "weapon-dialog", "weapon-dialog-v2"],
         position: {
             width: 400,
-            height: "auto"
+            height: "auto",
         },
         actions: {
             setDifficulty: function (event, target) {
@@ -209,14 +210,14 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
             },
             close: function (event, target) {
                 this.close();
-            }
-        }
+            },
+        },
     };
 
     static PARTS = {
         body: {
-            template: "systems/worldofdarkness/templates/dialogs/dialog-weaponv2.hbs"
-        }
+            template: "systems/worldofdarkness/templates/dialogs/dialog-weaponv2.hbs",
+        },
     };
 
     _updateActiveButton(activeElement, selector) {
@@ -255,10 +256,18 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
         } catch {
             this.object.dodgebonus = 0;
         }
-        if (this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && !this.object.usedReducedDiff) {
+        if (
+            this.object.useSpeciality &&
+            CONFIG.worldofdarkness.usespecialityReduceDiff &&
+            !this.object.usedReducedDiff
+        ) {
             this.object.difficulty -= parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = true;
-        } else if (!this.object.useSpeciality && CONFIG.worldofdarkness.usespecialityReduceDiff && this.object.usedReducedDiff) {
+        } else if (
+            !this.object.useSpeciality &&
+            CONFIG.worldofdarkness.usespecialityReduceDiff &&
+            this.object.usedReducedDiff
+        ) {
             this.object.difficulty += parseInt(CONFIG.worldofdarkness.specialityReduceDiff);
             this.object.usedReducedDiff = false;
         }
@@ -279,52 +288,86 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
 
             console.log(abilities);
 
-            data.config.meleeAbilities = (abilities
-                .filter((a) => a.type === "Ability" && a.system?.settings?.isvisible && a.system?.settings?.ismeleeweapon))
-                .sort((a, b) => game.i18n.localize(a.system?.label || "").localeCompare(game.i18n.localize(b.system?.label || "")));
-            data.config.rangedAbilities = (abilities
-                .filter((a) => a.type === "Ability" && a.system?.settings?.isvisible && a.system?.settings?.israngedeweapon))
-                .sort((a, b) => game.i18n.localize(a.system?.label || "").localeCompare(game.i18n.localize(b.system?.label || "")));
-        } 
-        else {
+            data.config.meleeAbilities = abilities
+                .filter(
+                    (a) =>
+                        a.type === "Ability" &&
+                        a.system?.settings?.isvisible &&
+                        a.system?.settings?.ismeleeweapon,
+                )
+                .sort((a, b) =>
+                    game.i18n
+                        .localize(a.system?.label || "")
+                        .localeCompare(game.i18n.localize(b.system?.label || "")),
+                );
+            data.config.rangedAbilities = abilities
+                .filter(
+                    (a) =>
+                        a.type === "Ability" &&
+                        a.system?.settings?.isvisible &&
+                        a.system?.settings?.israngedeweapon,
+                )
+                .sort((a, b) =>
+                    game.i18n
+                        .localize(a.system?.label || "")
+                        .localeCompare(game.i18n.localize(b.system?.label || "")),
+                );
+        } else {
             data.actorData.type = this.actor.type;
             if (this.actor.system?.listdata?.meleeAbilities?.length > 0) {
                 data.config.meleeAbilities = this.actor.system.listdata.meleeAbilities;
             }
-                
-            if (this.actor.system?.listdata?.rangedAbilities?.length > 0) { 
+
+            if (this.actor.system?.listdata?.rangedAbilities?.length > 0) {
                 data.config.rangedAbilities = this.actor.system.listdata.rangedAbilities;
             }
 
-            data.object.sheettype = data.actorData.type !== CONFIG.worldofdarkness.sheettype.changingbreed && data.actorData.type !== CONFIG.worldofdarkness.splat.changingbreed
-                ? (data.actorData.type || "").toLowerCase() + "Dialog"
-                : "werewolfDialog";
+            data.object.sheettype =
+                data.actorData.type !== CONFIG.worldofdarkness.sheettype.changingbreed &&
+                data.actorData.type !== CONFIG.worldofdarkness.splat.changingbreed
+                    ? (data.actorData.type || "").toLowerCase() + "Dialog"
+                    : "werewolfDialog";
         }
 
         let actortype = (this.actor.type || "").toLowerCase();
         if (this.actor?.system?.settings?.splat) actortype = this.actor.system.settings.splat;
-        if (!CONFIG.worldofdarkness.alwaysspeciality?.[actortype]) actortype = CONFIG.worldofdarkness.sheettype?.vampire?.toLowerCase() || "vampire";
+        if (!CONFIG.worldofdarkness.alwaysspeciality?.[actortype])
+            actortype = CONFIG.worldofdarkness.sheettype?.vampire?.toLowerCase() || "vampire";
 
         let attributeSpeciality = "";
         let abilitySpeciality = "";
 
         if (this.actor.system?.attributes && data.actorData.attributes?.[data.object.dice1]?.value != null) {
             data.object.attributeValue = parseInt(data.actorData.attributes[data.object.dice1].total) || 0;
-            data.object.attributeName = game.i18n.localize(data.actorData.attributes[data.object.dice1].label || "");
-            if (parseInt(data.actorData.attributes[data.object.dice1].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+            data.object.attributeName = game.i18n.localize(
+                data.actorData.attributes[data.object.dice1].label || "",
+            );
+            if (
+                parseInt(data.actorData.attributes[data.object.dice1].value) >=
+                parseInt(CONFIG.worldofdarkness.specialityLevel)
+            ) {
                 data.object.hasSpeciality = true;
                 attributeSpeciality = data.actorData.attributes[data.object.dice1].speciality || "";
             }
-        } 
-        else if (data.actorData[data.object.dice1]?.roll != null) {
+        } else if (data.actorData[data.object.dice1]?.roll != null) {
             data.object.attributeValue = parseInt(data.actorData[data.object.dice1].roll) || 0;
             data.object.attributeName = game.i18n.localize(data.actorData[data.object.dice1].label || "");
-            if (this.actor.system?.[data.object.dice1]?.label === "wod.advantages.willpower" && CONFIG.worldofdarkness.attributeSettings === "5th") {
-                if (parseInt(data.actorData.attributes?.composure?.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel)) {
+            if (
+                this.actor.system?.[data.object.dice1]?.label === "wod.advantages.willpower" &&
+                CONFIG.worldofdarkness.attributeSettings === "5th"
+            ) {
+                if (
+                    parseInt(data.actorData.attributes?.composure?.value) >=
+                    parseInt(CONFIG.worldofdarkness.specialityLevel)
+                ) {
                     data.object.hasSpeciality = true;
                     attributeSpeciality = data.actorData.attributes.composure.speciality || "";
                 }
-                if (parseInt(data.actorData.attributes?.resolve?.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel) && data.actorData.attributes?.resolve?.speciality) {
+                if (
+                    parseInt(data.actorData.attributes?.resolve?.value) >=
+                        parseInt(CONFIG.worldofdarkness.specialityLevel) &&
+                    data.actorData.attributes?.resolve?.speciality
+                ) {
                     data.object.hasSpeciality = true;
                     if (attributeSpeciality) attributeSpeciality += ", ";
                     attributeSpeciality += data.actorData.attributes.resolve.speciality || "";
@@ -337,13 +380,14 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
             if (abilityItem) {
                 data.object.abilityValue = parseInt(abilityItem.system.value) || 0;
                 data.object.abilityName = game.i18n.localize(abilityItem.system.label || "");
-                if (parseInt(abilityItem.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel) ||
-                    (CONFIG.worldofdarkness.alwaysspeciality?.[actortype]?.includes(abilityItem.system.id))) {
+                if (
+                    parseInt(abilityItem.system.value) >= parseInt(CONFIG.worldofdarkness.specialityLevel) ||
+                    CONFIG.worldofdarkness.alwaysspeciality?.[actortype]?.includes(abilityItem.system.id)
+                ) {
                     data.object.hasSpeciality = true;
                     abilitySpeciality = abilityItem.system.speciality || "";
                 }
-            }
-            else if (data.object.dice2 === "custom" && data.object.secondaryabilityid) {
+            } else if (data.object.dice2 === "custom" && data.object.secondaryabilityid) {
                 const secItem = await this.actor.getEmbeddedDocument("Item", data.object.secondaryabilityid);
                 if (secItem) {
                     data.object.abilityValue = parseInt(secItem.system.value) || 0;
@@ -354,19 +398,26 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
                     }
                 }
             }
-        } 
-        else if (this.actor.system?.abilities && data.actorData.abilities?.[data.object.dice2]?.value != null) {
+        } else if (
+            this.actor.system?.abilities &&
+            data.actorData.abilities?.[data.object.dice2]?.value != null
+        ) {
             data.object.abilityValue = parseInt(data.actorData.abilities[data.object.dice2].value) || 0;
-            data.object.abilityName = (data.actorData.abilities[data.object.dice2].altlabel === "")
-                ? game.i18n.localize(data.actorData.abilities[data.object.dice2].label || "")
-                : (data.actorData.abilities[data.object.dice2].altlabel || "");
-            if (parseInt(data.actorData.abilities[data.object.dice2].value) >= parseInt(CONFIG.worldofdarkness.specialityLevel) ||
-                CONFIG.worldofdarkness.alwaysspeciality?.[actortype]?.includes(data.actorData.abilities[data.object.dice2]._id)) {
+            data.object.abilityName =
+                data.actorData.abilities[data.object.dice2].altlabel === ""
+                    ? game.i18n.localize(data.actorData.abilities[data.object.dice2].label || "")
+                    : data.actorData.abilities[data.object.dice2].altlabel || "";
+            if (
+                parseInt(data.actorData.abilities[data.object.dice2].value) >=
+                    parseInt(CONFIG.worldofdarkness.specialityLevel) ||
+                CONFIG.worldofdarkness.alwaysspeciality?.[actortype]?.includes(
+                    data.actorData.abilities[data.object.dice2]._id,
+                )
+            ) {
                 data.object.hasSpeciality = true;
                 abilitySpeciality = data.actorData.abilities[data.object.dice2].speciality || "";
             }
-        } 
-        else if (data.object.dice2 === "custom" && data.object.secondaryabilityid) {
+        } else if (data.object.dice2 === "custom" && data.object.secondaryabilityid) {
             const secItem = await this.actor.getEmbeddedDocument("Item", data.object.secondaryabilityid);
             if (secItem) {
                 data.object.abilityValue = parseInt(secItem.system.value) || 0;
@@ -397,7 +448,9 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
 
     async _rollAttack() {
         const o = this.object;
-        let woundPenaltyVal = CombatHelper.ignoresPain(this.actor) ? 0 : (parseInt(this.actor.system?.health?.damage?.woundpenalty) || 0);
+        let woundPenaltyVal = CombatHelper.ignoresPain(this.actor)
+            ? 0
+            : parseInt(this.actor.system?.health?.damage?.woundpenalty) || 0;
         const weaponRoll = new DiceRollContainer(this.actor);
         weaponRoll.attribute = o.dice1;
         weaponRoll.ability = o.dice2;
@@ -406,9 +459,12 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
         const template = [`${o.attributeName} (${o.attributeValue})`];
 
         if (o.abilityName) template.push(`${game.i18n.localize(o.abilityName)} (${o.abilityValue})`);
-        if (o.modename === "burst") weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingburst"));
-        if (o.modename === "fullauto") weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingauto"));
-        if (o.modename === "spray") weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingspray"));
+        if (o.modename === "burst")
+            weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingburst"));
+        if (o.modename === "fullauto")
+            weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingauto"));
+        if (o.modename === "spray")
+            weaponRoll.extraInfo.push(game.i18n.localize("wod.dialog.weapon.usingspray"));
 
         let numDices = parseInt(o.attributeValue) + parseInt(o.abilityValue) + parseInt(o.bonus);
         let difficulty = o.difficulty;
@@ -432,7 +488,7 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
         weaponRoll.bonus = parseInt(o.bonus);
         weaponRoll.systemText = o.system || "";
         weaponRoll.speciality = o.useSpeciality;
-        weaponRoll.specialityText = o.useSpeciality ? (o.specialityText || "") : "";
+        weaponRoll.specialityText = o.useSpeciality ? o.specialityText || "" : "";
 
         const item = await this.actor.getEmbeddedDocument("Item", o._id);
 
@@ -445,21 +501,73 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
             await item.update(itemData);
         }
 
+        // Cancels the roll if the weapon has insufficient ammo for the selected firing mode
+        try {
+            const item = await this.actor.getEmbeddedDocument("Item", o._id);
+            if (item && item.type === "Ranged Weapon" && item.system?.clip) {
+                const cur = parseInt(item.system.clip.value) || 0;
+                const max = parseInt(item.system.clip.max) || 0;
+                let required = 1;
+                if (o.modename === "burst") required = 3;
+                else if (o.modename === "fullauto" || o.modename === "spray") required = Math.ceil(max / 2);
+
+                if (cur < required) {
+                    ui.notifications.warn(
+                        `${item.name}: ${game.i18n.localize("wod.combat.weapon.clip") || "clip"} ${cur}/${max} — Insufficient ammo for ${o.modename}`,
+                    );
+                    return;
+                }
+            }
+        } catch (err) {
+            console.error("Error checking ammo:", err);
+        }
+
         const numberOfSuccesses = await DiceRoller(weaponRoll);
         const damageRollable = item.system?.damage?.isrollable !== false;
+
+        // Logic to consume ammo for ranged weapons
+        try {
+            const itemDoc = await this.actor.getEmbeddedDocument("Item", o._id);
+            if (itemDoc && itemDoc.type === "Ranged Weapon" && itemDoc.system?.clip) {
+                const cur = parseInt(itemDoc.system.clip.value) || 0;
+                const max = parseInt(itemDoc.system.clip.max) || 0;
+                if (max > 0 || cur > 0) {
+                    let consume = 1;
+
+                    // Determine how much ammo to consume based on firing mode
+                    if (o.modename === "burst") consume = 3;
+                    else if (o.modename === "fullauto" || o.modename === "spray") consume = cur;
+
+                    consume = Math.max(0, Math.min(consume, cur));
+                    const newVal = Math.max(0, cur - consume);
+
+                    if (consume > 0) {
+                        const itemData = foundry.utils.duplicate(itemDoc);
+                        itemData.system.clip.value = newVal;
+                        await itemDoc.update(itemData);
+
+                        // Feedback about ammo consumption
+                        ui.notifications.info(
+                            `${itemDoc.name}: -${consume} ${game.i18n.localize("wod.combat.weapon.clip") || "ammo"} (${newVal}/${max})`,
+                        );
+                    }
+                }
+            }
+        } catch (err) {
+            console.error("Error consuming ammo:", err);
+        }
 
         if (numberOfSuccesses > 0 && damageRollable) {
             this.weaponState = "damage";
             this.attackResult = {
                 extraSuccesses: CONFIG.worldofdarkness.successesToDamageRolls ? numberOfSuccesses - 1 : 0,
                 numberoftargets: o.numberoftargets,
-                modename: o.modename
+                modename: o.modename,
             };
             this.object = buildViewModel(this.item, this.weaponState, this.attackResult);
             await this.render();
-        } 
-        else {
-                this.close();
+        } else {
+            this.close();
         }
     }
 
@@ -488,12 +596,16 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
         weaponRoll.speciality = false;
         weaponRoll.systemText = "";
 
-        if ((o.numberoftargets > 1) && (o.modename === "spray")) {
+        if (o.numberoftargets > 1 && o.modename === "spray") {
             let numberTargets = o.numberoftargets;
             const maxnumberTargets = parseInt(o.extraSuccesses) + 1;
             if (numberTargets > maxnumberTargets) numberTargets = maxnumberTargets;
             const targetlist = [];
-            const baseDice = parseInt(o.attributeValue) + parseInt(o.abilityValue) + parseInt(o.bonus) + parseInt(o.dodgebonus);
+            const baseDice =
+                parseInt(o.attributeValue) +
+                parseInt(o.abilityValue) +
+                parseInt(o.bonus) +
+                parseInt(o.dodgebonus);
             for (let i = 0; i < numberTargets; i++) {
                 targetlist.push({ numDices: baseDice });
             }
@@ -505,15 +617,21 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
                 list = list >= numberTargets - 1 ? 0 : list + 1;
             }
             let spraytext = game.i18n.localize("wod.dialog.weapon.sprayresult");
-            spraytext = spraytext.replace("[0]", String(o.numberoftargets)).replace("[1]", String(numberTargets));
+            spraytext = spraytext
+                .replace("[0]", String(o.numberoftargets))
+                .replace("[1]", String(numberTargets));
             weaponRoll.extraInfo.push(spraytext);
             weaponRoll.targetlist = targetlist;
             weaponRoll.difficulty = parseInt(o.difficulty) || 6;
             weaponRoll.bonus = parseInt(o.bonus) + parseInt(o.dodgebonus);
             await DiceRoller(weaponRoll);
-        } 
-        else {
-            const numDices = parseInt(o.attributeValue) + parseInt(o.abilityValue) + parseInt(o.bonus) + parseInt(o.extraSuccesses) + (parseInt(o.dodgebonus) || 0);
+        } else {
+            const numDices =
+                parseInt(o.attributeValue) +
+                parseInt(o.abilityValue) +
+                parseInt(o.bonus) +
+                parseInt(o.extraSuccesses) +
+                (parseInt(o.dodgebonus) || 0);
             weaponRoll.numDices = numDices;
             weaponRoll.difficulty = parseInt(o.difficulty) || 6;
             weaponRoll.bonus = parseInt(o.bonus) + parseInt(o.dodgebonus);
