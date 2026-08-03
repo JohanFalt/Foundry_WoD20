@@ -536,8 +536,7 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
 
                     // Determine how much ammo to consume based on firing mode
                     if (o.modename === "burst") consume = 3;
-                    else if (o.modename === "fullauto" || o.modename === "spray") consume = cur;
-
+                    else if (o.modename === "fullauto" || o.modename === "spray") consume = Math.ceil(max / 2);
                     consume = Math.max(0, Math.min(consume, cur));
                     const newVal = Math.max(0, cur - consume);
 
