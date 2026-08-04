@@ -1083,6 +1083,8 @@ export const prepareStatContext = async function (context, actor) {
 	context.showVirtues = false;
 	context.showRenowns = false;
 	context.showQuintessences = false;	
+	context.showOtherGroupAdvantages = false;
+
 	context.showParadox = false;
 
 	if (actor.system.settings.hasvirtue) {
@@ -1093,6 +1095,8 @@ export const prepareStatContext = async function (context, actor) {
 						
 		context.virtues = context.virtues.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));	
 		context.showVirtues = context.virtues.length > 0;	
+
+		context.virtuesHeadline = game.i18n.localize("wod.advantages.virtue.headline");		
 	}
 	if (actor.system.settings.hasrenown) {
 		context.renowns = actor.items
@@ -1102,6 +1106,25 @@ export const prepareStatContext = async function (context, actor) {
 		context.renowns = context.renowns.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));
 		context.showRenowns = context.renowns.length > 0;
 	}
+	// if (actor.system.settings.hasothergroupadvantages) {
+	// 	context.othergroupadvantages = actor.items
+	// 							.filter(item => item.type === "Advantage" && 
+	// 										item.system.group !== 'virtue' && 
+	// 										item.system.group !== 'renown' && 
+	// 										item.system.group !== 'quintessence' && 
+	// 										item.system.settings.isvisible)
+	// 							.map(item => ({ _id: item._id, ...item }));
+
+	// 	context.othergroupadvantages.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));
+	// 	context.showOtherGroupAdvantages = context.othergroupadvantages.length > 0;
+
+	// 	if (context.showOtherGroupAdvantages) {
+	// 		context.othergroupadvantagesHeadline = game.i18n.localize(context.othergroupadvantages[0].system.group);
+	// 	}
+	// 	else {
+	// 		context.othergroupadvantagesHeadline = "";
+	// 	}
+	// }
 	if (actor.system.settings.hasquintessence) {
 		context.quintessences = actor.items
 								.filter(item => item.type === "Advantage" && item.system.group === 'quintessence' && item.system.settings.isvisible)
@@ -1109,7 +1132,6 @@ export const prepareStatContext = async function (context, actor) {
 		context.showQuintessences = context.quintessences.length > 0;
 		context.showParadox = actor.items
 								.filter(item => item.type === "Advantage" && item.system.id === 'paradox' && item.system.settings.isvisible)
-								//.filter(item => item.type === "Advantage" && item.system.id === 'paradox')
 								.map(item => ({ _id: item._id, ...item })).length > 0;
 	}
 

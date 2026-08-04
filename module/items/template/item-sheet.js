@@ -46,28 +46,33 @@ export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		if (itemData.type == "Bonus") {
 			if ((itemData.name == game.i18n.localize("wod.labels.new.bonus")) && (itemData.system.type != "")) {
 				itemData.name = game.i18n.localize(CONFIG.worldofdarkness.bonus[itemData.system.type]);
+
 				await this.item.update(itemData);
 			}
 
 			// Soak buff "all damage types" must persist as "all" (not empty string).
 			if ((itemData.system.type == "soak_buff") && (itemData.system.settingtype == "")) {
 				itemData.system.settingtype = "all";
+
 				await this.item.update(itemData);
 			}
 		}
 		if (itemData.type == "Fetish") {
 			if ((itemData.system.type == "wod.types.fetish") && (!itemData.system.isrollable)) {
-				itemData.system.isrollable = true;		
+				itemData.system.isrollable = true;	
+
 				await this.item.update(itemData);
 			}
 			if ((itemData.system.type == "wod.types.talen") && (itemData.system.isrollable)) {
 				itemData.system.isrollable = false;	
+
 				await this.item.update(itemData);	
 			}			
 		}
 		if (itemData.type == "Power") {
 			if ((itemData.system.type == "wod.types.artpower") && (!itemData.system.isrollable)) {
 				itemData.system.isrollable = true;	
+
 				await this.item.update(itemData);
 			}
 		}
@@ -153,6 +158,7 @@ export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 			data.hasShapeIcon = icon.length > 0;
 			data.hasShapeTokenImage = tokenimage.length > 0;
 			data.shapeIconDisplay = data.hasShapeIcon ? icon : "icons/svg/mystery-man.svg";
+			
 			if (data.hasShapeTokenImage) {
 				data.shapeTokenDisplay = tokenimage;
 			}
@@ -506,15 +512,19 @@ export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 
 		if (type == "bonus") {
 			const itemData = foundry.utils.duplicate(this.item);
+
 			if (!Array.isArray(itemData.system.bonuslist)) {
 				itemData.system.bonuslist = [];
 			}
+
 			itemData.system.bonuslist.splice(itemId, 1);
+
 			await this.item.update(itemData);
 		}
 		else if (type == "combination") {
 			const itemData = foundry.utils.duplicate(this.item);
 			itemData.system.property.splice(itemId, 1);
+
 			await this.item.update(itemData);
 		}
 		
@@ -532,6 +542,7 @@ export default class WoDItemSheet extends foundry.appv1.sheets.ItemSheet {
 		const imageField = $(event.currentTarget).data("image-field");
 		const update = {};
 		foundry.utils.setProperty(update, imageField, "");
+
 		this.item.update(update);
 	}
 

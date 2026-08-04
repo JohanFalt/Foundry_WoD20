@@ -614,6 +614,9 @@ export default class DropHelper {
             if (advantageData.system.id == "willpower") {
                 actorData.system.settings.haswillpower = true;
             }
+            if (advantageData.system.id == "gnosis") {
+                actorData.system.settings.hasgnosis = true;
+            }
             if (advantageData.system.group == "virtue") {
                 actorData.system.settings.hasvirtue = true;
             }
@@ -884,10 +887,11 @@ export default class DropHelper {
 
         // Reset advantage flags
         actorData.system.settings.haswillpower = false;
+        actorData.system.settings.hasgnosis = false;
         actorData.system.settings.hasvirtue = false;
         actorData.system.settings.hasrenown = false;
         actorData.system.settings.hasquintessence = false;
-
+        
         // Reset power flags
         actorData.system.settings.hasdisciplines = false;
         actorData.system.settings.hascombinationdisciplines = false;
@@ -1000,6 +1004,7 @@ export default class DropHelper {
     // makes sure that the advantage settings are set accordingly to if you have the adventage or not.
     static SetAdvantageSettings(advantage, actorData) {
         let haswillpower = false; 
+        let hasgnosis = false;
         let hasvirtue = false;
         let hasrenown = false;
         let hasquintessence = false;
@@ -1007,6 +1012,9 @@ export default class DropHelper {
         // check the item in question first
         if (advantage.system.id == "willpower") {
             haswillpower = true;
+        }
+        if (advantage.system.id == "gnosis") {
+            hasgnosis = true;
         }
         if (advantage.system.group == "virtue") {
             hasvirtue = true;
@@ -1025,6 +1033,9 @@ export default class DropHelper {
             if (i.system.id == "willpower") {
                 haswillpower = true;
             }
+            if (i.system.id == "gnosis") {
+                hasgnosis = true;
+            }
             if (i.system.group == "virtue") {
                 hasvirtue = true;
             }
@@ -1037,6 +1048,7 @@ export default class DropHelper {
         }
 
         actorData.system.settings.haswillpower = haswillpower;
+        actorData.system.settings.hasgnosis = hasgnosis;
         actorData.system.settings.hasvirtue = hasvirtue;
         actorData.system.settings.hasrenown = hasrenown;
         actorData.system.settings.hasquintessence = hasquintessence;

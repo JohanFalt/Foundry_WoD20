@@ -148,21 +148,27 @@ export default class ActionHelper {
 				const fetishRoll = new DiceRollContainer(actor);	
 				fetishRoll.action = game.i18n.localize("wod.dice.activate");	
 				fetishRoll.origin = "general";
+				fetishRoll.difficulty = 7;
 
-				if (!actor.system.settings.hasgnosis) {
+				if (!actor.system?.settings?.hasgnosis) {
 					template.push(`${game.i18n.localize("wod.advantages.willpower")} (${actor.system.advantages.willpower.roll})`);
-					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);
-					fetishRoll.difficulty = 7;
+					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);					
 				}
-				else if ((actor.type != CONFIG.worldofdarkness.sheettype.werewolf) && (actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) && (actor.type != CONFIG.worldofdarkness.splat.changingbreed)) {
+				else if ((actor.type != "PC") &&(actor.type != CONFIG.worldofdarkness.sheettype.werewolf) && (actor.type != CONFIG.worldofdarkness.sheettype.changingbreed) && (actor.type != CONFIG.worldofdarkness.splat.changingbreed)) {
 					template.push(`${game.i18n.localize("wod.advantages.willpower")} (${actor.system.advantages.willpower.roll})`);
 					fetishRoll.numDices = parseInt(actor.system.advantages.willpower.roll);
-					fetishRoll.difficulty = 7; 
 				}
 				else {
-					template.push(`${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.advantages.gnosis.roll})`);
-					fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);
-					fetishRoll.difficulty = parseInt(item.system.difficulty); 
+					if (actor.type === "PC") {
+						template.push(`${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.advantages.gnosis.system.roll})`);					
+						fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.system.roll);						
+					}
+					else {
+						template.push(`${game.i18n.localize("wod.advantages.gnosis")} (${actor.system.advantages.gnosis.roll})`);					
+						fetishRoll.numDices = parseInt(actor.system.advantages.gnosis.roll);						
+					}
+
+					fetishRoll.difficulty = parseInt(item.system.difficulty); 					
 				}
 
 				fetishRoll.dicetext = template;

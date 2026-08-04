@@ -278,6 +278,19 @@ export const systemSettings = function() {
 
     // END ERA SETTINGS
 
+    // COMBAT SETTINGS
+
+    game.settings.register("worldofdarkness", "autoAmmo", {
+		name: game.i18n.localize('wod.settings.autoammo'),
+		hint: game.i18n.localize('wod.settings.autoammohint'),
+		scope: "world",
+		config: false,
+		default: false,
+		type: Boolean
+	});
+
+    // END COMBAT SETTINGS
+
     // DEMON SETTINGS
 
     game.settings.register("worldofdarkness", "demonCreateForms", {
@@ -694,6 +707,15 @@ export const systemSettings = function() {
         restricted: true,
     });    
 
+    game.settings.registerMenu("worldofdarkness", "combatSettings", {
+        name: game.i18n.localize("wod.settings.combatsettings"),
+        hint: game.i18n.localize("wod.settings.combatsettingshint"),
+        label: game.i18n.localize("wod.settings.combatsettings"),
+        icon: "icon fa-solid fa-gear",
+        type: Combat,
+        restricted: true,
+    });
+
     game.settings.registerMenu("worldofdarkness", "demonSettings", {
         name: game.i18n.localize('wod.settings.demonsettings'),
         hint: game.i18n.localize('wod.settings.demonsettingshint'),
@@ -949,6 +971,88 @@ export class Era extends FormApplication {
             for (let s of game.settings.settings.values()) {
                 // Exclude settings the user cannot change
                 if ((s.key == "eraMortal") || (s.key == "eraMage") || (s.key == "eraVampire") || (s.key == "eraWerewolf"))  {
+                    // Update setting data
+                    const setting = foundry.utils.duplicate(s);
+
+                    setting.name = game.i18n.localize(setting.name);
+                    setting.hint = game.i18n.localize(setting.hint);
+                    setting.value = game.settings.get("worldofdarkness", setting.key);
+                    setting.type = s.type instanceof Function ? s.type.name : "String";
+                    setting.scope = "worldofdarkness";
+                    setting.isBoolean = s.type === Boolean;
+                    setting.isSelect = s.choices !== undefined;
+
+                    data.system.settings.push(setting);
+                } 
+            }
+        }
+  
+        // Return data
+        return {
+            user: game.user,
+            canConfigure: hasPermission,
+            systemTitle: game.system.title,
+            data: data
+        };
+    }
+  
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find(".submenu button").click(this._onClickSubmenu.bind(this));
+    }
+  
+    /**
+     * Handle activating the button to configure User Role permissions
+     * @param event {Event} The initial button click event
+     * @private
+     */
+    _onClickSubmenu(event) {
+        event.preventDefault();
+        const menu = game.settings.menus.get(event.currentTarget.dataset.key);
+        if (!menu) return ui.notifications.error("No submenu found for the provided key");
+        const app = new menu.type();
+        return app.render(true);
+    }
+  
+    /** @override */
+    async _updateObject(event, formData) {
+        for (let [k, v] of Object.entries(foundry.utils.flattenObject(formData))) {
+            let s = game.settings.settings.get(k);
+            let current = game.settings.get("worldofdarkness", s.key);
+
+            if (v !== current) {
+                await game.settings.set("worldofdarkness", s.key, v);
+            }
+        }
+    }
+}
+
+export class Combat extends FormApplication {
+    /** @override */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            id: "dices",
+            classes: ["wod20rule-dialog"],
+            title: game.i18n.localize("wod.settings.combatsettings"),
+            template: "systems/worldofdarkness/templates/dialogs/dialog-settings-combat.hbs",
+        });
+    }
+  
+    getData(options) {
+        const hasPermission = game.user.can("SETTINGS_MODIFY");  
+        const data = {
+            system: { 
+                title: game.system.title, 
+                menus: [], 
+                settings: [] 
+            }
+        };
+
+        // Classify all settings
+        if (hasPermission) {
+            for (let s of game.settings.settings.values()) {
+                // Exclude settings the user cannot change
+                if (s.key == "autoAmmo") {
                     // Update setting data
                     const setting = foundry.utils.duplicate(s);
 

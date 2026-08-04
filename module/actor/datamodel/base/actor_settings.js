@@ -17,6 +17,7 @@ export default class settings extends foundry.abstract.DataModel {
             usesplatfont: new fields.BooleanField({initial: true}),
 
             haswillpower: new fields.BooleanField({initial: false}),
+            hasgnosis: new fields.BooleanField({initial: false}),
             hasvirtue: new fields.BooleanField({initial: false}),
             hasrenown: new fields.BooleanField({initial: false}),
             hasquintessence: new fields.BooleanField({initial: false}),

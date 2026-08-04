@@ -1,8 +1,9 @@
 {{#each groupedadvantages as |groupData|}}
+	<div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{groupData.items.0.system.group}}</span></div>
+
 	{{#each groupData.items as |advantage id|}}
 		<div class="sheet-boxcontainer">
 			{{{getGetStatArea_v2 ../../actor advantage}}}
 		</div>
 	{{/each}}
 {{/each}}
-

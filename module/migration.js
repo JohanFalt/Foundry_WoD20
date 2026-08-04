@@ -272,7 +272,10 @@ export  const updates = async () => {
  */
  export const updateActor = async function(actor, migrationVersion) {
 
-    if (actor.type == "PC") return;
+    if (actor.type == "PC") {
+        await updatePCActor(actor);
+        return;
+    }
     
     let update = false;
     let found = false;
@@ -1894,7 +1897,7 @@ export  const updates = async () => {
 
                 console.log("WoD Migration | Patch corrupted werewolf actor " + actor.name + ": recreated shapes.");
             }
-        }   
+        }           
         
         if (update) {
             updateData.system.settings.version = "6.0.6";
@@ -1903,7 +1906,6 @@ export  const updates = async () => {
             update = false;
         }
     }
-    
 }
 
 /**
@@ -2141,13 +2143,13 @@ export  const updates = async () => {
             else {
                 itemData = foundry.utils.duplicate(bonus);
 
-            let bonusData = {
-                name: item.name,
-                settingtype: item.system.settingtype,
-                type: item.system.type,
-                value: parseInt(item.system.value),
-                isactive: item.system.isactive
-            }
+                let bonusData = {
+                    name: item.name,
+                    settingtype: item.system.settingtype,
+                    type: item.system.type,
+                    value: parseInt(item.system.value),
+                    isactive: item.system.isactive
+                }
 
                 itemData.system.bonuslist.push(bonusData);
                 itemData.system.version = "3.3.0";
@@ -2442,6 +2444,38 @@ export  const updates = async () => {
     }
  };
 
+ /* 
+ 
+    To patch existing PC actors to the latest version, we need to check if they have the gnosis advantage and set the hasgnosis setting accordingly. 
+    This is necessary because in version 7.2.4, the hasgnosis setting was introduced to track whether a PC has the gnosis advantage or not. 
+ 
+ */
+ async function updatePCActor(actor) {
+    let update = false;
+
+    if (_compareVersion(actor.system.settings.version, "7.2.4")) {
+
+        update = false;    
+        let updateData = foundry.utils.duplicate(actor);
+
+        if (actor.type === "PC") {
+            let items = actor.items.filter(i => i.type === "Advantage" && i.system.id === 'gnosis');
+
+            if (items.length > 0) {
+                updateData.system.settings.hasgnosis = true;
+                update = true;
+            }            
+        }
+
+        if (update) {
+            updateData.system.settings.version = "7.2.4";
+
+            await actor.update(updateData);
+            update = false;
+        }
+    }
+ }
+
   /**
  * Fetches the update information text as an updated is being made.
  * @param installedVersion   The version that is being pushed at the world
@@ -2681,18 +2715,20 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
         
+        if (_compareVersion(installedVersion, '7.2.4')) {
+            newfunctions += '<li>[PC Actor DtF] Fixed an error with the Earthbounds Urges causing them not to display correct headline. Recreate any PC Actor with the Earthbound template and the problem will be resolved.</li>';
+            newfunctions += '<li>[PC Actor WTA] Fixed the set difficult with fetishes.</li>';
+            newfunctions += '<li>[PC Actor WTA] Fixed bug that caused fetishes to roll willpower when using them.</li>';
+            newfunctions += '<li>New system setting: If you want to use the automatic ammo system.</li>';
+            newfunctions += '<li>Added an automatic ammo system which handles ammunition spending automatically and keeps tabs on if there are enough round available.</li>';
+        }
+
         if (_compareVersion(installedVersion, '7.2.3')) {
             newfunctions += '<li>[PC Actor VtM] Made slight improvement showing attributes and abilities so can now see upå to 8 dots before switching to box.</li>';
             newfunctions += '<li>Cleaned up among the temp files in the compendium folders.</li>';
             newfunctions += '<li>Fixed and cleaned up the World of Darkness tours.</li>';
             newfunctions += '<li>Added a tour that shows how to create a PC actor with a template.</li>';
         }
-        // if (_compareVersion(installedVersion, '7.2.1')) {
-        //     newfunctions += '<li>[PC Actor] Fixed problems showing virtues correctly aligned on sheet.</li>';
-        //     newfunctions += '<li>[PC Actor] Fixed width problem that caused the graphics to be crushed at certain screen settings.</li>';
-        //     newfunctions += '<li>Fixed problems with soak bonuses that was not calculated correctly to stamina.</li>';
-        //     newfunctions += '<li>Fixed some translations.</li>';
-        // }
     }
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
@@ -2705,7 +2741,7 @@ export  const updates = async () => {
     message += '<p>To see how the PC actor is used and how to use it, please check the Foundry tour for this purpose.</p>';
 
     if (installedVersion != "1") {
-        message += '<h3>Summery of update:</h3>';
+        message += '<h3>Summary of update:</h3>';
         message += '<ul>';
         message += newfunctions;
         message += '</ul>';

@@ -182,6 +182,14 @@ Hooks.once("init", async function() {
 		CONFIG.worldofdarkness.defaultWerewolfEra = "modern";
 	}
 
+	// Combat settings
+	try {
+		CONFIG.worldofdarkness.defaultAutoAmmo = game.settings.get('worldofdarkness', 'autoAmmo');
+	}
+	catch (e) {
+		CONFIG.worldofdarkness.defaultAutoAmmo = false;
+	}
+
 	CONFIG.worldofdarkness.observersSeeFullActor = game.settings.get('worldofdarkness', 'observersFullActorViewPermission');
 	CONFIG.worldofdarkness.limitedSeeFullActor = game.settings.get('worldofdarkness', 'limitedFullActorViewPermission');
 

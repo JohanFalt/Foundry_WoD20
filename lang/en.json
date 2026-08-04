@@ -172,6 +172,8 @@
 			"rollsettings": "Roll settings",
 			"erasettings": "Era settings",
 			"erasettingshint": "The world settings regards to eras",
+			"combatsettings": "Combat settings",
+			"combatsettingshint": "The world settings regards to combat",
 			"darkmodesetting": "Darkmode",
 			"darkmodesettinghint": "Darkmode hint (requires relogin to Foundry)",
 			"fifthedwillpowersetting": "Willpower (5th edition only)",
@@ -187,7 +189,9 @@
 			"successesdamage": "Successes add to damage",
 			"successesdamagehint": "If enabled, the excess number of successes from an attack roll will be added as bonus dice to the damage roll.",
 			"virtueslimit": "Virtues follow Generation max trait limit",
-			"virtueslimithint": "If enabled, the maximum value of virtues will be limited to the maximum trait value allowed by the character's generation."
+			"virtueslimithint": "If enabled, the maximum value of virtues will be limited to the maximum trait value allowed by the character's generation.",
+			"autoammo": "Automatic ammo system",
+			"autoammohint": "If enabled, the system will automatically handle ammunition spending and keep track of available rounds."
 		},
 		"types": {
 			"mortal": "Mortal",

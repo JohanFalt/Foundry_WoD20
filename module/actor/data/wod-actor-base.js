@@ -258,6 +258,28 @@ export class WoDActor extends Actor {
                 const key = adv.system.slug ?? adv.system.id ?? adv.name.toLowerCase();
                 actorData.system.advantages[key] = adv.toObject();
 
+                actorData.system.settings.haswillpower = false;
+                actorData.system.settings.hasgnosis = false;
+                actorData.system.settings.hasvirtue = false;
+                actorData.system.settings.hasrenown = false;
+                actorData.system.settings.hasquintessence = false;
+
+                if ((adv.system.id === "willpower") && (adv.system.settings.isvisible)) {
+                    actorData.system.settings.haswillpower = true;
+                }
+                if ((adv.system.id === "gnosis") && (adv.system.settings.isvisible)) {
+                    actorData.system.settings.hasgnosis = true;
+                }
+                if ((adv.system.id === "virtue") && (adv.system.settings.isvisible)) {
+                    actorData.system.settings.hasvirtue = true;
+                }
+                if ((adv.system.id === "renown") && (adv.system.settings.isvisible)) {
+                    actorData.system.settings.hasrenown = true;
+                }
+                if ((adv.system.id === "quintessence") && (adv.system.settings.isvisible)) {
+                    actorData.system.settings.hasquintessence = true;
+                }
+
                 // set bearing in path correctly
                 if (actorData.system.advantages[key].system.id === "path") {
     				let bearing = 0;
