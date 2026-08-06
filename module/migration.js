@@ -2714,6 +2714,12 @@ export  const updates = async () => {
 
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
+
+        if (_compareVersion(installedVersion, '7.2.5')) {
+            newfunctions += '<li>[PC Actor WtA] Fixed bug that caused renown not to be shown.</li>';
+            newfunctions += '<li>[PC Actor VtM] Fixed bug that caused virtues not to be shown.</li>';
+            newfunctions += '<li>[PC Actor MtA] Fixed bug that caused quintessence not to be shown.</li>';
+        }
         
         if (_compareVersion(installedVersion, '7.2.4')) {
             newfunctions += '<li>[PC Actor DtF] Fixed an error with the Earthbounds Urges causing them not to display correct headline. Recreate any PC Actor with the Earthbound template and the problem will be resolved.</li>';

@@ -252,17 +252,18 @@ export class WoDActor extends Actor {
             }
 
             // Add advantages as objektstruktur
-            actorData.system.advantages = {};            
+            actorData.system.advantages = {};   
+            actorData.system.settings.haswillpower = false;
+            actorData.system.settings.hasgnosis = false;
+            actorData.system.settings.hasvirtue = false;
+            actorData.system.settings.hasrenown = false;
+            actorData.system.settings.hasquintessence = false;         
             
             for (const adv of advantages) {
                 const key = adv.system.slug ?? adv.system.id ?? adv.name.toLowerCase();
                 actorData.system.advantages[key] = adv.toObject();
 
-                actorData.system.settings.haswillpower = false;
-                actorData.system.settings.hasgnosis = false;
-                actorData.system.settings.hasvirtue = false;
-                actorData.system.settings.hasrenown = false;
-                actorData.system.settings.hasquintessence = false;
+                
 
                 if ((adv.system.id === "willpower") && (adv.system.settings.isvisible)) {
                     actorData.system.settings.haswillpower = true;
@@ -270,13 +271,13 @@ export class WoDActor extends Actor {
                 if ((adv.system.id === "gnosis") && (adv.system.settings.isvisible)) {
                     actorData.system.settings.hasgnosis = true;
                 }
-                if ((adv.system.id === "virtue") && (adv.system.settings.isvisible)) {
+                if ((adv.system.group === "virtue") && (adv.system.settings.isvisible)) {
                     actorData.system.settings.hasvirtue = true;
                 }
-                if ((adv.system.id === "renown") && (adv.system.settings.isvisible)) {
+                if ((adv.system.group === "renown") && (adv.system.settings.isvisible)) {
                     actorData.system.settings.hasrenown = true;
                 }
-                if ((adv.system.id === "quintessence") && (adv.system.settings.isvisible)) {
+                if ((adv.system.group === "quintessence") && (adv.system.settings.isvisible)) {
                     actorData.system.settings.hasquintessence = true;
                 }
 
