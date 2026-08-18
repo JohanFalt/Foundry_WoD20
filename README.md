@@ -1,5 +1,7 @@
 ![](https://img.shields.io/badge/Foundry-v14-informational)
 
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.10/v7.2.10.zip)
+
 ![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.9/v7.2.9.zip)
 
 ![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.8/v7.2.8.zip)

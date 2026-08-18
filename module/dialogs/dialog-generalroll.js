@@ -162,9 +162,16 @@ export class DialogGeneralRoll extends FormApplication {
                         data.object.attributeValue = parseInt(data.actorData.advantages.virtues[attributeKey].roll);
                         data.object.name = data.object.attributeName; 
                     }
+                    // To handle specifications on Resolve and Composure
                     else if ((attributeKey == "willpower") && (CONFIG.worldofdarkness.attributeSettings == "5th")) {
                         const willpowerAdv = data.actorData.advantages?.[attributeKey];
-                        const advantage = willpowerAdv?.system !== undefined ? willpowerAdv.system : willpowerAdv;
+                        const advantageItem = (this.actor.type === "PC")
+                            ? this.actor.api?.getAdvantage("willpower")
+                            : null;
+
+                        // Prefer live Advantage item (PC); fall back to prepared system.advantages map
+                        const advantage = advantageItem?.system
+                            ?? (willpowerAdv?.system !== undefined ? willpowerAdv.system : willpowerAdv);
 
                         if (advantage) {
                             if (advantage.label === "custom") {
@@ -176,6 +183,22 @@ export class DialogGeneralRoll extends FormApplication {
 
                             data.object.attributeValue = parseInt(advantage.roll);
                             data.object.name = data.object.attributeName;
+                        }
+                        else {
+                            console.error("DialogGeneralRoll.getData(): Could not resolve Willpower advantage for 5th-edition attributes.", {
+                                actorId: this.actor?.id,
+                                actorName: this.actor?.name,
+                                actorType: this.actor?.type,
+                                attributeKey,
+                                hasSystemAdvantagesMap: !!data.actorData.advantages,
+                                systemAdvantageKeys: Object.keys(data.actorData.advantages ?? {}),
+                                willpowerFromSystem: willpowerAdv,
+                                hasApi: !!this.actor?.api,
+                                willpowerItem: this.actor?.items?.find(i => i.type === "Advantage" && i.system?.id === "willpower"),
+                                attributeSettings: CONFIG.worldofdarkness.attributeSettings,
+                                fifthEditionWillpowerSetting: CONFIG.worldofdarkness.fifthEditionWillpowerSetting,
+                                systemVersion: game.system.version
+                            });
                         }
 
                         if (parseInt(data.actorData.attributes?.composure.value) >= specialityLevel) {
@@ -194,17 +217,36 @@ export class DialogGeneralRoll extends FormApplication {
                         }  
                     } 
                     else {
-                        const advantage = (data.actorData.advantages[attributeKey].system !== undefined ? data.actorData.advantages[attributeKey].system : data.actorData.advantages[attributeKey]);
-                        
-                        if (advantage.label === "custom") {
-                            data.object.attributeName = advantage.custom;
+                        const mappedAdv = data.actorData.advantages?.[attributeKey];
+                        const advantageItem = (this.actor.type === "PC" && this.actor.api)
+                            ? this.actor.api.getAdvantage(attributeKey)
+                            : null;
+                        const advantage = advantageItem?.system
+                            ?? (mappedAdv?.system !== undefined ? mappedAdv.system : mappedAdv);
+
+                        if (advantage) {
+                            if (advantage.label === "custom") {
+                                data.object.attributeName = advantage.custom;
+                            }
+                            else {
+                                data.object.attributeName = game.i18n.localize(advantage.label);
+                            }
+                            
+                            data.object.attributeValue = parseInt(advantage.roll);
+                            data.object.name = data.object.attributeName;
                         }
                         else {
-                            data.object.attributeName = game.i18n.localize(advantage.label);
+                            console.error("DialogGeneralRoll.getData(): Could not resolve noability advantage.", {
+                                actorId: this.actor?.id,
+                                actorName: this.actor?.name,
+                                actorType: this.actor?.type,
+                                attributeKey,
+                                systemAdvantageKeys: Object.keys(data.actorData.advantages ?? {}),
+                                mappedAdv,
+                                hasApi: !!this.actor?.api,
+                                systemVersion: game.system.version
+                            });
                         }
-                        
-                        data.object.attributeValue = parseInt(advantage.roll);
-                        data.object.name = data.object.attributeName;
                     }         
                 }            
                 else {
@@ -240,11 +282,13 @@ export class DialogGeneralRoll extends FormApplication {
                             _id: abilityItem.system.id
                         };
                     }
-                } else if ((data.actorData.abilities[abilityKey] != undefined) && (data.actorData.abilities[abilityKey].isvisible)) {
+                } 
+                else if ((data.actorData.abilities[abilityKey] != undefined) && (data.actorData.abilities[abilityKey].isvisible)) {
                     // Legacy actors
                     ability = data.actorData.abilities[abilityKey];
                     ability.issecondary = false;
-                } else {
+                } 
+                else {
                     // Fallback för Legacy
                     const item = await this.actor.getEmbeddedDocument("Item", abilityKey);
                     ability = {
@@ -308,6 +352,30 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         data.object.specialityText = specialityText;
+
+        // noability rolls must resolve a named pool; empty name = empty Dice Pool UI
+        if (data.object.type === "noability") {
+            const missingName = !data.object.attributeName;
+            const badValue = !Number.isFinite(data.object.attributeValue);
+            
+            if (missingName || badValue) {
+                console.error("DialogGeneralRoll.getData(): noability dice pool failed to populate.", {
+                    actorId: this.actor?.id,
+                    actorName: this.actor?.name,
+                    actorType: this.actor?.type,
+                    attributeKey: data.object.attributeKey,
+                    attributeName: data.object.attributeName,
+                    attributeValue: data.object.attributeValue,
+                    attributeSettings: CONFIG.worldofdarkness.attributeSettings,
+                    fifthEditionWillpowerSetting: CONFIG.worldofdarkness.fifthEditionWillpowerSetting,
+                    systemAdvantageKeys: Object.keys(this.actor?.system?.advantages ?? {}),
+                    willpowerFromSystem: this.actor?.system?.advantages?.willpower,
+                    willpowerItem: this.actor?.items?.find(i => i.type === "Advantage" && i.system?.id === "willpower")?.toObject?.()
+                        ?? this.actor?.items?.find(i => i.type === "Advantage" && i.system?.id === "willpower"),
+                    systemVersion: game.system.version
+                });
+            }
+        }
 
         return data;
     }

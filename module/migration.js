@@ -2741,6 +2741,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
 
+        if (_compareVersion(installedVersion, '7.2.10')) {
+            newfunctions += '<li>Improved handling when rolling advantages e.g Willpower.</li>';
+        }
+
         if (_compareVersion(installedVersion, '7.2.9')) {
             newfunctions += '<li>[PC Actor] If the game was using the V5 settings for using the attributes composure and resolve rolling willpower did not work correctly.</li>';
             newfunctions += '<li>[PC Actor] If the game was using the V5 settings for using composure and resolve to calculate willpower the update of willpower was not done correctly.</li>';
