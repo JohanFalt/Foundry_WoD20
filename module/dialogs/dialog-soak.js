@@ -209,15 +209,7 @@ export class DialogSoakRoll extends FormApplication {
      * @returns {number}
      */
     _getMaxHealthLevels() {
-        let maxLevels = parseInt(this.actor.system.traits?.health?.totalhealthlevels?.max) || 0;
-
-        if (maxLevels <= 0) {
-            for (const level in CONFIG.worldofdarkness.woundLevels) {
-                maxLevels += parseInt(this.actor.system.health?.[level]?.total) || 0;
-            }
-        }
-
-        return Math.max(0, maxLevels);
+        return CombatHelper.GetMaxHealthLevels(this.actor.system);
     }
 
     /**

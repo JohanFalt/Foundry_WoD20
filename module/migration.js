@@ -2741,6 +2741,10 @@ export  const updates = async () => {
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
 
+        if (_compareVersion(installedVersion, '7.2.11')) {
+            newfunctions += '<li>[PC Actor] Fixed bug that caused the automatic health level calculation not check all actor health levels maxing out by 7.</li>';
+        }
+        
         if (_compareVersion(installedVersion, '7.2.10')) {
             newfunctions += '<li>Improved handling when rolling advantages e.g Willpower.</li>';
         }

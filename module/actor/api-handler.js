@@ -640,18 +640,13 @@ export default class PCActorAPI {
             let currentDamage = parseInt(actorData.system.health.damage[damageType]) || 0;
             currentDamage = Math.max(0, currentDamage - Math.abs(amount));
             actorData.system.health.damage[damageType] = currentDamage;
-        } else {
-            let maxLevels = parseInt(actorData.system.traits?.health?.totalhealthlevels?.max) || 0;
-            if (maxLevels <= 0) {
-                for (const level in CONFIG.worldofdarkness.woundLevels) {
-                    maxLevels += parseInt(actorData.system.health?.[level]?.total) || 0;
-                }
-            }
+        } 
+        else {
             CombatHelper.ApplyDamageWithOverflow(
                 actorData.system.health.damage,
                 damageType,
                 Math.abs(amount),
-                maxLevels
+                CombatHelper.GetMaxHealthLevels(actorData.system)
             );
         }
 

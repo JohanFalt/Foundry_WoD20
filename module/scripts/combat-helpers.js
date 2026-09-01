@@ -149,6 +149,24 @@ export default class CombatHelper {
 	}
 
 	/**
+	 * Total wound boxes on the actor health track.
+	 * Sums per-level `total` fields — do not use persisted `traits.health.totalhealthlevels.max`,
+	 * which can remain at the default (7) after the track is extended.
+	 *
+	 * @param {object} system - Actor system data (or duplicate thereof)
+	 * @returns {number}
+	 */
+	static GetMaxHealthLevels(system) {
+		let maxLevels = 0;
+
+		for (const level in CONFIG.worldofdarkness.woundLevels) {
+			maxLevels += parseInt(system?.health?.[level]?.total) || 0;
+		}
+
+		return Math.max(0, maxLevels);
+	}
+
+	/**
 	 * How much damage of a given type can still be applied to the health track.
 	 * Empty boxes can always be filled.
 	 * Excess bashing upgrades existing bashing → lethal (V20/W20 Applying Damage).
