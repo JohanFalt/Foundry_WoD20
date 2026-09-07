@@ -33,6 +33,8 @@ function clearHTML(sheet) {
 	classList.remove("demon");
 	classList.remove("hunter");
 	classList.remove("wraith");
+	classList.remove("mummy");
+	classList.remove("exalted");
 }
 
 // Helper function to construct option groups for select elements
@@ -161,6 +163,22 @@ export function registerHooks(constants, isTablet) {
 
 		if (splat == "wraith") {
 			sheet.classList.add("wraith");
+
+			for (const variant in CONFIG.worldofdarkness.variant.mortal) {
+				sheet.classList.remove(variant);
+			}
+		}
+
+		if (splat == "mummy") {
+			sheet.classList.add("mummy");
+
+			for (const variant in CONFIG.worldofdarkness.variant.mortal) {
+				sheet.classList.remove(variant);
+			}
+		}
+
+		if (splat == "exalted") {
+			sheet.classList.add("exalted");
 
 			for (const variant in CONFIG.worldofdarkness.variant.mortal) {
 				sheet.classList.remove(variant);

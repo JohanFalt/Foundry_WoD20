@@ -1,6 +1,7 @@
 import BonusHelper from "./scripts/bonus-helpers.js";
 import ItemHelper from "./scripts/item-helpers.js";
 import Functions from "./functions.js";
+import { getCorpusDamageStates, getCorpusPermanent } from "./scripts/health.js";
 
 function getMeaningfulBonuses(bonuslist) {
 	return BonusHelper.asBonuslist(bonuslist).filter(bonus => bonus?.type);
@@ -428,17 +429,27 @@ export const registerHandlebarsHelpers = function () {
 		}		
 
 		if (istemporary) {
-			let header = `<div class="sheet-boxcontainer"><div class="resource-counter tempSquareRow" data-itemid="${stat._id}" data-key="${statid}" data-value="${stat.system.temporary}" data-name="system.temporary">`;
+			const isCorpus = (statid === "corpus");
+			const corpusPermanent = isCorpus ? getCorpusPermanent(actor) : 0;
+			const boxCount = isCorpus ? corpusPermanent : stat.system.max;
+			const corpusStates = isCorpus ? getCorpusDamageStates(actor) : null;
+
+			let header = `<div class="sheet-boxcontainer"><div class="resource-counter tempSquareRow${isCorpus ? " health" : ""}" data-itemid="${stat._id}" data-key="${statid}" data-value="${stat.system.temporary}" data-name="system.temporary">`;
 			let footer = `</div></div>`;
 
-			for (let value = 0; value <= stat.system.max - 1; value++) {
+			for (let value = 0; value < boxCount; value++) {
 				let mark = "";
+				let action = "editDot";
 
-				if (stat.system.temporary > value) {
+				if (isCorpus) {
+					mark = corpusStates[value] || "";
+					action = "editHealth";
+				}
+				else if (stat.system.temporary > value) {
 					mark = "x";
 				}
 
-				temporary_html += `<span class="resource-value-step" data-action="editDot" data-type="${splat_temporary}" data-index="${value}" data-state="${mark}"></span>`;
+				temporary_html += `<span class="resource-value-step${isCorpus ? " healthBox" : ""}" data-action="${action}" data-type="${splat_temporary}" data-index="${value}" data-state="${mark}"></span>`;
 			}			
 
 			temporary_html = header + temporary_html + footer;
@@ -1579,6 +1590,9 @@ export const registerHandlebarsHelpers = function () {
 
 		if (era == undefined) {
 			era = CONFIG.worldofdarkness.era.modern;
+		}
+		else if (CONFIG.worldofdarkness.era[era]) {
+			era = CONFIG.worldofdarkness.era[era];
 		}
 		
 		if (fullname) {

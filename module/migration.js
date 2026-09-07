@@ -2738,6 +2738,14 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';
     }
 
+    if (!patch730) {
+        game.settings.set('worldofdarkness', 'patch730', true);
+
+        newfunctions += '<li>[PC Actor Exalted] Added template items in compendium for Exalted vs WoD.</li>';
+        newfunctions += '<li>[PC Actor WtO] Added template items in compendium for Wraith the Oblivion.</li>';
+        newfunctions += '<li>[PC Actor MtR] Added template items in compendium for Mummy the Resurrection Revised.</li>';
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';    
 

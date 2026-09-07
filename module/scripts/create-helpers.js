@@ -1,5 +1,6 @@
 import AbilityHelper from "./ability-helpers.js";
 import BonusHelper from "./bonus-helpers.js";
+import { resolveWeaponEra } from "./select/era.js";
 
 export default class CreateHelper {
 
@@ -1324,7 +1325,7 @@ export default class CreateHelper {
 			type: config.systemType,
 			ismagical: true,
 			iscontainter: config.iscontainter,
-			era: actor.system.settings.era,
+			era: resolveWeaponEra(actor.system.settings.era),
 			description: "",
 			details: "",
 			bonuslist: [],
@@ -1741,7 +1742,7 @@ export default class CreateHelper {
 						system: {
 							isnatural: true,
 							isweapon: true,
-							era: actor.system.settings.era
+							era: resolveWeaponEra(actor.system.settings.era)
 						}
 					};
 
@@ -1759,7 +1760,7 @@ export default class CreateHelper {
 							isnatural: false,
 							isweapon: true,
 							conceal: "NA",
-							era: actor.system.settings.era
+							era: resolveWeaponEra(actor.system.settings.era)
 						}
 					};
 
@@ -1776,7 +1777,7 @@ export default class CreateHelper {
 						system: {
 							isweapon: true,
 							conceal: "NA",
-							era: actor.system.settings.era
+							era: resolveWeaponEra(actor.system.settings.era)
 						}
 					};
 
@@ -1791,7 +1792,7 @@ export default class CreateHelper {
 						name: game.i18n.localize("wod.labels.new.armor"),
 						type: "Armor",
 						system: {
-							era: actor.system.settings.era
+							era: resolveWeaponEra(actor.system.settings.era)
 						}
 					};
 
@@ -1817,6 +1818,11 @@ export default class CreateHelper {
 		// Lägg till actor's huvudspel
 		if (actor.system.settings?.game) {
 			games.add(actor.system.settings.game);
+		}
+
+		// Orpheus-variant: expandera Orpheus-kategori även om settings.game är wraith/mortal
+		if (actor.system.settings?.variant === "orpheus") {
+			games.add("orpheus");
 		}
 		
 		// Analysera alla Power items på actorn
@@ -1870,6 +1876,7 @@ export default class CreateHelper {
 			demon: "wod.games.demon",
 			hunter: "wod.games.hunter",
 			wraith: "wod.games.wraith",
+			orpheus: "wod.games.orpheus",
 			mummy: "wod.games.mummy",
 			exalted: "wod.games.exalted",
 			other: "wod.labels.other"
@@ -2182,6 +2189,159 @@ export default class CreateHelper {
 					}
 				}
 			},
+			arcanoi: {
+				game: "wraith",
+				button: {
+					label: game.i18n.localize("wod.types.arcanoi"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("arcanoi");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			arcanoipower: {
+				game: "wraith",
+				button: {
+					label: game.i18n.localize("wod.types.arcanoipower"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("arcanoipower");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			passion: {
+				game: "wraith",
+				button: {
+					label: game.i18n.localize("wod.types.passion"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.passion")}`,
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.passion"
+							}
+						};
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			fetter: {
+				game: "wraith",
+				button: {
+					label: game.i18n.localize("wod.types.fetter"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.fetter")}`,
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.fetter"
+							}
+						};
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			darkpassion: {
+				game: "wraith",
+				button: {
+					label: game.i18n.localize("wod.types.darkpassion"),
+					callback: async () => {
+						let itemData = {
+							name: `${game.i18n.localize("wod.labels.new.darkpassion")}`,
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.passion"
+							}
+						};
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			horror: {
+				game: "orpheus",
+				button: {
+					label: game.i18n.localize("wod.types.horror"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("horror");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			stain: {
+				game: "orpheus",
+				button: {
+					label: game.i18n.localize("wod.types.stain"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("stain");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			hekau: {
+				game: "mummy",
+				button: {
+					label: game.i18n.localize("wod.types.hekau"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("hekau");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			hekaupower: {
+				game: "mummy",
+				button: {
+					label: game.i18n.localize("wod.types.hekaupower"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("hekaupower");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			exaltedcharm: {
+				game: "exalted",
+				button: {
+					label: game.i18n.localize("wod.types.exaltedcharm"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("exaltedcharm");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
+			exaltedsorcery: {
+				game: "exalted",
+				button: {
+					label: game.i18n.localize("wod.types.exaltedsorcery"),
+					callback: async () => {
+						let itemData = await this.CreateItemPower("exaltedsorcery");
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
+			},
 			shapeform: {
 				game: null, // "other"
 				button: {
@@ -2238,6 +2398,20 @@ export default class CreateHelper {
 			delete allButtons.lore;
 			delete allButtons.lorepower;
 			delete allButtons.demonritual;
+		}
+
+		// Shadow-variant: endast Dark Passion (strikt Core-create)
+		if (actor.system.settings.variant === "shadow") {
+			const darkpassion = allButtons.darkpassion;
+			for (const key of Object.keys(allButtons)) {
+				delete allButtons[key];
+			}
+			if (darkpassion) {
+				allButtons.darkpassion = darkpassion;
+			}
+		}
+		else {
+			delete allButtons.darkpassion;
 		}
 		
 		// Gruppera buttons efter game

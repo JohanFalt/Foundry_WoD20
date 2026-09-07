@@ -111,7 +111,7 @@
 			<div class="headlineGroup splatFont">{{localize 'wod.abilities.abilities'}}</div>
 
 			<div class="sheet-area flex-columns">
-				{{> "systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs" showheadline=false useroll=false showvalues=false showvisibleicon=true}}
+				{{> "systems/worldofdarkness/templates/actor/parts/stats_abilities.hbs" showheadline=false useroll=false showvalues=false showvisibleicon=true showfavorite=false}}
 			</div>
 
 			{{#if (ne actor.system.settings.splat "vampire")}}
@@ -468,6 +468,7 @@
 				</div>
 			</div>
 
+			{{#unless hascorpus}}
 			<div class="space sheet-area flex-columns">
 				<div class="clearareaBox">
 					<div class="headlineGroup splatFont">{{localize "wod.health.health"}}</div>
@@ -552,6 +553,7 @@
 					{{localize "wod.info.settings.healthpenalty"}}
 				</div>
 			</div>
+			{{/unless}}
 		</div>
 
 		{{!-- Features (not implemented yet) --}}

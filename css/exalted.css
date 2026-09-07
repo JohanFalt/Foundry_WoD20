@@ -36,7 +36,7 @@
   font-family: var(--main-exalted-font);
 }
 
-.wod20.exalted button,
+.wod20.exalted button:not(.header-control),
 .wod20.exalted input,
 .wod20.exalted select {
   font-family: var(--main-exalted-font);
@@ -128,8 +128,15 @@
 }
 
 .wod20.exalted .attribute-rowheight {
-  height: 19px;
-  line-height: 26px;
+  height: 23px;
+  line-height: 23px;
+  overflow: hidden;
+}
+
+.wod20.exalted .attribute-rowheight input.item-active {
+  width: 14px;
+  height: 14px;
+  margin: 4px 4px 0 0;
 }
 
 .exalted .exaltedsorcery-headlineBox,

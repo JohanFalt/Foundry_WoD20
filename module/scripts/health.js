@@ -2,6 +2,82 @@ let bashing = 0;
 let lethal = 0;
 let aggravated = 0;
 
+/**
+ * Returns the Corpus Advantage item on an actor, if any.
+ * @param {Actor} actor
+ * @returns {Item|undefined}
+ */
+export function getCorpusAdvantage(actor) {
+	if (!actor) return undefined;
+	return (actor.items || []).find(item => item.type === "Advantage" && item.system?.id === "corpus");
+}
+
+/**
+ * True when the actor should use Corpus as its health track.
+ * @param {Actor} actor
+ * @returns {boolean}
+ */
+export function actorHasCorpus(actor) {
+	if (!actor) return false;
+	if (getCorpusAdvantage(actor)) return true;
+	// Legacy Wraith: corpus lives on actor.system.advantages
+	if (actor.type === CONFIG.worldofdarkness.sheettype.wraith) {
+		return actor.system?.advantages?.corpus !== undefined;
+	}
+	return false;
+}
+
+/**
+ * Permanent Corpus rating (PC Advantage item or legacy actor field).
+ * @param {Actor} actor
+ * @returns {number}
+ */
+export function getCorpusPermanent(actor) {
+	const corpusItem = getCorpusAdvantage(actor);
+	if (corpusItem) {
+		return parseInt(corpusItem.system.permanent) || 0;
+	}
+	const legacy = actor.system?.advantages?.corpus;
+	if (legacy?.system?.permanent !== undefined) {
+		return parseInt(legacy.system.permanent) || 0;
+	}
+	return parseInt(legacy?.permanent) || 0;
+}
+
+/**
+ * Build Corpus damage-box states synchronously (/, x, *).
+ * @param {Actor} actor
+ * @returns {string[]}
+ */
+export function getCorpusDamageStates(actor) {
+	const damage = actor.system?.health?.damage?.corpus || { bashing: 0, lethal: 0, aggravated: 0 };
+	let remainingBashing = parseInt(damage.bashing) || 0;
+	let remainingLethal = parseInt(damage.lethal) || 0;
+	let remainingAggravated = parseInt(damage.aggravated) || 0;
+	const permanent = getCorpusPermanent(actor);
+	const states = [];
+
+	for (let i = 0; i < permanent; i++) {
+		if (remainingAggravated > 0) {
+			remainingAggravated -= 1;
+			states.push("*");
+		}
+		else if (remainingLethal > 0) {
+			remainingLethal -= 1;
+			states.push("x");
+		}
+		else if (remainingBashing > 0) {
+			remainingBashing -= 1;
+			states.push("/");
+		}
+		else {
+			states.push("");
+		}
+	}
+
+	return states;
+}
+
 export async function calculateHealth(actor, type) {
 
     const healthLevels = [];
@@ -18,11 +94,17 @@ export async function calculateHealth(actor, type) {
         aggravated = actor.system.health.damage.chimerical.aggravated;
     }
     if (type == CONFIG.worldofdarkness.sheettype.wraith) {
+		if (!actor.system.health.damage.corpus) {
+			actor.system.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+		}
+
         bashing = actor.system.health.damage.corpus.bashing;
         lethal = actor.system.health.damage.corpus.lethal;
         aggravated = actor.system.health.damage.corpus.aggravated;
 
-        for (let i=0; i < actor.system.advantages.corpus.permanent; i++) {
+		const corpusPermanent = getCorpusPermanent(actor);
+
+        for (let i=0; i < corpusPermanent; i++) {
             let status = await calculateStatus();
 
             const healthLevel = {

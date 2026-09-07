@@ -191,7 +191,9 @@ export class WoDActor extends Actor {
             const allpowers = (this?.items || []).filter(item => item.type === "Power" || item.type === "Sphere" || item.type === "Realm" || item.type === "Rote");
             const shapes = actorData.items.filter(item => item.type === "Trait" && (item.system.type === "wod.types.shapeform"));
             const apocalypticforms = actorData.items.filter(item => item.type === "Trait" && (item.system.type === "wod.types.apocalypticform"));
-            const resonances = actorData.items.filter(item => item.type === "Trait" && item.system?.type === "wod.types.resonance");            
+            const resonances = actorData.items.filter(item => item.type === "Trait" && item.system?.type === "wod.types.resonance");
+            const passions = actorData.items.filter(item => item.type === "Trait" && item.system?.type === "wod.types.passion");
+            const fetters = actorData.items.filter(item => item.type === "Trait" && item.system?.type === "wod.types.fetter");
 
             // Normalization: Set ability max values
             await this._setAbilityMaxValue(actorData);
@@ -507,6 +509,13 @@ export class WoDActor extends Actor {
             actorData.system.settings.hasrealms = false;
             actorData.system.settings.haslores = false;
             actorData.system.settings.hasedges = false;
+            actorData.system.settings.hasarcanois = false;
+            actorData.system.settings.haspassions = false;
+            actorData.system.settings.hasfetters = false;
+            actorData.system.settings.hashorrors = false;
+            actorData.system.settings.hasstains = false;
+            actorData.system.settings.hashekau = false;
+            actorData.system.settings.hasexaltedcharms = false;
 
             for (const power of allpowers) {
                 if (power.system.type === "wod.types.discipline" || power.system.type === "wod.types.disciplinepower") {
@@ -533,6 +542,21 @@ export class WoDActor extends Actor {
                 if (power.system.type === "wod.types.numina" || power.system.type === "wod.types.numinapower") {
                     actorData.system.settings.hasnuminas = true;
                 }
+                if (power.system.type === "wod.types.arcanoi" || power.system.type === "wod.types.arcanoipower") {
+                    actorData.system.settings.hasarcanois = true;
+                }
+                if (power.system.type === "wod.types.horror") {
+                    actorData.system.settings.hashorrors = true;
+                }
+                if (power.system.type === "wod.types.stain") {
+                    actorData.system.settings.hasstains = true;
+                }
+                if (power.system.type === "wod.types.hekau" || power.system.type === "wod.types.hekaupower") {
+                    actorData.system.settings.hashekau = true;
+                }
+                if (power.system.type === "wod.types.exaltedcharm" || power.system.type === "wod.types.exaltedsorcery") {
+                    actorData.system.settings.hasexaltedcharms = true;
+                }
                 if (power.type === "Sphere") {
                     actorData.system.settings.hasspheres = true;
                 }
@@ -547,6 +571,22 @@ export class WoDActor extends Actor {
             actorData.system.settings.hasshapes = shapes.length > 0;
             actorData.system.settings.hasapocalypticforms = apocalypticforms.length > 0;
             actorData.system.settings.hasresonances = resonances.length > 0;
+            actorData.system.settings.haspassions = passions.length > 0;
+            actorData.system.settings.hasfetters = fetters.length > 0;
+
+            // Corpus Advantage present → sync corpus damage track
+            if (advantages.some(adv => adv.system?.id === "corpus")) {
+                await this._handleWraithCalculations(actorData);
+            }
+
+            // Exalted Essence Pool Advantage sync (uses Essence permanent + variant when present)
+            if (advantages.some(adv => adv.system?.id === "essencepool")) {
+                const essenceUpdates = await this._syncExaltedEssencePool(actorData, advantages);
+                
+                if (essenceUpdates.length > 0) {
+                    itemList.push(...essenceUpdates);
+                }
+            }
 
             if (itemList.length > 0) {
                 this.updateEmbeddedDocuments("Item", itemList);
@@ -1495,7 +1535,62 @@ export class WoDActor extends Actor {
 	}
 
     async _handleWraithCalculations(actorData) {
+        // PC: Corpus is an Advantage item; sync damage when permanent is reduced
         if (actorData.type == "PC") {
+            const corpusAdv = (actorData.items || []).find(item => item.type === "Advantage" && item.system?.id === "corpus");
+            if (!corpusAdv) {
+                return actorData;
+            }
+
+            if (!actorData.system.health.damage.corpus) {
+                actorData.system.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+            }
+
+            const permanent = parseInt(corpusAdv.system.permanent) || 0;
+            const max = parseInt(corpusAdv.system.max) || 10;
+            let temporary = parseInt(corpusAdv.system.temporary) || 0;
+            const damage = actorData.system.health.damage.corpus;
+            const totalDamage = (parseInt(damage.bashing) || 0) + (parseInt(damage.lethal) || 0) + (parseInt(damage.aggravated) || 0);
+
+            if (permanent > max) {
+                // permanent is on the item; clamping happens via item update elsewhere
+            }
+
+            if (permanent < temporary || totalDamage > permanent) {
+                let diff = Math.max(temporary - permanent, totalDamage - permanent, 0);
+
+                if ((damage.bashing > 0) && (diff > 0)) {
+                    if (damage.bashing >= diff) {
+                        damage.bashing -= diff;
+                        diff = 0;
+                    }
+                    else {
+                        diff -= damage.bashing;
+                        damage.bashing = 0;
+                    }
+                }
+                if ((damage.lethal > 0) && (diff > 0)) {
+                    if (damage.lethal >= diff) {
+                        damage.lethal -= diff;
+                        diff = 0;
+                    }
+                    else {
+                        diff -= damage.lethal;
+                        damage.lethal = 0;
+                    }
+                }
+                if ((damage.aggravated > 0) && (diff > 0)) {
+                    if (damage.aggravated >= diff) {
+                        damage.aggravated -= diff;
+                        diff = 0;
+                    }
+                    else {
+                        diff -= damage.aggravated;
+                        damage.aggravated = 0;
+                    }
+                }
+            }
+
             return actorData;
         }
 
@@ -1560,6 +1655,62 @@ export class WoDActor extends Actor {
         }
 
         return actorData;
+    }
+
+    /**
+     * PC: sync Essence Pool max/perturn (and Essence roll) like legacy _keepSheetValuesCorrect.
+     * Requires Advantage id "essencepool". If Advantage id "essence" exists, use variant tables;
+     * otherwise default max 10 / perturn 1.
+     * @returns {Array} embedded item update payloads
+     */
+    async _syncExaltedEssencePool(actorData, advantages) {
+        const updates = [];
+        try {
+            const essence = advantages.find(adv => adv.system?.id === "essence");
+            const pool = advantages.find(adv => adv.system?.id === "essencepool");
+            if (!pool) {
+                return updates;
+            }
+
+            let poolMax = 10;
+            let perturn = 1;
+
+            if (essence) {
+                const permanent = parseInt(essence.system.permanent) || 1;
+                const variant = actorData.system.settings.variant || "";
+                poolMax = await _calculteMaxEssencepool(variant, permanent);
+                perturn = await _calculteMaxEssencepoolSpend(variant, permanent);
+
+                if (parseInt(essence.system.roll) !== permanent) {
+                    updates.push({ _id: essence._id, "system.roll": permanent });
+                }
+            }
+
+            const poolUpdate = { _id: pool._id };
+            let needsPoolUpdate = false;
+            if (parseInt(pool.system.max) !== poolMax) {
+                poolUpdate["system.max"] = poolMax;
+                needsPoolUpdate = true;
+            }
+            if (parseInt(pool.system.perturn) !== perturn) {
+                poolUpdate["system.perturn"] = perturn;
+                needsPoolUpdate = true;
+            }
+            const temporary = parseInt(pool.system.temporary) || 0;
+            if (temporary > poolMax) {
+                poolUpdate["system.temporary"] = poolMax;
+                needsPoolUpdate = true;
+            }
+            if (needsPoolUpdate) {
+                updates.push(poolUpdate);
+            }
+        }
+        catch (err) {
+            err.message = `Failed _syncExaltedEssencePool Actor ${actorData.name}: ${err.message}`;
+            console.error(err);
+        }
+
+        return updates;
     }
 
     // Securing bonus items needs still to be handled here even by PC actors

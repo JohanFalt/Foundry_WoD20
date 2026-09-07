@@ -13,13 +13,13 @@
  *
  * **Shared / generic**
  * - `DifficultyList`: Difficulty values (`CONFIG.worldofdarkness.lowestDifficulty`..10), includes “varies”.
- * - `Era`: Game era options (values are `wod.era.*` keys from `CONFIG.worldofdarkness.era`).
+ * - `Era`: Splat/PC era options (short keys: `"modern"`, from `CONFIG.worldofdarkness.era`).
  * - `Games`: Game line options for sheets/items.
  * - `Sheet`: Sheet type options (mortal/vampire/...) for splat item settings.
  * - Numeric helpers: `Levelnegative3Value`, `Level5Value`, `Level6Value`, `Level9Value`, `ZeroToNine`
  *
  * **Weapons (item sheets)**
- * - `WeaponEra`: Alias of `Era` (kept for backward compatibility in weapon templates).
+ * - `WeaponEra`: Weapon `system.era` options (localization keys: `"wod.era.modern"`).
  * - `Conceal`: Weapon concealment code list (P/J/T/NA) with era-aware labels.
  * - `AttackAttributes`: Attack attribute list for weapons.
  * - `AttackAbilities`: Attack ability list for melee/ranged weapons (+ custom).
@@ -294,7 +294,7 @@ export default class SelectHelper {
             {
                 value: "wod.types.shapeform", 
                 label: game.i18n.localize("wod.types.shapeform"), 
-                group: game.i18n.localize("wod.games.exalted")
+                group: game.i18n.localize("wod.labels.other")
             },
             {
                 value: "wod.types.aspect", 
@@ -1233,8 +1233,8 @@ export default class SelectHelper {
     //#region Shared utilities (option helpers + Era/Conceal)
 
     /**
-     * Era: options for `system.era` (weapons) and `item.system.settings.era` (splat items).
-     * Values are localization keys from `CONFIG.worldofdarkness.era` (e.g. `"wod.era.modern"`).
+     * Era: short-key options for `item.system.settings.era` (splat items / PC).
+     * WeaponEra: localization-key options for equipment `system.era`.
      */
     static GetEraList() { return getEraList(); }
 

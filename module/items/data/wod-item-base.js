@@ -1,4 +1,5 @@
 import { calculateTotals } from "../../scripts/totals.js";
+import { resolveWeaponEra } from "../../scripts/select/era.js";
 
 /**
  * Extend the basic Item with some very simple modifications.
@@ -71,6 +72,17 @@ export class WoDItem extends Item {
 			
 			if ((data.type === "Advantage") && (options?.parent !== null) && (options?.parent !== undefined)) {
 				updates["system.settings.order"] = options.parent.items.filter(i => i.type === "Advantage").length;
+			}
+
+			// Equipment era: inherit actor sheet era and normalize short keys → wod.era.*
+			const equipmentWithEra = ["Armor", "Melee Weapon", "Ranged Weapon", "Item", "Fetish"];
+			if (equipmentWithEra.includes(data.type)) {
+				const parent = options?.parent;
+				const sourceEra = data.system?.era || parent?.system?.settings?.era;
+				const resolvedEra = resolveWeaponEra(sourceEra);
+				if (data.system?.era !== resolvedEra) {
+					updates["system.era"] = resolvedEra;
+				}
 			}
 
 			// Apply updates using updateSource (Foundry v10+)

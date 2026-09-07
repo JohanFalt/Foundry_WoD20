@@ -708,7 +708,15 @@ export default class DropHelper {
         let totalHealthLevels = 0;
         
         for (const healthlevel in CONFIG.worldofdarkness.woundLevels) {
-            totalHealthLevels += parseInt(health[healthlevel].value);
+            const level = health[healthlevel];
+            const value = parseInt(level?.value) || 1;
+            totalHealthLevels += value;
+            actorData.system.health[healthlevel] = {
+                value: value,
+                total: value,
+                penalty: level?.penalty ?? actorData.system.health[healthlevel]?.penalty ?? 0,
+                label: level?.label || CONFIG.worldofdarkness.woundLevels[healthlevel]
+            };
         }
 
         actorData.system.traits.health.totalhealthlevels.value = totalHealthLevels;
@@ -903,6 +911,13 @@ export default class DropHelper {
         actorData.system.settings.hasrotes = false;
         actorData.system.settings.hasresonances = false;
         actorData.system.settings.hasnuminas = false;
+        actorData.system.settings.hasarcanois = false;
+        actorData.system.settings.haspassions = false;
+        actorData.system.settings.hasfetters = false;
+        actorData.system.settings.hashorrors = false;
+        actorData.system.settings.hasstains = false;
+        actorData.system.settings.hashekau = false;
+        actorData.system.settings.hasexaltedcharms = false;
 
         // Reset chimerical
         actorData.system.settings.usechimerical = false;

@@ -18,6 +18,18 @@ export const datapowertab = {
         hunter: {
             primary: ["edges"],
         },
+        wraith: {
+            primary: ["arcanois", "passions", "fetters"],
+        },
+        orpheus: {
+            primary: ["horrors", "stains"],
+        },
+        mummy: {
+            primary: ["hekau"],
+        },
+        exalted: {
+            primary: ["exaltedcharms", "exaltedsorcery"],
+        },
         mortal: {
             primary: [],
         },
@@ -33,7 +45,15 @@ export const datapowertab = {
             "arts",
             "lores",
             "edges",
-            "numinas"
+            "numinas",
+            "arcanois",
+            "passions",
+            "fetters",
+            "horrors",
+            "stains",
+            "hekau",
+            "exaltedcharms",
+            "exaltedsorcery"
         ],
         unsorted: {
             priority: 99, 

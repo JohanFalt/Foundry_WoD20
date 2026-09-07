@@ -1,5 +1,6 @@
+{{#unless hascorpus}}
+
 <div class="sheet-headline sheet-banner-small splatFont"><span class="sheet-banner-text">{{localize 'wod.health.health'}}</span></div>	
-<!--<div>Vänsterklick att lägga till skada, högerklick rensar aktuell ruta.</div>-->
 
 <div class="sheet-boxcontainer">
     <div>{{getInjuredLevel actor.type actor.system.health actor.system.health.damage}}</div>
@@ -61,7 +62,7 @@
             <div class="resource-counter healthbox" data-name="data.system.health.wounded">
                 {{#numLoop actor.system.health.wounded.total}}            
                     <span class="resource-value-step healthBox wounded" 
-
+                        data-type="{{../config.sheettype.mortal}}"
                         data-action="editHealth"
                         data-index="{{this}}" 
                         data-state="{{damageState ../actor.system.health.wounded.label ../health this}}"></span>            
@@ -119,6 +120,8 @@
 
     {{/if}}
 </div>
+
+{{/unless}}
 
 {{#if actor.system.settings.usechimerical}}
 
@@ -245,6 +248,8 @@
 
 {{/if}}
 
+{{#unless hascorpus}}
 <div class="sheet-boxcontainer">
     <div class="information-area">{{localize "wod.health.penalty"}}: {{ignorePain actor.system.health.damage.woundpenalty}}</div>    
 </div>
+{{/unless}}

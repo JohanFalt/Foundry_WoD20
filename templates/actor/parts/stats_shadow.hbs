@@ -1,0 +1,81 @@
+{{!-- Shadow variant: strict Core view (name, psyche/archetype/thorns, Dark Passions, advantages) --}}
+
+<div class="sheet-area flex-rows">
+	<div style="width: 320px; flex-direction: column;">
+		<div class="area-box">
+			<div class="bioInformationArea floating-label-group">
+				{{#if locked}}
+					<input class="sheet-infoValues" type="text" value="{{actor.name}}" autocomplete="off" autofocus required />
+				{{else}}
+					<input class="sheet-infoValues editable" name="name" type="text" value="{{actor.name}}" data-dtype="String" autocomplete="off" autofocus required />
+				{{/if}}
+				<span class="floating-label">{{localize 'wod.bio.name'}}</span>
+			</div>
+		</div>
+	</div>
+
+	{{> "systems/worldofdarkness/templates/actor/parts/bio_splatfields.hbs" locked=locked}}
+</div>
+
+<div class="sheet-area flex-columns">
+	{{> "systems/worldofdarkness/templates/actor/parts/bio_splatboxes.hbs" locked=locked}}
+</div>
+
+<div class="sheet-area flex-columns" style="min-height: 150px;">
+	<div class="area-box">
+		<div class="clearareaBox sheet-headline sheet-banner splatFont" data-area="passions">
+			<span class="sheet-banner-text">{{localize "wod.bio.wraith.darkpassions"}}</span>
+		</div>
+	</div>
+
+	<div class="passion" data-area="passion">
+		{{#each passions as |item id|}}
+			<div class="item-row-area">
+				<div class="clearareaBox note-row">
+					<div class="pullLeft headlineNormal" style="width: 180px;">
+						{{#if (ne item.name "")}}
+							{{item.name}}
+						{{else}}
+							{{localize "wod.labels.new.darkpassion"}}
+						{{/if}}
+					</div>
+
+					<div class="resource-value pullLeft power-dotBox"
+						data-value="{{item.system.value}}"
+						data-itemid="{{item._id}}"
+						data-name="system.value">
+
+						{{#numLoop item.system.max}}
+							<span class="resource-value-step" data-action="editDot" data-itemid="{{../item._id}}" data-type="{{../../config.sheettype.mortal}}" data-index="{{this}}"></span>
+						{{/numLoop}}
+					</div>
+
+					<div class="pullLeft">
+						<div class="pullLeft">
+							<a class="send-chat"
+								title="{{localize 'wod.labels.send'}}"
+								data-itemid="{{item._id}}"
+								data-action="sendChat"><i class="icon fa-solid fa-comment-dots"></i></a>
+						</div>
+						{{#if (eq ../locked false)}}
+							<div class="pullLeft pointer">
+								<a class="item-edit" title="{{localize 'wod.labels.edit.passion'}}" data-type="Trait" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+							</div>
+							<div class="pullLeft pointer">
+								<a class="item-delete" title="{{localize 'wod.labels.remove.passion'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+							</div>
+						{{/if}}
+					</div>
+				</div>
+			</div>
+		{{/each}}
+	</div>
+</div>
+
+<div class="sheet-area flex-columns">
+	<div class="pullLeft sheet-boxcontainer item-row" style="width: 50%;">
+		{{#each advantages as |advantage id|}}
+			{{{getGetStatArea_v2 ../actor advantage}}}
+		{{/each}}
+	</div>
+</div>

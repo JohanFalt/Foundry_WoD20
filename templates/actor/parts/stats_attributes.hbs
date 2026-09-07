@@ -14,9 +14,9 @@
 			{{#if (topAttributes key)}}<div class="attribute-statArea pullLeft">{{/if}}
 
 			{{#if attribute.isvisible}}
-				<div class="attribute-rowheight attributes">
+				<div class="attribute-rowheight attributes clearareaBox">
 					{{#if (and (eq ../actor.system.settings.splat ../config.splat.exalted) (eqAny ../actor.system.settings.variant "lunar" "liminal" "alchemical"))}}
-						<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="attribute.settings.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{key}}" data-attribute="true" {{isChecked attribute.settings.isfavorited}}></input></div>
+						<input class="pullLeft item-active pointer" name="attribute.isfavored" type="checkbox" data-action="toggleFavored" data-type="{{../config.sheettype.exalted}}" data-key="{{key}}" data-attribute="true" {{isChecked attribute.isfavorited}}></input>
 					{{/if}}
 
 					<label for="data.system.attributes.{{key}}.value" 

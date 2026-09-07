@@ -20,8 +20,8 @@
 	
 		{{#each talents as |ability key|}}	
 			<div class="clearareaBox">
-				{{#if (eq ../actor.system.settings.splat ../config.splat.exalted)}}
-					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.system.settings.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.system.settings.isfavorited}}></input></div>
+				{{#if (and (eq ../actor.system.settings.splat ../config.splat.exalted) ../showfavorite)}}
+					<div class="pullLeft item-activeBox"><input class="item-active pointer" name="ability.system.settings.isfavored" type="checkbox" data-action="toggleFavored" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.system.settings.isfavorited}}></input></div>
 				{{/if}}
 
 				<label for="data.system.abilities.{{ability.system.id}}.system.value"
@@ -94,8 +94,8 @@
 	
 		{{#each skills as |ability key|}}	
 			<div class="clearareaBox">
-				{{#if (eq ../actor.system.settings.splat ../config.splat.exalted)}}
-					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.system.settings.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.system.settings.isfavorited}}></input></div>
+				{{#if (and (eq ../actor.system.settings.splat ../config.splat.exalted) ../showfavorite)}}
+					<div class="pullLeft item-activeBox"><input class="item-active pointer" name="ability.system.settings.isfavored" type="checkbox" data-action="toggleFavored" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.system.settings.isfavorited}}></input></div>
 				{{/if}}
 
 				<label for="data.system.abilities.{{ability.system.id}}.system.value"
@@ -165,8 +165,8 @@
 	
 		{{#each knowledges as |ability key|}}	
 			<div class="clearareaBox">
-				{{#if (eq ../actor.system.settings.splat ../config.splat.exalted)}}
-					<div class="pullLeft resource-counter"><input class="item-active pointer resource-value-step" name="ability.system.settings.isfavored" type="checkbox" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.system.settings.isfavorited}}></input></div>
+				{{#if (and (eq ../actor.system.settings.splat ../config.splat.exalted) ../showfavorite)}}
+					<div class="pullLeft item-activeBox"><input class="item-active pointer" name="ability.system.settings.isfavored" type="checkbox" data-action="toggleFavored" data-type="{{../config.sheettype.exalted}}" data-key="{{ability._id}}" data-ability="true" {{isChecked ability.system.settings.isfavorited}}></input></div>
 				{{/if}}
 
 				<label for="data.system.abilities.{{ability.system.id}}.system.value"

@@ -36,6 +36,13 @@ export default class settings extends foundry.abstract.DataModel {
             hasrealms: new fields.BooleanField({initial: false}),
             haslores: new fields.BooleanField({initial: false}),
             hasedges: new fields.BooleanField({initial: false}),
+            hasarcanois: new fields.BooleanField({initial: false}),
+            haspassions: new fields.BooleanField({initial: false}),
+            hasfetters: new fields.BooleanField({initial: false}),
+            hashorrors: new fields.BooleanField({initial: false}),
+            hasstains: new fields.BooleanField({initial: false}),
+            hashekau: new fields.BooleanField({initial: false}),
+            hasexaltedcharms: new fields.BooleanField({initial: false}),
 
             version: new fields.StringField({...valueString}),
             era: new fields.StringField({initial: 'wod.era.modern', nullable: false}),

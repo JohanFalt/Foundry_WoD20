@@ -131,6 +131,9 @@ export default class PCDataModel extends foundry.abstract.DataModel {
         if (source?.health?.damage && source.health.damage.chimerical === undefined) {
             source.health.damage.chimerical = { bashing: 0, lethal: 0, aggravated: 0 };
         }
+        if (source?.health?.damage && source.health.damage.corpus === undefined) {
+            source.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+        }
         return super.migrateData(source);
     }
 }

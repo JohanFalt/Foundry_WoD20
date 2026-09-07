@@ -21,6 +21,11 @@ export default class health extends foundry.abstract.DataModel {
                     bashing: new fields.NumberField({...positiveInteger}),
                     lethal: new fields.NumberField({...positiveInteger}),
                     aggravated: new fields.NumberField({...positiveInteger})
+                }),
+                corpus: new fields.SchemaField({
+                    bashing: new fields.NumberField({...positiveInteger}),
+                    lethal: new fields.NumberField({...positiveInteger}),
+                    aggravated: new fields.NumberField({...positiveInteger})
                 })
             }),
             bruised: new fields.SchemaField({

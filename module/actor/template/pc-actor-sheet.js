@@ -25,11 +25,12 @@ import { OnItemCreate,
 			OnPowerSort, 
 			OnPowerClear, 
 			OnGenerationChange, 
+			OnToggleFavored,
 			SendChat, 
 			RollDice, 
 			OnEditImage } from "../../scripts/action-helpers.js";
 
-import { calculateHealth } from "../../scripts/health.js";
+import { calculateHealth, actorHasCorpus } from "../../scripts/health.js";
 import { calculateTotals } from "../../scripts/totals.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api
@@ -98,6 +99,7 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 			itemSwitch: OnItemSwitch,
 			itemDelete: OnItemDelete,
 			removeSplat: OnRemoveSplat,
+			toggleFavored: OnToggleFavored,
 
 			formActive: OnFormActivate,
 
@@ -233,6 +235,19 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 			// User has full access, include all tabs
 			for (const [key, tab] of Object.entries(tabs)) {
 				filteredTabs[key] = tab;
+			}
+
+			// Shadow variant: strict Core + Settings only
+			if (this.actor.system.settings.variant === "shadow") {
+				const shadowTabs = {};
+				if (filteredTabs.stats) shadowTabs.stats = filteredTabs.stats;
+				if (filteredTabs.settings) shadowTabs.settings = filteredTabs.settings;
+				Object.keys(filteredTabs).forEach(key => delete filteredTabs[key]);
+				Object.assign(filteredTabs, shadowTabs);
+
+				if (!filteredTabs[this.tabGroups.primary]) {
+					this.tabGroups.primary = 'stats';
+				}
 			}
 		} 
 		else {
@@ -1055,6 +1070,33 @@ export const prepareBioContext = async function (context, actor) {
 
 export const prepareStatContext = async function (context, actor) {
   	context.tab = context.tabs.stats;
+	context.isshadowvariant = actor.system.settings.variant === "shadow";
+
+	if (context.isshadowvariant) {
+		const allSplatfields = actor.system.bio.splatfields ?? {};
+		context.splatfields = Object.fromEntries(
+			Object.entries(allSplatfields).filter(([_, field]) => field?.isvisible !== false)
+		);
+
+		if (context.splatfields) {
+			for (const [key, field] of Object.entries(context.splatfields)) {
+				if (field.type === "textbox") {
+					field.enriched = await foundry.applications.ux.TextEditor.implementation.enrichHTML(field.value || "", {async: true});
+				}
+			}
+		}
+
+		context.passions = actor.items
+			.filter(item => item.type === "Trait" && item.system.type === "wod.types.passion")
+			.sort((a, b) => a.name.localeCompare(b.name));
+
+		context.advantages = actor.items
+			.filter(item => item.type === "Advantage" && item.system.group === '' && item.system.settings.isvisible)
+			.map(item => ({ _id: item._id, ...item }))
+			.sort((a, b) => Number(a.system.settings.order) - Number(b.system.settings.order));
+
+		return context;
+	}
 
 	context.talents = actor.items
 								.filter(item => item.type === "Ability" && item.system.type === 'wod.abilities.talent' && item.system.settings.isvisible)
@@ -1169,7 +1211,14 @@ export const prepareStatContext = async function (context, actor) {
 	// Set hasGroupedAdvantages flag
 	context.hasGroupedAdvantages = context.groupedadvantages.length > 0;
 
-	context.health = await calculateHealth(actor, CONFIG.worldofdarkness.sheettype.mortal);
+	context.hascorpus = actorHasCorpus(actor);
+
+	if (context.hascorpus) {
+		context.health = await calculateHealth(actor, CONFIG.worldofdarkness.sheettype.wraith);
+	}
+	else {
+		context.health = await calculateHealth(actor, CONFIG.worldofdarkness.sheettype.mortal);
+	}
 
 	context.chimericalhealth = undefined;
 
@@ -1196,6 +1245,11 @@ export const preparePowersContext = async function (context, actor) {
 	context.arts = ItemHelper.GetPowersByType(actor, "wod.types.art", true);
 	context.lores = ItemHelper.GetPowersByType(actor, "wod.types.lore", true);
 	context.edges = ItemHelper.GetPowersByType(actor, "wod.types.edge", true);
+	context.arcanois = ItemHelper.GetPowersByType(actor, "wod.types.arcanoi", true);
+	context.hekaus = ItemHelper.GetPowersByType(actor, "wod.types.hekau", true);
+	context.exaltedcharms = ItemHelper.GetPowersByType(actor, "wod.types.exaltedcharm", true);
+	context.exaltedsorcery = ItemHelper.GetPowersByType(actor, "wod.types.exaltedsorcery", true);
+	context.charmsByType = ItemHelper.GroupCharmsByType(context.exaltedcharms);
 	
 	context.combinations = ItemHelper.GetPowersByType(actor, "wod.types.combination", true);
 	context.rituals = ItemHelper.GetPowersByType(actor, "wod.types.ritual", true);
@@ -1203,7 +1257,11 @@ export const preparePowersContext = async function (context, actor) {
 	
 	context.rotes = ItemHelper.GetItemType(actor, "Rote");	
 	context.resonances = actor.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.resonance");
+	context.passions = actor.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.passion");
+	context.fetters = actor.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.fetter");
 	context.numinas = ItemHelper.GetPowersByType(actor, "wod.types.numina", true);
+	context.horrors = ItemHelper.GetPowersByType(actor, "wod.types.horror", true);
+	context.stains = ItemHelper.GetPowersByType(actor, "wod.types.stain", true);
 
 	// Unsorted powers (no parent or missing parent reference)
 	const disciplinePowers = ItemHelper.GetPowersByType(actor, "wod.types.disciplinepower");
@@ -1211,6 +1269,8 @@ export const preparePowersContext = async function (context, actor) {
 	const lorePowers = ItemHelper.GetPowersByType(actor, "wod.types.lorepower");
 	const edgePowers = ItemHelper.GetPowersByType(actor, "wod.types.edgepower");
 	const numinaPowers = ItemHelper.GetPowersByType(actor, "wod.types.numinapower");
+	const arcanoiPowers = ItemHelper.GetPowersByType(actor, "wod.types.arcanoipower");
+	const hekauPowers = ItemHelper.GetPowersByType(actor, "wod.types.hekaupower");
 
 	context.unsorteddisciplines = disciplinePowers.filter(power => lacksParent(power, context.disciplines));
 	context.unsortedarts = artPowers.filter(power => lacksParent(power, context.arts));
@@ -1218,6 +1278,8 @@ export const preparePowersContext = async function (context, actor) {
 	context.unsortededges = edgePowers.filter(power => lacksParent(power, context.edges));
 	
 	context.unsortednuminas = numinaPowers.filter(power => lacksParent(power, context.numinas));
+	context.unsortedarcanois = arcanoiPowers.filter(power => lacksParent(power, context.arcanois));
+	context.unsortedhekaus = hekauPowers.filter(power => lacksParent(power, context.hekaus));
 
 	// Gifts grouped by rank
 	const giftItems = ItemHelper.GetPowersByType(actor, "wod.types.gift");
@@ -1275,7 +1337,14 @@ export const prepareCombatContext = async function (context, actor) {
 
 	context.powercombat		= actor.items.filter(item => item.type === "Power" && item.system.type === "wod.types.gift" && item.system.isactive);
 
-	context.health = await calculateHealth(actor, CONFIG.worldofdarkness.sheettype.mortal);
+	context.hascorpus = actorHasCorpus(actor);
+
+	if (context.hascorpus) {
+		context.health = await calculateHealth(actor, CONFIG.worldofdarkness.sheettype.wraith);
+	}
+	else {
+		context.health = await calculateHealth(actor, CONFIG.worldofdarkness.sheettype.mortal);
+	}
 
   	return context;
 }
@@ -1480,6 +1549,9 @@ export const prepareSettingsContext = async function (context, actor) {
 	const splat = getSplat(actor);
 	const actorData = { type: CONFIG.worldofdarkness.sheettype[splat] || splat, system: actor.system };
 	context.listData = SelectHelper.SetupItem(actorData, true);
+
+	// Corpus Advantage → Health Levels settings are unused
+	context.hascorpus = actorHasCorpus(actor);
 
 	return context;
 }

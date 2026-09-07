@@ -24,6 +24,9 @@
 			{{#if (eq advantage.system.id "bloodpool")}}
 				<div class="information-area centerText">{{localize "wod.advantages.perturn"}}: {{advantage.system.perturn}}</div>
 			{{/if}}
+			{{#if (eq advantage.system.id "essencepool")}}
+				<div class="information-area centerText">{{localize "wod.advantages.essenceperturn"}}: {{advantage.system.perturn}}</div>
+			{{/if}}
 			{{#if (eq advantage.system.id "path")}}
 				<div class="information-area centerText">
 					{{#if ../locked}}

@@ -73,6 +73,31 @@ function _GetDiceColors(actor) {
 	}
 }
 
+function _isFavoritedKey(actor, key) {
+	if (!actor || !key || key === "noselected" || key === "") {
+		return false;
+	}
+
+	if (actor.system.attributes?.[key]?.isfavorited) {
+		return true;
+	}
+
+	if (actor.type === "PC") {
+		const item = actor.items.get(key) || actor.items.find(i =>
+			i.type === "Ability" && (i.system.id === key || i._id === key)
+		);
+		if (item?.system?.settings?.isfavorited) {
+			return true;
+		}
+		if (item?.system?.isfavorited) {
+			return true;
+		}
+		return false;
+	}
+
+	return !!(actor.system.abilities?.[key]?.isfavorited);
+}
+
 /* klassen som man använder för att skicka in information in i RollDice */
 export class DiceRollContainer {
     constructor(actor) {
@@ -387,14 +412,15 @@ export async function DiceRoller(diceRoll) {
 					success += 1;
 				}
 				else if ((dice.result == 1) && (actor !== undefined)) {
+					const attrFavorited = _isFavoritedKey(actor, diceRoll.attribute);
+					const ablFavorited = _isFavoritedKey(actor, diceRoll.ability);
+
 					if ((CONFIG.worldofdarkness.usehandleOnes) && (canBotch) && 
-							(!actor.system.attributes[diceRoll.attribute]?.isfavorited) && (!actor.system.attributes[diceRoll.ability]?.isfavorited) && 
-							(!actor.system.abilities[diceRoll.attribute]?.isfavorited) && (!actor.system.abilities[diceRoll.ability]?.isfavorited)) {
+							(!attrFavorited) && (!ablFavorited)) {
 						success = success - CONFIG.worldofdarkness.handleOnes;
 					}
 					// special rules regardingh Exalted
-					else if ((actor.system.attributes[diceRoll.attribute]?.isfavorited) || (actor.system.attributes[diceRoll.ability]?.isfavorited) && 
-							(actor.system.abilities[diceRoll.attribute]?.isfavorited) || (actor.system.abilities[diceRoll.ability]?.isfavorited)) {
+					else if (attrFavorited || ablFavorited) {
 						isfavorited = true;
 					}
 		

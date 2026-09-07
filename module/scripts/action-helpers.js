@@ -787,6 +787,38 @@ export const OnSquareCounterChange = async function (event, target) {
 			actorData.system.health.damage.chimerical.aggravated = 0;
 		}
 	}
+	if (dataset.type === CONFIG.worldofdarkness.sheettype.wraith) {
+		if (!actorData.system.health.damage.corpus) {
+			actorData.system.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+		}
+
+		if (oldState == "") {
+			actorData.system.health.damage.corpus.bashing = parseInt(actorData.system.health.damage.corpus.bashing) + 1;
+		}
+		else if (oldState == "/") { 
+			actorData.system.health.damage.corpus.bashing = parseInt(actorData.system.health.damage.corpus.bashing) - 1;
+			actorData.system.health.damage.corpus.lethal = parseInt(actorData.system.health.damage.corpus.lethal) + 1;			
+		}
+		else if (oldState == "x") { 
+			actorData.system.health.damage.corpus.lethal = parseInt(actorData.system.health.damage.corpus.lethal) - 1;
+			actorData.system.health.damage.corpus.aggravated = parseInt(actorData.system.health.damage.corpus.aggravated) + 1;
+		}
+		else if (oldState == "*") { 
+			actorData.system.health.damage.corpus.aggravated = parseInt(actorData.system.health.damage.corpus.aggravated) - 1;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.bashing) < 0) {
+			actorData.system.health.damage.corpus.bashing = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.lethal) < 0) {
+			actorData.system.health.damage.corpus.lethal = 0;
+		}
+
+		if (parseInt(actorData.system.health.damage.corpus.aggravated) < 0) {
+			actorData.system.health.damage.corpus.aggravated = 0;
+		}
+	}
 
 	actorData = await calculateTotals(actorData);
 	actorData.system.settings.isupdated = false;
@@ -844,6 +876,12 @@ export const OnSquareCounterClear = async function (event) {
 		if (dataset.type === CONFIG.worldofdarkness.sheettype.changeling) {
 			actorData.system.health.damage.chimerical.bashing = parseInt(actorData.system.health.damage.chimerical.bashing) - 1;
 		}
+		if (dataset.type === CONFIG.worldofdarkness.sheettype.wraith) {
+			if (!actorData.system.health.damage.corpus) {
+				actorData.system.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+			}
+			actorData.system.health.damage.corpus.bashing = parseInt(actorData.system.health.damage.corpus.bashing) - 1;
+		}
 	}
 	else if (oldState == "x") { 
 		if (dataset.type === CONFIG.worldofdarkness.sheettype.mortal) {
@@ -852,6 +890,12 @@ export const OnSquareCounterClear = async function (event) {
 		if (dataset.type === CONFIG.worldofdarkness.sheettype.changeling) {
 			actorData.system.health.damage.chimerical.lethal = parseInt(actorData.system.health.damage.chimerical.lethal) - 1;
 		}
+		if (dataset.type === CONFIG.worldofdarkness.sheettype.wraith) {
+			if (!actorData.system.health.damage.corpus) {
+				actorData.system.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+			}
+			actorData.system.health.damage.corpus.lethal = parseInt(actorData.system.health.damage.corpus.lethal) - 1;
+		}
 	}
 	else if (oldState == "*") { 
 		if (dataset.type === CONFIG.worldofdarkness.sheettype.mortal) {
@@ -859,6 +903,12 @@ export const OnSquareCounterClear = async function (event) {
 		}
 		if (dataset.type === CONFIG.worldofdarkness.sheettype.changeling) {
 			actorData.system.health.damage.chimerical.aggravated = parseInt(actorData.system.health.damage.chimerical.aggravated) - 1;
+		}
+		if (dataset.type === CONFIG.worldofdarkness.sheettype.wraith) {
+			if (!actorData.system.health.damage.corpus) {
+				actorData.system.health.damage.corpus = { bashing: 0, lethal: 0, aggravated: 0 };
+			}
+			actorData.system.health.damage.corpus.aggravated = parseInt(actorData.system.health.damage.corpus.aggravated) - 1;
 		}
 	}
 
@@ -1147,6 +1197,49 @@ export const OnItemActive = async function (event, target) {
 	actorData.system.settings.isupdated = false;
 	await this.actor.update(actorData);
 	this.render();
+}
+
+/**
+ * Toggle Exalted favored checkbox on attribute or ability (PC Actor).
+ */
+export const OnToggleFavored = async function (event, target) {
+	event.preventDefault();
+
+	const key = target.getAttribute("data-key");
+	if (!key) {
+		return;
+	}
+
+	if (target.getAttribute("data-attribute") === "true") {
+		const actorData = foundry.utils.duplicate(this.actor);
+		if (!actorData.system.attributes?.[key]) {
+			return;
+		}
+		actorData.system.attributes[key].isfavorited = !actorData.system.attributes[key].isfavorited;
+		actorData.system.settings.isupdated = false;
+		await this.actor.update(actorData);
+		this.render();
+		return;
+	}
+
+	if (target.getAttribute("data-ability") === "true" || target.getAttribute("data-ability") === "secondary") {
+		const item = this.actor.getEmbeddedDocument("Item", key);
+		if (!item) {
+			return;
+		}
+
+		const itemData = foundry.utils.duplicate(item);
+		if (item.type === "Ability" || itemData.system.settings?.isfavorited !== undefined) {
+			itemData.system.settings = itemData.system.settings || {};
+			itemData.system.settings.isfavorited = !itemData.system.settings.isfavorited;
+		}
+		else {
+			itemData.system.isfavorited = !itemData.system.isfavorited;
+		}
+
+		await item.update(itemData);
+		this.render();
+	}
 }
 
 export const OnItemSwitch = async function (event, target) {

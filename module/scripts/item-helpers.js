@@ -999,6 +999,62 @@ export default class ItemHelper {
 					data: { items: context.resonances },
 					localizeKey: "wod.types.resonance",
 					condition: actor.system.settings.hasresonances && context.resonances?.length
+				},
+				arcanois: {
+					id: "arcanois",
+					template: "hierarchical",
+					data: { items: context.arcanois },
+					localizeKey: "wod.power.arcanoi",
+					condition: actor.system.settings.hasarcanois && context.arcanois?.length
+				},
+				passions: {
+					id: "passions",
+					template: "simpledots",
+					data: { items: context.passions },
+					localizeKey: actor.system.settings.variant === "shadow" ? "wod.bio.wraith.darkpassions" : "wod.power.passions",
+					condition: actor.system.settings.haspassions && context.passions?.length
+				},
+				fetters: {
+					id: "fetters",
+					template: "simpledots",
+					data: { items: context.fetters },
+					localizeKey: "wod.power.fetters",
+					condition: actor.system.settings.hasfetters && context.fetters?.length
+				},
+				horrors: {
+					id: "horrors",
+					template: "column",
+					data: { items: context.horrors },
+					localizeKey: "wod.power.horrors",
+					condition: actor.system.settings.hashorrors && context.horrors?.length
+				},
+				stains: {
+					id: "stains",
+					template: "column",
+					data: { items: context.stains },
+					localizeKey: "wod.power.stains",
+					condition: actor.system.settings.hasstains && context.stains?.length
+				},
+				hekau: {
+					id: "hekau",
+					template: "hierarchical",
+					data: { items: context.hekaus },
+					localizeKey: "wod.power.hekaus",
+					condition: actor.system.settings.hashekau && context.hekaus?.length
+				},
+				exaltedcharms: {
+					id: "exaltedcharms",
+					template: "grouped",
+					data: { groups: context.charmsByType, items: context.exaltedcharms },
+					localizeKey: "wod.power.exaltedcharm",
+					condition: actor.system.settings.hasexaltedcharms && context.exaltedcharms?.length
+				},
+				exaltedsorcery: {
+					id: "exaltedsorcery",
+					template: "column",
+					data: { items: context.exaltedsorcery },
+					localizeKey: "wod.power.exaltedsorcery",
+					condition: actor.system.settings.hasexaltedcharms && context.exaltedsorcery?.length
 				}
 			};
 
@@ -1091,6 +1147,30 @@ export default class ItemHelper {
 			});
 		}
 
+		if (context.unsortedarcanois?.length) {
+			sections.push({
+				id: "unsortedarcanois",
+				priority: config.unsorted?.priority || 99,
+				template: "unsorted",
+				data: { items: context.unsortedarcanois },
+				localizeKey: "wod.power.unsortedarcanois",
+				sortAction: "SortArcanoiPower",
+				condition: true
+			});
+		}
+
+		if (context.unsortedhekaus?.length) {
+			sections.push({
+				id: "unsortedhekaus",
+				priority: config.unsorted?.priority || 99,
+				template: "unsorted",
+				data: { items: context.unsortedhekaus },
+				localizeKey: "wod.power.unsortedhekaus",
+				sortAction: "SortHekauPower",
+				condition: true
+			});
+		}
+
 		// if (context.unsortedpaths?.length) {
 		// 	sections.push({
 		// 		id: "unsortedpaths",
@@ -1132,6 +1212,34 @@ export default class ItemHelper {
 			giftsByRank,
 			flatGifts: giftsByRank.flatMap(group => group.gifts)
 		};
+	}
+
+	static GroupCharmsByType(charmItems) {
+		const sortByName = (a, b) => a.name.localeCompare(b.name);
+		const groups = {};
+
+		for (const charm of charmItems) {
+			const charmtype = charm.system.charmtype || "";
+			const key = charmtype || "_none";
+			if (!groups[key]) groups[key] = [];
+			groups[key].push(charm);
+		}
+
+		for (const key in groups) {
+			groups[key].sort(sortByName);
+		}
+
+		return Object.keys(groups)
+			.sort((a, b) => {
+				if (a === "_none") return 1;
+				if (b === "_none") return -1;
+				return a.localeCompare(b);
+			})
+			.map(key => ({
+				charmtype: key === "_none" ? "" : key,
+				label: key === "_none" ? "" : key,
+				charms: groups[key]
+			}));
 	}
 
 	static GetEarnedExperience(actor) {
