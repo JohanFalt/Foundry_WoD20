@@ -2530,6 +2530,7 @@ export  const updates = async () => {
     let patch700 = false;
     let patch710 = false;
     let patch720 = false;
+    let patch730 = false;
 
     let newfunctions = "";
 
@@ -2556,6 +2557,7 @@ export  const updates = async () => {
         patch700 = game.settings.get('worldofdarkness', 'patch700');
         patch710 = game.settings.get('worldofdarkness', 'patch710');
         patch720 = game.settings.get('worldofdarkness', 'patch720');
+        patch730 = game.settings.get('worldofdarkness', 'patch730');
     } 
     catch (e) {
     }
