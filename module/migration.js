@@ -2800,7 +2800,7 @@ export  const updates = async () => {
 
     const headline = "Version "+migrationVersion+" installed";
 
-    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v72">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v73">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
     message += '<p>To see how the PC actor is used and how to use it, please check the Foundry tour for this purpose.</p>';
