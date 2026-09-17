@@ -1721,6 +1721,7 @@
 			"ispower": false,
 			"isrollable": false,
 			"isfavorited": false,
+			"ishightorment": false,
 			"usesoaksettings": false,
 			"label": "",
 			"speciality": "",

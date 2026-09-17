@@ -176,81 +176,29 @@
   font-size: var(--wod-font-sheet-banner-text);
 }
 
-/* ===== LOW TORMENT (de 4 första) – änglalikt, gyllene, lugnt ===== */
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(-n+8),
-.wod20 .power-forms-list .description:nth-of-type(-n+8) {
+/* ===== LOW TORMENT – änglalikt, gyllene, lugnt ===== */
+.wod20 [data-droparea="apocalypticforms-lt"] .item-row-area.feature-itemlist,
+.wod20 [data-droparea="apocalypticforms-lt"] .description {
     border-left: 3px solid #d4af37;
     background: linear-gradient(90deg, rgba(212, 175, 55, 0.10), transparent 60%);
     transition: background 0.2s ease;
 }
 
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(-n+8) .largeBox {
+.wod20 [data-droparea="apocalypticforms-lt"] .item-row-area.feature-itemlist .largeBox {
     color: #b8860b;
     text-shadow: 0 0 4px rgba(212, 175, 55, 0.45);
 }
 
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(-n+8)::before {
-    /*content: "\f072";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;*/
-    color: #d4af37;
-    margin-right: 4px;
-    opacity: 0.8;
-}
-
-/* ===== HIGH TORMENT (de 4 sista) – demoniskt, sprucket, rött ===== */
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(n+9),
-.wod20 .power-forms-list .description:nth-of-type(n+9) {
+/* ===== HIGH TORMENT – demoniskt, sprucket, rött ===== */
+.wod20 [data-droparea="apocalypticforms-ht"] .item-row-area.feature-itemlist,
+.wod20 [data-droparea="apocalypticforms-ht"] .description {
     border-left: 3px solid #8b0000;
     background: linear-gradient(90deg, rgba(139, 0, 0, 0.12), transparent 60%);
 }
 
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(n+9) .largeBox {
+.wod20 [data-droparea="apocalypticforms-ht"] .item-row-area.feature-itemlist .largeBox {
     color: #ff4d4d;
     text-shadow: 0 0 5px rgba(139, 0, 0, 0.6);
-}
-
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(n+9)::before {
-    /*content: "\f06d";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;*/
-    color: #8b0000;
-    margin-right: 4px;
-    opacity: 0.9;
-}
-
-/* ===== Visuell avdelare mellan grupp 4 och 5 ===== */
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(9) {
-    position: relative;
-    margin-top: 10px;
-}
-
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(9)::after {
-    content: "High Torment";
-    position: absolute;
-    top: -18px;
-    left: 0;
-    font-size: 0.65rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #8b0000;
-    background: linear-gradient(90deg, rgba(139,0,0,0.15), transparent);
-    padding: 1px 6px;
-    border-radius: 2px 2px 0 0;
-}
-
-.wod20 .power-forms-list .item-row-area.feature-itemlist:nth-of-type(1)::after {
-    content: "Low Torment";
-    position: absolute;
-    top: -18px;
-    left: 0;
-    font-size: 0.65rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #b8860b;
-    background: linear-gradient(90deg, rgba(212,175,55,0.15), transparent);
-    padding: 1px 6px;
-    border-radius: 2px 2px 0 0;
 }
 
 @media all and (max-height : 1024px)

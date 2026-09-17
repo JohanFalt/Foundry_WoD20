@@ -743,7 +743,8 @@
 				"cryptic": "Cryptic",
 				"luciferan": "Luciferan",
 				"ravener": "Ravener",
-				"reconciler": "Reconciler"
+				"reconciler": "Reconciler",
+				"celestialname": "Celestial name"
 			},
 			"wraith": {
 				"shadow": "Shadow",
@@ -1101,6 +1102,8 @@
 			"faith": "Faith",
 			"torment": "Torment",
 			"apocalypticforms": "Apocalyptic Forms",
+			"lowtorment": "Low Torment",
+			"hightorment": "High Torment",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
 			"angst": "Angst",
@@ -1549,7 +1552,11 @@
 				"tokenimage": "Зображення токена",
 				"tokenimagehint": "Зображення, яке буде відображатися на токені, коли ця форма активна. Залиште порожнім, щоб використовувати зображення за замовчуванням актора.",
 				"clearimage": "Clear selected image",
-				"usesoaksettings": "Використовувати налаштування поглинання форми"
+				"usesoaksettings": "Використовувати налаштування поглинання форми",
+				"hightorment": "High Torment",
+				"hightormenthint": "When checked this apocalyptic form is listed under High Torment. Unchecked = Low Torment.",
+				"order": "Display order",
+				"orderhint": "Lower numbers appear first within the Low or High Torment list. You can also drag forms on the character sheet."
 			},
 			"feature": {
 				"trivial": "Trivial",

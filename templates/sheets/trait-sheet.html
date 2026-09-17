@@ -88,7 +88,21 @@
 						<input class="sheet-infoValues editable" name="system.reference" type="text" value="{{data.system.reference}}" data-dtype="String" autocomplete="off" autofocus required />
 						<span class="floating-label">{{localize "wod.labels.trait.reference"}}</span>
 					</div>
-				{{/if}}				
+				{{/if}}
+
+				{{#if (eq data.system.type "wod.types.apocalypticform")}}
+					<div class="infobox">
+						<label class="headlineItem headlineBio splatFont" for="system.ishightorment">{{localize "wod.labels.trait.hightorment"}}</label>
+						<input name="system.ishightorment" type="checkbox" {{isChecked data.system.ishightorment}} />
+					</div>
+					<div class="clearareaBox information-area">{{localize "wod.labels.trait.hightormenthint"}}</div>
+
+					<div class="infobox bioInformationArea floating-label-group">
+						<input class="sheet-infoValues editable" name="system.order" type="text" value="{{data.system.order}}" data-dtype="Number" autocomplete="off" />
+						<span class="floating-label">{{localize "wod.labels.trait.order"}}</span>
+					</div>
+					<div class="clearareaBox information-area">{{localize "wod.labels.trait.orderhint"}}</div>
+				{{/if}}
 
 				<!-- if weapon/power -->
 				{{#if (eqAny data.system.type "wod.types.talentsecondability" "wod.types.skillsecondability" "wod.types.knowledgesecondability")}}

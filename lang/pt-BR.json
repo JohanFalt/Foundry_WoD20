@@ -743,7 +743,8 @@
 				"cryptic": "Críptico",
 				"luciferan": "Luciferano",
 				"ravener": "Devorador",
-				"reconciler": "Reconciliador"
+				"reconciler": "Reconciliador",
+				"celestialname": "Celestial name"
 			},
 			"wraith": {
 				"shadow": "Sombra",
@@ -1101,6 +1102,8 @@
 			"faith": "Fé",
 			"torment": "Tormento",
 			"apocalypticforms": "Formas Apocalípticas",
+			"lowtorment": "Low Torment",
+			"hightorment": "High Torment",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
 			"angst": "Angústia",
@@ -1549,7 +1552,11 @@
 				"tokenimage": "Imagem do token",
 				"tokenimagehint": "A imagem que o token exibirá quando esta forma estiver ativa. Deixe vazio para usar a imagem padrão do ator.",
 				"clearimage": "Limpar imagem selecionada",
-				"usesoaksettings": "Usar configurações de absorção da forma"
+				"usesoaksettings": "Usar configurações de absorção da forma",
+				"hightorment": "High Torment",
+				"hightormenthint": "When checked this apocalyptic form is listed under High Torment. Unchecked = Low Torment.",
+				"order": "Display order",
+				"orderhint": "Lower numbers appear first within the Low or High Torment list. You can also drag forms on the character sheet."
 			},
 			"feature": {
 				"trivial": "Trivial",

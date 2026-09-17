@@ -1,5 +1,6 @@
 import AbilityHelper from "./ability-helpers.js";
 import BonusHelper from "./bonus-helpers.js";
+import DropHelper from "./drop-helpers.js";
 import { resolveWeaponEra } from "./select/era.js";
 
 export default class CreateHelper {
@@ -370,6 +371,7 @@ export default class CreateHelper {
 				const number = 8 - items.length;
 				
 				for (let i = 1; i <= number; i++) {
+					const formIndex = items.length + i - 1; // 0-based position among all 8 forms
 					let itemData = {
 						name: game.i18n.localize("wod.labels.new.apocalypticform"),
 						type: "Trait",						
@@ -377,7 +379,9 @@ export default class CreateHelper {
 							iscreated: true,
 							version: game.system.version,
 							level: 0,
-							type: "wod.types.apocalypticform"
+							type: "wod.types.apocalypticform",
+							order: formIndex >= 4 ? formIndex - 4 : formIndex,
+							ishightorment: formIndex >= 4
 						}
 					};
 					await actor.updateSource({ items: [itemData]});
@@ -1288,6 +1292,10 @@ export default class CreateHelper {
 	}
 
 	static async CreateItem(actor, itemData) {
+		if (itemData?.type === "Trait" && itemData.system?.type === "wod.types.apocalypticform") {
+			DropHelper.AssignApocalypticFormOrder(actor, itemData);
+		}
+
 		const createdItem = await actor.createEmbeddedDocuments("Item", [itemData]);
 		const item = await actor.getEmbeddedDocument("Item", createdItem[0]._id);
 		var _a;
@@ -2362,6 +2370,27 @@ export default class CreateHelper {
 						return;
 					}
 				}
+			},
+			apocalypticform: {
+				game: "demon",
+				button: {
+					label: game.i18n.localize("wod.types.apocalypticform"),
+					callback: async () => {
+						let itemData = {
+							name: game.i18n.localize("wod.labels.new.apocalypticform"),
+							type: "Trait",
+							system: {
+								iscreated: true,
+								level: 0,
+								type: "wod.types.apocalypticform",
+								ishightorment: false
+							}
+						};
+
+						await this.CreateItem(actor, itemData);
+						return;
+					}
+				}
 			}
 		};
 		
@@ -2398,6 +2427,7 @@ export default class CreateHelper {
 			delete allButtons.lore;
 			delete allButtons.lorepower;
 			delete allButtons.demonritual;
+			delete allButtons.apocalypticform;
 		}
 
 		// Shadow-variant: endast Dark Passion (strikt Core-create)
@@ -3184,7 +3214,8 @@ export default class CreateHelper {
 						system: {
 							iscreated: true,
 							level: 0,
-							type: "wod.types.apocalypticform"
+							type: "wod.types.apocalypticform",
+							ishightorment: false
 						}
 					};
 					await this.CreateItem(actor, itemData);

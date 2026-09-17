@@ -1,28 +1,10 @@
 ![](https://img.shields.io/badge/Foundry-v14-informational)
 
+![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.3.1/v7.3.1.zip)
+
 ![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.3.0/v7.3.0.zip)
 
 ![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.11/v7.2.11.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.10/v7.2.10.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.9/v7.2.9.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.8/v7.2.8.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.7/v7.2.7.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.5/v7.2.5.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.4/v7.2.4.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.3/v7.2.3.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.2/v7.2.2.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.1/v7.2.1.zip)
-
-![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.2.0/v7.2.0.zip)
 
 ![](https://img.shields.io/github/downloads/JohanFalt/Foundry_WoD20/v7.1.5/v7.1.5.zip)
 

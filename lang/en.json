@@ -751,7 +751,8 @@
 				"cryptic": "Cryptic",
 				"luciferan": "Luciferan",
 				"ravener": "Ravener",
-				"reconciler": "Reconciler"
+				"reconciler": "Reconciler",
+				"celestialname": "Celestial name"
 			},
 			"wraith": {
 				"shadow": "Shadow",
@@ -1109,6 +1110,8 @@
 			"faith": "Faith",
 			"torment": "Torment",
 			"apocalypticforms": "Apocalyptic Forms",
+			"lowtorment": "Low Torment",
+			"hightorment": "High Torment",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
 			"angst": "Angst",
@@ -1558,7 +1561,11 @@
 				"tokenimage": "Token image",
 				"tokenimagehint": "The image that the token will display when this shapeform is active. Leave empty to use the actor's default image.",
 				"clearimage": "Clear selected image",
-				"usesoaksettings": "Use shape soak settings"
+				"usesoaksettings": "Use shape soak settings",
+				"hightorment": "High Torment",
+				"hightormenthint": "When checked this apocalyptic form is listed under High Torment. Unchecked = Low Torment. The same form can be Low for one house and High for another.",
+				"order": "Display order",
+				"orderhint": "Lower numbers appear first within the Low or High Torment list. You can also drag forms on the character sheet."
 			},
 			"feature": {
 				"trivial": "Trivial",

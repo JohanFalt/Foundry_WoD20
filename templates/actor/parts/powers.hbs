@@ -162,7 +162,7 @@
         {{/each}}
 
         {{#if actor.system.settings.hasapocalypticforms}}
-            {{> "systems/worldofdarkness/templates/actor/parts/power_apocalypticforms.hbs" apocalypticforms=apocalypticforms actor=actor config=config}}
+            {{> "systems/worldofdarkness/templates/actor/parts/power_apocalypticforms.hbs" apocalypticformsLow=apocalypticformsLow apocalypticformsHigh=apocalypticformsHigh actor=actor locked=locked config=config}}
         {{/if}}
 
         {{#if (gt powertraits.length 0)}}

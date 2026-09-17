@@ -1906,6 +1906,7 @@ export  const updates = async () => {
             update = false;
         }
     }
+
 }
 
 /**
@@ -2500,7 +2501,33 @@ export  const updates = async () => {
             update = false;
         }
     }
- }
+
+    // 7.3.1: fix apocalyptic-form High Torment flags.
+    if (_compareVersion(actor.system.settings.version, "7.3.1")) {
+        const apocalypticForms = actor.items.filter(i =>
+            i.type === "Trait" && i.system.type === "wod.types.apocalypticform"
+        );
+
+        const formUpdates = [];
+
+        apocalypticForms.forEach((form, index) => {
+            const isHT = index >= 4;
+            formUpdates.push({
+                _id: form.id,
+                "system.ishightorment": isHT,
+                "system.order": isHT ? index - 4 : index
+            });
+        });
+
+        if (formUpdates.length > 0) {
+            await actor.updateEmbeddedDocuments("Item", formUpdates);
+        }
+
+        const updateData = foundry.utils.duplicate(actor);
+        updateData.system.settings.version = "7.3.1";
+        await actor.update(updateData);
+    }
+}
 
   /**
  * Fetches the update information text as an updated is being made.
@@ -2749,52 +2776,16 @@ export  const updates = async () => {
     }
 
     if (newfunctions == "") {
-        newfunctions += 'Issues fixed in version:<br />';    
-
-        if (_compareVersion(installedVersion, '7.2.11')) {
-            newfunctions += '<li>[PC Actor] Fixed bug that caused the automatic health level calculation not check all actor health levels maxing out by 7.</li>';
-        }
-        
-        if (_compareVersion(installedVersion, '7.2.10')) {
-            newfunctions += '<li>Improved handling when rolling advantages e.g Willpower.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '7.2.9')) {
-            newfunctions += '<li>[PC Actor] If the game was using the V5 settings for using the attributes composure and resolve rolling willpower did not work correctly.</li>';
-            newfunctions += '<li>[PC Actor] If the game was using the V5 settings for using composure and resolve to calculate willpower the update of willpower was not done correctly.</li>';
-            newfunctions += '<li>The hint texts for these two world settings was confusing, have updated them to actually tell what they are used for.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '7.2.8')) {
-            newfunctions += '<li>[PC Actor] Fixed issue with newly created actors\' abilities isn\'t correctly translated. [<a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1472">#1472</a>]</li>';
-        }
-
-        if (_compareVersion(installedVersion, '7.2.7')) {
-            newfunctions += '<li>[PC Actor] Abilities did not set its id correctly.</li>';
-            newfunctions += '<li>Fixed patch problems.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '7.2.5')) {
-            newfunctions += '<li>[PC Actor WtA] Fixed bug that caused renown not to be shown.</li>';
-            newfunctions += '<li>[PC Actor VtM] Fixed bug that caused virtues not to be shown.</li>';
-            newfunctions += '<li>[PC Actor MtA] Fixed bug that caused quintessence not to be shown.</li>';
-        }
-        
-        if (_compareVersion(installedVersion, '7.2.4')) {
-            newfunctions += '<li>[PC Actor DtF] Fixed an error with the Earthbounds Urges causing them not to display correct headline. Recreate any PC Actor with the Earthbound template and the problem will be resolved.</li>';
-            newfunctions += '<li>[PC Actor WTA] Fixed the set difficult with fetishes.</li>';
-            newfunctions += '<li>[PC Actor WTA] Fixed bug that caused fetishes to roll willpower when using them.</li>';
-            newfunctions += '<li>New system setting: If you want to use the automatic ammo system.</li>';
-            newfunctions += '<li>Added an automatic ammo system which handles ammunition spending automatically and keeps tabs on if there are enough round available.</li>';
-        }
-
-        if (_compareVersion(installedVersion, '7.2.3')) {
-            newfunctions += '<li>[PC Actor VtM] Made slight improvement showing attributes and abilities so can now see upå to 8 dots before switching to box.</li>';
-            newfunctions += '<li>Cleaned up among the temp files in the compendium folders.</li>';
-            newfunctions += '<li>Fixed and cleaned up the World of Darkness tours.</li>';
-            newfunctions += '<li>Added a tour that shows how to create a PC actor with a template.</li>';
-        }
+        newfunctions += 'Issues fixed in version:<br />';   
     }
+        
+    if (_compareVersion(installedVersion, '7.3.1')) {
+        newfunctions += '<li>[PC Actor DtF] Fixed problem with apocalyptic forms which weren\'t added correctly to the actor.</li>';
+        newfunctions += '<li>[PC Actor DtF] Added drag and drop to fix the order of apocalyptic forms on the actor sheet.</li>';
+        newfunctions += '<li>[PC Actor DtF] Added a missed high torment apocalyptic form for the Ninsun (Fiend) template in the compendium.</li>';
+        newfunctions += '<li>[PC Actor DtF] Added the bio field Celestial name for all demon templates.</li>';
+    }
+    
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 

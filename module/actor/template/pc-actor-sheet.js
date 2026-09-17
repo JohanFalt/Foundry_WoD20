@@ -721,7 +721,8 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
      * @param {DragEvent} event - The drag start event
      */
     _onDragStart(event) { 
-		const dataset = event.target.dataset;
+		const dataset =
+			event.target.closest("[data-drag]")?.dataset ?? event.currentTarget?.dataset ?? event.target.dataset;
 
 		// Handle drag to order item lists (advantages, features, powers)
         if (dataset.list === "system.advantages" || dataset.list === "system.features" || dataset.list === "system.powers") {
@@ -731,7 +732,16 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
                 list: dataset.list,
                 itemtype: dataset.type,
                 type: "SortOrder"
-            }
+            };
+			if (dataset.traittype) {
+				data.traittype = dataset.traittype;
+			}
+			if (dataset.ishightorment !== undefined) {
+				data.ishightorment = dataset.ishightorment === "true" || dataset.ishightorment === true;
+			}
+			if (dataset.droparea) {
+				data.droparea = dataset.droparea;
+			}
             event.dataTransfer.setData('text/plain', JSON.stringify(data));
             return;
         }
@@ -837,6 +847,10 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 			itemData.system.settings.isremovable = true;
 		}
 
+		if (itemData.type === "Trait" && itemData.system?.type === "wod.types.apocalypticform") {
+			DropHelper.AssignApocalypticFormOrder(this.actor, itemData);
+		}
+
 		return await this.actor.createEmbeddedDocuments('Item', [itemData]);
     }
 
@@ -880,21 +894,47 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 
 		let dropArea = data.itemtype.toLowerCase();
 		dropArea = (dropArea === "sphere" || dropArea === "realm") ? "powers" : dropArea;
+		if (data.droparea) {
+			dropArea = data.droparea;
+		}
 
 		let orderProperty = "system.settings.order";
 		orderProperty = data.itemtype === "Trait" ? 'system.order' : orderProperty;
+
+		const reorderOptions = {
+			itemClass: itemClass,
+			dropArea: dropArea,
+			orderProperty: orderProperty,
+			sheet: this
+		};
+
+		if (data.traittype) {
+			reorderOptions.traitType = data.traittype;
+		}
+		if (data.ishightorment !== undefined) {
+			reorderOptions.ishightorment = !!data.ishightorment;
+		}
+
+		// Reject cross-group drops (e.g. Low Torment onto High Torment row)
+		if (data.ishightorment !== undefined) {
+			const dropTarget = event.target.closest(itemClass);
+			if (dropTarget?.dataset?.ishightorment !== undefined) {
+				const targetIsHigh = dropTarget.dataset.ishightorment === "true";
+				if (targetIsHigh !== !!data.ishightorment) {
+					this.element.querySelectorAll('.drag-over-top, .drag-over-bottom, .drag-over').forEach(el => {
+						el.classList.remove('drag-over-top', 'drag-over-bottom', 'drag-over');
+					});
+					return;
+				}
+			}
+		}
 
 		// Use the shared function from DropHelper
 		const result = await DropHelper.ReorderActorItems(
 			this.actor,
 			event,
 			data,
-			{
-				itemClass: itemClass,
-				dropArea: dropArea,
-				orderProperty: orderProperty,
-				sheet: this
-			}
+			reorderOptions
 		);
 		
 		// Always clean up drag-over classes after reorder attempt
@@ -1229,6 +1269,33 @@ export const prepareStatContext = async function (context, actor) {
   	return context
 }
 
+/**
+ * Split Apocalyptic Forms into Low / High Torment lists sorted by system.order then name.
+ * @param {Actor} actor
+ * @returns {{ apocalypticforms: Item[], apocalypticformsLow: Item[], apocalypticformsHigh: Item[] }}
+ */
+function prepareApocalypticFormsLists(actor) {
+	const allApocalypticForms = (actor?.items.filter(item =>
+		item.type === "Trait" && item.system.type === "wod.types.apocalypticform") || []);
+
+	const sortByOrderThenName = (a, b) => {
+		const orderA = a.system.order !== undefined ? Number(a.system.order) : 999;
+		const orderB = b.system.order !== undefined ? Number(b.system.order) : 999;
+		if (orderA !== orderB) return orderA - orderB;
+		return a.name.localeCompare(b.name);
+	};
+
+	const apocalypticforms = [...allApocalypticForms].sort(sortByOrderThenName);
+	const apocalypticformsLow = allApocalypticForms
+		.filter(item => !item.system.ishightorment)
+		.sort(sortByOrderThenName);
+	const apocalypticformsHigh = allApocalypticForms
+		.filter(item => !!item.system.ishightorment)
+		.sort(sortByOrderThenName);
+
+	return { apocalypticforms, apocalypticformsLow, apocalypticformsHigh };
+}
+
 export const preparePowersContext = async function (context, actor) {
   	context.tab = context.tabs.powers;
 
@@ -1296,14 +1363,10 @@ export const preparePowersContext = async function (context, actor) {
 		return a.name.localeCompare(b.name);
 	});
 
-	const allApocalypticForms = actor?.items.filter(item =>
-    item.type === "Trait" && item.system.type === "wod.types.apocalypticform");
-	context.apocalypticforms = allApocalypticForms.sort((a, b) => {
-		const orderA = a.system.order !== undefined ? Number(a.system.order) : 999;
-		const orderB = b.system.order !== undefined ? Number(b.system.order) : 999;
-		if (orderA !== orderB) return orderA - orderB;
-		return a.name.localeCompare(b.name);
-	});
+	const allApocalypticForms = prepareApocalypticFormsLists(actor);
+	context.apocalypticforms = allApocalypticForms.apocalypticforms;
+	context.apocalypticformsLow = allApocalypticForms.apocalypticformsLow;
+	context.apocalypticformsHigh = allApocalypticForms.apocalypticformsHigh;
 
 	const allPowerTraits = actor?.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.othertraits" && item.system.placement === "power");
 	context.powertraits = allPowerTraits.sort((a, b) => {
@@ -1456,14 +1519,10 @@ export const prepareSettingsContext = async function (context, actor) {
 		return a.name.localeCompare(b.name);
 	});
 
-	const allApocalypticForms = actor?.items.filter(item =>
-    item.type === "Trait" && item.system.type === "wod.types.apocalypticform");
-	context.apocalypticforms = allApocalypticForms.sort((a, b) => {
-		const orderA = a.system.order !== undefined ? Number(a.system.order) : 999;
-		const orderB = b.system.order !== undefined ? Number(b.system.order) : 999;
-		if (orderA !== orderB) return orderA - orderB;
-		return a.name.localeCompare(b.name);
-	});
+	const allApocalypticForms = prepareApocalypticFormsLists(actor);
+	context.apocalypticforms = allApocalypticForms.apocalypticforms;
+	context.apocalypticformsLow = allApocalypticForms.apocalypticformsLow;
+	context.apocalypticformsHigh = allApocalypticForms.apocalypticformsHigh;
 
 	const allPowerTraits = actor?.items.filter(item => item.type === "Trait" && item.system.type === "wod.types.othertraits" && item.system.placement === "power");
 	context.powertraits = allPowerTraits.sort((a, b) => {

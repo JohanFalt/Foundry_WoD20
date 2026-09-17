@@ -4,6 +4,57 @@ import { calculateTotals } from "./totals.js";
 
 export default class DropHelper {
 
+    /**
+     * Next display order for an Apocalyptic Form within its Low/High Torment group.
+     * @param {Actor} actor
+     * @param {boolean} isHighTorment
+     * @returns {number}
+     */
+    static GetNextApocalypticFormOrder(actor, isHighTorment = false) {
+        const forms = actor.items.filter(item =>
+            item.type === "Trait" &&
+            item.system.type === "wod.types.apocalypticform" &&
+            !!item.system.ishightorment === !!isHighTorment
+        );
+
+        let maxOrder = -1;
+        for (const form of forms) {
+            const order = Number(form.system.order);
+            if (!Number.isNaN(order) && order > maxOrder) {
+                maxOrder = order;
+            }
+        }
+        return maxOrder + 1;
+    }
+
+    /**
+     * Assign system.order for a Trait apocalyptic form being added to an actor.
+     * @param {Actor} actor
+     * @param {object} itemData
+     * @returns {object}
+     */
+    static AssignApocalypticFormOrder(actor, itemData) {
+        if (itemData?.type !== "Trait" || itemData.system?.type !== "wod.types.apocalypticform") {
+            return itemData;
+        }
+        if (!itemData.system) {
+            itemData.system = {};
+        }
+
+        // If ishightorment is not explicitly stored on the item (e.g. from a compendium that pre-dates
+        // this flag), infer it from how many apocalyptic forms the actor already has:
+        // the first 4 become Low Torment, forms 5+ become High Torment.
+        if (itemData.system.ishightorment === undefined || itemData.system.ishightorment === null) {
+            const totalForms = actor.items.filter(item =>
+                item.type === "Trait" && item.system.type === "wod.types.apocalypticform"
+            ).length;
+            itemData.system.ishightorment = totalForms >= 4;
+        }
+
+        itemData.system.order = this.GetNextApocalypticFormOrder(actor, !!itemData.system.ishightorment);
+        return itemData;
+    }
+
     static async OnDropItem(event, data, actor) {
         if (!data.uuid) return false;
         if (!actor.isOwner) return false;
@@ -75,6 +126,10 @@ export default class DropHelper {
         }
         if ((droppedItem.type === "Power") && (itemData.system.parentid !== "")) {
             itemData.system.parentid = await ItemHelper.GetPowerId(itemData, actor);
+            update = true;
+        }
+        if (droppedItem.type === "Trait" && itemData.system?.type === "wod.types.apocalypticform") {
+            this.AssignApocalypticFormOrder(actor, itemData);
             update = true;
         }
         if (update) {
@@ -646,6 +701,8 @@ export default class DropHelper {
             .sort((a, b) => a.order - b.order)[0];
 
         // Import all features in one pass
+        let apocalypticFormCount = 0;
+
         for (const { key, feature } of featuresArray) {
             const featureData = await this.ImportFeatures(actor, feature);
             
@@ -656,6 +713,17 @@ export default class DropHelper {
             // Set isactive for first shapeform only
             if (featureData.system?.type === "wod.types.shapeform") {
                 featureData.system.isactive = (firstShapeform && key === firstShapeform.key);
+            }
+
+            // For Apocalyptic Forms: first 4 encountered = Low Torment (order 0-3),
+            // next 4 = High Torment (order 0-3). This mirrors the old convention where
+            // forms were listed LT first, HT last in the template.
+            if (featureData.system?.type === "wod.types.apocalypticform") {
+                featureData.system.ishightorment = apocalypticFormCount >= 4;
+                featureData.system.order = apocalypticFormCount >= 4
+                    ? apocalypticFormCount - 4
+                    : apocalypticFormCount;
+                apocalypticFormCount++;
             }
             
             itemlistData.push(featureData);
@@ -1604,6 +1672,8 @@ export default class DropHelper {
      *   - dropArea: Data attribute for drop area (e.g., "advantages")
      *   - orderProperty: Path to order property (e.g., "system.settings.order")
      *   - group: (Optional) Filter by item.system.group (e.g., "" for generic, "virtue" for virtues)
+     *   - traitType: (Optional) For system.features — filter Trait by system.type (e.g. wod.types.apocalypticform)
+     *   - ishightorment: (Optional) For apocalyptic forms — only reorder within Low or High Torment group
      *   - sheet: Sheet instance to render after update (optional)
      * @returns {Promise<boolean>} - true if update occurred, false otherwise
      */
@@ -1626,6 +1696,15 @@ export default class DropHelper {
             // Handle features/shapes (Trait items with type wod.types.shapeform)
             if (data.list === "system.features") {
                 if (item.type !== "Trait") return false;
+
+                if (options.traitType) {
+                    if (item.system.type !== options.traitType) return false;
+                    if (options.ishightorment !== undefined) {
+                        return !!item.system.ishightorment === !!options.ishightorment;
+                    }
+                    
+                    return true;
+                }
                 return (item.system.type === "wod.types.shapeform" || item.system.type === "wod.types.apocalypticform" || item.system.type === "wod.types.othertraits");
             }
             // Handle powers/spheres

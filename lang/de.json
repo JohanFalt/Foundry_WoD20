@@ -743,7 +743,8 @@
 				"cryptic": "Enigmaten",
 				"luciferan": "Jünger des Morgensterns",
 				"ravener": "Verheerer",
-				"reconciler": "Versöhner"
+				"reconciler": "Versöhner",
+				"celestialname": "Celestial name"
 			},
 			"wraith": {
 				"shadow": "Schatten",
@@ -1101,6 +1102,8 @@
 			"faith": "Glaube",
 			"torment": "Qual",
 			"apocalypticforms": "Apokalyptische Form",
+			"lowtorment": "Niedrige Qual",
+			"hightorment": "Hohe Qual",
 			"corpus": "Corpus",
 			"pathos": "Pathos",
 			"angst": "Angst",
@@ -1549,7 +1552,11 @@
 				"tokenimage": "Token Bild",
 				"tokenimagehint": "Das Bild, das der Token anzeigen wird, wenn diese Form aktiv ist. Leer lassen, um das Standardbild des Akteurs zu verwenden.",
 				"clearimage": "Clear selected image",
-				"usesoaksettings": "Form-Soak-Einstellungen verwenden"
+				"usesoaksettings": "Form-Soak-Einstellungen verwenden",
+				"hightorment": "Hohe Qual",
+				"hightormenthint": "Wenn aktiviert, wird diese apokalyptische Form unter Hohe Qual gelistet. Deaktiviert = Niedrige Qual.",
+				"order": "Anzeige-Reihenfolge",
+				"orderhint": "Niedrigere Zahlen erscheinen zuerst innerhalb der Liste Niedrige oder Hohe Qual. Forms können auch auf dem Charakterbogen gezogen werden."
 			},
 			"feature": {
 				"trivial": "Trivial",

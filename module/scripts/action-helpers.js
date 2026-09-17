@@ -1276,12 +1276,25 @@ export const OnItemSwitch = async function (event, target) {
 	const itemData = foundry.utils.duplicate(item);	
 	const current = foundry.utils.getProperty(itemData, path);
 
-	// Säkerställ att egenskapen finns och är boolean innan toggling
-	if (typeof current !== "boolean") {
+	// Allow toggling ishightorment even if the field is not yet stored (treat missing as false)
+	let booleanCurrent;
+	if (typeof current === "boolean") {
+		booleanCurrent = current;
+	}
+	else if (property === "ishightorment") {
+		booleanCurrent = false;
+	}
+	else {
+		// Säkerställ att egenskapen finns och är boolean innan toggling
 		return;
 	}
 
-	foundry.utils.setProperty(itemData, path, !current);
+	foundry.utils.setProperty(itemData, path, !booleanCurrent);
+
+	// Moving an Apocalyptic Form between Low/High Torment: place at end of the new group
+	if (property === "ishightorment" && itemData.system?.type === "wod.types.apocalypticform") {
+		itemData.system.order = DropHelper.GetNextApocalypticFormOrder(this.actor, !!itemData.system.ishightorment);
+	}
 
 	if (Array.isArray(itemData.system.bonuslist) && itemData.system.bonuslist.length > 0) {
 		let isactive = false;

@@ -698,7 +698,8 @@ input.sheet-infoWidth {
 }
 
 .wod20 .sheet-area .flex-columns {
-  margin-top: 15px;
+  /* margin-top: 15px; */
+  margin-bottom: 15px;
 }
 
 .wod20 .area-box {
@@ -1065,7 +1066,9 @@ input.sheet-infoWidth {
 .wod20 [data-droparea="advantages"].drag-active,
 .wod20 [data-droparea="features"].drag-active,
 .wod20 [data-droparea="powers"].drag-active,
-.wod20 [data-droparea="bio"].drag-active {
+.wod20 [data-droparea="bio"].drag-active,
+.wod20 [data-droparea="apocalypticforms-lt"].drag-active,
+.wod20 [data-droparea="apocalypticforms-ht"].drag-active {
   background-color: rgba(var(--main-full-color-rgb, 128, 0, 0), 0.05);
 }
 

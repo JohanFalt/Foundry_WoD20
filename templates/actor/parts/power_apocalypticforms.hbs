@@ -1,12 +1,102 @@
 <div class="sheet-area flex-columns power-forms-list">
 
     <div class="headlineRow headlineList splatFont feature-itemlist">
-        <div class="largeBox">{{localize 'wod.advantages.apocalypticforms'}}</div>                
+        <div class="largeBox">{{localize 'wod.advantages.apocalypticforms'}}</div>
     </div>
 
-    <div>
-		{{#each apocalypticforms as |form index|}}
-            {{> "systems/worldofdarkness/templates/actor/parts/feature_item.hbs" actor=../actor item=form locked=../locked edittitle="wod.labels.edit.apocalypticform" deletetitle="wod.labels.remove.apocalypticform" showtype=false}}
-		{{/each}}
+    <div class="headlineGroup splatFont">{{localize "wod.advantages.lowtorment"}}</div>
+    <div class="dialog-area flex-columns" data-drop-area="apocalypticforms-lt" data-droparea="apocalypticforms-lt">
+        {{#each apocalypticformsLow as |form|}}
+            <div class="item-row-area feature-itemlist feature-item"
+                    data-drag="true"
+                    data-documentid="{{../actor._id}}"
+                    data-itemid="{{form._id}}"
+                    data-list="system.features"
+                    data-type="{{form.type}}"
+                    data-traittype="wod.types.apocalypticform"
+                    data-ishightorment="false"
+                    data-droparea="apocalypticforms-lt"
+                    data-order="{{form.system.order}}">
+                <div class="dragrow headlineNormal feature-itemlist">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+
+                    {{#if (isChecked form.system.isactive)}}
+                        <i class="item-active pointer icon fa-regular fa-square-check" title="{{localize 'wod.power.active'}}" data-itemid="{{form._id}}" data-type="isactive" data-action="itemActive"></i>
+                    {{else}}
+                        <i class="item-active pointer icon fa-regular fa-square" title="{{localize 'wod.power.active'}}" data-itemid="{{form._id}}" data-type="isactive" data-action="itemActive"></i>
+                    {{/if}}
+
+                    <div class="largeBox">
+                        {{#if (ne form.name "")}}
+                            {{form.name}}
+                        {{else}}
+                            {{localize "wod.labels.new.apocalypticform"}}
+                        {{/if}}
+                    </div>
+
+                    <div class="width-valuebox">
+                        {{#if (gt form.system.level 0)}}
+                            {{form.system.level}}
+                        {{else}}
+                            &nbsp;
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="iconBox">
+                    {{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=form locked=../locked edittitle="wod.labels.edit.apocalypticform" deletetitle="wod.labels.remove.apocalypticform"}}
+                </div>
+            </div>
+            <div class="description" data-itemid="{{form._id}}">
+                {{{getToolTip_v2 form.system.description form.system.details form.system.bonuslist ../actor}}}
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="headlineGroup splatFont">{{localize "wod.advantages.hightorment"}}</div>
+    <div class="dialog-area flex-columns" data-drop-area="apocalypticforms-ht" data-droparea="apocalypticforms-ht">
+        {{#each apocalypticformsHigh as |form|}}
+            <div class="item-row-area feature-itemlist feature-item"
+                    data-drag="true"
+                    data-documentid="{{../actor._id}}"
+                    data-itemid="{{form._id}}"
+                    data-list="system.features"
+                    data-type="{{form.type}}"
+                    data-traittype="wod.types.apocalypticform"
+                    data-ishightorment="true"
+                    data-droparea="apocalypticforms-ht"
+                    data-order="{{form.system.order}}">
+                <div class="dragrow headlineNormal feature-itemlist">
+                    <div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+
+                    {{#if (isChecked form.system.isactive)}}
+                        <i class="item-active pointer icon fa-regular fa-square-check" title="{{localize 'wod.power.active'}}" data-itemid="{{form._id}}" data-type="isactive" data-action="itemActive"></i>
+                    {{else}}
+                        <i class="item-active pointer icon fa-regular fa-square" title="{{localize 'wod.power.active'}}" data-itemid="{{form._id}}" data-type="isactive" data-action="itemActive"></i>
+                    {{/if}}
+
+                    <div class="largeBox">
+                        {{#if (ne form.name "")}}
+                            {{form.name}}
+                        {{else}}
+                            {{localize "wod.labels.new.apocalypticform"}}
+                        {{/if}}
+                    </div>
+
+                    <div class="width-valuebox">
+                        {{#if (gt form.system.level 0)}}
+                            {{form.system.level}}
+                        {{else}}
+                            &nbsp;
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="iconBox">
+                    {{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=form locked=../locked edittitle="wod.labels.edit.apocalypticform" deletetitle="wod.labels.remove.apocalypticform"}}
+                </div>
+            </div>
+            <div class="description" data-itemid="{{form._id}}">
+                {{{getToolTip_v2 form.system.description form.system.details form.system.bonuslist ../actor}}}
+            </div>
+        {{/each}}
     </div>
 </div>

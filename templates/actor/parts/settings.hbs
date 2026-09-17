@@ -232,6 +232,8 @@
 								data-itemid="{{item._id}}"
 								data-list="system.features"
 								data-type="{{item.type}}"
+								data-traittype="wod.types.shapeform"
+								data-droparea="features"
 								data-order="{{item.system.order}}">
 							<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
 							<div class="headlineNormal" style="width:150px;">{{localize item.system.label}}</div>
@@ -245,6 +247,65 @@
 									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.headline'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
 									{{#if item.system.isremovable}}
 										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.headline'}}" data-itemid="{{item.id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+					{{/each}}
+				</div>
+			{{/if}}
+
+			{{#if actor.system.settings.hasapocalypticforms}}
+				<div class="headlineGroup splatFont">{{localize "wod.advantages.apocalypticforms"}}</div>
+				<div class="clearareaBox information-area">{{localize "wod.settings.orderhint"}}</div>
+
+				<div class="headlineNormal splatFont">{{localize "wod.advantages.lowtorment"}}</div>
+				<div class="space dialog-area flex-columns" data-drop-area="apocalypticforms-lt" data-droparea="apocalypticforms-lt">
+					{{#each apocalypticformsLow as |item|}}
+						<div class="flex-row feature-item"
+								data-drag="true"
+								data-documentid="{{../actor._id}}"
+								data-itemid="{{item._id}}"
+								data-list="system.features"
+								data-type="{{item.type}}"
+								data-traittype="wod.types.apocalypticform"
+								data-ishightorment="false"
+								data-droparea="apocalypticforms-lt"
+								data-order="{{item.system.order}}">
+							<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+							<div class="headlineNormal" style="width:150px;">{{item.name}}</div>
+							<div>
+								{{#if (not ../locked)}}
+									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.apocalypticform'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+									{{#if item.system.isremovable}}
+										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.apocalypticform'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
+									{{/if}}
+								{{/if}}
+							</div>
+						</div>
+					{{/each}}
+				</div>
+
+				<div class="headlineNormal splatFont">{{localize "wod.advantages.hightorment"}}</div>
+				<div class="space dialog-area flex-columns" data-drop-area="apocalypticforms-ht" data-droparea="apocalypticforms-ht">
+					{{#each apocalypticformsHigh as |item|}}
+						<div class="flex-row feature-item"
+								data-drag="true"
+								data-documentid="{{../actor._id}}"
+								data-itemid="{{item._id}}"
+								data-list="system.features"
+								data-type="{{item.type}}"
+								data-traittype="wod.types.apocalypticform"
+								data-ishightorment="true"
+								data-droparea="apocalypticforms-ht"
+								data-order="{{item.system.order}}">
+							<div class="width-iconbox draggable"><i class="icon fa-solid fa-grip-vertical"></i></div>
+							<div class="headlineNormal" style="width:150px;">{{item.name}}</div>
+							<div>
+								{{#if (not ../locked)}}
+									<a class="pointer item-edit" title="{{localize 'wod.labels.edit.apocalypticform'}}" data-type="{{item.type}}" data-itemid="{{item._id}}" data-action="itemEdit"><i class="icon fa-solid fa-pen-to-square"></i></a>
+									{{#if item.system.isremovable}}
+										<a class="pointer item-delete" title="{{localize 'wod.labels.remove.apocalypticform'}}" data-itemid="{{item._id}}" data-action="itemDelete"><i class="icon fa-solid fa-trash-can"></i></a>
 									{{/if}}
 								{{/if}}
 							</div>

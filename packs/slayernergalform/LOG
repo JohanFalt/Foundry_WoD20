@@ -1,3 +1,8 @@
-2026/09/07-11:10:53.270 40ac Recovering log #1126
-2026/09/07-11:10:53.412 40ac Delete type=0 #1126
-2026/09/07-11:10:53.413 40ac Delete type=3 #1124
+2026/09/17-15:02:53.572 292c Recovering log #1165
+2026/09/17-15:02:53.787 292c Delete type=0 #1165
+2026/09/17-15:02:53.787 292c Delete type=3 #1164
+2026/09/17-15:03:44.064 5758 Level-0 table #1169: started
+2026/09/17-15:03:44.064 5758 Level-0 table #1169: 0 bytes OK
+2026/09/17-15:03:44.136 5758 Delete type=0 #1167
+2026/09/17-15:03:44.280 5758 Manual compaction at level-0 from '!items!11gGxq9JQ0219mFM' @ 72057594037927935 : 1 .. '!items!rpChp6RXfNyDY9em' @ 0 : 0; will stop at (end)
+2026/09/17-15:03:44.280 5758 Manual compaction at level-1 from '!items!11gGxq9JQ0219mFM' @ 72057594037927935 : 1 .. '!items!rpChp6RXfNyDY9em' @ 0 : 0; will stop at (end)
