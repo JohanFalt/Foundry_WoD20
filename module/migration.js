@@ -2784,6 +2784,7 @@ export  const updates = async () => {
         newfunctions += '<li>[PC Actor DtF] Added drag and drop to fix the order of apocalyptic forms on the actor sheet.</li>';
         newfunctions += '<li>[PC Actor DtF] Added a missed high torment apocalyptic form for the Ninsun (Fiend) template in the compendium.</li>';
         newfunctions += '<li>[PC Actor DtF] Added the bio field Celestial name for all demon templates.</li>';
+        newfunctions += '<li>[PC Actor VtM] Corrected the ghoul templates as it had a wrong knowledge ability.</li>';
     }
     
 
