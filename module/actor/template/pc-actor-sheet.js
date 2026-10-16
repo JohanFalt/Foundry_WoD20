@@ -7,7 +7,6 @@ import SelectHelper from "../../scripts/select-helpers.js";
 import { OnSquareCounterChange } from "../../scripts/action-helpers.js";
 import { OnSquareCounterClear } from "../../scripts/action-helpers.js";
 import { OnDotCounterChange } from "../../scripts/action-helpers.js";
-import { OnStatValueChange } from "../../scripts/action-helpers.js";
 import { OnActorSwitch } from "../../scripts/action-helpers.js";
 import { OnUseMacro } from "../../scripts/action-helpers.js";
 
@@ -453,9 +452,6 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 		
 		// Highlight dot/box UI based on current values
 		ActionHelper.SetupDotCounters_v2(element);
-
-		// Numeric input for high-max attributes and abilities
-		this._bindStatValueInputs(element);
 
 		// right-click health boxes - use event delegation
 		this._bindHealthContextMenu(element);
@@ -940,23 +936,6 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 		// Always clean up drag-over classes after reorder attempt
 		this.element.querySelectorAll('.drag-over-top, .drag-over-bottom, .drag-over').forEach(el => {
 			el.classList.remove('drag-over-top', 'drag-over-bottom', 'drag-over');
-		});
-	}
-
-	/**
-	 * Numeric value inputs for attributes/abilities with max > 6.
-	 * @param {HTMLElement} root
-	 */
-	_bindStatValueInputs(root) {
-		const inputs = root.querySelectorAll?.(".resource-value-input");
-		if (!inputs?.length) return;
-
-		inputs.forEach(el => {
-			if (el.dataset.valueBound) return;
-			el.dataset.valueBound = "true";
-			el.addEventListener("change", (event) => {
-				OnStatValueChange.call(this, event, event.currentTarget);
-			});
 		});
 	}
 

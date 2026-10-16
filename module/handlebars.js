@@ -1822,7 +1822,15 @@ export const registerHandlebarsHelpers = function () {
 		}		
 
 		if ((attribute != undefined) && (attribute != "")) {
-			code = game.i18n.localize(CONFIG.worldofdarkness.attributes20[attribute]).substring(0, 3);
+			const attributeList = (CONFIG.worldofdarkness.attributeSettings === "5th")
+				? CONFIG.worldofdarkness.attributes
+				: CONFIG.worldofdarkness.attributes20;
+			const attributeLabel = attributeList?.[attribute]
+				? game.i18n.localize(attributeList[attribute])
+				: "";
+			if (attributeLabel) {
+				code = attributeLabel.substring(0, 3);
+			}
 		}		
 
 		if (code == "") {

@@ -2765,7 +2765,7 @@ export  const updates = async () => {
         newfunctions += '<li>Fixed some translations.</li>';
         newfunctions += '<li>[PC Actor MtA] Fixed problems showing paradox correctly on mage sheets.</li>';
         newfunctions += '<li>Fixed a bunch of bugs and other minor issues</li>';
-    }
+    }   
 
     if (!patch730) {
         game.settings.set('worldofdarkness', 'patch730', true);
@@ -2785,6 +2785,14 @@ export  const updates = async () => {
         newfunctions += '<li>[PC Actor DtF] Added a missed high torment apocalyptic form for the Ninsun (Fiend) template in the compendium.</li>';
         newfunctions += '<li>[PC Actor DtF] Added the bio field Celestial name for all demon templates.</li>';
         newfunctions += '<li>[PC Actor VtM] Corrected the ghoul templates as it had a wrong knowledge ability.</li>';
+    }
+
+    if (_compareVersion(installedVersion, '7.3.2')) {
+        newfunctions += '<li>In some cases when a actor of the old types was created it was set as incapicitated.</li>';
+        newfunctions += '<li>All attributes are now displayed as weapon attributes.</li>';
+        newfunctions += '<li>[PC Actor DtF] Demon template now hold Conviction than Self-Control.</li>';
+        newfunctions += '<li>[PC Actor WtO] Added Artifacts as gear items.</li>';
+        newfunctions += '<li>[PC Actor VtM] Fixed problem with max value of attribute and ability displays of very low generations.</li>';
     }
     
 

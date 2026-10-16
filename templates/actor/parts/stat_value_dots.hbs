@@ -1,20 +1,7 @@
-{{#if (gt max 8)}}
-	<input type="text"
-		class="pullLeft {{#if (gt max 5)}}supernaturalAttribute {{/if}}resource-value-input"
-		inputmode="numeric"
-		data-max="{{max}}"
-		data-value="{{value}}"
-		data-name="{{name}}"
-		{{#if itemid}}data-itemid="{{itemid}}"{{/if}}
-		{{#if statKey}}data-key="{{statKey}}"{{/if}}
-		value="{{value}}"
-		{{#if locked}}disabled{{/if}} />
-{{else}}
-	{{#numLoop max}}
-		<span class="{{#if (gt ../max 5)}}supernaturalAttribute {{/if}}resource-value-step"
-			data-action="editDot"
-			data-type="{{../dotType}}"
-			data-index="{{this}}"
-			{{#if ../itemid}}data-itemid="{{../itemid}}" data-ability="core"{{/if}}></span>
-	{{/numLoop}}
-{{/if}}
+{{#numLoop max}}
+	<span class="{{#if (gt ../max 5)}}supernaturalAttribute {{/if}}{{#if (gt ../max 7)}}highMaxAttribute {{/if}}resource-value-step"
+		data-action="editDot"
+		data-type="{{../dotType}}"
+		data-index="{{this}}"
+		{{#if ../itemid}}data-itemid="{{../itemid}}" data-ability="core"{{/if}}></span>
+{{/numLoop}}

@@ -21,7 +21,7 @@
  * **Weapons (item sheets)**
  * - `WeaponEra`: Weapon `system.era` options (localization keys: `"wod.era.modern"`).
  * - `Conceal`: Weapon concealment code list (P/J/T/NA) with era-aware labels.
- * - `AttackAttributes`: Attack attribute list for weapons.
+ * - `AttackAttributes`: Attack attribute list for weapons (all attrs for current `attributeSettings`: 20th vs 5th).
  * - `AttackAbilities`: Attack ability list for melee/ranged weapons (+ custom).
  * - `DamageAttribute`: Alias of `AttackAttributes` (used by weapon damage roll config).
  *
@@ -107,10 +107,15 @@ export default class SelectHelper {
                 label: "- " + game.i18n.localize("wod.labels.usesecondary") + " -"
             }];
                 
-            for (const attribute in CONFIG.worldofdarkness.attackAttributes) {
+            const attrSetting = CONFIG.worldofdarkness.attributeSettings;
+            const attributeList = (attrSetting === "5th")
+                ? CONFIG.worldofdarkness.attributes
+                : CONFIG.worldofdarkness.attributes20;
+
+            for (const attribute in attributeList) {
                 const data = {
                     value: attribute,
-                    label: game.i18n.localize(CONFIG.worldofdarkness.attackAttributes[attribute])
+                    label: game.i18n.localize(attributeList[attribute])
                 };
 
                 listData.AttackAttributes.push(data);
@@ -232,6 +237,11 @@ export default class SelectHelper {
                 value: "wod.types.relic", 
                 label: game.i18n.localize("wod.types.relic"), 
                 group: game.i18n.localize("wod.games.demon")
+            },
+            {
+                value: "wod.types.artifact", 
+                label: game.i18n.localize("wod.types.artifact"), 
+                group: game.i18n.localize("wod.games.wraith")
             },
             {
                 value: "wod.types.device", 

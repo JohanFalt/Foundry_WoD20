@@ -139,13 +139,67 @@ export default class CombatHelper {
 	}
 
     static _inTurn(token) {
-		for (let count = 0; count < game.combat.combatants.size; count++) {
-			if (token.id == game.combat.combatants.contents[count].token.id) {
+		if (!game.combat || !token) {
+			return false;
+		}
+
+		const tokenId = token.id ?? token.document?.id;
+		if (!tokenId) {
+			return false;
+		}
+
+		if (typeof game.combat.getCombatantByToken === "function") {
+			if (game.combat.getCombatantByToken(tokenId)) {
 				return true;
 			}
 		}
-	
-		return false;
+
+		return game.combat.combatants.some(c => c.tokenId === tokenId);
+	}
+
+	/**
+	 * Resolve an existing combatant for a token/actor without creating a duplicate.
+	 * Prefers token match, then actor match (sidebar / actor-only combatants).
+	 *
+	 * @param {Token} token
+	 * @param {Actor} actor
+	 * @returns {Combatant|null}
+	 */
+	static GetCombatant(token, actor) {
+		if (!game.combat) {
+			return null;
+		}
+
+		const tokenId = token?.id ?? token?.document?.id;
+		const actorId = actor?.id ?? actor?._id;
+
+		if (tokenId) {
+			if (token?.combatant) {
+				return token.combatant;
+			}
+			if (typeof game.combat.getCombatantByToken === "function") {
+				const byToken = game.combat.getCombatantByToken(tokenId);
+				if (byToken) {
+					return byToken;
+				}
+			}
+			const match = game.combat.combatants.find(c => c.tokenId === tokenId);
+			if (match) {
+				return match;
+			}
+		}
+
+		if (actorId) {
+			if (typeof game.combat.getCombatantByActor === "function") {
+				const byActor = game.combat.getCombatantByActor(actorId);
+				if (byActor) {
+					return byActor;
+				}
+			}
+			return game.combat.combatants.find(c => c.actorId === actorId) ?? null;
+		}
+
+		return null;
 	}
 
 	/**

@@ -613,7 +613,6 @@ export async function InitiativeRoll(diceRoll) {
 
 	let foundToken = false;
 	let foundEncounter = true;
-	let tokenAdded = false;
 	let rolledInitiative = false;
 	let init = 0;
 	let initAttribute;
@@ -647,15 +646,17 @@ export async function InitiativeRoll(diceRoll) {
 	allDiceResult.push(diceResult);
 
 	if ((foundToken) && (foundEncounter)) {
-		if (!CombatHelper._inTurn(token)) {
-			await token.document.toggleCombatant();
+		let combatant = CombatHelper.GetCombatant(token, actor);
 
-			if (token.combatant.system.initiative == undefined) {      
-				await token.combatant.update({initiative: init});
-				rolledInitiative = true;
-			}
-			
-			tokenAdded = true;
+		// Only add to combat when no combatant exists yet (avoids duplicates).
+		if (!combatant) {
+			await token.document.toggleCombatant();
+			combatant = CombatHelper.GetCombatant(token, actor);
+		}
+
+		if (combatant) {
+			await combatant.update({ initiative: init });
+			rolledInitiative = true;
 		}
 	}	
 
@@ -674,21 +675,15 @@ export async function InitiativeRoll(diceRoll) {
 	//(into)
 	if (!foundEncounter) {
 		info.push(game.i18n.localize("wod.dice.noencounterfound"));
+		allDiceResult = [];
 	}
-	else {
-		if (!foundToken) {
-			info.push(game.i18n.localize("wod.dice.notokenfound"));
-		}
-		else {
-			if (!tokenAdded) {
-				info.push(game.i18n.localize("wod.dice.characteradded"));
-				allDiceResult = [];
-			}
-			if (!rolledInitiative) {
-				info.push(`${actor.name} ${game.i18n.localize("wod.dice.initiativealready")}`);
-				allDiceResult = [];
-			}
-		}
+	else if (!foundToken) {
+		info.push(game.i18n.localize("wod.dice.notokenfound"));
+		allDiceResult = [];
+	}
+	else if (!rolledInitiative) {
+		info.push(`${actor.name} ${game.i18n.localize("wod.dice.initiativealready")}`);
+		allDiceResult = [];
 	}
 
 	const templateData = {

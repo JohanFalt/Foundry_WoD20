@@ -1873,6 +1873,9 @@ input.sheet-infoWidth {
 .wod-sheet .supernaturalAttribute.ability-headlineWidth {
   width: 40%;
 }
+.wod-sheet .highMaxAttribute.ability-headlineWidth {
+  width: 35%;
+}
 
 .wod20 .ability-rowheight {
   height: 19px;
@@ -1939,6 +1942,10 @@ input.sheet-infoWidth {
 
 .wod20 span.supernaturalAttribute:nth-of-type(5n) {
   margin-right: 10px;
+}
+
+.wod20 span.highMaxAttribute:nth-of-type(5n) {
+  margin-right: 4px;
 }
 
 .wod20 .rankAttribute:nth-of-type(5n) {
@@ -2466,29 +2473,14 @@ input.sheet-infoWidth {
   width: 12px;
 }
 
-.wod20 .resource-value .supernaturalAttribute.resource-value-input {
-  width: 2em;
-  height: 12px;
+.wod20 span.highMaxAttribute.resource-value-step {
+  height: 10px;
+  width: 10px;
 }
 
 .wod20 .difficulty-value .resource-value-step.active,
 .wod20 .resource-value .resource-value-step.active {
   background-color: #121212;
-}
-
-.wod20 .resource-value .resource-value-input {
-  width: 2.5em;
-  height: 14px;
-  padding: 0 2px;
-  text-align: center;
-  border: 1px solid #121212;
-  border-radius: 2px;
-  vertical-align: middle;
-}
-
-.wod20 .locked .resource-value .resource-value-input {
-  pointer-events: none;
-  opacity: 0.6;
 }
 
 .wod20 .resource-value-static .resource-value-static-step {

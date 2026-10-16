@@ -121,6 +121,8 @@
 									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.treasure" deletetitle="wod.labels.remove.treasure"}}
 								{{else if (eq item.system.type "wod.types.relic")}}
 									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.relic" deletetitle="wod.labels.remove.relic"}}
+								{{else if (eq item.system.type "wod.types.artifact")}}
+									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.artifact" deletetitle="wod.labels.remove.artifact"}}
 								{{else if (eq item.system.type "wod.types.device")}}
 									{{> "systems/worldofdarkness/templates/actor/parts/list_icons.hbs" showsendchat=true showedit=true showdelete=true showtooltip=true item=item locked=../locked edittitle="wod.labels.edit.device" deletetitle="wod.labels.remove.device"}}
 								{{else if (eq item.system.type "wod.types.device")}}

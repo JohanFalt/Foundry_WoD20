@@ -278,13 +278,6 @@ wod.alwaysspeciality = {
     wraith: []
 }
 
-wod.attackAttributes = {
-    strength: "wod.attributes.strength",
-    dexterity: "wod.attributes.dexterity",
-    manipulation: "wod.attributes.manipulation",
-    wits: "wod.attributes.wits"
-}
-
 wod.attackMeleeAbilities = {
     athletics: "wod.abilities.athletics",
     brawl: "wod.abilities.brawl",

@@ -994,57 +994,6 @@ export const OnDotCounterChange = async function (event, target) {
 	});
 }
 
-export const OnStatValueChange = async function (event, target) {
-	event.preventDefault();
-
-	if (!target) return;
-
-	if (this.locked) {
-		ui.notifications.warn(game.i18n.localize("wod.system.sheetlocked"));
-		target.value = target.dataset.value ?? "";
-		return;
-	}
-
-	const raw = String(target.value ?? "").trim();
-	if (raw === "" || !/^\d+$/.test(raw)) {
-		ui.notifications.warn(game.i18n.localize("wod.system.invalidstatvalue"));
-		target.value = target.dataset.value ?? "";
-		return;
-	}
-
-	const newValue = parseInt(raw, 10);
-	const max = Number(target.dataset.max ?? 0);
-	const currentValue = Number(target.dataset.value ?? 0);
-
-	if (newValue < 0 || newValue > max) {
-		ui.notifications.warn(game.i18n.format("wod.system.invalidstatrange", { max }));
-		target.value = String(currentValue);
-		return;
-	}
-
-	if (newValue === currentValue) return;
-
-	const path = (target.dataset.name || "").split(".");
-	const itemid = target.dataset.itemid;
-
-	if (itemid) {
-		const item = await this.actor.getEmbeddedDocument("Item", itemid);
-		const itemData = foundry.utils.duplicate(item);
-		setNested(itemData, path, newValue);
-		await item.update(itemData);
-	}
-	else {
-		let actorData = foundry.utils.duplicate(this.actor);
-		setNested(actorData, path, newValue);
-		actorData = await calculateTotals(actorData);
-		actorData.system.settings.isupdated = false;
-		await this.actor.update(actorData);
-	}
-
-	target.dataset.value = String(newValue);
-	target.value = String(newValue);
-}
-
 export const OnUseMacro = async function (event, target) {
 	event.preventDefault();
 	if (!target) return;

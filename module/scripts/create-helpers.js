@@ -1316,6 +1316,7 @@ export default class CreateHelper {
 		const configs = {
 			treasure: { itemType: "Item", systemType: "wod.types.treasure", iscontainter: false },
 			relic: { itemType: "Item", systemType: "wod.types.relic", iscontainter: false },
+			artifact: { itemType: "Item", systemType: "wod.types.artifact", iscontainter: false },
 			device: { itemType: "Item", systemType: "wod.types.device", iscontainter: false },
 			talisman: { itemType: "Item", systemType: "wod.types.talisman", iscontainter: false },
 			periapt: { itemType: "Item", systemType: "wod.types.periapt", iscontainter: true },
@@ -2491,7 +2492,7 @@ export default class CreateHelper {
 
 	/* Create the buttons for create Gear Items */
 	static async CreateButtonsGear(actor) {
-		const kinds = ["treasure", "relic", "device", "talisman", "periapt", "matrix", "trinket", "fetish", "talen"];
+		const kinds = ["treasure", "relic", "artifact", "device", "talisman", "periapt", "matrix", "trinket", "fetish", "talen"];
 		const buttons = {};
 
 		for (const kind of kinds) {
