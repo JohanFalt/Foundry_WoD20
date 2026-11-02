@@ -27,6 +27,10 @@
             <div class="headlineGroup splatFont">
                 {{#if (eq object.type "attribute")}}
                     {{localize "wod.dice.rollof"}} {{object.attributeName}}
+
+                    {{#if (ne object.abilityName "")}}
+                     + {{object.abilityName}}
+                    {{/if}}
                 {{/if}}
                 {{#if (eq object.type "ability")}}
                     {{localize "wod.dice.roll"}} 
@@ -96,6 +100,17 @@
                             <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.attributeKey key)}}active{{/if}}" value="{{key}}">{{localize attribute}}</button>
                         {{/each}}
                     {{/if}}
+                </div>
+            </div>
+        {{/if}}
+
+        {{#if abilities}}
+            <div class="dialog-area">
+                <div class="headline splatFont">{{localize "wod.labels.selectability"}}</div>
+                <div class="centerText infobox">
+                    {{#each abilities as |ability|}}
+                        <button class="button fullSplatColor pointer dialog-ability-button {{#if (eq ../object.abilityKey ability.key)}}active{{/if}}" value="{{ability.key}}">{{ability.label}}</button>
+                    {{/each}}
                 </div>
             </div>
         {{/if}}
