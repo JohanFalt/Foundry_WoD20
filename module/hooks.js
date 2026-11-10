@@ -460,6 +460,37 @@ export function registerHooks(constants, isTablet) {
 				sheet.element[0].classList.add("langEN");
 			}
 
+			// Apply splat class so dialog fonts/colors match the actor sheet (PC + legacy)
+			if (sheet.actor) {
+				let splat = "";
+				if (sheet.actor.type === "PC") {
+					if (sheet.actor.system?.settings?.variantsheet) {
+						splat = sheet.actor.system.settings.variantsheet.toLowerCase();
+					}
+					else if (sheet.actor.system?.settings?.splat) {
+						splat = sheet.actor.system.settings.splat.toLowerCase();
+					}
+					else if (sheet.actor.system?.settings?.game) {
+						splat = sheet.actor.system.settings.game.toLowerCase();
+					}
+					else {
+						splat = "mortal";
+					}
+				}
+				else {
+					splat = sheet.actor.type.toLowerCase();
+				}
+
+				if ((splat === "pc") || (splat === "")) {
+					splat = "mortal";
+				}
+				if ((splat === "changingbreed") || (splat === CONFIG.worldofdarkness.sheettype.changingbreed.toLowerCase())) {
+					splat = "werewolf";
+				}
+
+				sheet.element[0].classList.add(splat);
+			}
+
 			if (game.settings.get('worldofdarkness', 'useSplatFonts') === false) {
 				sheet.element[0].classList.add("noSplatFont");
 			}

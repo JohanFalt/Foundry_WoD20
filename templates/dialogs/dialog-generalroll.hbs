@@ -1,4 +1,4 @@
-<form class="{{cssClass}} {{object.sheettype}}" autocomplete="off">
+<form class="{{cssClass}} {{object.sheettype}}{{#if (or (eq object.type "attribute") (eq object.type "ability") (eq object.type "noability"))}} compact-roll{{/if}}" autocomplete="off">
 
     {{#if (eq object.type "dice")}}
 
@@ -21,75 +21,183 @@
             </div>
         </div>
 
-    {{else}}
-
         <div class="dialog-area">
-            <div class="headlineGroup splatFont">
-                {{#if (eq object.type "attribute")}}
-                    {{localize "wod.dice.rollof"}} {{object.attributeName}}
+            <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+            <div class="infobox centerText">
+                {{#numFromLoop config.lowestDifficulty 10}}
+                    <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                {{/numFromLoop}}
+            </div>
+        </div>
 
+        <div class="centerText">
+            <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+            <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+        </div>
+
+    {{else if (eq object.type "attribute")}}
+
+        <div class="dialog-roll-body">
+            <div class="dialog-area dialog-compact">
+                <div class="headline splatFont dialog-roll-title">
+                    {{localize "wod.dice.rollof"}} {{object.attributeName}}
                     {{#if (ne object.abilityName "")}}
-                     + {{object.abilityName}}
+                        + {{object.abilityName}}
                     {{/if}}
-                {{/if}}
-                {{#if (eq object.type "ability")}}
-                    {{localize "wod.dice.roll"}} 
+                </div>
+
+                <div class="infobox dialog-pool-line">
+                    {{#if (ne object.attributeName "")}}
+                        {{object.attributeName}} ({{object.attributeValue}})
+                    {{/if}}
+                    {{#if (and (ne object.attributeName "") (ne object.abilityName ""))}}
+                        +
+                    {{/if}}
+                    {{#if (ne object.abilityName "")}}
+                        {{object.abilityName}} ({{object.abilityValue}})
+                    {{/if}}
+                </div>
+
+                <div class="dialog-inline-options">
+                    {{#if object.hasSpeciality}}
+                        <label class="dialog-inline-option">
+                            <input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} />
+                            <span>{{localize "wod.labels.specialty"}}{{#if (ne object.specialityText "")}}: {{object.specialityText}}{{/if}}</span>
+                        </label>
+                    {{/if}}
+
+                    {{#if (ne object.key "willpower")}}
+                        <label class="dialog-inline-option">
+                            <input name="useWillpower" type="checkbox" {{isChecked object.useWillpower}} />
+                            <span>{{localize "wod.labels.usewillpower"}}</span>
+                        </label>
+                    {{/if}}
+
+                    {{#if (and (ne actorData.health.damage.woundpenalty 0) (eq object.ignorepain false))}}
+                        <label class="dialog-inline-option">
+                            <input name="usepain" type="checkbox" {{isChecked object.usepain}} />
+                            <span>{{localize "wod.dialog.usewoundpenalty"}} ({{actorData.health.damage.woundpenalty}})</span>
+                        </label>
+                    {{/if}}
+
+                    <label class="dialog-inline-option dialog-inline-bonus">
+                        <span>{{localize "wod.labels.bonus.headline"}}</span>
+                        <input class="editable dialog-valueBox" type="text" name="bonus" value="{{object.bonus}}" autofocus />
+                    </label>
+                </div>
+            </div>
+
+            {{#if abilities}}
+                <div class="dialog-area dialog-compact dialog-ability-area">
+                    <div class="headline splatFont">{{localize "wod.labels.selectability"}}</div>
+                    <div class="centerText dialog-ability-tabs">
+                        {{#if abilities.talents.length}}
+                            <button type="button" class="button fullSplatColor pointer dialog-ability-tab-button {{#if (eq object.abilityTab "talents")}}active{{/if}}" value="talents">{{localize "wod.abilities.talents"}}</button>
+                        {{/if}}
+                        {{#if abilities.skills.length}}
+                            <button type="button" class="button fullSplatColor pointer dialog-ability-tab-button {{#if (eq object.abilityTab "skills")}}active{{/if}}" value="skills">{{localize "wod.abilities.skills"}}</button>
+                        {{/if}}
+                        {{#if abilities.knowledges.length}}
+                            <button type="button" class="button fullSplatColor pointer dialog-ability-tab-button {{#if (eq object.abilityTab "knowledges")}}active{{/if}}" value="knowledges">{{localize "wod.abilities.knowledges"}}</button>
+                        {{/if}}
+                    </div>
+                    <div class="centerText dialog-ability-list">
+                        {{#if (eq object.abilityTab "talents")}}
+                            {{#each abilities.talents as |ability|}}
+                                <button class="button fullSplatColor pointer dialog-ability-button {{#if (eq ../object.abilityKey ability.key)}}active{{/if}}" value="{{ability.key}}">{{ability.label}}</button>
+                            {{/each}}
+                        {{/if}}
+                        {{#if (eq object.abilityTab "skills")}}
+                            {{#each abilities.skills as |ability|}}
+                                <button class="button fullSplatColor pointer dialog-ability-button {{#if (eq ../object.abilityKey ability.key)}}active{{/if}}" value="{{ability.key}}">{{ability.label}}</button>
+                            {{/each}}
+                        {{/if}}
+                        {{#if (eq object.abilityTab "knowledges")}}
+                            {{#each abilities.knowledges as |ability|}}
+                                <button class="button fullSplatColor pointer dialog-ability-button {{#if (eq ../object.abilityKey ability.key)}}active{{/if}}" value="{{ability.key}}">{{ability.label}}</button>
+                            {{/each}}
+                        {{/if}}
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="dialog-roll-footer">
+            <div class="dialog-area dialog-compact">
+                <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+                <div class="infobox centerText">
+                    {{#numFromLoop config.lowestDifficulty 10}}
+                        <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                    {{/numFromLoop}}
+                </div>
+                <div class="centerText dialog-action-buttons">
+                    <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+                    <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+                </div>
+            </div>
+        </div>
+
+    {{else if (eq object.type "ability")}}
+
+        <div class="dialog-roll-body">
+            <div class="dialog-area dialog-compact">
+                <div class="headline splatFont dialog-roll-title">
+                    {{localize "wod.dice.roll"}}
                     {{#if (ne object.attributeName "")}}
                         {{object.attributeName}}
                     {{/if}}
-
                     {{#if (and (ne object.attributeName "") (ne object.abilityName ""))}}
-                     +
+                        +
                     {{/if}}
-
                     {{#if (ne object.abilityName "")}}
                         {{object.abilityName}}
                     {{/if}}
-                {{/if}}
-                {{#if (eq object.type "noability")}}
-                    {{object.attributeName}}
-                {{/if}}
-            </div>
-        </div>
-
-        <div class="dialog-area">
-            <div class="infobox headline splatFont">{{localize "wod.dialog.dicepool"}}</div>
-            <div class="infobox">
-                {{#if (ne object.attributeName "")}}
-                    {{object.attributeName}} ({{object.attributeValue}})
-                {{/if}}
-
-                {{#if (and (ne object.attributeName "") (ne object.abilityName ""))}}
-                     +
-                {{/if}}
-
-                {{#if (ne object.abilityName "")}}
-                    {{object.abilityName}} ({{object.abilityValue}})
-                {{/if}}
-            </div>
-
-            {{#if object.hasSpeciality}}
-                <div class="infobox headline splatFont">{{localize "wod.labels.specialty"}}</div>
-                <div class="clearareaBox infobox dialog-checkbox">
-                    <div class="pullLeft"><input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} /></div>
-                    <div class="pullLeft">{{#if (ne object.specialityText "")}}{{object.specialityText}}{{else}}{{localize "wod.dialog.nonelisted"}}{{/if}}</div>
-                </div>
-            {{/if}}
-
-            {{#if (ne object.key "willpower")}}
-
-                <div class="clearareaBox infobox dialog-checkbox">
-                    <div class="pullLeft"><input name="useWillpower" type="checkbox" {{isChecked object.useWillpower}} /></div>
-                    <div class="pullLeft"><label for="useWillpower" class="dialog-casting-type-label">{{localize "wod.labels.usewillpower"}}</label></div>
                 </div>
 
-            {{/if}}
-        </div>
+                <div class="infobox dialog-pool-line">
+                    {{#if (ne object.attributeName "")}}
+                        {{object.attributeName}} ({{object.attributeValue}})
+                    {{/if}}
+                    {{#if (and (ne object.attributeName "") (ne object.abilityName ""))}}
+                        +
+                    {{/if}}
+                    {{#if (ne object.abilityName "")}}
+                        {{object.abilityName}} ({{object.abilityValue}})
+                    {{/if}}
+                </div>
 
-        {{#if (eq object.type "ability")}}
-            <div class="dialog-area">
+                <div class="dialog-inline-options">
+                    {{#if object.hasSpeciality}}
+                        <label class="dialog-inline-option">
+                            <input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} />
+                            <span>{{localize "wod.labels.specialty"}}{{#if (ne object.specialityText "")}}: {{object.specialityText}}{{else}}: {{localize "wod.dialog.nonelisted"}}{{/if}}</span>
+                        </label>
+                    {{/if}}
+
+                    {{#if (ne object.key "willpower")}}
+                        <label class="dialog-inline-option">
+                            <input name="useWillpower" type="checkbox" {{isChecked object.useWillpower}} />
+                            <span>{{localize "wod.labels.usewillpower"}}</span>
+                        </label>
+                    {{/if}}
+
+                    {{#if (and (ne actorData.health.damage.woundpenalty 0) (eq object.ignorepain false))}}
+                        <label class="dialog-inline-option">
+                            <input name="usepain" type="checkbox" {{isChecked object.usepain}} />
+                            <span>{{localize "wod.dialog.usewoundpenalty"}} ({{actorData.health.damage.woundpenalty}})</span>
+                        </label>
+                    {{/if}}
+
+                    <label class="dialog-inline-option dialog-inline-bonus">
+                        <span>{{localize "wod.labels.bonus.headline"}}</span>
+                        <input class="editable dialog-valueBox" type="text" name="bonus" value="{{object.bonus}}" autofocus />
+                    </label>
+                </div>
+            </div>
+
+            <div class="dialog-area dialog-compact">
                 <div class="headline splatFont">{{localize "wod.dialog.general.selectattribute"}}</div>
-                <div class="centerText infobox">
+                <div class="centerText dialog-attribute-list">
                     {{#if (eq (checkSystemsetting "attributeSettings") "5th")}}
                         {{#each config.attributeslist as |attribute key|}}
                             <button id="attribute" class="button fullSplatColor pointer dialog-attribute-button {{#if (eq ../object.attributeKey key)}}active{{/if}}" value="{{key}}">{{localize attribute}}</button>
@@ -102,50 +210,75 @@
                     {{/if}}
                 </div>
             </div>
-        {{/if}}
+        </div>
 
-        {{#if abilities}}
-            <div class="dialog-area">
-                <div class="headline splatFont">{{localize "wod.labels.selectability"}}</div>
-                <div class="centerText infobox">
-                    {{#each abilities as |ability|}}
-                        <button class="button fullSplatColor pointer dialog-ability-button {{#if (eq ../object.abilityKey ability.key)}}active{{/if}}" value="{{ability.key}}">{{ability.label}}</button>
-                    {{/each}}
+        <div class="dialog-roll-footer">
+            <div class="dialog-area dialog-compact">
+                <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+                <div class="infobox centerText">
+                    {{#numFromLoop config.lowestDifficulty 10}}
+                        <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                    {{/numFromLoop}}
                 </div>
-            </div>
-        {{/if}}
-
-        <div class="dialog-area">
-            <div class="headline splatFont">{{localize "wod.labels.bonus.headline"}}</div>
-            <div class="dialog-valueBox">
-                <input class="editable" type="text" name="bonus" value="{{object.bonus}}" autofocus />
+                <div class="centerText dialog-action-buttons">
+                    <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+                    <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+                </div>
             </div>
         </div>
 
-        {{#if (and (ne actorData.health.damage.woundpenalty 0) (ne object.type "noability"))}}
-            {{#if (eq object.ignorepain false)}}
-                <div class="dialog-area">
-                    <div class="infobox headline splatFont">
-                        <input name="usepain" type="checkbox" {{isChecked object.usepain}}>{{localize 'wod.dialog.usewoundpenalty'}} ({{actorData.health.damage.woundpenalty}})</input>
-                    </div>
+    {{else if (eq object.type "noability")}}
+
+        <div class="dialog-roll-body">
+            <div class="dialog-area dialog-compact">
+                <div class="headline splatFont dialog-roll-title">
+                    {{object.attributeName}}
                 </div>
-            {{/if}}
-        {{/if}}
+
+                <div class="infobox dialog-pool-line">
+                    {{#if (ne object.attributeName "")}}
+                        {{object.attributeName}} ({{object.attributeValue}})
+                    {{/if}}
+                </div>
+
+                <div class="dialog-inline-options">
+                    {{#if object.hasSpeciality}}
+                        <label class="dialog-inline-option">
+                            <input name="specialty" type="checkbox" {{isChecked object.useSpeciality}} />
+                            <span>{{localize "wod.labels.specialty"}}{{#if (ne object.specialityText "")}}: {{object.specialityText}}{{else}}: {{localize "wod.dialog.nonelisted"}}{{/if}}</span>
+                        </label>
+                    {{/if}}
+
+                    {{#if (ne object.key "willpower")}}
+                        <label class="dialog-inline-option">
+                            <input name="useWillpower" type="checkbox" {{isChecked object.useWillpower}} />
+                            <span>{{localize "wod.labels.usewillpower"}}</span>
+                        </label>
+                    {{/if}}
+
+                    <label class="dialog-inline-option dialog-inline-bonus">
+                        <span>{{localize "wod.labels.bonus.headline"}}</span>
+                        <input class="editable dialog-valueBox" type="text" name="bonus" value="{{object.bonus}}" autofocus />
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="dialog-roll-footer">
+            <div class="dialog-area dialog-compact">
+                <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
+                <div class="infobox centerText">
+                    {{#numFromLoop config.lowestDifficulty 10}}
+                        <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
+                    {{/numFromLoop}}
+                </div>
+                <div class="centerText dialog-action-buttons">
+                    <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
+                    <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
+                </div>
+            </div>
+        </div>
+
     {{/if}}
-
-    <div class="dialog-area">
-        <div class="headline splatFont">{{localize "wod.labels.difficulty"}}</div>
-        <div class="infobox centerText">
-            
-            {{#numFromLoop config.lowestDifficulty 10}}
-                <button id="difficulty" class="button fullSplatColor pointer dialog-difficulty-button {{#if (eq ../object.difficulty this)}}active{{/if}}" value="{{this}}" data-index="{{this}}">{{this}}</button>
-            {{/numFromLoop}}
-        </div>
-    </div>
-
-    <div class="centerText">
-        <button id="actionButton" class="button fullSplatColor pointer actionbutton dialog-two-button">{{localize "wod.dice.roll"}}</button>
-        <button id="closeButton" class="button fullSplatColor pointer closebutton dialog-two-button">{{localize "wod.dialog.close"}}</button>
-    </div>
 
 </form>

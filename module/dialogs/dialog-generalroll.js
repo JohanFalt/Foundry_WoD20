@@ -46,6 +46,7 @@ export class GeneralRoll {
 
         if (type == "attribute") {
             this.attributeKey = key;
+            this.abilityTab = "talents";
 
             if (CONFIG.worldofdarkness.attributeSettings == "20th") {                
                 this.attributeName = game.i18n.localize(CONFIG.worldofdarkness.attributes20[key]);
@@ -79,6 +80,10 @@ export class DialogGeneralRoll extends FormApplication {
         if (!this.isFreeRole) {
             this.options.title = `${this.actor.name}`;        
         }
+
+        if ((roll?.type === "attribute") || (roll?.type === "ability") || (roll?.type === "noability")) {
+            this.options.classes.push("compact-roll-dialog");
+        }
     }
 
     /**
@@ -108,20 +113,28 @@ export class DialogGeneralRoll extends FormApplication {
             data.actorData = this.actor.system;   
             data.actorData.type = this.actor.type;            
 
-            // Determine sheettype for dialog CSS classes
+            // Same priority as PC sheet getSplat(): variantsheet -> splat -> game
             let actortype = this.actor.type.toLowerCase();
-            
-            // For PC actors, use splat or variantsheet to determine type
             if (this.actor.type === "PC") {
-                if (this.actor?.system?.settings?.splat && this.actor.system.settings.splat !== "") {
+                if (this.actor?.system?.settings?.variantsheet && this.actor.system.settings.variantsheet !== "") {
+                    actortype = this.actor.system.settings.variantsheet.toLowerCase();
+                }
+                else if (this.actor?.system?.settings?.splat && this.actor.system.settings.splat !== "") {
                     actortype = this.actor.system.settings.splat.toLowerCase();
                 }
-                else if (this.actor?.system?.settings?.variantsheet && this.actor.system.settings.variantsheet !== "") {
-                    actortype = this.actor.system.settings.variantsheet.toLowerCase();
+                else if (this.actor?.system?.settings?.game && this.actor.system.settings.game !== "") {
+                    actortype = this.actor.system.settings.game.toLowerCase();
+                }
+                else {
+                    actortype = "mortal";
                 }
             }
 
-            if ((actortype != CONFIG.worldofdarkness.sheettype.changingbreed) && (actortype != CONFIG.worldofdarkness.splat.changingbreed)) {
+            if (actortype === "pc") {
+                actortype = "mortal";
+            }
+
+            if ((actortype != CONFIG.worldofdarkness.sheettype.changingbreed.toLowerCase()) && (actortype != CONFIG.worldofdarkness.splat.changingbreed)) {
                 data.object.sheettype = actortype + "Dialog";
             }
             else {
@@ -138,7 +151,23 @@ export class DialogGeneralRoll extends FormApplication {
         data.config = CONFIG.worldofdarkness;
 
         if (data.object.type == "attribute") {
-            data.abilities = this._getAbilities();
+            const abilities = this._getAbilities();
+            if (abilities.talents.length || abilities.skills.length || abilities.knowledges.length) {
+                data.abilities = abilities;
+
+                // Keep tab on a category that actually has abilities
+                if (!data.object.abilityTab || !abilities[data.object.abilityTab]?.length) {
+                    if (abilities.talents.length) {
+                        data.object.abilityTab = "talents";
+                    }
+                    else if (abilities.skills.length) {
+                        data.object.abilityTab = "skills";
+                    }
+                    else {
+                        data.object.abilityTab = "knowledges";
+                    }
+                }
+            }
         }
 
         data.object.hasSpeciality = false;
@@ -405,6 +434,10 @@ export class DialogGeneralRoll extends FormApplication {
             .click(this._setAbility.bind(this));
 
         html
+            .find('.dialog-ability-tab-button')
+            .click(this._setAbilityTab.bind(this));
+
+        html
             .find('.actionbutton')
             .click(this._generalRoll.bind(this));
 
@@ -547,34 +580,95 @@ export class DialogGeneralRoll extends FormApplication {
         this.render();
     }
 
-    /* the button submits the form, which renders and so resolves the ability in getData */
-    _setAbility(event) {
-        this.object.abilityKey = event.currentTarget.value;
-        this.object.difficulty = 6;
-        this.object.usedReducedDiff = false;
-    }
+	/* selected ability after starting from an attribute roll */
+	async _setAbility(event) {
+		this.object.abilityKey = event.currentTarget.value;
+		this.object.difficulty = 6;
+		this.object.usedReducedDiff = false;
 
-    /* the abilities the actor's sheet lists */
+		// Apply attribute difficulty bonus here (same as _setAttribute), before
+		// form submit / specialty reduction can change difficulty away from 6.
+		if (await BonusHelper.CheckAttributeBonus(this.actor, this.object.attributeKey)) {
+			let bonus = await BonusHelper.GetAttributeBonus(this.actor, this.object.attributeKey);
+			this.object.difficulty += parseInt(bonus);
+		}
+
+		this.render();
+	}
+
+	_setAbilityTab(event) {
+		event.preventDefault();
+		this.object.abilityTab = event.currentTarget.value;
+		this.render();
+	}
+
+    /* the abilities the actor's sheet lists, grouped like the sheet columns */
     _getAbilities() {
-        let abilities;
+        const groups = { talents: [], skills: [], knowledges: [] };
+        const sortByLabel = (list) => list.sort((a, b) => a.label.localeCompare(b.label));
 
         if (this.actor.type === "PC") {
-            abilities = this.actor.items
-                .filter(item => (item.type === "Ability") && item.system.settings.isvisible)
-                .map(item => ({ key: item._id, label: game.i18n.localize(item.system.label) }));
+            for (const item of this.actor.items) {
+                if ((item.type !== "Ability") || !item.system.settings?.isvisible) {
+                    continue;
+                }
+
+                const entry = { key: item._id, label: game.i18n.localize(item.system.label) };
+
+                if (item.system.type === "wod.abilities.talent") {
+                    groups.talents.push(entry);
+                }
+                else if (item.system.type === "wod.abilities.skill") {
+                    groups.skills.push(entry);
+                }
+                else if (item.system.type === "wod.abilities.knowledge") {
+                    groups.knowledges.push(entry);
+                }
+            }
         }
         else {
-            const secondary = this.actor.items
-                .filter(item => (item.type === "Trait") && item.system.isvisible && item.system.type.endsWith("secondability"))
-                .map(item => ({ key: item._id, label: item.system.label }));
+            for (const [key, ability] of Object.entries(this.actor.system.abilities)) {
+                if (!ability.isvisible) {
+                    continue;
+                }
 
-            abilities = Object.entries(this.actor.system.abilities)
-                .filter(([key, ability]) => ability.isvisible)
-                .map(([key, ability]) => ({ key, label: ability.altlabel || game.i18n.localize(ability.label) }))
-                .concat(secondary);
+                const entry = { key, label: ability.altlabel || game.i18n.localize(ability.label) };
+
+                if (ability.type === "talent") {
+                    groups.talents.push(entry);
+                }
+                else if (ability.type === "skill") {
+                    groups.skills.push(entry);
+                }
+                else if (ability.type === "knowledge") {
+                    groups.knowledges.push(entry);
+                }
+            }
+
+            for (const item of this.actor.items) {
+                if ((item.type !== "Trait") || !item.system.isvisible) {
+                    continue;
+                }
+
+                const entry = { key: item._id, label: item.system.label };
+
+                if (item.system.type === "wod.types.talentsecondability") {
+                    groups.talents.push(entry);
+                }
+                else if (item.system.type === "wod.types.skillsecondability") {
+                    groups.skills.push(entry);
+                }
+                else if (item.system.type === "wod.types.knowledgesecondability") {
+                    groups.knowledges.push(entry);
+                }
+            }
         }
 
-        return abilities.sort((a, b) => a.label.localeCompare(b.label));
+        sortByLabel(groups.talents);
+        sortByLabel(groups.skills);
+        sortByLabel(groups.knowledges);
+
+        return groups;
     }
 
     /* clicked to roll */

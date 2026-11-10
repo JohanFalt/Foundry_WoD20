@@ -337,6 +337,101 @@
 
 .wod-dialog.general-dialog:not(.minimized) {
   height: 750px;
+  max-height: 750px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog:not(.minimized) .window-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog form.compact-roll {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-roll-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-roll-footer {
+  flex: 0 0 auto;
+  margin-top: 4px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-compact {
+  padding-top: 4px;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-roll-title {
+  margin: 0 0 2px 0;
+  font-size: var(--wod-font-lg);
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-pool-line {
+  margin-bottom: 6px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-inline-options {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-inline-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-inline-bonus .dialog-valueBox {
+  width: 48px;
+  margin-left: 4px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-ability-list,
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-attribute-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-ability-button,
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-attribute-button {
+  width: calc(33.333% - 4px);
+  height: 28px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-ability-tabs {
+  margin-bottom: 6px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-ability-tab-button {
+  height: 28px;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-roll-footer .dialog-area {
+  margin-bottom: 0;
+}
+
+.wod-dialog.general-dialog.compact-roll-dialog .dialog-action-buttons {
+  margin-top: 6px;
 }
 
 .wod-dialog.sortdiscipline-dialog:not(.minimized),
@@ -1340,6 +1435,21 @@ input.sheet-infoWidth {
   margin-bottom: 5px;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.wod20 .dialog-ability-tabs {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.wod20 .dialog-ability-tab-button {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 34px;
+  margin: 0;
 }
 
 .wod20 .dialog-secondaryability-buttons {
