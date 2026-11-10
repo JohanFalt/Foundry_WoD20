@@ -136,7 +136,12 @@ export class DialogGeneralRoll extends FormApplication {
         }
 
         data.config = CONFIG.worldofdarkness;
-        data.object.hasSpeciality = false; 
+
+        if (data.object.type == "attribute") {
+            data.abilities = this._getAbilities();
+        }
+
+        data.object.hasSpeciality = false;
         data.object.specialityText = "";      
         let specialityLevel = 4;
 
@@ -396,6 +401,10 @@ export class DialogGeneralRoll extends FormApplication {
             .click(this._setAttribute.bind(this));
 
         html
+            .find('.dialog-ability-button')
+            .click(this._setAbility.bind(this));
+
+        html
             .find('.actionbutton')
             .click(this._generalRoll.bind(this));
 
@@ -536,6 +545,36 @@ export class DialogGeneralRoll extends FormApplication {
         });
 
         this.render();
+    }
+
+    /* the button submits the form, which renders and so resolves the ability in getData */
+    _setAbility(event) {
+        this.object.abilityKey = event.currentTarget.value;
+        this.object.difficulty = 6;
+        this.object.usedReducedDiff = false;
+    }
+
+    /* the abilities the actor's sheet lists */
+    _getAbilities() {
+        let abilities;
+
+        if (this.actor.type === "PC") {
+            abilities = this.actor.items
+                .filter(item => (item.type === "Ability") && item.system.settings.isvisible)
+                .map(item => ({ key: item._id, label: game.i18n.localize(item.system.label) }));
+        }
+        else {
+            const secondary = this.actor.items
+                .filter(item => (item.type === "Trait") && item.system.isvisible && item.system.type.endsWith("secondability"))
+                .map(item => ({ key: item._id, label: item.system.label }));
+
+            abilities = Object.entries(this.actor.system.abilities)
+                .filter(([key, ability]) => ability.isvisible)
+                .map(([key, ability]) => ({ key, label: ability.altlabel || game.i18n.localize(ability.label) }))
+                .concat(secondary);
+        }
+
+        return abilities.sort((a, b) => a.label.localeCompare(b.label));
     }
 
     /* clicked to roll */

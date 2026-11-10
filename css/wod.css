@@ -1333,6 +1333,7 @@ input.sheet-infoWidth {
 .wod20 .dialog-realm-button,
 .wod20 .dialog-power-button,
 .wod20 .dialog-attribute-button,
+.wod20 .dialog-ability-button,
 .wod20 .dialog-secondaryability-button {
   width: 30%;
   height: 34px;
