@@ -174,6 +174,27 @@ test("ensure creates exactly three marked persistent Bonus items", async () => {
     assert.equal(result.missing.length, 0);
 });
 
+test("two first-use clients request the same per-attribute IDs and preserve legacy IDs", async () => {
+    const H = await helper();
+    const idsByAttribute = async actor => {
+        const create = actor.createEmbeddedDocuments.bind(actor);
+        actor.createEmbeddedDocuments = async (type, data, options) => {
+            assert.equal(options?.keepId, true);
+            return create(type, data);
+        };
+        await H.changeValue(actor, "strength", 1);
+        return Object.fromEntries(actor.items.filter(item => item.type === "Bonus").map(item =>
+            [item.flags.worldofdarkness.attributeAugmentation, item._id]
+        ));
+    };
+    const first = await idsByAttribute(new FakeActor());
+    assert.deepEqual(await idsByAttribute(new FakeActor()), first);
+    assert.equal(new Set(Object.values(first)).size, 3);
+    for (const id of Object.values(first)) assert.match(id, /^[A-Za-z0-9]{16}$/);
+    const legacy = new FakeActor({ items: [makeItem("strength", 1, true, { _id: "olderStrengthId1" })] });
+    assert.deepEqual(await idsByAttribute(legacy), { ...first, strength: "olderStrengthId1" });
+});
+
 test("read reports missing items without writing", async () => {
     const AttributeAugmentationHelper = await helper();
     const actor = new FakeActor();

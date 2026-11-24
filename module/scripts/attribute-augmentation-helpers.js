@@ -2,6 +2,11 @@ import BonusHelper from "./bonus-helpers.js";
 import { calculateTotals } from "./totals.js";
 
 const ATTRIBUTES = ["strength", "dexterity", "stamina"];
+const BONUS_IDS = {
+    strength: "wodAugStrength01",
+    dexterity: "wodAugDexterity1",
+    stamina: "wodAugStamina001"
+};
 const queues = new Map();
 const validValue = value => typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
 const validVersion = value => typeof value === "string" &&
@@ -162,6 +167,7 @@ function itemUpdates(scan, desired) {
 async function createItemData(attribute, value) {
     const name = game.i18n.localize("wod.attributes.bonus." + attribute);
     const data = await BonusHelper.CreateAttributeBuff("", name, attribute, value, value > 0, game.system.version);
+    data._id = BONUS_IDS[attribute];
     data.flags = { worldofdarkness: { attributeAugmentation: attribute } };
     data.system.isremovable = false;
     data.system.bonuslist = [];
@@ -309,7 +315,7 @@ async function perform(actor, request) {
         requireUnchanged(actor, beforeItems);
         if (creations.length) {
             itemWriteAttempted = true;
-            await actor.createEmbeddedDocuments("Item", creations);
+            await actor.createEmbeddedDocuments("Item", creations, { keepId: true });
             requireUnchanged(actor, beforeItems);
             for (const data of creations) {
                 const attribute = markerOf(data);

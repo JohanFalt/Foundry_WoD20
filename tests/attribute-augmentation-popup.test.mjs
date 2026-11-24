@@ -6,11 +6,14 @@ class FakeApplicationV2 {
         this.options = options;
         this.listeners = new Map();
         this.renderCount = 0;
+        this.rendered = false;
     }
 
     async _prepareContext() { return {}; }
 
-    async render() {
+    async render({ force = false } = {}) {
+        if (!this.rendered && !force) return this;
+        this.rendered = true;
         this.renderCount++;
         this.lastContext = await this._prepareContext();
         return this;
@@ -19,12 +22,15 @@ class FakeApplicationV2 {
     addEventListener(name, listener) { this.listeners.set(name, listener); }
 
     async close() {
+        this.rendered = false;
         this.listeners.get("close")?.();
         return this;
     }
 }
 
 globalThis.FormApplication = class {};
+const hooks = new Map();
+globalThis.Hooks = { on(name, listener) { hooks.set(name, listener); } };
 globalThis.foundry = {
     applications: { api: {
         ApplicationV2: FakeApplicationV2,
@@ -34,6 +40,47 @@ globalThis.foundry = {
 globalThis.game = { user: { isGM: false } };
 
 const popupModule = async () => import("../module/ui/attribute-augmentation-popup.js");
+
+test("other clients' document hooks refresh only the open popup for that Actor", async () => {
+    const { openAttributeAugmentation } = await popupModule();
+    const source = actor("remote", { items: [managedItem("strength", 3, true)] });
+    const popup = await openAttributeAugmentation(source);
+    assert.equal(popup.lastContext.rows[0].bonusLabel, "+3");
+    const renders = popup.renderCount;
+    await hooks.get("updateItem")({ parent: actor("unrelated") });
+    assert.equal(popup.renderCount, renders);
+    source.items[0].system.value = 0;
+    await hooks.get("updateItem")({ parent: source });
+    assert.equal(popup.lastContext.rows[0].bonusLabel, "0");
+    source.system.attributes.strength.total = 4;
+    await hooks.get("updateActor")(source);
+    assert.equal(popup.lastContext.rows[0].total, 4);
+    await popup.close();
+    const closedCount = popup.renderCount;
+    await hooks.get("createItem")({ parent: source });
+    await hooks.get("deleteItem")({ parent: source });
+    assert.equal(popup.renderCount, closedCount);
+});
+
+test("a pending write finishes without reopening a closed popup", async () => {
+    const { openAttributeAugmentation } = await popupModule();
+    const source = actor("closed-during-write");
+    let finish;
+    let started;
+    const gate = new Promise(resolve => { finish = resolve; });
+    const writing = new Promise(resolve => { started = resolve; });
+    const helper = { read: () => observed(), changeValue: () => { started(); return gate; } };
+    const popup = await openAttributeAugmentation(source, { helper });
+    const action = popup.adjust("strength", 1);
+    await writing;
+    await popup.close();
+    const next = await openAttributeAugmentation(source, { helper });
+    finish();
+    await action;
+    assert.equal(popup.rendered, false);
+    assert.equal(next.rendered, true);
+    await next.close();
+});
 
 function actor(id = "test-actor", options = {}) {
     const items = options.items ?? [{

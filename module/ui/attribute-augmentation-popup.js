@@ -2,6 +2,15 @@ import AttributeAugmentationHelper from "../scripts/attribute-augmentation-helpe
 
 const ATTRIBUTES = ["strength", "dexterity", "stamina"];
 const openPopups = new Map();
+function refreshActorPopup(actor) {
+    const popup = openPopups.get(actor?.uuid);
+    if (popup?.rendered && !popup.pending) return popup.render();
+}
+Hooks.on("updateActor", refreshActorPopup);
+for (const event of ["createItem", "updateItem", "deleteItem"]) {
+    Hooks.on(event, item => refreshActorPopup(item.parent));
+}
+
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 const labelOf = attribute => game.i18n?.localize?.(`wod.attributes.${attribute}`) ??
     attribute[0].toUpperCase() + attribute.slice(1);
@@ -149,14 +158,14 @@ export class AttributeAugmentationPopup extends HandlebarsApplicationMixin(Appli
     async #runOperation(operation) {
         this.pending = true;
         try {
-            await this.render({ force: true });
+            await this.render();
             if (await operation()) this.error = null;
         } catch (error) {
             this.error = describeError(error);
         } finally {
             this.pending = false;
             // _prepareContext performs a fresh read of Actor totals and managed Items.
-            await this.render({ force: true });
+            if (this.rendered) await this.render();
         }
     }
 }
