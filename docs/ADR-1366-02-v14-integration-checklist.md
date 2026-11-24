@@ -1,6 +1,12 @@
 # ADR-1366-02 — Augment Attributes Foundry V14 integration checklist
 
-Status: prepared for later execution in an isolated, disposable world. This checklist is not evidence of runtime validation. G1 remains HOLD.
+The first-use collision test passed on Foundry V14.370 with runtime commit `8489237` on 2026-11-24. G1 (full integration) remains on hold. Unchecked scenarios below remain open.
+
+## First use from the PC sheet
+
+- [x] Opened Augment Attributes from the sheet icon in two Brave windows logged in as the same GM. The test PC had base Strength 1 and no managed Bonuses. Both windows prepared their first +1 before either created the Items.
+- [x] One window created the three Bonuses. The other received a duplicate-ID error. After reloading, the PC had one Bonus per physical attribute, Strength +1 and total Strength 2.
+- [x] Clicked +1 again in the window that had shown the error, with its popup still open. Both windows showed Strength +2 and total Strength 3. A second reload confirmed the same values and the same three Item IDs.
 
 ## Setup and rollback
 
