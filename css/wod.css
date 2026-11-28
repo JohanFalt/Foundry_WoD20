@@ -1978,6 +1978,20 @@ input.sheet-infoWidth {
   height: 19px;
 }
 
+.wod20.pc-actor .attribute-rowheight.attributes {
+  height: auto;
+  min-height: 19px;
+}
+
+.wod20.pc-actor.demon .attribute-rowheight.attributes,
+.wod20.pc-actor.hunter .attribute-rowheight.attributes {
+  min-height: 21px;
+}
+
+.wod20.pc-actor.exalted .attribute-rowheight.attributes {
+  min-height: 23px;
+}
+
 .wod-sheet .ability-headlineWidth {
 	width: 50%;
 }
