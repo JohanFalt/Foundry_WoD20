@@ -53,6 +53,7 @@
         "lib/koption/koptions.css",
         "lib/editor/editor.css",
         "css/wod.css",
+        "css/attribute-augmentation.css",
         "css/responsive.css",
         "css/werewolf.css",
         "css/vampire.css",

@@ -31,6 +31,7 @@ import { OnItemCreate,
 
 import { calculateHealth, actorHasCorpus } from "../../scripts/health.js";
 import { calculateTotals } from "../../scripts/totals.js";
+import { augmentationAccess, openAttributeAugmentationFromSheet } from "../../ui/attribute-augmentation-popup.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -90,6 +91,7 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 			editHealth: OnSquareCounterChange,				// Health
 			editDot: OnDotCounterChange, 					// Permanent / temporary dots
 			useMacro: OnUseMacro,
+			openAttributeAugmentation: openAttributeAugmentationFromSheet,
 			editImage: OnEditImage,							// Actor image editing
 
 			itemCreate: OnItemCreate,
@@ -312,6 +314,7 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 		data.isGM = this.isGM;
 		
 		data.actor = actor;
+		data.showAttributeAugmentation = augmentationAccess(actor).showIcon;
 
 		console.log(`${data.actor.name} - (${data.actor.type} / ${this.splat})`);
 		console.log(data.actor);

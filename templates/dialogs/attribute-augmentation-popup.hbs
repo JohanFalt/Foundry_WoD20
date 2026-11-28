@@ -1,0 +1,30 @@
+<section class="attribute-augmentation-body">
+    <p class="attribute-augmentation-description">{{description}}</p>
+
+    {{#if notice}}
+        <p class="attribute-augmentation-notice" role="status">{{notice}}</p>
+    {{/if}}
+    {{#if error}}
+        <p class="attribute-augmentation-error" role="alert">{{error.message}}</p>
+    {{/if}}
+    {{#if pending}}
+        <p class="attribute-augmentation-pending" role="status">Saving…</p>
+    {{/if}}
+
+    <div class="attribute-augmentation-rows" role="group" aria-label="Physical Attributes">
+        {{#each rows}}
+            <div class="attribute-augmentation-row" data-attribute="{{attribute}}">
+                <span class="attribute-augmentation-name">{{label}}</span>
+                <button type="button" class="attribute-augmentation-step" data-action="adjust" data-attribute="{{attribute}}" data-delta="-1" title="Decrease" aria-label="Decrease {{label}}" {{#if decreaseDisabled}}disabled{{/if}}>−</button>
+                <span class="attribute-augmentation-value" aria-label="{{label}} augmentation">{{bonusLabel}}</span>
+                <button type="button" class="attribute-augmentation-step" data-action="adjust" data-attribute="{{attribute}}" data-delta="1" title="Increase" aria-label="Increase {{label}}" {{#if increaseDisabled}}disabled{{/if}}>+</button>
+                <span class="attribute-augmentation-total">Total {{totalLabel}}</span>
+                {{#if storedLabel}}<small class="attribute-augmentation-stored">{{storedLabel}}</small>{{/if}}
+            </div>
+        {{/each}}
+    </div>
+
+    <footer class="attribute-augmentation-footer">
+        <button type="button" data-action="resetAll" {{#if resetDisabled}}disabled{{/if}}>Reset all</button>
+    </footer>
+</section>
