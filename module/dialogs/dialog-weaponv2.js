@@ -1,4 +1,5 @@
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+import { spiritAttackAdvantages } from "../scripts/select-helpers.js";
 import CombatHelper from "../scripts/combat-helpers.js";
 import BonusHelper from "../scripts/bonus-helpers.js";
 import { DiceRoller } from "../scripts/roll-dice.js";
@@ -378,6 +379,11 @@ export class DialogWeaponV2 extends HandlebarsApplicationMixin(ApplicationV2) {
                 attributeSpeciality = data.actorData.attributes[data.object.dice1].speciality || "";
             }
         } 
+        else if (this.weaponState === "attack" && spiritAttackAdvantages(this.actor, this.item).includes(data.object.dice1)) {
+            const advantage = data.actorData.advantages[data.object.dice1];
+            data.object.attributeValue = advantage.roll;
+            data.object.attributeName = game.i18n.localize(advantage.label);
+        }
         else if (data.actorData[data.object.dice1]?.roll != null) {
             data.object.attributeValue = parseInt(data.actorData[data.object.dice1].roll) || 0;
             data.object.attributeName = game.i18n.localize(data.actorData[data.object.dice1].label || "");

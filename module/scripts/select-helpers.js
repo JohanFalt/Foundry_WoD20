@@ -23,7 +23,7 @@
  * - `Conceal`: Weapon concealment code list (P/J/T/NA) with era-aware labels.
  * - `AttackAttributes`: Attack attribute list for weapons (all attrs for current `attributeSettings`: 20th vs 5th).
  * - `AttackAbilities`: Attack ability list for melee/ranged weapons (+ custom).
- * - `DamageAttribute`: Alias of `AttackAttributes` (used by weapon damage roll config).
+ * - `DamageAttribute`: Standard attributes for weapon damage rolls.
  *
  * **Powers (item sheets)**
  * - `Dice1List`, `Dice2List`: Lists for `templates/sheets/parts/power_rollable.html` (dice selection).
@@ -65,6 +65,12 @@ import {
     getWerewolfTribes
 } from "./select/werewolf.js";
 import { getMageAffiliations, getMageSects } from "./select/mage.js";
+
+// Natural attacks are Melee Weapon items on the Spirit variant of the Creature sheet.
+export function spiritAttackAdvantages(actor, item) {
+    return item.type === "Melee Weapon" && actor?.type === "Creature" &&
+        actor.system.settings?.variant === "spirit" ? ["rage", "willpower"] : [];
+}
 
 export default class SelectHelper {
     //#region SetupItem (entry point)
@@ -142,8 +148,13 @@ export default class SelectHelper {
                 }
             }
 
-            // Damage attribute uses the same attribute list as attack attribute
-            listData.DamageAttribute = listData.AttackAttributes;
+            listData.DamageAttribute = listData.AttackAttributes.slice();
+            for (const key of spiritAttackAdvantages(data.actor, data)) {
+                listData.AttackAttributes.push({
+                    value: key,
+                    label: game.i18n.localize(CONFIG.worldofdarkness.advantages[key])
+                });
+            }
         }
 
         if (data.type == "Feature") {
