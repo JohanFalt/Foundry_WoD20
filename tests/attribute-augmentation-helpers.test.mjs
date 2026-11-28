@@ -11,7 +11,7 @@ globalThis.CONFIG = {
     }
 };
 globalThis.game = {
-    system: { version: "7.3.2" },
+    system: { version: "7.4.0" },
     i18n: { localize: key => key },
     actors: { get: id => actors.get(id) }
 };
@@ -39,7 +39,7 @@ function makeItem(marker, value = 0, isactive = false, overrides = {}) {
             type: "attribute_buff",
             settingtype: marker,
             parentid: "",
-            version: "7.3.2",
+            version: "7.4.0",
             isremovable: false,
             value,
             isactive,
@@ -165,7 +165,7 @@ test("ensure creates exactly three marked persistent Bonus items", async () => {
         assert.equal(item.system.settingtype, item.flags.worldofdarkness.attributeAugmentation);
         assert.equal(Object.hasOwn(item.flags.worldofdarkness, "bloodBuff"), false);
         assert.equal(item.system.parentid, "");
-        assert.equal(item.system.version, "7.3.2");
+        assert.equal(item.system.version, "7.4.0");
         assert.equal(item.system.isremovable, false);
         assert.equal(item.system.value, 0);
         assert.equal(item.system.isactive, false);
@@ -479,7 +479,7 @@ test("system version drift does not rewrite healthy existing bonus items", async
     try {
         const result = await AttributeAugmentationHelper.ensure(actor);
         assert.equal(actor.calls.updateItems, 0);
-        assert.ok(actor.items.filter(item => item.type === "Bonus").every(item => item.system.version === "7.3.2"));
+        assert.ok(actor.items.filter(item => item.type === "Bonus").every(item => item.system.version === "7.4.0"));
         assert.equal(result.warnings.some(warning => warning.field === "version"), false);
         assert.equal(result.warnings.some(warning => warning.code === "INVALID_VERSION"), false);
     } finally {

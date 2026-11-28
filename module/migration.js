@@ -2558,6 +2558,7 @@ export  const updates = async () => {
     let patch710 = false;
     let patch720 = false;
     let patch730 = false;
+    let patch740 = false;
 
     let newfunctions = "";
 
@@ -2585,6 +2586,7 @@ export  const updates = async () => {
         patch710 = game.settings.get('worldofdarkness', 'patch710');
         patch720 = game.settings.get('worldofdarkness', 'patch720');
         patch730 = game.settings.get('worldofdarkness', 'patch730');
+        patch740 = game.settings.get('worldofdarkness', 'patch740');
     } 
     catch (e) {
     }
@@ -2775,6 +2777,16 @@ export  const updates = async () => {
         newfunctions += '<li>[PC Actor MtR] Added template items in compendium for Mummy the Resurrection Revised.</li>';
     }
 
+    if (!patch740) {
+        game.settings.set('worldofdarkness', 'patch740', true);
+
+        newfunctions += '<li>[PC Actor] Added Augment Attributes, opened from the macro icons when the character has a visible Blood Pool. Temporarily raise Strength, Dexterity or Stamina with +/- and reset them with "Reset all". Blood expenditure is still tracked manually. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1366">[#1366]</a>, <a href="https://github.com/JohanFalt/Foundry_WoD20/pull/1501">[PR #1501]</a></li>';
+        newfunctions += '<li>[PC Actor] Added Bio tab visibility settings. In Settings, under the Bio tab, choose per field whether Limited players and Observers can see Nature, Demeanor, Concept, Derangement, Appearance, Background and template fields. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1506">[#1506]</a></li>';
+        newfunctions += '<li>[Creature] Spirit natural attacks (Melee Weapon) can now use Rage or Willpower as the attack attribute. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1500">[#1500]</a></li>';
+        newfunctions += '<li>[PC Actor] Fixed attribute dots disappearing from the sheet when an attribute is above 9. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1503">[#1503]</a></li>';
+        newfunctions += '<li>[PC Actor] Fixed Blood Pool being displayed in rows of 12 instead of rows of ten when the maximum is above ten. <a href="https://github.com/JohanFalt/Foundry_WoD20/issues/1498">[#1498]</a></li>';
+    }
+
     if (newfunctions == "") {
         newfunctions += 'Issues fixed in version:<br />';   
     }
@@ -2794,13 +2806,12 @@ export  const updates = async () => {
         newfunctions += '<li>[PC Actor WtO] Added Artifacts as gear items.</li>';
         newfunctions += '<li>[PC Actor VtM] Fixed problem with max value of attribute and ability displays of very low generations.</li>';
     }
-    
 
     game.settings.set('worldofdarkness', 'worldVersion', migrationVersion);
 
     const headline = "Version "+migrationVersion+" installed";
 
-    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v73">Changelog</a>.<br /><br />';
+    let message = 'New version of the system has been installed. All new functions, alterations and bug fixes can be read in detail at <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki/Changelog#fix-of-v74">Changelog</a>.<br /><br />';
     message += 'If you find any problems, are missing things or just would like a feature that the System is lacking, please report these <a href="https://github.com/JohanFalt/Foundry_WoD20/issues">HERE</a><br /><br />';
     message += 'If you wish to read about the system you can do so <a href="https://github.com/JohanFalt/Foundry_WoD20/wiki">HERE</a><br /><br />';
     message += '<p>To see how the PC actor is used and how to use it, please check the Foundry tour for this purpose.</p>';

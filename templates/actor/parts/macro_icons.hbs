@@ -31,7 +31,7 @@
         {{/if}}
 
         {{#if showAttributeAugmentation}}
-            <button type="button" class="macroBtn pointer attribute-augmentation-icon" data-action="openAttributeAugmentation" title="Augment Attributes" aria-label="Augment Attributes"><i class="fa-solid fa-droplet" aria-hidden="true"></i></button>
+            <a class="macroBtn pointer" data-action="openAttributeAugmentation" role="button" title="{{localize 'wod.attributeaugmentation.title'}}" aria-label="{{localize 'wod.attributeaugmentation.title'}}">{{> (dtSvgDie 'augment' actor.system.settings.splat actor.system.settings.variantsheet)}}</a>
         {{/if}}
     </div>
     

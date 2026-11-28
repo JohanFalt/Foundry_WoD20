@@ -8,6 +8,7 @@ import { OnSquareCounterChange } from "../../scripts/action-helpers.js";
 import { OnSquareCounterClear } from "../../scripts/action-helpers.js";
 import { OnDotCounterChange } from "../../scripts/action-helpers.js";
 import { OnActorSwitch } from "../../scripts/action-helpers.js";
+import { OnBioVisibilityToggle } from "../../scripts/action-helpers.js";
 import { OnUseMacro } from "../../scripts/action-helpers.js";
 
 import { OnItemCreate, 
@@ -32,6 +33,7 @@ import { OnItemCreate,
 import { calculateHealth, actorHasCorpus } from "../../scripts/health.js";
 import { calculateTotals } from "../../scripts/totals.js";
 import { augmentationAccess, openAttributeAugmentationFromSheet } from "../../ui/attribute-augmentation-popup.js";
+import { BIO_FIXED_FIELDS, splatFieldId, isBioFieldVisible } from "../../scripts/bio-visibility.js";
 
 const { HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -88,6 +90,7 @@ export default class PCActorSheet extends HandlebarsApplicationMixin(foundry.app
 
 			editAttribute: null,
 			actorSwitch: OnActorSwitch,
+			bioVisibility: OnBioVisibilityToggle,
 			editHealth: OnSquareCounterChange,				// Health
 			editDot: OnDotCounterChange, 					// Permanent / temporary dots
 			useMacro: OnUseMacro,
@@ -1464,6 +1467,21 @@ export const prepareSettingsContext = async function (context, actor) {
 	// Bio
 	context.splatfields = actor.system.bio.splatfields;
 	context.hassplatfields = Object.keys(actor.system.bio.splatfields).length > 0;
+
+	// Bio visibility rows: fixed fields first, then template fields
+	const bioVisibility = actor.system.bio.visibility ?? {};
+	const bioRows = [
+		...BIO_FIXED_FIELDS.map(field => ({ id: field.id, label: field.label })),
+		...Object.entries(actor.system.bio.splatfields).map(([key, field]) => ({
+			id: splatFieldId(key),
+			label: field.label ?? key
+		}))
+	];
+	context.bioFieldRows = bioRows.map(row => ({
+		...row,
+		limited: isBioFieldVisible(bioVisibility, row.id, "limited"),
+		observers: isBioFieldVisible(bioVisibility, row.id, "observers")
+	}));
 
 
 	// Abilities

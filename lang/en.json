@@ -63,6 +63,7 @@
 			"mummy": "Mummy sheet",
 			"breed": "Changing breed sheet",
 			"creature": "Creature sheet",
+			"exalted": "Exalted vs WoD sheet",
 			"spirit": "Spirit sheet",
 			"items": "Item sheet",
 			"powers": "Powers",
@@ -185,6 +186,10 @@
 			"orderhint": "Drag the items into the order you want them presented on the sheet.",
 			"splatitem": "Template Item",
 			"splatfields": "Existing template fields",
+			"biovisibility": "Bio tab visibility",
+			"biovisibilityhint": "Choose which Bio fields Limited players and Observers can see. The GM and owners always see every field.",
+			"biovisibilitylimited": "Limited",
+			"biovisibilityobservers": "Observers",
 			"notinstalled": "None installed",
 			"successesdamage": "Successes add to damage",
 			"successesdamagehint": "If enabled, the excess number of successes from an attack roll will be added as bonus dice to the damage roll.",
@@ -1367,6 +1372,35 @@
 		"effects": {
 			"origin": "Origin",
 			"area": "Area"
+		},
+		"attributeaugmentation": {
+			"title": "Augment Attributes",
+			"description": "Spend Blood Points to temporarily increase Strength, Dexterity or Stamina. Track blood expenditure manually.",
+			"physicalattributes": "Physical Attributes",
+			"increase": "Increase",
+			"decrease": "Decrease",
+			"increaseattribute": "Increase {attribute}",
+			"decreaseattribute": "Decrease {attribute}",
+			"augmentationof": "{attribute} augmentation",
+			"total": "Total {total}",
+			"stored": "Stored +{value} (inactive)",
+			"resetall": "Reset all",
+			"saving": "Saving…",
+			"notice": {
+				"conflict": "Managed Bonus items conflict or are duplicated. Ask the GM to inspect them; no automatic repair is available.",
+				"nobloodpool": "Blood Pool is unavailable. You can still decrease or reset existing bonuses."
+			},
+			"error": {
+				"conflict": "A managed Bonus is conflicting or duplicated. Ask the GM to inspect it; nothing was repaired or deleted.",
+				"totalsnotsaved": "The Actor totals did not save. Inspect the Bonus and totals below before another change.",
+				"concurrent": "Another change was detected. Review the current values before trying again.",
+				"totalsinvalid": "The calculated totals are invalid. Inspect the current values before another change.",
+				"unavailable": "Augment Attributes is not available for this character.",
+				"default": "Augment Attributes could not complete the change.",
+				"applied": "A managed Item change was observed locally; do not repeat a relative change without checking it.",
+				"uncertain": "The Item write result is uncertain; inspect the current values before another change.",
+				"notattempted": "No managed Item write was attempted."
+			}
 		},
 		"notes": {
 			"features": "Features",

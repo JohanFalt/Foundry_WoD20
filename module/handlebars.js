@@ -2,6 +2,7 @@ import BonusHelper from "./scripts/bonus-helpers.js";
 import ItemHelper from "./scripts/item-helpers.js";
 import Functions from "./functions.js";
 import { getCorpusDamageStates, getCorpusPermanent } from "./scripts/health.js";
+import { getBioViewer, isBioFieldVisible } from "./scripts/bio-visibility.js";
 
 function getMeaningfulBonuses(bonuslist) {
 	return BonusHelper.asBonuslist(bonuslist).filter(bonus => bonus?.type);
@@ -490,237 +491,6 @@ export const registerHandlebarsHelpers = function () {
 		});
 		
 		return items;
-	});
-
-	/**
-	 * Get a power list with main power and then connected sub powers to that one. E.g disciplines
-	 * @deprecated Legacy Actor only - Used only by legacy actor sheets (Mortal, Vampire, Werewolf, Mage, etc.)
-	 */	
-	Handlebars.registerHelper("getGetPowerList", function (locked, actor, powername, powertype, bannertext, useabilitiy) {
-		let html = "";
-		let addText = game.i18n.localize("wod.labels.add." + powername);
-		let sendText = game.i18n.localize("wod.labels.send");
-		let removebonusText = game.i18n.localize("wod.labels.power.removebonus." + powername);
-		let editText = game.i18n.localize("wod.labels.edit." + powername);
-		let deleteText = game.i18n.localize("wod.labels.remove." + powername);
-
-		let addsubpowertext = game.i18n.localize("wod.labels.add." + powername + "power");
-
-		html = 
-			`<div class="sheet-headline sheet-banner splatFont" data-area="${powername}">
-				<span class="sheet-banner-text">${bannertext}</span>
-			</div>`;
-
-		const items = actor.items.filter(item => item.type === "Power" && item.system.type === powertype);
-
-		items.sort((a, b) => a.name.localeCompare(b.name));
-
-		for (const i in items) {
-			let headerhtml = `<div class="item-row-area mainpower-row"><div class="clearareaBox power-row">`;
-			let footerhtml = `</div></div>`;
-
-			let descriptionhtml = "";
-			
-			if (items[i].system.description != "") {
-				descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${items[i].system.description}`;
-			}
-
-			let detailshtml = "";
-
-			if (items[i].system.details != "") {
-				detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${items[i].system.details}`;
-			}
-
-			let listhtml = `<div class="pullLeft ${powername}-headline splatFont headlineGroup">${items[i].name}</div>`;					
-
-			listhtml += `<div class="resource-value pullLeft power-dotBox" data-value="${items[i].system.value}" data-itemid="${items[i]._id}">`;
-
-			for(let num = 0; num <= items[i].system.max - 1; num++) {
-				let supernatural = "";
-
-				if (items[i].system.max > 5) {
-					supernatural = "supernaturalAttribute";
-				}			
-
-				listhtml += `<span class="${supernatural} resource-value-step" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-index="${num}" style="margin-right: 5px;"></span>`;
-			}
-
-        	listhtml += `</div>`;	
-
-			listhtml += `<div class="pullLeft power-iconbox">`;				// ----- POWERICONS START
-				
-			if ((descriptionhtml != "") || (detailshtml != "")) {
-				let description = descriptionhtml + detailshtml;
-
-				listhtml += `
-					<div class="pullLeft pointer headlineNormal tooltip">
-						<i class="icon fa-solid fa-memo"></i>
-						<span class="tooltiptext">${description}</span>
-					</div>`;
-			}
-
-			listhtml += `<div class="pullLeft pointer"><a class="send-chat" title="${sendText}" data-itemid="${items[i]._id}"><i class="icon fa-solid fa-comment-dots"></i></a></div>`;                        
-
-			if (!locked) {
-				listhtml += `
-					<div class="pullLeft pointer">
-						<a class="clearPower" title="${removebonusText}" data-powertype="main" data-item-id="${items[i]._id}"><i class="icon fa-solid fa-lock"></i></a>
-					</div>
-					<div class="pullLeft pointer">
-						<a class="item-edit" title="${editText}" data-type="Power" data-item-id="${items[i]._id}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-					</div>
-					<div class="pullLeft pointer">
-						<a class="item-delete" title="${deleteText}" data-type="Power" data-item-id="${items[i]._id}"><i class="icon fa-solid fa-trash-can"></i></a>
-					</div>`; 
-			}
-
-			listhtml += `</div>`;											// ----- POWERICONS END
-
-			html += headerhtml + listhtml + footerhtml;
-
-			let itempowers = actor.items.filter(item => item.type === "Power" && item.system.parentid === items[i]._id);
-			itempowers = itempowers.sort((a, b) => {
-				return a.system.level.toString().localeCompare(b.system.level.toString()) || a.name.localeCompare(b.name);
-			});
-
-			for (const p in itempowers) {
-				removebonusText = game.i18n.localize("wod.labels.power.clear" + powername);
-				editText = game.i18n.localize("wod.labels.edit." + powername + "power");
-				deleteText = game.i18n.localize("wod.labels.remove." + powername + "power");
-				let showbonusText = game.i18n.localize("wod.labels.show.bonus");
-
-				let rollabelcss = `${powername}power-nonerollablerow`;
-				let isactive = "";
-
-				if (itempowers[p].system.isrollable) {
-					rollabelcss = `${powername}power-rollablerow`;
-				}
-
-				headerhtml = `<div class="item-row-area">`;		
-				footerhtml = `</div>`;
-
-				descriptionhtml = "";
-				
-				if (itempowers[p].system.description != "") {
-					descriptionhtml = `<h3>${game.i18n.localize("wod.labels.description")}</h3> ${itempowers[p].system.description}`;
-				}
-
-				detailshtml = "";
-
-				if (itempowers[p].system.details != "") {
-					detailshtml = `<h3>${game.i18n.localize("wod.labels.power.system")}</h3> ${itempowers[p].system.details}`;
-				}
-
-				listhtml = `<div class="clearareaBox ${powername}power-row ${rollabelcss}">`; 		// ----- ROW START
-
-				if (itempowers[p].system.isrollable) {
-					rollabelcss = `vrollable`;
-				}
-				if (itempowers[p].system.isactive) {
-					isactive = `checked`;
-				}
-
-				listhtml += `<div class="pullLeft item-activeBox"><input class="item-active pointer" name="power.system.isactive" type="checkbox" data-item-id="${itempowers[p]._id}" data-type="isactive" ${isactive}></input></div>`;
-				listhtml += `<div class="pullLeft ${powername}-headline headlineNormal ${rollabelcss}" data-type="${CONFIG.worldofdarkness.sheettype.mortal}" data-object="${powername}" data-rollitem="true" data-itemid="${itempowers[p]._id}">${itempowers[p].name}</div>`;
-
-				if (itempowers[p].system.isrollable) {
-					let dice1name = game.i18n.localize(getAttributes(itempowers[p].system.dice1));
-					dice1name = game.i18n.localize(getAbility(actor, itempowers[p].system.dice1));					
-
-					let difficultyText = itempowers[p].system.difficulty;
-
-					if (itempowers[p].system.dice1 == "path") {
-						dice1name = actor.system.advantages.path.label;
-					}
-					if (itempowers[p].system.dice1 == "custom") {
-						if (itempowers[p].system.secondaryabilityid != "") {
-							const item = actor.getEmbeddedDocument("Item", itempowers[p].system.secondaryabilityid);
-							if (item == undefined) {
-								console.warn("Secondary ability for power " + itempowers[p].name + " not found.");
-								dice1name = game.i18n.localize("wod.dialog.power.secondarynotselected");
-							}
-							else {
-								dice1name = item.system.label;
-							}							
-						}
-						else {
-							dice1name = game.i18n.localize("wod.dialog.power.secondarynotselected");
-						}						
-					}
-
-					if (useabilitiy) {
-						// TODO
-					}
-
-					if (parseInt(itempowers[p].system.difficulty) == -1) {
-						difficultyText = game.i18n.localize("wod.labels.varies");
-					}
-
-					listhtml += `
-						<div class="pullLeft power-dicebox headlineNormal">${dice1name}</div>
-						<div class="pullLeft power-valueBox headlineNormal centerText">${difficultyText}</div>`;
-				}
-
-				listhtml += `<div class="pullLeft power-iconbox">`;				// ----- POWERICONS START
-				
-				if ((descriptionhtml != "") || (detailshtml != "")) {
-					let description = descriptionhtml + detailshtml;
-
-					listhtml += `
-						<div class="pullLeft pointer headlineNormal tooltip">
-							<i class="icon fa-solid fa-memo"></i>
-							<span class="tooltiptext">${description}</span>
-						</div>`;
-				}
-
-				listhtml += `<div class="pullLeft pointer"><a class="send-chat" title="${sendText}" data-itemid="${itempowers[p]._id}"><i class="icon fa-solid fa-comment-dots"></i></a></div>`;                        
-
-				if (!locked) {
-					listhtml += `
-						<div class="pullLeft pointer">
-							<a class="clearPower" title="${removebonusText}" data-powertype="power" data-item-id="${itempowers[p]._id}"><i class="icon fa-solid fa-lock"></i></a>
-						</div>
-						<div class="pullLeft pointer">
-							<a class="item-edit" title="${editText}" data-type="Power" data-item-id="${itempowers[p]._id}"><i class="icon fa-solid fa-pen-to-square"></i></a>
-						</div>
-						<div class="pullLeft pointer">
-							<a class="item-delete" title="${deleteText}" data-type="Power" data-item-id="${itempowers[p]._id}"><i class="icon fa-solid fa-trash-can"></i></a>
-						</div>`; 
-				}
-
-				const powerBonuses = BonusHelper.asBonuslist(itempowers[p].system.bonuslist);
-
-				if (powerBonuses.length > 0) {
-					let id = `collapsiblehekaubonus${p}`;
-					let typeid = `${powername}${p}`;
-	
-					listhtml += `
-						<div class="pullLeft pointer">
-							<i id="${id}" class="icon collapsible button fa-solid fa-angles-right" title="${showbonusText}" data-sheet="${CONFIG.worldofdarkness.sheettype.mortal}" data-type="${typeid}"></i>
-						</div>`; 
-				}
-
-				listhtml += `</div>`;											// ----- POWERICONS END
-
-				listhtml += `</div>`;											// ----- ROW END
-
-				listhtml += `<div class="hide bonuses ${powername}${p}" data-area="${powername}bonus${p}">`;		// ----- BONUS START
-
-				for (const bonus of powerBonuses) {
-					listhtml += `<div class="clearareaBox">
-									<div class="pullLeft bonus-power-name headlineNormal">${bonus.name}</div>
-									<div class="pullLeft headlineNormal" style="width: 200px;">${game.i18n.localize(CONFIG.worldofdarkness.bonus[bonus.type])}</div>
-									<div class="pullLeft headlineNormal">${bonus.value}</div>
-								</div>`;
-				}
-
-				listhtml += `</div>`;																				// ----- BONUS END
-
-				html += headerhtml + listhtml + footerhtml;
-			}
-		}
-
-		return html;
 	});
 
 	/* exalted */
@@ -1792,6 +1562,16 @@ export const registerHandlebarsHelpers = function () {
 
 	Handlebars.registerHelper("captilize", function (text) {
 		return text.toUpperCase();
+	});
+
+	// Bio tab: is this field shown to the current user? (GM and owners always see it)
+	Handlebars.registerHelper("isBioFieldVisible", function (actor, fieldId) {
+		const viewer = getBioViewer({
+			isGM: game.user?.isGM,
+			isOwner: actor?.isOwner,
+			limited: actor?.limited
+		});
+		return isBioFieldVisible(actor?.system?.bio?.visibility, fieldId, viewer);
 	});
 
 	Handlebars.registerHelper("lowercase", function (text) {

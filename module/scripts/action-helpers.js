@@ -1,4 +1,5 @@
 import { calculateTotals } from "../scripts/totals.js";
+import { BIO_VIEWERS, isBioFieldVisible } from "./bio-visibility.js";
 
 import { DiceRoller } from "../scripts/roll-dice.js";
 import { DiceRollContainer } from "../scripts/roll-dice.js";
@@ -689,6 +690,21 @@ export const OnActorLock  = async function (event, target) {
 }
 
 /* Alter a boolean value on actor */
+// Bio tab visibility toggle (settings-bio tab). data-field = Bio field id, data-viewer = "limited" | "observers".
+export const OnBioVisibilityToggle = async function (event, target) {
+	event.preventDefault();
+
+	const fieldId = target.getAttribute("data-field");
+	const viewer = target.getAttribute("data-viewer");
+	if (!fieldId || !BIO_VIEWERS.includes(viewer)) {
+		return;
+	}
+
+	const current = isBioFieldVisible(this.actor.system.bio.visibility, fieldId, viewer);
+	await this.actor.update({ [`system.bio.visibility.${fieldId}.${viewer}`]: !current });
+	this.render();
+}
+
 export const OnActorSwitch = async function (event, target) {
 	event.preventDefault();
 

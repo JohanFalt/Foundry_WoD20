@@ -34,7 +34,7 @@
 						</div>
 
 						{{#if (ne actor.system.settings.splat config.splat.changeling)}}
-							{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+							{{#if (and (ne (checkSystemsetting "viewBiotabPermission") "mini") (isBioFieldVisible actor "nature"))}}
 								<div class="bioInformationArea floating-label-group">
 									{{#if locked}}
 										<input class="sheet-infoValues" type="text" value="{{actor.system.bio.nature}}" autocomplete="off" autofocus required />
@@ -45,18 +45,20 @@
 								</div>
 							{{/if}}
 												
-							<div class="bioInformationArea floating-label-group">
-								{{#if locked}}
-									<input class="sheet-infoValues" type="text" value="{{actor.system.bio.demeanor}}" autocomplete="off" autofocus required />
-								{{else}}
-									<input class="sheet-infoValues editable" name="system.bio.demeanor" type="text" value="{{actor.system.bio.demeanor}}" data-dtype="String" autocomplete="off" autofocus required />
-								{{/if}}
-								<span class="floating-label">{{localize 'wod.bio.demeanor'}}</span>
-							</div>
+							{{#if (isBioFieldVisible actor "demeanor")}}
+								<div class="bioInformationArea floating-label-group">
+									{{#if locked}}
+										<input class="sheet-infoValues" type="text" value="{{actor.system.bio.demeanor}}" autocomplete="off" autofocus required />
+									{{else}}
+										<input class="sheet-infoValues editable" name="system.bio.demeanor" type="text" value="{{actor.system.bio.demeanor}}" data-dtype="String" autocomplete="off" autofocus required />
+									{{/if}}
+									<span class="floating-label">{{localize 'wod.bio.demeanor'}}</span>
+								</div>
+							{{/if}}
 							
 						{{/if}}
 
-						{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+						{{#if (and (ne (checkSystemsetting "viewBiotabPermission") "mini") (isBioFieldVisible actor "concept"))}}
 							<div class="bioInformationArea floating-label-group">
 								{{#if locked}}
 									<input class="sheet-infoValues" type="text" value="{{actor.system.bio.concept}}" autocomplete="off" autofocus required />
@@ -65,7 +67,9 @@
 								{{/if}}
 								<span class="floating-label">{{localize 'wod.bio.concept'}}</span>
 							</div>
-							
+						{{/if}}
+
+						{{#if (and (ne (checkSystemsetting "viewBiotabPermission") "mini") (isBioFieldVisible actor "derangement"))}}
 							<div class="bioInformationArea floating-label-group">
 								{{#if locked}}
 									<input class="sheet-infoValues" type="text" value="{{actor.system.bio.derangement}}" autocomplete="off" autofocus required />
@@ -107,9 +111,11 @@
 					</div>
 				{{/if}}
 
-				{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.appearance" locked=locked headline=false prosename="system.bio.appearance" locked=locked prosevalue=appearance proseenriched=enrichedAppearance}}
+				{{#if (isBioFieldVisible actor "appearance")}}
+					{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.appearance" locked=locked headline=false prosename="system.bio.appearance" locked=locked prosevalue=appearance proseenriched=enrichedAppearance}}
+				{{/if}}
 
-				{{#if (ne (checkSystemsetting "viewBiotabPermission") "mini")}}
+				{{#if (and (ne (checkSystemsetting "viewBiotabPermission") "mini") (isBioFieldVisible actor "background"))}}
 					{{> "systems/worldofdarkness/templates/actor/parts/description.hbs" proseheadline="wod.bio.background" locked=locked headline=false prosename="system.bio.background" prosevalue=background proseenriched=enrichedBackground}}									
 				{{/if}}
 

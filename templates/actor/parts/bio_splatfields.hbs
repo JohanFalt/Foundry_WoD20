@@ -5,7 +5,7 @@
 
         {{#each splatfields as |field key|}}
 
-            {{#if (eq field.type "input")}}
+            {{#if (and (eq field.type "input") (isBioFieldVisible ../actor (concat "splat_" key)))}}
 
                 <div class="bioInformationArea floating-label-group">
                     {{#if ../locked}}
@@ -16,7 +16,7 @@
                     <span class="floating-label">{{localize field.label}}</span>
                 </div>
 
-            {{else if (eq field.type "select")}}
+            {{else if (and (eq field.type "select") (isBioFieldVisible ../actor (concat "splat_" key)))}}
 
                 <div class="bioInformationArea floating-label-group {{#if (eq key "generation")}}half{{else}}{{#if (eq field.label "wod.bio.vampire.generation")}}half{{/if}}{{/if}}" data-area="generation">
                     {{#if ../locked}}

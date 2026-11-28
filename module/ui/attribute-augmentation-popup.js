@@ -12,8 +12,11 @@ for (const event of ["createItem", "updateItem", "deleteItem"]) {
 }
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
-const labelOf = attribute => game.i18n?.localize?.(`wod.attributes.${attribute}`) ??
-    attribute[0].toUpperCase() + attribute.slice(1);
+const KEY = "wod.attributeaugmentation.";
+const t = (key, data) => data ? game.i18n.format(KEY + key, data) : game.i18n.localize(KEY + key);
+const labelOf = attribute => game.i18n.localize(`wod.attributes.${attribute}`);
+
+const UNAVAILABLE_CODES = ["NOT_PC", "NOT_OWNER", "NO_BLOODPOOL", "BLOODPOOL_HIDDEN", "VARIANT_EXCLUDED"];
 
 function describeError(error) {
     const code = error?.code ?? "UNKNOWN_ERROR";
@@ -21,25 +24,32 @@ function describeError(error) {
     let message;
     switch (code) {
         case "CONFLICT":
-            message = "A managed Bonus is conflicting or duplicated. Ask the GM to inspect it; nothing was repaired or deleted.";
+            message = t("error.conflict");
             break;
         case "TOTALS_PERSISTENCE_FAILED":
         case "TOTALS_NOT_APPLIED":
-            message = "The Actor totals did not save. Inspect the Bonus and totals below before another change.";
+            message = t("error.totalsnotsaved");
             break;
         case "CONCURRENT_MODIFICATION":
-            message = "Another change was detected. Review the current values before trying again.";
+            message = t("error.concurrent");
             break;
         case "TOTALS_INVALID":
-            message = "The calculated totals are invalid. Inspect the current values before another change.";
+            message = t("error.totalsinvalid");
             break;
         default:
-            message = error?.message ?? "Augment Attributes could not complete the change.";
+            message = UNAVAILABLE_CODES.includes(code) ? t("error.unavailable") : t("error.default");
     }
-    if (itemsApplied === true) message += " A managed Item change was observed locally; do not repeat a relative change without checking it.";
-    else if (itemsApplied === null) message += " The Item write result is uncertain; inspect the current values before another change.";
-    else if (itemsApplied === false) message += " No managed Item write was attempted.";
+    if (itemsApplied === true) message += " " + t("error.applied");
+    else if (itemsApplied === null) message += " " + t("error.uncertain");
+    else if (itemsApplied === false) message += " " + t("error.notattempted");
     return { code, message, itemsApplied };
+}
+
+// Same priority as the PC sheet (getSplat): variantsheet -> splat -> game -> mortal.
+export function augmentationSplat(actor) {
+    const settings = actor?.system?.settings;
+    const splat = String(settings?.variantsheet || settings?.splat || settings?.game || "mortal").toLowerCase();
+    return splat === "changingbreed" ? "werewolf" : splat;
 }
 
 export function augmentationAccess(actor) {
@@ -71,10 +81,14 @@ export class AttributeAugmentationPopup extends HandlebarsApplicationMixin(Appli
 
     static DEFAULT_OPTIONS = {
         id: "attribute-augmentation-{id}",
-        classes: ["wod20", "attribute-augmentation-popup"],
-        window: { title: "Augment Attributes", resizable: false },
-        position: { width: 360, height: "auto" },
+        classes: ["wod20", "wod-dialog", "attribute-augmentation-popup"],
+        window: { title: "wod.attributeaugmentation.title", resizable: false },
+        position: { width: 420, height: "auto" },
         actions: {
+            close: function(event) {
+                event?.preventDefault?.();
+                return this.close();
+            },
             adjust: function(event, target) {
                 event?.preventDefault?.();
                 return this.adjust(target.dataset.attribute, Number(target.dataset.delta));
@@ -110,26 +124,39 @@ export class AttributeAugmentationPopup extends HandlebarsApplicationMixin(Appli
                 attribute,
                 label: labelOf(attribute),
                 bonusLabel: managed ? (effectiveValue > 0 ? `+${effectiveValue}` : "0") : "—",
-                storedLabel: managed && !managed.isactive && storedValue > 0 ? `Stored +${storedValue} (inactive)` : "",
+                storedLabel: managed && !managed.isactive && storedValue > 0 ? t("stored", { value: storedValue }) : "",
                 total: this.actor.system?.attributes?.[attribute]?.total ?? null,
                 totalLabel: this.actor.system?.attributes?.[attribute]?.total ?? "—",
+                totalText: t("total", { total: this.actor.system?.attributes?.[attribute]?.total ?? "—" }),
                 increaseDisabled: blocked || !access.canIncrease,
                 decreaseDisabled: blocked || effectiveValue <= 0
             };
         });
-        const notice = conflicts.length ?
-            "Managed Bonus items conflict or are duplicated. Ask the GM to inspect them; no automatic repair is available." :
-            !access.canIncrease && access.showIcon ?
-                "Blood Pool is unavailable. You can still decrease or reset existing bonuses." : "";
+        const notice = conflicts.length ? t("notice.conflict") :
+            !access.canIncrease && access.showIcon ? t("notice.nobloodpool") : "";
         return {
             ...context,
-            description: "Spend Blood Points to temporarily increase Strength, Dexterity or Stamina. Track blood expenditure manually.",
+            description: t("description"),
             rows,
             pending: this.pending,
             resetDisabled: blocked,
             notice,
             error: this.error ?? readError
         };
+    }
+
+    _onRender(context, options) {
+        super._onRender(context, options);
+
+        // Apply the same splat/font classes as the PC sheet so fonts and colours match.
+        const classList = this.element.classList;
+        const splat = augmentationSplat(this.actor);
+        classList.add(splat);
+        classList.add(splat + "Dialog");
+        if ((game.settings.get("worldofdarkness", "useSplatFonts") === false) ||
+            (this.actor.system?.settings?.usesplatfont === false)) {
+            classList.add("noSplatFont");
+        }
     }
 
     async adjust(attribute, delta) {

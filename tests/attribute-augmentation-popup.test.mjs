@@ -1,6 +1,5 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-
 class FakeApplicationV2 {
     constructor(options = {}) {
         this.options = options;
@@ -10,6 +9,8 @@ class FakeApplicationV2 {
     }
 
     async _prepareContext() { return {}; }
+
+    _onRender() {}
 
     async render({ force = false } = {}) {
         if (!this.rendered && !force) return this;
@@ -37,7 +38,12 @@ globalThis.foundry = {
         HandlebarsApplicationMixin: Base => Base
     } }
 };
-globalThis.game = { user: { isGM: false } };
+// Tests use the i18n keys as text.
+globalThis.game = {
+    user: { isGM: false },
+    i18n: { localize: key => key, format: key => key },
+    settings: { get: () => true }
+};
 
 const popupModule = async () => import("../module/ui/attribute-augmentation-popup.js");
 
@@ -124,7 +130,7 @@ function managedItem(attribute, value = 0, isactive = false) {
         flags: { worldofdarkness: { attributeAugmentation: attribute } },
         system: {
             type: "attribute_buff", settingtype: attribute, parentid: "", bonuslist: [],
-            isremovable: false, version: "7.3.2", value, isactive
+            isremovable: false, version: "7.4.0", value, isactive
         }
     };
 }
@@ -404,16 +410,16 @@ test("partial persistence error rereads observed items and totals without retryi
     assert.equal(popup.lastContext.rows[0].bonusLabel, "+1");
     assert.equal(popup.lastContext.rows[0].total, 3);
     assert.equal(popup.lastContext.error.itemsApplied, true);
-    assert.match(popup.lastContext.error.message, /inspect|review/i);
+    assert.match(popup.lastContext.error.message, /totalsnotsaved/);
     await popup.close();
 });
 
 test("errors distinguish uncertain, absent, and applied Item writes", async () => {
     const { openAttributeAugmentation } = await popupModule();
     for (const [id, code, itemsApplied, expected] of [
-        ["uncertain", "PERSISTENCE_FAILED", null, /uncertain/i],
-        ["no-item-write", "TOTALS_PERSISTENCE_FAILED", false, /no managed Item write/i],
-        ["applied", "TOTALS_PERSISTENCE_FAILED", true, /managed Item change was observed/i]
+        ["uncertain", "PERSISTENCE_FAILED", null, /error\.uncertain/],
+        ["no-item-write", "TOTALS_PERSISTENCE_FAILED", false, /error\.notattempted/],
+        ["applied", "TOTALS_PERSISTENCE_FAILED", true, /error\.applied/]
     ]) {
         const source = actor(id);
         const helper = {
@@ -438,7 +444,7 @@ test("conflicting marked items explain the block without changing data", async (
     let changes = 0;
     const helper = { read: () => state, changeValue: async () => { changes++; } };
     const popup = await openAttributeAugmentation(source, { helper });
-    assert.match(popup.lastContext.notice, /conflict|duplicate/i);
+    assert.match(popup.lastContext.notice, /notice\.conflict/);
     assert.equal(popup.lastContext.resetDisabled, true);
     assert.ok(popup.lastContext.rows.every(row => row.increaseDisabled && row.decreaseDisabled));
     await popup.adjust("strength", 1);
@@ -528,4 +534,27 @@ test("reopening a popup uses the current sheet Actor document for the same UUID"
     assert.equal(reopened.actor, newSheetActor);
     assert.equal(reopened.lastContext.rows[1].total, 11);
     await reopened.close();
+});
+
+test("popup uses the same splat priority as the PC sheet", async () => {
+    const { augmentationSplat } = await popupModule();
+    const withSettings = settings => ({ system: { settings } });
+    assert.equal(augmentationSplat(withSettings({ variantsheet: "Demon", splat: "mortal", game: "vampire" })), "demon");
+    assert.equal(augmentationSplat(withSettings({ variantsheet: "", splat: "Hunter", game: "mortal" })), "hunter");
+    assert.equal(augmentationSplat(withSettings({ game: "Vampire" })), "vampire");
+    assert.equal(augmentationSplat(withSettings({ splat: "changingbreed" })), "werewolf");
+    assert.equal(augmentationSplat(withSettings({})), "mortal");
+});
+
+test("rendering adds the splat class to the popup window", async () => {
+    const { openAttributeAugmentation } = await popupModule();
+    const source = actor("splat-class");
+    source.system.settings.variantsheet = "demon";
+    const popup = await openAttributeAugmentation(source);
+    const classes = new Set();
+    popup.element = { classList: { add: name => classes.add(name) } };
+    popup._onRender({}, {});
+    assert.ok(classes.has("demon"));
+    assert.ok(!classes.has("noSplatFont"));
+    await popup.close();
 });

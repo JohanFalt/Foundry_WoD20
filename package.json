@@ -1,0 +1,14 @@
+{
+	"name": "worldofdarkness",
+	"version": "7.4.0",
+	"private": true,
+	"type": "module",
+	"description": "World of Darkness 20th edition system for Foundry VTT (development tooling only)",
+	"license": "GPL-3.0",
+	"scripts": {
+		"test": "node --test \"tests/*.test.mjs\""
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}

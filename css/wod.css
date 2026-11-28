@@ -2062,7 +2062,8 @@ input.sheet-infoWidth {
 
 .wod20 div.tempSquareRow {
   margin: 0 auto;
-  max-width: 240px;
+  /* 10 steps per row (each 14px + 5px margin = 19px). 240px fitted 12 and broke the Blood Pool rows (#1498). */
+  max-width: 200px;
 }
 
 .wod20 span.supernaturalAttribute:nth-of-type(5n) {
@@ -2291,6 +2292,72 @@ input.sheet-infoWidth {
 .wod-dialog .dialog-checkbox {
   height: 25px;
   line-height: 30px;
+}
+
+/* Augment Attributes popup (attribute-augmentation-popup.hbs) */
+.wod-dialog.attribute-augmentation-popup:not(.minimized) {
+  min-width: 420px;
+  width: 420px;
+  min-height: 0;
+}
+
+.attribute-augmentation-rows {
+  display: grid;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.attribute-augmentation-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 30px 2.5rem 30px 6rem;
+  align-items: center;
+  gap: 6px;
+}
+
+.attribute-augmentation-name {
+  font-size: var(--wod-font-lg);
+  font-weight: var(--headline-normal-weight);
+}
+
+.attribute-augmentation-step {
+  width: 30px;
+  height: 30px;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  font-size: var(--wod-font-lg);
+}
+
+.attribute-augmentation-value {
+  text-align: center;
+  font-size: var(--wod-font-lg);
+  font-variant-numeric: tabular-nums;
+  color: var(--main-full-color);
+}
+
+.attribute-augmentation-total {
+  text-align: center;
+  font-size: var(--wod-font-xs);
+  color: #7e7e7e;
+}
+
+.attribute-augmentation-stored {
+  grid-column: 1 / -1;
+  font-size: var(--wod-font-xs);
+  color: #7e7e7e;
+}
+
+.attribute-augmentation-notice {
+  color: var(--main-full-color);
+}
+
+.attribute-augmentation-error {
+  color: var(--color-level-error);
+}
+
+.attribute-augmentation-pending {
+  color: #7e7e7e;
 }
 
 /* END - Dialogs */

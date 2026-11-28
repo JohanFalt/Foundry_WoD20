@@ -1,30 +1,40 @@
-<section class="attribute-augmentation-body">
-    <p class="attribute-augmentation-description">{{description}}</p>
+<div class="attribute-augmentation-body">
 
-    {{#if notice}}
-        <p class="attribute-augmentation-notice" role="status">{{notice}}</p>
-    {{/if}}
-    {{#if error}}
-        <p class="attribute-augmentation-error" role="alert">{{error.message}}</p>
-    {{/if}}
-    {{#if pending}}
-        <p class="attribute-augmentation-pending" role="status">Saving…</p>
-    {{/if}}
+    <div class="dialog-area">
+        <div class="headlineGroup splatFont">{{localize 'wod.attributeaugmentation.title'}}</div>
+        <div class="information-area attribute-augmentation-description">{{description}}</div>
 
-    <div class="attribute-augmentation-rows" role="group" aria-label="Physical Attributes">
-        {{#each rows}}
-            <div class="attribute-augmentation-row" data-attribute="{{attribute}}">
-                <span class="attribute-augmentation-name">{{label}}</span>
-                <button type="button" class="attribute-augmentation-step" data-action="adjust" data-attribute="{{attribute}}" data-delta="-1" title="Decrease" aria-label="Decrease {{label}}" {{#if decreaseDisabled}}disabled{{/if}}>−</button>
-                <span class="attribute-augmentation-value" aria-label="{{label}} augmentation">{{bonusLabel}}</span>
-                <button type="button" class="attribute-augmentation-step" data-action="adjust" data-attribute="{{attribute}}" data-delta="1" title="Increase" aria-label="Increase {{label}}" {{#if increaseDisabled}}disabled{{/if}}>+</button>
-                <span class="attribute-augmentation-total">Total {{totalLabel}}</span>
-                {{#if storedLabel}}<small class="attribute-augmentation-stored">{{storedLabel}}</small>{{/if}}
-            </div>
-        {{/each}}
+        {{#if notice}}
+            <div class="infobox attribute-augmentation-notice" role="status">{{notice}}</div>
+        {{/if}}
+        {{#if error}}
+            <div class="infobox attribute-augmentation-error" role="alert">{{error.message}}</div>
+        {{/if}}
+        {{#if pending}}
+            <div class="infobox attribute-augmentation-pending" role="status">{{localize 'wod.attributeaugmentation.saving'}}</div>
+        {{/if}}
     </div>
 
-    <footer class="attribute-augmentation-footer">
-        <button type="button" data-action="resetAll" {{#if resetDisabled}}disabled{{/if}}>Reset all</button>
-    </footer>
-</section>
+    <div class="dialog-area">
+        <div class="headline splatFont">{{localize 'wod.attributeaugmentation.physicalattributes'}}</div>
+
+        <div class="attribute-augmentation-rows" role="group" aria-label="{{localize 'wod.attributeaugmentation.physicalattributes'}}">
+            {{#each rows}}
+                <div class="attribute-augmentation-row" data-attribute="{{attribute}}">
+                    <span class="attribute-augmentation-name splatFont">{{label}}</span>
+                    <button type="button" class="button fullSplatColor attribute-augmentation-step {{#if decreaseDisabled}}disabled{{else}}pointer{{/if}}" data-action="adjust" data-attribute="{{attribute}}" data-delta="-1" title="{{localize 'wod.attributeaugmentation.decrease'}}" aria-label="{{localize 'wod.attributeaugmentation.decreaseattribute' attribute=label}}" {{#if decreaseDisabled}}disabled{{/if}}>−</button>
+                    <span class="attribute-augmentation-value" aria-label="{{localize 'wod.attributeaugmentation.augmentationof' attribute=label}}">{{bonusLabel}}</span>
+                    <button type="button" class="button fullSplatColor attribute-augmentation-step {{#if increaseDisabled}}disabled{{else}}pointer{{/if}}" data-action="adjust" data-attribute="{{attribute}}" data-delta="1" title="{{localize 'wod.attributeaugmentation.increase'}}" aria-label="{{localize 'wod.attributeaugmentation.increaseattribute' attribute=label}}" {{#if increaseDisabled}}disabled{{/if}}>+</button>
+                    <span class="attribute-augmentation-total">{{totalText}}</span>
+                    {{#if storedLabel}}<span class="information-area attribute-augmentation-stored">{{storedLabel}}</span>{{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <div class="centerText dialog-action-buttons">
+        <button type="button" class="button fullSplatColor actionbutton dialog-two-button {{#if resetDisabled}}disabled{{else}}pointer{{/if}}" data-action="resetAll" {{#if resetDisabled}}disabled{{/if}}>{{localize 'wod.attributeaugmentation.resetall'}}</button>
+        <button type="button" class="button fullSplatColor pointer closebutton dialog-two-button" data-action="close">{{localize 'wod.dialog.close'}}</button>
+    </div>
+
+</div>

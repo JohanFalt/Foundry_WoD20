@@ -221,73 +221,73 @@ Hooks.once("init", async function() {
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.MortalActorSheet, {
-		label: game.i18n.localize("wod.sheet.mortal"),
+		label: game.i18n.localize("wod.sheets.mortal"),
 		types: ["Mortal"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.WerewolfActorSheet, {
-		label: game.i18n.localize("wod.sheet.werewolf"),
+		label: game.i18n.localize("wod.sheets.werewolf"),
 		types: ["Werewolf"],
 		makeDefault: true
 	});	
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.MageActorSheet, {
-		label: game.i18n.localize("wod.sheet.mage"),
+		label: game.i18n.localize("wod.sheets.mage"),
 		types: ["Mage"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.VampireActorSheet, {
-		label: game.i18n.localize("wod.sheet.vampire"),
+		label: game.i18n.localize("wod.sheets.vampire"),
 		types: ["Vampire"],
 		makeDefault: true
 	});
 	
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.ChangelingActorSheet, {
-		label: game.i18n.localize("wod.sheet.changeling"),
+		label: game.i18n.localize("wod.sheets.changeling"),
 		types: ["Changeling"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.HunterActorSheet, {
-		label: game.i18n.localize("wod.sheet.hunter"),
+		label: game.i18n.localize("wod.sheets.hunter"),
 		types: ["Hunter"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.DemonActorSheet, {
-		label: game.i18n.localize("wod.sheet.demon"),
+		label: game.i18n.localize("wod.sheets.demon"),
 		types: ["Demon"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.WraithActorSheet, {
-		label: game.i18n.localize("wod.sheet.wraith"),
+		label: game.i18n.localize("wod.sheets.wraith"),
 		types: ["Wraith"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.MummyActorSheet, {
-		label: game.i18n.localize("wod.sheet.mummy"),
+		label: game.i18n.localize("wod.sheets.mummy"),
 		types: ["Mummy"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.ExaltedActorSheet, {
-		label: game.i18n.localize("wod.sheet.exalted"),
+		label: game.i18n.localize("wod.sheets.exalted"),
 		types: ["Exalted"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.ChangingBreedActorSheet, {
-		label: game.i18n.localize("wod.sheet.breed"),
+		label: game.i18n.localize("wod.sheets.breed"),
 		types: ["Changing Breed"],
 		makeDefault: true
 	});
 
 	foundry.documents.collections.Actors.registerSheet("WoD", actorSheets.CreatureActorSheet, {
-		label: game.i18n.localize("wod.sheet.creature"),
+		label: game.i18n.localize("wod.sheets.creature"),
 		types: ["Creature"],
 		makeDefault: true
 	});	

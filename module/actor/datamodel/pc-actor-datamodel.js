@@ -33,6 +33,11 @@ export default class PCDataModel extends foundry.abstract.DataModel {
                 initial: {},
                 nullable: false,
             }),
+            // Per-field Bio visibility: { [fieldId]: { limited: bool, observers: bool } }
+            visibility: new fields.ObjectField({
+                initial: {},
+                nullable: false,
+            }),
             appearance: new fields.HTMLField(),
             background: new fields.HTMLField(),
             notes: new fields.HTMLField(),

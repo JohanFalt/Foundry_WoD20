@@ -40,6 +40,35 @@
 				</div>
 
 			{{/each}}
+			<div class="space headlineGroup splatFont">{{localize 'wod.settings.biovisibility'}}</div>
+			<div class="information-area">{{localize 'wod.settings.biovisibilityhint'}}</div>
+
+			<div class="flex-row advantage-item">
+				<div class="headlineNormal" style="width:150px;">&nbsp;</div>
+				<div class="headlineNormal" style="width:90px; text-align:center;">{{localize 'wod.settings.biovisibilitylimited'}}</div>
+				<div class="headlineNormal" style="width:90px; text-align:center;">{{localize 'wod.settings.biovisibilityobservers'}}</div>
+			</div>
+
+			{{#each bioFieldRows as |row|}}
+				<div class="flex-row advantage-item">
+					<div class="headlineNormal" style="width:150px;">{{localize row.label}}</div>
+					<div style="width:90px; text-align:center;">
+						{{#if ../locked}}
+							<i class="icon fa-solid {{#if row.limited}}fa-eye{{else}}fa-eye-slash{{/if}}"></i>
+						{{else}}
+							<i class="item-active pointer icon fa-solid {{#if row.limited}}fa-eye{{else}}fa-eye-slash{{/if}}" data-field="{{row.id}}" data-viewer="limited" data-action="bioVisibility"></i>
+						{{/if}}
+					</div>
+					<div style="width:90px; text-align:center;">
+						{{#if ../locked}}
+							<i class="icon fa-solid {{#if row.observers}}fa-eye{{else}}fa-eye-slash{{/if}}"></i>
+						{{else}}
+							<i class="item-active pointer icon fa-solid {{#if row.observers}}fa-eye{{else}}fa-eye-slash{{/if}}" data-field="{{row.id}}" data-viewer="observers" data-action="bioVisibility"></i>
+						{{/if}}
+					</div>
+				</div>
+			{{/each}}
+
 			{{#if (not hassplatfields)}}
 				<div>{{localize "wod.settings.notinstalled"}}</div>
 			{{/if}}

@@ -79,6 +79,9 @@ export default class IconHelper {
             case "soak":
                 data = this._getSoak(type);
                 break;
+            case "augment":
+                data = this._getAugment(type);
+                break;
             case "d10":
                 data = this._getD10(type);
                 break;
@@ -118,6 +121,7 @@ export default class IconHelper {
 			spellcasting: this.GetIcon("spellcasting", race),
 			initiative: this.GetIcon("initiative", race),
 			soak: this.GetIcon("soak", race),
+			augment: this.GetIcon("augment", race),
 			d10: this.GetIcon("d10", race),
 			dice1: this.GetIcon("xd10", race, 1),
 			dice2: this.GetIcon("xd10", race, 2),
@@ -334,6 +338,13 @@ export default class IconHelper {
         let stroke = "#000";
 
         return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="border-radius: 3px; height: ${height}px; width: ${width}px;"><path d="M0 0h512v512H0z" fill="${this._getTypeColor(type)}" fill-opacity="1"></path><g class="" transform="translate(0,0)" style=""><path d="M256 16c25 24 100 72 150 72v96c0 96-75 240-150 312-75-72-150-216-150-312V88c50 0 125-48 150-72z" fill="#fff" fill-opacity="1"></path></g></svg>`;
+    }
+
+    static _getAugment(type, height = 30, width = 30) {
+        let stroke = "#000";
+
+        // Blood drop with a plus cut out of it (the plus uses the sheet colour).
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="border-radius: 3px; height: ${height}px; width: ${width}px;"><path d="M0 0h512v512H0z" fill="${this._getTypeColor(type)}" fill-opacity="1"></path><g class="" transform="translate(0,0)" style=""><path d="M256 40C206 104 120 208 120 316c0 74 61 136 136 136s136-62 136-136C392 208 306 104 256 40z" fill="#fff" fill-opacity="1"></path><path d="M236 276h40v36h36v40h-36v36h-40v-36h-36v-40h36z" fill="${this._getTypeColor(type)}" fill-opacity="1"></path></g></svg>`;
     }
 
     static _getD10(type, height = 30, width = 30) {
